@@ -1,0 +1,201 @@
+package com.invessence.dao.advisor;
+
+
+import java.sql.Types;
+import java.util.*;
+import javax.sql.DataSource;
+
+import com.invessence.data.ManageGoals;
+import com.invessence.data.admin.AdminTradeClient;
+import com.invessence.data.advisor.AdvisorData;
+import com.invmodel.portfolio.data.*;
+import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.object.StoredProcedure;
+
+
+public class AdvisorSaveSP extends StoredProcedure
+{
+
+   public AdvisorSaveSP(DataSource datasource, String sp_name, Integer mode)
+   {
+      super(datasource, sp_name);
+      switch (mode) {
+         case 0: // Save Profile
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_email", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_firstname", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_lastname", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_goal", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctType", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_age", Types.INTEGER));
+            declareParameter(new SqlParameter("p_horizon", Types.INTEGER));
+            declareParameter(new SqlParameter("p_initialInvestment", Types.INTEGER));
+            declareParameter(new SqlParameter("p_recurringInvestment", Types.INTEGER));
+            declareParameter(new SqlParameter("p_riskIndex", Types.INTEGER));
+            break;
+         case 1:  // Del Allocation
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_allocationmodel", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_assetyear", Types.VARCHAR));
+            break;
+         case 2: // Save Allocation
+            declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_themecode", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_allocationmodel", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_assetyear", Types.INTEGER));
+            declareParameter(new SqlParameter("p_active", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_weight", Types.FLOAT));
+            break;
+         case 3:  // Del Portfolio
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
+         case 4: // Create Portfolio
+            declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_itemnum", Types.INTEGER));
+            declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_active", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_qty", Types.INTEGER));
+            declareParameter(new SqlParameter("p_weightByAsset", Types.FLOAT));
+            declareParameter(new SqlParameter("p_tradeprice", Types.FLOAT));
+            declareParameter(new SqlParameter("p_investmentvalue", Types.DOUBLE));
+            break;
+         case 5:  // Del User_Subassetclass
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
+         case 6:  // Save User_Subassetclass
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_subclass", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_exclude", Types.VARCHAR));
+            break;
+         default:
+      }
+      compile();
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map saveProfile(AdvisorData data)
+   {
+         Map inputMap = new HashMap();
+
+         try {
+            if (data != null) {
+               inputMap.put("p_logonid", data.getLogonid());
+               inputMap.put("p_acctnum", data.getAcctnum());
+               inputMap.put("p_email", data.getClientEmail());
+               inputMap.put("p_firstname", data.getClientFirstName());
+               inputMap.put("p_lastname", data.getClientLastname());
+               if (data.getGoal() == null)
+                  inputMap.put("p_goal", "Other");
+               else
+                  inputMap.put("p_goal", data.getGoal());
+               inputMap.put("p_acctType", data.getAccountType());
+               inputMap.put("p_age", data.getAge());
+               inputMap.put("p_horizon", data.getHorizon());
+               inputMap.put("p_initialInvestment", data.getInitialInvestment());
+               inputMap.put("p_recurringInvestment", data.getRecurringInvestment());
+               inputMap.put("p_riskIndex", data.getRiskIndex());
+               return super.execute(inputMap);
+            }
+         }
+         catch (Exception ex) {
+             ex.printStackTrace();
+         }
+      return null;
+   }
+
+   public void deleteAllocation(AdvisorData data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", data.getAcctnum());
+      inputMap.put("p_allocationmodel", 'D');
+      inputMap.put("p_assetyear", data.getAssetyear());
+      super.execute(inputMap);
+   }
+
+  @SuppressWarnings({"unchecked", "rawtypes"})
+   public void saveAllocation(AdvisorData data)
+   {
+      com.invmodel.asset.data.AssetClass aac[] = data.getAssetData();
+      int rowSize = aac[0].getOrderedAsset().size();
+
+      for (int loop = 0; loop < rowSize; loop++)
+      {
+         Map inputAssetMap = new HashMap();
+         String assetname = aac[0].getOrderedAsset().get(loop);
+         inputAssetMap.put("p_addmodflag", "A");
+         inputAssetMap.put("p_acctnum", data.getAcctnum());
+         inputAssetMap.put("p_assetclass", assetname);
+         inputAssetMap.put("p_themecode", data.getTheme());
+         inputAssetMap.put("p_allocationmodel", "U");
+         inputAssetMap.put("p_assetyear", data.getCalendarYear());
+         inputAssetMap.put("p_active", "A");
+         inputAssetMap.put("p_weight", data.getAssetData()[0].getAssetRoundedActualWeight(assetname));
+         super.execute(inputAssetMap);
+      }
+   }
+
+   public void deletePortfolio(AdvisorData data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", data.getAcctnum());
+      super.execute(inputMap);
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public void savePortfolio(AdvisorData data)
+   {
+
+      Portfolio pfclass[] = data.getPortfolioData();
+
+      if (pfclass == null)
+         return;
+
+      int rowSize = pfclass[0].getPortfolio().size();
+      for (int loop = 0; loop < rowSize; loop++)
+      {
+         PortfolioSecurityData pfList = pfclass[0].getPortfolio().get(loop);
+         Map inputPortfolioMap = new HashMap();
+         inputPortfolioMap.put("p_addmodflag", "A");
+         inputPortfolioMap.put("p_acctnum", data.getAcctnum());
+         inputPortfolioMap.put("p_itemnum", loop + 1);
+         inputPortfolioMap.put("p_ticker", pfList.getTicker());
+         inputPortfolioMap.put("p_active", "A");
+         inputPortfolioMap.put("p_qty", pfList.getShares());
+         inputPortfolioMap.put("p_weightByAsset", pfList.getWeight());
+         inputPortfolioMap.put("p_tradeprice", pfList.getDailyprice());
+         inputPortfolioMap.put("p_investmentvalue", pfList.getMoney());
+         //inputPortfolioMap.put("p_weightByPortfolio", pfList.getTickerWeights());
+
+         super.execute(inputPortfolioMap);
+      }
+   }
+
+   public void deleteSubAssetClass(AdvisorData data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", data.getAcctnum());
+      super.execute(inputMap);
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public void saveSubAssetClass(AdvisorData data)
+   {
+
+      int rowSize = data.getExcludeList().size();
+      for (int loop = 0; loop < rowSize; loop++)
+      {
+         Map inputMap = new HashMap();
+         inputMap.put("p_acctnum", data.getAcctnum());
+         inputMap.put("p_assetclass", data.getExcludeList().get(loop).getAssetType());
+         inputMap.put("p_subclass", data.getExcludeList().get(loop).getSubclass());
+         inputMap.put("p_exclude", "Y");
+         super.execute(inputMap);
+      }
+   }
+
+}

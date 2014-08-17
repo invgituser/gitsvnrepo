@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name='robots' content='noindex,nofollow'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Invessence Inc.</title>
+    <link rel='stylesheet' id='menubar' href='css/generic.css' type='text/css' media='all'/>
+</h:head>
+
+<h:body>
+    <link rel='stylesheet' id='inv-css' href='css/inv.css' type='text/css' media='all'/>
+
+    <!-- This is used to keep the whole document together, so that top header and content float together -->
+    <ui:insert name="header">
+        <ui:include src="/template/common/commonSecuredHeader.xhtml"/>
+    </ui:insert>
+
+    <ui:insert name="content">
+        <ui:include src="/template/common/commonContent.xhtml"/>
+    </ui:insert>
+
+    <ui:insert name="disclaimer">
+        <ui:include src="/template/common/disclaimer.xhtml"/>
+    </ui:insert>
+    <ui:insert name="footer">
+        <ui:include src="/template/common/copyright.xhtml"/>
+    </ui:insert>
+
+    <script type="text/javascript"
+            src="js/googleanalytics.js">
+    </script>
+
+</h:body>
+</html>

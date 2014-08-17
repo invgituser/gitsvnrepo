@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+<h:outputStylesheet name="css/default.css" library="css"/>
+</h:head> 
+<h:body>
+		
+ 
+<div id="logoArea">
+
+		<h:graphicImage url="/images/invessence_logo_full_color_1.jpg" width="300" height="70" />
+	
+<div id="contactMenu">
+       <ul>
+           <li><a href="index.xhtml" >Home</a> </li>
+           <li><a href="contact.xhtml">Contact</a></li>
+           <li><a href="#">212 555 1212</a></li>
+       </ul>
+        <ul>	        
+        	<ui:fragment rendered="#{request.remoteUser == null}">
+			<li><a href="signup2.xhtml">Signup |</a>
+       			<a href="login.xhtml">Login</a></li>
+    		</ui:fragment>
+    		<ui:fragment rendered="#{request.remoteUser != null}">
+          	    Welcome #{request.remoteUser}!
+        		<a href="j_spring_security_logout"> [Logout]</a> 
+			</ui:fragment>
+        </ul>
+          
+	</div>
+</div>
+
+<p:separator />
+</h:body>
+</html>

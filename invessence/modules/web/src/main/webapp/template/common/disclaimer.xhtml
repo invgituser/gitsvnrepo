@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+    <ui:composition>
+
+    <p:fragment autoUpdate="true">  
+        <footer id="main-footer">
+
+            <div class="container">
+                <div id="footer-widgets" class="clearfix">
+                    <div class="footer-widget">
+                        <div id="text-7" class="fwidget widget_text"><h4 class="title">Disclaimer</h4>
+
+                            <div class="textwidget" style="font-size: .7em !important;">
+                                Past performance is no guarantee of future results. Any historical returns,
+                                expected returns, or probability projections may not reflect actual future
+                                performance. All securities involve risk and may result in loss. Not an offer,
+                                solicitation of an offer, or advice to buy or sell securities in jurisdictions
+                                where Invessence is not registered
+                            </div>
+                        </div> <!-- end .fwidget -->
+                    </div>
+                    <!-- end .footer-widget -->
+                    <div class="footer-widget">
+                        <div id="text-9" class="fwidget widget_text"><h4 class="title">Security Policy</h4>
+
+                            <div class="textwidget" style="font-size: .7em !important;">
+                                We take your security seriously. Invessence is protected with 256-bit encryption
+ 			                    provided by Thawte, a leader in SSL protection. All financial transactions are
+                                secured through VeriSign for additional protection. Click to view our full
+                                <strong><span style="text-decoration: underline;">
+                                <!--
+                                <p:commandLink id="security" onclick="PF('dlgSecurity').show();">
+                                    <h:outputText value="Security Policy" />
+                                </p:commandLink>
+                                 -->
+                                <a href="/static/securityPolicy.xhtml"
+                                   title="Security" target="PFinfo">
+                                    Security Policy
+                                </a>
+                                </span></strong>
+
+                            </div>
+                        </div> <!-- end .fwidget -->
+		            </div>
+                    <!-- end .footer-widget -->
+                    <div class="footer-widget last">
+
+                        <div id="text-8" class="fwidget widget_text"><h4 class="title">Terms of Service</h4>
+
+                            <div class="textwidget" style="font-size: .7em !important;">
+                                Invessence Inc. is a Registered Investment Advisor serving
+                                clients in New Jersey. Invessence Inc. is an independent entity and is not affiliated
+                                with nor a subsidiary of any broker-dealer, investment bank or asset manager. By
+                                using this website, you accept our 
+                                <strong><span style="text-decoration: underline;">
+<!--
+                                <p:commandLink id="terms" onclick="PF('dlgTermofUse').show();">
+                                    <h:outputText value="Terms of Use" />
+                                </p:commandLink>
+-->
+                                </span></strong>
+                                <a href="/static/termofUse.xhtml"
+                                   title="Terms" target="PFinfo">
+                                    Terms of Use
+                                </a>
+                                and
+                                <strong><span style="text-decoration: underline;">
+<!--
+                                <p:commandLink id="privacy" onclick="PF('dlgPrivacy').show();">
+                                    <h:outputText value="Privacy Policy" />
+                                </p:commandLink>
+-->
+                                    <a href="/static/privacy.xhtml"
+                                       title="Privacy" target="PFinfo">
+                                        Privacy
+                                    </a>
+                                </span></strong>
+                            </div>
+                        </div>
+                        <!-- end .fwidget -->
+                    </div>
+                    <!-- end .footer-widget -->
+                </div>
+                <!-- #footer-widgets -->
+            </div>
+            <!-- .container -->
+        </footer>
+
+<!--
+        <p:dialog header="Security" widgetVar="dlgSecurity" closable="true" appendTo="@(body)" width="900px" height="400px" style="background-color:#ffffff">
+            <ui:include src="/static/securityPolicy.xhtml"/>
+        </p:dialog>
+        <p:dialog header="Privacy" widgetVar="dlgPrivacy" closable="true" appendTo="@(body)" width="900px" height="400px" style="background-color:#ffffff">
+            <ui:include src="/static/privacy.xhtml"/>
+        </p:dialog>
+        <p:dialog header="Term of Use" widgetVar="dlgTermofUse" closable="true" appendTo="@(body)" width="900px" height="400px" style="background-color:#ffffff">
+            <ui:include src="/static/termofUse.xhtml"/>
+        </p:dialog>
+-->
+
+    </p:fragment>  
+    </ui:composition>
+</h:body>
+</html>
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition>
+    <h:form prependId="false">
+        <p:idleMonitor timeout="5000">
+            <p:ajax event="idle" listener="#{idleMonitorView.onIdle}" update="messages" />
+            <p:ajax event="active" listener="#{idleMonitorView.onActive}" update="messages" />
+        </p:idleMonitor>
+        <p:idleMonitor
+                timeout="34750000"
+                onidle="startIdleMonitor()"
+                onactive="additionalTimeDialog.hide()" />
+
+        <p:dialog id="timeoutSession"
+                  header="Session about to expired"
+                  widgetVar="additionalTimeDialog"
+                  showEffect="fade" hideEffect="fade"
+                  modal="true"
+                  width="400"
+                  height="110"
+                  closable="false"
+                  draggable="false"
+                  resizable="false"
+                  appendToBody="true"
+                  onHide="stopCount()"
+                  onShow="doTimer()">
+            <br />
+            Your session time will be expired in
+            <span id="dialog-countdown" style="font-weight: bold">
+                <h:outputText id="secondOutput" /> Seconds.
+            </span>
+                 Do you want extra time ?
+                <p:commandButton value="Yes" process="@this" update="@none"
+                                 oncomplete="additionalTimeDialog.hide();" />
+                <p:commandButton value="No" type="button" onclick="exit();" />
+        </p:dialog>
+        <p:remoteCommand name="keepAlive" actionListener="#{dialogBean.keepAliveSession}" />
+    </h:form>
+
+</ui:composition>
+</html>

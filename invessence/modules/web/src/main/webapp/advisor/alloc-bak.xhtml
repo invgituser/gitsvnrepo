@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+
+    <h:form id="advisoralloc">
+        <p:messages id="alloc2msg" autoUpdate="true" closable="true"/>
+
+        <p:panelGrid styleClass="invNBgrid">
+            <p:row>
+                <p:column style="text-align: left; width: 20%">
+                    <p:dataTable id="editAlloc" value="#{advisorBean.editableAsset}"
+                                 var="assetList" rowKey="#{assetList.asset}"
+                                 editable="true" editMode="cell">
+
+                        <p:column style="text-align: center;background-color: #{assetList.color};width: 20%"
+                                  resizable="true" headerText="Asset">
+                            <h:outputText value="#{assetList.asset}"/>
+                        </p:column>
+                        <p:column style="text-align: right;width: 5%"
+                                  resizable="true" headerText="% Distribution">
+                            <p:cellEditor>
+                                <f:facet name="output">
+                                    <h:outputText value="#{assetList.weight}" style="text-align: right;width: 5%">
+                                        <f:convertNumber pattern="##0.00"/>
+                                    </h:outputText>
+                                </f:facet>
+                                <f:facet name="input">
+                                    <pe:inputNumber value="#{assetList.weight}"
+                                                    minValue="0" maxValue="100" decimalPlaces="2"
+                                                    validatorMessage="Value must be between 0 and 100"
+                                                    maxlength="5" size="5">
+                                        <p:ajax listener="#{advisorBean.refreshPie}" update=":tabView:advisoralloc"/>
+                                    </pe:inputNumber>
+                                </f:facet>
+                            </p:cellEditor>
+
+                        </p:column>
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column footerText="Total" style="text-align:left"/>
+
+                                <p:column style="text-align:right"
+                                          footerText="#{advisorBean.displayMoney(advisorBean.assetAllocationTotal)}">
+                                </p:column>
+                            </p:row>
+                        </p:columnGroup>
+                    </p:dataTable>
+
+                </p:column>
+                <p:column style="text-align:center">
+                    <p:pieChart id="advisorallocPieChart"
+                                value="#{advisorBean.pieModel}"
+                                fill="true" seriesColors="009ABB, CFD449, CC99FF, FFFFCC, FFFFFF"
+                                style="width: 300px;height: 300px;"
+                                extender="pie_extensions"
+                                diameter="150"/>
+
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="2">
+                    <p:separator/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:panelGrid id="alloc2Grid1" style="background-color: #ffffff">
+                        <f:facet name="header">
+                            <p:row>
+                                <p:column style="text-align: left; background-color: #ffffff">Choose Basket</p:column>
+                            </p:row>
+                        </f:facet>
+                        <p:row>
+                            <p:column>
+                                <p:selectOneMenu id="theme" value="#{advisorBean.theme}"
+                                                 required="false" requiredMessage="Select one theme."
+                                                 valueChangeListener="#{advisorBean.changeEvent}"
+                                                 validatorMessage="Select one theme.">
+                                    <f:selectItem itemLabel="Balance" itemValue="Balance"/>
+                                    <f:selectItem itemLabel="Value" itemDisabled="false" itemValue="Value"/>
+                                    <f:selectItem itemLabel="Growth" itemDisabled="false" itemValue="Growth"/>
+                                    <f:selectItem itemLabel="Income" itemDisabled="true" itemValue="Income"/>
+                                    <p:ajax process="@this" update="@form"/>
+                                </p:selectOneMenu>
+
+                            </p:column>
+                        </p:row>
+                    </p:panelGrid>
+                </p:column>
+                <p:column>
+
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column style="text-align: left">
+                    <p:commandButton value="Previous" icon="ui-icon-arrowthick-1-w"
+                                     actionListener="#{advisorBean.saveAllocation}" update="@form"
+                                     oncomplete="{InvTabView.select(0)}"/>
+                </p:column>
+                <p:column style="text-align: right">
+                    <p:commandButton type="submit"
+                                     value="Next" icon="ui-icon-arrowthick-1-e"
+                                     actionListener="#{advisorBean.saveAllocation}" update="@form"
+                                     oncomplete="{InvTabView.select(2)}"/>
+
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+
+    </h:form>
+</h:body>
+</html>
+
+

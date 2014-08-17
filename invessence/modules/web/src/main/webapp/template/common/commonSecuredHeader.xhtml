@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+        >
+
+
+<body>
+<ui:composition>
+    <header id="main-header">
+        <div class="container clearfix">
+            <a href="${apache.url}/">
+                <img src="/images/InvessenceLogo.jpg" alt="Invessence Inc." id="logo"/>
+            </a>
+
+            <ui:fragment rendered="#{request.remoteUser == null}">
+                <div id="et-top-navigation">
+                    <nav id="top-menu">
+                        <ul id="top-menu" class="nav">
+                            <li id="menu-item-2994" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2994">
+                                <a href="${apache.url}/why-invessence/">Why Us</a></li>
+                            <li id="menu-item-3934" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3934">
+                                <a href="${apache.url}/howitworks/">How it Works</a></li>
+                            <li id="menu-item-3313" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3313">
+                                <a href="${apache.url}/pricing/">Pricing</a></li>
+                            <li id="menu-item-3957" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3957">
+                                <a href="${apache.url}/about-us/">About Us</a></li>
+                            <li id="menu-item-3883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3883">
+                                <a href="${apache.url}/blog/">Blog</a></li>
+                            <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2338">
+                                <a href="${apache.url}/faq/">FAQ</a></li>
+                        </ul>
+                    </nav>
+                    <div id="et_top_search">
+                        <a href="${ssl.url}/login.xhtml"><img id="my_image" src="/images/login.png"/> </a>
+                    </div>
+
+                    <div id="et_mobile_nav_menu">
+                        <a href="#" class="mobile_nav closed">
+                            <span class="mobile_menu_bar"></span>
+                            <ul id="mobile_menu" class="et_mobile_menu">
+                                <li id="menu-item-2994" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2994">
+                                    <a href="${apache.url}/why-invessence/">Why Us</a></li>
+                                <li id="menu-item-3934" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-3918 current_page_item menu-item-3934">
+                                    <a href="${apache.url}/howitworks//">How it Works</a></li>
+                                <li id="menu-item-3313" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3313">
+                                    <a href="${apache.url}/pricing/">Pricing</a></li>
+                                <li id="menu-item-3957" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3957">
+                                    <a href="${apache.url}/about-us/">About Us</a></li>
+                                <li id="menu-item-3883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3883">
+                                    <a href="${apache.url}/blog/">Blog</a></li>
+                                <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2338">
+                                    <a href="${apache.url}/faq/">FAQ</a></li>
+                            </ul>
+                        </a>
+                    </div>
+                    <!-- #et_mobile_nav_menu -->
+
+                </div>
+                <!-- #et-top-navigation -->
+            </ui:fragment>
+
+            <ui:fragment rendered="#{request.remoteUser != null}">
+                <div id="et-top-navigation">
+                    <nav id="top-menu">
+                        <ul id="top-menu" class="nav">
+                            <li id="menu-item-3883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3883">
+                                <a href="${ssl.url}/manageAccount.xhtml">Overview</a></li>
+                            <ui:fragment rendered="#{request.isUserInRole('ADMIN')}">
+                                <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2338">
+                                    <a href="${ssl.url}/admin.xhtml">Admin</a>
+                                </li>
+                            </ui:fragment>
+                        </ul>
+                    </nav>
+
+                    <div id="et_top_search">
+                        <a href="j_spring_security_logout"><img id="my_image" src="/images/logout.png"/> </a>
+                    </div>
+
+
+                    <div id="et_mobile_nav_menu">
+                        <a href="#" class="mobile_nav closed">
+                            <span class="mobile_menu_bar"></span>
+                            <ul id="mobile_menu" class="et_mobile_menu">
+                                <li id="menu-item-2994"
+                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2994 et_first_mobile_item">
+                                    <a href="${ssl.url}/manageAccount.xhtml">Overview</a>
+                                </li>
+                            </ul>
+                        </a>
+                    </div>
+                    <!-- #et_mobile_nav_menu -->
+                </div>
+                <!-- #et-top-navigation -->
+            </ui:fragment>
+
+        </div>
+        <!-- .container -->
+    </header>
+
+</ui:composition>
+</body>
+</html>
+
+

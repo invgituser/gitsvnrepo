@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+</h:head>
+<f:metadata>
+    <f:viewParam name="emailID" value="#{profileBean.beanUserID}"/>
+    <f:event type="preRenderView" listener="#{profileBean.preRenderView}"/>
+</f:metadata>
+<h:body>
+
+    <ui:composition template="/template/common/commonSecuredLayout.xhtml">
+
+        <ui:define name="content">
+
+            <div id="main-content" class="content_section" style="background-color: #f5f5f5; padding: 50px;">
+                <div id="wrapper" class="container">
+                    <h:form>
+                        <center>
+                            <p:panel header="Settings"
+                                     style="width:630px;text-align: left; position:relative;">
+
+                                <p:panelGrid styleClass="invNBgrid">
+                                    <p:row>
+                                        <p:column colspan="5">
+                                            <p:messages autoUpdate="true"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Email"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <h:outputLabel value="#{profileBean.beanUserID}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="New Email (Optional)"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputText id="email" label="email" value="#{profileBean.emailalt}" size="40">
+                                                <p:watermark for="email" value="New Email (Optional)"/>
+                                            </p:inputText>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Reset Password (Optional)"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="pwd1" display="icon"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:password id="pwd1" value="#{profileBean.password}"
+                                                        match="pwd2" label="Password"
+                                                        feedback="true" inline="true"
+                                                        validatorMessage="Password does not match criteria.">
+                                                <f:validateRegex
+                                                        pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%?]).*$"/>
+                                            </p:password>
+                                        </p:column>
+                                        <p:column rowspan="5" styleClass="invImportant">
+                                            Password Must contain a minimum of 8 Characters including at least:
+                                            <ul>
+                                                <li>1 uppercase letter</li>
+                                                <li>1 number</li>
+                                                <li>1 of these special characters: !,#,$,%,?</li>
+                                            </ul>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Confirm"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:message for="pwd2" display="icon"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:password id="pwd2" value="#{profileBean.confirmNewPassword}"
+                                                         label="Password 2" />
+                                        </p:column>
+                                    </p:row>
+                                  <p:row>
+                                        <p:column colspan="5">
+                                            These below questions and answers will be used to further autheticate you when needed.
+                                        </p:column>
+                                    </p:row>
+
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Select One"/>
+                                        </p:column>
+                                        <p:column colspan="4">
+                                            <p:selectOneMenu id="q1" value="#{profileBean.q1}"
+                                                             styleClass="invSelectOneMenu" required="true"
+                                                             requiredMessage="Please select question #1.">
+                                                <f:selectItem itemLabel="Choose One" itemValue="" />
+                                                <f:selectItems value="#{profileBean.getQuestion(0).entrySet()}"
+                                                               var="q1" itemLabel="#{q1.value}" itemValue="#{q1.value}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Answer"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputText id="a1" value="#{profileBean.ans1}" label="Answer#1"
+                                                         size="30" maxlength="40"
+                                                         required="true" requiredMessage="Please enter answer question#1.">
+                                                <p:watermark for="a1" value="Answer"/>
+                                            </p:inputText>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Choose favorite"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:selectOneMenu id="q2" value="#{profileBean.q2}"
+                                                             styleClass="invSelectOneMenu" required="true"
+                                                             requiredMessage="Please select question #2.">
+                                                <f:selectItem itemLabel="Choose One" itemValue="" />
+                                                <f:selectItems value="#{profileBean.getQuestion(1).entrySet()}"
+                                                               var="q2" itemLabel="#{q2.value}" itemValue="#{q2.value}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Answer"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputText id="a2" value="#{profileBean.ans2}" label="Answer#2"
+                                                         size="30" maxlength="40"
+                                                         required="true" requiredMessage="Please enter answer question#2.">
+                                                <p:watermark for="a2" value="Answer"/>
+                                            </p:inputText>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Describe"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:selectOneMenu id="q3" value="#{profileBean.q3}"
+                                                             styleClass="invSelectOneMenu" required="true"
+                                                             requiredMessage="Please select question #3.">
+                                                <f:selectItem itemLabel="Choose One" itemValue="" />
+                                                <f:selectItems value="#{profileBean.getQuestion(2).entrySet()}"
+                                                               var="q3" itemLabel="#{q3.value}" itemValue="#{q3.value}"/>
+                                            </p:selectOneMenu>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <h:outputLabel value="Answer"/>
+                                        </p:column>
+                                        <p:column colspan="2">
+                                            <p:inputText id="a3" value="#{profileBean.ans3}" label="Answer#3"
+                                                         size="30" maxlength="40"
+                                                         required="true" requiredMessage="Please enter answer question#3.">
+                                                <p:watermark for="a3" value="Answer"/>
+                                            </p:inputText>
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                                <center>
+                                    <p:commandButton value="Save" id="btn" ajax="true"
+                                                     actionListener="#{profileBean.submit}"/>
+
+                                </center>
+                            </p:panel>
+
+                        </center>
+                    </h:form>
+
+
+                </div>
+            </div>
+
+
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+
+</html>

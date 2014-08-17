@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+</h:head>
+<f:metadata>
+    <f:viewParam name="acct" value="#{advisorGenericBean.acctnum}"/>
+    <f:viewParam name="mb" value="#{advisorGenericBean.menuBar}"/>
+</f:metadata>
+
+<body>
+<ui:composition>
+    <header id="main-header">
+        <div class="container clearfix">
+            <a href="${apache.url}/advisor/welcome.xhtml">
+                <p:graphicImage id="logo" value="#{institutiongenericBean.logo}"/>
+            </a>
+
+            <div id="et-top-navigation">
+                    <h:form>
+                        <p:menubar>
+                            <p:menuitem value="Add" url="/advisor/custProfile.xhtml"/>
+                            <p:menuitem value="Manage" url="/advisor/manage.xhtml"/>
+                            <p:menuitem value="Logout" url="/j_spring_security_logout"/>
+                        </p:menubar>
+                    </h:form>
+            </div>
+        </div>
+    </header>
+</ui:composition>
+</body>
+</html>
+
+

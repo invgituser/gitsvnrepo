@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+</h:head>
+
+<h:body>
+    <div align="right">
+        <a href="/backup/MyAccount.xhtml">My Account</a> &nbsp;
+        <a href="/signup.xhtml">Signup</a>&nbsp;
+
+        <ui:fragment rendered="#{request.remoteUser != null}">
+            <a href="j_spring_security_logout"> Logout</a> Welcome #{request.remoteUser}!
+        </ui:fragment>
+        <ui:fragment rendered="#{request.remoteUser == null}">
+            <a href="/login.xhtml">Login</a>
+        </ui:fragment>
+    </div>
+    <h2><a href="/index.xhtml">Invessence</a></h2>
+    <p:megaMenu>
+        <p:submenu label="About Us" icon="ui-icon-check">
+            <p:column>
+                <p:submenu label="Why Invessence"></p:submenu>
+                <p:submenu label="Leadership"></p:submenu>
+            </p:column>
+        </p:submenu>
+
+        <p:submenu label="Philanthropy Us" icon="ui-icon-check">
+            <p:column>
+                <p:submenu label="Charitable Giving"></p:submenu>
+                <p:submenu label="Special Circumstance"></p:submenu>
+            </p:column>
+        </p:submenu>
+
+        <p:menuitem value="Tour" url="goals.xhtml" icon="ui-icon-check"/>
+
+        <p:submenu label="Learning" icon="ui-icon-check">
+            <p:column>
+                <p:submenu label="Invessence Community"></p:submenu>
+                <p:submenu label="Structured Learning"></p:submenu>
+            </p:column>
+        </p:submenu>
+
+        <p:submenu label="Research" icon="ui-icon-check">
+            <p:column>
+                <p:submenu label="Stock"></p:submenu>
+                <p:submenu label="ETF"></p:submenu>
+                <p:submenu label="Mutual Funds"></p:submenu>
+                <p:submenu label="Fixed Income"></p:submenu>
+            </p:column>
+        </p:submenu>
+    </p:megaMenu>
+</h:body>
+</html>

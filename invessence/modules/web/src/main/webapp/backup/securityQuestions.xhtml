@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<f:metadata>
+    <f:viewParam name="emailID" value="#{resetPasswordData.emailID}"/>
+
+
+</f:metadata>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+
+
+        <ui:define name="content">
+
+
+            <center>
+                <p:panel header="Security Questions"
+                         style="width:700px; height:200px; border=1px solid black; position:relative;">
+                    <h:form>
+
+
+                        <h:panelGrid columns="2">
+
+
+                            What's your favorite food:
+                            <h:inputText id="userID" label="What's your favorite food"
+                                         value="#{resetPasswordData.answer1}" required="true">
+
+
+                            </h:inputText>
+
+
+                            <h:outputLabel/>
+                            <h:commandButton type="submit" value="Submit"
+                                             action="#{resetPasswordData.validateSecurityQuestions}"></h:commandButton>
+
+
+                        </h:panelGrid>
+                    </h:form>
+                </p:panel>
+
+            </center>
+
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+
+</html>
