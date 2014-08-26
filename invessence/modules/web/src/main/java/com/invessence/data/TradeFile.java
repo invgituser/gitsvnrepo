@@ -2,8 +2,6 @@ package com.invessence.data;
 
 import java.io.Serializable;
 
-import com.invessence.converter.JavaUtil;
-
 /**
  * Created with IntelliJ IDEA.
  * User: pichaimanir

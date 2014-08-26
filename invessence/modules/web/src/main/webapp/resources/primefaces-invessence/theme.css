@@ -913,7 +913,7 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif;
     font-size: 1em;
 }
 
@@ -925,7 +925,7 @@ body .ui-tooltip {
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-    font-family: 'Raleway', Arial, sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif
     font-size: 1em;
 }
 
@@ -971,7 +971,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-hover,
 .ui-widget-header .ui-state-hover {
     border: 1px solid #cfd449;
-    background: #cfd449;
+    background: #00425b;
     font-weight: bold;
     color: #ffffff;
 }
@@ -997,7 +997,7 @@ body .ui-tooltip {
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
     border: 1px solid #d9d6c4;
-    background: #cfd449;
+    background: #00425b;
     font-weight: bold;
     color: #140f06;
 }

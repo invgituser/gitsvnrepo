@@ -1,7 +1,9 @@
 package com.invmodel.asset;
 
+import java.util.*;
+
 import com.invmodel.Const.InvConst;
-import com.invmodel.asset.data.AssetClass;
+import com.invmodel.asset.data.*;
 import com.invmodel.dao.*;
 import com.invmodel.inputData.ProfileData;
 import webcab.lib.finance.portfolio.*;
@@ -144,6 +146,7 @@ public class AssetAllocationModel
             offset = (int) (offset * adj_riskOffet);
             assetclass[counter] = adjustDurationRisk(pdata.getAdvisor(), weights[offset], duration,
                                                      age, adj_riskOffet, stayInvested);
+
             duration--;
             numofAllocation--;
             age++;
@@ -276,4 +279,28 @@ public class AssetAllocationModel
       }
       return (0.0);
    }
+
+   public void overrideAssetWeight(AssetClass aac, List<Asset> userAsset) {
+      String assetname;
+
+      if (userAsset == null) {
+         return;
+      }
+
+      if (aac != null) {
+         // First reset all weight to zero for AssetClass, else it may not add to 100
+         for (int loop = 0; loop < aac.getOrderedAsset().size(); loop++) {
+            assetname = aac.getOrderedAsset().get(loop);
+            aac.setAssetActualWeight(assetname,0.0);
+         }
+         // Now set it to user value.
+         int counter = userAsset.size();
+         for (int loop = 0; loop < counter; loop++)
+         {
+            assetname = userAsset.get(loop).getAsset();
+            aac.setAssetActualWeight(assetname, userAsset.get(loop).getActualweight());
+         }
+      }
+   }
+
 }

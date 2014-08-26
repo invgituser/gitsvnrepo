@@ -16,9 +16,23 @@
 
    <dependencies>
       <dependency>
-         <groupId>webcap</groupId>
+         <groupId>webcab</groupId>
          <artifactId>portfolioJ2SE</artifactId>
       </dependency>
+      <dependency>
+         <groupId>webcab</groupId>
+         <artifactId>optimization</artifactId>
+      </dependency>
+<!--
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>optimizationEjbClient</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>qaLibrary</artifactId>
+        </dependency>
+-->
       <dependency>
          <groupId>com.google.guava</groupId>
          <artifactId>guava</artifactId>

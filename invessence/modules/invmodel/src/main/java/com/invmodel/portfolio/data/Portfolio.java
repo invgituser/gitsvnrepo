@@ -23,6 +23,7 @@ public class Portfolio
 
    private double totalCapitalGrowth = 0.0;
    private double actualInvestments = 0.0;
+   private Map<String, ArrayList> assetMap = new HashMap<String,ArrayList>();
    private Map<String,PortfolioSubclass> subclassMap = new HashMap<String,PortfolioSubclass>();
    private ArrayList<PortfolioSubclass> subclasslist = new ArrayList<PortfolioSubclass>();
 
@@ -61,7 +62,7 @@ public class Portfolio
       return new Portfolio(this);
    }
 
-   private String getsubclasskey(String assetclass, String subclass) {
+   public String getsubclasskey(String assetclass, String subclass) {
       return  assetclass + "." + subclass;
    }
 
@@ -247,12 +248,20 @@ public class Portfolio
       PortfolioSubclass value;
       String key;
       Double newweight, newmoney;
+      ArrayList<String> assetsubclasslist;
 
       key = getsubclasskey(assetclass,subclass);
       if (! subclassMap.containsKey(key)) {
          value =  new PortfolioSubclass(key, assetclass, subclass, color, weight, money, include);
          subclasslist.add(value);
          subclassMap.put(key,value);
+         if (! assetMap.containsKey(assetclass))
+            assetsubclasslist = new ArrayList<String>();
+         else
+            assetsubclasslist = assetMap.get(assetclass);
+         assetsubclasslist.add(subclass);
+         assetMap.put(assetclass,assetsubclasslist);
+
       }
       else {
          value=subclassMap.get(key);
@@ -267,6 +276,7 @@ public class Portfolio
    public void resetPortfolioSubclass() {
         subclasslist.clear();
         subclassMap.clear();
+        assetMap.clear();
    }
 
 
@@ -278,6 +288,18 @@ public class Portfolio
    public void setTickers(ArrayList<String> tickers)
    {
       this.tickers = tickers;
+   }
+
+   public Map<String, ArrayList> getAssetMap()
+   {
+      return assetMap;
+   }
+
+   public ArrayList<String> getAssetMapList(String assetname)
+   {
+      if (assetMap.containsKey(assetname))
+         return assetMap.get(assetname);
+      return null;
    }
 
    @SuppressWarnings("rawtypes")

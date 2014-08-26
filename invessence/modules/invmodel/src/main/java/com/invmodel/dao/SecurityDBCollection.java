@@ -56,18 +56,18 @@ public class SecurityDBCollection
       String key;
       if (groupname == null)
       {
-         groupname = InvConst.DEFAULT_ADVISOR;
+         groupname = InvConst.INVESSENCE_ADVISOR;
       }
 
       if (theme == null)
       {
-         theme = InvConst.DEFAULT_THEME;
+         theme = InvConst.CORE_THEME;
       }
 
       //  If the asset is Cash, then use the Invessence BALANCE value.
       if (asset.equalsIgnoreCase("Cash"))
       {
-         key = InvConst.DEFAULT_ADVISOR + "." + InvConst.DEFAULT_THEME + "." + asset;
+         key = InvConst.INVESSENCE_ADVISOR + "." + InvConst.CORE_THEME + "." + asset;
       }
       else
       {
@@ -476,12 +476,13 @@ public class SecurityDBCollection
                adjust = true;
 
             if (ubArray.size() > 0) {
+               double adjustmentamt = 1.01 - total;
                double[] upperBound = new double[advisorMap.get(groupkey).size()];
                for (int i = 0; i < counter; i++) {
                   ubValue = ubArray.get(i);
                   if (adjust) {
                      if (ubValue > 0.0)
-                        ubValue = ubValue + (1.0 / (double) allocated);
+                        ubValue = ubValue + (adjustmentamt / (double) allocated);
                   }
                   upperBound[i] = ubValue;
                }

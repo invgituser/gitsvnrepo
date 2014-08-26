@@ -1,5 +1,6 @@
 package com.invessence.dao.advisor;
 
+import java.io.Serializable;
 import java.util.Map;
 import javax.faces.bean.*;
 import javax.sql.DataSource;
@@ -9,7 +10,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
 @ManagedBean(name = "advisorSaveDataDAO")
 @ApplicationScoped
-public class AdvisorSaveDataDAO extends SimpleJdbcDaoSupport
+public class AdvisorSaveDataDAO extends SimpleJdbcDaoSupport implements Serializable
 {
    public Long saveProfile(AdvisorData data) {
       DataSource ds = getDataSource();
@@ -38,10 +39,10 @@ public class AdvisorSaveDataDAO extends SimpleJdbcDaoSupport
 
    public void saveExcludeSubClass(AdvisorData data) {
       DataSource ds = getDataSource();
-      AdvisorSaveSP sp1 = new AdvisorSaveSP(ds, "del_user_subassetclass",5);
-      sp1.deleteSubAssetClass(data);
-      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "sp_user_subassetclass_add_mod",6);
-      sp.saveSubAssetClass(data);
+      AdvisorSaveSP sp1 = new AdvisorSaveSP(ds, "del_ExcludedSubclass",5);
+      sp1.deleteExcludedSubclass(data);
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "sp_ExcludedSubclass_add_mod",6);
+      sp.saveExcludedSubclass(data);
    }
 
 }

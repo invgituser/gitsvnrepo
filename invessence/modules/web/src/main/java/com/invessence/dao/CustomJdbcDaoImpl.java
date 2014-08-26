@@ -165,7 +165,10 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          attempts = 0;
 
      accountNonLocked=true;
-     if ((logonStatus != null) && (! logonStatus.equalsIgnoreCase("L"))) {
+      if ((logonStatus != null) && (logonStatus.equalsIgnoreCase("L"))) {
+         accountNonLocked = false;
+      }
+      else if (logonStatus != null) {
          // If userStatus is empty and it is not locked then add attempts made.
          attempts = attempts + 1;
          if (attempts > Const.MAX_ATTEMPTS) {
@@ -180,9 +183,6 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          }
       }
 
-      if (logonStatus.equalsIgnoreCase("L")) {
-         accountNonLocked = false;
-      }
 
       // Note:  We are always re-createating userINFO
       credentialsNonExpired = true; // Reset for now.  We need logic to redirect.

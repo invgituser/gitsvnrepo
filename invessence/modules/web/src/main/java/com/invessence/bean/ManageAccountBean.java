@@ -360,7 +360,7 @@ public class ManageAccountBean implements Serializable
    public String addPortfolio()
    {
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.ACCTNO_PARAM, null);
-      managegoals.resetGoals();
+      managegoals.resetGoalsBean();
       try
       {
          FacesContext.getCurrentInstance().getExternalContext().redirect("createInvestment.xhtml");

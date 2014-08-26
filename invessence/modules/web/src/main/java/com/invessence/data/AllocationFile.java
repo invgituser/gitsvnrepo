@@ -2,7 +2,6 @@ package com.invessence.data;
 
 import java.io.Serializable;
 
-import com.invessence.converter.JavaUtil;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +12,6 @@ import com.invessence.converter.JavaUtil;
  */
 public class AllocationFile implements Serializable
 {
-   private JavaUtil javaUtil = new JavaUtil();
    public static final String HEADER = "Action,Quantity,Symbol,SecType,Exchange,Currency,TimeInForce,OrderType,LmtPrice,BasketTag,Account,Profile,OrderRef";
    public String action,quantity,symbol,secType,exchange,currency,timeInForce,orderType,lmtPrice,basketTag,account,profile,orderRef;
 

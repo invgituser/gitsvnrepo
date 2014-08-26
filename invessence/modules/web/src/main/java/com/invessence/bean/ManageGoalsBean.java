@@ -42,7 +42,6 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
 
    private boolean tabenable = true;
    private boolean formDirty = false;
-   private String iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
    private String currentTab;
 
    //DI via Spring
@@ -143,28 +142,6 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
    //  Main Programs starts here ...
 
 
-   public String getIblink()
-   {
-      return iblink;
-   }
-
-   public void setIblink(String accounttype)
-   {
-      // First set the default as Individual.
-      this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
-      if (accounttype != null) {
-         if (accounttype.toUpperCase().contains("JOINT"))        // Joint
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596232&token=78468&invitedBy=NDE4aW52ZXN0&.";
-         else if (accounttype.toUpperCase().contains("TRUST"))   // Trust
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596237&token=90513&invitedBy=NDE4aW52ZXN0&.";
-         else if (accounttype.toUpperCase().contains("ORGAN"))   // Organization
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596233&token=12939&invitedBy=NDE4aW52ZXN0&.";
-         else if (accounttype.toUpperCase().contains("IRA"))    // IRA
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6818475&token=91070&invitedBy=NDE4aW52ZXN0&.";
-      }
-   }
-
-
    public String addGoals(String currentTab, boolean isFormDirty)
    {
       try {
@@ -175,7 +152,6 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
                beanlogonid = (Long) getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM);
                setBeanlogonid(beanlogonid);
             }
-            setIblink(getAccountType());
             beanacctnum = goalsBo.addGoals(getInstance());
 
             setBeanacctnum(beanacctnum);
@@ -261,9 +237,9 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
    }
 
 
-   public String resetGoals()
+   public String resetGoalsBean()
    {
-      resetData();
+      resetManagedGoalData();
       setBeanacctnum(null);
       setBeanlogonid(null);
       setTabenable(true);
@@ -293,7 +269,6 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
          setLogonid(logonid);
          ManageGoals newgoals = goalsBo.findGoals(getInstance());
          copyData(newgoals);
-         setIblink(getAccountType());
          setTabenable(false);
          setCurrentTab("tab1");
          findRiskTolerance();
@@ -460,7 +435,7 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
       MsgData data = new MsgData();
       try
       {
-         goals.setAdvisor(InvConst.DEFAULT_ADVISOR);
+         goals.setAdvisor(InvConst.INVESSENCE_ADVISOR);
          goals.setTheme(InvConst.DEFAULT_THEME);
          goals.setNumOfAllocation(goals.getHorizon());
          aamc = allocModel.getAssetDistribution((ProfileData) goals);
@@ -918,7 +893,7 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
          FacesContext facesContext = FacesContext.getCurrentInstance();
          HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
          httpSession.invalidate();
-         uval.redirect(iblink,null);
+         uval.redirect(getIblink(),null);
       }
 
    }
@@ -960,5 +935,6 @@ public class ManageGoalsBean extends ManageGoals implements Serializable
          ex.printStackTrace();
       }
    }
+
 
 }

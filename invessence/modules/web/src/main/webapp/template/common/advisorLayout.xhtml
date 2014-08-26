@@ -17,6 +17,7 @@
           href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,700,800|Raleway:400,200,100,500,700,800,900&#038;subset=latin,latin-ext'
           type='text/css' media='all'/>
     <link rel='stylesheet' id='wordpress-css' href='/css/generic.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='advisor-css' href='/css/webstyle.css' type='text/css' media='all'/>
     <link rel='stylesheet' id='advisor-css' href='/css/advisor.css' type='text/css' media='all'/>
 </h:head>
 
@@ -25,20 +26,20 @@
 
     <p:layout fullPage="true">
 
-        <p:layoutUnit position="north" resizable="false" styleClass="ui_header"
-                      size="70" maxSize="70">
+        <p:layoutUnit position="north" resizable="false" styleClass="advisorMenubar"
+                      size="60" maxSize="60">
             <ui:insert name="header">
                 <ui:include src="/template/common/advisorHeader.xhtml"/>
             </ui:insert>
         </p:layoutUnit>
 
-        <p:layoutUnit position="center" maxSize="900" minSize="600" resizable="true" styleClass="ui_workarea" >
+        <p:layoutUnit position="center" maxSize="900" minSize="600" resizable="true" styleClass="advisorWorkarea" >
             <ui:insert name="content">
-                <ui:include src="/advisor/custProfile.xhtml"/>
+                <ui:include src="/advisor/add.xhtml"/>
             </ui:insert>
         </p:layoutUnit>
 
-        <p:layoutUnit position="south" resizable="false" styleClass="ui_footer">
+        <p:layoutUnit position="south" resizable="false" styleClass="advisorFooter" >
             <ui:insert name="footer">
                 <ui:include src="/template/common/advisorFooter.xhtml"/>
             </ui:insert>

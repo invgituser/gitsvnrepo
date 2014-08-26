@@ -119,8 +119,29 @@ public class PortfolioModel
          if (invCapital < 0.0) {
             invCapital = 0.0;
          }
-         groupname = profileData.getAdvisor();
+
          theme = profileData.getTheme();
+         groupname = profileData.getAdvisor();
+
+         // NOTE:  If Theme is default, then use Invessence - Core portfolio.
+         // However, the Asset Weights may have been defined by Advisor's mapping.
+         if (theme == null) {
+            theme = InvConst.CORE_THEME;
+            groupname = InvConst.INVESSENCE_ADVISOR;
+         }
+         else {
+            // If the Theme is default, then assume Invessence.
+            if (theme.isEmpty() || theme.equalsIgnoreCase(InvConst.DEFAULT_THEME)) {
+               theme = InvConst.CORE_THEME;
+               groupname = InvConst.INVESSENCE_ADVISOR;
+            }
+         }
+
+         if (groupname == null)
+            groupname = InvConst.INVESSENCE_ADVISOR;
+         else if (groupname.isEmpty() || groupname.equalsIgnoreCase(InvConst.DEFAULT_ADVISOR)) {
+            groupname = InvConst.INVESSENCE_ADVISOR;
+         }
 
          int years = profileData.getNumOfPortfolio();
          initPortfolio();
@@ -232,7 +253,7 @@ public class PortfolioModel
                createPortfolio(groupname, theme,assetName,
                                assetData[investmentYear], portfolioclass[investmentYear], tickers,
                                investmentYear, duration, invCapital, investByAsset, securityReturn, secRisk, secYield, assetReturns.get(i),
-                               assetRisk.get(i), weights.get(i), investments,
+                               assetRisk.get(i), weights.get(i),
                                profileData);
 
                //calculate next year's investment based on expected returns
@@ -317,9 +338,9 @@ public class PortfolioModel
 
    private void createPortfolio(String groupname, String theme, String assetName,
                                 AssetClass assetData, Portfolio pclass, String[] tickers,
-                                int year, int duration, double investment, double investByAsset,
+                                int year, int duration, double invCapital, double investByAsset,
                                 double[] securityReturns, double[] secRisk, double[] secYield,
-                                double[] assetReturns, double[] assetRisk, double[][] weights, double totalInvestment,
+                                double[] assetReturns, double[] assetRisk, double[][] weights,
                                 ProfileData pdata)
    {
       try
@@ -328,6 +349,7 @@ public class PortfolioModel
          double amount_remain = pclass.getCashMoney();
          double shares = 0.0, money = 0.0;
          double assetAmountRemain = 0.0;
+         double totalPortfolioWeight = 0.0;
 
          int offset;
 
@@ -348,7 +370,7 @@ public class PortfolioModel
 
          assetData.setAssetExpectedReturns(assetName, assetReturns[offset]);
          assetData.setAssetRisk(assetName, assetRisk[offset]);
-         assetData.setAssetActualWeight(assetName, investByAsset / investment);
+         assetData.setAssetActualWeight(assetName, investByAsset / invCapital);
          assetAmountRemain = investByAsset;
          for (int i = 0; i < tickers.length; i++)
          {
@@ -392,42 +414,45 @@ public class PortfolioModel
                }
             }
 
-            if (sd.getType().equals("Cash"))
-            {
-               money = amount_remain;
-               amount_remain = 0;
-               assetAmountRemain = 0;
-               shares = money;
-            }
-            else
-            {
-               amount_remain = amount_remain - money;
-               assetAmountRemain = assetAmountRemain - money;
-               double tmp = amount_remain * 100.00;
-               double tmp2 = Math.round(tmp);
-               double tmp3 = tmp2 / 100.00;
-               //amount_remain = Math.round(amount_remain*100)/100;  // For some reason, this operation does not work.
-
-               amount_remain = tmp3;
-            }
-
-            // Only create this portfolio if there are shares and money
-            //secRisk is the sqrt(diagonal value)
-            if ((shares > 0.0) && (money > 0.0))
-            {
-               double tickerWeight = 0;
-               if (totalInvestment != 0)
+            if (ticker.equalsIgnoreCase("cash")) {
+               if (invCapital != 0)
                {
-                  tickerWeight = money / totalInvestment;
+                  totalPortfolioWeight = amount_remain / invCapital;
                }
 
                pclass.setPortfolio(ticker, sd.getName(), assetData.getAssetColor(assetName),
                                    sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
                                    price, ticker_weight, securityReturns[i], sd.getExpenseRatio(),
-                                   secRisk[i], secYield[i], shares, money, sd.getSortorder(), tickerWeight);
+                                   secRisk[i], secYield[i], shares, amount_remain, sd.getSortorder(), totalPortfolioWeight);
                pclass.addSubclassMap(assetName, sd.getSubassetclass(),
                                      assetData.getAssetColor(assetName),
-                                     tickerWeight, money, true);
+                                     totalPortfolioWeight, amount_remain, true);
+            }
+            else {
+               amount_remain = amount_remain - money;
+               assetAmountRemain = assetAmountRemain - money;
+               double tmp = Math.round(amount_remain * 100.00) / 100.00;
+               amount_remain = tmp;
+
+               // Only create this portfolio if there are shares and money
+               //secRisk is the sqrt(diagonal value)
+               if ((shares > 0.0) && (money > 0.0))
+               {
+                  totalPortfolioWeight = 0.0;
+                  if (invCapital != 0.0)
+                  {
+                     totalPortfolioWeight = money / invCapital;
+                  }
+
+                  pclass.setPortfolio(ticker, sd.getName(), assetData.getAssetColor(assetName),
+                                      sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
+                                      price, ticker_weight, securityReturns[i], sd.getExpenseRatio(),
+                                      secRisk[i], secYield[i], shares, money, sd.getSortorder(), totalPortfolioWeight);
+                  pclass.addSubclassMap(assetName, sd.getSubassetclass(),
+                                        assetData.getAssetColor(assetName),
+                                        totalPortfolioWeight, money, true);
+               }
+
             }
 
          }

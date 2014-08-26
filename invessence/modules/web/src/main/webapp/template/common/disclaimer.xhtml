@@ -35,17 +35,8 @@
                                 We take your security seriously. Invessence is protected with 256-bit encryption
  			                    provided by Thawte, a leader in SSL protection. All financial transactions are
                                 secured through VeriSign for additional protection. Click to view our full
-                                <strong><span style="text-decoration: underline;">
-                                <!--
-                                <p:commandLink id="security" onclick="PF('dlgSecurity').show();">
-                                    <h:outputText value="Security Policy" />
-                                </p:commandLink>
-                                 -->
-                                <a href="/static/securityPolicy.xhtml"
-                                   title="Security" target="PFinfo">
-                                    Security Policy
-                                </a>
-                                </span></strong>
+                                <h:outputLink value="/static/securityPolicy.xhtml" target="PFinfo" styleClass="clientFooterLink">Security
+                                </h:outputLink>
 
                             </div>
                         </div> <!-- end .fwidget -->
@@ -59,30 +50,12 @@
                                 Invessence Inc. is a Registered Investment Advisor serving
                                 clients in New Jersey. Invessence Inc. is an independent entity and is not affiliated
                                 with nor a subsidiary of any broker-dealer, investment bank or asset manager. By
-                                using this website, you accept our 
-                                <strong><span style="text-decoration: underline;">
-<!--
-                                <p:commandLink id="terms" onclick="PF('dlgTermofUse').show();">
-                                    <h:outputText value="Terms of Use" />
-                                </p:commandLink>
--->
-                                </span></strong>
-                                <a href="/static/termofUse.xhtml"
-                                   title="Terms" target="PFinfo">
-                                    Terms of Use
-                                </a>
+                                using this website, you accept our
+                                <h:outputLink value="/static/termofUse.xhtml" target="PFinfo" styleClass="clientFooterLink">Terms of Use
+                                </h:outputLink>
                                 and
-                                <strong><span style="text-decoration: underline;">
-<!--
-                                <p:commandLink id="privacy" onclick="PF('dlgPrivacy').show();">
-                                    <h:outputText value="Privacy Policy" />
-                                </p:commandLink>
--->
-                                    <a href="/static/privacy.xhtml"
-                                       title="Privacy" target="PFinfo">
-                                        Privacy
-                                    </a>
-                                </span></strong>
+                                <h:outputLink value="/static/privacy.xhtml" target="PFinfo" styleClass="clientFooterLink">Privacy.
+                                </h:outputLink>
                             </div>
                         </div>
                         <!-- end .fwidget -->

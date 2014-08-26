@@ -14,7 +14,7 @@ public class HistoricalReturns
    private List<String> orderedindexFund = new ArrayList<String>();
    private static final int FIRST = 0; // Index Position;
    private static final int SECOND = 1; // Number of Months;
-   private static final int MAX_HISTORY = 100;
+   private static final int MAX_HISTORY = 1500;
    private static final int MAX_INDICATORS = 2;
    private static final int MAX_INDEX = 20;
 
@@ -73,8 +73,8 @@ public class HistoricalReturns
    {
       try
       {
-         arrayPos = (arrayPos > MAX_HISTORY) ? MAX_HISTORY : arrayPos;
-         indexPos = (indexPos > MAX_INDEX) ? MAX_INDEX : indexPos;
+         arrayPos = (arrayPos >= MAX_HISTORY) ? MAX_HISTORY - 1 : arrayPos;
+         indexPos = (indexPos >= MAX_INDEX) ? MAX_INDEX - 1: indexPos;
          historicalreturns[indexPos][arrayPos] = data;
       }
       catch (Exception e)
@@ -107,9 +107,6 @@ public class HistoricalReturns
          // year starts with zero, but we want the totalYears to start with one.
          // If year from other index is less, then we want to keep the largest.
          totalYears = ((year + 1) > totalYears) ? (year + 1) : totalYears;
-         HistoricalReturnsData hrd = new HistoricalReturnsData(indexFund, date
-            , lbConstraint, ubConstraint, avgReturns, color);
-         putHistoricalReturnsArray(indexPos, year, hrd);
          if (!historicalReturnsMap.containsKey(indexFund))
          {
             indexReturns = new int[MAX_INDICATORS];
@@ -118,6 +115,17 @@ public class HistoricalReturns
          {
             indexReturns = historicalReturnsMap.get(indexFund);
          }
+
+         if (indexPos >= MAX_INDEX)
+            return;
+
+         if (year >= MAX_HISTORY)
+            return;
+
+         HistoricalReturnsData hrd = new HistoricalReturnsData(indexFund, date
+            , lbConstraint, ubConstraint, avgReturns, color);
+         putHistoricalReturnsArray(indexPos, year, hrd);
+
          indexReturns[FIRST] = indexPos;
          indexReturns[SECOND] = year;
          historicalReturnsMap.put(indexFund, indexReturns);
@@ -139,7 +147,7 @@ public class HistoricalReturns
          // Select data from the database
          connection = DBConnectionProvider.getInstance().getConnection();
          statement = connection.createStatement();
-         statement.executeQuery("SELECT indexFund, seqno, monthly_return FROM vw_historical_returns order by indexFund, seqno");
+         statement.executeQuery("SELECT indexFund, seqno, monthly_return FROM vw_historical_returns order by indexFund, seqno desc");
          resultSet = statement.getResultSet();
          resultSet.beforeFirst();
          int[] no_of_returns;

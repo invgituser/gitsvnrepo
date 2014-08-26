@@ -19,14 +19,20 @@ public class AdvisorListSP extends StoredProcedure
       super(datasource, sp_name);
       switch (mode) {
          case 0:
-            declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             break;
          case 1:
-            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
          case 2:
-            declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            break;
+         case 3:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
+         case 4:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
          default:
       }
@@ -42,6 +48,14 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map getProfileData(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
+
    public Map collectBasket(String advisor)
    {
       Map inputMap = new HashMap();
@@ -50,6 +64,13 @@ public class AdvisorListSP extends StoredProcedure
    }
 
    public Map collectAllocation(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
+
+   public Map collectSubClassExclusionList(Long acctnum)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);

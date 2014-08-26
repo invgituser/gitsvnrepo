@@ -1,6 +1,5 @@
 package com.invessence.data.admin;
 
-import com.invessence.converter.JavaUtil;
 import com.invmodel.inputData.ProfileData;
 
 /**
@@ -12,7 +11,6 @@ import com.invmodel.inputData.ProfileData;
  */
 public class AdminTradeClient extends ProfileData
 {
-   private JavaUtil javaUtil = new JavaUtil();
    private AdminTradeClient tradeClientinstance = null;
    private ProfileData profileInstance = null;
    private Long acctnum;
@@ -413,9 +411,6 @@ public class AdminTradeClient extends ProfileData
    {
       this.reason = reason;
    }
-   public String getDisplayLastTraded() {
-      return javaUtil.displayDateFormat(getLastTraded());
-   }
 
    public String getLastTraded()
    {
@@ -425,11 +420,6 @@ public class AdminTradeClient extends ProfileData
    public void setLastTraded(String lastTraded)
    {
       this.lastTraded = lastTraded;
-   }
-
-   public String getDisplayAAOffsetAPercent()
-   {
-      return (javaUtil.displayFormat(getAssetAllocationOffset(),"###.00"));
    }
 
    public String getAssetAllocationOffset()
@@ -460,17 +450,6 @@ public class AdminTradeClient extends ProfileData
    public void setLastUpdated(String lastUpdated)
    {
       this.lastUpdated = lastUpdated;
-   }
-
-   public String getDisplayAsActualInvestment() {
-       if (getActualInvestment() == null)
-          return javaUtil.displayFormat(getInitialInvestment(),"##,###,###,###.00");
-       else
-         return javaUtil.displayFormat(getActualInvestment(),"##,###,###,###.00");
-   }
-
-   public String getDisplayKeepLiquid() {
-      return javaUtil.displayFormat(getKeepLiquid(),"###,###");
    }
 
    public String getAssetClass()

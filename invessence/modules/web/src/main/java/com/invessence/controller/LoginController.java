@@ -16,19 +16,16 @@ import org.springframework.security.web.WebAttributes;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
-@ManagedBean(name = "loginController")
-@RequestScoped
 public class LoginController implements PhaseListener
 {
 
    protected final Log logger = LogFactory.getLog(getClass());
-   private Long acctnum;
+   private Long logonid;
    private UserValidation uv = new UserValidation();
    private String userID, password, question, answer, savedAnswer;
    private Boolean needAdditionalInfo = false;
    private UserInfoData uid;
 
-   @ManagedProperty("#{emailMessage}")
    private EmailMessage messageText;
    MsgData data = new MsgData();
    UserValidation urv = new UserValidation();
@@ -111,14 +108,7 @@ public class LoginController implements PhaseListener
       if (e != null)
       {
          uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-         if (uid == null) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "Username/password not valid.",
-                                                                          "Username/password not valid."));
-
-         }
-         else if (e instanceof BadCredentialsException)
+         if (e instanceof BadCredentialsException)
          {
             if (uid.getAttempts() > 1) {
                setNeedAdditionalInfo(true);
@@ -144,12 +134,6 @@ public class LoginController implements PhaseListener
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                           "Account is locked",
                                                                           "Account is locked"));
-         }
-         else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "Contact Support." + e.getMessage(),
-                                                                          "Contact Support." + e.getMessage()));
          }
       }
    }
@@ -198,7 +182,7 @@ public class LoginController implements PhaseListener
          {
             accttype = getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE).toString();
             if (accttype.equalsIgnoreCase(Const.ROLE_ADVISOR)) {
-              url = "/advisor/welcome.xhtml";
+              url = "/advisor/add.xhtml";
             }
             else  if (accttype.equalsIgnoreCase(Const.ROLE_ADMIN)) {
                      url = "/admin/welcome.xhtml";
@@ -222,18 +206,24 @@ public class LoginController implements PhaseListener
 
    public String logout()
    {
-      FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-      return "index.html";
+      try {
+         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+         FacesContext.getCurrentInstance().getExternalContext().redirect(Const.URL_HOME);
+      }
+      catch (Exception ex) {
+
+      }
+      return Const.URL_HOME;
    }
 
-   public Long getAcctnum()
+   public Long getLogonid()
    {
-      return acctnum;
+      return logonid;
    }
 
-   public void setAcctnum(Long acctnum)
+   public void setLogonid(Long logonid)
    {
-      this.acctnum = acctnum;
+      this.logonid = logonid;
    }
 
    public String getUserID()

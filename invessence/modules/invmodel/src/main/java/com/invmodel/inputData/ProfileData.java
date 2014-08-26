@@ -3,7 +3,7 @@ package com.invmodel.inputData;
 import java.util.*;
 
 import com.invmodel.Const.InvConst;
-import com.invmodel.asset.data.AssetClass;
+import com.invmodel.asset.data.*;
 import com.invmodel.portfolio.data.Portfolio;
 
 /**
@@ -56,8 +56,13 @@ public class
    private String risk = "M";
    private Integer riskIndex = 0;
 
+   private List<Asset> editableAsset = new ArrayList<Asset>();
    private AssetClass assetData[];
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.
+
+   private String iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
+
+
 
    private Map<String, CustomAllocation> customAllocations = new HashMap<String, CustomAllocation>();
 
@@ -114,6 +119,7 @@ public class
    {
       this.accountType = accountType;
       determineTaxable(getGoal(), getAccountType());
+      setIblink(accountType);
    }
 
    public Integer getYearly()
@@ -139,26 +145,12 @@ public class
 
    public Integer getAge()
    {
-      if (age == null)
-      {
-         return 30;
-      }
-      else
-      {
-         return (age > 100) ? 100 : age;
-      }
+     return age;
    }
 
    public Integer getHorizon()
    {
-      if (horizon == null)
-      {
-         return null;
-      }
-      else
-      {
-         return (horizon > InvConst.MAX_DURATION) ? InvConst.MAX_DURATION : horizon;
-      }
+     return horizon;
    }
 
    public void setHorizon(Integer horizon)
@@ -167,23 +159,9 @@ public class
       // However, if horizon < 5 and it is taxfree, then stay invested.
       if (horizon != null)
       {
-         this.horizon = horizon;
-         if (horizon <= 5)
-         {
-            if (getAccountTaxable())
-            {
-               setStayInvested(2);
-            }
-            else
-            {
-               setStayInvested(1);
-            }
-         }
-         else
-         {
-            setStayInvested(1);
-         }
+         setStayInvested ((horizon <= 5) ? ((getAccountTaxable() ? 2: 1)) : 1);
       }
+      this.horizon = horizon;
    }
 
    public Integer getCalendarYear()
@@ -304,7 +282,7 @@ public class
    {
       if (theme == null)
       {
-         return "Balance";
+         return "Default";
       }
       return theme;
    }
@@ -846,4 +824,94 @@ public class
 
    }
 
+
+   public String getIblink()
+   {
+      return iblink;
+   }
+
+   public void setIblink(String accounttype)
+   {
+      // First set the default as Individual.
+      this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
+      if (accounttype != null) {
+         if (accounttype.toUpperCase().startsWith("NON"))    // General Non-taxable (IRA/SEP/ROTH...)
+            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6818475&token=91070&invitedBy=NDE4aW52ZXN0&.";
+         if (accounttype.toUpperCase().contains("JOINT"))        // Joint
+            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596232&token=78468&invitedBy=NDE4aW52ZXN0&.";
+         else if (accounttype.toUpperCase().contains("TRUST"))   // Trust
+            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596237&token=90513&invitedBy=NDE4aW52ZXN0&.";
+         else if (accounttype.toUpperCase().contains("ORGAN"))   // Organization
+            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596233&token=12939&invitedBy=NDE4aW52ZXN0&.";
+         else if (accounttype.toUpperCase().contains("IRA"))    // IRA  (IRA/SEP/ROTH...)
+            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6818475&token=91070&invitedBy=NDE4aW52ZXN0&.";
+      }
+      /*
+      this.iblink = Const.IB_BASEURL +
+         "?" + Const.IB_PARTNERID +
+         "&" + invitation_id +
+         "&" + token +
+         "&" + Const.IB_INVITEDBY;
+      */
+   }
+
+   public List<Asset> getEditableAsset()
+   {
+      return editableAsset;
+   }
+
+   public void setEditableAsset(List<Asset> editableAsset)
+   {
+      this.editableAsset = editableAsset;
+   }
+
+   public void resetPortfolioData() {
+      setYearly(12);
+      setGoal(null);
+      setAccountType(null);
+      setName(null);
+      setAge(null);
+      setHorizon(null);
+      setCalendarYear(null);
+      setNumOfAllocation(1);
+      setNumOfPortfolio(1);
+      setInitialInvestment(null);
+      setActualInvestment(null);
+      setKeepLiquid(null);
+      setRecurringInvestment(null);
+      setExperience(2);   // 1 = Experienced, 2 = inExperienced (See method strExpeience)
+      setObjective(2);    // 1 = Preservation, 2 = Accumulation; (See method strObjective)
+
+      setAdvisor(InvConst.DEFAULT_ADVISOR);
+      setTheme(InvConst.DEFAULT_THEME);
+
+      setStayInvested(1); // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
+      setCharitableGoals(null);
+
+      setDependent(0);
+
+      setCurrentIncome(0);
+      setLiquidAsset(0);
+      setTotalIncome(0);
+      setTotalExpense(0);
+      setTotalAsset(0);
+      setTotalLiability(0);
+
+      setAccountTaxable(false); //1 (True) for accountTaxable (False) for nonTaxable
+      setTaxrate(0.1);
+      setRisk("M");
+      setRiskIndex(0);
+
+      if (getEditableAsset() != null)
+         getEditableAsset().clear();
+
+      if (getAssetData() != null)
+         setAssetData(null);
+
+      if (getPortfolioData() != null)
+         setPortfolioData(null);
+
+      setIblink("https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.");
+
+   }
 }

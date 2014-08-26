@@ -70,7 +70,7 @@
          <version>${invessence.version}</version>
       </dependency>
       <dependency>
-          <groupId>webcap</groupId>
+          <groupId>webcab</groupId>
           <artifactId>portfolioJ2SE</artifactId>
        </dependency>
       <dependency>
@@ -133,10 +133,6 @@
       <dependency>
          <groupId>org.primefaces.extensions</groupId>
          <artifactId>primefaces-extensions</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>org.primefaces.themes</groupId>
-         <artifactId>bluesky</artifactId>
       </dependency>
       <dependency>
          <groupId>jfree</groupId>
@@ -306,5 +302,17 @@
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
           </dependency>
+         <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+        </dependency>
    </dependencies>
 </project>

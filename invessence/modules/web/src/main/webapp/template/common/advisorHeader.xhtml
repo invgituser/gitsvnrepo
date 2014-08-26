@@ -11,24 +11,23 @@
 <h:head>
 </h:head>
 <f:metadata>
-    <f:viewParam name="acct" value="#{advisorGenericBean.acctnum}"/>
-    <f:viewParam name="mb" value="#{advisorGenericBean.menuBar}"/>
+    <f:viewParam name="id" value="#{institutiongenericBean.logonid}"/>
 </f:metadata>
 
 <body>
 <ui:composition>
     <header id="main-header">
         <div class="container clearfix">
-            <a href="${apache.url}/advisor/welcome.xhtml">
+            <a href="/advisor/add.xhtml">
                 <p:graphicImage id="logo" value="#{institutiongenericBean.logo}"/>
             </a>
 
             <div id="et-top-navigation">
                     <h:form>
                         <p:menubar>
-                            <p:menuitem value="Add" url="/advisor/custProfile.xhtml"/>
+                            <p:menuitem value="Add" actionListener="#{institutiongenericBean.newAccount}"/>
                             <p:menuitem value="Manage" url="/advisor/manage.xhtml"/>
-                            <p:menuitem value="Logout" url="/j_spring_security_logout"/>
+                            <p:menuitem value="Logout" actionListener="#{institutiongenericBean.logout}"/>
                         </p:menubar>
                     </h:form>
             </div>

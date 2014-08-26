@@ -8,7 +8,7 @@ public class Const
    public static String USER_INFO = "userinfo";
    public static String USERLOGON_ATTEMPTS = "USERLOGON_ATTEMPTS";
    public static String USERLOGON_ACCTTYPE = "USERLOGON_ACCTTYPE";
-   public static Integer MAX_ATTEMPTS = 2; // Offset from 0, therefore 2 = 3 attempts
+   public static Integer MAX_ATTEMPTS = 4; // Offset from 0, therefore 2 = 3 attempts
    public static String DB_FUNCTION_ADD = "A";
    public static String DB_FUNCTION_MOD = "M";
 
@@ -19,7 +19,7 @@ public class Const
    public static String MAIL_SENDER = "noreply@invessence.com";
    public static String MAIL_SUPPORT = "support@invessence.com";
 
-   public final static String HOME = "index.html";
+   public final static String URL_HOME = "index.html";
    public final static String DEFAULT_IMAGE = "invessence.jpg";
    public final static String ROLE_ADMIN = "ADMIN";
    public final static String ROLE_USER = "USER";

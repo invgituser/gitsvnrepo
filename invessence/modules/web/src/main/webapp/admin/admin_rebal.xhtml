@@ -82,21 +82,20 @@
                                      </p:column>
 
                                         <p:column headerText="Last Traded" style="width:10%; text-align: right">
-                                         #{filteredData.displayLastTraded}
+                                         #{filteredData.lastTraded}
                                      </p:column>
 
                                      <p:column headerText="AA Offset" style="width:10%; text-align: right">
-                                         #{filteredData.displayAAOffsetAPercent}
+                                         #{dataDisplayConverter.displayAsPercent(filteredData.assetAllocationOffset)}
                                      </p:column>
 
                                      <p:column headerText="Investment($)" style="width:15%; text-align: right">
-                                         <h:outputText value="#{filteredData.actualInvestment}">
-                                             <f:convertNumber pattern="###,###,###"/>
+                                         <h:outputText value="#{dataDisplayConverter.displayAsMoney(filteredData.actualInvestment)}">
                                          </h:outputText>
                                      </p:column>
 
                                      <p:column headerText="KeepLiquid" style="width:5%; text-align: right">
-                                         #{filteredData.displayKeepLiquid}
+                                         #{dataDisplayConverter.displayAsMoney(filteredData.keepLiquid)}
                                      </p:column>
                                      <p:column headerText="Position" style="width:15%; text-align: right">
                                          <h:outputText value="#{filteredData.position}">
@@ -108,8 +107,8 @@
                                          </h:outputText>
                                      </p:column>
                                      <p:column headerText="CurrentAlloc" style="width:5%; text-align: right">
-                                         <h:outputText value="#{filteredData.currentAllocation}">
-                                             <f:convertNumber pattern="##0.00"/>
+
+                                         <h:outputText value="#{dataDisplayConverter.displayAsPercent(filteredData.currentAllocation)}">
                                          </h:outputText>
                                      </p:column>
                                      <p:column headerText="RequiredAlloc" style="width:5%; text-align: right">

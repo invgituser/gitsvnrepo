@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import com.invessence.data.ManageGoals;
 import com.invessence.data.admin.AdminTradeClient;
 import com.invessence.data.advisor.AdvisorData;
+import com.invmodel.asset.data.Asset;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
@@ -23,6 +24,8 @@ public class AdvisorSaveSP extends StoredProcedure
          case 0: // Save Profile
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             declareParameter(new SqlParameter("p_firstname", Types.VARCHAR));
             declareParameter(new SqlParameter("p_lastname", Types.VARCHAR));
@@ -70,7 +73,6 @@ public class AdvisorSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
             declareParameter(new SqlParameter("p_subclass", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_exclude", Types.VARCHAR));
             break;
          default:
       }
@@ -85,7 +87,12 @@ public class AdvisorSaveSP extends StoredProcedure
          try {
             if (data != null) {
                inputMap.put("p_logonid", data.getLogonid());
-               inputMap.put("p_acctnum", data.getAcctnum());
+               if (data.getAcctnum() == null)
+                  inputMap.put("p_acctnum", -1);
+               else
+                  inputMap.put("p_acctnum", data.getAcctnum());
+               inputMap.put("p_advisor", data.getAdvisor());
+               inputMap.put("p_theme", data.getTheme());
                inputMap.put("p_email", data.getClientEmail());
                inputMap.put("p_firstname", data.getClientFirstName());
                inputMap.put("p_lastname", data.getClientLastname());
@@ -120,22 +127,29 @@ public class AdvisorSaveSP extends StoredProcedure
   @SuppressWarnings({"unchecked", "rawtypes"})
    public void saveAllocation(AdvisorData data)
    {
-      com.invmodel.asset.data.AssetClass aac[] = data.getAssetData();
-      int rowSize = aac[0].getOrderedAsset().size();
+      if (data.getEditableAsset() != null) {
+         int rowSize = data.getEditableAsset().size();
+         Asset aac;
 
-      for (int loop = 0; loop < rowSize; loop++)
-      {
-         Map inputAssetMap = new HashMap();
-         String assetname = aac[0].getOrderedAsset().get(loop);
-         inputAssetMap.put("p_addmodflag", "A");
-         inputAssetMap.put("p_acctnum", data.getAcctnum());
-         inputAssetMap.put("p_assetclass", assetname);
-         inputAssetMap.put("p_themecode", data.getTheme());
-         inputAssetMap.put("p_allocationmodel", "U");
-         inputAssetMap.put("p_assetyear", data.getCalendarYear());
-         inputAssetMap.put("p_active", "A");
-         inputAssetMap.put("p_weight", data.getAssetData()[0].getAssetRoundedActualWeight(assetname));
-         super.execute(inputAssetMap);
+         for (int loop = 0; loop < rowSize; loop++)
+         {
+            Map inputAssetMap = new HashMap();
+            aac =  data.getEditableAsset().get(loop);
+            String assetname = aac.getAsset();
+            inputAssetMap.put("p_addmodflag", "A");
+            inputAssetMap.put("p_acctnum", data.getAcctnum());
+            inputAssetMap.put("p_assetclass", assetname);
+            inputAssetMap.put("p_themecode", data.getTheme());
+            if (data.getUserAssetOverride())
+               inputAssetMap.put("p_allocationmodel", "U");
+            else
+               inputAssetMap.put("p_allocationmodel", "D");
+
+            inputAssetMap.put("p_assetyear", data.getAssetyear());
+            inputAssetMap.put("p_active", "A");
+            inputAssetMap.put("p_weight", aac.getRoundedActualWeight());
+            super.execute(inputAssetMap);
+         }
       }
    }
 
@@ -175,7 +189,7 @@ public class AdvisorSaveSP extends StoredProcedure
       }
    }
 
-   public void deleteSubAssetClass(AdvisorData data)
+   public void deleteExcludedSubclass(AdvisorData data)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", data.getAcctnum());
@@ -183,17 +197,16 @@ public class AdvisorSaveSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void saveSubAssetClass(AdvisorData data)
+   public void saveExcludedSubclass(AdvisorData data)
    {
 
-      int rowSize = data.getExcludeList().size();
+      int rowSize = data.getExcludedSubAsset().size();
       for (int loop = 0; loop < rowSize; loop++)
       {
          Map inputMap = new HashMap();
          inputMap.put("p_acctnum", data.getAcctnum());
-         inputMap.put("p_assetclass", data.getExcludeList().get(loop).getAssetType());
-         inputMap.put("p_subclass", data.getExcludeList().get(loop).getSubclass());
-         inputMap.put("p_exclude", "Y");
+         inputMap.put("p_assetclass", data.getExcludedSubAsset().get(loop).getParentclass());
+         inputMap.put("p_subclass", data.getExcludedSubAsset().get(loop).getSubasset());
          super.execute(inputMap);
       }
    }

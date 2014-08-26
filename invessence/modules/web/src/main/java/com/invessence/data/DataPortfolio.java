@@ -20,10 +20,13 @@ public class DataPortfolio implements Serializable
    private Integer share;
    private Double value;
    private Double tickerWeight;
+   private Double weight;
+
+   public DataPortfolio() {}
 
    public DataPortfolio(String assetType, String subclass, String color,
                         String symbol, String name, Integer share, Double price,
-                        Double value, Integer sortorder, Double tickerWeight)
+                        Double value, Integer sortorder, Double tickerWeight, Double weight)
    {
       this.assetType = assetType;
       this.subclass = subclass;
@@ -35,6 +38,7 @@ public class DataPortfolio implements Serializable
       this.share = share;
       this.value = value;
       this.tickerWeight = tickerWeight;
+      this.weight = weight;
 
    }
 
@@ -136,5 +140,15 @@ public class DataPortfolio implements Serializable
    public void setTickerWeight(Double tickerWeight)
    {
       this.tickerWeight = tickerWeight;
+   }
+
+   public Double getWeight()
+   {
+      return weight;
+   }
+
+   public void setWeight(Double weight)
+   {
+      this.weight = weight;
    }
 }

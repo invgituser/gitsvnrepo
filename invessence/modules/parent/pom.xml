@@ -12,6 +12,8 @@
 
    <properties>
       <invessence.version>1.0-SNAPSHOT</invessence.version>
+      <apache-poi>3.11-beta2</apache-poi>
+      <camel.version>2.11.0</camel.version>
       <commons-beanutils-version>1.8.0</commons-beanutils-version>
       <commons-dbcp-version>1.4</commons-dbcp-version>
       <commons-digester-version>2.0</commons-digester-version>
@@ -25,12 +27,14 @@
       <javax.faces-version>2.2.6</javax.faces-version>
       <javax.ws.rs-api-version>2.0-m02</javax.ws.rs-api-version>
       <jstl-version>1.2</jstl-version>
-      <camel.version>2.11.0</camel.version>
       <slf4j-api-version>1.6.6</slf4j-api-version>
       <slf4j-version>1.7.5</slf4j-version>
       <slf-log4j-version>1.7.5</slf-log4j-version>
       <log4j-version>1.2.17</log4j-version>
-      <mysql-connector-version>5.1.9</mysql-connector-version>
+      <mysql-connector-version>5.1.11</mysql-connector-version>
+      <!--
+            <mysql-connector-version>5.1.9</mysql-connector-version>
+      -->
       <junit-version>4.8.1</junit-version>
       <guava-version>r08</guava-version>
       <jersey-client-version>1.16</jersey-client-version>
@@ -47,10 +51,16 @@
       <bluesky-version>1.0.1</bluesky-version>
       <primefaces-version>4.0</primefaces-version>
       <primefaces-extensions-version>1.2.1</primefaces-extensions-version>
+      <primefaces-itext>2.1.7</primefaces-itext>
       <javax.servlet-api-version>3.0.1</javax.servlet-api-version>
       <javax.mail-version>1.4</javax.mail-version>
       <jfreechart-version>1.0.13</jfreechart-version>
-      <webcap-portfolioJ2SE-version>5.0</webcap-portfolioJ2SE-version>
+      <webcab-portfolioJ2SE-version>5.0</webcab-portfolioJ2SE-version>
+      <webcab-optimization-version>2.6</webcab-optimization-version>
+<!--
+      <webcab-optimizationEjbClient-version>2.6</webcab-optimizationEjbClient-version>
+      <webcab-qaLibrary-version>2.6</webcab-qaLibrary-version>
+-->
       <invessence-theme-version>1.0</invessence-theme-version>
       <fop-version>0.20.5</fop-version>
       <xalan-version>2.7.1</xalan-version>
@@ -63,6 +73,7 @@
       <jdbc.username>root</jdbc.username>
       <jdbc.password>password</jdbc.password>
       <google-api>1.18.0-rc</google-api>
+      <preetyfaces-version>2.0.12.Final</preetyfaces-version>
    </properties>
 
    <repositories>
@@ -252,11 +263,43 @@
             <artifactId>bluesky</artifactId>
             <version>${bluesky-version}</version>
          </dependency>
-          <dependency>
-             <groupId>webcap</groupId>
-             <artifactId>portfolioJ2SE</artifactId>
-             <version>${webcap-portfolioJ2SE-version}</version>
-             </dependency>
+         <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${apache-poi}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>${apache-poi}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lowagie</groupId>
+            <artifactId>itext</artifactId>
+            <version>${primefaces-itext}</version>
+        </dependency>
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>portfolioJ2SE</artifactId>
+          <version>${webcab-portfolioJ2SE-version}</version>
+        </dependency>
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>optimization</artifactId>
+          <version>${webcab-optimization-version}</version>
+        </dependency>
+<!--
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>optimizationEjbClient</artifactId>
+          <version>${webcab-optimizationEjbClient-version}</version>
+        </dependency>
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>qaLibrary</artifactId>
+          <version>${webcab-qaLibrary-version}</version>
+        </dependency>
+-->
          <dependency>
             <groupId>jfree</groupId>
             <artifactId>jfreechart</artifactId>
@@ -472,7 +515,19 @@
             <artifactId>google-api-client</artifactId>
             <version>${google-api}</version>
           </dependency>
+      <dependency>
+            <groupId>org.ocpsoft.rewrite</groupId>
+            <artifactId>rewrite-servlet</artifactId>
+            <version>${preetyfaces-version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.ocpsoft.rewrite</groupId>
+          <artifactId>rewrite-config-prettyfaces</artifactId>
+          <version>${preetyfaces-version}</version>
+      </dependency>
       </dependencies>
+      <!-- for JSF 2.x -->
+
    </dependencyManagement>
 
    <profiles>
@@ -480,7 +535,7 @@
          <id>1-LOCAL</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://localhost:3307/invdb</jdbc.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -490,6 +545,7 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
+            <advisor.input.datadir>C:\INV\advisor\input\</advisor.input.datadir>
             <ftp.localdir>C:\INV\Log\</ftp.localdir>
             <report.localdir>C:\INV\Rpt\</report.localdir>
             <doc.localdir>C:\INV\doc\</doc.localdir>
@@ -499,7 +555,7 @@
          <id>2-DEVTEST</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://69.195.39.117:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://dev.invessence.com:3306/invdb</jdbc.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -509,6 +565,7 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
+            <advisor.input.datadir>C:\INV\advisor\input\</advisor.input.datadir>
             <ftp.localdir>C:\INV\Log\</ftp.localdir>
             <report.localdir>C:\INV\Rpt\</report.localdir>
             <doc.localdir>C:\INV\doc\</doc.localdir>
@@ -518,7 +575,7 @@
          <id>3-DEV</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://69.195.39.117:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://dev.invessence.com:1008</apache.url>
@@ -528,6 +585,7 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
+            <advisor.input.datadir>/opt/dev/inv/advisor/input/</advisor.input.datadir>
             <ftp.localdir>/opt/dev/inv/data/</ftp.localdir>
             <report.localdir>/opt/dev/inv/rpt/</report.localdir>
             <doc.localdir>/opt/dev/inv/doc/</doc.localdir>
@@ -537,7 +595,7 @@
          <id>4-UAT</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://69.195.39.117:3306/uat_invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://uat.invessence.com:3306/uat_invdb</jdbc.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://uat.invessence.com:1008</apache.url>
@@ -547,6 +605,7 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
+            <advisor.input.datadir>/opt/uat/inv/advisor/input/</advisor.input.datadir>
             <ftp.localdir>/opt/uat/inv/data/</ftp.localdir>
             <report.localdir>/opt/uat/inv/rpt/</report.localdir>
             <doc.localdir>/opt/uat/inv/doc/</doc.localdir>
@@ -556,7 +615,7 @@
          <id>4.1-UAT-PROD</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://162.242.204.228:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://www.invessence.com:3306/invdb</jdbc.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>9TfrjNyqnERM</jdbc.password>
             <apache.url>http://uat.invessence.com:1008</apache.url>
@@ -566,6 +625,7 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
+            <advisor.input.datadir>/opt/uat/inv/advisor/input/</advisor.input.datadir>
             <ftp.localdir>/opt/uat/inv/data/</ftp.localdir>
             <report.localdir>/opt/uat/inv/rpt/</report.localdir>
             <doc.localdir>/opt/uat/inv/doc/</doc.localdir>
@@ -575,7 +635,7 @@
          <id>5-PROD-TEST</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://162.242.204.228:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://www.invessence.com:3306/invdb</jdbc.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>9TfrjNyqnERM</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -585,6 +645,7 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
+            <advisor.input.datadir>C:\INV\advisor\input\</advisor.input.datadir>
             <ftp.localdir>C:\INV\Log\</ftp.localdir>
             <report.localdir>C:\INV\Log\</report.localdir>
             <doc.localdir>C:\INV\doc\</doc.localdir>
@@ -604,6 +665,7 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
+            <advisor.input.datadir>/inv/advisor/input/</advisor.input.datadir>
             <ftp.localdir>/inv/data/</ftp.localdir>
             <report.localdir>/inv/rpt/</report.localdir>
             <doc.localdir>/inv/doc/</doc.localdir>

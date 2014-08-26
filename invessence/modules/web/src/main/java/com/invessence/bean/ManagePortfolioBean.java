@@ -60,7 +60,7 @@ public class ManagePortfolioBean implements Serializable
                DataPortfolio dp = new DataPortfolio(pfList.getAssetclass(), pfList.getSubclass(), pfList.getColor(),
                                                     pfList.getTicker(), pfList.getName(), (int) pfList.getShares(),
                                                     pfList.getDailyprice(), pfList.getMoney(), pfList.getSortorder(),
-                                                    pfList.getTickerWeights());
+                                                    pfList.getTickerWeights(), pfList.getWeight());
                portfolioList.add(loop, dp);
 
                this.totalshare = totalshare + (int) pfList.getShares();

@@ -25,13 +25,6 @@
                                             value="#{manageAdvisorBean.advisorManagedAccountList}"
                                             emptyMessage="No pending account found with given criteria"
                                             filteredValue="#{manageAdvisorBean.filteredManagedAccountList}">
-                                   <f:facet name="header" styleSheet="dtRAlign">
-                                       <p:outputPanel>
-                                           <h:outputText value="Search all fields:" />
-                                           <p:inputText id="managedGlobalFilter" onkeyup="PF('managedWidget').filter()"
-                                                        style="width:150px" placeholder="Enter keyword"/>
-                                       </p:outputPanel>
-                                   </f:facet>
                                    <p:column style="width:4%">
                                        <p:commandButton id="selectButton" process="@this" immediate="true"
                                                         icon="#{managedVar.actionIcon}"
@@ -43,34 +36,34 @@
                                    <p:column filterBy="#{managedVar.clientsFullName}" filterMatchMode="contains"
                                              sortBy="#{managedVar.clientsFullName}"
                                              headerText="Name" footerText="Contains"
-                                             style="width:25%; text-align: left"
+                                             style="width:20%; text-align: left"
                                              resizable="true">
                                        <h:outputText value="#{managedVar.clientsFullName}"/>
                                    </p:column>
                                    <p:column filterBy="#{managedVar.clientAccountID}" filterMatchMode="contains"
                                              sortBy="#{managedVar.clientAccountID}"
-                                             headerText="Name" footerText="Contains"
-                                             style="width:25%; text-align: left"
+                                             headerText="Acct#" footerText="Contains"
+                                             style="width:20%; text-align: left"
                                              resizable="true">
                                        <h:outputText value="#{managedVar.clientAccountID}"/>
                                    </p:column>
 
-                                   <p:column filterBy="#{managedVar.actualInvestment}" filterMatchMode="gte"
+                                   <p:column filterBy="#{managedVar.actualInvestment}" filterMatchMode="startsWith"
                                              sortBy="#{managedVar.actualInvestment}"
-                                             headerText="Capital($)" footerText="GTE"
+                                             headerText="Capital($)" footerText="StartsWith"
                                              style="width:10%; text-align: right"
                                              resizable="true">
                                        <h:outputText value="#{managedVar.actualInvestment}">
-                                           <f:convertNumber minFractionDigits="2"/>
+                                           <f:convertNumber currencySymbol="$" type="currency"/>
                                        </h:outputText>
                                    </p:column>
-                                   <p:column filterBy="#{managedVar.accrual}" filterMatchMode="gte"
+                                   <p:column filterBy="#{managedVar.accrual}" filterMatchMode="startsWith"
                                              sortBy="#{managedVar.accrual}"
-                                             headerText="Accrual" footerText="GTE"
+                                             headerText="Accrual" footerText="StartsWith"
                                              style="width:10%; text-align: right"
                                              resizable="true">
                                        <h:outputText value="#{managedVar.accrual}">
-                                           <f:convertNumber minFractionDigits="2"/>
+                                           <f:convertNumber currencySymbol="$" type="currency"/>
                                        </h:outputText>
                                    </p:column>
                                </p:dataTable>
@@ -82,13 +75,6 @@
                                              value="#{manageAdvisorBean.advisorPendingAccountList}"
                                              emptyMessage="No pending account found with given criteria"
                                              filteredValue="#{manageAdvisorBean.filteredPendingAccountList}">
-                                    <f:facet name="header">
-                                        <p:outputPanel>
-                                            <h:outputText value="Search all fields:" />
-                                            <p:inputText id="pendingGlobalFilter" onkeyup="PF('pendingWidget').filter()"
-                                                         style="width:150px" placeholder="Enter keyword"/>
-                                        </p:outputPanel>
-                                    </f:facet>
                                     <p:column style="width:4%">
                                         <p:commandButton id="selectButton" process="@this" immediate="true"
                                                          icon="#{pendingVar.actionIcon}"
@@ -98,45 +84,53 @@
                                         </p:commandButton>
                                     </p:column>
 
+                                    <p:column headerText="Acct#"
+                                              style="width:5%; text-align: right"
+                                              resizable="true">
+                                        <h:outputText value="#{pendingVar.acctnum}"/>
+                                    </p:column>
                                     <p:column filterBy="#{pendingVar.clientsFullName}" filterMatchMode="contains"
                                               sortBy="#{pendingVar.clientsFullName}"
                                               headerText="Name" footerText="Contains"
-                                              style="width:25%; text-align: left"
+                                              style="width:15%; text-align: left"
                                               resizable="true">
                                         <h:outputText value="#{pendingVar.clientsFullName}"/>
                                     </p:column>
 
-                                    <p:column filterBy="#{pendingVar.accountType}" filterMatchMode="exact"
+                                    <p:column filterBy="#{pendingVar.accountType}" filterMatchMode="contains"
                                               sortBy="#{pendingVar.accountType}"
-                                              headerText="Type" footerText="Exact"
-                                              style="width:15%; text-align: left"
+                                              headerText="Type" footerText="Contains"
+                                              style="width:12%; text-align: left"
                                               resizable="true">
                                         <h:outputText value="#{pendingVar.accountType}"/>
                                     </p:column>
 
-                                    <p:column filterBy="#{pendingVar.age}" filterMatchMode="lte"
+                                    <p:column filterBy="#{pendingVar.age}" filterMatchMode="startsWith"
                                               sortBy="#{pendingVar.age}"
-                                              headerText="Age" footerText="LTE"
-                                              style="width:4%; text-align: right"
-                                              resizable="true">
-                                        <h:outputText value="#{pendingVar.age}"/>
-                                    </p:column>
-
-                                    <p:column filterBy="#{pendingVar.horizon}" filterMatchMode="lte"
-                                              sortBy="#{pendingVar.horizon}"
-                                              headerText="Horizon" footerText="LTE"
-                                              style="width:4%; text-align: right"
-                                              resizable="true">
-                                        <h:outputText value="#{pendingVar.horizon}"/>
-                                    </p:column>
-
-                                    <p:column filterBy="#{pendingVar.initialInvestment}" filterMatchMode="gte"
-                                              sortBy="#{pendingVar.initialInvestment}"
-                                              headerText="Investment($)" footerText="GTE"
+                                              headerText="Age" footerText="StartsWith"
                                               style="width:10%; text-align: right"
                                               resizable="true">
+                                        <h:outputText value="#{pendingVar.age}">
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column filterBy="#{pendingVar.horizon}" filterMatchMode="startsWith"
+                                              sortBy="#{pendingVar.horizon}"
+                                              headerText="Horizon" footerText="StartsWith"
+                                              style="width:10%; text-align: right"
+                                              resizable="true">
+                                        <h:outputText value="#{pendingVar.horizon}">
+                                        </h:outputText>
+
+                                    </p:column>
+
+                                    <p:column filterBy="#{pendingVar.initialInvestment}" filterMatchMode="startsWith"
+                                              sortBy="#{pendingVar.initialInvestment}"
+                                              headerText="Investment($)" footerText="StartsWith"
+                                              style="width:13%; text-align: right"
+                                              resizable="true">
                                         <h:outputText value="#{pendingVar.initialInvestment}">
-                                            <f:convertNumber minFractionDigits="0"/>
+                                            <f:convertNumber currencySymbol="$" type="currency"/>
                                         </h:outputText>
                                     </p:column>
 

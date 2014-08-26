@@ -18,15 +18,7 @@
    <http pattern="/message.xhtml" security="none"/>
    <http pattern="/securitypolicy.html" security="none"/>
    <http pattern="/testDialog.xhtml" security="none"/>
-   <!--  Admin pages  -->
-   <http pattern="/admin.xhtml" security="none"/>
-   <http pattern="/admin_document.xhtml" security="none"/>
-   <http pattern="/admin_profile.xhtml" security="none"/>
-   <http pattern="/admin_rebal.xhtml" security="none"/>
-   <http pattern="/test.xhtml" security="none"/>
-
-   <http pattern="/advisor/**" security="none"/>
-
+   <http pattern="/test/**" security="none"/>
    <!--
       <http pattern="/chartTest.xhtml" security="none" />
       <http pattern="/chartTest2.xhtml"security="none" />
@@ -59,25 +51,16 @@
    <intercept-url pattern="/risktolerance.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
    <intercept-url pattern="/position.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
-      <!--  Account Take on process - Disabled  -->
-   <intercept-url pattern="/backup/createAccount.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/accountholder.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/contactinformation.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/financialprofile.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/employmentprofile.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/sourceoffund.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/updateAccounts.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/incomeandsavings.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/approvePortfolio.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-
       <!--  Test Pages - Disabled  -->
    <intercept-url pattern="/setPassword.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageportfolio2.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageportfolio2.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageAccount_bak.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
       <!--  Session Expired Page  -->
    <intercept-url pattern="/viewExpired.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+   <!--  Admin pages  -->
+   <intercept-url pattern="/admin/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+   <!--  Advisor pages  -->
+   <intercept-url pattern="/advisor/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
 

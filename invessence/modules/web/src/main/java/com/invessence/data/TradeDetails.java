@@ -2,7 +2,6 @@ package com.invessence.data;
 
 import java.io.Serializable;
 
-import com.invessence.converter.JavaUtil;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +12,6 @@ import com.invessence.converter.JavaUtil;
  */
 public class TradeDetails implements Serializable
 {
-   private JavaUtil javaUtil = new JavaUtil();
    private Long acctnum;
    private String clientAccountID;
    private String name;
@@ -117,10 +115,6 @@ public class TradeDetails implements Serializable
       return posqty;
    }
 
-   public String getDisplayPosqty() {
-      return javaUtil.displayFormat(getPosqty(),"##,###,###,###");
-   }
-
    public void setPosqty(Integer posqty)
    {
       this.posqty = posqty;
@@ -131,10 +125,6 @@ public class TradeDetails implements Serializable
       return newqty;
    }
 
-   public String getDisplayNewqty() {
-      return javaUtil.displayFormat(getNewqty(),"##,###,###,###");
-   }
-
    public void setNewqty(Integer newqty)
    {
       this.newqty = newqty;
@@ -143,10 +133,6 @@ public class TradeDetails implements Serializable
    public Integer getTradeqty()
    {
       return tradeqty;
-   }
-
-   public String getDisplayTradeqty() {
-      return javaUtil.displayFormat(getTradeqty(),"##,###,###,###");
    }
 
    public void setTradeqty(Integer tradeqty)
@@ -214,11 +200,6 @@ public class TradeDetails implements Serializable
       this.posamount = posamount;
    }
 
-   public String getDisplayPosamount()
-   {
-      return javaUtil.displayFormat(getPosamount(), "##,###,###,###.00");
-   }
-
    public Double getNewamount()
    {
       return newamount;
@@ -229,11 +210,6 @@ public class TradeDetails implements Serializable
       this.newamount = newamount;
    }
 
-   public String getDisplayNewamount()
-   {
-      return javaUtil.displayFormat(getNewamount(), "##,###,###,###.00");
-   }
-
    public Double getTradeamount()
    {
       return tradeamount;
@@ -242,11 +218,6 @@ public class TradeDetails implements Serializable
    public void setTradeamount(Double tradeamount)
    {
       this.tradeamount = tradeamount;
-   }
-
-   public String getDisplayTradeamount()
-   {
-      return javaUtil.displayFormat(getTradeamount(),"##,###,###,###.00");
    }
 
    public Double getRunningCash()

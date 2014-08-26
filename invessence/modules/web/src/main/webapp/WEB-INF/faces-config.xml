@@ -120,8 +120,12 @@
         <managed-bean-class>com.invessence.bean.advisor.AdvisorBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
-            <property-name>advisorSaveDataDAO</property-name>
+            <property-name>saveDAO</property-name>
             <value>#{advisorSaveDataDAO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>listDAO</property-name>
+            <value>#{advisorListDataDAO}</value>
         </managed-property>
         <managed-property>
             <property-name>messageText</property-name>
@@ -135,6 +139,10 @@
       <managed-property>
          <property-name>portfolioModel</property-name>
          <value>#{portfolioModel}</value>
+      </managed-property>
+      <managed-property>
+         <property-name>treeAssetFilterModel</property-name>
+         <value>#{treeAssetFilter}</value>
       </managed-property>
    </managed-bean>
 

@@ -67,6 +67,10 @@ public class AssetClass
       }
    }
 
+   public Map<String,Asset> getAssetclass() {
+       return this.assetclass;
+   }
+
    public Integer getAge()
    {
       return age;

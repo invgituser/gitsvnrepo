@@ -41,6 +41,7 @@ public class Position implements Serializable
    private String levelOfDetail;
 
    private String firstname, lastname;
+   private String dateOpened;
    private String IBacctnum;
 
    public Position()
@@ -332,6 +333,16 @@ public class Position implements Serializable
    public void setLastname(String lastname)
    {
       this.lastname = lastname;
+   }
+
+   public String getDateOpened()
+   {
+      return dateOpened;
+   }
+
+   public void setDateOpened(String dateOpened)
+   {
+      this.dateOpened = dateOpened;
    }
 
    public String getIBacctnum()

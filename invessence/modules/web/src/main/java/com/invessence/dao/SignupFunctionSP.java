@@ -28,23 +28,10 @@ public class SignupFunctionSP extends StoredProcedure
       declareParameter(new SqlParameter("p_email", Types.VARCHAR));
       declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));
       declareParameter(new SqlParameter("p_logonstatus", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_prefix", Types.VARCHAR));
       declareParameter(new SqlParameter("p_lastname", Types.VARCHAR));
       declareParameter(new SqlParameter("p_firstname", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_middlename", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_suffix", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_address", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_address2", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_address3", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_address4", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_city", Types.VARCHAR));
       declareParameter(new SqlParameter("p_state", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_zip", Types.VARCHAR));
       declareParameter(new SqlParameter("p_emailalt", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_phone", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_phonetype", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_phonealt", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_phonetypealt", Types.VARCHAR));
       declareParameter(new SqlParameter("p_leadsource", Types.VARCHAR));
       declareParameter(new SqlParameter("p_question1", Types.VARCHAR));
       declareParameter(new SqlParameter("p_answer1", Types.VARCHAR));
@@ -81,25 +68,13 @@ public class SignupFunctionSP extends StoredProcedure
          inputMap.put("p_logonstatus", data.getLogonstatus());
       }
 
-      inputMap.put("p_prefix", data.getPrefix());
       inputMap.put("p_lastname", data.getLastName());
       inputMap.put("p_firstname", data.getFirstName());
-      inputMap.put("p_middlename", data.getMiddleInitial());
-      inputMap.put("p_suffix", data.getSuffix());
 
-      inputMap.put("p_address", data.getAddress1());
-      inputMap.put("p_address2", data.getAddress2());
-      inputMap.put("p_address3", data.getAddress3());
-      inputMap.put("p_address4", data.getAddress4());
-      inputMap.put("p_city", data.getCity());
+
       inputMap.put("p_state", data.getStateCode());
-      inputMap.put("p_zip", data.getZipCode());
 
       inputMap.put("p_emailalt", data.getEmailalt());
-      inputMap.put("p_phone", data.getPhone());
-      inputMap.put("p_phonetype", data.getPhonetype());
-      inputMap.put("p_phonealt", data.getPhonealt());
-      inputMap.put("p_phonetypealt", data.getPhonealttype());
 
       inputMap.put("p_leadsource", data.getLeadsource());
       inputMap.put("p_question1", data.getQ1());

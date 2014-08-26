@@ -22,10 +22,10 @@
                       resizable="true">
                 <h:outputText value="#{ticker.subclass}"/>
             </p:column>
-            <p:column sortBy="#{ticker.tickerWeight}" headerText="% of Total"
+            <p:column sortBy="#{ticker.weight}" headerText="Weight"
                       style="width:30px; text-align: right" resizable="true">
-                <h:outputText value="#{ticker.tickerWeight}">
-                    <f:convertNumber pattern="###.##"/>
+                <h:outputText value="#{ticker.weight}">
+                    <f:convertNumber type="percent"/>
                 </h:outputText>
             </p:column>
             <p:column sortBy="#{ticker.symbol}" headerText="Ticker" style="width:100px; text-align: left" resizable="true">
@@ -39,16 +39,16 @@
                     <f:convertNumber pattern="###,###,###"/>
                 </h:outputText>
             </p:column>
-            <p:column sortBy="#{ticker.price}" headerText="Price($)" style="width:100px; text-align: right"
+            <p:column sortBy="#{ticker.price}" headerText="Price" style="width:100px; text-align: right"
                       resizable="true">
                 <h:outputText value="#{ticker.price}">
-                    <f:convertNumber minFractionDigits="2"/>
+                    <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2"/>
                 </h:outputText>
             </p:column>
-            <p:column sortBy="#{ticker.value}" headerText="Value($)" style="width:100px; text-align: right"
+            <p:column sortBy="#{ticker.value}" headerText="Value" style="width:100px; text-align: right"
                       resizable="true">
                 <h:outputText value="#{ticker.value}">
-                    <f:convertNumber minFractionDigits="2"/>
+                    <f:convertNumber type="currency" currencySymbol="$" minFractionDigits="2"/>
                 </h:outputText>
             </p:column>
 

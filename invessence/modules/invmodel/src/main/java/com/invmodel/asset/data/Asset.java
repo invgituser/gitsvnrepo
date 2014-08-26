@@ -4,8 +4,6 @@ import static com.invmodel.utils.XMLBuilder.buildElement;
 import static java.lang.String.valueOf;
 
 public class
-
-
    Asset
 {
    private String asset = "";
@@ -21,29 +19,46 @@ public class
    {
    }
 
-   public Asset(String asset, double weight, double avgReturn, String color)
+   public Asset(String asset, double actualweight, double avgReturn, String color)
    {
       super();
       setAsset(asset);
-      setActualweight(weight);
+      setActualweight(actualweight);
       setAvgReturn(avgReturn);
       setColor(color);
    }
 
-   public Asset(String asset, double weight, double avgReturn, String color, double risk, double expectedReturn)
+   public Asset(String asset, double actualweight, double avgReturn, String color, double risk, double expectedReturn)
    {
       super();
       setAsset(asset);
-      setActualweight(weight);
+      setActualweight(actualweight);
       setAvgReturn(avgReturn);
       setColor(color);
       setExpectedReturn(expectedReturn);
       setRisk(risk);
    }
 
+   private Double double_round(Double value) {
+      try {
+         Double tmp = ((Math.round(value * 1000.00)) / 1000.00); // First round to thousand's point.
+         return ((Math.round(tmp * 100.00)) / 100.00); // now round to 100th point
+      }
+      catch (Exception ex) {
+
+      }
+      return ((Math.round(value * 100.00)) / 100.00);
+   }
+
    public double getWeight()
    {
-      return weight;
+      // Version Advisor 1.4 (July 17, 2014)
+      // Round the number to two digits.
+      if (weight >= 100.00)
+         return 100.00;
+      else
+         return (weight);
+
    }
 
    public void setWeight(double weight)
@@ -55,17 +70,34 @@ public class
 
    private void saveWeight(double weight)
    {
-      this.weight = Math.round(weight * 10000.00) / 100.00;
+      this.weight = Math.round(weight * 100.00);
    }
 
    public double getActualweight()
    {
+      // Version Advisor 1.4 (July 17, 2014)
+      // Round the number to two digits.
       return actualweight;
+
+ /*     if (actualweight >= 1.00)
+         return 1.00;
+      else {
+         return (Math.round(actualweight * 10.00) / 10.00);
+      }*/
    }
 
    public void setActualweight(double actualweight)
    {
+      Integer tmp;
+
+      // Round the number to two digits only.
       this.actualweight = actualweight;
+/*
+      if (actualweight == 0.0)
+         this.actualweight = actualweight;
+      else
+         this.actualweight = double_round(actualweight);
+*/
       saveWeight(actualweight);
    }
 

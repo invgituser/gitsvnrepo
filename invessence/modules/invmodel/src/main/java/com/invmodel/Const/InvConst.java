@@ -10,8 +10,10 @@ package com.invmodel.Const;
 public class InvConst
 {
    // Used in Asset Model
-   public static String DEFAULT_ADVISOR="INVESSENCE";
-   public static String DEFAULT_THEME="BALANCE";
+   public static String DEFAULT_ADVISOR="DEFAULT";
+   public static String DEFAULT_THEME="DEFAULT";
+   public static String INVESSENCE_ADVISOR="INVESSENCE";
+   public static String CORE_THEME="CORE";
 
    public static Double MNGT_FEES = 0.0025;
    public static double MIN_MNGT_FEES_DOLLARS = 250.0;

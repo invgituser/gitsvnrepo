@@ -20,8 +20,15 @@ public class ManageAdvisorBean implements Serializable
 {
    private static final long serialVersionUID = 100003L;
 
+
+   @ManagedProperty("#{advisorBean}")
+   private AdvisorBean abean;
+
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
+
+   @ManagedProperty("#{positionBean}")
+   private PositionBean positionBean;
 
    private List<AdvisorData> advisorManagedAccountList;
    private List<AdvisorData> advisorPendingAccountList;
@@ -54,7 +61,7 @@ public class ManageAdvisorBean implements Serializable
       {
          if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM) == null)
          {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
          }
 
          if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM) != null)
@@ -62,15 +69,31 @@ public class ManageAdvisorBean implements Serializable
             setLogonid((Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM));
             collectData(getLogonid());
          }
-         else
-         {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-         }
       }
       catch (Exception e)
       {
          e.printStackTrace();
       }
+   }
+
+   public AdvisorBean getAbean()
+   {
+      return abean;
+   }
+
+   public void setAbean(AdvisorBean abean)
+   {
+      this.abean = abean;
+   }
+
+   public PositionBean getPositionBean()
+   {
+      return positionBean;
+   }
+
+   public void setPositionBean(PositionBean positionBean)
+   {
+      this.positionBean = positionBean;
    }
 
    public void setAdvisorListDataDAO(AdvisorListDataDAO advisorListDataDAO)
@@ -88,9 +111,10 @@ public class ManageAdvisorBean implements Serializable
                advisorManagedAccountList.clear();
             if (advisorPendingAccountList != null)
                advisorPendingAccountList.clear();
-            advisorManagedAccountList = advisorListDataDAO.getAccountData(logonid,"Active");
-            advisorPendingAccountList = advisorListDataDAO.getAccountData(logonid,"Pending");
+            advisorManagedAccountList = advisorListDataDAO.getListOfAccounts(logonid, "Active");
+            advisorPendingAccountList = advisorListDataDAO.getListOfAccounts(logonid, "Pending");
          }
+
 
       }
       catch (Exception ex)
@@ -147,6 +171,8 @@ public class ManageAdvisorBean implements Serializable
    public void setSelectedAccount(AdvisorData selectedAccount)
    {
       this.selectedAccount = selectedAccount;
+      setAcctnum(selectedAccount.getAcctnum());
+      setLogonid(selectedAccount.getLogonid());
    }
 
    public Long getAcctnum()
@@ -182,12 +208,15 @@ public class ManageAdvisorBean implements Serializable
 
          if (getSelectedAccount().getAcctstatus().equals("Active"))
          {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.ACCTNO_PARAM, getSelectedAccount().getAcctnum());
+            positionBean.findPosition(getLogonid(), getSelectedAccount().getAcctnum());
             whichXML = "/advisor/position.xhtml";
             //advisorpositionBean.findPosition(getLogonid(), getAcctnum());
          }
          else
          {
-            whichXML = "/advisor/custProfile.xhtml";
+            abean.loadData(getSelectedAccount().getAcctnum());
+            whichXML = "/advisor/add.xhtml";
             //advisorBean.findGoals(getLogonid(), getAcctnum());
          }
 

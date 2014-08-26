@@ -5,6 +5,7 @@ import java.util.*;
 import com.invessence.data.*;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.portfolio.PortfolioModel;
+import com.invmodel.portfolio.data.PortfolioSubclass;
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,16 +17,23 @@ import com.invmodel.portfolio.PortfolioModel;
 @SuppressWarnings("UnusedDeclaration")
 public class AdvisorData extends ManageGoals
 {
+
    private Long clientLogonID;
    private String clientFirstName;
    private String clientLastname;
    private String clientEmail;
+   private Integer advisorRiskIndex;
+
    private String action;
    private String actionIcon;
 
    private List<String> filteredOption;
-   private List<DataPortfolio> excludeList = new ArrayList<DataPortfolio>();
+   private List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
+   private ArrayList<String> advisorBasket = new ArrayList<String>();
 
+   public AdvisorData getInstance() {
+      return this;
+   }
 
    public Long getClientLogonID()
    {
@@ -82,6 +90,27 @@ public class AdvisorData extends ManageGoals
       this.clientEmail = clientEmail;
    }
 
+   public Integer getAdvisorRiskIndex()
+   {
+      return advisorRiskIndex;
+   }
+
+   public void setConvertRiskIndex(Integer riskIndex)
+   {
+      Integer weightedRisk;
+      weightedRisk = (int) (10.0 - (Math.round(riskIndex.doubleValue() / 2.9)));
+      this.advisorRiskIndex = weightedRisk;
+      setRiskIndex(riskIndex);
+   }
+
+   public void setAdvisorRiskIndex(Integer advisorRiskIndex)
+   {
+      Double weightedRisk;
+      this.advisorRiskIndex = advisorRiskIndex;
+      weightedRisk = 28 - ((2.0 * advisorRiskIndex.doubleValue()) + Math.round(advisorRiskIndex.doubleValue() / 1.2));
+      setRiskIndex(weightedRisk.intValue());
+   }
+
    public List<String> getFilteredOption()
    {
       return filteredOption;
@@ -92,14 +121,14 @@ public class AdvisorData extends ManageGoals
       this.filteredOption = filteredOption;
    }
 
-   public List<DataPortfolio> getExcludeList()
+   public ArrayList<String> getAdvisorBasket()
    {
-      return excludeList;
+      return advisorBasket;
    }
 
-   public void setExcludeList(List<DataPortfolio> excludeList)
+   public void setAdvisorBasket(ArrayList<String> advisorBasket)
    {
-      this.excludeList = excludeList;
+      this.advisorBasket = advisorBasket;
    }
 
    public String getAction()
@@ -132,4 +161,37 @@ public class AdvisorData extends ManageGoals
    {
       this.actionIcon = actionIcon;
    }
+
+   public List<PortfolioSubclass> getExcludedSubAsset()
+   {
+      return excludedSubAsset;
+   }
+
+   public void setExcludedSubAsset(List<PortfolioSubclass> excludedSubAsset)
+   {
+      this.excludedSubAsset = excludedSubAsset;
+   }
+
+   public void resetAdvisorData() {
+      // Clean up ManageGoals Data first.
+      resetManagedGoalData();
+
+      setClientLogonID(null);
+      setClientFirstName(null);
+      setClientLastname(null);
+      setClientEmail(null);
+      setAction(null);
+      setActionIcon(null);
+
+      if (filteredOption != null)
+         filteredOption.clear();
+      if (excludedSubAsset != null)
+         excludedSubAsset.clear();
+      if (advisorBasket != null)
+         advisorBasket.clear();
+
+
+
+   }
+
 }

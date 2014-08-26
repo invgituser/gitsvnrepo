@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.*;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,10 +12,14 @@ import com.invessence.constant.Const;
 import com.invessence.dao.PositionDAO;
 import com.invessence.data.*;
 
+@ManagedBean(name = "positionBean")
+@SessionScoped
 public class PositionBean implements Serializable
 {
    private static final long serialVersionUID = 1003L;
    private List<Position> positionList;
+
+   @ManagedProperty("#{positionDAO}")
    private PositionDAO positionDAO;
 
    private Integer totalshare;
@@ -23,6 +28,7 @@ public class PositionBean implements Serializable
    private Double totalpnl;
    private Long logonid;
    private Long acctnum;
+   private String firstname, lastname, dateOpened, clientAccountID;
 
    @PostConstruct
    public void init()
@@ -31,19 +37,7 @@ public class PositionBean implements Serializable
       try
       {
          if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM) == null)
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-
-         if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.ACCTNO_PARAM) != null)
-         {
-            setLogonid((Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM));
-            setAcctnum((Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.ACCTNO_PARAM));
-
-            collectData();
-         }
-         else
-         {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-         }
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/login.xhtml");
       }
       catch (Exception e)
       {
@@ -86,6 +80,49 @@ public class PositionBean implements Serializable
    public void setAcctnum(Long acctnum)
    {
       this.acctnum = acctnum;
+   }
+
+   public String getFirstname()
+   {
+      return firstname;
+   }
+
+   public void setFirstname(String firstname)
+   {
+      this.firstname = firstname;
+   }
+
+   public String getLastname()
+   {
+      return lastname;
+   }
+
+   public void setLastname(String lastname)
+   {
+      this.lastname = lastname;
+   }
+
+   public String getDateOpened()
+   {
+      if (dateOpened != null) {
+         return dateOpened.substring(0,4) +"-" + dateOpened.substring(4,6) + "-" +dateOpened.substring(6);
+      }
+      return dateOpened;
+   }
+
+   public void setDateOpened(String dateOpened)
+   {
+      this.dateOpened = dateOpened;
+   }
+
+   public String getClientAccountID()
+   {
+      return clientAccountID;
+   }
+
+   public void setClientAccountID(String clientAccountID)
+   {
+      this.clientAccountID = clientAccountID;
    }
 
    public void collectData()
@@ -139,6 +176,12 @@ public class PositionBean implements Serializable
          for (int loop = 0; loop < rows; loop++)
          {
             Position position = positionList.get(loop);
+            if (loop == 0) {
+               setFirstname(position.getFirstname());
+               setLastname(position.getLastname());
+               setDateOpened(position.getDateOpened());
+               setClientAccountID(position.getClientAccountID());
+            }
             this.totalshare = this.totalshare + position.getQty();
             this.totalmoney = this.totalmoney + position.getCostBasisMoney();
             this.totalvalue = this.totalvalue + position.getInvested();
@@ -199,7 +242,7 @@ public class PositionBean implements Serializable
       {
          DecimalFormat df = new DecimalFormat("###,####,##0.00");
          String strValue = df.format(getTotalvalue());
-         return strValue;
+         return "$" + strValue;
       }
       else
       {
@@ -226,7 +269,7 @@ public class PositionBean implements Serializable
       {
          DecimalFormat df = new DecimalFormat("###,####,##0.00");
          String strValue = df.format(getTotalmoney());
-         return strValue;
+         return "$" + strValue;
       }
       else
       {
@@ -240,7 +283,7 @@ public class PositionBean implements Serializable
       {
          DecimalFormat df = new DecimalFormat("###,####,##0.00");
          String strValue = df.format(getTotalpnl());
-         return strValue;
+         return "$" + strValue;
       }
       else
       {

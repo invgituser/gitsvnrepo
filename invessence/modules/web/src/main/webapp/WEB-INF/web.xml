@@ -27,7 +27,7 @@
     </context-param>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>invessence</param-value>
+        <param-value>advisor</param-value>
     </context-param>
     <!-- Welcome page -->
     <welcome-file-list>
@@ -35,6 +35,15 @@
     </welcome-file-list>
 
     <!-- JSF mapping -->
+   <filter>
+       <filter-name>PrimeFaces FileUpload Filter</filter-name>
+       <filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
+    </filter>
+   <filter-mapping>
+       <filter-name>PrimeFaces FileUpload Filter</filter-name>
+       <servlet-name>Faces Servlet</servlet-name>
+   </filter-mapping>
+
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -44,23 +53,11 @@
     <!-- Map these files with JSF -->
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.faces</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Invessence</servlet-name>
-        <url-pattern>*.htm</url-pattern>
     </servlet-mapping>
 
 
@@ -111,7 +108,6 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
@@ -119,6 +115,7 @@
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>FORWARD</dispatcher>
     </filter-mapping>
+
 
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

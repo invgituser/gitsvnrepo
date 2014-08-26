@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+    <h:form id="tradeReviewform">
+        <p:dataTable id="tradeData" var="ticker" value="#{advisorBean.portfolioList}"
+                     rowKey="#{ticker.symbol}"
+                     styleClass="invTradeTable">
+            <f:facet name="header" style="text-align: right;">
+                <h:commandLink>
+                    <p:graphicImage value="/images/csv.png" width="24"/>
+                    <p:dataExporter type="csv" target="tradeData" fileName="trades"/>
+                </h:commandLink>
+            </f:facet>
+
+            <p:column sortBy="#{ticker.assetType}"
+                      style="width:90px; text-align: left; background-color: #{ticker.color}"
+                      headerText="Asset Type" resizable="true">
+                <h:outputText value="#{ticker.assetType}"/>
+            </p:column>
+            <p:column sortBy="#{ticker.subclass}" headerText="Sub Asset Type"
+                      style="width:120px; text-align: left"
+                      resizable="true">
+                <h:outputText value="#{ticker.subclass}"/>
+            </p:column>
+            <p:column sortBy="#{ticker.weight}" headerText="Weight"
+                      style="width:60px; text-align: right" resizable="true">
+                <h:outputText value="#{ticker.weight}">
+                    <f:convertNumber type="percent"/>
+                </h:outputText>
+            </p:column>
+            <p:column sortBy="#{ticker.symbol}" headerText="Ticker"
+                      style="width:55px; text-align: left" resizable="true">
+                <h:outputText value="#{ticker.symbol}"/>
+            </p:column>
+            <p:column sortBy="#{ticker.name}" headerText="Name"
+                      style="width:200px; text-align: left" resizable="true">
+                <h:outputText value="#{ticker.name}"/>
+            </p:column>
+            <p:column sortBy="#{ticker.price}" headerText="Price"
+                      style="width:60px; text-align: right"
+                      resizable="true">
+                <h:outputText value="#{ticker.price}">
+                    <f:convertNumber currencySymbol="$" type="currency"/>
+                </h:outputText>
+            </p:column>
+            <p:column sortBy="#{ticker.value}" headerText="Value"
+                      style="width:90px; text-align: right"
+                      resizable="true">
+                <h:outputText value="#{ticker.value}">
+                    <f:convertNumber currencySymbol="$" type="currency"/>
+                </h:outputText>
+            </p:column>
+
+            <p:columnGroup type="footer">
+                <p:row>
+                    <p:column>
+                    </p:column>
+                    <p:column colspan="4" footerText="Total" style="text-align:right"/>
+
+                    <p:column colspan="2" style="text-align:right"
+                              footerText="#{dataDisplayConverter.displayAsMoney(advisorBean.totalMoneyAllocated)}">
+                    </p:column>
+                </p:row>
+            </p:columnGroup>
+        </p:dataTable>
+
+        <p:panelGrid id="trActionGrid" styleClass="invNBgrid">
+            <p:row>
+                <p:column style="width:15%;">
+                    <h3>Export Data</h3>
+                </p:column>
+                <p:column style="width:10%;">
+                    <h:commandLink>
+                        <p:graphicImage value="/images/csv.png" width="24"/>
+                        <p:dataExporter type="csv" target="tradeData" fileName="trades"/>
+                    </h:commandLink>
+
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column style="text-align: left;width: 10%">
+                    <p:commandButton value="Previous" icon="ui-icon-arrowthick-1-w"
+                                     process="@this" update="@form" ajax="true"
+                                     action="#{advisorBean.saveData}" oncomplete="advisorTabView.select(2)"/>
+                </p:column>
+                <p:column style="width: 80%">
+                </p:column>
+                <p:column style="text-align: right;width: 10%">
+                    <p:commandButton value="Next" icon="ui-icon-arrowthick-1-e"
+                                     process="@this" update="@form" ajax="true"
+                                     action="#{advisorBean.saveData}" oncomplete="advisorTabView.select(4)"/>
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+
+    </h:form>
+
+
+</h:body>
+</html>
