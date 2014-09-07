@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:head>
+    <style type="text/css">
+        .ui-panelgrid td, .ui-panelgrid tr
+        {
+            border-style: none !important
+        }
+    </style>
+</h:head>
+<h:body>
+    <p:panel id="emppanel">
+    <p:messages/>
+    <p:panelGrid columns="2" cellpadding="10" id="employmentgrid">
+
+        <h:outputLabel for="employmentstatus" value="Employment Status: "/>
+        <h:selectOneMenu id="employmentstatus" value="#{accountholder.employmentStatus}">
+            <f:selectItem itemLabel="-- Select Employment Status --" itemValue="0"/>
+            <f:selectItem itemLabel="Employed" itemValue="1"/>
+            <f:selectItem itemLabel="Retired" itemValue="2"/>
+            <f:selectItem itemLabel="Self Employed" itemValue="3"/>
+            <f:selectItem itemLabel="Student / Intern" itemValue="4"/>
+            <f:selectItem itemLabel="At Home trader (No other Occupation)" itemValue="5"/>
+            <f:selectItem itemLabel="Unemployed" itemValue="6"/>
+            <f:selectItem itemLabel="Home maker" itemValue="7"/>
+        </h:selectOneMenu>
+
+        <h:outputLabel for="employername" value="Employer: "/>
+        <p:inputText id="employername" value="#{accountholder.employerName}" maxlength="50" size="50"/>
+
+        <h:outputLabel for="natureofbusiness" value="Nature Of Business *"/>
+        <h:selectOneMenu id="natureofbusiness" value="#{accountholder.natureOfBusiness}" required="true"
+                         requiredMessage="Please select occupation." validatorMessage="Please select occupation.">
+            <f:selectItem itemLabel="-- Select Nature of Business -- " itemValue=""/>
+            <f:selectItem itemLabel="Architecture and Engineering" itemValue="1"/>
+            <f:selectItem itemLabel="Arts, Design, Entertainment, Sports, and Media" itemValue="2"/>
+            <f:selectItem itemLabel="Building and Grounds Cleaning and Maintenance" itemValue="3"/>
+            <f:selectItem itemLabel="Business and Financial Operations" itemValue="4"/>
+            <f:selectItem itemLabel="Community and Social Service" itemValue="4"/>
+            <f:selectItem itemLabel="Computer and Mathematical" itemValue="5"/>
+            <f:selectItem itemLabel="Construction and Extraction" itemValue="6"/>
+            <f:selectItem itemLabel="Education, Training, and Library" itemValue="7"/>
+            <f:selectItem itemLabel="Farming, Fishing, and Forestry" itemValue="8"/>
+            <f:selectItem itemLabel="Food Preparation and Serving" itemValue="9"/>
+            <f:selectItem itemLabel="Healthcare Practitioners and Technical" itemValue="10"/>
+            <f:selectItem itemLabel="Healthcare Support" itemValue="11"/>
+            <f:selectItem itemLabel="Installation, Maintenance, and Repair" itemValue="12"/>
+            <f:selectItem itemLabel="Legal" itemValue="13"/>
+            <f:selectItem itemLabel="Life, Physical, and Social Science" itemValue="14"/>
+            <f:selectItem itemLabel="Management" itemValue="15"/>
+            <f:selectItem itemLabel="Military Specific" itemValue="16"/>
+            <f:selectItem itemLabel="Office and Administrative Support" itemValue="17"/>
+            <f:selectItem itemLabel="Personal Care and Service" itemValue="18"/>
+            <f:selectItem itemLabel="Production/Manufacturing" itemValue="19"/>
+            <f:selectItem itemLabel="Protective Service" itemValue="20"/>
+            <f:selectItem itemLabel="Sales and Related" itemValue="21"/>
+            <f:selectItem itemLabel="Transportation and Material Moving" itemValue="22"/>
+            <f:selectItem itemLabel="Other" itemValue="23"/>
+            <f:validateLength minimum="1"/>
+        </h:selectOneMenu>
+
+        <h:outputLabel for="occupation" value="Occupation: "/>
+        <p:inputText id="occupation" value="#{accountholder.occupation}" maxlength="50" size="50"/>
+
+        <h:outputLabel for="employeraddress1" value="Address Line 1: "/>
+        <p:inputText id="employeraddress1" value="#{accountholder.employerAddress1}" maxlength="50" size="25"/>
+
+        <h:outputLabel for="employeraddress2" value="Address Line 2: "/>
+        <p:inputText id="employeraddress2" value="#{accountholder.employerAddress2}" maxlength="50" size="25"/>
+
+
+        <h:outputLabel for="employercity" value="City: "/>
+        <p:inputText id="employercity" value="#{accountholder.employerCity}" maxlength="25" size="10"/>
+
+        <h:outputLabel for="employerstate" value="State: "/>
+        <p:inputText id="employerstate" value="#{accountholder.employerStateName}" maxlength="25" size="10"/>
+
+        <h:outputLabel for="employerzipcode" value="Zipcode: "/>
+        <p:inputText id="employerzipcode" value="#{accountholder.employerZipCode}" maxlength="25" size="10">
+            <pe:keyFilter regEx="/[\d]/"/>
+        </p:inputText>
+
+        <h:outputLabel for="employercountryofresidence" value="Country: "/>
+        <h:selectOneMenu value="#{accountholder.countryOfResidenceId}" id="countries">
+            <f:selectItem itemLabel="-- Select a Country -- " itemValue="0"/>
+            <f:selectItems value="#{accountholder.countries}" var="country" itemValue="#{country.id}"
+                           itemLabel="#{country.name}"/>
+        </h:selectOneMenu>
+
+
+        <f:facet name="footer">
+            <p:commandButton value="Next" actionListener="#{accountholder.saveEmploymentProfile}"
+                             icon="ui-icon-check" ajax="true" update="emppanel"
+                             oncomplete="if (!args.validationFailed){AccountTabView.select(3);}" style="margin:0"/>
+        </f:facet>
+    </p:panelGrid>
+    </p:panel>
+</h:body>
+</html>
