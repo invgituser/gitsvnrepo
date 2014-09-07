@@ -211,6 +211,13 @@
         </managed-property>
     </managed-bean>
 
+   <!-- Client Take On Process-->
+   <managed-bean>
+        <managed-bean-name>accountholder</managed-bean-name>
+        <managed-bean-class>com.invessence.bean.AccountHolderBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+   </managed-bean>
+
    <navigation-rule>
         <from-view-id>/signup.xhtml</from-view-id>
         <navigation-case>
