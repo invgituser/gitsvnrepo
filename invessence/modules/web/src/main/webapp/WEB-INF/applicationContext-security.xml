@@ -19,6 +19,7 @@
    <http pattern="/securitypolicy.html" security="none"/>
    <http pattern="/testDialog.xhtml" security="none"/>
    <http pattern="/test/**" security="none"/>
+   <http pattern="/clienttakeon.xhtml" security="none"/>
    <!--
       <http pattern="/chartTest.xhtml" security="none" />
       <http pattern="/chartTest2.xhtml"security="none" />
