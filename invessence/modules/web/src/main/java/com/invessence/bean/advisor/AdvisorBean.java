@@ -7,13 +7,13 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.faces.event.*;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
 import com.invessence.constant.Const;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.*;
 import com.invessence.data.advisor.*;
-import com.invessence.util.EmailMessage;
+import com.invessence.util.*;
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.AssetClass;
 import com.invmodel.inputData.*;
@@ -29,6 +29,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class AdvisorBean extends AdvisorData implements Serializable
 {
    private static final long serialVersionUID = 100001L;
+   UserValidation uval = new UserValidation();
 
    private AdvisorSaveDataDAO saveDAO;
    private AdvisorListDataDAO listDAO;
@@ -490,6 +491,27 @@ public class AdvisorBean extends AdvisorData implements Serializable
       }
       catch (Exception ex) {
 
+      }
+   }
+
+   private Boolean canOpenAccount = true;
+
+   public void setCanOpenAccount(Boolean canOpenAccount)
+   {
+      this.canOpenAccount = canOpenAccount;
+   }
+
+   public Boolean getCanOpenAccount() {
+      return this.canOpenAccount;
+   }
+
+   public void forwardToIB() {
+
+      if (getCanOpenAccount()) {
+         FacesContext facesContext = FacesContext.getCurrentInstance();
+         HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
+         httpSession.invalidate();
+         uval.redirect(getIblink(),null);
       }
    }
 
