@@ -75,8 +75,12 @@
                                      required="true" requiredMessage="Select one investment goal."
                                      validatorMessage="Select one investment goal.">
                         <f:selectItem itemLabel="Choose One" itemValue=""/>
-                        <f:selectItem itemLabel="Taxable" itemValue="Taxable"/>
                         <f:selectItem itemLabel="Non-Taxable" itemValue="Non-Taxable"/>
+                        <f:selectItem itemLabel="Taxable" itemValue="Taxable" itemDisabled="true"/>
+                        <f:selectItem itemLabel="Individual" itemValue="Individual"/>
+                        <f:selectItem itemLabel="Joint" itemValue="Joint"/>
+                        <f:selectItem itemLabel="Trust" itemValue="Trust"/>
+                        <f:selectItem itemLabel="Organization" itemValue="Organization"/>
                     </p:selectOneMenu>
                 </p:column>
              </p:row>
