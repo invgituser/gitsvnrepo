@@ -212,3 +212,9 @@ img {
 .ui-datatable .dtRAlign {
     text-align: right !important;
 }
+
+.footerLink {
+    color: #ffffff !important;
+    text-decoration: underline;
+    font-weight: bold;
+}
