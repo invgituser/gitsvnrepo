@@ -62,7 +62,7 @@ public class EmailMessage implements MessageSourceAware, Serializable
      return getMessagetext(text_version, obj);
    }
 
-   private String getMessagetext(String inputText, Object [] obj) {
+   public String getMessagetext(String inputText, Object [] obj) {
       String msgText = null;
       try {
          if (obj == null) {

@@ -19,10 +19,8 @@ import webcab.lib.finance.portfolio.*;
 public class AssetAllocationModel
 {
    private static AssetAllocationModel instance = null;
-   private CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
    private AssetParameters assetParameters = new AssetParameters();
-   private AssetDBCollection assetdao;
-   private HistoricalReturns hr;
+   private PortfolioOptimizer portfolioOptimizer;
 
    public static synchronized AssetAllocationModel getInstance()
    {
@@ -38,99 +36,36 @@ public class AssetAllocationModel
    {
    }
 
-   public void setAssetdao(AssetDBCollection assetdao)
+   public void setPortfolioOptimizer(PortfolioOptimizer portfolioOptimizer)
    {
-      this.assetdao = assetdao;
-   }
-
-   public void setHr(HistoricalReturns hr)
-   {
-      this.hr = hr;
-   }
-
-   private void initAllocation(String groupname)
-   {
-      try
-      {
-         // assetdao.loadDataFromDB();  // Load data from database.
-         String[] indexFund = assetdao.getAssetOrderedIndex(groupname);
-
-         //hr.loadHistoricalReturns();
-
-         double[][] histReturns = hr.getHistoricalReturnsArray(indexFund);
-         if (histReturns != null)
-         {
-            //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(histReturns);
-            double[] expectedReturnsOfFunds = assetdao.getAssetOrderedAvgReturns(groupname);
-            double[][] covarianceOfFunds = assetParameters.covarianceMatrix(histReturns);
-
-            // Here we evaluate the maximum expected return  of  the  Portfolio's  on
-            // the Efficient Frontier.
-            double maxReturn1 = instanceOfCapitalMarket.maxFrontierReturn(expectedReturnsOfFunds);
-            // Here we evaluate the minimum expected return of the Portfolio's on  the
-            // Efficient Frontier.
-            double minReturn1 = instanceOfCapitalMarket.minFrontierReturn(expectedReturnsOfFunds);
-
-            //Set lower and upper bound conditions
-
-
-            double[] lowerBound = assetdao.getAssetOrderedLowerBound(groupname);
-            double[] upperBound = assetdao.getAssetOrderedUpperBound(groupname);
-
-
-            instanceOfCapitalMarket.setConstraints(lowerBound, upperBound);
-
-            instanceOfCapitalMarket.calculateEfficientFrontier(
-               minReturn1, // minimumExpectedReturn
-               maxReturn1, // maximumExpectedReturn
-               covarianceOfFunds,//Covariance matrix
-               expectedReturnsOfFunds, // expectedReturns
-               InvConst.ASSET_INTERPOLATION, // numberInterpolationPoints
-               InvConst.ASSET_PRECISION  // precision
-            );
-
-            //double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks( covarianceOfFunds);
-
-         }
-
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-
+      this.portfolioOptimizer = portfolioOptimizer;
    }
 
    public AssetClass[] getAssetDistribution(ProfileData pdata)
    {
       AssetClass[] assetclass;
       Double adj_riskOffet;
+      String theme;
       try
       {
-         Integer age = (pdata.getAge() == null) ? 30 : pdata.getAge();
-         Integer adjduration;
-         if ((70 - age) > 0)
-            adjduration = 70 - age;
-         else
-            adjduration = 1;
-         Integer duration = (pdata.getHorizon() == null) ? adjduration : pdata.getHorizon();
-         duration = (duration <= 0) ? 1: duration;
+         Integer age = pdata.getDefaultAge();
+         Integer duration = pdata.getDefaultHorizon();
          Integer riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
          Integer stayInvested = pdata.getStayInvested();
          Integer objective = pdata.getObjective();
          adj_riskOffet = calc_riskOffset(age,duration,riskIndex);
 
-         // Objective = 1 then preservation of assets   JAV 1/7/2014
-         //if (objective == 1 )
-         //   adj_riskOffet = 0.5 * adj_riskOffet;
-
-         //Set tax rate
          pdata.taxRate();
 
-         initAllocation(pdata.getAdvisor());
+         theme = pdata.getTheme();
+         if (theme == null || theme.length() == 0)
+            theme = InvConst.DEFAULT_THEME;
 
-         // Weights of the portfolio on the Efficient Frontier.
-         double[][] weights = instanceOfCapitalMarket.getEfficientFrontierAssetWeights();
+         // If taxable account and theme is not taxable, them make it so.
+         if (pdata.getAccountTaxable()) {
+            if (! theme.startsWith("T."))
+               theme = "T." + theme; // Note: allocation tries to determine, if this taxable theme is not defined, then it will use the CORE
+         }
 
          int numofAllocation = pdata.getNumOfAllocation();
          if (numofAllocation <= 0)
@@ -144,9 +79,9 @@ public class AssetAllocationModel
 
             //JAV 8/28/2013
             offset = (int) (offset * adj_riskOffet);
-            assetclass[counter] = adjustDurationRisk(pdata.getAdvisor(), weights[offset], duration,
-                                                     age, adj_riskOffet, stayInvested);
 
+            assetclass[counter] = adjustDurationRisk(theme, offset, duration,
+                                                     age, adj_riskOffet, stayInvested);
             duration--;
             numofAllocation--;
             age++;
@@ -161,16 +96,16 @@ public class AssetAllocationModel
       return null;
    }
 
-   private AssetClass adjustDurationRisk(String groupname, double[] weights, int duration,
+   private AssetClass adjustDurationRisk(String theme, int offset, int duration,
                                          int age, Double riskOffset, Integer stayInvested)
    {
 
       AssetClass assetclass = new AssetClass();
       try
       {
-         String[] orderedAssets = assetdao.getOrderedAsset(groupname);
-         String[] assetcolor = assetdao.getAssetOrderedColor(groupname);
-         double[] avgReturns = assetdao.getAssetOrderedAvgReturns(groupname);
+         ArrayList<String> orderedAssets = portfolioOptimizer.getAdvisorOrdertedAssetList(theme);
+         double[] avgReturns = portfolioOptimizer.getAssetOrderedAvgReturns(theme);
+         double[] weights = portfolioOptimizer.getAssetOrderedWeight(theme, offset);
          duration = (duration > InvConst.MAX_DURATION) ? InvConst.MAX_DURATION : duration;
          double wght = 0.0;
          double risk_adjustment = 0.0;
@@ -181,13 +116,15 @@ public class AssetAllocationModel
          // Currently we are using Fixed Risk Adjustments,  We'll change this to get the data from DB
          // and store in assets Class.
 
-         assetclass.initAssetClass(age, duration, riskOffset, stayInvested);
-         for (int i = 0; i < (orderedAssets.length); i++)
+         assetclass.initAssetClass(age, duration, riskOffset, stayInvested, theme);
+         for (int i = 0; i < (orderedAssets.size()); i++)
          {
-            String assetname = orderedAssets[i];
+            String assetname = orderedAssets.get(i);
+            String displayName =  portfolioOptimizer.getAssetData(theme, assetname).getDisplayname();
+            String assetcolor = portfolioOptimizer.getAssetData(theme, assetname).getColor();
 
             // Always add each to asset List.
-            assetclass.addAssetClass(assetname, 0.0, 0.0, assetcolor[i]);
+            assetclass.addAssetClass(assetname , displayName, assetcolor, 0.0, 0.0);
 
             wght = weights[i];
             if (wght < 0.0001)
@@ -206,12 +143,12 @@ public class AssetAllocationModel
 
                if (stayInvested == 1)
                {
-                  risk_adjustment = assetdao.getRiskAdjustment(groupname,assetname);
+                  risk_adjustment = portfolioOptimizer.getRiskAdjustment(theme,assetname);
                }
                else
                {
 
-                  risk_adjustment = assetdao.getEnd_allocation(groupname,assetname);
+                  risk_adjustment = portfolioOptimizer.getEnd_allocation(theme,assetname);
                }
 
                double factor = (risk_adjustment - wght) * Math.pow(baseNum, powerNum);
@@ -220,8 +157,8 @@ public class AssetAllocationModel
                if (wght > totalWeight)
                   wght = totalWeight;
 
-               assetclass.setAssetActualWeight(assetname,wght);
-               assetclass.setAssetAverageReturns(assetname,avgReturns[i]);
+               assetclass.getAsset(assetname).setAllocweight(wght);
+               assetclass.getAsset(assetname).setAvgReturn(avgReturns[i]);
                if (!assetname.equals("Cash"))
                {
                   totalWeight = totalWeight - wght;
@@ -231,7 +168,7 @@ public class AssetAllocationModel
             {
                if (totalWeight < 0.0)
                   totalWeight = 0.0;
-               assetclass.setAssetActualWeight("Cash", totalWeight);  // Adjust weight.
+               assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
                // allocation Cash here with color.
                //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
             }
@@ -255,7 +192,7 @@ public class AssetAllocationModel
       try
       {
 
-         //pdata.adjustRiskIndex();
+         //pdata.offsetRiskIndex();
          Integer riskOffset;
          if (riskIndex == null)
             riskOffset = 0;
@@ -291,16 +228,17 @@ public class AssetAllocationModel
          // First reset all weight to zero for AssetClass, else it may not add to 100
          for (int loop = 0; loop < aac.getOrderedAsset().size(); loop++) {
             assetname = aac.getOrderedAsset().get(loop);
-            aac.setAssetActualWeight(assetname,0.0);
+            aac.getAsset(assetname).setUserweight(0.0);
          }
          // Now set it to user value.
          int counter = userAsset.size();
          for (int loop = 0; loop < counter; loop++)
          {
             assetname = userAsset.get(loop).getAsset();
-            aac.setAssetActualWeight(assetname, userAsset.get(loop).getActualweight());
+            aac.getAsset(assetname).setUserweight(userAsset.get(loop).getUserweight());
          }
       }
    }
+
 
 }
