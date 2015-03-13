@@ -16,7 +16,15 @@
         <ui:define name="content">
 
             <div id="main-content" class="content_section" style="background-color: #f5f5f5;">
-                <div id="wrapper" class="container" style="padding-top: 0px">
+                <div id="wrapper" class="container" style="padding-top: 80px">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
+                        <h:form>
+                            <p:commandButton value="Yes" type="button"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button"
+                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </h:form>
+                    </p:confirmDialog>
                     <p:tabView id="listView" widgetVar="AdvisorTabView" style="background-color: #f5f5f5; border: 1px solid black !important;"
                                dynamic="true" cache="false">
                         <p:tab id="pendingList" title="Pending" style="background-color: #f5f5f5; ">
@@ -49,7 +57,7 @@
                                     </p:column>
                                     <p:column filterBy="#{pendingVar.clientsFullName}" filterMatchMode="contains"
                                               sortBy="#{pendingVar.clientsFullName}"
-                                              headerText="Name" footerText="Contains"
+                                              headerText="Name"
                                               style="width:15%; text-align: left"
                                               resizable="true">
                                         <h:outputText value="#{pendingVar.clientsFullName}"/>
@@ -57,7 +65,7 @@
 
                                     <p:column filterBy="#{pendingVar.accountType}" filterMatchMode="contains"
                                               sortBy="#{pendingVar.accountType}"
-                                              headerText="Type" footerText="Contains"
+                                              headerText="Type"
                                               style="width:12%; text-align: left"
                                               resizable="true">
                                         <h:outputText value="#{pendingVar.accountType}"/>
@@ -65,7 +73,7 @@
 
                                     <p:column filterBy="#{pendingVar.age}" filterMatchMode="startsWith"
                                               sortBy="#{pendingVar.age}"
-                                              headerText="Age" footerText="StartsWith"
+                                              headerText="Age"
                                               style="width:10%; text-align: right"
                                               resizable="true">
                                         <h:outputText value="#{pendingVar.age}">
@@ -74,7 +82,7 @@
 
                                     <p:column filterBy="#{pendingVar.horizon}" filterMatchMode="startsWith"
                                               sortBy="#{pendingVar.horizon}"
-                                              headerText="Horizon" footerText="StartsWith"
+                                              headerText="Horizon"
                                               style="width:10%; text-align: right"
                                               resizable="true">
                                         <h:outputText value="#{pendingVar.horizon}">
@@ -102,70 +110,27 @@
                                     </p:column>
 
                                 </p:dataTable>
-                                <p:dialog header="Confirm" widgetVar="dlgDelete" resizable="false" id="dlgDelete"
-                                          showEffect="fade" hideEffect="explode" modal="true"
-                                          style="background-color:#ffffff">
 
-                                    <p:panelGrid id="delAcctGrid" styleClass="invNBgrid">
-                                        <p:row>
-                                            <p:column colspan="2" style="color: #FF0000;">
-                                                <h2>Are you sure, you want to delete this account?</h2>
-                                            </p:column>
-                                        </p:row>
-                                        <p:row>
-                                            <p:column styleClass="invLabel">
-                                                <p:outputLabel value="Client's Name"/>
-                                            </p:column>
-                                            <p:column colspan="2">
-                                                <p:outputLabel value="#{manageAdvisorBean.selectedAccount.fullName}"/>
-                                            </p:column>
-                                        </p:row>
-                                        <p:row>
-                                            <p:column styleClass="invLabel">
-                                                <p:outputLabel value="Email"/>
-                                            </p:column>
-                                            <p:column colspan="4">
-                                                <p:outputLabel value="#{manageAdvisorBean.selectedAccount.email}"/>
-                                            </p:column>
-                                        </p:row>
-                                        <p:row>
-                                            <p:column styleClass="invLabel">
-                                                <p:outputLabel value="Investment Type"/>
-                                            </p:column>
-                                            <p:column colspan="2" style="width:200px">
-                                                <p:outputLabel value="#{manageAdvisorBean.selectedAccount.accountType}"/>
-                                            </p:column>
-                                        </p:row>
-                                        <p:row>
-                                            <p:column styleClass="invLabel">
-                                                <p:outputLabel value="Current Age"/>
-                                            </p:column>
-                                            <p:column style="width:40px">
-                                                <p:outputLabel value="#{manageAdvisorBean.selectedAccount.age}"/>
-                                            </p:column>
-                                        </p:row>
-                                        <p:row>
-                                            <p:column styleClass="invLabel">
-                                                <p:commandButton value="Delete"
-                                                                 actionListener="#{manageAdvisorBean.doDelete}"
-                                                                 oncomplete="PF('dlgDelete').hide();"/>
-                                            </p:column>
-                                            <p:column style="width:40px">
-                                                <p:commandButton value="Cancel"
-                                                                 oncomplete="PF('dlgDelete').hide();"/>
-                                            </p:column>
-                                        </p:row>
-                                    </p:panelGrid>
-
-                                </p:dialog>
                             </h:form>
                         </p:tab>
                         <p:tab id="managedList" title="Managed" style="background-color: #f5f5f5; ">
                            <h:form>
-                               <p:dataTable id="managedDataList" var="managedVar" widgetVar="managedWidget"
+                               <p:dataTable id="managedDataList" var="managedVar" widgetVar="managedTable"
                                             value="#{manageAdvisorBean.advisorManagedAccountList}"
                                             emptyMessage="No Managed account found with given criteria"
                                             filteredValue="#{manageAdvisorBean.filteredManagedAccountList}">
+
+<!--
+                                   <f:facet name="header" style="text-align:right">
+                                       <p:outputPanel style="text-align:right">
+                                           <h:outputText value="Search:" />
+                                           <p:inputText id="globalFilter" onkeyup="PF('managedTable').filter()"
+                                                        style="width:150px" placeholder="Enter keyword"/>
+                                           <p:commandButton value="Clear" onclick="PF('managedTable').clearFilters();"/>
+                                       </p:outputPanel>
+                                   </f:facet>
+-->
+
                                    <p:column style="width:4%">
                                        <p:commandButton id="selectButton" process="@this" immediate="true"
                                                         icon="#{managedVar.actionIcon}"
@@ -176,35 +141,45 @@
                                    </p:column>
                                    <p:column filterBy="#{managedVar.clientsFullName}" filterMatchMode="contains"
                                              sortBy="#{managedVar.clientsFullName}"
-                                             headerText="Name" footerText="Contains"
+                                             headerText="Name"
                                              style="width:20%; text-align: left"
                                              resizable="true">
                                        <h:outputText value="#{managedVar.clientsFullName}"/>
                                    </p:column>
-                                   <p:column filterBy="#{managedVar.clientAccountID}" filterMatchMode="contains"
-                                             sortBy="#{managedVar.clientAccountID}"
-                                             headerText="Acct#" footerText="Contains"
+                                   <p:column sortBy="#{managedVar.clientAccountID}"
+                                             headerText="Acct#"
                                              style="width:20%; text-align: left"
                                              resizable="true">
                                        <h:outputText value="#{managedVar.clientAccountID}"/>
                                    </p:column>
 
-                                   <p:column filterBy="#{managedVar.actualInvestment}" filterMatchMode="startsWith"
-                                             sortBy="#{managedVar.actualInvestment}"
-                                             headerText="Capital($)" footerText="StartsWith"
+                                   <p:column sortBy="#{managedVar.goal}"
+                                             headerText="Goal"
+                                             style="width:15%; text-align: left"
+                                             resizable="true">
+                                       <h:outputText value="#{managedVar.goal}"/>
+                                   </p:column>
+                                   <p:column filterBy="#{managedVar.accountType}" filterMatchMode="contains"
+                                             sortBy="#{managedVar.accountType}"
+                                             headerText="Type of Acct."
+                                             style="width:15%; text-align: left"
+                                             resizable="true">
+                                       <h:outputText value="#{managedVar.accountType}"/>
+                                   </p:column>
+                                   <p:column sortBy="#{managedVar.actualInvestment}"
+                                             headerText="Capital($)"
                                              style="width:10%; text-align: right"
                                              resizable="true">
                                        <h:outputText value="#{managedVar.actualInvestment}">
                                            <f:convertNumber currencySymbol="$" type="currency"/>
                                        </h:outputText>
                                    </p:column>
-                                   <p:column filterBy="#{managedVar.accrual}" filterMatchMode="startsWith"
-                                             sortBy="#{managedVar.accrual}"
-                                             headerText="Accrual" footerText="StartsWith"
+                                   <p:column filterBy="#{managedVar.dateOpened}" filterMatchMode="contains"
+                                             sortBy="#{managedVar.dateOpened}"
+                                             headerText="Date Opened"
                                              style="width:10%; text-align: right"
                                              resizable="true">
-                                       <h:outputText value="#{managedVar.accrual}">
-                                           <f:convertNumber currencySymbol="$" type="currency"/>
+                                       <h:outputText value="#{managedVar.dateOpened}">
                                        </h:outputText>
                                    </p:column>
                                </p:dataTable>

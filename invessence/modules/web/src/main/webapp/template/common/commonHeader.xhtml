@@ -14,9 +14,10 @@
                 <img src="/images/InvessenceLogo.jpg" alt="Invessence Inc." id="logo"/>
             </a>
 
+            <ui:fragment rendered="#{request.remoteUser == null}">
                 <div id="et-top-navigation">
-                    <nav id="top-menu">
-                        <ul id="top-menu" class="nav">
+                    <nav id="wp-top-menu">
+                        <ul id="wp-top-menu" class="nav">
                             <li id="menu-item-2994" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2994">
                                 <a href="${apache.url}/why-invessence/">Why Us</a></li>
                             <li id="menu-item-3934" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3934">
@@ -58,6 +59,8 @@
 
                 </div>
                 <!-- #et-top-navigation -->
+            </ui:fragment>
+
         </div>
         <!-- .container -->
     </header>

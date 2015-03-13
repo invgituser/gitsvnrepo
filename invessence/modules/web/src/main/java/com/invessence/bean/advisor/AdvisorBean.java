@@ -10,12 +10,12 @@ import javax.faces.event.*;
 import javax.servlet.http.*;
 
 import com.invessence.constant.Const;
+import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.*;
 import com.invessence.data.advisor.*;
 import com.invessence.util.*;
-import com.invmodel.Const.InvConst;
-import com.invmodel.asset.data.AssetClass;
+import com.invmodel.asset.data.*;
 import com.invmodel.inputData.*;
 import com.invmodel.portfolio.data.*;
 import org.primefaces.event.*;
@@ -29,17 +29,23 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class AdvisorBean extends AdvisorData implements Serializable
 {
    private static final long serialVersionUID = 100001L;
-   UserValidation uval = new UserValidation();
+   private String beanAcctnum;
+   private WebUtil webutil = new WebUtil();
+   private Charts charts = new Charts();
 
-   private AdvisorSaveDataDAO saveDAO;
+   @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO listDAO;
-   private EmailMessage messageText;
-   private Boolean displayPieChart = false;
-   private Boolean enableTabs = false;
-   private Boolean themeChanged = false;
 
-   private PieChartModel pieModel;
-   private PieChartModel scpieModel;
+   @ManagedProperty("#{advisorSaveDataDAO}")
+   private AdvisorSaveDataDAO saveDAO;
+
+   @ManagedProperty("#{emailMessage}")
+   private EmailMessage messageText;
+
+   private Boolean displayPieChart = false;
+   private Boolean enableTabs = true;
+   private Boolean themeChanged = false;
+   private Boolean formDirty = false;
 
    public AdvisorSaveDataDAO getSaveDAO()
    {
@@ -71,6 +77,16 @@ public class AdvisorBean extends AdvisorData implements Serializable
       this.messageText = messageText;
    }
 
+   public String getBeanAcctnum()
+   {
+      return beanAcctnum;
+   }
+
+   public void setBeanAcctnum(String beanAcctnum)
+   {
+      this.beanAcctnum = beanAcctnum;
+   }
+
    public Boolean getDisplayPieChart()
    {
       return displayPieChart;
@@ -91,89 +107,145 @@ public class AdvisorBean extends AdvisorData implements Serializable
       this.enableTabs = enableTabs;
    }
 
+   public void preRenderView()
+   {
+
+      try {
+      if (!FacesContext.getCurrentInstance().isPostback())
+      {
+            SQLData converter = new SQLData();
+            Long acctnum = converter.getLongData(beanAcctnum);
+            if (acctnum != null && acctnum > 0L)
+               loadData(acctnum);
+            else
+               resetAdvisorBean();
+         }
+
+      }
+      catch (Exception e)
+      {
+         resetAdvisorBean();
+      }
+   }
 
    @PostConstruct
    public void init()
    {
       try
       {
-         HttpServletRequest req = (HttpServletRequest) getCurrentInstance().getExternalContext().getRequest();
-         String userName = req.getRemoteUser();
-         Long logonid = (Long) getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM);
-         if (logonid == null)
-         {
-            getCurrentInstance().getExternalContext().redirect("/login.xhtml");
-         }
-         else {
-            UserInfoData uid = (UserInfoData)  getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-            setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
-            setLogonid(logonid);
-          }
+         webutil.validatePriviledge(Const.ROLE_ADVISOR);
       }
-      catch (Exception ex)
+      catch (Exception e)
       {
-
+         e.printStackTrace();
       }
-   }
-
-
-   public void refreshChart(SlideEndEvent event)
-   {
-      //createAssetPlan(this.getInstance());
    }
 
    public void selectedActionBasket() {
-      createPortfolio(this.getInstance());
+      getExcludedSubAsset().clear();
+      setNumOfPortfolio(1);
+      buildPortfolio();
       this.themeChanged = true;
    }
 
 
    public void changeEvent(ValueChangeEvent event)
    {
-      String oldValue;
-      String newValue;
-      try
+      String oldValue = null;
+      String newValue = null;
+      if (!formDirty)
       {
+         if (event.getNewValue() == null)
+         {
+            return;
+         }
+
+         oldValue = "";
+         if (event.getOldValue() != null)
+         {
+            oldValue = event.getOldValue().toString();
+         }
+
+         try
+         {
+            newValue = event.getNewValue().toString();
+            Integer decimalPosition = newValue.indexOf(".0");
+            if (decimalPosition > 0)
+            {
+               newValue = newValue.substring(0, decimalPosition);
+            }
+         }
+         catch (Exception ex)
+         {
+            newValue = event.getNewValue().toString();
+         }
+         // This is to ignore all already selected items.
+         if (!(oldValue.equals(newValue)))
+         {
+            this.formDirty = true;
+         }
       }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
+   }
+
+   public Boolean validateProfile() {
+      if (getAge() == null ||
+         getHorizon() == null ||
+         getInitialInvestment() == null ||
+         getRiskIndex() == null) {
+         FacesContext.getCurrentInstance().addMessage(null,
+                                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                  "",
+                                                  "Try Again. Please fill all data as required."));
+
       }
+      try {
+         UserInfoData uid = (UserInfoData)  getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
+         setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
+         Long logonid = (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM);
+         // due to reset call, make sure to reset the logonid.
+         setLogonid(logonid);
+         if (formDirty) {
+            formDirty = false;
+            Long newacctnum = saveDAO.saveProfile((AdvisorBean) this.getInstance());
+            if (newacctnum < 0) {
+               FacesContext.getCurrentInstance().addMessage(null,
+                                       new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                        "",
+                                                        "Try Again. This user is already registered client."));
+
+               return false;
+            }
+            else
+               setAcctnum(newacctnum);
+         }
+
+      }
+      catch (Exception ex) {
+         FacesContext.getCurrentInstance().addMessage(null,
+                                                      new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                       "",
+                                                                       "System Error: " + ex.getMessage()));
+         return false;
+      }
+      return true;
    }
 
    public String saveProfile()
    {
       try
       {
-         if (getAge() != null ||
-            getHorizon() != null ||
-            getInitialInvestment() != null ||
-            getRiskIndex() != null)
-         {
-            UserInfoData uid = (UserInfoData)  getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-            setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
-            Long logonid = (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM);
-            // due to reset call, make sure to reset the logonid.
-            setLogonid(logonid);
-            saveDAO.saveProfile((AdvisorBean) this.getInstance());
-            setAdvisorBasket(listDAO.getBasket(getAdvisor()));
-            setEnableTabs(true);
-            createAssetPlan(getInstance());
-            createPortfolio(getInstance());
-         }
-         else
-         {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "",
-                                                                          "Try Again. Please fill all data as required."));
+         if (formDirty) {
+            Boolean validate = validateProfile();
+            loadBasketInfo();
 
-            return "failed";
+            createAssetPortfolio(1);
+            formDirty = false;
+            enableTabs = false;
          }
       }
       catch (Exception ex)
       {
-
+        ex.printStackTrace();
       }
       return "success";
    }
@@ -183,7 +255,9 @@ public class AdvisorBean extends AdvisorData implements Serializable
       try
       {
          setUserAssetOverride(false);
-         createAssetPlan(getInstance());
+         loadBasketInfo();
+
+         createAssetPortfolio(1);
       }
       catch (Exception ex) {
 
@@ -196,8 +270,12 @@ public class AdvisorBean extends AdvisorData implements Serializable
       {
          if (getAssetAllocationTotal() == 100.00) {
             // New recreate the new portfolio.
-            saveDAO.saveAllocation((AdvisorData) this.getInstance());
-            createPortfolio(getInstance());
+            if (this.formDirty) {
+               this.formDirty = false;
+               saveDAO.saveAllocation((AdvisorData) this.getInstance());
+               setNumOfPortfolio(1);
+               buildPortfolio();
+            }
             return "success";
          }
          else {
@@ -217,29 +295,34 @@ public class AdvisorBean extends AdvisorData implements Serializable
       return "failed";
    }
 
-   public void createAssetPlan(ManageGoals goals)
-   {
-      MsgData data = new MsgData();
-      try
-      {
+   private void createAssetPortfolio(Integer noOfYears) {
+
+      try {
          Integer displayYear = 0;
-         setDisplayPieChart(true);
-         setNumOfAllocation(1);
          setObjective(2);
          setExperience(2);
          setStayInvested(1);
          setDependent(0);
          setRisk("M");
-         loadAssetClass();
-
+         setNumOfAllocation(noOfYears);
+         setNumOfPortfolio(noOfYears);
+         buildPortfolio();
          if (getAssetData() != null) {
-            // Now refresh the pages...
-            createPieModel(getAssetData()[displayYear]);
-         }
+            // totalAssetClassWeights(getAssetData()[displayYear].getAssetclass(),displayYear);  // True calculation after Portfolio allocated.
+            if (getEditableAsset() != null) {
+               // Now refresh the pages...
+               charts.createPieModel(getEditableAsset());
+            }
+/*
+            if (getPortfolioData() != null) {
+               lineModel = charts.createLineModel(getPortfolioData(), getPortfolioData().length);
+            }
+*/
 
+         }
       }
-      catch (Exception ex)
-      {
+      catch (Exception ex) {
+         MsgData data = new MsgData();
          String stackTrace = ex.getMessage();
          data.setSource("Internal");
          data.setSender(Const.MAIL_SENDER);
@@ -249,6 +332,29 @@ public class AdvisorBean extends AdvisorData implements Serializable
          messageText.writeMessage("Error", data);
       }
    }
+
+   private void createCharts() {
+
+      try {
+         if (getAssetData() != null) {
+            // totalAssetClassWeights(getAssetData()[0].getAssetclass(),0);  // True calculation after Portfolio allocated.
+            if (getEditableAsset() != null) {
+               // Now refresh the pages...
+               charts.createPieModel(getEditableAsset());
+            }
+/*
+            if (getPortfolioData() != null) {
+               lineModel = charts.createLineModel(getPortfolioData(), getPortfolioData().length);
+            }
+*/
+
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
 
    public void buildExcludeList(TreeNode[] nodes) {
       if(nodes != null && nodes.length > 0) {
@@ -263,30 +369,6 @@ public class AdvisorBean extends AdvisorData implements Serializable
                                                           true);
             getExcludedSubAsset().add(psc);
          }
-      }
-   }
-
-   public void createPortfolio(ManageGoals goals)
-   {
-      AssetClass[] aamc;
-      Portfolio[] pfclass;
-      MsgData data = new MsgData();
-      try
-      {
-         goals.setNumOfPortfolio(1);
-         loadPortfolio();
-         // setSubclassDisplayNode(getTreeAssetFilterModel().createNewTreeNodes(getInstance()));   (Treenode not working well)
-
-      }
-      catch (Exception ex)
-      {
-         String stackTrace = ex.getMessage();
-         data.setSource("Internal");
-         data.setSender(Const.MAIL_SENDER);
-         data.setReceiver(Const.MAIL_SUPPORT);
-         data.setSubject(Const.COMPANY_NAME + " - Error:AdvisorBean.createPortfolio");
-         data.setMsg(messageText.getMessagetext("error.createPortfolio", new Object[]{stackTrace}));
-         messageText.writeMessage("Error", data);
       }
    }
 
@@ -316,52 +398,14 @@ public class AdvisorBean extends AdvisorData implements Serializable
       this.scseriesColor = scseriesColor;
    }
 
-   public PieChartModel getPieModel()
+   public Charts getCharts()
    {
-      if (this.pieModel == null)
-      {
-         createAssetPlan(getInstance());
-      }
-      return pieModel;
-   }
-
-   public void setPieModel(PieChartModel pieModel)
-   {
-      this.pieModel = pieModel;
+      return charts;
    }
 
    public void refreshPie()
    {
-      setUserAssetOverride(true);
-      loadEditableAssetClass(this.getInstance().getAssetData()[getAssetyear()].getAssetclass());
-      createPieModel(this.getInstance().getAssetData()[getAssetyear()]);
-   }
-
-   private void createPieModel(AssetClass aac)
-   {
-      String color;
-      Integer slices;
-
-      this.pieModel = new PieChartModel();
-      slices = aac.getOrderedAsset().size();
-      for (int i = 0; i < slices; i++)
-      {
-         String assetname = aac.getOrderedAsset().get(i);
-         String label = assetname + " - " + aac.getAssetRoundedActualWeight(assetname) + "%";
-         pieModel.set(label, aac.getAssetRoundedActualWeight(assetname));
-
-         //color = aac.getAssetColor(assetname).replace('#', ' ');
-         color = aac.getAssetColor(assetname);
-         color.trim();
-         if (i == 0)
-         {
-            seriesColor = color;
-         }
-         else
-         {
-            seriesColor = seriesColor + ", " + color;
-         }
-      }
+      createCharts();
    }
 
    public void savePortfolio()
@@ -371,6 +415,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
       String key, assetclass, subclass;
       try
       {
+ /*
          // NOTE:  Currently, this is duplicated.  First we are filtering using Tree.
          // Then we are reloaded excludedList.  We can bypass and create customAllocation.
          // For now, we are doing this to confirm which widget is better (Tree or DataTable).
@@ -384,17 +429,20 @@ public class AdvisorBean extends AdvisorData implements Serializable
                subclass = getExcludedSubAsset().get(i).getSubasset();
                addCustomAllocation(assetclass, subclass, 0.0);
             }
-            createPortfolio(getInstance());
+            setNumOfPortfolio(1);
+            buildPortfolio();
             // Since we are saving theme and advisor, make sure to save user profile correctly.
-            if (this.themeChanged) {
+*/
+         if (this.themeChanged) {
                saveProfile();
                this.themeChanged = false;   // reset the flag so that we don't keep saving this data.
-               // NOTE: Theme change does not have anything to do with Asset allocation, only advisor.
-            }
-            saveDAO.saveExcludeSubClass(getInstance());
-            saveDAO.savePortfolio(getInstance());
-
+               // NOTE: Basket change does not have anything to do with Asset allocation, only advisor.
+               saveDAO.saveExcludeSubClass(getInstance());
+               saveDAO.savePortfolio(getInstance());
          }
+/*
+         }
+*/
 
       }
       catch (Exception ex)
@@ -420,78 +468,41 @@ public class AdvisorBean extends AdvisorData implements Serializable
       }
    }
 
-
-   public String testProfile()
-   {
-      try
-      {
-         setAge(30);
-         setHorizon(35);
-         setInitialInvestment(100000);
-         setRiskIndex(10);
-         createAssetPlan(getInstance());
-         createPortfolio(getInstance());
-      }
-      catch (Exception ex)
-      {
-
-      }
-      return "success";
-   }
-
-
-
-   public String onFlowProcess(FlowEvent event)
-   {
-      String toTab, fromTab;
-
-      try {
-         fromTab = event.getOldStep();
-         toTab = event.getNewStep();
-         System.out.println("Moving to tab ->" + toTab);
-         // Only create asset, if we changed values in tab1,2,or 3.  Otherwise skip.
-         if (fromTab == null)
-            fromTab = "tab1";
-         if (fromTab.equalsIgnoreCase("tab1") && toTab.equalsIgnoreCase("tab2")) {
-            saveProfile();
-            //saveAllocation();
-            //savePortfolio();
-         }
-         else if (fromTab.equalsIgnoreCase("tab2") && toTab.equalsIgnoreCase("tab3")) {
-            //saveAllocation();
-            savePortfolio();
-         }
-         else if (fromTab.equalsIgnoreCase("tab3") && toTab.equalsIgnoreCase("tab4")) {
-            savePortfolio();
-         }
-      }
-
-      catch (Exception ex) {
-         toTab = "tab1";
-      }
-      return event.getNewStep();
-   }
-
    public void resetAdvisorBean() {
       setAdvisorRiskIndex(5);
       setDisplayPieChart(false);
-      setEnableTabs(false);
+      setEnableTabs(true);
       resetAdvisorData();
+
+      UserInfoData uid = webutil.getUserInfoData();
+      if (uid != null) {
+         setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
+         setLogonid(uid.getLogonID());
+      }
+
+   }
+   private void loadBasketInfo() {
+      if (getAccountTaxable())
+         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
+      else
+         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
    }
 
    public void loadData(Long acctnum) {
 
-      resetAdvisorBean();
+      resetAdvisorData();
       try {
          setAcctnum(acctnum);
          listDAO.getProfileData((AdvisorData) this.getInstance());
-         createAssetPlan(getInstance()); // Load default allocation;
-         loadEditableAssetClass(listDAO.getAllocation((AdvisorData) this.getInstance()));
-         setExcludedSubAsset(listDAO.getExcludedSubclass((AdvisorData) this.getInstance()));
+         loadBasketInfo();
+
+         createAssetPortfolio(1);
+         formDirty = false;
       }
       catch (Exception ex) {
-
+         ex.printStackTrace();
       }
+
    }
 
    private Boolean canOpenAccount = true;
@@ -511,7 +522,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
          FacesContext facesContext = FacesContext.getCurrentInstance();
          HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
          httpSession.invalidate();
-         uval.redirect(getIblink(),null);
+         webutil.redirect(getIblink(), null);
       }
    }
 
