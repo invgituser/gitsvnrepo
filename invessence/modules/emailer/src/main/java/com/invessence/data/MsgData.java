@@ -1,6 +1,8 @@
 package com.invessence.data;
 
-public class MsgData
+import java.io.Serializable;
+
+public class MsgData implements Serializable
 {
 
    private int msgID = 0;
@@ -20,6 +22,7 @@ public class MsgData
    private String sentDate = null;
    private String comment = null;
    private String attachmentFile = null;
+   private String mimetype = null;
 
    public int getMsgID()
    {
@@ -196,6 +199,15 @@ public class MsgData
       this.logonID = logonID;
    }
 
+   public String getMimeType()
+   {
+      return mimetype;
+   }
+
+   public void setMimeType(String mimetype)
+   {
+      this.mimetype = mimetype;
+   }
 
 }
 

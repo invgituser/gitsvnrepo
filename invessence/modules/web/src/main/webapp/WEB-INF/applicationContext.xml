@@ -24,10 +24,13 @@
     <import resource="allDAO.xml"/>
     <import resource="dataLoadingSingletons.xml"/>
 
-   <!-- Admin tools-->
+   <!-- Common DAO-->
+   <import resource="CommonBean.xml"/>
+
+   <!-- Admin DAO-->
    <import resource="AdminBean.xml"/>
 
-   <!-- Advisor tools-->
+   <!-- Advisor DAO-->
    <import resource="AdvisorBean.xml"/>
 
 </beans>

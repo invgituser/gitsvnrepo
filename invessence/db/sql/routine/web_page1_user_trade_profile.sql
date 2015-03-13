@@ -5,6 +5,8 @@ CREATE PROCEDURE `web_page1_user_trade_profile`(
 	IN  p_addmodflag VARCHAR(1),
     IN  p_logonid    BIGINT(20),
 	INOUT	p_acctnum	bigint(20),
+    IN  p_advisor    VARCHAR(20),
+    IN  p_theme		 VARCHAR(30),
     IN  p_goal       varchar(30),
 	IN	p_acctType	varchar(30),
 	IN	p_age	integer,
@@ -32,6 +34,8 @@ BEGIN
 		   BEGIN
 
 			INSERT INTO `user_trade_profile` (
+			    `advisor`,
+				`theme`,
 				`goal`,
 				`acctType`,
 				`age`,
@@ -46,6 +50,8 @@ BEGIN
 				`created`
 			)
 			VALUES (
+				IFNULL(p_advisor,'Invessence'),
+				IFNULL(p_theme,'DEFAULT'),
 				p_goal	,
 				p_acctType,
 				p_age	,
@@ -62,12 +68,16 @@ BEGIN
 
 			select last_insert_id() into p_acctnum;
 			call sp_user_access_add_mod('A', p_logonid, p_acctnum, NULL, NULL, NULL);
+			-- Assign default accounts to Invessence Advisor.
+			call sp_user_access_add_mod('A', 0, p_acctnum, NULL, 'ADVISOR', 'A');
 			
 		   END;
 	   ELSE
 		   BEGIN
 			 UPDATE  `user_trade_profile`
-			 SET 
+			 SET
+				`advisor` = IFNULL(p_advisor,'Invessence'),
+				`theme` = IFNULL(p_theme,'DEFAULT'),
 				`goal`	 =	p_goal	,
 				`acctType`	 =	p_acctType	,
 				`age`	 =	p_age	,

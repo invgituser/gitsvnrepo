@@ -1,23 +1,24 @@
 DROP VIEW IF EXISTS `vw_user_logon`;
 
-CREATE VIEW `vw_user_logon` AS
+CREATE 
+VIEW `vw_user_logon` AS
     select 
-		`ui`.`logonid` 		as logonid, 
-		`ui`.`userid` 		as userid, 
-		`ui`.`email` 		as email,
-		`ui`.`pwd` 			as pwd, 
-		`ui`.`logonstatus`	as logonstatus,
-		`ui`.`attempts` 	as attempts,
-		`ui`.`ip` 			as ip,
-		`ui`.`macaddress`	as macaddress,
-		`ui`.`cookieID`		as cookieID,
-		`ui`.`resetID`		as resetID,
-		`ui`.`accttype`		as accttype,
-		`ai`.`logo` 		as logo,
-		`ai`.`groupname`    as groupname
-	from (`user_logon` `ui`
-        left join `advisor_info` `ai`
-			ON (`ui`.`logonid` = `ai`.`logonid`)
-		)
-    where
-        (`ui`.`logonstatus` not in ('S'));
+        `ui`.`logonid` AS `logonid`,
+        `ui`.`userid` AS `userid`,
+        `ui`.`email` AS `email`,
+        `ui`.`pwd` AS `pwd`,
+        `ui`.`logonstatus` AS `logonstatus`,
+        `ui`.`attempts` AS `attempts`,
+        `ui`.`ip` AS `ip`,
+        `ui`.`macaddress` AS `macaddress`,
+        `ui`.`cookieID` AS `cookieID`,
+		`ui`.`state` as state,
+        `ui`.`resetID` AS `resetID`,
+        ifnull(`ai`.`accttype`, 'OWNER') AS `accttype`,
+        `ai`.`logo` AS `logo`,
+        `ai`.`groupname` AS `groupname`,
+        `ui`.`emailmsgtype` AS `emailmsgtype`,
+        ifnull(`ui`.`access`, 'User') AS `access`
+    from
+        (`user_logon` `ui`
+        left join `advisor_info` `ai` ON ((`ui`.`logonid` = `ai`.`logonid`)));

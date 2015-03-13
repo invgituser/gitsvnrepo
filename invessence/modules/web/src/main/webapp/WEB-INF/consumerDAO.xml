@@ -28,7 +28,7 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="positionDAO" class="com.invessence.dao.PositionDAO">
+    <bean id="positionDAO" class="com.invessence.dao.common.PositionDAO">
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
 
@@ -39,5 +39,15 @@
    	<bean id="allocationDao" class="com.invessence.dao.impl.AllocationDaoImpl" >
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
+
+    <bean id="consumerListDataDAO" class="com.invessence.dao.consumer.ConsumerListDataDAO" >
+   		<property name="dataSource" ref="dataSource"/>
+   	</bean>
+
+    <bean id="consumerSaveDataDAO" class="com.invessence.dao.consumer.ConsumerSaveDataDAO" >
+   		<property name="dataSource" ref="dataSource"/>
+   	</bean>
+
+
 
 </beans>

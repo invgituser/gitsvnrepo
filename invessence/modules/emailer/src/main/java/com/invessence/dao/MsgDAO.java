@@ -6,14 +6,15 @@ import java.util.List;
 import com.invessence.data.MsgData;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.simple.*;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-public class MsgDAO extends SimpleJdbcDaoSupport
+public class MsgDAO extends JdbcDaoSupport
 {
    public List<MsgData> getMsgList(int status) throws DataAccessException
    {
 
       String sql = "select source, messageid, sender, receiver, cc, bcc, subject, msg, status, " +
-         "category, priority, created, lastupdated, sentdate " +
+         "category, priority, created, lastupdated, sentdate, mimetype, attachments " +
          "from vw_email_alerts " +
          "order by created";
 
@@ -38,24 +39,24 @@ public class MsgDAO extends SimpleJdbcDaoSupport
             data.setEnteredDate(rs.getString("created"));
             data.setUpdatedDate(rs.getString("lastupdated"));
             data.setSentDate(rs.getString("sentdate"));
-
+            data.setMimeType(rs.getString("mimetype"));
+            data.setAttachmentFile(rs.getString("attachments"));
             return data;
          }
       };
 
-      // System.out.println(sql);
+       //System.out.println(sql);
 
-      return getSimpleJdbcTemplate().query(sql, mapper);
+      return getJdbcTemplate().query(sql, mapper);
 
    }
-
 
    public List<MsgData> getEmailMsgList() throws DataAccessException
    {
 
       String sql = "select messageid, sender, receiver, cc, bcc, subject, msg, status, " +
          "category, priority, created, lastupdated, " +
-         "sentdate from email_messages  " +
+         "sentdate, mimetype, attachments from email_messages  " +
          "order by created limit 0, 10";
 
       ParameterizedRowMapper<MsgData> mapper = new ParameterizedRowMapper<MsgData>()
@@ -78,6 +79,8 @@ public class MsgDAO extends SimpleJdbcDaoSupport
             data.setEnteredDate(rs.getString("created"));
             data.setUpdatedDate(rs.getString("lastupdated"));
             data.setSentDate(rs.getString("sentdate"));
+            data.setMimeType(rs.getString("mimetype"));
+            data.setAttachmentFile(rs.getString("attachments"));
 
             return data;
          }
@@ -85,7 +88,7 @@ public class MsgDAO extends SimpleJdbcDaoSupport
 
       System.out.println(sql);
 
-      return getSimpleJdbcTemplate().query(sql, mapper);
+      return getJdbcTemplate().query(sql, mapper);
 
    }
 

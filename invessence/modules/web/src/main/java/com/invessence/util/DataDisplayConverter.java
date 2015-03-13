@@ -97,4 +97,18 @@ public class DataDisplayConverter implements Serializable
       }
    }
 
+   public String displayWithFormatAppender(Double value, String format, String appender)
+   {
+      if (value != null)
+      {
+         DecimalFormat df = new DecimalFormat(format);
+         String strValue = df.format(value);
+         return strValue + appender;
+      }
+      else
+      {
+         return "";
+      }
+
+   }
 }

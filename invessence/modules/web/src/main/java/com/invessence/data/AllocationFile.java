@@ -109,16 +109,6 @@ public class AllocationFile implements Serializable
       this.lmtPrice = lmtPrice;
    }
 
-   public String getBasketTag()
-   {
-      return basketTag;
-   }
-
-   public void setBasketTag(String basketTag)
-   {
-      this.basketTag = basketTag;
-   }
-
    public String getAccount()
    {
       return account;

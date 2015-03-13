@@ -5,6 +5,7 @@ import java.util.*;
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
 import com.invmodel.portfolio.data.Portfolio;
+import com.invmodel.riskCalculator.RiskIndex;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,11 +19,15 @@ import com.invmodel.portfolio.data.Portfolio;
 public class
    ProfileData
 {
+   private Long logonid;
+   private Long acctnum;
+   private String clientAccountID;
    private Integer yearly = 12;
    private String goal;
    private String accountType;
+   private String tradePreference;
    private String name;
-   private Integer age;
+   private Integer age = 30;
    private Integer horizon;
    private Integer calendarYear;
    private Integer numOfAllocation = 1;
@@ -35,6 +40,7 @@ public class
    private Integer objective = 2; // 1 = Preservation, 2 = Accumulation; (See method strObjective)
    private String advisor;
    private String theme;
+   private String basket;
 
 
    private Integer stayInvested = 1;  // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
@@ -52,23 +58,113 @@ public class
 
    private boolean accountTaxable = false; //1 (True) for accountTaxable 0 (False) for nonTaxable
    private Double taxrate = 0.1;
+   private Double shortLossCarry = 0.0;
+   private Double longLossCarry = 0.0;
+   private Double shortExternalGain = 0.0;
+   private Double longExternalGain = 0.0;
 
    private String risk = "M";
-   private Integer riskIndex = 0;
+   private Integer riskIndex = 0;   // On riskIndex 0 = highest risk, 28 = lowest risk.
+   private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
+   RiskIndex riskdata = new RiskIndex();
 
-   private List<Asset> editableAsset = new ArrayList<Asset>();
+   private ArrayList<Asset> editableAsset = new ArrayList<Asset>();
    private AssetClass assetData[];
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.
 
    private String iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
 
-
-
    private Map<String, CustomAllocation> customAllocations = new HashMap<String, CustomAllocation>();
+
+   public Double getShortLossCarry()
+   {
+      return shortLossCarry;
+   }
+
+   public void setShortLossCarry(Double shortLossCarry)
+   {
+      this.shortLossCarry = shortLossCarry;
+   }
+
+   public Double getLongLossCarry()
+   {
+      return longLossCarry;
+   }
+
+   public void setLongLossCarry(Double longLossCarry)
+   {
+      this.longLossCarry = longLossCarry;
+   }
+
+   public Double getShortExternalGain()
+   {
+      return shortExternalGain;
+   }
+
+   public void setShortExternalGain(Double shortExternalGain)
+   {
+      this.shortExternalGain = shortExternalGain;
+   }
+
+   public Double getLongExternalGain()
+   {
+      return longExternalGain;
+   }
+
+   public void setLongExternalGain(Double longExternalGain)
+   {
+      this.longExternalGain = longExternalGain;
+   }
 
    public ProfileData getInstance()
    {
       return this;
+   }
+
+   public String getDisplayActiveAcctNum() {
+      if (getClientAccountID() != null && getClientAccountID().length() > 0)
+         return getClientAccountID();
+      else
+         return getAcctnum().toString();
+   }
+
+   public Long getAcctnum()
+   {
+      return acctnum;
+   }
+
+   public void setAcctnum(Long acctnum)
+   {
+      this.acctnum = acctnum;
+   }
+
+   public String getClientAccountID()
+   {
+      return clientAccountID;
+   }
+
+   public void setClientAccountID(String clientAccountID)
+   {
+      this.clientAccountID = clientAccountID;
+   }
+
+   public Long getLogonid()
+   {
+      return logonid;
+   }
+
+   public void setLogonid(Long logonid)
+   {
+      this.logonid = logonid;
+   }
+
+   public String getDefaultGoal()
+   {
+      if (goal == null || goal.length() == 0)
+         return "Portfolio Name";
+      else
+         return goal;
+
    }
 
    public String getGoal()
@@ -93,33 +189,54 @@ public class
 
    public void determineTaxable(String goal, String acctType)
    {
-      if (acctType != null && acctType.equalsIgnoreCase("non-tax"))
-      {
-         // Account is taxable, therefore we pick tax free securities like MUNI
-         setAccountTaxable(false);
+      Boolean taxable = true;
+      // If any of these account type, then it is a non-taxable account
+      if (acctType != null) {
+         if (acctType.toUpperCase().contains("NON"))   // non-taxable
+            taxable = false;
+         else
+         if (acctType.toUpperCase().contains("IRA"))   // IRA
+            taxable = false;
+         else
+         if (acctType.toUpperCase().contains("SEP"))   // SEP
+            taxable = false;
+         else
+         if (acctType.toUpperCase().contains("ROTH"))  // ROTH
+            taxable = false;
+         else // Using general words
+         if (acctType.toUpperCase().contains("RETIRE"))
+            taxable = false;
+         else
+            taxable = true;
+
       }
-      else if (acctType != null && acctType.equalsIgnoreCase("taxable"))
-      {
-         // Account is taxable, therefore we pick tax free securities like MUNI
-         setAccountTaxable(true);
-      }
-      else
-      {
-         // Account is IRA (Taxfree) therefore we pick securities with high yeild.
-         setAccountTaxable(false);
-      }
+      setAccountTaxable(taxable);
+
    }
 
    public String getAccountType()
    {
-      return accountType;
+      if (accountType == null)
+         return "Retirement";
+      else
+         return accountType;
    }
 
    public void setAccountType(String accountType)
    {
       this.accountType = accountType;
-      determineTaxable(getGoal(), getAccountType());
+      determineTaxable(getGoal(), accountType);
       setIblink(accountType);
+   }
+
+   public String getTradePreference()
+   {
+      return tradePreference;
+   }
+
+   public void setTradePreference(String tradePreference)
+   {
+      this.tradePreference = tradePreference;
    }
 
    public Integer getYearly()
@@ -142,10 +259,37 @@ public class
       this.name = name;
    }
 
+   public Integer getDefaultAge() {
+      if (this.age == null || this.age <= 0)
+         return 30;
+      else
+         return this.age;
+   }
+
+   public void setDefaultAge(Integer age) {
+      if (age == null || age <= 0)
+         this.age = 30;
+      else
+         this.age = age;
+   }
+
 
    public Integer getAge()
    {
      return age;
+   }
+
+   public Integer getDefaultHorizon() {
+      Integer adjduration;
+
+      if ((70 - getDefaultAge()) > 0)
+         adjduration = 70 - getDefaultAge();
+      else
+         adjduration = 1;
+      Integer duration = (getHorizon() == null) ? adjduration : getHorizon();
+      duration = (duration <= 0) ? 1: duration;
+      return duration;
+
    }
 
    public Integer getHorizon()
@@ -202,9 +346,21 @@ public class
       this.numOfPortfolio = numOfPortfolio;
    }
 
+   public Integer getDefaultInvestment()
+   {
+      if (actualInvestment != null && actualInvestment != 0)
+         return actualInvestment;
+      else {
+         if (initialInvestment != null && initialInvestment != 0)
+            return initialInvestment;
+         else
+            return 100000;
+      }
+   }
+
    public Integer getInitialInvestment()
    {
-      return initialInvestment;
+         return initialInvestment;
    }
 
    public void setInitialInvestment(Integer initialInvestment)
@@ -280,9 +436,10 @@ public class
 
    public String getTheme()
    {
-      if (theme == null)
+      // Either it is null or it is "" (Empty), then assume default
+      if (theme == null || theme.length() == 0)
       {
-         return "Default";
+         return InvConst.DEFAULT_THEME;
       }
       return theme;
    }
@@ -292,11 +449,31 @@ public class
       this.theme = theme;
    }
 
+   public String getBasket()
+   {
+      // Either it is null or it is "" (Empty), then assume default
+      if (basket == null || basket.length() == 0)
+         return InvConst.DEFAULT_BASKET;
+      return basket;
+   }
+
+   public void setBasket(String basket)
+   {
+      this.basket = basket;
+   }
+
+   public void setBasket(String theme, String basket)
+   {
+      this.theme = theme;
+      this.basket = basket;
+   }
+
    public String getAdvisor()
    {
-      if (advisor == null)
+      // Either it is null or it is "" (Empty), then assume default
+      if (advisor == null || advisor.length() == 0)
       {
-         return "Invessence";
+         return InvConst.INVESSENCE_ADVISOR;
       }
       return advisor;
    }
@@ -586,22 +763,54 @@ public class
 
    public Integer getRiskIndex()
    {
-      if (riskIndex == null)
-      {
-         return 0;
-      }
-      else
-      {
          return riskIndex;
-      }
+   }
+
+   public Integer getDisplayRiskIndex()
+   {
+      return displayRiskIndex;
+   }
+
+   public void setDisplayRiskIndex(Integer displayRiskIndex)
+   {
+      this.displayRiskIndex = (displayRiskIndex == null) ? 10 : displayRiskIndex;
+      this.riskIndex = convertIndex2RiskWeight(this.displayRiskIndex).intValue();
    }
 
    public void setRiskIndex(Integer riskIndex)
    {
-      this.riskIndex = riskIndex;
+      if (riskIndex == null) {  // If it is null, then set it to 5 as default.
+         this.displayRiskIndex = 5;
+         this.riskIndex = convertIndex2RiskWeight(this.displayRiskIndex).intValue();
+      }
+      else { // Convert the riskWeight to Display format.
+         this.displayRiskIndex = convertRiskWeight2Index(riskIndex.doubleValue());
+         this.riskIndex = riskIndex;
+      }
    }
 
-   public void adjustRiskIndex()
+   public RiskIndex getRiskdata()
+   {
+      return riskdata;
+   }
+
+   public Integer getDefaultRiskIndex()
+   {
+      return displayRiskIndex;
+   }
+
+   public void setDefaultRiskIndex(Integer riskIndex)
+   {
+      this.displayRiskIndex = (riskIndex == null) ? 10 : riskIndex;
+      this.riskIndex = convertIndex2RiskWeight(this.displayRiskIndex).intValue();
+   }
+
+   public void setRiskdata(RiskIndex riskdata)
+   {
+      this.riskdata = riskdata;
+   }
+
+   public void offsetRiskIndex()
    {
       Double riskOffset = 0.0;
       Double currentAssets;
@@ -783,7 +992,7 @@ public class
          displayList.put("Wedding","Wedding");
          displayList.put("Automobile","Automobile");
  */
-         displayList.put("Other", "Other");
+         displayList.put("Saving", "Saving");
       }
       catch (Exception ex)
       {
@@ -855,23 +1064,32 @@ public class
       */
    }
 
-   public List<Asset> getEditableAsset()
+   public ArrayList<Asset> getEditableAsset()
    {
       return editableAsset;
    }
 
-   public void setEditableAsset(List<Asset> editableAsset)
+   public void setEditableAsset(Asset data)
    {
-      this.editableAsset = editableAsset;
+      this.editableAsset.add(data);
+   }
+
+   public void recreateEditableAsset() {
+      editableAsset = new ArrayList<Asset>();
    }
 
    public void resetPortfolioData() {
+      setLogonid(null);
+      setAcctnum(null);
+      setClientAccountID(null);
+
       setYearly(12);
       setGoal(null);
       setAccountType(null);
+      setTradePreference(InvConst.TRADE_MODE);
       setName(null);
-      setAge(null);
       setHorizon(null);
+      setDefaultAge(null);
       setCalendarYear(null);
       setNumOfAllocation(1);
       setNumOfPortfolio(1);
@@ -882,8 +1100,9 @@ public class
       setExperience(2);   // 1 = Experienced, 2 = inExperienced (See method strExpeience)
       setObjective(2);    // 1 = Preservation, 2 = Accumulation; (See method strObjective)
 
-      setAdvisor(InvConst.DEFAULT_ADVISOR);
+      setAdvisor(InvConst.INVESSENCE_ADVISOR);
       setTheme(InvConst.DEFAULT_THEME);
+      setBasket(InvConst.DEFAULT_BASKET);
 
       setStayInvested(1); // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
       setCharitableGoals(null);
@@ -900,7 +1119,7 @@ public class
       setAccountTaxable(false); //1 (True) for accountTaxable (False) for nonTaxable
       setTaxrate(0.1);
       setRisk("M");
-      setRiskIndex(0);
+      setDefaultRiskIndex(null);
 
       if (getEditableAsset() != null)
          getEditableAsset().clear();
@@ -914,4 +1133,29 @@ public class
       setIblink("https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.");
 
    }
+
+   public Integer convertRiskWeight2Index(Double weight)
+   {
+      // Risk Weight is from 0 to 28, where  28 = low risk, 0 = high risk.
+      // Return Index range is from 0 to 10. NOTE: 0 = low risk, and 10 = high risk.
+      Integer value = 0;
+      try {
+         value = (int) (10.0 - (Math.round(weight / 2.9)));
+      }
+      catch (Exception ex) {
+         value = 0;
+      }
+      return (value);
+   }
+
+   public Double convertIndex2RiskWeight(Integer index)
+   {
+      // Index range is from 0 to 10. NOTE: 0 = low risk, and 10 = high risk.
+      // Returns Risk Weight from 0 to 28.  28 = low risk, 0 = high risk.
+      Double value;
+      value = 28 - ((2.0 * index.doubleValue()) + Math.round(index.doubleValue() / 1.2));
+      return value;
+   }
+
+
 }

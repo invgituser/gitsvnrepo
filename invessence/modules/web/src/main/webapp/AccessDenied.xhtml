@@ -12,14 +12,14 @@
 
 <f:metadata>
     <f:viewParam name="type" value="#{messageBean.type}"/>
+    <f:viewParam name="title" value="#{messageBean.title}"/>
     <f:viewParam name="message" value="#{messageBean.message}"/>
-    <f:viewParam name="act" value="#{messageBean.act}"/>
-
+    <f:viewParam name="support" value="#{messageBean.supportInfo}"/>
 </f:metadata>
 
 <h:body>
 
-    <ui:composition template="/template/common/commonSecuredLayout.xhtml">
+    <ui:composition template="/template/common/layout.xhtml">
 
         <ui:define name="content">
 

@@ -26,12 +26,9 @@
 
     <p:layout fullPage="true">
 
-        <p:layoutUnit position="north" resizable="false" styleClass="advisorMenubar"
-                      size="60" maxSize="60">
             <ui:insert name="header">
                 <ui:include src="/template/common/advisorHeader.xhtml"/>
             </ui:insert>
-        </p:layoutUnit>
 
         <p:layoutUnit position="center" maxSize="900" minSize="600" resizable="true" styleClass="advisorWorkarea" >
             <ui:insert name="content">
@@ -46,6 +43,9 @@
         </p:layoutUnit>
 
     </p:layout>
+    <ui:insert name="globalDialogs">
+        <ui:include src="/template/common/sharedDialog.xhtml"/>
+    </ui:insert>
 
 </h:body>
 

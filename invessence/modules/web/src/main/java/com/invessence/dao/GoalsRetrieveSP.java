@@ -1,5 +1,6 @@
 package com.invessence.dao;
 
+import com.invessence.converter.SQLData;
 import com.invessence.data.ManageGoals;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,41 +20,43 @@ public class GoalsRetrieveSP extends AbsDataRetrieverByAccountNumber<ManageGoals
    static class GoalsMapper implements RowMapper<ManageGoals>
    {
       @Override
-      public ManageGoals mapRow(ResultSet resultSet, int i) throws SQLException
+      public ManageGoals mapRow(ResultSet rs, int i) throws SQLException
       {
          ManageGoals manageGoals = new ManageGoals();
-         manageGoals.setAcctnum(resultSet.getLong("acctnum"));
-         manageGoals.setGoal(resultSet.getString("goal"));
-         manageGoals.setAccountType(resultSet.getString("acctType"));
-         manageGoals.setDisplayAge(resultSet.getInt("age"));
-         manageGoals.setHorizon(resultSet.getInt("horizon"));
-         manageGoals.setInitialInvestment(resultSet.getInt("initialinvestment"));
-         manageGoals.setObjective(resultSet.getInt("longTermGoal"));
-         manageGoals.setExperience(resultSet.getInt("experience"));
-         manageGoals.setStayInvested(resultSet.getInt("stayInvested"));
-         manageGoals.setRecurringInvestment(resultSet.getInt("recurringInvestment"));
-         manageGoals.setDependent(resultSet.getInt("dependent"));
-         manageGoals.setHouseholdwages(resultSet.getInt("householdwages"));
-         manageGoals.setOtherIncome(resultSet.getInt("otherincome"));
-         manageGoals.setMortgagePayment(resultSet.getInt("householdPayment"));
-         manageGoals.setOtherExpense(resultSet.getInt("miscExpenses"));
+         manageGoals.setAcctnum(rs.getLong("acctnum"));
+         manageGoals.setAdvisor(rs.getString("advisor"));
+         manageGoals.setTheme(rs.getString("theme"));
+         manageGoals.setGoal(rs.getString("goal"));
+         manageGoals.setAccountType(rs.getString("acctType"));
+         manageGoals.setAge(rs.getInt("age"));
+         manageGoals.setHorizon(rs.getInt("horizon"));
+         manageGoals.setInitialInvestment(rs.getInt("initialinvestment"));
+         manageGoals.setObjective(rs.getInt("longTermGoal"));
+         manageGoals.setExperience(rs.getInt("experience"));
+         manageGoals.setStayInvested(rs.getInt("stayInvested"));
+         manageGoals.setRecurringInvestment(rs.getInt("recurringInvestment"));
+         manageGoals.setDependent(rs.getInt("dependent"));
+         manageGoals.setHouseholdwages(rs.getInt("householdwages"));
+         manageGoals.setOtherIncome(rs.getInt("otherincome"));
+         manageGoals.setMortgagePayment(rs.getInt("householdPayment"));
+         manageGoals.setOtherExpense(rs.getInt("miscExpenses"));
 
-         manageGoals.setMoneymarket(resultSet.getInt("moneyMarket"));
-         manageGoals.setInvestment(resultSet.getInt("investment"));
-         manageGoals.setMortgateEquity(resultSet.getInt("homeEquity"));
-         manageGoals.setOtherSavings(resultSet.getInt("miscInvestment"));
+         manageGoals.setMoneymarket(rs.getInt("moneyMarket"));
+         manageGoals.setInvestment(rs.getInt("investment"));
+         manageGoals.setMortgateEquity(rs.getInt("homeEquity"));
+         manageGoals.setOtherSavings(rs.getInt("miscInvestment"));
 
-         manageGoals.setAutoLoan(resultSet.getInt("autoLoan"));
-         manageGoals.setMedical(resultSet.getInt("medicalDebt"));
-         manageGoals.setMortgageLoan(resultSet.getInt("mortgageLoan"));
-         manageGoals.setOtherDebt(resultSet.getInt("otherDebt"));
+         manageGoals.setAutoLoan(rs.getInt("autoLoan"));
+         manageGoals.setMedical(rs.getInt("medicalDebt"));
+         manageGoals.setMortgageLoan(rs.getInt("mortgageLoan"));
+         manageGoals.setOtherDebt(rs.getInt("otherDebt"));
 
-         manageGoals.setRiskIndex(resultSet.getInt("riskIndex"));
-         manageGoals.setUserid(resultSet.getString("email"));
-         manageGoals.setEmail(resultSet.getString("email"));
-         manageGoals.setLastname(resultSet.getString("lastname"));
-         manageGoals.setFirstname(resultSet.getString("firstname"));
-         manageGoals.setRegisteredState(resultSet.getString("state"));
+         manageGoals.setRiskIndex(rs.getInt("riskIndex"));
+         manageGoals.setUserid(rs.getString("email"));
+         manageGoals.setEmail(rs.getString("email"));
+         manageGoals.setLastname(rs.getString("lastname"));
+         manageGoals.setFirstname(rs.getString("firstname"));
+         manageGoals.setRegisteredState(rs.getString("state"));
          return manageGoals;
       }
    }

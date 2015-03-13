@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS sel_AdvisorAcctList;
+DROP PROCEDURE IF EXISTS `sel_AdvisorAcctList`;
 
 DELIMITER $$
 CREATE PROCEDURE `sel_AdvisorAcctList`(
@@ -22,6 +22,7 @@ BEGIN
 					IFNULL(IB.lastname, user.lastname) as lastname,
 					IFNULL(IB.firstname, user.firstname) as firstname,
 					profile.tradePreference,
+					`profile`.`goal` as goal,
 					profile.`acctType` as accttype,
 					IFNULL(profile.age,30) as age,
 					IFNULL(profile.horizon,0) as horizon,
@@ -43,12 +44,14 @@ BEGIN
 					`IB_Accounts` IB
 					LEFT JOIN `nav_daily` nav
 						ON (IB.IB_acctnum = nav.clientAccountID
-						AND nav.reportDate = funct_get_switch('BROKER_BDATE'))
+						AND nav.reportDate = funct_get_switch('BROKER_BDATE')
+						AND IB.IB_acctnum is not NULL)
 				WHERE profile.acctnum = IB.acctnum
 				AND   user.logonid = uar.logonid
 				AND   uar.acctnum = profile.acctnum
 				AND   uar.acctnum in (select uar2.acctnum from user_access_role uar2 where logonid = p_logonid and role = 'ADVISOR')
-				AND   user.logonid <> p_logonid
+				AND   user.logonid not in (select logonid from role where role not in ('ADVISOR'))
+				ORDER BY 17 desc
 				;
 		end if;
 
@@ -65,6 +68,7 @@ BEGIN
 				user.lastname as lastname,
 				user.firstname as firstname,
 				profile.tradePreference,
+				`profile`.`goal` as goal,
 				profile.`acctType` as accttype,
 				IFNULL(profile.age,30) as age,
 				IFNULL(profile.horizon,0) as horizon,
@@ -86,8 +90,9 @@ BEGIN
 			WHERE user.logonid = uar.logonid
 			AND   uar.acctnum = profile.acctnum
 			AND   uar.acctnum in (select uar2.acctnum from user_access_role uar2 where logonid = p_logonid and role = 'ADVISOR')
-			AND   user.logonid <> p_logonid
-			AND   profile.acctnum not in (select acctnum from `IB_Accounts`)
+			AND   user.logonid not in (select logonid from role where role not in ('ADVISOR'))
+			AND   profile.acctnum not in (select acctnum from `IB_Accounts` where acctnum is not null)
+			ORDER BY 16 desc
 			;
 
 		end if;

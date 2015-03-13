@@ -76,12 +76,19 @@
 
 
     </p:panel>
-    <p:dialog header="Cofirm" widgetVar="dlgIB" closable="true" appendTo="@(body)"
+    <p:dialog header="#{managegoals.accountType}" widgetVar="dlgIB" closable="true" appendTo="@(body)"
               style="background-color:#ffffff">
 
-        <h:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid" rendered="#{managegoals.canOpenAccount}">
+        <p:panelGrid cellpadding="5" styleClass="invNBgrid"
+                     rendered="#{managegoals.canOpenAccount}">
             <p:row>
-                <p:column colspan="2">
+                <p:column colspan="2" style="text-align:left; color: #CC0000">
+                    <h3>You opening <strong>#{managegoals.accountType}</strong> type of account.</h3>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="2" style="text-align:left">
+                    <br/>
                     <strong>Please have the following information readily available:</strong>
                     <br/>
                     <br/>
@@ -108,21 +115,22 @@
             </p:row>
 
             <f:facet name="footer">
-                <p:column>
+                <p:row>
+                    <p:column style="text-align: left">
                     <p:commandButton value="#{managegoals.yesText}"
                                      actionListener="#{managegoals.forwardToIB}"
                                      oncomplete="PF('dlgIB').hide();"/>
-
-                </p:column>
-                <p:column>
+                    </p:column>
+                    <p:column style="text-align: right">
                     <p:commandButton value="Cancel"
                                      oncomplete="PF('dlgIB').hide();" />
 
-                </p:column>
+                    </p:column>
+                </p:row>
             </f:facet>
-        </h:panelGrid>
+        </p:panelGrid>
 
-        <h:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid" rendered="#{managegoals.canNotOpenAccount}">
+        <p:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid" rendered="#{managegoals.canNotOpenAccount}">
             <p:row>
                 <p:column colspan="2">
                     We are in the process of registering in your state.<br/>
@@ -137,7 +145,7 @@
 
                 </p:column>
              </f:facet>
-        </h:panelGrid>
+        </p:panelGrid>
 
 
 

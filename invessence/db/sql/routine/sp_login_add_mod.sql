@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS sp_login_add_mod;
+DROP PROCEDURE IF EXISTS `sp_login_add_mod`;
 
 DELIMITER $$
 CREATE PROCEDURE `sp_login_add_mod`(
@@ -22,7 +22,8 @@ CREATE PROCEDURE `sp_login_add_mod`(
    IN p_ip varchar(20),
    IN p_macaddress varchar(20),
    IN p_resetID varchar(8),
-   IN p_cookieID varchar(5)
+   IN p_cookieID varchar(5),
+   IN p_emailmsgtype varchar(45)
 )
 BEGIN 
 
@@ -65,7 +66,8 @@ BEGIN
 			`cookieID`,
 			`resetID`,
 			`attempts`,
-			`created`)
+			`created`,
+			`emailmsgtype`)
 			VALUES
 			(
 			 p_userid,
@@ -88,7 +90,8 @@ BEGIN
 			 p_cookieID,
 			 p_resetID,
 			 0,
-			 now()
+			 now(),
+			 p_emailmsgtype
 			);
 
 			select last_insert_id() into p_logonid;
@@ -119,7 +122,8 @@ BEGIN
 			`macaddress` = p_macaddress,
 			`cookieID` = p_cookieID,
 			`resetID` = p_resetID,
-			`lastupdated` = now()
+			`lastupdated` = now(),
+			`emailmsgtype` = p_emailmsgtype
 			WHERE `logonid` = p_logonid;
   end;
   end if;

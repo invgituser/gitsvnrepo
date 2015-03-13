@@ -7,8 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.net.*;
 
+import com.invessence.constant.Const;
+import com.invessence.data.UserInfoData;
+import org.springframework.security.core.*;
+import org.springframework.security.core.context.*;
 
-public class Util {
+/* Prashant 1/7/2014 Both Util and UserValidation is merged with WebUtil */
+
+//public class Util {
+/*
+
+   UserValidation uvalidate = new UserValidation();
 	
     public static boolean isNull(String val) {
         
@@ -66,100 +75,9 @@ public class Util {
        	   	
     	return Integer.parseInt(idx);
 	}
-	
-/*
-	public static String[][] getTabbedMenu(String subject) {
-		String[][] tabbedMenu =  {
-			{subject, "ItemDetails.htm"},
-			//{"Images/Videos", "ItemImageVideoDetails.htm"},
-			{"Ratings/Comments", "Comments.htm"}
-			
-			
-	    };
-		
-		return tabbedMenu; 
-	}
-*/
 
-/*
-	public static UserInfoData getUserInfoData() {
-	
-		//Object principal = (Object) ((SecurityContext) 
-        	    //SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
-		
-		Authentication auth = (Authentication) ((SecurityContext) 
-        	    SecurityContextHolder.getContext()).getAuthentication();
-				
-		if ( (auth != null) && (auth.getPrincipal() instanceof UserInfoData )) {
-			return (UserInfoData) auth.getPrincipal(); 
-			
-		} else {
-			return null;
-		}
-		
-	}
-*/
 
-/*
-	public static Long getUserInfoID() {
-				
-		//Object principal = (Object) ((SecurityContext) 
-        	    //SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
-		
-		UserInfoData userInfoData = null;
-		
-		Authentication auth = (Authentication) ((SecurityContext) 
-        	    SecurityContextHolder.getContext()).getAuthentication();
-		
-		if ( (auth != null) && (auth.getPrincipal() instanceof UserInfoData )) {
-			userInfoData = (UserInfoData) auth.getPrincipal();
-			return userInfoData.getLogonID();
-			
-		} else {
-			return 0L;
-		}
-		
-	}
 */
-
-/*
-	public static boolean hasAdminRole() {
-		
-		
-		boolean grantedRole = false;
-		Object principal = (Object) ((SecurityContext) 
-        	    SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
-		
-		if (principal instanceof UserInfoData ) {
-			Collection<GrantedAuthority> roleCollection = ((UserInfoData)principal).getAuthorities();
-			
-			for (GrantedAuthority auth: roleCollection) {
-				
-				if ( (auth.getAuthority().equalsIgnoreCase(Const.ROLE_ADMIN)) 
-					  ) {
-					grantedRole = true;
-					break;
-				}
-			}
-			
-		} 
-		
-		return grantedRole;
-		
-	}
-*/
-
-/*
-    public static boolean isUserLoggedIn() {
-    	
-    	if (getUserInfoData() != null) 
-    		return true;
-    	else 
-    		return false;
-		
-	}
-*/
-
 /*
      public static ProjUtil getProjUtil(HttpServletRequest request) {
          
@@ -168,10 +86,11 @@ public class Util {
          return (ProjUtil) ctx.getBean("projUtil");
       }
       
-*/
+*//*
+
     
     
-     public static String getSource(String urlAddress) {
+     public String getSource(String urlAddress) {
     	 
          try {
              URL url = new URL(urlAddress);
@@ -314,6 +233,29 @@ public class Util {
       return response;
    }
 
+   public Boolean redirecttoMessagePage(String type, String title, String body) {
+      String spMsg = "";
+      Map<String,String> args = new HashMap<String, String>();
+      try {
+         if (type != null)
+            args.put("type",type);
+         if (title != null)
+            args.put("title",title);
+         if (body != null) {
+            args.put("message",body);
+            uvalidate.redirect("/message.xhtml?faces-redirect=true",args);
+         }
+      }
+      catch (Exception ex) {
+         args.put("message","mbse");
+         args.put("type","Error");
+         args.put("title","mtse");
+         uvalidate.redirect("/message.xhtml?faces-redirect=true",args);
+         return false;
+      }
+      return true;
+   }
 
+*/
 
-}
+//}

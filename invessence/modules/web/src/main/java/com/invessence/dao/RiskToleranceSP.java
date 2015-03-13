@@ -1,15 +1,12 @@
 package com.invessence.dao;
 
-import com.invessence.bean.ManageGoalsBean;
 import com.invessence.data.ManageGoals;
-import org.springframework.jdbc.core.SqlInOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 import javax.sql.DataSource;
 import java.sql.Types;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class RiskToleranceSP extends StoredProcedure

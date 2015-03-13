@@ -8,8 +8,6 @@ import javax.sql.DataSource;
 
 import com.invessence.data.ManageGoals;
 import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.jdbc.object.StoredProcedure;
 import com.invmodel.asset.data.AssetClass;
 
@@ -62,7 +60,7 @@ public class AllocationSP extends StoredProcedure
          inputAssetMap.put("p_allocationmodel", data.getModel());
          inputAssetMap.put("p_assetyear", data.getAssetyear());
          inputAssetMap.put("p_active", data.getActive());
-         inputAssetMap.put("p_weight", data.getAssetData()[0].getAssetRoundedActualWeight(assetname));
+         inputAssetMap.put("p_weight", data.getAssetData()[0].getAsset(assetname).getUserweight());
 
          super.execute(inputAssetMap);
       }

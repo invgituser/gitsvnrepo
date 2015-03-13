@@ -81,6 +81,8 @@ public class EmailJob
             data.setEnteredDate("");
             data.setUpdatedDate("");
             data.setSentDate("");
+            data.setMimeType("Text");
+            data.setAttachmentFile("");
             sendEmail(data);
          }
          catch (Exception e)

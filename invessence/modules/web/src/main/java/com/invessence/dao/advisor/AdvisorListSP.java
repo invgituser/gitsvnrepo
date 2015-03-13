@@ -5,8 +5,6 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.data.admin.AdminTradeClient;
-import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -19,14 +17,15 @@ public class AdvisorListSP extends StoredProcedure
       super(datasource, sp_name);
       switch (mode) {
          case 0:
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
-            declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             break;
          case 1:
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
          case 2:
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_strategy", Types.VARCHAR));
             break;
          case 3:
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -40,11 +39,11 @@ public class AdvisorListSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map collectProfileData(Long acctnum, String filter)
+   public Map collectProfileData(Long logonid, Long acctnum)
    {
       Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
       inputMap.put("p_acctnum", acctnum);
-      inputMap.put("p_filter", filter);
       return super.execute(inputMap);
    }
 
@@ -56,10 +55,11 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map collectBasket(String advisor)
+   public Map collectBasket(String advisor, String strategy)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_advisor", advisor);
+      inputMap.put("p_strategy", strategy);
       return super.execute(inputMap);
    }
 

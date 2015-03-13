@@ -1,8 +1,11 @@
 package com.invessence.util;
 
-import javax.mail.internet.MimeMessage;
+import java.io.*;
+import java.util.StringTokenizer;
+import javax.mail.Multipart;
+import javax.mail.internet.*;
+import javax.activation.*;
 
-import com.invessence.constant.Const;
 import com.invessence.data.MsgData;
 import org.apache.log4j.Logger;
 import org.quartz.Scheduler;
@@ -29,7 +32,7 @@ public class EmailUtil
       MimeMessage message = mailSender.createMimeMessage();
 
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(msgData.getSender(), Const.COMPANY_NAME);
+      helper.setFrom(msgData.getSender(), "Invessence");
       helper.setSubject(msgData.getSubject());
 
 
@@ -60,7 +63,7 @@ public class EmailUtil
 
 
       // helper.setText(msgData.getMsg());
-      message.setContent(msgData.getMsg(), "text/html");
+      //message.setContent(msgData.getMsg(), "text/html");
             
 
            /*
@@ -70,6 +73,63 @@ public class EmailUtil
             }
             mailSender.send(message);
             */
+      // COVER WRAP
+      MimeBodyPart wrap = new MimeBodyPart();
+
+      // ALTERNATIVE TEXT/HTML CONTENT
+      MimeMultipart cover = new MimeMultipart("alternative");
+      MimeBodyPart html = new MimeBodyPart();
+      MimeBodyPart text = new MimeBodyPart();
+
+      if(msgData.getMimeType() != null && msgData.getMimeType().trim().equalsIgnoreCase("html"))
+      {
+         cover.addBodyPart(html);
+      }else
+      {
+         cover.addBodyPart(text);
+      }
+
+      wrap.setContent(cover);
+
+      MimeMultipart content = new MimeMultipart("related");
+      message.setContent(content);
+      content.addBodyPart(wrap);
+
+
+      if(msgData.getAttachmentFile() != null && msgData.getAttachmentFile() != "")
+      {
+         int count = 0;
+         StringTokenizer st = new StringTokenizer(msgData.getAttachmentFile(), ",");
+         String[] attachmentsFiles = new String[st.countTokens()];
+         while (st.hasMoreElements())
+         {
+            attachmentsFiles[count] = st.nextToken();
+            count++;
+         }
+
+         StringBuilder sb = new StringBuilder();
+
+         for (String attachmentFileName : attachmentsFiles)
+         {
+
+            MimeBodyPart attachment = new MimeBodyPart();
+
+            DataSource fds = new FileDataSource(attachmentFileName);
+            attachment.setDataHandler(new DataHandler(fds));
+            attachment.setFileName(fds.getName());
+
+            content.addBodyPart(attachment);
+         }
+      }
+      if(msgData.getMimeType() != null && msgData.getMimeType().equalsIgnoreCase("html"))
+      {
+         html.setContent(msgData.getMsg(), "text/html");
+      }else
+      {
+         text.setText(msgData.getMsg());
+      }
+
+
       try
       {
          int msgID = msgData.getMsgID();
@@ -92,34 +152,6 @@ public class EmailUtil
          LOG.error("Error sending email: " + msgData.getMsgID() + ":" + e);
       }
    }
-
-
-   public static void main(String[] args)
-   {
-      try
-      {
-         if (args.length == 2)
-         {
-            if (args[0].equals("-test"))
-            {
-               String[] emailAddresses = args[1].split(",");
-               EmailJob.setTestMode(true, emailAddresses);
-            }
-         }
-         ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/email.util.xml");
-         Scheduler schedulerFactory = (Scheduler) applicationContext.getBean("schedulerFactory");
-         schedulerFactory.start();
-      }
-      catch (Error e)
-      {
-         e.printStackTrace();
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
 }
 
 

@@ -40,7 +40,12 @@ BEGIN
 
 	   if (t_logonID is not null)
 	   then
-			set p_logonid = t_logonID;
+			if (t_status = 'T')
+			then 
+				set p_logonid = -99;
+			else
+				set p_logonid = -1;
+			end if;
 	   else
 	   begin
 			INSERT INTO `user_logon`

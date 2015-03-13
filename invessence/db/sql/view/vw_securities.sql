@@ -4,8 +4,9 @@ CREATE
 VIEW `vw_securities` AS
     select 
         `sec_master`.`instrumentid` AS `instrumentid`,
-		IFNULL(`sec_master_group`.`groupname`,'Invessence') as `groupname`,
-		IFNULL(`sec_master_group`.`theme`,'Balance') as `theme`,
+        ifnull(`sec_master_group`.`groupname`,
+                'Invessence') AS `groupname`,
+        ifnull(`sec_master_group`.`theme`, 'Unused') AS `theme`,
         `sec_master`.`status` AS `status`,
         `sec_master`.`ticker` AS `ticker`,
         `sec_master`.`cusip` AS `cusip`,
@@ -18,8 +19,10 @@ VIEW `vw_securities` AS
         `sec_master`.`expenseRatio` AS `expenseRatio`,
         `sec_master`.`lowerBoundReturn` AS `lowerBoundReturn`,
         `sec_master`.`upperBoundReturn` AS `upperBoundReturn`,
-        IFNULL(`sec_master_group`.`lowerBound`,`sec_master`.`lowerBound`) AS `lowerBound`,
-        IFNULL(`sec_master_group`.`upperBound`,`sec_master`.`upperBound`) AS `upperBound`,
+        ifnull(`sec_master_group`.`lowerBound`,
+                `sec_master`.`lowerbound`) AS `lowerBound`,
+        ifnull(`sec_master_group`.`upperBound`,
+                `sec_master`.`upperbound`) AS `upperBound`,
         `sec_master`.`taxableReturn` AS `taxableReturn`,
         `sec_master`.`nontaxableReturn` AS `nontaxableReturn`,
         `sec_master`.`adv3months` AS `adv3months`,
@@ -33,18 +36,11 @@ VIEW `vw_securities` AS
         end) AS `price`,
         `sec_master_group`.`sortorder` AS `sortorder`
     from
-        (`sec_master`
-		left join `sec_master_group` 
-				ON (
-					`sec_master`.`instrumentID` = `sec_master_group`.`instrumentID`
-					 and `sec_master_group`.`status` in ('A')
-					)
-        left join `sec_daily_info` `sd` 
-				ON (
-					`sec_master`.`ticker` = `sd`.`ticker`
-					 and (date_format(`sd`.`businessdate`, '%Y%m%d') = funct_get_switch('PRICE_DATE'))
-					)
-		)
+        ((`sec_master`
+        left join `sec_master_group` ON (((`sec_master`.`instrumentid` = `sec_master_group`.`instrumentid`)
+            and (`sec_master_group`.`status` = 'A'))))
+        left join `sec_daily_info` `sd` ON (((`sec_master`.`ticker` = `sd`.`ticker`)
+            and (date_format(`sd`.`businessdate`, '%Y%m%d') = funct_get_switch('PRICE_DATE')))))
     where
         (`sec_master`.`status` = 'A')
     order by `sec_master_group`.`sortorder`;

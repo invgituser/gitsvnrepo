@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS `sp_email_messages_add_mod`;
+DROP PROCEDURE `sp_email_messages_add_mod`;
 
 DELIMITER $$
 CREATE PROCEDURE `sp_email_messages_add_mod`(
@@ -16,7 +16,9 @@ CREATE PROCEDURE `sp_email_messages_add_mod`(
 	IN p_logonid bigint(20),
 	IN p_sentdate varchar(12),  -- MM/DD/YYYY
 	IN p_msg mediumtext,
-	IN p_comment varchar(250)
+	IN p_comment varchar(250),
+	IN p_mimetype varchar(250),
+	IN p_attachments mediumtext
 )
 BEGIN 
 
@@ -38,7 +40,9 @@ BEGIN
 				sentdate,
 				`comment`,
 				created,
-				lastupdated
+				lastupdated,
+				mimetype,
+				attachments
 				 )
 			VALUES 
 				 ( 
@@ -46,7 +50,7 @@ BEGIN
 				p_receiver,
 				p_cc,
 				p_bcc,
-				p_subject,
+				IFNULL(p_subject,'Invessence: email'),
 				p_msg,
 				p_status,
 				p_category,
@@ -55,14 +59,16 @@ BEGIN
 				null,  -- Ignoring the arg!
 				p_comment,
 				now(),
-				NULL
+				NULL,
+				p_mimetype,
+				p_attachments
 				) ; 
 		   END;
 	   ELSE
 		   BEGIN
 			 UPDATE  email_alerts
 			 SET
-			`subject` = p_subject,
+			`subject` = IFNULL(p_subject,'Invessence: email'),
 			sender = p_sender,
 			receiver = p_receiver,
 			cc = p_cc,
@@ -74,7 +80,9 @@ BEGIN
 			logonid = p_logonid,
 			sentdate = STR_TO_DATE(p_sentdate,'%m/%d/%Y'),
 			`comment` = p_comment,
-			lastupdated = now()
+			lastupdated = now(),
+			mimetype = p_mimetype,	
+			attachments = p_attachments
 		 WHERE
 			messageid = p_messageid
 			AND lastupdated is null;
@@ -99,7 +107,9 @@ BEGIN
 				sentdate,
 				`comment`,
 				created,
-				lastupdated
+				lastupdated,
+				mimetype,
+				attachments
 				 )
 			VALUES 
 				 ( 
@@ -108,7 +118,7 @@ BEGIN
 				p_receiver,
 				p_cc,
 				p_bcc,
-				p_subject,
+				IFNULL(p_subject,'Invessence: email'),
 				p_msg,
 				p_status,
 				p_category,
@@ -117,14 +127,16 @@ BEGIN
 				null,  -- Ignoring the arg!
 				p_comment,
 				now(),
-				NULL
+				NULL,
+				p_mimetype,
+				p_attachments
 				 ) ; 
 		   END;
 	   ELSE
 		   BEGIN
 			 UPDATE  email_messages
 			 SET
-			`subject` = p_subject,
+			`subject` = IFNULL(p_subject,'Invessence: email'),
 			sender = p_sender,
 			receiver = p_receiver,
 			cc = p_cc,
@@ -136,7 +148,9 @@ BEGIN
 			logonid = p_logonid,
 			sentdate = STR_TO_DATE(p_sentdate,'%m/%d/%Y'),
 			`comment` = p_comment,
-			lastupdated = now()
+			lastupdated = now(),
+			mimetype = p_mimetype,
+			attachments = p_attachments
 		 WHERE
 			messageid = p_messageid
 			AND lastupdated is null;

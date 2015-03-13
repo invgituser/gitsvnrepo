@@ -7,19 +7,28 @@ import javax.sql.DataSource;
 
 import com.invessence.data.advisor.AdvisorData;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "advisorSaveDataDAO")
 @ApplicationScoped
-public class AdvisorSaveDataDAO extends SimpleJdbcDaoSupport implements Serializable
+public class AdvisorSaveDataDAO extends JdbcDaoSupport implements Serializable
 {
    public Long saveProfile(AdvisorData data) {
       DataSource ds = getDataSource();
-      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "sp_adv_user_trade_profile",0);
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "save_advisor_user_trade_profile",0);
       Map outMap = sp.saveProfile(data);
-      Long acctnum = ((Long) outMap.get("p_acctnum")).longValue();
+      Long acctnum = -1L;
+      if (outMap != null) {
+         if (outMap.containsKey("p_acctnum")) {
+            acctnum = ((Long) outMap.get("p_acctnum")).longValue();
+         }
+      }
+
       data.setAcctnum(acctnum);
       return acctnum;
    }
+
+
 
    public void saveAllocation(AdvisorData data) {
       DataSource ds = getDataSource();
@@ -45,5 +54,11 @@ public class AdvisorSaveDataDAO extends SimpleJdbcDaoSupport implements Serializ
       sp.saveExcludedSubclass(data);
    }
 
+   public void deleteUserAccount(Long acctnum) {
+      DataSource ds = getDataSource();
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "delete_userAccount",7);
+      sp.deleteAccount(acctnum);
+
+   }
 }
 

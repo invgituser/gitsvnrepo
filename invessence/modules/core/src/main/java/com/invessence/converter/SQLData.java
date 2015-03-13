@@ -1,5 +1,7 @@
 package com.invessence.converter;
 
+import java.io.Serializable;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Prashant
@@ -7,15 +9,17 @@ package com.invessence.converter;
  * Time: 12:46 PM
  * To change this template use File | Settings | File Templates.
  */
-public class SQLData
+public class SQLData implements Serializable
 {
+   private static final long serialVersionUID = -1983L;
+
    public String getStrData(Object dataobj)
    {
       String val = "";
       try
       {
          if (dataobj == null)
-            return "";
+            return null;
          else
             val = dataobj.toString();
       }
@@ -32,7 +36,7 @@ public class SQLData
       try
       {
          if (dataobj == null)
-            return null;
+            return 0;
          else {
             Double dValue =  getDoubleData(dataobj);
             val = dValue.intValue();
@@ -51,7 +55,7 @@ public class SQLData
       try
       {
          if (dataobj == null)
-            return null;
+            return 0L;
          else
             val = Long.parseLong(dataobj.toString());
       }
@@ -68,7 +72,7 @@ public class SQLData
       try
       {
          if (dataobj == null)
-            return null;
+            return 0.0;
          else
             val = Double.parseDouble(dataobj.toString());
       }

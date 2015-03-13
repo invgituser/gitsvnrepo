@@ -16,29 +16,34 @@ import org.springframework.security.web.WebAttributes;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
+@ManagedBean(name = "loginController")
+@ViewScoped
 public class LoginController implements PhaseListener
 {
 
    protected final Log logger = LogFactory.getLog(getClass());
    private Long logonid;
-   private UserValidation uv = new UserValidation();
+   private WebUtil webutil = new WebUtil();
    private String userID, password, question, answer, savedAnswer;
    private Boolean needAdditionalInfo = false;
    private UserInfoData uid;
 
-   private EmailMessage messageText;
+   @ManagedProperty("#{emailMessage}")
+   private EmailMessage emailMessage;
+
+   @ManagedProperty("#{menu}")
+   private Menu menu;
+
    MsgData data = new MsgData();
-   UserValidation urv = new UserValidation();
 
-
-   public EmailMessage getMessageText()
+   public void setEmailMessage(EmailMessage emailMessage)
    {
-      return messageText;
+      this.emailMessage = emailMessage;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMenu(Menu menu)
    {
-      this.messageText = messageText;
+      this.menu = menu;
    }
 
    /**
@@ -73,28 +78,42 @@ public class LoginController implements PhaseListener
          if (e instanceof LockedException) {
             uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
             if (uid != null) {
-               String secureUrl = messageText.getMessagetext("secure.url", new Object[]{});
-               String msg = messageText.getMessagetext("accountlocked.email",
-                                                       new Object[]{secureUrl, uid.getEmail(), uid.getResetID()});
+               String secureUrl = emailMessage.buildInternalMessage("secure.url", new Object[]{});
+
+               // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
+               String msg = emailMessage.buildMessage(uid.getEmailmsgtype(),"accountlocked.email.template", "accountlocked.email", new Object[]{secureUrl, uid.getEmail(), uid.getResetID()} );
                data.setSource("User");  // This is set to User to it insert into appropriate table.
                data.setSender(Const.MAIL_SENDER);
                data.setReceiver(uid.getEmail());
                data.setSubject(Const.COMPANY_NAME + " - Account Locked");
                data.setMsg(msg);
-               messageText.writeMessage("user", data);
+               data.setMimeType(uid.getEmailmsgtype());
+               emailMessage.writeMessage("user", data);
                data.setSubject("Locked:" + uid.getUserID());
                // If user is locked, send message to support desk...
                String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID() + "," + uid.getAcctownertype();
                System.out.println(lockedinfo);
                data.setMsg(lockedinfo);
                data.setReceiver(null);
-               messageText.writeMessage("WARN",data);
+               emailMessage.writeMessage("WARN", data);
             }
-            String lockedMsg = messageText.getMessagetext("accountlocked.msg", new Object[]{});
-            String redirectUrl="\\message.xhtml?faces-redirect=true&message=" + lockedMsg;
-            urv.redirect(redirectUrl,null);
+            String lockedMsg = "&message=mbal";
+            String type="&type=E";
+            String title="&title=mtal";
+            String redirectUrl="/message.xhtml?faces-redirect=true&"+ lockedMsg + type + title;
+            webutil.redirect(redirectUrl, null);
          }
-         return;
+         if (e instanceof BadCredentialsException)
+         {
+            if (uid.getAttempts() > 1) {
+               setNeedAdditionalInfo(true);
+               setQuestion(uid.getSelectedQuestion());
+            }
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                          "Username/password not valid.",
+                                                                          "Username/password not valid."));
+         }
       }
 
       FacesContext.getCurrentInstance().responseComplete();
@@ -173,25 +192,25 @@ public class LoginController implements PhaseListener
       return PhaseId.RENDER_RESPONSE;
    }
 
-   public String getRedirect()
+   public String getRedirectV1()
    {
       String accttype;
-      String url = "/manageAccount.xhtml";
+      String url = "/manage.xhtml";
       try {
          if (getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE) != null)
          {
             accttype = getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE).toString();
             if (accttype.equalsIgnoreCase(Const.ROLE_ADVISOR)) {
               url = "/advisor/add.xhtml";
-            }
+   }
             else  if (accttype.equalsIgnoreCase(Const.ROLE_ADMIN)) {
                      url = "/admin/welcome.xhtml";
                   }
             else
-               url = "/manageAccount.xhtml";
+               url = "/manage.xhtml";
          }
          else {
-            url = "/manageAccount.xhtml";
+            url = "/manage.xhtml";
          }
 
       }
@@ -199,21 +218,26 @@ public class LoginController implements PhaseListener
           ex.printStackTrace();
       }
       finally {
-         urv.redirect(url,null);
+         webutil.redirect(url, null);
       }
       return "success";
    }
 
-   public String logout()
+   public String getRedirect()
    {
+      menu.redirectStartPage();
+      return "success";
+   }
+
+
+   public void logout() {
       try {
          FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-         FacesContext.getCurrentInstance().getExternalContext().redirect(Const.URL_HOME);
       }
       catch (Exception ex) {
 
       }
-      return Const.URL_HOME;
+      webutil.redirect("/j_spring_security_logout", null);
    }
 
    public Long getLogonid()

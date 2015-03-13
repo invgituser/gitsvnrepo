@@ -3,22 +3,21 @@ package com.invessence.bean;
 import java.io.Serializable;
 import javax.faces.bean.*;
 
-import com.invessence.util.*;
+import com.invessence.util.EmailMessage;
 
 
+@ManagedBean(name = "messageBean")
 @SessionScoped
 public class MessageBean implements Serializable {
    private static final long serialVersionUID = -999L;
    private String type = null;
-   private String reason = null;
-   private String action = null;
-   private String headerText = null;
-   private String footerText = null;
+   private String bodyText = null;
    private String supportInfo = null;
+   private String title = "";
 
+   @ManagedProperty("#{emailMessage}")
    private EmailMessage messageText;
    private String message = null;
-   private String act = null;
 
    public String getType()
    {
@@ -27,8 +26,10 @@ public class MessageBean implements Serializable {
 
    public void setType(String type)
    {
-      this.type = type;
-   }
+      this.type = null;
+      if (type != null)
+         this.type = type.substring(0,1).toUpperCase();
+    }
 
    public String getMessage() {
       return message;
@@ -37,22 +38,15 @@ public class MessageBean implements Serializable {
    public void setMessage(String message) {
       String msgText = null;
       try {
-         if (message != null) {
-            if (! message.contains(" "))
-               setReason(messageText.getMessagetext(message, new Object[]{}));
-            else
-               setReason(message);
-         }
+         msgText = messageText.buildInternalMessage(message, new Object[]{});
+         if (msgText == null || msgText.length() == 0)
+            msgText = getMessage();
+         this.message =  msgText;
       }
       catch (Exception ex) {
          ex.printStackTrace();
-         setReason(message);
+         this.message = message;
       }
-   }
-
-   public EmailMessage getMessageText()
-   {
-      return messageText;
    }
 
    public void setMessageText(EmailMessage messageText)
@@ -60,54 +54,12 @@ public class MessageBean implements Serializable {
       this.messageText = messageText;
    }
 
-   public String getAct()
-   {
-      return act;
-   }
-
-   public void setAct(String act)
-   {
-      String msgText = null;
-      try {
-         if (act != null) {
-            if (! act.contains(" "))
-               setAction(messageText.getMessagetext(message, new Object[]{}));
-            else
-               setAct(act);
-         }
-      }
-      catch (Exception ex) {
-         ex.printStackTrace();
-         setAction(act);
-      }
-   }
-
-   public String getReason()
-   {
-      return reason;
-   }
-
-   public void setReason(String reason)
-   {
-      this.reason = reason;
-   }
-
-   public String getAction()
-   {
-      return action;
-   }
-
-   public void setAction(String action)
-   {
-      this.action = action;
-   }
-
    public String getSupportInfo()
    {
       if (supportInfo != null )
          return supportInfo;
       else
-         return messageText.getMessagetext("support.info", new Object[]{});
+         return messageText.buildInternalMessage("support.info", new Object[]{});
    }
 
    public void setSupportInfo(String supportInfo)
@@ -115,39 +67,53 @@ public class MessageBean implements Serializable {
       this.supportInfo = supportInfo;
    }
 
-   public String getHeaderText()
+
+   public String getTitle()
    {
-      String text = "";
-      // If the message is general, then just print the message (No header or footer).
-      if (getType() == null) {
-         return getReason();
+      return title;
+   }
+
+   public void setTitle(String title)
+   {
+      String msgText = null;
+      try {
+         msgText = messageText.buildInternalMessage(title, new Object[]{});
+         if (msgText == null || msgText.length() == 0)
+            this.title = title;
+         this.title =  msgText;
       }
-      // If the message is type of Error, then do this.
-      if (getType().startsWith("E")) {
-         text = messageText.getMessagetext("error.header", new Object[]{getReason(), getAction()});
+      catch (Exception ex) {
+         ex.printStackTrace();
+         this.title = title;
       }
-      else // If the message is type of Warning, then do this.
-      if (getType().startsWith("W")) {
-         text = messageText.getMessagetext("warning.header", new Object[]{getReason(), getAction()});
-      }
+   }
+
+   public String getBodyText()
+   {
+      if (bodyText == null)
+         return getMessage();
       else
-         text = getReason();
-
-      return text;
+         return bodyText;
    }
 
-   public void setHeaderText(String headerText)
+   public void setBodyText(String bodyText)
    {
-      this.headerText = headerText;
+      this.bodyText = bodyText;
    }
 
-   public String getFooterText()
-   {
-      return footerText;
+   public String getTitleColor() {
+      String style="font-size: 30px; font-family: Helvetica; font-weight: bold;  padding-bottom: 0px; font-style: normal; text-align: left; padding-top: 0px; padding-left: 0px; margin: 0px; display: block; letter-spacing: normal; line-height: 125%; padding-right: 0px;";
+      String color="color: #009ABB !important;";
+      if (getType() != null) {
+         if (getType().startsWith("E"))
+            color= "color: #CC0000 !important;";
+         else
+         if (getType().startsWith("W"))
+            color= "color: #FF9900; !important;";
+         else
+            color= "color: #009ABB !important;";
+      }
+      return style + color;
    }
 
-   public void setFooterText(String footerText)
-   {
-      this.footerText = footerText;
-   }
 }

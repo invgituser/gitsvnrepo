@@ -7,6 +7,8 @@ CREATE PROCEDURE `sel_user_trade_profile`(
 BEGIN
 	SELECT DISTINCT
 		`user_trade_profile`.`acctnum`,
+		`user_trade_profile`.`advisor`,
+		`user_trade_profile`.`theme`,
 		`user_trade_profile`.`goal`,
 		`user_trade_profile`.`acctType`,
 		`user_trade_profile`.`age`,

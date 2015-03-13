@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+</h:head>
+
+<h:body>
+    <script type="text/javascript" src="/js/invCharts.js"></script>
+    <p:panel id="allocPanel">
+
+        <div class="et_pb_section">
+            <div class="et_pb_row">
+                <div class="et_pb_column alloc_pie">
+                                <p:panelGrid id="assetGrid" styleClass="invNBgrid">
+                                    <p:row>
+                                        <p:column colspan="2" style="text-align: center; background: #d3d3d3;">
+                                            <h:outputText id="assetheader" value="Asset Allocation"
+                                                          style="font-size:12px;font-weight:bold;text-align:center"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column>
+                                            <p:pieChart id="allocationchart" rendered="#{cBean.charts.pieChart == null ? false : true}"
+                                                        value="#{cBean.charts.pieChart}" legendPosition="s"
+                                                        fill="true" seriesColors="009ABB, CFD449, 93A9CF, FF9966, FFFFCC, 00CC00"
+                                                        extender="pie_extensions"
+                                                        style="font-size:12px;width: 200px;text-align:left"
+                                                        diameter="100"/>
+                                            </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column colspan="2" style="text-align: center; background: #d3d3d3;">
+                                            <h:outputText id="assetTitle" value="Allocation by Year:  #{cBean.charts.calendarYear}"
+                                                          style="font-size:12px;font-weight:bold;text-align:center"/>
+                                            <h:inputHidden id="txt" value="#{cBean.charts.calendarYear}"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="text-align: left">
+                                            <p:slider for="txt" range="false" display="assetTitle"
+                                                      style="width:200px"
+                                                      minValue="#{cBean.charts.minYearPoint}"
+                                                      maxValue="#{cBean.charts.maxYearPoint}"
+                                                      step="1"
+                                                      displayTemplate="Allocation by Year: {value}">
+                                                <p:ajax event="slideEnd" listener="#{cBean.refreshChart}" update="allocationchart"/>
+                                            </p:slider>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="text-align: left">
+                                            Move the slider to change year.
+                                        </p:column>
+                                    </p:row>
+                                </p:panelGrid>
+                </div>
+                <!-- .et_pb_column -->
+                <div class="et_pb_column alloc_line">
+                                <p:panelGrid id="lineGrid" styleClass="invNBgrid">
+                                    <p:row>
+                                        <p:column style="text-align: center; background: #d3d3d3;">
+                                            <h:outputText id="costTitle" value="Projected Performance"
+                                                          style="font-size:12px;font-weight:bold;text-align:center"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column >
+                                            <p:lineChart type="line" id="linear" rendered="#{cBean.charts.lineChart == null ? false : true}"
+                                                         value="#{cBean.charts.lineChart}"
+                                                         extender="line_extensions"
+                                                         xaxisLabel="Years" xaxisAngle="#{cBean.charts.legendXrotation}"
+                                                         minX="#{cBean.charts.minYearPoint}" minY="#{cBean.charts.minGrowth}"
+                                                         style="width:400px"/>
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="text-align: left">
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="text-align: left">
+                                        </p:column>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column style="text-align: center">
+                                            Move your cursor along the curve to see dollar amounts.
+                                        </p:column>
+                                    </p:row>
+					
+                                </p:panelGrid>
+                </div>
+                <!-- .et_pb_column -->
+            </div>
+            <!-- .et_pb_row -->
+            <br/>
+            <p style="font-style: italic; font-size: .8em;">
+                This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
+                (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
+                It does not take in affect any tax withholdings or distributions.
+                <br/>
+                Please read the disclaimer at the bottom of this screen.
+            </p>
+        </div>
+
+
+    </p:panel>
+</h:body>
+</html>
+
+

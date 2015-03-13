@@ -34,8 +34,10 @@
                                      validatorMessage="Select one investment goal."
                                      valueChangeListener="#{managegoals.changeEvent}">
                         <f:selectItem itemLabel="- Choose one -" itemValue=""/>
-                        <f:selectItems value="#{managegoals.displayGoalList.entrySet()}"
-                                       var="goalList" itemLabel="#{goalList.key}" itemValue="#{goalList.value}"/>
+                        <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
+                        <f:selectItem itemLabel="Home" itemValue="Home"/>
+                        <f:selectItem itemLabel="Education" itemValue="Education"/>
+                        <f:selectItem itemLabel="Saving" itemValue="Saving"/>
                         <f:ajax event="change" render="@form" />
                     </p:selectOneMenu>
                 </p:column>
@@ -64,13 +66,13 @@
             </p:row>
             <p:row>
                 <p:column styleClass="invLabel">
-                    <p:outputLabel value="Your Current Age" rendered="#{managegoals.renderAge}"/>
+                    <p:outputLabel value="Your Current Age" rendered="#{managegoals.goal != ''}"/>
                 </p:column>
                 <p:column>
-                    <p:message for="age" display="icon" rendered="#{managegoals.renderAge}"/>
+                    <p:message for="age" display="icon" rendered="#{managegoals.goal != ''}"/>
                 </p:column>
                 <p:column colspan="3">
-                    <p:inputText id="age" value="#{managegoals.displayAge}" required="true" rendered="#{managegoals.renderAge}"
+                    <p:inputText id="age" value="#{managegoals.displayAge}" required="true" rendered="#{managegoals.goal != ''}"
                                  validatorMessage="Age should be of between 1 to 100."
                                  maxlength="3" size="3"
                                  requiredMessage="Missing Age."

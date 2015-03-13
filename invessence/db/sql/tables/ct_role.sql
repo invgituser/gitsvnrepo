@@ -1,11 +1,8 @@
-delimiter $$
+DROP TABLE IF EXISTS `role`;
 
 CREATE TABLE `role` (
-  `role_id` int(11) NOT NULL AUTO_INCREMENT,
-  `logonid` int(11) NOT NULL,
-  `role` varchar(50) NOT NULL,
-  `status` int(11) DEFAULT NULL,
-  PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-$$
-
+  `logonid` BIGINT NOT NULL,
+  `role` varchar(20) NOT NULL,
+  `status` varchar(1) DEFAULT NULL,
+  PRIMARY KEY (`logonid`, `role`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -15,5 +15,7 @@ CREATE TABLE `email_alerts` (
   `comment` mediumtext,
   `created` timestamp NULL DEFAULT NULL,
   `lastupdated` timestamp NULL DEFAULT NULL,
+  `mimetype` varchar(250) DEFAULT NULL,,
+  `attachments` mediumtext,
   PRIMARY KEY (`messageid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;

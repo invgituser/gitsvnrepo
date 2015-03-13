@@ -1,22 +1,17 @@
 package com.invessence.data;
 
-import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItemGroup;
 
 import com.invessence.constant.Const;
-import com.invessence.data.advisor.TreeAssetFilter;
+import com.invessence.converter.JavaUtil;
+import com.invessence.util.*;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.SelectEvent;
-import org.primefaces.model.TreeNode;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,19 +23,22 @@ import org.primefaces.model.TreeNode;
 public class ManageGoals extends ProfileData
 {
 
+   private WebUtil webutil = new WebUtil();
+   private JavaUtil javautil = new JavaUtil();
    private ManageGoals manageGoalinstance = null;
-   private AssetAllocationModel allocModel;
 
-   private TreeAssetFilter treeAssetFilterModel;
+   @ManagedProperty("#{assetAllocationModel}")
+   private AssetAllocationModel allocModel;
+   private Boolean managed;
+   private String  webEnvironment = Const.WEB_MODE;
+
+   @ManagedProperty("#{portfolioModel}")
    private PortfolioModel portfolioModel;
-   private ProfileData profileInstance = null;
-   private Long acctnum;
-   private String clientAccountID;
-   private Long logonid;
    private String userid;
    private String addmodflag;
    private String acctstatus;
    private String dateOpened;
+   private String created;
 
    // Income/Expenses
    private Integer householdwages;
@@ -81,20 +79,32 @@ public class ManageGoals extends ProfileData
    private String model      = "D";
    private Integer assetyear = 0;
    private String active     = "A";
-   private Integer displayAge;
    private String registeredState;
    private Boolean userAssetOverride = false;
 
+   private String portfolioName;
+
    private String email, firstname, lastname;
-   private List<DataPortfolio> portfolioList = new ArrayList<DataPortfolio>();
+   private List<DataPortfolio> displayPortfolioList = new ArrayList<DataPortfolio>();
    private DataPortfolio selectedPortfolio;
    private List<DataPortfolio> selectedPortfolioList = null;
-   Double  assetAllocationTotal = 0.0;
+   private Double assetAllocationTotal = 0.0;
    private Double totalSharesAllocated = 0.0;
    private Double totalMoneyAllocated = 0.0;
 
-   private TreeNode subclassDisplayNode;
-   private TreeNode[] subclassFilterNode;
+   Double  managedassetAllocationTotal = 0.0;
+   private Double managedtotalMoney = 0.0;
+
+   //private TreeNode subclassDisplayNode;
+   //private TreeNode[] subclassFilterNode;
+   Map<String, ManagedSubclassData> subassetList = new HashMap<String, ManagedSubclassData>();
+   ArrayList<ManagedSubclassData> orderedSubclass;
+   private List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
+
+   public WebUtil getWebutil()
+   {
+      return webutil;
+   }
 
    public ManageGoals()
    {
@@ -106,15 +116,24 @@ public class ManageGoals extends ProfileData
    {
       return manageGoalinstance;
    }
-
-   public TreeAssetFilter getTreeAssetFilterModel()
+   public Boolean getManaged()
    {
-      return treeAssetFilterModel;
+      return managed;
    }
 
-   public void setTreeAssetFilterModel(TreeAssetFilter treeAssetFilterModel)
+   public void setManaged(Boolean managed)
    {
-      this.treeAssetFilterModel = treeAssetFilterModel;
+      this.managed = managed;
+   }
+
+   public String getWebEnvironment()
+   {
+      return webEnvironment;
+   }
+
+   public void setWebEnvironment(String webEnvironment)
+   {
+      this.webEnvironment = webEnvironment;
    }
 
    public AssetAllocationModel getAllocModel()
@@ -140,39 +159,6 @@ public class ManageGoals extends ProfileData
    public ProfileData getSubInstance()
    {
       return manageGoalinstance;
-   }
-
-   public Long getAcctnum()
-   {
-      return acctnum;
-   }
-
-   public void setAcctnum(Long acctnum)
-   {
-      if (acctnum != null)
-      {
-         this.acctnum = acctnum;
-      }
-   }
-
-   public String getClientAccountID()
-   {
-      return clientAccountID;
-   }
-
-   public void setClientAccountID(String clientAccountID)
-   {
-      this.clientAccountID = clientAccountID;
-   }
-
-   public Long getLogonid()
-   {
-      return logonid;
-   }
-
-   public void setLogonid(Long logonid)
-   {
-      this.logonid = logonid;
    }
 
    public String getUserid()
@@ -205,6 +191,11 @@ public class ManageGoals extends ProfileData
       this.acctstatus = acctstatus;
    }
 
+   public String getDisplayDateOpened()
+   {
+      return javautil.displayDateFormat(dateOpened);
+   }
+
    public String getDateOpened()
    {
       return dateOpened;
@@ -213,6 +204,16 @@ public class ManageGoals extends ProfileData
    public void setDateOpened(String dateOpened)
    {
       this.dateOpened = dateOpened;
+   }
+
+   public String getCreated()
+   {
+      return created;
+   }
+
+   public void setCreated(String created)
+   {
+      this.created = created;
    }
 
    public Integer getHouseholdwages()
@@ -587,6 +588,16 @@ public class ManageGoals extends ProfileData
       this.active = active;
    }
 
+   public String getPortfolioName()
+   {
+      return portfolioName;
+   }
+
+   public void setPortfolioName(String portfolioName)
+   {
+      this.portfolioName = portfolioName;
+   }
+
    public String getEmail()
    {
       return email;
@@ -642,9 +653,12 @@ public class ManageGoals extends ProfileData
       setClientAccountID(null);
       setLogonid(null);
       setUserid(null);
+      setPortfolioName(null);
       setAddmodflag(null);
       setAcctstatus(null);
       setDateOpened(null);
+      setManaged(false);
+      setWebEnvironment(Const.WEB_CONSUMER);
 
       // Income/Expenses
       setHouseholdwages(null);
@@ -693,8 +707,8 @@ public class ManageGoals extends ProfileData
       setName(null);
       setUserAssetOverride(false);
 
-      if (portfolioList != null)
-         portfolioList.clear();
+      if (displayPortfolioList != null)
+         displayPortfolioList.clear();
 
       setSelectedPortfolio(null);
 
@@ -704,13 +718,23 @@ public class ManageGoals extends ProfileData
       setAssetAllocationTotal(0.0);
       setTotalSharesAllocated(0.0);
       setTotalMoneyAllocated(0.0);
+      setManagedassetAllocationTotal(0.0);
+      setManagedtotalMoney(0.0);
+
+      if (excludedSubAsset != null)
+         excludedSubAsset.clear();
+      if (subassetList != null)
+         subassetList.clear();
+      if (orderedSubclass != null)
+         orderedSubclass.clear();
 
    }
 
    public void copyData(ManageGoals newgoals) {
       // Master ProfileData
       //setName(newgoals.getName());  Being set at bottom
-      setDisplayAge(newgoals.getDisplayAge());
+      setPortfolioName(newgoals.getPortfolioName());
+      setAge(newgoals.getAge());
       setHorizon	(	newgoals.getHorizon	());
       setInitialInvestment	(	newgoals.getInitialInvestment	());
       setRecurringInvestment	(	newgoals.getRecurringInvestment	());
@@ -825,29 +849,6 @@ public class ManageGoals extends ProfileData
          return selectedChoices;
    }
 
-   public Boolean getRenderAge() {
-      if (getGoal().equalsIgnoreCase("retirement")) {
-         return true;
-      }
-      else {
-         if (getDisplayAge() != null) {
-            setDisplayAge(null);
-         }
-         return false;
-      }
-   }
-
-   public Integer getDisplayAge()
-   {
-         return displayAge;
-   }
-
-   public void setDisplayAge(Integer displayAge)
-   {
-         this.displayAge = displayAge;
-         setAge(displayAge);
-   }
-
    public String getHorizonQuestion()
    {
       String question = "How many years do you plan to invest?";
@@ -887,14 +888,14 @@ public class ManageGoals extends ProfileData
       this.userAssetOverride = userAssetOverride;
    }
 
-   public List<DataPortfolio> getPortfolioList()
+   public List<DataPortfolio> getDisplayPortfolioList()
    {
-      return portfolioList;
+      return displayPortfolioList;
    }
 
-   public void setPortfolioList(List<DataPortfolio> portfolioList)
+   public void setDisplayPortfolioList(List<DataPortfolio> displayPortfolioList)
    {
-      this.portfolioList = portfolioList;
+      this.displayPortfolioList = displayPortfolioList;
    }
 
 
@@ -927,6 +928,34 @@ public class ManageGoals extends ProfileData
       this.totalMoneyAllocated = totalMoneyAllocated;
    }
 
+   public Double getManagedassetAllocationTotal()
+   {
+      return managedassetAllocationTotal;
+   }
+
+   public void setManagedassetAllocationTotal(Double managedassetAllocationTotal)
+   {
+      this.managedassetAllocationTotal = managedassetAllocationTotal;
+   }
+
+   public Double getManagedtotalMoney()
+   {
+      return managedtotalMoney;
+   }
+
+   public void setManagedtotalMoney(Double managedtotalMoney)
+   {
+      this.managedtotalMoney = managedtotalMoney;
+   }
+
+   public Double getActualInvested() {
+      if (getManaged())
+         if (getManagedtotalMoney() > 0.0)
+            return getManagedtotalMoney();
+
+      return getInitialInvestment().doubleValue();
+   }
+
    public DataPortfolio getSelectedPortfolio()
    {
       return selectedPortfolio;
@@ -937,17 +966,13 @@ public class ManageGoals extends ProfileData
       this.selectedPortfolio = selectedPortfolio;
    }
 
-   public void loadAssetClass() {
+   public void buildAssetClass() {
       AssetClass[] aamc;
       try {
          setAssetData(null);
-         aamc = getAllocModel().getAssetDistribution((ProfileData) this.getInstance());
+         aamc = allocModel.getAssetDistribution((ProfileData) this.getInstance());
          if (aamc != null)  {
             setAssetData(aamc);
-            if (getUserAssetOverride())
-               getAllocModel().overrideAssetWeight(aamc[0], this.getEditableAsset());
-
-            loadEditableAssetClass(aamc[0].getAssetclass());
          }
       }
       catch (Exception ex) {
@@ -955,17 +980,18 @@ public class ManageGoals extends ProfileData
       }
    }
 
-   public void loadPortfolio() {
+   public void buildPortfolio() {
       AssetClass[] aamc;
       Portfolio[] pfclass;
       MsgData data = new MsgData();
       try
       {
          Integer displayYear = 0;
+         buildAssetClass();
          aamc = getAssetData();
          if (aamc != null)
          {
-            pfclass = getPortfolioModel().getDistributionList(aamc,
+            pfclass = portfolioModel.getDistributionList(aamc,
                                                               (ProfileData) getInstance());
             if (pfclass != null)
             {
@@ -974,6 +1000,10 @@ public class ManageGoals extends ProfileData
                // Now refresh the Display List
                loadPortfolioList(displayYear);
             }
+
+            if (getUserAssetOverride())
+               getAllocModel().overrideAssetWeight(aamc[displayYear], this.getEditableAsset());
+            totalAssetClassWeights(aamc[displayYear].getAssetclass(), displayYear);
          }
 
       }
@@ -983,50 +1013,73 @@ public class ManageGoals extends ProfileData
       }
    }
 
-   public void loadEditableAssetClass(Map<String,Asset> assetdata)
+   public void totalAssetClassWeights(Map<String, Asset> assetdata, Integer offset)
    {
       Double totalAlloc;
+      Double assetWeight;
       String assetname;
-      String cashAsset = "Cash";
       Double cashAlloc = 0.0;
       Double adjustment = 0.0;
 
-      if (getEditableAsset() != null) {
+      if (getEditableAsset() == null) {
+         recreateEditableAsset();
+      }
+      else {
          if (getAssetData() != null)  {
             getEditableAsset().clear();
             totalAlloc = 0.0;
-            for (int loop=0; loop < getAssetData()[0].getOrderedAsset().size(); loop++) {
-               assetname = getAssetData()[0].getOrderedAsset().get(loop);
-               totalAlloc =  totalAlloc + assetdata.get(assetname).getWeight();
-               if (assetname.equalsIgnoreCase(cashAsset)) {
-                  cashAlloc = assetdata.get(assetname).getWeight();
-               }
-               getEditableAsset().add(loop,assetdata.get(assetname));
+            for (int loop=0; loop < getAssetData()[offset].getOrderedAsset().size(); loop++) {
+               assetname = getAssetData()[offset].getOrderedAsset().get(loop);
+               Asset asset = assetdata.get(assetname);
+               setEditableAsset(asset);
+               assetWeight = asset.getActualweight();
+               totalAlloc =  totalAlloc + assetWeight;
             }
-            if (totalAlloc < 100.0) {
-               adjustment = 100.0 - totalAlloc;
-               cashAlloc =  cashAlloc + adjustment;
-               assetdata.get("Cash").setWeight(cashAlloc);
-               totalAlloc = 100.0;
-            }
-            if (totalAlloc > 100.0) {
-               adjustment = totalAlloc - 100.0;
-               if (cashAlloc > adjustment) {
-                  cashAlloc =  cashAlloc - adjustment;
-                  totalAlloc = totalAlloc - adjustment;
-               }
-               else {
-                  totalAlloc = totalAlloc - cashAlloc;
-                  cashAlloc = 0.0;
-               }
-               assetdata.get("Cash").setWeight(cashAlloc);
-            }
-            totalAlloc = (double) Math.round(totalAlloc);
+            totalAlloc = (Math.round(totalAlloc) * 100.0);
             setAssetAllocationTotal(totalAlloc);
          }
       }
    }
 
+   public void reloadManagedAssetClass(Map<String,Asset> assetdata, int year)
+   {
+      Double totalAlloc = 0.0;
+      String assetname;
+      Asset asset;
+      String cashAsset = "Cash";
+      Double cashAlloc = 0.0;
+      Double adjustment = 0.0;
+
+      setManagedassetAllocationTotal(0.0);
+      setManagedtotalMoney(0.0);
+      if (getEditableAsset() != null) {
+         if (getAssetData() != null)  {
+            Integer numOfAsset = getAssetData().length;
+            if (numOfAsset >= year) {
+               setManagedassetAllocationTotal(0.0);
+               setManagedtotalMoney(0.0);
+               for (int loop=0; loop < getAssetData()[year].getOrderedAsset().size(); loop++) {
+                  assetname = getAssetData()[year].getOrderedAsset().get(loop);
+                  asset = getAssetData()[year].getAsset(assetname);
+                  if (assetdata.containsKey(assetname)) {
+                     asset.setHoldingweight(assetdata.get(assetname).getHoldingweight());
+                     asset.setHoldingRisk(assetdata.get(assetname).getHoldingRisk());
+                     asset.setHoldingReturn(assetdata.get(assetname).getHoldingReturn());
+                     asset.setHoldingValue(assetdata.get(assetname).getHoldingValue());
+                     setManagedassetAllocationTotal(getManagedassetAllocationTotal() + assetdata.get(assetname).getHoldingweight());
+                     setManagedtotalMoney(getManagedtotalMoney() + assetdata.get(assetname).getHoldingValue() );
+                  }
+                  else {
+                     asset.setHoldingweight(0.0);
+                     asset.setHoldingRisk(0.0);
+                     asset.setHoldingReturn(0.0);
+                     asset.setHoldingValue(0.0);
+                  }
+               }
+            }
+         }
+      }
+   }
 
    public void loadPortfolioList(Integer dataYear)
    {
@@ -1034,12 +1087,12 @@ public class ManageGoals extends ProfileData
          Double addedShares = 0.0;
          Double addedTotalMoney=0.0;
          Double weight=0.0;
-         if (getPortfolioList() == null) {
-            this.portfolioList = new ArrayList<DataPortfolio>();
+         if (getDisplayPortfolioList() == null) {
+            this.displayPortfolioList = new ArrayList<DataPortfolio>();
          }
 
          if (getPortfolioData() != null) {
-            getPortfolioList().clear();
+            this.displayPortfolioList.clear();
             int rowSize = getPortfolioData()[dataYear].getPortfolio().size();
             totalMoney = getPortfolioData()[dataYear].getTotalMoney();
             for (int loop = 0; loop < rowSize; loop++)
@@ -1055,7 +1108,7 @@ public class ManageGoals extends ProfileData
                                                     pfList.getTicker(), pfList.getName(), (int) pfList.getShares(),
                                                     pfList.getDailyprice(), pfList.getMoney(), pfList.getSortorder(),
                                                     pfList.getTickerWeights(), weight);
-               getPortfolioList().add(loop, dp);
+               getDisplayPortfolioList().add(loop, dp);
             }
             addedTotalMoney = Math.round(addedTotalMoney * 100.00) / 100.00; // round off..
             setTotalMoneyAllocated(addedTotalMoney);
@@ -1072,57 +1125,34 @@ public class ManageGoals extends ProfileData
    {
       this.selectedPortfolioList = selectedPortfolioList;
    }
-
-
-
-   public String displayMoney(Double money) {
-      DecimalFormat df = new DecimalFormat("###,####,###.00");
-      String strValue = df.format(money);
-      return "$" + strValue;
-   }
-
-   public String displayShares(Integer shares) {
-      DecimalFormat df = new DecimalFormat("###,####,###");
-      String strValue = df.format(shares);
-      return strValue;
-   }
-
-   public String displayPercent(Double value) {
-      Integer newvalue;
-
-      try {
-         if (value > 1)
-            newvalue = (int) (Math.round(value * 10.00)/10.00);
-         else
-            newvalue = (int) (Math.round(value * 100.00));
-
-         DecimalFormat df = new DecimalFormat("###");
-         String strValue = df.format(newvalue);
-         return strValue + "%";
-      }
-      catch (Exception ex) {
-         ex.printStackTrace();
-      }
-      return "";
-   }
-
-   public TreeNode getSubclassDisplayNode()
+   public List<PortfolioSubclass> getExcludedSubAsset()
    {
-      return subclassDisplayNode;
+      return excludedSubAsset;
    }
 
-   public void setSubclassDisplayNode(TreeNode subclassDisplayNode)
+   public void setExcludedSubAsset(List<PortfolioSubclass> excludedSubAsset)
    {
-      this.subclassDisplayNode = subclassDisplayNode;
+      this.excludedSubAsset = excludedSubAsset;
    }
 
-   public TreeNode[] getSubclassFilterNode()
+   public Map<String, ManagedSubclassData> getSubassetList()
    {
-      return subclassFilterNode;
+      return subassetList;
    }
 
-   public void setSubclassFilterNode(TreeNode[] subclassFilterNode)
+   public void setSubassetList(Map<String, ManagedSubclassData> subassetList)
    {
-      this.subclassFilterNode = subclassFilterNode;
+      this.subassetList = subassetList;
    }
+
+   public ArrayList<ManagedSubclassData> getOrderedSubclass()
+   {
+      return orderedSubclass;
+   }
+
+   public void setOrderedSubclass(ArrayList<ManagedSubclassData> orderedSubclass)
+   {
+      this.orderedSubclass = orderedSubclass;
+   }
+
 }

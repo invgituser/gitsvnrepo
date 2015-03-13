@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS sel_AdvisorAcctProfile;
+DROP PROCEDURE IF EXISTS `sel_AdvisorAcctProfile`;
 
 DELIMITER $$
 CREATE PROCEDURE `sel_AdvisorAcctProfile`(
@@ -12,7 +12,7 @@ BEGIN
 					`profile`.acctnum,
 				    `profile`.advisor,
 				    `profile`.theme,
-					null,
+					`profile`.goal,
 					'Pending' as acctstatus,
 					user.email as email,
 					user.lastname as lastname,
@@ -29,8 +29,6 @@ BEGIN
 					IFNULL(`profile`.longTermGoal,0) as longTermGoal,
 					IFNULL(`profile`.stayInvested,0) as stayInvested,
 					DATE_FORMAT(`profile`.created,'%Y-%m-%d') as created,
-					0,
-					0 as accrual,
 					profile.lastUpdated
 				from
 					user_trade_profile `profile`,

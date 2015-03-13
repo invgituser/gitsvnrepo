@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+<script type="text/javascript">
+    function start() {
+        statusDialog.show();
+    }
+
+    function stop() {
+        statusDialog.hide();
+    }
+</script>
+</h:head>
+<f:metadata>
+    <f:viewParam name="acct" value="#{advisorBean.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{advisorBean.preRenderView}"/>
+</f:metadata>
+
+<h:body>
+
+
+    <ui:composition template="/template/common/layout.xhtml">
+
+        <ui:define name="content">
+            <div id="main-content" class="content_section" style="background-color: #f5f5f5;">
+                <div id="wrapper" class="container" style="padding-top: 80px">
+                    <script type="text/javascript" src="/js/invCharts.js"></script>
+                        <p:tabView id="tabView" widgetVar="advisorTabView"
+                                   style="background-color: #f5f5f5; border: 1px solid black !important;"
+                                   dynamic="true" cache="false">
+                            <p:tab id="tab1" title="Profile">
+                                <ui:include src="/pages/advisor/custProfile.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab2" title="Allocation" disabled="#{advisorBean.enableTabs}">
+                                <ui:include src="/pages/advisor/alloc.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab3" title="Filter" disabled="#{advisorBean.enableTabs}">
+                                <ui:include src="/pages/advisor/subclass.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab4" title="Review" disabled="#{advisorBean.enableTabs}">
+                                <ui:include src="/pages/advisor/tradeReview.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab5" title="Funding" disabled="#{advisorBean.enableTabs}">
+                                <ui:include src="/pages/advisor/funding.xhtml"/>
+                            </p:tab>
+                        </p:tabView>
+
+
+                </div>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+
+</html>

@@ -28,6 +28,7 @@ CREATE TABLE `user_logon` (
   `answer1` varchar(60) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `lastupdated` timestamp NULL DEFAULT NULL,
+  `emailmsgtype` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`logonid`),
   UNIQUE KEY `UserID_UNIQUE` (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8

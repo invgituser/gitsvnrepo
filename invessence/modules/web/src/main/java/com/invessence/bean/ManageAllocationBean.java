@@ -375,9 +375,9 @@ public class ManageAllocationBean implements Serializable
       for (int i = 0; i < getSlices(); i++)
       {
          String assetname = aac.getOrderedAsset().get(i);
-         String label = assetname + " - " + aac.getAssetRoundedActualWeight(assetname) + "%";
-         pieModel.set(label, aac.getAssetRoundedActualWeight(assetname));
-         color = aac.getAssetColor(assetname);//.replace('#',' ');
+         String label = assetname + " - " + aac.getAsset(assetname).getUserEdit() + "%";
+         pieModel.set(label, aac.getAsset(assetname).getUserEdit());
+         color = aac.getAsset(assetname).getColor();//.replace('#',' ');
          color.trim();
          if (i == 0)
          {

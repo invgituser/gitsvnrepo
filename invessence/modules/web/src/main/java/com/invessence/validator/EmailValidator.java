@@ -4,21 +4,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
  
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.*;
 
-import com.invessence.dao.AccountDAO;
-import com.invessence.util.*;
+import com.invessence.dao.common.UserInfoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.faces.bean.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
 @Scope("request")
-
 public class EmailValidator implements Validator {
  
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
@@ -29,10 +25,10 @@ public class EmailValidator implements Validator {
 	private Matcher matcher;
 	
     @Autowired
-	private AccountDAO accountDAO;
+	private UserInfoDAO userInfoDAO;
     
-	public void setAccountDAO(AccountDAO accountDAO) {
-		this.accountDAO = accountDAO;
+	public void setUserInfoDAO(UserInfoDAO userInfoDAO) {
+		this.userInfoDAO = userInfoDAO;
 	}
  
 	public EmailValidator(){
@@ -48,30 +44,21 @@ public class EmailValidator implements Validator {
 		matcher = pattern.matcher(emailID);
 		
 		FacesMessage msg = null;
-		
-		if ( (emailID == null) || (emailID.trim().equals("")) ||
-	         (emailID.indexOf('.') == -1) ||
-	         (emailID.indexOf('@') == -1) )  {
-			msg =  new FacesMessage("Invalid E-mail.", "Invalid E-mail.");
+		String msgStr =  validateEmailPattern(emailID);
+		if ( msgStr != null )  {
+			msg =  new FacesMessage(msgStr, msgStr);
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			
+
 			FacesContext.getCurrentInstance().addMessage(null, msg);
 			throw new ValidatorException(msg);
-			
-		} 
-		
-		if(!matcher.matches()){
 
-			msg =  new FacesMessage("E-mail validation failed.", "Invalid E-mail format.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(msg);
-		}
-		
-		if (accountDAO == null) {
-			System.out.println("null accountDAO");
 		}
 
-      String pwd = accountDAO.checkEmailID(emailID);
+		if (userInfoDAO == null) {
+			System.out.println("null userInfoDAO");
+		}
+
+      String pwd = userInfoDAO.checkEmailID(emailID);
 		if (pwd != null && pwd.length() > 0) {
 			msg =  new FacesMessage("Email already exists.", "Duplicate email.");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -79,11 +66,24 @@ public class EmailValidator implements Validator {
 			
 		}
 		
-
-		
-		
-
 	}
+
+   public String validateEmailPattern(String emailID) {
+      String msg = null;
+      if ( (emailID == null) || (emailID.trim().equals("")) ||
+         (emailID.indexOf('.') == -1) ||
+         (emailID.indexOf('@') == -1) )  {
+         msg =  "Invalid E-mail.";
+      }
+
+      matcher = pattern.matcher(emailID);
+      if(!matcher.matches()){
+
+         msg =  "E-mail validation failed.";
+      }
+      return msg;
+
+   }
 	
 
 }

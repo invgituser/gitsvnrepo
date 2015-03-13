@@ -1,7 +1,7 @@
 DROP PROCEDURE IF EXISTS `sp_user_risk_questions`;
 
 DELIMITER $$
-CREATE PROCEDURE `sp_user_risk_questions` (
+CREATE PROCEDURE `sp_user_risk_questions`(
 	IN  p_addmodflag VARCHAR(1),
 	INOUT	p_acctnum	bigint(20),
 	IN	p_ans1	tinyint,
@@ -22,12 +22,12 @@ CREATE PROCEDURE `sp_user_risk_questions` (
 )
 BEGIN 
 
-   BEGIN
-	   IF (p_addmodflag = 'A' or p_addmodflag is NULL) THEN
-		   BEGIN
-
+	IF (p_acctnum is not null)
+	THEN
+		IF (p_addmodflag = 'A' or p_addmodflag is NULL) 
+		THEN
 			INSERT INTO `user_risk_questions` (
-			    `acctnum`,
+				`acctnum`,
 				`ans1`	,
 				`ans2`	,
 				`ans3`	,
@@ -46,7 +46,7 @@ BEGIN
 				`created`
 			)
 			VALUES (
-			    p_acctnum,
+				p_acctnum,
 				p_ans1	,
 				p_ans2	,
 				p_ans3	,
@@ -64,10 +64,7 @@ BEGIN
 				p_ans15	,
 				now()
 			);
-
-		   END;
-	   ELSE
-		   BEGIN
+		else
 			 UPDATE  `user_risk_questions`
 			 SET 
 				`ans1`	 =	p_ans1	,
@@ -88,9 +85,8 @@ BEGIN
 				`lastupdated` = now()
 			 WHERE
 				`acctnum` = p_acctnum;
-		   END;
-	   END IF;
-	END;
-
-END$$
+		END IF;
+	END IF;
+END
+$$
 DELIMITER ;

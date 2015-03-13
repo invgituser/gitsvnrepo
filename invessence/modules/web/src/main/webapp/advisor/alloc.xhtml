@@ -46,7 +46,8 @@
                                     <pe:inputNumber value="#{assetList.weight}"
                                                     minValue="0" maxValue="100" decimalPlaces="0"
                                                     validatorMessage="Value must be between 0 and 100"
-                                                    maxlength="3" size="3">
+                                                    maxlength="3" size="3"
+                                                    valueChangeListener="#{advisorBean.changeEvent}">
                                         <p:ajax listener="#{advisorBean.refreshPie}" update="@form"/>
                                     </pe:inputNumber>
                                 </f:facet>
@@ -58,7 +59,7 @@
                                 <p:column footerText="Total" style="text-align:center"/>
 
                                 <p:column style="text-align:right"
-                                          footerText="#{advisorBean.displayPercent(advisorBean.assetAllocationTotal)}">
+                                          footerText="#{dataDisplayConverter.displayAsPercent(advisorBean.assetAllocationTotal)}">
                                 </p:column>
                             </p:row>
                         </p:columnGroup>
@@ -68,7 +69,7 @@
                 <p:column colspan="4" style="text-align:left;">
                     <p:pieChart id="advisorallocPieChart"
                                 value="#{advisorBean.pieModel}"
-                                fill="true" seriesColors="009ABB, CFD449, 93A9CF, FFFFCC, BCC8DF"
+                                fill="true" seriesColors="009ABB, CFD449, 93A9CF, 93A9DF, FFFFCC, BCC8DF"
                                 style="width: 300px; height: 200px;"
                                 extender="pie_extensions"
                                 diameter="150"/>
@@ -77,8 +78,9 @@
             <p:row>
                 <p:column>
                     <p:commandButton value="Reset to Default"
-                                     actionListener="#{advisorBean.resetAllocation}" update="@form" immediate="true"
-                                     />
+                                     actionListener="#{advisorBean.resetAllocation}" process="@this" update="@form,hiddenValidation"
+                                     >
+                    </p:commandButton>
                 </p:column>
                 <p:column>
                     <h:inputHidden id="hiddenValidation" value="#{advisorBean.assetAllocationTotal}">

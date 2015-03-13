@@ -1,7 +1,7 @@
-DROP PROCEDURE if exists `sp_validate_state`;
+DROP PROCEDURE IF EXISTS `sp_validate_state`;
 
 DELIMITER $$
-CREATE PROCEDURE `sp_validate_state` (
+CREATE PROCEDURE `sp_validate_state`(
 	IN p_logonid   BIGINT(20),
 	IN p_state     VARCHAR(2)
 )
@@ -13,6 +13,7 @@ BEGIN
 
 	IF (p_logonid is not null)
 		then
+			-- Get the State from User table.
 			SELECT state
 			INTO t_state
 			FROM user_logon
@@ -48,8 +49,8 @@ BEGIN
 			then
 				SELECT count(*)
 				INTO currentCount
-				FROM user_logon ulog
-				WHERE ulog.state = t_state;
+				FROM IB_Accounts ib
+				WHERE ib.residentState = t_state;
 
 				if (IFNULL(currentCount,0) >= maxAllowed)
 					then
@@ -58,8 +59,8 @@ BEGIN
 						SELECT 'Open' as license;
 				end if;
 		end if;
-	else -- If no state was defined...
+	else 
 		SELECT 'Quota' as license;
 	end if;
-end
-$$
+end$$
+DELIMITER ;

@@ -1,9 +1,10 @@
 package com.invessence.dao;
 
-import com.invessence.util.Util;
+import com.invessence.util.*;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.*;
 import org.springframework.security.core.authority.*;
 import org.springframework.security.core.userdetails.*;
@@ -28,7 +29,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
    private String updateAttemptsSql = null;
    private String lockUserSql = null;
    private String listofQAQuery = null;
-   Util utl = new Util();
+   private WebUtil webutl = new WebUtil();
    boolean enabled = true;
    boolean accountNonLocked = true;
    boolean accountNonExpired = true;
@@ -95,13 +96,16 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String groupname = null;
       Collection<GrantedAuthority> authorities;
       String ip, macaddress, cookieID, resetID;
+      String stateRegisted;
       Integer randomQuestion;
       Integer rnumber;
       String sql;
       Map qa;
       Boolean fetchData;
+      String emailmsgtype = null;
+      String access = "User";
 
-      String myIP = utl.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+      String myIP = webutl.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
       System.out.println("Attempting Logon >> " + username + " from: " + myIP);
       userInfo =  (UserInfoData) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
 
@@ -131,16 +135,19 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                ip = rs.getString("ip");
                macaddress = rs.getString("macaddress");
                cookieID = rs.getString("cookieID");
+               stateRegisted = rs.getString("state");
                resetID = rs.getString("resetID");
                acctownertype = rs.getString("accttype");
                logo =  rs.getString("logo");
                groupname = rs.getString("groupname");
+               emailmsgtype = rs.getString("emailmsgtype");
+               access = rs.getString("access");
                // get List of questions...
                qa = getQA(username);
                authorities = getAuthorities(username);
                // Note: it is either set with number of attempts or it was set in past attempt.
-               randomQuestion = utl.randomGenerator(0,2);
-
+               randomQuestion = webutl.randomGenerator(0,2);
+               enabled=true;
             }
          else {
                logonStatus = "X";
@@ -154,11 +161,15 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                acctownertype="";
                logo="";
                groupname="";
+               stateRegisted="";
+               emailmsgtype="";
+               access = "User";
                qa=null;
                authorities = null;
                // Note: it is either set with number of attempts or it was set in past attempt.
                randomQuestion = 0;
-
+               enabled=false;
+               throw new BadCredentialsException("Username is not valid!");
             }
 
       if (attempts == null)
@@ -176,7 +187,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
             logonStatus = "L";
             // Create new ResetID
 
-            rnumber = utl.randomGenerator(0,578965);
+            rnumber = webutl.randomGenerator(0,578965);
             resetID=rnumber.toString();
             sql = getLockUserSql();
             getJdbcTemplate().update(sql,new Object[]{logonStatus, rnumber, username});
@@ -187,11 +198,10 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       // Note:  We are always re-createating userINFO
       credentialsNonExpired = true; // Reset for now.  We need logic to redirect.
       accountNonExpired=true;
-      enabled=true;
       userInfo = new UserInfoData(logonID, userid, username, savedemail, savedpassword,
                                   enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
                                   authorities, ip, macaddress, cookieID, resetID,acctownertype, logo, groupname,
-                                  qa, attempts, logonStatus, randomQuestion);
+                                  stateRegisted, qa, attempts, access, logonStatus, randomQuestion,emailmsgtype);
 
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(Const.USER_INFO);
@@ -258,19 +268,19 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
 
       String sql = getAuthoritiesByUsernameQuery();
       SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
+      Collection<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
 
       if (rs == null)
       {
-         return null;
+         list.add(new SimpleGrantedAuthority(Const.ROLE_USER));
+         return list;
       }
 
-      Collection<GrantedAuthority> list = new ArrayList<GrantedAuthority>();
-      list.add(new GrantedAuthorityImpl(Const.ROLE_USER));
 
       while (rs.next())
       {
          String auth = rs.getString(1);
-         list.add(new GrantedAuthorityImpl(auth));
+         list.add(new SimpleGrantedAuthority(auth));
       }
 
 

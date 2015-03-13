@@ -6,14 +6,14 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.constant.*;
-import com.invessence.dao.AccountDAO;
+import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.data.*;
 import com.invessence.util.*;
 
 public class UserBean extends UserData
 {
 
-   private Util utl = new Util();
+   private WebUtil webutil = new WebUtil();
    private String beanUserID;
    private String beanEmail;
    private String beanPasswd;
@@ -23,7 +23,7 @@ public class UserBean extends UserData
 
 
    private EmailMessage messageText;
-   private AccountDAO accountDAO;
+   private UserInfoDAO userInfoDAO;
 
    public EmailMessage getMessageText()
    {
@@ -70,14 +70,14 @@ public class UserBean extends UserData
       return usstates.getStates();
    }
 
-   public AccountDAO getAccountDAO()
+   public UserInfoDAO getUserInfoDAO()
    {
-      return accountDAO;
+      return userInfoDAO;
    }
 
-   public void setAccountDAO(AccountDAO accountDAO)
+   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
    {
-      this.accountDAO = accountDAO;
+      this.userInfoDAO = userInfoDAO;
    }
 
    public String signUp2()
@@ -101,8 +101,8 @@ public class UserBean extends UserData
          setEmailID(getBeanEmail());
          String rndmPassword = PasswordGenerator.getSecCode();
          String tmpCode = MsgDigester.getMessageDigest(rndmPassword);
-         String myIP = utl.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-         Integer myResetID = utl.randomGenerator(0, 347896);
+         String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+         Integer myResetID = webutil.randomGenerator(0, 347896);
          String img = "123";
          Map<String, String> cookieInfo = new HashMap<String, String>();
          cookieInfo.put("img", img);
@@ -114,24 +114,24 @@ public class UserBean extends UserData
          setSecCode(tmpCode);
          setPassword(tmpCode);
          // secCode = "Default123";
-         String supportInfo = messageText.getMessagetext("secure.url", new Object[]{});
+         setEmailmsgtype(getEmailmsgtype());
+         String supportInfo = messageText.buildInternalMessage("secure.url", new Object[]{});
 
          // Save data to database....
-         long loginID = accountDAO.addUserInfo(getInstance());
+         long loginID = userInfoDAO.addUserInfo(getInstance());
 
          // Now send email support.
          data.setSource("User");  // This is set to User to it insert into appropriate table.
          data.setSender(Const.MAIL_SENDER);
          data.setReceiver(getEmailID());
          data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
-         String secureUrl = messageText.getMessagetext("secure.url", new Object[]{});
+         String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
          String name = getFirstName() + " " + getLastName();
-
-         String msg = messageText.getMessagetext("signup.email",
-                                                 new Object[]{name, getUserID(), secureUrl
-                                                    , getEmailID(), getResetID().toString(), supportInfo});
+         // System.out.println("MIME Type :" + getEmailmsgtype());
+         String msg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
 
          data.setMsg(msg);
+         data.setMimeType(getEmailmsgtype());
          messageText.writeMessage("signup", data);
 
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
@@ -142,7 +142,7 @@ public class UserBean extends UserData
       catch (Exception ex)
       {
          String stackTrace = ex.getMessage();
-         data.setMsg(messageText.getMessagetext("signup.failure", new Object[]{stackTrace}));
+         data.setMsg(messageText.buildInternalMessage("signup.failure", new Object[]{stackTrace}));
          messageText.writeMessage("Error", data);
          return "failed";
       }
@@ -171,8 +171,8 @@ public class UserBean extends UserData
          setEmailID(getBeanEmail());
          String rndmPassword = PasswordGenerator.getSecCode();
          String tmpCode = MsgDigester.getMessageDigest(rndmPassword);
-         String myIP = utl.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-         Integer myResetID = utl.randomGenerator(0, 347896);
+         String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+         Integer myResetID = webutil.randomGenerator(0, 347896);
          String img = "123";
          Map<String, String> cookieInfo = new HashMap<String, String>();
          cookieInfo.put("img", img);
@@ -183,12 +183,13 @@ public class UserBean extends UserData
          setLogonstatus("T");
          setSecCode(tmpCode);
          setPassword(tmpCode);
+         setEmailmsgtype("Text");
          // secCode = "Default123";
 
 
          String name = getFirstName() + " " + getLastName();
          // Save data to database....
-         long loginID = accountDAO.addUserInfo(getInstance());
+         long loginID = userInfoDAO.addUserInfo(getInstance());
 
          Boolean sendEmail = false;
          String redirectTo = null;
@@ -201,6 +202,7 @@ public class UserBean extends UserData
          }
          else if (loginID <= 0)
          {
+            sendEmail = false;
             redirectTo = null;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This email is already registered.  Use Login to view account.", null));
             return "failed";
@@ -208,7 +210,7 @@ public class UserBean extends UserData
          else
          {
             sendEmail=true;
-            msg = "demouser.id.taken";
+            msg = "";
             redirectTo = "/createInvestment.xhtml";
          }
 
@@ -216,17 +218,15 @@ public class UserBean extends UserData
             // Now send email support.
             if (messageText != null)
             {
-               String supportInfo = messageText.getMessagetext("support.info", new Object[]{});
-               String secureUrl = messageText.getMessagetext("secure.url", new Object[]{});
+               String supportInfo = messageText.buildInternalMessage("support.info", new Object[]{});
+               String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
                data.setSource("User");  // This is set to User to it insert into appropriate table.
                data.setSender(Const.MAIL_SENDER);
                data.setReceiver(getEmailID());
                data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
-               String emailmsg = messageText.getMessagetext("signup.email",
-                                                       new Object[]{name, getUserID(), secureUrl
-                                                          , getEmailID(), getResetID().toString(), supportInfo});
-
+               String emailmsg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template","signup.email",  new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
                data.setMsg(emailmsg);
+               data.setMimeType(getEmailmsgtype());
                messageText.writeMessage("User", data);
             }
          }
@@ -247,7 +247,7 @@ public class UserBean extends UserData
          if (messageText != null)
          {
             String msg = "Demo failed for ( " + getEmailID() + "), " + stackTrace;
-            data.setMsg(messageText.getMessagetext("signup.failure", new Object[]{msg}));
+            data.setMsg(messageText.buildInternalMessage("signup.failure", new Object[]{msg}));
             messageText.writeMessage("Error", data);
          }
          System.out.println("Demo failed: " + getFullName());

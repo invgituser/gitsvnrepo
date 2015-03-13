@@ -9,12 +9,14 @@ import java.util.logging.Logger;
 import com.invmodel.Const.InvConst;
 import com.invmodel.dao.data.*;
 import org.apache.commons.dbutils.DbUtils;
+import webcab.lib.finance.portfolio.*;
+
 
 
 public class AssetDBCollection implements Serializable
 {
-   private Map<String, ArrayList<AssetData>> advisorlist = new HashMap<String, ArrayList<AssetData>>();
-   private Integer maxAsset = 1;
+   private Map<String, String> advisors = new HashMap<String, String>();
+   private Map<String, ArrayList<AssetData>> advisorMap = new HashMap<String, ArrayList<AssetData>>();
    private static AssetDBCollection instance = null;
    private final Logger logger = Logger.getLogger(AssetDBCollection.class.getName());
 
@@ -36,12 +38,13 @@ public class AssetDBCollection implements Serializable
    {
       super();
       loadDataFromDB();
+      saveWeights();
    }
 
    private String getAssetKey(String groupname) {
       String groupkey;
       if (groupname == null)
-         groupkey = InvConst.DEFAULT_ADVISOR;
+         groupkey = InvConst.INVESSENCE_ADVISOR;
       else
          groupkey = groupname.toUpperCase();
 
@@ -50,23 +53,30 @@ public class AssetDBCollection implements Serializable
 
    private void add2AssetList(String groupname, AssetData data) {
       ArrayList<AssetData> savedData;
-      String key;
+      String key, assetname;
       Integer numofasset;
       try {
-         key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            savedData = advisorlist.get(key);
+         groupname = getAssetKey(groupname);
+         assetname = data.getAsset();
+
+         if (assetname == null || assetname.length() == 0)
+            assetname = "Default";
+
+         if (! advisors.containsKey(groupname))
+            advisors.put(groupname,groupname);
+
+         key = groupname + "." + assetname;
+         if (advisorMap.containsKey(groupname)) {
+            savedData = advisorMap.get(groupname);
             savedData.add(data);
             numofasset = savedData.size();
-            maxAsset = (numofasset > maxAsset) ? numofasset : maxAsset;
-            advisorlist.put(key,savedData);
+            advisorMap.put(groupname, savedData);
          }
          else {
             savedData = new ArrayList<AssetData>();
             savedData.add(data);
             numofasset = savedData.size();
-            maxAsset = (numofasset > maxAsset) ? numofasset : maxAsset;
-            advisorlist.put(key,savedData);
+            advisorMap.put(groupname, savedData);
          }
       }
       catch (Exception ex) {
@@ -80,6 +90,7 @@ public class AssetDBCollection implements Serializable
       try
       {
          loadDataFromDB();
+         saveWeights();
       }
       finally
       {
@@ -94,7 +105,7 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         return advisorlist.get(key);
+         return advisorMap.get(key);
       }
       finally
       {
@@ -109,11 +120,11 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            String[] oAsset = new String[advisorlist.get(key).size()];
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            String[] oAsset = new String[advisorMap.get(key).size()];
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               asset = advisorlist.get(key).get(i).getAsset();
+               asset = advisorMap.get(key).get(i).getAsset();
                oAsset[i] = asset;
             }
             return oAsset;
@@ -148,7 +159,8 @@ public class AssetDBCollection implements Serializable
                                               averageReturn,
                                               color,
                                               risk_adjustment,
-                                              end_allocation
+                                              end_allocation,
+                                              0
                                               );
          add2AssetList(groupname, data);
       }
@@ -161,7 +173,7 @@ public class AssetDBCollection implements Serializable
 
    private void loadDataFromDB()
    {
-      advisorlist.clear();
+      advisorMap.clear();
 
       logger.info("Loading ASSET information from DB");
       Connection connection = null;
@@ -223,11 +235,11 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            double[] value = new double[advisorlist.get(key).size()];
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            double[] value = new double[advisorMap.get(key).size()];
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               value[i] = advisorlist.get(key).get(i).getLbConstraint();
+               value[i] = advisorMap.get(key).get(i).getLbConstraint();
             }
             return value;
          }
@@ -252,11 +264,11 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            double[] value = new double[advisorlist.get(key).size()];
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            double[] value = new double[advisorMap.get(key).size()];
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               value[i] = advisorlist.get(key).get(i).getUbConstraint();
+               value[i] = advisorMap.get(key).get(i).getUbConstraint();
             }
             return value;
          }
@@ -282,11 +294,40 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            double[] value = new double[advisorlist.get(key).size()];
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            double[] value = new double[advisorMap.get(key).size()];
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               value[i] = advisorlist.get(key).get(i).getAverageReturn();
+               value[i] = advisorMap.get(key).get(i).getAverageReturn();
+            }
+            return value;
+         }
+         else
+            return null;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      finally
+      {
+         read.unlock();
+      }
+      return null;
+   }
+
+   public double[] getAssetOrderedWeight(String groupname, int offset)
+   {
+      String key;
+      read.lock();
+      try
+      {
+         key = getAssetKey(groupname);
+         if (advisorMap.containsKey(key)) {
+            double[] value = new double[advisorMap.get(key).size()];
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
+            {
+               value[i] =  advisorMap.get(key).get(i).getWeight(offset);
             }
             return value;
          }
@@ -305,6 +346,40 @@ public class AssetDBCollection implements Serializable
    }
 
 
+   public double[][] getAssetOrderedWeightArray(String groupname)
+   {
+      String key;
+      read.lock();
+      try
+      {
+         key = getAssetKey(groupname);
+         if (advisorMap.containsKey(key)) {
+            double[][] value = new double[advisorMap.get(key).size()][InvConst.ASSET_INTERPOLATION];
+
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
+            {
+               for(int j = 0; j < InvConst.ASSET_INTERPOLATION; j++)
+               {
+
+                  value[i][j] =  advisorMap.get(key).get(i).getWeight(j);
+               }
+            }
+            return value;
+         }
+         else
+            return null;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      finally
+      {
+         read.unlock();
+      }
+      return null;
+   }
+
    public String[] getAssetOrderedColor(String groupname)
    {
       String key;
@@ -312,11 +387,11 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            String[] color = new String[advisorlist.get(key).size()];
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            String[] color = new String[advisorMap.get(key).size()];
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               color[i] = advisorlist.get(key).get(i).getColor();
+               color[i] = advisorMap.get(key).get(i).getColor();
             }
             return color;
          }
@@ -341,11 +416,11 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            String[] index = new String[advisorlist.get(key).size()];
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            String[] index = new String[advisorMap.get(key).size()];
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               index[i] = advisorlist.get(key).get(i).getIndex();
+               index[i] = advisorMap.get(key).get(i).getIndex();
             }
             return index;
          }
@@ -371,11 +446,11 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               if (advisorlist.get(key).get(i).getAsset().equalsIgnoreCase(asset)) {
-                  risk = advisorlist.get(key).get(i).getRisk_adjustment();
+               if (advisorMap.get(key).get(i).getAsset().equalsIgnoreCase(asset)) {
+                  risk = advisorMap.get(key).get(i).getRisk_adjustment();
                   break;
                }
             }
@@ -403,11 +478,11 @@ public class AssetDBCollection implements Serializable
       try
       {
          key = getAssetKey(groupname);
-         if (advisorlist.containsKey(key)) {
-            for (int i = 0; i < advisorlist.get(key).size(); i++)
+         if (advisorMap.containsKey(key)) {
+            for (int i = 0; i < advisorMap.get(key).size(); i++)
             {
-               if (advisorlist.get(key).get(i).getAsset().equalsIgnoreCase(asset)) {
-                  risk = advisorlist.get(key).get(i).getEnd_allocation();
+               if (advisorMap.get(key).get(i).getAsset().equalsIgnoreCase(asset)) {
+                  risk = advisorMap.get(key).get(i).getEnd_allocation();
                   break;
                }
             }
@@ -427,5 +502,80 @@ public class AssetDBCollection implements Serializable
       return 0.0;
    }
 
+   private void saveWeights()
+   {
+      try
+      {
+         String[] asset = null;
+         DailyReturns dailyReturns = DailyReturns.getInstance();
+         CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
+         AssetParameters assetParameters = new AssetParameters();
+         if(advisorMap.size() > 0) {
+            for (String advisor : advisorMap.keySet() ) {
+
+               String[] indexFund = getAssetOrderedIndex(advisor);
+               double[][] histReturns = dailyReturns.getDailyReturnsArray(indexFund);
+               if (histReturns != null)
+               {
+                  //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(histReturns);
+                  double[][] covarianceOfFunds = assetParameters.covarianceMatrix(histReturns);
+
+                  // Here we evaluate the maximum expected return  of  the  Portfolio's  on
+                  // the Efficient Frontier.
+
+                  double[] lowerBound = getAssetOrderedLowerBound(advisor);
+                  double[] upperBound = getAssetOrderedUpperBound(advisor);
+
+                  instanceOfCapitalMarket.setConstraints(lowerBound, upperBound);
+
+                  double[] yield = getAssetOrderedAvgReturns(advisor);
+                  double minReturn1 = instanceOfCapitalMarket.minFrontierReturn(yield);
+                  double maxReturn1 = instanceOfCapitalMarket.maxFrontierReturn(yield);
+                  instanceOfCapitalMarket.calculateEfficientFrontier(
+                     minReturn1, // minimumExpectedReturn
+                     maxReturn1, // maximumExpectedReturn
+                     covarianceOfFunds,//Covariance matrix
+                     yield, // expectedReturns
+                     InvConst.ASSET_INTERPOLATION, // numberInterpolationPoints
+                     InvConst.ASSET_PRECISION  // precision
+                  );
+
+                  //double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks( covarianceOfFunds);
+                  double[][] weights = instanceOfCapitalMarket.getEfficientFrontierAssetWeights();
+
+                  if (weights.length > 0) {
+                     asset = getOrderedAsset(advisor);
+                     int count=0;
+                     for (String assetname : asset) {
+                        String key = advisor.toUpperCase() + "." + assetname.toUpperCase();
+                        AssetData adata = advisorMap.get(advisor).get(count);
+                        double[] wght = new double[weights.length];
+                        for (int i=0; i < weights.length; i++)
+                           wght[i] = weights[i][count];
+
+                        adata.setWeights(wght);
+                        count++;
+                     }
+                  }
+
+               }
+            }
+         }
+
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+
+   }
+
+   public ArrayList<String> getAdvisors()
+   {
+      ArrayList<String> advisorList = new ArrayList<String>();
+      for (String advisorName: advisors.keySet())
+         advisorList.add(advisorName);
+      return advisorList;
+   }
 
 }

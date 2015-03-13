@@ -14,24 +14,25 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    private Long logonID = null;
    private String userID, email;
    private String password = null;
-   private String ip, macaddress, cookieID, resetID, acctownertype, logo, groupname;
+   private String ip, macaddress, cookieID, resetID, acctownertype, logo, groupname, emailmsgtype;
+   private String stateRegistered;
    private Map questAns;
    private String answer;
    private Collection<GrantedAuthority> authorities;
    private Integer randomQuestion;
    private String logonStatus;
    private Integer attempts;
+   private String access;
    private Boolean user_enabled,user_acctexpired, user_crediatialexpired,user_locked;
 
    private List<String> authList = new ArrayList<String>();
-
 
    public UserInfoData(Long logonID, String userID, String username, String email, String password,
                        boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
                        boolean accountNonLocked, Collection<GrantedAuthority> authorities,
                        String ip, String macaddress, String cookieID, String resetID, String acctownertype,
-                       String logo, String groupname,
-                       Map questAns, Integer attempts, String logonStatus, Integer randomQuestion)
+                       String logo, String groupname, String stateRegistered,
+                       Map questAns, Integer attempts, String access, String logonStatus, Integer randomQuestion, String emailmsgtype)
    {
       super(username, password, enabled
          , accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
@@ -51,8 +52,11 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       setAuthorities(authorities);
       setQuestAns(questAns);
       setAttempts(attempts);
+      setAccess(access);
       setLogonStatus(logonStatus);
       setRandomQuestion(randomQuestion);
+      setEmailmsgtype(emailmsgtype);
+      setStateRegistered(stateRegistered);
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, logonID);
    }
@@ -242,6 +246,16 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       this.attempts = attempts;
    }
 
+   public String getAccess()
+   {
+      return access;
+   }
+
+   public void setAccess(String access)
+   {
+      this.access = access;
+   }
+
    public String getLogonStatus()
    {
       return logonStatus;
@@ -300,5 +314,25 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    public void setAnswer(String answer)
    {
       this.answer = answer;
+   }
+
+   public String getEmailmsgtype()
+   {
+      return emailmsgtype;
+   }
+
+   public void setEmailmsgtype(String emailmsgtype)
+   {
+      this.emailmsgtype = emailmsgtype;
+   }
+
+   public String getStateRegistered()
+   {
+      return stateRegistered;
+   }
+
+   public void setStateRegistered(String stateRegistered)
+   {
+      this.stateRegistered = stateRegistered;
    }
 }

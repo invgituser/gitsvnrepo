@@ -76,7 +76,7 @@ public class DateUtil {
     
     public static Date getDate(String date, String format) {
     	
-       	if (Util.isNull(date))
+       	if (WebUtil.isNull(date))
     		return null;
     	
         try {

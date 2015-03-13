@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS tmp_IB_Accounts;
+DROP TABLE `tmp_IB_Accounts`
 
 CREATE TABLE `tmp_IB_Accounts` (
   `clientAccountID` varchar(15) NOT NULL,
@@ -17,10 +17,5 @@ CREATE TABLE `tmp_IB_Accounts` (
   `state` varchar(10) DEFAULT NULL,
   `country` varchar(15) DEFAULT NULL,
   `postalCode` varchar(12) DEFAULT NULL,
-  `emailPrimary` varchar(40) DEFAULT NULL,
-  `emailSecondary` varchar(40) DEFAULT NULL,
-  `phoneNo` varchar(20) DEFAULT NULL,
-  `altPhoneNo` varchar(20) DEFAULT NULL,
-  `status` varchar(1) DEFAULT 'P',
   PRIMARY KEY (`clientAccountID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

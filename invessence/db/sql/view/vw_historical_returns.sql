@@ -1,15 +1,12 @@
-delimiter $$
-
-DROP VIEW `vw_historical_returns`
-$$
+DROP VIEW IF EXISTS `vw_historical_returns`;
 
 CREATE VIEW `vw_historical_returns` AS
     select 
-        `historical_index`.`index` AS `indexFund`,
-        `historical_index`.`seqno` AS `seqno`,
-        `historical_index`.`monthly_return` AS `monthly_return`
+        `daily_returns`.`ticker` AS `indexFund`,
+        date_format(`daily_returns`.`businessdate`, '%Y%m%d') AS `seqno`,
+        `daily_returns`.`daily_return` AS `monthly_return`
     from
-        `historical_index`
-    order by `historical_index`.`index` , `historical_index`.`seqno`
-$$
-
+        `daily_returns`
+    where
+        (`daily_returns`.`ticker` in ('SPY' , 'IEF', 'IAU', 'BIL', 'VEU'))
+    order by 1 , 2 desc;

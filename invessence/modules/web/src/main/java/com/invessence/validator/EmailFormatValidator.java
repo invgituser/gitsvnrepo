@@ -4,15 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
  
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.*;
 
-import com.invessence.dao.AccountDAO;
-import com.invessence.util.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import javax.faces.bean.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

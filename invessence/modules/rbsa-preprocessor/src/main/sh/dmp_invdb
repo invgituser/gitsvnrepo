@@ -1,0 +1,12 @@
+#!/bin/bash
+. ~/.bash_profile
+
+dt=`date '+%F_%H%M%S'`
+DMPDIR=/inv/data/db
+DMPFILE=invdb.${dt}.dmp
+pwd=`cat /inv/services/bin/.mysql`
+echo "Starting the database dump... ${dt}"
+mysqldump -u root -p${pwd} --opt --routines invdb | \
+  sed -e 's/\/\*!500[12].* DEFINER=`.*`@`.*`.*\*\///' > ${DMPDIR}/${DMPFILE}
+echo "Dump File: ${DMPDIR}/${DMPFILE}"
+

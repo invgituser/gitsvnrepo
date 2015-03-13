@@ -1,4 +1,4 @@
-DROP PROCEDURE IF Exists `sp_createTrades`;
+DROP PROCEDURE IF EXISTS `sp_createTrades`;
 
 DELIMITER $$
 CREATE PROCEDURE `sp_createTrades`(
@@ -10,6 +10,9 @@ BEGIN
 	DECLARE vBusinessDate varchar(10);
 
 	begin
+
+		set vBusinessDate = funct_get_switch('BROKER_BDATE');
+
 		SELECT `acctType`
 		INTO vCustomerType
 		FROM `user_trade_profile`
@@ -27,58 +30,61 @@ BEGIN
 					DELETE FROM pretrade_details
 					WHERE acctnum = p_acctnum;
 
-					INSERT INTO `pretrade_details`
+				INSERT INTO `invdb`.`pretrade_details`
 					(`acctnum`,
 					`clientAccountID`,
 					`name`,
 					`tradedate`,
 					`ticker`,
 					`accttype`,
-					`posqty`,
-					`newqty`,
-					`tradeqty`,
+					`currentqty`,
+					`costBasisPrice`,
+					`costBasisMoney`,
+					`currentValue`,
 					`pnl`,
-					`priceperShare`,
-					`gainloss`,
-					`adjustedQty`,
+					`newqty`,
+					`newValue`,
+					`tradeqty`,
 					`tradeprice`,
-					`posamount`,
-					`newamount`,
-					`tradeamount`,
-					`percentAllocated`)
-					SELECT `virtual_portfolio`.`acctnum`, -- Col A
-						`IB_Accounts`.`IB_acctnum`,  -- Col B
-						concat(`IB_Accounts`.firstname," ",`IB_Accounts`.lastname) as name,  -- Col C
-						now() as tradedate, -- Col D
-						`virtual_portfolio`.`ticker`,  -- Col E
-						vCustomerType as accttype,  -- Col F
-						SUM(IFNULL(`position`.`quantity`,0)) as posQty,  -- Col G
-						SUM(`virtual_portfolio`.`qty`) as newqty,  -- Col H
-						(SUM(`virtual_portfolio`.`qty`) - SUM(IFNULL(`position`.`quantity`,0))) as tradeQty,  -- Col I (H - G)
-						SUM(IFNULL(`position`.`fifoPnlUnrealized`,0)) as pnl, -- Col J
+					`tradeValue`,
+					`priceperShare`,
+					`realizedPnL`,
+					`percentAllocated`
+					)
+					SELECT `virtual_portfolio`.`acctnum` as acctnum,
+						`IB_Accounts`.`IB_acctnum` as clientAccountID, 
+						concat(`IB_Accounts`.firstname," ",`IB_Accounts`.lastname) as name,
+						vBusinessDate as tradedate,
+						`virtual_portfolio`.`ticker` as ticker,
+						vCustomerType as accttype,
+						SUM(IFNULL(`position`.`quantity`,0)) as currentqty,
+						SUM(IFNULL(`position`.`costBasisPrice`,0)) as costBasisPrice,
+						SUM(IFNULL(`position`.`costBasisMoney`,0)) as costBasisMoney,
+						SUM(IFNULL(`position`.`positionValue`,0)) as currentValue,
+						SUM(IFNULL(`position`.`fifoPnlUnrealized`,0)) as pnl,
+						SUM(`virtual_portfolio`.`qty`) as newqty,
+						SUM(`virtual_portfolio`.`investmentvalue`) as newValue,
+						(SUM(`virtual_portfolio`.`qty`) - SUM(IFNULL(`position`.`quantity`,0))) as tradeQty,
+						`virtual_portfolio`.`tradeprice` as tradeprice,
+						`virtual_portfolio`.`tradeprice` * (SUM(`virtual_portfolio`.`qty`) - SUM(IFNULL(`position`.`quantity`,0))) as tradeValue,
 						CASE WHEN (SUM(IFNULL(`position`.`quantity`,0)) = 0) THEN 0
 							 ELSE SUM(IFNULL(`position`.`fifoPnlUnrealized`,0)) / SUM(IFNULL(`position`.`quantity`,0))
-						END as priceperShare, -- Col K (J/G - pnl/position)
+						END as priceperShare,
 						CASE WHEN (SUM(IFNULL(`position`.`quantity`,0)) = 0) THEN 0
 							 ELSE CASE WHEN ((SUM(`virtual_portfolio`.`qty`) - SUM(IFNULL(`position`.`quantity`,0))) < 0)
 											THEN (-1 * (SUM(IFNULL(`position`.`fifoPnlUnrealized`,0)) / SUM(IFNULL(`position`.`quantity`,0))) *
 														(SUM(`virtual_portfolio`.`qty`) - SUM(IFNULL(`position`.`quantity`,0))))
 											ELSE 0
 								   END
-						END as gainloss, -- Col L (-1*K*I)
-						null, -- Col M (adjustedQty)
-						`virtual_portfolio`.`tradeprice` as tradeprice, -- Col N
-						SUM(IFNULL(`position`.`positionValue`,0)) as posamount, -- Col O
-						SUM(`virtual_portfolio`.`investmentvalue`) as newamount, -- Col P
-						`virtual_portfolio`.`tradeprice` * (SUM(`virtual_portfolio`.`qty`) - SUM(IFNULL(`position`.`quantity`,0))) as tradeamount, -- Col Q
-						SUM(`virtual_portfolio`.`investmentvalue`)/funct_get_actualCapital(`virtual_portfolio`.`acctnum`) -- Col Q
+						END as realizedPnL,
+						SUM(`virtual_portfolio`.`investmentvalue`)/funct_get_actualCapital(`virtual_portfolio`.`acctnum`) as percentAllocated
 					FROM `virtual_portfolio`
 					LEFT JOIN `IB_Accounts`
 					ON (`virtual_portfolio`.`acctnum` = `IB_Accounts`.`acctnum`)
 					LEFT JOIN `position`
 					ON (`position`.`clientAccountID` = `IB_Accounts`.`IB_acctnum`
 					AND `virtual_portfolio`.`ticker` = `position`.`symbol`
-					AND `position`.`reportDate` = funct_get_switch('BROKER_BDATE'))
+					AND `position`.`reportDate` = vBusinessDate)
 					WHERE `virtual_portfolio`.`acctnum` = p_acctnum
 					GROUP BY `virtual_portfolio`.`acctnum`,
 						`virtual_portfolio`.`ticker`
@@ -92,41 +98,44 @@ BEGIN
 					`tradedate`,
 					`ticker`,
 					`accttype`,
-					`posqty`,
-					`newqty`,
-					`tradeqty`,
+					`currentqty`,
+					`costBasisPrice`,
+					`costBasisMoney`,
+					`currentValue`,
 					`pnl`,
-					`priceperShare`,
-					`gainloss`,
-					`adjustedQty`,
+					`newqty`,
+					`newValue`,
+					`tradeqty`,
 					`tradeprice`,
-					`posamount`,
-					`newamount`,
-					`tradeamount`,
-					`percentAllocated`)
-						SELECT `IB_Accounts`.`acctnum`, -- Col A
-						`IB_Accounts`.`IB_acctnum`, -- Col B
-						concat(`IB_Accounts`.firstname," ",`IB_Accounts`.lastname) as name, -- Col C
-						now() as tradedate,  -- Col D
-						`position`.`symbol` as ticker,  -- Col E
-						vCustomerType as accttype, -- Col F
-						SUM(IFNULL(`position`.`quantity`,0)) as posQty, -- Col G
-						0 as newqty, -- Col H
-						0 as tradeQty, -- Col I
-						SUM(IFNULL(`position`.`fifoPnlUnrealized`,0)) as pnl, -- Col J
-						0 as priceperShare, -- Col K
-						0 as gainloss, -- Col L
-						0 as adjustedQty, -- Col M
-						MAX(`position`.`markprice`) as tradeprice, -- Col N
-						SUM(IFNULL(`position`.`positionValue`,0)) as posamount, -- Col O
-						0.0 as newamount, -- Col P
-						0.0 as tradeamount, -- Col Q
-						0.0 as percentAllocated -- Col R
+					`tradeValue`,
+					`priceperShare`,
+					`realizedPnL`,
+					`percentAllocated`
+					)
+					SELECT `IB_Accounts`.`acctnum`,
+						`IB_Accounts`.`IB_acctnum`,
+						concat(`IB_Accounts`.firstname," ",`IB_Accounts`.lastname) as name,
+						vBusinessDate as tradedate,
+						`position`.`symbol` as ticker,
+						vCustomerType as accttype,
+						SUM(IFNULL(`position`.`quantity`,0)) as currentqty,
+						SUM(IFNULL(`position`.`costBasisPrice`,0)) as costBasisPrice,
+						SUM(IFNULL(`position`.`costBasisMoney`,0)) as costBasisMoney,
+						SUM(IFNULL(`position`.`positionValue`,0)) as currentValue,
+						SUM(IFNULL(`position`.`fifoPnlUnrealized`,0)) as pnl,
+						0 as newqty,
+						0 as newValue,
+						0 as tradeQty, 
+						MAX(`position`.`markprice`) as tradeprice,
+						0 as tradeValue,
+						0 as priceperShare,
+						0 as realizedPnL,
+						0.0 as percentAllocated
 					FROM `position`,
 						 `IB_Accounts`
 					WHERE `IB_Accounts`.`acctnum` = p_acctnum
 					AND   `IB_Accounts`.IB_acctnum = `position`.`clientAccountID`
-					AND `position`.reportDate = funct_get_switch('BROKER_BDATE')
+					AND `position`.reportDate = vBusinessDate
 					AND  not Exists
 							(SELECT * 
 							 FROM `virtual_portfolio`
@@ -187,7 +196,7 @@ BEGIN
 										THEN IFNULL(`adjustedQty`,`tradeQty`)
 								 ELSE IFNULL(`adjustedQty`,`tradeQty`) * `tradeprice`
 							END as investmentamount,
-							concat(`ticker`,DATE_FORMAT(now(),'%Y%m%d')) `tradeID`,
+							concat(`ticker`,`tradedate`) as `tradeID`,
 							'LMT' as ordertype,
 							null as confirmationID,
 							now() as created,

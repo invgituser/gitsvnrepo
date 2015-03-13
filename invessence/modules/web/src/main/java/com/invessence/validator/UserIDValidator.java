@@ -2,17 +2,13 @@ package com.invessence.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
- 
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.*;
 
-import com.invessence.dao.AccountDAO;
-import com.invessence.util.*;
+import com.invessence.dao.common.UserInfoDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import javax.faces.bean.*;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -31,29 +27,29 @@ public class UserIDValidator implements Validator {
 	private Matcher matcher;
 	
     @Autowired
-	private AccountDAO accountDAO;
+	private UserInfoDAO userInfoDAO;
     
-	public void setAccountDAO(AccountDAO accountDAO) {
-		this.accountDAO = accountDAO;
+	public void setUserInfoDAO(UserInfoDAO userInfoDAO) {
+		this.userInfoDAO = userInfoDAO;
 	}
- 
 
- 
 	@Override
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
 
 		
+/*
 		String userID = (String)value.toString();
 		FacesMessage msg = null;
 		
-		if (accountDAO.checkUserID(userID) > 0) {
+		if (userInfoDAO.checkUserID(userID) > 0) {
 			msg =  new FacesMessage("USER ID already exists.", "Duplicate User ID.");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 			throw new ValidatorException(msg);
 			
 		}
-		
+*/
+
 
 		
 		

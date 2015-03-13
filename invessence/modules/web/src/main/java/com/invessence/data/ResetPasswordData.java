@@ -1,20 +1,18 @@
 package com.invessence.data;
 
-import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 
-
+import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.util.*;
-import com.invessence.dao.*;
 import com.invessence.constant.*;
 
 @RequestScoped
 public class ResetPasswordData
 {
 
-   private Util utl = new Util();
+   private WebUtil webutl = new WebUtil();
    private String emailID;
    private String resetCode;
    private String password;
@@ -25,7 +23,7 @@ public class ResetPasswordData
 
    private EmailMessage messageText;
 
-   private AccountDAO accountDAO;
+   private UserInfoDAO userInfoDAO;
 
    public EmailMessage getMessageText()
    {
@@ -37,14 +35,14 @@ public class ResetPasswordData
       this.messageText = messageText;
    }
 
-   public AccountDAO getAccountDAO()
+   public UserInfoDAO getUserInfoDAO()
    {
-      return accountDAO;
+      return userInfoDAO;
    }
 
-   public void setAccountDAO(AccountDAO accountDAO)
+   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
    {
-      this.accountDAO = accountDAO;
+      this.userInfoDAO = userInfoDAO;
    }
 
    public String getEmailID()
@@ -112,9 +110,9 @@ public class ResetPasswordData
 
       if (!FacesContext.getCurrentInstance().isPostback())
       {
-         int ind = accountDAO.checkReset(emailID, resetCode);
+         int ind = userInfoDAO.checkReset(emailID, resetCode);
 
-         if ((Util.isNull(emailID)) || (Util.isNull(resetCode)) || (ind != 1))
+         if ((webutl.isNull(emailID)) || (webutl.isNull(resetCode)) || (ind != 1))
          {
             String msg = "Reset link is invalid or incomplete. Please try again.";
 
@@ -135,7 +133,7 @@ public class ResetPasswordData
    {
       String passwordEncrypted = MsgDigester.getMessageDigest(password);
 
-      accountDAO.resetPassword(emailID, passwordEncrypted);
+      userInfoDAO.resetPassword(emailID, passwordEncrypted);
 
       String msg = "password.set.success";
       return "message.xhtml?faces-redirect=true&message=" + msg;
@@ -145,12 +143,12 @@ public class ResetPasswordData
    {
       try {
          String check;
-         check = accountDAO.checkEmailID(emailID);
+         check = userInfoDAO.checkEmailID(emailID);
          if (check == null || check.length() == 0) {
             return "message.xhtml?faces-redirect=true&message=User not found";
          }
          else {
-            Integer myResetID = utl.randomGenerator(0,347896);
+            Integer myResetID = webutl.randomGenerator(0,347896);
             setResetCode(myResetID.toString());
             return validateSecurityQuestions();
          }
@@ -164,7 +162,7 @@ public class ResetPasswordData
    {
 
       // Save ResetID
-      accountDAO.updResetID(getEmailID(), getResetCode());
+      userInfoDAO.updResetID(getEmailID(), getResetCode());
 
       //String websiteName = messageSource.getMessage("website.name", new Object[]{}, null);
       MsgData data = new MsgData();
@@ -175,16 +173,16 @@ public class ResetPasswordData
       data.setSubject(Const.COMPANY_NAME + ": Forgot Password");
       //data.setMsg(MsgConst.getSignupMsg(userData));
 
+      System.out.println("MIME TYPE :" + userInfoDAO.checkMimeType(getEmailID()));
       if (messageText == null)
       {
          return "message.xhtml?faces-redirect=true&type=E&&message=Email process is down";
       }
 
-      String websiteUrl = messageText.getMessagetext("website.url", new Object[]{});
+      String websiteUrl = messageText.buildInternalMessage("website.url", new Object[]{});
       String name = "User";
-
-      String msg = messageText.getMessagetext("password.reset.email",
-                                              new Object[]{websiteUrl, getEmailID(), getResetCode().toString()});
+      data.setMimeType(userInfoDAO.checkMimeType(getEmailID()));
+      String msg = messageText.buildMessage(userInfoDAO.checkMimeType(getEmailID()), "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, getEmailID(), getResetCode().toString()});
 
       data.setMsg(msg);
       messageText.writeMessage(name,data);

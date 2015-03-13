@@ -75,7 +75,7 @@ public class Performance
          for (int i = 0; i < (noOfAssetTypes); i++)
          {
             String assetName = aamc[a].getOrderedAsset().get(i);
-            assetWeight[a][i] = aamc[a].getAssetActualWeight(assetName);
+            assetWeight[a][i] = aamc[a].getAsset(assetName).getUserweight();
          }
 
       }
@@ -106,8 +106,8 @@ public class Performance
 
                String assetName = assetData[year].getOrderedAsset().get(numOfAssets);
 
-               portRisk = portRisk + assetData[year].getAssetRisk(assetName) * assetData[year].getAssetActualWeight(assetName);
-               portReturns = portReturns + assetData[year].getAssetExpectedReturns(assetName) * assetData[year].getAssetActualWeight(assetName);
+               portRisk = portRisk + assetData[year].getAsset(assetName).getRisk() * assetData[year].getAsset(assetName).getUserweight();
+               portReturns = portReturns + assetData[year].getAsset(assetName).getExpectedReturn() * assetData[year].getAsset(assetName).getUserweight();
 
             }
             perfData[year].setInvestmentRisk(portRisk);
@@ -170,8 +170,8 @@ public class Performance
       for (int i = 0; i < (noOfAssetTypes); i++)
       {
          String assetName = assetclass.getOrderedAsset().get(i);
-         double avgReturns = assetclass.getAssetAverageReturns(assetName);
-         double weight = (assetclass.getAssetActualWeight(assetName));
+         double avgReturns = assetclass.getAsset(assetName).getAvgReturn();
+         double weight = (assetclass.getAsset(assetName).getUserweight());
 
          assetWeight[i] = weight;
 

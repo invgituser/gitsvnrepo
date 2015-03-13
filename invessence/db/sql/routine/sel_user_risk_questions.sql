@@ -1,9 +1,8 @@
-DROP PROCEDURE IF EXISTS `sel_user_risk_questions`;
+DROP PROCEDURE `sel_user_risk_questions`;
 
 DELIMITER $$
-CREATE PROCEDURE `sel_user_risk_questions`
-(
-	INOUT	p_acctnum	bigint(20)
+CREATE PROCEDURE `sel_user_risk_questions`(
+	IN	p_acctnum	bigint(20)
 )
 BEGIN
 		SELECT `user_risk_questions`.`acctnum`,
@@ -26,5 +25,5 @@ BEGIN
 			`user_risk_questions`.`lastUpdated`
 		FROM `user_risk_questions`
 		WHERE `acctnum`= p_acctnum;
-END
-$$
+END$$
+DELIMITER ;

@@ -1,22 +1,19 @@
-DROP PROCEDURE IF Exists `sel_collectTradeProfile`;
+DROP PROCEDURE `sel_collectTradeProfile`;
 
 DELIMITER $$
 CREATE PROCEDURE `sel_collectTradeProfile`(
 	p_filter varchar(1)
 )
 BEGIN
-	DECLARE vMinFee	DOUBLE(7,2);
-
 	begin
-
-		SET vMinFee = funct_get_switch('MIN_FEE');
-
 		select 
 			profile.acctnum,
 			IB.IB_acctnum,
 			IB.lastname,
 			IB.firstname,
 			profile.tradePreference,
+            profile.advisor,
+			profile.theme,
 			IFNULL(profile.goal,0) as goal,
 			profile.`acctType` as accttype,
 			IFNULL(profile.age,30) as age,
@@ -25,9 +22,7 @@ BEGIN
 			IFNULL(profile.riskIndex,0) as riskIndex,
 			CAST(IFNULL(profile.initialInvestment,0) as SIGNED) as initialInvestment,
 			round(funct_get_actualCapital(profile.acctnum),0) as actualCapital,
-			CAST((case when (((IFNULL(nav.total,0)*.025) < IFNULL(vMinFee,0)) and (profile.keepLiquid < vMinFee)) THEN vMinFee
-					  else (IFNULL(profile.keepLiquid,0))
-			     end) as SIGNED) as keepLiquid,
+			IFNULL(profile.keepLiquid,0) as keepLiquid,
 			CAST(IFNULL(profile.recurringInvestment,0) as SIGNED) as recurringInvestment,
 			IFNULL(profile.longTermGoal,0) as longTermGoal,
 			IFNULL(profile.stayInvested,0) as stayInvested,
@@ -55,11 +50,7 @@ BEGIN
 			IFNULL(`user_risk_questions`.`ans15`,0) AS ans15,
 			ctt.processStatus,
 			ctt.`lastTraded`,
-			case when (ctt.`reason` ='D') then 'Date'
-				when (ctt.`reason` ='O') then 'Offset'
-				when (ctt.`reason` ='N') then 'New'
-				else 'Other'
-			end reason,
+			ctt.`reason` as reason,
 			ctt.`assetAllocationOffset`,
 			ctt.`position`,
 			ctt.`assetclass`,
@@ -68,21 +59,21 @@ BEGIN
 			profile.created,
 			profile.lastUpdated
 		from
-			user_trade_profile profile,
+			user_trade_profile `profile`,
 			`clients_to_trade` ctt,
-			`IB_Accounts` IB,
-			`acct_financial`,
-			`user_risk_questions`,
-			`nav_daily` nav
+			`IB_Accounts` IB
+			LEFT JOIN `acct_financial`
+			ON (IB.acctnum = `acct_financial`.acctnum)
+			LEFT JOIN `user_risk_questions`
+			ON (IB.acctnum = `user_risk_questions`.acctnum)
+			LEFT JOIN `nav_daily` nav
+			ON ( nav.clientAccountID = IB.IB_acctnum
+				 and nav.reportDate = funct_get_switch('BROKER_BDATE'))
 		where
-			profile.acctnum = ctt.acctnum
-		and profile.tradePreference in ('A')
-		and ctt.processStatus = IFNULL(p_filter,'P')
-		and profile.acctnum = IB.acctnum
-		and profile.acctnum = `acct_financial`.acctnum
-		and profile.acctnum = `user_risk_questions`.acctnum
-		and nav.clientAccountID = IB.IB_acctnum
-		and nav.reportDate = funct_get_switch('BROKER_BDATE')
+			`profile`.acctnum = ctt.acctnum
+		and `profile`.tradePreference in ('A')
+		and ctt.processStatus = 'P'
+		and `profile`.acctnum = IB.acctnum
 		;
 
     end;

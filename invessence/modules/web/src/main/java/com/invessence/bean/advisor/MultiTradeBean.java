@@ -112,7 +112,7 @@ public class MultiTradeBean extends AdvisorData implements Serializable
       {
          FilesIO fileinfo = new FilesIO();
          Map<String, Object[][]> data;
-         setFilename("C:\\tmp\\data\\MFA.xlsx");
+         setFilename("C:\\tmp\\data\\Revised-RBSA.xls");
          String filetype = getFileType(getFilename());
          // Copy file first...
 

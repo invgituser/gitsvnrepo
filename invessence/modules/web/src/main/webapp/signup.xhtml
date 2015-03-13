@@ -13,7 +13,7 @@
 
 <h:body>
 
-    <ui:composition template="/template/common/commonLayout.xhtml">
+    <ui:composition template="/template/common/layout.xhtml">
 
         <ui:define name="content">
 
@@ -61,6 +61,20 @@
                                         </p:column>
                                     </p:row>
 <!--
+                                   <p:row>
+                                      <p:column>
+                                         <h:outputLabel value="Email Message"/>
+                                      </p:column>
+                                      <p:column colspan="2">
+                                         <p:selectOneMenu id="emailmsgtype" value="#{userBean.emailmsgtype}"
+                                                          styleClass="invSelectOneMenu" required="false">
+                                            <f:selectItem itemLabel="Text" itemValue="Text" />
+                                            <f:selectItem itemLabel="HTML" itemValue="HTML" />
+                                         </p:selectOneMenu>
+                                      </p:column>
+                                   </p:row>
+-->
+<!--
                                     <p:row>
                                         <p:column>
                                             <h:outputLabel value="Primary Phone"/>
@@ -81,8 +95,7 @@
                                             <p:selectOneMenu id="state" value="#{userBean.stateCode}"
                                                              styleClass="invSelectOneMenu" required="true"
                                                              requiredMessage="Please select your state of resident.">
-                                                <f:selectItem itemLabel="New Jersey" itemValue="NJ" />
-                                                <f:selectItem itemLabel="-----" itemValue="" />
+                                                <f:selectItem itemLabel="-- Choose one --" itemValue="" />
                                                 <f:selectItems value="#{userBean.usstates.entrySet()}"
                                                                var="state" itemLabel="#{state.value}" itemValue="#{state.key}"/>
                                             </p:selectOneMenu>
@@ -123,7 +136,7 @@
                                     </p:row>
                                     <p:row>
                                         <p:column>
-                                            <h:outputLabel value="Choose favorite"/>
+                                            <h:outputLabel value="Choose Favorite"/>
                                         </p:column>
                                         <p:column colspan="2">
                                             <p:selectOneMenu id="q2" value="#{userBean.q2}"

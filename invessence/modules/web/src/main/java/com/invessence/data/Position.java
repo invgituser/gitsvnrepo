@@ -22,11 +22,6 @@ public class Position implements Serializable
    private String name;
    private Integer qty;
    private Double weight;
-   private Double origPrice;
-   private Double origInvested;
-   private Double price;
-   private Double invested;
-   private Double weightByPortfolio;
 
    private String clientAccountID;
    private String accountAlias;
@@ -42,7 +37,10 @@ public class Position implements Serializable
 
    private String firstname, lastname;
    private String dateOpened;
-   private String IBacctnum;
+   private Double yield;
+   private Double expenseRatio;
+   private Double risk;
+   private Double fees;
 
    public Position()
    {
@@ -148,61 +146,51 @@ public class Position implements Serializable
       this.weight = weight;
    }
 
+   public Double getYield()
+   {
+      return yield;
+   }
+
+   public void setYield(Double yield)
+   {
+      this.yield = yield;
+   }
+
+   public Double getExpenseRatio()
+   {
+      return expenseRatio;
+   }
+
+   public void setExpenseRatio(Double expenseRatio)
+   {
+      this.expenseRatio = expenseRatio;
+   }
+
+   public Double getRisk()
+   {
+      return risk;
+   }
+
+   public void setRisk(Double risk)
+   {
+      this.risk = risk;
+   }
+
+   public Double getFees()
+   {
+      return fees;
+   }
+
+   public void setFees(Double fees)
+   {
+      this.fees = fees;
+   }
+
    public Double getWeightAsPercent() {
       if (getWeight() != null)
          return (getWeight() * 100);
       else
          return 0.0;
-   }
-
-   public Double getOrigPrice()
-   {
-      return origPrice;
-   }
-
-   public void setOrigPrice(Double origPrice)
-   {
-      this.origPrice = origPrice;
-   }
-
-   public Double getOrigInvested()
-   {
-      return origInvested;
-   }
-
-   public void setOrigInvested(Double origInvested)
-   {
-      this.origInvested = origInvested;
-   }
-
-   public Double getWeightByPortfolio()
-   {
-      return weightByPortfolio;
-   }
-
-   public void setWeightByPortfolio(Double weightByPortfolio)
-   {
-      this.weightByPortfolio = weightByPortfolio;
-   }
-
-   public Double getPrice()
-   {
-      return price;
-   }
-
-   public void setPrice(Double price)
-   {
-      this.price = price;
-   }
-
-   public Double getInvested()
-   {
-      return invested;
-   }
-
-   public void setInvested(Double invested)
-   {
-      this.invested = invested;
    }
 
    public String getClientAccountID()
@@ -343,15 +331,5 @@ public class Position implements Serializable
    public void setDateOpened(String dateOpened)
    {
       this.dateOpened = dateOpened;
-   }
-
-   public String getIBacctnum()
-   {
-      return IBacctnum;
-   }
-
-   public void setIBacctnum(String IBacctnum)
-   {
-      this.IBacctnum = IBacctnum;
    }
 }

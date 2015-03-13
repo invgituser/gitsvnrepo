@@ -12,7 +12,7 @@
 <h:body>
 
     <p:panel id="portfolio">
-        <p:dataTable id="dataTable" var="ticker" value="#{managegoals.portfolioList}" styleClass="invDataTable">
+        <p:dataTable id="dataTable" var="ticker" value="#{managegoals.displaypPortfolioList}" styleClass="invDataTable">
             <p:column sortBy="#{ticker.assetType}"
                       style="width:100px; text-align: left; background-color: #{ticker.color}"
                       headerText="Asset Type" resizable="true">
@@ -55,7 +55,7 @@
             <p:columnGroup type="footer">
                 <p:row>
                     <p:column colspan="6" footerText="Total" style="text-align:left"/>
-                    <p:column footerText="#{managegoals.displayMoney(managegoals.totalMoneyAllocated)}"
+                    <p:column footerText="#{dataDisplayConverter.displayAsMoney(managegoals.totalMoneyAllocated)}"
                               colspan="2" style="text-align:right"/>
                 </p:row>
             </p:columnGroup>

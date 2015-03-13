@@ -5,30 +5,30 @@ import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-public class SecuritiesDao extends SimpleJdbcDaoSupport
+public class SecuritiesDao extends JdbcDaoSupport
 {
    private final String SECURITIES_QUERY = "select * from SECURITIES";
    public final String TICKER_COLUMN = "TICKER";
    public final String WEIGHT_COLUMN = "SECURITY_WEIGHT";
-   public final String THEME_COLUMN = "THEME";
+   public final String BASKET_COLUMN = "BASKET";
    public final String ASSET_CLASS_COLUMN = "ASSET_CLASS";
    public final String SUB_CLASS_COLUMN = "SUB_CLASS";
 
    public List<Security> getSecurities()
    {
-      return getSimpleJdbcTemplate().query(SECURITIES_QUERY, new RowMapper<Security>()
+      return getJdbcTemplate().query(SECURITIES_QUERY, new RowMapper<Security>()
       {
          @Override
          public Security mapRow(ResultSet resultSet, int i) throws SQLException
          {
             String ticker = resultSet.getString(TICKER_COLUMN);
             float security_weight = resultSet.getFloat(WEIGHT_COLUMN);
-            String theme = resultSet.getString(THEME_COLUMN);
+            String basket = resultSet.getString(BASKET_COLUMN);
             String assetClass = resultSet.getString(ASSET_CLASS_COLUMN);
             String subClass = resultSet.getString(SUB_CLASS_COLUMN);
-            return new Security(ticker, security_weight, theme, assetClass, subClass);
+            return new Security(ticker, security_weight, basket, assetClass, subClass);
          }
       });
    }

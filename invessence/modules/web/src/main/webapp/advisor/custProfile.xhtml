@@ -190,7 +190,8 @@
                                 <p:column colspan="9" style="text-align: right">
                                     <p:commandButton type="submit"
                                                      value="Next" icon="ui-icon-arrowthick-1-e"
-                                                     actionListener="#{advisorBean.saveProfile}" update="@form"
+                                                     action="#{advisorBean.saveProfile}" update="@form"
+                                                     onclick="#{advisorBean.validateProfile}"
                                                      oncomplete="if (!args.validationFailed){InvTabView.select(1); InvTabView.enable(1);InvTabView.enable(2);}"/>
 
                                 </p:column>

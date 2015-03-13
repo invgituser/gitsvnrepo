@@ -1,6 +1,7 @@
 package com.invessence.util;
 
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 
 import javax.faces.bean.*;
 
@@ -17,8 +18,9 @@ import org.springframework.context.*;
  */
 @ManagedBean(name = "emailMessage")
 @ApplicationScoped
-public class EmailMessage implements MessageSourceAware
+public class EmailMessage implements MessageSourceAware, Serializable
 {
+   private static final long serialVersionUID = -1001L;
    private MessageSource messageSource;
    private MsgDAO msgDAO;
 
@@ -42,7 +44,25 @@ public class EmailMessage implements MessageSourceAware
       this.messageSource = messageSource;
    }
 
-   public String getMessagetext(String inputText, Object [] obj) {
+   public String buildMessage(String msgType, String html_version, String text_version, Object [] obj) {
+
+     if (text_version == null && html_version == null) {
+        msgType = "TEXT";
+     }
+      else if (text_version == null)
+               msgType = "HTML";
+
+     if (msgType == null || msgType.equalsIgnoreCase("TEXT"))
+        return getMessagetext(text_version, obj);
+     else
+        return getHTMLMessagetext(html_version, obj);
+   }
+
+   public String buildInternalMessage(String text_version, Object [] obj) {
+     return getMessagetext(text_version, obj);
+   }
+
+   private String getMessagetext(String inputText, Object [] obj) {
       String msgText = null;
       try {
          if (obj == null) {
@@ -60,6 +80,96 @@ public class EmailMessage implements MessageSourceAware
          ex.printStackTrace();
       }
       return inputText;
+   }
+
+   private String getHTMLMessagetext(String inputText, Object [] obj) {
+      String msgText = null;
+      try {
+         if (obj == null) {
+            obj = new Object[]{};
+         }
+         if (inputText != null) {
+            msgText =  getEmailMessage(messageSource.getMessage(inputText, obj, null));
+            if (msgText != null)
+               return msgText;
+            return inputText;
+         }
+
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+      return inputText;
+   }
+
+   public String getEmailMessage(String messageInformation){
+
+   String message = "";
+   String filePath = "";
+   try
+   {
+      if(messageInformation != null)
+      {
+         StringTokenizer st = new StringTokenizer(messageInformation, "~");
+
+         while (st.hasMoreElements())
+         {
+            filePath = (String) st.nextElement();
+            message = getEmailTemplate(filePath);
+            break;
+         }
+         st = new StringTokenizer(messageInformation, "~");
+
+         int count = 0;
+         int replaceValue = 0;
+         while (st.hasMoreElements())
+         {
+            if(count ==0){
+               st.nextElement();
+            }
+            if(count !=0){
+               String strReplace = "'" + replaceValue + "'";
+               String strReplaceWith = (String) st.nextElement();
+               message = message.replaceAll(strReplace, strReplaceWith);
+               replaceValue++;
+              }
+            count++;
+         }
+      }
+   } catch (Exception e) {
+      e.printStackTrace();
+   }
+   return message;
+}
+
+   public String getEmailTemplate(String filePath){
+
+      String message = "";
+      FileReader fr = null;
+      BufferedReader br = null;
+      try
+      {
+
+         fr=new FileReader(filePath);
+         br= new BufferedReader(fr);
+         StringBuilder content=new StringBuilder(1024);
+         String line = "";
+         while((line=br.readLine())!=null)
+         {
+            content.append(line);
+         }
+         message = content.toString();
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (br != null)br.close();
+         } catch (IOException ex) {
+            ex.printStackTrace();
+         }
+      }
+      return message;
    }
 
    public void writeMessage(String typeofalert, MsgData data) {

@@ -10,10 +10,10 @@ package com.invmodel.Const;
 public class InvConst
 {
    // Used in Asset Model
-   public static String DEFAULT_ADVISOR="DEFAULT";
-   public static String DEFAULT_THEME="DEFAULT";
-   public static String INVESSENCE_ADVISOR="INVESSENCE";
-   public static String CORE_THEME="CORE";
+   public static String DEFAULT_THEME="0.Core";
+   public static String DEFAULT_BASKET="Core";
+   public static String INVESSENCE_ADVISOR="Invessence";
+
 
    public static Double MNGT_FEES = 0.0025;
    public static double MIN_MNGT_FEES_DOLLARS = 250.0;
@@ -25,13 +25,24 @@ public class InvConst
    public static Integer MAX_RISK_OFFSET = 28;
 
    // Used in Portfolio Model
-   public static int PORTFOLIO_INTERPOLATION = 500;
-   public static Double PORTFOLIO_PRECISION = 0.00001;
+   public static int PORTFOLIO_INTERPOLATION = 100;
+   public static Double PORTFOLIO_PRECISION = 0.000001;
    public static double PORTFOLIO_MNAGEMENT_FEES = 0.0045;
 
    public static double MIN_CURRENT_ASSET = 10000.0;
 
    public static double MONTHLY_CHILD_COST = 300;
 
+   public static double MIN_LIQUID_CASH = 75.0;
+
+   public static double ASSET_TRIGGER = 0.015;
+
+   public static double CASH_TRIGGER = 0.005;
+
+   //May want to change this to profile data
+   public static double TLH_SHORT_THRESHOLd = 0.00;
+   public static double TLH_Long_THRESHOLd = 0.02;
+
+   public final static String TRADE_MODE = "Robo";
 
 }

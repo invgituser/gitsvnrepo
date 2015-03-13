@@ -89,6 +89,9 @@ public class UserData
    private String ip, cookieID;
    Integer resetID;
 
+   private String emailmsgtype = null;
+
+
    public UserData()
    {
       super();
@@ -508,17 +511,17 @@ public class UserData
    public String getFullName()
    {
 
-      if (!Util.isNull(firstName))
+      if (!WebUtil.isNull(firstName))
       {
          this.fullName = firstName;
       }
 
-      if (!Util.isNull(middleInitial))
+      if (!WebUtil.isNull(middleInitial))
       {
          this.fullName += " " + middleInitial;
       }
 
-      if (!Util.isNull(lastName))
+      if (!WebUtil.isNull(lastName))
       {
          this.fullName += " " + lastName;
       }
@@ -747,6 +750,16 @@ public class UserData
    public Map<String, String> getQuestion(Integer qnum)
    {
       return securityQuestions.getQuestion(qnum);
+   }
+
+   public String getEmailmsgtype()
+   {
+      return emailmsgtype;
+   }
+
+   public void setEmailmsgtype(String emailmsgtype)
+   {
+      this.emailmsgtype = emailmsgtype;
    }
 
 }

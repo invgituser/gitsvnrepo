@@ -70,6 +70,12 @@
          <version>${invessence.version}</version>
       </dependency>
       <dependency>
+         <groupId>com.invessence</groupId>
+         <artifactId>invmodel</artifactId>
+         <version>${invmodel.version}</version>
+      </dependency>
+
+      <dependency>
           <groupId>webcab</groupId>
           <artifactId>portfolioJ2SE</artifactId>
        </dependency>
@@ -130,14 +136,10 @@
          <groupId>mysql</groupId>
          <artifactId>mysql-connector-java</artifactId>
       </dependency>
-      <dependency>
-         <groupId>org.primefaces.extensions</groupId>
-         <artifactId>primefaces-extensions</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>jfree</groupId>
-         <artifactId>jfreechart</artifactId>
-      </dependency>
+         <dependency>
+           <groupId>org.primefaces.extensions</groupId>
+           <artifactId>primefaces-extensions</artifactId>
+         </dependency>
       <dependency>
          <groupId>org.quartz-scheduler</groupId>
          <artifactId>quartz</artifactId>
@@ -275,28 +277,12 @@
          <artifactId>mail</artifactId>
       </dependency>
        <dependency>
-         <groupId>fop</groupId>
-         <artifactId>fop</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>xalan</groupId>
-           <artifactId>xalan</artifactId>
-       </dependency>
-             <dependency>
-           <groupId>jtidy</groupId>
-           <artifactId>jtidy</artifactId>
-       </dependency>
-       <dependency>
            <groupId>avalon-framework</groupId>
            <artifactId>avalon-framework</artifactId>
        </dependency>
        <dependency>
            <groupId>org.apache.avalon.logkit</groupId>
            <artifactId>avalon-logkit</artifactId>
-       </dependency>
-       <dependency>
-           <groupId>batik</groupId>
-           <artifactId>batik-1.5-fop</artifactId>
        </dependency>
        <dependency>
             <groupId>com.google.api-client</groupId>
@@ -314,5 +300,13 @@
             <groupId>com.lowagie</groupId>
             <artifactId>itext</artifactId>
         </dependency>
+      <dependency>
+            <groupId>org.ocpsoft.rewrite</groupId>
+            <artifactId>rewrite-servlet</artifactId>
+      </dependency>
+      <dependency>
+          <groupId>org.ocpsoft.rewrite</groupId>
+          <artifactId>rewrite-config-prettyfaces</artifactId>
+      </dependency>
    </dependencies>
 </project>

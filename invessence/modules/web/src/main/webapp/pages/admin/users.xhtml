@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<h:body>
+
+    <ui:composition template="/template/common/layout.xhtml">
+
+        <ui:define name="content">
+            <div id="main-content" class="content_section" style="background-color: #f5f5f5;">
+                <div id="wrapper" class="container" style="padding-top: 20px">
+                    <h:form id="matchForm">
+                        <p:messages id="matchmsg"/>
+                        <p:panelGrid id="goalsgrid" styleClass="invNBgrid">
+                            <p:row>
+                                <p:column>
+                                    IB Acct#:
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="IBacctnumText" value="#{adminbean.clientAccountID}"/>
+                                </p:column>
+                                <p:column>
+                                    Acct#:
+                                </p:column>
+                                <p:column>
+                                    <p:inputText id="acctnumText" value="#{adminbean.acctnum}"/>
+                                </p:column>
+                                <p:column>
+                                    Status:
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="status" value="#{adminbean.IBStatus}"
+                                                     required="true">
+                                        <f:selectItem itemLabel="Pending" itemValue="Pending"/>
+                                        <f:selectItem itemLabel="Approved" itemValue="Approved"/>
+                                        <f:selectItem itemLabel="Funded" itemValue="Funded"/>
+                                        <f:selectItem itemLabel="Active" itemValue="Active"/>
+                                        <f:selectItem itemLabel="Inactive" itemValue="Inactive"/>
+                                        <f:selectItem itemLabel="Closed" itemValue="Closed"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <h:commandButton id="matchButton" value="Add/Update"
+                                                     action="#{adminbean.saveMatch}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    Filter:
+                                </p:column>
+                                <p:column>
+                                    <p:selectOneMenu id="filter" value="#{adminbean.filter}">
+                                        <f:selectItem itemLabel="All" itemValue="All"/>
+                                        <f:selectItem itemLabel="New" itemValue="New"/>
+                                        <f:selectItem itemLabel="Funded" itemValue="Funded"/>
+                                        <f:selectItem itemLabel="Traded" itemValue="Traded"/>
+                                    </p:selectOneMenu>
+                                </p:column>
+                                <p:column>
+                                    <p:commandButton value="Refresh" id="btnForm" process="@form" update="fieldsetIB,fieldsetInv"
+                                                     actionListener="#{adminbean.refreshButton}"/>
+                                </p:column>
+
+                            </p:row>
+                        </p:panelGrid>
+
+                        <p:fieldset legend="IB" id="fieldsetIB" toggleable="true" toggleSpeed="500">
+                            <p:dataTable var="data" value="#{adminbean.ibList}"
+                                         scrollable="true" scrollWidth="1000" scrollHeight="200"
+                                         id="ibDataTable">
+
+                                <p:column headerText="IB#"
+                                          style="width:40px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data.clientAccountID}">
+                                    <h:outputText value="#{data.clientAccountID}"/>
+                                </p:column>
+
+                                <p:column headerText="Inv#"
+                                          style="width:40px; text-align: left;"
+                                          resizable="true">
+                                    <h:outputText value="#{data.acctnum}"/>
+                                </p:column>
+
+                                <p:column headerText="Name"
+                                          style="width:40px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data.name}">
+                                    <h:outputText value="#{data.name}"/>
+                                </p:column>
+
+                                <p:column headerText="Flag"
+                                          style="width:40px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data.status}">
+                                    <h:outputText value="#{data.status}"/>
+                                </p:column>
+
+                                <p:column headerText="Opened"
+                                          style="width:30px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data.dateOpened}">
+                                    <h:outputText value="#{data.dateOpened}"/>
+                                </p:column>
+
+                                <p:column headerText="State"
+                                          style="width:20px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data.state}">
+                                    <h:outputText value="#{data.state}"/>
+                                </p:column>
+
+                                <p:column headerText="Cash"
+                                          style="width:60px; text-align: right;"
+                                          resizable="true">
+                                    <h:outputText value="#{data.strStartingCash}"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:fieldset>
+
+                        <p:fieldset legend="Invessence" id="fieldsetInv" toggleable="true" toggleSpeed="500">
+                            <p:dataTable var="data2" value="#{adminbean.invessenceList}"
+                                         scrollable="true" scrollWidth="1000" scrollHeight="200"
+                                         id="invDataTable">
+
+                                <p:column headerText="Acct#"
+                                          style="width:25px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data2.acctnum}">
+                                    <h:outputText value="#{data2.acctnum}"/>
+                                </p:column>
+                                <p:column headerText="First"
+                                          style="width:60px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data2.firstname}">
+                                    <h:outputText value="#{data2.firstname}"/>
+                                </p:column>
+                                <p:column headerText="Last"
+                                          style="width:60px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data2.lastname}">
+                                    <h:outputText value="#{data2.lastname}"
+                                            />
+                                </p:column>
+                                <p:column headerText="Email"
+                                          style="width:80px; text-align: left;"
+                                          resizable="true"
+                                          sortBy="#{data2.email}">
+                                    <h:outputText value="#{data2.email}"/>
+                                </p:column>
+                                <p:column headerText="Goal"
+                                          style="width:40px; text-align: left;"
+                                          resizable="true">
+                                    <h:outputText value="#{data2.goal}"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </p:fieldset>
+                    </h:form>
+                </div>
+            </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+
+</html>

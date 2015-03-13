@@ -1,5 +1,4 @@
-DROP PROCEDURE IF Exists `sp_addClients2Trade`;
-
+DROP PROCEDURE `sp_addClients2Trade`;
 
 DELIMITER $$
 CREATE PROCEDURE `sp_addClients2Trade`()
@@ -56,6 +55,21 @@ BEGIN
 			   (
 				abs(((sum(p.positionValue)/funct_get_actualCapital(ib.acctnum)) - (asset.weight/100))) > IFNULL(funct_get_switch('ALLOC_MAX_OFFSET'),5.0)/100
 				)
+		);
+
+		DROP temporary table if exists `unique_acct2Rebalance_outofBalance`;
+	    CREATE TEMPORARY TABLE IF NOT EXISTS `unique_acct2Rebalance_outofBalance` AS (
+		SELECT 
+			t.acctnum,
+			t.clientAccountID,
+			max(t.assetAllocationOffset) as assetAllocationOffset
+		from acct2Rebalance_outofBalance t
+		where   t.acctnum in (select acctnum from user_trade_profile
+							    where tradePreference in ('A'))
+		and   (t.lastTraded is null or t.lastTraded <= DATE_ADD(now(), INTERVAL -10 DAY)) 
+		group by 
+			t.acctnum,
+			t.clientAccountID
 		);
 
 		-- 2) Find old trades
@@ -132,7 +146,6 @@ BEGIN
 							    where tradePreference in ('A'))
 		;
 
-
 		INSERT INTO `clients_to_trade`
 		(`acctnum`,
 		`clientAccountID`,
@@ -148,34 +161,30 @@ BEGIN
 		`created`,
 		`lastupdated`)
 		SELECT 
-			t.acctnum,
-			t.clientAccountID,
-			'P', -- processStatus
-			vPostDate, -- tradedate
-			'O', -- reason
-			`pos`, -- position
-			`actualtotal`, -- actualAvailable
-			((`pos`/`actualtotal`) * 100) as currentAllocation,
-			`assetclass`, -- assetclass
-			`weight`, -- requiredAllocation
-			round(max(t.assetAllocationOffset)*100,3) as assetAllocationOffset,
-			vPostDate, -- created
-			null -- lastupdated
-		from acct2Rebalance_outofBalance t
-		where t.acctnum not in (select r.acctnum from clients_to_trade r
+			uao.acctnum,
+			uao.clientAccountID,
+			'P' as processStatus, -- processStatus
+			lastTraded as tradedate, -- tradedate
+			'O' as reason, -- reason
+			ao.`pos`, -- position
+			ao.`actualtotal`, -- actualAvailable
+			((ao.`pos`/ao.`actualtotal`) * 100) as currentAllocation,
+			ao.`assetclass`, -- assetclass
+			ao.`weight`, -- requiredAllocation
+			round((uao.assetAllocationOffset*100),3) as assetAllocationOffset,
+			now() as created, -- created
+			null as lastupdated -- lastupdated
+		from unique_acct2Rebalance_outofBalance uao,
+			 acct2Rebalance_outofBalance ao
+		where uao.clientAccountID = ao.clientAccountID
+		and   uao.assetAllocationOffset = ao.assetAllocationOffset
+		and   uao.acctnum not in (select r.acctnum from clients_to_trade r
 							    where r.processStatus = 'P')
-		and   t.acctnum in (select acctnum from user_trade_profile
+		and   uao.acctnum in (select acctnum from user_trade_profile
 							    where tradePreference in ('A'))
-		and   (t.lastTraded is null or t.lastTraded <= DATE_ADD(now(), INTERVAL -10 DAY)) 
-		group by 
-			t.acctnum,
-			t.clientAccountID,
-			vPostDate,
-			`pos`,
-			`actualtotal`,
-			`assetclass`,
-			`weight`
+		and   (ao.lastTraded is null or ao.lastTraded <= DATE_ADD(now(), INTERVAL -10 DAY)) 
 		;
+
 
 		INSERT INTO `clients_to_trade`
 		(`acctnum`,

@@ -3,13 +3,13 @@ package com.invessence.dao.impl;
 import java.io.Serializable;
 
 import com.invessence.dao.AllocationDelSP;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 
 import com.invessence.dao.AllocationDao;
 import com.invessence.dao.AllocationSP;
 import com.invessence.data.ManageGoals;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-public class AllocationDaoImpl extends SimpleJdbcDaoSupport implements Serializable, AllocationDao
+public class AllocationDaoImpl extends JdbcDaoSupport implements Serializable, AllocationDao
 {
 
    /**

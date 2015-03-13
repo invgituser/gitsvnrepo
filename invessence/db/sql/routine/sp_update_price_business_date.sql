@@ -1,4 +1,4 @@
-DROP PROCEDURE IF EXISTS `sp_update_price_business_date`;
+DROP PROCEDURE `sp_update_price_business_date`;
 
 DELIMITER $$
 CREATE PROCEDURE `sp_update_price_business_date`()
@@ -27,7 +27,7 @@ BEGIN
 	 THEN
 		BEGIN
 		-- Send alert
-		CALL `sp_email_messages_add_mod`(
+			CALL `sp_email_messages_add_mod`(
 			 'A' -- <{IN  p_addmodflag      VARCHAR(1)}>
 			,'Internal' -- <{IN p_source    varchar(20)}>
 			, null  -- <{IN p_messageid bigint(20)}>
@@ -43,8 +43,9 @@ BEGIN
 			, null -- <{IN p_sentdate varchar(12)}>
 			, CONCAT('Out of ', totalInstr, ' Only loaded, ', instrPriced, ' Prices') -- <{-- MM/DD/YYYY IN p_msg mediumtext}>
 			, 'From: sp_update_price_business_date' -- <{IN p_comment varchar(250)}>
-		    );
-
+			, 'TEXT'  -- p_mimetype, 
+			, null  -- p_attachments mediumtext}>);
+			);
 			DELETE FROM tmp_yahoo_prices;
 
 			INSERT INTO tmp_yahoo_prices
@@ -78,6 +79,8 @@ BEGIN
 			, null -- <{IN p_sentdate varchar(12)}>
 			, CONCAT('Info only.  No action required.') -- <{-- MM/DD/YYYY IN p_msg mediumtext}>
 			, 'From sp_update_price_business_date' -- <{IN p_comment varchar(250)}>
+			, 'TEXT' -- p_mimetype
+			, null -- p_attachments
 		    );
 		END;
 	END IF;
@@ -85,6 +88,7 @@ BEGIN
 
    Update invessence_switch
 		set `value` = DATE_FORMAT(last_price_date,'%Y%m%d')
+		, lastupdated = now()
    Where name = 'PRICE_DATE';
 
    

@@ -11,8 +11,10 @@ function pie_extensions()
     this.cfg.grid = {
         backgroundColor: 'transparent',
         drawBorder: false,
-        shadow: false
-    }
+        shadow: false,
+        legend: false,
+        gridPadding: {top:0, bottom:38, left:0, right:0}
+    };
 }
 function line_extensions()
 {
@@ -61,6 +63,14 @@ function line_extensions()
         tooltipAxes: 'y',
         tooltipFormatString: "$%'d",
         useAxesFormatters: false
+    };
+
+    this.cfg.fillBetween = {
+         series1: 0,
+         series2: 1,
+         color: "rgba(167, 201, 194, 0.7)",
+         baseSeries: 0,
+         fill: true
     };
 }
 

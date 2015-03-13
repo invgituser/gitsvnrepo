@@ -4,9 +4,9 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import com.invessence.data.*;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-public class TradesDAO extends SimpleJdbcDaoSupport
+public class TradesDAO extends JdbcDaoSupport
 {
    public List<Position> getTrades(Long p_logonid, Long p_acctnum)
    {
@@ -34,8 +34,8 @@ public class TradesDAO extends SimpleJdbcDaoSupport
             data.setSide("Buy");
             // data.setP_s_indicator(getData(rs.get("p_s_indicator")));
             data.setQty(Integer.parseInt(getData(rs.get("qty"))));
-            data.setPrice(Double.parseDouble(getData(rs.get("price"))));
-            data.setInvested(Double.parseDouble(getData(rs.get("invested"))));
+            data.setMarkPrice(Double.parseDouble(getData(rs.get("price"))));
+            data.setPositionValue(Double.parseDouble(getData(rs.get("invested"))));
             positionList.add(i, data);
             i++;
          }

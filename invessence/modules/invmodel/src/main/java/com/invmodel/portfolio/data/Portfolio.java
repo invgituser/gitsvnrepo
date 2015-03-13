@@ -13,6 +13,7 @@ public class Portfolio
 
    private Map<String, PortfolioSecurityData> portfolio = new HashMap<String, PortfolioSecurityData>(); //Key=Ticker, Value=Data;
    private ArrayList<String> tickers = new ArrayList<String>();
+   private String theme;
    private double totalMoney = 0.0;
    private double cashMoney = 0.0;
    private double expReturns = 0.0;
@@ -20,6 +21,9 @@ public class Portfolio
    private double avgCost = 0.0;
    private double avgExpense = 0.0;
    private double totalCost = 0.0;
+   private double upperTotalMoney = 0.0;
+   private double lowerTotalMoney = 0.0;
+
 
    private double totalCapitalGrowth = 0.0;
    private double actualInvestments = 0.0;
@@ -29,6 +33,8 @@ public class Portfolio
 
    public Portfolio()
    {
+      this.tickers.clear();
+      portfolio.clear();
    }
 
    public Portfolio(String ticker, String name, String color,
@@ -39,6 +45,8 @@ public class Portfolio
    {
       try
       {
+         this.tickers.clear();
+         portfolio.clear();
          setPortfolio(ticker, name, color,
                       type, style, assetclass, subclass,
                       dailyprice, weight, expectedReturn, expenseRatio,
@@ -63,7 +71,28 @@ public class Portfolio
    }
 
    public String getsubclasskey(String assetclass, String subclass) {
-      return  assetclass + "." + subclass;
+      if (assetclass == null || assetclass.length() == 0)
+         assetclass = "UNUSED";
+      if (subclass == null || subclass.length() == 0)
+         subclass = "UNUSED";
+
+      return  assetclass.toUpperCase() + "." + subclass.toUpperCase();
+   }
+
+   public String getTheme()
+   {
+      return theme;
+   }
+
+   public void setTheme(String theme)
+   {
+      this.theme = theme;
+   }
+
+   //JAV 12/14/14
+   public Map<String, PortfolioSecurityData> getPortfolioMap()
+   {
+      return portfolio;
    }
 
    public double getAvgCost()
@@ -91,6 +120,25 @@ public class Portfolio
       return totalCost;
    }
 
+   public double getUpperTotalMoney()
+   {
+      return upperTotalMoney;
+   }
+
+   public void setUpperTotalMoney(double upperTotalMoney)
+   {
+      this.upperTotalMoney = upperTotalMoney;
+   }
+
+   public double getLowerTotalMoney()
+   {
+      return lowerTotalMoney;
+   }
+
+   public void setLowerTotalMoney(double lowerTotalMoney)
+   {
+      this.lowerTotalMoney = lowerTotalMoney;
+   }
 
    public void setTotalCost(double totalCost)
    {
@@ -157,7 +205,7 @@ public class Portfolio
                                              sortorder, tickerWeight);
             this.portfolio.put(ticker, data);
             addTotalMoney(money);
-            setTickers(ticker);
+            this.tickers.add(ticker);
          }
          else
          {
@@ -170,7 +218,6 @@ public class Portfolio
                                            sortorder, tickerWeight);
             this.portfolio.put(ticker, data);
             addTotalMoney(money); // Now, add the new one.
-            setTickers(ticker);
          }
       }
       catch (Exception e)

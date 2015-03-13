@@ -31,7 +31,7 @@
     </context-param>
     <!-- Welcome page -->
     <welcome-file-list>
-        <welcome-file>faces/login.xhtml</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 
     <!-- JSF mapping -->
@@ -128,7 +128,8 @@
     </servlet>
 
    <session-config>
-		<session-timeout>-1</session-timeout>
+      <!-- Session idle timeout in seconds. -->
+	  <session-timeout>300</session-timeout>
 	</session-config>
 
    <error-page>

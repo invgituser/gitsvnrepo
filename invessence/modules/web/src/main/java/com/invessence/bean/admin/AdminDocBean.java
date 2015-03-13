@@ -2,29 +2,19 @@ package com.invessence.bean.admin;
 
 
 import com.invessence.bo.*;
-import com.invessence.dao.AdminDAO;
+import com.invessence.dao.admin.AdminDAO;
 import com.invessence.data.*;
 
 
 import com.invmodel.riskCalculator.RiskIndex;
 import org.primefaces.model.StreamedContent;
 
-
-import org.apache.avalon.framework.logger.*;
-import org.apache.fop.apps.Driver;
-import org.apache.fop.tools.DocumentInputSource;
-import org.w3c.tidy.Tidy;
-import org.primefaces.model.*;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.xml.parsers.*;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.*;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -270,114 +260,11 @@ public class AdminDocBean implements Serializable
             System.out.println("XSL File not found: ");
          }
 
-         Tidy tidy = new Tidy();
-         Document xmlDoc = tidy.parseDOM(input, null);
-         foDoc = xml2FO(xmlDoc, xslInput);
-
-         String pdfFileName = pdfLocation + getAcctnum() + ".pdf";
-         String downloadPDF = getAcctnum() + ".pdf";
-         System.out.println("PDF Name :" + downloadPDF);
-
-
-         try {
-            OutputStream pdf = new FileOutputStream(new File(pdfFileName));
-            pdf.write(fo2PDF(foDoc));
-            pdf.close();
-            InputStream stream = new FileInputStream(new File(pdfFileName))
-            {
-               @Override
-               public int read() throws IOException
-               {
-                  return 0;
-               }
-            };
-            file = new DefaultStreamedContent(stream, "application/pdf", downloadPDF);
-
-
-         }
-         catch (java.io.FileNotFoundException e) {
-            System.out.println("Error creating PDF: " + pdfFileName);
-         }
-         catch (java.io.IOException e) {
-            System.out.println("Error writing PDF: " + pdfFileName);
-         }catch(Exception ex){
-
-         }
-
       }
       catch (Exception ex) {
 
       }
-
-
       return file;
-   }
-
-
-   private static Document xml2FO(Document xml, InputStream xslInput) {
-
-      DOMSource xmlDomSource = new DOMSource(xml);
-      DOMResult domResult = new DOMResult();
-      Transformer transformer = getTransformer(xslInput);
-      try {
-         transformer.transform(xmlDomSource, domResult);
-      }
-      catch (javax.xml.transform.TransformerException e) {
-         return null;
-      }
-      return (Document) domResult.getNode();
-   }
-
-   private static byte[] fo2PDF(Document foDocument) {
-
-      DocumentInputSource fopInputSource = new DocumentInputSource(foDocument);
-      try {
-         ByteArrayOutputStream out = new ByteArrayOutputStream();
-         Driver driver = new Driver(fopInputSource, out);
-         Logger log = new ConsoleLogger(ConsoleLogger.LEVEL_WARN);
-         driver.setLogger(log);
-         driver.setRenderer(Driver.RENDER_PDF);
-         driver.run();
-         return out.toByteArray();
-
-      } catch (Exception ex) {
-         System.out.println("Exception :" + ex.getMessage());
-         return null;
-      }
-   }
-
-   private static Transformer getTransformer(InputStream xslInput) {
-      try {
-
-         TransformerFactory tFactory = TransformerFactory.newInstance();
-         DocumentBuilderFactory dFactory = DocumentBuilderFactory.newInstance();
-         dFactory.setNamespaceAware(true);
-
-         DocumentBuilder dBuilder = dFactory.newDocumentBuilder();
-         InputSource inSource = new InputSource(new InputStreamReader(xslInput, "UTF-8"));
-         Document xslDoc = dBuilder.parse(inSource);
-         DOMSource xslDomSource = new DOMSource(xslDoc);
-
-         return tFactory.newTransformer(xslDomSource);
-
-      }
-      catch (javax.xml.transform.TransformerException e) {
-         System.out.println("Transform Exception :" + e.getMessage());
-         return null;
-      }
-      catch (java.io.IOException e) {
-         System.out.println("IO Exception :" + e.getMessage());
-         return null;
-      }
-      catch (javax.xml.parsers.ParserConfigurationException e) {
-         System.out.println("Parser Exception :" + e.getMessage());
-         return null;
-      }
-      catch (org.xml.sax.SAXException e) {
-         System.out.println("SAX Exception :" + e.getMessage());
-         return null;
-      }
-
    }
 
    public String formatMoney(Integer money)

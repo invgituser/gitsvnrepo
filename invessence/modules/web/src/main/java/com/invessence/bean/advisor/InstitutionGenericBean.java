@@ -6,7 +6,7 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.constant.Const;
 import com.invessence.data.UserInfoData;
-import com.invessence.util.UserValidation;
+import com.invessence.util.*;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
@@ -26,7 +26,7 @@ public class InstitutionGenericBean implements Serializable
 
    @ManagedProperty("#{advisorBean}")
    private AdvisorBean abean;
-   private UserValidation uv = new UserValidation();
+   private WebUtil webutil = new WebUtil();
 
    private Long logonid;
 
@@ -76,7 +76,7 @@ public class InstitutionGenericBean implements Serializable
    public void newAccount() {
       //FacesContext.getCurrentInstance().getApplication().createValueBinding("#{advisorBean}").setValue(FacesContext.getCurrentInstance(), null );
       abean.resetAdvisorBean();
-      uv.redirect("/advisor/add.xhtml",null);
+      webutil.redirect("/advisor/add.xhtml", null);
    }
 
    public void logout() {
@@ -86,6 +86,6 @@ public class InstitutionGenericBean implements Serializable
       catch (Exception ex) {
 
       }
-      uv.redirect("/j_spring_security_logout",null);
+      webutil.redirect("/j_spring_security_logout", null);
    }
 }

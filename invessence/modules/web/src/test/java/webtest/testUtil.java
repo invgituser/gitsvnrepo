@@ -30,13 +30,13 @@ public class testUtil
    }
 
    public static void testRedirect(String[] args) {
-      UserValidation userv = new UserValidation();
+      WebUtil webutil = new WebUtil();
       String URL="http://www.yahoo.com?redirect";
       Map <String,String> obj = new HashMap<String, String>();
       obj.put("key1","Value1");
       obj.put("key2","Value2");
       obj.put("key3","Value3");
-      userv.redirect(URL,obj);
+      webutil.redirect(URL,obj);
 
    }
 }

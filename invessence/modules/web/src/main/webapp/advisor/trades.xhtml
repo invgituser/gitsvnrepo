@@ -13,7 +13,7 @@
     <h:form id="trades">
         <h4>Trades.</h4>
 
-        <p:dataTable id="tradeData" var="ticker" value="#{advisorBean.portfolioList}"
+        <p:dataTable id="tradeData" var="ticker" value="#{advisorBean.displayPortfolioList}"
                      rowKey="#{ticker.symbol}"
                      styleClass="invDataTable">
                 <f:facet name="header">

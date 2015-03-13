@@ -16,6 +16,21 @@
 
    <dependencies>
       <dependency>
+          <groupId>javax.ejb</groupId>
+          <artifactId>ejb-api</artifactId>
+          <version>3.0</version>
+      </dependency>
+       <dependency>
+         <groupId>com.invessence</groupId>
+         <artifactId>core</artifactId>
+         <version>${invessence.version}</version>
+      </dependency>
+      <dependency>
+         <groupId>lpsolve</groupId>
+         <artifactId>lpsolve</artifactId>
+         <version>5.5</version>
+      </dependency>
+      <dependency>
          <groupId>webcab</groupId>
          <artifactId>portfolioJ2SE</artifactId>
       </dependency>
@@ -23,16 +38,10 @@
          <groupId>webcab</groupId>
          <artifactId>optimization</artifactId>
       </dependency>
-<!--
         <dependency>
-          <groupId>webcab</groupId>
-          <artifactId>optimizationEjbClient</artifactId>
+          <groupId>joptimizer</groupId>
+          <artifactId>joptimizer</artifactId>
         </dependency>
-        <dependency>
-          <groupId>webcab</groupId>
-          <artifactId>qaLibrary</artifactId>
-        </dependency>
--->
       <dependency>
          <groupId>com.google.guava</groupId>
          <artifactId>guava</artifactId>
@@ -54,9 +63,33 @@
          <artifactId>mysql-connector-java</artifactId>
       </dependency>
       <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-         </dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-context</artifactId>
+      </dependency>
+       <dependency>
+         <groupId>org.springframework</groupId>
+         <artifactId>spring-jdbc</artifactId>
+      </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+       <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+       </dependency>
+       <dependency>
+          <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+       </dependency>
+      <dependency>
+         <groupId>commons-dbutils</groupId>
+         <artifactId>commons-dbutils</artifactId>
+      </dependency>
    </dependencies>
 
    <build>

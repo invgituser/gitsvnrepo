@@ -2,9 +2,11 @@ package com.invessence.data.advisor;
 
 import java.util.*;
 
+import com.invessence.constant.Const;
 import com.invessence.data.*;
-import com.invmodel.asset.AssetAllocationModel;
-import com.invmodel.portfolio.PortfolioModel;
+import com.invmodel.Const.InvConst;
+import com.invmodel.asset.data.Asset;
+import com.invmodel.inputData.*;
 import com.invmodel.portfolio.data.PortfolioSubclass;
 
 /**
@@ -28,8 +30,9 @@ public class AdvisorData extends ManageGoals
    private String actionIcon;
 
    private List<String> filteredOption;
-   private List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
-   private ArrayList<String> advisorBasket = new ArrayList<String>();
+   private Map<String, String> advisorBasket;
+   private List<String> rebalanceOption;
+
 
    public AdvisorData getInstance() {
       return this;
@@ -98,7 +101,7 @@ public class AdvisorData extends ManageGoals
    public void setConvertRiskIndex(Integer riskIndex)
    {
       Integer weightedRisk;
-      weightedRisk = (int) (10.0 - (Math.round(riskIndex.doubleValue() / 2.9)));
+      weightedRisk = convertRiskWeight2Index(riskIndex.doubleValue());
       this.advisorRiskIndex = weightedRisk;
       setRiskIndex(riskIndex);
    }
@@ -107,7 +110,7 @@ public class AdvisorData extends ManageGoals
    {
       Double weightedRisk;
       this.advisorRiskIndex = advisorRiskIndex;
-      weightedRisk = 28 - ((2.0 * advisorRiskIndex.doubleValue()) + Math.round(advisorRiskIndex.doubleValue() / 1.2));
+      weightedRisk = convertIndex2RiskWeight(advisorRiskIndex);
       setRiskIndex(weightedRisk.intValue());
    }
 
@@ -121,14 +124,34 @@ public class AdvisorData extends ManageGoals
       this.filteredOption = filteredOption;
    }
 
-   public ArrayList<String> getAdvisorBasket()
+   public Map<String,String> getAdvisorBasket()
    {
       return advisorBasket;
    }
 
-   public void setAdvisorBasket(ArrayList<String> advisorBasket)
+   public void setAdvisorBasket(Map<String,String> advisorBasket)
    {
       this.advisorBasket = advisorBasket;
+   }
+
+   public String getThisBasket()
+   {
+      return getBasket();
+   }
+
+   // This happens in dropdown.  They select the KEY, so we are setting both KEY and value.
+   public void setThisBasket(String value)
+   {
+      if (value == null) {
+         setBasket(value, InvConst.DEFAULT_BASKET);
+         setTheme(InvConst.DEFAULT_THEME);
+      }
+      else {
+         if (this.advisorBasket.containsKey(value)) {
+            setBasket(value, this.advisorBasket.get(value));
+            setTheme(value);
+         }
+      }
    }
 
    public String getAction()
@@ -162,16 +185,6 @@ public class AdvisorData extends ManageGoals
       this.actionIcon = actionIcon;
    }
 
-   public List<PortfolioSubclass> getExcludedSubAsset()
-   {
-      return excludedSubAsset;
-   }
-
-   public void setExcludedSubAsset(List<PortfolioSubclass> excludedSubAsset)
-   {
-      this.excludedSubAsset = excludedSubAsset;
-   }
-
    public void resetAdvisorData() {
       // Clean up ManageGoals Data first.
       resetManagedGoalData();
@@ -185,13 +198,10 @@ public class AdvisorData extends ManageGoals
 
       if (filteredOption != null)
          filteredOption.clear();
-      if (excludedSubAsset != null)
-         excludedSubAsset.clear();
       if (advisorBasket != null)
          advisorBasket.clear();
-
-
-
    }
+
+
 
 }

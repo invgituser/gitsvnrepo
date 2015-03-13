@@ -6,24 +6,24 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.data.DataPortfolio;
 import com.invessence.data.advisor.AdvisorData;
-import com.invmodel.Const.InvConst;
+import com.invessence.data.common.AccountData;
 import com.invmodel.asset.data.*;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "advisorListDataDAO")
 @ApplicationScoped
-public class AdvisorListDataDAO extends SimpleJdbcDaoSupport implements Serializable
+public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public List<AdvisorData> getListOfAccounts(Long acctnum, String filter) {
+   public ArrayList<AccountData> getListOfAccounts(Long logonid, Long acctnum) {
       DataSource ds = getDataSource();
-      AdvisorListSP sp = new AdvisorListSP(ds, "sel_AdvisorAcctList",0);
-      List<AdvisorData> listProfiles = new ArrayList<AdvisorData>();
-      Map outMap = sp.collectProfileData(acctnum, filter);
+      AdvisorListSP sp = new AdvisorListSP(ds, "sel_ClientProfileData2",0);
+      ArrayList<AccountData> listProfiles = new ArrayList<AccountData>();
+      Map outMap = sp.collectProfileData(logonid, acctnum);
       String action;
       try {
          if (outMap != null)
@@ -33,40 +33,41 @@ public class AdvisorListDataDAO extends SimpleJdbcDaoSupport implements Serializ
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               AdvisorData data = new AdvisorData();
+               AccountData data = new AccountData();
 
                data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               data.setEmail(convert.getStrData(rs.get("email")));
 
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
                data.setTheme(convert.getStrData(rs.get("theme")));
-               data.setClientLogonID(convert.getLongData(rs.get("logonid")));
-               data.setClientLastname(convert.getStrData(rs.get("lastname")));
-               data.setClientFirstName(convert.getStrData(rs.get("firstname")));
-               data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
-               data.setClientAccountID(convert.getStrData(rs.get("IB_acctnum")));
+               data.setLogonid(convert.getLongData(rs.get("logonid")));
+               data.setLastname(convert.getStrData(rs.get("lastname")));
+               data.setFirstname(convert.getStrData(rs.get("firstname")));
+               data.setClientAccountID(convert.getStrData(rs.get("ClientAccountID")));
 
-               action = (convert.getStrData(rs.get("acctstatus")));
-               data.setAcctstatus(action);
-               if (action.equalsIgnoreCase("Pending")) {
-                  data.setAction("Edit");
-               }
-               else {
-                  data.setAction("View");
-               }
-               //data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
-               data.setAccountType(convert.getStrData(rs.get("accttype")));
+               data.setAcctStatus(convert.getStrData(rs.get("acctstatus")));
+               data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
+               data.setGoal(convert.getStrData(rs.get("goal")));
+               data.setAccttype(convert.getStrData(rs.get("accttype")));
                data.setAge(convert.getIntData(rs.get("age")));
                data.setHorizon(convert.getIntData(rs.get("horizon")));
-               data.setRiskIndex(convert.getIntData(rs.get("riskIndex")));
-               data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
-               data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
-               data.setActualInvestment(convert.getIntData(rs.get("actualCapital")));
-               data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
-               data.setObjective(convert.getIntData(rs.get("longTermGoal")));
+               data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
+               data.setInitialInvestment(convert.getDoubleData(rs.get("initialInvestment")));
+               data.setKeepLiquid(convert.getDoubleData(rs.get("keepLiquid")));
+               data.setActualCapital(convert.getDoubleData(rs.get("actualCapital")));
+               data.setRecurringInvestment(convert.getDoubleData(rs.get("recurringInvestment")));
+               data.setLongTermGoal(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
-               data.setStock(convert.getDoubleData(rs.get("stock")));
-               data.setAccrual(convert.getDoubleData(rs.get("accrual")));
-               data.setDateOpened(convert.getStrData(rs.get("created")));
+               data.setDependent(convert.getIntData(rs.get("dependent")));
+               data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
+               data.setTotalIncomeAnnulized(convert.getDoubleData(rs.get("totalIncomeAnnulized")));
+               data.setTotalExpenseAnnulized(convert.getDoubleData(rs.get("totalExpenseAnnulized")));
+
+               data.setTotalAsset(convert.getDoubleData(rs.get("totalAsset")));
+               data.setTotalDebt(convert.getDoubleData(rs.get("totalDebt")));
+               data.setLiquidnetworth(convert.getDoubleData(rs.get("liquidnetworth")));
+               data.setNetworth(convert.getDoubleData(rs.get("networth")));
+               data.setCreated(convert.getStrData(rs.get("created")));
                listProfiles.add(i, data);
                i++;
             }
@@ -96,6 +97,7 @@ public class AdvisorListDataDAO extends SimpleJdbcDaoSupport implements Serializ
 
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
                data.setTheme(convert.getStrData(rs.get("theme")));
+               data.setGoal(convert.getStrData(rs.get("goal")));
                data.setClientLogonID(convert.getLongData(rs.get("logonid")));
                data.setClientLastname(convert.getStrData(rs.get("lastname")));
                data.setClientFirstName(convert.getStrData(rs.get("firstname")));
@@ -135,11 +137,11 @@ public class AdvisorListDataDAO extends SimpleJdbcDaoSupport implements Serializ
       }
    }
 
-   public ArrayList<String> getBasket(String advisor) {
+   public Map<String, String> getBasket(String advisor, String strategy) {
       DataSource ds = getDataSource();
       AdvisorListSP sp = new AdvisorListSP(ds, "sel_AdvisorBaskets",2);
-      ArrayList<String> listBasket = new ArrayList<String>();
-      Map outMap = sp.collectBasket(advisor);
+      Map<String, String> listBasket= new LinkedHashMap<String, String>();
+      Map outMap = sp.collectBasket(advisor, strategy);
       try {
          if (outMap != null)
          {
@@ -148,7 +150,9 @@ public class AdvisorListDataDAO extends SimpleJdbcDaoSupport implements Serializ
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               listBasket.add(convert.getStrData(rs.get("theme")));
+               String theme = convert.getStrData(rs.get("theme"));
+               String basket = convert.getStrData(rs.get("basket"));
+               listBasket.put(theme, basket);
                i++;
             }
 
@@ -184,9 +188,11 @@ public class AdvisorListDataDAO extends SimpleJdbcDaoSupport implements Serializ
                savedweight = savedweight / 100.00;
                uaseetdata.put(assetname,
                               new Asset(assetname,
+                                        "",
                                         savedweight,
                                         0.0,
-                                        "",
+                                        0.0,
+                                        0.0,
                                         0.0,
                                         0.0));
 
@@ -217,12 +223,17 @@ public class AdvisorListDataDAO extends SimpleJdbcDaoSupport implements Serializ
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             int i = 0;
             List<PortfolioSubclass> excludeList = new ArrayList<PortfolioSubclass>();
+            Portfolio pf = new Portfolio();
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
                PortfolioSubclass dp = new PortfolioSubclass();
-               dp.setParentclass(convert.getStrData(rs.get("assetclass")));
-               dp.setSubasset(convert.getStrData(rs.get("subclass")));
+               String assetname = convert.getStrData(rs.get("assetclass"));
+               String subclassname = convert.getStrData(rs.get("subclass"));
+
+               dp.setName(pf.getsubclasskey(assetname,subclassname));
+               dp.setParentclass(assetname);
+               dp.setSubasset(subclassname);
                excludeList.add(dp);
                i++;
             }

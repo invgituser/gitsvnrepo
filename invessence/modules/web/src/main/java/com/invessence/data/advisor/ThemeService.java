@@ -59,24 +59,24 @@ public class ThemeService
             assetTheme.put(asset, tmpNode);
          }
 
-         for (Integer i = 0; i < goals.getPortfolioList().size(); i++)
+         for (Integer i = 0; i < goals.getDisplayPortfolioList().size(); i++)
          {
-            asset = goals.getPortfolioList().get(i).getAssetType();
+            asset = goals.getDisplayPortfolioList().get(i).getAssetType();
             if (assetTheme.containsKey(asset)) {
-               weight = (int) Math.round(goals.getPortfolioList().get(i).getTickerWeight());
-               tmpTheme =  new Subclass(goals.getPortfolioList().get(i).getSubclass(),
+               weight = (int) Math.round(goals.getDisplayPortfolioList().get(i).getTickerWeight());
+               tmpTheme =  new Subclass(goals.getDisplayPortfolioList().get(i).getSubclass(),
                   weight.toString(),
                   asset,
-                  goals.getPortfolioList().get(i).getSymbol());
+                  goals.getDisplayPortfolioList().get(i).getSymbol());
                   tmpNode = new DefaultTreeNode(tmpTheme,assetTheme.get(asset));
             }
             else {
-               asset = goals.getPortfolioList().get(i).getAssetType();
-               weight = (int) Math.round(goals.getPortfolioList().get(i).getTickerWeight());
-               tmpTheme =  new Subclass(goals.getPortfolioList().get(i).getSubclass(),
+               asset = goals.getDisplayPortfolioList().get(i).getAssetType();
+               weight = (int) Math.round(goals.getDisplayPortfolioList().get(i).getTickerWeight());
+               tmpTheme =  new Subclass(goals.getDisplayPortfolioList().get(i).getSubclass(),
                                          weight.toString(),
                                          asset,
-                                         goals.getPortfolioList().get(i).getSymbol());
+                                         goals.getDisplayPortfolioList().get(i).getSymbol());
                tmpNode = new DefaultTreeNode(tmpTheme, root);
                assetTheme.put(asset, tmpNode);
             }

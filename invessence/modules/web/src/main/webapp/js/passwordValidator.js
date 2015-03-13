@@ -12,7 +12,7 @@ PrimeFaces.validator['Password'] = {
 
     pattern: /\S+@\S+/,
 
-    MESSAGE_ID: 'Password does not batch required criteria.',
+    MESSAGE_ID: 'Password does not match required criteria.',
 
     validate: function (element, value)
     {

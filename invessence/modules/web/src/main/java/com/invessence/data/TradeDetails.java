@@ -20,10 +20,12 @@ public class TradeDetails implements Serializable
    private String assetclass;
    private String ticker;
    private String accttype;
-   private Integer posqty, newqty, tradeqty, adjustedqty;
-   private Double tradeprice;
-   private Double pricePerShare, gainloss, pnl;
-   private Double posamount, newamount, tradeamount, runningCash;
+   private Double currentqty, costBasisPrice, costBasisMoney;
+   private Double currentValue, pnl;
+   private Double newqty, newValue;
+   private Double tradeqty, adjustedQty, tradeprice, tradeValue, priceperShare;
+   private Double realizedPnL, tradedPnL,runningCashBal;
+   private Double percentAllocated;
    private Integer sortOrder;
 
    public TradeDetails()
@@ -110,74 +112,44 @@ public class TradeDetails implements Serializable
       this.accttype = accttype;
    }
 
-   public Integer getPosqty()
+   public Double getCurrentqty()
    {
-      return posqty;
+      return currentqty;
    }
 
-   public void setPosqty(Integer posqty)
+   public void setCurrentqty(Double currentqty)
    {
-      this.posqty = posqty;
+      this.currentqty = currentqty;
    }
 
-   public Integer getNewqty()
+   public Double getCostBasisPrice()
    {
-      return newqty;
+      return costBasisPrice;
    }
 
-   public void setNewqty(Integer newqty)
+   public void setCostBasisPrice(Double costBasisPrice)
    {
-      this.newqty = newqty;
+      this.costBasisPrice = costBasisPrice;
    }
 
-   public Integer getTradeqty()
+   public Double getCostBasisMoney()
    {
-      return tradeqty;
+      return costBasisMoney;
    }
 
-   public void setTradeqty(Integer tradeqty)
+   public void setCostBasisMoney(Double costBasisMoney)
    {
-      this.tradeqty = tradeqty;
+      this.costBasisMoney = costBasisMoney;
    }
 
-   public Integer getAdjustedqty()
+   public Double getCurrentValue()
    {
-      return adjustedqty;
+      return currentValue;
    }
 
-   public void setAdjustedqty(Integer adjustedqty)
+   public void setCurrentValue(Double currentValue)
    {
-      this.adjustedqty = adjustedqty;
-   }
-
-   public Double getTradeprice()
-   {
-      return tradeprice;
-   }
-
-   public void setTradeprice(Double tradeprice)
-   {
-      this.tradeprice = tradeprice;
-   }
-
-   public Double getPricePerShare()
-   {
-      return pricePerShare;
-   }
-
-   public void setPricePerShare(Double pricePerShare)
-   {
-      this.pricePerShare = pricePerShare;
-   }
-
-   public Double getGainloss()
-   {
-      return gainloss;
-   }
-
-   public void setGainloss(Double gainloss)
-   {
-      this.gainloss = gainloss;
+      this.currentValue = currentValue;
    }
 
    public Double getPnl()
@@ -190,44 +162,114 @@ public class TradeDetails implements Serializable
       this.pnl = pnl;
    }
 
-   public Double getPosamount()
+   public Double getNewqty()
    {
-      return posamount;
+      return newqty;
    }
 
-   public void setPosamount(Double posamount)
+   public void setNewqty(Double newqty)
    {
-      this.posamount = posamount;
+      this.newqty = newqty;
    }
 
-   public Double getNewamount()
+   public Double getNewValue()
    {
-      return newamount;
+      return newValue;
    }
 
-   public void setNewamount(Double newamount)
+   public void setNewValue(Double newValue)
    {
-      this.newamount = newamount;
+      this.newValue = newValue;
    }
 
-   public Double getTradeamount()
+   public Double getTradeqty()
    {
-      return tradeamount;
+      return tradeqty;
    }
 
-   public void setTradeamount(Double tradeamount)
+   public void setTradeqty(Double tradeqty)
    {
-      this.tradeamount = tradeamount;
+      this.tradeqty = tradeqty;
    }
 
-   public Double getRunningCash()
+   public Double getAdjustedQty()
    {
-      return runningCash;
+      return adjustedQty;
    }
 
-   public void setRunningCash(Double runningCash)
+   public void setAdjustedQty(Double adjustedQty)
    {
-      this.runningCash = runningCash;
+      this.adjustedQty = adjustedQty;
+   }
+
+   public Double getTradeprice()
+   {
+      return tradeprice;
+   }
+
+   public void setTradeprice(Double tradeprice)
+   {
+      this.tradeprice = tradeprice;
+   }
+
+   public Double getTradeValue()
+   {
+      return tradeValue;
+   }
+
+   public void setTradeValue(Double tradeValue)
+   {
+      this.tradeValue = tradeValue;
+   }
+
+   public Double getPriceperShare()
+   {
+      return priceperShare;
+   }
+
+   public void setPriceperShare(Double priceperShare)
+   {
+      this.priceperShare = priceperShare;
+   }
+
+   public Double getRealizedPnL()
+   {
+      return realizedPnL;
+   }
+
+   public void setRealizedPnL(Double realizedPnL)
+   {
+      this.realizedPnL = realizedPnL;
+   }
+
+   public Double getTradedPnL()
+   {
+      return tradedPnL;
+   }
+
+   public void setTradedPnL(Double tradedPnL)
+   {
+      this.tradedPnL = tradedPnL;
+   }
+
+   public Double getRunningCashBal()
+   {
+      return runningCashBal;
+   }
+
+   public void setRunningCashBal(Double runningCashBal)
+   {
+      this.runningCashBal = runningCashBal;
+   }
+
+   public Double getPercentAllocated()
+   {
+      return percentAllocated;
+   }
+
+   public void setPercentAllocated(Double percentAllocated)
+   {
+      this.percentAllocated = percentAllocated;
    }
 
    public Integer getSortOrder()

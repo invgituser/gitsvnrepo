@@ -5,8 +5,6 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.data.ManageGoals;
-import com.invessence.data.admin.AdminTradeClient;
 import com.invessence.data.advisor.AdvisorData;
 import com.invmodel.asset.data.Asset;
 import com.invmodel.portfolio.data.*;
@@ -24,6 +22,7 @@ public class AdvisorSaveSP extends StoredProcedure
          case 0: // Save Profile
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_portfolioName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
@@ -74,6 +73,9 @@ public class AdvisorSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
             declareParameter(new SqlParameter("p_subclass", Types.VARCHAR));
             break;
+         case 7:  // Delete User Account
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          default:
       }
       compile();
@@ -91,6 +93,7 @@ public class AdvisorSaveSP extends StoredProcedure
                   inputMap.put("p_acctnum", -1);
                else
                   inputMap.put("p_acctnum", data.getAcctnum());
+               inputMap.put("p_portfolioName", data.getPortfolioName());
                inputMap.put("p_advisor", data.getAdvisor());
                inputMap.put("p_theme", data.getTheme());
                inputMap.put("p_email", data.getClientEmail());
@@ -139,7 +142,7 @@ public class AdvisorSaveSP extends StoredProcedure
             inputAssetMap.put("p_addmodflag", "A");
             inputAssetMap.put("p_acctnum", data.getAcctnum());
             inputAssetMap.put("p_assetclass", assetname);
-            inputAssetMap.put("p_themecode", data.getTheme());
+            inputAssetMap.put("p_themecode", data.getAdvisor());
             if (data.getUserAssetOverride())
                inputAssetMap.put("p_allocationmodel", "U");
             else
@@ -147,7 +150,7 @@ public class AdvisorSaveSP extends StoredProcedure
 
             inputAssetMap.put("p_assetyear", data.getAssetyear());
             inputAssetMap.put("p_active", "A");
-            inputAssetMap.put("p_weight", aac.getRoundedActualWeight());
+            inputAssetMap.put("p_weight", aac.getDisplayActualWeight());
             super.execute(inputAssetMap);
          }
       }
@@ -209,6 +212,13 @@ public class AdvisorSaveSP extends StoredProcedure
          inputMap.put("p_subclass", data.getExcludedSubAsset().get(loop).getSubasset());
          super.execute(inputMap);
       }
+   }
+
+   public void deleteAccount(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      super.execute(inputMap);
    }
 
 }

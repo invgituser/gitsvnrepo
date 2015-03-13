@@ -5,9 +5,9 @@ import java.util.*;
 
 import com.invessence.dao.*;
 import com.invessence.data.*;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-public class GoalsDaoImpl extends SimpleJdbcDaoSupport implements Serializable, GoalsDao
+public class GoalsDaoImpl extends JdbcDaoSupport implements Serializable, GoalsDao
 {
 
    /**

@@ -36,10 +36,10 @@ public class TreeAssetFilter
 
          for (int loop=0; loop < advisordata.getAssetData()[advisordata.getAssetyear()].getOrderedAsset().size(); loop++) {
             String name = advisordata.getAssetData()[datayear].getOrderedAsset().get(loop);
-            Double weight = advisordata.getAssetData()[datayear].getAssetActualWeight(name);
-            String color = advisordata.getAssetData()[datayear].getAssetColor(name);
-            Double risk = advisordata.getAssetData()[datayear].getAssetRisk(name);
-            Double expectedReturn = advisordata.getAssetData()[datayear].getAssetExpectedReturns(name);
+            Double weight = advisordata.getAssetData()[datayear].getAsset(name).getUserweight();
+            String color = advisordata.getAssetData()[datayear].getAsset(name).getColor();
+            Double risk = advisordata.getAssetData()[datayear].getAsset(name).getRisk();
+            Double expectedReturn = advisordata.getAssetData()[datayear].getAsset(name).getExpectedReturn();
             totalValue = 0.0;
             assetclassfilter = new AssetClassFilter(name, name, null, color, weight, null, risk, expectedReturn);
             ArrayList<String> subclasslist = advisordata.getPortfolioData()[datayear].getAssetMapList(name);
@@ -95,10 +95,10 @@ public class TreeAssetFilter
 
          for (int loop=0; loop < mgoal.getAssetData()[mgoal.getAssetyear()].getOrderedAsset().size(); loop++) {
             String name = mgoal.getAssetData()[mgoal.getAssetyear()].getOrderedAsset().get(loop);
-            Double weight = mgoal.getAssetData()[mgoal.getAssetyear()].getAssetActualWeight(name);
-            String color = mgoal.getAssetData()[mgoal.getAssetyear()].getAssetColor(name);
-            Double risk = mgoal.getAssetData()[mgoal.getAssetyear()].getAssetRisk(name);
-            Double expectedReturn = mgoal.getAssetData()[mgoal.getAssetyear()].getAssetExpectedReturns(name);
+            Double weight = mgoal.getAssetData()[mgoal.getAssetyear()].getAsset(name).getUserweight();
+            String color = mgoal.getAssetData()[mgoal.getAssetyear()].getAsset(name).getColor();
+            Double risk = mgoal.getAssetData()[mgoal.getAssetyear()].getAsset(name).getRisk();
+            Double expectedReturn = mgoal.getAssetData()[mgoal.getAssetyear()].getAsset(name).getExpectedReturn();
             totalValue = 0.0;
             assetclassfilter = new AssetClassFilter(name, name, null, color, weight, null, risk, expectedReturn);
             ArrayList<String> subclasslist = mgoal.getPortfolioData()[mgoal.getAssetyear()].getAssetMapList(name);

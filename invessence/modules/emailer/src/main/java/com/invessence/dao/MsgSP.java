@@ -5,7 +5,6 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.constant.Const;
 import com.invessence.data.MsgData;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
@@ -35,10 +34,13 @@ public class MsgSP extends StoredProcedure
       declareParameter(new SqlParameter("p_sentdate", Types.VARCHAR));
       declareParameter(new SqlParameter("p_msg", Types.VARCHAR));
       declareParameter(new SqlParameter("p_comment", Types.VARCHAR));
+      declareParameter(new SqlParameter("p_mimetype", Types.VARCHAR));
+      declareParameter(new SqlParameter("p_attachments", Types.VARCHAR));
       compile();
 
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map execute(String function, MsgData data)
    {
 
@@ -55,7 +57,7 @@ public class MsgSP extends StoredProcedure
       inputs.put("p_bcc", data.getBcc());
       inputs.put("p_subject", data.getSubject());
       if (data.getSubject() == null)
-         data.setSubject(Const.COMPANY_NAME);
+         data.setSubject("Invessence");
       inputs.put("p_msg", data.getMsg());
       inputs.put("p_status", data.getStatus());
       inputs.put("p_category", data.getCategory());
@@ -63,14 +65,12 @@ public class MsgSP extends StoredProcedure
       inputs.put("p_logonid", data.getLogonID());
       inputs.put("p_sentdate", null);
       inputs.put("p_comment", data.getComment());
+      inputs.put("p_mimetype", data.getMimeType());
+      inputs.put("p_attachments", data.getAttachmentFile());
 
       return super.execute(inputs);
    }
 
-   public static void main(String[] args)
-   {
-      System.out.println("TEST");
-   }
 }
 
 

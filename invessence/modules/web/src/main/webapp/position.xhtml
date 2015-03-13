@@ -8,86 +8,212 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<f:metadata>
-    <f:viewParam name="p_acctnum" value="#{positionBean.acctnum}"/>
-    <f:viewParam name="p_logonid" value="#{positionBean.logonid}"/>
-</f:metadata>
-
 <h:body>
-    <ui:composition template="/template/common/commonSecuredLayout.xhtml">
-        <ui:define name="content">
-            <div id="main-content" class="content_section" style="background-color: #f5f5f5; padding: 10px;">
-                <div id="wrapper" class="container">
-                    <h:form>
-                        <h2>Current Position</h2>
+<ui:composition template="/template/common/commonSecuredLayout.xhtml">
+<ui:define name="content">
+<div id="main-content" class="content_section" style="background-color: #f5f5f5; padding-top: 80px">
+    <div id="wrapper" class="container">
+        <h:form>
+            <h2>Current Holding</h2>
+            <p:panelGrid styleClass="invNBgrid">
+                <p:row>
+                    <p:column style="text-align: left; padding-right: 2px">
+                        <h:outputLabel value="Account#"/>
+                    </p:column>
+                    <p:column colspan="2" style="text-align: left; padding-right: 2px">
+                        <h:outputLabel value="Name"/>
+                    </p:column>
+                    <p:column style="width:30px; text-align: left; padding-right: 2px">
+                    </p:column>
+                    <p:column style="text-align: right; padding-right: 2px">
+                        <h:outputLabel value="Date Opened"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column style="text-align: left; padding-right: 2px">
+                        <h:outputLabel value="#{positionBean.clientAccountID}"/>
+                    </p:column>
+                    <p:column style="text-align: left; padding-right: 2px">
+                        <h:outputLabel value="#{positionBean.firstname}"/>
+                    </p:column>
+                    <p:column style="text-align: left; padding-right: 2px">
+                        <h:outputLabel value="#{positionBean.lastname}"/>
+                    </p:column>
+                    <p:column style="width:30px; text-align: left; padding-right: 2px">
+                    </p:column>
+                    <p:column style="text-align: left; padding-right: 2px">
+                        <h:outputLabel value="#{positionBean.dateOpened}"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
 
-                        <p:dataTable id="dataTable" var="position" value="#{positionBean.positionList}" styleClass="invDataTable">
-                            <p:column sortBy="#{position.ticker}" headerText="Ticker" style="width:100px; text-align: left" resizable="true">
-                                <h:outputText value="#{position.ticker}"/>
-                            </p:column>
-                            <p:column sortBy="#{position.name}"
-                                      style="width:250px; text-align: left;"
-                                      headerText="Description" resizable="true">
-                                <h:outputText value="#{position.description}"/>
-                            </p:column>
-                            <p:column sortBy="#{position.side}" headerText="Side" style="width:30px; text-align: left"
-                                      resizable="true">
-                                <h:outputText value="#{position.side}"/>
-                            </p:column>
-                            <p:column sortBy="#{position.qty}" headerText="Shares" style="width:50px; text-align: right" resizable="true">
-                                <h:outputText value="#{position.qty}">
-                                    <f:convertNumber pattern="###,###,###"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column sortBy="#{position.costBasisPrice}" headerText="Purchased" style="width:100px; text-align: right" resizable="true">
-                                <h:outputText value="#{position.costBasisPrice}">
-                                    <f:convertNumber type="currency" currencySymbol="$"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column sortBy="#{position.costBasisMoney}" headerText="Cost Basis" style="width:150px; text-align: right" resizable="true">
-                                <h:outputText value="#{position.costBasisMoney}">
-                                    <f:convertNumber type="currency" currencySymbol="$"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column sortBy="#{position.markPrice}" headerText="Mark Price" style="width:100px; text-align: right"
-                                      resizable="true">
-                                <h:outputText value="#{position.markPrice}">
-                                    <f:convertNumber type="currency" currencySymbol="$"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column sortBy="#{position.invested}" headerText="Current" style="width:100px; text-align: right"
-                                      resizable="true">
-                                <h:outputText value="#{position.invested}">
-                                    <f:convertNumber type="currency" currencySymbol="$"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:column sortBy="#{position.fifoPnlUnrealized}" headerText="Gain/Loss" style="width:100px; text-align: right"
-                                      resizable="true">
-                                <h:outputText value="#{position.fifoPnlUnrealized}">
-                                    <f:convertNumber type="currency" currencySymbol="$"/>
-                                </h:outputText>
-                            </p:column>
+            <p:separator/>
 
+            <p:panelGrid styleClass="invNBgrid">
+                <p:row>
+                    <p:column colspan="4" style="text-align: left; width: 300px">
+                        <p:dataTable id="editAlloc" styleClass="invAllocTable"
+                                     value="#{positionBean.managedAssetsList}"
+                                     var="assetList" rowKey="#{assetList.asset}">
+
+                            <p:column style="text-align: center;background-color: #{assetList.color}; width: 30%"
+                                      resizable="true" headerText="Asset">
+                                <h:outputText value="#{assetList.asset}"/>
+                            </p:column>
+                            <p:column style="text-align: right;width: 20%"
+                                      resizable="true" headerText="Holding">
+                                <h:outputText value="#{assetList.holdingweight}" style="text-align: right;width: 20%">
+                                    <f:convertNumber type="percent"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="text-align: right;width: 50%"
+                                      resizable="true" headerText="Value">
+                                <h:outputText value="#{assetList.holdingValue}" style="text-align: right;width: 50%">
+                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                </h:outputText>
+                            </p:column>
                             <p:columnGroup type="footer">
                                 <p:row>
-                                    <p:column colspan="3" footerText="Total" style="text-align:right"/>
-
-                                    <p:column footerText="#{positionBean.populatetotalshare}" style="text-align:right"/>
-                                    <p:column colspan="2" footerText="#{positionBean.populatetotalmoney}" style="text-align:right"/>
-                                    <p:column colspan="2" footerText="#{positionBean.populatetotalvalue}" style="text-align:right"/>
-                                    <p:column footerText="#{positionBean.populatetotalpnl}" colspan="2" style="text-align:right"/>
+                                    <p:column colspan="2" footerText="Total" style="text-align:center"/>
+                                    <p:column style="text-align:right"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}">
+                                    </p:column>
                                 </p:row>
                             </p:columnGroup>
                         </p:dataTable>
-                        <p:button outcome="manageAccount" value="Back" icon="ui-icon-arrowthick-1-w"/>
 
-                    </h:form>
+                    </p:column>
+                    <p:column colspan="4" style="text-align:left;">
+                        <p:pieChart id="advisorallocPieChart2"
+                                    value="#{positionBean.pieModel}"
+                                    fill="true" seriesColors="009ABB, CFD449, 93A9CF, FFFFCC, BCC8DF"
+                                    style="width: 300px; height: 200px;"
+                                    extender="pie_extensions"
+                                    diameter="150"/>
+                    </p:column>
+                </p:row>
+            </p:panelGrid>
 
-                </div>
-            </div>
+            <p:separator/>
 
-        </ui:define>
-    </ui:composition>
+            <p:dataTable id="dataTable" var="position" value="#{positionBean.positionList}" styleClass="invDataTable">
+                <p:column sortBy="#{position.assetclass}" headerText="Asset"
+                          style="width:95px; text-align: left; background-color: #{position.color}"
+                          resizable="true">
+                    <h:outputText value="#{position.assetclass}"/>
+                </p:column>
+                <p:column sortBy="#{position.ticker}" headerText="Ticker"
+                          style="width:46px; text-align: left" resizable="true">
+                    <h:outputText value="#{position.ticker}"/>
+                </p:column>
+                <p:column sortBy="#{position.name}"
+                          style="width:300px; text-align: left;"
+                          headerText="Description" resizable="true">
+                    <h:outputText value="#{position.description}"/>
+                </p:column>
+                <p:column sortBy="#{position.qty}" headerText="Shares"
+                          style="width:39px; text-align: right" resizable="true">
+                    <h:outputText value="#{position.qty}">
+                        <f:convertNumber pattern="###,###,###"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{position.weight}" headerText="Weight"
+                          style="width:30px; text-align: right" resizable="true">
+                    <h:outputText value="#{position.weight}">
+                        <f:convertNumber type="percent"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{position.costBasisPrice}" headerText="Purchased"
+                          style="width:80px; text-align: right" resizable="true">
+                    <h:outputText value="#{position.costBasisPrice}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{position.costBasisMoney}" headerText="Cost Basis"
+                          style="width:100px; text-align: right" resizable="true">
+                    <h:outputText value="#{position.costBasisMoney}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{position.markPrice}" headerText="Mark Price"
+                          style="width:90px; text-align: right"
+                          resizable="true">
+                    <h:outputText value="#{position.markPrice}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{position.positionValue}" headerText="Current Value"
+                          style="width:100px; text-align: right"
+                          resizable="true">
+                    <h:outputText value="#{position.positionValue}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:outputText>
+                </p:column>
+                <p:column sortBy="#{position.fifoPnlUnrealized}" headerText="Gain/Loss"
+                          style="width:90px; text-align: right"
+                          resizable="true">
+                    <h:outputText value="#{position.fifoPnlUnrealized}">
+                        <f:convertNumber type="currency" currencySymbol="$"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:columnGroup type="footer">
+                    <p:row>
+                        <p:column colspan="5" footerText="Total" style="text-align:right"/>
+
+                        <p:column colspan="2" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalmoney)}" style="text-align:right"/>
+                        <p:column colspan="2" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}" style="text-align:right"/>
+                        <p:column footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalpnl)}" colspan="2" style="text-align:right"/>
+                    </p:row>
+                </p:columnGroup>
+            </p:dataTable>
+
+
+            <p:dialog header="Chart" widgetVar="dlgChart"
+                      closable="true" appendTo="@(body)"
+                      style="background-color:#ffffff">
+                <script type="text/javascript" src="/js/invCharts.js"></script>
+
+                <p:panelGrid cellpadding="5" styleClass="invNBgrid">
+                    <p:row>
+                        <p:column style="text-align:left; color: #CC0000">
+                            <h3>Current Allocation</h3>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2" style="text-align: center">
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:pieChart id="allocationchart"
+                                        value="#{positionBean.pieModel}"
+                                        fill="true" seriesColors="009ABB, CFD449, 93A9CF, FFFFCC, BCC8DF"
+                                        style="font-size:12px;width: 200px; text-align:left"
+                                        extender="pie_extensions"
+                                        diameter="100"/>
+                        </p:column>
+                    </p:row>
+
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column style="text-align: center">
+                                <p:commandButton value="Close"
+                                                 oncomplete="PF('dlgChart').hide();"/>
+
+                            </p:column>
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+            </p:dialog>
+
+        </h:form>
+
+    </div>
+</div>
+
+</ui:define>
+</ui:composition>
 
 </h:body>
 </html>

@@ -16,5 +16,7 @@ CREATE TABLE `email_messages` (
   `comment` mediumtext,
   `created` timestamp NULL DEFAULT NULL,
   `lastupdated` timestamp NULL DEFAULT NULL,
+  `mimetype` varchar(250) DEFAULT NULL,,
+  `attachments` mediumtext,
   PRIMARY KEY (`messageid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

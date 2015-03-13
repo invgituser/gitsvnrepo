@@ -6,7 +6,9 @@ import java.util.*;
 
 import com.google.common.base.*;
 import com.google.common.collect.Iterables;
+import com.invessence.converter.SQLData;
 import com.invessence.shared.io.BufferedFileFactory;
+import org.ocpsoft.rewrite.annotation.Convert;
 
 public class TradeWriter
 {
@@ -162,9 +164,10 @@ public class TradeWriter
       Map<String, List<TradeAccountInfo>> sharesByAccount = new HashMap<String, List<TradeAccountInfo>>();
       for (Map<String, Object> row : data)
       {
-         Integer quantity = (Integer) row.get("qty");
-         String accountNum = (String) row.get("clientAccountID");
-         String ticker = (String) row.get("ticker");
+         SQLData convert = new SQLData();
+         Integer quantity = convert.getIntData(row.get("qty"));
+         String accountNum = convert.getStrData( row.get("clientAccountID") );
+         String ticker = convert.getStrData(row.get("ticker"));
 
          // Note this process is called only for Buy or Sell.  So, add to this list only one type.
          // Add to list if it is BUY.

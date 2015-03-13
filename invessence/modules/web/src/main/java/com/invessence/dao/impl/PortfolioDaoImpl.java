@@ -2,7 +2,7 @@ package com.invessence.dao.impl;
 
 import com.invessence.dao.*;
 import com.invessence.data.ManageGoals;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * Time: 7:06 PM
  * To change this template use File | Settings | File Templates.
  */
-public class PortfolioDaoImpl extends SimpleJdbcDaoSupport implements Serializable, PortfolioDao
+public class PortfolioDaoImpl extends JdbcDaoSupport implements Serializable, PortfolioDao
 {
    public void addPortfolio(ManageGoals goals)
    {

@@ -31,33 +31,46 @@ BEGIN
 				set t_addmodflag = 'M';
 		END IF;
 		
-		IF (t_addmodflag = 'A') THEN			
-			CALL `sp_login_add_mod`
-			(
-			   'A',
-			   t_clientlogon,
-			   p_email, -- userid
-			   p_email,
-			   'Default123', -- password
-			   'I', -- logonstatus (Inactive)
-			   p_lastname,
-			   p_firstname,
-			   null, -- p_state,
-			   null, -- p_emailalt,
-			   'Advisor', -- p_leadsource,
-			   null, -- p_question1,
-			   null, -- p_answer1
-			   null, -- IN p_question2 varchar(60),
-			   null, -- IN p_answer2 varchar(40),
-			   null, -- IN p_question3 varchar(60),
-			   null, -- IN p_answer3 varchar(40),
-			   null, -- IN p_ip varchar(20),
-			   null, -- IN p_macaddress varchar(20),
-			   null, -- IN p_resetID varchar(8),
-			   null -- IN p_cookieID varchar(5)
-			);
+		IF (t_addmodflag = 'A') THEN
+			-- First search for logonid in user table
+			SELECT logonid
+			INTO t_clientlogon
+			FROM user_logon
+			WHERE userid = p_email;
 
-			SET t_addmodflag = 'A';
+			IF (t_clientlogon is null)
+				THEN
+					CALL `sp_login_add_mod`
+					(
+					   'A',
+					   t_clientlogon,
+					   p_email, -- userid
+					   p_email,
+					   'Default123', -- password
+					   'I', -- logonstatus (Inactive)
+					   p_lastname,
+					   p_firstname,
+					   null, -- p_state,
+					   null, -- p_emailalt,
+					   'Advisor', -- p_leadsource,
+					   null, -- p_question1,
+					   null, -- p_answer1
+					   null, -- IN p_question2 varchar(60),
+					   null, -- IN p_answer2 varchar(40),
+					   null, -- IN p_question3 varchar(60),
+					   null, -- IN p_answer3 varchar(40),
+					   null, -- IN p_ip varchar(20),
+					   null, -- IN p_macaddress varchar(20),
+					   null, -- IN p_resetID varchar(8),
+					   null -- IN p_cookieID varchar(5)
+					);
+				END IF;
+
+			if (t_clientlogon < 0) 
+				then SET t_addmodflag = 'X';
+				else SET t_addmodflag = 'A';
+			end if;
+			
 		else
 			SELECT MIN(IB_acctnum)
 			INTO t_ibacct
@@ -128,7 +141,7 @@ BEGIN
 			call sp_user_access_add_mod('A', t_clientlogon, p_acctnum, null, 'OWNER', 'F');
 		END IF;
 
-		IF (t_addmodflag = 'M')
+		IF (t_addmodflag = 'M' and p_acctnum is not null)
 		then
 			UPDATE `user_trade_profile`
 				SET

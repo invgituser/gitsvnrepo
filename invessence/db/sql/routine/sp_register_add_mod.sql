@@ -21,7 +21,8 @@ CREATE PROCEDURE `sp_register_add_mod`(
 		IN  p_address2  varchar(80),
         IN  p_city      varchar(25),
         IN  p_state     varchar(20),
-        IN  p_zipcode       varchar(9)
+        IN  p_zipcode       varchar(9),
+        IN  p_emailmsgtype       varchar(45)
 )
 BEGIN 
        -- leadsource: How did you find us?: text ; 
@@ -51,7 +52,8 @@ BEGIN
 		p_address2,
         p_city,
         p_state,
-        p_zipcode
+        p_zipcode,
+		p_emailmsgtype
          ) ; 
    END;
    ELSE
@@ -73,7 +75,8 @@ BEGIN
 		address2   = p_address2,
         city       = p_city,
         state      = p_state,
-        zip        = p_zipcode
+        zip        = p_zipcode,
+        emailmsgtype  = p_emailmsgtype
      WHERE
 	     logonid = p_userid;
    END;

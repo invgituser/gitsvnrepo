@@ -3,50 +3,88 @@ package com.invessence.util;
 import java.util.*;
 
 import com.invessence.constant.Const;
+import com.invessence.data.UserInfoData;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.*;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
 
-public class UserValidation {
-	
-    public static boolean isValidEmail(String emailID) {
-
-        if ( (Util.isNull(emailID)) ||
-             (emailID.indexOf('.') == -1) ||
-             (emailID.indexOf('@') == -1) )  {
-            return false;
-
-        }  else  {
-            return true;
-        }
-    }
-
-
-
-    public static boolean isValidPassword(String password) {
-
-        if ( (StringUtils.isEmpty(password)) ||
-              (password.length() < 6) ) {
-            return false;
-        }  else {
-            return true;
-        }
-
-    }
+/* Prashant 1/7/2014 UserValidation and Util are merged into WebUtil
+public class UserValidation
+{
 
    public void validateSession()
    {
       try {
          if (getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM) == null)
          {
-            getCurrentInstance().getExternalContext().redirect("/login.xhtml");
+            redirect("/login.xhtml", null);
          }
          //collectData();
       }
       catch (Exception ex) {
+         String url="/message.xhtml?faces-redirect=true&type=Error&title=mtse&message=mbse";
+         redirect(url,null);
+      }
+   }
+
+   public String getMode() {
+      return ("Prod");
+   }
+
+   public Long getAcctnum() {
+
+      try {
+         Long acctnum = (Long) getCurrentInstance().getExternalContext().getSessionMap().get(Const.ACCTNO_PARAM);
+
+         return acctnum;
+      }
+      catch (Exception ex) {
+         String url="/message.xhtml?faces-redirect=true&type=Error&title=mtse&message=mbse";
+         redirect(url,null);
+         System.out.println("Warning: Context data is null, user must not be logged on.");
+      }
+      return null;
+   }
+
+   public void setAcctnum(Long acctnum) {
+
+      try {
+         getCurrentInstance().getExternalContext().getSessionMap().put(Const.ACCTNO_PARAM, acctnum);
 
       }
+      catch (Exception ex) {
+         String url="/message.xhtml?faces-redirect=true&type=Error&title=mtse&message=mbse";
+         redirect(url,null);
+         System.out.println("Warning: Context data is null, user must not be logged on.");
+      }
+   }
+
+
+   public UserInfoData getUserInfoData() {
+
+      try {
+         Authentication auth = (Authentication) ((SecurityContext)
+            SecurityContextHolder.getContext()).getAuthentication();
+
+         if ( (auth != null) && (auth.getPrincipal() instanceof UserInfoData )) {
+            return (UserInfoData) auth.getPrincipal();
+
+         } else {
+            return null;
+         }
+
+      }
+      catch (Exception ex) {
+         String url="/message.xhtml?faces-redirect=true&type=Error&title=mtse&message=mbse";
+         redirect(url,null);
+         System.out.println("Warning: Context data is null, user must not be logged on.");
+      }
+      return null;
+
    }
 
    public void redirect(String url, Map obj) {
@@ -71,7 +109,7 @@ public class UserValidation {
                      key + "=" + val;
             }
          }
-         //System.out.println(url + strToPass);
+         //System.out.println("Redirecting to:" + url + strToPass);
          getCurrentInstance().getExternalContext().redirect(url + strToPass );
       }
       catch (Exception ex) {
@@ -79,3 +117,4 @@ public class UserValidation {
    }
 }
 
+*/

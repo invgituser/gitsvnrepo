@@ -26,7 +26,10 @@ BEGIN
 			`tmp_commission`.`advisorFee`
 		FROM `invdb`.`tmp_commission`;
 
+		-- After the Commission table is loaded, then do the billing statement as well.
+		call `sp_upload_billing`();
    end;
 
-END$$
+END
+$$
 DELIMITER ;

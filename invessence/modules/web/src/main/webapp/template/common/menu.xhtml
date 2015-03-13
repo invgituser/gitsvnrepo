@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<body>
+<ui:composition>
+    <h:form>
+
+    <header id="id-header">
+        <div id="inv-header">
+            <nav class="row-one">
+                <div class="hbox">
+                    <ul>
+                        <li class="first">
+                            <a class="support_site" id="support-link" href="#" target="">Customer Service</a>
+                        </li>
+                        <li>
+                            <a class="help_site" id="help-link" href="#" target="">Help</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <nav class="row-two">
+                <section class="hbox">
+                    <a href="#">
+                        <p:graphicImage id="logo" value="#{menubar.logo}"/>
+                    </a>
+                    <div>
+                            <a href="j_spring_security_logout">
+                                <img id="logout" src="/images/logout.png"/> </a>
+                    </div>
+                </section>
+            </nav>
+            <nav class="row-three">
+                <div class="hbox">
+                    <p:menubar>
+                        <p:menuitem value="Accounts" url="#" />
+                        <p:menuitem value="Reports" url="#" />
+                        <p:menuitem value="Profile" actionListener="#{menubar.profile}"/>
+                        <p:menuitem label="Support" url="#"/>
+                        <p:menuitem label="Marketing" rendered="#{menubar.enableMenu('SALES')}"/>
+                        <p:menuitem label="Admin" rendered="#{menubar.enableMenu('ADMIN')}"/>
+                    </p:menubar>
+                </div>
+            </nav>
+        </div>
+    </header>
+    </h:form>
+</ui:composition>
+</body>
+</html>
+
+
