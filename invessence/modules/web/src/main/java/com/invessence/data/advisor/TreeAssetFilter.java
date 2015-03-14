@@ -3,7 +3,7 @@ package com.invessence.data.advisor;
 import java.util.*;
 import javax.faces.bean.*;
 
-import com.invessence.data.ManageGoals;
+import com.invessence.data.common.ManageGoals;
 import com.invmodel.portfolio.data.PortfolioSubclass;
 import org.primefaces.model.*;
 

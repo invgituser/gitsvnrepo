@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.constant.Const;
-import com.invessence.data.UserInfoData;
+import com.invessence.data.common.UserInfoData;
 import org.primefaces.context.RequestContext;
 import org.springframework.security.core.*;
 import org.springframework.security.core.context.*;

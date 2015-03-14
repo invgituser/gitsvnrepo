@@ -2,12 +2,8 @@ package com.invessence.data.advisor;
 
 import java.util.*;
 
-import com.invessence.constant.Const;
-import com.invessence.data.*;
+import com.invessence.data.common.ManageGoals;
 import com.invmodel.Const.InvConst;
-import com.invmodel.asset.data.Asset;
-import com.invmodel.inputData.*;
-import com.invmodel.portfolio.data.PortfolioSubclass;
 
 /**
  * Created with IntelliJ IDEA.

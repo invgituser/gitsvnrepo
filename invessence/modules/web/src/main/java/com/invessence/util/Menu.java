@@ -1,22 +1,14 @@
 package com.invessence.util;
 
 import java.io.Serializable;
-import java.util.Collection;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.bean.advisor.AdvisorBean;
-import com.invessence.bean.consumer.ConsumerBean;
 import com.invessence.constant.Const;
-import com.invessence.data.*;
+import com.invessence.data.common.UserInfoData;
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.TabChangeEvent;
 import org.springframework.context.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.*;
-
-import static javax.faces.context.FacesContext.getCurrentInstance;
 
 /**
  * Created with IntelliJ IDEA.

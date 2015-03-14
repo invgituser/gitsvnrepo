@@ -1,16 +1,5 @@
 package com.invessence.util;
 
-import java.util.*;
-
-import com.invessence.constant.Const;
-import com.invessence.data.UserInfoData;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.context.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.*;
-
-import static javax.faces.context.FacesContext.getCurrentInstance;
-
 
 /* Prashant 1/7/2014 UserValidation and Util are merged into WebUtil
 public class UserValidation

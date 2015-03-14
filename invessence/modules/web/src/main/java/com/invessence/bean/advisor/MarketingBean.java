@@ -8,8 +8,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.dao.common.CommonDAO;
-import com.invessence.data.ManageGoals;
-import com.invessence.data.common.AccountData;
+import com.invessence.data.common.ManageGoals;
 import com.invessence.util.*;
 
 @ManagedBean(name = "marketingBean")

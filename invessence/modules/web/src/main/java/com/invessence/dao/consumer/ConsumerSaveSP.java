@@ -5,7 +5,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.data.ManageGoals;
+import com.invessence.data.common.ManageGoals;
 import com.invessence.data.consumer.ClientData;
 import com.invmodel.asset.data.AssetClass;
 import com.invmodel.portfolio.data.*;

@@ -5,7 +5,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.constant.Const;
-import com.invessence.data.UserInfoData;
+import com.invessence.data.common.UserInfoData;
 import com.invessence.util.*;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;

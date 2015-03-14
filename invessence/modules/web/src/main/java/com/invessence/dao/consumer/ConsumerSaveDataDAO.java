@@ -6,7 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.data.ManageGoals;
+import com.invessence.data.common.ManageGoals;
 import com.invessence.data.consumer.ClientData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 

@@ -2,29 +2,22 @@ package com.invessence.bean.consumer;
 
 import java.io.Serializable;
 import java.text.NumberFormat;
-import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 
-import com.invessence.bo.*;
 import com.invessence.constant.Const;
 import com.invessence.converter.*;
 import com.invessence.dao.common.CommonDAO;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.*;
+import com.invessence.data.common.ManageGoals;
 import com.invessence.util.*;
-import com.invmodel.Const.InvConst;
-import com.invmodel.asset.AssetAllocationModel;
-import com.invmodel.asset.data.*;
-import com.invmodel.inputData.ProfileData;
-import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.Portfolio;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
-import org.primefaces.model.chart.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -433,9 +426,6 @@ public class ConsumerBean extends ManageGoals implements Serializable
    }
 
    // Portfolio Model
-   private PortfolioBo portfolioBo;
-   private Portfolio[] pfclass;
-
    private Integer totalshare;
    private Double totalvalue;
 

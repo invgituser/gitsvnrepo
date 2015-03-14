@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.bean.common.PositionBean;
 import com.invessence.constant.Const;
-import com.invessence.converter.SQLData;
 import com.invessence.dao.ManageAccountDAO;
 import com.invessence.data.ManageAccount;
 import com.invessence.util.*;

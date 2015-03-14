@@ -42,6 +42,20 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:3.9" level="project" />
+    <orderEntry type="library" name="Maven: jfree:jfreechart:1.0.13" level="project" />
+    <orderEntry type="library" name="Maven: jfree:jcommon:1.0.16" level="project" />
+    <orderEntry type="library" name="Maven: xalan:xalan:2.7.1" level="project" />
+    <orderEntry type="library" name="Maven: xalan:serializer:2.7.1" level="project" />
+    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.0.b2" level="project" />
+    <orderEntry type="library" name="Maven: fop:fop:0.20.5" level="project" />
+    <orderEntry type="library" name="Maven: batik:batik-1.5-fop:0.20-5" level="project" />
+    <orderEntry type="library" name="Maven: xerces:xercesImpl:2.2.1" level="project" />
+    <orderEntry type="library" name="Maven: jtidy:jtidy:4aug2000r7-dev" level="project" />
+    <orderEntry type="library" name="Maven: bouncycastle:bcmail-jdk14:138" level="project" />
+    <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk14:138" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bctsp-jdk14:1.38" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk14:1.38" level="project" />
+    <orderEntry type="library" name="Maven: org.bouncycastle:bcmail-jdk14:1.38" level="project" />
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="emailer" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.0" level="project" />
@@ -75,7 +89,15 @@
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
+    <orderEntry type="module" module-name="invmodel" />
+    <orderEntry type="library" name="Maven: javax.ejb:ejb-api:3.0" level="project" />
+    <orderEntry type="library" name="Maven: lpsolve:lpsolve:5.5" level="project" />
     <orderEntry type="library" name="Maven: webcab:portfolioJ2SE:5.0" level="project" />
+    <orderEntry type="library" name="Maven: webcab:optimization:2.6" level="project" />
+    <orderEntry type="library" name="Maven: joptimizer:joptimizer:3.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:r08" level="project" />
+    <orderEntry type="library" name="Maven: commons-dbutils:commons-dbutils:1.5" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: com.google.collections:google-collections:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish:javax.faces:2.2.6" level="project" />
@@ -84,12 +106,6 @@
     <orderEntry type="library" name="Maven: org.primefaces.extensions:primefaces-extensions:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces:primefaces:4.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.4" level="project" />
-    <orderEntry type="library" name="Maven: jfree:jfreechart:1.0.13" level="project" />
-    <orderEntry type="library" name="Maven: jfree:jcommon:1.0.16" level="project" />
-    <orderEntry type="module" module-name="invmodel" />
-    <orderEntry type="library" name="Maven: webcab:optimization:2.6" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:r08" level="project" />
-    <orderEntry type="library" name="Maven: commons-dbutils:commons-dbutils:1.5" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.maven-play-plugin.org.playframework:jj-simplecaptcha:1.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-instrument-tomcat:3.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-struts:3.2.0.RELEASE" level="project" />
@@ -99,9 +115,7 @@
     <orderEntry type="library" name="Maven: commons-validator:commons-validator:1.1.4" level="project" />
     <orderEntry type="library" name="Maven: oro:oro:2.0.7" level="project" />
     <orderEntry type="library" name="Maven: antlr:antlr:2.7.2" level="project" />
-    <orderEntry type="library" name="Maven: xalan:xalan:2.7.1" level="project" />
-    <orderEntry type="library" name="Maven: xalan:serializer:2.7.1" level="project" />
-    <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.0.b2" level="project" />
+    <orderEntry type="library" name="Maven: xalan:xalan:2.5.1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-test:3.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc-portlet:3.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-aspects:3.2.0.M1" level="project" />
@@ -124,11 +138,7 @@
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-taglibs:3.2.0.M1" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.security:spring-security-acl:3.2.0.M1" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.0.1" level="project" />
-    <orderEntry type="library" name="Maven: fop:fop:0.20.5" level="project" />
-    <orderEntry type="library" name="Maven: batik:batik-1.5-fop:0.20-5" level="project" />
-    <orderEntry type="library" name="Maven: xerces:xercesImpl:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: avalon-framework:avalon-framework:20020627" level="project" />
-    <orderEntry type="library" name="Maven: jtidy:jtidy:4aug2000r7-dev" level="project" />
     <orderEntry type="library" name="Maven: org.apache.avalon.logkit:avalon-logkit:2.2.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.api-client:google-api-client:1.18.0-rc" level="project" />
     <orderEntry type="library" name="Maven: com.google.oauth-client:google-oauth-client:1.18.0-rc" level="project" />
@@ -140,11 +150,16 @@
     <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: com.lowagie:itext:2.1.7" level="project" />
-    <orderEntry type="library" name="Maven: bouncycastle:bcmail-jdk14:138" level="project" />
-    <orderEntry type="library" name="Maven: bouncycastle:bcprov-jdk14:138" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bctsp-jdk14:1.38" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk14:1.38" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcmail-jdk14:1.38" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-servlet:2.0.12.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-config-prettyfaces:2.0.12.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-annotations-impl:2.0.12.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-api:2.0.12.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.common:common-api:1.0.5.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.logging:logging-api:1.0.2.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-api-servlet:2.0.12.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-addressbuilder:2.0.12.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-annotations-api:2.0.12.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-integration-faces:2.0.12.Final" level="project" />
   </component>
 </module>
 

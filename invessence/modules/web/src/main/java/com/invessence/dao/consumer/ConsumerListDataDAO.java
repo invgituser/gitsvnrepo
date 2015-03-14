@@ -8,8 +8,7 @@ import javax.sql.DataSource;
 import com.invessence.bean.consumer.ClientBean;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.AdvisorListSP;
-import com.invessence.data.ManageGoals;
-import com.invessence.data.advisor.AdvisorData;
+import com.invessence.data.common.ManageGoals;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerListDataDAO")

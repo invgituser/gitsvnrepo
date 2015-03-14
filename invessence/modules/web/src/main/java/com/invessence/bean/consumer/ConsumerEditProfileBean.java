@@ -9,15 +9,11 @@ import javax.faces.event.ValueChangeEvent;
 
 import com.invessence.constant.Const;
 import com.invessence.converter.SQLData;
-import com.invessence.dao.advisor.*;
 import com.invessence.dao.consumer.*;
-import com.invessence.data.*;
 import com.invessence.data.advisor.AdvisorData;
+import com.invessence.data.common.*;
 import com.invessence.util.*;
 import org.primefaces.event.SlideEndEvent;
-import org.primefaces.model.chart.*;
-
-import static javax.faces.context.FacesContext.getCurrentInstance;
 
 /**
  * Created with IntelliJ IDEA.
