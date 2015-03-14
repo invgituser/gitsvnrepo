@@ -1,4 +1,4 @@
-package com.invessence.data;
+package com.invessence.data.common;
 
 import java.util.*;
 
@@ -6,6 +6,7 @@ import javax.faces.bean.ManagedProperty;
 
 import com.invessence.constant.Const;
 import com.invessence.converter.JavaUtil;
+import com.invessence.data.*;
 import com.invessence.util.*;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;

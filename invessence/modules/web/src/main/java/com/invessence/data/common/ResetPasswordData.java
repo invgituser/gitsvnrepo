@@ -1,10 +1,11 @@
-package com.invessence.data;
+package com.invessence.data.common;
 
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 
 import com.invessence.dao.common.UserInfoDAO;
+import com.invessence.data.MsgData;
 import com.invessence.util.*;
 import com.invessence.constant.*;
 

@@ -1,17 +1,9 @@
-package com.invessence.data;
+package com.invessence.data.common;
 
 import java.util.*;
-import java.io.Serializable;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.*;
-import javax.faces.context.FacesContext;
-
-import org.springframework.context.MessageSource;
-import org.springframework.context.MessageSourceAware;
 
 
 import com.invessence.util.*;
-import com.invessence.dao.*;
 import com.invessence.data.*;
 import com.invessence.constant.*;
 
@@ -66,8 +58,6 @@ public class UserData
 
    private int commentCount = 0;
 
-   private List<UserItemData> userItemDataList = new ArrayList<UserItemData>();
-   private UserMsgData userMsgData = new UserMsgData();
    private String motto = null;
    //private String imageFile = null;
    private String aboutMe = null;
@@ -80,8 +70,6 @@ public class UserData
    private String captchaAnswer = null;
    private String fullName = null;
    private String message = null;
-
-   private MediaData mediaData = new MediaData();
 
    private String joinedDate = null;
    private String q1, q2, q3;
@@ -387,16 +375,6 @@ public class UserData
       this.commentCount = commentCount;
    }
 
-   public List<UserItemData> getUserItemDataList()
-   {
-      return userItemDataList;
-   }
-
-   public void setUserItemDataList(List<UserItemData> userItemDataList)
-   {
-      this.userItemDataList = userItemDataList;
-   }
-
    public String getUserID()
    {
       return userID;
@@ -498,16 +476,6 @@ public class UserData
       this.captchaAnswer = captchaAnswer;
    }
 
-   public UserMsgData getUserMsgData()
-   {
-      return userMsgData;
-   }
-
-   public void setUserMsgData(UserMsgData userMsgData)
-   {
-      this.userMsgData = userMsgData;
-   }
-
    public String getFullName()
    {
 
@@ -534,16 +502,6 @@ public class UserData
    public void setFullName(String fullName)
    {
       this.fullName = fullName;
-   }
-
-   public MediaData getMediaData()
-   {
-      return mediaData;
-   }
-
-   public void setMediaData(MediaData mediaData)
-   {
-      this.mediaData = mediaData;
    }
 
    public String getEmailIDVerify()

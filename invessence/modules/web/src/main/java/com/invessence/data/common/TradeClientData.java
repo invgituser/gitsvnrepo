@@ -1,8 +1,5 @@
 package com.invessence.data.common;
 
-import com.invessence.data.ManageGoals;
-import com.invmodel.inputData.ProfileData;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Prashant

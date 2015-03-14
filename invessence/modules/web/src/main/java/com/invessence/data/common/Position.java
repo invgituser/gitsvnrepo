@@ -1,4 +1,4 @@
-package com.invessence.data;
+package com.invessence.data.common;
 
 import java.io.Serializable;
 
