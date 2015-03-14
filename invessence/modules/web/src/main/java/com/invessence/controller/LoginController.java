@@ -9,6 +9,7 @@ import javax.servlet.*;
 
 import com.invessence.constant.Const;
 import com.invessence.data.*;
+import com.invessence.data.common.UserInfoData;
 import com.invessence.util.*;
 import org.apache.commons.logging.*;
 import org.springframework.security.authentication.*;
