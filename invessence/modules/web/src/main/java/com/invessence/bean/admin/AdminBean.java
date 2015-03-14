@@ -17,7 +17,6 @@ import org.primefaces.event.RowEditEvent;
 import org.primefaces.model.*;
 
 
-import com.invessence.bo.GoalsBo;
 import com.invessence.dao.admin.AdminDAO;
 import com.invessence.data.*;
 import com.invmodel.asset.data.AssetClass;

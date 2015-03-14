@@ -9,10 +9,9 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import com.invessence.dao.admin.AdminDAO;
 import com.invessence.dao.common.*;
 import com.invessence.dao.consumer.ConsumerSaveDataDAO;
-import com.invessence.data.ManageGoals;
+import com.invessence.data.common.ManageGoals;
 import com.invessence.data.common.*;
 import com.invessence.io.TradeWriter;
 import com.invessence.util.WebUtil;
