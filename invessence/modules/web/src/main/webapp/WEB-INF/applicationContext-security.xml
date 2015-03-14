@@ -85,7 +85,7 @@
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="userDetailsService" class="com.invessence.dao.CustomJdbcDaoImpl">
+    <beans:bean id="userDetailsService" class="com.invessence.dao.common.CustomJdbcDaoImpl">
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="usersByUsernameQuery"
                         value="select logonid, userid, email, pwd, logonstatus, attempts, ip, macaddress, cookieID, state, resetID, accttype, logo, groupname,emailmsgtype, access from vw_user_logon where userid=?"/>

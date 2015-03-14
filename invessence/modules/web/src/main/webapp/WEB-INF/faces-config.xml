@@ -16,7 +16,7 @@
 
    <managed-bean>
         <managed-bean-name>userBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.UserBean</managed-bean-class>
+        <managed-bean-class>com.invessence.bean.common.UserBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>userInfoDAO</property-name>
@@ -31,22 +31,12 @@
 
    <managed-bean>
         <managed-bean-name>resetPasswordData</managed-bean-name>
-        <managed-bean-class>com.invessence.data.ResetPasswordData</managed-bean-class>
+        <managed-bean-class>com.invessence.data.common.ResetPasswordData</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>userInfoDAO</property-name>
             <value>#{userInfoDAO}</value>
         </managed-property>
-        <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-   </managed-bean>
-   <managed-bean>
-        <managed-bean-name>messageBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.MessageBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>messageText</property-name>
             <property-class>com.invessence.util.EmailMessage</property-class>
