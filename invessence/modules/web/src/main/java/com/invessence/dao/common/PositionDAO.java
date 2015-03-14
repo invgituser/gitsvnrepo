@@ -5,7 +5,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.data.Position;
+import com.invessence.data.common.Position;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "positionDAO")

@@ -1,10 +1,9 @@
-package com.invessence.dao;
-
-import com.invessence.data.*;
+package com.invessence.dao.common;
 
 
 import javax.sql.DataSource;
 
+import com.invessence.data.common.UserData;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 import java.sql.Types;

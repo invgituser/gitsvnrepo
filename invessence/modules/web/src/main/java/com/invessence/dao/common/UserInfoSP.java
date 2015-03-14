@@ -2,11 +2,11 @@ package com.invessence.dao.common;
 
 
 import com.invessence.constant.Const;
-import com.invessence.data.*;
 
 
 import javax.sql.DataSource;
 
+import com.invessence.data.common.UserData;
 import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 

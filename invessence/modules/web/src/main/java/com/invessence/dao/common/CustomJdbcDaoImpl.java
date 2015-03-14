@@ -1,5 +1,6 @@
-package com.invessence.dao;
+package com.invessence.dao.common;
 
+import com.invessence.data.common.UserInfoData;
 import com.invessence.util.*;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -20,8 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.dao.*;
 
 import com.invessence.constant.*;
-import com.invessence.data.*;
-import org.springframework.security.web.WebAttributes;
 
 public class CustomJdbcDaoImpl extends JdbcDaoImpl
 {

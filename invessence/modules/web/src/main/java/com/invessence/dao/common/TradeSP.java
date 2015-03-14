@@ -5,7 +5,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.data.ManageGoals;
+import com.invessence.data.common.ManageGoals;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;

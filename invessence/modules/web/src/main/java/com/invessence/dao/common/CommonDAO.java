@@ -6,8 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.dao.consumer.ConsumerListSP;
-import com.invessence.data.*;
+import com.invessence.data.common.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "commonDAO")

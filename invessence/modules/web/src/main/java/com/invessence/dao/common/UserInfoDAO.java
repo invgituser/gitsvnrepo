@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import com.invessence.converter.SQLData;
-import com.invessence.dao.common.UserInfoSP;
+import com.invessence.data.common.UserData;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -14,7 +14,6 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 import javax.faces.bean.*;
 
-import com.invessence.data.*;
 import com.invessence.constant.*;
 
 @ManagedBean(name = "userInfoDAO")
