@@ -7,7 +7,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.dao.common.PositionDAO;
-import com.invessence.data.*;
+import com.invessence.data.common.Position;
 import com.invessence.util.*;
 import com.invmodel.asset.data.*;
 import org.primefaces.model.chart.PieChartModel;

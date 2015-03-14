@@ -1,14 +1,12 @@
 package com.invessence.bean.common;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.converter.SQLData;
 import com.invessence.dao.common.UserInfoDAO;
-import com.invessence.data.*;
-import com.invessence.data.advisor.AdvisorData;
+import com.invessence.data.common.UserData;
 import com.invessence.util.*;
 import org.primefaces.event.TabChangeEvent;
 

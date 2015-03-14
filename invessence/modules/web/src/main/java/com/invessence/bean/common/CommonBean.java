@@ -1,4 +1,4 @@
-package com.invessence.bean;
+package com.invessence.bean.common;
 
 import javax.faces.bean.*;
 

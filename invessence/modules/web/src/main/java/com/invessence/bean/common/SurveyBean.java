@@ -1,4 +1,4 @@
-package com.invessence.bean;
+package com.invessence.bean.common;
 
 import java.io.Serializable;
 import java.util.*;

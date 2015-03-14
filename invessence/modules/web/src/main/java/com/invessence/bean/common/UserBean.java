@@ -1,4 +1,4 @@
-package com.invessence.bean;
+package com.invessence.bean.common;
 
 import java.util.*;
 import javax.faces.application.FacesMessage;
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.invessence.constant.*;
 import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.data.*;
+import com.invessence.data.common.UserData;
 import com.invessence.util.*;
 
 public class UserBean extends UserData
