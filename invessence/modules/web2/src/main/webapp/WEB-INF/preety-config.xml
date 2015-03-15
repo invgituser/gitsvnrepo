@@ -1,0 +1,61 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+	<url-mapping id="login">
+		<pattern value="/login/" />
+		<view-id value="/login.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="signup">
+		<pattern value="/signup/" />
+		<view-id value="/signup.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="tryus">
+		<pattern value="/tryus/" />
+		<view-id value="/tryus.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="message">
+		<pattern value="/message/" />
+		<view-id value="/message.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="expired">
+		<pattern value="/expired/" />
+		<view-id value="/viewExpired.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="position">
+		<pattern value="/position/" />
+		<view-id value="/position.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="goal">
+		<pattern value="/goal/" />
+		<view-id value="/createInvestment.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="overview">
+		<pattern value="/overview/" />
+		<view-id value="/manage.xhtml" />
+	</url-mapping>
+
+	<url-mapping id="advisorposition">
+		<pattern value="/advisor/position/" />
+		<view-id value="/advisor/position.xhtml" />
+	</url-mapping>
+
+   	<url-mapping id="advisoradd">
+		<pattern value="/advisor/add/" />
+		<view-id value="/advisor/add.xhtml" />
+	</url-mapping>
+
+    <url-mapping id="advisormanage">
+		<pattern value="/advisor/manage/" />
+		<view-id value="/advisor/manage.xhtml" />
+	</url-mapping>
+
+</pretty-config>

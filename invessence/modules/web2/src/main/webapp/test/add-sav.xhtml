@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+<ui:composition template="/template/common/layout.xhtml">
+   <ui:define name="content">
+      <div id="main-content" class="content_section" style="background-color: #f5f5f5; padding: 5px;">
+         <div id="wrapper" class="container">
+            <h:form id="profileForm">
+            <p:messages autoUpdate="true"/>
+            <div class="ui-grid ui-grid-responsive" style="background-color: #009ABB">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="width: 4%;">
+                        <p:commandLink onclick="PF('dlgProfile').show();">
+                            <p:graphicImage name="/images/settings_user-128.png" width="40" height="40"/>
+                        </p:commandLink>
+
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <p:panelGrid styleClass="invNBgrid" style="padding: 4px 1px;">
+                            <p:row>
+                                <p:column colspan="3" style="text-align: left; vertical-align: top; width: 200px">
+                                      <h:outputText value="#{addBean.portfolioName}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                            <h:outputText value="#{addBean.investmentType}" style="font-size: 1.2em; margin: 3px;"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </div>
+                    <div class="ui-grid-col-1">
+                        <p:panelGrid styleClass="invNBgrid" style="text-align: center; vertical-align: top; font-size: 1.2em; margin: 3px;">
+                            <p:row>
+                                <p:column style="text-align: center; vertical-align: top; width: 40px">
+                                    <h:outputText value="Age" style="font-size: 1.2em; margin: 3px"/>
+                                </p:column>
+                                <p:column style="text-align: center; vertical-align: top">
+
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="text-align: center; vertical-align: top; font-size: 1.2em; margin: 3px; width: 40px">
+                                    <p:inplace>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{addBean.age}" style="font-size: 1.2em; margin: 3px; text-align: left">
+                                                <f:convertNumber pattern="###"/>
+                                            </h:outputText>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <pe:inputNumber styleClass="invInput" style="width: 40px; font-size: 1.2em; margin: 3px;"
+                                                            value="#{addBean.age}"
+                                                            required="true"
+                                                            validatorMessage="Age must be between 15 to 100"
+                                                            decimalPlaces="0">
+
+                                                <f:validateDoubleRange minimum="15" maximum="100"/>
+                                            </pe:inputNumber>
+                                        </f:facet>
+                                    </p:inplace>
+                                </p:column>
+                                <p:column style="padding: 4px 1px; vertical-align: top;">
+                                    <span class="ui-icon ui-c ui-icon-pencil"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </div>
+                    <div class="ui-grid-col-2">
+                        <p:panelGrid styleClass="invNBgrid" style="text-align: center; vertical-align: top; font-size: 1.2em; margin: 3px;">
+                            <p:row>
+                                <p:column style="padding: 4px 1px; width: 120px; text-align: center; width: 120px">
+                                    <h:outputText value="Investment" style="font-size: 1.2em; margin: 3px;"/>
+                                </p:column>
+                                <p:column style="padding: 4px 1px; vertical-align: top">
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column style="text-align: center; vertical-align: top; font-size: 1.2em; margin: 3px; padding: 4px 1px; width: 120px;">
+                                    <p:inplace>
+                                        <f:facet name="output">
+                                            <h:outputText value="#{addBean.displayInvestment}" style="font-size: 1.2em; margin: 3px; text-align: left">
+                                            </h:outputText>
+                                        </f:facet>
+                                        <f:facet name="input">
+                                            <pe:inputNumber styleClass="invInput" style="width: 120px; font-size: 1.2em; margin: 3px;"
+                                                            value="#{addBean.investment}"
+                                                            required="true"
+                                                            validatorMessage="Min investment required is $5,000"
+                                                            symbol="$" decimalPlaces="0">
+
+                                                <f:validateDoubleRange minimum="5000"/>
+                                            </pe:inputNumber>
+                                        </f:facet>
+                                    </p:inplace>
+                                </p:column>
+                                <p:column style="padding: 4px 1px; vertical-align: top">
+                                    <span class="ui-icon ui-c ui-icon-pencil"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+
+                    </div>
+                    <div class="ui-grid-col-4">
+                        <p:ring value="#{addBean.cars}" var="car" style="height: 3em;">
+                            <p:outputPanel style="text-align: center;" layout="block">
+                                #{car.brand}
+                                <br />
+                                <p:commandButton
+                                        icon="ui-icon-gear" title="Edit" update=":profileForm:carDetail2" oncomplete="PF('carDialog').show();">
+                                    <f:setPropertyActionListener value="#{car}" target="#{addBean.selectedCar}" />
+                                </p:commandButton>
+                            </p:outputPanel>
+                        </p:ring>
+                    </div>
+                </div> <!-- ui-grid-row -->
+            </div> <!-- ui-grid -->
+
+            <p:panel style="text-align: right;">
+                <p:panelGrid style="text-align: right; float: right">
+                    <p:row rowspan="2">
+                        <p:column rowspan="2">
+                            <h:outputText styleClass="invInput" style="width: 95px; font-size: 3em; margin: 3px; text-align: center;"
+                                          value="#{addBean.riskMeter}">
+                            </h:outputText>
+                            <br/>
+                            Risk Meter
+                        </p:column>
+                        <p:column>
+                            <p:button icon="ui-icon-triangle-1-n"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:button icon="ui-icon-triangle-1-s"/>
+                        </p:column>
+                    </p:row>
+                </p:panelGrid>
+            </p:panel>
+
+            <div class="ui-grid ui-grid-responsive" style="background-color: #f5f5f5">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-4">
+                        <p:outputPanel id="graphPanelID" style="height: 300px; margin-bottom:20px">
+                            <p:tabView dynamic="true" cache="true">
+                                <p:tab title="Allocation">
+                                    <p:chart type="donut" model="#{addBean.donutModel1}" style="width:250px;height:250px" />
+                                </p:tab>
+                                <p:tab title="Historical">
+                                    <p:chart type="line" model="#{addBean.animatedModel1}" style="width:250px;" />
+                                </p:tab>
+                                <p:tab title="Info">
+                                    <p:panelGrid columns="2" columnClasses="label,value">
+                                        <f:facet name="header">
+                                            Summary
+                                        </f:facet>
+
+                                        <h:outputText value="Risk" />
+                                        <h:outputText value="11.41%" />
+
+                                        <h:outputText value="Expense Ratio" />
+                                        <h:outputText value="0.19%" />
+
+                                        <h:outputText value="Yield" />
+                                        <h:outputText value="2.87%" />
+
+                                    </p:panelGrid>
+                                </p:tab>
+                            </p:tabView>
+                        </p:outputPanel>
+                    </div>
+                    <div class="ui-grid-col-8">
+                        <p:outputPanel id="detailPanelID" style="height: 300px; margin-bottom:20px">
+                            <p:dataTable var="trade" value="#{addBean.portfolio}">
+                                <f:facet name="header">
+                                    Portfolio
+                                </f:facet>
+                                <p:column headerText="Name">
+                                    <h:outputText value="#{trade.name}" />
+                                </p:column>
+                                <p:column headerText="Weight">
+                                    <h:outputText value="#{trade.weight}">
+                                       <f:convertNumber type="percent"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column headerText="Value">
+                                    <h:outputText value="#{trade.money}">
+                                       <f:convertNumber currencySymbol="$" type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                                <p:column style="width:32px;text-align: center">
+                                    <p:commandButton update=":profileForm:carDetail1" oncomplete="PF('carOP').show('#{component.clientId}')" icon="ui-icon-search" title="View">
+                                        <f:setPropertyActionListener value="#{car}" target="#{addBean.selectedPortfolio}" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </p:outputPanel>
+                    </div>
+                </div> <!-- ui-grid-row -->
+            </div> <!-- ui-grid -->
+
+            <ui:insert name="customerEntryDialogs">
+                <ui:include src="/test/addCustProfileDialogs.xhtml"/>
+            </ui:insert>
+
+
+            </h:form>
+         </div>
+      </div>
+
+
+   </ui:define>
+</ui:composition>
+
+</h:body>
+</html>
+
+

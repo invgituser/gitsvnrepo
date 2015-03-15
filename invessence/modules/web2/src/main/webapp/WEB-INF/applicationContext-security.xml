@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+
+   <http pattern="/login.xhtml" security="none"/>
+   <http pattern="/tryus.xhtml" security="none" />
+   <http pattern="/signup.xhtml" security="none"/>
+   <http pattern="/resetPassword.xhtml" security="none"/>
+   <http pattern="/setPassword.xhtml" security="none"/>
+   <http pattern="/viewExpired.xhtml" security="none"/>
+   <http pattern="/ForgotPassword.xhtml" security="none"/>
+   <http pattern="/signupApproval.xhtml" security="none"/>
+   <http pattern="/message.xhtml" security="none"/>
+   <http pattern="/securitypolicy.html" security="none"/>
+   <http pattern="/testDialog.xhtml" security="none"/>
+   <http pattern="/test/**" security="none"/>
+   <http pattern="/start/**" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/css/**" security="none"/>
+   <http pattern="/js/**" security="none"/>
+   <http pattern="/javax.faces.resource/*" security="none"/>
+   <http pattern="/javax.faces.resource/**" security="none"/>
+   <http pattern="/images/**" security="none"/>
+   <http pattern="/images/institution/**" security="none"/>
+   <http pattern="/advisor/**" security="none"/>
+   <http pattern="/consumer/**" security="none"/>
+
+   <http auto-config="true" access-denied-page="/AccessDenied.xhtml">
+      <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />
+      <form-login login-page="/login.xhtml" default-target-url="http://localhost:8080/loginRedirection.xhtml"
+                  always-use-default-target="true"/>
+
+      <!--  Active pages -->
+      <intercept-url pattern="/loginRedirection.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+      <logout logout-success-url="http://localhost:8080/login.xhtml"/>
+
+      <intercept-url pattern="/**" access="ROLE_USER"/>
+      <session-management invalid-session-url="http://localhost:8080/viewExpired.xhtml"/>
+      <remember-me key="http://localhost:8080/"/>
+   </http>
+
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder hash="md5"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <beans:bean id="userDetailsService" class="com.invessence.dao.CustomJdbcDaoImpl">
+        <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="usersByUsernameQuery"
+                        value="select logonid, userid, email, pwd, logonstatus, attempts, ip, macaddress, cookieID, resetID, accttype, logo, groupname,emailmsgtype, access from vw_user_logon where userid=?"/>
+        <beans:property name="listofQAQuery"
+                        value="select question1, answer1, question2, answer2, question3, answer3 from user_logon where userid=?"/>
+        <beans:property name="authoritiesByUsernameQuery"
+                        value="select r.role from user_logon ul, role r where ul.logonid=r.logonid and ul.userid =?"/>
+        <beans:property name="updateAttemptsSql"
+                        value="update user_logon set attempts = ? where userid=?"/>
+        <beans:property name="lockUserSql"
+                        value="update user_logon set logonstatus = ?, resetID = ? where userid=?"/>
+    </beans:bean>
+
+    <beans:bean id="sessionManagementFilter" class="org.springframework.security.web.session.SessionManagementFilter">
+        <beans:constructor-arg name="securityContextRepository" ref="httpSessionSecurityContextRepository" />
+        <beans:property name="invalidSessionStrategy" ref="monitorSession" />
+    </beans:bean>
+
+    <beans:bean id="monitorSession" class="com.invessence.util.MonitorSession">
+        <beans:property name="invalidSessionUrl" value="/viewExpired.xhtml" />
+    </beans:bean>
+
+    <beans:bean id="httpSessionSecurityContextRepository" class="org.springframework.security.web.context.HttpSessionSecurityContextRepository"/>
+</beans:beans>

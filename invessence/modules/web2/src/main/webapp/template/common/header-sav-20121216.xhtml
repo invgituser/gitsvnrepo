@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<body>
+<ui:composition>
+    <div id="menu-header">
+        <div id="top-header" class="et_nav_text_color_dark">
+            <div class="container clearfix">
+
+
+                <div id="et-info">
+                    <img src="/images/telephone_call_contact.png" alt="Phone" id="phoneicon" style="height: 20px;"/>
+                    (201) 977-2704
+
+                    <img src="/images/email_envelope.png" alt="Email" id="emailicon" style="height: 20px;"/>
+                    info@invessence.com
+
+                </div>
+                <!-- #et-info -->
+
+                <div id="et-secondary-menu">
+                    <ui:fragment rendered="#{menu.isUserLoggedIn}">
+                        <ul id="top-menu" class="nav">
+                            <li>
+                               <a href="j_spring_security_logout">
+                                   <img id="logon" alt="logon" src="/images/logout.png.png" style="height: 20px"/>
+                               </a>
+                            </li>
+                        </ul>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{!menu.isUserLoggedIn}">
+                        <ul id="top-menu" class="nav">
+                            <li>
+                                <a href="http://localhost:8080/login.xhtml">
+                                    <img id="logon" alt="logon" src="/images/login.png" style="height: 20px"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </ui:fragment>
+                </div>
+                <!-- #et-secondary-menu -->
+
+            </div>
+            <!-- .container -->
+        </div>
+        <!-- #top-header -->
+
+        <header id="middle-header" class="et_nav_text_color_dark" style="top: 25px;">
+            <div class="container clearfix">
+                <a href="#{menu.default_page}">
+                    <p:graphicImage id="logo" value="#{menu.logo}"/>
+                </a>
+
+                <div id="et-top-navigation">
+                    <nav id="top-menu-nav">
+                        <h:form id="menuForm">
+                                <p:menubar styleClass="middle-menu-item">
+                                    <p:submenu label="Accounts" value="Accounts" icon="ui-icon-person"
+                                               actionListener="#{menu.doMenuAction(1,1)}">
+                                        <p:menuitem value="Manage" icon="ui-icon-newwin"
+                                                    actionListener="#{menu.doMenuAction(1,1)}"/>
+                                        <p:menuitem value="Add" icon="ui-icon-plusthick"
+                                                    actionListener="#{menu.doMenuAction(1,2)}"/>
+                                    </p:submenu>
+                                    <p:menuitem value="Reports" icon="ui-icon-document"
+                                                actionListener="#{menu.doMenuAction(2,0)}" />
+                                    <p:menuitem value="Marketing" icon="ui-icon-signal-diag"
+                                                rendered="#{menubar.enableMenu('SALES')}"
+                                                actionListener="#{menu.doMenuAction(2,0)}"/>
+                                    <p:menuitem value="Admin" icon="ui-icon-key"
+                                                rendered="#{menubar.enableMenu('ADMIN')}"
+                                                actionListener="#{menu.doMenuAction(2,0)}" />
+                                    <p:menuitem value="Settings" icon="ui-icon-gear"
+                                                actionListener="#{menu.doMenuAction(9,0)}"/>
+                                </p:menubar>
+                        </h:form>
+                    </nav>
+                </div>
+            </div>
+        </header>
+    </div>
+</ui:composition>
+</body>
+</html>
+
+

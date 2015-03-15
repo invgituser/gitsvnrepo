@@ -1,0 +1,349 @@
+@charset "utf-8";
+/* CSS Document */
+/*------------------------------------------------------------
+ * CUSTOM BACKGROUND STYLE BASED ON THEME OPTION PAGE CHOICES
+ * ----------------------------------------------------------*/
+/* Logo*/
+
+#logo {
+    max-height: 43px;
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 5px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.logon {
+    width:400px;
+    height:230px;
+    border:1px solid black !important;
+    position:relative;
+}
+
+/*---------------------------- General StyleSheet ---------------------------------------*/
+@media screen and ( min-width: 600px ) {
+
+    .divAdvEntry {
+        width:100%;
+        padding: 5px 5px 5px 5px;
+        height: 110px;
+        background: #90c1d2 url("#{resource['primefaces-advisor:images/ui-bg_highlight-hard_30_90c1d2_1x100.png']}") 10% 500% repeat-x;
+    }
+
+    .divAdvRow {
+        float:left;
+        width: 100%;
+    }
+
+    .divAdvImage {
+        float:left;
+        border:none;
+        margin:5px;
+        width: 7%;
+    }
+
+    .divAdvSecond {
+        float:left;
+        border:none;
+        margin:5px;
+        width: 40%;
+    }
+
+    .divAdvThird {
+        float:left;
+        border:none;
+        margin:5px;
+        width: 15%;
+    }
+
+    .divAdvFourth {
+        float:left;
+        border:none;
+        margin:5px;
+        width: 15%;
+    }
+
+    .divAdvFifth {
+        float:left;
+        border:none;
+        margin:5px;
+        width: 15%;
+    }
+
+    .divSixth {
+        float:left;
+        border:none;
+        margin:5px;
+    }
+}
+.invNBgrid {
+    border-collapse: collapse;
+    border-spacing: 1px !important;
+}
+
+.invNBgrid tr {
+    border-width: 0px !important;
+}
+
+.invNBgrid td {
+    border-width: 0px !important;
+}
+
+.invNBgrid .ui-panelgrid-header {
+    text-align: center;
+    padding: 1px 12px;
+}
+
+.invNBgrid .ui-panelgrid-footer {
+    text-align: left;
+    padding: 1px 5px;
+}
+
+
+.inv-widget-header  {
+    text-align: left;
+}
+
+
+.invNBtab {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.InvButtonTab {
+    border: 0px !important;;
+}
+
+.inv-widget-header {
+    border: none !important;
+    font-weight: bold;
+    text-align: left !important;
+}
+
+.invHeader {
+
+}
+
+.invLabel {
+    text-align: left;
+}
+
+.invInput {
+}
+
+.invTitleSection {
+    border: none !important;
+    background-color: #009abb !important;
+
+}
+
+.invInfoTitle {
+    text-align: center;
+    border: none !important;
+    font-weight: bold;
+    background-color: #FFFFFF !important;
+
+}
+
+.invAlertTitle {
+    text-align: center;
+    border: none !important;
+    font-weight: bold;
+    background-color: #CC0000 !important;
+
+}
+
+.invWarningTitle {
+    text-align: center;
+    border: none !important;
+    font-weight: bold;
+    background-color: #FF9900 !important;
+}
+
+.invHeaderCenter {
+    text-align: center;
+    border: none !important;
+    font-weight: bold;
+    background-color: #FFFFFF !important;
+
+}
+
+.invHeaderLeft {
+    text-align: right;
+}
+
+
+.invRequired {
+    text-align: left;
+    color: #FF0000;
+}
+
+.invImportant {
+    font-weight: bold;
+    text-align: left;
+    color: #009abb;
+}
+
+.invWarning {
+    font-weight: bold;
+    text-align: left;
+    color: #FF0000;
+}
+
+.invDisclaimer {
+    font-size: .75em !important;
+    text-align: left;
+}
+
+.invSelectOneMenu {
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-items-wrapper {
+    background-color: #f5f5f5 !important;
+}
+
+.rotateText90 {
+    transform:rotate(90deg);
+    -ms-transform:rotate(90deg); /* IE 9 */
+    -webkit-transform:rotate(90deg); /* Safari and Chrome */
+}
+
+.invDataTable {
+    font-size: .80em !important;
+    border-width: 1px !important;
+}
+
+.invDataTable td {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invDataTable tr {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invDataTable td {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invAllocTable {
+    font-size: 1em !important;
+    border-width: 1px !important;
+}
+
+.invAllocTable th {
+    font-size: 1.2em !important;
+    font-weigh: bold !important;
+}
+
+.invAllocTable tfoot {
+    font-size: 1.4em !important;
+    font-weigh: bold !important;
+}
+
+.invAllocTable td {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invAllocTable tr {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invAllocTable td {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invTradeTable {
+    font-size: .80em !important;
+    border-width: 1px !important;
+}
+
+.invTradeTable tr {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invTradeTable td {
+    border: 1px solid #d9d6c4; !important;
+}
+
+.invTradeTable .ui-datatable-header {
+    text-align: right !important;
+}
+
+.invAdminTable {
+    font-size: .75em !important;
+    border: 1px !important;
+    font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif !important;
+}
+
+.invRiskQuestion {
+    text-align: left;
+    font-weight: bold;
+}
+
+
+/* Used on Logon window for message */
+.entry-content ul {
+    list-style-type: none !important;
+    padding: 0 0 0px 0px !important;
+}
+
+.ui-datatable .dtRAlign {
+    text-align: right !important;
+}
+
+.footerLink {
+    color: #ffffff !important;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.inv-menu {
+    background: #fff !important;
+}
+
+.ui-menu .ui-menu-list .ui-menuitem{
+    background: #fff !important;
+}
+
+.ui-menu .ui-menu-parent .ui-menu-child{
+    background: #fff !important;
+}
+
+
+.data-entry p input, .data-entry p textarea {
+    background-color: #fff !important;
+    border: none !important;
+    width: 100% !important;
+    -moz-border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    border-radius: 0 !important;
+    font-size: 18px;
+    color: #666 !important;
+    padding: 16px !important;
+    font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif;;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@media screen and ( min-width: 600px ) {
+
+    .riskArea {
+        width: 100%;
+    }
+
+    .riskQ {
+        float: left;
+        padding: 5px 5px 5px 5px;
+        width: 60%;
+    }
+
+    .riskGraph {
+        width: 25%;
+        float: left;
+    }
+}

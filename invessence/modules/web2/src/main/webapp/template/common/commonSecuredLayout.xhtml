@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name='robots' content='noindex,nofollow'/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title>Invessence Inc.</title>
+    <link rel='stylesheet' id='divi-fonts-css'
+          href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,300,700,800|Raleway:400,200,100,500,700,800,900&#038;subset=latin,latin-ext'
+          type='text/css' media='all'/>
+    <link rel='stylesheet' id='wordpress-css' href='/css/generic.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='advisor-css' href='/css/webstyle.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='advisor-css' href='/css/client.css' type='text/css' media='all'/>
+    <link rel='stylesheet' id='advisor-css' href='/css/advisor.css' type='text/css' media='all'/>
+</h:head>
+
+<h:body>
+    <!-- This is used to keep the whole document together, so that top header and content float together -->
+    <p:layout fullPage="true">
+        <p:layoutUnit position="center" maxSize="1200" minSize="600" resizable="true"
+                      styleClass="clientWorkarea" >
+                    <ui:insert name="header">
+                        <ui:include src="/template/common/commonSecuredHeader.xhtml"/>
+                    </ui:insert>
+            <ui:insert name="content">
+                <ui:include src="/template/common/commonContent.xhtml"/>
+            </ui:insert>
+            <ui:insert name="disclaimer">
+                <ui:include src="/template/common/disclaimer.xhtml"/>
+            </ui:insert>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="south" resizable="false" styleClass="clientFooter" >
+            <ui:insert name="footer">
+                <ui:include src="/template/common/copyright.xhtml"/>
+            </ui:insert>
+        </p:layoutUnit>
+
+    </p:layout>
+
+    <ui:insert name="globalDialogs">
+        <ui:include src="/template/common/sharedDialog.xhtml"/>
+    </ui:insert>
+
+</h:body>
+</html>

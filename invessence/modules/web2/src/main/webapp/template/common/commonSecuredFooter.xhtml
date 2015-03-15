@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<body>
+<ui:composition>
+
+    <div class="footer-inner span12">
+        <div class="row-fluid footer_style_one">
+            <div class="span12">
+                <div class="span9" id="footer-left">
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <div id="footer1_container">
+                                <div id="text-3" class="widget widget_text footer-widget1">
+                                    <div class="textwidget">Invessence Inc. is a Registered Investment Advisor (RIA) serving clients in New Jersey, New York, Connecticut and Illinois. Invessence Inc. is an independent entity, not affiliated with or a
+                                        subsidiary of any broker-dealer, investment bank or asset manager. By using this website, you accept our
+                                        <strong><span style="text-decoration: underline;">
+                                        <h:outputLink id="termDialog" value="javascript:void(0)" onclick="PF('dlg').show()">Terms of Use</h:outputLink></span></strong>
+                                        <span style="text-decoration: underline;"></span> and
+                                        <a title="Privacy Policy" href="${apache.url}/privacy-policy/" _blank="">
+                                            <strong><span style="text-decoration: underline;">Privacy Policy</span></strong>
+                                        </a><span style="text-decoration: underline;"></span>.
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid" id="footer-smalls">
+                        <div class=" span12 " id="footer2">
+                            <div id="text-5" class="widget widget_text footer-widget2">
+                                <div class="textwidget">Past performance is no guarantee of future results.
+                                    Any historical returns, expected returns, or probability projections may not reflect actual future performance. All securities involve risk and
+                                    may result in loss. Not an offer, solicitation of an offer, or advice to buy or sell securities in jurisdictions where Invessence is not
+                                    registered.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" id="footer-bar">
+        <div class="inner">
+            <div class="footer-menu span6">
+            </div>
+            <div class="footer-note span6">
+                Copyright @ 2013 Invessence Inc.
+            </div>
+        </div>
+    </div>
+    <p:dialog header="Security" widgetVar="dlgSecurity" showEffect="explode" modal="true">
+        <ui:composition template="/static/securityPolicy.xhtml"/>
+   </p:dialog>
+    <p:dialog header="Security" widgetVar="dlgPricing" showEffect="explode" modal="true">
+        <ui:composition template="/static/pricing.xhtml"/>
+    </p:dialog>
+    <p:dialog header="Security" widgetVar="dlgPrivacy" showEffect="explode" modal="true">
+        <ui:composition template="/static/privacy.xhtml"/>
+    </p:dialog>
+    <p:dialog header="Security" widgetVar="dlgPrivacy" showEffect="explode" modal="true">
+        <ui:composition template="/static/termofUse.xhtml"/>
+    </p:dialog>
+</ui:composition>
+</body>
+</html>
+

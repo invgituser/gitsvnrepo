@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/common/layout.xhtml">
+        <ui:define name="content">
+            <div id="main-content" class="content_section" style="background-color: #f5f5f5; padding: 5px;">
+                <div id="wrapper" class="container">
+                    <h:form id="form">
+                        <h3 style="margin-top: 0">Basic Ring</h3>
+                        <p:ring id="basic" value="#{addBean.cars}" var="car">
+                            <p:outputPanel style="text-align: center;" layout="block">
+                                #{car.brand}
+                                <br />
+                                <p:commandButton update=":form:carDetail1" icon="ui-icon-search" title="View" oncomplete="PF('carOP').show();">
+                                    <f:setPropertyActionListener value="#{car}" target="#{addBean.selectedCar}" />
+                                </p:commandButton>
+                            </p:outputPanel>
+                        </p:ring>
+
+                        <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" width="170">
+                            <p:outputPanel id="carDetail" style="text-align:center;" layout="block">
+                                <p:panelGrid  columns="2" rendered="#{not empty addBean.selectedCar}" columnClasses="value">
+                                    <f:facet name="header">
+                                        <p:graphicImage name="/images/clappingHand.png" />
+                                    </f:facet>
+
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{addBean.selectedCar.id}" />
+
+                                    <h:outputText value="Year" />
+                                    <h:outputText value="#{addBean.selectedCar.year}" />
+
+                                    <h:outputText value="Brand: " />
+                                    <h:outputText value="#{addBean.selectedCar.brand}" />
+
+                                    <h:outputText value="Color:" />
+                                    <h:outputText value="#{addBean.selectedCar.color}" style="color:#{addBean.selectedCar.color}" />
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+
+                        <p:overlayPanel widgetVar="carOP" showEffect="fade" hideEffect="fade" dismissable="false" showCloseIcon="true">
+                            <p:outputPanel id="carDetail1" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty addBean.selectedCar}" columnClasses="label,value">
+                                    <f:facet name="header">
+                                        <p:graphicImage name="demo/images/car/#{addBean.selectedCar.brand}-big.gif"/>
+                                    </f:facet>
+
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{addBean.selectedCar.id}" />
+
+                                    <h:outputText value="Year" />
+                                    <h:outputText value="#{addBean.selectedCar.year}" />
+
+                                    <h:outputText value="Color:" />
+                                    <h:outputText value="#{addBean.selectedCar.color}" style="color:#{addBean.selectedCar.color}"/>
+
+                                    <h:outputText value="Price" />
+                                    <h:outputText value="$#{addBean.selectedCar.price}" />
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:overlayPanel>
+
+                    </h:form>
+                </div>
+            </div>
+
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>
+
+
