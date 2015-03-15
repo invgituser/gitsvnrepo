@@ -7,7 +7,7 @@ import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
 import com.invessence.dao.admin.AdminSP;
-import com.invessence.data.admin.TradeDetails;
+import com.invessence.data.TradeDetails;
 import com.invessence.data.common.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
