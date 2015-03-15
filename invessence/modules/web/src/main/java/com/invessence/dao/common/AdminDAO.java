@@ -1,10 +1,11 @@
-package com.invessence.dao.admin;
+package com.invessence.dao.common;
 
 import java.util.*;
 import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
+import com.invessence.dao.admin.AdminSP;
 import com.invessence.data.*;
 import com.invessence.data.admin.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
