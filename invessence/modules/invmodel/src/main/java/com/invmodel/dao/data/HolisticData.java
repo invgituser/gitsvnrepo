@@ -1,6 +1,6 @@
 package com.invmodel.dao.data;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class HolisticData
 {
    String ticker;
-   ArrayList<PrimeAssetClassData> primeassets = new ArrayList<PrimeAssetClassData>();
+   Map<String,PrimeAssetClassData> primeassets = new HashMap<String, PrimeAssetClassData>();
    ArrayList<Double> returns = new ArrayList<Double>();
    Integer maxReturns = 0;
    double totalrbsaweight;
@@ -28,12 +28,12 @@ public class HolisticData
       this.ticker = ticker;
    }
 
-   public ArrayList<PrimeAssetClassData> getPrimeassets()
+   public Map<String, PrimeAssetClassData> getPrimeassets()
    {
       return primeassets;
    }
 
-   public void setPrimeassets(ArrayList<PrimeAssetClassData> primeassets)
+   public void setPrimeassets(Map<String, PrimeAssetClassData> primeassets)
    {
       this.primeassets = primeassets;
    }

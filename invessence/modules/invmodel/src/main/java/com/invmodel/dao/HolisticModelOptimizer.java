@@ -29,7 +29,7 @@ public class HolisticModelOptimizer
 
    private PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
    Map<String, HolisticData> holisticdataMap = new HashMap<String, HolisticData>();
-   Map<String, String> allPrimeAssetMap = new HashMap<String, String>();
+   Map<String, String> allPrimeAssetMap = new LinkedHashMap<String, String>();
 
    public static synchronized HolisticModelOptimizer getInstance()
    {
@@ -127,8 +127,9 @@ public class HolisticModelOptimizer
          while (resultSet.next())
          {
             String ticker = resultSet.getString("ticker");
+            String primeAssetClass = resultSet.getString("primeassetclass");
             PrimeAssetClassData pacd = new PrimeAssetClassData(resultSet.getString("theme"),
-                                                               resultSet.getString("primeassetclass"),
+                                                               primeAssetClass,
                                                                resultSet.getString("indexfund"),
                                                                resultSet.getString("assetclass"),
                                                                resultSet.getDouble("expectedReturn"),
@@ -138,18 +139,19 @@ public class HolisticModelOptimizer
                                                                resultSet.getInt("sortorder"),
                                                                resultSet.getDouble("weight"));
 
-            if(!allPrimeAssetMap.containsKey(resultSet.getString("primeassetclass"))){
-               allPrimeAssetMap.put(resultSet.getString("primeassetclass"),resultSet.getString("primeassetclass"));
+
+            if(!allPrimeAssetMap.containsKey(primeAssetClass)){
+               allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
             }
 
             if (! holisticdataMap.containsKey(ticker))
             {
                HolisticData holisticData = new HolisticData();
-               holisticData.getPrimeassets().add(pacd);
+               holisticData.getPrimeassets().put(primeAssetClass,pacd);
                holisticdataMap.put(ticker, holisticData);
             }
             else
-               holisticdataMap.get(ticker).getPrimeassets().add(pacd);
+               holisticdataMap.get(ticker).getPrimeassets().put(primeAssetClass, pacd);
          }
       }
       catch (Exception e)
@@ -274,8 +276,9 @@ public class HolisticModelOptimizer
          int t = 0;
          for (String fTicker: tickers){
 
-            for( PrimeAssetClassData pAsst: holisticdataMap.get(fTicker).getPrimeassets()){
+            for( String pAsstName: holisticdataMap.get(fTicker).getPrimeassets().keySet()){
 
+               PrimeAssetClassData pAsst = holisticdataMap.get(fTicker).getPrimeassets().get(pAsstName);
                double expRet = pAsst.getExpectedReturn();
                double wgt = pAsst.getWeight();
                String pAsset =  pAsst.getPrimeAssetName();
@@ -309,7 +312,24 @@ public class HolisticModelOptimizer
          double[][] weights = instanceOfCapitalMarket.getEfficientFrontierAssetWeights();
          double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(covarianceOfFunds);
          double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
-         return weights;
+
+         double [][] fundProductWeights = new double[weights.length][allPrimeAssetMap.size()];
+         int pRow = 0;
+         int pCol = 0;
+         for (String pAssetClass : allPrimeAssetMap.keySet()) {
+             for (int i = 0; i < weights.length; i++) {
+                for (int j = 0 ; j < weights[i].length; j++ ) {
+                   for (String ticks: holisticdataMap.keySet()) {
+                       if (holisticdataMap.get(ticks).getPrimeassets().containsKey(pAssetClass))
+                          fundProductWeights[i][pRow] += weights[i][j] * holisticdataMap.get(ticks).getPrimeassets().get(pAssetClass).getRbsaweight();
+                       else
+                          fundProductWeights[i][pRow] += 0;
+                   }
+                }
+             }
+             pRow++;
+         }
+         return fundProductWeights;
 
       }
       catch (Exception ex) {
@@ -317,5 +337,23 @@ public class HolisticModelOptimizer
       }
       return  null;
    }
+
+   public static double[][] multiplyByMatrix(double[][] m1, double[][] m2) {
+      int m1ColLength = m1[0].length; // m1 columns length
+      int m2RowLength = m2.length;    // m2 rows length
+      if(m1ColLength != m2RowLength) return null; // matrix multiplication is not possible
+      int mRRowLength = m1.length;    // m result rows length
+      int mRColLength = m2[0].length; // m result columns length
+      double[][] mResult = new double[mRRowLength][mRColLength];
+      for(int i = 0; i < mRRowLength; i++) {         // rows from m1
+         for(int j = 0; j < mRColLength; j++) {     // columns from m2
+            for(int k = 0; k < m1ColLength; k++) { // columns from m1
+               mResult[i][j] += m1[i][k] * m2[k][j];
+            }
+         }
+      }
+      return mResult;
+   }
+
 
 }
