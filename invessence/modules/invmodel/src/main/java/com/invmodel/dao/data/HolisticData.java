@@ -17,6 +17,7 @@ public class HolisticData
    Integer maxReturns = 0;
    double totalrbsaweight;
 
+
    public String getTicker()
    {
       return ticker;
