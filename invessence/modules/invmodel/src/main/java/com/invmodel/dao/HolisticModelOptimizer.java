@@ -29,7 +29,7 @@ public class HolisticModelOptimizer
 
    private PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
    Map<String, HolisticData> holisticdataMap = new HashMap<String, HolisticData>();
-
+   Map<String, String> allPrimeAssetMap = new HashMap<String, String>();
 
    public static synchronized HolisticModelOptimizer getInstance()
    {
@@ -46,16 +46,27 @@ public class HolisticModelOptimizer
       super();
    }
 
+   public Map<String, String> getAllPrimeAssetMap()
+   {
+      return allPrimeAssetMap;
+   }
 
    public void loadFundDataFromDB(String[] tickers) {
       try {
          holisticdataMap.clear();       // Clear entire Hashmap to start new...
          loadRBSAfromDB(tickers);
+
          loadDailyReturnsfromDB(tickers);
+
       }
       catch (Exception ex) {
 
       }
+   }
+
+   public Map<String, HolisticData> getHolisticdataMap()
+   {
+      return holisticdataMap;
    }
 
    public void loadPrimeAssetDataFromDB(String theme) {
@@ -127,6 +138,10 @@ public class HolisticModelOptimizer
                                                                resultSet.getInt("sortorder"),
                                                                resultSet.getDouble("weight"));
 
+            if(!allPrimeAssetMap.containsKey(resultSet.getString("primeassetclass"))){
+               allPrimeAssetMap.put(resultSet.getString("primeassetclass"),resultSet.getString("primeassetclass"));
+            }
+
             if (! holisticdataMap.containsKey(ticker))
             {
                HolisticData holisticData = new HolisticData();
@@ -179,20 +194,24 @@ public class HolisticModelOptimizer
       statement.executeQuery("SELECT ticker, daily_return FROM vw_daily_returns_Holistc_Model " + whereStatement +" order by ticker, seqno desc");
       resultSet = statement.getResultSet();
       resultSet.beforeFirst();
-
+      int retCount = 0;
       while (resultSet.next())
       {
          String ticker = resultSet.getString("ticker");
          Double daily_return = resultSet.getDouble("daily_return");
+
          if (holisticdataMap.containsKey(ticker))
          {
             holisticdataMap.get(ticker).getReturns().add(daily_return);
+            retCount++;
+            holisticdataMap.get(ticker).setMaxReturns(retCount);
          }
          else
          {
             HolisticData hdata = new HolisticData();
             hdata.getReturns().add(daily_return);
-            holisticdataMap.put(ticker,hdata);
+            holisticdataMap.put(ticker, hdata);
+            retCount = 0;
          }
       }
    }
@@ -235,7 +254,7 @@ public class HolisticModelOptimizer
       return null;
    }
 
-   public void getFundOptimalWeight(String [] tickers, String pAssets)
+   public double [][] getFundOptimalWeight(String [] tickers, String pAssets)
    {
       try {
 
@@ -245,15 +264,30 @@ public class HolisticModelOptimizer
          loadFundDataFromDB(tickers);
          double[][] mrData = null;
          mrData = getDailyReturns(tickers);
-         int t = 0;
+
 
          //To use these returns, call getDailyReturns with the same tickers;
          CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
          AssetParameters assetParameters = new AssetParameters();
 
-         double[] expectedReturnsOfFunds = assetParameters.expectedReturns(mrData);
-         double[][] covarianceOfFunds = assetParameters.covarianceMatrix(mrData);
+         double[] expectedReturnsOfFunds = new double [tickers.length];
+         int t = 0;
+         for (String fTicker: tickers){
 
+            for( PrimeAssetClassData pAsst: holisticdataMap.get(fTicker).getPrimeassets()){
+
+               double expRet = pAsst.getExpectedReturn();
+               double wgt = pAsst.getWeight();
+               String pAsset =  pAsst.getPrimeAssetName();
+
+               expectedReturnsOfFunds[t] = expectedReturnsOfFunds[t] + expRet * wgt;
+            }
+            t++;
+         }
+
+         //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(mrData);
+         double[][] covarianceOfFunds = assetParameters.covarianceMatrix(mrData);
+         t = t +1;
          //Here we evaluate the maximum expected return  of  the  Portfolio's  on
          //the Efficient Frontier.
 
@@ -275,11 +309,13 @@ public class HolisticModelOptimizer
          double[][] weights = instanceOfCapitalMarket.getEfficientFrontierAssetWeights();
          double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(covarianceOfFunds);
          double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
-         t = 0;
+         return weights;
+
       }
       catch (Exception ex) {
 
       }
+      return  null;
    }
 
 }
