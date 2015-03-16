@@ -32,9 +32,46 @@ public class lpTest
          String primeAssets = "PRIME-ASSET";
 
          //Get Weight array
-         hoptimizer.getFundOptimalWeight(tickers, primeAssets);
+         double[][] weights = hoptimizer.getFundOptimalWeight(tickers, primeAssets);
 
          //Compute minimum error vector by comparing to target and find the best weight fit
+         int pRows = 0, pColumns = 0;
+         pRows = hoptimizer.getHolisticdataMap().size();
+         pColumns = hoptimizer.getAllPrimeAssetMap().size();
+         double [][] pAssetMultiplier = null;
+         int i = 0;
+
+         for(String primeAsset: hoptimizer.getAllPrimeAssetMap().keySet()) {
+            for(int j =0; j< pRows; j++) {
+
+               if(hoptimizer.getHolisticdataMap().get(j).)
+
+            }
+         }
+
+         /*double[][] multiplier = new double[][] {
+            //Use RBSA data to construct a Prime Asset array for each funds. Each row is a breakdown of RBSA for each funds.
+            {0.2, 0.2, 0.6},
+            {0.0, 0.4,0.6}
+         };
+         double [][] multiplicand = new double[][] {
+            //This would be the weight array sent one at a time.
+            {0.4,0.6}
+         };*/
+
+         double[][] productMatrix = multiplyByMatrix(multiplicand, multiplier);
+         System.out.println("#2\n" + toString(productMatrix));
+
+         double product = 1.0;
+
+         for (int row = 0; row < productMatrix.length; row++)
+            for (int col = 0; col < productMatrix[0].length; col++)  {
+
+               product = product* productMatrix[row][col];
+
+         }
+         System.out.println(product);
+
 
          int ret = AllocateToAccounts(objF, fundW, acctW, numFunds, numAccounts);
          //If return is not 0 then failed
@@ -43,6 +80,35 @@ public class lpTest
          e.printStackTrace();
       }
    }
+
+   public static double[][] multiplyByMatrix(double[][] m1, double[][] m2) {
+      int m1ColLength = m1[0].length; // m1 columns length
+      int m2RowLength = m2.length;    // m2 rows length
+      if(m1ColLength != m2RowLength) return null; // matrix multiplication is not possible
+      int mRRowLength = m1.length;    // m result rows length
+      int mRColLength = m2[0].length; // m result columns length
+      double[][] mResult = new double[mRRowLength][mRColLength];
+      for(int i = 0; i < mRRowLength; i++) {         // rows from m1
+         for(int j = 0; j < mRColLength; j++) {     // columns from m2
+            for(int k = 0; k < m1ColLength; k++) { // columns from m1
+               mResult[i][j] += m1[i][k] * m2[k][j];
+            }
+         }
+      }
+      return mResult;
+   }
+
+   public static String toString(double[][] m) {
+      String result = "";
+      for(int i = 0; i < m.length; i++) {
+         for(int j = 0; j < m[i].length; j++) {
+            result += String.format("%11.2f", m[i][j]);
+         }
+         result += "\n";
+      }
+      return result;
+   }
+
 
    public static int AllocateToAccounts(double[] objF, double[] fundW, double[] acctW, int numF, int numA) throws LpSolveException {
       LpSolve lp;
