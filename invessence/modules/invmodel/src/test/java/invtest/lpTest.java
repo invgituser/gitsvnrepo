@@ -35,21 +35,8 @@ public class lpTest
          double[][] weights = hoptimizer.getFundOptimalWeight(tickers, primeAssets);
 
          //Compute minimum error vector by comparing to target and find the best weight fit
-         int pRows = 0, pColumns = 0;
-         pRows = hoptimizer.getHolisticdataMap().size();
-         pColumns = hoptimizer.getAllPrimeAssetMap().size();
-         double [][] pAssetMultiplier = null;
-         int i = 0;
 
-         for(String primeAsset: hoptimizer.getAllPrimeAssetMap().keySet()) {
-            for(int j =0; j< pRows; j++) {
-
-               if(hoptimizer.getHolisticdataMap().get(j).)
-
-            }
-         }
-
-         /*double[][] multiplier = new double[][] {
+         double[][] multiplier = new double[][] {
             //Use RBSA data to construct a Prime Asset array for each funds. Each row is a breakdown of RBSA for each funds.
             {0.2, 0.2, 0.6},
             {0.0, 0.4,0.6}
@@ -57,7 +44,7 @@ public class lpTest
          double [][] multiplicand = new double[][] {
             //This would be the weight array sent one at a time.
             {0.4,0.6}
-         };*/
+         };
 
          double[][] productMatrix = multiplyByMatrix(multiplicand, multiplier);
          System.out.println("#2\n" + toString(productMatrix));
