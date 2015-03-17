@@ -41,7 +41,57 @@ public class AssetAllocationModel
       this.portfolioOptimizer = portfolioOptimizer;
    }
 
-   public AssetClass[] getAssetDistribution(ProfileData pdata)
+   public AssetClass[] getAdvisorAssetsInfo(ProfileData pdata)
+   {
+      AssetClass[] assetclass;
+      String theme;
+      try
+      {
+         Integer age = pdata.getDefaultAge();
+         Integer duration = pdata.getDefaultHorizon();
+         Integer riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
+         Integer stayInvested = pdata.getStayInvested();
+         Integer objective = pdata.getObjective();
+
+         pdata.taxRate();
+
+         theme = pdata.getTheme();
+         if (theme == null || theme.length() == 0)
+            theme = InvConst.DEFAULT_THEME;
+
+         // If taxable account and theme is not taxable, them make it so.
+         if (pdata.getAccountTaxable()) {
+            if (! theme.startsWith("T."))
+               theme = "T." + theme; // Note: allocation tries to determine, if this taxable theme is not defined, then it will use the CORE
+         }
+
+         int numofAllocation = pdata.getNumOfAllocation();
+         if (numofAllocation <= 0)
+            numofAllocation = 1;
+         assetclass = new AssetClass[numofAllocation];
+         int counter = 0;
+         while (numofAllocation > 0)
+         {
+            //Age based offset
+            int offset = (pdata.getAllocationIndex() == null) ? 50 : pdata.getAllocationIndex();
+
+            assetclass[counter] = adjustDurationRisk(theme, offset, duration,
+                                                     age, stayInvested);
+            duration--;
+            numofAllocation--;
+            age++;
+            counter++;
+         }
+         return assetclass;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return null;
+   }
+
+   public AssetClass[] getConsumerAssetInfo(ProfileData pdata)
    {
       AssetClass[] assetclass;
       Double adj_riskOffet;
@@ -81,7 +131,7 @@ public class AssetAllocationModel
             offset = (int) (offset * adj_riskOffet);
 
             assetclass[counter] = adjustDurationRisk(theme, offset, duration,
-                                                     age, adj_riskOffet, stayInvested);
+                                                     age, stayInvested);
             duration--;
             numofAllocation--;
             age++;
@@ -96,13 +146,15 @@ public class AssetAllocationModel
       return null;
    }
 
+
    private AssetClass adjustDurationRisk(String theme, int offset, int duration,
-                                         int age, Double riskOffset, Integer stayInvested)
+                                         int age, Integer stayInvested)
    {
 
       AssetClass assetclass = new AssetClass();
       try
       {
+         assetclass.initAssetClass(age, duration, (double) offset, stayInvested, theme);
          ArrayList<String> orderedAssets = portfolioOptimizer.getAdvisorOrdertedAssetList(theme);
          double[] avgReturns = portfolioOptimizer.getAssetOrderedAvgReturns(theme);
          double[] weights = portfolioOptimizer.getAssetOrderedWeight(theme, offset);
@@ -116,7 +168,6 @@ public class AssetAllocationModel
          // Currently we are using Fixed Risk Adjustments,  We'll change this to get the data from DB
          // and store in assets Class.
 
-         assetclass.initAssetClass(age, duration, riskOffset, stayInvested, theme);
          for (int i = 0; i < (orderedAssets.size()); i++)
          {
             String assetname = orderedAssets.get(i);

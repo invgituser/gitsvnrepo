@@ -51,6 +51,12 @@ public class HolisticModelOptimizer
       return allPrimeAssetMap;
    }
 
+   private String getTheme(String theme) {
+      if (theme == null)
+         theme = "PRIME-ASSET";
+      return theme;
+   }
+
    public void loadFundDataFromDB(String[] tickers) {
       try {
          holisticdataMap.clear();       // Clear entire Hashmap to start new...
@@ -67,17 +73,6 @@ public class HolisticModelOptimizer
    public Map<String, HolisticData> getHolisticdataMap()
    {
       return holisticdataMap;
-   }
-
-   public void loadPrimeAssetDataFromDB(String theme) {
-      try {
-         if (theme == null)
-            theme = "PRIME-ASSET";
-         poptimizer.loadDataFromDB("PRIME-ASSET");
-      }
-      catch (Exception ex) {
-
-      }
    }
 
 
@@ -109,6 +104,8 @@ public class HolisticModelOptimizer
 
          connection = DBConnectionProvider.getInstance().getConnection();
          statement = connection.createStatement();
+         String theme = getTheme(null);
+
          statement.executeQuery("SELECT ticker," +
                                    "indexfund, " +
                                    "theme, " +
@@ -120,8 +117,22 @@ public class HolisticModelOptimizer
                                    "expectedReturn, " +
                                    "weight " +
                                    "FROM rbsa.vw_funds_weights " +
-                                   whereStatement +
-                                   " order by ticker, sortorder");
+                                   whereStatement + " \n" +
+                                 "UNION \n" +
+                                   "SELECT ticker as ticker," +
+                                   " ticker as indexfund, " +
+                                   " theme, " +
+                                   " assetclass, " +
+                                   " primeassetclass, " +
+                                   " sortorder, " +
+                                   " lowerBound, " +
+                                   " upperBound, " +
+                                   " expectedReturn, " +
+                                   " 1.0 as weight " +
+                                   " FROM invdb.sec_prime_asset_group " +
+                                   " WHERE  theme = '" + theme + "' "  +
+                                   " AND status in ('A') " +
+                                   " ORDER BY ticker, sortorder");
          resultSet = statement.getResultSet();
          resultSet.beforeFirst();
          while (resultSet.next())
@@ -313,7 +324,7 @@ public class HolisticModelOptimizer
          double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(covarianceOfFunds);
          double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
 
-         double [][] fundProductWeights = new double[allPrimeAssetMap.size()][tickers.length];
+         double [][] fundProductWeights = new double[allPrimeAssetMap.size()][holisticdataMap.size()];
          int pRow = 0;
          int pCol = 0;
 
@@ -326,7 +337,7 @@ public class HolisticModelOptimizer
          for (String pAssetClass : allPrimeAssetMap.keySet()) {
 
             pCol = 0;
-            for (String fTicker: tickers){
+            for (String fTicker: holisticdataMap.keySet()){
               if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
                  fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
               else

@@ -40,7 +40,143 @@ public class PortfolioModel
       return invCapital;
    }
 
-   public Portfolio[] getDistributionList(AssetClass[] assetData, ProfileData profileData)
+   public Portfolio[] getAdvisorPortfolio(AssetClass[] assetData, ProfileData profileData)
+   {
+      String assetName;
+
+      Integer duration;
+      Double riskOffset;
+      Double invCapital;
+      Double keepLiquidCash;
+      Double reinvestment = 0.0;
+      String groupname;
+      String theme;
+
+
+      try
+      {
+         if (assetData == null)
+         {
+            return null;
+         }
+
+         // 04-15-14 Added this logic to use the actual Cash instead of entered on screen!
+         invCapital = profileData.getDefaultInvestment().doubleValue();
+
+         // 04-15-14 Keep Liquid Cash as required.
+         keepLiquidCash = 0.0;
+         if (invCapital< 100000)
+            keepLiquidCash = InvConst.MIN_LIQUID_CASH;
+
+         if (profileData.getKeepLiquid() != null)
+            keepLiquidCash = profileData.getKeepLiquid().doubleValue();
+
+         profileData.setKeepLiquid(keepLiquidCash.intValue());
+
+         if (invCapital < 0.0) {
+            invCapital = 0.0;
+         }
+
+         theme = profileData.getTheme();
+         groupname = profileData.getAdvisor();
+
+         // NOTE:  If Theme is default, then use Invessence - Core portfolio.
+         // However, the Asset Weights may have been defined by Advisor's mapping.
+         if (theme == null || theme.isEmpty()) {
+            theme = InvConst.DEFAULT_THEME;
+         }
+
+         if (groupname == null  || groupname.isEmpty()) {
+            groupname = InvConst.INVESSENCE_ADVISOR;
+         }
+
+         // Taxable Strategy Introduced 2/9/2015
+         if (profileData.getAccountTaxable()) {
+            if (! theme.toUpperCase().startsWith("T."))
+               theme = "T." + theme;
+         }
+
+
+         ArrayList<String> assetList = assetData[0].getOrderedAsset();
+         riskOffset = assetData[0].getRiskOffset();
+
+         duration = profileData.getDefaultHorizon();
+
+
+         double totalIncEarned = 0.0;
+         double investment = invCapital - keepLiquidCash;
+         if (profileData.getRecurringInvestment() == null)
+            reinvestment = 0.0;
+         else
+            reinvestment = profileData.getRecurringInvestment().doubleValue();
+
+         // Now collect all securities for this theme;
+         if (securityDao == null)
+            securityDao = new SecurityDBCollection();
+         // if security of this theme is already loaded, then don't reload.
+         // NOTE: If they individual choose the non-taxable, but is taxable, then load the taxable strategy.
+         if (! securityDao.getThemeLoaded().equalsIgnoreCase(theme))
+            securityDao.loadDataFromDB(theme);
+
+         double actualInvestment = investment;
+
+         //Asset data is for each year of investment horizon
+         int years = (profileData.getNumOfPortfolio() == null || profileData.getNumOfPortfolio() == 0) ? profileData.getAssetData().length : profileData.getNumOfPortfolio();
+         years = (profileData.getAssetData().length < years ) ? profileData.getAssetData().length : years ;
+         Portfolio[] portfolioclass = new Portfolio[years];
+         for (int investmentYear = 0; investmentYear < years; investmentYear++)
+         {
+            portfolioclass[investmentYear] = new Portfolio();
+            portfolioclass[investmentYear].setTheme(theme);
+
+            //JAV added keepLiquid
+            portfolioclass[investmentYear].setCashMoney(actualInvestment);
+
+
+            int offset;
+
+            //offset = (int) (StrictMath.sqrt(StrictMath.pow(duration, 2.0) - StrictMath.pow((double) investmentYear, 2.0)))*(InvConst.PORTFOLIO_INTERPOLATION/duration);
+            //offset = (int) (riskOffset * (double) offset);
+            offset = (profileData.getPortfolioIndex() == null) ? 500 : profileData.getPortfolioIndex();
+            offset = (offset > InvConst.PORTFOLIO_INTERPOLATION) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
+            offset = (offset < 0) ? 0 : offset;
+
+            // Actual Investment is investment and recurring the next year.  Does not contain the returns.
+            portfolioclass[investmentYear].setActualInvestments(actualInvestment);
+            createPortfolio(groupname, theme, assetData[investmentYear], portfolioclass[investmentYear],
+                            investment, investmentYear, profileData, offset);
+
+            // Total Money = Investment + Performance
+            portfolioclass[investmentYear].setTotalMoney(investment);
+            actualInvestment += reinvestment;
+            if (investmentYear > 0) {
+               portfolioclass[investmentYear].setUpperTotalMoney((2*portfolioclass[investmentYear-1].getTotalRisk() * investment )
+                                                                    + investment);
+               portfolioclass[investmentYear].setLowerTotalMoney(investment -
+                                                                    (2*portfolioclass[investmentYear-1].getTotalRisk() * investment));
+            }
+            else{
+               portfolioclass[investmentYear].setUpperTotalMoney(investment);
+               portfolioclass[investmentYear].setLowerTotalMoney(investment);
+
+            }
+            investment = portfolioclass[investmentYear].getTotalMoney() +
+               portfolioclass[investmentYear].getTotalCapitalGrowth() +
+               reinvestment;
+
+         }
+         //assign total risk and expReturn JAV
+         return portfolioclass;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return null;
+
+   }
+
+   public Portfolio[] getConsumerPortfolio(AssetClass[] assetData, ProfileData profileData)
    {
       String assetName;
 

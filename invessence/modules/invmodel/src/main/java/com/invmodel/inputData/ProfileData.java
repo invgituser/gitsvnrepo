@@ -66,8 +66,10 @@ public class
    private String risk = "M";
    private Integer riskIndex = 0;   // On riskIndex 0 = highest risk, 28 = lowest risk.
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
-   RiskIndex riskdata = new RiskIndex();
+   private RiskIndex riskdata = new RiskIndex();
 
+   private Integer allocationIndex = 50;
+   private Integer portfolioIndex = 500;
    private ArrayList<Asset> editableAsset = new ArrayList<Asset>();
    private AssetClass assetData[];
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.
@@ -869,6 +871,26 @@ public class
       {
          setRiskIndex((int) Math.round(riskOffset));
       }
+   }
+
+   public Integer getAllocationIndex()
+   {
+      return allocationIndex;
+   }
+
+   public void setAllocationIndex(Integer allocationIndex)
+   {
+      this.allocationIndex = allocationIndex;
+   }
+
+   public Integer getPortfolioIndex()
+   {
+      return portfolioIndex;
+   }
+
+   public void setPortfolioIndex(Integer portfolioIndex)
+   {
+      this.portfolioIndex = portfolioIndex;
    }
 
    public AssetClass[] getAssetData()

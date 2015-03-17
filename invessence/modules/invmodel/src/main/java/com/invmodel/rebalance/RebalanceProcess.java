@@ -147,7 +147,7 @@ public class RebalanceProcess
             if (years == null)
                years = pdata.getHorizon();
             pdata.setNumOfAllocation(years);
-            aamc = assetAllocationModel.getAssetDistribution(pdata);
+            aamc = assetAllocationModel.getConsumerAssetInfo(pdata);
             if (aamc != null)  {
                pdata.setAssetData(aamc);
             }
@@ -173,7 +173,7 @@ public class RebalanceProcess
             aamc = pdata.getAssetData();
             if (aamc != null)
             {
-               pfclass = portfolioModel.getDistributionList(aamc, pdata);
+               pfclass = portfolioModel.getConsumerPortfolio(aamc, pdata);
                if (pfclass != null)
                {
                   pdata.setPortfolioData(pfclass);
