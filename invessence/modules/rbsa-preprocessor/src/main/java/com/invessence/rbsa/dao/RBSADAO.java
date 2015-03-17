@@ -62,10 +62,10 @@ public class RBSADAO
          fundName = data.getFundName();
             for (String indexFund : data.getSolution().keySet()) {
                value = data.getSolution().get(indexFund);
-               if (value >= 0.0)   // Save only if it has some significance.
+               if (value >= 0.0099)   // Save only if it has some significance.
                   sp.saveRBSAData(fundName,indexFund,data.getSolution().get(indexFund));
-               else
-                  sp.saveRBSAData(fundName,indexFund,0.0);
+               //else
+               //   sp.saveRBSAData(fundName,indexFund,0.0);
             }
 
          storedProcName = "rbsa.save_rbsa_data";

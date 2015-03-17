@@ -21,7 +21,7 @@ public class RBSATest
       // rp.optimizeSecurity("FFKEX");
       //solution = rp.optimizeSecurity("FFXMX");
       //rbsaData = rp.optimizeSecurity("TWGTX");
-      rbsaData = rp.optimizeSecurity("FFKEX");
+      rbsaData = rp.optimizeSecurity("OAKIX");
       Double val = 0.0;
       Double totalAlloc = 0.0;
       if (rbsaData != null) {
