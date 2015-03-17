@@ -313,23 +313,34 @@ public class HolisticModelOptimizer
          double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(covarianceOfFunds);
          double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
 
-         double [][] fundProductWeights = new double[weights.length][allPrimeAssetMap.size()];
+         double [][] fundProductWeights = new double[allPrimeAssetMap.size()][tickers.length];
          int pRow = 0;
          int pCol = 0;
-         for (String pAssetClass : allPrimeAssetMap.keySet()) {
-             for (int i = 0; i < weights.length; i++) {
-                for (int j = 0 ; j < weights[i].length; j++ ) {
-                   for (String ticks: holisticdataMap.keySet()) {
-                       if (holisticdataMap.get(ticks).getPrimeassets().containsKey(pAssetClass))
-                          fundProductWeights[i][pRow] += weights[i][j] * holisticdataMap.get(ticks).getPrimeassets().get(pAssetClass).getRbsaweight();
-                       else
-                          fundProductWeights[i][pRow] += 0;
-                   }
-                }
-             }
-             pRow++;
+
+         double[][] tWeight = new double[tickers.length][1];
+         for (int i = 0; i < tickers.length; i++) {
+
+               tWeight[i][0] = weights[500][i];
          }
-         return fundProductWeights;
+
+         for (String pAssetClass : allPrimeAssetMap.keySet()) {
+
+            pCol = 0;
+            for (String fTicker: tickers){
+              if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
+                 fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
+              else
+                 fundProductWeights[pRow][pCol] = 0;
+
+              pCol++;
+            }
+
+            pRow++;
+         }
+
+         double [][] prodMatrix = multiplyByMatrix(fundProductWeights,tWeight);
+
+         return prodMatrix;
 
       }
       catch (Exception ex) {
@@ -354,6 +365,4 @@ public class HolisticModelOptimizer
       }
       return mResult;
    }
-
-
 }
