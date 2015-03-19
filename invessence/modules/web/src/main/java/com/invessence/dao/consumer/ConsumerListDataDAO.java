@@ -233,10 +233,14 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
+   public void getNewClientProfileData(ClientBean data) {
+
+   }
+
    public void getClientData(ClientBean data) {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sp_cilentinfo_sel",1);
-      Map outMap = sp.loadClientProfileData(data.getLogonid(), data.getAcctnum());
+      ConsumerListSP sp = new ConsumerListSP(ds, "sp_clientinfo_sel",1);
+      Map outMap = sp.loadClientProfileData(data);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");

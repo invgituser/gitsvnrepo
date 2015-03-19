@@ -534,51 +534,13 @@
         }
     </style>
 </h:head>
-<h:body class="page page-id-5673 page-template-default et_fixed_nav et_secondary_nav_enabled windows et_pb_pagebuilder_layout et_right_sidebar chrome et_includes_sidebar wpb-js-composer js-comp-ver-4.0.4 vc_responsive">
-    <div id="page-container">
-        <div id="top-header" class="et_nav_text_color_dark">
-            <div class="container clearfix">
-                <div id="et-info">
-                    <span id="et-info-phone">(201) 977-2704</span>
-                    <span id="et-info-email">info@invessence.com</span>
-                </div> <!-- #et-info -->
-                <div id="et-secondary-menu"></div> <!-- #et-secondary-menu -->
-            </div> <!-- .container -->
-        </div> <!-- #top-header -->
-
-        <header id="main-header" class="et_nav_text_color_dark">
-            <div class="container clearfix">
-                <a href="http://www.invessence.com/">
-                    <img src="http://www.invessence.com/wp-content/uploads/2014/01/invessence_logo-clear-300x65.png" alt="Invessence Inc." id="logo" />
-                </a>
-                <div id="et-top-navigation">
-                    <nav id="top-menu-nav">
-                        <ul id="top-menu" class="nav"><li id="menu-item-2994" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2994"><a href="http://www.invessence.com/why-invessence/">Why Us</a></li>
-                            <li id="menu-item-5353" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5353"><a href="http://www.invessence.com/works/">How it Works</a></li>
-                            <li id="menu-item-3313" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3313"><a href="http://www.invessence.com/pricing/">Pricing</a></li>
-                            <li id="menu-item-3957" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3957"><a href="http://www.invessence.com/about-us/">About Us</a></li>
-                            <li id="menu-item-3883" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3883"><a href="http://www.invessence.com/blog/">Blog</a></li>
-                            <li id="menu-item-2338" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2338"><a href="http://www.invessence.com/faq/">FAQ</a></li>
-                        </ul>
-                    </nav>
-                    <div id="et_top_search">
-                        <a href="https://www.invessence.com/login.xhtml"><img id="my_image" src="http://www.invessence.com/wp-content/uploads/2014/05/login3.png"/> </a>
-                        <span id="et_search_icon"></span>
-                        <form role="search" method="get" class="et-search-form et-hidden" action="http://www.invessence.com/">
-                            <input type="search" class="et-search-field" placeholder="Search &hellip;" value="" name="s" title="Search for:" />
-                        </form>
-                    </div>
-                    <div id="et_mobile_nav_menu">
-                        <a href="#" class="mobile_nav closed">
-                            <span class="select_page">Select Page</span>
-                            <span class="mobile_menu_bar"></span>
-                        </a>
-                    </div>
-                </div> <!-- #et-top-navigation -->
-            </div> <!-- .container -->
-        </header> <!-- #main-header -->
-
-        <div id="et-main-area">
+<f:metadata>
+   <f:viewParam name="acct" value="#{clientBean.beanAcctnum}"/>
+   <f:event type="preRenderView" listener="#{clientBean.preRenderView}"/>
+</f:metadata>
+<h:body>
+   <ui:composition template="/template/common/layout.xhtml">
+      <ui:define name="content">
             <div id="main-content">
                 <div class="entry-content">
                     <div class="et_pb_section et_section_regular">
@@ -926,8 +888,8 @@
                     </div>	<!-- .container -->
                 </div>
             </footer> <!-- #main-footer -->
-        </div> <!-- #et-main-area -->
-    </div> <!-- #page-container -->
+        </ui:define>
+    </ui:composition>
     <div id="CX_chatbox"></div>
 </h:body>
 </html>

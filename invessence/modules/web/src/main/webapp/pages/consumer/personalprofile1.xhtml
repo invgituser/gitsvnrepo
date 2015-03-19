@@ -534,6 +534,10 @@
         }
     </style>
 </h:head>
+<f:metadata>
+   <f:viewParam name="acct" value="#{clientBean.beanAcctnum}"/>
+   <f:event type="preRenderView" listener="#{clientBean.preRenderView}"/>
+</f:metadata>
 <h:body>
     <ui:composition template="/template/common/layout.xhtml">
         <ui:define name="content">
@@ -760,7 +764,7 @@
                                                 <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_2_1232" class="nform_li ng-scope inline1 left fe_2 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px; position: relative;">
                                                     <div>
                                                         <f:facet name="footer">
-                                                            <p:commandButton value="Next" ajax="true" actionListener="#{clientBean.saveClientInfo}" icon="ui-icon-check" />
+                                                            <p:commandButton value="Next" ajax="true" actionListener="#{clientBean.saveClientInfo}"  icon="ui-icon-check" />
                                                         </f:facet>
                                                     </div>
                                                 </li>

@@ -380,48 +380,50 @@ public class ConsumerSaveSP extends StoredProcedure
 
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-    public void saveClientInfo(ClientData data)
-{
-   String addmodflag;
-   Map inputMap = new HashMap();
-   int rowExists = checkClientData(data.getAcctnum());
-   if (rowExists != 0)
+   public void saveClientInfo(ClientData data)
    {
-      addmodflag = "M";
+      String addmodflag;
+      Map inputMap = new HashMap();
+      int rowExists = checkClientData(data.getLogonid());
+      if (rowExists != 0)
+      {
+         addmodflag = "M";
 
+      }
+      else
+      {
+         addmodflag = "A";
+      }
+      System.out.println("addmodflag :" + addmodflag);
+
+      inputMap.put("p_addmodflag", addmodflag);
+      inputMap.put("p_acctnum", data.getAcctnum());
+      inputMap.put("p_logonid", data.getLogonid());
+      inputMap.put("p_prefix", data.getPrefix());
+      inputMap.put("p_lastname", data.getLastName());
+      inputMap.put("p_middlename", data.getMiddleName());
+      inputMap.put("p_firstname", data.getFirstName());
+      inputMap.put("p_suffix", data.getSuffix());
+      inputMap.put("p_address", data.getAddress1());
+      inputMap.put("p_address2", data.getAddress2());
+      inputMap.put("p_city", data.getCity());
+      inputMap.put("p_state", data.getStateName());
+      inputMap.put("p_country", data.getCountry());
+      inputMap.put("p_zip", data.getZipCode());
+      inputMap.put("p_addressalt", data.getMailingAddress1());
+      inputMap.put("p_address2alt", data.getMailingAddress2());
+      inputMap.put("p_cityalt", data.getMailingCity());
+      inputMap.put("p_statealt", data.getMailingStateName());
+      inputMap.put("p_countryalt", data.getMailingCountry());
+      inputMap.put("p_zipalt", data.getMailingZipCode());
+      inputMap.put("p_dob", data.getDateOfBirth());
+      inputMap.put("p_maritalstatus", data.getMaritalStatus());
+      inputMap.put("p_dependents",data.getDependents());
+      inputMap.put("p_gender", data.getGender());
+      inputMap.put("p_citizensip", data.getCountryOfCitizenship());
+      inputMap.put("p_ssn", data.getSocialSecurity());
+      super.execute(inputMap);
    }
-   else
-   {
-      addmodflag = "A";
-      inputMap.put("p_dob", null);
-      inputMap.put("p_maritalstatus", null);
-      inputMap.put("p_dependents",null);
-      inputMap.put("p_gender", null);
-      inputMap.put("p_citizensip", null);
-      inputMap.put("p_ssn", null);
-   }
-   inputMap.put("p_addmodflag", addmodflag);
-   inputMap.put("p_acctnum", data.getAcctnum());
-   inputMap.put("p_logonid", data.getLogonid());
-   inputMap.put("p_prefix", data.getPrefix());
-   inputMap.put("p_lastname", data.getLastName());
-   inputMap.put("p_middlename", data.getMiddleName());
-   inputMap.put("p_firstname", data.getFirstName());
-   inputMap.put("p_suffix", data.getSuffix());
-   inputMap.put("p_address", data.getAddress1());
-   inputMap.put("p_address2", data.getAddress2());
-   inputMap.put("p_city", data.getCity());
-   inputMap.put("p_state", data.getStateName());
-   inputMap.put("p_country", data.getCountry());
-   inputMap.put("p_zip", data.getZipCode());
-   inputMap.put("p_addressalt", data.getMailingAddress1());
-   inputMap.put("p_address2alt", data.getMailingAddress2());
-   inputMap.put("p_cityalt", data.getMailingCity());
-   inputMap.put("p_statealt", data.getMailingStateName());
-   inputMap.put("p_countryalt", data.getMailingCountry());
-   inputMap.put("p_zipalt", data.getMailingZipCode());
-   super.execute(inputMap);
-}
 
    @SuppressWarnings({"unchecked", "rawtypes"})
    public void saveClientInfo2(ClientData data)
@@ -439,9 +441,9 @@ public class ConsumerSaveSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public int checkClientData(Long acctnum)
+   public int checkClientData(Long logonid)
    {
-      String sql = "select count(*) from client_info where acctnum = ?";
-      return getJdbcTemplate().queryForInt(sql, new Object[]{acctnum});
+      String sql = "select count(*) from client_info where logonid = ?";
+      return getJdbcTemplate().queryForInt(sql, new Object[]{logonid});
    }
 }

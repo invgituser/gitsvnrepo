@@ -5,6 +5,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
+import com.invessence.bean.consumer.ClientBean;
 import com.invessence.data.common.ManageGoals;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
@@ -40,6 +41,14 @@ public class ConsumerListSP extends StoredProcedure
    }
 
    public Map loadClientProfileData(ManageGoals data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", data.getLogonid());
+      inputMap.put("p_acctnum", data.getAcctnum());
+      return super.execute(inputMap);
+   }
+
+   public Map loadClientProfileData(ClientBean data)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", data.getLogonid());
