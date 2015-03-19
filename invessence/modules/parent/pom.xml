@@ -308,6 +308,11 @@
          </dependency>
          <dependency>
             <groupId>com.invessence</groupId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
+         </dependency>
+         <dependency>
+            <groupId>com.invessence</groupId>
             <artifactId>invmodel</artifactId>
             <version>1.0-SNAPSHOT</version>
          </dependency>
@@ -528,21 +533,21 @@
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
 
-            <base.data.dir>C:\INV\data</base.data.dir>
-            <base.rbsa.dir>C:\INV\RBSA</base.rbsa.dir>
-            <base.clientdata.dir>C:\INV\client</base.clientdata.dir>
-            <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
-            <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
+            <base.data.dir>C:\\INV\\data</base.data.dir>
+            <base.rbsa.dir>C:\\INV\\RBSA</base.rbsa.dir>
+            <base.clientdata.dir>C:\\INV\\client</base.clientdata.dir>
+            <base.advisor.dir>C:\\INV\\advisor</base.advisor.dir>
+            <base.web.dir>C:\\workspace\\web\\www\\ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
-            <advisor.upload.localdir>${base.advisor.dir}\upload\</advisor.upload.localdir>
-            <advisor.download.localdir>${base.advisor.dir}\download\</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}\ftp\</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}\RBSA\</rsba.localdir>
-            <report.localdir>${base.data.dir}\rpt\</report.localdir>
-            <pdf.localdir>${base.data.dir}\pdf\</pdf.localdir>
-            <doc.localdir>${base.data.dir}\doc\</doc.localdir>
-            <web_reports_dir>${base.web.dir}\static\reports\\</web_reports_dir>
-            <email_templates_dir>${base.web.dir}\template\html\</email_templates_dir>
+            <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
+            <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
+            <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\\doc\\</doc.localdir>
+            <web_reports_dir>${base.web.dir}\\static\\reports\\</web_reports_dir>
+            <email_templates_dir>${base.web.dir}\\template\html\\</email_templates_dir>
 
          </properties>
       </profile>
@@ -562,19 +567,19 @@
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
 
-            <base.data.dir>C:\INV\data</base.data.dir>
-            <base.rbsa.dir>C:\INV\RBSA</base.rbsa.dir>
-            <base.clientdata.dir>C:\INV\client</base.clientdata.dir>
+            <base.data.dir>C:\\INV\\data</base.data.dir>
+            <base.rbsa.dir>C:\\INV\\RBSA</base.rbsa.dir>
+            <base.clientdata.dir>C:\\INV\\client</base.clientdata.dir>
             <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
             <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
-            <advisor.upload.localdir>${base.advisor.dir}\upload\</advisor.upload.localdir>
-            <advisor.download.localdir>${base.advisor.dir}\download\</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}\ftp\</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}\RBSA\</rsba.localdir>
-            <report.localdir>${base.data.dir}\rpt\</report.localdir>
-            <pdf.localdir>${base.data.dir}\pdf\</pdf.localdir>
-            <doc.localdir>${base.data.dir}\doc\</doc.localdir>
+            <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
+            <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
+            <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\\doc\\</doc.localdir>
             <web_reports_dir>${base.web.dir}\\static\\reports\\</web_reports_dir>
             <email_templates_dir>${base.web.dir}\\template\\html\\</email_templates_dir>
         </properties>
@@ -635,13 +640,13 @@
             <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
             <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
-            <advisor.upload.localdir>${base.advisor.dir}\upload\</advisor.upload.localdir>
-            <advisor.download.localdir>${base.advisor.dir}\download\</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}\ftp\</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}\RBSA\</rsba.localdir>
-            <report.localdir>${base.data.dir}\rpt\</report.localdir>
-            <pdf.localdir>${base.data.dir}\pdf\</pdf.localdir>
-            <doc.localdir>${base.data.dir}\doc\</doc.localdir>
+            <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
+            <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
+            <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\\doc\\</doc.localdir>
             <web_reports_dir>${base.web.dir}\\static\\reports\\</web_reports_dir>
             <email_templates_dir>${base.web.dir}\\template\\html\\</email_templates_dir>
 
@@ -671,8 +676,8 @@
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
             <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}/RBSA</rsba.localdir>
-            <report.localdir>${base.data.dir}/rpt</report.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
             <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
             <doc.localdir>${base.data.dir}/doc/</doc.localdir>
             <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
@@ -735,9 +740,9 @@
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}/RBSA</rsba.localdir>
-            <report.localdir>${base.data.dir}/rpt</report.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
             <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
             <doc.localdir>${base.data.dir}/doc/</doc.localdir>
             <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
