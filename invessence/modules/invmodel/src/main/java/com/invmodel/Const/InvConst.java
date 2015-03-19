@@ -19,6 +19,7 @@ public class InvConst
    public static double MIN_MNGT_FEES_DOLLARS = 250.0;
 
    public static Integer ASSET_INTERPOLATION = 80;
+   public static Integer ASSET_DEFAULT_POINT = 10;
    public static Double ASSET_PRECISION = 0.00001;
 
    public static Integer MAX_DURATION = 80;
@@ -26,6 +27,7 @@ public class InvConst
 
    // Used in Portfolio Model
    public static int PORTFOLIO_INTERPOLATION = 100;
+   public static int PORTFOLIO_DEFAULT_POINT = 70;
    public static Double PORTFOLIO_PRECISION = 0.000001;
    public static double PORTFOLIO_MNAGEMENT_FEES = 0.0045;
 

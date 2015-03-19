@@ -68,8 +68,8 @@ public class
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
    private RiskIndex riskdata = new RiskIndex();
 
-   private Integer allocationIndex = 50;
-   private Integer portfolioIndex = 500;
+   private Integer allocationIndex = InvConst.ASSET_DEFAULT_POINT;
+   private Integer portfolioIndex = InvConst.PORTFOLIO_DEFAULT_POINT;
    private ArrayList<Asset> editableAsset = new ArrayList<Asset>();
    private AssetClass assetData[];
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.

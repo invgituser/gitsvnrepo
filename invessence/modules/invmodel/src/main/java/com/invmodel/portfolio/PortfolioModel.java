@@ -124,6 +124,9 @@ public class PortfolioModel
          int years = (profileData.getNumOfPortfolio() == null || profileData.getNumOfPortfolio() == 0) ? profileData.getAssetData().length : profileData.getNumOfPortfolio();
          years = (profileData.getAssetData().length < years ) ? profileData.getAssetData().length : years ;
          Portfolio[] portfolioclass = new Portfolio[years];
+         int offset = (profileData.getPortfolioIndex() == null) ? InvConst.PORTFOLIO_DEFAULT_POINT : profileData.getPortfolioIndex();
+         offset = (offset > InvConst.PORTFOLIO_INTERPOLATION - 1) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
+         offset = (offset < 0) ? 0 : offset;
          for (int investmentYear = 0; investmentYear < years; investmentYear++)
          {
             portfolioclass[investmentYear] = new Portfolio();
@@ -133,13 +136,9 @@ public class PortfolioModel
             portfolioclass[investmentYear].setCashMoney(actualInvestment);
 
 
-            int offset;
 
             //offset = (int) (StrictMath.sqrt(StrictMath.pow(duration, 2.0) - StrictMath.pow((double) investmentYear, 2.0)))*(InvConst.PORTFOLIO_INTERPOLATION/duration);
             //offset = (int) (riskOffset * (double) offset);
-            offset = (profileData.getPortfolioIndex() == null) ? 500 : profileData.getPortfolioIndex();
-            offset = (offset > InvConst.PORTFOLIO_INTERPOLATION) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
-            offset = (offset < 0) ? 0 : offset;
 
             // Actual Investment is investment and recurring the next year.  Does not contain the returns.
             portfolioclass[investmentYear].setActualInvestments(actualInvestment);
@@ -273,8 +272,7 @@ public class PortfolioModel
 
             offset = (int) (StrictMath.sqrt(StrictMath.pow(duration, 2.0) - StrictMath.pow((double) investmentYear, 2.0)))*(InvConst.PORTFOLIO_INTERPOLATION/duration);
             offset = (int) (riskOffset * (double) offset);
-            if (investmentYear == 0)
-               offset = offset - 1;
+            offset = (offset > InvConst.PORTFOLIO_INTERPOLATION - 1) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
             if(offset < 0)
                offset = 0;
 
