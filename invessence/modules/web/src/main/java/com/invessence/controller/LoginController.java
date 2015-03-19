@@ -35,7 +35,7 @@ public class LoginController implements PhaseListener
    @ManagedProperty("#{menu}")
    private Menu menu;
 
-   MsgData data = new MsgData();
+   private MsgData data = new MsgData();
 
    public void setEmailMessage(EmailMessage emailMessage)
    {
@@ -104,17 +104,6 @@ public class LoginController implements PhaseListener
             String redirectUrl="/message.xhtml?faces-redirect=true&"+ lockedMsg + type + title;
             webutil.redirect(redirectUrl, null);
          }
-         if (e instanceof BadCredentialsException)
-         {
-            if (uid.getAttempts() > 1) {
-               setNeedAdditionalInfo(true);
-               setQuestion(uid.getSelectedQuestion());
-            }
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "Username/password not valid.",
-                                                                          "Username/password not valid."));
-         }
       }
 
       FacesContext.getCurrentInstance().responseComplete();
@@ -130,7 +119,7 @@ public class LoginController implements PhaseListener
          uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
          if (e instanceof BadCredentialsException)
          {
-            if (uid.getAttempts() > 1) {
+            if (uid != null && uid.getAttempts() > 1) {
                setNeedAdditionalInfo(true);
                setQuestion(uid.getSelectedQuestion());
             }

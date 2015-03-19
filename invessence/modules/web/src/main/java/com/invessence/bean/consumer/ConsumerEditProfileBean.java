@@ -28,6 +28,7 @@ import org.primefaces.event.SlideEndEvent;
 public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 {
    private Long  beanAcctnum;
+   private Boolean allocationMode;
    private Boolean disablegraphtabs = true
       , disabledetailtabs = true
       , disablesaveButton = true;
@@ -220,7 +221,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
          listDAO.getProfileData((ManageGoals) this.getInstance());
          loadBasketInfo();
 
-         createAssetPortfolio(getDefaultHorizon());
+         createAssetPortfolio(1);
          formEdit = false;
       }
       catch (Exception ex) {
@@ -228,18 +229,24 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       }
    }
 
-   public void ageSlider(SlideEndEvent event) {
+   public void allocSlider(SlideEndEvent event) {
       setAge(event.getValue());
-      createAssetPortfolio(getDefaultHorizon());
+      setAllocationIndex(event.getValue());
+      createAssetPortfolio(1);
    }
 
-   public void riskSlider(SlideEndEvent event) {
-      setDefaultRiskIndex(event.getValue());
-      createAssetPortfolio(getDefaultHorizon());
+   public void portfolioSlider(SlideEndEvent event) {
+      //setDefaultRiskIndex(event.getValue());
+      setPortfolioIndex(event.getValue());
+      createPortfolio(1);
    }
 
    public void refresh() {
-      createAssetPortfolio(getDefaultHorizon());
+      createAssetPortfolio(1);
+   }
+
+   public void consumerRefresh() {
+      createAssetPortfolio(1);
    }
 
    private void createAssetPortfolio(Integer noOfYears) {
@@ -248,11 +255,34 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
          formEdit = true;
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
-         buildPortfolio();
+         if (webutil.hasAccess("ADVISOR")) {
+            buildAdvisorAssetClass();
+            buildAdvisorPortfolio();
+         }
+         else {
+            buildConsumerAssetClass();
+            buildConsumerPortfolio();
+         }
          createCharts();
       }
       catch (Exception ex) {
            ex.printStackTrace();
+      }
+   }
+
+   private void createPortfolio(Integer noOfYears) {
+
+      try {
+         formEdit = true;
+         setNumOfPortfolio(noOfYears);
+         if (webutil.hasAccess("ADVISOR"))
+            buildAdvisorPortfolio();
+         else
+            buildConsumerPortfolio();
+         createCharts();
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
       }
    }
 

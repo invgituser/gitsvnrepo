@@ -14,7 +14,7 @@
 
 <h:body>
     <p:panel style="padding: 1px 1px;" styleClass="invNBgrid">
-               <p:lineChart type="line" id="linear" rendered="#{cBean.charts.lineChart == null ? false : true}"
+               <p:lineChart id="linear" rendered="#{cBean.charts.lineChart == null ? false : true}"
                             value="#{cBean.charts.lineChart}"
                             extender="line_extensions"
                             xaxisLabel="Years" xaxisAngle="#{cBean.charts.legendXrotation}"

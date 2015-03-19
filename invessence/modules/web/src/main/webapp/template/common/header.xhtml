@@ -84,7 +84,7 @@
                                         <p:menuitem value="Manage" icon="ui-icon-newwin"
                                                     actionListener="#{menu.doMenuAction('/advisor/manage.xhtml')}"/>
                                         <p:menuitem value="Add" icon="ui-icon-plusthick"
-                                                    actionListener="#{menu.doMenuAction('/advisor/add.xhtml?acct=0')}"/>
+                                                    actionListener="#{menu.doMenuAction('/advisor/edit.xhtml?acct=0')}"/>
                                         <p:separator />
                                         <p:menuitem value="Custodian"
                                                     actionListener="#{menu.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
@@ -107,7 +107,7 @@
                                                     actionListener="#{menu.doMenuAction('/advisor/edit.xhtml?acct=0')}"/>
                                         <p:separator />
                                         <p:menuitem value="Reports" disabled="true"
-                                                    actionListener="#{menu.doMenuAction('/advisor/reports.xhtml')}"/>
+                                                    actionListener="#{menu.doMenuAction('/common/reports.xhtml')}"/>
                                     </p:submenu>
                                     <p:menuitem value="Settings" icon="ui-icon-gear"
                                                 rendered="#{menu.enableMenu('ADMIN')}"
@@ -130,12 +130,12 @@
                                     <p:submenu label="Demo" value="Accounts" icon="ui-icon-person"
                                                rendered="#{menu.enableMenu('DEMO')}">
                                         <p:menuitem value="Add" icon="ui-icon-plusthick"
-                                                    actionListener="#{menu.doMenuAction('/advisor/edit.xhtml?acct=0')}"/>
+                                                    actionListener="#{menu.doMenuAction('/consumer/add.xhtml?acct=0')}"/>
                                         <p:menuitem value="Client-Profile"
                                                     actionListener="#{menu.doMenuAction('/consumer/personalprofile1.xhtml')}"/>
                                         <p:separator />
                                         <p:menuitem value="Reports" disabled="true"
-                                                    actionListener="#{menu.doMenuAction('/advisor/reports.xhtml')}"/>
+                                                    actionListener="#{menu.doMenuAction('/common/reports.xhtml')}"/>
                                     </p:submenu>
                                     <p:menuitem value="Settings" icon="ui-icon-gear"
                                                 rendered="#{menu.enableMenu('ADMIN')}"

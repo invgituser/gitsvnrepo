@@ -10,49 +10,6 @@
       xmlns:p="http://primefaces.org/ui">
 
 <h:body>
-    <p:panelGrid style="padding: 1px 1px;">
-        <p:row>
-            <p:column colspan="2">
-            </p:column>
-            <p:column colspan="2" style="text-align: center">
-                <p:column colspan="2" style="text-align: center">
-                    <h:outputLabel value="Adjust Portfolio" style="text-align: center"/>
-                </p:column>
-            </p:column>
-            <p:column colspan="2">
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="2">
-            </p:column>
-            <p:column colspan="2" style="text-align: center">
-                <p:slider for="portfolioSlider" minValue="0" maxValue="10"
-                          step="1">
-                    <p:ajax event="slideEnd" listener="#{cepb.riskSlider}" update="@form"/>
-                </p:slider>
-                <h:inputHidden id="portfolioSlider" value="#{cepb.defaultRiskIndex}" />
-            </p:column>
-            <p:column colspan="2">
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="2">
-            </p:column>
-            <p:column style="text-align: left">
-                Low
-            </p:column>
-            <p:column style="text-align: right">
-                High
-            </p:column>
-            <p:column colspan="2">
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="2">
-                <p:separator/>
-            </p:column>
-        </p:row>
-    </p:panelGrid>
     <p:dataTable var="sclist" value="#{cepb.portfolioData[0].subclasslist}"
                  styleClass="invDataTable">
 

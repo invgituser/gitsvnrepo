@@ -379,6 +379,7 @@ img {
         width: 35%;
         float: left;
         margin: 0px;
+        padding-right: 5px;
     }
 
     .divDetailArea {

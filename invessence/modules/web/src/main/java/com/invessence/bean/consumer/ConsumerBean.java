@@ -372,7 +372,7 @@ public class ConsumerBean extends ManageGoals implements Serializable
       try {
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
-         buildPortfolio();
+         buildConsumerPortfolio();
          createCharts(noOfYears);
       }
       catch (Exception ex) {

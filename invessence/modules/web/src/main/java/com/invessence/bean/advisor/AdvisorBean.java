@@ -143,7 +143,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
    public void selectedActionBasket() {
       getExcludedSubAsset().clear();
       setNumOfPortfolio(1);
-      buildPortfolio();
+      buildConsumerPortfolio();
       this.themeChanged = true;
    }
 
@@ -273,7 +273,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
                this.formDirty = false;
                saveDAO.saveAllocation((AdvisorData) this.getInstance());
                setNumOfPortfolio(1);
-               buildPortfolio();
+               buildConsumerPortfolio();
             }
             return "success";
          }
@@ -305,7 +305,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
          setRisk("M");
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
-         buildPortfolio();
+         buildConsumerPortfolio();
          if (getAssetData() != null) {
             // totalAssetClassWeights(getAssetData()[displayYear].getAssetclass(),displayYear);  // True calculation after Portfolio allocated.
             if (getEditableAsset() != null) {

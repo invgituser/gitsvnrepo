@@ -967,11 +967,11 @@ public class ManageGoals extends ProfileData
       this.selectedPortfolio = selectedPortfolio;
    }
 
-   public void buildAssetClass() {
+   public void buildConsumerAssetClass() {
       AssetClass[] aamc;
       try {
          setAssetData(null);
-         aamc = allocModel.getAssetDistribution((ProfileData) this.getInstance());
+         aamc = allocModel.getConsumerAssetInfo((ProfileData) this.getInstance());
          if (aamc != null)  {
             setAssetData(aamc);
          }
@@ -981,18 +981,63 @@ public class ManageGoals extends ProfileData
       }
    }
 
-   public void buildPortfolio() {
+   public void buildAdvisorAssetClass() {
+      AssetClass[] aamc;
+      try {
+         setAssetData(null);
+         aamc = allocModel.getAdvisorAssetsInfo((ProfileData) this.getInstance());
+         if (aamc != null)  {
+            setAssetData(aamc);
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
+   public void buildAdvisorPortfolio() {
       AssetClass[] aamc;
       Portfolio[] pfclass;
       MsgData data = new MsgData();
       try
       {
          Integer displayYear = 0;
-         buildAssetClass();
          aamc = getAssetData();
          if (aamc != null)
          {
-            pfclass = portfolioModel.getDistributionList(aamc,
+            pfclass = portfolioModel.getAdvisorPortfolio(aamc,
+                                                         (ProfileData) getInstance());
+            if (pfclass != null)
+            {
+               setPortfolioData(pfclass);
+
+               // Now refresh the Display List
+               loadPortfolioList(displayYear);
+            }
+
+            if (getUserAssetOverride())
+               getAllocModel().overrideAssetWeight(aamc[displayYear], this.getEditableAsset());
+            totalAssetClassWeights(aamc[displayYear].getAssetclass(), displayYear);
+         }
+
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void buildConsumerPortfolio() {
+      AssetClass[] aamc;
+      Portfolio[] pfclass;
+      MsgData data = new MsgData();
+      try
+      {
+         Integer displayYear = 0;
+         aamc = getAssetData();
+         if (aamc != null)
+         {
+            pfclass = portfolioModel.getConsumerPortfolio(aamc,
                                                               (ProfileData) getInstance());
             if (pfclass != null)
             {
