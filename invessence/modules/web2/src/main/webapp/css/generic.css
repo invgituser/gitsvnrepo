@@ -54,7 +54,7 @@ article, aside, footer, header, hgroup, nav, section { display: block; }
     font-weight: normal;
     font-style: normal;
 }
-body { padding-top: 10px; font-family: 'Raleway', Arial, sans-serif; font-size: 14px; color: #666; background-color: #fff; line-height: 1.6; font-weight: 400; }
+body { padding-top: 10px; font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif; font-size: 14px; color: #666; background-color: #fff; line-height: 1.6; font-weight: 400; }
 a { text-decoration: none; color: #7EBEC5; }
 a:hover { text-decoration: none; }
 .clear { clear: both; }
@@ -142,7 +142,25 @@ table.shop_table { margin-bottom: 30px !important; }
 .container { text-align: left; margin: 0 auto; width: 1080px; position: relative; }
 body.admin-bar #main-header { top: 32px; }
 body.et-wp-pre-3_8.admin-bar #main-header { top: 28px; }
-#main-header { top: 0; background-color: #fff; position: fixed; width: 100%; z-index: 99999; padding: 18px 0 0 0; min-height: 43px; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1); -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1); -moz-transition: all 0.2s ease-in-out; -webkit-transition: all 0.2s ease-in-out; transition: all 0.2s ease-in-out; }
+
+#main-header {
+    top: 0;
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    z-index: 99999;
+    padding: 18px 0 0 0;
+    min-height: 43px;
+/*
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    -moz-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+*/
+}
+
 .et-fixed-header { padding: 10px 0 0 0 !important; min-height: 30px !important; box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important; -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important; -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.1) !important;  }
 .et-fixed-header #logo { max-height: 30px; }
 .et-fixed-header nav#wp-top-menu { padding-top: 4px;}
@@ -200,9 +218,9 @@ nav#top-menu { padding-top: 0px;}
 .et_pb_best_value { color: #fff; font-size: 16px; display: block; padding-bottom: 1px; }
 .et_pb_featured_table .et_pb_pricing_heading h2 { padding-bottom: 13px; }
 .et_pb_pricing_content_top { border-bottom: 1px solid #ccc; padding-bottom: 30px; }
-.et_pb_et_price { color: #999; font-size: 16px; font-family: 'Open Sans', Arial, sans-serif; font-weight: 300; }
+.et_pb_et_price { color: #999; font-size: 16px; font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif; font-weight: 300; }
 .et_pb_dollar_sign { font-size: 18px; font-weight: 400; position: relative; top: -34px; }
-.et_pb_sum { font-size: 80px; color: #7EBEC5; font-family: 'Raleway', Arial, sans-serif; font-weight: 300; line-height: 82px; }
+.et_pb_sum { font-size: 80px; color: #7EBEC5; font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif; font-weight: 300; line-height: 82px; }
 .et_pb_pricing_content { padding: 33px 30px 6px; text-align: left; }
 .et_pb_featured_table .et_pb_pricing_content { padding-bottom: 32px; }
 .et_pb_pricing li { line-height: 24px; padding: 0 0 28px 14px; position: relative; }
@@ -233,7 +251,7 @@ nav#top-menu { padding-top: 0px;}
 .et-newsletter { background-color: #68909d; padding: 40px 0; }
 .et-newsletter-description { width: 640px; }
 .et-newsletter-form { float: left; width: 260px; padding-right: 60px; }
-.et-newsletter-form p input { padding: 10px 18px; font-family: 'Raleway', Arial, sans-serif; font-size: 16px; color: #666; background-color: #fff; font-weight: 400; width: 86%; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+.et-newsletter-form p input { padding: 10px 18px; font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif; font-size: 16px; color: #666; background-color: #fff; font-weight: 400; width: 86%; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 .et-newsletter-button { display: block; font-size: 16px; color: #fff; background-color: rgba(0, 0, 0, 0.2); -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; padding: 13px 20px; }
 .et_pb_bg_layout_light .et_pb_newsletter_button{ color: #fff; background-color:#7EBEC5; }
 .et_pb_bg_layout_light .et_pb_newsletter_form input {background-color: #f5f5f5;}
@@ -324,7 +342,7 @@ nav#top-menu { padding-top: 0px;}
 .et_pb_newsletter_description { width: 640px; float: left; padding: 0 60px; }
 .et_pb_newsletter_description p:last-of-type { padding-bottom: 0px;}
 .et_pb_newsletter_form { float: left; width: 260px; padding-right: 60px; }
-.et_pb_newsletter_form p input { border: none !important; padding: 10px 6% !important; font-family: 'Raleway', Arial, sans-serif; font-size: 16px; color: #666; background-color: #fff; width: 88%; font-weight: 400; -moz-border-radius: 3px !important; -webkit-border-radius: 3px !important; border-radius: 3px !important; }
+.et_pb_newsletter_form p input { border: none !important; padding: 10px 6% !important; font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif; font-size: 16px; color: #666; background-color: #fff; width: 88%; font-weight: 400; -moz-border-radius: 3px !important; -webkit-border-radius: 3px !important; border-radius: 3px !important; }
 .et_pb_newsletter_form p .et_pb_signup_error { border: 1px solid #f00 !important; }
 .et_pb_newsletter_result { margin-bottom: 18px; line-height: 29px; }
 .et_pb_newsletter_button { display: block; font-size: 16px; color: inherit; background-color: rgba(0, 0, 0, 0.2); -moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; padding: 8px 6%; width: 88%; }
@@ -408,7 +426,7 @@ nav#top-menu { padding-top: 0px;}
 .et_pb_contact_form_label { display: none; }
 .et_pb_contact_form_container {padding-bottom:30px;}
 .et_pb_contact_left p { padding-bottom: 20px; }
-.et_pb_contact p input, .et_pb_contact p textarea { background-color: #fff; border: none!important; width: 100% !important; -moz-border-radius: 0 !important; -webkit-border-radius: 0 !important; border-radius: 0 !important; font-size: 18px; color: #666!important; padding: 16px !important; font-family: 'Raleway', Arial, sans-serif; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+.et_pb_contact p input, .et_pb_contact p textarea { background-color: #fff; border: none!important; width: 100% !important; -moz-border-radius: 0 !important; -webkit-border-radius: 0 !important; border-radius: 0 !important; font-size: 18px; color: #666!important; padding: 16px !important; font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 .et_pb_contact_right p input { width: 55px!important; }
 .et_pb_contact_submit, .et_pb_contact_reset { display: block; color: #fff; font-family: 'Open Sans', Arial, sans-serif; font-weight: 400; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; padding: 2px 20px; font-size: 14px; border: none; float: right; margin-top: 8px; }
 .et_pb_contact_reset { background-color: #aaa; margin-right: 10px; }
@@ -419,7 +437,7 @@ nav#top-menu { padding-top: 0px;}
 .et_pb_contact p .et_contact_error { border: 1px solid red !important; }
 
 p.woocommerce-result-count { font-weight: 500; font-size: 14px; color: #999; padding-bottom: 40px; }
-.orderby { background-color: #ececec; border: none; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; color: #666!important; font-size: 12px; padding: 4px 8px; font-weight: 500; font-family: 'Raleway', Arial, sans-serif; }
+.orderby { background-color: #ececec; border: none; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; color: #666!important; font-size: 12px; padding: 4px 8px; font-weight: 500; font-family: 'Open Sans', Helvetica, Arial, Lucida, sans-serif; }
 .woocommerce ul.products li.product, .woocommerce-page ul.products li.product { width: 225px!important; margin: 0 60px 53px 0!important; }
 .woocommerce ul.products li.product.last, .woocommerce-page ul.products li.product.last { margin-right: 0!important; }
 .woocommerce ul.products li.product a img, .woocommerce-page ul.products li.product a img {
