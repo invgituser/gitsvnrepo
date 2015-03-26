@@ -90,7 +90,7 @@ BEGIN
 			country = p_country,
 			zip = p_zip,
 			addressalt = p_addressalt,
-			addressalt2 = p_address2alt,
+			address2alt = p_address2alt,
 			cityalt = p_cityalt,
 			statealt = p_statealt,
 			countryalt = p_countryalt,
