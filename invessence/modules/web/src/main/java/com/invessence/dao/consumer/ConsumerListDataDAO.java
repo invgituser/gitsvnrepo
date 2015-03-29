@@ -239,7 +239,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
    public void getClientData(ClientBean data) {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sp_clientinfo_sel",1);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sp_clientinfo_sel",2);
       Map outMap = sp.loadClientProfileData(data);
       if (outMap != null)
       {
@@ -268,12 +268,42 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setMailingStateName(convert.getStrData(rs.get("statealt")));
             data.setMailingCountry(convert.getStrData(rs.get("countryalt")));
             data.setMailingZipCode(convert.getStrData(rs.get("zipalt")));
-            //data.setDateOfBirth(convert.getDateData(rs.get("dob")));
+            data.setDateOfBirth(convert.getDateFormatData(rs.get("dob")));
             data.setMaritalStatus(convert.getStrData(rs.get("maritalstatus")));
             data.setDependents(convert.getStrData(rs.get("dependents")));
             data.setGender(convert.getStrData(rs.get("gender")));
             data.setCountryOfCitizenship(convert.getStrData(rs.get("citizenship")));
             data.setSocialSecurity(convert.getStrData(rs.get("ssn")));
+            data.setChecked(convert.getBooleanData(rs.get("altselect")));
+            break;
+         }
+      }
+   }
+
+   public void getClientEmpData(ClientBean data) {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sp_client_empinfo_sel",2);
+      Map outMap = sp.loadClientProfileData(data);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+
+            data.setLogonid(convert.getLongData(rs.get("logonid")));
+            data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+            data.setEmploymentStatus(convert.getStrData(rs.get("empstatus")));
+            data.setEmployerName(convert.getStrData(rs.get("employer")));
+            data.setNatureOfBusiness(convert.getStrData(rs.get("natureofbusiness")));
+            data.setOccupation(convert.getStrData(rs.get("occupation")));
+            data.setEmployerAddress1(convert.getStrData(rs.get("address")));
+            data.setEmployerAddress2(convert.getStrData(rs.get("address2")));
+            data.setEmployerCity(convert.getStrData(rs.get("city")));
+            data.setEmployerStateName(convert.getStrData(rs.get("state")));
+            data.setEmployerCountry(convert.getStrData(rs.get("country")));
+            data.setEmployerZipCode(convert.getStrData(rs.get("zip")));
             break;
          }
       }

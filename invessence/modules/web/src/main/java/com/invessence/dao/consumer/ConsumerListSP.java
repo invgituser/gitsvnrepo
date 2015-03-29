@@ -26,6 +26,9 @@ public class ConsumerListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
+         case 2:   // SP: sel_newClient
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            break;
          default:
       }
       compile();
@@ -52,7 +55,7 @@ public class ConsumerListSP extends StoredProcedure
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", data.getLogonid());
-      inputMap.put("p_acctnum", data.getAcctnum());
+      //inputMap.put("p_acctnum", data.getAcctnum());
       return super.execute(inputMap);
    }
 

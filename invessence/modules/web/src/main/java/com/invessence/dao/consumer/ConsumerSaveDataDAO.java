@@ -79,4 +79,11 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       sp.createTrades(acctnum);
    }
 
+   public void saveClientEmpInfo(ClientData data)
+   {
+      DataSource ds = getDataSource();
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "sp_clientemp_info_add_mod",11);
+      sp.saveClientEmpInfo(data);
+   }
+
 }

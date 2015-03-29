@@ -136,6 +136,7 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_gender", Types.VARCHAR));
             declareParameter(new SqlParameter("p_citizensip", Types.VARCHAR));
             declareParameter(new SqlParameter("p_ssn", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_altselect", Types.TINYINT));
             break;
          case 9:   // sp_clientinfo_mod
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -149,6 +150,21 @@ public class ConsumerSaveSP extends StoredProcedure
             break;
          case 10: // sp_createTrades
             declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
+            break;
+         case 11: // sp_clientinfo_add_mod
+            declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_empstatus", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_employer", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_natureofbusiness", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_occupation", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_address", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_address2", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_city", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_state", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_country", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_zip", Types.VARCHAR));
             break;
          default:
       }
@@ -422,6 +438,7 @@ public class ConsumerSaveSP extends StoredProcedure
       inputMap.put("p_gender", data.getGender());
       inputMap.put("p_citizensip", data.getCountryOfCitizenship());
       inputMap.put("p_ssn", data.getSocialSecurity());
+      inputMap.put("p_altselect", data.isChecked());
       super.execute(inputMap);
    }
 
@@ -441,9 +458,49 @@ public class ConsumerSaveSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
+   public void saveClientEmpInfo(ClientData data)
+   {
+      String addmodflag;
+      Map inputMap = new HashMap();
+      int rowExists = checkClientEmpData(data.getLogonid());
+      if (rowExists != 0)
+      {
+         addmodflag = "M";
+
+      }
+      else
+      {
+         addmodflag = "A";
+      }
+      System.out.println("addmodflag :" + addmodflag);
+
+      inputMap.put("p_addmodflag", addmodflag);
+      inputMap.put("p_acctnum", data.getAcctnum());
+      inputMap.put("p_logonid", data.getLogonid());
+      inputMap.put("p_empstatus", data.getEmploymentStatus());
+      inputMap.put("p_employer", data.getEmployerName());
+      inputMap.put("p_natureofbusiness", data.getNatureOfBusiness());
+      inputMap.put("p_occupation", data.getOccupation());
+      inputMap.put("p_address", data.getEmployerAddress1());
+      inputMap.put("p_address2", data.getEmployerAddress2());
+      inputMap.put("p_city", data.getEmployerCity());
+      inputMap.put("p_state", data.getEmployerStateName());
+      inputMap.put("p_country", data.getEmployerCountry());
+      inputMap.put("p_zip", data.getEmployerZipCode());
+      super.execute(inputMap);
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
    public int checkClientData(Long logonid)
    {
       String sql = "select count(*) from client_info where logonid = ?";
+      return getJdbcTemplate().queryForInt(sql, new Object[]{logonid});
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public int checkClientEmpData(Long logonid)
+   {
+      String sql = "select count(*) from client_emp_info where logonid = ?";
       return getJdbcTemplate().queryForInt(sql, new Object[]{logonid});
    }
 }
