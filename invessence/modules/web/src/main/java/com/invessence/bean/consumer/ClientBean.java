@@ -120,7 +120,7 @@ public class ClientBean extends ClientData implements Serializable
       try
       {
          setAcctnum(getAcctnum());
-         setLogonid(getLogonid());
+         setLogonid(webutil.getLogonid());
          System.out.println("LOGON ID :" + getLogonid());
          System.out.println("ACCOUNT NUMBER :" + getAcctnum());
          saveDAO.saveClientInfo(this);
@@ -141,7 +141,7 @@ public class ClientBean extends ClientData implements Serializable
       try
       {
          setAcctnum(getAcctnum());
-         setLogonid(getLogonid());
+         setLogonid(webutil.getLogonid());
          System.out.println("LOGON ID :" + getLogonid());
          System.out.println("ACCOUNT NUMBER :" + getAcctnum());
          saveDAO.saveClientInfo2(this);
@@ -161,7 +161,7 @@ public class ClientBean extends ClientData implements Serializable
       try
       {
          setAcctnum(getAcctnum());
-         setLogonid(getLogonid());
+         setLogonid(webutil.getLogonid());
          System.out.println("LOGON ID :" + getLogonid());
          System.out.println("ACCOUNT NUMBER :" + getAcctnum());
          saveDAO.saveClientEmpInfo(this);

@@ -127,7 +127,6 @@ public class SQLData implements Serializable
             return val;
          else
          {
-            System.out.println("dataobj:" + dataobj);
             val = (Boolean) dataobj;
          }
       }
