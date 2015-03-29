@@ -65,7 +65,7 @@
 												</li>
 												<li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
 													<div>
-														<p:selectOneMenu id="natureofbusiness" value="#{accountholder.natureOfBusiness}" required="true"
+														<p:selectOneMenu id="natureofbusiness" value="#{clientBean.natureOfBusiness}" required="true"
 																		 requiredMessage="Please select occupation." validatorMessage="Please select occupation.">
 															<f:selectItem itemLabel="-- Select Nature of Business -- " itemValue=""/>
 															<f:selectItem itemLabel="Accounting" itemValue="1"/>
