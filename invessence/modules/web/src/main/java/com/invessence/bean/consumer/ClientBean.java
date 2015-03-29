@@ -107,6 +107,7 @@ public class ClientBean extends ClientData implements Serializable
          setLogonid(webutil.getLogonid());
          System.out.println("LOGON ID :" + webutil.getLogonid());
          listDAO.getClientData(this);
+         listDAO.getClientEmpData(this);
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -145,6 +146,26 @@ public class ClientBean extends ClientData implements Serializable
          System.out.println("ACCOUNT NUMBER :" + getAcctnum());
          saveDAO.saveClientInfo2(this);
          FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/consumer/employmentprofile.xhtml");
+         result = "success";
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+         result = "failed";
+      }
+      return result;
+   }
+   public String saveClientEmpInfo()
+   {
+      String result = "success";
+      try
+      {
+         setAcctnum(getAcctnum());
+         setLogonid(getLogonid());
+         System.out.println("LOGON ID :" + getLogonid());
+         System.out.println("ACCOUNT NUMBER :" + getAcctnum());
+         saveDAO.saveClientEmpInfo(this);
+         FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/consumer/personalprofile1.xhtml");
          result = "success";
       }
       catch (Exception ex)

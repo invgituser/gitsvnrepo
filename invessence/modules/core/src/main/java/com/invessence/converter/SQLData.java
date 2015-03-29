@@ -1,6 +1,7 @@
 package com.invessence.converter;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
@@ -96,6 +97,43 @@ public class SQLData implements Serializable
       catch (Exception ex)
       {
          return "";
+      }
+      return val;
+   }
+
+   public Date getDateFormatData(Object dataobj)
+   {
+      Date val = new Date();
+      try
+      {
+         if (dataobj == null)
+            return val;
+         else
+            val = (Date)dataobj;
+      }
+      catch (Exception ex)
+      {
+         return val;
+      }
+      return val;
+   }
+
+   public Boolean getBooleanData(Object dataobj)
+   {
+      Boolean val = false;
+      try
+      {
+         if (dataobj == null)
+            return val;
+         else
+         {
+            System.out.println("dataobj:" + dataobj);
+            val = (Boolean) dataobj;
+         }
+      }
+      catch (Exception ex)
+      {
+         return false;
       }
       return val;
    }
