@@ -130,7 +130,7 @@ public class HolisticModelOptimizer
                                    " upperBound, " +
                                    " expectedReturn, " +
                                    " 1.0 as weight " +
-                                   " FROM invdb.sec_prime_asset_group " +
+                                   " FROM sec_prime_asset_group " +
                                    " WHERE  theme = '" + theme + "' "  +
                                    " AND status in ('A') " +
                                    " ORDER BY ticker, sortorder");
@@ -338,10 +338,10 @@ public class HolisticModelOptimizer
 
          double[][] tWeight = new double[tickers.length][1];
          for (int i = 0; i < tickers.length; i++) {
-
                tWeight[i][0] = weights[500][i];
          }
 
+         //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
          for (String pAssetClass : allPrimeAssetMap.keySet()) {
 
             pCol = 0;
@@ -353,7 +353,6 @@ public class HolisticModelOptimizer
 
               pCol++;
             }
-
             pRow++;
          }
 
