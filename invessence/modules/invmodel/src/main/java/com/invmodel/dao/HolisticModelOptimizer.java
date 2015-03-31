@@ -208,7 +208,6 @@ public class HolisticModelOptimizer
       statement.executeQuery("SELECT ticker, daily_return FROM vw_daily_returns_Holistc_Model " + whereStatement +" order by ticker, seqno desc");
       resultSet = statement.getResultSet();
       resultSet.beforeFirst();
-      int retCount = 0;
       while (resultSet.next())
       {
          String ticker = resultSet.getString("ticker");
@@ -217,15 +216,14 @@ public class HolisticModelOptimizer
          if (holisticdataMap.containsKey(ticker))
          {
             holisticdataMap.get(ticker).getReturns().add(daily_return);
-            retCount++;
-            holisticdataMap.get(ticker).setMaxReturns(retCount);
+            holisticdataMap.get(ticker).setMaxReturns(holisticdataMap.get(ticker).getMaxReturns() + 1);
          }
          else
          {
             HolisticData hdata = new HolisticData();
             hdata.getReturns().add(daily_return);
             holisticdataMap.put(ticker, hdata);
-            retCount = 0;
+            holisticdataMap.get(ticker).setMaxReturns(1);
          }
       }
    }
