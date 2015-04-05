@@ -94,6 +94,72 @@ public class ClientData
    private Date beneficiaryDateOfBirth = null;
    private String beneficiaryRelationship = null;
 
+private boolean consultingchecked;
+   private String consultingcheckboxId;
+   private String consultingpai;
+   private String consultingdesc;
+
+   private boolean disabilitychecked;
+   private String disabilitycheckboxId;
+   private String disabilitypai;
+   private String disabilitydesc;
+
+   private boolean inheritancechecked;
+   private String inheritancecheckboxId;
+   private String inheritancepai;
+   private String inheritancedesc;
+
+   private boolean otherchecked;
+   private String othercheckboxId;
+   private String otherpai;
+   private String otherdesc;
+
+   private boolean realestatechecked;
+   private String realestatecheckboxId;
+   private String realestatepai;
+   private String realestatedesc;
+
+   private boolean rentalchecked;
+   private String rentalcheckboxId;
+   private String rentalpai;
+   private String rentaldesc;
+
+   private boolean severancechecked;
+   private String severancecheckboxId;
+   private String severancepai;
+   private String severancedesc;
+
+   private boolean spousechecked;
+   private String spousecheckboxId;
+   private String spousepai;
+   private String spousedesc;
+
+   private boolean tradechecked;
+   private String tradecheckboxId;
+   private String tradepai;
+   private String tradedesc;
+
+   private boolean unemploymentchecked;
+   private String unemploymentcheckboxId;
+   private String unemploymentpai;
+   private String unemploymentdesc;
+
+   private boolean regulatorychecked;
+   private String regulatorycheckboxId;
+   private String regulatoryemployer;
+
+   private boolean regulatorymchecked;
+   private String regulatorymcheckboxId;
+   private boolean regulatorydchecked;
+   private String regulatorydcheckboxId;
+   private boolean regulatorycchecked;
+   private String regulatoryccheckboxId;
+   private boolean regulatorypchecked;
+   private String regulatorypcheckboxId;
+
+   private String editordtext;
+   private String editorctext;
+   private String editorptext;
 
 
    public Long getAcctnum()
@@ -834,5 +900,502 @@ public class ClientData
    {
       this.beneficiaryRelationship = beneficiaryRelationship;
    }
+
+    public boolean isConsultingchecked() {
+      return consultingchecked;
+   }
+
+   public void setConsultingchecked(boolean consultingchecked) {
+      System.out.println("consulting checked :" + consultingchecked);
+      this.consultingchecked = consultingchecked;
+   }
+
+   public String getConsultingcheckboxId()
+   {
+      return consultingcheckboxId;
+   }
+
+   public void setConsultingcheckboxId(String consultingcheckboxId)
+   {
+      this.consultingcheckboxId = consultingcheckboxId;
+   }
+
+   public String getConsultingpai()
+   {
+      return consultingpai;
+   }
+
+   public void setConsultingpai(String consultingpai)
+   {
+      this.consultingpai = consultingpai;
+   }
+
+   public String getConsultingdesc()
+   {
+      return consultingdesc;
+   }
+
+   public void setConsultingdesc(String consultingdesc)
+   {
+      this.consultingdesc = consultingdesc;
+   }
+
+
+   public boolean isDisabilitychecked() {
+      return disabilitychecked;
+   }
+
+   public void setDisabilitychecked(boolean disabilitychecked) {
+      System.out.println("disability checked :" + disabilitychecked);
+      this.disabilitychecked = disabilitychecked;
+   }
+
+   public String getDisabilitycheckboxId()
+   {
+      return disabilitycheckboxId;
+   }
+
+   public void setDisabilitycheckboxId(String disabilitycheckboxId)
+   {
+      this.disabilitycheckboxId = disabilitycheckboxId;
+   }
+
+   public String getDisabilitypai()
+   {
+      return disabilitypai;
+   }
+
+   public void setDisabilitypai(String disabilitypai)
+   {
+      this.disabilitypai = disabilitypai;
+   }
+
+   public String getDisabilitydesc()
+   {
+      return disabilitydesc;
+   }
+
+   public void setDisabilitydesc(String disabilitydesc)
+   {
+      this.disabilitydesc = disabilitydesc;
+   }
+
+   public boolean isInheritancechecked() {
+      return inheritancechecked;
+   }
+
+   public void setInheritancechecked(boolean inheritancechecked) {
+      System.out.println("inheritance checked :" + inheritancechecked);
+      this.inheritancechecked = inheritancechecked;
+   }
+
+   public String getInheritancecheckboxId()
+   {
+      return inheritancecheckboxId;
+   }
+
+   public void setInheritancecheckboxId(String inheritancecheckboxId)
+   {
+      this.inheritancecheckboxId = inheritancecheckboxId;
+   }
+
+   public String getInheritancepai()
+   {
+      return inheritancepai;
+   }
+
+   public void setInheritancepai(String inheritancepai)
+   {
+      this.inheritancepai = inheritancepai;
+   }
+
+   public String getInheritancedesc()
+   {
+      return inheritancedesc;
+   }
+
+   public void setInheritancedesc(String inheritancedesc)
+   {
+      this.inheritancedesc = inheritancedesc;
+   }
+
+   public boolean isOtherchecked() {
+      return otherchecked;
+   }
+
+   public void setOtherchecked(boolean otherchecked) {
+      System.out.println("other checked :" + otherchecked);
+      this.otherchecked = otherchecked;
+   }
+
+   public String getOthercheckboxId()
+   {
+      return othercheckboxId;
+   }
+
+   public void setOthercheckboxId(String othercheckboxId)
+   {
+      this.othercheckboxId = othercheckboxId;
+   }
+
+   public String getOtherpai()
+   {
+      return otherpai;
+   }
+
+   public void setOtherpai(String otherpai)
+   {
+      this.otherpai = otherpai;
+   }
+
+   public String getOtherdesc()
+   {
+      return otherdesc;
+   }
+
+   public void setOtherdesc(String otherdesc)
+   {
+      this.otherdesc = otherdesc;
+   }
+
+   public boolean isRealestatechecked() {
+      return realestatechecked;
+   }
+
+   public void setRealestatechecked(boolean realestatechecked) {
+      System.out.println("real estate checked :" + realestatechecked);
+      this.realestatechecked = realestatechecked;
+   }
+
+   public String getRealestatecheckboxId()
+   {
+      return realestatecheckboxId;
+   }
+
+   public void setRealestatecheckboxId(String realestatecheckboxId)
+   {
+      this.realestatecheckboxId = realestatecheckboxId;
+   }
+
+   public String getRealestatepai()
+   {
+      return realestatepai;
+   }
+
+   public void setRealestatepai(String realestatepai)
+   {
+      this.realestatepai = realestatepai;
+   }
+
+   public String getRealestatedesc()
+   {
+      return realestatedesc;
+   }
+
+   public void setRealestatedesc(String realestatedesc)
+   {
+      this.realestatedesc = realestatedesc;
+   }
+
+   public boolean isRentalchecked() {
+      return rentalchecked;
+   }
+
+   public void setRentalchecked(boolean rentalchecked) {
+      System.out.println("rental checked :" + rentalchecked);
+      this.rentalchecked = rentalchecked;
+   }
+
+   public String getRentalcheckboxId()
+   {
+      return rentalcheckboxId;
+   }
+
+   public void setRentalcheckboxId(String rentalcheckboxId)
+   {
+      this.rentalcheckboxId = rentalcheckboxId;
+   }
+
+   public String getRentalpai()
+   {
+      return rentalpai;
+   }
+
+   public void setRentalpai(String rentalpai)
+   {
+      this.rentalpai = rentalpai;
+   }
+
+   public String getRentaldesc()
+   {
+      return rentaldesc;
+   }
+
+   public void setRentaldesc(String rentaldesc)
+   {
+      this.rentaldesc = rentaldesc;
+   }
+
+   public boolean isSeverancechecked() {
+      return severancechecked;
+   }
+
+   public void setSeverancechecked(boolean severancechecked) {
+      System.out.println("severance checked :" + severancechecked);
+      this.severancechecked = severancechecked;
+   }
+
+   public String getSeverancecheckboxId()
+   {
+      return severancecheckboxId;
+   }
+
+   public void setSeverancechecked(String severancecheckboxId)
+   {
+      this.severancecheckboxId = severancecheckboxId;
+   }
+
+   public String getSeverancepai()
+   {
+      return severancepai;
+   }
+
+   public void setSeverancepai(String severancepai)
+   {
+      this.severancepai = severancepai;
+   }
+
+   public String getSeverancedesc()
+   {
+      return severancedesc;
+   }
+
+   public void setSeverancedesc(String severancedesc)
+   {
+      this.severancedesc = severancedesc;
+   }
+
+   public boolean isSpousechecked() {
+      return spousechecked;
+   }
+
+   public void setSpousechecked(boolean spousechecked) {
+      System.out.println("spouse checked :" + spousechecked);
+      this.spousechecked = spousechecked;
+   }
+
+   public String getSpousecheckboxId()
+   {
+      return spousecheckboxId;
+   }
+
+   public void setSpousecheckboxId(String spousecheckboxId)
+   {
+      this.spousecheckboxId = spousecheckboxId;
+   }
+
+   public String getSpousepai()
+   {
+      return spousepai;
+   }
+
+   public void setSpousepai(String spousepai)
+   {
+      this.spousepai = spousepai;
+   }
+
+   public String getSpousedesc()
+   {
+      return spousedesc;
+   }
+
+   public void setSpousedesc(String spousedesc)
+   {
+      this.spousedesc = spousedesc;
+   }
+
+   public boolean isTradechecked() {
+      return tradechecked;
+   }
+
+   public void setTradechecked(boolean tradechecked) {
+      System.out.println("trade checked :" + tradechecked);
+      this.tradechecked = tradechecked;
+   }
+
+   public String getTradecheckboxId()
+   {
+      return tradecheckboxId;
+   }
+
+   public void setTradecheckboxId(String tradecheckboxId)
+   {
+      this.tradecheckboxId = tradecheckboxId;
+   }
+
+   public String getTradepai()
+   {
+      return tradepai;
+   }
+
+   public void setTradepai(String tradepai)
+   {
+      this.tradepai = tradepai;
+   }
+
+   public String getTradedesc()
+   {
+      return tradedesc;
+   }
+
+   public void setTradedesc(String tradedesc)
+   {
+      this.tradedesc = tradedesc;
+   }
+
+   public boolean isUnemploymentchecked() {
+      return unemploymentchecked;
+   }
+
+   public void setUnemploymentchecked(boolean unemploymentchecked) {
+      System.out.println("unemployment checked :" + unemploymentchecked);
+      this.unemploymentchecked = unemploymentchecked;
+   }
+
+   public String getUnemploymentcheckboxId()
+   {
+      return unemploymentcheckboxId;
+   }
+
+   public void setUnemploymentcheckboxId(String unemploymentcheckboxId)
+   {
+      this.unemploymentcheckboxId = unemploymentcheckboxId;
+   }
+
+   public String getUnemploymentpai()
+   {
+      return unemploymentpai;
+   }
+
+   public void setUnemploymentpai(String unemploymentpai)
+   {
+      this.unemploymentpai = unemploymentpai;
+   }
+
+   public String getUnemploymentdesc()
+   {
+      return unemploymentdesc;
+   }
+
+   public void setUnemploymentdesc(String unemploymentdesc)
+   {
+      this.unemploymentdesc = unemploymentdesc;
+   }
+
+
+   public boolean isRegulatorychecked() {
+      return regulatorychecked;
+   }
+
+   public void setRegulatorychecked(boolean regulatorychecked) {
+      System.out.println("regulatory checked :" + regulatorychecked);
+      this.regulatorychecked = regulatorychecked;
+   }
+
+   public String getRegulatorycheckboxId()
+   {
+      return regulatorycheckboxId;
+   }
+
+   public void setRegulatorycheckboxId(String regulatorycheckboxId)
+   {
+      this.regulatorycheckboxId = regulatorycheckboxId;
+   }
+
+   public String getRegulatoryemployer()
+   {
+      return regulatoryemployer;
+   }
+
+   public void setRegulatoryemployer(String regulatoryemployer)
+   {
+      this.regulatoryemployer = regulatoryemployer;
+   }
+
+
+   public boolean isRegulatorymchecked() {
+      return regulatorymchecked;
+   }
+
+   public void setRegulatorymchecked(boolean regulatorymchecked) {
+      System.out.println("regulatory-m- checked :" + regulatorymchecked);
+      this.regulatorymchecked = regulatorymchecked;
+   }
+
+   public String getRegulatorymcheckboxId()
+   {
+      return regulatorymcheckboxId;
+   }
+
+   public void regulatorymcheckboxId(String regulatorymcheckboxId) {
+      this.regulatorymcheckboxId = regulatorymcheckboxId;
+   }
+
+   public boolean isRegulatorydchecked() {
+      return regulatorydchecked;
+   }
+
+   public void setRegulatorydchecked(boolean regulatorydchecked) {
+      System.out.println("regulatory-d- checked :" + regulatorydchecked);
+      this.regulatorydchecked = regulatorydchecked;
+   }
+
+   public String getRegulatorydcheckboxId()
+   {
+      return regulatorydcheckboxId;
+   }
+
+   public void setRegulatorydcheckboxId(String regulatorydcheckboxId){
+      this.regulatorydcheckboxId = regulatorydcheckboxId;
+   }
+
+
+   public boolean isRegulatorycchecked() {
+      return regulatorycchecked;
+   }
+
+   public void setRegulatorycchecked(boolean regulatorycchecked) {
+      System.out.println("regulatory-c- checked :" + regulatorycchecked);
+      this.regulatorycchecked = regulatorycchecked;
+   }
+
+   public String getRegulatoryccheckboxId()
+   {
+      return regulatoryccheckboxId;
+   }
+
+   public void setRegulatoryccheckboxId(String regulatoryccheckboxId){
+      this.regulatoryccheckboxId = regulatoryccheckboxId;
+   }
+
+
+   public boolean isRegulatorypchecked() {
+      return regulatorypchecked;
+   }
+
+   public void setRegulatorypchecked(boolean regulatorypchecked) {
+      System.out.println("regulatory-p- checked :" + regulatorypchecked);
+      this.regulatorypchecked = regulatorypchecked;
+   }
+
+   public String getRegulatorypcheckboxId()
+   {
+      return regulatorypcheckboxId;
+   }
+
+   public void setRegulatorypcheckboxId(String regulatorypcheckboxId){
+      this.regulatorypcheckboxId = regulatorypcheckboxId;
+   }
+
 
 }

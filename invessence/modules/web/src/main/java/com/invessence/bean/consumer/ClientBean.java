@@ -165,6 +165,69 @@ public class ClientBean extends ClientData implements Serializable
          System.out.println("LOGON ID :" + getLogonid());
          System.out.println("ACCOUNT NUMBER :" + getAcctnum());
          saveDAO.saveClientEmpInfo(this);
+         FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/consumer/sourceofincome.xhtml");
+         result = "success";
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+         result = "failed";
+      }
+      return result;
+   }
+
+   public String saveSourceofIncome()
+   {
+      String result = "success";
+      try
+      {
+         setAcctnum(getAcctnum());
+         setLogonid(webutil.getLogonid());
+         System.out.println("LOGON ID :" + getLogonid());
+         System.out.println("ACCOUNT NUMBER :" + getAcctnum());
+         //saveDAO.saveClientEmpInfo(this);
+         FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/consumer/beneficiary.xhtml");
+         result = "success";
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+         result = "failed";
+      }
+      return result;
+   }
+
+   public String saveBeneficiary()
+   {
+      String result = "success";
+      try
+      {
+         setAcctnum(getAcctnum());
+         setLogonid(webutil.getLogonid());
+         System.out.println("LOGON ID :" + getLogonid());
+         System.out.println("ACCOUNT NUMBER :" + getAcctnum());
+         //saveDAO.saveClientEmpInfo(this);
+         FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/consumer/regulatory.xhtml");
+         result = "success";
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+         result = "failed";
+      }
+      return result;
+   }
+
+   public String saveRegulatoryInfo()
+   {
+      String result = "success";
+      try
+      {
+         setAcctnum(getAcctnum());
+         setLogonid(webutil.getLogonid());
+         System.out.println("LOGON ID :" + getLogonid());
+         System.out.println("ACCOUNT NUMBER :" + getAcctnum());
+         //saveDAO.saveClientEmpInfo(this);
          FacesContext.getCurrentInstance().getExternalContext().redirect("/pages/consumer/personalprofile1.xhtml");
          result = "success";
       }

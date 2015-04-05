@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<f:metadata>
+    <f:viewParam name="acct" value="#{clientBean.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{clientBean.preRenderView}"/>
+</f:metadata>
+<h:body>
+    <ui:composition template="/template/common/responsivelayout.xhtml">
+        <ui:define name="content">
+            <div id="et-main-area">
+                <div id="main-content" class="content_section" style="background-color: #f5f5f5; padding: 5px;">
+                    <div class="entry-content">
+                        <div class="et_pb_section et_section_regular">
+                            <div class="et_pb_row">
+                                <div class="et_pb_column et_pb_column_4_4">
+                                    <div class="et_pb_text et_pb_bg_layout_light et_pb_text_align_left">
+                                        <h:form id="mainform" class="a_1232 nform no_submit_hidden no_save_form placeholder  ltr none spin check_conflict allow_multi three  no_block_label star_ horizontal fc-common" ng-style="{background: con[0].bg_image, width: con[0].fw, borderRadius: con[0].fr+&quot;px&quot;, MozBorderRadius: con[0].fr+&quot;px&quot;, WebkitBorderRadius: con[0].fr+&quot;px&quot;, fontFamily: con[0].formfamily}" style="width: 750px; font-family: 'Helvetica Neue', Arial;">
+                                            <p:panel id="mainPanel" header="Regulatory Information" style="text-align: left; position:relative;">
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Is the account holder or any immediate family member who resides in the same household, registered as a broker-dealer or an employee, director or owner of a securities or commodities brokerage firm, employee of a bank, hedge fund, or other financial services company?"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <h:selectBooleanCheckbox id="regulatorycheckboxId" value="#{clientBean.regulatorychecked}">
+                                                                <f:ajax event="click" render="@form" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p:panel rendered="#{clientBean.regulatorychecked}">
+                                                    <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:outputLabel value="If your employer is listed below, they are participating in our EmployeeTrack program. IB has entered into an agreement with your employer to send your trading activity to your employer. Select your employer to pre-fill the required compliance information and by-pass the 407 letter."/>
+                                                            </div>
+                                                        </li>
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:selectOneMenu id="regulatoryemployer" value="#{clientBean.regulatoryemployer}" style='medium gfield_select' required="false">
+                                                                    <f:selectItem itemLabel="-- Select Employer -- " itemValue="0"/>
+                                                                    <f:selectItem itemLabel="ABG Sundal Collier" itemValue="1" />
+                                                                    <f:selectItem itemLabel="ABN AMRO Clearing Chicago LLC" itemValue="2" />
+                                                                    <f:selectItem itemLabel="ABN AMRO Holding USA LLC" itemValue="3" />
+                                                                    <f:selectItem itemLabel="AIG Asset Management" itemValue="4" />
+                                                                    <f:selectItem itemLabel="AQR Capital Management, LLC" itemValue="5" />
+                                                                    <f:selectItem itemLabel="AXA Advisors" itemValue="6" />
+                                                                    <f:selectItem itemLabel="AXA Investment Managers" itemValue="7" />
+                                                                    <f:selectItem itemLabel="AXA Rosenberg Investment Management LLC" itemValue="8" />
+                                                                    <f:selectItem itemLabel="Active Owners Fund LP" itemValue="9" />
+                                                                    <f:selectItem itemLabel="Advance Capital Management" itemValue="10" />
+                                                                    <f:selectItem itemLabel="Aksia LLC" itemValue="11" />
+                                                                    <f:selectItem itemLabel="Albourne America LLC" itemValue="12" />
+                                                                    <f:selectItem itemLabel="Allen &amp; Company LLC" itemValue="13" />
+                                                                    <f:selectItem itemLabel="Allianz Global Investors Capital" itemValue="14" />
+                                                                    <f:selectItem itemLabel="Allstate Investments" itemValue="15" />
+                                                                    <f:selectItem itemLabel="Allston Trading LLC" itemValue="16" />
+                                                                    <f:selectItem itemLabel="AlpInvest Partners" itemValue="17" />
+                                                                    <f:selectItem itemLabel="Alphagen Securities, LLC, Sallerson-Troob, LLC" itemValue="18" />
+                                                                    <f:selectItem itemLabel="Alpine Woods Capital Investors LLC" itemValue="19" />
+                                                                    <f:selectItem itemLabel="Alyeska Investment Group, L.P." itemValue="20" />
+                                                                    <f:selectItem itemLabel="American Capital" itemValue="21" />
+                                                                    <f:selectItem itemLabel="Amherst Sec Grp Attn Amherst Adv &amp; Mgmt" itemValue="22" />
+                                                                    <f:selectItem itemLabel="Apollo Management Holdings, L.P." itemValue="23" />
+                                                                    <f:selectItem itemLabel="Ariel Investments, LLC" itemValue="24" />
+                                                                    <f:selectItem itemLabel="Aristeia Capital LLC" itemValue="25" />
+                                                                    <f:selectItem itemLabel="Artio Global Management LLC" itemValue="26" />
+                                                                    <f:selectItem itemLabel="Ascend Capital LLC" itemValue="27" />
+                                                                    <f:selectItem itemLabel="Ashford Capital Management, Inc." itemValue="28" />
+                                                                    <f:selectItem itemLabel="Aurora Investment Management L.L.C." itemValue="29" />
+                                                                    <f:selectItem itemLabel="Automated Equity Finance Markets, Inc." itemValue="30" />
+                                                                    <f:selectItem itemLabel="Avatar Securities, LLC" itemValue="31" />
+                                                                    <f:selectItem itemLabel="BARCLAYS CAPITAL INC." itemValue="32" />
+                                                                    <f:selectItem itemLabel="BC Ziegler and Company" itemValue="33" />
+                                                                    <f:selectItem itemLabel="BDS Trading LLC" itemValue="34" />
+                                                                    <f:selectItem itemLabel="BMO Capital Markets" itemValue="35" />
+                                                                    <f:selectItem itemLabel="BNP Paribas Investment Partners USA Holdings, Inc." itemValue="36" />
+                                                                    <f:selectItem itemLabel="BNP Paribas SA" itemValue="37" />
+                                                                    <f:selectItem itemLabel="BNY ConvergEx" itemValue="38" />
+                                                                    <f:selectItem itemLabel="BNY Mellon" itemValue="39" />
+                                                                    <f:selectItem itemLabel="BTIG, LLC" itemValue="40" />
+                                                                    <f:selectItem itemLabel="Babson Capital Management LLC" itemValue="41" />
+                                                                    <f:selectItem itemLabel="Bain Capital" itemValue="42" />
+                                                                    <f:selectItem itemLabel="Balyasny Asset Management, L.P." itemValue="43" />
+                                                                    <f:selectItem itemLabel="Bank of America" itemValue="44" />
+                                                                    <f:selectItem itemLabel="Baron Capital, Inc." itemValue="45" />
+                                                                    <f:selectItem itemLabel="Barrow, Hanley, Mewhinney &amp; Strauss" itemValue="46" />
+                                                                    <f:selectItem itemLabel="Batterymarch Financial Mgmt., Inc." itemValue="47" />
+                                                                    <f:selectItem itemLabel="Bennett Management Corporation" itemValue="48" />
+                                                                    <f:selectItem itemLabel="Black River Asset Management LLC" itemValue="49" />
+                                                                    <f:selectItem itemLabel="BlackRock" itemValue="50" />
+                                                                    <f:selectItem itemLabel="BlackRock (Hong Kong) Limited" itemValue="51" />
+                                                                    <f:selectItem itemLabel="BlackRock (Singapore) Limited" itemValue="52" />
+                                                                    <f:selectItem itemLabel="Blue River Partners, LLC" itemValue="53" />
+                                                                    <f:selectItem itemLabel="Bracebridge Capital, LLC" itemValue="54" />
+                                                                    <f:selectItem itemLabel="Brandywine Global Investment Management LLC" itemValue="55" />
+                                                                    <f:selectItem itemLabel="Bridge Capital Associates, Inc." itemValue="56" />
+                                                                    <f:selectItem itemLabel="Bridgewater Associates, Inc" itemValue="57" />
+                                                                    <f:selectItem itemLabel="Brookfield Investment Management Inc" itemValue="58" />
+                                                                    <f:selectItem itemLabel="Bryn Mawr Capital Management, Inc." itemValue="59" />
+                                                                    <f:selectItem itemLabel="CMZ Trading LLC" itemValue="60" />
+                                                                    <f:selectItem itemLabel="Cambridge Associates, LLC" itemValue="61" />
+                                                                    <f:selectItem itemLabel="CarVal Investors, LLC" itemValue="62" />
+                                                                    <f:selectItem itemLabel="Carlson Capital" itemValue="63" />
+                                                                    <f:selectItem itemLabel="Cedar Hill Capital Partners, LLC" itemValue="64" />
+                                                                    <f:selectItem itemLabel="Centaurus  Financial Inc." itemValue="65" />
+                                                                    <f:selectItem itemLabel="Cerberus Capital Management, L.P." itemValue="66" />
+                                                                    <f:selectItem itemLabel="Chapdelaine &amp; Co." itemValue="67" />
+                                                                    <f:selectItem itemLabel="Chicago Board Options Exchange, Incorporated" itemValue="68" />
+                                                                    <f:selectItem itemLabel="Chicago Trading Company" itemValue="69" />
+                                                                    <f:selectItem itemLabel="Chilton Investment Company, LLC" itemValue="70" />
+                                                                    <f:selectItem itemLabel="Chopper Securities LLC" itemValue="71" />
+                                                                    <f:selectItem itemLabel="Clayton, Dubilier &amp; Rice, LLC" itemValue="72" />
+                                                                    <f:selectItem itemLabel="ClearBridge Investments" itemValue="73" />
+                                                                    <f:selectItem itemLabel="Clinton Group, Inc" itemValue="74" />
+                                                                    <f:selectItem itemLabel="Cohen &amp; Steers" itemValue="75" />
+                                                                    <f:selectItem itemLabel="Collins Stewart LLC" itemValue="76" />
+                                                                    <f:selectItem itemLabel="Commerzbank AG" itemValue="77" />
+                                                                    <f:selectItem itemLabel="Concordia Advisors LLC" itemValue="78" />
+                                                                    <f:selectItem itemLabel="Consolidated Trading LLC" itemValue="79" />
+                                                                    <f:selectItem itemLabel="Copia Capital LLC" itemValue="80" />
+                                                                    <f:selectItem itemLabel="Cornerstone Macro LP" itemValue="81" />
+                                                                    <f:selectItem itemLabel="Cornerstone Trading LLC" itemValue="82" />
+                                                                    <f:selectItem itemLabel="Cortina Asset Management, LLC" itemValue="83" />
+                                                                    <f:selectItem itemLabel="Crabel Capital Management, LLC" itemValue="84" />
+                                                                    <f:selectItem itemLabel="Credit Agricole Securities (USA) Inc." itemValue="85" />
+                                                                    <f:selectItem itemLabel="Credit Suisse (Hong Kong) Limited" itemValue="86" />
+                                                                    <f:selectItem itemLabel="Crosslink Capital" itemValue="87" />
+                                                                    <f:selectItem itemLabel="Crown Capital Securities, L.P." itemValue="88" />
+                                                                    <f:selectItem itemLabel="Cutler Group LP" itemValue="89" />
+                                                                    <f:selectItem itemLabel="Cyrus Capital Partners, L.P." itemValue="90" />
+                                                                    <f:selectItem itemLabel="D. E. Shaw &amp; Co., L.P." itemValue="91" />
+                                                                    <f:selectItem itemLabel="Dealerweb Inc." itemValue="92" />
+                                                                    <f:selectItem itemLabel="Diligentia Capital, LLC" itemValue="93" />
+                                                                    <f:selectItem itemLabel="Diversified Global Asset Management" itemValue="94" />
+                                                                    <f:selectItem itemLabel="Dixon Hughes Wealth Advisors LLC" itemValue="95" />
+                                                                    <f:selectItem itemLabel="Driehaus Capital Management LLC" itemValue="96" />
+                                                                    <f:selectItem itemLabel="Duff &amp; Phelps" itemValue="97" />
+                                                                    <f:selectItem itemLabel="EIG Managment Company, LLC" itemValue="98" />
+                                                                    <f:selectItem itemLabel="Edoma Partners LLP" itemValue="99" />
+                                                                    <f:selectItem itemLabel="Ellington Management Group" itemValue="100" />
+                                                                    <f:selectItem itemLabel="Emrose Capital, LLC" itemValue="101" />
+                                                                    <f:selectItem itemLabel="Eton Park Capital Management, L.P&gt;" itemValue="102" />
+                                                                    <f:selectItem itemLabel="Evercore Group LLC" itemValue="103" />
+                                                                    <f:selectItem itemLabel="FINRA" itemValue="104" />
+                                                                    <f:selectItem itemLabel="First Allied Securities, Inc." itemValue="105" />
+                                                                    <f:selectItem itemLabel="First Eagle Investment Management" itemValue="106" />
+                                                                    <f:selectItem itemLabel="First New York Securities LLC" itemValue="107" />
+                                                                    <f:selectItem itemLabel="First Reserve Corporation, L.L.C." itemValue="108" />
+                                                                    <f:selectItem itemLabel="First Trust Portfolios L.P." itemValue="109" />
+                                                                    <f:selectItem itemLabel="Fitch" itemValue="110" />
+                                                                    <f:selectItem itemLabel="Fort Sheridan Advisors LLC" itemValue="111" />
+                                                                    <f:selectItem itemLabel="Fox River Execution Technology, LLC" itemValue="112" />
+                                                                    <f:selectItem itemLabel="Franklin Templeton Investments" itemValue="113" />
+                                                                    <f:selectItem itemLabel="GM Asset Management" itemValue="114" />
+                                                                    <f:selectItem itemLabel="Gar Wood Securities, LLC" itemValue="115" />
+                                                                    <f:selectItem itemLabel="General Electric Company" itemValue="116" />
+                                                                    <f:selectItem itemLabel="Gleacher &amp; Company Securities, Inc." itemValue="117" />
+                                                                    <f:selectItem itemLabel="Glenview Capital" itemValue="118" />
+                                                                    <f:selectItem itemLabel="Global Endowment Management, LP" itemValue="119" />
+                                                                    <f:selectItem itemLabel="GoldenTree Asset Management  LP" itemValue="120" />
+                                                                    <f:selectItem itemLabel="Guggenheim Partners" itemValue="121" />
+                                                                    <f:selectItem itemLabel="HRT Financial LLC" itemValue="122" />
+                                                                    <f:selectItem itemLabel="HSBC Securities (USA) Inc." itemValue="123" />
+                                                                    <f:selectItem itemLabel="Halcyon Asset Management LLC" itemValue="124" />
+                                                                    <f:selectItem itemLabel="Harbinger Capital Partners LLC" itemValue="125" />
+                                                                    <f:selectItem itemLabel="HealthCor Management LLP" itemValue="126" />
+                                                                    <f:selectItem itemLabel="Hellman &amp; Friedman LLC" itemValue="127" />
+                                                                    <f:selectItem itemLabel="Hillgate Financial, LLC" itemValue="128" />
+                                                                    <f:selectItem itemLabel="Horizon Kinetics LLC" itemValue="129" />
+                                                                    <f:selectItem itemLabel="Houlihan Lokey" itemValue="130" />
+                                                                    <f:selectItem itemLabel="Hovde Group LLC" itemValue="131" />
+                                                                    <f:selectItem itemLabel="IMC Europe" itemValue="132" />
+                                                                    <f:selectItem itemLabel="IMC USA" itemValue="133" />
+                                                                    <f:selectItem itemLabel="Infinium Securities, LLC" itemValue="134" />
+                                                                    <f:selectItem itemLabel="Insight Venture Management, LLC" itemValue="135" />
+                                                                    <f:selectItem itemLabel="Interactive Brokers Canada Inc." itemValue="136" />
+                                                                    <f:selectItem itemLabel="Interactive Brokers Corp." itemValue="137" />
+                                                                    <f:selectItem itemLabel="Interactive Brokers LLC" itemValue="138" />
+                                                                    <f:selectItem itemLabel="International Securities Exchange" itemValue="139" />
+                                                                    <f:selectItem itemLabel="JF Asset Management" itemValue="140" />
+                                                                    <f:selectItem itemLabel="JPMorgan Chase" itemValue="141" />
+                                                                    <f:selectItem itemLabel="Jefferies &amp; Company" itemValue="142" />
+                                                                    <f:selectItem itemLabel="John Hancock Financial Services" itemValue="143" />
+                                                                    <f:selectItem itemLabel="KPS Capital Partners, L.P." itemValue="144" />
+                                                                    <f:selectItem itemLabel="Karsch Capital Management" itemValue="145" />
+                                                                    <f:selectItem itemLabel="Kenmar Group Inc." itemValue="146" />
+                                                                    <f:selectItem itemLabel="Khronos LLC" itemValue="147" />
+                                                                    <f:selectItem itemLabel="King Street Capital Management, L.P." itemValue="148" />
+                                                                    <f:selectItem itemLabel="Kohlberg Kravis Roberts &amp; Co." itemValue="149" />
+                                                                    <f:selectItem itemLabel="LPL Financial" itemValue="150" />
+                                                                    <f:selectItem itemLabel="Lazard Capital Markets LLC" itemValue="151" />
+                                                                    <f:selectItem itemLabel="Lazard Freres &amp; Co. LLC" itemValue="152" />
+                                                                    <f:selectItem itemLabel="Lee Equity Partners, LLC" itemValue="153" />
+                                                                    <f:selectItem itemLabel="Lighthouse Investment Partners, LLC" itemValue="154" />
+                                                                    <f:selectItem itemLabel="Linden Advisors LP" itemValue="155" />
+                                                                    <f:selectItem itemLabel="Livevol Securities Inc" itemValue="156" />
+                                                                    <f:selectItem itemLabel="Longboard Asset Management LLC" itemValue="157" />
+                                                                    <f:selectItem itemLabel="Lotsoff Capital Management LLC" itemValue="158" />
+                                                                    <f:selectItem itemLabel="Louis Dreyfus Highbridge Energy" itemValue="159" />
+                                                                    <f:selectItem itemLabel="MF Global" itemValue="160" />
+                                                                    <f:selectItem itemLabel="MSCI Barra" itemValue="161" />
+                                                                    <f:selectItem itemLabel="Mackay Shields LLC" itemValue="162" />
+                                                                    <f:selectItem itemLabel="Macquarie Capital" itemValue="163" />
+                                                                    <f:selectItem itemLabel="Makena Capital Management" itemValue="164" />
+                                                                    <f:selectItem itemLabel="Marketspreads Ltd" itemValue="165" />
+                                                                    <f:selectItem itemLabel="Mason Street Advisors" itemValue="166" />
+                                                                    <f:selectItem itemLabel="Massachusetts Mutual Life Insurance Company" itemValue="167" />
+                                                                    <f:selectItem itemLabel="Matrix Capital Management Co" itemValue="168" />
+                                                                    <f:selectItem itemLabel="Maxim Group LLC" itemValue="169" />
+                                                                    <f:selectItem itemLabel="MetLife" itemValue="170" />
+                                                                    <f:selectItem itemLabel="Millennium Partners UK" itemValue="171" />
+                                                                    <f:selectItem itemLabel="Mitsubishi UFJ Securities (USA) Inc." itemValue="172" />
+                                                                    <f:selectItem itemLabel="Mizuho Corporate Bank" itemValue="173" />
+                                                                    <f:selectItem itemLabel="Mizuho Securities USA Inc." itemValue="174" />
+                                                                    <f:selectItem itemLabel="Morningstar, Inc." itemValue="175" />
+                                                                    <f:selectItem itemLabel="Mount Kellett Capital Management LP" itemValue="176" />
+                                                                    <f:selectItem itemLabel="Ned Davis Research, Inc." itemValue="177" />
+                                                                    <f:selectItem itemLabel="New York Life Insurance Co." itemValue="178" />
+                                                                    <f:selectItem itemLabel="Nomura" itemValue="179" />
+                                                                    <f:selectItem itemLabel="Nomura AeJ" itemValue="180" />
+                                                                    <f:selectItem itemLabel="Nomura Asset Management U.S.A. Inc" itemValue="181" />
+                                                                    <f:selectItem itemLabel="Nomura International (Hong Kong) Ltd" itemValue="182" />
+                                                                    <f:selectItem itemLabel="Northwestern Mutual" itemValue="183" />
+                                                                    <f:selectItem itemLabel="Nuveen Investments" itemValue="184" />
+                                                                    <f:selectItem itemLabel="Oaktree Capital Management, L.P." itemValue="185" />
+                                                                    <f:selectItem itemLabel="Och-Ziff Capital Management Group" itemValue="186" />
+                                                                    <f:selectItem itemLabel="One William Street Capital" itemValue="187" />
+                                                                    <f:selectItem itemLabel="Oppenheimer &amp; Co. Inc" itemValue="188" />
+                                                                    <f:selectItem itemLabel="Optiver US LLC" itemValue="189" />
+                                                                    <f:selectItem itemLabel="Orange Capital, LLC" itemValue="190" />
+                                                                    <f:selectItem itemLabel="Pacific Investment Management Company" itemValue="191" />
+                                                                    <f:selectItem itemLabel="Palestra Capital Management" itemValue="192" />
+                                                                    <f:selectItem itemLabel="Parametric Portfolio Associates" itemValue="193" />
+                                                                    <f:selectItem itemLabel="Passport Capital, LLC" itemValue="194" />
+                                                                    <f:selectItem itemLabel="Perry Capital L.L.C." itemValue="195" />
+                                                                    <f:selectItem itemLabel="Phoenix Partners Group" itemValue="196" />
+                                                                    <f:selectItem itemLabel="PineBridge Investments" itemValue="197" />
+                                                                    <f:selectItem itemLabel="Plainfield Asset Management" itemValue="198" />
+                                                                    <f:selectItem itemLabel="Polar Securities Inc" itemValue="199" />
+                                                                    <f:selectItem itemLabel="Principal Global Investors" itemValue="200" />
+                                                                    <f:selectItem itemLabel="Princor Financial Services Corp." itemValue="201" />
+                                                                    <f:selectItem itemLabel="Providence Equity Partners L.L.C." itemValue="202" />
+                                                                    <f:selectItem itemLabel="Raymond James" itemValue="203" />
+                                                                    <f:selectItem itemLabel="Ronin Capital, LLC" itemValue="204" />
+                                                                    <f:selectItem itemLabel="Royal Bank of Scotland" itemValue="205" />
+                                                                    <f:selectItem itemLabel="Royal Capital Management, LLC" itemValue="206" />
+                                                                    <f:selectItem itemLabel="Russell Investments" itemValue="207" />
+                                                                    <f:selectItem itemLabel="Rydex Advisors, LLC" itemValue="208" />
+                                                                    <f:selectItem itemLabel="SAC Capital Advisors, LLC" itemValue="209" />
+                                                                    <f:selectItem itemLabel="Saba Capital Management LP" itemValue="210" />
+                                                                    <f:selectItem itemLabel="Safra Securities LLC." itemValue="211" />
+                                                                    <f:selectItem itemLabel="Sanders Morris Harris Inc" itemValue="212" />
+                                                                    <f:selectItem itemLabel="Sands Capital Management LLC" itemValue="213" />
+                                                                    <f:selectItem itemLabel="Scopia Management Inc" itemValue="214" />
+                                                                    <f:selectItem itemLabel="SeaStone Capital Management, L.P." itemValue="215" />
+                                                                    <f:selectItem itemLabel="Securities America" itemValue="216" />
+                                                                    <f:selectItem itemLabel="Senrigan Capital Group Limited" itemValue="217" />
+                                                                    <f:selectItem itemLabel="Sequoia Capital" itemValue="218" />
+                                                                    <f:selectItem itemLabel="Serica Partners Limited" itemValue="219" />
+                                                                    <f:selectItem itemLabel="Silver Point Capital, LP" itemValue="220" />
+                                                                    <f:selectItem itemLabel="Smith Breeden Associates, Inc" itemValue="221" />
+                                                                    <f:selectItem itemLabel="Spot Trading, LLC" itemValue="222" />
+                                                                    <f:selectItem itemLabel="Standard &amp; Poor&#039;s" itemValue="223" />
+                                                                    <f:selectItem itemLabel="State Street" itemValue="224" />
+                                                                    <f:selectItem itemLabel="Steinberg Asset Management" itemValue="225" />
+                                                                    <f:selectItem itemLabel="Sterling Capital Management LLC" itemValue="226" />
+                                                                    <f:selectItem itemLabel="Stone Point Capital LLC" itemValue="227" />
+                                                                    <f:selectItem itemLabel="Stone Tower Capital" itemValue="228" />
+                                                                    <f:selectItem itemLabel="Sun Trading LLC" itemValue="229" />
+                                                                    <f:selectItem itemLabel="TIAA-CREF" itemValue="230" />
+                                                                    <f:selectItem itemLabel="Taconic Capital Advisors LP" itemValue="231" />
+                                                                    <f:selectItem itemLabel="Teacher Retirement System of Texas" itemValue="232" />
+                                                                    <f:selectItem itemLabel="The Baupost Group, LLC" itemValue="233" />
+                                                                    <f:selectItem itemLabel="The Blackstone Group LP" itemValue="234" />
+                                                                    <f:selectItem itemLabel="The Millburn Corporation" itemValue="235" />
+                                                                    <f:selectItem itemLabel="The Sterling Group, L.P." itemValue="236" />
+                                                                    <f:selectItem itemLabel="Thornburg Investment Management" itemValue="237" />
+                                                                    <f:selectItem itemLabel="Three Zero Three Capital Partners LLC" itemValue="238" />
+                                                                    <f:selectItem itemLabel="Timber Hill LLC" itemValue="239" />
+                                                                    <f:selectItem itemLabel="Tower Research Capital LLC" itemValue="240" />
+                                                                    <f:selectItem itemLabel="TradeLink LLC" itemValue="241" />
+                                                                    <f:selectItem itemLabel="Vantage Financial Partners Limited" itemValue="242" />
+                                                                    <f:selectItem itemLabel="Vensoft LLC" itemValue="243" />
+                                                                    <f:selectItem itemLabel="Virtu Financial Capital Markets" itemValue="244" />
+                                                                    <f:selectItem itemLabel="WFS, LLC" itemValue="245" />
+                                                                    <f:selectItem itemLabel="Walleye Trading LLC" itemValue="246" />
+                                                                    <f:selectItem itemLabel="Weiss Asset Management LP" itemValue="247" />
+                                                                    <f:selectItem itemLabel="Weiss Multi-Strategy Advisers LLC" itemValue="248" />
+                                                                    <f:selectItem itemLabel="Wells Fargo" itemValue="249" />
+                                                                    <f:selectItem itemLabel="Wells Fargo Advisors, LLC" itemValue="250" />
+                                                                    <f:selectItem itemLabel="WestLB AG" itemValue="251" />
+                                                                    <f:selectItem itemLabel="Western Asset Management Company" itemValue="252" />
+                                                                    <f:selectItem itemLabel="Whitebox Advisors, LLC" itemValue="253" />
+                                                                    <f:selectItem itemLabel="WisdomTree" itemValue="254" />
+                                                                    <f:selectItem itemLabel="Wolverine Trading, LLC" itemValue="255" />
+                                                                    <f:selectItem itemLabel="Woodbury Financial Services Inc." itemValue="256" />
+                                                                    <f:selectItem itemLabel="World Equity Group" itemValue="257" />
+                                                                    <f:selectItem itemLabel="Xaraf Management" itemValue="258" />
+                                                                    <f:selectItem itemLabel="Yannix Management LP" itemValue="259" />
+                                                                    <f:selectItem itemLabel="York Capital Management" itemValue="260" />
+                                                                    <f:selectItem itemLabel="millennium management LLC" itemValue="261" />
+                                                                </p:selectOneMenu>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </p:panel>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Is the account holder a member, employee, associated or affiliated person of a regulatory or a self-regulatory organization or exchange?"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <h:selectBooleanCheckbox id="regulatorymcheckboxId" value="#{clientBean.regulatorymchecked}">
+                                                                <f:ajax event="click" render="@form" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Has the account holder ever been the subject of, or initiated litigation, arbitration or any other type of dispute or settlement procedure with another broker or dealer?"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <h:selectBooleanCheckbox id="regulatorydcheckboxId" value="#{clientBean.regulatorydchecked}">
+                                                                <f:ajax event="click" render="@form" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p:panel rendered="#{clientBean.regulatorydchecked}">
+                                                    <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:outputLabel value="Provide details, including the disposition of the litigation, arbitration or procedure:"/>
+                                                            </div>
+                                                        </li>
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:editor id="editord" widgetVar="editordWidget" value="#{clientBeane.editordtext}" />
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </p:panel>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Has the account holder ever been the subject of an investigation or proceeding by any commodities or securities exchange or regulatory authority or self-regulatory authority?"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <h:selectBooleanCheckbox id="regulatoryccheckboxId" value="#{clientBean.regulatorycchecked}">
+                                                                <f:ajax event="click" render="@form" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p:panel rendered="#{clientBean.regulatorycchecked}">
+                                                    <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:outputLabel value="Provide details, including the disposition of the litigation, arbitration or procedure:"/>
+                                                            </div>
+                                                        </li>
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:editor id="editorc" widgetVar="editorcWidget" value="#{clientBeane.editorctext}"  />
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </p:panel>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Is the account holder a director, a 10% shareholder or a policy-making officer of any publicly traded company?"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <h:selectBooleanCheckbox id="regulatorypcheckboxId" value="#{clientBean.regulatorypchecked}">
+                                                                <f:ajax event="click" render="@form" />
+                                                            </h:selectBooleanCheckbox>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p:panel rendered="#{clientBean.regulatorypchecked}">
+                                                    <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:outputLabel value="Provide details, including the disposition of the litigation, arbitration or procedure:"/>
+                                                            </div>
+                                                        </li>
+                                                        <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                            <div>
+                                                                <p:editor id="editorp" widgetVar="editorpWidget" value="#{clientBeane.editorptext}" />
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </p:panel>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_2_1232" class="nform_li ng-scope inline1 left fe_2 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px; position: relative;">
+                                                        <div>
+                                                            <f:facet name="footer">
+                                                                <p:commandButton value="Next" ajax="true" actionListener="#{clientBean.saveRegulatoryInfo}"  icon="ui-icon-check" />
+                                                            </f:facet>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </p:panel>
+                                        </h:form>
+                                    </div> <!-- .et_pb_text -->
+                                </div> <!-- .et_pb_column -->
+                            </div> <!-- .et_pb_row -->
+                        </div> <!-- .et_pb_section -->
+                    </div> <!-- .entry-content -->
+                </div> <!-- #main-content -->
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
