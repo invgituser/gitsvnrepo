@@ -44,6 +44,12 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
          for (Map<String, Object> map : rows)
          {
             Map rs = (Map) rows.get(i);
+            String ticker =  convert.getStrData(rs.get("symbol"));
+            // Ticker test is added, because we are loading some data for display purpose.
+            if (ticker == null || ticker.length() == 0)
+               continue;
+
+            // data is good.
             HoldingData data = new HoldingData();
             if (i == 0) {
                currentHolding.setAcctnum(convert.getLongData(rs.get("acctnum")));
@@ -56,7 +62,6 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
 
             }
             data.setCurrencyPrimary(convert.getStrData(rs.get("currencyPrimary")));
-            String ticker =  convert.getStrData(rs.get("symbol"));
             data.setTicker(ticker);
             data.setDescription(convert.getStrData(rs.get("description")));
             data.setSide(convert.getStrData(rs.get("side")));

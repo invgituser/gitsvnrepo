@@ -63,13 +63,14 @@ public class
    private Double shortExternalGain = 0.0;
    private Double longExternalGain = 0.0;
 
-   private String risk = "M";
    private Integer riskIndex = 0;   // On riskIndex 0 = highest risk, 28 = lowest risk.
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
    private RiskIndex riskdata = new RiskIndex();
 
+   private String riskCalcMethod = "C";  // Choices: C - Consumer, A - Advisor
    private Integer allocationIndex = InvConst.ASSET_DEFAULT_POINT;
    private Integer portfolioIndex = InvConst.PORTFOLIO_DEFAULT_POINT;
+   private Integer meterRiskIndicator = 5;
    private ArrayList<Asset> editableAsset = new ArrayList<Asset>();
    private AssetClass assetData[];
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.
@@ -230,6 +231,28 @@ public class
       determineTaxable(getGoal(), accountType);
       setIblink(accountType);
    }
+
+   public String getDisplayAccountType() {
+      if (accountType == null)
+         return "Retirement";
+      else {
+         if (accountType.toUpperCase().contains("RETIRE"))
+            return  "Retirement";
+         if (accountType.toUpperCase().contains("INCOME"))
+            return "Income";
+         else
+            return "Growth";
+      }
+   }
+
+   public void setDisplayAccountType(String accountType) {
+      if (accountType == null)
+         setAccountType("Retirement");
+      else
+         setAccountType(accountType);
+
+   }
+
 
    public String getTradePreference()
    {
@@ -746,21 +769,17 @@ public class
       }
    }
 
-   public String getRisk()
+   public String getRiskCalcMethod()
    {
-      if (risk == null)
-      {
-         return "M";
-      }
+      if (riskCalcMethod == null)
+         return ("C");
       else
-      {
-         return risk;
-      }
+         return riskCalcMethod;
    }
 
-   public void setRisk(String risk)
+   public void setRiskCalcMethod(String riskCalcMethod)
    {
-      this.risk = risk;
+      this.riskCalcMethod = riskCalcMethod;
    }
 
    public Integer getRiskIndex()
@@ -881,6 +900,7 @@ public class
    public void setAllocationIndex(Integer allocationIndex)
    {
       this.allocationIndex = allocationIndex;
+      determineMeterRisk();
    }
 
    public Integer getPortfolioIndex()
@@ -891,6 +911,31 @@ public class
    public void setPortfolioIndex(Integer portfolioIndex)
    {
       this.portfolioIndex = portfolioIndex;
+      determineMeterRisk();
+   }
+
+   public Integer getMeterRiskIndicator()
+   {
+      return meterRiskIndicator;
+   }
+
+   public void setMeterRiskIndicator(Integer meterRiskIndicator)
+   {
+      this.meterRiskIndicator = meterRiskIndicator;
+   }
+
+   public void determineMeterRisk()
+   {
+      if (portfolioIndex == null || allocationIndex == null)
+         setMeterRiskIndicator(5);
+      else {
+         Integer calc;
+         if (allocationIndex == 0 && portfolioIndex == 0)
+            calc = 1;
+         else
+            calc = (allocationIndex * portfolioIndex) / (allocationIndex + portfolioIndex);
+         setMeterRiskIndicator(calc);
+      }
    }
 
    public AssetClass[] getAssetData()
@@ -1140,7 +1185,7 @@ public class
 
       setAccountTaxable(false); //1 (True) for accountTaxable (False) for nonTaxable
       setTaxrate(0.1);
-      setRisk("M");
+      setRiskCalcMethod("C");
       setDefaultRiskIndex(null);
 
       if (getEditableAsset() != null)

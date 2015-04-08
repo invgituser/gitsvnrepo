@@ -217,8 +217,10 @@ public class RebalanceProcess
 
          for (ProfileData pdata : profileList) {
             advisor = pdata.getAdvisor();
+            pdata.setNumOfAllocation(1);
             Map<String, Asset> asset = loadCurrentAssetAllocation(pdata.getAcctnum());
             loadPortfolio(pdata, pdata.getHorizon());
+            pdata.setNumOfPortfolio(1);
             Portfolio[] newHoldings = pdata.getPortfolioData();
 
             // Now load Excluded subclass if defined by Advisor
@@ -594,6 +596,8 @@ public class RebalanceProcess
                TradeData tdata = new TradeData(advisor,
                                                cHoldings.getClientAccountID(),
                                                cHoldings.getAcctnum(),
+                                               portfolioSecurityData.getAssetclass(),
+                                               portfolioSecurityData.getSubclass(),
                                                ticker,
                                                tShares,
                                                tPrice,
@@ -660,6 +664,8 @@ public class RebalanceProcess
                   TradeData tdata = new TradeData(advisor,
                                                   cHoldings.getClientAccountID(),
                                                   cHoldings.getAcctnum(),
+                                                  portfolioSecurityData.getAssetclass(),
+                                                  portfolioSecurityData.getSubclass(),
                                                   ticker,
                                                   tShares,
                                                   tPrice,
@@ -732,6 +738,8 @@ public class RebalanceProcess
                      TradeData tdata = new TradeData(advisor,
                                                      cHoldings.getClientAccountID(),
                                                      cHoldings.getAcctnum(),
+                                                     holdingData.getAssetclass(),
+                                                     holdingData.getSubclass(),
                                                      holdingData.getTicker(),
                                                      tShares,
                                                      tPrice,
@@ -832,6 +840,8 @@ public class RebalanceProcess
                   tdata = new TradeData(advisor,
                                         cHoldings.getClientAccountID(),
                                          cHoldings.getAcctnum(),
+                                         holdingData.getAssetclass(),
+                                         holdingData.getSubclass(),
                                          holdingData.getTicker(),
                                          tShares,
                                          tPrice,
@@ -894,6 +904,8 @@ public class RebalanceProcess
                TradeData tdata = new TradeData(advisor,
                                                cHoldings.getClientAccountID(),
                                                  cHoldings.getAcctnum(),
+                                                 holdingData.getAssetclass(),
+                                                 holdingData.getSubclass(),
                                                  holdingData.getTicker(),
                                                  tShares,
                                                  tPrice,
@@ -1002,6 +1014,8 @@ public class RebalanceProcess
                                  tdata = new TradeData(advisor,
                                                        cHoldings.getClientAccountID(),
                                                        cHoldings.getAcctnum(),
+                                                       tlhdata.getAssetclass(),
+                                                       tlhdata.getSubclass(),
                                                        tlhTicker,
                                                        tlhShares,
                                                        tlhPrice,
@@ -1089,6 +1103,8 @@ public class RebalanceProcess
          TradeData tdata = new TradeData(advisor,
                                          cHoldings.getClientAccountID(),
                                          cHoldings.getAcctnum(),
+                                         portfolioSecurityData.getAssetclass(),
+                                         portfolioSecurityData.getSubclass(),
                                          ticker,
                                          tShares,
                                          tPrice,
@@ -1136,6 +1152,8 @@ public class RebalanceProcess
             TradeData tdata = new TradeData(advisor,
                                             cHoldings.getClientAccountID(),
                                             cHoldings.getAcctnum(),
+                                            holdingData.getAssetclass(),
+                                            holdingData.getSubclass(),
                                             ticker,
                                             tShares,
                                             tPrice,

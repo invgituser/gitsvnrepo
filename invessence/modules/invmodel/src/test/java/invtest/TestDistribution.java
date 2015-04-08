@@ -72,10 +72,10 @@ public class TestDistribution
       profileData.setTheme("0.Core");
       profileData.setAccountTaxable(false);
 
-      profileData.setAge(50);
+      profileData.setAge(25);
       age = profileData.getAge();
 
-      profileData.setHorizon(30);
+      profileData.setHorizon(35);
       duration = profileData.getHorizon();
 
       // profileData.setAccountTaxable(false);
@@ -86,7 +86,7 @@ public class TestDistribution
       //2 = Go to Cash, 1 = Stay Invested
       profileData.setStayInvested(1);
 
-      profileData.setInitialInvestment(100000);
+      profileData.setInitialInvestment(5500);
       invCapital = profileData.getInitialInvestment();
       profileData.setRecurringInvestment(5000);
 
@@ -97,9 +97,6 @@ public class TestDistribution
       profileData.setNumOfAllocation(duration);
 
 
-
-      profileData.setRisk("M");
-      risk = profileData.getRisk();
 
       //profileData.offsetRiskIndex();
 

@@ -1,15 +1,7 @@
 package com.invmodel.dao;
 
-import java.sql.*;
 import java.util.*;
-import java.util.concurrent.locks.*;
-import java.util.logging.Logger;
-
-import com.invmodel.Const.InvConst;
-import com.invmodel.dao.data.SecurityData;
-import com.invmodel.inputData.CustomAllocation;
 import com.invmodel.rebalance.data.SecurityTLHData;
-import org.apache.commons.dbutils.DbUtils;
 
 
 public class TLHSecurityCollection
@@ -56,7 +48,7 @@ public class TLHSecurityCollection
       }
    }
 
-   public Map loadTLHReverseSecurities() {
+   public Map<String, SecurityTLHData> loadTLHReverseSecurities() {
       Map<String, SecurityTLHData> data = null;
       try
       {
@@ -70,7 +62,7 @@ public class TLHSecurityCollection
       return (data);
    }
 
-   public Map loadTLHSecurities() {
+   public Map<String, SecurityTLHData> loadTLHSecurities() {
       Map<String, SecurityTLHData> data = null;
       try
       {

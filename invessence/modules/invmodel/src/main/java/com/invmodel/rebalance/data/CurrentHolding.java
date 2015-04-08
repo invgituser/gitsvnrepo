@@ -40,7 +40,7 @@ public class CurrentHolding implements Serializable
 
    public Double getCashAvailable()
    {
-      return cashAvailable;
+      return ((cashAvailable == null) ? 0.0 : cashAvailable);
    }
 
    public void setCashAvailable(Double cashAvailable)
@@ -50,9 +50,7 @@ public class CurrentHolding implements Serializable
 
    public Double getShortGains()
    {
-      if (shortGains == null)
-         return 0.0;
-      return shortGains;
+      return ((shortGains == null) ? 0.0 : shortGains);
    }
 
    public void setShortGains(Double shortGains)
@@ -62,9 +60,7 @@ public class CurrentHolding implements Serializable
 
    public Double getLongGains()
    {
-      if (longGains == null)
-         return 0.0;
-      return longGains;
+      return ((longGains == null) ? 0.0 : longGains);
    }
 
    public void setLongGains(Double longGains)
@@ -74,9 +70,7 @@ public class CurrentHolding implements Serializable
 
    public Double getShortLoss()
    {
-      if (shortLoss == null)
-         return 0.0;
-      return shortLoss;
+      return ((shortLoss == null) ? 0.0 : shortLoss);
    }
 
    public void setShortLoss(Double shortLoss)
@@ -86,9 +80,7 @@ public class CurrentHolding implements Serializable
 
    public Double getLongLoss()
    {
-      if (longLoss == null)
-         return 0.0;
-      return longLoss;
+      return ((longLoss == null) ? 0.0 : longLoss);
    }
 
    public void setLongLoss(Double longLoss)
@@ -192,7 +184,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalAllocation()
    {
-      return totalAllocation;
+      return ((totalAllocation == null) ? 0.0 : totalAllocation);
    }
 
    public void setTotalAllocation(Double totalAllocation)
@@ -202,7 +194,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalvalue()
    {
-      return totalvalue;
+      return ((totalvalue == null) ? 0.0 : totalvalue);
    }
 
    public void setTotalvalue(Double totalvalue)
@@ -212,7 +204,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalmoney()
    {
-      return totalmoney;
+      return ((totalmoney == null) ? 0.0 : totalmoney);
    }
 
    public void setTotalmoney(Double totalmoney)
@@ -222,7 +214,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalpnl()
    {
-      return totalpnl;
+      return ((totalpnl == null) ? 0.0 : totalpnl);
    }
 
    public void setTotalpnl(Double totalpnl)
@@ -232,7 +224,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalYield()
    {
-      return totalYield;
+      return ((totalYield == null) ? 0.0 : totalYield);
    }
 
    public void setTotalYield(Double totalYield)
@@ -242,7 +234,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalExpenseRatio()
    {
-      return totalExpenseRatio;
+      return ((totalExpenseRatio == null) ? 0.0 : totalExpenseRatio);
    }
 
    public void setTotalExpenseRatio(Double totalExpenseRatio)
@@ -252,7 +244,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalRisk()
    {
-      return totalRisk;
+      return ((totalRisk == null) ? 0.0 : totalRisk);
    }
 
    public void setTotalRisk(Double totalRisk)
@@ -262,7 +254,7 @@ public class CurrentHolding implements Serializable
 
    public Double getTotalFees()
    {
-      return totalFees;
+      return ((totalFees == null) ? 0.0 : totalFees);
    }
 
    public void setTotalFees(Double totalFees)

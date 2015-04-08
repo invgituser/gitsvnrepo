@@ -70,7 +70,7 @@ public class HoldingData
 
    public Double getLongTimeShares()
    {
-      return longTimeShares;
+      return ((longTimeShares == null) ? 0.0 : longTimeShares);
    }
 
    public void setLongTimeShares(Double longTimeShares)
@@ -80,7 +80,7 @@ public class HoldingData
 
    public Double getShortProceeds()
    {
-      return shortProceeds;
+      return ((shortProceeds == null) ? 0.0 : shortProceeds);
    }
 
    public void setShortProceeds(Double shortProceeds)
@@ -90,7 +90,7 @@ public class HoldingData
 
    public Double getShortTimeShares()
    {
-      return shortTimeShares;
+      return ((shortTimeShares == null) ? 0.0 : shortTimeShares);
    }
 
    public void setShortTimeShares(Double shortTimeShares)
@@ -100,7 +100,7 @@ public class HoldingData
 
    public Boolean isTlhSellLongFlag()
    {
-      return tlhSellLongFlag;
+      return ((tlhSellLongFlag == null) ? false : tlhSellLongFlag);
    }
 
    public void setTlhSellLongFlag(Boolean tlhSellLongFlag)
@@ -110,7 +110,7 @@ public class HoldingData
 
    public Boolean isTlhSellShortFlag()
    {
-      return tlhSellShortFlag;
+      return ((tlhSellShortFlag == null) ? false : tlhSellShortFlag);
    }
 
    public void setTlhSellShortFlag(Boolean tlhSellShortFlag)

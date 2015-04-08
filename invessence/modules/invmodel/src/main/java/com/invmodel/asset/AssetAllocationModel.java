@@ -148,8 +148,8 @@ public class AssetAllocationModel
                }
 
                double factor = (risk_adjustment - wght) * Math.pow(baseNum, powerNum);
+               wght = (wght + factor);
 */
-               //wght = (wght + factor);
 
                if (wght > totalWeight)
                   wght = totalWeight;

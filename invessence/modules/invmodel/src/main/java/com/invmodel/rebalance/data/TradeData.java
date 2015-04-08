@@ -12,6 +12,9 @@ public class TradeData
    private String advisor;
    private String clientAccountID;
    private Long acctnum;
+   private String assetclass;
+   private String subclass;
+   private String color;
    private String ticker;
    private Double qty;
    private Double money;
@@ -35,7 +38,8 @@ public class TradeData
    {
    }
 
-   public TradeData(String advisor, String clientAccountID, Long acctnum, String ticker, Double qty, Double curPrice, Double money,
+   public TradeData(String advisor, String clientAccountID, Long acctnum, String assetclass, String subclass, String ticker,
+                    Double qty, Double curPrice, Double money,
                     String holdingTicker, Double holdingQty, Double holdingPrice, Double holdingValue,
                     Double holdingWeight, Double costBasisValue,
                     String allocTicker, Double allocQty, Double allocPrice, Double allocValue, Double allocWeight,
@@ -44,6 +48,8 @@ public class TradeData
       this.advisor = advisor;
       this.clientAccountID = clientAccountID;
       this.acctnum = acctnum;
+      this.assetclass = assetclass;
+      this.subclass = subclass;
       this.ticker = ticker;
       this.qty = qty;
       this.money = money;
@@ -105,6 +111,36 @@ public class TradeData
    public void setTicker(String ticker)
    {
       this.ticker = ticker;
+   }
+
+   public String getAssetclass()
+   {
+      return assetclass;
+   }
+
+   public void setAssetclass(String assetclass)
+   {
+      this.assetclass = assetclass;
+   }
+
+   public String getSubclass()
+   {
+      return subclass;
+   }
+
+   public void setSubclass(String subclass)
+   {
+      this.subclass = subclass;
+   }
+
+   public String getColor()
+   {
+      return color;
+   }
+
+   public void setColor(String color)
+   {
+      this.color = color;
    }
 
    public Double getQty()
