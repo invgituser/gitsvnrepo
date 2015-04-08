@@ -15,19 +15,50 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import com.invessence.data.ChartInfo;
-import org.primefaces.model.chart.PieChartModel;
+import org.primefaces.model.chart.*;
 
 @ManagedBean
 @RequestScoped
 public class ChartBean2 implements Serializable {
    private List<ChartInfo> chartInfos;
+   private Integer num1, num2, num3;
+
+   public Integer getNum1()
+   {
+      return num1;
+   }
+
+   public void setNum1(Integer num1)
+   {
+      this.num1 = num1;
+   }
+
+   public Integer getNum2()
+   {
+      return num2;
+   }
+
+   public void setNum2(Integer num2)
+   {
+      this.num2 = num2;
+   }
+
+   public Integer getNum3()
+   {
+      return num3;
+   }
+
+   public void setNum3(Integer num3)
+   {
+      this.num3 = num3;
+   }
 
    public ChartBean2() {
       chartInfos = new ArrayList<ChartInfo>();
-      chartInfos.add(new ChartInfo("Dogs", 2, "0x00ff00"));
+      chartInfos.add(new ChartInfo("Dogs", 2, "000000"));
       // Uncomment the following line and everything still works. The birds will still be red.
-      chartInfos.add(new ChartInfo("Cats", 1, "0x0000ff"));
-      chartInfos.add(new ChartInfo("Birds", 1, "0xff0000"));
+      chartInfos.add(new ChartInfo("Cats", 1, "00ABff"));
+      chartInfos.add(new ChartInfo("Birds", 1, "ffffff"));
    }
 
    public List<ChartInfo> getAnimals() {
@@ -53,7 +84,28 @@ public class ChartBean2 implements Serializable {
       for (int i = 0; i < chartInfos.size(); i++) {
          pieModel.set(chartInfos.get(i).getName(), chartInfos.get(i).getCount());
       }
+      //pieModel.setSeriesColors(getChartSeriesColors());
       return pieModel;
+   }
+
+   public MeterGaugeChartModel getMeterGuage() {
+      MeterGaugeChartModel model;
+      List<Number> intervals = new ArrayList<Number>(){{
+         add(1);
+         add(2);
+         add(3);
+         add(4);
+      }};
+      model = new MeterGaugeChartModel(3, intervals);
+/*
+      model.setSeriesColors("66cc66,93b75f,E7E658,cc6666");
+      model.setGaugeLabel("Risk");
+      model.setGaugeLabelPosition("bottom");
+      model.setShowTickLabels(false);
+      model.setLabelHeightAdjust(-25);
+      model.setIntervalOuterRadius(25);
+*/
+      return model;
    }
 
 }

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+
+    <script type="text/javascript" src="/js/invCharts.js"></script>
+
+</h:head>
+
+<h:body>
+<ui:composition template="/template/common/layout.xhtml">
+<ui:define name="content">
+
+
+    <h:form>
+        <p:pieChart value="#{chartBean2.pieModel}"
+            fill="true"
+            style="width: 300px; height: 200px;"
+            extender="pie_extensions"
+            diameter="100"/>
+        <br/>
+        <p:separator/>
+        <p:meterGaugeChart value="#{chartBean2.meterGuage}"
+                 style="width:120px;height:120px"/>
+        <p:separator/>
+        <h3 style="margin-top: 0">Input Text Slider</h3>
+        <h:panelGrid columns="1" style="margin-bottom: 10px">
+            <p:inputText id="txt1" value="#{chartBean2.num1}" />
+            <p:slider for="txt1" />
+        </h:panelGrid>
+
+
+    </h:form>
+
+</ui:define>>
+</ui:composition>
+
+</h:body>
+</html>
