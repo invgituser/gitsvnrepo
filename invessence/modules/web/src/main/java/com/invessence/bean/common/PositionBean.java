@@ -401,8 +401,9 @@ public class PositionBean implements Serializable
 
    private void createPieModel()
    {
-      String color;
+      String seriescolor = "";
       this.pieModel = new PieChartModel();
+      int count = 0;
       if (managedAssetsMap.size() > 0)
       {
          pieIsValid = "true";
@@ -414,10 +415,16 @@ public class PositionBean implements Serializable
                Double displayWeight = asset.getHoldingweight();
                String label = name + " - " + dconveter.displayAsPercent(displayWeight);
                pieModel.set(label, displayWeight);
-               color = asset.getColor();  //.replace('#',' ');
-               color.trim();
+               //color = asset.getColor();  //.replace('#',' ');
+               //color.trim();
+               if (count == 0)
+                  seriescolor = asset.getColor().replace('#',' ').trim();
+               else
+                  seriescolor += ", " + asset.getColor().replace('#',' ').trim();
+               count++;
             }
          }
+         // pieModel.setSeriesColors(seriescolor);
       }
    }
 

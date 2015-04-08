@@ -80,13 +80,13 @@
                     </p:dataTable>
 
                 </p:column>
-                <p:column colspan="4" style="text-align:left;">
+                <p:column colspan="4" style="text-align:left; vertical-align: middle;">
                     <p:pieChart rendered="#{positionBean.pieModel == null ? false : true}"
-                                value="#{positionBean.pieModel}"
-                                fill="true" seriesColors="009ABB, CFD449, 93A9CF, FF9966, FFFFCC, FFFFFF, AED157"
-                                style="width: 300px; height: 200px;"
-                                extender="pie_extensions"
-                                diameter="150"/>
+                             value="#{positionBean.pieModel}"
+                             seriesColors="009ABB, CFD449, 93A9CF, FF9966, FFFFCC, FFFFFF, AED157"
+                             fill="true" extender="pie_extensions"
+                             style="width: 300px; height: 200px;"
+                             diameter="150"/>
                 </p:column>
             </p:row>
         </p:panelGrid>
@@ -135,20 +135,20 @@
         <p:dataTable id="dataTable" var="position" value="#{positionBean.displayPositionList}" styleClass="invDataTable">
 
             <p:column headerText="Asset"
-                      style="width:95px; text-align: left;
+                      style="width:85px; text-align: left;
                                       background-color: #{position.color}">
                 <h:outputText value="#{position.assetclass}"/>
             </p:column>
             <p:column headerText="Ticker"
-                      style="width:46px; text-align: left">
+                      style="width:42px; text-align: left">
                 <h:outputText value="#{position.ticker}"/>
             </p:column>
             <p:column headerText="Description"
-                      style="width:300px; text-align: left;">
+                      style="width:270px; text-align: left;">
                 <h:outputText value="#{position.description}"/>
             </p:column>
             <p:column headerText="Shares"
-                      style="width:39px; text-align: right">
+                      style="width:35px; text-align: right">
                 <h:outputText value="#{position.qty}">
                     <f:convertNumber pattern="###,###,###"/>
                 </h:outputText>
@@ -160,33 +160,33 @@
                 </h:outputText>
             </p:column>
             <p:column headerText="Purchased"
-                      style="width:80px; text-align: right" resizable="true">
+                      style="width:70px; text-align: right" resizable="true">
                 <h:outputText value="#{position.costBasisPrice}">
                     <f:convertNumber type="currency" currencySymbol="$"/>
                 </h:outputText>
             </p:column>
             <p:column headerText="Cost Basis"
-                      style="width:100px; text-align: right" resizable="true">
+                      style="width:90px; text-align: right" resizable="true">
                 <h:outputText value="#{position.costBasisMoney}">
                     <f:convertNumber type="currency" currencySymbol="$"/>
                 </h:outputText>
             </p:column>
             <p:column headerText="Mark Price"
-                      style="width:90px; text-align: right"
+                      style="width:70px; text-align: right"
                       resizable="true">
                 <h:outputText value="#{position.markPrice}">
                     <f:convertNumber type="currency" currencySymbol="$"/>
                 </h:outputText>
             </p:column>
             <p:column headerText="Current Value"
-                      style="width:100px; text-align: right"
+                      style="width:90px; text-align: right"
                       resizable="true">
                 <h:outputText value="#{position.positionValue}">
                     <f:convertNumber type="currency" currencySymbol="$"/>
                 </h:outputText>
             </p:column>
             <p:column headerText="Gain/Loss"
-                      style="width:90px; text-align: right"
+                      style="width:50px; text-align: right"
                       resizable="true">
                 <h:outputText value="#{position.fifoPnlUnrealized}">
                     <f:convertNumber type="currency" currencySymbol="$"/>

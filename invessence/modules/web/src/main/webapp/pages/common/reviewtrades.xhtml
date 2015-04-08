@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+ <p:dialog header="Trade Detail" widgetVar="reviewDetailDialog" modal="true" showEffect="fade" hideEffect="fade"
+          resizable="true" styleClass="invDialog" Style="top:100px">
+     <p:panel>
+         <p:scrollPanel id="reviewDetailView" mode="native" style="width:650px;height:500px;">
+             <p:panelGrid styleClass="invNBgrid">
+                 <p:row>
+                     <p:column style="text-align: left; padding-right: 10px">
+                         <h:outputLabel styleClass="invDisplayData" value="Account:"/>
+                     </p:column>
+                     <p:column style="text-align: left; padding-right: 10px">
+                         <h:outputLabel styleClass="invDisplayData" value="#{tradeBean.selectedTradeSummary.clientAccountID}"/>
+                     </p:column>
+                     <p:column style="text-align: left; padding-right: 10px">
+                         <h:outputLabel styleClass="invDisplayData" value="( #{tradeBean.selectedTradeSummary.acctnum} )"/>
+                     </p:column>
+                     <p:column style="text-align: left; padding-right: 10px">
+                         <h:outputLabel styleClass="invDisplayData" value="#{tradeBean.selectedTradeSummary.fullName}"/>
+                     </p:column>
+                 </p:row>
+             </p:panelGrid>
+
+             <p:separator/>
+             <p:fieldset legend="Overview" collapsed="true" toggleable="true" toggleSpeed="500">
+                 <p:panel styleClass="invNBgrid">
+                     <p:dataTable id="editAlloc" styleClass="invAllocTable"
+                                  value="#{tradeBean.selectedTradeSummary.managedList}"
+                                  var="assetList">
+
+                         <f:facet name="header">
+                             Asset Allocation
+                         </f:facet>
+
+                         <p:columnGroup type="header">
+                             <p:row>
+                                 <p:column rowspan="2" headerText="Asset" />
+                                 <p:column colspan="2" headerText="Current Holding" />
+                                 <p:column colspan="2" headerText="Rebalanced Holding" />
+                             </p:row>
+                             <p:row>
+                                 <p:column headerText="Weight" />
+                                 <p:column headerText="Value" />
+                                 <p:column headerText="Weight" />
+                                 <p:column headerText="Value" />
+                             </p:row>
+                         </p:columnGroup>
+
+                         <p:column style="text-align: center;background-color: #{assetList.color};">
+                             <h:outputText value="#{assetList.asset}"/>
+                         </p:column>
+
+                         <p:column style="text-align: right;">
+                             <h:outputText value="#{assetList.holdingValue / tradeBean.selectedTradeSummary.totalHoldingValue}" style="text-align: right">
+                                 <f:convertNumber pattern="##0.00%"/>
+                             </h:outputText>
+                         </p:column>
+                         <p:column style="text-align: right;">
+                             <h:outputText value="#{assetList.holdingValue}" style="text-align: right">
+                                 <f:convertNumber type="currency" currencySymbol="$"/>
+                             </h:outputText>
+                         </p:column>
+
+                         <p:column style="text-align: right; background-color: #f5f5f5">
+                             <h:outputText value="#{assetList.value / tradeBean.selectedTradeSummary.totalNewValue}" style="text-align: right;">
+                                 <f:convertNumber pattern="##0.00%"/>
+                             </h:outputText>
+                         </p:column>
+                         <p:column style="text-align: right; background-color: #f5f5f5">
+                             <h:outputText value="#{assetList.value}" style="text-align: right;">
+                                 <f:convertNumber type="currency" currencySymbol="$"/>
+                             </h:outputText>
+                         </p:column>
+
+                         <p:columnGroup type="footer">
+                             <p:row>
+                                 <p:column footerText="Total" style="text-align:center"/>
+                                 <p:column colspan="2" style="text-align:right"
+                                           footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalHoldingValue)}">
+                                 </p:column>
+                                 <p:column colspan="2" style="text-align:right"
+                                           footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalNewValue)}">
+                                 </p:column>
+                             </p:row>
+                         </p:columnGroup>
+                     </p:dataTable>
+
+                 </p:panel>
+             </p:fieldset>
+             <p:fieldset legend="Detail" collapsed="true" toggleable="true" toggleSpeed="500">
+                 <p:dataTable id="dataTable" var="tradedata" value="#{tradeBean.selectedTradeSummary.tradeData}" styleClass="invDataTable">
+
+                     <f:facet name="header">
+                         Trade Details
+                     </f:facet>
+
+                     <p:columnGroup type="header">
+                         <p:row>
+                             <p:column colspan="2" headerText="Info" />
+                             <p:column colspan="3" headerText="Rebalanced Trades" />
+                             <p:column colspan="2" headerText="Current Holding" />
+                             <p:column headerText="Trade" />
+                         </p:row>
+                         <p:row>
+                             <p:column headerText="Asset" />
+                             <p:column headerText="Ticker" />
+                             <p:column headerText="Shares" />
+                             <p:column headerText="Price" />
+                             <p:column headerText="Value" />
+                             <p:column headerText="Shares" />
+                             <p:column headerText="Value" />
+                             <p:column headerText="Difference" />
+                         </p:row>
+                     </p:columnGroup>
+                     <p:column style="width:95px; text-align: left; background-color: #{tradedata.color}">
+                         <h:outputText value="#{tradedata.assetclass}"/>
+                     </p:column>
+                     <p:column style="width:46px; text-align: left">
+                         <h:outputText value="#{tradedata.ticker}"/>
+                     </p:column>
+                     <p:column style="width:39px; text-align: right">
+                         <h:outputText value="#{tradedata.qty}">
+                             <f:convertNumber pattern="###,###,###"/>
+                         </h:outputText>
+                     </p:column>
+                     <p:column style="width:80px; text-align: right" resizable="true">
+                         <h:outputText value="#{tradedata.curPrice}">
+                             <f:convertNumber type="currency" currencySymbol="$"/>
+                         </h:outputText>
+                     </p:column>
+                     <p:column style="width:100px; text-align: right" resizable="true">
+                         <h:outputText value="#{tradedata.money}">
+                             <f:convertNumber type="currency" currencySymbol="$"/>
+                         </h:outputText>
+                     </p:column>
+
+                     <p:column style="width:39px; text-align: right">
+                         <h:outputText value="#{tradedata.holdingQty}">
+                             <f:convertNumber pattern="###,###,###"/>
+                         </h:outputText>
+                     </p:column>
+                     <p:column style="width:100px; text-align: right; " resizable="true">
+                         <h:outputText value="#{tradedata.holdingValue}">
+                             <f:convertNumber type="currency" currencySymbol="$"/>
+                         </h:outputText>
+                     </p:column>
+                     <p:column style="width:100px; text-align: right; " resizable="true">
+                         <h:outputText value="#{tradedata.holdingValue == 0 ? 1.00 : tradedata.money / tradedata.holdingValue}">
+                             <f:convertNumber pattern="#,###.00%"/>
+                         </h:outputText>
+                     </p:column>
+
+                     <p:columnGroup type="footer">
+                         <p:row>
+                             <p:column colspan="4" footerText="Total" style="text-align:left"/>
+
+                             <p:column colspan="1" footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalNewValue)}" style="text-align:right"/>
+                             <p:column colspan="1" footerText="" style="text-align:left"/>
+                             <p:column colspan="1" footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalHoldingValue)}" style="text-align:right"/>
+                             <p:column colspan="1" footerText="" style="text-align:left"/>
+                         </p:row>
+                     </p:columnGroup>
+
+                 </p:dataTable>
+             </p:fieldset>
+
+         </p:scrollPanel>
+         <p:commandButton value="Close"
+                          oncomplete="PF('reviewDetailDialog').hide();"/>
+
+     </p:panel>
+
+</p:dialog>
+
+
+
+</h:body>
+</html>

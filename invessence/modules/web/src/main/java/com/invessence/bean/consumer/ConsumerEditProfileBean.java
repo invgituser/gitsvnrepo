@@ -13,7 +13,10 @@ import com.invessence.dao.consumer.*;
 import com.invessence.data.advisor.AdvisorData;
 import com.invessence.data.common.*;
 import com.invessence.util.*;
-import org.primefaces.event.SlideEndEvent;
+import com.invmodel.Const.InvConst;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.*;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,12 +31,12 @@ import org.primefaces.event.SlideEndEvent;
 public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 {
    private Long  beanAcctnum;
-   private Boolean allocationMode;
    private Boolean disablegraphtabs = true
       , disabledetailtabs = true
       , disablesaveButton = true;
 
    private Boolean formEdit = true;
+   private Integer imageSelected = 0;
 
    private WebUtil webutil = new WebUtil();
    private Charts charts = new Charts();
@@ -93,6 +96,11 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       return charts;
    }
 
+   public Integer getImageSelected()
+   {
+      return imageSelected;
+   }
+
    public void preRenderView()
    {
 
@@ -105,6 +113,12 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             else {
                loadNewClientData();
             }
+
+            if (webutil.hasAccess("Advisor") || webutil.hasAccess("Admin"))
+               setRiskCalcMethod("A");
+            else
+               setRiskCalcMethod("C");
+
             formEdit = false;
          }
       }
@@ -150,6 +164,47 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       }
    }
 
+   public void selectedAccountType(Integer item) {
+      formEdit = true;
+
+      if (item == null)
+         item = 0;
+
+      imageSelected = item;
+      switch (imageSelected) {
+         case 0:
+            setAccountType("Retirement");
+            if (getAge() == null)
+               setHorizon(20);
+            else if (getAge() < 65)
+               setHorizon(65 - getAge());
+            else
+               setHorizon(2);
+            break;
+         case 1:
+            setAccountType("Growth");
+            break;
+         case 2:
+            setAccountType("Income");
+            break;
+         default:
+            setAccountType("Retirement");
+      }
+
+      if (getAccountType().toUpperCase().contains("INCOME")) {
+         setTheme("0.Income");
+      }
+      else {
+         setTheme(InvConst.DEFAULT_THEME);
+         if (getAccountType().toUpperCase().contains("SAFETY"))
+            setHorizon(3);
+         else
+            setHorizon(20);
+      }
+      loadBasketInfo();
+      createAssetPortfolio(1);
+   }
+
    public void selectedAccountType() {
       formEdit = true;
 
@@ -168,7 +223,15 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             setHorizon(20);
       }
       loadBasketInfo();
-      refresh();
+      createAssetPortfolio(1);
+   }
+
+   public void handleFileUpload(FileUploadEvent event) {
+      setExternalPositionFile(event.getFile().getFileName());
+   }
+
+   public void askRiskQuestions() {
+      RequestContext.getCurrentInstance().openDialog("riskQuestionDialog");
    }
 
    public void selectedActionBasket() {
@@ -229,14 +292,39 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       }
    }
 
-   public void allocSlider(SlideEndEvent event) {
+/*
+   public void onAllocSlider(ValueChangeEvent event) {
+      if (event.getNewValue() == null)
+      {
+         return;
+      }
+
+      setRiskCalcMethod("A");
+      createAssetPortfolio(1);
+
+   }
+
+   public void onPortfolioSlider(ValueChangeEvent event) {
+      if (event.getNewValue() == null)
+      {
+         return;
+      }
+
+      setRiskCalcMethod("A");
+      createPortfolio(1);
+   }
+*/
+
+   public void onAllocSlider(SlideEndEvent event) {
       setAge(event.getValue());
+      setRiskCalcMethod("A");
       setAllocationIndex(event.getValue());
       createAssetPortfolio(1);
    }
 
-   public void portfolioSlider(SlideEndEvent event) {
+   public void onPortfolioSlider(SlideEndEvent event) {
       //setDefaultRiskIndex(event.getValue());
+      setRiskCalcMethod("A");
       setPortfolioIndex(event.getValue());
       createPortfolio(1);
    }
@@ -289,6 +377,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    private void createCharts() {
 
       try {
+         charts.setMeterGuage(getMeterRiskIndicator());
          if (getAssetData() != null) {
                charts.createPieModel(getAssetData(),0);
          }
@@ -363,6 +452,10 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       {
          ex.printStackTrace();
       }
+   }
+
+   public void saveCustomProfile() {
+
    }
 
 

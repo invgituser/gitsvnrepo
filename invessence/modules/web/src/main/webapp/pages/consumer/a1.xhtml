@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:head>
+</h:head>
+<h:body>
+    <p:panel id="panel" styleClass="NBwidget">
+        <p:panelGrid id="consumergoalsgrid" styleClass="invNBgrid NBwidget">
+            <p:row>
+            <p:column colspan="5">
+                <p:messages id="messages" autoUpdate="true" closable="true"/>
+            </p:column>
+            </p:row>
+            <p:row>
+                <p:column styleClass="invLabel" style="width:110px">
+                    <p:outputLabel value="Invest for"/>
+                </p:column>
+                <p:column style="width:25px">
+                    <p:message for="goal" display="icon"/>
+                </p:column>
+                <p:column style="text-align: left;width:200px">
+                    <p:selectOneMenu id="goal" value="#{cepb.goal}"
+                                     style="height: 26px;width:200px"
+                                     update="consumergoalsgrid" process="@this"
+                                     required="true" requiredMessage="Select one investment goal.">
+                        <f:selectItem itemLabel="- Choose one -" itemValue=""/>
+                        <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
+                        <f:selectItem itemLabel="Grow Wealth" itemValue="Groth"/>
+                        <f:selectItem itemLabel="Safety" itemValue="Retirement"/>
+                    </p:selectOneMenu>
+                </p:column>
+        </p:row>
+
+         <p:row>
+             <p:column styleClass="invLabel" style="width:110px">
+                 <p:outputLabel value="Account Taxable"/>
+             </p:column>
+             <p:column style="width:25px">
+                 <p:message for="accountaxable" display="icon"/>
+             </p:column>
+             <p:column >
+                 <p:selectBooleanCheckbox id="accountaxable" value="#{cepb.accountTaxable}" />
+             </p:column>
+         </p:row>
+
+            <p:row>
+                <p:column styleClass="invLabel">
+                    <p:outputLabel value="Your Current Age"/>
+                </p:column>
+                <p:column style="width:25px">
+                    <p:message for="age" display="icon"/>
+                </p:column>
+                <p:column >
+                    <p:spinner id="age" value="#{cepb.defaultAge}"
+                            min="1" max="100" stepFactor="1" size="3"
+                            styleClass="width: 90px"
+                            required="true" requiredMessage="Age should be of between 1 to 100."/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column styleClass="invLabel">
+                    <p:outputLabel value="#{cepb.horizonQuestion}"/>
+                </p:column>
+                <p:column style="width:25px">
+                    <p:message for="horizon" display="icon"/>
+                </p:column>
+                <p:column >
+                    <p:spinner id="horizon" value="#{cepb.defaultHorizon}"
+                               min="1" max="100" stepFactor="1" size="3"
+                               styleClass="width: 90px"
+                               required="true" requiredMessage="Investment years should be of between 1 to 100."/>
+                </p:column>
+            </p:row>
+
+            <p:row >
+                <p:column styleClass="invLabel">
+                    <p:outputLabel value="Initial Investment"/>
+                </p:column>
+                <p:column style="width:25px">
+                    <p:message for="initialInvestment" display="icon"/>
+                </p:column>
+                <p:column >
+                    <pe:inputNumber id="initialInvestment" value="#{cepb.defaultInvestment}"
+                                    required="true"
+                                    maxlength="15" decimalPlaces="0" symbol="$"
+                                    requiredMessage="Investment should be greater then $5,000.">
+                        <f:validateDoubleRange minimum="5000"/>
+                    </pe:inputNumber>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column styleClass="invLabel">
+                    <p:outputLabel value="Recurring Deposits (per year)"/>
+                </p:column>
+                <p:column style="width:25px">
+                    <p:message for="recurringinvestment" display="icon"/>
+                </p:column>
+                <p:column >
+                    <pe:inputNumber id="recurringinvestment" value="#{cepb.recurringInvestment}"
+                                    maxlength="15" decimalPlaces="0" symbol="$"
+                                    valueChangeListener="#{cepb.changeEvent}">
+                    </pe:inputNumber>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column styleClass="invLabel">
+                    <p:outputLabel value="Investment Experience"/>
+                </p:column>
+                <p:column style="width:25px">
+                    <p:message for="experience" display="icon"/>
+                </p:column>
+                <p:column >
+                    <p:selectOneRadio id="experience" value="#{cepb.experience}"
+                                      required="true"  requiredMessage="Investment experience.">
+                        <f:selectItem itemLabel="Experienced" itemValue="1"/>
+                        <f:selectItem itemLabel="Inexperienced" itemValue="2"/>
+                    </p:selectOneRadio>
+                </p:column>
+           </p:row>
+        </p:panelGrid>
+    </p:panel>
+
+</h:body>
+</html>

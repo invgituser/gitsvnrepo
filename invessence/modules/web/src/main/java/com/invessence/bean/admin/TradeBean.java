@@ -14,8 +14,10 @@ import com.invessence.dao.consumer.ConsumerSaveDataDAO;
 import com.invessence.data.common.ManageGoals;
 import com.invessence.data.common.*;
 import com.invessence.io.TradeWriter;
-import com.invessence.util.WebUtil;
+import com.invessence.util.*;
 import com.invmodel.rebalance.RebalanceProcess;
+import com.invmodel.rebalance.data.TradeData;
+import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.*;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
@@ -32,7 +34,11 @@ public class TradeBean extends TradeClientData implements Serializable
    private List<String> selectedFilterOptions;
    private String nextRebalDate;
 
-   private List<WebTradeData> tradeDetailsData = null;
+   private Map<String, TradeSummary> tradeDetailsData = null;
+   private TradeClientData selectedClient;
+   private TradeSummary selectedTradeSummary;
+
+   Menu menu = new Menu();
 
    @ManagedProperty("#{tradeDAO}")
    private TradeDAO tradeDAO;
@@ -128,14 +134,44 @@ public class TradeBean extends TradeClientData implements Serializable
       this.nextRebalDate = nextRebalDate;
    }
 
-   public List<WebTradeData> getTradeDetailsData()
+   public Map<String, TradeSummary> getTradeDetailsData()
    {
       return tradeDetailsData;
    }
 
-   public void setTradeDetailsData(List<WebTradeData> tradeDetailsData)
+   public void setTradeDetailsData(Map<String, TradeSummary> tradeDetailsData)
    {
       this.tradeDetailsData = tradeDetailsData;
+   }
+
+   public ArrayList<TradeSummary> getTradeSummary() {
+      ArrayList<TradeSummary> tradeSummary = new ArrayList<TradeSummary>();
+      if (tradeDetailsData != null) {
+         for (TradeSummary ts : tradeDetailsData.values())
+            tradeSummary.add(ts);
+      }
+
+      return tradeSummary;
+   }
+
+   public TradeClientData getSelectedClient()
+   {
+      return selectedClient;
+   }
+
+   public void setSelectedClient(TradeClientData selectedClient)
+   {
+      this.selectedClient = selectedClient;
+   }
+
+   public TradeSummary getSelectedTradeSummary()
+   {
+      return selectedTradeSummary;
+   }
+
+   public void setSelectedTradeSummary(TradeSummary selectedTradeSummary)
+   {
+      this.selectedTradeSummary = selectedTradeSummary;
    }
 
    @PostConstruct
@@ -154,6 +190,21 @@ public class TradeBean extends TradeClientData implements Serializable
       }
    }
 
+   private void showGrowl(String msg, String msgType) {
+      try {
+         if (msg.startsWith("E"))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         else if (msg.startsWith("W"))
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msg));
+         else
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+
+      }
+      catch (Exception ex) {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "System Error", "Please contact support desk."));
+      }
+   }
+
    private void collectTradeInfo()
    {
       try
@@ -164,7 +215,7 @@ public class TradeBean extends TradeClientData implements Serializable
       catch (Exception ex)
       {
          String msg = "Error in collecting Clients To Trade" + ex.getMessage();
-         FacesContext.getCurrentInstance().addMessage("loadmsg", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         showGrowl(msg, "Error");
          ex.printStackTrace();
       }
    }
@@ -204,9 +255,10 @@ public class TradeBean extends TradeClientData implements Serializable
    public void reloadTradeClient() {
       getSelectedFilterOptions().clear();
       setSelectedFilterOptions(null);
+      tradeDAO.deletePendingTrades();
       collectTradeInfo();
       String msg = getTradeClientDataList().size() + " Account(s) were loaded.";
-      FacesContext.getCurrentInstance().addMessage("promptloadmsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+      showGrowl(msg, "Info");
 
    }
 
@@ -225,48 +277,43 @@ public class TradeBean extends TradeClientData implements Serializable
       catch (Exception ex)
       {
          String msg = "Error in saving Next Rebalance Date" + ex.getMessage();
-         FacesContext.getCurrentInstance().addMessage("loadmsg", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         showGrowl(msg, "Error");
          ex.printStackTrace();
 
       }
    }
 
-/*
-   public void fetchClientInfo(Long acctnum)
+   public String doManagedAction()
    {
       try
       {
-         if (tradeTheseClients == null)
-         {
-            tradeTheseClients = new ArrayList<ManageGoals>();
-         }
-         ManageGoals data = commonDAO.getSingleAccounts(acctnum);
-         if (data != null)
-         {
-            data.setNumOfAllocation(1);
-            data.buildAssetClass();
-            data.buildPortfolio();
-            consumerSaveDataDAO.saveAllocation(data.getInstance());
-            consumerSaveDataDAO.savePortfolio(data.getInstance());
-            tradeTheseClients.add(data);
-         }
+         if (getSelectedClient() == null)
+            return "failed";
+         else
+            menu.doMenuAction("/consumer/edit.xhtml?acct="+getSelectedClient().getAcctnum().toString());
       }
       catch (Exception ex)
       {
-         String msg = "Error in fetching client data" + ex.getMessage();
-         FacesContext.getCurrentInstance().addMessage("loadmsg", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-         ex.printStackTrace();
+         return ("failed");
+      }
 
+      return ("success");
+   }
+
+   public void onCellEdit(CellEditEvent event) {
+      Object oldValue = event.getOldValue();
+      Object newValue = event.getNewValue();
+
+      if(newValue != null && !newValue.equals(oldValue)) {
+         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed", "Old: " + oldValue + ", New:" + newValue);
+         FacesContext.getCurrentInstance().addMessage(null, msg);
       }
    }
-*/
 
-/* New version with new rebalance process.  To be tested.
-   public void createTrades()
+   public void createtlhTrades()
    {
-      AssetClass[] aamc;
-      Portfolio[] pfclass;
       TradeClientData tData;
+      ArrayList<TradeData> tradedata = null;
       try
       {
          if (getSelectedClientList() != null)
@@ -276,15 +323,16 @@ public class TradeBean extends TradeClientData implements Serializable
             for (Integer loop = 0; loop < numClients; loop++)
             {
                tData = getSelectedClientList().get(loop);
-               rebalProcess.process(tData.getLogonid(), tData.getAcctnum());
+               tradedata = rebalProcess.process(tData.getLogonid(), tData.getAcctnum());
             }
-            if (numClients > 0) {
-               String msg = numClients.toString() + " account(s) were processed, successfully";
-               FacesContext.getCurrentInstance().addMessage("promptloadmsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+            String msg = "";
+            if (tradedata == null  || tradedata.size() == 0) {
+               msg = "No customers were processed to create trades.  Action ignored!";
+               showGrowl(msg, "Warning");
             }
-            else {
-               String msg = " No customers were seletected to create trades.  Action ignored!";
-               FacesContext.getCurrentInstance().addMessage("loadmsg", new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msg));
+            else if (tradedata != null && tradedata.size() > 0) {
+               msg = numClients.toString() + " account(s) were processed, successfully";
+               showGrowl(msg, "Info");
             }
 
          }
@@ -293,13 +341,12 @@ public class TradeBean extends TradeClientData implements Serializable
       catch (Exception ex)
       {
          String msg = "Error in creating trades" + ex.getMessage();
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         showGrowl(msg, "Error");
          ex.printStackTrace();
       }
    }
-*/
 
-   public void createTrades()
+   public void createsqlTrades()
    {
       TradeClientData data;
       try
@@ -324,11 +371,11 @@ public class TradeBean extends TradeClientData implements Serializable
             }
             if (numClients > 0) {
                String msg = numClients.toString() + " trade(s) were created, successfully";
-               FacesContext.getCurrentInstance().addMessage("promptloadmsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+               showGrowl(msg, "Info");
             }
             else {
                String msg = " No customers were seletected to create trades.  Action ignored!";
-               FacesContext.getCurrentInstance().addMessage("promptloadmsg", new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msg));
+               showGrowl(msg, "Warning");
             }
 
          }
@@ -337,26 +384,14 @@ public class TradeBean extends TradeClientData implements Serializable
       catch (Exception ex)
       {
          String msg = "Error in creating trades" + ex.getMessage();
-         FacesContext.getCurrentInstance().addMessage("promptloadmsg", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         showGrowl(msg, "Error");
          ex.printStackTrace();
       }
    }
 
-
-   public void displayTrades()
+   public void collectTradeSummary()
    {
       setTradeDetailsData(tradeDAO.loadTradesDetails(null));
-   }
-
-   public Double getSubTotal(String clientAccountID) {
-      Double subtotal = 0.0;
-      WebTradeData wtd;
-      for (int i=0; i < getTradeDetailsData().size(); i++) {
-        wtd = getTradeDetailsData().get(i);
-        if (wtd.getClientAccountID().equalsIgnoreCase(clientAccountID))
-            subtotal += wtd.getMoney();
-      }
-      return subtotal;
    }
 
    private String getFileNameWithDateAndTime(String prefix)

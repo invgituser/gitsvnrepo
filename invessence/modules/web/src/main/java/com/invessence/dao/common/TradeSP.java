@@ -4,19 +4,17 @@ package com.invessence.dao.common;
 import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
-
 import com.invessence.data.common.ManageGoals;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
-
 public class TradeSP extends StoredProcedure
 {
 
-   public TradeSP(DataSource datasource, String sp_name, Integer mode)
+   public TradeSP(DataSource datasource, String spName, Integer mode)
    {
-      super(datasource, sp_name);
+      super(datasource, spName);
       switch (mode) {
          case 0:  // del_asset_alloc
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -50,7 +48,7 @@ public class TradeSP extends StoredProcedure
          case 4: // sp_createTrades
             declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
             break;
-         case 99:  // sel_displayTrades2Execute
+         case 99:  // sel_displayTrades2Execute, delete_pending_trades
             break;
 
 
@@ -192,5 +190,13 @@ public class TradeSP extends StoredProcedure
       Map inputMap = new HashMap();
       super.execute(inputMap);
    }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public void delete_pending_trades()
+   {
+      Map inputMap = new HashMap();
+      super.execute(inputMap);
+   }
+
 
 }

@@ -13,9 +13,29 @@
 </h:head>
 
 <h:body>
-    <script type="text/javascript" src="/js/invCharts.js"></script>
-
     <p:outputPanel style="border: 0px; padding: 0px; margin: 0px">
+        <p:panelGrid styleClass="invNBgrid">
+            <p:row>
+                <p:column style="width: 40%">
+                    <p:outputLabel value="Asset Allocation" style="font-weight: bold"/>
+                </p:column>
+                <p:column style="text-align: left; width: 60%">
+<!--
+                    <p:spinner value="" min="0" max="100" maxlength="3" size="3"
+                               valueChangeListener="" update=":advisorEditForm:workArea">
+                    </p:spinner>
+-->
+                    <h:inputHidden id="allocSlider" value="#{cepb.allocationIndex}" />
+                    <p:slider for="allocSlider" style="width: 90%">
+                        <p:ajax event="slideEnd" listener="#{cepb.onAllocSlider}" update=":advisorEditForm:workArea,:advisorEditForm:dPanel1"/>
+                    </p:slider>
+
+                </p:column>
+                <p:column style="width: 2%">
+
+                </p:column>
+            </p:row>
+        </p:panelGrid>
         <p:tabView widgetVar="graphTabView"
                    styleClass="charts"
                    dynamic="true" cache="false">

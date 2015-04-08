@@ -20,12 +20,16 @@ public class Charts implements Serializable
 {
    JavaUtil jutil = new JavaUtil();
    private Integer year;
-   private String pieseriesColorStr;
-   private String[] pieseriesColors;
    private Integer calendarYear, minYearPoint, maxYearPoint, minGrowth, maxGrowth,legendXrotation;
 
    private CartesianChartModel lineChart = null;
    private PieChartModel pieChart = null;
+   private MeterGaugeChartModel meterGuage;
+
+   public Charts()
+   {
+      createDefaultMeterGuage();
+   }
 
    public CartesianChartModel getLineChart()
    {
@@ -35,16 +39,6 @@ public class Charts implements Serializable
    public PieChartModel getPieChart()
    {
       return pieChart;
-   }
-
-   public String getPieseriesColorStr()
-   {
-      return pieseriesColorStr;
-   }
-
-   public String[] getPieseriesColors()
-   {
-      return pieseriesColors;
    }
 
    public Integer getYear()
@@ -86,6 +80,36 @@ public class Charts implements Serializable
    {
       return legendXrotation;
    }
+
+   public MeterGaugeChartModel getMeterGuage()
+   {
+      return meterGuage;
+   }
+
+   public void setMeterGuage(Integer pointer)
+   {
+      if (meterGuage == null)
+         createDefaultMeterGuage();
+      this.meterGuage.setValue(pointer);
+   }
+
+   public void createDefaultMeterGuage() {
+      List<Number> intervals = new ArrayList<Number>(){{
+         add(16);
+         add(32);
+         add(50);
+      }};
+      this.meterGuage = new MeterGaugeChartModel(24, intervals);
+/*
+      meterGuage.setSeriesColors("66cc66,93b75f,E7E658,cc6666");
+      meterGuage.setGaugeLabel("Risk");
+      meterGuage.setGaugeLabelPosition("bottom");
+      meterGuage.setShowTickLabels(false);
+      meterGuage.setLabelHeightAdjust(-25);
+      meterGuage.setIntervalOuterRadius(25);
+*/
+   }
+
 
    public void createLineModel(Portfolio[] portfolio, Integer displayYears)
    {
@@ -142,7 +166,7 @@ public class Charts implements Serializable
          calendarYear = cal.get(cal.YEAR);
          minYearPoint = calendarYear;
          maxYearPoint = minYearPoint + totalYlabels;
-         minGrowth = (int) portfolio[0].getActualInvestments() - 5000;
+         minGrowth = ((int) portfolio[0].getActualInvestments() - 5000 < 0) ? 0 : (int) portfolio[0].getActualInvestments() - 5000;
          maxGrowth = 0;
          while (y <= totalYlabels)
          {
@@ -196,7 +220,7 @@ public class Charts implements Serializable
          calendarYear = cal.get(cal.YEAR);
          minYearPoint = calendarYear;
          maxYearPoint = minYearPoint + assetInfo.size();
-         pieseriesColors = new String[assetInfo.size()];
+         String pieseriesColors = "";
          for (int i = 0; i < assetInfo.size(); i++)
          {
             Asset asset = assetInfo.get(i);
@@ -206,16 +230,16 @@ public class Charts implements Serializable
             pieChart.set(label, weight);
             color = asset.getColor().replace('#', ' ');
             color.trim();
-            pieseriesColors[i] = color;
             if (i == 0)
             {
-               pieseriesColorStr = color;
+               pieseriesColors = color;
             }
             else
             {
-               pieseriesColorStr = pieseriesColorStr + ", " + color;
+               pieseriesColors = pieseriesColors + "," + color;
             }
          }
+         //pieChart.setSeriesColors(pieseriesColors);
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -240,26 +264,25 @@ public class Charts implements Serializable
             minYearPoint = calendarYear;
             maxYearPoint = minYearPoint;
             int slice = 0;
-            pieseriesColors = new String[assetdata.getOrderedAsset().size()];
+            String pieseriesColors = "";
             for (String assetname : assetdata.getOrderedAsset())
             {
                Asset asset = assetdata.getAsset(assetname);
                Double weight = asset.getActualweight();
                String label = assetname + " - " + jutil.displayFormat(weight, "##0.##%");
                pieChart.set(label, weight);
+/*
                color = asset.getColor().replace('#',' ');
                color.trim();
-               pieseriesColors[slice] = color;
                if (slice == 0)
-               {
-                  pieseriesColorStr = color;
-               }
+                  pieseriesColors = color;
                else
-               {
-                  pieseriesColorStr = pieseriesColorStr + ", " + color;
-               }
+                  pieseriesColors = pieseriesColors + "," + color;
+*/
+
                slice ++;
             }
+            //pieChart.setSeriesColors(pieseriesColors);
          }
 
       }

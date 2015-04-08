@@ -1075,10 +1075,10 @@ a.et_pb_more_button { font-weight: 300; font-size: 20px; line-height: 20px; colo
     .fwidget { padding-bottom: 30px; }
 
     /*-------------------[Menu]------------------*/
-    #et_mobile_nav_menu { display: block; margin-top: 25px; }
+    #et_mobile_nav_menu { display: block; }
     #wp-top-menu { display: none; }
     .et-fixed-header nav#wp-top-menu { padding-top: 4px;}
-    #main-header { padding-bottom: 20px; }
+    /*#main-header { padding-bottom: 20px; }*/
     #et_top_search { margin-top: 17px; margin-right: 35px; float: left; }
     #et-top-navigation { margin-right: 34px; }
     #main-header { position: absolute; }

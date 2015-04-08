@@ -8,7 +8,9 @@ import com.invessence.constant.Const;
 import com.invessence.data.common.UserInfoData;
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.TabChangeEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.*;
+import org.springframework.stereotype.Component;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +22,7 @@ import org.springframework.context.*;
 
 @ManagedBean(name = "menu")
 @SessionScoped
+@Component("config")
 public class Menu implements MessageSourceAware, Serializable
 {
    private static final long serialVersionUID = -1992L;
@@ -27,15 +30,24 @@ public class Menu implements MessageSourceAware, Serializable
    private WebUtil webutil = new WebUtil();
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
+   private String theme = "advisor";
    private String cid;
    private String default_page;
+   private String phone, email;
+   @Autowired
    private MessageSource messageSource;
 
    private String forwardcustodianURL = "Your have made a request to visit Interactive Broker site (Your custodian).  You will be logged out of this site.  Do you want to continue?";
 
+   @Override
    public void setMessageSource(MessageSource messageSource)
    {
       this.messageSource = messageSource;
+   }
+
+   public MessageSource getMessageSource()
+   {
+      return messageSource;
    }
 
    public String getForwardcustodianURL()
@@ -43,9 +55,54 @@ public class Menu implements MessageSourceAware, Serializable
       return forwardcustodianURL;
    }
 
+   public String getPhone()
+   {
+      return phone;
+   }
+
+   public String getEmail()
+   {
+      return email;
+   }
+
+   public String getTheme()
+   {
+      return theme;
+   }
+
+   public void preRenderView()
+   {
+
+      try {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+               if (getCid() != null && getCid().length() > 0) {
+                  email = getMessagetext("email." + getCid(),null);
+                  phone = getMessagetext("phone." + getCid(),null);
+                  theme = getMessagetext("theme." + getCid(),null);
+               }
+               else {
+                  email = getMessagetext("email.0",null);
+                  phone = getMessagetext("phone.0",null);
+                  theme = getMessagetext("theme.0",null);
+               }
+
+               email = (email == null) ? "info@invessence.com" : email;
+               phone = (phone == null) ? "(201) 977-2704" : phone;
+               theme = (theme == null) ? "advisor" : theme;
+
+            }
+      }
+      catch (Exception e)
+      {
+         email = "info@invessence.com";
+         phone = "(201) 977-2704";
+         theme = "advisor";
+      }
+   }
+
    public String getMessagetext(String inputText, Object [] obj) {
       String msgText = null;
-      try {
          if (obj == null) {
             obj = new Object[]{};
          }
@@ -55,11 +112,6 @@ public class Menu implements MessageSourceAware, Serializable
                return msgText;
             return inputText;
          }
-
-      }
-      catch (Exception ex) {
-         ex.printStackTrace();
-      }
       return inputText;
    }
 
@@ -121,7 +173,6 @@ public class Menu implements MessageSourceAware, Serializable
    public String getLogo()
    {
       String logo = Const.DEFAULT_LOGO;
-      UserInfoData uid;
       try {
          if (getCid() != null) {
             String logoid = "logo." + getCid();
@@ -257,6 +308,10 @@ public class Menu implements MessageSourceAware, Serializable
    public void logout() {
       try {
          FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+         cid="0";
+         email=null;
+         phone=null;
+         theme="advisor";
       }
       catch (Exception ex) {
 

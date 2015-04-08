@@ -72,7 +72,7 @@
       <dependency>
          <groupId>com.invessence</groupId>
          <artifactId>invmodel</artifactId>
-         <version>${invmodel.version}</version>
+         <version>${invessence.version}</version>
       </dependency>
 
       <dependency>
@@ -147,10 +147,6 @@
       <dependency>
          <groupId>org.quartz-scheduler</groupId>
          <artifactId>quartz</artifactId>
-      </dependency>
-      <dependency>
-         <groupId>com.invessence</groupId>
-         <artifactId>invmodel</artifactId>
       </dependency>
       <dependency>
          <groupId>com.google.code.maven-play-plugin.org.playframework</groupId>

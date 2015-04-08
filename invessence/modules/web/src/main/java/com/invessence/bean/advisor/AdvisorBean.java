@@ -302,7 +302,6 @@ public class AdvisorBean extends AdvisorData implements Serializable
          setExperience(2);
          setStayInvested(1);
          setDependent(0);
-         setRisk("M");
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
          buildConsumerPortfolio();

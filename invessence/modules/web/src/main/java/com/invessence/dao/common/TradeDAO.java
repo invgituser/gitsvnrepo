@@ -9,6 +9,8 @@ import com.invessence.converter.SQLData;
 import com.invessence.dao.admin.AdminSP;
 import com.invessence.data.TradeDetails;
 import com.invessence.data.common.*;
+import com.invmodel.asset.data.Asset;
+import com.invmodel.rebalance.data.TradeData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "tradeDAO")
@@ -46,6 +48,20 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
          DataSource ds = getDataSource();
          AdminSP sp = new AdminSP(ds, "sp_invessence_switch_post", 5);
          sp.updateNextRebalDate("NEXT_REBALANCE", nextRebaldate);
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void deletePendingTrades()
+   {
+      try
+      {
+         DataSource ds = getDataSource();
+         TradeSP sp = new TradeSP(ds, "delete_pending_trades", 99);
+         sp.delete_pending_trades();
       }
       catch (Exception ex)
       {
@@ -104,53 +120,104 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public List<WebTradeData> loadTradesDetails(Long acctnum) {
+   public Map<String, TradeSummary> loadTradesDetails(Long acctnum)
+   {
       DataSource ds = getDataSource();
-      TradeSP sp = new TradeSP(ds, "sel_displayTradeDetail",102);
-      List<WebTradeData> tradeDetails = new ArrayList<WebTradeData>();
+      TradeSP sp = new TradeSP(ds, "sel_displayTradeDetail", 102);
+      Map<String, TradeSummary> tradesummary = new HashMap<String, TradeSummary>();
       Map outMap = sp.loadTradesDetails(acctnum);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
          int i = 0;
+         TradeSummary data;
+         Asset assetclass;
+         TradeData tradeData;
          for (Map<String, Object> map : rows)
          {
             Map rs = (Map) rows.get(i);
-            WebTradeData data = new WebTradeData();
-            data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
-            data.setAcctnum(convert.getLongData(rs.get("acctnum")));
-            data.setProcessed(convert.getStrData(rs.get("processed")));
+            String clientAccountID = convert.getStrData(rs.get("clientAccountID"));
+            if (tradesummary.containsKey(clientAccountID))
+            {
+               data = tradesummary.get(clientAccountID);
+            }
+            else
+            {
+               data = new TradeSummary();
+               data.setClientAccountID(clientAccountID);
+               data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               data.setEmail(convert.getStrData(rs.get("email")));
+               data.setLastName(convert.getStrData(rs.get("lastName")));
+               data.setFirstName(convert.getStrData(rs.get("firstName")));
+               data.setTotalNewValue(0.0);
+               data.setTotalHoldingValue(0.0);
+               data.setTotalsold(0.0);
+               data.setTotalbought(0.0);
+            }
 
-            data.setTicker(convert.getStrData(rs.get("ticker")));
-            data.setQty(convert.getDoubleData(rs.get("curQty")));
-            data.setCurPrice(convert.getDoubleData(rs.get("curPrice")));
-            data.setMoney(convert.getDoubleData(rs.get("curValue")));
+            String asset = convert.getStrData(rs.get("assetclass"));
+            String subclass = convert.getStrData(rs.get("subclass"));
+            Double currentValue = convert.getDoubleData(rs.get("curValue"));
+            Double holdingValue = convert.getDoubleData(rs.get("holdingValue"));
 
-            data.setHoldingTicker(convert.getStrData(rs.get("holdingTicker")));
-            data.setHoldingQty(convert.getDoubleData(rs.get("holdingQty")));
-            data.setHoldingPrice(convert.getDoubleData(rs.get("holdingPrice")));
-            data.setHoldingValue(convert.getDoubleData(rs.get("holdingValue")));
-            data.setHoldingWeight(convert.getDoubleData(rs.get("holdingWeight")));
-            data.setCostBasisValue(convert.getDoubleData(rs.get("holdingCostBasis")));
+            if (!data.getAsset().containsKey(asset))
+            {
+               assetclass = new Asset();
+               assetclass.setColor(convert.getStrData(rs.get("color")));
+               assetclass.setAsset(asset);
+               assetclass.setHoldingValue(holdingValue);
+               assetclass.setValue(currentValue);
+            }
+            else
+            {
+               assetclass = data.getAsset().get(asset);
+               assetclass.setHoldingValue(assetclass.getHoldingValue() + holdingValue);
+               assetclass.setValue(assetclass.getValue() + currentValue);
+            }
+            data.getAsset().put(asset, assetclass);
 
-            data.setAllocTicker(convert.getStrData(rs.get("allocTicker")));
-            data.setAllocQty(convert.getDoubleData(rs.get("allocQty")));
-            data.setAllocPrice(convert.getDoubleData(rs.get("allocPrice")));
-            data.setAllocValue(convert.getDoubleData(rs.get("allocValue")));
-            data.setAllocWeight(convert.getDoubleData(rs.get("allocWeight")));
+            String ticker = convert.getStrData(rs.get("ticker"));
+            if (! data.getTradeDetails().containsKey(ticker))
+            {
+               tradeData = new TradeData("",
+                                         clientAccountID,
+                                         convert.getLongData(rs.get("acctnum")),
+                                         asset,
+                                         subclass,
+                                         ticker,
+                                         convert.getDoubleData(rs.get("curQty")),
+                                         convert.getDoubleData(rs.get("curPrice")),
+                                         currentValue,
+                                         convert.getStrData(rs.get("holdingTicker")),
+                                         convert.getDoubleData(rs.get("holdingQty")),
+                                         convert.getDoubleData(rs.get("holdingPrice")),
+                                         holdingValue,
+                                         convert.getDoubleData(rs.get("holdingWeight")),
+                                         convert.getDoubleData(rs.get("holdingCostBasis")),
+                                         convert.getStrData(rs.get("allocTicker")),
+                                         convert.getDoubleData(rs.get("allocQty")),
+                                         convert.getDoubleData(rs.get("allocPrice")),
+                                         convert.getDoubleData(rs.get("allocValue")),
+                                         convert.getDoubleData(rs.get("allocWeight")),
+                                         convert.getStrData(rs.get("tradeType")),
+                                         convert.getStrData(rs.get("reason"))
+                                         );
+               tradeData.setColor(convert.getStrData(rs.get("color")));
+               data.getTradeDetails().put(ticker, tradeData);
+            }
 
-            data.setTradeType(convert.getStrData(rs.get("tradeType")));
-            data.setReason(convert.getStrData(rs.get("reason")));
-            data.setCreated(convert.getStrData(rs.get("created")));
+            if (convert.getDoubleData(rs.get("curQty")) > 0)
+               data.setTotalbought(data.getTotalbought() + convert.getDoubleData(rs.get("curQty")));
+            else
+               data.setTotalsold(data.getTotalsold() + convert.getDoubleData(rs.get("curQty")));
 
-            data.setAssetClass(convert.getStrData(rs.get("assetclass")));
-            data.setSubclass(convert.getStrData(rs.get("subclass")));
-            data.setName(convert.getStrData(rs.get("name")));
-            data.setSortorder(i);
-            tradeDetails.add(i, data);
+            data.setTotalHoldingValue(data.getTotalHoldingValue() + holdingValue);
+            data.setTotalNewValue(data.getTotalNewValue() + currentValue);
+
+            tradesummary.put(clientAccountID, data);
             i++;
          }
-         return tradeDetails;
+         return tradesummary;
       }
       return null;
    }

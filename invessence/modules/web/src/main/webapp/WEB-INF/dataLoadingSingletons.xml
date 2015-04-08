@@ -51,5 +51,6 @@
       <!--<property name="assetDAO" ref="assetDB"/>-->
       <!--<property name="dailyReturnsDAO" ref="dailyReturns"/>-->
       <property name="securityDAO" ref="secDao"/>
+      <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
    </bean>
 </beans>

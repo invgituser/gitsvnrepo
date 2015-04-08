@@ -315,7 +315,9 @@ public class WebUtil
 
       String access = getAccess();
       if (access != null) {
-         if (access.equalsIgnoreCase(role))
+         if (access.equalsIgnoreCase("ADMIN"))
+            return true;
+         else if (access.equalsIgnoreCase(role))
             return true;
          else
             return false;

@@ -93,8 +93,11 @@ public class ManageGoals extends ProfileData
    private Double totalSharesAllocated = 0.0;
    private Double totalMoneyAllocated = 0.0;
 
-   Double  managedassetAllocationTotal = 0.0;
+   private Double  managedassetAllocationTotal = 0.0;
    private Double managedtotalMoney = 0.0;
+
+
+   private String externalPositionFile;
 
    //private TreeNode subclassDisplayNode;
    //private TreeNode[] subclassFilterNode;
@@ -751,7 +754,6 @@ public class ManageGoals extends ProfileData
       setTotalLiability	(	newgoals.getTotalLiability	());
       setAccountTaxable	(	newgoals.getAccountTaxable	());
       setTaxrate	(	newgoals.getTaxrate	());
-      setRisk	(	newgoals.getRisk	());
       setRiskIndex	(	newgoals.getRiskIndex	());
 
       // ManageGoal Data
@@ -1201,4 +1203,13 @@ public class ManageGoals extends ProfileData
       this.orderedSubclass = orderedSubclass;
    }
 
+   public String getExternalPositionFile()
+   {
+      return externalPositionFile;
+   }
+
+   public void setExternalPositionFile(String externalPositionFile)
+   {
+      this.externalPositionFile = externalPositionFile;
+   }
 }

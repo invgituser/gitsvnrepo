@@ -29,8 +29,17 @@ img {
 
 .ui-growl {
     position:fixed;
-    top: 40%;
-    left: 37%;
+    top: 40% !important;
+    left: 37% !important;
+}
+
+.NBwidget {
+    border: 0px;
+}
+
+.invDialog {
+    background-color: #fff;
+    top: 100px;
 }
 
 .invNBgrid {
@@ -297,151 +306,140 @@ img {
 
 @media screen and ( min-width: 600px ) {
 
-    .divAdvEntry {
+    .dpanel1 {
         width:100%;
         padding: 5px 5px 5px 5px;
-        height: 110px;
+        border : 0px;
+        height: 90px;
         background: #90c1d2 url("#{resource['primefaces-advisor:images/ui-bg_highlight-hard_30_90c1d2_1x100.png']}") 10% 500% repeat-x;
     }
 
-    .divAdvRow {
-        float:left;
-        width: 100%;
+    .dpanel2 {
+        width:100%;
+        padding: 1px 1px 1px 1px;
+        border : 0px;
+        height: 60px;
+        border: 0px;
     }
 
-    .divAdvImage {
+    .drow {
+        width:100%;
+        padding: 5px 5px 5px 5px;
+        border : 0px;
+        float: left;
+    }
+
+    .dpanelP1 {
         float:left;
-        border:none;
-        margin:5px;
+        width: 45%;
+    }
+
+    .dpanelP2 {
+        float:left;
+        width: 45%;
+    }
+
+    .dpanelP3 {
+        float:left;
         width: 7%;
     }
 
-    .divAdvSecond {
+    .d3EqPart {
         float:left;
-        border:none;
-        margin:5px;
-        width: 45%;
-        vertical-align: top;
-        text-align: left;
+        width: 32%;
+        padding: 2px;
     }
 
-    .divAdvThird {
+    .dPrefArea {
         float:left;
         border:none;
-        margin:5px;
-        width: 15%;
-        text-align: center;
-    }
-
-    .divAdvFourth {
-        float:left;
-        border:none;
-        margin:5px;
-        width: 12%;
-        text-align: center;
-    }
-
-    .divAdvFifth {
-        float:left;
-        border:none;
-        margin:5px;
         width: 10%;
+        padding: 2px;
+    }
+
+    .dFillerArea {
+        float:left;
+        border:none;
+        width: 2%;
+        padding: 5px;
+    }
+
+    .dImgArea {
+        float:left;
+        border:none;
+        width: 70%;
+        padding: 2px;
+    }
+
+    .dRemainArea {
+        float:left;
+        border:none;
+        padding-right: 1px;
+    }
+
+    .dImgPart {
+        float:left;
+        border:none;
+        width: 20%;
+        padding: 2px;
+    }
+
+    .dSmallPart {
+        float:left;
+        border:none;
+        width: 25%;
+        padding: 1px;
+    }
+
+    .dMidPart {
+        float:left;
+        border:none;
+        width: 90%;
+        padding: 1px;
+    }
+
+
+    .dTop {
+        float:left;
+        border:none;
+        margin:1px;
+        width: 100%;
         text-align: center;
     }
 
-    .divAdvSixth {
+    .dBottom {
         float:left;
         border:none;
-        margin:5px;
-    }
-
-    .divSubLine1 {
-        float: left;
-        width: 90%;
-        margin: 2px;
-    }
-
-    .divSubLine2 {
-        float: left;
+        margin:1px;
         width: 100%;
-        margin: 2px;
+        text-align: center;
     }
 
-    .divDataArea {
+    .dDataArea {
         width: 100%;
-        height: 450px;
+        min-height: 600px;
         float: left;
         margin: 0px;
 
     }
 
-    .divGraphArea {
+    .dGraphArea {
         width: 35%;
         float: left;
         margin: 0px;
         padding-right: 5px;
     }
 
-    .divDetailArea {
+    .dDetailArea {
         width: 60%;
         float: left;
     }
 
-}
-
-
-@media screen and ( min-width: 150px ) {
-
-    .divAdvEntry {
-        width:100%;
-        padding: 5px 5px 5px 5px;
-        height: 110px;
-        background: #90c1d2 url("#{resource['primefaces-advisor:images/ui-bg_highlight-hard_30_90c1d2_1x100.png']}") 10% 500% repeat-x;
+    .invProfileOPanel {
+        background-color: #fff;
+        width: 674px;
+        height: 524px;
+        padding: 0px
     }
 
-    .divAdvRow {
-        float:left;
-        width: 100%;
-    }
-
-    .divAdvImage {
-        float:left;
-        border:none;
-        margin:5px;
-        width: 7%;
-    }
-
-    .divAdvSecond {
-        float:left;
-        border:none;
-        margin:5px;
-        width: 40%;
-    }
-
-    .divAdvThird {
-        float:left;
-        border:none;
-        margin:5px;
-        width: 15%;
-    }
-
-    .divAdvFourth {
-        float:left;
-        border:none;
-        margin:5px;
-        width: 15%;
-    }
-
-    .divAdvFifth {
-        float:left;
-        border:none;
-        margin:5px;
-        width: 15%;
-    }
-
-    .divAdvSixth {
-        float:left;
-        border:none;
-        margin:5px;
-    }
 }

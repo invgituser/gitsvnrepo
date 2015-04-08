@@ -358,9 +358,6 @@ public class ConsumerSaveSP extends StoredProcedure
 
       String addmodflag = "A";
 
-      String risk = data.getRisk();
-      risk = "M";
-
       Portfolio pfclass[] = data.getPortfolioData();
       if (pfclass == null)
          return;

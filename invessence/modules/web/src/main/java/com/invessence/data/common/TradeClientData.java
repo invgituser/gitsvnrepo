@@ -38,6 +38,18 @@ public class TradeClientData extends ManageGoals
       return reason;
    }
 
+   public String getDescription() {
+      if (this.reason.toUpperCase().startsWith("N"))
+         return "";
+      else if (this.reason.toUpperCase().startsWith("V"))
+         return "";
+      else if (this.reason.toUpperCase().startsWith("O"))
+         return "Difference: " + (requiredAllocation - currentAllocation) +"%";
+      else
+         return "Last Traded: " + lastTraded;
+
+   }
+
    public void setReason(String reason)
    {
       this.reason = reason;

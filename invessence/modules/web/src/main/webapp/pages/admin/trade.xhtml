@@ -15,15 +15,10 @@
 <div id="main-content" class="content_section" style="background-color: #f5f5f5;">
 <div id="wrapper" class="container" style="padding-top: 60px">
 <h:form id="tradeForm">
-<p:tabView effect="clip" effectDuration="normal" cache="true" dynamic="true">
+<p:growl id="growltrademsg" closable="true" sticky="true" style="top: 40%"/>
+<p:tabView cache="true" dynamic="true">
 <p:tab title="Select">
     <p:panelGrid id="rebalgrid2" styleClass="invNBgrid">
-        <p:row>
-            <p:column colspan="5">
-                <p:messages for="loadmsg" closable="true"/>
-                <p:growl for="promptloadmsg" closable="true"/>
-            </p:column>
-        </p:row>
         <p:row>
             <p:column colspan="6">
                 <h:outputText value="Hide:"/>
@@ -42,232 +37,176 @@
             </p:column>
         </p:row>
     </p:panelGrid>
-    <p:panelGrid id="dataGrid">
-        <p:row>
-            <p:column colspan="10">
-                <p:dataTable id="clientListId" var="filteredData" value="#{tradeBean.filteredClientList}"
-                             border="1" styleClass="invAdminTable"
-                             rowKey="#{filteredData.acctnum}" rowIndexVar="rowIndex"
-                             selection="#{tradeBean.selectedClientList}">
-                    <f:facet name="header" style="text-align: left;">
-                        Choose Accounts to trade.
-                    </f:facet>
+    <p:dataTable id="dataGrid" var="filteredData" value="#{tradeBean.filteredClientList}"
+                 border="1" styleClass="invAdminTable"
+                 rowKey="#{filteredData.acctnum}"
+                 selection="#{tradeBean.selectedClientList}">
+        <f:facet name="header" style="text-align: left;">
+            Choose Accounts to trade.
+        </f:facet>
 
-                    <p:column selectionMode="multiple" style="width:5%"/>
+        <p:column selectionMode="multiple" style="width:5%"/>
 
-                    <p:column headerText="InvAcc#" style="width:5%">
-                        #{filteredData.acctnum}
-                    </p:column>
+        <p:column style="width:7%">
+            <p:commandButton id="editButton"
+                             process="@this" immediate="true"
+                             icon="ui-icon-pencil"
+                             action="#{tradeBean.doManagedAction}">
+                <f:setPropertyActionListener value="#{filteredData}"
+                                             target="#{tradeBean.selectedClient}"/>
+            </p:commandButton>
+        </p:column>
 
-                    <p:column headerText="IBAcct#" style="width:10%">
-                        #{filteredData.clientAccountID}
-                    </p:column>
 
-                    <p:column headerText="Name" style="width:30%">
-                        #{filteredData.name}
-                    </p:column>
+        <p:column headerText="InvAcc#" style="width:5%">
+            #{filteredData.acctnum}
+        </p:column>
 
-                    <p:column headerText="Type" style="width:15%">
-                        #{filteredData.accountType}
-                    </p:column>
+        <p:column headerText="IBAcct#" style="width:10%">
+            #{filteredData.clientAccountID}
+        </p:column>
 
-                    <p:column headerText="Reason" style="width:10%; text-align: left">
-                        #{filteredData.reason}
-                    </p:column>
+        <p:column headerText="Name" style="width:30%">
+            #{filteredData.name}
+        </p:column>
 
-                    <p:column headerText="Last Traded" style="width:10%; text-align: right">
-                        #{filteredData.lastTraded}
-                    </p:column>
+        <p:column headerText="Type" style="width:15%">
+            #{filteredData.accountType}
+        </p:column>
 
-                    <p:column headerText="AA Offset" style="width:10%; text-align: right">
-                        #{dataDisplayConverter.displayAsPercent(filteredData.assetAllocationOffset)}
-                    </p:column>
+        <p:column headerText="Reason" style="width:10%; text-align: left">
+            #{filteredData.reason}
+        </p:column>
 
-                    <p:column headerText="Investment($)" style="width:15%; text-align: right">
-                        <h:outputText value="#{dataDisplayConverter.displayAsMoney(filteredData.actualInvestment)}">
-                        </h:outputText>
-                    </p:column>
 
-                    <p:column headerText="KeepLiquid" style="width:5%; text-align: right">
-                        #{dataDisplayConverter.displayAsMoney(filteredData.keepLiquid)}
-                    </p:column>
-                    <p:column headerText="Position" style="width:15%; text-align: right">
-                        <h:outputText value="#{filteredData.position}">
-                            <f:convertNumber pattern="###,###,###"/>
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="Asset" style="width:15%; text-align: right">
-                        <h:outputText value="#{filteredData.assetClass}">
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="CurrentAlloc" style="width:5%; text-align: right">
+        <p:column headerText="Description" style="width:30%; text-align: left">
+            #{filteredData.description}
+        </p:column>
 
-                        <h:outputText value="#{dataDisplayConverter.displayAsPercent(filteredData.currentAllocation)}">
-                        </h:outputText>
-                    </p:column>
-                    <p:column headerText="RequiredAlloc" style="width:5%; text-align: right">
-                        <h:outputText value="#{filteredData.requiredAllocation}">
-                            <f:convertNumber pattern="##0.00"/>
-                        </h:outputText>
-                    </p:column>
 
-                    <!--
-                           <p:column style="width:5%">
-                               <p:commandButton id="selectButton" process="@this"
-                                                value="View" icon="ui-icon-zoomin"
-                                                actionListener="#{tradeBean.viewTradeClient}"
-                                                oncomplete="PF('singlePosition').show()">
-                                   <f:setPropertyActionListener value="#{filteredData}"
-                                                                target="#{tradeBean.singleTradeAccount}"/>
-                               </p:commandButton>
-                           </p:column>
-                    -->
+        <p:column headerText="KeepLiquid" style="width:7%; text-align: right">
+            <h:outputText value="#{filteredData.keepLiquid}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
 
-                    <f:facet name="footer">
-                        <p:commandButton id="tradeButton" value="Create Trades"
-                                         update="clientListId" ajax="true"
-                                         actionListener="#{tradeBean.createTrades}"/>
-                    </f:facet>
-                </p:dataTable>
-            </p:column>
+        <p:column headerText="Investment" style="width:15%; text-align: right">
+            <h:outputText value="#{filteredData.actualInvestment}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
 
-        </p:row>
-    </p:panelGrid>
+        <p:column headerText="Holding" style="width:15%; text-align: right">
+            <h:outputText value="#{filteredData.position}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
+
+        <!--
+               <p:column style="width:5%">
+                   <p:commandButton id="selectButton" process="@this"
+                                    value="View" icon="ui-icon-zoomin"
+                                    actionListener="#{tradeBean.viewTradeClient}"
+                                    oncomplete="PF('singlePosition').show()">
+                       <f:setPropertyActionListener value="#{filteredData}"
+                                                    target="#{tradeBean.singleTradeAccount}"/>
+                   </p:commandButton>
+               </p:column>
+        -->
+
+        <f:facet name="footer">
+            <p:commandButton id="tlhButton" value="Rebalance"
+                             update="@form" ajax="true"
+                             actionListener="#{tradeBean.createtlhTrades}">
+               <p:ajaxStatus onstart="PF('status').show()" oncomplete="PF('status').hide()"/>
+            </p:commandButton>
+
+        </f:facet>
+    </p:dataTable>
 </p:tab>
-<p:tab title="Validate">
+<p:tab title="Review">
     <p:panelGrid id="validategrid2" styleClass="invNBgrid">
         <p:row>
             <p:column colspan="5">
-                <p:messages autoUpdate="true" closable="true"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="5">
-                <p:commandButton value="Validate Trades"
-                                 process="@form" update="tradeBrowser"
-                                 actionListener="#{tradeBean.displayTrades}"/>
+                <p:commandButton value="Load Trades"
+                                 process="@form" update="tradeTable"
+                                 actionListener="#{tradeBean.collectTradeSummary}"/>
             </p:column>
         </p:row>
     </p:panelGrid>
-    <p:panelGrid id="tradeBrowser">
-        <p:row>
-            <p:column colspan="12">
 
-                <p:dataTable id="tradeTable" var="trade" value="#{tradeBean.tradeDetailsData}"
-                             border="2" styleClass="invAdminTable"
-                             sortBy="#{trade.clientAccountID}">
-                    <f:facet name="header" style="text-align: right;">
-                        Export Data
-                        <h:commandLink>
-                            <p:graphicImage value="/images/excel.png" width="24"/>
-                            <p:dataExporter type="xls" target="tradeTable" fileName="tradeReview"/>
-                        </h:commandLink>
+    <p:dataTable id="tradeTable" var="trade" value="#{tradeBean.tradeSummary}"
+                 border="2" styleClass="invAdminTable"
+                 sortBy="#{trade.clientAccountID}">
 
-                        <h:commandLink>
-                            <p:graphicImage value="/images/csv.png" width="24"/>
-                            <p:dataExporter type="csv" target="tradeTable" fileName="tradeReview"/>
-                        </h:commandLink>
-                    </f:facet>
-                    <p:column
-                            style="width:1%; text-align: right;"
-                            resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="#"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.sortorder}"/>
-                    </p:column>
-                    <p:column style="width:5%; text-align: left" resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Acct#"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.acctnum}">
-                        </h:outputText>
-                    </p:column>
-                    <p:column style="width:7%;text-align: left" resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="IB#"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.clientAccountID}"/>
-                    </p:column>
-                    <p:column
-                            style="width:5%; text-align: left;"
-                            headerText="Asset" resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Asset"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.assetClass}"/>
-                    </p:column>
-                    <p:column
-                            style="width:5%; text-align: left;"
-                            headerText="Asset" resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Subclass"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.subclass}"/>
-                    </p:column>
-                    <p:column headerText="Ticker"
-                              style="width:10%; text-align: left" resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Ticker"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.ticker}"/>
-                    </p:column>
-                    <p:column headerText="Name"
-                              style="width:15%; text-align: left" resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Name"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.name}"/>
-                    </p:column>
-                    <p:column style="width:5%; text-align: right"
-                              resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Qty"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.qty}">
-                            <f:convertNumber pattern="###,###,###"/>
-                        </h:outputText>
-                    </p:column>
-                    <p:column style="width:5%; text-align: right"
-                              resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Price"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.curPrice}">
-                            <f:convertNumber currencySymbol="$" type="currency"/>
-                        </h:outputText>
-                    </p:column>
-                    <p:column style="width:10%; text-align: right"
-                              resizable="true">
-                        <f:facet name="header">
-                            <h:outputText value="Value"/>
-                        </f:facet>
-                        <h:outputText value="#{trade.money}">
-                            <f:convertNumber currencySymbol="$" type="currency"/>
-                        </h:outputText>
-                    </p:column>
-                    <p:summaryRow>
-                        <p:column colspan="9" style="text-align:right">
-                            <h:outputText value="Total:" />
-                        </p:column>
-                        <p:column>
-                            <h:outputText value="#{tradeBean.getSubTotal(trade.clientAccountID)}">
-                                <f:convertNumber type="currency" currencySymbol="$" />
-                            </h:outputText>
-                        </p:column>
-                    </p:summaryRow>
-                </p:dataTable>
-            </p:column>
-        </p:row>
-    </p:panelGrid>
+        <p:column style="width:7%;text-align: center">
+            <p:commandButton update=":tradeForm:reviewDetailView" oncomplete="PF('reviewDetailDialog').show()" icon="ui-icon-search"
+                             title="View">
+                <f:setPropertyActionListener value="#{trade}" target="#{tradeBean.selectedTradeSummary}"/>
+            </p:commandButton>
+        </p:column>
+
+        <p:column style="width:7%;text-align: left" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="ClientID"/>
+            </f:facet>
+            <h:outputText value="#{trade.clientAccountID}"/>
+        </p:column>
+
+        <p:column style="width:5%; text-align: left" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Acct#"/>
+            </f:facet>
+            <h:outputText value="#{trade.acctnum}">
+            </h:outputText>
+        </p:column>
+
+        <p:column
+                style="width:15%; text-align: left;" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Name"/>
+            </f:facet>
+            <h:outputText value="#{trade.fullName}"/>
+        </p:column>
+
+        <p:column
+                style="width:5%; text-align: right;" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Bought"/>
+            </f:facet>
+            <h:outputText value="#{trade.totalbought}">
+                <f:convertNumber pattern="###,###"/>
+            </h:outputText>
+        </p:column>
+        <p:column headerText="Ticker"
+                  style="width:10%; text-align: right" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Sold"/>
+            </f:facet>
+            <h:outputText value="#{trade.totalsold}">
+                <f:convertNumber pattern="###,###"/>
+            </h:outputText>
+        </p:column>
+        <p:column style="width:15%; text-align: right" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Current Value"/>
+            </f:facet>
+            <h:outputText value="#{trade.totalNewValue}">
+                <f:convertNumber pattern="#,###,###.00"/>
+            </h:outputText>
+        </p:column>
+        <p:column style="width:15%; text-align: right" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Holding Value"/>
+            </f:facet>
+            <h:outputText value="#{trade.totalHoldingValue}">
+                <f:convertNumber pattern="#,###,###.00"/>
+            </h:outputText>
+        </p:column>
+    </p:dataTable>
 </p:tab>
 <p:tab title="Download">
     <p:panelGrid id="rebalgrid3" styleClass="invNBgrid">
-        <p:row>
-            <p:column colspan="5">
-                <p:messages autoUpdate="true" closable="true"/>
-            </p:column>
-        </p:row>
         <p:row>
             <p:column colspan="5">
                 <p:commandButton type="submit" value="Generate Trades"
@@ -305,32 +244,15 @@
     </p:panelGrid>
 
 </p:tab>
-<p:tab title="Options">
-    <p:panelGrid id="rebalgrid" styleClass="invNBgrid">
-        <p:row>
-            <p:column colspan="5">
-                <p:messages autoUpdate="true" closable="true"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column>
-                <p:outputLabel value="Next Balance Date"/>
-            </p:column>
-            <p:column>
-                <p:inputMask value="#{tradeBean.nextRebalDate}" mask="99/99/9999"/>
-            </p:column>
-            <p:column>
-                <p:outputLabel value="(mm/dd/yyyy)"/>
-            </p:column>
-            <p:column>
-                <p:commandButton type="submit" value="Save"
-                                 action="#{tradeBean.saveNextRebalDate}"/>
-            </p:column>
-        </p:row>
-    </p:panelGrid>
 
-</p:tab>
 </p:tabView>
+
+<ui:include src="/pages/common/reviewtrades.xhtml"/>
+
+<p:dialog widgetVar="status" modal="true" closable="false"
+        style="background: #fff; top:200px">
+    Please Wait
+</p:dialog>
 </h:form>
 
 

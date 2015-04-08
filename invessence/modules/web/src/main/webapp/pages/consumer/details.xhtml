@@ -14,6 +14,27 @@
 
 <h:body>
     <p:outputPanel style="border: 0px; padding: 0px; margin: 0px">
+        <p:panelGrid styleClass="invNBgrid">
+            <p:row>
+                <p:column style="width: 20%">
+                    <p:outputLabel value="Portfolio Risk" style="font-weight: bold"/>
+                </p:column>
+                <p:column style="text-align: left; width: 70%">
+<!--
+                    <p:spinner value="" min="0" max="100" maxlength="3" size="3"
+                               valueChangeListener="" update=":advisorEditForm:workArea"/>
+-->
+                    <h:inputHidden id="portfolioSlider" value="#{cepb.portfolioIndex}" />
+                    <p:slider for="portfolioSlider" style="width: 70%">
+                        <p:ajax event="slideEnd" listener="#{cepb.onPortfolioSlider}" update=":advisorEditForm:workArea,:advisorEditForm:dPanel1"/>
+                    </p:slider>
+
+                </p:column>
+                <p:column style="width: 2%">
+
+                </p:column>
+            </p:row>
+        </p:panelGrid>
         <p:tabView widgetVar="detailTabView"
                    style="border: 1px solid black;"
                    dynamic="true" cache="false">

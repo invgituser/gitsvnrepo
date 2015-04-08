@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+            <h:form id="riskDialogForm">
+
+            <p:dialog header="Question" widgetVar="riskQuestionDialog" modal="true"
+                      showEffect="fade" hideEffect="fade"
+                      width="600px" height="400px" top="120px" style="background-color: #fff">
+                <p:carousel id="riskQPanel" numVisible="1" itemStyle="height:400px;width:600px;" effect="easeInStrong"
+                            style="margin-bottom:0">
+                    <p:tab title="I">
+                        <ui:include src="/pages/consumer/a1.xhtml"/>
+                    </p:tab>
+                    <p:tab title="II">
+                        <ui:include src="/pages/consumer/q1.xhtml"/>
+                    </p:tab>
+                    <p:tab title="III">
+                        <ui:include src="/pages/consumer/q2.xhtml"/>
+                    </p:tab>
+                    <p:tab title="IV">
+                        <ui:include src="/pages/consumer/q3.xhtml"/>
+                    </p:tab>
+                    <p:tab title="V">
+                        <ui:include src="/pages/consumer/q4.xhtml"/>
+                    </p:tab>
+                    <p:tab title="VI">
+                        <ui:include src="/pages/consumer/q5.xhtml"/>
+                    </p:tab>
+                    <p:tab title="VII">
+                        <ui:include src="/pages/consumer/q6.xhtml"/>
+                    </p:tab>
+                    <p:tab title="VII">
+                        <ui:include src="/pages/consumer/q7.xhtml"/>
+                    </p:tab>
+                </p:carousel>
+
+           </p:dialog>
+
+            </h:form>
+
+</h:body>
+</html>
+
+
