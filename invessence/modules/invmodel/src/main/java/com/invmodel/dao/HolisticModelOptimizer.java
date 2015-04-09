@@ -266,21 +266,89 @@ public class HolisticModelOptimizer
       return null;
    }
 
-   public double [][] getFundOptimalWeight(String [] tickers, String pAssets)
+   public double [] getFundErrorVectorArray(String [] tickers,double targetOptProd, double[][] weights)
    {
       try {
 
-         Integer numofTicker = tickers.length;
+         double[] errorDiff = new double [weights.length];
+         double [][] prodMatrix = null;
+         for (int w = 0; w < weights.length; w++ ){
+            double [][] fundProductWeights = new double[allPrimeAssetMap.size()][holisticdataMap.size()];
+            int pRow = 0;
+            int pCol = 0;
 
-         // loadPrimeAssetDataFromDB(pAssets);
-         loadFundDataFromDB(tickers);
-         double[][] mrData = null;
-         mrData = getDailyReturns(tickers);
+            double[][] tWeight = new double[tickers.length][1];
+            for (int i = 0; i < tickers.length; i++) {
+                  tWeight[i][0] = weights[w][i];
+            }
 
+            //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
+            for (String pAssetClass : allPrimeAssetMap.keySet()) {
 
+               pCol = 0;
+               for (String fTicker: holisticdataMap.keySet()){
+                 if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
+                    fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
+                 else
+                    fundProductWeights[pRow][pCol] = 0;
+
+                 pCol++;
+               }
+               pRow++;
+            }
+
+            prodMatrix = multiplyByMatrix(fundProductWeights,tWeight);
+
+            double product = 1.0;
+
+            for (int row = 0; row < prodMatrix.length; row++) {
+               for (int col = 0; col < prodMatrix[0].length; col++)  {
+                  product = product* prodMatrix[row][col];
+               }
+            }
+            double squaredErr = StrictMath.pow((targetOptProd - product), 2);
+            errorDiff[w] = squaredErr;
+         }
+         return errorDiff;
+      }
+      catch (Exception ex) {
+
+      }
+      return  null;
+   }
+
+   public double [][] getCoVarFunds(double[][] mrData)
+   {
+      try {
          //To use these returns, call getDailyReturns with the same tickers;
-         CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
+         //CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
          AssetParameters assetParameters = new AssetParameters();
+
+         //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(mrData);
+         double[][] covarianceOfFunds = assetParameters.covarianceMatrix(mrData);
+
+         return covarianceOfFunds;
+      }
+      catch (Exception ex) {
+
+      }
+      return  null;
+   }
+
+   public double [][] getData(String [] tickers)
+   {
+      loadFundDataFromDB(tickers);
+      double[][] mrData = null;
+      mrData = getDailyReturns(tickers);
+      return mrData;
+   }
+
+   public double [][] getWeights(CapitalMarket instanceOfCapitalMarket, String[] tickers, double[][] mrData, double[][] covarianceOfFunds)
+   {
+      try {
+         //To use these returns, call getDailyReturns with the same tickers;
+         //CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
+
 
          double[] expectedReturnsOfFunds = new double [tickers.length];
          double[] lowerBound = new double [tickers.length];
@@ -301,14 +369,11 @@ public class HolisticModelOptimizer
             lowerBound[t] = 0.0;
             upperBound[t] = 1.0;
             //if (fTicker.length()< 5)
-            //   upperBound[t] = 0.2;
+            //upperBound[t] = 0.2;
 
             t++;
          }
 
-         //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(mrData);
-         double[][] covarianceOfFunds = assetParameters.covarianceMatrix(mrData);
-         t = t +1;
          //Here we evaluate the maximum expected return  of  the  Portfolio's  on
          //the Efficient Frontier.
 
@@ -327,42 +392,45 @@ public class HolisticModelOptimizer
          );
 
          double[][] weights = instanceOfCapitalMarket.getEfficientFrontierAssetWeights();
-         double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(covarianceOfFunds);
-         double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
 
-         double [][] fundProductWeights = new double[allPrimeAssetMap.size()][holisticdataMap.size()];
-         int pRow = 0;
-         int pCol = 0;
 
-         double[][] tWeight = new double[tickers.length][1];
-         for (int i = 0; i < tickers.length; i++) {
-               tWeight[i][0] = weights[500][i];
-         }
-
-         //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
-         for (String pAssetClass : allPrimeAssetMap.keySet()) {
-
-            pCol = 0;
-            for (String fTicker: holisticdataMap.keySet()){
-              if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
-                 fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
-              else
-                 fundProductWeights[pRow][pCol] = 0;
-
-              pCol++;
-            }
-            pRow++;
-         }
-
-         double [][] prodMatrix = multiplyByMatrix(fundProductWeights,tWeight);
-
-         return prodMatrix;
-
+         return weights;
       }
       catch (Exception ex) {
 
       }
       return  null;
+   }
+
+   public double [] getRisk(String [] tickers,CapitalMarket instanceOfCapitalMarket)
+   {
+      try {
+
+         Integer numofTicker = tickers.length;
+
+         // loadPrimeAssetDataFromDB(pAssets);
+         loadFundDataFromDB(tickers);
+         double[][] mrData = null;
+         mrData = getDailyReturns(tickers);
+
+         AssetParameters assetParameters = new AssetParameters();
+
+         double[][] covarianceOfFunds = assetParameters.covarianceMatrix(mrData);
+
+         double[] risk = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(covarianceOfFunds);
+
+         return risk;
+      }
+      catch (Exception ex) {
+
+      }
+      return  null;
+   }
+
+   public double [] getExpReturns(String [] tickers,CapitalMarket instanceOfCapitalMarket)
+   {
+      double[]expReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
+      return expReturns;
    }
 
    public static double[][] multiplyByMatrix(double[][] m1, double[][] m2) {
@@ -372,15 +440,20 @@ public class HolisticModelOptimizer
       int mRRowLength = m1.length;    // m result rows length
       int mRColLength = m2[0].length; // m result columns length
       double[][] mResult = new double[mRRowLength][mRColLength];
-      for(int i = 0; i < mRRowLength; i++) {         // rows from m1
-         for(int j = 0; j < mRColLength; j++) {     // columns from m2
-            for(int k = 0; k < m1ColLength; k++) { // columns from m1
+      for(int i = 0; i < mRRowLength; i++) {          // rows from m1
+         for(int j = 0; j < mRColLength; j++) {       // columns from m2
+            for(int k = 0; k < m1ColLength; k++) {    // columns from m1
                mResult[i][j] += m1[i][k] * m2[k][j];
             }
          }
       }
       return mResult;
    }
+
+
+
+
+
 
    public double[] AllocateToAccounts(double[] optFundWeight, double[] acctW, double[][] accountConstraints) throws LpSolveException
    {
@@ -448,8 +521,6 @@ public class HolisticModelOptimizer
          lp.addConstraintex(j, row, colno, LpSolve.LE, 1.0);
       }
 
-
-
       if(ret == 0) {
          //Set each variable constraints
          //Number of variables are equal to funds*accounts
@@ -514,8 +585,8 @@ public class HolisticModelOptimizer
                colno[c] = c+1;
             }
             /* add the row to lpsolve */
-
-            lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.LE, acctW[r]);
+            //May want some accounts to be fixed
+            lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.EQ, acctW[r]);
             //lp.addConstraintex(c, row, colno, LpSolve.EQ, acctW[r]);
          }
       }
@@ -530,22 +601,33 @@ public class HolisticModelOptimizer
 
          int c = 0;
 
-         for (int r = 0; r< numF; r++){
-            for(c = 0; c< Ncol; c++){
+         for (int f = 1; f<=numF; f++) {
+            //to comapre with fund weight variable
+            String varfundStr = "W" + f;
 
-               colno[c] = c+1; /* first column */
+            c =0;
+            //Weight variable for funds are by accounts
+            //w1A1+w2A1+w3A1...w1A3+w2A3+w3A3...
+            for (int r = 0; r< numA; r++){
                int column = r+1;
-               String colName = "W" + column;
-               if (lp.getColName(c + 1).contains(colName))
-                  row[c] = 1.0;
-                  //if (c>= r*numA && c < ((r+1)*numA)) {
+
+               for(int n = 0; n< numF; n++){
+                  int k = n+1;
+                  String colName = "W" + k;
+                  colno[c] = c+1; /* first column */
+                  // if (lp.getColName(c + 1).equals(colName))
                   //   row[c] = 1.0;
-                  //}
-               else
-                  row[c] = 0.0;
+                  //if (c>= r*numA && c < ((r+1)*numA)) {
+                  if(colName.equals(varfundStr) )
+                     row[c] = 1.0;
+                  else
+                     row[c] = 0.0;
+                  c++;
+               }
             }
             /* add the row to lpsolve */
-            lp.addConstraintex(c, row, colno, LpSolve.LE, optFundWeight[r]);
+            //May want some funds weights tobe fixed
+            lp.addConstraintex(c, row, colno, LpSolve.LE, optFundWeight[f-1]);
          }
       }
 
@@ -570,7 +652,7 @@ public class HolisticModelOptimizer
          /* set the object direction to maximize */
          lp.setMaxim();
 
-         /* just out of curioucity, now generate the model in lp format in file model.lp */
+         /* just out of curiosity, now generate the model in lp format in file model.lp */
          lp.writeLp("model.lp");
 
          /* I only want to see important messages on screen while solving */
