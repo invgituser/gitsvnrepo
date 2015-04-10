@@ -24,7 +24,9 @@ public class lpTest
          String [] tickAcct1 =  {"FFKEX", "OAKIX", "TWGTX"};
          String [] tickAcct2 =  {"FCNTX", "LEXCX", "MALOX"};
          String [] tickAcct3 =  {"LSHIX", "MEDAX", "NEZYX"};
-         String [] tickAcct4 =  {"IEF","IVW","MDY"};
+         String [] tickAcct4 =  {"VNQ","TLT","IEF","SHY","BIL","IAU","IVW","IVE","VTV","MDY","PFF","IWM","JNK","EMLC","VCLT","VWO","EFA"};
+         //
+
          double acct1=100000, acct2=100000, acct3=300000, acct4=500000;
          //double acct1=400000, acct2=400000, acct3=200000;
          double totalValue = acct1 + acct2 + acct3 + acct4;
@@ -38,7 +40,8 @@ public class lpTest
          //double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue};
 
          String primeAssets = "PRIME-ASSET";
-         double[][] targetPAssetAllocation = {{0.2},{0.4},{0.4}};
+         double[][] targetPAssetAllocation = {{0.01},{0.26},{0.0},{0.11},{0.05},{0.07},{0.0},{0.05},{0.05},{0.12},{0.13},{0.07},{0.02},
+            {0.02},{0.0},{0.08}};
          double targetOptProd = targetPAssetAllocation[0][0] *
             targetPAssetAllocation[1][0] *
             targetPAssetAllocation[2][0];
@@ -52,7 +55,7 @@ public class lpTest
          double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
 
          //Compute minimum error vector by comparing to target and find the best weight fit
-         double[] errorDiff = hoptimizer.getFundErrorVectorArray(tickers,  targetOptProd, weights);
+         double[] errorDiff = hoptimizer.getFundErrorVectorArray(tickers,  targetPAssetAllocation, weights);
 
          MergeSort mms = MergeSort.getInstance();
          int[] fundOffset = new int[errorDiff.length];
@@ -70,23 +73,6 @@ public class lpTest
 
          }*/
 
-         //double[][] productMatrix = multiplyByMatrix(multiplicand, multiplier);
-         /*System.out.println("#2\n" + toString(optPAweights));
-
-         double product = 1.0;
-
-         for (int row = 0; row < optPAweights.length; row++) {
-            for (int col = 0; col < optPAweights[0].length; col++)  {
-
-               product = product* optPAweights[row][col];
-            }
-         }
-         double squaredErr = StrictMath.pow((targetOptProd - product), 2);
-         System.out.println(targetOptProd);
-         System.out.println(product);
-         System.out.println(squaredErr);
-         */
-
          //PRIME ASSET exposure can not be larger than the account exposure.
          //If PRIME ASSET funds are in IRA and it has only a 20% value than the upperbound for these
          //funds must be 0.2 or below combined
@@ -94,32 +80,36 @@ public class lpTest
          //than 20%
          //Also we mau want to consturct a fundConstaint matrix similar to accountConstraint.
 
-         //double[] optFundWeight = new double[] {0.50,0.15,0.0,0.25,0.05,0.05};
+
          double[] optFundWeight = new double[weights[0].length];
          for(int i=0; i<weights[0].length; i++){
             optFundWeight[i] = weights[fundOffset[0]][i];
          }
-         //double[] optFundWeight = new double[] {0.00,0.00,0.00,0.00,0.00,0.00,0.10,0.22,0.21,0.40,0.07,0.00};
-         //0.00	,0.00,	0.00,	0.00,	0.00,	0.00,	0.10,	0.22,	0.21,	0.40,	0.07,	0.00
-         // {0.11, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.55, 0.13, 0.21, 0.0, 0.0}
-         //{0.081,	0.045,	0.000,	0.758,	0.053,	0.063};
 
-         double[][] accountConstraints = new double[][] {
+         double[][] accountConstraints = new double[acctW.length][acctW.length*tickers.length];
+
+         for (int r = 0; r<acctW.length; r++) {
+            int colN = 0;
+            for (int a = 0; a<acctW.length; a++) {
+               for (int f = 0; f<tickers.length; f++){
+
+                  if (r == a )
+                     accountConstraints[r][colN] = 1;
+                  else
+                     accountConstraints[r][colN] = 0;
+                  colN++;
+
+               }
+            }
+         }
+         /*double[][] accountConstraints = new double[][] {
             {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1}};
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1}};*/
 
-         /*double[][] accountConstraints = new double[][] {
-         {1	,1	,1	,1	,1	,1	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0},
-         {0	,0	,0	,0	,0	,0	,1	,1	,1	,1	,1	,1	,0	,0	,0	,0	,0	,0 },
-         {0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,0	,1	,1	,1	,1	,1	,1 }};*/
-
-
-         //If return is not 0 then failed
-         double[] fundWeightPerAccounts = hoptimizer.AllocateToAccounts(optFundWeight, acctW, accountConstraints);
-
-
+         AllocationOptimizer allocOpt = AllocationOptimizer.getInstance();
+         double[] fundWeightsPerAccounts = allocOpt.AllocateToAccounts(optFundWeight, acctW, accountConstraints);
       }
       catch (LpSolveException e) {
          e.printStackTrace();
