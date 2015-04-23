@@ -9,7 +9,9 @@ import javax.faces.context.FacesContext;
 import com.invessence.bean.common.PositionBean;
 import com.invessence.constant.Const;
 import com.invessence.dao.ManageAccountDAO;
+import com.invessence.dao.consumer.ConsumerListDataDAO;
 import com.invessence.data.ManageAccount;
+import com.invessence.data.common.ManageGoals;
 import com.invessence.util.*;
 
 /**
@@ -20,7 +22,7 @@ import com.invessence.util.*;
  * To change this template use File | Settings | File Templates.
  */
 
-@ManagedBean(name = "cmBean")
+@ManagedBean(name = "cdash")
 @SessionScoped
 public class ConsumerManageBean implements Serializable
 {
@@ -29,9 +31,9 @@ public class ConsumerManageBean implements Serializable
    WebUtil webutil = new WebUtil();
    Menu menu = new Menu();
 
-   private List<ManageAccount> manageAccountList;
+   private List<ManageGoals> manageAccountList;
 
-   private ManageAccount selectedAccount;
+   private ManageGoals selectedAccount;
 
    private String selected;
    private Long acctnum;
@@ -41,11 +43,8 @@ public class ConsumerManageBean implements Serializable
    private Boolean anyPending = false;
    private String greetings;
 
-   @ManagedProperty("#{manageAccountDAO}")
-   private ManageAccountDAO manageAccountDAO;
-
-   @ManagedProperty("#{positionBean}")
-   PositionBean positionBean;
+   @ManagedProperty("#{consumerListDataDAO}")
+   private ConsumerListDataDAO manageAccountDAO;
 
    @ManagedProperty("#{emailMessage}")
    private EmailMessage messageSource;
@@ -119,9 +118,6 @@ public class ConsumerManageBean implements Serializable
       {
          if (webutil.validatePriviledge(Const.ROLE_USER)) {
             logonid = webutil.getLogonid();
-
-            if (logonid != null)
-               fetchStatus = collectData(logonid, null);
          }
       }
       catch (Exception e)
@@ -130,16 +126,11 @@ public class ConsumerManageBean implements Serializable
       }
    }
 
-   public void setManageAccountDAO(ManageAccountDAO manageAccountDAO)
+   public void setManageAccountDAO(ConsumerListDataDAO manageAccountDAO)
    {
       this.manageAccountDAO = manageAccountDAO;
    }
 
-
-   public void setPositionBean(PositionBean positionBean)
-   {
-      this.positionBean = positionBean;
-   }
 
 /*
    public boolean isPostback()
@@ -153,15 +144,16 @@ public class ConsumerManageBean implements Serializable
    {
       try
       {
-            manageAccountList = manageAccountDAO.getManageAccount(acctnum, userName);
+            manageAccountList = manageAccountDAO.getClientProfileData(logonid, null);
             for (int i = 0; i < manageAccountList.size(); i++)
             {
                dataCollected = true;
-               ManageAccount myaccount = manageAccountList.get(i);
+               ManageGoals myaccount = manageAccountList.get(i);
                Map<String, String> addAction;
                String mylogonid = myaccount.getLogonid().toString();
                String myacctnum = myaccount.getAcctnum().toString();
-               if (myaccount.getAcctstate().contains("Active"))
+/*
+               if (myaccount.getManaged())
                {
                   addAction = buildDropdownMenu(activeActions, mylogonid, myacctnum);
                   myaccount.setAction("View");
@@ -174,6 +166,7 @@ public class ConsumerManageBean implements Serializable
                   myaccount.setAction("Edit");
                   myaccount.setChoices(addAction);
                }
+*/
             }
 
          String welcomeText = "";
@@ -254,7 +247,7 @@ public class ConsumerManageBean implements Serializable
       return dropdownMenu;
    }
 
-   public List<ManageAccount> getManageAccountList()
+   public List<ManageGoals> getManageAccountList()
    {
       return manageAccountList;
    }
@@ -310,7 +303,7 @@ public class ConsumerManageBean implements Serializable
       }
    }
 
-   public ManageAccount getSelectedAccount()
+   public ManageGoals getSelectedAccount()
    {
       return selectedAccount;
    }
@@ -325,7 +318,7 @@ public class ConsumerManageBean implements Serializable
       this.greetings = greetings;
    }
 
-   public void setSelectedAccount(ManageAccount selectedAccount)
+   public void setSelectedAccount(ManageGoals selectedAccount)
    {
       this.selectedAccount = selectedAccount;
       setSelected(selectedAccount.getAcctnum().toString());
@@ -354,7 +347,7 @@ public class ConsumerManageBean implements Serializable
             return "failed";
          }
 
-         if (selectedAccount.getAcctstate().equals("Active"))
+         if (selectedAccount.getManaged())
          {
             whichXML = "/common/overview.xhtml?acct="+selectedAccount.getAcctnum().toString();
          }

@@ -5,7 +5,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.*;
+import javax.servlet.http.HttpSession;
 
 import com.invessence.constant.Const;
 import com.invessence.converter.SQLData;
@@ -31,14 +32,14 @@ import org.primefaces.event.*;
 public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 {
    private Long  beanAcctnum;
+   private Boolean formEdit = false;
    private Boolean disablegraphtabs = true
       , disabledetailtabs = true
       , disablesaveButton = true;
+   private Boolean prefVisible = true;
 
-   private Boolean formEdit = true;
    private Integer imageSelected = 0;
 
-   private WebUtil webutil = new WebUtil();
    private Charts charts = new Charts();
 
    @ManagedProperty("#{consumerListDataDAO}")
@@ -91,6 +92,16 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       return disablesaveButton;
    }
 
+   public Boolean getPrefVisible()
+   {
+      return prefVisible;
+   }
+
+   public void setPrefVisible(Boolean prefVisible)
+   {
+      this.prefVisible = prefVisible;
+   }
+
    public Charts getCharts()
    {
       return charts;
@@ -107,19 +118,17 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            if (getWebutil().hasAccess("Advisor") || getWebutil().hasAccess("Admin"))
+               setRiskCalcMethod("A");
+            else
+               setRiskCalcMethod("C");
+
             if (getBeanAcctnum() != null && getBeanAcctnum() > 0L) {
                loadData(getBeanAcctnum());
             }
             else {
                loadNewClientData();
             }
-
-            if (webutil.hasAccess("Advisor") || webutil.hasAccess("Admin"))
-               setRiskCalcMethod("A");
-            else
-               setRiskCalcMethod("C");
-
-            formEdit = false;
          }
       }
       catch (Exception e)
@@ -133,7 +142,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    {
       try
       {
-         webutil.validatePriviledge(Const.ROLE_OWNER);
+         getWebutil().validatePriviledge(Const.ROLE_OWNER);
       }
       catch (Exception e)
       {
@@ -147,15 +156,9 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       String newValue = null;
       try
       {
-         if (event.getNewValue() == null)
-         {
-            return;
-         }
-         else {
-            if ( (getAge() != null) && (getAccountType() != null) && (getInitialInvestment() != null) && (getRiskIndex() != null))
-               disablesaveButton = false;
-            else
-               formEdit = true;
+         if (event.getNewValue() != null && event.getOldValue() != null) {
+            if (! event.getNewValue().equals(event.getOldValue()))
+               formEdit=true;
          }
       }
       catch (Exception ex)
@@ -164,16 +167,16 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       }
    }
 
-   public void selectedAccountType(Integer item) {
-      formEdit = true;
+   public void selectedGoalType(Integer item) {
 
       if (item == null)
          item = 0;
 
+      formEdit = true;
       imageSelected = item;
       switch (imageSelected) {
          case 0:
-            setAccountType("Retirement");
+            setGoal("Retirement");
             if (getAge() == null)
                setHorizon(20);
             else if (getAge() < 65)
@@ -182,21 +185,21 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
                setHorizon(2);
             break;
          case 1:
-            setAccountType("Growth");
+            setGoal("Growth");
             break;
          case 2:
-            setAccountType("Income");
+            setGoal("Income");
             break;
          default:
-            setAccountType("Retirement");
+            setGoal("Growth");
       }
 
-      if (getAccountType().toUpperCase().contains("INCOME")) {
+      if (getGoal().toUpperCase().contains("INCOME")) {
          setTheme("0.Income");
       }
       else {
          setTheme(InvConst.DEFAULT_THEME);
-         if (getAccountType().toUpperCase().contains("SAFETY"))
+         if (getGoal().toUpperCase().contains("SAFETY"))
             setHorizon(3);
          else
             setHorizon(20);
@@ -205,10 +208,10 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       createAssetPortfolio(1);
    }
 
-   public void selectedAccountType() {
-      formEdit = true;
+   public void selectedGoal() {
 
-      if (getAccountType().toUpperCase().contains("RETIRE")) {
+      formEdit = true;
+      if (getGoal().toUpperCase().contains("RETIRE")) {
          if (getAge() == null)
             setHorizon(20);
          else if (getAge() < 65)
@@ -217,7 +220,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             setHorizon(2);
       }
       else {
-         if (getAccountType().toUpperCase().contains("SAFETY"))
+         if (getGoal().toUpperCase().contains("SAFETY"))
             setHorizon(3);
          else
             setHorizon(20);
@@ -256,7 +259,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
       resetAdvisorData();
       try {
-         UserInfoData uid = webutil.getUserInfoData();
+         UserInfoData uid = getWebutil().getUserInfoData();
          if (uid != null) {
             setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
             setLogonid(uid.getLogonID());
@@ -264,7 +267,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
          listDAO.getNewClientProfileData((ManageGoals) this.getInstance());
          loadBasketInfo();
          createAssetPortfolio(getDefaultHorizon()); // Build default chart for the page...
-         formEdit = false;
+         RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -275,7 +278,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
       resetAdvisorData();
       try {
-         UserInfoData uid = webutil.getUserInfoData();
+         UserInfoData uid = getWebutil().getUserInfoData();
          if (uid != null) {
             setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
             setLogonid(uid.getLogonID());
@@ -316,10 +319,11 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 */
 
    public void onAllocSlider(SlideEndEvent event) {
-      setAge(event.getValue());
+      // setAge(event.getValue());
       setRiskCalcMethod("A");
       setAllocationIndex(event.getValue());
       createAssetPortfolio(1);
+      formEdit = true;
    }
 
    public void onPortfolioSlider(SlideEndEvent event) {
@@ -327,6 +331,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       setRiskCalcMethod("A");
       setPortfolioIndex(event.getValue());
       createPortfolio(1);
+      formEdit = true;
    }
 
    public void refresh() {
@@ -334,39 +339,32 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    }
 
    public void consumerRefresh() {
+      setRiskCalcMethod("C");
       createAssetPortfolio(1);
+      formEdit = true;
    }
 
    private void createAssetPortfolio(Integer noOfYears) {
 
       try {
-         formEdit = true;
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
-         if (webutil.hasAccess("ADVISOR")) {
-            buildAdvisorAssetClass();
-            buildAdvisorPortfolio();
-         }
-         else {
-            buildConsumerAssetClass();
-            buildConsumerPortfolio();
-         }
+         buildAssetClass();
+         buildPortfolio();
+
          createCharts();
       }
       catch (Exception ex) {
-           ex.printStackTrace();
+         ex.printStackTrace();
       }
    }
 
    private void createPortfolio(Integer noOfYears) {
 
       try {
-         formEdit = true;
          setNumOfPortfolio(noOfYears);
-         if (webutil.hasAccess("ADVISOR"))
-            buildAdvisorPortfolio();
-         else
-            buildConsumerPortfolio();
+         buildPortfolio();
+
          createCharts();
       }
       catch (Exception ex) {
@@ -377,9 +375,10 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    private void createCharts() {
 
       try {
+         formEdit = true;
          charts.setMeterGuage(getMeterRiskIndicator());
          if (getAssetData() != null) {
-               charts.createPieModel(getAssetData(),0);
+            charts.createPieModel(getAssetData(),0);
          }
 
          if (getPortfolioData() != null) {
@@ -391,6 +390,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
          ex.printStackTrace();
       }
    }
+
 
    public Boolean validateProfile() {
       try {
@@ -421,43 +421,126 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       return true;
    }
 
-   public void saveProfile()
-   {
+   private void setDefaults() {
+      if (getAccountTaxable())
+         setAccountType("Taxable");
+      else
+         setAccountType("Non-Taxable");
+
+      if (getGoal() == null)
+         setGoal("Growth");
+
+      if (getPortfolioName() == null)  {
+         setPortfolioName(getLastname() + "-" + getGoal());
+      }
+
+   }
+
+   public void saveProfile() {
+      long acctnum;
       Boolean validate = false;
       try
       {
-         validate = validateProfile();
+         if (formEdit)  {
+            validate = validateProfile();
 
-         if (validate) {
-            disablesaveButton = true;
-            saveDAO.saveProfileData(this.getInstance());
+            if (validate) {
+               setDefaults();
+               acctnum = saveDAO.saveProfileData(getInstance());
+               setAcctnum(acctnum);
+               saveDAO.saveRiskProfile(getInstance());
+            }
          }
       }
       catch (Exception ex)
       {
-         ex.printStackTrace();
+         String stackTrace = ex.getMessage();
+         getWebutil().alertSupport("managegoals.addGoals", "Error:managegoals.addGoals",
+                                   "error.addGoals", stackTrace);
       }
+
    }
 
-   public void NextPage()
-   {
+   public void savePrefProfile(ActionEvent event) {
+      createAssetPortfolio(1);
+      saveProfile();
+      formEdit = false;
+   }
 
+   public void savePanelProfile() {
+      saveProfile();
+      formEdit = false;
+      // RequestContext.getCurrentInstance().openDialog("/pages/consumer/fundingDialog.xhtml");
+   }
+
+   public Integer getCanOpenAccount() {
       try
       {
-         if (validateProfile()) {
-            saveProfile();
+         String license;
+         String webmode = getWebEnvironment();
+         if (webmode != null & webmode.equalsIgnoreCase("PROD"))
+         {
+            if (getLogonid() == null)
+            {
+               return -1;
+            }
+            license = listDAO.validateState(getLogonid(), getRegisteredState());
+            if (license == null || license.equalsIgnoreCase("quota"))
+            {
+               return 1;
+            }
+            else
+            {
+               return 0;
+            }
          }
+         return 2;
       }
       catch (Exception ex)
       {
-         ex.printStackTrace();
+         return -99;
       }
    }
 
-   public void saveCustomProfile() {
-
+   public String getForwardInstructions() {
+      String msg;
+      switch (getCanOpenAccount()) {
+         case -1:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
+               "<p>You are currently not logged on to the system.  Either your session has expired or you have reached this page in error</p>";
+            break;
+         case 0:
+            msg = "<p>You are being forwarded to <strong>Interactive Broker</strong> to open an account.</p>\n" +
+               "<p>You will be logged off this site.</p>";
+            break;
+         case 1:
+            msg = "We are in the <strong>process of registering in your state</strong>.\n" +
+               "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+         case 2:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+         case -99:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
+            "<p>Please contact support desk.  Phone number and email is listed at top of the page.</p>";
+            break;
+         default:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+      }
+      return msg;
    }
 
+   public void forwardToIB() {
+
+      if (getCanOpenAccount() == 0) {
+         FacesContext facesContext = FacesContext.getCurrentInstance();
+         HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
+         httpSession.invalidate();
+         String url=getIblink() + "externalId=" + getAcctnum();
+         getWebutil().redirect(url, null);
+      }
+   }
 
 }
 

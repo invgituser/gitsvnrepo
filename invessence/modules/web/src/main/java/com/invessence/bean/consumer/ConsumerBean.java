@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
 
 import com.invessence.constant.Const;
@@ -39,19 +39,17 @@ public class ConsumerBean extends ManageGoals implements Serializable
    private boolean tabenable = true;
    private boolean formDirty = false;
    private String currentTab;
-   private String license;
-
+   private Boolean fundingDialog;
    //DI via Spring
    @ManagedProperty("#{consumerSaveDataDAO}")
    ConsumerSaveDataDAO consumerSaveDAO;
 
-   @ManagedProperty("#{commonDAO}")
-   CommonDAO commonDao;
+   @ManagedProperty("#{consumerListDataDAO}")
+   private ConsumerListDataDAO listDAO;
 
    @ManagedProperty("#{emailMessage}")
    private EmailMessage messageText;
 
-   private WebUtil webutil = new WebUtil();
    private Charts charts = new Charts();
 
 
@@ -70,9 +68,16 @@ public class ConsumerBean extends ManageGoals implements Serializable
       this.consumerSaveDAO = consumerSaveDAO;
    }
 
+/*
    public void setCommonDao(CommonDAO commonDao)
    {
       this.commonDao = commonDao;
+   }
+*/
+
+   public void setListDAO(ConsumerListDataDAO listDAO)
+   {
+      this.listDAO = listDAO;
    }
 
    public String getBeanAcctnum()
@@ -99,7 +104,7 @@ public class ConsumerBean extends ManageGoals implements Serializable
             SQLData converter = new SQLData();
             Long acctnum = converter.getLongData(beanAcctnum);
             if (acctnum != null && acctnum > 0L) {
-               findGoals(webutil.getLogonid(), acctnum);
+               findGoals(getWebutil().getLogonid(), acctnum);
             }
             else {
                resetConsumerBean();
@@ -119,7 +124,7 @@ public class ConsumerBean extends ManageGoals implements Serializable
    {
       try
       {
-         webutil.validatePriviledge(Const.ROLE_OWNER);
+         getWebutil().validatePriviledge(Const.ROLE_OWNER);
       }
       catch (Exception e)
       {
@@ -220,7 +225,7 @@ public class ConsumerBean extends ManageGoals implements Serializable
       resetManagedGoalData();
       setTabenable(true);
       setCurrentTab("tab1");
-      setLogonid(webutil.getLogonid());
+      setLogonid(getWebutil().getLogonid());
       return "success";
    }
 
@@ -228,12 +233,19 @@ public class ConsumerBean extends ManageGoals implements Serializable
    {
       try
       {
+         resetManagedGoalData();
          if (acctnum != null)
          {
+            setLogonid(logonid);
+            setAcctnum(acctnum);
+            listDAO.getProfileData((ManageGoals) this.getInstance());
+
+/*
             ManageGoals newgoals = commonDao.getSingleAccounts(acctnum);
             if (newgoals != null) {
                copyData(newgoals);
             }
+*/
             setTabenable(false);
             setCurrentTab("tab1");
             createAssetPortfolio(getHorizon());
@@ -372,7 +384,8 @@ public class ConsumerBean extends ManageGoals implements Serializable
       try {
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
-         buildConsumerPortfolio();
+         buildAssetClass();
+         buildPortfolio();
          createCharts(noOfYears);
       }
       catch (Exception ex) {
@@ -443,34 +456,49 @@ public class ConsumerBean extends ManageGoals implements Serializable
 
    private Boolean canOpenAccount = null;
 
-   private void initAccountInfo() {
-      try {
-         if (getWebEnvironment() != null & getWebEnvironment().equalsIgnoreCase("Prod")) {
-            if (getRegisteredState() == null && getLogonid() == null)
+   public Boolean getFundingDialog()
+   {
+      return fundingDialog;
+   }
+
+   public void setFundingDialog(Boolean fundingDialog)
+   {
+      this.fundingDialog = fundingDialog;
+   }
+
+   private Integer initAccountInfo() {
+      try
+      {
+         String license;
+         String webmode = getWebEnvironment();
+         if (webmode != null & webmode.equalsIgnoreCase("PROD"))
+         {
+            if (getLogonid() == null)
+            {
                setCanOpenAccount(false);
-            if (getRegisteredState() == null) {
-               license = commonDao.validateState(getLogonid(),null);
-               if (license == null || license.equalsIgnoreCase("quota"))
-                  setCanOpenAccount(false);
-               else
-                  setCanOpenAccount(true);
+               return -1;
             }
-            if (getRegisteredState() != null) {
-               license = commonDao.validateState(null, getRegisteredState());
-               if (license == null || license.equalsIgnoreCase("quota"))
-                  setCanOpenAccount(false);
-               else
-                  setCanOpenAccount(true);
+            license = listDAO.validateState(getLogonid(), getRegisteredState());
+            if (license == null || license.equalsIgnoreCase("quota"))
+            {
+               setCanOpenAccount(false);
+               return 1;
+            }
+            else
+            {
+               setCanOpenAccount(true);
+               return 0;
             }
          }
-            else {
-               setCanOpenAccount(false);
-            }
-      }
-      catch (Exception ex) {
          setCanOpenAccount(false);
+         return 2;
       }
 
+      catch (Exception ex)
+      {
+         setCanOpenAccount(false);
+         return -99;
+      }
    }
 
    public void setCanOpenAccount(Boolean canOpenAccount)
@@ -495,6 +523,36 @@ public class ConsumerBean extends ManageGoals implements Serializable
 
    public String getForwardInstructions() {
       String msg;
+      switch (initAccountInfo()) {
+         case -1:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
+               "<p>You are currently not logged on to the system.  Either your session has expired or you have reached this page in error</p>";
+            break;
+         case 0:
+            msg = "<p>You are being forwarded to <strong>Interactive Broker</strong> to open an account.</p>\n" +
+               "<p>You will be logged off this site.</p>";
+            break;
+         case 1:
+            msg = "We are in the <strong>process of registering in your state</strong>.\n" +
+               "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+         case 2:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+         case -99:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
+               "<p>Please contact support desk.  Phone number and email is listed at top of the page.</p>";
+            break;
+         default:
+            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
+            break;
+      }
+      return msg;
+   }
+
+/*
+   public String getForwardInstructions() {
+      String msg;
       if (getCanOpenAccount()) {
          msg = "<p>You are being forwarded to <strong>Interactive Broker</strong> to open an account.</p>\n" +
             "<p>You will be logged off this site.</p>";
@@ -506,6 +564,7 @@ public class ConsumerBean extends ManageGoals implements Serializable
       }
       return msg;
    }
+*/
 
    public String getYesText() {
       if (getCanOpenAccount())
@@ -514,14 +573,26 @@ public class ConsumerBean extends ManageGoals implements Serializable
          return "Ok, I'll wait.";
    }
 
-   public void forwardToIB() {
+   public void showFundingDialog() {
+      setFundingDialog(true);
+   }
 
+   public void hideFundingDialog() {
+      setFundingDialog(false);
+   }
+
+   public String forwardToIB() {
+
+      setFundingDialog(false);
       if (getCanOpenAccount()) {
          FacesContext facesContext = FacesContext.getCurrentInstance();
          HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
          httpSession.invalidate();
-         getWebutil().redirect(getIblink(),null);
+         String url=getIblink() + "externalId=" + getAcctnum();
+         getWebutil().redirect(url,null);
+         return "Success";
       }
+      return "Failed";
 
    }
 
