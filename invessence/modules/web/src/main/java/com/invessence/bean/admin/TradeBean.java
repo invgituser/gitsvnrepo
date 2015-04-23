@@ -362,7 +362,8 @@ public class TradeBean extends TradeClientData implements Serializable
                   this.getInstance().copyData((ManageGoals) data);
                   this.getInstance().setNumOfAllocation(1);
                   this.getInstance().setNumOfPortfolio(1);
-                  this.getInstance().buildConsumerPortfolio();
+                  this.getInstance().buildAssetClass();
+                  this.getInstance().buildPortfolio();
                   csdDAO.saveAllocation(this.getInstance());
                   csdDAO.savePortfolio(this.getInstance());
                   csdDAO.createTrades(this.getInstance().getAcctnum());
