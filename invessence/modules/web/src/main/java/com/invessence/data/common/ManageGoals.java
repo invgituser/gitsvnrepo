@@ -23,21 +23,20 @@ import com.invmodel.portfolio.data.*;
  */
 public class ManageGoals extends ProfileData
 {
-
-   private WebUtil webutil = new WebUtil();
    private JavaUtil javautil = new JavaUtil();
    private ManageGoals manageGoalinstance = null;
+
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
 
    @ManagedProperty("#{assetAllocationModel}")
    private AssetAllocationModel allocModel;
    private Boolean managed;
-   private String  webEnvironment = Const.WEB_MODE;
 
    @ManagedProperty("#{portfolioModel}")
    private PortfolioModel portfolioModel;
    private String userid;
    private String addmodflag;
-   private String acctstatus;
    private String dateOpened;
    private String created;
 
@@ -79,7 +78,6 @@ public class ManageGoals extends ProfileData
 
    private String model      = "D";
    private Integer assetyear = 0;
-   private String active     = "A";
    private String registeredState;
    private Boolean userAssetOverride = false;
 
@@ -110,6 +108,11 @@ public class ManageGoals extends ProfileData
       return webutil;
    }
 
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
    public ManageGoals()
    {
       super();
@@ -132,12 +135,7 @@ public class ManageGoals extends ProfileData
 
    public String getWebEnvironment()
    {
-      return webEnvironment;
-   }
-
-   public void setWebEnvironment(String webEnvironment)
-   {
-      this.webEnvironment = webEnvironment;
+      return webutil.webMode();
    }
 
    public AssetAllocationModel getAllocModel()
@@ -187,12 +185,7 @@ public class ManageGoals extends ProfileData
 
    public String getAcctstatus()
    {
-      return acctstatus;
-   }
-
-   public void setAcctstatus(String acctstatus)
-   {
-      this.acctstatus = acctstatus;
+      return (getManaged() ? "Active" : "Pending");
    }
 
    public String getDisplayDateOpened()
@@ -582,16 +575,6 @@ public class ManageGoals extends ProfileData
       this.assetyear = assetyear;
    }
 
-   public String getActive()
-   {
-      return active;
-   }
-
-   public void setActive(String active)
-   {
-      this.active = active;
-   }
-
    public String getPortfolioName()
    {
       return portfolioName;
@@ -659,10 +642,8 @@ public class ManageGoals extends ProfileData
       setUserid(null);
       setPortfolioName(null);
       setAddmodflag(null);
-      setAcctstatus(null);
       setDateOpened(null);
       setManaged(false);
-      setWebEnvironment(Const.WEB_CONSUMER);
 
       // Income/Expenses
       setHouseholdwages(null);
@@ -701,7 +682,6 @@ public class ManageGoals extends ProfileData
 
       setModel("D");
       setAssetyear(0);
-      setActive("A");
 
       setEmail(null);
       setFirstname(null);
@@ -969,11 +949,11 @@ public class ManageGoals extends ProfileData
       this.selectedPortfolio = selectedPortfolio;
    }
 
-   public void buildConsumerAssetClass() {
+   public void buildAssetClass() {
       AssetClass[] aamc;
       try {
          setAssetData(null);
-         aamc = allocModel.getConsumerAssetInfo((ProfileData) this.getInstance());
+         aamc = allocModel.buildAllocation((ProfileData) this.getInstance());
          if (aamc != null)  {
             setAssetData(aamc);
          }
@@ -983,21 +963,7 @@ public class ManageGoals extends ProfileData
       }
    }
 
-   public void buildAdvisorAssetClass() {
-      AssetClass[] aamc;
-      try {
-         setAssetData(null);
-         aamc = allocModel.getAdvisorAssetsInfo((ProfileData) this.getInstance());
-         if (aamc != null)  {
-            setAssetData(aamc);
-         }
-      }
-      catch (Exception ex) {
-         ex.printStackTrace();
-      }
-   }
-
-   public void buildAdvisorPortfolio() {
+   public void buildPortfolio() {
       AssetClass[] aamc;
       Portfolio[] pfclass;
       MsgData data = new MsgData();
@@ -1007,40 +973,8 @@ public class ManageGoals extends ProfileData
          aamc = getAssetData();
          if (aamc != null)
          {
-            pfclass = portfolioModel.getAdvisorPortfolio(aamc,
-                                                         (ProfileData) getInstance());
-            if (pfclass != null)
-            {
-               setPortfolioData(pfclass);
-
-               // Now refresh the Display List
-               loadPortfolioList(displayYear);
-            }
-
-            if (getUserAssetOverride())
-               getAllocModel().overrideAssetWeight(aamc[displayYear], this.getEditableAsset());
-            totalAssetClassWeights(aamc[displayYear].getAssetclass(), displayYear);
-         }
-
-      }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
-      }
-   }
-
-   public void buildConsumerPortfolio() {
-      AssetClass[] aamc;
-      Portfolio[] pfclass;
-      MsgData data = new MsgData();
-      try
-      {
-         Integer displayYear = 0;
-         aamc = getAssetData();
-         if (aamc != null)
-         {
-            pfclass = portfolioModel.getConsumerPortfolio(aamc,
-                                                              (ProfileData) getInstance());
+            pfclass = portfolioModel.buildPortfolio(aamc,
+                                      (ProfileData) getInstance());
             if (pfclass != null)
             {
                setPortfolioData(pfclass);
