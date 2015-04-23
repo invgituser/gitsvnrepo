@@ -20,6 +20,7 @@ public class
    ProfileData
 {
    private Long logonid;
+   private Long advisorlogonid;
    private Long acctnum;
    private String clientAccountID;
    private Integer yearly = 12;
@@ -151,6 +152,16 @@ public class
       this.clientAccountID = clientAccountID;
    }
 
+   public Long getAdvisorlogonid()
+   {
+      return advisorlogonid;
+   }
+
+   public void setAdvisorlogonid(Long advisorlogonid)
+   {
+      this.advisorlogonid = advisorlogonid;
+   }
+
    public Long getLogonid()
    {
       return logonid;
@@ -164,7 +175,7 @@ public class
    public String getDefaultGoal()
    {
       if (goal == null || goal.length() == 0)
-         return "Portfolio Name";
+         return "Growth";
       else
          return goal;
 
@@ -186,7 +197,8 @@ public class
    {
       this.goal = goal;
       // In case the goal is reselected, we want to reset the tax type.
-      determineTaxable(getGoal(), getAccountType());
+      // Introduced 4/4/2015 , now taxable is a flag on Interface.
+      // determineTaxable(getGoal(), getAccountType());
       // NOTE: Explore page overrides this behaviour, because the account type is not selected.
    }
 
@@ -219,37 +231,34 @@ public class
 
    public String getAccountType()
    {
-      if (accountType == null)
-         return "Retirement";
-      else
-         return accountType;
+      return accountType;
    }
 
    public void setAccountType(String accountType)
    {
       this.accountType = accountType;
-      determineTaxable(getGoal(), accountType);
-      setIblink(accountType);
+      // determineTaxable(getGoal(), accountType);
+      // setIblink(accountType);
    }
 
-   public String getDisplayAccountType() {
-      if (accountType == null)
+   public String getDisplayGoals() {
+      if (goal == null)
          return "Retirement";
       else {
-         if (accountType.toUpperCase().contains("RETIRE"))
+         if (goal.toUpperCase().contains("RETIRE"))
             return  "Retirement";
-         if (accountType.toUpperCase().contains("INCOME"))
+         if (goal.toUpperCase().contains("INCOME"))
             return "Income";
          else
             return "Growth";
       }
    }
 
-   public void setDisplayAccountType(String accountType) {
-      if (accountType == null)
-         setAccountType("Retirement");
+   public void setDisplayGoals(String goal) {
+      if (goal == null)
+         setGoal("Growth");
       else
-         setAccountType(accountType);
+         setGoal(goal);
 
    }
 
@@ -293,9 +302,9 @@ public class
 
    public void setDefaultAge(Integer age) {
       if (age == null || age <= 0)
-         this.age = 30;
+         setAge(30);
       else
-         this.age = age;
+         setAge(age);
    }
 
 
@@ -931,7 +940,7 @@ public class
       else {
          Integer calc;
          if (allocationIndex == 0 && portfolioIndex == 0)
-            calc = 1;
+            calc = 0;
          else
             calc = (allocationIndex * portfolioIndex) / (allocationIndex + portfolioIndex);
          setMeterRiskIndicator(calc);
@@ -1100,9 +1109,10 @@ public class
 
    }
 
-
    public String getIblink()
    {
+      if (iblink == null)
+         return "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
       return iblink;
    }
 

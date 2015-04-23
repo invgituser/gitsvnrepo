@@ -117,7 +117,7 @@ public class TestDistribution
          assetAllocationModel.setPortfolioOptimizer(poptimizer);
 
          // assetAllocationModel.setHr(HistoricalReturns.getInstance());
-         AssetClass[] aamc = assetAllocationModel.getConsumerAssetInfo(profileData);
+         AssetClass[] aamc = assetAllocationModel.buildAllocation(profileData);
          profileData.setAssetData(aamc);
          PortfolioModel portfolioModel = new PortfolioModel();
          portfolioModel.setPortfolioOptimizer(poptimizer);
@@ -130,7 +130,7 @@ public class TestDistribution
          // portfolioModel.setMonthlyDao(DailyReturns.getInstance());
          profileData.setNumOfPortfolio(profileData.getHorizon());
 
-         Portfolio[] pfclass = portfolioModel.getConsumerPortfolio(aamc, profileData);
+         Portfolio[] pfclass = portfolioModel.buildPortfolio(aamc, profileData);
       //}
 
       tax = "No";

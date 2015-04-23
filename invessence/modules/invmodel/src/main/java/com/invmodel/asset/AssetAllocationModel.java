@@ -41,7 +41,17 @@ public class AssetAllocationModel
       this.portfolioOptimizer = portfolioOptimizer;
    }
 
-   public AssetClass[] getAdvisorAssetsInfo(ProfileData pdata)
+   public AssetClass[] buildAllocation(ProfileData pdata) {
+      if (pdata == null) {
+        return null;
+      }
+      if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
+         return getConsumerAssetInfo(pdata);
+      else
+         return getAdvisorAssetsInfo(pdata);
+   }
+
+   private AssetClass[] getAdvisorAssetsInfo(ProfileData pdata)
    {
       AssetClass[] assetclass;
       String theme;
@@ -181,7 +191,7 @@ public class AssetAllocationModel
 
    }
 
-   public AssetClass[] getConsumerAssetInfo(ProfileData pdata)
+   private AssetClass[] getConsumerAssetInfo(ProfileData pdata)
    {
       AssetClass[] assetclass;
       Double adj_riskOffet;
@@ -216,9 +226,10 @@ public class AssetAllocationModel
          {
             //Age based offset
             int offset = (int) (100 - ((age < 21) ? 21 : ((age > 100) ? 100 : age)));
-
             //JAV 8/28/2013
             offset = (int) (offset * adj_riskOffet);
+            if (counter == 0)
+               pdata.setAllocationIndex(offset);
 
             assetclass[counter] = adjustDurationRisk(theme, offset, duration,
                                                      age, stayInvested);

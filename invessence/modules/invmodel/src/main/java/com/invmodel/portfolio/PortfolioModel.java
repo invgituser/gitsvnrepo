@@ -40,7 +40,18 @@ public class PortfolioModel
       return invCapital;
    }
 
-   public Portfolio[] getAdvisorPortfolio(AssetClass[] assetData, ProfileData profileData)
+   public Portfolio[] buildPortfolio(AssetClass[] assetData, ProfileData profileData) {
+      if (profileData == null) {
+         return null;
+      }
+      if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith("C"))
+         return getConsumerPortfolio(assetData,profileData);
+      else
+         return getAdvisorPortfolio(assetData,profileData);
+
+   }
+
+   private Portfolio[] getAdvisorPortfolio(AssetClass[] assetData, ProfileData profileData)
    {
       String assetName;
 
@@ -175,7 +186,7 @@ public class PortfolioModel
 
    }
 
-   public Portfolio[] getConsumerPortfolio(AssetClass[] assetData, ProfileData profileData)
+   private Portfolio[] getConsumerPortfolio(AssetClass[] assetData, ProfileData profileData)
    {
       String assetName;
 
@@ -275,6 +286,9 @@ public class PortfolioModel
             offset = (offset > InvConst.PORTFOLIO_INTERPOLATION - 1) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
             if(offset < 0)
                offset = 0;
+
+            if (investmentYear == 0)
+               profileData.setPortfolioIndex(offset);
 
             // Actual Investment is investment and recurring the next year.  Does not contain the returns.
             portfolioclass[investmentYear].setActualInvestments(actualInvestment);
