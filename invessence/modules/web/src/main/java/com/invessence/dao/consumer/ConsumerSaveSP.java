@@ -20,15 +20,16 @@ public class ConsumerSaveSP extends StoredProcedure
    {
       super(datasource, sp_name);
       switch (mode) {
-         case 0:  // save_consumer_user_trade_profile
-            declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+         case 0:  // save_user_trade_profile
             declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisorlogon", Types.BIGINT));
             declareParameter(new SqlParameter("p_portfolioName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_goal", Types.VARCHAR));
             declareParameter(new SqlParameter("p_acctType", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_taxable", Types.VARCHAR));
             declareParameter(new SqlParameter("p_age", Types.INTEGER));
             declareParameter(new SqlParameter("p_horizon", Types.INTEGER));
             declareParameter(new SqlParameter("p_initialInvestment", Types.INTEGER));
@@ -37,7 +38,11 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_objective", Types.TINYINT));
             declareParameter(new SqlParameter("p_investmentplan", Types.TINYINT));
             declareParameter(new SqlParameter("p_charitablegoals", Types.INTEGER));
+            declareParameter(new SqlParameter("p_keepLiquid", Types.INTEGER));
             declareParameter(new SqlParameter("p_riskIndex", Types.INTEGER));
+            declareParameter(new SqlParameter("p_riskCalcMethod", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_allocIndex", Types.INTEGER));
+            declareParameter(new SqlParameter("p_portfolioIndex", Types.INTEGER));
             break;
          case 1:  // save_user_financial_data
             declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
@@ -188,26 +193,30 @@ public class ConsumerSaveSP extends StoredProcedure
 
       try
       {
-         inputMap.put("p_addmodflag", 'M');
-         if (data.getLogonid() != null)
-         {
-            inputMap.put("p_logonid", data.getLogonid());
-         }
-
          if (data.getAcctnum() == null || data.getAcctnum() == 0L)
-         {
             inputMap.put("p_acctnum", -1);
-         }
          else
-         {
             inputMap.put("p_acctnum", data.getAcctnum());
-         }
+
+         inputMap.put("p_logonid", data.getLogonid());
+
+         inputMap.put("p_advisorlogon", data.getAdvisorlogonid());
+
 
          inputMap.put("p_portfolioName", data.getPortfolioName());
          inputMap.put("p_advisor", data.getAdvisor());
          inputMap.put("p_theme", data.getTheme());
          inputMap.put("p_goal", data.getGoal());
-         inputMap.put("p_acctType", data.getAccountType());
+
+         if (data.isAccountTaxable()) {
+            inputMap.put("p_taxable","Y");
+            inputMap.put("p_acctType", "Taxable");
+         }
+         else {
+            inputMap.put("p_taxable","N");
+            inputMap.put("p_acctType", "Non-Taxable");
+         }
+
          inputMap.put("p_age", data.getDefaultAge());
          inputMap.put("p_horizon", data.getDefaultHorizon());
          inputMap.put("p_initialInvestment", data.getDefaultInvestment());
@@ -216,7 +225,11 @@ public class ConsumerSaveSP extends StoredProcedure
          inputMap.put("p_objective", data.getObjective());
          inputMap.put("p_investmentplan", data.getStayInvested());
          inputMap.put("p_charitablegoals", 0);
+         inputMap.put("p_keepLiquid", data.getKeepLiquid());
          inputMap.put("p_riskIndex", data.getRiskIndex());
+         inputMap.put("p_riskCalcMethod", data.getRiskCalcMethod());
+         inputMap.put("p_allocIndex", data.getAllocationIndex());
+         inputMap.put("p_portfolioIndex", data.getPortfolioIndex());
          return super.execute(inputMap);
 
       }
@@ -339,7 +352,7 @@ public class ConsumerSaveSP extends StoredProcedure
          inputAssetMap.put("p_themecode", data.getTheme());
          inputAssetMap.put("p_allocationmodel", data.getModel());
          inputAssetMap.put("p_assetyear", data.getAssetyear());
-         inputAssetMap.put("p_active", data.getActive());
+         inputAssetMap.put("p_active", (data.getManaged() ? "A": ""));
          inputAssetMap.put("p_weight", data.getAssetData()[0].getAsset(assetname).getUserweight());
          super.execute(inputAssetMap);
       }
@@ -371,7 +384,7 @@ public class ConsumerSaveSP extends StoredProcedure
          inputPortfolioMap.put("p_acctnum", data.getAcctnum());
          inputPortfolioMap.put("p_itemnum", loop + 1);
          inputPortfolioMap.put("p_ticker", pfList.getTicker());
-         inputPortfolioMap.put("p_active", data.getActive());
+         inputPortfolioMap.put("p_active", (data.getManaged() ? "A": ""));
          inputPortfolioMap.put("p_qty", pfList.getShares());
          inputPortfolioMap.put("p_weightByAsset", pfList.getWeight());
          inputPortfolioMap.put("p_tradeprice", pfList.getDailyprice());

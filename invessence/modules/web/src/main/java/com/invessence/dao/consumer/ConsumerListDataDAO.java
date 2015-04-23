@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import com.invessence.bean.consumer.ClientBean;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.AdvisorListSP;
+import com.invessence.dao.common.CommonSP;
 import com.invessence.data.common.ManageGoals;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -45,7 +46,6 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
 
             String action = (convert.getStrData(rs.get("acctstatus")));
-            data.setAcctstatus(action);
             if (action.equalsIgnoreCase("Pending")) {
                data.setManaged(false);
             }
@@ -53,6 +53,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setManaged(true);
             }
             data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
+            data.setPortfolioName(convert.getStrData(rs.get("portfolioName")));
             data.setGoal(convert.getStrData(rs.get("goal")));
             data.setAccountType(convert.getStrData(rs.get("accttype")));
             data.setAge(convert.getIntData(rs.get("age")));
@@ -65,6 +66,17 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
             data.setObjective(convert.getIntData(rs.get("longTermGoal")));
             data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
+
+            data.setRiskCalcMethod(convert.getStrData(rs.get("calcModel")));
+            data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
+            data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
+
+            if (convert.getStrData(rs.get("taxable")).startsWith("N"))
+               data.setAccountTaxable(false);
+            else
+               data.setAccountTaxable(true);
+
+
             data.setDependent(convert.getIntData(rs.get("dependent")));
             data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
 
@@ -132,6 +144,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
             int i = 0;
             for (Map<String, Object> map : rows)
             {
@@ -150,7 +164,6 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
 
                action = (convert.getStrData(rs.get("acctstatus")));
-               data.setAcctstatus(action);
                if (action.equalsIgnoreCase("Pending")) {
                   data.setManaged(false);
                }
@@ -171,7 +184,24 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
                data.setDependent(convert.getIntData(rs.get("dependent")));
+
+               data.setRiskCalcMethod(convert.getStrData(rs.get("calcModel")));
+               data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
+               data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
+
+               if (convert.getStrData(rs.get("taxable")).startsWith("N"))
+                  data.setAccountTaxable(false);
+               else
+                  data.setAccountTaxable(true);
+
+
                data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
+
+               data.setHouseholdwages(convert.getIntData(rs.get("householdwages")));
+               data.setOtherExpense(convert.getIntData(rs.get("miscExpenses")));
+               data.setMoneymarket(convert.getIntData(rs.get("moneyMarket")));
+               data.setInvestment(convert.getIntData(rs.get("investment")));
+               data.setOtherDebt(convert.getIntData(rs.get("otherDebt")));
 
                data.setTotalIncome(convert.getIntData(rs.get("totalIncomeAnnulized")));
                data.setTotalExpense(convert.getIntData(rs.get("totalExpenseAnnulized")));
@@ -308,5 +338,27 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          }
       }
    }
+
+   public String validateState(Long logonid, String state) {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sp_validate_state",3);
+      Map outMap = sp.validateState(logonid, state);
+      String info="quota";
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            info=convert.getStrData(rs.get("license"));
+            i++;
+            break;
+         }
+      }
+      return info;
+
+   }
+
 
 }

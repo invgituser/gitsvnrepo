@@ -18,7 +18,7 @@ public class ConsumerListSP extends StoredProcedure
    {
       super(datasource, sp_name);
       switch (mode) {
-         case 0:   // SP: sel_ClientProfileData
+         case 0:   // SP: sel_ClientProfileData2
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
@@ -28,6 +28,10 @@ public class ConsumerListSP extends StoredProcedure
             break;
          case 2:   // SP: sel_newClient
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            break;
+         case 3:   // SP: sel_newClient
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_state", Types.VARCHAR));
             break;
          default:
       }
@@ -58,5 +62,14 @@ public class ConsumerListSP extends StoredProcedure
       //inputMap.put("p_acctnum", data.getAcctnum());
       return super.execute(inputMap);
    }
+
+   public Map validateState(Long logonid, String state)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_state", state);
+      return super.execute(inputMap);
+   }
+
 
 }

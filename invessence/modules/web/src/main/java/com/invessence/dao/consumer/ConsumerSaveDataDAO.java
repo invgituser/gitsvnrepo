@@ -19,7 +19,7 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
    public Long saveProfileData( ManageGoals mgoal)
    {
       DataSource ds = getDataSource();
-      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_consumer_user_trade_profile",0);
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_user_trade_profile",0);
       Long acctnum = 0L;
       Map outMap = sp.saveProfileData(mgoal);
       acctnum = ((Long) outMap.get("p_acctnum")).longValue();
