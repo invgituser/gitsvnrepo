@@ -19,8 +19,4 @@
          <property name="msgDAO" ref="msgDAO"/>
      </bean>
 
-      <bean id="menu" class="com.invessence.util.Menu">
-         <property name="messageSource" ref="messageSource"/>
-     </bean>
-
 </beans>

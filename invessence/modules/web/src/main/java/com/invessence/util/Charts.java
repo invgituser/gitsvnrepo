@@ -100,14 +100,11 @@ public class Charts implements Serializable
          add(50);
       }};
       this.meterGuage = new MeterGaugeChartModel(24, intervals);
-/*
-      meterGuage.setSeriesColors("66cc66,93b75f,E7E658,cc6666");
-      meterGuage.setGaugeLabel("Risk");
-      meterGuage.setGaugeLabelPosition("bottom");
-      meterGuage.setShowTickLabels(false);
-      meterGuage.setLabelHeightAdjust(-25);
-      meterGuage.setIntervalOuterRadius(25);
-*/
+      this.meterGuage.setTitle("Risk");
+      this.meterGuage.setSeriesColors("006699, FFCC00, 990000");
+      this.meterGuage.setShowTickLabels(false);
+      this.meterGuage.setLabelHeightAdjust(-25);
+      this.meterGuage.setIntervalOuterRadius(20);
    }
 
 
@@ -239,7 +236,10 @@ public class Charts implements Serializable
                pieseriesColors = pieseriesColors + "," + color;
             }
          }
-         //pieChart.setSeriesColors(pieseriesColors);
+         pieChart.setFill(true);
+         pieChart.setShowDataLabels(false);
+         pieChart.setDiameter(100);
+         pieChart.setSeriesColors(pieseriesColors);
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -282,7 +282,10 @@ public class Charts implements Serializable
 
                slice ++;
             }
-            //pieChart.setSeriesColors(pieseriesColors);
+            pieChart.setFill(true);
+            pieChart.setShowDataLabels(false);
+            pieChart.setDiameter(100);
+            pieChart.setSeriesColors(pieseriesColors);
          }
 
       }

@@ -259,4 +259,57 @@ public class UserBean extends UserData
       }
    }
 
+   public String forgotPassword()
+   {
+      try {
+         String check;
+         check = userInfoDAO.checkEmailID(beanEmail);
+         if (check == null || check.length() == 0) {
+            return "message.xhtml?faces-redirect=true&message=User not found";
+         }
+         else {
+            Integer myResetID = webutil.randomGenerator(0,347896);
+            setResetID(myResetID);
+            return validateSecurityQuestions();
+         }
+      }
+      catch (Exception ex) {
+         return "message.xhtml?faces-redirect=true&type=E&message=Error when attempting to reset.";
+      }
+   }
+
+   public String validateSecurityQuestions()
+   {
+
+      // Save ResetID
+      userInfoDAO.updResetID(getEmailID(), getResetID().toString());
+
+      //String websiteName = messageSource.getMessage("website.name", new Object[]{}, null);
+      MsgData data = new MsgData();
+      //data.setLogonID(loginID);
+      data.setSource("User");
+      data.setSender(Const.MAIL_SENDER);
+      data.setReceiver(getEmailID());
+      data.setSubject(Const.COMPANY_NAME + ": Forgot Password");
+      //data.setMsg(MsgConst.getSignupMsg(userData));
+
+      System.out.println("MIME TYPE :" + userInfoDAO.checkMimeType(getEmailID()));
+      if (messageText == null)
+      {
+         return "message.xhtml?faces-redirect=true&type=E&&message=Email process is down";
+      }
+
+      String websiteUrl = messageText.buildInternalMessage("website.url", new Object[]{});
+      String name = "User";
+      data.setMimeType(userInfoDAO.checkMimeType(getEmailID()));
+      String msg = messageText.buildMessage(userInfoDAO.checkMimeType(getEmailID()), "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, getEmailID(), getResetID().toString()});
+
+      data.setMsg(msg);
+      messageText.writeMessage(name,data);
+
+      String resetMsg = "password.reset";
+      return "message.xhtml?faces-redirect=true&message=" + resetMsg;
+
+   }
+
 }

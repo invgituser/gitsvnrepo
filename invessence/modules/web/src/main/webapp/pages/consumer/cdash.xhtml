@@ -1,0 +1,106 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/invlayout.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="acct" value="#{cepb.beanAcctnum}"/>
+        <f:event type="preRenderView" listener="#{cepb.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box">
+            <div class="Container70 Responsive100">
+                <div class="ContainerIndent">
+                    <div class="Container100">
+
+                        <div class="DispInlBlock MarTop20">
+                            <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
+                            <div class="Container80">
+                                <div class="Fright">
+                                    <h2 class="black Fs24 FontRalewayMedium">#{cdash.loggedUserName}</h2>
+<!--
+                                    <span class="Fs15 gray FontRalewayRegular DispBlock">Senior Marketing Manager</span>
+-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Seperator"></div>
+                        <i class="fa fa-clock-o Fleft Fs15 gray MarRight10"></i>
+                        <span class="Fleft Fs12 softgray">Your last login - 18.08.2015  16:30</span>
+
+                        <div class="Container100 MarTop20">
+                            <h:form id="form">
+
+                                <p:dataTable id="singleDT" var="investment" value="#{cdash.manageAccountList}"
+                                             emptyMessage="No account were created.  Use new application to add account.">
+
+                                    <p:column>
+                                        <p:commandButton id="activeButton" rendered="#{investment.managed}"
+                                                         process="@this" immediate="true"
+                                                         icon="ui-icon-circle-plus"
+                                                         action="#{cdash.doSelectedAction}">
+                                            <p:tooltip id="activeToolTipFade" for="activeButton" value="View" />
+                                            <f:setPropertyActionListener value="#{investment}"
+                                                                         target="#{cdash.selectedAccount}"/>
+                                        </p:commandButton>
+                                        <p:commandButton id="pendingButton" rendered="#{! investment.managed}"
+                                                         process="@this" immediate="true"
+                                                         icon="ui-icon-pencil"
+                                                         action="#{cdash.doSelectedAction}">
+                                            <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit" />
+                                            <f:setPropertyActionListener value="#{investment}"
+                                                                         target="#{cdash.selectedAccount}"/>
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column sortBy="#{investment.portfolioName}" headerText="Portfolio"
+                                              style="text-align: left"
+                                              resizable="true">
+                                        <h:outputText value="#{investment.portfolioName}"/>
+                                    </p:column>
+
+                                    <p:column sortBy="#{investment.goal}" headerText="Type"
+                                              style="text-align: left"
+                                              resizable="true">
+                                        <h:outputText value="#{investment.goal}"/>
+                                    </p:column>
+
+                                    <p:column sortBy="#{investment.displayActiveAcctNum}" headerText="Account#"
+                                              style="text-align: left"
+                                              resizable="true">
+                                        <h:outputText value="#{investment.displayActiveAcctNum}"/>
+                                    </p:column>
+
+                                    <p:column headerText="Invested"
+                                              style="text-align: right"
+                                              resizable="true">
+                                        <h:outputText value="#{investment.actualInvestment}" rendered="#{investment.acctstatus == 'Active'}">
+                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                        </h:outputText>
+                                        <h:outputText value="#{investment.initialInvestment}" rendered="#{investment.acctstatus == 'Pending'}">
+                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                        </h:outputText>
+
+                                    </p:column>
+
+                                </p:dataTable>
+
+                            </h:form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Can add another element here... -->
+        </div>
+        <!-- BOX END -->
+
+
+    </ui:define>
+
+</ui:composition>

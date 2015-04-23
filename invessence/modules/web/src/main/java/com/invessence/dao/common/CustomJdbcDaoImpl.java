@@ -94,6 +94,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String logo = null;
       String groupname = null;
       Collection<GrantedAuthority> authorities;
+      String firstname, lastname;
       String ip, macaddress, cookieID, resetID;
       String stateRegisted;
       Integer randomQuestion;
@@ -132,6 +133,8 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                savedpassword = rs.getString("pwd");
                // attempts = rs.getInt("attempts");
                ip = rs.getString("ip");
+               firstname = rs.getString("firstname");
+               lastname = rs.getString("lastname");
                macaddress = rs.getString("macaddress");
                cookieID = rs.getString("cookieID");
                stateRegisted = rs.getString("state");
@@ -153,6 +156,8 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                savedemail = "";
                savedpassword = "";
                // attempts = rs.getInt("attempts");
+               firstname = "";
+               lastname = "";
                ip = "";
                macaddress = "";
                cookieID = "";
@@ -199,7 +204,8 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       accountNonExpired=true;
       userInfo = new UserInfoData(logonID, userid, username, savedemail, savedpassword,
                                   enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
-                                  authorities, ip, macaddress, cookieID, resetID,acctownertype, logo, groupname,
+                                  authorities, lastname, firstname,
+                                  ip, macaddress, cookieID, resetID,acctownertype, logo, groupname,
                                   stateRegisted, qa, attempts, access, logonStatus, randomQuestion,emailmsgtype);
 
 

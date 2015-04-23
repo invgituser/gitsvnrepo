@@ -3,10 +3,12 @@ package com.invessence.util;
 import java.net.*;
 import java.util.*;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.constant.Const;
+import com.invessence.data.MsgData;
 import com.invessence.data.common.UserInfoData;
 import org.primefaces.context.RequestContext;
 import org.springframework.security.core.*;
@@ -18,7 +20,14 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class WebUtil
 {
 
-    public static boolean isNull(String val) {
+   @ManagedProperty("#{emailMessage}")
+   private EmailMessage messageText;
+   public void setMessageText(EmailMessage messageText)
+   {
+      this.messageText = messageText;
+   }
+
+   public static boolean isNull(String val) {
         
         if ( (val == null) || (val.equals("")) )
             return true;
@@ -233,6 +242,34 @@ public class WebUtil
 
    }
 
+   public String getWelcome() {
+      String username = null;
+      if (isUserLoggedIn()) {
+         UserInfoData uid = getUserInfoData();
+         if (uid != null)
+            username = uid.getFullName();
+      }
+
+      if (username == null)
+         return "Welcome";
+      else
+         return username + ", Welcome";
+   }
+
+   public String getUsername() {
+      String username = null;
+      if (isUserLoggedIn()) {
+         UserInfoData uid = getUserInfoData();
+         if (uid != null)
+            username = uid.getLastFirstName();
+      }
+
+      if (username == null)
+         return "User";
+      else
+         return username;
+   }
+
    public String getAccess()
    {
       String access= "User";
@@ -411,6 +448,12 @@ public class WebUtil
          message = new FacesMessage(FacesMessage.SEVERITY_INFO, subject, msg);
 
       RequestContext.getCurrentInstance().showMessageInDialog(message);
+   }
+
+   public void alertSupport(String module, String subject,
+                            String message_line, String stacktrace) {
+
+      messageText.alertSupport(module, subject, message_line, stacktrace, getUserInfoData().getUserID());
    }
 
 }

@@ -1,0 +1,95 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ps="http://primefaces.org/spark"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+    <ps:menu>
+        <f:facet name="options">
+            <p:button  value="Dashboard" styleClass="Fs12" href="#"/>
+        </f:facet>
+
+        <p:submenu label="Account" icon="fa fa-file-text-o">
+            <p:menuitem value="New Application" icon="fa fa-plus-square" rendered="#{menu.enableMenu('USER')}"
+                        actionListener="#{menu.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
+            <p:menuitem value="Interactive Broker" icon="fa fa-institution"
+                        actionListener="#{menu.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
+        </p:submenu>
+
+        <p:separator rendered="#{menu.enableMenu('ADVISOR')}" />
+
+        <p:submenu label="Advisor" icon="fa fa-user-plus" rendered="#{menu.enableMenu('ADVISOR')}">
+            <p:menuitem value="New Client" icon="fa fa-plus-square"
+                        actionListener="#{menu.doMenuAction('/consumer/aadd.xhtml?acct=0')}"/>
+            <p:menuitem value="Review Clients" icon="fa fa-th-list"
+                        actionListener="#{menu.doMenuAction('/consumer/alist.xhtml')}"/>
+        </p:submenu>
+
+        <p:separator />
+
+        <p:submenu label="Reports" icon="fa fa-list-alt">
+            <p:menuitem value="Overview" icon="fa fa-picture-o"
+                        disabled="true"/>
+            <p:menuitem value="Fees" icon="fa fa-calculator"
+                        disabled="true"/>
+        </p:submenu>
+
+        <p:separator rendered="#{menu.enableMenu('SALES')}" />
+
+        <p:submenu label="Marketing" icon="fa fa-wifi" rendered="#{menu.enableMenu('SALES')}">
+            <p:menuitem value="Marketing Dashboard" icon="fa fa-user"
+                        actionListener="#{menu.doMenuAction('/advisor/marketing.xhtml')}"/>
+        </p:submenu>
+
+        <p:separator rendered="#{menu.enableMenu('ADMIN')}" />
+
+        <p:submenu label="Admin" icon="fa fa-cogs" rendered="#{menu.enableMenu('ADMIN')}">
+            <p:menuitem value="Review Profiles" icon="fa fa-user"
+                        actionListener="#{menu.doMenuAction('/admin/users.xhtml')}"/>
+            <p:menuitem value="Trade/Rebalance" icon="fa fa-th-list"
+                        actionListener="#{menu.doMenuAction('/admin/trade.xhtml')}"/>
+        </p:submenu>
+
+        <p:separator rendered="#{menu.enableMenu('DEMO')}" />
+
+        <p:submenu label="Demo" icon="fa fa-asterisk"
+                   rendered="#{menu.enableMenu('DEMO')}">
+            <p:menuitem value="Advisor Dashboard"
+                        actionListener="#{menu.doMenuAction('/advisor/adash.xhtml')}"/>
+            <p:menuitem value="Client-Take-On"
+                        actionListener="#{menu.doMenuAction('/consumer/personalprofile1.xhtml')}"/>
+        </p:submenu>
+
+        <p:separator rendered="#{menu.enableMenu('DEVELOPER')}" />
+
+        <p:submenu label="Primefaces" icon="fa fa-sitemap" rendered="#{menu.enableMenu('DEVELOPER')}">
+            <p:submenu label="Design" icon="fa fa-folder">
+                <p:submenu label="Theme" icon="fa fa-rocket">
+                    <p:menuitem value="Forms" icon="fa fa-file-text-o" outcome="/spark/forms.xhtml" />
+                    <p:menuitem value="Data Components" icon="fa fa-calendar-o" outcome="/spark/data.xhtml" />
+                    <p:menuitem value="DataTable" icon="fa fa-list-alt" outcome="/spark/datatable.xhtml" />
+                    <p:menuitem value="Panels" icon="fa fa-columns" outcome="/spark/panel.xhtml" />
+                    <p:menuitem value="Overlays" icon="fa fa-image" outcome="/spark/overlay.xhtml" />
+                    <p:menuitem value="Menus" icon="fa fa-align-justify" outcome="/spark/menu.xhtml" />
+                    <p:menuitem value="Messages" icon="fa fa-comments-o" outcome="/spark/messages.xhtml" />
+                    <p:menuitem value="FileUpload" icon="fa fa-cloud-upload" outcome="/spark/file.xhtml" />
+                    <p:menuitem value="Misc" icon="fa fa-stack-overflow" outcome="/spark/misc.xhtml" />
+                </p:submenu>
+            </p:submenu>
+            <p:submenu label="Default Pages" icon="fa fa-newspaper-o">
+                <p:menuitem value="Empty Page" icon="fa fa-plus-square" outcome="/spark/empty-page.xhtml" />
+                <p:menuitem value="Login Page" icon="fa fa-sign-in" outcome="/spark/login.xhtml" />
+                <p:menuitem value="Error Page" icon="fa fa-exclamation-circle" outcome="/spark/error.xhtml" />
+                <p:menuitem value="404 Page" icon="fa fa-times" outcome="/spark/404.xhtml" />
+                <p:menuitem value="Access Denied Page" icon="fa fa-eye-slash" outcome="/spark/access-denied.xhtml" />
+            </p:submenu>
+            <p:menuitem value="Font Icons" icon="fa fa-paint-brush" outcome="/spark/font-icons.xhtml"/>
+            <p:menuitem value="Showcase" outcome="/spark/showcase.xhtml" />
+            <p:menuitem value="Documentation" icon="fa fa-life-ring" outcome="/spark/documentation.xhtml" />
+        </p:submenu>
+
+    </ps:menu>
+
+</ui:composition>

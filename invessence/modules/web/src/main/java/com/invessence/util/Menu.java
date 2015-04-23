@@ -23,31 +23,24 @@ import org.springframework.stereotype.Component;
 @ManagedBean(name = "menu")
 @SessionScoped
 @Component("config")
-public class Menu implements MessageSourceAware, Serializable
+public class Menu implements Serializable
 {
    private static final long serialVersionUID = -1992L;
 
    private WebUtil webutil = new WebUtil();
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
-   private String theme = "advisor";
+   private String theme = "spark";
    private String cid;
    private String default_page;
    private String phone, email;
-   @Autowired
-   private MessageSource messageSource;
-
    private String forwardcustodianURL = "Your have made a request to visit Interactive Broker site (Your custodian).  You will be logged out of this site.  Do you want to continue?";
 
-   @Override
-   public void setMessageSource(MessageSource messageSource)
+   @ManagedProperty("#{emailMessage}")
+   private EmailMessage messageText;
+   public void setMessageText(EmailMessage messageText)
    {
-      this.messageSource = messageSource;
-   }
-
-   public MessageSource getMessageSource()
-   {
-      return messageSource;
+      this.messageText = messageText;
    }
 
    public String getForwardcustodianURL()
@@ -68,6 +61,14 @@ public class Menu implements MessageSourceAware, Serializable
    public String getTheme()
    {
       return theme;
+   }
+
+   public String getWelcome() {
+      return webutil.getWelcome();
+   }
+
+   public String getUsername() {
+      return webutil.getUsername();
    }
 
    public void preRenderView()
@@ -97,21 +98,18 @@ public class Menu implements MessageSourceAware, Serializable
       {
          email = "info@invessence.com";
          phone = "(201) 977-2704";
-         theme = "advisor";
+         theme = "spark";
       }
    }
 
    public String getMessagetext(String inputText, Object [] obj) {
       String msgText = null;
-         if (obj == null) {
-            obj = new Object[]{};
-         }
-         if (inputText != null) {
-            msgText =  messageSource.getMessage(inputText, obj, null);
-            if (msgText != null)
-               return msgText;
-            return inputText;
-         }
+      if (inputText != null) {
+         msgText =  messageText.buildInternalMessage(inputText, obj);
+         if (msgText != null)
+            return msgText;
+         return inputText;
+      }
       return inputText;
    }
 
@@ -236,9 +234,9 @@ public class Menu implements MessageSourceAware, Serializable
    public void redirectStartPage() {
       if (default_page == null) {
          if (webutil.getAccess().equalsIgnoreCase(Const.WEB_ADVISOR) || webutil.getAccess().equalsIgnoreCase(Const.WEB_INTERNAL))
-            doMenuAction("/advisor/manage.xhtml");
+            doMenuAction("/advisor/adash.xhtml");
          else
-            doMenuAction("/consumer/manage.xhtml");
+            doMenuAction("/consumer/cdash.xhtml");
       }
    }
 
@@ -278,7 +276,7 @@ public class Menu implements MessageSourceAware, Serializable
                if (menuItem.contains("add.xht") ||
                   menuItem.contains("setting.xht")) {
                   if (! menuItem.contains("?")) {
-                     if (menuItem.contains("add.xhtml"))
+                     if (menuItem.contains("add"))
                         URL = "/pages" + menuItem + "?acct=0";
                      if (menuItem.contains("setting.xht"))
                         URL = "/pages" + menuItem + "?id=" + webutil.getLogonid().toString();
@@ -311,7 +309,7 @@ public class Menu implements MessageSourceAware, Serializable
          cid="0";
          email=null;
          phone=null;
-         theme="advisor";
+         theme="spark";
       }
       catch (Exception ex) {
 

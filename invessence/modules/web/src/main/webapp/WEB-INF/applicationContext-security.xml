@@ -19,16 +19,14 @@
    <http pattern="/signupApproval.xhtml" security="none"/>
    <http pattern="/message.xhtml" security="none"/>
    <http pattern="/securitypolicy.html" security="none"/>
-   <http pattern="/testDialog.xhtml" security="none"/>
-   <http pattern="/test/**" security="none"/>
-   <http pattern="/start/**" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/css/**" security="none"/>
    <http pattern="/js/**" security="none"/>
    <http pattern="/javax.faces.resource/*" security="none"/>
    <http pattern="/javax.faces.resource/**" security="none"/>
    <http pattern="/images/**" security="none"/>
-   <http pattern="/images/institution/**" security="none"/>
    <http pattern="/pages/static/**" security="none"/>
+   <http pattern="/spark/**" security="none"/>
+   <http pattern="/spark/ui/**" security="none"/>
 
    <!--
       <http pattern="/chartTest.xhtml" security="none" />
@@ -39,7 +37,7 @@
       <http pattern="/test2.jsp" security="none" />
    -->
 
-   <http auto-config="true" access-denied-page="/AccessDenied.xhtml">
+   <http auto-config="true" access-denied-page="/access-denied.xhtml">
       <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />
       <form-login login-page="/login.xhtml" default-target-url="${ssl.url}/loginRedirection.xhtml"
                   always-use-default-target="true"/>
@@ -74,7 +72,7 @@
       <logout logout-success-url="${apache.url}"/>
 
       <intercept-url pattern="/**" access="ROLE_USER"/>
-      <session-management invalid-session-url="${ssl.url}/pages/common/viewExpired.xhtml"/>
+      <session-management invalid-session-url="${ssl.url}/pages/common/view-expired.xhtml"/>
       <remember-me key="${ssl.url}"/>
    </http>
 
@@ -88,7 +86,7 @@
     <beans:bean id="userDetailsService" class="com.invessence.dao.common.CustomJdbcDaoImpl">
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="usersByUsernameQuery"
-                        value="select logonid, userid, email, pwd, logonstatus, attempts, ip, macaddress, cookieID, state, resetID, accttype, logo, groupname,emailmsgtype, access from vw_user_logon where userid=?"/>
+                        value="select logonid, userid, email, pwd, logonstatus, attempts, firstname, lastname, ip, macaddress, cookieID, state, resetID, accttype, logo, groupname,emailmsgtype, access from vw_user_logon where userid=?"/>
         <beans:property name="listofQAQuery"
                         value="select question1, answer1, question2, answer2, question3, answer3 from user_logon where userid=?"/>
         <beans:property name="authoritiesByUsernameQuery"
@@ -105,7 +103,7 @@
     </beans:bean>
 
     <beans:bean id="monitorSession" class="com.invessence.util.MonitorSession">
-        <beans:property name="invalidSessionUrl" value="/viewExpired.xhtml" />
+        <beans:property name="invalidSessionUrl" value="/view-expired.xhtml" />
     </beans:bean>
 
     <beans:bean id="httpSessionSecurityContextRepository" class="org.springframework.security.web.context.HttpSessionSecurityContextRepository"/>

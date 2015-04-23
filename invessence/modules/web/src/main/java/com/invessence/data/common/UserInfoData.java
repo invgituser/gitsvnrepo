@@ -14,6 +14,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    private Long logonID = null;
    private String userID, email;
    private String password = null;
+   private String lastname, firstname;
    private String ip, macaddress, cookieID, resetID, acctownertype, logo, groupname, emailmsgtype;
    private String stateRegistered;
    private Map questAns;
@@ -30,6 +31,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    public UserInfoData(Long logonID, String userID, String username, String email, String password,
                        boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
                        boolean accountNonLocked, Collection<GrantedAuthority> authorities,
+                       String lastname, String firstname,
                        String ip, String macaddress, String cookieID, String resetID, String acctownertype,
                        String logo, String groupname, String stateRegistered,
                        Map questAns, Integer attempts, String access, String logonStatus, Integer randomQuestion, String emailmsgtype)
@@ -42,6 +44,8 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       setUserID(username);
       setEmail(email);
       setPassword(password);
+      setFirstname(firstname);
+      setLastname(lastname);
       setIp(ip);
       setMacaddress(macaddress);
       setCookieID(cookieID);
@@ -98,6 +102,37 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    public void setPassword(String password)
    {
       this.password = password;
+   }
+
+   public String getLastname()
+   {
+      return lastname;
+   }
+
+   public void setLastname(String lastname)
+   {
+      this.lastname = lastname;
+   }
+
+   public String getFirstname()
+   {
+      return firstname;
+   }
+
+   public void setFirstname(String firstname)
+   {
+      this.firstname = firstname;
+   }
+
+   public String getFullName() {
+      return firstname + " " + lastname;
+   }
+
+   public String getLastFirstName() {
+      if (lastname == null)
+         return firstname;
+      else
+      return lastname + ", " + firstname;
    }
 
    public String getIp()

@@ -21,12 +21,13 @@ public class Const
    public static String MAIL_SUPPORT = "support@invessence.com";
 
    public final static String URL_HOME = "index.html";
-   public final static String DEFAULT_LOGO = "/images/invessence_logo-clear-300x65.png";
+   public final static String DEFAULT_LOGO = "images/logo/LOGO.png";
 
    public final static String ROLE_ADMIN = "ADMIN";
    public final static String ROLE_SALES = "SALES";
    public final static String ROLE_SUPPORT = "SUPPORT";
    public final static String ROLE_ADVISOR = "ADVISOR";
+   public final static String DEVEL_ADVISOR = "DEVELOPER";
 
    public final static String ROLE_OWNER = "OWNER";
    public final static String ROLE_USER = "USER";

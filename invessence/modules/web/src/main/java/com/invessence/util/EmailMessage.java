@@ -4,7 +4,9 @@ import java.io.*;
 import java.util.*;
 
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
+import com.invessence.constant.Const;
 import com.invessence.dao.MsgDAO;
 import com.invessence.data.MsgData;
 import org.springframework.context.*;
@@ -205,5 +207,34 @@ public class EmailMessage implements MessageSourceAware, Serializable
       }
    }
 
+   public void alertSupport(String module, String subject,
+                            String message_line, String stacktrace, String userid)
+   {
+      MsgData data = new MsgData();
+      String msg;
+      try
+      {
+         if (messageSource == null)
+         {
+            System.out.println("Email alert system is down!!!!!!");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (addGoals failure)");
+         }
+         data.setSource("Internal");
+         data.setSender(Const.MAIL_SENDER);
+         data.setReceiver(Const.MAIL_SUPPORT);
+         data.setSubject(Const.COMPANY_NAME + "[ " + subject + " ]");
+         if (stacktrace != null)
+            msg = "Module:" + module + "\nUser: " + userid + "\n\n" + stacktrace;
+         else
+            msg = "Module:" + module + "\nUser: " + userid + "\n\n";
+
+         data.setMsg(buildInternalMessage(message_line, new Object[]{msg}));
+         writeMessage("Error", data);
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
 
 }
