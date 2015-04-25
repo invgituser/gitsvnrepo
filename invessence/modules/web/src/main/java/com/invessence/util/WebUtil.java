@@ -256,7 +256,7 @@ public class WebUtil
          return username + ", Welcome";
    }
 
-   public String getUsername() {
+   public String getLastFirstName() {
       String username = null;
       if (isUserLoggedIn()) {
          UserInfoData uid = getUserInfoData();

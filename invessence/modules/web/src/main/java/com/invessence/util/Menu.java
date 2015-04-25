@@ -8,8 +8,6 @@ import com.invessence.constant.Const;
 import com.invessence.data.common.UserInfoData;
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.event.TabChangeEvent;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -43,6 +41,10 @@ public class Menu implements Serializable
       this.messageText = messageText;
    }
 
+   public WebUtil getWebutil() {
+      return webutil;
+   }
+
    public String getForwardcustodianURL()
    {
       return forwardcustodianURL;
@@ -68,7 +70,7 @@ public class Menu implements Serializable
    }
 
    public String getUsername() {
-      return webutil.getUsername();
+      return webutil.getLastFirstName();
    }
 
    public void preRenderView()
@@ -226,7 +228,9 @@ public class Menu implements Serializable
    public String enableMenu(String role) {
       if (webutil.hasRole(Const.ROLE_ADMIN))
          return "true";
-      else if (webutil.hasRole(role))
+      else if ((role.toUpperCase().equals(Const.ROLE_USER)) && (webutil.hasRole(role)))
+         return "true";
+      else if ((webutil.hasAccess(Const.WEB_ADVISOR)) && (webutil.hasRole(role)))
          return "true";
       else return "false";
    }

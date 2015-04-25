@@ -6,9 +6,11 @@
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui">
 
+    <h:form id="menutopbar">
     <ps:menu>
         <f:facet name="options">
-            <p:button  value="Dashboard" styleClass="Fs12" href="#"/>
+            <p:commandButton value="Dashboard" styleClass="Fs16 BlueButton"
+                             actionListener="#{menu.redirectStartPage}"/>
         </f:facet>
 
         <p:submenu label="Account" icon="fa fa-file-text-o">
@@ -18,13 +20,13 @@
                         actionListener="#{menu.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
         </p:submenu>
 
-        <p:separator rendered="#{menu.enableMenu('ADVISOR')}" />
+        <p:separator rendered="#{menu.hasAccessMenu('ADVISOR')}" />
 
-        <p:submenu label="Advisor" icon="fa fa-user-plus" rendered="#{menu.enableMenu('ADVISOR')}">
-            <p:menuitem value="New Client" icon="fa fa-plus-square"
-                        actionListener="#{menu.doMenuAction('/consumer/aadd.xhtml?acct=0')}"/>
+        <p:submenu label="Advisor" icon="fa fa-user-plus" rendered="#{menu.hasAccessMenu('ADVISOR')}">
+            <p:menuitem value="New Client" icon="fa fa-plus-square" disabled="true"
+                        actionListener="#{menu.doMenuAction('/advisor/aadd.xhtml?acct=0')}"/>
             <p:menuitem value="Review Clients" icon="fa fa-th-list"
-                        actionListener="#{menu.doMenuAction('/consumer/alist.xhtml')}"/>
+                        actionListener="#{menu.doMenuAction('/advisor/alist.xhtml')}"/>
         </p:submenu>
 
         <p:separator />
@@ -36,21 +38,21 @@
                         disabled="true"/>
         </p:submenu>
 
-        <p:separator rendered="#{menu.enableMenu('SALES')}" />
+            <p:separator rendered="#{menu.enableMenu('SALES')}" />
 
-        <p:submenu label="Marketing" icon="fa fa-wifi" rendered="#{menu.enableMenu('SALES')}">
-            <p:menuitem value="Marketing Dashboard" icon="fa fa-user"
-                        actionListener="#{menu.doMenuAction('/advisor/marketing.xhtml')}"/>
-        </p:submenu>
+            <p:submenu label="Marketing" icon="fa fa-wifi" rendered="#{menu.enableMenu('SALES')}">
+                <p:menuitem value="Marketing Dashboard" icon="fa fa-user"
+                            actionListener="#{menu.doMenuAction('/advisor/marketing.xhtml')}"/>
+            </p:submenu>
 
-        <p:separator rendered="#{menu.enableMenu('ADMIN')}" />
+            <p:separator rendered="#{menu.enableMenu('ADMIN')}" />
 
-        <p:submenu label="Admin" icon="fa fa-cogs" rendered="#{menu.enableMenu('ADMIN')}">
-            <p:menuitem value="Review Profiles" icon="fa fa-user"
-                        actionListener="#{menu.doMenuAction('/admin/users.xhtml')}"/>
-            <p:menuitem value="Trade/Rebalance" icon="fa fa-th-list"
-                        actionListener="#{menu.doMenuAction('/admin/trade.xhtml')}"/>
-        </p:submenu>
+            <p:submenu label="Admin" icon="fa fa-cogs" rendered="#{menu.enableMenu('ADMIN')}">
+                <p:menuitem value="Review Profiles" icon="fa fa-user"
+                            actionListener="#{menu.doMenuAction('/admin/users.xhtml')}"/>
+                <p:menuitem value="Trade/Rebalance" icon="fa fa-th-list"
+                            actionListener="#{menu.doMenuAction('/admin/trade.xhtml')}"/>
+            </p:submenu>
 
         <p:separator rendered="#{menu.enableMenu('DEMO')}" />
 
@@ -91,5 +93,6 @@
         </p:submenu>
 
     </ps:menu>
+    </h:form>
 
 </ui:composition>

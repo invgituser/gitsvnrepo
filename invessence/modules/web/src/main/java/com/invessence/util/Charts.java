@@ -100,10 +100,10 @@ public class Charts implements Serializable
          add(50);
       }};
       this.meterGuage = new MeterGaugeChartModel(24, intervals);
-      this.meterGuage.setTitle("Risk");
+      // this.meterGuage.setTitle("Risk");
       this.meterGuage.setSeriesColors("006699, FFCC00, 990000");
       this.meterGuage.setShowTickLabels(false);
-      this.meterGuage.setLabelHeightAdjust(-25);
+      // this.meterGuage.setLabelHeightAdjust(-25);
       this.meterGuage.setIntervalOuterRadius(20);
    }
 
@@ -271,15 +271,12 @@ public class Charts implements Serializable
                Double weight = asset.getActualweight();
                String label = assetname + " - " + jutil.displayFormat(weight, "##0.##%");
                pieChart.set(label, weight);
-/*
                color = asset.getColor().replace('#',' ');
                color.trim();
                if (slice == 0)
                   pieseriesColors = color;
                else
                   pieseriesColors = pieseriesColors + "," + color;
-*/
-
                slice ++;
             }
             pieChart.setFill(true);

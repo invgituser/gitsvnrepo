@@ -4,13 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
-import javax.faces.context.FacesContext;
 
-import com.invessence.bean.common.PositionBean;
 import com.invessence.constant.Const;
-import com.invessence.dao.ManageAccountDAO;
 import com.invessence.dao.consumer.*;
-import com.invessence.data.ManageAccount;
 import com.invessence.data.common.ManageGoals;
 import com.invessence.util.*;
 
@@ -63,7 +59,7 @@ public class ConsumerDashBean implements Serializable
    }
 
    public String getLoggedUserName() {
-      return webutil.getUsername();
+      return webutil.getLastFirstName();
    }
 
    public void collectData(Long logonid)

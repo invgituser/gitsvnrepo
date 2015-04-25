@@ -101,22 +101,6 @@
                     </h:form>
                 </div>
             </div>
-            <div class="Container50 Responsive50">
-                <div class="ContainerIndent">
-                    <h3 class="BigTopic">
-                        <div class="Wid50 Responsive50 Fleft">Monthly Sales Chart</div>
-                        <div class="Wid50 Fright Responsive50">
-                            <p:selectOneMenu id="car" styleClass="Fright" style="min-width: 150px;">
-                                <f:selectItem itemLabel="Select One" itemValue="" />
-                                <f:selectItems value="#{selectOneMenuView.cars}" />
-                            </p:selectOneMenu>
-                        </div>
-                    </h3>
-                    <div class="Wid100">
-                        <p:chart type="line" model="#{chartView.lineModel1}" style="height:300px;margin-top:10px" responsive="true"/>
-                    </div>
-                </div>
-            </div>
         </div>
         <!-- BOX END -->
 

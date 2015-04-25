@@ -22,7 +22,8 @@
                             <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
                             <div class="Container80">
                                 <div class="Fright">
-                                    <h2 class="black Fs24 FontRalewayMedium">#{cdash.loggedUserName}</h2>
+                                    <h2 class="black Fs24 FontRalewayMedium">#{menu.webutil.lastFirstName}</h2>
+                                    <span class="Fleft Fs12 softgray">Your last login - 18.08.2015  16:30</span>
 <!--
                                     <span class="Fs15 gray FontRalewayRegular DispBlock">Senior Marketing Manager</span>
 -->
@@ -30,9 +31,6 @@
                             </div>
                         </div>
                         <div class="Seperator"></div>
-                        <i class="fa fa-clock-o Fleft Fs15 gray MarRight10"></i>
-                        <span class="Fleft Fs12 softgray">Your last login - 18.08.2015  16:30</span>
-
                         <div class="Container100 MarTop20">
                             <h:form id="form">
 
@@ -78,10 +76,10 @@
                                     <p:column headerText="Invested"
                                               style="text-align: right"
                                               resizable="true">
-                                        <h:outputText value="#{investment.actualInvestment}" rendered="#{investment.acctstatus == 'Active'}">
+                                        <h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">
                                             <f:convertNumber currencySymbol="$" type="currency"/>
                                         </h:outputText>
-                                        <h:outputText value="#{investment.initialInvestment}" rendered="#{investment.acctstatus == 'Pending'}">
+                                        <h:outputText value="#{investment.initialInvestment}" rendered="#{! investment.managed}">
                                             <f:convertNumber currencySymbol="$" type="currency"/>
                                         </h:outputText>
 

@@ -18,54 +18,27 @@
 
 <div class="layout-portlets-box">
     <p:panel id="dPanel1">
-        <div class="Container30 Responsive50">
+        <div class="Container50 Responsive50">
             <div class="ContainerIndent">
                 <div class="DispBlock">
-                    <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i>
-                        <span class="Fs15 gray FontRalewayRegular DispBlock">Profile</span>
+                    <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i><br/>
+                        <!--<span class="Fs15 gray FontRalewayRegular DispBlock">Profile</span>-->
+                            <span class="gray Fs18 FontRalewayMedium DispBlock">
+                                  <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
+                                  <p:outputLabel value="Non-Taxable" rendered="#{! cepb.accountTaxable}"/>
+                           </span>
                     </div>
-                    <!--
-                                        <div class="Container5">
-                                            <div class="ContainerIndent">
-                                            </div>
-                                        </div>
-                    -->
-                    <div class="Container30">
+                    <div class="Container60">
                         <div class="ContainerIndent">
-                            <p:graphicImage value="/images/growth-active.png" alt="Growth" rendered="#{cepb.defaultGoal == 'Growth'}"/>
-                            <p:commandLink ajax="true" rendered="#{cepb.defaultGoal != 'Growth'}">
-                                <p:graphicImage value="/images/growth.png" alt="Growth"/>
-                                <p:ajax event="click" listener="#{cepb.selectedGoalType(1)}"
-                                        update=":ceForm:workArea, :ceForm:dPanel1"/>
-                            </p:commandLink>
+
                         </div>
                     </div>
-                    <!--
-                                        <div class="Container5">
-                                            <div class="ContainerIndent">
-                                            </div>
-                                        </div>
-                    -->
-                    <div class="Container30">
-                        <div class="ContainerIndent">
-                            <p:graphicImage value="/images/income-active.png" alt="Growth" rendered="#{cepb.defaultGoal == 'Income'}"/>
-                            <p:commandLink ajax="true" rendered="#{cepb.defaultGoal != 'Income'}">
-                                <p:graphicImage value="/images/income.png" alt="Income"/>
-                                <p:ajax event="click" listener="#{cepb.selectedGoalType(2)}"
-                                        update=":ceForm:workArea, :ceForm:dPanel1"/>
-                            </p:commandLink>
-                        </div>
-                    </div>
-                </div>
+               </div>
             </div>
         </div>
-        <div class="Container70 Responsive50">
+        <div class="Container50 Responsive50">
             <div class="ContainerIndent">
                 <div class="DispBlock">
-                    <div class="Container20 Responsive">
-                        <div class="ContainerIndent">
-                        </div>
-                    </div>
                     <div class="Container20 BorderedBox Responsive TexAlCenter">
                         <div class="ContainerIndent">
                             <span class="gray Fs18 FontRalewayMedium DispBlock">Age</span>
@@ -118,11 +91,11 @@
                     </div>
                     <div class="Container20 Responsive TexAlCenter">
                         <div class="ContainerIndent">
- <!--                          <script type="text/javascript" src="/js/invMeterGuage.js"></script>
-                           <p:chart type="meterguage" id="cMeter"
-                                    model="#{cepb.charts.meterGuage}"
-                                    style="width:170px; height:100px"/>
--->
+                            <!--                          <script type="text/javascript" src="/js/invMeterGuage.js"></script>
+                                                      <p:chart type="meterguage" id="cMeter"
+                                                               model="#{cepb.charts.meterGuage}"
+                                                               style="width:170px; height:100px"/>
+                           -->
                         </div>
                     </div>
                     <div class="Container20 Responsive TexAlCenter">
@@ -142,6 +115,32 @@
             </div>
         </div>
     </p:panel>
+
+    <div class="Container100 Responsive100">
+        <div class="ContainerIndent">
+            <p:fieldset legend="Personalize" toggleable="true" toggleSpeed="500" collapsed="true">
+                <div class="Container50 Responsive50">
+                    <div class="ContainerIndent">
+                        <h1 class="BigTopic">Goals</h1>
+                        <ui:include src="/pages/consumer/a1.xhtml"/>
+                    </div>
+                </div>
+                <div class="Container50 Responsive50">
+                    <div class="ContainerIndent">
+                        <h3 class="BigTopic">
+                            <div class="Wid100 Responsive50 Fleft">
+                                Risk
+                            </div>
+                        </h3>
+                        <div class="Wid100 Responsive50 Fleft">
+                            <ui:include src="/pages/consumer/riskQ.xhtml"/>
+                        </div>
+                    </div>
+                </div>
+            </p:fieldset>
+        </div>
+    </div>
+
 </div>
 <!-- BOX END -->
 
@@ -172,12 +171,8 @@
                 <div class="Container100 Responsive100">
                     <div class="Container50 Responsive50 Fleft">
                         <div class="ContainerIndent">
-                            <p:outputPanel deferred="true">
-                                <!--<script type="text/javascript" src="/js/invPie.js"></script>-->
-<!--
-                                <p:chart type="pie" model="#{cepb.charts.pieChart}"
-                                         style="width: 135px; height: 150px"/>
--->
+                            <p:outputPanel>
+
                             </p:outputPanel>
                         </div>
                     </div>

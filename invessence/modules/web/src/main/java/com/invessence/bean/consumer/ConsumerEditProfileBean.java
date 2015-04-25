@@ -461,6 +461,27 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
    }
 
+   public void resetForm() {
+      try
+      {
+         setRiskCalcMethod("A");
+
+         if (getBeanAcctnum() != null && getBeanAcctnum() > 0L) {
+            loadData(getBeanAcctnum());
+         }
+         else {
+            loadNewClientData();
+         }
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         getWebutil().alertSupport("managegoals.addGoals", "Error:managegoals.addGoals",
+                                   "error.addGoals", stackTrace);
+      }
+
+   }
+
    public void savePrefProfile(ActionEvent event) {
       createAssetPortfolio(1);
       saveProfile();

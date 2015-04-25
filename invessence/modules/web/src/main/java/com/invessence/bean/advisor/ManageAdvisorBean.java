@@ -207,7 +207,7 @@ public class ManageAdvisorBean implements Serializable
          else
          {
             //abean.loadData(getSelectedAccount().getAcctnum());
-            menu.doMenuAction("/consumer/add.xhtml?acct="+getSelectedAccount().getAcctnum().toString());
+            menu.doMenuAction("/consumer/cadd.xhtml?acct="+getSelectedAccount().getAcctnum().toString());
             //advisorBean.findGoals(getLogonid(), getAcctnum());
          }
       }
