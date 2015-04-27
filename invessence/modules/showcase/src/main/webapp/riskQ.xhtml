@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+    <p:panel id="profileDataEntryid" styleClass="NBwidget">
+        <p:carousel numVisible="1" itemStyle="height:400px;width:600px; padding: 0px" effect="easeInStrong"
+                    style="margin-bottom:0">
+            <p:tab title="I">
+                <ui:include src="/q1.xhtml"/>
+            </p:tab>
+            <p:tab title="II">
+                <ui:include src="/q2.xhtml"/>
+            </p:tab>
+        </p:carousel>
+    </p:panel>
+
+</ui:composition>
