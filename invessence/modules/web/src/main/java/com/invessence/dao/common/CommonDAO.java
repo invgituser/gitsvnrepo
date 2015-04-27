@@ -43,7 +43,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                data.setClientAccountID(convert.getStrData(rs.get("ClientAccountID")));
 
                String acctStatus = convert.getStrData(rs.get("acctstatus"));
-               data.setAcctstatus(acctStatus);
+               // data.setAcctstatus(acctStatus);
                if (acctStatus.equalsIgnoreCase("pending")) {
                   data.setManaged(false);
                   actualCapital = convert.getIntData(rs.get("initialInvestment"));
@@ -51,6 +51,10 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                else {
                   data.setManaged(true);
                   actualCapital = convert.getIntData(rs.get("actualCapital"));
+                  if (actualCapital != null && actualCapital > 0) {
+                     data.setActualInvestment(actualCapital);
+                     data.setManagedtotalMoney(convert.getDoubleData(rs.get("actualCapital")));
+                  }
                }
                data.setActualInvestment(actualCapital);
                data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
@@ -114,7 +118,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             int i = 0;
-            Double actualCapital = 0.0;
+            Integer actualCapital = 0;
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
@@ -130,15 +134,17 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                data.setClientAccountID(convert.getStrData(rs.get("ClientAccountID")));
 
                String acctStatus = convert.getStrData(rs.get("acctstatus"));
-               data.setAcctstatus(acctStatus);
+               // data.setAcctstatus(acctStatus);
                if (acctStatus.equalsIgnoreCase("pending")) {
                   data.setManaged(false);
                }
                else {
                   data.setManaged(true);
-                  actualCapital = convert.getDoubleData(rs.get("actualCapital"));
-                  if (actualCapital != null && actualCapital > 0)
+                  actualCapital = convert.getIntData(rs.get("actualCapital"));
+                  if (actualCapital != null && actualCapital > 0) {
+                     data.setActualInvestment(actualCapital);
                      data.setManagedtotalMoney(convert.getDoubleData(rs.get("actualCapital")));
+                  }
                }
                data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
                data.setGoal(convert.getStrData(rs.get("goal")));

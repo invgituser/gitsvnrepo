@@ -18,28 +18,63 @@
 
 <div class="layout-portlets-box">
     <p:panel id="dPanel1">
+
         <div class="Container50 Responsive50">
             <div class="ContainerIndent">
                 <div class="DispBlock">
                     <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i><br/>
                         <!--<span class="Fs15 gray FontRalewayRegular DispBlock">Profile</span>-->
                             <span class="gray Fs18 FontRalewayMedium DispBlock">
-                                  <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
-                                  <p:outputLabel value="Non-Taxable" rendered="#{! cepb.accountTaxable}"/>
+                               <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
+                               <p:outputLabel value="Non-Taxable" rendered="#{! cepb.accountTaxable}"/>
                            </span>
                     </div>
-                    <div class="Container60">
-                        <div class="ContainerIndent">
+                    <div class="Container80 Responsive50 TexAlCenter">
+                        <div class="Container20">
+                            <div class="ContainerIndent">
+                                <p:graphicImage value="/images/growth-selected.png" alt="Growth"
+                                                rendered="#{cepb.goal == 'Growth'}"/>
+                                <p:commandLink ajax="true" rendered="#{cepb.goal != 'Growth'}">
+                                    <p:graphicImage value="/images/growth.png" alt="Growth"/>
+                                    <p:ajax event="click" listener="#{cepb.selectedGoalType(1)}"
+                                            update=":ceForm:workArea, :ceForm:dPanel1, :ceForm:consumergoals"/>
+                                </p:commandLink>
+                            </div>
+                        </div>
+
+                        <div class="Container20">
+                            <div class="ContainerIndent">
+                                <p:graphicImage value="/images/income-selected.png" alt="Income"
+                                                rendered="#{cepb.goal == 'Income'}"/>
+                                <p:commandLink ajax="true" rendered="#{cepb.goal != 'Income'}">
+                                    <p:graphicImage value="/images/income.png" alt="Income"/>
+                                    <p:ajax event="click" listener="#{cepb.selectedGoalType(2)}"
+                                            update=":ceForm:workArea, :ceForm:dPanel1, :ceForm:consumergoals"/>
+                                </p:commandLink>
+                            </div>
+                        </div>
+
+                        <div class="Container20">
+                            <div class="ContainerIndent">
+                                <p:graphicImage value="/images/safety-selected.png" alt="Safety"
+                                                rendered="#{cepb.goal == 'Safety'}"/>
+                                <p:commandLink ajax="true" rendered="#{cepb.goal != 'Safety'}">
+                                    <p:graphicImage value="/images/safety.png" alt="Safety"/>
+                                    <p:ajax event="click" listener="#{cepb.selectedGoalType(3)}"
+                                            update=":ceForm:workArea, :ceForm:dPanel1, :ceForm:consumergoals"/>
+                                </p:commandLink>
+                            </div>
 
                         </div>
                     </div>
-               </div>
+                </div>
             </div>
         </div>
+
         <div class="Container50 Responsive50">
             <div class="ContainerIndent">
                 <div class="DispBlock">
-                    <div class="Container20 BorderedBox Responsive TexAlCenter">
+                    <div class="Container10 Responsive TexAlCenter">
                         <div class="ContainerIndent">
                             <span class="gray Fs18 FontRalewayMedium DispBlock">Age</span>
                             <span class="black FontRalewayBold Fs18">
@@ -50,12 +85,12 @@
                                         <img alt="Edit" src="/images/Pencil-icon.png" style="height: 8px; width: 8px;"/>
                                     </f:facet>
                                     <f:facet name="input">
-                                        <pe:inputNumber styleClass="invInput" style="width:35px; font-size: 1.2em"
+                                        <pe:inputNumber styleClass="invInput" style="width:35px; font-size: 1em"
                                                         value="#{cepb.age}"
                                                         decimalPlaces="0" minValue="1" maxValue="100"
                                                         size="3" maxlength="3">
                                             <p:ajax event="blur" listener="#{cepb.consumerRefresh}"
-                                                    update=":ceForm:workArea"/>
+                                                    update=":ceForm:workArea,:ceForm:dPanel1, :ceForm:consumergoals"/>
                                         </pe:inputNumber>
                                     </f:facet>
                                 </p:inplace>
@@ -63,13 +98,13 @@
                             </span>
                         </div>
                     </div>
-                    <div class="Container20 BorderedBox Responsive TexAlCenter">
+                    <div class="Container30 Responsive TexAlCenter">
                         <div class="ContainerIndent">
                             <span class="gray Fs18 FontRalewayMedium DispBlock">Investment</span>
                             <span class="black FontRalewayBold Fs18">
                                <p:inplace>
                                    <f:facet name="output">
-                                       <h:outputText value="#{cepb.defaultInvestment}"
+                                       <h:outputText value="#{cepb.initialInvestment}"
                                                      styleClass="invLabel" style="width:110px; font-size: 1.2em"
                                                      size="8" maxlength="9">
                                            <f:convertNumber pattern="$ #,###,###"/>
@@ -77,36 +112,36 @@
                                        <img alt="Edit" src="/images/Pencil-icon.png" style="height: 8px; width: 8px;"/>
                                    </f:facet>
                                    <f:facet name="input">
-                                       <pe:inputNumber styleClass="invInput" style="width:110px; font-size: 1.2em"
+                                       <pe:inputNumber styleClass="invInput" style="width:110px; font-size: 1em"
                                                        value="#{cepb.initialInvestment}"
                                                        symbol="$ " decimalPlaces="0" thousandSeparator=","
                                                        size="8" maxlength="9">
                                            <p:ajax event="blur" listener="#{cepb.consumerRefresh}"
-                                                   update=":ceForm:workArea, :ceForm:dPanel1"/>
+                                                   update=":ceForm:workArea, :ceForm:dPanel1, :ceForm:consumergoals"/>
                                        </pe:inputNumber>
                                    </f:facet>
                                </p:inplace>
                             </span>
                         </div>
                     </div>
-                    <div class="Container20 Responsive TexAlCenter">
+                    <div class="Container30">
                         <div class="ContainerIndent">
-                            <!--                          <script type="text/javascript" src="/js/invMeterGuage.js"></script>
-                                                      <p:chart type="meterguage" id="cMeter"
-                                                               model="#{cepb.charts.meterGuage}"
-                                                               style="width:170px; height:100px"/>
-                           -->
                         </div>
                     </div>
-                    <div class="Container20 Responsive TexAlCenter">
-                        <div class="Container100 Responsive TexAlCenter">
+
+                    <div class="Container30 Responsive50 TexAlCenter">
+                        <div class="Container100 TexAlCenter">
                             <div class="ContainerIndent">
-                                <p:commandButton value="Save"/>
-                            </div>
-                        </div>
-                        <div class="Container100 Responsive TexAlCenter">
-                            <div class="ContainerIndent">
-                                <p:commandButton value="Reset All"/>
+                                <p:splitButton value="Save" icon="ui-icon-check fa fa-check white Fs14"
+                                               actionListener="#{cepb.saveProfile}">
+                                    <p:menuitem value="Reset All" icon="fa fa-undo"
+                                                actionListener="#{cepb.resetForm}"/>
+                                    <p:menuitem value="Dashboard" icon="fa fa-close"
+                                                actionListener="#{menu.redirectStartPage}"/>
+                                    <p:separator />
+                                    <p:menuitem value="Fund Account" icon="fa fa-institution"
+                                            actionListener="#{cepb.forwardToIB}"/>
+                                </p:splitButton>
                             </div>
                         </div>
                     </div>
@@ -116,26 +151,11 @@
         </div>
     </p:panel>
 
-    <div class="Container100 Responsive100">
+    <div class="Container100 Responsive">
         <div class="ContainerIndent">
-            <p:fieldset legend="Personalize" toggleable="true" toggleSpeed="500" collapsed="true">
-                <div class="Container50 Responsive50">
-                    <div class="ContainerIndent">
-                        <h1 class="BigTopic">Goals</h1>
-                        <ui:include src="/pages/consumer/a1.xhtml"/>
-                    </div>
-                </div>
-                <div class="Container50 Responsive50">
-                    <div class="ContainerIndent">
-                        <h3 class="BigTopic">
-                            <div class="Wid100 Responsive50 Fleft">
-                                Risk
-                            </div>
-                        </h3>
-                        <div class="Wid100 Responsive50 Fleft">
-                            <ui:include src="/pages/consumer/riskQ.xhtml"/>
-                        </div>
-                    </div>
+            <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500" collapsed="true">
+                <div class="Container90 Responsive">
+                       <ui:include src="/pages/consumer/a1.xhtml"/>
                 </div>
             </p:fieldset>
         </div>
@@ -147,15 +167,19 @@
 <!-- BOX START -->
 <div class="layout-portlets-box">
     <p:outputPanel id="workArea" styleClass="dDataArea">
-        <div class="Container40 Responsive50">
+        <div class="Container40 Responsive">
             <div class="ContainerIndent">
                 <h3 class="BigTopic">
-                    <div class="Wid50 Responsive50 Fleft">Asset Allocation</div>
-                    <div class="Wid50 Responsive50 Fright">
+                    <div class="Wid50 Responsive Fleft">Asset Allocation
+                            <span class="gray Fs18 FontRalewayMedium DispBlock">
+                               <h:inputText id="allocSlider" value="#{cepb.allocationIndex}"/>
+                           </span>
+
+                    </div>
+                    <div class="Wid50 Responsive Fright">
                         <div class="Container100 Responsive Fright">
                             <div class="ContainerIndent">
-                                <h:inputHidden id="allocSlider" value="#{cepb.allocationIndex}"/>
-                                <p:slider for="allocSlider">
+                                <p:slider for="allocSlider" minValue="0" maxValue="100" step="1">
                                     <p:ajax event="slideEnd" listener="#{cepb.onAllocSlider}"
                                             update=":ceForm:workArea"/>
                                 </p:slider>
@@ -163,20 +187,18 @@
                         </div>
                         <div class="Container100 Responsive TexAlCenter">
                             <div class="ContainerIndent">
-                                <p:commandButton value="Recommended"/>
+                                <p:commandButton update="allocSlider" value="Recommended"
+                                                 actionListener="#{cepb.resetAllocationIndex}"/>
                             </div>
                         </div>
                     </div>
                 </h3>
-                <div class="Container100 Responsive100">
-                    <div class="Container50 Responsive50 Fleft">
-                        <div class="ContainerIndent">
-                            <p:outputPanel>
-
-                            </p:outputPanel>
-                        </div>
+                <div class="Container100 Responsive">
+                    <div class="Container50 Responsive Fleft">
+                                <p:chart type="pie" model="#{cepb.charts.pieChart}"
+                                         rendered="#{cepb.charts.pieChart != null}" />
                     </div>
-                    <div class="Container50 Responsive50 Fright">
+                    <div class="Container50 Responsive Fright">
                         <div class="ContainerIndent">
                             <p:dataTable styleClass="invAllocTable"
                                          value="#{cepb.editableAsset}"
@@ -201,15 +223,18 @@
                 </div>
             </div>
         </div>
-        <div class="Container60 Responsive50">
+        <div class="Container60 Responsive">
             <div class="ContainerIndent">
                 <h3 class="BigTopic">
-                    <div class="Wid50 Responsive50 Fleft">Portfolio Details</div>
-                    <div class="Wid50 Fright Responsive50">
+                    <div class="Wid50 Responsive Fleft">Portfolio Details
+                           <span class="gray Fs18 FontRalewayMedium DispBlock">
+                               <h:inputText id="portfolioSlider" value="#{cepb.portfolioIndex}"/>
+                           </span>
+                    </div>
+                    <div class="Wid50 Fright Responsive">
                         <div class="Container100 Responsive Fright">
                             <div class="ContainerIndent">
-                                <h:inputHidden id="portfolioSlider" value="#{cepb.portfolioIndex}"/>
-                                <p:slider for="portfolioSlider">
+                                <p:slider for="portfolioSlider" minValue="0" maxValue="100" step="1">
                                     <p:ajax event="slideEnd" listener="#{cepb.onPortfolioSlider}"
                                             update=":ceForm:workArea"/>
                                 </p:slider>
@@ -217,14 +242,15 @@
                         </div>
                         <div class="Container100 Responsive TexAlCenter">
                             <div class="ContainerIndent">
-                                <p:commandButton value="Recommended"/>
+                                <p:commandButton update="portfolioSlider" value="Recommended"
+                                        actionListener="#{cepb.resetPortfolioIndex}"/>
                             </div>
                         </div>
                     </div>
                 </h3>
                 <div class="Wid100">
                     <p:dataTable var="ticker" value="#{cepb.displayPortfolioList}"
-                                 styleClass="invTradeTable">
+                                 reflow="true">
 
                         <p:column style="width: 3px; text-align: left; background-color: #{ticker.color}">
                             <h:outputText value=" "/>

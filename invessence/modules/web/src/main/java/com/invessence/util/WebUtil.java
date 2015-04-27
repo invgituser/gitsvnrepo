@@ -27,6 +27,17 @@ public class WebUtil
       this.messageText = messageText;
    }
 
+   public boolean getWebMode() {
+      String mode = messageText.buildInternalMessage("web.mode",null);
+      if (mode == null)
+         return false;
+      else
+         if (mode.toUpperCase().equals("PROD") || mode.toUpperCase().equals("UAT"))
+            return true;
+
+      return false;
+   }
+
    public static boolean isNull(String val) {
         
         if ( (val == null) || (val.equals("")) )

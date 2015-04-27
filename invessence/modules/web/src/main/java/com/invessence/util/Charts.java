@@ -22,12 +22,14 @@ public class Charts implements Serializable
    private Integer year;
    private Integer calendarYear, minYearPoint, maxYearPoint, minGrowth, maxGrowth,legendXrotation;
 
-   private CartesianChartModel lineChart = null;
-   private PieChartModel pieChart = null;
+   private CartesianChartModel lineChart;
+   private PieChartModel pieChart;
    private MeterGaugeChartModel meterGuage;
 
    public Charts()
    {
+      pieChart = new PieChartModel();
+      lineChart = new CartesianChartModel();
       createDefaultMeterGuage();
    }
 

@@ -51,6 +51,22 @@ public class AssetAllocationModel
          return getAdvisorAssetsInfo(pdata);
    }
 
+   public Integer getAllocationIndex(ProfileData pdata) {
+
+      if (pdata == null)
+         return InvConst.ASSET_DEFAULT_POINT;
+
+      Integer age = pdata.getDefaultAge();
+      Integer duration = pdata.getDefaultHorizon();
+      Integer riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
+      Double adj_riskOffet = calc_riskOffset(age,duration,riskIndex);
+
+      //Age based offset
+      int offset = (int) (100 - ((age < 21) ? 21 : ((age > 100) ? 100 : age)));
+      offset = (int) (offset * adj_riskOffet);
+      return offset;
+   }
+
    private AssetClass[] getAdvisorAssetsInfo(ProfileData pdata)
    {
       AssetClass[] assetclass;

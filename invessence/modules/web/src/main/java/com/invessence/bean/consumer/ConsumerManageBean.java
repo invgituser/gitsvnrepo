@@ -22,7 +22,7 @@ import com.invessence.util.*;
  * To change this template use File | Settings | File Templates.
  */
 
-@ManagedBean(name = "cdash")
+@ManagedBean(name = "cmbean")
 @SessionScoped
 public class ConsumerManageBean implements Serializable
 {

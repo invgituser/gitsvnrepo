@@ -106,7 +106,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setClientAccountID(convert.getStrData(rs.get("IB_acctnum")));
 
                action = (convert.getStrData(rs.get("acctstatus")));
-               data.setAcctstatus(action);
+               // data.setAcctstatus(action);
                if (action.equalsIgnoreCase("Pending")) {
                   data.setAction("Edit");
                }

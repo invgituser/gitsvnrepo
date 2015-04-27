@@ -418,6 +418,7 @@
       <profile>
          <id>1-LOCAL</id>
          <properties>
+            <web.mode>DEV</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3307/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3307/rbsa</rbsa.url>
@@ -452,6 +453,7 @@
       <profile>
          <id>2-DEVTEST</id>
          <properties>
+            <web.mode>DEV</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://dev.invessence.com:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://dev.invessence.com:3306/rbsa</rbsa.url>
@@ -485,6 +487,7 @@
       <profile>
          <id>3-TMPDB</id>
          <properties>
+            <web.mode>DEV</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://dev.invessence.com:3306/tmpdb</jdbc.url>
             <rbsa.url>jdbc:mysql://dev.invessence.com:3306/rbsa</rbsa.url>
@@ -518,6 +521,7 @@
       <profile>
          <id>3-DEV</id>
          <properties>
+            <web.mode>DEV</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>
@@ -552,6 +556,7 @@
       <profile>
          <id>4-UAT-TEST</id>
          <properties>
+            <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://uat.invessence.com:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://uat.invessence.com:3306/rbsa</rbsa.url>
@@ -586,6 +591,7 @@
       <profile>
          <id>4.1-UAT</id>
          <properties>
+            <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>
@@ -618,6 +624,7 @@
       <profile>
          <id>5-PROD-TEST</id>
          <properties>
+            <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://www.invessence.com:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://www.invessence.com:3306/rbsa</rbsa.url>
@@ -651,6 +658,7 @@
       <profile>
          <id>6-PROD</id>
          <properties>
+            <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>

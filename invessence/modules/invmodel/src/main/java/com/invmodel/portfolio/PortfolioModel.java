@@ -51,12 +51,31 @@ public class PortfolioModel
 
    }
 
+   public Integer getPortfolioIndex(ProfileData pdata) {
+
+      if (pdata == null)
+         return InvConst.PORTFOLIO_DEFAULT_POINT;
+
+      if (pdata.getAssetData() == null)
+         return InvConst.PORTFOLIO_DEFAULT_POINT;
+
+      Double riskOffset = pdata.getAssetData()[0].getRiskOffset();
+      Integer duration = pdata.getDefaultHorizon();
+
+      int offset = (int) (StrictMath.sqrt(StrictMath.pow(duration, 2.0) - StrictMath.pow((double) 0, 2.0)))*(InvConst.PORTFOLIO_INTERPOLATION/duration);
+      offset = (int) (riskOffset * (double) offset);
+      offset = (offset > InvConst.PORTFOLIO_INTERPOLATION - 1) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
+      if(offset < 0)
+         offset = 0;
+
+      return offset;
+   }
+
    private Portfolio[] getAdvisorPortfolio(AssetClass[] assetData, ProfileData profileData)
    {
       String assetName;
 
       Integer duration;
-      Double riskOffset;
       Double invCapital;
       Double keepLiquidCash;
       Double reinvestment = 0.0;
@@ -109,7 +128,7 @@ public class PortfolioModel
 
 
          ArrayList<String> assetList = assetData[0].getOrderedAsset();
-         riskOffset = assetData[0].getRiskOffset();
+         Double riskOffset = assetData[0].getRiskOffset();
 
          duration = profileData.getDefaultHorizon();
 
@@ -191,7 +210,6 @@ public class PortfolioModel
       String assetName;
 
       Integer duration;
-      Double riskOffset;
       Double invCapital;
       Double keepLiquidCash;
       Double reinvestment = 0.0;
@@ -244,7 +262,7 @@ public class PortfolioModel
 
 
          ArrayList<String> assetList = assetData[0].getOrderedAsset();
-         riskOffset = assetData[0].getRiskOffset();
+         Double riskOffset = assetData[0].getRiskOffset();
 
          duration = profileData.getDefaultHorizon();
 

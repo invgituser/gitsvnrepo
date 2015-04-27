@@ -71,7 +71,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
             data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
 
-            if (convert.getStrData(rs.get("taxable")).startsWith("N"))
+            String taxable = convert.getStrData(rs.get("taxable"));
+            if (taxable == null)
+               data.setAccountTaxable(false);
+            else if (taxable.startsWith("N"))
                data.setAccountTaxable(false);
             else
                data.setAccountTaxable(true);

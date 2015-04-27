@@ -167,6 +167,11 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       }
    }
 
+   public void onChange() {
+      setRiskCalcMethod("C");
+      formEdit = true;
+   }
+
    public void selectedGoalType(Integer item) {
 
       if (item == null)
@@ -174,36 +179,23 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
       formEdit = true;
       imageSelected = item;
+      setHorizon(20);
       switch (imageSelected) {
-         case 0:
-            setGoal("Retirement");
-            if (getAge() == null)
-               setHorizon(20);
-            else if (getAge() < 65)
-               setHorizon(65 - getAge());
-            else
-               setHorizon(2);
-            break;
          case 1:
             setGoal("Growth");
             break;
          case 2:
             setGoal("Income");
+            setTheme("0.Income");
+            break;
+         case 3:
+            setGoal("Safety");
+            setHorizon(3);
             break;
          default:
             setGoal("Growth");
       }
 
-      if (getGoal().toUpperCase().contains("INCOME")) {
-         setTheme("0.Income");
-      }
-      else {
-         setTheme(InvConst.DEFAULT_THEME);
-         if (getGoal().toUpperCase().contains("SAFETY"))
-            setHorizon(3);
-         else
-            setHorizon(20);
-      }
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -265,9 +257,16 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             setLogonid(uid.getLogonID());
          }
          listDAO.getNewClientProfileData((ManageGoals) this.getInstance());
+         setAge(30);
+         setInitialInvestment(100000);
+         setHorizon(20);
+         setGoal("Growth");
+         setAccountTaxable(false);
+         resetAllocationIndex();
+         resetPortfolioIndex();
          loadBasketInfo();
-         createAssetPortfolio(getDefaultHorizon()); // Build default chart for the page...
-         RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
+         createAssetPortfolio(1); // Build default chart for the page...
+         // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -464,7 +463,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    public void resetForm() {
       try
       {
-         setRiskCalcMethod("A");
+         setRiskCalcMethod("C");
 
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L) {
             loadData(getBeanAcctnum());
@@ -498,8 +497,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       try
       {
          String license;
-         String webmode = getWebEnvironment();
-         if (webmode != null & webmode.equalsIgnoreCase("PROD"))
+         if (getWebEnvironment())
          {
             if (getLogonid() == null)
             {

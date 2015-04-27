@@ -26,8 +26,7 @@ public class ManageGoals extends ProfileData
    private JavaUtil javautil = new JavaUtil();
    private ManageGoals manageGoalinstance = null;
 
-   @ManagedProperty("#{webutil}")
-   private WebUtil webutil;
+   private WebUtil webutil = new WebUtil();
 
    @ManagedProperty("#{assetAllocationModel}")
    private AssetAllocationModel allocModel;
@@ -133,9 +132,9 @@ public class ManageGoals extends ProfileData
       this.managed = managed;
    }
 
-   public String getWebEnvironment()
+   public Boolean getWebEnvironment()
    {
-      return webutil.webMode();
+      return webutil.getWebMode();
    }
 
    public AssetAllocationModel getAllocModel()
@@ -182,6 +181,7 @@ public class ManageGoals extends ProfileData
    {
       this.addmodflag = addmodflag;
    }
+
 
    public String getAcctstatus()
    {
@@ -947,6 +947,14 @@ public class ManageGoals extends ProfileData
    public void setSelectedPortfolio(DataPortfolio selectedPortfolio)
    {
       this.selectedPortfolio = selectedPortfolio;
+   }
+
+   public void resetAllocationIndex() {
+      setAllocationIndex(allocModel.getAllocationIndex((ProfileData) this.getInstance()));;
+   }
+
+   public void resetPortfolioIndex() {
+      setPortfolioIndex(portfolioModel.getPortfolioIndex((ProfileData) this.getInstance()));
    }
 
    public void buildAssetClass() {

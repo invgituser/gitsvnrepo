@@ -5,7 +5,6 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.data.ManageAccount;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "manageAccountDAO")

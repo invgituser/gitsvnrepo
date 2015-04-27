@@ -172,15 +172,6 @@ public class
       this.logonid = logonid;
    }
 
-   public String getDefaultGoal()
-   {
-      if (goal == null || goal.length() == 0)
-         return "Growth";
-      else
-         return goal;
-
-   }
-
    public String getGoal()
    {
       if (goal == null)
@@ -294,20 +285,8 @@ public class
    }
 
    public Integer getDefaultAge() {
-      if (this.age == null || this.age <= 0)
-         return 30;
-      else
-         return this.age;
+      return (getAge() == null) ? 30 : getAge();
    }
-
-   public void setDefaultAge(Integer age) {
-      if (age == null || age <= 0)
-         setAge(30);
-      else
-         setAge(age);
-   }
-
-
    public Integer getAge()
    {
      return age;
@@ -315,9 +294,11 @@ public class
 
    public Integer getDefaultHorizon() {
       Integer adjduration;
+      Integer defaultAge;
 
-      if ((70 - getDefaultAge()) > 0)
-         adjduration = 70 - getDefaultAge();
+      defaultAge = getDefaultAge();
+      if ((70 - defaultAge) > 0)
+         adjduration = 70 - defaultAge;
       else
          adjduration = 1;
       Integer duration = (getHorizon() == null) ? adjduration : getHorizon();
@@ -380,6 +361,13 @@ public class
       this.numOfPortfolio = numOfPortfolio;
    }
 
+/*
+   public void setDefaultInvestment(Integer investment)
+   {
+      initialInvestment = investment;
+   }
+*/
+
    public Integer getDefaultInvestment()
    {
       if (actualInvestment != null && actualInvestment != 0)
@@ -391,6 +379,7 @@ public class
             return 100000;
       }
    }
+
 
    public Integer getInitialInvestment()
    {
@@ -824,6 +813,7 @@ public class
       return riskdata;
    }
 
+/*
    public Integer getDefaultRiskIndex()
    {
       return displayRiskIndex;
@@ -834,6 +824,7 @@ public class
       this.displayRiskIndex = (riskIndex == null) ? 10 : riskIndex;
       this.riskIndex = convertIndex2RiskWeight(this.displayRiskIndex).intValue();
    }
+*/
 
    public void setRiskdata(RiskIndex riskdata)
    {
@@ -903,6 +894,8 @@ public class
 
    public Integer getAllocationIndex()
    {
+      if (allocationIndex == null)
+         return InvConst.ASSET_DEFAULT_POINT;
       return allocationIndex;
    }
 
@@ -914,6 +907,8 @@ public class
 
    public Integer getPortfolioIndex()
    {
+      if (portfolioIndex == null)
+         return InvConst.PORTFOLIO_DEFAULT_POINT;
       return portfolioIndex;
    }
 
@@ -1165,12 +1160,12 @@ public class
       setAccountType(null);
       setTradePreference(InvConst.TRADE_MODE);
       setName(null);
-      setHorizon(null);
-      setDefaultAge(null);
+      setHorizon(20);
+      setAge(30);
       setCalendarYear(null);
       setNumOfAllocation(1);
       setNumOfPortfolio(1);
-      setInitialInvestment(null);
+      setInitialInvestment(100000);
       setActualInvestment(null);
       setKeepLiquid(null);
       setRecurringInvestment(null);
@@ -1196,7 +1191,10 @@ public class
       setAccountTaxable(false); //1 (True) for accountTaxable (False) for nonTaxable
       setTaxrate(0.1);
       setRiskCalcMethod("C");
-      setDefaultRiskIndex(null);
+      setRiskIndex(0);
+      setAllocationIndex(InvConst.ASSET_DEFAULT_POINT);
+      setPortfolioIndex(InvConst.PORTFOLIO_DEFAULT_POINT);
+      setMeterRiskIndicator(10);
 
       if (getEditableAsset() != null)
          getEditableAsset().clear();

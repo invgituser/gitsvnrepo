@@ -16,10 +16,8 @@
                 <div class="ContainerIndent">
                     <div class="DispBlock">
                         <div class="Container20">
-                            <p:commandLink id="nonAjax" ajax="false" actionListener="#{cepb.setVisible}">
                                 <i class="fa fa-user Fs50 red Fleft MarRight10"></i>
                                 <span class="Fs15 gray FontRalewayRegular DispBlock">Profile</span>
-                            </p:commandLink>
                         </div>
                         <!--
                                             <div class="Container5">
@@ -110,13 +108,10 @@
                             </div>
                         </div>
                         <div class="Container20 Responsive TexAlCenter">
-                                <h:outputScript name="js/invMeterGuage.js"/>
-                                <p:chart type="metergauge" model="#{chartView.meterGaugeModel2}"
-                                         style="height: 90px"
-                                         extender="meter_extensions"/>
-
+                            <div class="ContainerIndent">
+                            </div>
                         </div>
-                        <div class="Container20 Responsive TexAlCenter">
+                        <div class="Container20 Responsive TexAlCenter Fright">
                             <div class="Container100 Responsive TexAlCenter">
                                <div class="ContainerIndent">
                                    <p:commandButton value="Save"/>
@@ -133,8 +128,40 @@
                 </div>
             </div>
         </p:panel>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
+              <p:fieldset legend="Personalize" toggleable="true" toggleSpeed="500" collapsed="true">
+                  <div class="Container50 Responsive50">
+                     <div class="ContainerIndent">
+                         <h1 class="BigTopic">Goals</h1>
+                           <ui:include src="/a1.xhtml"/>
+                     </div>
+                  </div>
+                  <div class="Container50 Responsive50">
+                      <div class="ContainerIndent">
+                          <h3 class="BigTopic">
+                            <div class="Wid50 Responsive50 Fleft">
+                                Risk
+                            </div>
+                            <div class="Wid50 Responsive50 Fright">
+                                <script type="text/javascript" src="js/invMeterGuage.js"></script>
+                                <p:chart type="metergauge" model="#{chartView.meterGaugeModel2}"
+                                         style="height: 90px"
+                                         extender="meter_extensions"/>
+                            </div>
+                          </h3>
+                            <div class="Wid100 Responsive50 Fleft">
+                              <ui:include src="/riskQ.xhtml"/>
+                            </div>
+                      </div>
+                  </div>
+              </p:fieldset>
+            </div>
+        </div>
+
     </div>
     <!-- BOX END -->
+
 
     <!-- BOX START -->
     <div class="layout-portlets-box">
@@ -209,45 +236,6 @@
     </div>
     <!-- BOX END -->
 
-    <p:dialog header="Profile" widgetVar="custPDialog" modal="true"
-              visible="#{cepb.visible}"
-              showEffect="fade" hideEffect="fade" resizable="true"
-              width="674px" top="120px" height="524px" style="background-color: #fff; width: 674px; height: 524px; top:100px; padding: 0px">
-        <p:panel id="profileDataEntryid" styleClass="NBwidget">
-            <p:carousel numVisible="1" itemStyle="height:400px;width:600px; padding: 0px" effect="easeInStrong"
-                        style="margin-bottom:0">
-                <p:tab title="I">
-                    <ui:include src="/a1.xhtml"/>
-                </p:tab>
-                <p:tab title="II">
-                    <ui:include src="/q1.xhtml"/>
-                </p:tab>
-                <p:tab title="III">
-                    <ui:include src="/q2.xhtml"/>
-                </p:tab>
-            </p:carousel>
-            <f:facet name="footer">
-                <p:row>
-                    <p:column style="text-align: left">
-                        <p:commandButton value="Save" icon="ui-icon-check"
-                                         actionListener="#{cepb.save}"
-                                         oncomplete="PF('custPDialog').hide();"/>
-
-                    </p:column>
-                    <p:column >
-                        <p:commandButton value="Reset" update="profileDataEntryid" process="@this" style="text-align: left" >
-                            <p:resetInput target="profileDataEntryid" />
-                        </p:commandButton>
-                    </p:column>
-                    <p:column>
-                        <p:commandButton value="Cancel" style="text-align: right" icon="ui-icon-close"
-                                         oncomplete="PF('custPDialog').hide();"/>
-                    </p:column>
-
-                </p:row>
-            </f:facet>
-        </p:panel>
-    </p:dialog>
     </h:form>
         
     </ui:define>
