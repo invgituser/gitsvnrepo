@@ -55,7 +55,7 @@
                         <div class="Wid30 TexAlCenter Fright">
                             <div class="Container100 TexAlCenter">
                                 <div class="ContainerIndent">
-                                    <div class="Container20 TexAlCenter">
+                                    <div class="Container100 TexAlCenter">
                                         <p:button value="show" onclick="PF('custPrefDialog').show();"/>
                                     </div>
                                 </div>
@@ -66,48 +66,6 @@
                 </div>
             </div>
         </p:panel>
-        <div class="Container100 Responsive50">
-            <div class="ContainerIndent">
-                <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
-                    <div class="Container100 Responsive50">
-                        <p:panel id="inputArea" styleClass="Container80 NBwidget">
-                            <p:tabView id="pTabView" activeIndex="#{tc.pTab}" orientation="top" styleClass="NBwidget">
-                                <p:ajax event="tabChange" listener="#{tc.onPTabChange}" />
-                                <p:tab title="Overview" titleStyleClass="NBwidget">
-                                    <ui:include src="/a1.xhtml"/>
-                                </p:tab>
-                                <p:tab title="Financials" titleStyleClass="NBwidget">
-                                    <ui:include src="/a2.xhtml"/>
-                                </p:tab>
-                                <p:tab title="Risk" titleStyleClass="NBwidget">
-                                    <p:panel id="risQ" style="height:300px;width:550px;">
-                                        <p:tabView id="rTabView" activeIndex="#{tc.rTab}">
-                                            <p:ajax event="tabChange" listener="#{tc.onRTabChange}" />
-                                            <p:tab title="1">
-                                                <ui:include src="/q1.xhtml"/>
-                                            </p:tab>
-                                            <p:tab title="2">
-                                                <ui:include src="/q2.xhtml"/>
-                                            </p:tab>
-                                        </p:tabView>
-                                    </p:panel>
-                                </p:tab>
-                            </p:tabView>
-                            <f:facet name="footer">
-
-                                        <p:commandButton value="Previous" styleClass="Fleft"
-                                                         update=":ceForm:pTabView, :ceForm:pTabView:risQ"
-                                                         actionListener="#{tc.gotoPrevTab}"/>
-                                        <p:commandButton value="Next"  styleClass="Fright"
-                                                         update=":ceForm:pTabView, :ceForm:pTabView:risQ"
-                                                         actionListener="#{tc.gotoNextTab}"/>
-                            </f:facet>
-                        </p:panel>
-                    </div>
-
-                </p:fieldset>
-            </div>
-        </div>
     </div>
     <!-- BOX END -->
 

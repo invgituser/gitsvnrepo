@@ -19,6 +19,11 @@
             <artifactId>primefaces</artifactId>
             <version>5.2.RC3</version>
         </dependency>
+         <dependency>
+           <groupId>org.primefaces.extensions</groupId>
+           <artifactId>primefaces-extensions</artifactId>
+           <version>1.2.1</version>
+         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.faces</artifactId>

@@ -2,7 +2,9 @@ package org.primefaces.spark.invessence;
 
 import javax.faces.bean.*;
 
-import org.primefaces.event.SlideEndEvent;
+import org.primefaces.component.tabview.Tab;
+import org.primefaces.event.*;
+import org.primefaces.model.chart.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,6 +17,7 @@ import org.primefaces.event.SlideEndEvent;
 @SessionScoped
 public class CEdit
 {
+   private String portfolioName;
    private String displayGoal;
    private Integer age = 30;
    private Integer initialInvestment = 100000;
@@ -25,12 +28,26 @@ public class CEdit
    private Boolean accountTaxable;
    private Integer defaultAge;
    private String horizonQuestion;
-   private Integer defaultHorizon;
+   private Integer horizon;
    private Integer recurringInvestment;
    private Integer experience;
+   private Integer dependent;
+   private Double  householdwages, otherExpense,moneymarket, investment,otherDebt;
    private Integer selectedchoice1;
    private Integer selectedchoice2;
    private Boolean visible;
+   private Integer prefView = 0;
+   private Integer pTab = 0, rTab = 0;
+
+   public String getPortfolioName()
+   {
+      return portfolioName;
+   }
+
+   public void setPortfolioName(String portfolioName)
+   {
+      this.portfolioName = portfolioName;
+   }
 
    public String getDisplayGoal()
    {
@@ -148,14 +165,14 @@ public class CEdit
       this.horizonQuestion = horizonQuestion;
    }
 
-   public Integer getDefaultHorizon()
+   public Integer getHorizon()
    {
-      return defaultHorizon;
+      return horizon;
    }
 
-   public void setDefaultHorizon(Integer defaultHorizon)
+   public void setHorizon(Integer horizon)
    {
-      this.defaultHorizon = defaultHorizon;
+      this.horizon = horizon;
    }
 
    public Integer getRecurringInvestment()
@@ -198,6 +215,16 @@ public class CEdit
       this.selectedchoice2 = selectedchoice2;
    }
 
+   public Integer getPrefView()
+   {
+      return prefView;
+   }
+
+   public void setPrefView(Integer prefView)
+   {
+      this.prefView = prefView;
+   }
+
    public void save() {
       System.out.println("Saving.");
    }
@@ -214,5 +241,194 @@ public class CEdit
 
    public void setVisible() {
       this.visible = true;
+   }
+
+   public BarChartModel getBarModel() {
+      BarChartModel model = new BarChartModel();
+
+      ChartSeries domestic = new ChartSeries();
+      domestic.setLabel("Domestic");
+      domestic.set("Assets", 33);
+
+      ChartSeries internatonal = new ChartSeries();
+      internatonal.setLabel("Internatonal");
+      internatonal.set("Assets", 25);
+
+      ChartSeries bond = new ChartSeries();
+      bond.setLabel("Bond");
+      bond.set("Assets", 45);
+
+      ChartSeries commodity = new ChartSeries();
+      commodity.setLabel("Commodity");
+      commodity.set("Assets", 5);
+
+      ChartSeries cash = new ChartSeries();
+      cash.setLabel("Cash");
+      cash.set("Assets", 1);
+
+      model.addSeries(domestic);
+      model.addSeries(internatonal);
+      model.addSeries(bond);
+      model.addSeries(commodity);
+      model.addSeries(cash);
+      model.setShowPointLabels(true);
+      model.setLegendPosition("ne");
+      return model;
+   }
+
+   public Integer getDependent()
+   {
+      return dependent;
+   }
+
+   public void setDependent(Integer dependent)
+   {
+      this.dependent = dependent;
+   }
+
+   public Double getHouseholdwages()
+   {
+      return householdwages;
+   }
+
+   public void setHouseholdwages(Double householdwages)
+   {
+      this.householdwages = householdwages;
+   }
+
+   public Double getOtherExpense()
+   {
+      return otherExpense;
+   }
+
+   public void setOtherExpense(Double otherExpense)
+   {
+      this.otherExpense = otherExpense;
+   }
+
+   public Double getMoneymarket()
+   {
+      return moneymarket;
+   }
+
+   public void setMoneymarket(Double moneymarket)
+   {
+      this.moneymarket = moneymarket;
+   }
+
+   public Double getInvestment()
+   {
+      return investment;
+   }
+
+   public void setInvestment(Double investment)
+   {
+      this.investment = investment;
+   }
+
+   public Double getOtherDebt()
+   {
+      return otherDebt;
+   }
+
+   public void setOtherDebt(Double otherDebt)
+   {
+      this.otherDebt = otherDebt;
+   }
+
+   public void onChange() {
+      System.out.println("Debug");
+   }
+
+   public Integer getpTab()
+   {
+      return pTab;
+   }
+
+   public void setpTab(Integer pTab)
+   {
+      this.pTab = pTab;
+   }
+
+   public Integer getrTab()
+   {
+      return rTab;
+   }
+
+   public void setrTab(Integer rTab)
+   {
+      this.rTab = rTab;
+   }
+
+   public void onPTabChange(TabChangeEvent event) {
+      Tab active = event.getTab();
+      if (active.getTitle().startsWith("O"))
+         pTab = 0;
+      if (active.getTitle().startsWith("F"))
+         pTab = 1;
+      if (active.getTitle().startsWith("R"))
+         pTab = 2;
+
+      if (pTab < 2)
+         rTab = 0;
+   }
+
+   public void onRTabChange(TabChangeEvent event) {
+      Tab active = event.getTab();
+      String tabName= active.getTitle();
+      Integer tabID = Integer.getInteger(tabName);
+      if (tabID != null)
+         rTab = tabID - 1;
+   }
+
+   public Boolean getNextPersonalButtonEnable() {
+      if (pTab > 1 & rTab > 6)
+         return false;
+      return true;
+   }
+
+   public Boolean getPrevPersonalButtonEnable() {
+      if (pTab == 1)
+         return false;
+      return true;
+   }
+
+   public void gotoPrevTab() {
+     switch (rTab) {
+        case 0:
+           return;
+        case 1:
+        case 2:
+           pTab --;
+           break;
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        default:
+           break;
+     }
+     rTab--;
+
+   }
+
+   public void gotoNextTab() {
+      switch (rTab) {
+         case 0:
+         case 1:
+            pTab ++;
+            break;
+         case 2:
+         case 3:
+         case 4:
+         case 5:
+         case 6:
+            break;
+         case 7:
+         default:
+            return;
+      }
+      rTab++;
    }
 }

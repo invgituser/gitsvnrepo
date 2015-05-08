@@ -583,7 +583,10 @@ public class ChartView implements Serializable {
         //pieModel2.setLegendPosition("e");
         pieModel2.setFill(true);
         pieModel2.setShowDataLabels(false);
-        pieModel2.setDiameter(100);
+        pieModel2.setDiameter(150);
+        String pieColor="009ABB,CFD449,93A9CF,FFFFCC";
+        pieModel2.setSeriesColors(pieColor);
+        pieModel2.setExtender("pie_extensions");
     }
     
     private void createDonutModels() {

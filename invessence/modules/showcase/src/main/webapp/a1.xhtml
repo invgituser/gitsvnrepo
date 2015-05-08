@@ -5,112 +5,112 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
+    <p:panel id="a1" styleClass="Container100 NBwidget">
 
-    <p:panel id="panel" styleClass="NBwidget">
-        <p:panelGrid id="consumergoalsgrid" styleClass="invNBgrid NBwidget">
-            <p:row>
-            </p:row>
-            <p:row>
-                <p:column styleClass="invLabel" style="width:110px">
-                    <p:outputLabel value="Invest for"/>
-                </p:column>
-                <p:column style="width:25px">
-                </p:column>
-                <p:column style="text-align: left;width:200px">
-                    <p:selectOneMenu id="goal" value="#{cepb.goal}"
-                                     style="height: 26px;width:200px"
-                                     update="consumergoalsgrid" process="@this"
-                                     required="true" requiredMessage="Select one investment goal.">
-                        <f:selectItem itemLabel="- Choose one -" itemValue=""/>
-                        <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
-                        <f:selectItem itemLabel="Grow Wealth" itemValue="Groth"/>
-                        <f:selectItem itemLabel="Safety" itemValue="Retirement"/>
-                    </p:selectOneMenu>
-                </p:column>
+    </p:panel>
+
+    <p:panelGrid id="consumergoals" styleClass="invNBgrid">
+        <p:row>
+            <p:column>
+                Portfolio Name
+            </p:column>
+            <p:column colspan="3">
+                <p:inputText value="#{cepb.portfolioName}">
+                    <p:ajax listener="#{cepb.onChange}"/>
+                </p:inputText>
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column>
+                Invest for
+            </p:column>
+            <p:column>
+                <p:selectOneMenu id="goal"
+                                 value="#{cepb.goal}">
+                    <p:ajax listener="#{cepb.onChange}"
+                            />
+                    <f:selectItem itemLabel="Grow Wealth" itemValue="Growth"/>
+                    <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
+                    <f:selectItem itemLabel="Safety" itemValue="Retirement"/>
+                </p:selectOneMenu>
+            </p:column>
+            <p:column>
+                Account Type
+            </p:column>
+            <p:column>
+                <p:selectBooleanButton id="accountaxable"
+                                       value="#{cepb.accountTaxable}" onLabel="Taxable"
+                                       offLabel="Non-taxable">
+                    <p:ajax listener="#{cepb.onChange}"
+                            />
+                </p:selectBooleanButton>
+            </p:column>
         </p:row>
 
-         <p:row>
-             <p:column styleClass="invLabel" style="width:110px">
-                 <p:outputLabel value="Account Taxable"/>
-             </p:column>
-             <p:column style="width:25px">
-             </p:column>
-             <p:column >
-                 <p:selectBooleanCheckbox id="accountaxable" value="#{cepb.accountTaxable}" />
-             </p:column>
-         </p:row>
+        <p:row>
+            <p:column>
+                Your Current Age
+            </p:column>
+            <p:column>
+                <p:spinner id="age" value="#{cepb.age}"
+                           min="1" max="100" stepFactor="1">
+                    <p:ajax listener="#{cepb.onChange}"/>
+                </p:spinner>
+            </p:column>
+            <p:column>
+                Number of years you plan to invest?
+            </p:column>
+            <p:column>
+                <p:spinner id="horizon" value="#{cepb.horizon}"
+                           min="1" max="100" stepFactor="1">
+                    <p:ajax listener="#{cepb.onChange}"/>
+                </p:spinner>
+            </p:column>
+        </p:row>
 
-            <p:row>
-                <p:column styleClass="invLabel">
-                    <p:outputLabel value="Your Current Age"/>
-                </p:column>
-                <p:column style="width:25px">
-                </p:column>
-                <p:column >
-                    <p:spinner id="age" value="#{cepb.defaultAge}"
-                            min="1" max="100" stepFactor="1"
-                            styleClass="width: 90px"
-                            required="true" requiredMessage="Age should be of between 1 to 100."/>
-                </p:column>
-            </p:row>
 
-            <p:row>
-                <p:column styleClass="invLabel">
-                    <p:outputLabel value="How long do you plan to invest?"/>
-                </p:column>
-                <p:column style="width:25px">
-                </p:column>
-                <p:column >
-                    <p:spinner id="horizon" value="#{cepb.defaultHorizon}"
-                               min="1" max="100" stepFactor="1"
-                               styleClass="width: 90px"
-                               required="true" requiredMessage="Investment years should be of between 1 to 100."/>
-                </p:column>
-            </p:row>
+        <p:row>
+            <p:column>
+                Initial Investment
+            </p:column>
+            <p:column>
+                <pe:inputNumber id="initialInvestment"
+                                value="#{cepb.initialInvestment}"
+                                maxlength="15" decimalPlaces="0" symbol="$">
+                    <p:ajax event="blur" listener="#{cepb.onChange}"
+                            />
+                </pe:inputNumber>
+            </p:column>
+            <p:column>
+                Recurring Deposits (per year)
+            </p:column>
+            <p:column>
+                <pe:inputNumber id="recurringinvestment"
+                                value="#{cepb.recurringInvestment}"
+                                maxlength="15" decimalPlaces="0" symbol="$">
+                    <p:ajax event="blur" listener="#{cepb.onChange}"/>
+                </pe:inputNumber>
 
-            <p:row >
-                <p:column styleClass="invLabel">
-                    <p:outputLabel value="Initial Investment"/>
-                </p:column>
-                <p:column style="width:25px">
-                </p:column>
-                <p:column >
-                    <pe:inputNumber id="initialInvestment" value="#{cepb.defaultInvestment}"
-                                    required="true"
-                                    maxlength="15" decimalPlaces="0" symbol="$"
-                                    requiredMessage="Investment should be greater then $5,000.">
-                    </pe:inputNumber>
-                </p:column>
-            </p:row>
+            </p:column>
+        </p:row>
 
-            <p:row>
-                <p:column styleClass="invLabel">
-                    <p:outputLabel value="Recurring Deposits (per year)"/>
-                </p:column>
-                <p:column style="width:25px">
-                </p:column>
-                <p:column >
-                    <pe:inputNumber id="recurringinvestment" value="#{cepb.recurringInvestment}"
-                                    maxlength="15" decimalPlaces="0" symbol="$">
-                    </pe:inputNumber>
-                </p:column>
-            </p:row>
+        <p:row>
+            <p:column>
+                Investment Experience
+            </p:column>
+            <p:column colspan="3">
+                <p:selectOneButton value="#{cepb.experience}">
+                    <p:ajax listener="#{cepb.onChange}"/>
+                    <f:selectItem itemLabel="None" itemValue="0" />
+                    <f:selectItem itemLabel="1-3" itemValue="2" />
+                    <f:selectItem itemLabel="3-5" itemValue="4" />
+                    <f:selectItem itemLabel="5-10" itemValue="8" />
+                    <f:selectItem itemLabel="10+" itemValue="20" />
+                </p:selectOneButton>
 
-            <p:row>
-                <p:column styleClass="invLabel">
-                    <p:outputLabel value="Investment Experience"/>
-                </p:column>
-                <p:column style="width:25px">
-                </p:column>
-                <p:column >
-                    <p:selectOneRadio id="experience" value="#{cepb.experience}"
-                                      required="true"  requiredMessage="Investment experience.">
-                        <f:selectItem itemLabel="Experienced" itemValue="1"/>
-                        <f:selectItem itemLabel="Inexperienced" itemValue="2"/>
-                    </p:selectOneRadio>
-                </p:column>
-           </p:row>
-        </p:panelGrid>
-    </p:panel>
+            </p:column>
+        </p:row>
+
+    </p:panelGrid>
 
 </ui:composition>

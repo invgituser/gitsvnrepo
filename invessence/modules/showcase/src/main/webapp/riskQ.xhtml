@@ -5,17 +5,16 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-
-    <p:panel id="profileDataEntryid" styleClass="NBwidget">
-        <p:carousel numVisible="1" itemStyle="height:400px;width:600px; padding: 0px" effect="easeInStrong"
-                    style="margin-bottom:0">
-            <p:tab title="I">
+    <p:panel id="risQ" style="height:300px;width:550px;">
+        <p:tabView id="rTabView" activeIndex="#{cepb.rTab}">
+            <p:ajax event="tabChange" listener="#{cepb.onRTabChange}" />
+            <p:tab title="1">
                 <ui:include src="/q1.xhtml"/>
             </p:tab>
-            <p:tab title="II">
+            <p:tab title="2">
                 <ui:include src="/q2.xhtml"/>
             </p:tab>
-        </p:carousel>
+        </p:tabView>
     </p:panel>
 
 </ui:composition>

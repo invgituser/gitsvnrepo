@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </f:facet>
+    <title>Invessence - Profile</title>
+    <h:outputScript name="js/layout.js" library="spark-layout" />
+
+    <h:outputText value="&lt;!--[if gte IE 9]&gt;" escape="false" />
+    <style type="text/css">
+            /* styles for IE 9 */
+    </style>
+    <h:outputText value="&lt;![endif]--&gt;" escape="false" />
+
+    <ui:insert name="head" />
+</h:head>
+
+<h:body>
+
+    <h:form>
+
+    <div id="layout-portlets-cover">
+        <div class="other-pages-box Container90 Responsive100 MarTop10"
+             style="margin-top:5%; background: #f5f5f5">
+            <p:panel id="inputArea" styleClass="Container100" style="border: 0px">
+               <div class="Container60 Responsive50">
+                <div class="ContainerIndent">
+                    <p:steps id="stepM" activeIndex="#{cepb.pTab}" styleClass="Container100">
+                        <p:menuitem value="Personal" />
+                        <p:menuitem value="Finance" />
+                        <p:menuitem value="Risk" />
+                    </p:steps>
+                    <p:panel styleClass="Container100" style="border: 0px"
+                             rendered="#{cepb.pTab == 0 ? 'true' : 'false'}">
+                        <ui:include src="/aT1.xhtml"/>
+                    </p:panel>
+                    <p:panel styleClass="NBwidget Container100"
+                             rendered="#{cepb.pTab == 1 ? 'true' : 'false'}">
+                        <ui:include src="/aT2.xhtml"/>
+                    </p:panel>
+                    <p:panel styleClass="NBwidget Container100"
+                             rendered="#{cepb.rTab == 0 ? 'true' : 'false'}">
+                        <ui:include src="/q1.xhtml"/>
+                    </p:panel>
+                    <p:panel styleClass="NBwidget Container100"
+                             rendered="#{cepb.rTab == 1 ? 'true' : 'false'}">
+                        <ui:include src="/q2.xhtml"/>
+                    </p:panel>
+                </div>
+               </div>
+                <f:facet name="footer">
+                    <p:commandButton value="Previous" style="float: left" actionListener="#{cepb.gotoPrevTab}"
+                                     update="inputArea"/>
+                    <p:commandButton value="Next" style="float: right" actionListener="#{cepb.gotoNextTab}"
+                                     update="inputArea"/>
+                </f:facet>
+            </p:panel>
+        </div>
+    </div>
+    </h:form>
+
+
+    <h:outputStylesheet name="css/core-layout.css" library="spark-layout" />
+    <h:outputStylesheet name="css/font-awesome.css" library="spark-layout" />
+    <h:outputStylesheet name="css/animate.css" library="spark-layout" />
+    <h:outputStylesheet name="css/spark-layout.css" library="spark-layout" />
+</h:body>
+
+</html>
