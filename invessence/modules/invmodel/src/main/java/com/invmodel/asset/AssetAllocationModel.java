@@ -98,7 +98,8 @@ public class AssetAllocationModel
          while (numofAllocation > 0)
          {
             //Offset is now a slider (Just moving along the points)
-            offset = (offset > InvConst.ASSET_INTERPOLATION - 1) ? InvConst.ASSET_INTERPOLATION - 1 : offset;
+            // offset = InvConst.ASSET_INTERPOLATION - offset;
+            offset = (offset > InvConst.ASSET_INTERPOLATION - 1 ) ? InvConst.ASSET_INTERPOLATION - 1: offset;
             offset = (offset < 0) ? 0 : offset;
             assetclass[counter] = noAdjustDurationRisk(theme, offset, duration,
                                                      age, stayInvested);
