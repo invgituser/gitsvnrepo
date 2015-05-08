@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
 import com.invessence.constant.Const;
 import com.invessence.dao.consumer.*;
@@ -37,7 +38,30 @@ public class ConsumerDashBean implements Serializable
    {
       this.listDAO = listDAO;
    }
+   public void preRenderView()
+   {
 
+      Long logonid;
+      String fetchStatus;
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            if (webutil.validatePriviledge(Const.ROLE_USER)) {
+               logonid = webutil.getLogonid();
+
+               if (logonid != null)
+                  collectData(logonid);
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+   }
+
+/*
    @PostConstruct
    public void init()
    {
@@ -57,6 +81,7 @@ public class ConsumerDashBean implements Serializable
          e.printStackTrace();
       }
    }
+*/
 
    public String getLoggedUserName() {
       return webutil.getLastFirstName();

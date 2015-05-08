@@ -92,7 +92,7 @@ public class Menu implements Serializable
 
                email = (email == null) ? "info@invessence.com" : email;
                phone = (phone == null) ? "(201) 977-2704" : phone;
-               theme = (theme == null) ? "advisor" : theme;
+               theme = (theme == null) ? "spark" : theme;
 
             }
       }

@@ -10,12 +10,10 @@ import javax.servlet.http.HttpSession;
 
 import com.invessence.constant.Const;
 import com.invessence.converter.*;
-import com.invessence.dao.common.CommonDAO;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.*;
 import com.invessence.data.common.ManageGoals;
 import com.invessence.util.*;
-import com.invmodel.portfolio.data.Portfolio;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 

@@ -1,34 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h3>
+        7. What is your long-term investment intention?
+    </h3>
+    <p:selectOneRadio value="#{cepb.selectedchoice7}"
+                      layout="pageDirection"
+                      valueChangeListener="#{cepb.onChangeValue}">
+        <f:selectItem itemLabel="Majority of my assets at higher risk, for greater returns." itemValue="0" />
+        <f:selectItem itemLabel="More than half my assets at higher risk, for greater returns." itemValue="7" />
+        <f:selectItem itemLabel="Up to half my assets at higher risk, to balance stability with greater returns." itemValue="14" />
+        <f:selectItem itemLabel="Less than a quarter of my assets at higher risk, to keep up with inflation." itemValue="25" />
+        <f:selectItem itemLabel="None of my assets at high risk, to preserve capital." itemValue="28" />
+    </p:selectOneRadio>
 
-
-<h:head>
-</h:head>
-<h:body>
-    <p:panelGrid cellpadding="10" styleClass="invNBgrid">
-        <p:row>
-            <p:column styleClass="invRiskQuestion">
-                <p:outputLabel value="7. #{cepb.riskdata.getQuestion(6)}"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column>
-                <p:selectOneRadio value="#{cepb.selectedchoice7}"
-                                  layout="pageDirection"
-                                  valueChangeListener="#{cBean.changeEvent}">
-                    <f:selectItems value="#{cepb.riskdata.getChoices(6).entrySet()}"
-                                   var="entry7" itemValue="#{entry7.key}" itemLabel="#{entry7.value}"/>
-                </p:selectOneRadio>
-            </p:column>
-        </p:row>
-    </p:panelGrid>
-</h:body>
-</html>
+</ui:composition>

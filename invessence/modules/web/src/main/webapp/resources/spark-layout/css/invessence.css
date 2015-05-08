@@ -3,10 +3,27 @@
 /*------------------------------------------------------------
  * CUSTOM BACKGROUND STYLE BASED ON THEME OPTION PAGE CHOICES
  * ----------------------------------------------------------*/
+.NBwidget {
+    border: 0px;
+}
+
 .invNBgrid {
+    border: 0px;
     border-collapse: collapse;
     border-spacing: 1px !important;
     valign: top;
+}
+
+.invNBgrid tbody {
+     border: 0px;
+}
+
+.invNBgrid tbody tr {
+    border: 0px;
+}
+
+.invNBgrid tbody tr td {
+    border: 0px;
 }
 
 .invNBgrid tr {

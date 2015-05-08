@@ -16,7 +16,6 @@
 
             <div class="container clearfix">
 
-
                 <div id="et-info">
                     <ui:fragment rendered="#{menu.isUserLoggedInMenu}">
                         <img src="/images/telephone_call_contact.png" alt="Phone" style="height: 18px;"/>
@@ -72,103 +71,13 @@
         <header id="main-header" class="et_nav_text_color_dark" style="top: 32px;">
             <div class="container clearfix">
                 <a href="#{menu.defaultHome}">
-                    <img src="#{menu.logo}" alt="#{menu.logoAlt}" id="logo"/>
+                    <h:graphicImage name="#{menu.logo}" alt="#{menu.logoAlt}" styleClass="Fleft" library="spark-layout" id="logo" class="Fleft"/>
                 </a>
 
                 <div id="et-top-navigation">
-                    <ui:fragment rendered="#{menu.isUserLoggedInMenu}">
                         <nav id="wp-top-menu">
-                            <ui:fragment rendered="#{menu.hasAccessMenu('ADVISOR')}">
-                                <p:menubar styleClass="menu-item menu-item-type-post_type menu-item-object-page menu-item-5253 NBwidget">
-                                    <p:submenu label="Accounts" value="Accounts" icon="ui-icon-person">
-                                        <p:menuitem value="Manage" icon="ui-icon-newwin"
-                                                    actionListener="#{menu.doMenuAction('/advisor/manage.xhtml')}"/>
-                                        <p:menuitem value="Add" icon="ui-icon-plusthick"
-                                                    actionListener="#{menu.doMenuAction('/consumer/add.xhtml?acct=0')}"/>
-                                        <p:separator />
-                                        <p:menuitem value="Custodian"
-                                                    actionListener="#{menu.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
-                                    </p:submenu>
-                                    <p:menuitem value="Reports" icon="ui-icon-document" rendered="false"
-                                                actionListener="#{menu.doMenuAction('/advisor/report.xhtml')}"/>
-                                    <p:menuitem value="Marketing" icon="ui-icon-signal-diag"
-                                                rendered="#{menu.enableMenu('SALES')}"
-                                                actionListener="#{menu.doMenuAction('/advisor/marketing.xhtml')}"/>
-                                    <p:submenu label="Admin" value="Admin" icon="ui-icon-wrench"
-                                               rendered="#{menu.enableMenu('ADMIN')}">
-                                        <p:menuitem value="User"
-                                                    actionListener="#{menu.doMenuAction('/admin/users.xhtml')}"/>
-                                        <p:menuitem value="Trade"
-                                                    actionListener="#{menu.doMenuAction('/admin/trade.xhtml')}"/>
-                                    </p:submenu>
-                                    <p:submenu label="Demo" value="Accounts" icon="ui-icon-person"
-                                               rendered="#{menu.enableMenu('DEMO')}">
-                                        <p:menuitem value="Add" icon="ui-icon-plusthick"
-                                                    actionListener="#{menu.doMenuAction('/consumer/add.xhtml?acct=0')}"/>
-                                        <p:separator />
-                                        <p:menuitem value="Reports" disabled="true"
-                                                    actionListener="#{menu.doMenuAction('/common/reports.xhtml')}"/>
-                                    </p:submenu>
-                                    <p:menuitem value="Settings" icon="ui-icon-gear"
-                                                rendered="#{menu.enableMenu('ADMIN')}"
-                                                actionListener="#{menu.doMenuAction('/common/setting.xhtml')}"/>
-                                </p:menubar>
-                            </ui:fragment>
-                            <ui:fragment rendered="#{menu.hasAccessMenu('USER')}">
-                                <p:menubar styleClass="menu-item menu-item-type-post_type menu-item-object-page menu-item-5253 NBwidget">
-                                    <p:submenu label="Accounts" value="Accounts" icon="ui-icon-person">
-                                        <p:menuitem value="Manage" icon="ui-icon-newwin"
-                                                    actionListener="#{menu.doMenuAction('/consumer/manage.xhtml')}"/>
-                                        <p:menuitem value="Add" icon="ui-icon-plusthick"
-                                                    actionListener="#{menu.doMenuAction('/consumer/add.xhtml?acct=0')}"/>
-                                        <p:separator />
-                                        <p:menuitem value="Custodian"
-                                                    actionListener="#{menu.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
-                                    </p:submenu>
-                                    <p:menuitem value="Reports" icon="ui-icon-document" rendered="false"
-                                                actionListener="#{menu.doMenuAction('/consumer/report.xhtml')}"/>
-                                    <p:submenu label="Demo" value="Accounts" icon="ui-icon-person"
-                                               rendered="#{menu.enableMenu('DEMO')}">
-                                        <p:menuitem value="Add" icon="ui-icon-plusthick"
-                                                    actionListener="#{menu.doMenuAction('/consumer/add.xhtml?acct=0')}"/>
-                                        <p:menuitem value="Client-Profile"
-                                                    actionListener="#{menu.doMenuAction('/consumer/personalprofile1.xhtml')}"/>
-                                        <p:separator />
-                                        <p:menuitem value="Reports" disabled="true"
-                                                    actionListener="#{menu.doMenuAction('/common/reports.xhtml')}"/>
-                                    </p:submenu>
-                                    <p:menuitem value="Settings" icon="ui-icon-gear"
-                                                rendered="#{menu.enableMenu('ADMIN')}"
-                                                actionListener="#{menu.doMenuAction('/common/setting.xhtml')}"/>
-                                </p:menubar>
-                            </ui:fragment>
-                        </nav>
-                        <div id="et_mobile_nav_menu">
-                            <a href="#" class="mobile_nav closed">
-                                <p:menubar styleClass="et_mobile_menu3">
-                                    <p:submenu icon="ui-icon-calculator">
-                                        <p:submenu label="Accounts" value="Accounts" icon="ui-icon-person">
-                                            <p:menuitem value="Manage" icon="ui-icon-newwin"
-                                                        actionListener="#{menu.doMenuAction('manage.xhtml')}"/>
-                                            <p:menuitem value="Add" icon="ui-icon-plusthick"
-                                                        actionListener="#{menu.doMenuAction('add.xhtml?acct=0')}"/>
-                                            <p:separator />
-                                            <p:menuitem value="Custodian"
-                                                        actionListener="#{menu.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
-                                        </p:submenu>
-                                        <p:menuitem value="Reports" icon="ui-icon-document" rendered="false"
-                                                    actionListener="#{menu.doMenuAction('report.xhtml')}"/>
-                                        <p:menuitem value="Settings" icon="ui-icon-gear"
-                                                    rendered="#{menu.enableMenu('ADMIN')}"
-                                                    actionListener="#{menu.doMenuAction('/common/setting.xhtml')}"/>
-                                    </p:submenu>
-                                </p:menubar>
-                            </a>
-                        </div>
-                    </ui:fragment>
-                    <ui:fragment rendered="#{!menu.isUserLoggedInMenu}">
-                        <nav id="wp-top-menu">
-                            <p:menubar styleClass="menu-item menu-item-type-post_type menu-item-object-page menu-item-5253 NBwidget">
+                            <p:menubar styleClass="menu-item menu-item-type-post_type menu-item-object-page menu-item-5253 NBwidget"
+                                    style="border: 0px">
                                 <p:menuitem value="Why Us"
                                             url="${apache.url}/why-invessence/"/>
                                 <p:menuitem value="How it Works"
@@ -203,7 +112,6 @@
                                 </p:menubar>
                             </a>
                         </div>
-                    </ui:fragment>
 
                 </div>
                 <!-- #et-top-navigation -->

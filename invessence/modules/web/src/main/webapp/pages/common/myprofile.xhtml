@@ -11,7 +11,7 @@
 
     <h:form>
     <div class="layout-portlets-box">
-        <div class="Container70 Responsive100">
+        <div class="Container50 Responsive100">
             <div class="ContainerIndent">
                 <div class="Container100">
 
@@ -20,12 +20,13 @@
                         <div class="Container80">
                             <div class="Fright">
                                 <h2 class="black Fs24 FontRalewayMedium">#{menu.webutil.lastFirstName}</h2>
+<!--
                                 <span class="Fleft Fs12 softgray">Your last login - 18.08.2015  16:30</span>
+-->
                             </div>
                         </div>
                     </div>
                     <div class="Seperator"></div>
-                    <i class="fa fa-clock-o Fleft Fs15 gray MarRight10"></i>
 
                     <div class="Container100 MarTop20">
                         <p:messages autoUpdate="true"/>
@@ -33,158 +34,75 @@
                             <p:ajax event="tabChange" listener="#{profileBean.onTabChange}" update="@form"/>
 
                             <p:tab title="User Profile">
-                                <p:panelGrid styleClass="invNBgrid">
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="User ID"/>
-                                        </p:column>
-                                        <p:column colspan="2">
-                                            <h:outputLabel value="#{profileBean.userData.userID}"/>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="New Email (Optional)"/>
-                                        </p:column>
-                                        <p:column colspan="2">
-                                            <p:inplace editor="true">
-                                                <p:inputText value="#{profileBean.userData.email}" label="text"/>
-                                            </p:inplace>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Reset Password (Optional)"/>
-                                        </p:column>
-                                        <p:column>
-                                            <p:message for="pwd1" display="icon"/>
-                                        </p:column>
-                                        <p:column>
-                                            <p:password id="pwd1" value="#{profileBean.userData.password}"
-                                                        match="pwd2" label="Password"
-                                                        feedback="true" inline="true"
-                                                        validatorMessage="Password does not match criteria.">
-                                                <f:validateRegex
-                                                        pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%?]).*$"/>
-                                            </p:password>
-                                        </p:column>
-                                        <p:column rowspan="5" styleClass="invImportant">
-                                            Password Must contain a minimum of 8 Characters including at least:
-                                            <ul>
-                                                <li>1 uppercase letter</li>
-                                                <li>1 number</li>
-                                                <li>1 of these special characters: !,#,$,%,?</li>
-                                            </ul>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Confirm"/>
-                                        </p:column>
-                                        <p:column>
-                                            <p:message for="pwd2" display="icon"/>
-                                        </p:column>
-                                        <p:column>
-                                            <p:password id="pwd2" value="#{profileBean.userData.confirmNewPassword}"
-                                                        label="Password 2"/>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column colspan="5" style="text-align: right">
-                                            <p:commandButton value="Save" ajax="true" update="@form"
-                                                             actionListener="#{profileBean.save('userinfo')}"/>
-
-                                        </p:column>
-                                    </p:row>
+                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" class="FormContent">
+                                    <h:outputLabel value="User ID" styleClass="Wid90"/>
+                                    <h:outputLabel value="#{profileBean.userData.userID}" styleClass="Wid90"/>
+                                    <h:outputLabel value="New Email (Optional)" styleClass="Wid90"/>
+                                    <p:inputText value="#{profileBean.userData.email}" styleClass="Wid90" placeholder="Email (new)"/>
+                                    <h:outputLabel value="Reset Password (Optional)" styleClass="Wid90"/>
+                                    <p:password id="pwd1" value="#{profileBean.userData.password}" styleClass="Wid90" placeholder="New Password"
+                                                match="pwd2" label="Password"
+                                                feedback="true" inline="true"
+                                                validatorMessage="Password does not match criteria.">
+                                        <f:validateRegex
+                                                pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%?]).*$"/>
+                                    </p:password>
+                                    <h:outputLabel value="Retype Password (Optional)" styleClass="Wid90"/>
+                                    <p:password id="pwd2" value="#{profileBean.userData.confirmNewPassword}" styleClass="Wid90"
+                                                placeholder="Confirm Password"/>
                                 </p:panelGrid>
                             </p:tab>
                             <p:tab title="Security Questions">
-                                <p:panelGrid styleClass="invNBgrid">
-                                    <p:row>
-                                        <p:column colspan="5">
-                                            These below questions and answers will be used to further authenticate you when needed.
-                                        </p:column>
-                                    </p:row>
 
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Select One"/>
-                                        </p:column>
-                                        <p:column colspan="4">
-                                            <p:selectOneMenu id="q1" value="#{profileBean.userData.q1}"
-                                                             styleClass="invSelectOneMenu">
-                                                <f:selectItem itemLabel="Choose One" itemValue=""/>
-                                                <f:selectItems value="#{profileBean.userData.getQuestion(0).entrySet()}"
-                                                               var="q1" itemLabel="#{q1.value}" itemValue="#{q1.value}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Answer"/>
-                                        </p:column>
-                                        <p:column colspan="2">
-                                            <p:inputText id="a1" value="#{profileBean.userData.ans1}" label="Answer#1"
-                                                         size="30" maxlength="40">
-                                                <p:watermark for="a1" value="Answer"/>
-                                            </p:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Choose Favorite"/>
-                                        </p:column>
-                                        <p:column colspan="2">
-                                            <p:selectOneMenu id="q2" value="#{profileBean.userData.q2}"
-                                                             styleClass="invSelectOneMenu">
-                                                <f:selectItem itemLabel="Choose One" itemValue=""/>
-                                                <f:selectItems value="#{profileBean.userData.getQuestion(1).entrySet()}"
-                                                               var="q2" itemLabel="#{q2.value}" itemValue="#{q2.value}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Answer"/>
-                                        </p:column>
-                                        <p:column colspan="2">
-                                            <p:inputText id="a2" value="#{profileBean.userData.ans2}" label="Answer#2"
-                                                         size="30" maxlength="40">
-                                                <p:watermark for="a2" value="Answer"/>
-                                            </p:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Describe"/>
-                                        </p:column>
-                                        <p:column colspan="2">
-                                            <p:selectOneMenu id="q3" value="#{profileBean.userData.q3}"
-                                                             styleClass="invSelectOneMenu">
-                                                <f:selectItem itemLabel="Choose One" itemValue=""/>
-                                                <f:selectItems value="#{profileBean.userData.getQuestion(2).entrySet()}"
-                                                               var="q3" itemLabel="#{q3.value}" itemValue="#{q3.value}"/>
-                                            </p:selectOneMenu>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column>
-                                            <h:outputLabel value="Answer"/>
-                                        </p:column>
-                                        <p:column colspan="2">
-                                            <p:inputText id="a3" value="#{profileBean.userData.ans3}" label="Answer#3"
-                                                         size="30" maxlength="40">
-                                                <p:watermark for="a3" value="Answer"/>
-                                            </p:inputText>
-                                        </p:column>
-                                    </p:row>
-                                    <p:row>
-                                        <p:column colspan="5" style="text-align: right">
-                                            <p:commandButton value="Save" ajax="true" update="@form"
-                                                             actionListener="#{profileBean.save('questions')}"/>
+                                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" class="FormContent">
+                                    <h:outputText colspan="2" value="These below questions and answers will be used to further authenticate you when needed." styleClass="Wid90"/>
 
-                                        </p:column>
-                                    </p:row>
+                                    <h:outputLabel value="Select One" styleClass="Wid90"/>
+                                    <p:selectOneMenu id="q1" value="#{profileBean.userData.q1}"
+                                                     styleClass="invSelectOneMenu">
+                                        <f:selectItem itemLabel="Choose One" itemValue=""/>
+                                        <f:selectItems value="#{profileBean.userData.getQuestion(0).entrySet()}"
+                                                       var="q1" itemLabel="#{q1.value}" itemValue="#{q1.value}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Answer" styleClass="Wid90"/>
+                                    <p:inputText id="a1" value="#{profileBean.userData.ans1}" label="Answer#1"
+                                                 size="30" maxlength="40">
+                                        <p:watermark for="a1" value="Answer"/>
+                                    </p:inputText>
+
+                                    <h:outputLabel value="Choose Favorite" styleClass="Wid90"/>
+                                    <p:selectOneMenu id="q2" value="#{profileBean.userData.q2}"
+                                                     styleClass="invSelectOneMenu">
+                                        <f:selectItem itemLabel="Choose One" itemValue=""/>
+                                        <f:selectItems value="#{profileBean.userData.getQuestion(1).entrySet()}"
+                                                       var="q2" itemLabel="#{q2.value}" itemValue="#{q2.value}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Answer" styleClass="Wid90"/>
+                                    <p:inputText id="a2" value="#{profileBean.userData.ans2}" label="Answer#2"
+                                                 size="30" maxlength="40">
+                                        <p:watermark for="a2" value="Answer"/>
+                                    </p:inputText>
+
+                                    <h:outputLabel value="Describe" styleClass="Wid90"/>
+                                    <p:selectOneMenu id="q3" value="#{profileBean.userData.q3}"
+                                                     styleClass="invSelectOneMenu">
+                                        <f:selectItem itemLabel="Choose One" itemValue=""/>
+                                        <f:selectItems value="#{profileBean.userData.getQuestion(2).entrySet()}"
+                                                       var="q3" itemLabel="#{q3.value}" itemValue="#{q3.value}"/>
+                                    </p:selectOneMenu>
+
+                                    <h:outputLabel value="Answer" styleClass="Wid90"/>
+                                    <p:inputText id="a3" value="#{profileBean.userData.ans3}" label="Answer#3"
+                                                 size="30" maxlength="40">
+                                        <p:watermark for="a3" value="Answer"/>
+                                    </p:inputText>
+                                    <f:facet name="footer">
+                                        <p:commandButton value="Save" ajax="true" styleClass="TexAlCenter"
+                                                         update="@form"
+                                                         actionListener="#{profileBean.save('questions')}"/>
+                                    </f:facet>
                                 </p:panelGrid>
                             </p:tab>
                         </p:tabView>

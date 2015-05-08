@@ -22,7 +22,8 @@
                         <div class="Container80">
                             <div class="Fright">
                                 <h2 class="black Fs24 FontRalewayMedium">#{menu.webutil.lastFirstName}</h2>
-                                <span class="Fs15 gray FontRalewayRegular DispBlock">Account#: #{positionBean.clientAccountID}</span>
+                                <span class="Fs15 gray FontRalewayRegular DispBlock">Account#: #{positionBean.clientAccountID}
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -33,10 +34,11 @@
                                     <p:column colspan="4" style="text-align: left; width: 350px">
                                         <p:dataTable id="editAlloc" styleClass="invAllocTable"
                                                      value="#{positionBean.managedAssetsList}"
-                                                     var="assetList" rowKey="#{assetList.asset}">
+                                                     var="assetList" rowKey="#{assetList.asset}"
+                                                reflow="true">
 
                                             <p:column style="text-align: center;background-color: #{assetList.color}; width: 2px"
-                                                      resizable="true" headerText="">
+                                                      resizable="true">
                                                 <h:outputText value=" "/>
                                             </p:column>
 
@@ -45,7 +47,7 @@
                                                 <h:outputText value="#{assetList.asset}"/>
                                             </p:column>
 
-                                            <p:column style="text-align: right;"
+                                            <p:column style="text-align: right;" priority="2"
                                                       resizable="true" headerText="Holding">
                                                 <h:outputText value="#{assetList.holdingweight}" style="text-align: right;">
                                                     <f:convertNumber pattern="##0.00%"/>
@@ -122,9 +124,10 @@
                             </p:panelGrid>
                         </p:tab>
                         <p:tab title="Detail">
-                            <p:dataTable id="dataTable" var="position" value="#{positionBean.displayPositionList}" styleClass="invDataTable">
+                            <p:dataTable id="dataTable" var="position" value="#{positionBean.displayPositionList}"
+                                         styleClass="invDataTable" reflow="true">
 
-                                <p:column headerText="Asset"
+                                <p:column
                                           style="width:2px; text-align: left;
                                       background-color: #{position.color}">
                                     <h:outputText value=" "/>

@@ -1,4 +1,4 @@
-package com.invessence.util;
+package com.invessence.bean.consumer;
 
 import java.io.Serializable;
 import java.util.*;
@@ -228,7 +228,7 @@ public class Charts implements Serializable
             String label = assetname + " - " + jutil.displayFormat(weight, "##0.##%");
             pieChart.set(label, weight);
             color = asset.getColor().replace('#', ' ');
-            color.trim();
+            color = color.trim();
             if (i == 0)
             {
                pieseriesColors = color;
@@ -240,8 +240,9 @@ public class Charts implements Serializable
          }
          pieChart.setFill(true);
          pieChart.setShowDataLabels(false);
-         pieChart.setDiameter(100);
+         pieChart.setDiameter(150);
          pieChart.setSeriesColors(pieseriesColors);
+         pieChart.setExtender("pie_extensions");
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -272,9 +273,9 @@ public class Charts implements Serializable
                Asset asset = assetdata.getAsset(assetname);
                Double weight = asset.getActualweight();
                String label = assetname + " - " + jutil.displayFormat(weight, "##0.##%");
-               pieChart.set(label, weight);
+               pieChart.set(label, (weight * 100));
                color = asset.getColor().replace('#',' ');
-               color.trim();
+               color = color.trim();
                if (slice == 0)
                   pieseriesColors = color;
                else
@@ -283,8 +284,9 @@ public class Charts implements Serializable
             }
             pieChart.setFill(true);
             pieChart.setShowDataLabels(false);
-            pieChart.setDiameter(100);
+            pieChart.setDiameter(150);
             pieChart.setSeriesColors(pieseriesColors);
+            pieChart.setExtender("pie_extensions");
          }
 
       }

@@ -14,7 +14,6 @@ import com.invessence.dao.consumer.*;
 import com.invessence.data.advisor.AdvisorData;
 import com.invessence.data.common.*;
 import com.invessence.util.*;
-import com.invmodel.Const.InvConst;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
@@ -37,6 +36,8 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       , disabledetailtabs = true
       , disablesaveButton = true;
    private Boolean prefVisible = true;
+
+   private Integer prefView = 0;
 
    private Integer imageSelected = 0;
 
@@ -92,6 +93,16 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       return disablesaveButton;
    }
 
+   public Integer getPrefView()
+   {
+      return prefView;
+   }
+
+   public void setPrefView(Integer prefView)
+   {
+      this.prefView = prefView;
+   }
+
    public Boolean getPrefVisible()
    {
       return prefVisible;
@@ -118,6 +129,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            setPrefView(0);
             if (getWebutil().hasAccess("Advisor") || getWebutil().hasAccess("Admin"))
                setRiskCalcMethod("A");
             else
@@ -172,6 +184,20 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       formEdit = true;
    }
 
+   public void onChangeValue() {
+      setRiskCalcMethod("C");
+      formEdit = true;
+      loadBasketInfo();
+      createAssetPortfolio(1);
+   }
+
+   public void onValueChange(ValueChangeEvent event) {
+      setRiskCalcMethod("C");
+      formEdit = true;
+      loadBasketInfo();
+      createAssetPortfolio(1);
+   }
+
    public void selectedGoalType(Integer item) {
 
       if (item == null)
@@ -186,7 +212,6 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             break;
          case 2:
             setGoal("Income");
-            setTheme("0.Income");
             break;
          case 3:
             setGoal("Safety");
@@ -241,10 +266,12 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    }
 
    private void loadBasketInfo() {
+/*
       if (getAccountTaxable())
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
       else
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
+*/
    }
 
    private void loadNewClientData() {
@@ -346,6 +373,13 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    private void createAssetPortfolio(Integer noOfYears) {
 
       try {
+         if (getGoal().toUpperCase().contains("INCOME"))
+            setTheme("0.Income");
+         else if (getGoal().toUpperCase().contains("SAFETY"))
+            setTheme("0.Safety");
+         else
+            setTheme("0.Growth");
+
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
@@ -454,8 +488,28 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       catch (Exception ex)
       {
          String stackTrace = ex.getMessage();
-         getWebutil().alertSupport("managegoals.addGoals", "Error:managegoals.addGoals",
-                                   "error.addGoals", stackTrace);
+         getWebutil().alertSupport("ConsumerEdit.saveprofile", "Error:ConsumerEdit.SaveProfile",
+                                   "error.saveprofile", stackTrace);
+      }
+
+   }
+
+   public void fundAccount() {
+      long acctnum;
+      Boolean validate = false;
+      try
+      {
+            validate = validateProfile();
+
+            if (validate) {
+               saveProfile();
+            }
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         getWebutil().alertSupport("ConsumerEdit.fundaccount", "Error:ConsumerEdit.FundAccount",
+                                   "error.fundaccount", stackTrace);
       }
 
    }

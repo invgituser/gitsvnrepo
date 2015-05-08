@@ -1,0 +1,109 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:panel id="debt2income" style="border: 0px">
+        <p:panelGrid id="dependentGrid" styleClass="invNBgrid">
+            <p:row>
+                <p:column>
+                    Number of Dependents
+                </p:column>
+                <p:column>
+                </p:column>
+                <p:column>
+                    <p:selectOneMenu id="dependent" value="#{cepb.dependent}" style="height: 26px;">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                        <f:selectItem itemLabel="-" itemValue=""/>
+                        <f:selectItem itemLabel="0" itemValue="0"/>
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+                        <f:selectItem itemLabel="5" itemValue="5"/>
+                        <f:selectItem itemLabel="6" itemValue="6"/>
+                        <f:selectItem itemLabel="7" itemValue="7"/>
+                        <f:selectItem itemLabel="8" itemValue="8"/>
+                        <f:selectItem itemLabel="9" itemValue="9"/>
+                        <f:selectItem itemLabel="10+" itemValue="10"/>
+                    </p:selectOneMenu>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column colspan="8">
+                    <p:separator id="separator1"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column styleClass="invLabel">
+                    Salary/Wages (Yearly)<br/>
+                    <span style="font-size: small;">(Total Gross Income)</span>
+                </p:column>
+                <p:column>
+                </p:column>
+                <p:column>
+                    <pe:inputNumber id="wages" value="#{cepb.householdwages}"
+                                    maxlength="15" decimalPlaces="0" symbol="$"
+                                    >
+                    </pe:inputNumber>
+                </p:column>
+                <p:column styleClass="invLabel">
+                    Total Expenses<br/>
+                    <span style="font-size: small;">(Yearly)</span>
+                </p:column>
+                <p:column>
+                </p:column>
+                <p:column>
+                    <pe:inputNumber id="expense" value="#{cepb.otherExpense}"
+                                          maxlength="15" decimalPlaces="0" symbol="$">
+                    </pe:inputNumber>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="8">
+                    <p:separator id="separator2"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column styleClass="invLabel">
+                    Liquid Asset<br/>
+                    <span style="font-size: small;">(Cash/Savings Account, etc.)</span>
+                </p:column>
+                <p:column>
+                </p:column>
+                <p:column>
+                    <pe:inputNumber id="moneymarket" value="#{cepb.moneymarket}"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                    </pe:inputNumber>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column styleClass="invLabel">
+                    Other Investments<br/>
+                    <span style="font-size: small;">(Stocks, Bond, Retirement)</span>
+                </p:column>
+                <p:column>
+                </p:column>
+                <p:column><pe:inputNumber id="investment" value="#{cepb.investment}"
+                                          maxlength="15" decimalPlaces="0" symbol="$">
+                </pe:inputNumber>
+                </p:column>
+                <p:column styleClass="invLabel">
+                    Total Debt<br/>
+                </p:column>
+                <p:column>
+                </p:column>
+                <p:column><pe:inputNumber id="totaldebt" value="#{cepb.otherDebt}"
+                                          maxlength="15" decimalPlaces="0" symbol="$">
+                </pe:inputNumber>
+                </p:column>
+            </p:row>
+
+        </p:panelGrid>
+
+    </p:panel>
+
+</ui:composition>

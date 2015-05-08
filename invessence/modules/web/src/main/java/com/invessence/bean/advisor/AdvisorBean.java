@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.*;
 import javax.servlet.http.*;
 
+import com.invessence.bean.consumer.Charts;
 import com.invessence.constant.Const;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.*;

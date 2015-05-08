@@ -1,0 +1,312 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/invlayout.xhtml">
+
+<f:metadata>
+    <f:viewParam name="acct" value="#{cepb.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{cepb.preRenderView}"/>
+</f:metadata>
+
+<ui:define name="content">
+<!-- BOX START -->
+<h:form id="ceForm">
+<p:growl id="advisorEditgrowl" showDetail="true" sticky="true" escape="true"/>
+
+<div class="layout-portlets-box">
+    <p:panel id="dPanel1">
+
+        <div class="Container50 Responsive50">
+            <div class="ContainerIndent">
+                <div class="DispBlock">
+                    <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i><br/>
+                        <!--<span class="Fs15 gray FontRalewayRegular DispBlock">Profile</span>-->
+                            <span class="gray Fs18 FontRalewayMedium DispBlock">
+                               <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
+                               <p:outputLabel value="Non-Taxable" rendered="#{! cepb.accountTaxable}"/>
+                           </span>
+                    </div>
+                    <div class="Container80 TexAlCenter">
+                        <p:panel id="imageArea" style="border: 0px">
+                            <div class="Container30">
+                                <div class="ContainerIndent">
+                                    <p:graphicImage value="/images/growth-selected.png" alt="Growth"
+                                                    rendered="#{cepb.goal == 'Growth'}"/>
+                                    <p:commandLink ajax="true" rendered="#{cepb.goal != 'Growth'}">
+                                        <p:graphicImage value="/images/growth.png" alt="Growth"/>
+                                        <p:ajax event="click" listener="#{cepb.selectedGoalType(1)}"
+                                                update=":ceForm:workArea, :ceForm:imageArea, :ceForm:consumergoals"/>
+                                    </p:commandLink>
+                                </div>
+                            </div>
+
+                            <div class="Container30">
+                                <div class="ContainerIndent">
+                                    <p:graphicImage value="/images/income-selected.png" alt="Income"
+                                                    rendered="#{cepb.goal == 'Income'}"/>
+                                    <p:commandLink ajax="true" rendered="#{cepb.goal != 'Income'}">
+                                        <p:graphicImage value="/images/income.png" alt="Income"/>
+                                        <p:ajax event="click" listener="#{cepb.selectedGoalType(2)}"
+                                                update=":ceForm:workArea, :ceForm:imageArea, :ceForm:consumergoals"/>
+                                    </p:commandLink>
+                                </div>
+                            </div>
+
+                            <div class="Container30">
+                                <div class="ContainerIndent">
+                                    <p:graphicImage value="/images/safety-selected.png" alt="Safety"
+                                                    rendered="#{cepb.goal == 'Safety'}"/>
+                                    <p:commandLink ajax="true" rendered="#{cepb.goal != 'Safety'}">
+                                        <p:graphicImage value="/images/safety.png" alt="Safety"/>
+                                        <p:ajax event="click" listener="#{cepb.selectedGoalType(3)}"
+                                                update=":ceForm:workArea, :ceForm:imageArea, :ceForm:consumergoals"/>
+                                    </p:commandLink>
+                                </div>
+
+                            </div>
+
+                        </p:panel>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="Container50 Responsive50">
+            <div class="ContainerIndent">
+                <div class="DispBlock">
+                    <div class="Container10 Responsive TexAlCenter">
+                        <div class="ContainerIndent">
+                            <span class="gray Fs18 FontRalewayMedium DispBlock">Age</span>
+                            <span class="black FontRalewayBold Fs18">
+                                        <h:outputText value="#{cepb.age}"
+                                                      styleClass="invLabel" style="width:110px; font-size: 1.2em"/>
+
+                            </span>
+                        </div>
+                    </div>
+                    <div class="Container30 Responsive TexAlCenter">
+                        <div class="ContainerIndent">
+                            <span class="gray Fs18 FontRalewayMedium DispBlock">Investment</span>
+                            <span class="black FontRalewayBold Fs18">
+                                       <h:outputText value="#{cepb.initialInvestment}"
+                                                     styleClass="invLabel" style="width:110px; font-size: 1.2em"
+                                                     size="8" maxlength="9">
+                                           <f:convertNumber pattern="$ #,###,###"/>
+                                       </h:outputText>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="Container30">
+                        <div class="ContainerIndent">
+                        </div>
+                    </div>
+
+                    <div class="Container30 Responsive50 TexAlCenter">
+                        <div class="Container100 TexAlCenter">
+                            <div class="ContainerIndent">
+                                <p:splitButton value="Save" icon="ui-icon-check fa fa-check white Fs14"
+                                               actionListener="#{cepb.saveProfile}">
+                                    <p:menuitem value="Reset All" icon="fa fa-undo"
+                                                actionListener="#{cepb.resetForm}"/>
+                                    <p:menuitem value="Dashboard" icon="fa fa-close"
+                                                actionListener="#{menu.redirectStartPage}"/>
+                                    <p:separator />
+                                    <p:menuitem value="Fund Account" icon="fa fa-institution"
+                                            actionListener="#{cepb.forwardToIB}"/>
+                                </p:splitButton>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </p:panel>
+
+    <div class="Container100 Responsive50">
+        <div class="ContainerIndent">
+            <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500" collapsed="true">
+                <div class="Container90 Responsive50">
+                       <ui:include src="/pages/consumer/a1.xhtml"/>
+                </div>
+            </p:fieldset>
+        </div>
+    </div>
+
+</div>
+<!-- BOX END -->
+
+<!-- BOX START -->
+<div class="layout-portlets-box">
+    <p:outputPanel id="workArea" styleClass="dDataArea">
+        <div class="Container40 Responsive50">
+            <div class="ContainerIndent">
+                <h3 class="BigTopic">
+                    <div class="Wid50 Responsive Fleft">Asset Allocation
+                            <span class="gray Fs18 FontRalewayMedium DispBlock">
+                               <h:inputText id="allocValue" value="#{cepb.allocationIndex}"/>
+                           </span>
+
+                    </div>
+                    <div class="Wid50 Responsive Fright">
+                        <div class="Container100 Responsive Fright">
+                            <div class="ContainerIndent">
+                                <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="79" step="1">
+                                    <p:ajax event="slideEnd" listener="#{cepb.onAllocSlider}"
+                                            update=":ceForm:workArea"/>
+                                </p:slider>
+                            </div>
+                        </div>
+                        <div class="Container100 Responsive TexAlCenter">
+                            <div class="ContainerIndent">
+                                <p:commandButton update="allocSlider" value="Recommended"
+                                                 actionListener="#{cepb.resetAllocationIndex}"/>
+                            </div>
+                        </div>
+                    </div>
+                </h3>
+                <div class="Container100 Responsive100">
+                    <div class="Container50 Responsive50 Fleft">
+                        <div class="ContainerIndent">
+                            <p:outputPanel deferred="true">
+                                <h:outputScript name="js/invPie.js" library="spark-layout" />
+                                <p:chart type="pie" model="#{cepb.charts.pieChart}"
+                                         style="width:200px;height:200px" />
+                            </p:outputPanel>
+                        </div>
+                    </div>
+                    <div class="Container50 Responsive Fright">
+                        <div class="ContainerIndent">
+                            <p:dataTable styleClass="invAllocTable"
+                                         value="#{cepb.editableAsset}"
+                                         var="assetList" reflow="true">
+
+                                <p:column style="width: 3px; text-align: center; background-color: #{assetList.color};">
+                                    <h:outputText value=" "/>
+                                </p:column>
+
+                                <p:column style="text-align: center;"
+                                          resizable="true" headerText="Asset">
+                                    <h:outputText value="#{assetList.asset}"/>
+                                </p:column>
+                                <p:column style="text-align: right;"
+                                          resizable="true" headerText="Weight">
+                                    <h:outputText value="#{assetList.userEdit}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="Container60 Responsive50">
+            <div class="ContainerIndent">
+                <h3 class="BigTopic">
+                    <div class="Wid50 Responsive Fleft">Portfolio Details
+                           <span class="gray Fs18 FontRalewayMedium DispBlock">
+                               <h:inputText id="portfolioValue" value="#{cepb.portfolioIndex}"/>
+                           </span>
+                    </div>
+                    <div class="Wid50 Fright Responsive">
+                        <div class="Container100 Fright">
+                            <div class="ContainerIndent">
+                                <p:slider id="portfolioSlider" for="portfolioValue" minValue="0" maxValue="100" step="1">
+                                    <p:ajax event="slideEnd" listener="#{cepb.onPortfolioSlider}"
+                                            update=":ceForm:workArea"/>
+                                </p:slider>
+                            </div>
+                        </div>
+                        <div class="Container100 Responsive TexAlCenter">
+                            <div class="ContainerIndent">
+                                <p:commandButton update="portfolioSlider" value="Recommended"
+                                        actionListener="#{cepb.resetPortfolioIndex}"/>
+                            </div>
+                        </div>
+                    </div>
+                </h3>
+                <div class="Wid100">
+                    <p:dataTable var="ticker" value="#{cepb.displayPortfolioList}"
+                                 reflow="true">
+
+                        <p:column style="width: 3px; background-color: #{ticker.color}">
+                            <h:outputText value=" "/>
+                        </p:column>
+
+                        <p:column priority="2" styleClass="Fs12 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Asset"/>
+                            </f:facet>
+                            <h:outputText value="#{ticker.assetType}"/>
+                        </p:column>
+
+                        <p:column styleClass="Fs12 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Class"/>
+                            </f:facet>
+                            <h:outputText value="#{ticker.subclass}"/>
+                        </p:column>
+
+                        <p:column styleClass="Fs12 TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="Allocated"/>
+                            </f:facet>
+                            <h:outputText value="#{ticker.weight}">
+                                <f:convertNumber pattern="##0.00%"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="text-align: left" styleClass="Fs12 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Ticker"/>
+                            </f:facet>
+                            <h:outputText value="#{ticker.symbol}"/>
+                        </p:column>
+
+                        <p:column style="text-align: left" priority="4" styleClass="Fs10 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Name"/>
+                            </f:facet>
+                            <h:outputText value="#{ticker.name}"/>
+                        </p:column>
+
+                        <p:column style="text-align: right" styleClass="Fs12 TexAlRight">
+                            <f:facet name="header">
+                                <h:outputText value="Value"/>
+                            </f:facet>
+                            <h:outputText value="#{ticker.value}">
+                                <f:convertNumber currencySymbol="$" type="currency"/>
+                            </h:outputText>
+                        </p:column>
+
+                        <p:columnGroup type="footer" >
+                            <p:row>
+                                <p:column/>
+                                <p:column colspan="4" footerText="Total" styleClass="Fs12 TexAlLeft FontBold"/>
+                                <p:column priority="4" />
+
+                                <p:column styleClass="Fs12 TexAlRight FontBold"
+                                          footerText="#{dataDisplayConverter.displayAsMoney(cepb.totalMoneyAllocated)}">
+                                </p:column>
+                            </p:row>
+                        </p:columnGroup>
+                    </p:dataTable>
+                </div>
+            </div>
+        </div>
+    </p:outputPanel>
+</div>
+<!-- BOX END -->
+
+
+
+
+</h:form>
+
+</ui:define>
+
+</ui:composition>

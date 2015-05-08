@@ -1,34 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pe="http://primefaces.org/ui/extensions">
+    <h3>
+        4. What level of investment risk are you willing to take?
+    </h3>
+    <p:selectOneRadio value="#{cepb.selectedchoice4}"
+                      layout="pageDirection"
+                      valueChangeListener="#{cepb.onChangeValue}">
+        <f:selectItem itemLabel="Highest." itemValue="0" />
+        <f:selectItem itemLabel="High." itemValue="7" />
+        <f:selectItem itemLabel="Moderate." itemValue="14" />
+        <f:selectItem itemLabel="Low." itemValue="21" />
+        <f:selectItem itemLabel="Lowest." itemValue="28" />
+    </p:selectOneRadio>
 
-
-<h:head>
-</h:head>
-<h:body>
-    <p:panelGrid cellpadding="10" styleClass="invNBgrid">
-        <p:row>
-            <p:column styleClass="invRiskQuestion">
-                <p:outputLabel value="4. #{cepb.riskdata.getQuestion(3)}"/>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column>
-                <p:selectOneRadio value="#{cepb.selectedchoice4}"
-                                  layout="pageDirection"
-                                  valueChangeListener="#{cBean.changeEvent}">
-                    <f:selectItems value="#{cepb.riskdata.getChoices(3).entrySet()}"
-                                   var="entry4" itemValue="#{entry4.key}" itemLabel="#{entry4.value}"/>
-                </p:selectOneRadio>
-            </p:column>
-        </p:row>
-    </p:panelGrid>
-</h:body>
-</html>
+</ui:composition>
