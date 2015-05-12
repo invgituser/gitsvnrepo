@@ -42,6 +42,7 @@ public class
    private String advisor;
    private String theme;
    private String basket;
+   private Integer[] riskAnswers = new Integer[7];
 
 
    private Integer stayInvested = 1;  // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
@@ -66,7 +67,7 @@ public class
 
    private Integer riskIndex = 0;   // On riskIndex 0 = highest risk, 28 = lowest risk.
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
-   private RiskIndex riskdata = new RiskIndex();
+   // private RiskIndex riskdata = new RiskIndex();
 
    private String riskCalcMethod = "C";  // Choices: C - Consumer, A - Advisor
    private Integer allocationIndex = InvConst.ASSET_DEFAULT_POINT;
@@ -491,6 +492,36 @@ public class
       this.basket = basket;
    }
 
+   public Integer[] getRiskAnswers()
+   {
+      return riskAnswers;
+   }
+
+   public void setRiskAnswers(Integer[] riskAnswers)
+   {
+      if (riskAnswers == null) {
+         this.riskAnswers = new Integer[7];
+      }
+      else
+         this.riskAnswers = riskAnswers;
+   }
+
+   public void setRiskAnswers(Integer question, String value)
+   {
+      Integer riskNum = 0;
+      if (question >= 0 && question < riskAnswers.length) {
+         if (value != null)  {
+            try {
+               riskNum = Integer.valueOf(value);
+            }
+            catch (Exception ex) {
+              riskNum = 0;
+            }
+            riskAnswers[question] =  riskNum;
+         }
+      }
+   }
+
    public String getAdvisor()
    {
       // Either it is null or it is "" (Empty), then assume default
@@ -808,10 +839,12 @@ public class
       }
    }
 
+/*
    public RiskIndex getRiskdata()
    {
       return riskdata;
    }
+*/
 
 /*
    public Integer getDefaultRiskIndex()
@@ -826,10 +859,25 @@ public class
    }
 */
 
+/*
    public void setRiskdata(RiskIndex riskdata)
    {
       this.riskdata = riskdata;
    }
+*/
+
+   public Integer calcRiskIndexOfQuestions()
+   {
+      Integer riskIndex = 0;
+         for (Integer question = 0; question < riskAnswers.length ; question++) {
+            if (riskAnswers[question] == null)
+               continue;
+            if (riskAnswers[question] > riskIndex)
+               riskIndex = riskAnswers[question];
+         }
+         return riskIndex;
+   }
+
 
    public void offsetRiskIndex()
    {
@@ -838,6 +886,7 @@ public class
       Double currentLiabilities;
       double dToEqtRatio;
 
+/*    Prashant 5/8/2015 - We are using portfolio to determin if it is income or growth.
       // If objective is income preservation of asset, set the riskIndex to less half if smaller than half
       if (getObjective() == 1)
       {
@@ -847,6 +896,7 @@ public class
             setRiskIndex(riskIndex);
          }
       }
+*/
 
       //12 months of liquid cash to meet expenses
       currentAssets = ((double) getTotalIncome() * 0.7 + getLiquidAsset());
@@ -856,7 +906,7 @@ public class
 
 
       dToEqtRatio = 0;
-      riskOffset = 1.0 * getRiskIndex();
+      riskOffset = 1.0 * calcRiskIndexOfQuestions();
 
       if (currentAssets > 0)
       {
@@ -1175,6 +1225,7 @@ public class
       setAdvisor(InvConst.INVESSENCE_ADVISOR);
       setTheme(InvConst.DEFAULT_THEME);
       setBasket(InvConst.DEFAULT_BASKET);
+      setRiskAnswers(null);
 
       setStayInvested(1); // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
       setCharitableGoals(null);
