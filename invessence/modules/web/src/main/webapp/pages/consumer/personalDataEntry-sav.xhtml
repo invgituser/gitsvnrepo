@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container50 Responsive50">
+        <div class="ContainerIndent">
+            <p:panel id="inputArea" style="border: 0px">
+                <p:tabView id="pTabView" activeIndex="#{cptc.pTab}"
+                           styleClass="Container100" orientation="top"
+                           dynamic="false" cache="false"
+                           effect="slide" effectDuration="fast">
+                    <p:ajax event="tabChange" listener="#{cptc.onPTabChange}"/>
+                    <p:tab title="Overview">
+                        <ui:include src="/pages/consumer/a1.xhtml"/>
+                    </p:tab>
+                    <p:tab title="Financials">
+                        <ui:include src="/pages/consumer/a2.xhtml"/>
+                    </p:tab>
+                    <p:tab title="Risk">
+                            <p:tabView id="rTabView" orientation="top" activeIndex="#{cptc.rTab}"
+                                    cache="false" dynamic="false" style="border: 0px">
+                                <p:ajax event="tabChange" listener="#{cptc.onRTabChange}"/>
+                                <p:tab title="1" >
+                                    <ui:include src="/pages/consumer/q1.xhtml"/>
+                                </p:tab>
+                                <p:tab title="2" >
+                                    <ui:include src="/pages/consumer/q2.xhtml"/>
+                                </p:tab>
+                                <p:tab title="3" >
+                                    <ui:include src="/pages/consumer/q3.xhtml"/>
+                                </p:tab>
+                                <p:tab title="4" >
+                                    <ui:include src="/pages/consumer/q4.xhtml"/>
+                                </p:tab>
+                                <p:tab title="5" >
+                                    <ui:include src="/pages/consumer/q5.xhtml"/>
+                                </p:tab>
+                                <p:tab title="6" >
+                                    <ui:include src="/pages/consumer/q6.xhtml"/>
+                                </p:tab>
+                                <p:tab title="7" >
+                                    <ui:include src="/pages/consumer/q7.xhtml"/>
+                                </p:tab>
+                            </p:tabView>
+                    </p:tab>
+                </p:tabView>
+                <f:facet name="footer">
+                    <p:commandButton value="Previous" styleClass="Fleft" rendered="#{cptc.enablePrevButton}"
+                                     update=":ceForm:inputArea, :ceForm:pTabView:rTabView"
+                                     actionListener="#{cptc.gotoPrevTab}"/>
+                    <p:commandButton value="Next" styleClass="Fright" rendered="#{cptc.enableNextButton}"
+                                     update=":ceForm:inputArea, :ceForm:pTabView:rTabView"
+                                     actionListener="#{cptc.gotoNextTab}"/>
+                </f:facet>
+            </p:panel>
+        </div>
+    </div>
+    <div class="Container50 Responsive50">
+        <div class="ContainerIndent">
+            <p:panel id="graphArea" style="border: 0px">
+                <div class="EmptyBox50"></div>
+                <div class="Container100 Responsive50">
+                    <div class="Container50  Fleft">
+                        <div class="ContainerIndent">
+                            <p:outputPanel deferred="true">
+                                <p:chart type="pie" model="#{cepb.charts.pieChart}"
+                                         styleClass="Wid90"/>
+                            </p:outputPanel>
+                        </div>
+                    </div>
+                    <div class="Container50 Fleft">
+                        <div class="ContainerIndent">
+                            <p:dataTable styleClass="invAllocTable"
+                                         value="#{cepb.editableAsset}"
+                                         var="assetList" reflow="true">
+
+                                <p:column style="width: 2%; background-color: #{assetList.color};">
+                                    <h:outputText value=" "/>
+                                </p:column>
+
+                                <p:column styleClass="Wid50 TexAlLeft"
+                                          resizable="true" headerText="Asset">
+                                    <h:outputText value="#{assetList.asset}"/>
+                                </p:column>
+                                <p:column styleClass="Wid40 TexAlRight"
+                                          resizable="true" headerText="Weight">
+                                    <h:outputText value="#{assetList.userEdit}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+        </div>
+    </div>
+
+</ui:composition>
