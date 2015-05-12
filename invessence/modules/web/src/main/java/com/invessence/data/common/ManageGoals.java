@@ -26,8 +26,6 @@ public class ManageGoals extends ProfileData
    private JavaUtil javautil = new JavaUtil();
    private ManageGoals manageGoalinstance = null;
 
-   private WebUtil webutil = new WebUtil();
-
    @ManagedProperty("#{assetAllocationModel}")
    private AssetAllocationModel allocModel;
    private Boolean managed;
@@ -102,15 +100,18 @@ public class ManageGoals extends ProfileData
    ArrayList<ManagedSubclassData> orderedSubclass;
    private List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
 
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
    public WebUtil getWebutil()
    {
       return webutil;
    }
 
-   public void setWebutil(WebUtil webutil)
-   {
-      this.webutil = webutil;
-   }
 
    public ManageGoals()
    {
@@ -409,9 +410,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice1;
    }
 
-   public void setSelectedchoice1(String selectedchoice1)
+   public void setSelectedchoice1(String selectedchoice)
    {
-      this.selectedchoice1 = selectedchoice1;
+      this.selectedchoice1 = selectedchoice;
+      setRiskAnswers(0,selectedchoice);
    }
 
    public String getSelectedchoice2()
@@ -419,9 +421,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice2;
    }
 
-   public void setSelectedchoice2(String selectedchoice2)
+   public void setSelectedchoice2(String selectedchoice)
    {
-      this.selectedchoice2 = selectedchoice2;
+      this.selectedchoice2 = selectedchoice;
+      setRiskAnswers(1,selectedchoice);
    }
 
    public String getSelectedchoice3()
@@ -429,9 +432,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice3;
    }
 
-   public void setSelectedchoice3(String selectedchoice3)
+   public void setSelectedchoice3(String selectedchoice)
    {
-      this.selectedchoice3 = selectedchoice3;
+      this.selectedchoice3 = selectedchoice;
+      setRiskAnswers(2,selectedchoice);
    }
 
    public String getSelectedchoice4()
@@ -439,9 +443,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice4;
    }
 
-   public void setSelectedchoice4(String selectedchoice4)
+   public void setSelectedchoice4(String selectedchoice)
    {
-      this.selectedchoice4 = selectedchoice4;
+      this.selectedchoice4 = selectedchoice;
+      setRiskAnswers(3,selectedchoice);
    }
 
    public String getSelectedchoice5()
@@ -449,9 +454,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice5;
    }
 
-   public void setSelectedchoice5(String selectedchoice5)
+   public void setSelectedchoice5(String selectedchoice)
    {
-      this.selectedchoice5 = selectedchoice5;
+      this.selectedchoice5 = selectedchoice;
+      setRiskAnswers(4,selectedchoice);
    }
 
    public String getSelectedchoice6()
@@ -459,9 +465,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice6;
    }
 
-   public void setSelectedchoice6(String selectedchoice6)
+   public void setSelectedchoice6(String selectedchoice)
    {
-      this.selectedchoice6 = selectedchoice6;
+      this.selectedchoice6 = selectedchoice;
+      setRiskAnswers(5,selectedchoice);
    }
 
    public String getSelectedchoice7()
@@ -469,9 +476,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice7;
    }
 
-   public void setSelectedchoice7(String selectedchoice7)
+   public void setSelectedchoice7(String selectedchoice)
    {
-      this.selectedchoice7 = selectedchoice7;
+      this.selectedchoice7 = selectedchoice;
+      setRiskAnswers(6,selectedchoice);
    }
 
 
@@ -480,9 +488,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice8;
    }
 
-   public void setSelectedchoice8(String selectedchoice8)
+   public void setSelectedchoice8(String selectedchoice)
    {
-      this.selectedchoice8 = selectedchoice8;
+      this.selectedchoice8 = selectedchoice;
+      setRiskAnswers(7,selectedchoice);
    }
 
    public String getSelectedchoice9()
@@ -490,9 +499,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice9;
    }
 
-   public void setSelectedchoice9(String selectedchoice9)
+   public void setSelectedchoice9(String selectedchoice)
    {
-      this.selectedchoice9 = selectedchoice9;
+      this.selectedchoice9 = selectedchoice;
+      setRiskAnswers(8,selectedchoice);
    }
 
    public String getSelectedchoice10()
@@ -500,9 +510,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice10;
    }
 
-   public void setSelectedchoice10(String selectedchoice10)
+   public void setSelectedchoice10(String selectedchoice)
    {
-      this.selectedchoice10 = selectedchoice10;
+      this.selectedchoice10 = selectedchoice;
+      setRiskAnswers(9,selectedchoice);
    }
 
    public String getSelectedchoice11()
@@ -510,9 +521,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice11;
    }
 
-   public void setSelectedchoice11(String selectedchoice11)
+   public void setSelectedchoice11(String selectedchoice)
    {
-      this.selectedchoice11 = selectedchoice11;
+      this.selectedchoice11 = selectedchoice;
+      setRiskAnswers(10,selectedchoice);
    }
 
    public String getSelectedchoice12()
@@ -520,9 +532,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice12;
    }
 
-   public void setSelectedchoice12(String selectedchoice12)
+   public void setSelectedchoice12(String selectedchoice)
    {
-      this.selectedchoice12 = selectedchoice12;
+      this.selectedchoice12 = selectedchoice;
+      setRiskAnswers(11,selectedchoice);
    }
 
    public String getSelectedchoice13()
@@ -530,9 +543,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice13;
    }
 
-   public void setSelectedchoice13(String selectedchoice13)
+   public void setSelectedchoice13(String selectedchoice)
    {
-      this.selectedchoice13 = selectedchoice13;
+      this.selectedchoice13 = selectedchoice;
+      setRiskAnswers(12,selectedchoice);
    }
 
    public String getSelectedchoice14()
@@ -540,9 +554,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice14;
    }
 
-   public void setSelectedchoice14(String selectedchoice14)
+   public void setSelectedchoice14(String selectedchoice)
    {
-      this.selectedchoice14 = selectedchoice14;
+      this.selectedchoice14 = selectedchoice;
+      setRiskAnswers(13,selectedchoice);
    }
 
    public String getSelectedchoice15()
@@ -550,9 +565,10 @@ public class ManageGoals extends ProfileData
       return selectedchoice15;
    }
 
-   public void setSelectedchoice15(String selectedchoice15)
+   public void setSelectedchoice15(String selectedchoice)
    {
-      this.selectedchoice15 = selectedchoice15;
+      this.selectedchoice15 = selectedchoice;
+      setRiskAnswers(14,selectedchoice);
    }
 
    public String getModel()

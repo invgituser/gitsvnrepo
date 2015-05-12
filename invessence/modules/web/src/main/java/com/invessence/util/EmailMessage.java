@@ -49,15 +49,32 @@ public class EmailMessage implements MessageSourceAware, Serializable
    public String buildMessage(String msgType, String html_version, String text_version, Object [] obj) {
 
      if (text_version == null && html_version == null) {
-        msgType = "TEXT";
+        msgType = "HTML";
      }
       else if (text_version == null)
                msgType = "HTML";
 
-     if (msgType == null || msgType.equalsIgnoreCase("TEXT"))
-        return getMessagetext(text_version, obj);
-     else
+     if (msgType == null || msgType.equalsIgnoreCase("HTML"))
         return getHTMLMessagetext(html_version, obj);
+     else
+        return getMessagetext(text_version, obj);
+   }
+
+   public String lookupMessage(String text, Object [] obj) {
+      String msgText = null;
+      try {
+         if (obj == null) {
+            obj = new Object[]{};
+         }
+         if (text != null) {
+            msgText =  messageSource.getMessage(text, obj, null);
+         }
+
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+      return msgText;
    }
 
    public String buildInternalMessage(String text_version, Object [] obj) {
@@ -79,7 +96,7 @@ public class EmailMessage implements MessageSourceAware, Serializable
 
       }
       catch (Exception ex) {
-         ex.printStackTrace();
+         System.out.println("Text: " + inputText + " not found in the message processing file.");
       }
       return inputText;
    }

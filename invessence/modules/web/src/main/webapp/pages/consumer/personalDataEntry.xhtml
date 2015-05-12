@@ -20,35 +20,35 @@
                         <ui:include src="/pages/consumer/aT2.xhtml"/>
                     </p:tab>
                     <p:tab title="Risk">
-                            <p:tabView id="rTabView" orientation="top" activeIndex="#{cptc.rTab}"
-                                    cache="false" dynamic="false">
-                                <p:ajax event="tabChange" listener="#{cptc.onRTabChange}"/>
-                                <p:tab title="1" >
-                                    <ui:include src="/pages/consumer/q1.xhtml"/>
-                                </p:tab>
-                                <p:tab title="2" >
-                                    <ui:include src="/pages/consumer/q2.xhtml"/>
-                                </p:tab>
-                                <p:tab title="3" >
-                                    <ui:include src="/pages/consumer/q3.xhtml"/>
-                                </p:tab>
-                                <p:tab title="4" >
-                                    <ui:include src="/pages/consumer/q4.xhtml"/>
-                                </p:tab>
-                                <p:tab title="5" >
-                                    <ui:include src="/pages/consumer/q5.xhtml"/>
-                                </p:tab>
-                                <p:tab title="6" >
-                                    <ui:include src="/pages/consumer/q6.xhtml"/>
-                                </p:tab>
-                                <p:tab title="7" >
-                                    <ui:include src="/pages/consumer/q7.xhtml"/>
-                                </p:tab>
-                            </p:tabView>
+                        <p:tabView id="rTabView" orientation="top" activeIndex="#{cptc.rTab}"
+                                   cache="false" dynamic="false">
+                            <p:ajax event="tabChange" listener="#{cptc.onRTabChange}"/>
+                            <p:tab title="1" >
+                                <ui:include src="/pages/consumer/q1.xhtml"/>
+                            </p:tab>
+                            <p:tab title="2" >
+                                <ui:include src="/pages/consumer/q2.xhtml"/>
+                            </p:tab>
+                            <p:tab title="3" >
+                                <ui:include src="/pages/consumer/q3.xhtml"/>
+                            </p:tab>
+                            <p:tab title="4" >
+                                <ui:include src="/pages/consumer/q4.xhtml"/>
+                            </p:tab>
+                            <p:tab title="5" >
+                                <ui:include src="/pages/consumer/q5.xhtml"/>
+                            </p:tab>
+                            <p:tab title="6" >
+                                <ui:include src="/pages/consumer/q6.xhtml"/>
+                            </p:tab>
+                            <p:tab title="7" >
+                                <ui:include src="/pages/consumer/q7.xhtml"/>
+                            </p:tab>
+                        </p:tabView>
                     </p:tab>
                 </p:tabView>
                 <f:facet name="footer">
-                    <p:commandButton value="Previous" styleClass="Fleft" rendered="#{cptc.enableNextButton}"
+                    <p:commandButton value="Previous" styleClass="Fleft" rendered="#{cptc.enablePrevButton}"
                                      update=":ceForm:inputArea, :ceForm:pTabView:rTabView"
                                      actionListener="#{cptc.gotoPrevTab}"/>
                     <p:commandButton value="Next" styleClass="Fright" rendered="#{cptc.enableNextButton}"
@@ -62,16 +62,16 @@
         <div class="ContainerIndent">
             <p:panel id="graphArea" style="border: 0px">
                 <div class="EmptyBox30"></div>
-                <div class="Container100">
-                    <div class="Container50 Responsive50 Fleft">
+                <div class="Container100 Responsive100">
+                    <div class="Container50  Fleft">
                         <div class="ContainerIndent">
                             <p:outputPanel deferred="true">
                                 <p:chart type="pie" model="#{cepb.charts.pieChart}"
-                                         styleClass="Wid90"/>
+                                         styleClass="Wid90" responsive="true"/>
                             </p:outputPanel>
                         </div>
                     </div>
-                    <div class="Container50 Responsive50 Fleft">
+                    <div class="Container50 Fleft">
                         <div class="ContainerIndent">
                             <p:dataTable styleClass="invAllocTable"
                                          value="#{cepb.editableAsset}"

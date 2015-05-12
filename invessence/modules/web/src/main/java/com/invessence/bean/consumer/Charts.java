@@ -231,7 +231,7 @@ public class Charts implements Serializable
             color = color.trim();
             if (i == 0)
             {
-               pieseriesColors = color;
+               pieseriesColors = color.trim();
             }
             else
             {

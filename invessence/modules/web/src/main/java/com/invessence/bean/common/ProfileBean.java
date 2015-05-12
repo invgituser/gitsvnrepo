@@ -24,7 +24,12 @@ public class ProfileBean
    @ManagedProperty("#{emailMessage}")
    private EmailMessage messageText;
 
-   private WebUtil webutil = new WebUtil();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    public void setUserInfoDAO(UserInfoDAO userInfoDAO)
    {

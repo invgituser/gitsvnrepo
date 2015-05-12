@@ -13,20 +13,16 @@
                 Number of Dependents
             </p:column>
             <p:column colspan="3" styleClass="TexAlLeft Wid10">
-                <p:selectOneMenu value="#{cepb.dependent}">
-                    <p:ajax listener="#{cepb.onChange}"/>
+                <p:selectOneRadio value="#{cepb.dependent}">
+                    <p:ajax listener="#{cepb.onChangeValue}"
+                            update=":ceForm:workArea, :ceForm:graphArea"/>
                     <f:selectItem itemLabel="0" itemValue="0"/>
                     <f:selectItem itemLabel="1" itemValue="1"/>
                     <f:selectItem itemLabel="2" itemValue="2"/>
                     <f:selectItem itemLabel="3" itemValue="3"/>
                     <f:selectItem itemLabel="4" itemValue="4"/>
-                    <f:selectItem itemLabel="5" itemValue="5"/>
-                    <f:selectItem itemLabel="6" itemValue="6"/>
-                    <f:selectItem itemLabel="7" itemValue="7"/>
-                    <f:selectItem itemLabel="8" itemValue="8"/>
-                    <f:selectItem itemLabel="9" itemValue="9"/>
-                    <f:selectItem itemLabel="10+" itemValue="10"/>
-                </p:selectOneMenu>
+                    <f:selectItem itemLabel="5+" itemValue="5"/>
+                </p:selectOneRadio>
             </p:column>
         </h:panelGrid>
 
@@ -43,6 +39,8 @@
             <p:column>
                 <pe:inputNumber value="#{cepb.householdwages}"
                                 maxlength="15" decimalPlaces="0" symbol="$">
+                    <p:ajax listener="#{cepb.onChangeValue}"
+                            update=":ceForm:workArea, :ceForm:graphArea"/>
                 </pe:inputNumber>
             </p:column>
             <p:column styleClass="TexAlLeft Wid40">
@@ -52,6 +50,8 @@
             <p:column>
                 <pe:inputNumber value="#{cepb.householdwages}"
                                 maxlength="15" decimalPlaces="0" symbol="$">
+                    <p:ajax listener="#{cepb.onChangeValue}"
+                            update=":ceForm:workArea, :ceForm:graphArea"/>
                 </pe:inputNumber>
             </p:column>
 
@@ -62,6 +62,8 @@
             <p:column>
                 <pe:inputNumber value="#{cepb.moneymarket}"
                                 maxlength="15" decimalPlaces="0" symbol="$">
+                    <p:ajax listener="#{cepb.onChangeValue}"
+                            update=":ceForm:workArea, :ceForm:graphArea"/>
                 </pe:inputNumber>
             </p:column>
             <p:column></p:column>
@@ -74,6 +76,8 @@
             <p:column>
                 <pe:inputNumber value="#{cepb.investment}"
                                 maxlength="15" decimalPlaces="0" symbol="$">
+                    <p:ajax listener="#{cepb.onChangeValue}"
+                            update=":ceForm:workArea, :ceForm:graphArea"/>
                 </pe:inputNumber>
 
             </p:column>
@@ -81,6 +85,8 @@
             <p:column>
                 <pe:inputNumber value="#{cepb.otherDebt}"
                                 maxlength="15" decimalPlaces="0" symbol="$">
+                    <p:ajax listener="#{cepb.onChangeValue}"
+                            update=":ceForm:workArea, :ceForm:graphArea"/>
                 </pe:inputNumber>
 
 

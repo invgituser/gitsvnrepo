@@ -36,6 +36,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       , disabledetailtabs = true
       , disablesaveButton = true;
    private Boolean prefVisible = true;
+   private Integer canOpenAccount;
 
    private Integer prefView = 0;
 
@@ -113,6 +114,11 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       this.prefVisible = prefVisible;
    }
 
+   public Integer getCanOpenAccount()
+   {
+      return canOpenAccount;
+   }
+
    public Charts getCharts()
    {
       return charts;
@@ -141,6 +147,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             else {
                loadNewClientData();
             }
+            canOpenAccount = initCanOpenAccount();
          }
       }
       catch (Exception e)
@@ -154,7 +161,8 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    {
       try
       {
-         getWebutil().validatePriviledge(Const.ROLE_OWNER);
+         // Since this is used by both try and Actual, we'll handle the add/save in SaveProfile function...
+         // getWebutil().validatePriviledge(Const.ROLE_OWNER);
       }
       catch (Exception e)
       {
@@ -187,6 +195,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    public void onChangeValue() {
       setRiskCalcMethod("C");
       formEdit = true;
+      offsetRiskIndex();
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -194,6 +203,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    public void onValueChange(ValueChangeEvent event) {
       setRiskCalcMethod("C");
       formEdit = true;
+      offsetRiskIndex();
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -304,15 +314,20 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
       resetAdvisorData();
       try {
-         UserInfoData uid = getWebutil().getUserInfoData();
-         if (uid != null) {
-            setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
-            setLogonid(uid.getLogonID());
+         if (getWebutil().isUserLoggedIn()) {
+            if (getWebutil().hasRole(Const.ROLE_OWNER) ||
+               getWebutil().hasRole(Const.ROLE_ADVISOR) ||
+               getWebutil().hasRole(Const.ROLE_ADMIN)) {
+               UserInfoData uid = getWebutil().getUserInfoData();
+               if (uid != null) {
+                  setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
+                  setLogonid(uid.getLogonID());
+               }
+               setAcctnum(acctnum);
+               listDAO.getProfileData((ManageGoals) this.getInstance());
+               loadBasketInfo();
+            }
          }
-         setAcctnum(acctnum);
-         listDAO.getProfileData((ManageGoals) this.getInstance());
-         loadBasketInfo();
-
          createAssetPortfolio(1);
          formEdit = false;
       }
@@ -547,7 +562,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       // RequestContext.getCurrentInstance().openDialog("/pages/consumer/fundingDialog.xhtml");
    }
 
-   public Integer getCanOpenAccount() {
+   public Integer initCanOpenAccount() {
       try
       {
          String license;

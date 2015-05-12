@@ -69,13 +69,13 @@
                                         <h:outputText value="#{investment.goal}"/>
                                     </p:column>
 
-                                    <p:column styleClass="Wid20 TexAlLeft"
+                                    <p:column styleClass="Wid15 TexAlLeft"
                                               sortBy="#{investment.displayActiveAcctNum}" headerText="Account#"
                                               resizable="true">
                                         <h:outputText value="#{investment.displayActiveAcctNum}"/>
                                     </p:column>
 
-                                    <p:column tyleClass="Wid15 TexAlRight"
+                                    <p:column styleClass="Wid20 TexAlRight"
                                               headerText="Invested"
                                               resizable="true">
                                         <h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">

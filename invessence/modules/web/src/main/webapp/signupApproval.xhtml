@@ -1,67 +1,71 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-<!--
-<f:metadata>
-    <f:viewParam name="email" value="#{approvePortfolioBean.acctnum}"/>
-</f:metadata>
--->
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+    </f:facet>
+    <title>Invessence - Login</title>
+    <h:outputScript name="js/layout.js" library="spark-layout"/>
+
+    <h:outputText value="&lt;!--[if gte IE 9]&gt;" escape="false"/>
+    <style type="text/css">
+            /* styles for IE 9 */
+    </style>
+    <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
+
+
+    <ui:insert name="head"/>
+</h:head>
 
 <h:body>
-    <ui:composition template="/template/common/commonSecuredLayout.xhtml">
-        <ui:define name="content">
+    <div id="layout-portlets-cover">
+        <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+             style="margin-top:5%;">
+            <div class="Container90 Fnone MarAuto TexAlCenter">
+                <h:form>
+                    <div class="EmptyBox50"></div>
+                    <h:graphicImage id="logo" name="#{menu.logo}" styleClass="Fleft" library="spark-layout"
+                                    class="MarAuto MarTop20 MarBot10"/>
+                    <div class="EmptyBox20"></div>
+                    <div class="Container90">
+                        <h1>You registration process is almost complete.</h1>
+                    </div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Container90">
+
+                        <h3>
+                            You will receive a confirmation email soon. Follow the instructions in the email message to complete the registration process.
+                        </h3>
+                        <br/>
+
+                        <p>
+                            If you can't find the confirmation email, please check your spam/junk folder and add
+                            <a href="${apache.url}">"invessence.com"</a> as a trusted site.
 
 
-            <div id="main-content">
+                        </p>
+                    </div>
+                    <div class="EmptyBox20"></div>
+                    <p:button  value="Login" styleClass="Fs16 BlueButton" href="/login.xhtml"></p:button>
+                    <p:button  value="Home" styleClass="Fs16 OrangeButton" href="${apache.url}"></p:button>
+                    <div class="EmptyBox50"></div>
 
-                <article id="post-4165" class="post-4165 page type-page status-publish hentry">
+                </h:form>
+            </div>
+        </div>
+    </div>
 
-                    <div class="entry-content">
-                        <div class="et_pb_section et_pb_fullwidth_section" style="background-color:#009abb;">
-                            <section class="et_pb_fullwidth_header et_pb_bg_layout_dark">
-                                <div class="et_pb_row">
-                                    <h1>Thank you for registering with Invessence!</h1>
-
-                                </div>
-                            </section>
-
-                        </div> <!-- .et_pb_section -->
-                        <div class="et_pb_section" style="background-color:#f5f5f5;">
-                            <div class="et_pb_row">
-                                <div class="et_pb_column et_pb_column_4_4">
-                                    <div class="et_pb_text et_pb_bg_layout_light et_pb_text_align_left">
-
-                                        <h3>
-                                            You registration process is almost complete.<br/><br/>
-                                            You will receive a confirmation email from Invessence. Follow the instructions in the message to complete the registration process.
-                                        </h3>
-                                        <br/><p>
-                                        If you can't find the confirmation email,Please check your spam/junk folder and add <a href="${apache.url}">"invessence.com"</a> as a trusted site.
-
-
-                                    </p>
-
-                                    </div> <!-- .et_pb_text -->
-                                </div> <!-- .et_pb_column -->
-                            </div> <!-- .et_pb_row -->
-                        </div> <!-- .et_pb_section -->
-                    </div> <!-- .entry-content -->
-
-
-                </article> <!-- .et_pb_post -->
-
-            </div> <!-- #main-content -->
-
-        </ui:define>
-    </ui:composition>
-
+    <h:outputStylesheet name="css/core-layout.css" library="spark-layout" />
+    <h:outputStylesheet name="css/font-awesome.css" library="spark-layout" />
+    <h:outputStylesheet name="css/animate.css" library="spark-layout" />
+    <h:outputStylesheet name="css/spark-layout.css" library="spark-layout" />
 </h:body>
 </html>

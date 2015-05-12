@@ -37,16 +37,18 @@
 
                             <p:column style="width:4%">
                                 <p:commandButton id="activeButton" rendered="#{managedVar.acctStatus == 'Active'}"
+                                                 styleClass="Fs16 GreenButton"
                                                  process="@this" immediate="true"
-                                                 icon="ui-icon-circle-plus"
+                                                 icon="fa fa-search-plus Fs14 white"
                                                  action="#{manageAdvisorBean.doManagedAction}">
                                     <p:tooltip id="activeToolTipFade" for="activeButton" value="Show" />
                                     <f:setPropertyActionListener value="#{managedVar}"
                                                                  target="#{manageAdvisorBean.selectedAccount}"/>
                                 </p:commandButton>
                                 <p:commandButton id="pendingButton" rendered="#{managedVar.acctStatus != 'Active'}"
+                                                 styleClass="Fs16 BlueButton"
                                                  process="@this" immediate="true"
-                                                 icon="ui-icon-pencil"
+                                                 icon="fa fa-pencil-square-o Fs14 white"
                                                  action="#{manageAdvisorBean.doManagedAction}">
                                     <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit" />
                                     <f:setPropertyActionListener value="#{managedVar}"
@@ -54,7 +56,10 @@
                                 </p:commandButton>
                             </p:column>
                             <p:column style="width:4%">
-                                <p:commandButton id="menuDelete" icon="ui-icon-closethick"  rendered="#{managedVar.acctStatus != 'Active'}"
+                                <p:commandButton id="menuDelete" rendered="#{managedVar.acctStatus != 'Active'}"
+                                                 styleClass="Fs16 RedButton"
+                                                 process="@this" immediate="true"
+                                                 icon="fa fa-trash Fs14 white"
                                                  actionListener="#{manageAdvisorBean.doDelete(managedVar)}"
                                                  update="managedDataList">
                                     <p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert"/>

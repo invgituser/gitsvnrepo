@@ -19,7 +19,13 @@ public class ManageAdvisorBean implements Serializable
 {
    private static final long serialVersionUID = 100003L;
 
-   WebUtil webutil = new WebUtil();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
    Menu menu = new Menu();
 
 /*

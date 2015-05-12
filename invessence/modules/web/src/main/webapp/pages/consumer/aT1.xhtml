@@ -5,6 +5,46 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
+
+    <div class="layout-portlets-box">
+        <div class="Container100 Responsive50">
+            <div class="ContainerIndent">
+                <p:panelGrid columns="2" layout="grid" style="border:0px !important; background:none;" class="FormContent">
+                    <h:outputText value="Portfolio Name" styleClass="Wid90 Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}" styleClass="Wid90">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:inputText>
+
+                    <h:outputText value="Invest for" styleClass="Wid90 Fs12"/>
+                    <p:selectOneMenu styleClass="Container25 Fleft DispTableCell"
+                                     value="#{cepb.goal}">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                        <f:selectItem itemLabel="Grow Wealth" itemValue="Growth"/>
+                        <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
+                        <f:selectItem itemLabel="Safety" itemValue="Safety"/>
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Portfolio Name" styleClass="Wid90 Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}" styleClass="Wid90">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:inputText>
+
+                    <h:outputText value="Portfolio Name" styleClass="Wid90 Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}" styleClass="Wid90">
+                        <p:ajax listener="#{cepb.onChange}"/>
+                    </p:inputText>
+
+                </p:panelGrid>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
     <div class="Container100 Responsive50">
         <p:panel id="a1" styleClass="Container100 MarAuto TexAlLeft">
             <div class="Container100">
@@ -20,14 +60,6 @@
             <div class="Container100">
                 <div class="ContainerIndent DispTable">
                     <p:outputLabel value="Invest for" styleClass="Container20 DispTableCell Fs14"/>
-                    <p:selectOneMenu id="goal" styleClass="Container25 Fleft DispTableCell"
-                                     value="#{cepb.goal}">
-                        <p:ajax listener="#{cepb.onChange}"
-                                />
-                        <f:selectItem itemLabel="Grow Wealth" itemValue="Growth"/>
-                        <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
-                        <f:selectItem itemLabel="Safety" itemValue="Safety"/>
-                    </p:selectOneMenu>
 
                     <div class="Container5"/>
                     <p:outputLabel value="Account Type" styleClass="Container20 Responsive DispTableCell Fs14"/>

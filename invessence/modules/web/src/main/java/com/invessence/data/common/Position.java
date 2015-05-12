@@ -323,7 +323,14 @@ public class Position implements Serializable
       this.lastname = lastname;
    }
 
-   public String getDateOpened()
+   public String getFullName() {
+      if (lastname != null && lastname.length() > 0)
+         return this.lastname + ", " + this.firstname;
+      else
+         return firstname + " Portfolio";
+   }
+
+public String getDateOpened()
    {
       return dateOpened;
    }

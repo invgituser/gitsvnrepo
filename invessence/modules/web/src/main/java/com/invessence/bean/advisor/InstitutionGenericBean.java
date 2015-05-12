@@ -26,7 +26,13 @@ public class InstitutionGenericBean implements Serializable
 
    @ManagedProperty("#{advisorBean}")
    private AdvisorBean abean;
-   private WebUtil webutil = new WebUtil();
+
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    private Long logonid;
 

@@ -3,7 +3,7 @@ package com.invessence.bean.common;
 import java.io.Serializable;
 import javax.faces.bean.*;
 
-import com.invessence.util.EmailMessage;
+import com.invessence.util.*;
 
 
 @ManagedBean(name = "messageBean")
@@ -15,9 +15,17 @@ public class MessageBean implements Serializable {
    private String supportInfo = null;
    private String title = "";
 
+
    @ManagedProperty("#{emailMessage}")
    private EmailMessage messageText;
    private String message = null;
+
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    public String getType()
    {

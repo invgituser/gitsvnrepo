@@ -76,13 +76,13 @@ public class ConsumerProfileTabControl
    }
 
    public String getEnableNextButton() {
-      if (rTab > 6)
+      if (rTab >= 6)
          return "false";
       return "true";
    }
 
    public String getEnablePrevButton() {
-      if (pTab == 1)
+      if (pTab == 0)
          return "false";
       return "true";
    }

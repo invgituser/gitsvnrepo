@@ -182,39 +182,9 @@ public class LoginController implements PhaseListener
       return PhaseId.RENDER_RESPONSE;
    }
 
-   public String getRedirectV1()
-   {
-      String accttype;
-      String url = "/manage.xhtml";
-      try {
-         if (getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE) != null)
-         {
-            accttype = getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE).toString();
-            if (accttype.equalsIgnoreCase(Const.ROLE_ADVISOR)) {
-              url = "/advisor/add.xhtml";
-   }
-            else  if (accttype.equalsIgnoreCase(Const.ROLE_ADMIN)) {
-                     url = "/admin/welcome.xhtml";
-                  }
-            else
-               url = "/manage.xhtml";
-         }
-         else {
-            url = "/manage.xhtml";
-         }
-
-      }
-      catch (Exception ex) {
-          ex.printStackTrace();
-      }
-      finally {
-         webutil.redirect(url, null);
-      }
-      return "success";
-   }
-
    public String getRedirect()
    {
+      menu.setDefault_page(null);
       menu.redirectStartPage();
       return "success";
    }
@@ -222,7 +192,7 @@ public class LoginController implements PhaseListener
 
    public void logout() {
       try {
-         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+         menu.logout();
       }
       catch (Exception ex) {
 

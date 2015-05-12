@@ -5,112 +5,62 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <p:panelGrid id="consumergoals" styleClass="invNBgrid">
-        <p:row>
-            <p:column>
-                Portfolio Name
-            </p:column>
-            <p:column colspan="3">
-                <p:inputText value="#{cepb.portfolioName}">
-                    <p:ajax listener="#{cepb.onChange}"
-                            update=":ceForm:displayInfo"/>
-                </p:inputText>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column>
-                Invest for
-            </p:column>
-            <p:column>
-                <p:selectOneMenu id="goal"
-                                 value="#{cepb.goal}">
-                    <p:ajax listener="#{cepb.onChangeValue}"
-                            update=":ceForm:workArea, :ceForm:displayInfo, :ceForm:graphArea"/>
-                    <f:selectItem itemLabel="Grow Wealth" itemValue="Growth"/>
-                    <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
-                    <f:selectItem itemLabel="Safety" itemValue="Retirement"/>
-                </p:selectOneMenu>
-            </p:column>
-            <p:column>
-                Account Type
-            </p:column>
-            <p:column>
-                <p:selectBooleanButton id="accountaxable"
-                                       value="#{cepb.accountTaxable}" onLabel="Taxable"
-                                       offLabel="Non-taxable">
-                    <p:ajax listener="#{cepb.onChangeValue}"
-                            update=":ceForm:workArea, :ceForm:displayInfo, :ceForm:graphArea"/>
-                </p:selectBooleanButton>
-            </p:column>
-        </p:row>
-
-        <p:row>
-            <p:column>
-                Your Current Age
-            </p:column>
-            <p:column>
-                <p:spinner id="age" value="#{cepb.age}"
-                           min="1" max="100" stepFactor="1">
-                    <p:ajax listener="#{cepb.onChangeValue}"
-                            update=":ceForm:workArea, :ceForm:graphArea"/>
-                </p:spinner>
-            </p:column>
-            <p:column>
-                #{cepb.horizonQuestion}
-            </p:column>
-            <p:column>
-                <p:spinner id="horizon" value="#{cepb.horizon}"
-                           min="1" max="100" stepFactor="1">
-                    <p:ajax listener="#{cepb.onChange}"
-                            update=":ceForm:workArea, :ceForm:graphArea"/>
-                </p:spinner>
-            </p:column>
-        </p:row>
 
 
-        <p:row>
-            <p:column>
-                Initial Investment
-            </p:column>
-            <p:column>
-                <pe:inputNumber id="initialInvestment"
-                                value="#{cepb.initialInvestment}"
-                                maxlength="15" decimalPlaces="0" symbol="$">
-                    <p:ajax event="blur" listener="#{cepb.onChangeValue}"
-                            update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
-                </pe:inputNumber>
-            </p:column>
-            <p:column>
-                Recurring Deposits (per year)
-            </p:column>
-            <p:column>
-                <pe:inputNumber id="recurringinvestment"
-                                value="#{cepb.recurringInvestment}"
-                                maxlength="15" decimalPlaces="0" symbol="$">
-                    <p:ajax event="blur" listener="#{cepb.onChange}"
-                            update=":ceForm:workArea, :ceForm:graphArea"/>
-                </pe:inputNumber>
+        <div class="Container100 Responsive50">
+            <div class="ContainerIndent">
+                <p:panelGrid columns="4" layout="grid" style="border:0px !important; background:none;" class="FormContent">
+                    <h:outputText value="Portfolio name" styleClass="Wid90 Fs12"/>
+                    <p:inputText value="#{cepb.portfolioName}">
+                        <p:ajax listener="#{cepb.onChange}"
+                                update=":ceForm:displayInfo"/>
+                    </p:inputText>
+                    <h:outputText styleClass="Wid90" value=""/>
+                    <h:outputText styleClass="Wid90" value=""/>
 
-            </p:column>
-        </p:row>
+                    <h:outputText value="Invest for" styleClass="Wid90 Fs12"/>
+                    <p:selectOneMenu id="goal"
+                                     value="#{cepb.goal}">
+                        <p:ajax listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:displayInfo, :ceForm:graphArea"/>
+                        <f:selectItem itemLabel="Grow Wealth" itemValue="Growth"/>
+                        <f:selectItem itemLabel="Generate Income" itemValue="Income"/>
+                        <f:selectItem itemLabel="Safety" itemValue="Safety"/>
+                    </p:selectOneMenu>
+                    <h:outputText value="Account type" styleClass="Wid90 Fs12"/>
+                    <p:selectBooleanButton id="accountaxable"
+                                           value="#{cepb.accountTaxable}" onLabel="Taxable"
+                                           offLabel="Non-taxable">
+                        <p:ajax listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:displayInfo, :ceForm:graphArea"/>
+                    </p:selectBooleanButton>
 
-        <p:row>
-            <p:column>
-                Investment Experience
-            </p:column>
-            <p:column colspan="3">
-                <p:selectOneButton value="#{cepb.experience}">
-                    <p:ajax listener="#{cepb.onChange}"/>
-                    <f:selectItem itemLabel="None" itemValue="0" />
-                    <f:selectItem itemLabel="1-3" itemValue="2" />
-                    <f:selectItem itemLabel="3-5" itemValue="4" />
-                    <f:selectItem itemLabel="5-10" itemValue="8" />
-                    <f:selectItem itemLabel="10+" itemValue="20" />
-                </p:selectOneButton>
+                    <h:outputText value="Your current age" styleClass="Wid90 Fs12"/>
+                    <p:spinner id="age" value="#{cepb.age}"
+                               min="1" max="100" stepFactor="1">
+                        <p:ajax listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </p:spinner>
+                    <h:outputText styleClass="Wid90" value=""/>
+                    <h:outputText styleClass="Wid90" value=""/>
 
-            </p:column>
-        </p:row>
+                    <h:outputText value="Initial investment" styleClass="Wid90 Fs12"/>
+                    <pe:inputNumber id="initialInvestment"
+                                    value="#{cepb.initialInvestment}"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax event="blur" listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
+                    </pe:inputNumber>
+                    <h:outputText value="Recurring investment" styleClass="Wid90 Fs12"/>
+                    <pe:inputNumber id="recurringinvestment"
+                                    value="#{cepb.recurringInvestment}"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax event="blur" listener="#{cepb.onChange}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </pe:inputNumber>
 
-    </p:panelGrid>
+                </p:panelGrid>
+            </div>
+        </div>
 
 </ui:composition>

@@ -1,16 +1,22 @@
 package com.invessence.bean.common;
 
 import java.util.*;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.constant.*;
+import com.invessence.converter.SQLData;
 import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.data.*;
 import com.invessence.data.common.UserData;
 import com.invessence.util.*;
+import org.primefaces.context.RequestContext;
 
+@ManagedBean(name = "userBean")
+@SessionScoped
 public class UserBean extends UserData
 {
 
@@ -19,9 +25,10 @@ public class UserBean extends UserData
    private String beanEmail;
    private String beanPasswd;
 
+   private Integer sTab = 0;
+
    private USMaps usstates = USMaps.getInstance();
    private String[] uscountry;
-
 
    private EmailMessage messageText;
    private UserInfoDAO userInfoDAO;
@@ -66,6 +73,11 @@ public class UserBean extends UserData
       this.messageText = messageText;
    }
 
+   public Integer getsTab()
+   {
+      return sTab;
+   }
+
    public Map<String, String> getUsstates()
    {
       return usstates.getStates();
@@ -81,8 +93,40 @@ public class UserBean extends UserData
       this.userInfoDAO = userInfoDAO;
    }
 
-   public String signUp2()
+   public void preRenderView()
    {
+
+      try {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            if (webutil.isNull(beanEmail))
+            {
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid UserID", "Invalid UserID"));
+            }
+            else if (webutil.isNull(getResetID().toString()))
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Registration ID", "Invalid Registration ID"));
+
+            else {
+               int ind = userInfoDAO.checkReset(beanEmail, getResetID().toString());
+               if (ind != 1) {
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This userID is invalid.", "This userID is invalid."));
+               }
+            }
+
+         }
+
+      }
+      catch (Exception e)
+      {
+      }
+   }
+
+
+   public String signUp()
+   {
+      if (getBeanEmail() == null || getBeanEmail().length() < 5 ) {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Email", "Invalid Email"));
+      }
       MsgData data = new MsgData();
       //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
@@ -225,7 +269,7 @@ public class UserBean extends UserData
                data.setSender(Const.MAIL_SENDER);
                data.setReceiver(getEmailID());
                data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
-               String emailmsg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template","signup.email",  new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
+               String emailmsg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
                data.setMsg(emailmsg);
                data.setMimeType(getEmailmsgtype());
                messageText.writeMessage("User", data);
@@ -256,6 +300,20 @@ public class UserBean extends UserData
          ex.printStackTrace();
 
          return "failed";
+      }
+   }
+
+   public void register() {
+      try {
+         String passwordEncrypted = MsgDigester.getMessageDigest(getPassword());
+
+         userInfoDAO.resetPassword(beanEmail, passwordEncrypted);
+
+         String msg = "password.set.success";
+         webutil.redirect("message.xhtml?faces-redirect=true&message=" + msg, null);
+      }
+      catch (Exception ex) {
+
       }
    }
 
@@ -305,11 +363,27 @@ public class UserBean extends UserData
       String msg = messageText.buildMessage(userInfoDAO.checkMimeType(getEmailID()), "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, getEmailID(), getResetID().toString()});
 
       data.setMsg(msg);
-      messageText.writeMessage(name,data);
+      messageText.writeMessage(name, data);
 
       String resetMsg = "password.reset";
       return "message.xhtml?faces-redirect=true&message=" + resetMsg;
 
    }
 
+   public void gotoPrevTab()  {
+      if (sTab <= 0)
+         sTab = 0;
+      else
+         sTab--;
+
+   }
+
+   public void gotoNextTab()  {
+      if (sTab >= 1) {
+        String status = signUp();
+      }
+      else
+         sTab++;
+
+   }
 }

@@ -1,9 +1,10 @@
 package com.invessence.util;
 
+import java.io.Serializable;
 import java.net.*;
 import java.util.*;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +18,9 @@ import org.springframework.security.core.context.*;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
 
-public class WebUtil
+@ManagedBean(name = "webutil")
+@SessionScoped
+public class WebUtil implements Serializable
 {
 
    @ManagedProperty("#{emailMessage}")
@@ -27,7 +30,15 @@ public class WebUtil
       this.messageText = messageText;
    }
 
+   public EmailMessage getMessageText()
+   {
+      return messageText;
+   }
+
    public boolean getWebMode() {
+      if (messageText == null)
+         return false;
+
       String mode = messageText.buildInternalMessage("web.mode",null);
       if (mode == null)
          return false;

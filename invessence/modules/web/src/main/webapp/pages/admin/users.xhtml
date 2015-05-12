@@ -15,9 +15,9 @@
                     <div class="Container50 Responsive50">
                         <p:panelGrid columns="7" layout="grid" style="border:0px !important; background:none;" class="FormContent">
                             <h:outputLabel value="IB Acct#:" styleClass="Wid90"/>
-                            <p:inputText id="IBacctnumText" value="#{adminbean.clientAccountID}" styleClass="Wid90"/>
+                            <p:inputText value="#{adminbean.clientAccountID}" styleClass="Wid90"/>
                             <h:outputLabel value="Acct#:" styleClass="Wid90"/>
-                            <p:inputText id="IBacctnumText" value="#{adminbean.clientAccountID}" styleClass="Wid90"/>
+                            <p:inputText value="#{adminbean.acctnum}" styleClass="Wid90"/>
                             <h:outputLabel value="Status:" styleClass="Wid90"/>
                             <p:selectOneMenu id="status" value="#{adminbean.IBStatus}" styleClass="Wid90"
                                              required="true">

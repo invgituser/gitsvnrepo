@@ -20,7 +20,12 @@ public class ClientBean extends ClientData implements Serializable
    private Long  beanAcctnum;
    private ClientBean clientBeaninstance = null;
 
-   private WebUtil webutil = new WebUtil();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;

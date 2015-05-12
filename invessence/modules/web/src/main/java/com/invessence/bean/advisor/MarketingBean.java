@@ -21,7 +21,13 @@ public class MarketingBean implements Serializable
    private ManageGoals selectedAccount;
    private String selectedFilter;
 
-   WebUtil webutil = new WebUtil();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
    private final static String[] tmpStatus;
 
    static {

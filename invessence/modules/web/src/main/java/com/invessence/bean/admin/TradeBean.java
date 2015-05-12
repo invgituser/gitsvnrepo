@@ -60,7 +60,12 @@ public class TradeBean extends TradeClientData implements Serializable
 
 
    private TradeWriter tw = new TradeWriter();
-   private WebUtil webutil = new WebUtil();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
 /*
    public void setCommonListDataDAO(CommonDAO commonDAO)

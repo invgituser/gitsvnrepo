@@ -25,8 +25,19 @@ public class ConsumerDashBean implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
-   WebUtil webutil = new WebUtil();
-   Menu menu = new Menu();
+   @ManagedProperty("#{menu}")
+   private Menu menu;
+   public void setMenu(Menu menu)
+   {
+      this.menu = menu;
+   }
+
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    private List<ManageGoals> manageAccountList;
 

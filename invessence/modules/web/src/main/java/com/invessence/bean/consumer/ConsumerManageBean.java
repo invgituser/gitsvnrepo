@@ -28,8 +28,19 @@ public class ConsumerManageBean implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
-   WebUtil webutil = new WebUtil();
-   Menu menu = new Menu();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
+   @ManagedProperty("#{menu}")
+   private Menu menu;
+   public void setMenu(Menu menu)
+   {
+      this.menu = menu;
+   }
 
    private List<ManageGoals> manageAccountList;
 

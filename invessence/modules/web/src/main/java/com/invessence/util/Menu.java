@@ -25,7 +25,6 @@ public class Menu implements Serializable
 {
    private static final long serialVersionUID = -1992L;
 
-   private WebUtil webutil = new WebUtil();
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
    private String theme = "spark";
@@ -34,11 +33,11 @@ public class Menu implements Serializable
    private String phone, email;
    private String forwardcustodianURL = "Your have made a request to visit Interactive Broker site (Your custodian).  You will be logged out of this site.  Do you want to continue?";
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
-   public void setMessageText(EmailMessage messageText)
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil = new WebUtil();
+   public void setWebutil(WebUtil webutil)
    {
-      this.messageText = messageText;
+      this.webutil = webutil;
    }
 
    public WebUtil getWebutil() {
@@ -79,22 +78,19 @@ public class Menu implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-               if (getCid() != null && getCid().length() > 0) {
-                  email = getMessagetext("email." + getCid(),null);
-                  phone = getMessagetext("phone." + getCid(),null);
-                  theme = getMessagetext("theme." + getCid(),null);
-               }
-               else {
-                  email = getMessagetext("email.0",null);
-                  phone = getMessagetext("phone.0",null);
-                  theme = getMessagetext("theme.0",null);
-               }
-
-               email = (email == null) ? "info@invessence.com" : email;
-               phone = (phone == null) ? "(201) 977-2704" : phone;
-               theme = (theme == null) ? "spark" : theme;
-
+            if (getCid() == null || getCid().length() == 0)
+            {
+               setCid("0");
             }
+            email = webutil.getMessageText().lookupMessage("email." + getCid(), null);
+            phone = webutil.getMessageText().lookupMessage("phone." + getCid(), null);
+            theme = webutil.getMessageText().lookupMessage("theme." + getCid(), null);
+
+            email = (email == null) ? "info@invessence.com" : email;
+            phone = (phone == null) ? "(201) 977-2704" : phone;
+            theme = (theme == null) ? "spark" : theme;
+
+         }
       }
       catch (Exception e)
       {
@@ -104,16 +100,6 @@ public class Menu implements Serializable
       }
    }
 
-   public String getMessagetext(String inputText, Object [] obj) {
-      String msgText = null;
-      if (inputText != null) {
-         msgText =  messageText.buildInternalMessage(inputText, obj);
-         if (msgText != null)
-            return msgText;
-         return inputText;
-      }
-      return inputText;
-   }
 
    public static long getSerialVersionUID()
    {
@@ -176,7 +162,7 @@ public class Menu implements Serializable
       try {
          if (getCid() != null) {
             String logoid = "logo." + getCid();
-            logo = getMessagetext(logoid,null);
+            logo = webutil.getMessageText().buildInternalMessage(logoid,null);
          }
          if (logo == null)
             logo = Const.DEFAULT_LOGO;
@@ -194,7 +180,7 @@ public class Menu implements Serializable
       try {
          if (getCid() != null) {
             String logoid = "company." + getCid();
-            logoAlt = getMessagetext(logoid,null);
+            logoAlt = webutil.getMessageText().buildInternalMessage(logoid, null);
          }
          if (logoAlt == null)
             logoAlt = Const.COMPANY_NAME;
@@ -210,9 +196,16 @@ public class Menu implements Serializable
       String homeURL = Const.URL_HOME;
       UserInfoData uid;
       try {
+         if (webutil.isUserLoggedIn()) {
+            if (default_page == null)
+               return "#";
+            else
+               return default_page;
+         }
+
          if (getCid() != null) {
             String logoid = "homeURL." + getCid();
-            homeURL = getMessagetext(logoid,null);
+            homeURL = webutil.getMessageText().buildInternalMessage(logoid, null);
          }
          if (homeURL == null)
             homeURL = Const.URL_HOME;
@@ -236,12 +229,31 @@ public class Menu implements Serializable
    }
 
    public void redirectStartPage() {
-      if (default_page == null) {
-         if (webutil.getAccess().equalsIgnoreCase(Const.WEB_ADVISOR) || webutil.getAccess().equalsIgnoreCase(Const.WEB_INTERNAL))
-            doMenuAction("/advisor/adash.xhtml");
+      if (webutil.isUserLoggedIn())
+      {
+         if (default_page == null)
+         {
+            if (webutil.getAccess().equalsIgnoreCase(Const.WEB_ADVISOR) || webutil.getAccess().equalsIgnoreCase(Const.WEB_INTERNAL))
+            {
+               setDefault_page("/pages/advisor/adash.xhtml");
+               doMenuAction("/advisor/adash.xhtml");
+            }
+            else
+            {
+               setDefault_page("/pages/consumer/cdash.xhtml");
+               doMenuAction("/consumer/cdash.xhtml");
+            }
+         }
          else
-            doMenuAction("/consumer/cdash.xhtml");
+         {
+            webutil.redirect(default_page, null);
+         }
       }
+      else
+      {
+         webutil.redirect("/login.xhtml", null);
+      }
+
    }
 
    public String getIsUserLoggedInMenu() {

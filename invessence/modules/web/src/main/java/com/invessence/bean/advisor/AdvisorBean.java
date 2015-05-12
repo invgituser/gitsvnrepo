@@ -30,7 +30,6 @@ public class AdvisorBean extends AdvisorData implements Serializable
 {
    private static final long serialVersionUID = 100001L;
    private String beanAcctnum;
-   private WebUtil webutil = new WebUtil();
    private Charts charts = new Charts();
 
    @ManagedProperty("#{advisorListDataDAO}")
@@ -39,8 +38,12 @@ public class AdvisorBean extends AdvisorData implements Serializable
    @ManagedProperty("#{advisorSaveDataDAO}")
    private AdvisorSaveDataDAO saveDAO;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    private Boolean displayPieChart = false;
    private Boolean enableTabs = true;
@@ -65,16 +68,6 @@ public class AdvisorBean extends AdvisorData implements Serializable
    public void setListDAO(AdvisorListDataDAO listDAO)
    {
       this.listDAO = listDAO;
-   }
-
-   public EmailMessage getMessageText()
-   {
-      return messageText;
-   }
-
-   public void setMessageText(EmailMessage messageText)
-   {
-      this.messageText = messageText;
    }
 
    public String getBeanAcctnum()
@@ -327,8 +320,8 @@ public class AdvisorBean extends AdvisorData implements Serializable
          data.setSender(Const.MAIL_SENDER);
          data.setReceiver(Const.MAIL_SUPPORT);
          data.setSubject(Const.COMPANY_NAME + " - Error:AdvisorBean.createAssetPlan");
-         data.setMsg(messageText.getMessagetext("error.createAssetPlan", new Object[]{stackTrace}));
-         messageText.writeMessage("Error", data);
+         data.setMsg(webutil.getMessageText().buildInternalMessage("error.createAssetPlan", new Object[]{stackTrace}));
+         webutil.getMessageText().writeMessage("Error", data);
       }
    }
 

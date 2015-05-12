@@ -5,17 +5,25 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <h3>
-        4. What level of investment risk are you willing to take?
-    </h3>
-    <p:selectOneRadio value="#{cepb.selectedchoice4}"
-                      layout="pageDirection"
-                      valueChangeListener="#{cepb.onChangeValue}">
-        <f:selectItem itemLabel="Highest." itemValue="0" />
-        <f:selectItem itemLabel="High." itemValue="7" />
-        <f:selectItem itemLabel="Moderate." itemValue="14" />
-        <f:selectItem itemLabel="Low." itemValue="21" />
-        <f:selectItem itemLabel="Lowest." itemValue="28" />
-    </p:selectOneRadio>
+    <p:panel style="border: 0px">
+    <div class="Container100 Responsive50">
+        <div class="ContainerIndent">
+            <h3>
+                4. What level of investment risk are you willing to take?
+            </h3>
+            <p:selectOneRadio value="#{cepb.selectedchoice4}"
+                              layout="pageDirection">
+                <p:ajax listener="#{cepb.onChangeValue}"
+                        update=":ceForm:workArea, :ceForm:graphArea"/>
+                <f:selectItem itemLabel="Highest." itemValue="0" />
+                <f:selectItem itemLabel="High." itemValue="7" />
+                <f:selectItem itemLabel="Moderate." itemValue="14" />
+                <f:selectItem itemLabel="Low." itemValue="21" />
+                <f:selectItem itemLabel="Lowest." itemValue="28" />
+            </p:selectOneRadio>
+        </div>
+    </div>
+    </p:panel>
+
 
 </ui:composition>

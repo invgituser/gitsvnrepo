@@ -20,7 +20,12 @@ public class PositionBean implements Serializable
    private List<Position> positionList;
    private List<Position> displayPositionList = new ArrayList<Position>();
    private DataDisplayConverter dconveter = new DataDisplayConverter();
-   private WebUtil webutil = new WebUtil();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    @ManagedProperty("#{positionDAO}")
    private PositionDAO positionDAO;
@@ -123,6 +128,13 @@ public class PositionBean implements Serializable
    public void setLastname(String lastname)
    {
       this.lastname = lastname;
+   }
+
+   public String getFullName() {
+      if (lastname != null && lastname.length() > 0)
+         return this.lastname + ", " + this.firstname;
+      else
+         return firstname + " Portfolio";
    }
 
    public String getDateOpened()
@@ -403,7 +415,7 @@ public class PositionBean implements Serializable
    {
       String seriescolor = "";
       this.pieModel = new PieChartModel();
-      int count = 0;
+      int slice = 0;
       if (managedAssetsMap.size() > 0)
       {
          pieIsValid = "true";
@@ -415,16 +427,20 @@ public class PositionBean implements Serializable
                Double displayWeight = asset.getHoldingweight();
                String label = name + " - " + dconveter.displayAsPercent(displayWeight);
                pieModel.set(label, displayWeight);
-               //color = asset.getColor();  //.replace('#',' ');
-               //color.trim();
-               if (count == 0)
-                  seriescolor = asset.getColor().replace('#',' ').trim();
+               String color = asset.getColor().replace('#',' ');
+               if (slice == 0)
+                  seriescolor = color.trim();
                else
-                  seriescolor += ", " + asset.getColor().replace('#',' ').trim();
-               count++;
+                  seriescolor =  seriescolor + "," + color.trim();
+               slice++;
             }
          }
-         // pieModel.setSeriesColors(seriescolor);
+         pieModel.setFill(true);
+         pieModel.setShowDataLabels(false);
+         pieModel.setDiameter(150);
+         pieModel.setSeriesColors(seriescolor);
+         pieModel.setExtender("pie_extensions");
+
       }
    }
 

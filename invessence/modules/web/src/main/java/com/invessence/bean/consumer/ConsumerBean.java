@@ -269,8 +269,8 @@ public class ConsumerBean extends ManageGoals implements Serializable
       try {
          if (formDirty)
          {
-            riskvalue = getRiskdata().getRiskOffset(selectedChoices());
-            setRiskIndex(riskvalue);
+            // riskvalue = getRiskdata().getRiskOffset(selectedChoices());
+            // setRiskIndex(riskvalue);
             offsetRiskIndex();
             addGoals(getCurrentTab());
             addAssetAndLiabilities(getCurrentTab());

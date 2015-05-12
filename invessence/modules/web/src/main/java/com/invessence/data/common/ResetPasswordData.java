@@ -13,7 +13,6 @@ import com.invessence.constant.*;
 public class ResetPasswordData
 {
 
-   private WebUtil webutl = new WebUtil();
    private String emailID;
    private String resetCode;
    private String password;
@@ -22,19 +21,14 @@ public class ResetPasswordData
    private String question1 = null;
    private String answer1 = null;
 
-   private EmailMessage messageText;
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    private UserInfoDAO userInfoDAO;
-
-   public EmailMessage getMessageText()
-   {
-      return messageText;
-   }
-
-   public void setMessageText(EmailMessage messageText)
-   {
-      this.messageText = messageText;
-   }
 
    public UserInfoDAO getUserInfoDAO()
    {
@@ -113,7 +107,7 @@ public class ResetPasswordData
       {
          int ind = userInfoDAO.checkReset(emailID, resetCode);
 
-         if ((webutl.isNull(emailID)) || (webutl.isNull(resetCode)) || (ind != 1))
+         if ((webutil.isNull(emailID)) || (webutil.isNull(resetCode)) || (ind != 1))
          {
             String msg = "Reset link is invalid or incomplete. Please try again.";
 
@@ -149,7 +143,7 @@ public class ResetPasswordData
             return "message.xhtml?faces-redirect=true&message=User not found";
          }
          else {
-            Integer myResetID = webutl.randomGenerator(0,347896);
+            Integer myResetID = webutil.randomGenerator(0,347896);
             setResetCode(myResetID.toString());
             return validateSecurityQuestions();
          }
@@ -175,18 +169,18 @@ public class ResetPasswordData
       //data.setMsg(MsgConst.getSignupMsg(userData));
 
       System.out.println("MIME TYPE :" + userInfoDAO.checkMimeType(getEmailID()));
-      if (messageText == null)
+      if (webutil.getMessageText() == null)
       {
          return "message.xhtml?faces-redirect=true&type=E&&message=Email process is down";
       }
 
-      String websiteUrl = messageText.buildInternalMessage("website.url", new Object[]{});
+      String websiteUrl = webutil.getMessageText().buildInternalMessage("website.url", new Object[]{});
       String name = "User";
       data.setMimeType(userInfoDAO.checkMimeType(getEmailID()));
-      String msg = messageText.buildMessage(userInfoDAO.checkMimeType(getEmailID()), "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, getEmailID(), getResetCode().toString()});
+      String msg = webutil.getMessageText().buildMessage(userInfoDAO.checkMimeType(getEmailID()), "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, getEmailID(), getResetCode().toString()});
 
       data.setMsg(msg);
-      messageText.writeMessage(name,data);
+      webutil.getMessageText().writeMessage(name,data);
 
       String resetMsg = "password.reset";
       return "message.xhtml?faces-redirect=true&message=" + resetMsg;

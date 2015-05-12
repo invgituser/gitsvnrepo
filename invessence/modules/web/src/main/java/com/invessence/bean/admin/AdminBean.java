@@ -21,8 +21,13 @@ public class AdminBean extends AdminData implements Serializable
    @ManagedProperty("#{adminDAO}")
    private AdminDAO adminDAO;
 
-   private WebUtil webutil = new WebUtil();
    //private Map<String,List<TradeDetails>> tradesDetails = new HashMap<String,List<TradeDetails>>();
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    public AdminDAO getAdminDAO()
    {

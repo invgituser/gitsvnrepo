@@ -35,7 +35,8 @@
                     <f:event listener="#{loginController.updateMessages}" type="preRenderView"/>
 
                     <div class="EmptyBox50"></div>
-                    <h:graphicImage name="#{menu.logo}" styleClass="Fleft" library="spark-layout" class="MarAuto MarTop20 MarBot10"/>
+                    <h:graphicImage id="logo" name="#{menu.logo}" styleClass="Fleft" library="spark-layout"
+                                    class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
                     <div class="EmptyBox20"></div>
                     <p:inputText id="emailID" placeholder="Email" styleClass="Container80 Fnone MarAuto Fs18"
                                  required="true" requiredMessage="Please enter Email."

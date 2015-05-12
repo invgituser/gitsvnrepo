@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("request")
+@FacesValidator(value="EmailValidator")
 public class EmailValidator implements Validator {
  
 	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
