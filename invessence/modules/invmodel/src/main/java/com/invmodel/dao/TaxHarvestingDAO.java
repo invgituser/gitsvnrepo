@@ -109,9 +109,9 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
 
    public List<ProfileData> getListOfAccounts(Long logonid, Long acctnum, String filter) {
       // DataSource ds = getDs();
-      TaxHarvestingSP sp = new TaxHarvestingSP(ds, "sel_ClientProfileData",1);
+      TaxHarvestingSP sp = new TaxHarvestingSP(ds, "sel_ClientProfileData2",1);
       List<ProfileData> profileList = new ArrayList<ProfileData>();
-      Map outMap = sp.collectProfileData(logonid, acctnum, filter);
+      Map outMap = sp.collectProfileData(logonid, acctnum);
       try {
          if (outMap != null)
          {
@@ -140,6 +140,18 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
+               data.setRiskCalcMethod(convert.getStrData(rs.get("calcModel")));
+               data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
+               data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
+               data.setDependent(convert.getIntData(rs.get("dependent")));
+               //data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
+               String taxable = convert.getStrData(rs.get("taxable"));
+               if (taxable == null)
+                  data.setAccountTaxable(false);
+               else if (taxable.startsWith("N"))
+                  data.setAccountTaxable(false);
+               else
+                  data.setAccountTaxable(true);
                profileList.add(i, data);
                i++;
             }
