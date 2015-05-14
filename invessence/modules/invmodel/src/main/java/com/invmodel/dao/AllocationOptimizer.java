@@ -168,7 +168,7 @@ public class AllocationOptimizer
             }
             /* add the row to lpsolve */
             //May want some accounts to be fixed
-            lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.EQ, acctW[r]);
+            lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.LE, acctW[r]);
             //lp.addConstraintex(c, row, colno, LpSolve.EQ, acctW[r]);
          }
       }
@@ -209,7 +209,7 @@ public class AllocationOptimizer
             }
             /* add the row to lpsolve */
             //May want some funds weights tobe fixed
-            lp.addConstraintex(c, row, colno, LpSolve.LE, optFundWeight[f-1]);
+            lp.addConstraintex(c, row, colno, LpSolve.EQ, optFundWeight[f-1]);
          }
       }
 
