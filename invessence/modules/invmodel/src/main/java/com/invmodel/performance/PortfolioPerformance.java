@@ -92,8 +92,6 @@ public class PortfolioPerformance
 
       try
       {
-
-         perfData[0] = new PerformanceData();
          perfData[0].setTotalCapitalWithGains(portfolioClass[currentYear].getTotalMoney());
          perfData[0].setTotalCost(0.0);
          perfData[0].setInvestmentReturns(portfolioClass[currentYear].getExpReturns());
