@@ -40,8 +40,8 @@ public class lpTest
          //double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue};
 
          String primeAssets = "PRIME-ASSET";
-         double[][] targetPAssetAllocation = {{0.01},{0.26},{0.0},{0.11},{0.05},{0.07},{0.0},{0.05},{0.05},{0.12},{0.13},{0.07},{0.02},
-            {0.02},{0.0},{0.08}};
+         double[][] targetPAssetAllocation = {{0.01},{0.26},{0.0},{0.11},{0.04},{0.07},{0.0},{0.04},{0.05},{0.12},{0.13},{0.07},{0.02},
+            {0.01},{0.0},{0.07}};
          double targetOptProd = targetPAssetAllocation[0][0] *
             targetPAssetAllocation[1][0] *
             targetPAssetAllocation[2][0];
@@ -82,23 +82,37 @@ public class lpTest
 
 
          double[] optFundWeight = new double[weights[0].length];
+         double[][] accountConstraints = new double[acctW.length][acctW.length*tickers.length];
          for(int i=0; i<weights[0].length; i++){
             optFundWeight[i] = weights[fundOffset[0]][i];
          }
-
-         double[][] accountConstraints = new double[acctW.length][acctW.length*tickers.length];
 
          for (int r = 0; r<acctW.length; r++) {
             int colN = 0;
             for (int a = 0; a<acctW.length; a++) {
                for (int f = 0; f<tickers.length; f++){
 
-                  if (r == a )
-                     accountConstraints[r][colN] = 1;
+                  accountConstraints[r][colN] = 0;
+
+                  if (r == a){
+
+                     if (a < acctW.length-1) {
+                        if (f < 9)
+                           accountConstraints[r][colN] = 1;
+                        else
+                           accountConstraints[r][colN] = 0;
+                     }
+
+                     else if (a == acctW.length-1) {
+                        if (f > 8)
+                           accountConstraints[r][colN] = 1;
+                        else
+                           accountConstraints[r][colN] = 0;
+                     }
+                  }
                   else
                      accountConstraints[r][colN] = 0;
                   colN++;
-
                }
             }
          }

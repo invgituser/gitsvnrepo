@@ -4,6 +4,8 @@ import com.invmodel.Const.InvConst;
 import com.invmodel.asset.*;
 import com.invmodel.asset.data.*;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.performance.*;
+import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.*;
 import com.invmodel.portfolio.data.*;
 import com.invmodel.dao.*;
@@ -22,7 +24,7 @@ import static java.lang.String.valueOf;
 public class TestDistribution
 {
    private static TestDistribution instance = null;
-   private static String datadir = "C:/Users/Jigar/Work Related/RiverFrontAdvisors/Clients/";
+   private static String datadir = "C:/Users/Jigar/Work Related/RiverFrontAdvisors/";
 
 
    public static synchronized TestDistribution getInstance()
@@ -70,12 +72,12 @@ public class TestDistribution
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
       profileData.setTheme("0.Core");
-      profileData.setAccountTaxable(false);
+      profileData.setAccountTaxable(true);
 
-      profileData.setAge(25);
+      profileData.setAge(40);
       age = profileData.getAge();
 
-      profileData.setHorizon(35);
+      profileData.setHorizon(30);
       duration = profileData.getHorizon();
 
       // profileData.setAccountTaxable(false);
@@ -86,7 +88,7 @@ public class TestDistribution
       //2 = Go to Cash, 1 = Stay Invested
       profileData.setStayInvested(1);
 
-      profileData.setInitialInvestment(5500);
+      profileData.setInitialInvestment(41000);
       invCapital = profileData.getInitialInvestment();
       profileData.setRecurringInvestment(5000);
 
@@ -106,52 +108,36 @@ public class TestDistribution
       poptimizer.refreshDataFromDB();
 
       Random randomGenerator = new Random();
-      //for (int i = 0; i < 10; i++){
 
-         //int randomAge = randomGenerator.nextInt(100);
+      //int randomAge = randomGenerator.nextInt(100);
 
-         //profileData.setAge(randomAge);
-         //age = profileData.getAge();
+      //profileData.setAge(randomAge);
+      //age = profileData.getAge();
 
-         AssetAllocationModel assetAllocationModel = AssetAllocationModel.getInstance();
-         assetAllocationModel.setPortfolioOptimizer(poptimizer);
+      AssetAllocationModel assetAllocationModel = AssetAllocationModel.getInstance();
+      assetAllocationModel.setPortfolioOptimizer(poptimizer);
 
-         // assetAllocationModel.setHr(HistoricalReturns.getInstance());
-         AssetClass[] aamc = assetAllocationModel.buildAllocation(profileData);
-         profileData.setAssetData(aamc);
-         PortfolioModel portfolioModel = new PortfolioModel();
-         portfolioModel.setPortfolioOptimizer(poptimizer);
-         SecurityDBCollection secDao = new SecurityDBCollection();
+      // assetAllocationModel.setHr(HistoricalReturns.getInstance());
+      AssetClass[] aamc = assetAllocationModel.buildAllocation(profileData);
+      profileData.setAssetData(aamc);
+      PortfolioModel portfolioModel = new PortfolioModel();
+      portfolioModel.setPortfolioOptimizer(poptimizer);
+      SecurityDBCollection secDao = new SecurityDBCollection();
 
-         //secDao.loadDataFromDB("0.Core");
-         //secDao.loadDataFromDB(InvConst.DEFAULT_THEME);
+      //secDao.loadDataFromDB("0.Core");
+      //secDao.loadDataFromDB(InvConst.DEFAULT_THEME);
 
-         portfolioModel.setSecurityDao(secDao);
-         // portfolioModel.setMonthlyDao(DailyReturns.getInstance());
-         profileData.setNumOfPortfolio(profileData.getHorizon());
+      portfolioModel.setSecurityDao(secDao);
+      // portfolioModel.setMonthlyDao(DailyReturns.getInstance());
+      profileData.setNumOfPortfolio(profileData.getHorizon());
 
-         Portfolio[] pfclass = portfolioModel.buildPortfolio(aamc, profileData);
-      //}
+      Portfolio[] pfclass = portfolioModel.buildPortfolio(aamc, profileData);
 
       tax = "No";
 
-      //createWeightFile(profileData, poptimizer);
-      /*for (String advisorName: poptimizer.getAdvisorList()) {
-         for (PrimeAssetClassData pacd : poptimizer.getPrimeAssetData(advisorName)) {
-            //printData(advisorName + "-Risk-" + pacd.getPrimeAssetName()  + ".csv", pacd.getRisk());
-            //printData(advisorName + "-Return-" + pacd.getPrimeAssetName()  + ".csv", pacd.getReturns());
-         }
+      PortfolioPerformance portPerf = PortfolioPerformance.getInstance();
 
-      }*/
-
-      //Create a file for initial asset allocation
-      //createFirstAssetAllocationChart(tax, duration, age, risk, invCapital,aamc, poptimizer);
-
-      //String[] orderedAssets = assetdao.getOrderedAsset(profileData.getAdvisor());
-
-      //Portfolio[] pfclass = portfolioModel.getDistributionList(profileData);
-
-
+      PerformanceData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
 
       //Create a assetPerformanceFile
       createAssetPerformanceFile(tax, pfclass, aamc, age);

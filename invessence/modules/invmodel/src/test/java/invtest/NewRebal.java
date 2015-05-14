@@ -18,14 +18,19 @@ import com.invmodel.rebalance.data.*;
 public class NewRebal
 {
    private static String datadir = "C:/Users/Jigar/Work Related/RiverFrontAdvisors/Clients/";
+
    public static void main(String[] args) throws Exception
    {
       // Intialize the Instance and Load prerequired data.
       PortfolioOptimizer  portfolioOptimizer = PortfolioOptimizer.getInstance();
+      portfolioOptimizer.refreshDataFromDB();
+
       RebalanceProcess rbal = RebalanceProcess.getInstance();
       TLHSecurityCollection tlhsecurityCollection =  TLHSecurityCollection.getInstance();
-      AssetDBCollection assetDAO = AssetDBCollection.getInstance();
-      DailyReturns dailyReturnDAO = DailyReturns.getInstance();
+
+      /*AssetDBCollection assetDAO = AssetDBCollection.getInstance();
+      DailyReturns dailyReturnDAO = DailyReturns.getInstance();*/
+
       SecurityDBCollection secDao = new SecurityDBCollection();
       secDao.loadDataFromDB(InvConst.DEFAULT_THEME);
       rbal.setPortfolioOptimizer(portfolioOptimizer);
