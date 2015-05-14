@@ -10,10 +10,12 @@ package com.invmodel.performance.data;
 public class PerformanceData {
    double investmentRisk;
    double investmentReturns;
-   double investmentCost;
-   double investmentCapital;
+   double totalCost;
+   double totalCapitalWithGains;
+   double investedCapital;
+   double recurInvestments;
    double investmentYield;
-   double invevestmentEarnings;
+   double totalGains;
    double upperBand1;
    double upperBand2;
    double lowerBand1;
@@ -33,9 +35,29 @@ public class PerformanceData {
       this.investmentYield = investmentYield;
    }
 
-   public double getInvevestmentEarnings()
+   public double getInvestedCapital()
    {
-      return invevestmentEarnings;
+      return investedCapital;
+   }
+
+   public void setInvestedCapital(double investedCapital)
+   {
+      this.investedCapital = investedCapital;
+   }
+
+   public double getRecurInvestments()
+   {
+      return recurInvestments;
+   }
+
+   public void setRecurInvestments(double recurInvestments)
+   {
+      this.recurInvestments = recurInvestments;
+   }
+
+   public double getTotalGains()
+   {
+      return totalGains;
    }
 
    public double getUpperBand1()
@@ -78,9 +100,9 @@ public class PerformanceData {
       this.lowerBand2 = lowerBand2;
    }
 
-   public void setInvevestmentEarnings(double invevestmentEarnings)
+   public void setTotalGains(double totalGains)
    {
-      this.invevestmentEarnings = invevestmentEarnings;
+      this.totalGains = totalGains;
    }
 
    public double getInvestmentRisk() {
@@ -99,19 +121,19 @@ public class PerformanceData {
         this.investmentReturns = investmentReturns;
     }
 
-    public double getInvestmentCost() {
-        return investmentCost;
+    public double getTotalCost() {
+        return totalCost;
     }
 
-    public void setInvestmentCost(double investmentCost) {
-        this.investmentCost = investmentCost;
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
     }
 
-    public double getInvestmentCapital() {
-        return investmentCapital;
+    public double getTotalCapitalWithGains() {
+        return totalCapitalWithGains;
     }
 
-    public void setInvestmentCapital(double investmentCapital) {
-           this.investmentCapital = investmentCapital;
+    public void setTotalCapitalWithGains(double totalCapitalWithGains) {
+           this.totalCapitalWithGains = totalCapitalWithGains;
        }
 }
