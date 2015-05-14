@@ -229,8 +229,9 @@ public class PortfolioModel
 
          // 04-15-14 Keep Liquid Cash as required.
          keepLiquidCash = 0.0;
+         //05-14-15 changed, should be set in the database with setKeepLiquid
          if (invCapital< 100000)
-            keepLiquidCash = InvConst.MIN_LIQUID_CASH;
+            profileData.setKeepLiquid(((int) InvConst.MIN_LIQUID_CASH));
 
          if (profileData.getKeepLiquid() != null)
             keepLiquidCash = profileData.getKeepLiquid().doubleValue();
@@ -269,6 +270,7 @@ public class PortfolioModel
 
          double totalIncEarned = 0.0;
          double investment = invCapital - keepLiquidCash;
+
          if (profileData.getRecurringInvestment() == null)
             reinvestment = 0.0;
          else
@@ -314,8 +316,14 @@ public class PortfolioModel
                             investment, investmentYear, profileData, offset);
 
             // Total Money = Investment + Performance
-            portfolioclass[investmentYear].setTotalMoney(investment);
+            if(investmentYear == 0)
+               portfolioclass[investmentYear].setTotalMoney(investment + keepLiquidCash);
+            else
+               portfolioclass[investmentYear].setTotalMoney(investment);
+
+            portfolioclass[investmentYear].setRecurInvestments(reinvestment);
             actualInvestment += reinvestment;
+
             if (investmentYear > 0) {
                portfolioclass[investmentYear].setUpperTotalMoney((2*portfolioclass[investmentYear-1].getTotalRisk() * investment )
                                                                     + investment);

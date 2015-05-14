@@ -23,6 +23,7 @@ public class Portfolio
    private double totalCost = 0.0;
    private double upperTotalMoney = 0.0;
    private double lowerTotalMoney = 0.0;
+   private double recurInvestments = 0.0;
 
 
    private double totalCapitalGrowth = 0.0;
@@ -77,6 +78,16 @@ public class Portfolio
          subclass = "UNUSED";
 
       return  assetclass.toUpperCase() + "." + subclass.toUpperCase();
+   }
+
+   public double getRecurInvestments()
+   {
+      return recurInvestments;
+   }
+
+   public void setRecurInvestments(double recurInvestments)
+   {
+      this.recurInvestments = recurInvestments;
    }
 
    public String getTheme()
