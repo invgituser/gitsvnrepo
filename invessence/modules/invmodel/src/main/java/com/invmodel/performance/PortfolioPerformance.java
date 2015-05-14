@@ -86,11 +86,13 @@ public class PortfolioPerformance
    public PerformanceData[] getPortfolioPerformance(Portfolio[] portfolioClass, int numOfYears, int currentYear)
    {
 
-      PerformanceData[] perfData = null;
+      PerformanceData[] perfData = new PerformanceData[numOfYears];
       double portGrowth = 0.0;
+      double investmentCapital = 0.0;
 
       try
       {
+
          perfData[0] = new PerformanceData();
          perfData[0].setInvestmentCapital(portfolioClass[currentYear].getTotalMoney());
          perfData[0].setInvestmentCost(portfolioClass[currentYear].getTotalCost());
@@ -105,24 +107,31 @@ public class PortfolioPerformance
          {
             perfData[year] = new PerformanceData();
 
-            perfData[year].setInvestmentCapital(portfolioClass[currentYear].getExpReturns() *
-                                                   portfolioClass[currentYear].getTotalMoney() +
-                                                   portfolioClass[currentYear].getTotalMoney());
 
-            perfData[year].setInvestmentCost(portfolioClass[currentYear].getTotalCost());
+            investmentCapital = perfData[year-1].getInvestmentCapital();
+
+            perfData[year].setInvestmentCost((portfolioClass[currentYear].getTotalCost() /
+                                                portfolioClass[currentYear].getTotalMoney() )* investmentCapital +
+                                                perfData[year-1].getInvestmentCost());
+
+            perfData[year].setInvestmentCapital(portfolioClass[currentYear].getExpReturns() *
+                                                   investmentCapital + investmentCapital -
+                                                   (portfolioClass[currentYear].getTotalCost() /
+                                                      portfolioClass[currentYear].getTotalMoney() )*
+                                                      investmentCapital);
 
             perfData[year].setInvestmentReturns(portfolioClass[currentYear].getExpReturns());
 
             perfData[year].setInvestmentRisk(portfolioClass[currentYear].getTotalRisk());
 
-            double investmentCapital = perfData[year-1].getInvestmentCapital();
-
-            portGrowth = portfolioClass[currentYear].getExpReturns() * investmentCapital + portGrowth;
+            portGrowth = portfolioClass[currentYear].getExpReturns() * investmentCapital + portGrowth -
+               (portfolioClass[currentYear].getTotalCost() / portfolioClass[currentYear].getTotalMoney() )*
+                  investmentCapital;
 
             double upper1 = ( portfolioClass[currentYear].getTotalRisk() * investmentCapital ) + investmentCapital;
             double upper2 = ( 2 * portfolioClass[currentYear].getTotalRisk() * investmentCapital ) + investmentCapital;
             double lower1 = ( -1 * portfolioClass[currentYear].getTotalRisk() * investmentCapital ) + investmentCapital;
-            double lower2 = ( -2 * portfolioClass[currentYear].getTotalRisk() * investmentCapital ) + investmentCapital;
+            double lower2 = ( -2 * portfolioClass[currentYear].getTotalRisk() * investmentCapital) + investmentCapital;
 
             perfData[year].setUpperBand1(upper1);
             perfData[year].setUpperBand2(upper2);
