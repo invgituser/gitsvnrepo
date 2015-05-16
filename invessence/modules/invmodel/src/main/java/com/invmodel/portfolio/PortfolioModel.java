@@ -394,6 +394,8 @@ public class PortfolioModel
                   pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
                                         asset.getColor(),
                                         assetWgt, amount_remain, true);
+                  portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
+                  portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
                   break;
                }
 

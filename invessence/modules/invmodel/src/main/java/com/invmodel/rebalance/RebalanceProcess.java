@@ -218,7 +218,18 @@ public class RebalanceProcess
          for (ProfileData pdata : profileList) {
             advisor = pdata.getAdvisor();
             pdata.setNumOfAllocation(1);
+            /*
+            Questions1: loadCurrentAssetAllocation loads what is currently allocated from allocation table.
+            Do we want the allocation from our DB or should we look at the holding and get the allocation from holding?
+             */
+
             Map<String, Asset> asset = loadCurrentAssetAllocation(pdata.getAcctnum());
+            /*
+            Questions2: loadPortfolio recreates the Asset allocation and portfolio.  Should we get only one year or two years?
+            Currently this process get it for size as defined in horizon (Performance issue).
+            Question3: Also, the loadPortfolio saves the allocation and portfolio on pdata class.
+            Info: So,newHoldings is just getting that data.
+             */
             loadPortfolio(pdata, pdata.getHorizon());
             pdata.setNumOfPortfolio(1);
             Portfolio[] newHoldings = pdata.getPortfolioData();
