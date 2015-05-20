@@ -10,10 +10,10 @@ BEGIN
   DECLARE tFirstDay        varchar(8);
   DECLARE tLastDay         varchar(8);
   DECLARE tPriorFirstDay   varchar(8);
-  DECLARE tPriotLastDay    varchar(8);
+  DECLARE tPriorLastDay    varchar(8);
   DECLARE tTodayDate       varchar(8);
 
-  set tNextCycleDate = `funct_get_switch`('1ST_BDATE_THIS_MONTH');
+  set tNextCycleDate = `funct_get_switch`('FIRST_DAY_OF_MONTH');
 
   select count(*)
   into tCommissionData
@@ -25,7 +25,7 @@ BEGIN
 
 		set tTodayDate = DATE_FORMAT(now(),'%Y%m%d');
 		set tPriorFirstDay = funct_FirstDayofPriorMonth(tNextCycleDate);
-		set tPriotLastDay = date_format(last_day(str_to_date(tPriorFirstDay,'%Y%m%d')),'%Y%m%d');
+		set tPriorLastDay = date_format(last_day(str_to_date(tPriorFirstDay,'%Y%m%d')),'%Y%m%d');
 		set tFirstDay = concat(substring(tNextCycleDate,1,6),'01');
 		set tLastDay = date_format(last_day(str_to_date(tNextCycleDate,'%Y%m%d')),'%Y%m%d');
 
@@ -87,7 +87,7 @@ BEGIN
 		SELECT 
 			commission.clientAccountID
 			,CASE WHEN (IFNULL(nav_daily.total,0.0) = 0.0) THEN 'X'
-				  WHEN (user_trade_profile.tradepreference in ('A','M')) THEN 'N'
+				  WHEN (upper(IB_Accounts.accountStatus) in ('Active')) THEN 'N'
 				  ELSE 'S'
              END as processed
 			,tFirstDay as firstdayofmonth
@@ -99,29 +99,29 @@ BEGIN
 			,ROUND(nav_daily.cash,2) as cash
 			,ROUND(nav_daily.total - nav_daily.cash,2) as invested
 			,tPriorFirstDay as priorFirstDay
-			,tPriotLastDay as priotLastDay
+			,tPriorLastDay as priotLastDay
 			-- ,fee.priorCapital
 			,funct_DaysInThisMonth(commission.toDate) as daysinMonth
 			,commission.commission as commission 
 			,commission.otherFee as otherfee
-			,CASE WHEN (user_trade_profile.tradepreference = 'A')
+			,CASE WHEN (upper(IB_Accounts.accountStatus) in ('Active'))
 					THEN funct_calc_invessence_fee(nav_daily.total,user_trade_profile.advisor,IB_Accounts.dateOpened, commission.toDate)
 				  ELSE 0.0
              END as invesseceFee
-			,CASE WHEN (user_trade_profile.tradepreference = 'A') 
+			,CASE WHEN (upper(IB_Accounts.accountStatus) in ('Active')) 
 					THEN funct_calc_advisor_fee(nav_daily.total,user_trade_profile.advisor,IB_Accounts.dateOpened, commission.toDate)
 				  ELSE 0.0
              END as advisorFee
 			,tTodayDate
-		FROM commission 
-			INNER JOIN IB_Accounts
-				ON (commission.clientAccountID = IB_Accounts.IB_acctnum)
-			INNER JOIN user_trade_profile
-				ON (IB_Accounts.acctnum = user_trade_profile.acctnum)
-			INNER JOIN nav_daily
-				ON (commission.clientAccountID = nav_daily.clientAccountID
-					AND  commission.toDate = nav_daily.reportDate)
-		WHERE commission.fromDate >= tNextCycleDate
+		FROM commission,
+			 IB_Accounts, 
+			 nav_daily,
+			 user_trade_profile
+		WHERE commission.clientAccountID = IB_Accounts.IB_acctnum
+		AND   IB_Accounts.acctnum = user_trade_profile.acctnum
+		AND   commission.clientAccountID = nav_daily.clientAccountID
+		AND  commission.toDate = nav_daily.reportDate
+		AND   commission.fromDate >= tNextCycleDate
 		;
 
 		DELETE FROM fees_charged

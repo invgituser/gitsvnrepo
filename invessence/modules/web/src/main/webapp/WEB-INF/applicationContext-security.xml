@@ -10,17 +10,18 @@
 
 
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
-   <http pattern="/tryus.xhtml" security="none" />
    <http pattern="/signup.xhtml" security="none"/>
    <http pattern="/register.xhtml" security="none"/>
    <http pattern="/resetPassword.xhtml" security="none"/>
    <http pattern="/setPassword.xhtml" security="none"/>
    <http pattern="/viewExpired.xhtml" security="none"/>
-   <http pattern="/ForgotPassword.xhtml" security="none"/>
    <http pattern="/forgot.xhtml" security="none"/>
    <http pattern="/signupApproval.xhtml" security="none"/>
    <http pattern="/message.xhtml" security="none"/>
-   <http pattern="/securitypolicy.html" security="none"/>
+
+   <http pattern="/tryus.xhtml" security="none" />
+   <http pattern="/ForgotPassword.xhtml" security="none"/>
+
    <http pattern="/css/**" security="none"/>
    <http pattern="/js/**" security="none"/>
    <http pattern="/javax.faces.resource/*" security="none"/>

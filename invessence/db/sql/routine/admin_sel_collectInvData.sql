@@ -1,4 +1,5 @@
 DROP PROCEDURE IF EXISTS `admin_sel_collectInvData`;
+
 DELIMITER $$
 CREATE PROCEDURE `admin_sel_collectInvData`(
 	IN p_filter	VARCHAR(20)
@@ -55,7 +56,7 @@ BEGIN
 			IFNULL(`user_risk_questions`.`ans14`,0) AS ans14,
 			IFNULL(`user_risk_questions`.`ans15`,0) AS ans15,
 			DATE_FORMAT(profile.created,'%Y-%m-%d') as created
-			--	profile.lastUpdated
+			
 			from
 				user_logon,
 				user_access_role,
@@ -115,7 +116,7 @@ BEGIN
 			IFNULL(`user_risk_questions`.`ans14`,0) AS ans14,
 			IFNULL(`user_risk_questions`.`ans15`,0) AS ans15,
 			DATE_FORMAT(profile.created,'%Y-%m-%d') as created
-			--	profile.lastUpdated
+			
 			from
 				user_logon,
 				user_access_role,
@@ -178,7 +179,7 @@ BEGIN
 			IFNULL(`user_risk_questions`.`ans14`,0) AS ans14,
 			IFNULL(`user_risk_questions`.`ans15`,0) AS ans15,
 			DATE_FORMAT(profile.created,'%Y-%m-%d') as created
-			--	profile.lastUpdated
+			
 			from
 				user_logon,
 				user_access_role,
@@ -240,7 +241,7 @@ BEGIN
 			IFNULL(`user_risk_questions`.`ans14`,0) AS ans14,
 			IFNULL(`user_risk_questions`.`ans15`,0) AS ans15,
 			DATE_FORMAT(profile.created,'%Y-%m-%d') as created
-			--	profile.lastUpdated
+			
 			from
 				user_logon,
 				user_access_role,

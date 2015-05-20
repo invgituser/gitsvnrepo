@@ -56,27 +56,40 @@ public class ConsumerProfileTabControl
 
    public void onPTabChange(TabChangeEvent event) {
       Tab active = event.getTab();
-      if (active.getTitle().startsWith("O"))
+      String pTabID = active.getId().toLowerCase();
+
+      if (pTabID.equals("p1"))
          pTab = 0;
-      if (active.getTitle().startsWith("F"))
+      if (pTabID.equals("p2"))
          pTab = 1;
-      if (active.getTitle().startsWith("R"))
+      if (pTabID.equals("p3"))
          pTab = 2;
+      if (pTabID.equals("p4"))
+         pTab = 3;
    }
 
    public void onRTabChange(TabChangeEvent event) {
       Tab active = event.getTab();
-      String tabName= active.getTitle();
-      Integer tabID = Integer.getInteger(tabName);
-      if (tabID != null)
-         rTab = tabID - 1;
+      String pTabID = active.getId().toLowerCase();
 
-      if (rTab <= 0)
+      if (pTabID.equals("q1"))
          rTab = 0;
+      if (pTabID.equals("q2"))
+         rTab = 1;
+      if (pTabID.equals("q3"))
+         rTab = 2;
+      if (pTabID.equals("q4"))
+         rTab = 3;
+      if (pTabID.equals("q5"))
+         rTab = 4;
+      if (pTabID.equals("q6"))
+         rTab = 5;
+      if (pTabID.equals("q7"))
+         rTab = 6;
    }
 
    public String getEnableNextButton() {
-      if (rTab >= 6)
+      if (rTab >= 6 && pTab == 3)
          return "false";
       return "true";
    }
@@ -95,6 +108,7 @@ public class ConsumerProfileTabControl
                  break;
               case 1:
               case 2:
+              case 3:
                  pTab--;
               default:
                  break;
@@ -117,10 +131,11 @@ public class ConsumerProfileTabControl
       switch (pTab) {
          case 0:
          case 1:
+         case 2:
             pTab ++;
             rTab = 0;
             break;
-         case 2:
+         case 3:
          default:
             if (rTab < 6)
                rTab ++;

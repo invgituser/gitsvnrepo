@@ -25,6 +25,7 @@ public class Charts implements Serializable
    private CartesianChartModel lineChart;
    private PieChartModel pieChart;
    private MeterGaugeChartModel meterGuage;
+   private BarChartModel barChart;
 
    public Charts()
    {
@@ -86,6 +87,11 @@ public class Charts implements Serializable
    public MeterGaugeChartModel getMeterGuage()
    {
       return meterGuage;
+   }
+
+   public BarChartModel getBarChart()
+   {
+      return barChart;
    }
 
    public void setMeterGuage(Integer pointer)
@@ -294,5 +300,61 @@ public class Charts implements Serializable
          ex.printStackTrace();
       }
    }
+
+   public void createBarChart(List<Asset> assetInfo)
+   {
+      String color;
+      if (assetInfo == null)
+         return;
+      if (assetInfo.size() <= 0)
+         return;
+      barChart = new BarChartModel();
+      try {
+         Calendar cal = Calendar.getInstance();
+         calendarYear = cal.get(cal.YEAR);
+         minYearPoint = calendarYear;
+         maxYearPoint = minYearPoint + assetInfo.size();
+         String pieseriesColors = "";
+         ChartSeries[] series = new ChartSeries[assetInfo.size()];
+         Integer maxAllocated = 0;
+         for (int i = 0; i < assetInfo.size(); i++)
+         {
+            Asset asset = assetInfo.get(i);
+            String assetname = asset.getAsset();
+            series[i].setLabel(assetname);
+            Double weight = asset.getActualweight();
+            series[i].set(calendarYear, weight);
+            maxAllocated = (maxAllocated < weight.intValue()) ? weight.intValue() : maxAllocated;
+            color = asset.getColor().replace('#', ' ');
+            color = color.trim();
+            if (i == 0)
+            {
+               pieseriesColors = color.trim();
+            }
+            else
+            {
+               pieseriesColors = pieseriesColors + "," + color;
+            }
+            barChart.addSeries(series[i]);
+         }
+         barChart.setSeriesColors(pieseriesColors);
+         barChart.setExtender("bar_extensions");
+
+         Axis xAxis = barChart.getAxis(AxisType.X);
+         xAxis.setLabel("Assets");
+         //xAxis.setTickFormat();
+
+         Axis yAxis = barChart.getAxis(AxisType.Y);
+         yAxis.setLabel("Allocated");
+         yAxis.setMin(0);
+         yAxis.setMax(maxAllocated + 5);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+
+      return;
+   }
+
 
 }

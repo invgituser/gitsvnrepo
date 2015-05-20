@@ -120,7 +120,8 @@
                         <p:commandButton id="tlhButton" value="Rebalance"
                                          update="@form" ajax="true"
                                          actionListener="#{tradeBean.createtlhTrades}">
-                            <p:ajaxStatus onstart="PF('status').show()" oncomplete="PF('status').hide()"/>
+                            <p:ajaxStatus onclick="PF('rebalButton').disable();PF('status').show();"
+                                          oncomplete="PF('status').hide()"/>
                         </p:commandButton>
 
                     </f:facet>
@@ -249,11 +250,14 @@
 
             </p:tabView>
 
-            <ui:include src="/pages/common/reviewtrades.xhtml"/>
+            <ui:include src="/pages/admin/reviewtrades.xhtml"/>
 
-            <p:dialog widgetVar="status" modal="true" closable="false"
+            <p:dialog widgetVar="status" modal="false" closable="true"
                       style="background: #fff; top:200px">
-                Please Wait
+                Processing<br/>
+                <p:progressBar widgetVar="pbAjax" ajax="true" value="#{tradeBean.webutil.progressbar}"
+                               labelTemplate="{value}%" styleClass="animated" global="false">
+                </p:progressBar>
             </p:dialog>
         </h:form>
     </div>

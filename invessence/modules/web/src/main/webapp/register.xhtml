@@ -26,8 +26,8 @@
 </h:head>
 
 <f:metadata>
-    <f:viewParam name="u" value="#{userBean.userID}"/>
-    <f:viewParam name="r" value="#{userBean.resetID}"/>
+    <f:viewParam name="u" value="#{userBean.beanUserID}"/>
+    <f:viewParam name="r" value="#{userBean.beanResetID}"/>
     <f:event type="preRenderView" listener="#{userBean.preRenderView}"/>
 </f:metadata>
 
@@ -43,10 +43,11 @@
                     <h:graphicImage id="logo" name="#{menu.logo}" styleClass="Fleft" library="spark-layout"
                                     class="MarAuto MarTop20 MarBot10"/>
 
-                    <h:inputHidden id="resetCode" value="#{userBean.resetID}"/>
+                    <h:inputHidden value="#{userBean.beanUserID}" styleClass="Wid90"/>
+                    <h:inputHidden id="resetCode" value="#{userBean.beanResetID}"/>
                     <div class="EmptyBox10"></div>
                     <div class="Container90">
-                        <p:growl id="sgrowl"/>
+                        <p:growl id="sgrowl" escape="false" autoUpdate="true"/>
                     </div>
                     <div class="EmptyBox5"></div>
                     <p:panel id="signup" styleClass="Container100" style="border:0px">
@@ -58,51 +59,48 @@
                             </div>
                                 <p:panelGrid columns="3" layout="grid"
                                              style="border:0px !important; padding: 5px !important; background:none;" class="FormContent">
-                                    <h:outputLabel value="User ID" styleClass="Wid80"/>
-                                    <h:outputLabel value="#{userBean.userID}" styleClass="Wid100"/>
-                                    <h:inputHidden value="#{userBean.userID}" styleClass="Wid80"/>
+                                    <h:outputText value="User ID" styleClass="Wid90"/>
+                                    <h:outputText value="#{userBean.beanUserID}" styleClass="Wid90"/>
+                                    <h:outputText styleClass="Wid90"/>
 
-                                    <h:outputLabel value="Password" styleClass="Wid80"/>
-                                    <p:password id="pwd1" value="#{userBean.password}" styleClass="Wid100" placeholder="New Password"
-                                                match="pwd2" label="Password"
-                                                feedback="true" inline="true"
-                                                validatorMessage="Password does not match criteria.">
-                                        <f:validateRegex
-                                                pattern="^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%?]).*$"/>
+                                    <h:outputText value="Password" styleClass="Wid90"/>
+                                    <p:password id="pwd1" value="#{userBean.password}" styleClass="Wid90"
+                                                placeholder="New Password"
+                                                feedback="true" inline="true">
                                     </p:password>
-                                    <p:commandButton id="pwdHelp" value="See rules" process="@none"/>
+                                    <p:commandButton id="pwdHelp"  styleClass="Wid90"
+                                                     icon="fa fa-question-circle white"
+                                                     value="Help" process="@none"/>
 
-                                    <h:outputLabel value="Confirm Password" styleClass="Wid80"/>
-                                    <p:password id="pwd2" value="#{userBean.confirmNewPassword}" styleClass="Wid100"
+                                    <h:outputText value="Confirm Password" styleClass="Wid90"/>
+                                    <p:password id="pwd2" value="#{userBean.confirmNewPassword}" styleClass="Wid90"
                                                 placeholder="Confirm Password"/>
-                                    <h:outputText styleClass="Wid80"/>
+                                    <h:outputText styleClass="Wid90"/>
 
-                                    <p:overlayPanel id="helpPanel" for="pwdHelp" hideEffect="fade" dynamic="true"
-                                                    showCloseIcon="true"
-                                                    style="width:300px">
-                                        Password Must contain a minimum of 8 Characters including at least:
-                                        <ul>
-                                            <li>1 uppercase letter</li>
-                                            <li>1 number</li>
-                                            <li>1 of these special characters: !,#,$,%,?</li>
-                                        </ul>
-                                    </p:overlayPanel>
                                 </p:panelGrid>
                             </div>
                         </p:panel>
 
                         <f:facet name="footer">
-                            <p:commandButton value="Next" style="float: right"
+                            <p:commandButton value="Next" type="submit" styleClass="Fright"
                                              actionListener="#{userBean.register}"
-                                             update="@form"/>
+                                             update="p1, sgrowl"/>
                          </f:facet>
+                        <p:overlayPanel id="helpPanel" for="pwdHelp" hideEffect="fade" dynamic="false"
+                                        showCloseIcon="true"
+                                        style="width:300px">
+                            Password Must contain a minimum of 8 Characters including at least:
+                            <ul>
+                                <li>1 uppercase letter</li>
+                                <li>1 number</li>
+                                <li>1 of these special characters: !,#,$,%,?</li>
+                            </ul>
+                        </p:overlayPanel>
 
                     </p:panel>
-                    <div class="EmptyBox30"></div>
-
-
                 </h:form>
             </div>
+            <div class="EmptyBox50"></div>
         </div>
     </div>
 

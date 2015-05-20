@@ -1,5 +1,4 @@
-DROP PROCEDURE `sp_addClients2Trade`;
-
+DROP PROCEDURE IF EXISTS sp_addClients2Trade;
 DELIMITER $$
 CREATE PROCEDURE `sp_addClients2Trade`()
 BEGIN
@@ -14,6 +13,10 @@ BEGIN
 		select cast(value as unsigned) 
 		into vNumofDays
 		from invessence_switch where name = 'DAYS_TO_REBALANCE';
+
+		DELETE FROM pretrade_details;
+
+		DELETE FROM user_trade_log;
 
 		-- 1) Collect those accounts that are X% offset.
 		DROP temporary table if exists `acct2Rebalance_outofBalance`;
@@ -88,14 +91,9 @@ BEGIN
 				)
 		);
 
+		-- Clean up all 'View' Clients, because the new mode takes precedence.
 		DELETE FROM `clients_to_trade`
-		WHERE processStatus in ('P')
-		;
-
-		DELETE FROM `pretrade_details`;
-
-		DELETE FROM `user_trade_log`
-		WHERE `tradeStatus` in ('P', 'T');
+		where upper(reason) = upper('View');
 
 		INSERT INTO `clients_to_trade`
 		(`acctnum`,
@@ -109,16 +107,15 @@ BEGIN
 		SELECT distinct 
 			ib.acctnum,
 			ib.IB_acctnum,
-			'P',
-			vPostDate,
-			'N',
-			null,
-			vPostDate,
-			null
+			'P' as processStatus,
+			now() as tradedate,
+			'New' as reason,
+			null as lastTraded,
+			now() as created,
+			null as lastupdated
 		from IB_Accounts ib
-		where ib.acctnum not in (select r.acctnum from clients_to_trade r
-							    where r.processStatus = 'P')
-		and   UPPER(ib.accountStatus) in ('FUNDED')
+		where UPPER(ib.accountStatus) in ('FUNDED')
+		and ib.acctnum not in (select r.acctnum from clients_to_trade r)
 		;
 
 		INSERT INTO `clients_to_trade`
@@ -133,17 +130,22 @@ BEGIN
 		SELECT distinct 
 			t.acctnum,
 			t.clientAccountID,
-			'P',
-			vPostDate,
-			'D',
-			t.lastTraded,
-			vPostDate,
-			null
+			'P' as processStatus,
+			now() as tradedate,
+			'Date' as reason,
+			t.lastTraded as lastTraded,
+			now() as created,
+			null as lastupdated
 		from tmp_listOfAcct2Rebalance t
-		where t.acctnum not in (select r.acctnum from clients_to_trade r
-							    where r.processStatus = 'P')
+		where t.acctnum not in (select r.acctnum from clients_to_trade r)
 		and   t.acctnum in (select acctnum from user_trade_profile
 							    where tradePreference in ('A'))
+		;
+
+		-- Only for Out of Balance, reload the data.
+		delete  from `clients_to_trade`
+		where reason = 'Offset'
+		and  clients_to_trade.acctnum in (select distinct acctnum from unique_acct2Rebalance_outofBalance)
 		;
 
 		INSERT INTO `clients_to_trade`
@@ -164,8 +166,8 @@ BEGIN
 			uao.acctnum,
 			uao.clientAccountID,
 			'P' as processStatus, -- processStatus
-			lastTraded as tradedate, -- tradedate
-			'O' as reason, -- reason
+			IFNULL(lastTraded,now()) as tradedate, -- tradedate
+			'Offset' as reason, -- reason
 			ao.`pos`, -- position
 			ao.`actualtotal`, -- actualAvailable
 			((ao.`pos`/ao.`actualtotal`) * 100) as currentAllocation,
@@ -178,13 +180,11 @@ BEGIN
 			 acct2Rebalance_outofBalance ao
 		where uao.clientAccountID = ao.clientAccountID
 		and   uao.assetAllocationOffset = ao.assetAllocationOffset
-		and   uao.acctnum not in (select r.acctnum from clients_to_trade r
-							    where r.processStatus = 'P')
+		and   uao.acctnum not in (select r.acctnum from clients_to_trade r)
 		and   uao.acctnum in (select acctnum from user_trade_profile
 							    where tradePreference in ('A'))
 		and   (ao.lastTraded is null or ao.lastTraded <= DATE_ADD(now(), INTERVAL -10 DAY)) 
 		;
-
 
 		INSERT INTO `clients_to_trade`
 		(`acctnum`,
@@ -205,7 +205,7 @@ BEGIN
 			ib.IB_acctnum,
 			'P', -- processStatus
 			vPostDate, -- tradedate
-			'V', -- reason
+			'View', -- reason
 			null, -- position
 			funct_get_actualCapital(ib.acctnum), -- actualAvailable
 			null as currentAllocation,
@@ -218,7 +218,6 @@ BEGIN
 		where  ib.acctnum not in (select acctnum from  `clients_to_trade`)
 		and ib.acctnum is not null
 		;
-
 
 		commit;
 	end;

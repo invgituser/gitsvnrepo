@@ -19,7 +19,7 @@ public class TradeSummary
    private String lastName, firstName;
    private String email;
    private Double totalbought, totalsold, newcash, keepLiquid;
-   private Double totalNewValue, totalHoldingValue;
+   private Double totalNewValue, totalAllocValue, totalHoldingValue;
    private Map<String, Asset> asset = new LinkedHashMap<String, Asset>();
    private Map<String, TradeData> tradeDetails = new LinkedHashMap<String, TradeData>();
    private TradeData cashDetail = new TradeData();
@@ -173,6 +173,9 @@ public class TradeSummary
 
    public Double getTotalNewValue()
    {
+      if (totalNewValue == null)
+         return 0.0;
+
       return totalNewValue;
    }
 
@@ -181,8 +184,23 @@ public class TradeSummary
       this.totalNewValue = totalNewValue;
    }
 
+   public Double getTotalAllocValue()
+   {
+      if (totalAllocValue == null)
+         return 0.0;
+      return totalAllocValue;
+   }
+
+   public void setTotalAllocValue(Double totalAllocValue)
+   {
+      this.totalAllocValue = totalAllocValue;
+   }
+
    public Double getTotalHoldingValue()
    {
+      if (totalHoldingValue == null)
+         return 0.0;
+
       return totalHoldingValue;
    }
 

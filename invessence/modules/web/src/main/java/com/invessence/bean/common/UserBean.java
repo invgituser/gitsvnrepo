@@ -1,6 +1,7 @@
 package com.invessence.bean.common;
 
 import java.util.*;
+import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
@@ -19,11 +20,9 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class UserBean extends UserData
 {
+   private String beanUserID, beanResetID, beanEmail;
 
    private WebUtil webutil = new WebUtil();
-   private String beanUserID;
-   private String beanEmail;
-   private String beanPasswd;
 
    private Integer sTab = 0;
 
@@ -32,11 +31,6 @@ public class UserBean extends UserData
 
    private EmailMessage messageText;
    private UserInfoDAO userInfoDAO;
-
-   public EmailMessage getMessageText()
-   {
-      return messageText;
-   }
 
    public String getBeanUserID()
    {
@@ -48,24 +42,19 @@ public class UserBean extends UserData
       this.beanUserID = beanUserID;
    }
 
-   public String getBeanEmail()
+   public String getBeanResetID()
    {
-      return beanEmail;
+      return beanResetID;
    }
 
-   public void setBeanEmail(String beanEmail)
+   public void setBeanResetID(String beanResetID)
    {
-      this.beanEmail = beanEmail;
+      this.beanResetID = beanResetID;
    }
 
-   public String getBeanPasswd()
+   public EmailMessage getMessageText()
    {
-      return beanPasswd;
-   }
-
-   public void setBeanPasswd(String beanPasswd)
-   {
-      this.beanPasswd = beanPasswd;
+      return messageText;
    }
 
    public void setMessageText(EmailMessage messageText)
@@ -96,41 +85,80 @@ public class UserBean extends UserData
    public void preRenderView()
    {
 
-      try {
+      String msg = null;
+      try
+      {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.isNull(beanEmail))
+            msg = validateUser();
+            if (msg != null)
             {
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid UserID", "Invalid UserID"));
+               webutil.redirecttoMessagePage("ERROR","Invalid link","Sorry, you are attempting to access the registration process, but the link contains invalid data.<br>" + msg);
             }
-            else if (webutil.isNull(getResetID().toString()))
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Registration ID", "Invalid Registration ID"));
-
-            else {
-               int ind = userInfoDAO.checkReset(beanEmail, getResetID().toString());
-               if (ind != 1) {
-                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This userID is invalid.", "This userID is invalid."));
-               }
-            }
-
          }
 
       }
       catch (Exception e)
       {
+         msg = "System error: contact support.";
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
       }
+   }
+
+   public String validateUser()
+   {
+      String msg = null;
+      try
+      {
+         setUserID(beanUserID);
+         setResetID(Integer.valueOf(beanResetID));
+         if (webutil.isNull(getUserID()))
+         {
+            msg = "Invalid UserID";
+         }
+         else if (webutil.isNull(getResetID().toString()))
+         {
+            msg = "Invalid Registration ID";
+         }
+         else
+         {
+            int ind = userInfoDAO.checkReset(getUserID(), getResetID().toString());
+            switch (ind)
+            {
+               case -1:
+                  msg = "User is already registered!";
+                  break;
+               case -2:
+                  msg = "You are already registered!<br/>Please use forgot my password to reset password.";
+                  break;
+               case 0:
+                  msg = "Not registered user.";
+                  break;
+               case 1:
+                  break;
+               default:
+                  msg = "System error: contact support.";
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         msg = "System error: contact support.";
+      }
+      return msg;
    }
 
 
    public String signUp()
    {
-      if (getBeanEmail() == null || getBeanEmail().length() < 5 ) {
+      if (getUserID() == null || getUserID().length() < 5)
+      {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Email", "Invalid Email"));
       }
       MsgData data = new MsgData();
       //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
-      System.out.println("Registered by: " + getFullName() + ", EmailID: " + getBeanEmail());
+      System.out.println("Registered by: " + getFullName() + ", EmailID: " + getUserID());
       try
       {
          if (messageText == null)
@@ -141,9 +169,9 @@ public class UserBean extends UserData
          }
 
          // We are using the First Name, Last Name from UserData as entered.
-         setUserID(getBeanEmail());
-         setEmail(getBeanEmail());
-         setEmailID(getBeanEmail());
+         setUserID(getUserID());
+         setEmail(getUserID());
+         setEmailID(getUserID());
          String rndmPassword = PasswordGenerator.getSecCode();
          String tmpCode = MsgDigester.getMessageDigest(rndmPassword);
          String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
@@ -172,11 +200,16 @@ public class UserBean extends UserData
          data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
          String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
          String name = getFirstName() + " " + getLastName();
-         // System.out.println("MIME Type :" + getEmailmsgtype());
-         String msg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
 
+         // System.out.println("MIME Type :" + getEmailmsgtype());
+         if (getEmailmsgtype() == null || getEmailmsgtype().isEmpty())
+            data.setMimeType("HTML");
+         else
+            data.setMimeType(getEmailmsgtype());
+
+         String msg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
          data.setMsg(msg);
-         data.setMimeType(getEmailmsgtype());
+
          messageText.writeMessage("signup", data);
 
          FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
@@ -198,7 +231,7 @@ public class UserBean extends UserData
       MsgData data = new MsgData();
       //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
-      System.out.println("Demo by: " + getFullName() + ", EmailID: " + getBeanEmail());
+      System.out.println("Demo by: " + getFullName() + ", EmailID: " + getUserID());
       try
       {
          /*  // For Demo if the email is down, then don't worry.  Let the user continue to test.  They can reset the password later.
@@ -211,9 +244,9 @@ public class UserBean extends UserData
          */
 
          // We are using the First Name, Last Name from UserData as entered.
-         setUserID(getBeanEmail());
-         setEmail(getBeanEmail());
-         setEmailID(getBeanEmail());
+         setUserID(getUserID());
+         setEmail(getUserID());
+         setEmailID(getUserID());
          String rndmPassword = PasswordGenerator.getSecCode();
          String tmpCode = MsgDigester.getMessageDigest(rndmPassword);
          String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
@@ -254,12 +287,13 @@ public class UserBean extends UserData
          }
          else
          {
-            sendEmail=true;
+            sendEmail = true;
             msg = "";
             redirectTo = "/createInvestment.xhtml";
          }
 
-         if (sendEmail) {
+         if (sendEmail)
+         {
             // Now send email support.
             if (messageText != null)
             {
@@ -276,14 +310,19 @@ public class UserBean extends UserData
             }
          }
 
-         if (redirectTo != null) {
+         if (redirectTo != null)
+         {
             if (loginID > 0)
+            {
                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
+            }
             FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo);
             return "success";
          }
          else
+         {
             return "failed";
+         }
 
       }
       catch (Exception ex)
@@ -303,87 +342,141 @@ public class UserBean extends UserData
       }
    }
 
-   public void register() {
-      try {
+
+   public void register()
+   {
+      String msg;
+      try
+      {
+         msg = webutil.validateNewPass(getPassword(), getConfirmNewPassword());
+         if (! msg.toUpperCase().equals("SUCCESS"))
+         {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+            return;
+         }
+
          String passwordEncrypted = MsgDigester.getMessageDigest(getPassword());
 
-         userInfoDAO.resetPassword(beanEmail, passwordEncrypted);
+         userInfoDAO.resetPassword(beanUserID, passwordEncrypted);
 
-         String msg = "password.set.success";
+         msg = "registered.success";
          webutil.redirect("message.xhtml?faces-redirect=true&message=" + msg, null);
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
    }
 
-   public String forgotPassword()
+   public void resetPassword()
    {
-      try {
-         String check;
-         check = userInfoDAO.checkEmailID(beanEmail);
-         if (check == null || check.length() == 0) {
-            return "message.xhtml?faces-redirect=true&message=User not found";
+      String msg;
+      try
+      {
+         msg = webutil.validateNewPass(getPassword(), getConfirmNewPassword());
+         if (! msg.toUpperCase().equals("SUCCESS"))
+         {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+            return;
          }
-         else {
-            Integer myResetID = webutil.randomGenerator(0,347896);
-            setResetID(myResetID);
-            return validateSecurityQuestions();
-         }
+
+         String passwordEncrypted = MsgDigester.getMessageDigest(getPassword());
+
+         userInfoDAO.resetPassword(beanUserID, passwordEncrypted);
+
+         msg = "password.set.success";
+         webutil.redirect("message.xhtml?faces-redirect=true&message=" + msg, null);
       }
-      catch (Exception ex) {
-         return "message.xhtml?faces-redirect=true&type=E&message=Error when attempting to reset.";
+      catch (Exception ex)
+      {
+
       }
    }
 
-   public String validateSecurityQuestions()
+   public void forgotPassword()
+   {
+      try
+      {
+         String check;
+         check = userInfoDAO.checkEmailID(beanUserID);
+         if (check == null || check.length() == 0)
+         {
+             webutil.redirect("message.xhtml?faces-redirect=true&message=User not found", null);
+         }
+         else
+         {
+            beanEmail = check;
+            Integer myResetID = webutil.randomGenerator(0, 347896);
+            beanResetID = myResetID.toString();
+            validateSecurityQuestions();
+         }
+      }
+      catch (Exception ex)
+      {
+         webutil.redirect("message.xhtml?faces-redirect=true&type=E&message=Error when attempting to reset.", null);
+         webutil.alertSupport("ForgotPwd", "Resetting password", "Error when attempting to reset for" + beanUserID, null);
+      }
+   }
+
+   public void validateSecurityQuestions()
    {
 
       // Save ResetID
-      userInfoDAO.updResetID(getEmailID(), getResetID().toString());
+      userInfoDAO.updResetID(beanUserID, beanResetID);
 
       //String websiteName = messageSource.getMessage("website.name", new Object[]{}, null);
       MsgData data = new MsgData();
       //data.setLogonID(loginID);
       data.setSource("User");
       data.setSender(Const.MAIL_SENDER);
-      data.setReceiver(getEmailID());
+      data.setReceiver(beanEmail);
       data.setSubject(Const.COMPANY_NAME + ": Forgot Password");
       //data.setMsg(MsgConst.getSignupMsg(userData));
 
-      System.out.println("MIME TYPE :" + userInfoDAO.checkMimeType(getEmailID()));
+      // System.out.println("MIME TYPE :" + userInfoDAO.checkMimeType(getEmailID()));
       if (messageText == null)
       {
-         return "message.xhtml?faces-redirect=true&type=E&&message=Email process is down";
+         webutil.redirect("message.xhtml?faces-redirect=true&type=E&&message=Email process is down.", null);
+         webutil.alertSupport("ForgotPwd", "Resetting password", "messageText Context is null for " + beanUserID, null);
       }
 
       String websiteUrl = messageText.buildInternalMessage("website.url", new Object[]{});
       String name = "User";
-      data.setMimeType(userInfoDAO.checkMimeType(getEmailID()));
-      String msg = messageText.buildMessage(userInfoDAO.checkMimeType(getEmailID()), "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, getEmailID(), getResetID().toString()});
+      String mimetype=userInfoDAO.checkMimeType(beanUserID);
+      data.setMimeType(mimetype);
+      String msg = messageText.buildMessage(mimetype, "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, beanUserID, beanResetID});
 
       data.setMsg(msg);
       messageText.writeMessage(name, data);
 
       String resetMsg = "password.reset";
-      return "message.xhtml?faces-redirect=true&message=" + resetMsg;
+      webutil.redirect("message.xhtml?faces-redirect=true&message=" + resetMsg,null);
 
    }
 
-   public void gotoPrevTab()  {
+   public void gotoPrevTab()
+   {
       if (sTab <= 0)
+      {
          sTab = 0;
-      else
-         sTab--;
-
-   }
-
-   public void gotoNextTab()  {
-      if (sTab >= 1) {
-        String status = signUp();
       }
       else
+      {
+         sTab--;
+      }
+
+   }
+
+   public void gotoNextTab()
+   {
+      if (sTab >= 1)
+      {
+         String status = signUp();
+      }
+      else
+      {
          sTab++;
+      }
 
    }
 }

@@ -4,160 +4,82 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
-                template="/template/common/invlayout.xhtml">
+                template="/template/common/invlayoutplain.xhtml">
 
-<f:metadata>
-    <f:viewParam name="acct" value="#{cepb.beanAcctnum}"/>
-    <f:event type="preRenderView" listener="#{cepb.preRenderView}"/>
-</f:metadata>
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{cepb.preRenderView}"/>
+    </f:metadata>
 
-<ui:define name="content">
-<h:outputScript name="js/invCharts.js" library="spark-layout" />
+    <ui:define name="content">
+        <h:outputScript name="js/invCharts.js" library="spark-layout"/>
 
-<!-- BOX START -->
-<h:form id="ceForm">
-<p:growl id="advisorEditgrowl" showDetail="true" sticky="true" escape="true"/>
+        <!-- BOX START -->
+        <h:form id="ceForm">
+            <p:growl id="advisorEditgrowl" showDetail="true" sticky="true" escape="true"/>
 
-<div class="layout-portlets-box">
-    <p:panel id="dPanel1" rendered="false">
+            <div class="layout-portlets-box">
+                <p:panel id="dPanel1">
 
-        <div class="Container33 Responsive">
-            <div class="ContainerIndent">
-                <div class="Container100">
-                    <div class="DispInlBlock">
-                        <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
-                        <p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
-                            <h3 class="black Fs18 FontRalewayMedium">#{menu.webutil.lastFirstName}</h3>
-                            <span class="Fs15 gray FontRalewayRegular DispBlock">#{cepb.portfolioName}</span>
+                    <div class="Container33 Responsive">
+                        <div class="ContainerIndent">
+                            <div class="Container100">
+                                <div class="DispInlBlock">
+                                    <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
+                                    <p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
+                                        <h3 class="black Fs18 FontRalewayMedium">#{cepb.portfolioName}</h3>
                             <span class="Fs15 gray FontRalewayRegular DispBlock">
                                <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
                                <p:outputLabel value="Non-Taxable" rendered="#{! cepb.accountTaxable}"/>
                             </span>
-                        </p:panel>
+                                    </p:panel>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                 </div>
-            </div>
-        </div>
 
-        <div class="Container33 Responsive">
-            <div class="ContainerIndent">
-                <div class="DispBlock">
-                    <div class="Wid50 Fleft TexAlCenter">
+                    <div class="Container33 Responsive">
                         <div class="ContainerIndent">
-                            <span class="gray Fs18 FontRalewayMedium DispBlock">Investment</span>
+                            <div class="DispBlock">
+                                <div class="Wid50 Fleft TexAlCenter">
+                                    <div class="ContainerIndent">
+                                        <span class="gray Fs18 FontRalewayMedium DispBlock">Investment</span>
                             <span class="black FontRalewayBold Fs24">
                                 <h:outputText id="displayInvestment" value="#{cepb.initialInvestment}">
                                     <f:convertNumber pattern="$ #,###,###"/>
                                 </h:outputText>
                             </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="Container33 Responsive">
-            <div class="ContainerIndent">
-                <div class="DispBlock">
-                    <div class="Container100 TextAlCenter">
-                        <p:commandButton value="Save" icon="fa fa-save Fs14 white"
-                            actionListener="#{cepb.saveProfile}"/>
+                    <div class="Container33 Responsive">
+                        <div class="ContainerIndent">
+                            <div class="DispBlock">
+                                <div class="Container100 TextAlCenter">
+                                    <p:button value="Register" icon="fa fa-sign-in Fs14 white"
+                                              href="/signup.xhtml"></p:button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="Container100">
-                        <p:commandButton value="Fund Account" icon="fa fa-dollar Fs14 white"
-                                         actionListener="#{cepb.fundAccount}"
-                                         oncomplete="PF('dlgIB').show();"/>
+
+                </p:panel>
+
+                <div class="Container100 Responsive50">
+                    <div class="ContainerIndent">
+                        <ui:include src="/pages/consumer/addon/cEdit.xhtml"/>
                     </div>
+                    <p:panel id="workArea" rendered="false">
+                    </p:panel>
                 </div>
+
+
             </div>
-        </div>
+            <!-- BOX END -->
 
-    </p:panel>
+        </h:form>
 
-    <div class="Container100 Responsive50">
-        <div class="ContainerIndent">
-            <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
-               <ui:include src="/pages/consumer/personalDataEntry.xhtml"/>
-            </p:fieldset>
-        </div>
-    </div>
-
-</div>
-<!-- BOX END -->
-
-<p:dialog header="#{cepb.goal}" widgetVar="dlgIB" closable="true" appendTo="@(body)">
-
-    <p:panelGrid cellpadding="5" styleClass="invNBgrid"
-                 rendered="#{cepb.canOpenAccount == 0 ? 'true' : 'false'}">
-        <p:row>
-            <p:column colspan="2" style="text-align:left; color: #CC0000">
-                <h3><h:outputText value="#{cepb.forwardInstructions}" escape="false"/></h3>
-            </p:column>
-        </p:row>
-        <p:row>
-            <p:column colspan="2" style="text-align:left">
-                <br/>
-                <strong>Please have the following information readily available:</strong>
-                <br/>
-                <br/>
-                <i>Personal Information</i>
-                <ul>
-                    <li>Social Security Number</li>
-                    <li>Driver's License</li>
-                </ul>
-                <i>For an IRA you also need</i>
-                <ul>
-                    <li>Beneficiary Information</li>
-                    <li>Beneficiary Social Security Number</li>
-                </ul>
-                <i>Funding</i>
-                <ul>
-                    <li>Bank Information</li>
-                    <li>Brokerage Information</li>
-                </ul>
-
-                <p>
-                    You will now be redirected to Interactive Brokers.</p>
-                <p>You will also be <u>logged out of Invessence</u>!</p>
-            </p:column>
-        </p:row>
-
-        <f:facet name="footer">
-            <p:row>
-                <p:column style="text-align: left">
-                    <p:commandButton value="Continue"
-                                     actionListener="#{cepb.forwardToIB}"
-                                     oncomplete="PF('dlgIB').hide();"/>
-                </p:column>
-                <p:column style="text-align: right">
-                    <p:commandButton value="Cancel"
-                                     oncomplete="PF('dlgIB').hide();" />
-
-                </p:column>
-            </p:row>
-        </f:facet>
-    </p:panelGrid>
-
-    <p:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid" rendered="#{cepb.canOpenAccount == 0 ? 'false' : 'true' }">
-        <p:row>
-            <p:column colspan="2">
-                <h:outputText value="#{cepb.forwardInstructions}" escape="false"/>
-            </p:column>
-        </p:row>
-
-        <f:facet name="footer">
-            <p:column>
-                <p:commandButton value="Cancel"
-                                 oncomplete="PF('dlgIB').hide();"/>
-
-            </p:column>
-        </f:facet>
-    </p:panelGrid>
-
-</p:dialog>
-
-
-</h:form>
-
-</ui:define>
+    </ui:define>
 
 </ui:composition>

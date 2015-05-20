@@ -3,6 +3,13 @@
 /*------------------------------------------------------------
  * CUSTOM BACKGROUND STYLE BASED ON THEME OPTION PAGE CHOICES
  * ----------------------------------------------------------*/
+
+.ui-growl {
+    position:fixed;
+    top: 40% !important;
+    left: 37% !important;
+}
+
 .NBwidget {
     border: 0px;
 }

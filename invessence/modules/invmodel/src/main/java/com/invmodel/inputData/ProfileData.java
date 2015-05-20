@@ -42,7 +42,8 @@ public class
    private String advisor;
    private String theme;
    private String basket;
-   private Integer[] riskAnswers = new Integer[7];
+   private Integer numOfQuestions = 15;
+   private Integer[] riskAnswers = new Integer[numOfQuestions];
 
 
    private Integer stayInvested = 1;  // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
@@ -67,7 +68,7 @@ public class
 
    private Integer riskIndex = 0;   // On riskIndex 0 = highest risk, 28 = lowest risk.
    private Integer displayRiskIndex = 10; // On displayRiskIndex 0 = lowest risk, 10 = highest risk.
-   // private RiskIndex riskdata = new RiskIndex();
+   private RiskIndex riskdata = new RiskIndex();
 
    private String riskCalcMethod = "C";  // Choices: C - Consumer, A - Advisor
    private Integer allocationIndex = InvConst.ASSET_DEFAULT_POINT;
@@ -500,7 +501,7 @@ public class
    public void setRiskAnswers(Integer[] riskAnswers)
    {
       if (riskAnswers == null) {
-         this.riskAnswers = new Integer[7];
+         this.riskAnswers = new Integer[numOfQuestions];
       }
       else
          this.riskAnswers = riskAnswers;
@@ -839,12 +840,10 @@ public class
       }
    }
 
-/*
    public RiskIndex getRiskdata()
    {
       return riskdata;
    }
-*/
 
 /*
    public Integer getDefaultRiskIndex()
@@ -859,23 +858,12 @@ public class
    }
 */
 
-/*
-   public void setRiskdata(RiskIndex riskdata)
-   {
-      this.riskdata = riskdata;
-   }
-*/
 
    public Integer calcRiskIndexOfQuestions()
    {
       Integer riskIndex = 0;
-         for (Integer question = 0; question < riskAnswers.length ; question++) {
-            if (riskAnswers[question] == null)
-               continue;
-            if (riskAnswers[question] > riskIndex)
-               riskIndex = riskAnswers[question];
-         }
-         return riskIndex;
+      riskIndex = riskdata.getRiskOffset(riskAnswers);
+      return riskIndex;
    }
 
 

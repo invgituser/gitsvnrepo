@@ -14,35 +14,35 @@
                            effect="slide" effectDuration="fast">
                     <p:ajax event="tabChange" listener="#{cptc.onPTabChange}"/>
                     <p:tab title="Overview">
-                        <ui:include src="/pages/consumer/a1.xhtml"/>
+                        <ui:include src="/pages/consumer/addon/a1.xhtml/consumer/a1.xhtml"/>
                     </p:tab>
                     <p:tab title="Financials">
-                        <ui:include src="/pages/consumer/a2.xhtml"/>
+                        <ui:include src="/pages/consumer/addon/a2.xhtml/consumer/a2.xhtml"/>
                     </p:tab>
                     <p:tab title="Risk">
                             <p:tabView id="rTabView" orientation="top" activeIndex="#{cptc.rTab}"
                                     cache="false" dynamic="false" style="border: 0px">
                                 <p:ajax event="tabChange" listener="#{cptc.onRTabChange}"/>
                                 <p:tab title="1" >
-                                    <ui:include src="/pages/consumer/q1.xhtml"/>
+                                    <ui:include src="/pages/consumer/addon/q1.xhtml/consumer/q1.xhtml"/>
                                 </p:tab>
                                 <p:tab title="2" >
-                                    <ui:include src="/pages/consumer/q2.xhtml"/>
+                                    <ui:include src="/pages/consumer/addon/q2.xhtml/consumer/q2.xhtml"/>
                                 </p:tab>
                                 <p:tab title="3" >
-                                    <ui:include src="/pages/consumer/q3.xhtml"/>
+                                    <ui:include src="/pages/consumer/addon/q3.xhtml/consumer/q3.xhtml"/>
                                 </p:tab>
                                 <p:tab title="4" >
-                                    <ui:include src="/pages/consumer/q4.xhtml"/>
+                                    <ui:include src="/pages/consumer/addon/q4.xhtml/consumer/q4.xhtml"/>
                                 </p:tab>
                                 <p:tab title="5" >
-                                    <ui:include src="/pages/consumer/q5.xhtml"/>
+                                    <ui:include src="/pages/consumer/addon/q5.xhtml/consumer/q5.xhtml"/>
                                 </p:tab>
                                 <p:tab title="6" >
-                                    <ui:include src="/pages/consumer/q6.xhtml"/>
+                                    <ui:include src="/pages/consumer/addon/q6.xhtml/consumer/q6.xhtml"/>
                                 </p:tab>
                                 <p:tab title="7" >
-                                    <ui:include src="/pages/consumer/q7.xhtml"/>
+                                    <ui:include src="/pages/consumer/addon/q7.xhtml/consumer/q7.xhtml"/>
                                 </p:tab>
                             </p:tabView>
                     </p:tab>

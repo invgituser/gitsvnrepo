@@ -25,25 +25,29 @@
     </h:head>
 
     <h:body>
-        
+        <h:form>
+
         <div id="layout-portlets-cover">
             <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
                  style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
                 <div class="Container90 Fnone MarAuto TexAlCenter">
                     <div class="EmptyBox50"></div>
+                    <h:form>
                     <h:graphicImage name="images/access-denied.svg" library="spark-layout" class="MarAuto MarTop20 Wid30"/>
                     <span class="Fs40 Wid100 DispBlock red">Access Denied</span>
                     <span class="Wid100 DispBlock Fs30 red">Please Check Your Permissions !</span><br/>
                     <span class="Wid100 DispBlock Fs18 red">Sorry, but you have no access to this page.<br/>
                     </span>
                     <div class="EmptyBox30"></div>
-                    <p:commandButton value="Back to Dashboard" styleClass="Fs16 RedButton"
-                                     actionListener="#{menu.redirectStartPage()}"/>
+                    <p:commandButton value="OK" styleClass="Fs16 RedButton"
+                                     actionListener="#{menu.redirectStartPage}"/>
+                    </h:form>
                     <div class="EmptyBox50"></div>
                 </div>
             </div>
         </div>
-        
+        </h:form>
+
         <h:outputStylesheet name="css/core-layout.css" library="spark-layout" />
         <h:outputStylesheet name="css/font-awesome.css" library="spark-layout" />
         <h:outputStylesheet name="css/animate.css" library="spark-layout" />

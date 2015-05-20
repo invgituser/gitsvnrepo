@@ -73,12 +73,14 @@ public class UserInfoDAO extends JdbcDaoSupport
    }
 
 
-   public void updateUserProfile(UserData userData)
+   public String updateUserProfile(UserData userData)
    {
-
+      String message;
       UserInfoSP sp = new UserInfoSP(getDataSource(),"sp_update_userid_pwd",2);
 
-      sp.updateUserProfile(userData);
+      Map outMap = sp.updateUserProfile(userData);
+      return ( outMap.get("message").toString());
+
 
    }
 
@@ -91,24 +93,22 @@ public class UserInfoDAO extends JdbcDaoSupport
 
    }
 
-   public void resetPassword(String emailID, String password)
+   public void resetPassword(String userID, String password)
    {
 
-      String sql = "update user_logon set pwd = ?,  logonstatus = 'A',  lastupdated = now(), " +
-         "attempts=0, resetID=null " +
-         "where email = ?";
+      UserInfoSP sp = new UserInfoSP(getDataSource(),"sp_update_password",4);
 
-      this.getJdbcTemplate().update(sql, new Object[]{password, emailID});
+      sp.updatePassword(userID, password);
    }
 
 
 
-   public String checkEmailID(String emailID)
+   public String checkEmailID(String userid)
    {
 
-      String sql = "select email from user_logon where email = ?";
+      String sql = "select email from user_logon where userid = ?";
 
-      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{emailID});
+      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userid});
       String email = "";
       while (rs.next())
       {
@@ -118,21 +118,42 @@ public class UserInfoDAO extends JdbcDaoSupport
 
    }
 
-   public int checkReset(String emailID, String resetID)
+   public int checkReset(String userID, String resetID)
    {
+      int sqlStatus = 0;
+      int count=0;
+      String sql = "";
+      // First check that we have valid userid.
+      sql = "select count(*) from user_logon where userid = ?";
+      sqlStatus = getJdbcTemplate().queryForInt(sql, new Object[]{userID});
 
-      String sql = "select count(*) from user_logon where email = ? and resetID = ?";
+      // Now check that logonstatus is not active, if so then we cannot reset password.
+      if (sqlStatus == 1) {
+         sql = "select logonstatus from user_logon where userid = ? and resetID = ?";
+         SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userID, resetID});
+         while (rs.next())
+         {
+            count++;
+            if (rs.getString("logonstatus").toUpperCase().startsWith("A"))
+               sqlStatus = -2;
+         }
+      }
 
-      return getJdbcTemplate().queryForInt(sql, new Object[]{emailID, resetID});
+      /*
+      if (count == 0 && sqlStatus == 1)
+         sqlStatus = -1;
+       */
+
+      return sqlStatus;
    }
 
 
-   public int updResetID(String emailID, String resetID)
+   public int updResetID(String userID, String resetID)
    {
       String sql = "update user_logon set resetID = ?, lastupdated = now(), logonstatus = 'R' " +
-         "where email = ?";
+         "where userid = ?";
 
-      return this.getJdbcTemplate().update(sql, new Object[]{resetID, emailID});
+      return this.getJdbcTemplate().update(sql, new Object[]{resetID, userID});
    }
 
    public List<UserData> getUserByEmail(final String emailID) throws DataAccessException
@@ -165,12 +186,12 @@ public class UserInfoDAO extends JdbcDaoSupport
 
    }
 
-   public String checkMimeType(String emailID)
+   public String checkMimeType(String userID)
    {
 
       String sql = "select emailmsgtype from user_logon where userid = ?";
 
-      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{emailID});
+      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userID});
       String emailmsgtype = "";
       while (rs.next())
       {

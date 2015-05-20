@@ -122,18 +122,20 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
          int i = 0;
-         for (Map<String, Object> map : rows)
-         {
-            Map rs = (Map) rows.get(i);
+         if (rows != null) {
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
 
-            data.setLogonid(convert.getLongData(rs.get("logonid")));
-            data.setEmail(convert.getStrData(rs.get("email")));
-            data.setUserid(convert.getStrData(rs.get("userid")));
-            data.setLastname(convert.getStrData(rs.get("lastname")));
-            data.setFirstname(convert.getStrData(rs.get("firstname")));
-            data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
-            data.setRegisteredState(convert.getStrData(rs.get("state")));
-            break;
+               data.setLogonid(convert.getLongData(rs.get("logonid")));
+               data.setEmail(convert.getStrData(rs.get("email")));
+               data.setUserid(convert.getStrData(rs.get("userid")));
+               data.setLastname(convert.getStrData(rs.get("lastname")));
+               data.setFirstname(convert.getStrData(rs.get("firstname")));
+               data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
+               data.setRegisteredState(convert.getStrData(rs.get("state")));
+               break;
+            }
          }
       }
    }

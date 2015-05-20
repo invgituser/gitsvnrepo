@@ -5,12 +5,11 @@
 DELIMITER $$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_clientinfo_sel`(
-	IN p_logonid bigint(20)
+	IN p_acctnum bigint(20)
 )
 BEGIN
 
- SELECT acctnum,
-        prefix,
+ SELECT prefix,
 		lastname,
 		middlename,
 		firstname,
@@ -34,6 +33,6 @@ BEGIN
         citizenship,
 		ssn
        FROM client_info
-       WHERE logonid = p_logonid;
+       WHERE acctnum = p_acctnum;
 
 END

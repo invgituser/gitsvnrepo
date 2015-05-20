@@ -35,7 +35,7 @@ public class WebUtil implements Serializable
       return messageText;
    }
 
-   public boolean getWebMode() {
+   public boolean isWebProdMode() {
       if (messageText == null)
          return false;
 
@@ -477,5 +477,81 @@ public class WebUtil implements Serializable
 
       messageText.alertSupport(module, subject, message_line, stacktrace, getUserInfoData().getUserID());
    }
+
+   public static String validateNewPass(String pass1, String pass2){
+      StringBuilder retVal = new StringBuilder();
+
+      if (pass1 == null || pass2 == null)
+         return "Empty Password";
+
+      if(pass1.length() < 1 || pass2.length() < 1 )
+         return ("Empty Password");
+
+
+      if (pass1.equals(pass2)) {
+         boolean hasUppercase = !pass1.equals(pass1.toLowerCase());
+         boolean hasLowercase = !pass1.equals(pass1.toUpperCase());
+         boolean hasNumber = pass1.matches(".*\\d.*");
+         boolean noSpecialChar = pass1.matches("[a-zA-Z0-9 ]*");
+
+         if (pass1.length() < 8) {
+            retVal.append("Password is too short. Needs to have 8 characters <br>");
+         }
+
+         if (!hasUppercase) {
+            retVal.append("Password needs an upper case <br>");
+         }
+
+         if (!hasLowercase) {
+            retVal.append("Password needs a lowercase <br>");
+         }
+
+         if (!hasNumber) {
+            retVal.append("Password needs a number <br>");
+         }
+
+         if(noSpecialChar){
+            retVal.append("Password needs a special character i.e. !,@,#, etc.  <br>");
+         }
+      }else{
+         retVal.append("Passwords don't match<br>");
+      }
+
+      if(retVal.length() == 0){
+         retVal.append("Success");
+      }
+
+      return retVal.toString();
+
+   }
+
+   private Integer progressbar;
+
+   public Integer getProgressbar() {
+      if(progressbar == null) {
+         progressbar = 0;
+      }
+      else {
+         if(progressbar > 100)
+            progressbar = 100;
+      }
+
+      return progressbar;
+   }
+
+   public void setProgressbar(Integer progressbar) {
+      this.progressbar = progressbar;
+   }
+
+   public void progessreset() {
+      progressbar = null;
+   }
+
+   public Double MathAbs(Double num) {
+      if (num != null)
+         return Math.abs(num);
+      return num;
+   }
+
 
 }

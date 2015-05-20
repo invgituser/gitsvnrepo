@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
  
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.*;
@@ -24,8 +25,8 @@ public class EmailValidator implements Validator {
  
 	private Pattern pattern;
 	private Matcher matcher;
-	
-    @Autowired
+
+   @ManagedProperty("#{userInfoDAO}")
 	private UserInfoDAO userInfoDAO;
     
 	public void setUserInfoDAO(UserInfoDAO userInfoDAO) {

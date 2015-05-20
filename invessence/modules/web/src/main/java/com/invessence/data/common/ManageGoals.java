@@ -133,11 +133,6 @@ public class ManageGoals extends ProfileData
       this.managed = managed;
    }
 
-   public Boolean getWebEnvironment()
-   {
-      return webutil.getWebMode();
-   }
-
    public AssetAllocationModel getAllocModel()
    {
       return allocModel;

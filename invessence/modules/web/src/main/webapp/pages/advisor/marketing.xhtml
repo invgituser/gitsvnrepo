@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <div class="layout-portlets-box">
-            <div class="Container20 Responsive">
+            <div class="Container100 Responsive50">
                 <div class="ContainerIndent">
                     <h:form id="marketingForm">
                         <p:messages id="msgs" showDetail="true"/>
@@ -38,7 +38,7 @@
                                 </h:commandLink>
                             </f:facet>
 
-                            <p:column style="width:10%;text-align: left"
+                            <p:column styleClass="Wid10 TexAlLeft"
                                       resizable="true"
                                       sortBy="#{mi.acctstatus}">
                                 <f:facet name="header">
@@ -47,7 +47,7 @@
                                 <h:outputText value="#{mi.acctstatus}"/>
                             </p:column>
 
-                            <p:column style="width:12%;text-align: left"
+                            <p:column styleClass="Wid10 TexAlLeft"
                                       resizable="true"
                                       sortBy="#{mi.created}">
                                 <f:facet name="header">
@@ -55,7 +55,7 @@
                                 </f:facet>
                                 <h:outputText value="#{mi.created}"/>
                             </p:column>
-                            <p:column style="width:9%;text-align: left"
+                            <p:column styleClass="Wid10 TexAlLeft"
                                       resizable="true"
                                       sortBy="#{mi.acctnum}">
                                 <f:facet name="header">
@@ -63,7 +63,7 @@
                                 </f:facet>
                                 <h:outputText value="#{mi.acctnum}"/>
                             </p:column>
-                            <p:column style="width:15%;text-align: left"
+                            <p:column styleClass="Wid15 TexAlLeft"
                                       resizable="true"
                                       sortBy="#{mi.firstname}">
                                 <f:facet name="header">
@@ -71,7 +71,7 @@
                                 </f:facet>
                                 <h:outputText value="#{mi.firstname}"/>
                             </p:column>
-                            <p:column style="width:15%;text-align: left"
+                            <p:column styleClass="Wid15 TexAlLeft"
                                       resizable="true"
                                       sortBy="#{mi.lastname}">
                                 <f:facet name="header">
@@ -79,7 +79,7 @@
                                 </f:facet>
                                 <h:outputText value="#{mi.lastname}"/>
                             </p:column>
-                            <p:column style="width:25%;text-align: left"
+                            <p:column styleClass="Wid20 TexAlLeft"
                                       resizable="true"
                                       sortBy="#{mi.email}">
                                 <f:facet name="header">
@@ -87,7 +87,7 @@
                                 </f:facet>
                                 <h:outputText value="#{mi.email}"/>
                             </p:column>
-                            <p:column exportable="false" style="width:5%;text-align: center">
+                            <p:column exportable="false" styleClass="Wid5 TexAlCenter">
                                 <f:facet name="header">
                                     <h:outputText value="View"/>
                                 </f:facet>

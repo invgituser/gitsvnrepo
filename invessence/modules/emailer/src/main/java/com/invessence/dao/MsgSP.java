@@ -65,6 +65,8 @@ public class MsgSP extends StoredProcedure
       inputs.put("p_logonid", data.getLogonID());
       inputs.put("p_sentdate", null);
       inputs.put("p_comment", data.getComment());
+      if (data.getMimeType() == null || data.getMimeType().length() < 1)
+         data.setMimeType("HTML");
       inputs.put("p_mimetype", data.getMimeType());
       inputs.put("p_attachments", data.getAttachmentFile());
 

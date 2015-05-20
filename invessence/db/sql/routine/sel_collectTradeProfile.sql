@@ -1,10 +1,14 @@
-DROP PROCEDURE `sel_collectTradeProfile`;
+DROP PROCEDURE IF EXISTS `sel_collectTradeProfile`;
 
 DELIMITER $$
 CREATE PROCEDURE `sel_collectTradeProfile`(
 	p_filter varchar(1)
 )
 BEGIN
+	begin
+		call sp_addClients2Trade();
+	end;
+
 	begin
 		select 
 			profile.acctnum,

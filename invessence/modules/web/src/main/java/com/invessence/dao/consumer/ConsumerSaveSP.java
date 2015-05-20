@@ -295,24 +295,29 @@ public class ConsumerSaveSP extends StoredProcedure
       Map inputMap = new HashMap();
       inputMap.put("p_addmodflag", addmodflag);
       inputMap.put("p_acctnum", data.getAcctnum());
-      inputMap.put("p_ans1", data.getSelectedchoice1());
-      inputMap.put("p_ans2", data.getSelectedchoice2());
-      inputMap.put("p_ans3", data.getSelectedchoice3());
-      inputMap.put("p_ans4", data.getSelectedchoice4());
-      inputMap.put("p_ans5", data.getSelectedchoice5());
-      inputMap.put("p_ans6", data.getSelectedchoice6());
-      inputMap.put("p_ans7", data.getSelectedchoice7());
-      inputMap.put("p_ans8", data.getSelectedchoice8());
-      inputMap.put("p_ans9", data.getSelectedchoice9());
-      inputMap.put("p_ans10", data.getSelectedchoice10());
-      inputMap.put("p_ans11", data.getSelectedchoice11());
-      inputMap.put("p_ans12", data.getSelectedchoice12());
-      inputMap.put("p_ans13", data.getSelectedchoice13());
-      inputMap.put("p_ans14", data.getSelectedchoice14());
-      inputMap.put("p_ans15", data.getSelectedchoice15());
+      Integer[] riskAnswers = data.getRiskAnswers();
+      inputMap.put("p_ans1", setDefaultRisk(riskAnswers[0]));
+      inputMap.put("p_ans2", setDefaultRisk(riskAnswers[1]));
+      inputMap.put("p_ans3", setDefaultRisk(riskAnswers[2]));
+      inputMap.put("p_ans4", setDefaultRisk(riskAnswers[3]));
+      inputMap.put("p_ans5", setDefaultRisk(riskAnswers[4]));
+      inputMap.put("p_ans6", setDefaultRisk(riskAnswers[5]));
+      inputMap.put("p_ans7", setDefaultRisk(riskAnswers[6]));
+      inputMap.put("p_ans8", setDefaultRisk(riskAnswers[7]));
+      inputMap.put("p_ans9", setDefaultRisk(riskAnswers[8]));
+      inputMap.put("p_ans10", setDefaultRisk(riskAnswers[9]));
+      inputMap.put("p_ans11", setDefaultRisk(riskAnswers[10]));
+      inputMap.put("p_ans12", setDefaultRisk(riskAnswers[11]));
+      inputMap.put("p_ans13", setDefaultRisk(riskAnswers[12]));
+      inputMap.put("p_ans14", setDefaultRisk(riskAnswers[13]));
+      inputMap.put("p_ans15", setDefaultRisk(riskAnswers[14]));
 
       super.execute(inputMap);
 
+   }
+
+   private Integer setDefaultRisk(Integer riskValue) {
+      return ((riskValue == null) ? 0:  riskValue);
    }
 
    public void deleteAllocation(ManageGoals data)

@@ -38,6 +38,7 @@ public class TradeBean extends TradeClientData implements Serializable
    private TradeClientData selectedClient;
    private TradeSummary selectedTradeSummary;
 
+
    Menu menu = new Menu();
 
    @ManagedProperty("#{tradeDAO}")
@@ -65,6 +66,11 @@ public class TradeBean extends TradeClientData implements Serializable
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
+   }
+
+   public WebUtil getWebutil()
+   {
+      return webutil;
    }
 
 /*
@@ -295,7 +301,7 @@ public class TradeBean extends TradeClientData implements Serializable
          if (getSelectedClient() == null)
             return "failed";
          else
-            menu.doMenuAction("/consumer/edit.xhtml?acct="+getSelectedClient().getAcctnum().toString());
+            menu.doMenuAction("/consumer/cadd.xhtml?acct="+getSelectedClient().getAcctnum().toString());
       }
       catch (Exception ex)
       {

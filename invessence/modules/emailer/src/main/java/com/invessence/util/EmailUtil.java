@@ -81,7 +81,7 @@ public class EmailUtil
       MimeBodyPart html = new MimeBodyPart();
       MimeBodyPart text = new MimeBodyPart();
 
-      if(msgData.getMimeType() != null && msgData.getMimeType().trim().equalsIgnoreCase("html"))
+      if(msgData.getMimeType() == null || msgData.getMimeType().trim().equalsIgnoreCase("html"))
       {
          cover.addBodyPart(html);
       }else
@@ -121,7 +121,7 @@ public class EmailUtil
             content.addBodyPart(attachment);
          }
       }
-      if(msgData.getMimeType() != null && msgData.getMimeType().equalsIgnoreCase("html"))
+      if(msgData.getMimeType() == null || msgData.getMimeType().equalsIgnoreCase("html"))
       {
          html.setContent(msgData.getMsg(), "text/html");
       }else

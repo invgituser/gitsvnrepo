@@ -375,6 +375,16 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       formEdit = true;
    }
 
+   public void doAllocReset() {
+      resetAllocationIndex();
+      createAssetPortfolio(1); // Build default chart for the page...
+   }
+
+   public void doPortfolioReset() {
+      resetPortfolioIndex();
+      createPortfolio(1); // Build default chart for the page...
+   }
+
    public void refresh() {
       createAssetPortfolio(1);
    }
@@ -393,7 +403,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
          else if (getGoal().toUpperCase().contains("SAFETY"))
             setTheme("0.Safety");
          else
-            setTheme("0.Growth");
+            setTheme("0.Core");
 
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
@@ -496,6 +506,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
                setDefaults();
                acctnum = saveDAO.saveProfileData(getInstance());
                setAcctnum(acctnum);
+               saveDAO.saveFinancials(getInstance());
                saveDAO.saveRiskProfile(getInstance());
             }
          }
@@ -519,6 +530,11 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             if (validate) {
                saveProfile();
             }
+            if (canOpenAccount == 0)
+               getWebutil().redirect("/pages/consumer/funding.xhtml?acct="+getAcctnum(), null);
+            else
+               RequestContext.getCurrentInstance().execute("PF('dlgIB').show()");
+
       }
       catch (Exception ex)
       {
@@ -566,7 +582,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       try
       {
          String license;
-         if (getWebEnvironment())
+         if (getWebutil().isWebProdMode())
          {
             if (getLogonid() == null)
             {
@@ -621,13 +637,12 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
    public void forwardToIB() {
 
-      if (getCanOpenAccount() == 0) {
          FacesContext facesContext = FacesContext.getCurrentInstance();
          HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
-         httpSession.invalidate();
          String url=getIblink() + "externalId=" + getAcctnum();
          getWebutil().redirect(url, null);
-      }
+         httpSession.invalidate();
+
    }
 
 }

@@ -468,7 +468,7 @@ public class ConsumerBean extends ManageGoals implements Serializable
       try
       {
          String license;
-         if (getWebEnvironment()) // If PROD mode
+         if (getWebutil().isWebProdMode()) // If PROD mode
          {
             if (getLogonid() == null)
             {

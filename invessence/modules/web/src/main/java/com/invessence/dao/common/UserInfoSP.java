@@ -52,6 +52,7 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
          case 2:
+            declareParameter(new SqlOutParameter("message", Types.VARCHAR));
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
@@ -67,8 +68,12 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_answer3", Types.VARCHAR));
             break;
          case 4:
+            declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));
             break;
+         case 5:
          default:
+            break;
       }
 
 
@@ -131,6 +136,7 @@ public class UserInfoSP extends StoredProcedure
    public Map updateUserProfile(UserData data)
    {
       Map inputMap = new HashMap();
+      inputMap.put("message", "");
       inputMap.put("p_logonid", data.getLogonID());
       inputMap.put("p_userid", data.getUserID());
       inputMap.put("p_email", data.getEmailID());
@@ -147,8 +153,16 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_question2", data.getQ2());
       inputMap.put("p_answer2", data.getAns2());
       inputMap.put("p_question3", data.getQ3());
+      inputMap.put("p_answer3", data.getAns3());
       return super.execute(inputMap);
    }
 
+   public Map updatePassword(String userID, String password)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_userid", userID);
+      inputMap.put("p_pwd", password);
+      return super.execute(inputMap);
+   }
 }
 

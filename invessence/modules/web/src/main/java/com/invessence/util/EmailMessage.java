@@ -48,12 +48,6 @@ public class EmailMessage implements MessageSourceAware, Serializable
 
    public String buildMessage(String msgType, String html_version, String text_version, Object [] obj) {
 
-     if (text_version == null && html_version == null) {
-        msgType = "HTML";
-     }
-      else if (text_version == null)
-               msgType = "HTML";
-
      if (msgType == null || msgType.equalsIgnoreCase("HTML"))
         return getHTMLMessagetext(html_version, obj);
      else
@@ -216,7 +210,10 @@ public class EmailMessage implements MessageSourceAware, Serializable
                }
             }
          }
-
+         String mimetype = data.getMimeType();
+         if (mimetype == null || mimetype.isEmpty()) {
+            data.setMimeType("HTML");
+         }
          msgDAO.saveMsg(data);
       }
       catch (Exception ex) {
@@ -240,12 +237,14 @@ public class EmailMessage implements MessageSourceAware, Serializable
          data.setSender(Const.MAIL_SENDER);
          data.setReceiver(Const.MAIL_SUPPORT);
          data.setSubject(Const.COMPANY_NAME + "[ " + subject + " ]");
-         if (stacktrace != null)
-            msg = "Module:" + module + "\nUser: " + userid + "\n\n" + stacktrace;
-         else
-            msg = "Module:" + module + "\nUser: " + userid + "\n\n";
 
-         data.setMsg(buildInternalMessage(message_line, new Object[]{msg}));
+         String error_text = buildInternalMessage(message_line, null);
+
+         if (stacktrace != null)
+            msg = "Module:" + module + "\nUser: " + userid + "\n\n" + error_text + "\n\n\n" + stacktrace;
+         else
+            msg = "Module:" + module + "\nUser: " + userid + "\n\n" + error_text + "\n\n\n";
+         data.setMsg(msg);
          writeMessage("Error", data);
       }
       catch (Exception ex)

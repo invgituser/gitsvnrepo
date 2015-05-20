@@ -157,22 +157,23 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
 
             String asset = convert.getStrData(rs.get("assetclass"));
             String subclass = convert.getStrData(rs.get("subclass"));
-            Double currentValue = convert.getDoubleData(rs.get("curValue"));
+            Double allocValue = convert.getDoubleData(rs.get("allocValue"));
             Double holdingValue = convert.getDoubleData(rs.get("holdingValue"));
+            Double newValue = convert.getDoubleData(rs.get("curValue"));
 
             if (!data.getAsset().containsKey(asset))
             {
                assetclass = new Asset();
                assetclass.setColor(convert.getStrData(rs.get("color")));
                assetclass.setAsset(asset);
+               assetclass.setValue(allocValue);
                assetclass.setHoldingValue(holdingValue);
-               assetclass.setValue(currentValue);
             }
             else
             {
                assetclass = data.getAsset().get(asset);
                assetclass.setHoldingValue(assetclass.getHoldingValue() + holdingValue);
-               assetclass.setValue(assetclass.getValue() + currentValue);
+               assetclass.setValue(assetclass.getValue() + allocValue);
             }
             data.getAsset().put(asset, assetclass);
 
@@ -187,7 +188,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                                          ticker,
                                          convert.getDoubleData(rs.get("curQty")),
                                          convert.getDoubleData(rs.get("curPrice")),
-                                         currentValue,
+                                         newValue,
                                          convert.getStrData(rs.get("holdingTicker")),
                                          convert.getDoubleData(rs.get("holdingQty")),
                                          convert.getDoubleData(rs.get("holdingPrice")),
@@ -212,7 +213,8 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                data.setTotalsold(data.getTotalsold() + convert.getDoubleData(rs.get("curQty")));
 
             data.setTotalHoldingValue(data.getTotalHoldingValue() + holdingValue);
-            data.setTotalNewValue(data.getTotalNewValue() + currentValue);
+            data.setTotalAllocValue(data.getTotalAllocValue() + allocValue);
+            data.setTotalNewValue(data.getTotalNewValue() + newValue);
 
             tradesummary.put(clientAccountID, data);
             i++;
