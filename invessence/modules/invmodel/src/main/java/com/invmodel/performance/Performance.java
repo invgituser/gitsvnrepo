@@ -97,7 +97,7 @@ public class Performance
 
             double investmentCapital = portfolioData[year].getTotalMoney();
 
-            perfData[year].setInvestedCapital(investmentCapital);
+            perfData[year].setTotalCapitalWithGains(investmentCapital);
 
             double portRisk = 0.0;
             double portReturns = 0.0;
