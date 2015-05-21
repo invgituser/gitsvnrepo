@@ -36,6 +36,7 @@ public class HoldingData
    private Double risk;
 
    private Boolean washSaleFlag; //True meaning should not trade, false meaning trading is permitted
+   private Boolean outRightSellFlag; //If ticker is not in new portfolio and trade is bigger than 31 days, set true
 
    private Boolean tlhSellShortFlag;
    private Boolean tlhSellLongFlag;
@@ -57,6 +58,16 @@ public class HoldingData
    private Double longTimeShares;
    private Double shortProceeds;
    private Double shortTimeShares;
+
+   public Boolean getOutRightSellFlag()
+   {
+      return outRightSellFlag;
+   }
+
+   public void setOutRightSellFlag(Boolean outRightSellFlag)
+   {
+      this.outRightSellFlag = outRightSellFlag;
+   }
 
    public Double getLongProceeds()
    {
