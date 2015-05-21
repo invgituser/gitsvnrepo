@@ -23,6 +23,7 @@ public class TaxHarvestingSP extends StoredProcedure
          case 1:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+
             break;
          case 2:
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -80,6 +81,7 @@ public class TaxHarvestingSP extends StoredProcedure
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", p_logonid);
       inputMap.put("p_acctnum", acctnum);
+
       return super.execute(inputMap);
    }
 
