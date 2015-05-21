@@ -184,35 +184,35 @@ public class AssetDBCollection implements Serializable
          // Select data from the database
          connection = DBConnectionProvider.getInstance().getConnection();
          statement = connection.createStatement();
-         statement.executeQuery("SELECT groupname, assetclass, description, assetLevel, " +
+         statement.executeQuery("SELECT theme, assetclass, displayName, " +
                                 "sortOrder, lowerBound, upperBound, color, " +
-                                "indexFund, averageReturn, riskAdjustment, endAllocation " +
+                                "ticker, averageReturn, riskAdjustment, endAllocation " +
                                 "FROM vw_assetmapping_group " +
-                                "order by groupname, AssetLevel, sortOrder");
+                                "order by theme, sortOrder");
 
          resultSet = statement.getResultSet();
          resultSet.beforeFirst();
          while (resultSet.next())
          {
-            switch (resultSet.getInt("assetLevel"))
-            {
-               case 1:
-                     setAssetdata(resultSet.getString("groupname"),
+            //switch (resultSet.getInt("assetLevel"))
+            //{
+            //   case 1:
+                     setAssetdata(resultSet.getString("theme"),
                                   resultSet.getString("assetclass"),
-                                  resultSet.getString("description"),
+                                  resultSet.getString("displayName"),
                                   resultSet.getDouble("lowerBound"),
                                   resultSet.getDouble("upperBound"),
-                                  resultSet.getString("indexFund"),
+                                  resultSet.getString("ticker"),
                                   resultSet.getDouble("averageReturn"),
                                   resultSet.getString("color"),
                                   resultSet.getDouble("riskAdjustment"),
                                   resultSet.getDouble("endAllocation")
                                   );
-                     break;
-               default:
-                  break;
+           //          break;
+           //    default:
+           //       break;
 
-            }
+           // }
          }
 
       }
