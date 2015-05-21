@@ -42,8 +42,8 @@ public class InvConst
    public static double CASH_TRIGGER = 0.005;
 
    //May want to change this to profile data
-   public static double TLH_SHORT_THRESHOLd = 0.00;
-   public static double TLH_Long_THRESHOLd = 0.02;
+   public static double TLH_SHORT_THRESHOLd = 0.05;
+   public static double TLH_Long_THRESHOLd = 0.05;
 
    public final static String TRADE_MODE = "Robo";
 
