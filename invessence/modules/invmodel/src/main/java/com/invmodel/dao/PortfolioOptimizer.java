@@ -627,10 +627,13 @@ public class PortfolioOptimizer
                         secRisk[j] = pacd.get(j).getRiskSTD();
                         yield[j] = pacd.get(j).getYield();
                         tickers[j] = pacd.get(j).getTicker();
-                        if(theme.toUpperCase().contains("INCOME"))
+
+                        /*if(theme.toUpperCase().contains("INCOME"))
                         {
-                           historicalReturns[j]= historicalReturns[j] * yield[j];
-                        }
+                           if (assetName.toUpperCase().startsWith("BOND"))
+
+                              historicalReturns[j]= historicalReturns[j] * yield[j];
+                        }*/
                      }
 
 
