@@ -710,6 +710,7 @@ public class RebalanceProcess
             }
          }
       }
+
       return tradeDataList;
    }
 
@@ -931,11 +932,11 @@ public class RebalanceProcess
                                                  holdingData.getPositionValue(),
                                                  holdingData.getWeight(),
                                                  holdingData.getCostBasisMoney(),
-                                                 "",  // allocTicker
-                                                 0.0, // allocQty
-                                                 0.0, // allocPrice
-                                                 0.0, // allocValue
-                                                 0.0, // allocWeight
+                                                 holdingData.getTicker(),  // allocTicker
+                                                 holdingData.getQty() + tShares, // allocQty
+                                                 tPrice, // allocPrice
+                                                 tPrice * (holdingData.getQty() + tShares), // allocValue
+                                                 tPrice * (holdingData.getQty() + tShares)/cHoldings.getTotalvalue(), // allocWeight
                                                  tlhType,   // tradeType
                                                  "" // reason
                );
@@ -1041,11 +1042,11 @@ public class RebalanceProcess
                                                        holdingData.getPositionValue(),
                                                        holdingData.getWeight(),
                                                        holdingData.getCostBasisMoney(),
-                                                       "",  // allocTicker
-                                                       0.0, // allocQty
-                                                       0.0, // allocPrice
-                                                       0.0, // allocValue
-                                                       0.0, // allocWeight
+                                                       tlhTicker,  // allocTicker
+                                                       tlhShares, // allocQty
+                                                       tlhPrice, // allocPrice
+                                                       tlhMoney, // allocValue
+                                                       tlhMoney/nHoldings[year].getTotalMoney(), // allocWeight
                                                        tlhType,   // tradeType
                                                        "" // reason
                                  );
