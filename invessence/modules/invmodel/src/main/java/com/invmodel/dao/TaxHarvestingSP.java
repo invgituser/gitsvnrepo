@@ -39,6 +39,8 @@ public class TaxHarvestingSP extends StoredProcedure
             declareParameter(new SqlParameter("p_clientAccountID", Types.VARCHAR));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_sublass", Types.VARCHAR));
             declareParameter(new SqlParameter("p_curQty", Types.INTEGER));
             declareParameter(new SqlParameter("p_curPrice", Types.DOUBLE));
             declareParameter(new SqlParameter("p_curValue", Types.DOUBLE));
@@ -123,6 +125,8 @@ public class TaxHarvestingSP extends StoredProcedure
       inputMap.put("p_clientAccountID", tData.getClientAccountID());
       inputMap.put("p_acctnum", tData.getAcctnum());
       inputMap.put("p_ticker", tData.getTicker());
+      inputMap.put("p_assetclass", tData.getAssetclass());
+      inputMap.put("p_sublass", tData.getSubclass());
       inputMap.put("p_curQty", tData.getQty().intValue());
       inputMap.put("p_curPrice", tData.getCurPrice());
       inputMap.put("p_curValue", tData.getMoney());
