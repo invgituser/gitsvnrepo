@@ -33,6 +33,7 @@ public class TradeData
    private String tradeType;
    private String reason;
    private String created;
+   private double cashAvaailable;
 
    public TradeData()
    {
@@ -43,7 +44,7 @@ public class TradeData
                     String holdingTicker, Double holdingQty, Double holdingPrice, Double holdingValue,
                     Double holdingWeight, Double costBasisValue,
                     String allocTicker, Double allocQty, Double allocPrice, Double allocValue, Double allocWeight,
-                    String tradeType, String reason)
+                    String tradeType, String reason, double cashAvaailable)
    {
       this.advisor = advisor;
       this.clientAccountID = clientAccountID;
@@ -67,6 +68,18 @@ public class TradeData
       this.allocWeight = allocWeight;
       this.tradeType = tradeType;
       this.reason = reason;
+      this.cashAvaailable = cashAvaailable;
+   }
+
+
+   public double getCashAvaailable()
+   {
+      return cashAvaailable;
+   }
+
+   public void setCashAvaailable(double cashAvaailable)
+   {
+      this.cashAvaailable = cashAvaailable;
    }
 
    public String getAdvisor()
