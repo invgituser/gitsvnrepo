@@ -38,7 +38,7 @@ public class NewRebal
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
       // Now we can do rebalaning on account(s).
-      ArrayList<TradeData> tradeList = rbal.process(null, 115L);
+      ArrayList<TradeData> tradeList = rbal.process(null, 140L);
       printTradeFile(tradeList);
    }
 
@@ -83,7 +83,8 @@ public class NewRebal
                            "," + "allocPrice" +
                            "," + "allocValue" +
                            "," + "allocWeight" +
-                           "," + "tradeType");
+                           "," + "tradeType" +
+                           "," + "CashAvailable");
 
          for (TradeData tData : tList) {
             writer.println(tData.getClientAccountID() +
@@ -103,7 +104,8 @@ public class NewRebal
                               "," + tData.getAllocPrice() +
                               "," + tData.getAllocValue() +
                               "," + tData.getAllocWeight() +
-                              "," + tData.getTradeType());
+                              "," + tData.getTradeType() +
+                              "," + tData.getCashAvaailable());
 
          }
          writer.println();
