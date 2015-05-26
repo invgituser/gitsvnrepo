@@ -164,7 +164,7 @@ public class RebalanceProcess
       try
       {
          if (pdata.getPortfolioData() == null) {
-            loadAssetClass(pdata,years);
+            loadAssetClass(pdata, years);
             PortfolioModel portfolioModel = new PortfolioModel();
             portfolioModel.setPortfolioOptimizer(portfolioOptimizer);
             portfolioModel.setSecurityDao(securityDAO);
@@ -487,7 +487,6 @@ public class RebalanceProcess
       }
    }
 
-
    public Boolean checkOtherAssets(CurrentHolding cHoldings, AssetClass newAssets, Map<String, Asset> asset, ArrayList<String> orderedAssets){
 
       Map<String, HoldingData> hMap = cHoldings.getHoldingDataMap();
@@ -572,144 +571,17 @@ public class RebalanceProcess
       ArrayList <TradeData> tlhBuysTradeList = tlhBuys (nHoldings, cHoldings, year);
 
       //Buy the largest buys which are new tickers and not in current portfolio
-      ArrayList <TradeData> otherBuysTradeList = otherBuys (nHoldings,cHoldings, year);
+      ArrayList <TradeData> otherBuysTradeList = otherBuys(nHoldings, cHoldings, year);
+
+      //Buy the largest buys which are new tickers and not in current portfolio
+      ArrayList <TradeData> insertCash = addCash(nHoldings, cHoldings, year);
 
       tradeDataList.addAll(outrightSellTradeList);
       tradeDataList.addAll(otherSellsTradeList);
       tradeDataList.addAll(tlhSellsTradeList);
       tradeDataList.addAll(tlhBuysTradeList);
       tradeDataList.addAll(otherBuysTradeList);
-      return tradeDataList;
-   }
-
-   public ArrayList <TradeData> otherBuys (Portfolio[] nHoldings, CurrentHolding cHoldings,Integer year)
-   {
-      Map<String, HoldingData> hMap = cHoldings.getHoldingDataMap();
-      ArrayList <TradeData> tradeDataList = new ArrayList <TradeData>();
-
-      PortfolioSecurityData portfolioSecurityData = null;
-      String ticker;
-
-      //Check if there is a brand new position to add
-      for (int i = 0; i < nHoldings[year].getPortfolio().size(); i++)
-      {
-         portfolioSecurityData =  nHoldings[year].getPortfolio().get(i);
-
-         ticker = portfolioSecurityData.getTicker();
-
-         //Check current cash
-         if(cHoldings.getCashAvailable()> nHoldings[year].getCashMoney()){
-
-            //Position which is new and not in current holdings
-            if(!hMap.containsKey(ticker)) {
-
-               Double tShares = portfolioSecurityData.getShares();
-               Double tPrice =  portfolioSecurityData.getDailyprice();
-               Double cash = cHoldings.getCashAvailable()- nHoldings[year].getCashMoney();
-               Double tMoney = 0.0;
-
-               if (cash < tMoney  ){
-                  tShares = (double) StrictMath.round(tMoney/portfolioSecurityData.getDailyprice() - 0.5);
-               }
-
-               tMoney = tShares * tPrice;
-               cHoldings.setCashAvailable(cHoldings.getCashAvailable()- tMoney);
-
-               TradeData tdata = new TradeData(advisor,
-                                               cHoldings.getClientAccountID(),
-                                               cHoldings.getAcctnum(),
-                                               portfolioSecurityData.getAssetclass(),
-                                               portfolioSecurityData.getSubclass(),
-                                               ticker,
-                                               tShares,
-                                               tPrice,
-                                               tMoney,
-                                               "",
-                                               0.0,
-                                               0.0,
-                                               0.0,
-                                               0.0,
-                                               0.0,
-                                               portfolioSecurityData.getTicker(),  // allocTicker
-                                               portfolioSecurityData.getShares(), // allocQty
-                                               portfolioSecurityData.getDailyprice(), // allocPrice
-                                               portfolioSecurityData.getMoney(), // allocValue
-                                               portfolioSecurityData.getTickerWeights(), // allocWeight
-                                               "New Buy",   // tradeType
-                                               "" // reason
-               );
-               tradeDataList.add( tdata);
-            }
-         }
-      }
-
-      HoldingData holdingData = null;
-      //Check if there is cash for adding more shares or an existing position which is not TLH
-      for (int i = 0; i < nHoldings[year].getPortfolio().size(); i++)
-      {
-         portfolioSecurityData =  nHoldings[year].getPortfolio().get(i);
-         ticker = portfolioSecurityData.getTicker();
-
-         //Check current cash
-         if(cHoldings.getCashAvailable()> nHoldings[year].getCashMoney()){
-
-            if(hMap.containsKey(ticker)) {
-               holdingData = hMap.get(ticker);
-
-               if(!holdingData.isTlhSellLongFlag() && !holdingData.isTlhSellShortFlag())
-               {
-                  //Rebalance trade only buy more
-                  Double tShares = portfolioSecurityData.getShares() - holdingData.getQty();
-                  Double tPrice = holdingData.getMarkPrice();
-                  Double tMoney = 0.0;
-
-                  //Buy
-                  if (tShares > 0.0)
-                  {
-
-                     double cash = cHoldings.getCashAvailable() - nHoldings[year].getCashMoney();
-                     tMoney = tShares * holdingData.getMarkPrice();
-
-                     if (cash < tMoney)
-                     {
-                        tMoney = cash;
-                        tShares = (double) StrictMath.round((tMoney / tPrice) - 0.5);
-                     }
-
-                     cHoldings.setCashAvailable(cHoldings.getCashAvailable() - tMoney);
-                     holdingData.setProcessed(true);
-
-                     TradeData tdata = new TradeData(advisor,
-                                                     cHoldings.getClientAccountID(),
-                                                     cHoldings.getAcctnum(),
-                                                     portfolioSecurityData.getAssetclass(),
-                                                     portfolioSecurityData.getSubclass(),
-                                                     ticker,
-                                                     tShares,
-                                                     tPrice,
-                                                     tMoney,
-                                                     holdingData.getTicker(), // Ticker
-                                                     holdingData.getQty(),    // Qty
-                                                     holdingData.getMarkPrice(), // Price
-                                                     holdingData.getPositionValue(), // Money
-                                                     holdingData.getWeight(),  // Weight
-                                                     holdingData.getCostBasisMoney(), // CostBasis
-                                                     portfolioSecurityData.getTicker(),  // allocTicker
-                                                     portfolioSecurityData.getShares(), // allocQty
-                                                     portfolioSecurityData.getDailyprice(), // allocPrice
-                                                     portfolioSecurityData.getMoney(), // allocValue
-                                                     portfolioSecurityData.getTickerWeights(), // allocWeight
-                                                     "Rebal Buy",   // tradeType
-                                                     "" // reason
-                     );
-
-                     tradeDataList.add(tdata);
-
-                  }
-               }
-            }
-         }
-      }
+      tradeDataList.addAll(insertCash);
 
       return tradeDataList;
    }
@@ -753,6 +625,10 @@ public class RebalanceProcess
                   cHoldings.setShortGains(cHoldings.getShortGains() + gainLoss);
 
                   cHoldings.setCashAvailable(cHoldings.getCashAvailable()+ StrictMath.abs(tmoney));
+
+                  holdingData.setQty(holdingData.getQty() + tShares);
+                  holdingData.setPositionValue(holdingData.getPositionValue() + tmoney);
+
                   TradeData tdata = new TradeData(advisor,
                                                   cHoldings.getClientAccountID(),
                                                   cHoldings.getAcctnum(),
@@ -763,9 +639,9 @@ public class RebalanceProcess
                                                   tPrice,
                                                   tmoney,
                                                   holdingData.getTicker(),
-                                                  holdingData.getQty(),
-                                                  tPrice,
-                                                  holdingData.getPositionValue(),
+                                                  holdingData.getQty(),    // Qty
+                                                  holdingData.getMarkPrice(), // Price
+                                                  holdingData.getPositionValue(), // Money
                                                   0.0,
                                                   holdingData.getCostBasisMoney(),
                                                   "",  // allocTicker
@@ -774,7 +650,8 @@ public class RebalanceProcess
                                                   0.0, // allocValue
                                                   0.0, // allocWeight
                                                   "Total Sell",   // tradeType
-                                                  "" // reason
+                                                  "", // reason
+                                                  cHoldings.getCashAvailable()
                                                   );
 
                   tradeDataList.add( tdata);
@@ -817,41 +694,20 @@ public class RebalanceProcess
                   if (holdingData.isTlhSellLongFlag() || holdingData.isTlhSellShortFlag()){
                      if(holdingData.getLongTimeShares() > StrictMath.abs(tShares)) {
                         holdingData.setLongTimeShares(holdingData.getLongTimeShares() + tShares);
-
-
                      }
                      else{
                         double tmpShrs = holdingData.getLongTimeShares() + tShares;
                         holdingData.setShortTimeShares(holdingData.getShortTimeShares() + tmpShrs);
                         holdingData.setLongTimeShares(0.0);
-
                      }
                   }
 
 
                   tMoney = tShares * tPrice;
 
-                  //Double gainLoss = 0.0;
-                  //Double tradeCostShort = holdingData.getShortProceeds()/holdingData.getShortTimeShares();
-                  //Double tradeCost = holdingData.getCostBasisPrice();
-                  //Double costBasisMon = holdingData.getCostBasisMoney();
-
-                  /*if (StrictMath.abs(tShares) > holdingData.getLongTimeShares()){
-                     gainLoss = holdingData.getMarkPrice() *holdingData.getLongTimeShares() - holdingData.getLongProceeds();
-                     cHoldings.setLongGains(cHoldings.getLongGains() + gainLoss);
-
-                     tradeCost = (holdingData.getShortProceeds()/(tShares - holdingData.getLongTimeShares()));
-                     costBasisMon = tradeCost * tShares;
-                     gainLoss = holdingData.getMarkPrice() * (tShares - holdingData.getLongTimeShares()) - costBasisMon;
-                     cHoldings.setShortGains(cHoldings.getShortGains() + gainLoss);
-                  }
-                  else {
-
-                     gainLoss = holdingData.getMarkPrice() *holdingData.getLongTimeShares() - holdingData.getLongProceeds();
-                     cHoldings.setLongGains(cHoldings.getLongGains() + gainLoss);
-                  }
-*/
-                  cHoldings.setCashAvailable(cHoldings.getCashAvailable()+ StrictMath.abs(tMoney));
+                  cHoldings.setCashAvailable(cHoldings.getCashAvailable() + StrictMath.abs(tMoney));
+                  holdingData.setQty(holdingData.getQty() + tShares);
+                  holdingData.setPositionValue(holdingData.getPositionValue() + tMoney);
 
                   tdata = new TradeData(advisor,
                                         cHoldings.getClientAccountID(),
@@ -863,18 +719,19 @@ public class RebalanceProcess
                                          tPrice,
                                          tMoney,
                                          holdingData.getTicker(),
-                                         holdingData.getQty(),
-                                         tPrice,
-                                         holdingData.getPositionValue(),
+                                         holdingData.getQty(),    // Qty
+                                         holdingData.getMarkPrice(), // Price
+                                         holdingData.getPositionValue(), // Money
                                          holdingData.getWeight(),
                                          holdingData.getCostBasisMoney(),
-                                         portfolioSecurityData.getTicker(),  // allocTicker
-                                         portfolioSecurityData.getShares(), // allocQty
-                                         portfolioSecurityData.getDailyprice(), // allocPrice
-                                         portfolioSecurityData.getMoney(), // allocValue
-                                         portfolioSecurityData.getTickerWeights(), // allocWeight
+                                         "",//portfolioSecurityData.getTicker(),  // allocTicker
+                                         0.0,//portfolioSecurityData.getShares(), // allocQty
+                                         0.0,//portfolioSecurityData.getDailyprice(), // allocPrice
+                                         0.0,//portfolioSecurityData.getMoney(), // allocValue
+                                         0.0,//portfolioSecurityData.getTickerWeights(), // allocWeight
                                          tlhType,   // tradeType
-                                         "" // reason
+                                         "", // reason
+                                        cHoldings.getCashAvailable()
          );
 
                   tradeDataList.add( tdata);
@@ -915,8 +772,13 @@ public class RebalanceProcess
                tPrice = holdingData.getMarkPrice();
                tMoney = tShares * tPrice;
                //Sell for tax loss
-               holdingData.setLongProceeds( tMoney);
+               holdingData.setLongProceeds(tMoney);
+
                cHoldings.setCashAvailable(cHoldings.getCashAvailable() + StrictMath.abs(tMoney));
+
+               holdingData.setQty(holdingData.getQty() + tShares);
+               holdingData.setPositionValue(holdingData.getPositionValue() + tMoney);
+
                TradeData tdata = new TradeData(advisor,
                                                cHoldings.getClientAccountID(),
                                                  cHoldings.getAcctnum(),
@@ -933,12 +795,13 @@ public class RebalanceProcess
                                                  holdingData.getWeight(),
                                                  holdingData.getCostBasisMoney(),
                                                  holdingData.getTicker(),  // allocTicker
-                                                 holdingData.getQty() + tShares, // allocQty
-                                                 tPrice, // allocPrice
-                                                 tPrice * (holdingData.getQty() + tShares), // allocValue
-                                                 tPrice * (holdingData.getQty() + tShares)/cHoldings.getTotalvalue(), // allocWeight
+                                                 0.0,//holdingData.getQty() + tShares, // allocQty
+                                                 0.0,//tPrice, // allocPrice
+                                                 0.0,//tPrice * (holdingData.getQty() + tShares), // allocValue
+                                                 0.0,//tPrice * (holdingData.getQty() + tShares)/cHoldings.getTotalvalue(), // allocWeight
                                                  tlhType,   // tradeType
-                                                 "" // reason
+                                                 "", // reason
+                                               cHoldings.getCashAvailable()
                );
                tradeDataList.add( tdata);
             }
@@ -967,6 +830,7 @@ public class RebalanceProcess
          //Check current cash
          if(cHoldings.getCashAvailable()> nHoldings[year].getCashMoney()){
 
+
             if(hMap.containsKey(ticker)) {
                holdingData = hMap.get(ticker);
                //Rebalance trade only buy more
@@ -990,11 +854,15 @@ public class RebalanceProcess
                      hPrice = holdingData.getMarkPrice();
                      hMoney = hShares * hPrice;
 
+                     // Is holding value less than new required holdings?
+                     if(hMoney < portfolioSecurityData.getMoney())
+                     {
+                        hMoney = portfolioSecurityData.getMoney();
+                        hShares = (double) StrictMath.round((StrictMath.abs(hMoney) / hPrice) - 0.5);
+                     }
                      //Buy
                      if (hShares > 0.0){
 
-
-                        //tmoney = portfolioSecurityData.getMoney();
                         Double availMoney = hMoney;
 
                         //Replace this later,  Added this section for multiple Tax Loss Harvsting
@@ -1026,6 +894,9 @@ public class RebalanceProcess
 
                                  double tlhMoney = tlhShares * tlhPrice;
 
+                                 cHoldings.setCashAvailable(cHoldings.getCashAvailable()- tlhMoney);
+                                 availMoney = availMoney - tlhMoney;
+
                                  //tlhdata.setTLHFlag(true);
                                  tdata = new TradeData(advisor,
                                                        cHoldings.getClientAccountID(),
@@ -1037,23 +908,21 @@ public class RebalanceProcess
                                                        tlhPrice,
                                                        tlhMoney,
                                                        holdingData.getTicker(),
-                                                       holdingData.getQty(),
-                                                       hPrice,
-                                                       holdingData.getPositionValue(),
-                                                       holdingData.getWeight(),
-                                                       holdingData.getCostBasisMoney(),
+                                                       0.0, //holdingData.getQty(),
+                                                       0.0,//hPrice,
+                                                       0.0,//holdingData.getPositionValue(),
+                                                       0.0,//holdingData.getWeight(),
+                                                       0.0,//holdingData.getCostBasisMoney(),
                                                        tlhTicker,  // allocTicker
                                                        tlhShares, // allocQty
                                                        tlhPrice, // allocPrice
                                                        tlhMoney, // allocValue
                                                        tlhMoney/nHoldings[year].getTotalMoney(), // allocWeight
                                                        tlhType,   // tradeType
-                                                       "" // reason
+                                                       "", // reason
+                                                       cHoldings.getCashAvailable()
                                  );
                                  tradeDataList.add( tdata);
-
-                                 cHoldings.setCashAvailable(cHoldings.getCashAvailable()- tlhMoney);
-                                 availMoney = availMoney - tlhMoney;
 
                               }
                            }
@@ -1067,6 +936,180 @@ public class RebalanceProcess
       return tradeDataList ;
    }
 
+   public ArrayList <TradeData> otherBuys (Portfolio[] nHoldings, CurrentHolding cHoldings,Integer year)
+   {
+      Map<String, HoldingData> hMap = cHoldings.getHoldingDataMap();
+      ArrayList <TradeData> tradeDataList = new ArrayList <TradeData>();
+
+      PortfolioSecurityData portfolioSecurityData = null;
+      String ticker;
+
+      //Check if there is a brand new position to add
+      for (int i = 0; i < nHoldings[year].getPortfolio().size(); i++)
+      {
+         portfolioSecurityData =  nHoldings[year].getPortfolio().get(i);
+
+         ticker = portfolioSecurityData.getTicker();
+         if(ticker.toLowerCase().equals("cash"))
+            continue;
+
+         //Check current cash
+         if(cHoldings.getCashAvailable()> nHoldings[year].getCashMoney()){
+
+            //Position which is new and not in current holdings
+            if(!hMap.containsKey(ticker)) {
+
+               Double tShares = portfolioSecurityData.getShares();
+               Double tPrice =  portfolioSecurityData.getDailyprice();
+               Double cash = cHoldings.getCashAvailable()- nHoldings[year].getCashMoney();
+               Double tMoney = 0.0;
+
+               if (cash < tMoney  ){
+                  tShares = (double) StrictMath.round(tMoney/portfolioSecurityData.getDailyprice() - 0.5);
+               }
+
+               tMoney = tShares * tPrice;
+               cHoldings.setCashAvailable(cHoldings.getCashAvailable()- tMoney);
+
+               TradeData tdata = new TradeData(advisor,
+                                               cHoldings.getClientAccountID(),
+                                               cHoldings.getAcctnum(),
+                                               portfolioSecurityData.getAssetclass(),
+                                               portfolioSecurityData.getSubclass(),
+                                               ticker,
+                                               tShares,
+                                               tPrice,
+                                               tMoney,
+                                               "",
+                                               0.0,
+                                               0.0,
+                                               0.0,
+                                               0.0,
+                                               0.0,
+                                               portfolioSecurityData.getTicker(),  // allocTicker
+                                               portfolioSecurityData.getShares(), // allocQty
+                                               portfolioSecurityData.getDailyprice(), // allocPrice
+                                               portfolioSecurityData.getMoney(), // allocValue
+                                               portfolioSecurityData.getTickerWeights(), // allocWeight
+                                               "New Buy",   // tradeType
+                                               "", // reason
+                                               cHoldings.getCashAvailable()
+               );
+               tradeDataList.add( tdata);
+            }
+         }
+      }
+
+      HoldingData holdingData = null;
+      //Check if there is cash for adding more shares or an existing position which is not TLH
+      for (int i = 0; i < nHoldings[year].getPortfolio().size(); i++)
+      {
+         portfolioSecurityData =  nHoldings[year].getPortfolio().get(i);
+         ticker = portfolioSecurityData.getTicker();
+         if(ticker.toLowerCase().equals("cash"))
+            continue;
+
+         //Check current cash
+         if(cHoldings.getCashAvailable()> nHoldings[year].getCashMoney()){
+
+            if(hMap.containsKey(ticker)) {
+               holdingData = hMap.get(ticker);
+
+               if(!holdingData.isTlhSellLongFlag() && !holdingData.isTlhSellShortFlag())
+               {
+                  //Rebalance trade only buy more
+                  Double tShares = portfolioSecurityData.getShares() - holdingData.getQty();
+                  Double tPrice = holdingData.getMarkPrice();
+                  Double tMoney = 0.0;
+
+                  //Buy
+                  if (tShares > 0.0)
+                  {
+
+                     double cash = cHoldings.getCashAvailable() - nHoldings[year].getCashMoney();
+                     tMoney = tShares * holdingData.getMarkPrice();
+
+                     if (cash < tMoney)
+                     {
+                        tMoney = cash;
+                        tShares = (double) StrictMath.round((tMoney / tPrice) - 0.5);
+                     }
+
+                     cHoldings.setCashAvailable(cHoldings.getCashAvailable() - tMoney);
+                     holdingData.setProcessed(true);
+
+                     holdingData.setQty(holdingData.getQty() + tShares);
+                     holdingData.setPositionValue(holdingData.getPositionValue() + tMoney);
+
+                     TradeData tdata = new TradeData(advisor,
+                                                     cHoldings.getClientAccountID(),
+                                                     cHoldings.getAcctnum(),
+                                                     portfolioSecurityData.getAssetclass(),
+                                                     portfolioSecurityData.getSubclass(),
+                                                     ticker,
+                                                     tShares,
+                                                     tPrice,
+                                                     tMoney,
+                                                     holdingData.getTicker(), // Ticker
+                                                     holdingData.getQty(),    // Qty
+                                                     holdingData.getMarkPrice(), // Price
+                                                     holdingData.getPositionValue(), // Money
+                                                     holdingData.getWeight(),  // Weight
+                                                     holdingData.getCostBasisMoney(), // CostBasis
+                                                     portfolioSecurityData.getTicker(),  // allocTicker
+                                                     0.0,//portfolioSecurityData.getShares(), // allocQty
+                                                     0.0,//portfolioSecurityData.getDailyprice(), // allocPrice
+                                                     0.0,//portfolioSecurityData.getMoney(), // allocValue
+                                                     0.0,//portfolioSecurityData.getTickerWeights(), // allocWeight
+                                                     "Rebal Buy",   // tradeType
+                                                     "", // reason
+                                                     cHoldings.getCashAvailable()
+                     );
+
+                     tradeDataList.add(tdata);
+
+                  }
+               }
+            }
+         }
+      }
+
+      return tradeDataList;
+   }
+
+   public ArrayList <TradeData> addCash (Portfolio[] nHoldings, CurrentHolding cHoldings,Integer year)
+   {
+
+      ArrayList<TradeData> tradeDataList = new ArrayList<TradeData>();
+
+      TradeData tdata = new TradeData(advisor,
+                                      cHoldings.getClientAccountID(),
+                                      cHoldings.getAcctnum(),
+                                      "Cash",
+                                      "Cash",
+                                      "Cash",
+                                      cHoldings.getCashAvailable(),
+                                      1.0,
+                                      cHoldings.getCashAvailable(),
+                                      "",
+                                      0.0,
+                                      0.0,
+                                      0.0,
+                                      0.0,
+                                      0.0,
+                                      "Cash",  // allocTicker
+                                      cHoldings.getCashAvailable(),
+                                      1.0,
+                                      cHoldings.getCashAvailable(), // allocValue
+                                      0.0, // allocWeight
+                                      "Cash Remaining",   // tradeType
+                                      "", // reason
+                                      cHoldings.getCashAvailable()
+      );
+      tradeDataList.add(tdata);
+
+      return tradeDataList;
+   }
    public ArrayList<TradeData> createTradeObjectNonTaxAccounts(Portfolio[] nHoldings,
                                                                AssetClass[] aamc,
                                                                ProfileData profileData,
@@ -1137,7 +1180,8 @@ public class RebalanceProcess
                                          portfolioSecurityData.getMoney(), // allocValue
                                          portfolioSecurityData.getTickerWeights(), // allocWeight
                                          "NonTax",   // tradeType
-                                         "" // reason
+                                         "", // reason
+                                         cHoldings.getCashAvailable()
          );
          tradeDataList.add(counter,tdata);
          counter++;
@@ -1186,7 +1230,8 @@ public class RebalanceProcess
                                             0.0, // allocValue
                                             0.0, // allocWeight
                                             "NonTax",   // tradeType
-                                            "" // reason
+                                            "", // reason
+                                            cHoldings.getCashAvailable()
             );
             tradeDataList.add(counter,tdata);
             counter++;
