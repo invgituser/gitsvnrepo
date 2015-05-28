@@ -253,6 +253,9 @@ public class Asset
       this.holdingValue = holdingValue;
    }
 
+   public double getBalancedValue() {
+      return  (this.holdingValue + this.value);
+   }
    @Override
    public String toString()
    {
