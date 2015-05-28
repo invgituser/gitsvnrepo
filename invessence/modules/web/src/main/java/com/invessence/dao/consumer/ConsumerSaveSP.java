@@ -357,7 +357,7 @@ public class ConsumerSaveSP extends StoredProcedure
          inputAssetMap.put("p_themecode", data.getTheme());
          inputAssetMap.put("p_allocationmodel", data.getModel());
          inputAssetMap.put("p_assetyear", data.getAssetyear());
-         inputAssetMap.put("p_active", (data.getManaged() ? "A": ""));
+         inputAssetMap.put("p_active", "A");
          inputAssetMap.put("p_weight", data.getAssetData()[0].getAsset(assetname).getUserweight());
          super.execute(inputAssetMap);
       }

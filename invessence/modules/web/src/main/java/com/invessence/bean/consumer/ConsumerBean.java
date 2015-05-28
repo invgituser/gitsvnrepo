@@ -398,9 +398,9 @@ public class ConsumerBean extends ManageGoals implements Serializable
             charts.createPieModel(getAssetData(), 0);
          }
 
-         if (getPortfolioData() != null) {
-            charts.createLineModel(getPortfolioData(), getPortfolioData().length);
-         }
+         //if (getPortfolioData() != null) {
+         //   charts.createLineModel(getPortfolioData(), getPortfolioData().length);
+         //}
 
       }
       catch (Exception ex) {

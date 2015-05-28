@@ -14,6 +14,7 @@ import com.invessence.dao.consumer.*;
 import com.invessence.data.advisor.AdvisorData;
 import com.invessence.data.common.*;
 import com.invessence.util.*;
+import com.invmodel.performance.data.PerformanceData;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
@@ -39,6 +40,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    private Integer canOpenAccount;
 
    private Integer prefView = 0;
+   private String whichChart;
 
    private Integer imageSelected = 0;
 
@@ -99,6 +101,16 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       return prefView;
    }
 
+   public String getWhichChart()
+   {
+      return whichChart;
+   }
+
+   public void setWhichChart(String whichChart)
+   {
+      this.whichChart = whichChart;
+   }
+
    public void setPrefView(Integer prefView)
    {
       this.prefView = prefView;
@@ -135,6 +147,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            whichChart = "pie";
             setPrefView(0);
             if (getWebutil().hasAccess("Advisor") || getWebutil().hasAccess("Admin"))
                setRiskCalcMethod("A");
@@ -163,6 +176,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       {
          // Since this is used by both try and Actual, we'll handle the add/save in SaveProfile function...
          // getWebutil().validatePriviledge(Const.ROLE_OWNER);
+         whichChart = "pie";
       }
       catch (Exception e)
       {
@@ -430,6 +444,13 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       }
    }
 
+   public void refreshChart() {
+      if (whichChart.toLowerCase().equals("pie"))
+         charts.createPieModel(getAssetData(), 0);
+      else if (whichChart.toLowerCase().equals("bar"))
+         charts.createBarChart(getAssetData(), 0);
+
+   }
    private void createCharts() {
 
       try {
@@ -437,10 +458,12 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
          charts.setMeterGuage(getMeterRiskIndicator());
          if (getAssetData() != null) {
             charts.createPieModel(getAssetData(),0);
+            charts.createBarChart(getAssetData(),0);
          }
 
          if (getPortfolioData() != null) {
-            charts.createLineModel(getPortfolioData(), getPortfolioData().length);
+            PerformanceData[] perfData = buildPerformanceData();
+            charts.createLineModel(perfData);
          }
 
       }
@@ -508,6 +531,9 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
                setAcctnum(acctnum);
                saveDAO.saveFinancials(getInstance());
                saveDAO.saveRiskProfile(getInstance());
+               saveDAO.saveAllocation(getInstance());
+               saveDAO.savePortfolio(getInstance());
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
             }
          }
       }

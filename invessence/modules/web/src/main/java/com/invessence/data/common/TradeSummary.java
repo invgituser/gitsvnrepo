@@ -17,11 +17,13 @@ public class TradeSummary
    private String clientAccountID;
    private Long   acctnum;
    private String lastName, firstName;
+   private String taxable, theme, goal;
    private String email;
    private Double totalbought, totalsold, newcash, keepLiquid;
    private Double totalNewValue, totalAllocValue, totalHoldingValue;
+   private Map<String, RebalanceInfo> listofHoldingTickers = new HashMap<String, RebalanceInfo>();
    private Map<String, Asset> asset = new LinkedHashMap<String, Asset>();
-   private Map<String, TradeData> tradeDetails = new LinkedHashMap<String, TradeData>();
+   private ArrayList<TradeData> tradeDetails = new ArrayList<TradeData>();
    private TradeData cashDetail = new TradeData();
 
    public String getClientAccountID()
@@ -69,6 +71,35 @@ public class TradeSummary
       return lastName + ", " + firstName;
    }
 
+   public String getTaxable()
+   {
+      return taxable;
+   }
+
+   public void setTaxable(String taxable)
+   {
+      this.taxable = taxable;
+   }
+
+   public String getTheme()
+   {
+      return theme;
+   }
+
+   public void setTheme(String theme)
+   {
+      this.theme = theme;
+   }
+
+   public String getGoal()
+   {
+      return goal;
+   }
+
+   public void setGoal(String goal)
+   {
+      this.goal = goal;
+   }
 
    public String getEmail()
    {
@@ -100,25 +131,49 @@ public class TradeSummary
       return managed;
    }
 
-   public Map<String, TradeData> getTradeDetails()
+   public Map<String, RebalanceInfo> getListofHoldingTickers()
+   {
+      return listofHoldingTickers;
+   }
+
+   public Double addListofHoldingTickers(String ticker, Double qty, Double value)
+   {
+      RebalanceInfo rinfo;
+      Double newBalance = 0.0;
+      Integer location = 0;
+      if (listofHoldingTickers == null)
+         listofHoldingTickers = new HashMap<String, RebalanceInfo>();
+      if (! ticker.isEmpty()) {
+         if (listofHoldingTickers.containsKey(ticker)) {
+            rinfo = listofHoldingTickers.get(ticker);
+            newBalance = rinfo.getValue() + value;
+            rinfo.setQty(rinfo.getQty() + qty);
+            rinfo.setValue(newBalance);
+         }
+         else {
+            rinfo = new RebalanceInfo();
+            location = listofHoldingTickers.size();
+            rinfo.setQty(qty);
+            rinfo.setValue(value);
+            newBalance = value;
+         }
+         this.listofHoldingTickers.put(ticker,rinfo);
+      }
+      return newBalance;
+   }
+
+   public ArrayList<TradeData> getTradeDetails()
    {
       return tradeDetails;
    }
 
-   public void setTradeDetails(Map<String, TradeData> tradeDetails)
+   public void setTradeDetails(ArrayList<TradeData> tradeDetails)
    {
       this.tradeDetails = tradeDetails;
    }
 
    public ArrayList<TradeData> getTradeData() {
-      ArrayList<TradeData> tradedata = new ArrayList<TradeData>();
-      if (getTradeDetails() != null) {
-         for (TradeData td : getTradeDetails().values())
-            tradedata.add(td);
-      }
-
-      return tradedata;
-
+      return tradeDetails;
    }
 
    public TradeData getCashDetail()
@@ -196,6 +251,10 @@ public class TradeSummary
       this.totalAllocValue = totalAllocValue;
    }
 
+   public Double getNewTotalValue() {
+      return (this.totalNewValue - this.totalNewValue);
+   }
+
    public Double getTotalHoldingValue()
    {
       if (totalHoldingValue == null)
@@ -208,4 +267,47 @@ public class TradeSummary
    {
       this.totalHoldingValue = totalHoldingValue;
    }
+
+   public void addTotals() {
+      Double totalHolding = 0.0, totalAlloc = 0.0, totalNewTrades = 0.0;
+      // Double totalHoldingQty = 0.0, totalAllocQty = 0.0, totalNewTradesQty = 0.0;
+      if (asset != null && asset.size() > 0) {
+
+         for (String assetname : asset.keySet()) {
+            totalHolding += asset.get(assetname).getHoldingValue();
+            totalNewTrades += asset.get(assetname).getValue();
+         }
+
+         setTotalHoldingValue(totalHolding);
+         setTotalAllocValue(totalNewTrades);
+         // setTotalNewValue(totalNewTrades);
+      }
+   }
+
+   public class RebalanceInfo {
+      public Double qty;
+      public Double value;
+
+      public Double getQty()
+      {
+         return qty;
+      }
+
+      public void setQty(Double qty)
+      {
+         this.qty = qty;
+      }
+
+      public Double getValue()
+      {
+         return value;
+      }
+
+      public void setValue(Double value)
+      {
+         this.value = value;
+      }
+   }
 }
+
+

@@ -203,16 +203,17 @@ public class TradeBean extends TradeClientData implements Serializable
 
    private void showGrowl(String msg, String msgType) {
       try {
-         if (msg.startsWith("E"))
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-         else if (msg.startsWith("W"))
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msg));
+         if (msgType.startsWith("E"))
+            FacesContext.getCurrentInstance().addMessage("growltrademsg", new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         else if (msgType.startsWith("W"))
+            FacesContext.getCurrentInstance().addMessage("growltrademsg", new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msg));
          else
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+            FacesContext.getCurrentInstance().addMessage("growltrademsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
 
       }
       catch (Exception ex) {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "System Error", "Please contact support desk."));
+         FacesContext.getCurrentInstance().addMessage("growltrademsg",
+                                                      new FacesMessage(FacesMessage.SEVERITY_ERROR, "System Error", "Please contact support desk."));
       }
    }
 
@@ -323,16 +324,17 @@ public class TradeBean extends TradeClientData implements Serializable
 
    public void createtlhTrades()
    {
-      TradeClientData tData;
+      TradeClientData tData = null;
       ArrayList<TradeData> tradedata = null;
       try
       {
          if (getSelectedClientList() != null)
          {
-
+            webutil.progessreset();
             Integer numClients = getSelectedClientList().size();
             for (Integer loop = 0; loop < numClients; loop++)
             {
+               webutil.setProgressbar((loop/numClients) * 100);
                tData = getSelectedClientList().get(loop);
                tradedata = rebalProcess.process(tData.getLogonid(), tData.getAcctnum());
             }
@@ -342,7 +344,12 @@ public class TradeBean extends TradeClientData implements Serializable
                showGrowl(msg, "Warning");
             }
             else if (tradedata != null && tradedata.size() > 0) {
-               msg = numClients.toString() + " account(s) were processed, successfully";
+               if (numClients == 1) {
+                  msg = "Account#: " + tData.getAcctnum().toString() + " was processed, successfully";
+               }
+               else {
+                  msg = numClients.toString() + " accounts were processed, successfully";
+               }
                showGrowl(msg, "Info");
             }
 
@@ -403,9 +410,20 @@ public class TradeBean extends TradeClientData implements Serializable
 
    public void collectTradeSummary()
    {
+      webutil.getProgressbar();
+      if (getTradeDetailsData() != null)
+         getTradeDetailsData().clear();
       setTradeDetailsData(tradeDAO.loadTradesDetails(null));
+      addTotals();
+      webutil.setProgressbar(100);
    }
 
+   private void addTotals() {
+      if (getTradeDetailsData() != null && getTradeDetailsData().size() > 0) {
+         for (TradeSummary ts : getTradeDetailsData().values())
+            ts.addTotals();
+      }
+   }
    private String getFileNameWithDateAndTime(String prefix)
    {
       Date date = new Date();
@@ -424,10 +442,12 @@ public class TradeBean extends TradeClientData implements Serializable
          propInput = req.getSession().getServletContext().getResourceAsStream("/WEB-INF/classes/invessence.properties");
          prop.load(propInput);
          userHomeDir = prop.getProperty("doc.location");
-         System.out.println("Data File Location :" + userHomeDir);
+         // System.out.println("Data File Location :" + userHomeDir);
+         webutil.getProgressbar();
 
+         tradeDAO.createTrades(null);
          List<Map<String, Object>> data;
-         data = tradeDAO.getTradesAllocationData();
+         data = tradeDAO.getTradeData();
          tradeFile1 = getFileNameWithDateAndTime("_TRADES_BUY");
          tradeFile1 = userHomeDir + tradeFile1;
          allocFile1 = getFileNameWithDateAndTime("_ALLOC_BUY");
@@ -439,12 +459,15 @@ public class TradeBean extends TradeClientData implements Serializable
          allocFile2 =  userHomeDir + allocFile2;
          tw.downloadTradesAllocationFile(data, tradeFile2, allocFile2, "SELL");
          tradeDAO.updateExecutedTrades();
-         String msg = "Trade and Allocation files produced in (" + userHomeDir + ")";
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+         webutil.setProgressbar(100);
+         String msg = "Trade and Allocation files produced";
+         showGrowl(msg, "Info");
+         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
       }
       catch (Exception ex) {
          String msg = "Error when producing file" + ex.getMessage();
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         showGrowl(msg, "Error");
+         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
          ex.printStackTrace();
       }
    }

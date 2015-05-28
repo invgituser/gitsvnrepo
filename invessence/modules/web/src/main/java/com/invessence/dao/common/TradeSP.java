@@ -48,6 +48,9 @@ public class TradeSP extends StoredProcedure
          case 4: // sp_createTrades
             declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
             break;
+         case 5: // sel_position
+            declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
+            break;
          case 99:  // sel_displayTrades2Execute, delete_pending_trades
             break;
 
@@ -178,7 +181,7 @@ public class TradeSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map getTradesAllocationData()
+   public Map getTradeData()
    {
       Map inputMap = new HashMap();
       return super.execute(inputMap);
@@ -198,5 +201,12 @@ public class TradeSP extends StoredProcedure
       super.execute(inputMap);
    }
 
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map selectPosition(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
 
 }

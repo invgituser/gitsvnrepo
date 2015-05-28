@@ -303,7 +303,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
             // totalAssetClassWeights(getAssetData()[displayYear].getAssetclass(),displayYear);  // True calculation after Portfolio allocated.
             if (getEditableAsset() != null) {
                // Now refresh the pages...
-               charts.createPieModel(getEditableAsset());
+               // charts.createPieModel(getEditableAsset());
             }
 /*
             if (getPortfolioData() != null) {
@@ -332,7 +332,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
             // totalAssetClassWeights(getAssetData()[0].getAssetclass(),0);  // True calculation after Portfolio allocated.
             if (getEditableAsset() != null) {
                // Now refresh the pages...
-               charts.createPieModel(getEditableAsset());
+               //charts.createPieModel(getEditableAsset());
             }
 /*
             if (getPortfolioData() != null) {

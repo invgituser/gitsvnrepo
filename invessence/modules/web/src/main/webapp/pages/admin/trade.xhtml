@@ -12,12 +12,11 @@
 </f:metadata>
 
 <ui:define name="content">
-<h:outputScript name="js/invCharts.js" library="spark-layout" />
 
 <div class="layout-portlets-box">
     <div class="Container100">
         <h:form id="tradeForm">
-            <p:growl id="growltrademsg" closable="true" sticky="true" style="top: 40%"/>
+            <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
             <p:tabView cache="true" dynamic="true">
             <p:tab title="Select">
                 <p:panelGrid id="rebalgrid2" styleClass="invNBgrid">
@@ -117,11 +116,9 @@
                     -->
 
                     <f:facet name="footer">
-                        <p:commandButton id="tlhButton" value="Rebalance"
+                        <p:commandButton id="rebalBtn" value="Rebalance"
                                          update="@form" ajax="true"
                                          actionListener="#{tradeBean.createtlhTrades}">
-                            <p:ajaxStatus onclick="PF('rebalButton').disable();PF('status').show();"
-                                          oncomplete="PF('status').hide()"/>
                         </p:commandButton>
 
                     </f:facet>
@@ -131,7 +128,7 @@
                 <p:panelGrid id="validategrid2" styleClass="invNBgrid">
                     <p:row>
                         <p:column colspan="5">
-                            <p:commandButton value="Load Trades"
+                            <p:commandButton id="reviewBtn" value="Load Trades"
                                              process="@form" update="tradeTable"
                                              actionListener="#{tradeBean.collectTradeSummary}"/>
                         </p:column>
@@ -142,7 +139,7 @@
                              border="2" styleClass="invAdminTable"
                              sortBy="#{trade.clientAccountID}">
 
-                    <p:column style="width:7%;text-align: center">
+                    <p:column style="width:5%;text-align: center">
                         <p:commandButton update=":tradeForm:reviewDetailView" oncomplete="PF('reviewDetailDialog').show()" icon="ui-icon-search"
                                          title="View">
                             <f:setPropertyActionListener value="#{trade}" target="#{tradeBean.selectedTradeSummary}"/>
@@ -173,37 +170,55 @@
                     </p:column>
 
                     <p:column
-                            style="width:5%; text-align: right;" resizable="true">
+                            style="width:15%; text-align: left;" resizable="true">
                         <f:facet name="header">
-                            <h:outputText value="Bought"/>
+                            <h:outputText value="Theme"/>
                         </f:facet>
-                        <h:outputText value="#{trade.totalbought}">
-                            <f:convertNumber pattern="###,###"/>
-                        </h:outputText>
+                        <h:outputText value="#{trade.theme}"/>
                     </p:column>
-                    <p:column headerText="Ticker"
-                              style="width:10%; text-align: right" resizable="true">
+
+                    <p:column
+                            style="width:8%; text-align: left;" resizable="true">
                         <f:facet name="header">
-                            <h:outputText value="Sold"/>
+                            <h:outputText value="Taxable"/>
                         </f:facet>
-                        <h:outputText value="#{trade.totalsold}">
-                            <f:convertNumber pattern="###,###"/>
-                        </h:outputText>
+                        <h:outputText value="#{trade.taxable}"/>
                     </p:column>
-                    <p:column style="width:15%; text-align: right" resizable="true">
+
+                    <p:column
+                            style="width:8%; text-align: left;" resizable="true">
                         <f:facet name="header">
-                            <h:outputText value="Current Value"/>
+                            <h:outputText value="Goal"/>
                         </f:facet>
-                        <h:outputText value="#{trade.totalNewValue}">
-                            <f:convertNumber pattern="#,###,###.00"/>
-                        </h:outputText>
+                        <h:outputText value="#{trade.goal}"/>
                     </p:column>
-                    <p:column style="width:15%; text-align: right" resizable="true">
+
+                    <p:column
+                            style="width:12%; text-align: right;" resizable="true">
                         <f:facet name="header">
-                            <h:outputText value="Holding Value"/>
+                            <h:outputText value="Holding"/>
                         </f:facet>
                         <h:outputText value="#{trade.totalHoldingValue}">
-                            <f:convertNumber pattern="#,###,###.00"/>
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column 
+                              style="width:12%; text-align: right" resizable="true">
+                        <f:facet name="header">
+                            <h:outputText value="Allocated"/>
+                        </f:facet>
+                        <h:outputText value="#{trade.totalAllocValue}">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column style="width:12%; text-align: right" resizable="true">
+                        <f:facet name="header">
+                            <h:outputText value="Traded"/>
+                        </f:facet>
+                        <h:outputText value="#{trade.totalNewValue}">
+                            <f:convertNumber type="currency" currencySymbol="$"/>
                         </h:outputText>
                     </p:column>
                 </p:dataTable>
@@ -212,7 +227,8 @@
                 <p:panelGrid id="rebalgrid3" styleClass="invNBgrid">
                     <p:row>
                         <p:column colspan="5">
-                            <p:commandButton type="submit" value="Generate Trades"
+                            <p:commandButton id="genBtn" type="submit" value="Generate Trades"
+                                             update="@form"
                                              action="#{tradeBean.generateTrades}"/>
                         </p:column>
                     </p:row>
@@ -254,7 +270,7 @@
 
             <p:dialog widgetVar="status" modal="false" closable="true"
                       style="background: #fff; top:200px">
-                Processing<br/>
+                Please wait, while we are processing ...<br/>
                 <p:progressBar widgetVar="pbAjax" ajax="true" value="#{tradeBean.webutil.progressbar}"
                                labelTemplate="{value}%" styleClass="animated" global="false">
                 </p:progressBar>

@@ -16,7 +16,7 @@
 
 <!-- BOX START -->
 <h:form id="ceForm">
-<p:growl id="advisorEditgrowl" showDetail="true" sticky="true" escape="true"/>
+<p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
 
 <div class="layout-portlets-box">
     <p:panel id="dPanel1">
@@ -27,7 +27,7 @@
                     <div class="DispInlBlock">
                         <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
                         <p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
-                            <h3 class="black Fs18 FontRalewayMedium">#{menu.webutil.lastFirstName}</h3>
+                            <h3 class="black Fs18 FontRalewayMedium">#{cepb.fullName}</h3>
                             <span class="Fs15 gray FontRalewayRegular DispBlock">#{cepb.portfolioName}</span>
                             <span class="Fs15 gray FontRalewayRegular DispBlock">
                                <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
@@ -47,7 +47,7 @@
                             <span class="gray Fs18 FontRalewayMedium DispBlock">Investment</span>
                             <span class="black FontRalewayBold Fs24">
                                 <h:outputText id="displayInvestment" value="#{cepb.initialInvestment}">
-                                    <f:convertNumber pattern="$ #,###,###"/>
+                                    <f:convertNumber pattern="$ ###,###,###"/>
                                 </h:outputText>
                             </span>
                         </div>
@@ -56,17 +56,12 @@
             </div>
         </div>
         <div class="Container33 Responsive">
+            <div class="Wid50"></div>
             <div class="ContainerIndent">
                 <div class="DispBlock">
-                    <div class="Container100 TextAlCenter">
-                        <p:commandButton value="Save" icon="fa fa-save Fs14 white"
-                                         actionListener="#{cepb.saveProfile}"/>
-                    </div>
-                    <div class="Container100">
-                        <p:commandButton value="Fund Account" icon="fa fa-dollar Fs14 white"
-                                         actionListener="#{cepb.fundAccount}"
-                                         oncomplete="PF('dlgIB').show();"/>
-                    </div>
+                         <p:splitButton value="Fund Account" actionListener="#{cepb.fundAccount}" icon="fa fa-dollar Fs14 white">
+                            <p:menuitem value="Save" actionListener="#{cepb.saveProfile}" update="caddgrowl" icon="fa fa-save Fs14 white" />
+                        </p:splitButton>
                 </div>
             </div>
         </div>
@@ -98,9 +93,24 @@
         <div class="Container100 Responsive50">
             <div class="ContainerIndent">
                 <div class="Container50 Responsive50 TexAlCenter Fs16">
-                    <div class="ContainerIndent">
-                        Based on your answers, here is your recommended asset allocation.
+                    <div class="Container100 Fleft TexAlCenter Fs16">
+                       <div class="ContainerIndent">
+                           Based on your answers, here is your recommended asset allocation.
+                       </div>
                     </div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Container100 Fright Fs16">
+                        <div class="ContainerIndent">
+                            <p:outputLabel value="Choose Graph " styleClass="TexAlRight"/>
+                            <p:selectOneButton value="#{cepb.whichChart}" styleClass="Fright Gray">
+                                <p:ajax listener="#{cepb.refreshChart}"
+                                        update=":ceForm:workArea"/>
+                                <f:selectItem itemLabel="Allocation" itemValue="bar"/>
+                                <f:selectItem itemLabel="Projection" itemValue="line" />
+                            </p:selectOneButton>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="Container50 Responsive50">
                     <div class="Container100 Responsive50 Fleft TexAlCenter Fs16">
@@ -143,10 +153,16 @@
             <div class="ContainerIndent">
                 <div class="Container50 Responsive50 Fleft">
                     <div class="ContainerIndent">
-                        <p:outputPanel deferred="true">
-                            <p:chart type="pie" model="#{cepb.charts.pieChart}"
-                                     style="width:200px;height:200px"/>
-                        </p:outputPanel>
+                        <div class="Container100 Responsive50 Fright">
+                            <p:outputPanel deferred="true" rendered="#{cepb.whichChart != 'line'}">
+                                <p:chart type="bar" model="#{cepb.charts.barChart}"
+                                         responsive="true"/>
+                            </p:outputPanel>
+                            <p:outputPanel deferred="true" rendered="#{cepb.whichChart == 'line'}">
+                                <p:chart type="line" model="#{cepb.charts.lineChart}"
+                                         responsive="true"/>
+                            </p:outputPanel>
+                        </div>
                     </div>
                 </div>
                 <div class="Container50 Responsive50 Fright">
@@ -169,6 +185,35 @@
                                     <f:convertNumber pattern="##0.00%"/>
                                 </h:outputText>
                             </p:column>
+<!--
+                            <p:column styleClass="Wid40 Fs14 TexAlRight"
+                                      headerText="Risk">
+                                <h:outputText value="#{assetList.risk}">
+                                    <f:convertNumber pattern="##0.00%"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column styleClass="Wid40 Fs14 TexAlRight"
+                                      headerText="Expected Returns">
+                                <h:outputText value="#{assetList.expectedReturn}">
+                                    <f:convertNumber pattern="##0.00%"/>
+                                </h:outputText>
+                            </p:column>
+-->
+<!--
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
+                                              footerText="Total">
+                                    </p:column>
+                                    <p:column styleClass="Fs14 TexAlRight FontBold"
+                                              footerText="#{dataDisplayConverter.displayAsPercent(cepb.totalRisk * 100)}">
+                                    </p:column>
+                                    <p:column styleClass="Fs14 TexAlRight FontBold"
+                                              footerText="#{dataDisplayConverter.displayAsPercent(cepb.totalExpectedReturns * 100)}">
+                                    </p:column>
+                                </p:row>
+                            </p:columnGroup>
+-->
                         </p:dataTable>
                     </div>
                 </div>

@@ -11,6 +11,8 @@ import com.invessence.util.*;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.performance.PortfolioPerformance;
+import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
 
@@ -32,6 +34,10 @@ public class ManageGoals extends ProfileData
 
    @ManagedProperty("#{portfolioModel}")
    private PortfolioModel portfolioModel;
+
+   @ManagedProperty("#{portfolioPerformance}")
+   private PortfolioPerformance portfolioPerformance;
+
    private String userid;
    private String addmodflag;
    private String dateOpened;
@@ -151,6 +157,38 @@ public class ManageGoals extends ProfileData
    public void setPortfolioModel(PortfolioModel portfolioModel)
    {
       this.portfolioModel = portfolioModel;
+   }
+
+   public PortfolioPerformance getPortfolioPerformance()
+   {
+      return portfolioPerformance;
+   }
+
+   public void setPortfolioPerformance(PortfolioPerformance portfolioPerformance)
+   {
+      this.portfolioPerformance = portfolioPerformance;
+   }
+
+   public Double getTotalRisk() {
+      Double value = 0.0;
+      if (getPortfolioData() != null) {
+        if (getAssetyear() != null && getPortfolioData().length > getAssetyear())
+           value = getPortfolioData()[getAssetyear()].getTotalRisk();
+        else
+           value = getPortfolioData()[0].getTotalRisk();
+      }
+      return value;
+   }
+
+   public Double getTotalExpectedReturns() {
+      Double value = 0.0;
+      if (getPortfolioData() != null) {
+         if (getAssetyear() != null && getPortfolioData().length > getAssetyear())
+            value = getPortfolioData()[getAssetyear()].getExpReturns();
+         else
+            value = getPortfolioData()[0].getExpReturns();
+      }
+      return value;
    }
 
    public ProfileData getSubInstance()
@@ -1005,6 +1043,7 @@ public class ManageGoals extends ProfileData
             if (getUserAssetOverride())
                getAllocModel().overrideAssetWeight(aamc[displayYear], this.getEditableAsset());
             totalAssetClassWeights(aamc[displayYear].getAssetclass(), displayYear);
+
          }
 
       }
@@ -1012,6 +1051,21 @@ public class ManageGoals extends ProfileData
       {
          ex.printStackTrace();
       }
+   }
+
+   public PerformanceData[] buildPerformanceData() {
+      Integer numOfYears = getAge();
+      if (numOfYears == null)
+         numOfYears = 20;
+      else {
+         numOfYears = 65 - numOfYears;
+         if (numOfYears > 20)
+            numOfYears = 20;
+         else
+            numOfYears = 5;
+      }
+      PerformanceData[] perfData = portfolioPerformance.getPortfolioPerformance(getPortfolioData(), numOfYears,0);
+      return perfData;
    }
 
    public void totalAssetClassWeights(Map<String, Asset> assetdata, Integer offset)

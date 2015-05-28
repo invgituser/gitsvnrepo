@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.invessence.converter.JavaUtil;
 import com.invmodel.asset.data.*;
+import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.data.Portfolio;
 import org.primefaces.model.chart.*;
 
@@ -22,7 +23,7 @@ public class Charts implements Serializable
    private Integer year;
    private Integer calendarYear, minYearPoint, maxYearPoint, minGrowth, maxGrowth,legendXrotation;
 
-   private CartesianChartModel lineChart;
+   private LineChartModel lineChart;
    private PieChartModel pieChart;
    private MeterGaugeChartModel meterGuage;
    private BarChartModel barChart;
@@ -30,8 +31,9 @@ public class Charts implements Serializable
    public Charts()
    {
       pieChart = new PieChartModel();
-      lineChart = new CartesianChartModel();
+      lineChart = new LineChartModel();
       createDefaultMeterGuage();
+      barChart = new BarChartModel();
    }
 
    public CartesianChartModel getLineChart()
@@ -115,8 +117,7 @@ public class Charts implements Serializable
       this.meterGuage.setIntervalOuterRadius(20);
    }
 
-
-   public void createLineModel(Portfolio[] portfolio, Integer displayYears)
+   public void createLineModel(PerformanceData[] performanceData)
    {
       Integer year;
       Integer noOfYlabels = 0;
@@ -127,31 +128,36 @@ public class Charts implements Serializable
       Long moneyPnL;
       Double dividingFactor = 1.0;
 
-      lineChart = new CartesianChartModel();
+      lineChart = new LineChartModel();
       try
       {
-         if (portfolio == null)
+         if (performanceData == null)
             return;
 
-         if (portfolio.length < 2)
+         if (performanceData.length < 2)
             return;
 
 
-         ChartSeries totalGrowth = new ChartSeries();
-         ChartSeries totalInvested = new ChartSeries();
-         ChartSeries lower = new ChartSeries();
-         ChartSeries upper = new ChartSeries();
+         LineChartSeries totalGrowth = new LineChartSeries();
+         LineChartSeries totalInvested = new LineChartSeries();
+         LineChartSeries lower1 = new LineChartSeries();
+         LineChartSeries lower2 = new LineChartSeries();
+         LineChartSeries upper1 = new LineChartSeries();
+         LineChartSeries upper2 = new LineChartSeries();
 
          //growth.setLabel("Growth");
          totalGrowth.setLabel("Growth");
          totalInvested.setLabel("Invested");
-         lower.setLabel("Lower");
-         upper.setLabel("Upper");
-         yIncrement = (int) (((double) portfolio.length) / ((double) MAXPOINTONGRAPH));
+         lower1.setLabel("Lower1");
+         lower2.setLabel("Lower2");
+         upper1.setLabel("Upper1");
+         upper1.setLabel("Upper2");
+
+         yIncrement = (int) (((double) performanceData.length) / ((double) MAXPOINTONGRAPH));
          yIncrement = yIncrement + 1;  // offset by 1
-         noOfYlabels = (int) (((double) portfolio.length) / ((double) yIncrement)) % MAXPOINTONGRAPH;
+         noOfYlabels = (int) (((double) performanceData.length) / ((double) yIncrement)) % MAXPOINTONGRAPH;
          // Mod returns 0 at its interval.  So on 30, we want to rotate it 90.
-         noOfYlabels = (noOfYlabels == 0) ? portfolio.length : noOfYlabels;
+         noOfYlabels = (noOfYlabels == 0) ? performanceData.length : noOfYlabels;
          if (noOfYlabels <= 10)
          {
             legendXrotation = 0;
@@ -166,27 +172,28 @@ public class Charts implements Serializable
          }
 
          int y = 0;
-         totalYlabels = portfolio.length - 1;
+         totalYlabels = performanceData.length - 1;
          Calendar cal = Calendar.getInstance();
          calendarYear = cal.get(cal.YEAR);
          minYearPoint = calendarYear;
          maxYearPoint = minYearPoint + totalYlabels;
-         minGrowth = ((int) portfolio[0].getActualInvestments() - 5000 < 0) ? 0 : (int) portfolio[0].getActualInvestments() - 5000;
+         minGrowth = ((int) performanceData[0].getLowerBand2() - 100 < 0) ? 0 : (int) performanceData[0].getLowerBand2() - 100;
          maxGrowth = 0;
          while (y <= totalYlabels)
          {
             year = calendarYear + y;
-            moneyInvested = Math.round(portfolio[y].getActualInvestments() / dividingFactor);
-            moneyPnL = Math.round(portfolio[y].getTotalMoney() / dividingFactor);
+            moneyInvested = Math.round(performanceData[y].getInvestedCapital() / dividingFactor);
+            moneyPnL = Math.round(performanceData[y].getTotalCapitalWithGains() / dividingFactor);
             // System.out.println("Year:" + year.toString() + ", Value=" + yearlyGrowthData[y][2]);
-            maxGrowth = (maxGrowth > (int) (portfolio[y].getUpperTotalMoney()/dividingFactor)) ? maxGrowth : (int)(portfolio[y].getUpperTotalMoney()/dividingFactor);
+            maxGrowth = (maxGrowth > moneyPnL.intValue()) ? maxGrowth : moneyPnL.intValue();
             // growth.set(year, portfolio[y].getTotalCapitalGrowth());
             totalGrowth.set(year.toString(), moneyPnL);
             totalInvested.set(year.toString(), moneyInvested);
             // Double lowerMoney = (portfolio[y].getLowerTotalMoney() < moneyInvested) ? moneyInvested : portfolio[y].getLowerTotalMoney();
-            Double lowerMoney = portfolio[y].getLowerTotalMoney();
-            lower.set(year.toString(),lowerMoney/dividingFactor);
-            upper.set(year.toString(),portfolio[y].getUpperTotalMoney()/dividingFactor);
+            lower1.set(year.toString(),performanceData[y].getLowerBand1()/dividingFactor);
+            lower2.set(year.toString(),performanceData[y].getLowerBand2()/dividingFactor);
+            upper1.set(year.toString(),performanceData[y].getUpperBand1()/dividingFactor);
+            upper2.set(year.toString(),performanceData[y].getUpperBand2()/dividingFactor);
             // If incrementing anything other then 1, then make sure that last year is displayed.
             if (y == totalYlabels)
             {
@@ -205,8 +212,24 @@ public class Charts implements Serializable
          //lineModel.addSeries(growth);
          lineChart.addSeries(totalGrowth);
          lineChart.addSeries(totalInvested);
-         // lineChart.addSeries(lower);
-         // lineChart.addSeries(upper);
+         lineChart.addSeries(lower2);
+         lineChart.addSeries(lower1);
+         lineChart.addSeries(upper1);
+         lineChart.addSeries(upper2);
+         lineChart.setShowPointLabels(true);
+         Axis xAxis = lineChart.getAxis(AxisType.X);
+         xAxis.setLabel("Assets");
+         xAxis.setMin(calendarYear);
+         xAxis.setMax(maxYearPoint);
+         xAxis.setTickFormat("%d");
+         //xAxis.setTickFormat();
+
+         Axis yAxis = lineChart.getAxis(AxisType.Y);
+         yAxis.setLabel("Allocated");
+         yAxis.setMin(minGrowth);
+         yAxis.setMax(maxGrowth);
+         yAxis.setTickFormat("$%'d");
+         lineChart.setExtender("line_extensions");
       }
       catch (Exception ex)
       {
@@ -214,6 +237,7 @@ public class Charts implements Serializable
       }
    }
 
+/*
    public void createPieModel(List<Asset> assetInfo)
    {
       String color;
@@ -256,6 +280,7 @@ public class Charts implements Serializable
 
       return;
    }
+*/
 
    public void createPieModel(AssetClass[] assetclasses, Integer offset)
    {
@@ -270,8 +295,6 @@ public class Charts implements Serializable
 
             Calendar cal = Calendar.getInstance();
             calendarYear = cal.get(cal.YEAR);
-            minYearPoint = calendarYear;
-            maxYearPoint = minYearPoint;
             int slice = 0;
             String pieseriesColors = "";
             for (String assetname : assetdata.getOrderedAsset())
@@ -279,7 +302,8 @@ public class Charts implements Serializable
                Asset asset = assetdata.getAsset(assetname);
                Double weight = asset.getActualweight();
                String label = assetname + " - " + jutil.displayFormat(weight, "##0.##%");
-               pieChart.set(label, (weight * 100));
+               weight = weight * 100;
+               pieChart.set(label, weight);
                color = asset.getColor().replace('#',' ');
                color = color.trim();
                if (slice == 0)
@@ -301,45 +325,52 @@ public class Charts implements Serializable
       }
    }
 
-   public void createBarChart(List<Asset> assetInfo)
+   public void createBarChart(AssetClass[] assetclasses, Integer offset)
    {
       String color;
-      if (assetInfo == null)
+      if (assetclasses == null)
          return;
-      if (assetInfo.size() <= 0)
+      if (assetclasses.length <= 0)
          return;
+
       barChart = new BarChartModel();
       try {
-         Calendar cal = Calendar.getInstance();
-         calendarYear = cal.get(cal.YEAR);
-         minYearPoint = calendarYear;
-         maxYearPoint = minYearPoint + assetInfo.size();
          String pieseriesColors = "";
-         ChartSeries[] series = new ChartSeries[assetInfo.size()];
          Integer maxAllocated = 0;
-         for (int i = 0; i < assetInfo.size(); i++)
-         {
-            Asset asset = assetInfo.get(i);
-            String assetname = asset.getAsset();
-            series[i].setLabel(assetname);
-            Double weight = asset.getActualweight();
-            series[i].set(calendarYear, weight);
-            maxAllocated = (maxAllocated < weight.intValue()) ? weight.intValue() : maxAllocated;
-            color = asset.getColor().replace('#', ' ');
-            color = color.trim();
-            if (i == 0)
+         if (assetclasses != null && assetclasses.length >= offset) {
+            AssetClass assetdata = assetclasses[offset];
+            Calendar cal = Calendar.getInstance();
+            calendarYear = cal.get(cal.YEAR);
+            ChartSeries[] series = new ChartSeries[assetdata.getOrderedAsset().size()];
+            for (int i = 0; i < assetdata.getOrderedAsset().size(); i++)
             {
-               pieseriesColors = color.trim();
+               String assetname = assetdata.getOrderedAsset().get(i);
+               Asset asset = assetdata.getAsset(assetname);
+               series[i] = new ChartSeries();
+               series[i].setLabel(assetname);
+               //Double weight = asset.getActualweight() * 100;
+               Double money = asset.getValue();
+               series[i].set(calendarYear, money);
+               //maxAllocated = (maxAllocated < weight.intValue()) ? weight.intValue() + 5 : maxAllocated;
+               maxAllocated = (maxAllocated < money.intValue()) ? money.intValue() + 1000 : maxAllocated;
+               color = asset.getColor().replace('#', ' ');
+               color = color.trim();
+               if (i == 0)
+               {
+                  pieseriesColors = color.trim();
+               }
+               else
+               {
+                  pieseriesColors = pieseriesColors + "," + color;
+               }
+               barChart.addSeries(series[i]);
             }
-            else
-            {
-               pieseriesColors = pieseriesColors + "," + color;
-            }
-            barChart.addSeries(series[i]);
          }
          barChart.setSeriesColors(pieseriesColors);
          barChart.setExtender("bar_extensions");
-
+         //barChart.setLegendPosition("ne");
+         //barChart.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
+         barChart.setShowPointLabels(true);
          Axis xAxis = barChart.getAxis(AxisType.X);
          xAxis.setLabel("Assets");
          //xAxis.setTickFormat();
@@ -347,13 +378,11 @@ public class Charts implements Serializable
          Axis yAxis = barChart.getAxis(AxisType.Y);
          yAxis.setLabel("Allocated");
          yAxis.setMin(0);
-         yAxis.setMax(maxAllocated + 5);
+         yAxis.setTickFormat("$%'d");
       }
       catch (Exception ex) {
          ex.printStackTrace();
       }
-
-      return;
    }
 
 
