@@ -300,9 +300,11 @@ public class PortfolioModel
 
 
             int offset;
-
-            offset = (int) (StrictMath.sqrt(StrictMath.pow(duration, 2.0) - StrictMath.pow((double) investmentYear, 2.0)))*(InvConst.PORTFOLIO_INTERPOLATION/duration);
-            offset = (int) (riskOffset * (double) offset);
+            double riskScore = profileData.getRiskIndex();
+            riskScore = StrictMath.sqrt(1.0 - (riskScore/(double)InvConst.MAX_RISK_OFFSET));
+            offset = (int)(InvConst.PORTFOLIO_INTERPOLATION * riskScore);
+            //offset = (int) (StrictMath.sqrt(StrictMath.pow(duration, 2.0) - StrictMath.pow((double) investmentYear, 2.0)))*(InvConst.PORTFOLIO_INTERPOLATION/duration);
+            //offset = (int) (riskOffset * (double) offset);
             offset = (offset > InvConst.PORTFOLIO_INTERPOLATION - 1) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
             if(offset < 0)
                offset = 0;
@@ -405,7 +407,7 @@ public class PortfolioModel
                   {
                      PrimeAssetClassData pacd = portfolioOptimizer.getPrimeAssetData(theme, assetname, primeassetclass);
                      double price = sd.getDailyprice();
-                     ticker_weight = ticker_weight * sd.getRbsaweight();  // RBSA PREP WORK:  Currently all have rate of 1
+                     ticker_weight = ticker_weight * sd.getRbsaWeight();  // RBSA PREP WORK:  Currently all have rate of 1
                      // If there is no weight, just skip this ticker all together.
                      double shares = 0.0, money = 0.0;
                      if (ticker_weight > 0.0 && price > 0.0)
@@ -437,6 +439,7 @@ public class PortfolioModel
                         amount_remain = amount_remain - money;
                         pclass.setCashMoney(amount_remain);
                         portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
+                        double pAssetreturns =  assetdata.getPrimeAssetreturns()[offset];
                         portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
                      }
                   }
