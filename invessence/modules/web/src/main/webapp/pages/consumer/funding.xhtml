@@ -19,9 +19,9 @@
             <div class="layout-portlets-box">
                 <div class="Container60 Responsive50">
                     <div class="ContainerIndent">
-                        <h1 class="BigTopic">Opening Your Account</h1>
-                        <p:panel id="fundingInfo" styleClass="TexAlLeft" style="border: 0px">
-                            <h3><h:outputText value="#{cepb.forwardInstructions}" escape="false"/></h3>
+                        <h3 class="BigTopic">Opening Your Account</h3>
+                            <h:outputText value="You are being forwarded to Interactive Broker to open an account." 
+				escape="false"/>
                             <div class="EmptyBox10"/>
                             <strong>Please have the following information readily available:</strong>
                             <br/>
@@ -47,11 +47,8 @@
 
                             <p>You will also be <u>logged out of Invessence</u>!</p>
                             <div class="EmptyBox10"/>
-                            <f:facet name="footer">
                                 <p:commandButton value="Continue" styleClass="TexAlCenter"
                                                  actionListener="#{cepb.forwardToIB}"/>
-                            </f:facet>
-                        </p:panel>
                     </div>
                 </div>
                 <div class="Container40 Responsive50">

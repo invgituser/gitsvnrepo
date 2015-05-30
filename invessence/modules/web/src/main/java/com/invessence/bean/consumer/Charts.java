@@ -125,7 +125,7 @@ public class Charts implements Serializable
       Integer yIncrement = 1;
       Integer MAXPOINTONGRAPH = 30;
       Long moneyInvested;
-      Long moneyPnL;
+      Long money;
       Double dividingFactor = 1.0;
 
       lineChart = new LineChartModel();
@@ -160,7 +160,7 @@ public class Charts implements Serializable
          noOfYlabels = (noOfYlabels == 0) ? performanceData.length : noOfYlabels;
          if (noOfYlabels <= 10)
          {
-            legendXrotation = 0;
+            legendXrotation = 15;
          }
          else if (noOfYlabels < 15)
          {
@@ -177,18 +177,19 @@ public class Charts implements Serializable
          calendarYear = cal.get(cal.YEAR);
          minYearPoint = calendarYear;
          maxYearPoint = minYearPoint + totalYlabels;
-         minGrowth = ((int) performanceData[0].getLowerBand2() - 100 < 0) ? 0 : (int) performanceData[0].getLowerBand2() - 100;
+         Integer lowervalue =  (int) ((double) performanceData[0].getLowerBand2() * .10);
+         minGrowth = ((int) performanceData[0].getLowerBand2() - lowervalue < 0) ? 0 : (int) performanceData[0].getLowerBand2() - lowervalue;
          maxGrowth = 0;
          while (y <= totalYlabels)
          {
             year = calendarYear + y;
-            moneyInvested = Math.round(performanceData[y].getInvestedCapital() / dividingFactor);
-            moneyPnL = Math.round(performanceData[y].getTotalCapitalWithGains() / dividingFactor);
+            // moneyInvested = Math.round(performanceData[y].getInvestedCapital() / dividingFactor);
+            money = Math.round(performanceData[y].getUpperBand2() / dividingFactor);
             // System.out.println("Year:" + year.toString() + ", Value=" + yearlyGrowthData[y][2]);
-            maxGrowth = (maxGrowth > moneyPnL.intValue()) ? maxGrowth : moneyPnL.intValue();
+            maxGrowth = (maxGrowth > money.intValue()) ? maxGrowth : money.intValue();
             // growth.set(year, portfolio[y].getTotalCapitalGrowth());
-            totalGrowth.set(year.toString(), moneyPnL);
-            totalInvested.set(year.toString(), moneyInvested);
+            // totalGrowth.set(year.toString(), moneyPnL);
+            // totalInvested.set(year.toString(), moneyInvested);
             // Double lowerMoney = (portfolio[y].getLowerTotalMoney() < moneyInvested) ? moneyInvested : portfolio[y].getLowerTotalMoney();
             lower1.set(year.toString(),performanceData[y].getLowerBand1()/dividingFactor);
             lower2.set(year.toString(),performanceData[y].getLowerBand2()/dividingFactor);
@@ -209,25 +210,30 @@ public class Charts implements Serializable
          Double scale = Math.pow(10, digits - 1);
 
          maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
-         //lineModel.addSeries(growth);
-         lineChart.addSeries(totalGrowth);
-         lineChart.addSeries(totalInvested);
+         // lineModel.addSeries(growth);
+         // lineChart.addSeries(totalGrowth);
+         // lineChart.addSeries(totalInvested);
          lineChart.addSeries(lower2);
-         lineChart.addSeries(lower1);
-         lineChart.addSeries(upper1);
+         //lineChart.addSeries(lower1);
+         //lineChart.addSeries(upper1);
          lineChart.addSeries(upper2);
+         //lineChart.setSeriesColors("#7C8686,#6E7878,#5E6969,#4C5858");
          lineChart.setShowPointLabels(true);
+         lineChart.setMouseoverHighlight(false);
+         lineChart.setShowDatatip(false);
+
          Axis xAxis = lineChart.getAxis(AxisType.X);
-         xAxis.setLabel("Assets");
+         xAxis.setLabel("Years");
          xAxis.setMin(calendarYear);
          xAxis.setMax(maxYearPoint);
          xAxis.setTickFormat("%d");
-         //xAxis.setTickFormat();
+         xAxis.setTickInterval("1");
+         xAxis.setTickAngle(90);
 
          Axis yAxis = lineChart.getAxis(AxisType.Y);
-         yAxis.setLabel("Allocated");
-         yAxis.setMin(minGrowth);
-         yAxis.setMax(maxGrowth);
+         yAxis.setLabel("Projection");
+         //yAxis.setMin(minGrowth);
+         //yAxis.setMax(maxGrowth);
          yAxis.setTickFormat("$%'d");
          lineChart.setExtender("line_extensions");
       }
@@ -370,13 +376,16 @@ public class Charts implements Serializable
          barChart.setExtender("bar_extensions");
          //barChart.setLegendPosition("ne");
          //barChart.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
+         barChart.setMouseoverHighlight(false);
+         barChart.setShowDatatip(false);
          barChart.setShowPointLabels(true);
          Axis xAxis = barChart.getAxis(AxisType.X);
-         xAxis.setLabel("Assets");
-         //xAxis.setTickFormat();
+         // xAxis.setLabel("Assets");
+         // xAxis.setTickAngle(30);
+         // xAxis.setTickFormat();
 
          Axis yAxis = barChart.getAxis(AxisType.Y);
-         yAxis.setLabel("Allocated");
+         // yAxis.setLabel("Allocated");
          yAxis.setMin(0);
          yAxis.setTickFormat("$%'d");
       }

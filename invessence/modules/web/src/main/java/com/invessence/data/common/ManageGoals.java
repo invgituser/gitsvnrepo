@@ -1058,10 +1058,8 @@ public class ManageGoals extends ProfileData
       if (numOfYears == null)
          numOfYears = 20;
       else {
-         numOfYears = 65 - numOfYears;
-         if (numOfYears > 20)
-            numOfYears = 20;
-         else
+         numOfYears = ((65 - numOfYears) > 20) ? 20 : (65 - numOfYears);
+         if (numOfYears < 5)
             numOfYears = 5;
       }
       PerformanceData[] perfData = portfolioPerformance.getPortfolioPerformance(getPortfolioData(), numOfYears,0);

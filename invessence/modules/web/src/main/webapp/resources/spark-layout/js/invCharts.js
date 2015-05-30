@@ -22,31 +22,42 @@ function line_extensions()
     this.cfg.grid = {
         backgroundColor: 'transparent',
         drawBorder: false,
-        shadow: true
+        shadow: false
     };
 
     this.cfg.seriesDefaults = {
-        rendererOptions: {
-            smooth: true
-        },
-        showMarker: false
+        showMarker: false,
+	markerOptions: { 
+		show: false,
+		color: 'transparent',
+		shadow: false },
+	tickOptions : {
+            showGridline: false
+	}
     };
+
+    this.cfg.axesDefaults = {
+	tickOptions : {
+            showGridline: false
+	}
+    };
+
     this.cfg.axis = {
         yaxis: {
+            drawMajorGridlines: false,
             labelOptions: {
-                fontSize: '14pt'
+                fontSize: '10pt'
             }
         }
-
-    };
-    this.cfg.highlighter = {
-        show: true,
-        sizeAdjust: 12,
-        tooltipAxes: 'y',
-        tooltipFormatString: "$%'d",
-        useAxesFormatters: false
     };
 
+    this.cfg.fillBetween = {
+        series1: 0,
+        series2: 1,
+        color: "#7C8686",
+        baseSeries: 0,
+        fill: true
+    };
 }
 
 function meter_extensions()
@@ -61,6 +72,14 @@ function bar_extensions()
     this.cfg.grid = {
         backgroundColor: 'transparent'
     };
+    this.cfg.axesDefaults = {
+        showTicks: false,
+        showTickMarks: false,
+	tickOptions : {
+            showGridline: false
+	}
+    };
+    
 }
 
 

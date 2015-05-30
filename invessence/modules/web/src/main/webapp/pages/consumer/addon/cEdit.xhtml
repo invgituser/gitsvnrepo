@@ -68,31 +68,35 @@
             <p:panel id="graphArea" style="border: 0px">
                 <div class="EmptyBox10"></div>
                 <div class="Container100 Responsive100">
-                    <div class="Container100 MarTop20">
-                        <div class="ContainerIndent">
-                            <div class="EmptyBox10"></div>
-                            <i class="fa fa-anchor gray Fs24"></i>
-                            <span class="Fs10 DispBlock gray">Risk Index</span>
-                            <span class="Fs24 DispBlock invessenceblue">#{cepb.riskIndex}</span>
+                    <div class="Container100">
+                       <div class="Wid45 BorderedBox Fright TexAlCenter Mar10">
+                           <div class="ContainerIndent">
+                               <div class="EmptyBox5"></div>
+                               <span class="Fs14 DispBlock gray">Investment Risk</span>
+                               <span class="Fs24 DispBlock red">
+                                   <h:outputText value="#{cepb.totalRisk}">
+                                       <f:convertNumber pattern="##0.00%"/>
+                                   </h:outputText>
+                                   </span>
+                               <div class="EmptyBox5"></div>
+                           </div>
+                       </div>
 
-                            <div class="EmptyBox10"></div>
-                        </div>
-                        <div class="ContainerIndent">
-                            <div class="EmptyBox10"></div>
-                            <i class="fa fa-dashboard gray Fs24"></i>
-                            <span class="Fs10 DispBlock gray">Investment Risk</span>
-                            <span class="Fs24 DispBlock red">#{cepb.totalRisk}</span>
 
-                            <div class="EmptyBox10"></div>
-                        </div>
-                        <div class="ContainerIndent">
-                            <div class="EmptyBox10"></div>
-                            <i class="fa fa-bar-chart gray Fs24"></i>
-                            <span class="Fs10 DispBlock gray">Expected Return</span>
-                            <span class="Fs24 DispBlock invessenceblue">#{cepb.totalExpectedReturns}</span>
-                            <div class="EmptyBox10"></div>
-                        </div>
+                       <div class="Wid45 BorderedBox Fright TexAlCenter Mar10">
+                           <div class="ContainerIndent">
+                               <div class="EmptyBox5"></div>
+                               <span class="Fs14 DispBlock gray">Expected Return</span>
+                               <span class="Fs24 DispBlock invessenceblue">
+                                    <h:outputText value="#{cepb.totalExpectedReturns}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                   </span>
+                               <div class="EmptyBox5"></div>
+                           </div>
+                       </div>
                     </div>
+
                     <p:outputPanel id="charts" style="border: 0px">
                         <p:panel style="border: 0px">
                             <div class="Container50  Fleft">

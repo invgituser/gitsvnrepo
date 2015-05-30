@@ -27,7 +27,7 @@
                     <div class="DispInlBlock">
                         <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
                         <p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
-                            <h3 class="black Fs18 FontRalewayMedium">#{cepb.fullName}</h3>
+                            <h3 class="black Fs15 FontRalewayMedium">#{cepb.fullName}</h3>
                             <span class="Fs15 gray FontRalewayRegular DispBlock">#{cepb.portfolioName}</span>
                             <span class="Fs15 gray FontRalewayRegular DispBlock">
                                <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
@@ -44,12 +44,12 @@
                 <div class="DispBlock">
                     <div class="Wid50 Fleft TexAlCenter">
                         <div class="ContainerIndent">
-                            <span class="gray Fs18 FontRalewayMedium DispBlock">Investment</span>
-                            <span class="black FontRalewayBold Fs24">
+                            <h3 class="black Fs15 FontRalewayMedium">Investment</h3>
+                            <span class="Fs20 gray FontRalewayRegular DispBlock">
                                 <h:outputText id="displayInvestment" value="#{cepb.initialInvestment}">
                                     <f:convertNumber pattern="$ ###,###,###"/>
                                 </h:outputText>
-                            </span>
+			    </span>
                         </div>
                     </div>
                 </div>
@@ -60,6 +60,7 @@
             <div class="ContainerIndent">
                 <div class="DispBlock">
                          <p:splitButton value="Fund Account" actionListener="#{cepb.fundAccount}" icon="fa fa-dollar Fs14 white">
+                             <p:menuitem value="Start Over" resetValues="true" update="@form" icon="fa fa-repeat Fs14 red" />
                             <p:menuitem value="Save" actionListener="#{cepb.saveProfile}" update="caddgrowl" icon="fa fa-save Fs14 white" />
                         </p:splitButton>
                 </div>
@@ -99,18 +100,6 @@
                        </div>
                     </div>
                     <div class="EmptyBox20"></div>
-                    <div class="Container100 Fright Fs16">
-                        <div class="ContainerIndent">
-                            <p:outputLabel value="Choose Graph " styleClass="TexAlRight"/>
-                            <p:selectOneButton value="#{cepb.whichChart}" styleClass="Fright Gray">
-                                <p:ajax listener="#{cepb.refreshChart}"
-                                        update=":ceForm:workArea"/>
-                                <f:selectItem itemLabel="Allocation" itemValue="bar"/>
-                                <f:selectItem itemLabel="Projection" itemValue="line" />
-                            </p:selectOneButton>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="Container50 Responsive50">
                     <div class="Container100 Responsive50 Fleft TexAlCenter Fs16">
@@ -153,19 +142,15 @@
             <div class="ContainerIndent">
                 <div class="Container50 Responsive50 Fleft">
                     <div class="ContainerIndent">
-                        <div class="Container100 Responsive50 Fright">
-                            <p:outputPanel deferred="true" rendered="#{cepb.whichChart != 'line'}">
-                                <p:chart type="bar" model="#{cepb.charts.barChart}"
-                                         responsive="true"/>
-                            </p:outputPanel>
-                            <p:outputPanel deferred="true" rendered="#{cepb.whichChart == 'line'}">
-                                <p:chart type="line" model="#{cepb.charts.lineChart}"
+                        <div class="Container100 Responsive50 Fleft">
+                            <p:outputPanel deferred="true">
+                                <p:chart type="bar" model="#{cepb.charts.barChart}" rendered="#{cepb.charts.barChart != null}"
                                          responsive="true"/>
                             </p:outputPanel>
                         </div>
                     </div>
                 </div>
-                <div class="Container50 Responsive50 Fright">
+                <div class="Container50 Responsive50 Fleft">
                     <div class="ContainerIndent">
                         <p:dataTable styleClass="invAllocTable"
                                      value="#{cepb.editableAsset}"
@@ -175,47 +160,35 @@
                                 <h:outputText value=" "/>
                             </p:column>
 
-                            <p:column styleClass="Wid50 Fs14 TexAlLeft"
+                            <p:column styleClass="Wid40 Fs14 TexAlLeft"
                                       headerText="Asset">
                                 <h:outputText value="#{assetList.asset}"/>
                             </p:column>
-                            <p:column styleClass="Wid40 Fs14 TexAlRight"
+                            <p:column styleClass="Wid15 Fs14 TexAlRight"
                                       headerText="Weight">
                                 <h:outputText value="#{assetList.userEdit}">
                                     <f:convertNumber pattern="##0.00%"/>
                                 </h:outputText>
                             </p:column>
-<!--
                             <p:column styleClass="Wid40 Fs14 TexAlRight"
-                                      headerText="Risk">
-                                <h:outputText value="#{assetList.risk}">
-                                    <f:convertNumber pattern="##0.00%"/>
+                                      headerText="Weight">
+                                <h:outputText value="#{assetList.value}">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
                             </p:column>
-                            <p:column styleClass="Wid40 Fs14 TexAlRight"
-                                      headerText="Expected Returns">
-                                <h:outputText value="#{assetList.expectedReturn}">
-                                    <f:convertNumber pattern="##0.00%"/>
-                                </h:outputText>
-                            </p:column>
--->
-<!--
-                            <p:columnGroup type="footer">
-                                <p:row>
-                                    <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
-                                              footerText="Total">
-                                    </p:column>
-                                    <p:column styleClass="Fs14 TexAlRight FontBold"
-                                              footerText="#{dataDisplayConverter.displayAsPercent(cepb.totalRisk * 100)}">
-                                    </p:column>
-                                    <p:column styleClass="Fs14 TexAlRight FontBold"
-                                              footerText="#{dataDisplayConverter.displayAsPercent(cepb.totalExpectedReturns * 100)}">
-                                    </p:column>
-                                </p:row>
-                            </p:columnGroup>
--->
+                             <p:columnGroup type="footer">
+                                 <p:row>
+                                     <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
+                                               footerText="Total">
+                                     </p:column>
+                                     <p:column styleClass="Fs14 TexAlRight FontBold"
+                                               footerText="#{dataDisplayConverter.displayAsMoney(cepb.totalMoneyAllocated)}">
+                                     </p:column>
+                                 </p:row>
+                             </p:columnGroup>
                         </p:dataTable>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -348,6 +321,53 @@
         </div>
     </div>
 </p:fieldset>
+<p:fieldset legend="Performance" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
+    <div class="Container100 Responsive50">
+        <div class="ContainerIndent">
+            <div class="Wid100 Responsive50 Fleft">
+                <h3 class="BigTopic">
+                    Performance
+                </h3>
+            </div>
+        </div>
+        <div class="Container100 Responsive50">
+            <div class="ContainerIndent">
+                <div class="Container100 Responsive50 TexAlCenter Fs16">
+                    <div class="Container100 Fleft TexAlCenter Fs16">
+                        <div class="ContainerIndent">
+                            Based on your answers, here is projected performance information.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
+                <p:outputPanel deferred="true">
+                    <p:chart type="line" model="#{cepb.charts.lineChart}"
+                             rendered="#{cepb.charts.lineChart != null}"
+                             seriesColors="3a3859,3a3859"
+                             responsive="true"/>
+                </p:outputPanel>
+                </div>
+                    <p style="font-style: italic; font-size: .8em;">
+                        This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
+                        (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
+                        It does not take in affect any tax withholdings or distributions.
+                        <br/>
+                        Past performance is no guarantee of future results. Any historical returns,
+                        expected returns, or probability projections may not reflect actual future
+                        performance. All securities involve risk and may result in loss. Not an offer,
+                        solicitation of an offer, or advice to buy or sell securities in jurisdictions
+                        where Invessence is not registered
+                    </p>
+
+            </div>
+    </div>
+</p:fieldset>
+
 </p:outputPanel>
 <!-- BOX END -->
 
