@@ -30,7 +30,7 @@ public class SecurityData
    private double lbConstraint = 0.0;
    private double yield = 0.0;
    private int sortorder = 0;
-   private double rbsaweight = 0.0;
+   private double rbsaWeight = 0.0;
 
    public SecurityData()
    {
@@ -42,7 +42,7 @@ public class SecurityData
                        double dailyprice, double expenseRatio, double adv3Month,
                        double aum, double beta, double riskSTD,
                        double taxableReturn, double nonTaxableReturn, double ubConstraint,
-                       double lbConstraint, double yield, int sortorder, double rbsaweight)
+                       double lbConstraint, double yield, int sortorder, double rbsaWeight)
    {
       super();
       resetSecurityData(instrumentid, ticker, name,
@@ -50,7 +50,7 @@ public class SecurityData
                         dailyprice, expenseRatio, adv3Month,
                         aum, beta, riskSTD,
                         taxableReturn, nonTaxableReturn, ubConstraint,
-                        lbConstraint, yield, sortorder, rbsaweight);
+                        lbConstraint, yield, sortorder, rbsaWeight);
    }
 
    public SecurityData resetSecurityData(Long instrumentid, String ticker, String name,
@@ -81,7 +81,7 @@ public class SecurityData
       this.lbConstraint = lbConstraint;
       this.yield = yield;
       this.sortorder = sortorder;
-      this.rbsaweight = rbsaweight;
+      this.rbsaWeight = rbsaweight;
       return this;
    }
 
@@ -185,9 +185,9 @@ public class SecurityData
       return sortorder;
    }
 
-   public double getRbsaweight()
+   public double getRbsaWeight()
    {
-      return rbsaweight;
+      return rbsaWeight;
    }
 
    public String getHeader()
