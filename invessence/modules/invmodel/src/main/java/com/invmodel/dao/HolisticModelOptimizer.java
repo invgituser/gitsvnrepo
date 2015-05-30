@@ -205,7 +205,7 @@ public class HolisticModelOptimizer
 
       connection = DBConnectionProvider.getInstance().getConnection();
       statement = connection.createStatement();
-      statement.executeQuery("SELECT ticker, daily_return FROM vw_daily_returns_Holistc_Model " + whereStatement +" order by ticker, seqno desc");
+      statement.executeQuery("SELECT ticker, daily_return FROM rbsa.vw_rbsa_daily_returns " + whereStatement +" order by ticker, seqno desc");
       resultSet = statement.getResultSet();
       resultSet.beforeFirst();
       while (resultSet.next())
