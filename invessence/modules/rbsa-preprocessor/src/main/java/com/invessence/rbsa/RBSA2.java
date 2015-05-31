@@ -163,13 +163,9 @@ public class RBSA2 {
          return rbsadata;
 
       } catch (Exception ex) {
-
-      }
-
-      try {
-      } catch (Exception ex) {
          ex.printStackTrace();
       }
+
       return null;
    }
 
