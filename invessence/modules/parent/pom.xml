@@ -526,7 +526,7 @@
             <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>
             <jdbc.username>root</jdbc.username>
-            <jdbc.password>d1ysy5_ml</jdbc.password>
+            <jdbc.password>IamD3vMQ1</jdbc.password>
             <apache.url>http://dev.invessence.com:8080</apache.url>
             <tomcat.url>http://dev.invessence.com:8080</tomcat.url>
             <ssl.url>http://dev.invessence.com:8080</ssl.url>
