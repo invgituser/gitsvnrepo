@@ -71,8 +71,8 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.Core");
-      profileData.setAccountTaxable(true);
+      profileData.setTheme("0.Mfs");
+      profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
       age = profileData.getAge();
@@ -98,8 +98,9 @@ public class TestDistribution
       profileData.setTotalExpense(0);
       profileData.setNumOfAllocation(duration);
 
-
-
+      profileData.setRiskCalcMethod("C"); //Using age based option A or C
+      profileData.setAllocationIndex(30);  // When flag is A
+      profileData.setPortfolioIndex(80);
       //profileData.offsetRiskIndex();
 
       //createRandomNumbers();

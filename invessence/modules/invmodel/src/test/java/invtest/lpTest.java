@@ -21,9 +21,8 @@ public class lpTest
 
          HolisticModelOptimizer hoptimizer = HolisticModelOptimizer.getInstance();
 
-         String [] tickAcct1 =  {"FFKEX", "OAKIX", "TWGTX"};
-         String [] tickAcct2 =  {"FCNTX", "LEXCX", "MALOX"};
-         String [] tickAcct3 =  {"LSHIX", "MEDAX", "NEZYX"};
+         String [] tickAcct1 =  {"FCNTX", "OAKIX", "LSHIX"};
+         //String [] tickAcct1 =   {"FFKEX", "OAKIX", "TWGTX"};
          String [] tickAcct4 =  {"VNQ","TLT","IEF","SHY","BIL","IAU","IVW","IVE","VTV","MDY","PFF","IWM","JNK","EMLC","VCLT","VWO","EFA"};
          //
 
@@ -31,10 +30,8 @@ public class lpTest
          //double acct1=400000, acct2=400000, acct3=200000;
          double totalValue = acct1 + acct2 + acct3 + acct4;
          //double totalValue = acct1 + acct2 + acct3;
+         String [] tickers = concatStringArrays(tickAcct1, tickAcct4);
          //String [] tickers = concatStringArrays(tickAcct1, tickAcct4);
-         String [] tickers = concatStringArrays(tickAcct1, tickAcct2);
-         tickers = concatStringArrays(tickers, tickAcct3);
-         tickers = concatStringArrays(tickers, tickAcct4);
 
          double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue, acct4/totalValue};
          //double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue};
