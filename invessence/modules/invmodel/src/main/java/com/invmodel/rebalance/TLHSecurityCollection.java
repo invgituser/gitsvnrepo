@@ -1,6 +1,8 @@
-package com.invmodel.dao;
+package com.invmodel.rebalance;
 
 import java.util.*;
+
+import com.invmodel.dao.invdb.TaxHarvestingDAO;
 import com.invmodel.rebalance.data.SecurityTLHData;
 
 

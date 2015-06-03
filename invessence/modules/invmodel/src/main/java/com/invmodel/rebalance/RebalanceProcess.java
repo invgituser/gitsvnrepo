@@ -5,7 +5,7 @@ import java.util.*;
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
-import com.invmodel.dao.*;
+import com.invmodel.dao.invdb.*;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
