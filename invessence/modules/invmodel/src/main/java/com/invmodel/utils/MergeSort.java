@@ -1,4 +1,4 @@
-package com.invmodel.dao;
+package com.invmodel.utils;
 
 import java.util.concurrent.locks.*;
 import java.util.logging.Logger;
