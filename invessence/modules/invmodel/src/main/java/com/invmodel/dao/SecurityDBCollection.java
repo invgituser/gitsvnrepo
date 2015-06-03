@@ -45,10 +45,13 @@ public class SecurityDBCollection
       {
          primeassetclass = "DISCARD";
       }
-      return (theme.toUpperCase() +
+      /*return (theme.toUpperCase() +
          "." +
          assetname.toUpperCase() +
          "." +
+         primeassetclass.toUpperCase());*/
+      return  (theme.toUpperCase() +
+      "." +
          primeassetclass.toUpperCase());
    }
 
@@ -83,7 +86,7 @@ public class SecurityDBCollection
          }
          else {
             // Don't add the same security.
-            if (!securityMap.containsKey(ticker))
+            //if (!securityMap.containsKey(ticker))
                securityPrimeAssetMap.get(key).add(security);
          }
 
