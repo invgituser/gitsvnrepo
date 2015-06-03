@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 import com.invmodel.Const.InvConst;
-import com.invmodel.dao.*;
+import com.invmodel.dao.invdb.*;
 import com.invmodel.rebalance.*;
 import com.invmodel.rebalance.data.*;
 
@@ -22,7 +22,7 @@ public class NewRebal
    public static void main(String[] args) throws Exception
    {
       // Intialize the Instance and Load prerequired data.
-      PortfolioOptimizer  portfolioOptimizer = PortfolioOptimizer.getInstance();
+      PortfolioOptimizer portfolioOptimizer = PortfolioOptimizer.getInstance();
       portfolioOptimizer.refreshDataFromDB();
 
       RebalanceProcess rbal = RebalanceProcess.getInstance();
