@@ -1,6 +1,6 @@
 package com.invmodel.portfolio;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
@@ -498,7 +498,7 @@ public class PortfolioModel
          double secExpense = 0.0;
 
 
-
+         Map<String, String> tickerMap = new HashMap<String,String>();
          ArrayList <String> tickers = new ArrayList<String>();
          ArrayList <Double> primeWeights = new ArrayList<Double>();
 
@@ -513,7 +513,10 @@ public class PortfolioModel
             {
                for (SecurityData sd : securityDao.getOrderedSecurityList(theme, assetname, primeassetclass))
                {
-                  tickers.add(sd.getTicker());
+                  if (! tickerMap.containsKey(sd.getTicker()))  {
+                     tickerMap.put(sd.getTicker(),sd.getTicker());
+                     tickers.add(sd.getTicker());
+                  }
                }
 
                primeWeights.add(asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]);
@@ -527,109 +530,76 @@ public class PortfolioModel
          }
          double[] optFundWeight = portfolioOptimizer.getHolisticWeight(tickers, tmpPrimeWeights);
 
-         // Prime asset class loop
-         for (String assetname : portfolioOptimizer.getAdvisorOrdertedAssetList(theme))
-         {
-            double investByAsset = 0.0;
-            AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
-            Asset asset = assetClass.getAsset(assetname);
-            double[][] primeAssetWeights = assetdata.getPrimeAssetweights();
-            double assetWgt = asset.getUserweight();
-            int tickerNum = 0;
-            for (String primeassetclass : assetdata.getOrderedPrimeAssetList())
-            {
 
-               if (assetname.equalsIgnoreCase("CASH")) {
-                  SecurityData sd = securityDao.getSecurity("CASH");
-                  assetWgt = (amount_remain + pdata.getKeepLiquid())/investment;
-                  double cash = amount_remain + pdata.getKeepLiquid();
-                  investByAsset = amount_remain;
+         double investByAsset = 0.0;
+         double cash = investment;
+         String ticker;
+         SecurityData sd;
+         PrimeAssetClassData pacd;
+         Asset asset;
+         for (Integer i=0; i < optFundWeight.length; i++) {
+            ticker = tickers.get(i);
+            ticker_weight = optFundWeight[i];
+            sd = securityDao.getSecurity(ticker);
+            asset = assetClass.getAsset(sd.getAssetclass());
+            pacd = portfolioOptimizer.getPrimeAssetData(theme, sd.getAssetclass(), sd.getPrimeassetclass());
+            double price = sd.getDailyprice();
+            if (! ticker.toUpperCase().equals("CASH")) {
+               double rbsa_weight = ticker_weight * sd.getRbsaWeight();  // RBSA PREP WORK:  Currently all have rate of 1
+               // If there is no weight, just skip this ticker all together.
+               double shares = 0.0, money = 0.0;
+               if (rbsa_weight > 0.0 && price > 0.0)
+               {
+                  shares = Math.round(((investment * rbsa_weight) / price) - 0.5);
+                  money = shares * price;
 
-                  totalPortfolioWeight = assetWgt;
-                  pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
-                                      sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
-                                      1.0, assetWgt, sd.getNonTaxableReturn(), sd.getExpenseRatio(),
-                                      sd.getRiskSTD(), sd.getYield(), cash, cash, 999999, assetWgt);
-                  pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
-                                        asset.getColor(),
-                                        assetWgt, amount_remain, true);
-                  portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
-                  portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
-                  break;
-               }
-
-               ticker_weight = assetWgt * primeAssetWeights[offset][tickerNum];
-               if (securityDao.getOrderedSecurityList(theme, assetname, primeassetclass) != null) {
-                  for (SecurityData sd : securityDao.getOrderedSecurityList(theme, assetname, primeassetclass))
+                  // Only create this portfolio if there are shares and money
+                  if ((shares > 0.0) && (money > 0.0))
                   {
-                     PrimeAssetClassData pacd = portfolioOptimizer.getPrimeAssetData(theme, assetname, primeassetclass);
-                     double price = sd.getDailyprice();
-                     double rbsa_weight = ticker_weight * sd.getRbsaWeight();  // RBSA PREP WORK:  Currently all have rate of 1
-                     // If there is no weight, just skip this ticker all together.
-                     double shares = 0.0, money = 0.0;
-                     if (rbsa_weight > 0.0 && price > 0.0)
+                     totalPortfolioWeight = 0.0;
+                     if (investment > 0.0)
                      {
-                        shares = Math.round(((investment * rbsa_weight) / price) - 0.5);
-                        money = shares * price;
-
-                        // Only create this portfolio if there are shares and money
-                        if ((shares > 0.0) && (money > 0.0))
-                        {
-                           totalPortfolioWeight = 0.0;
-                           if (investment > 0.0)
-                           {
-                              totalPortfolioWeight = money / investment;
-                           }
-
-                           investByAsset = investByAsset + money;
-                           pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
-                                               sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
-                                               price, rbsa_weight, sd.getNonTaxableReturn(), sd.getExpenseRatio(),
-                                               sd.getRiskSTD(), sd.getYield(), shares, money, pacd.getSortorder(), totalPortfolioWeight);
-                           pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
-                                                 asset.getColor(),
-                                                 totalPortfolioWeight, money, true);
-
-
-                           secExpense = secExpense + sd.getExpenseRatio() * rbsa_weight;
-                        }
-                        amount_remain = amount_remain - money;
-                        pclass.setCashMoney(amount_remain);
-                        portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
-                        double pAssetreturns =  assetdata.getPrimeAssetreturns()[offset];
-                        portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
-
-                        ticker_weight = ticker_weight - rbsa_weight;
+                        totalPortfolioWeight = money / investment;
                      }
-                  }
 
-               }
-               //look at the next ticker in primeAssetFrontier
-               tickerNum++;
+                     investByAsset = investByAsset + money;
+                     pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
+                                         sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
+                                         price, rbsa_weight, sd.getNonTaxableReturn(), sd.getExpenseRatio(),
+                                         sd.getRiskSTD(), sd.getYield(), shares, money, pacd.getSortorder(), totalPortfolioWeight);
+                     pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
+                                           asset.getColor(),
+                                           totalPortfolioWeight, money, true);
+
+
+                     secExpense = secExpense + sd.getExpenseRatio() * rbsa_weight;
+                  }
+                  amount_remain = amount_remain - money;
+                  //pclass.setCashMoney(amount_remain);
+                  //portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
+                  //double pAssetreturns =  assetdata.getPrimeAssetreturns()[offset];
+                  //portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
+
+                  cash = cash - money;
 
             }
-            asset.setExpectedReturn(assetdata.getPrimeAssetreturns()[offset]);
-            asset.setRisk(assetdata.getPrimeAssetrisk()[offset]);
-            asset.setValue(investByAsset);
-            asset.setActualweight(investByAsset / investment);
          }
-         incEarned = portfolioReturns * investment;
-         pclass.setExpReturns(portfolioReturns);
-         pclass.setTotalRisk(portfolioRisk);
-         pclass.setTotalCapitalGrowth(incEarned);
-         pclass.setAvgExpense(secExpense * investment);
-         ;
+         }
+         // Add remining into cash...
+         ticker = "Cash";
+         sd = securityDao.getSecurity(ticker);
+         asset = assetClass.getAsset(sd.getAssetclass());
+         pacd = portfolioOptimizer.getPrimeAssetData(theme, sd.getAssetclass(), sd.getPrimeassetclass());
+         pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
+                             sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
+                             1.0, 1.0, sd.getNonTaxableReturn(), sd.getExpenseRatio(),
+                             sd.getRiskSTD(), sd.getYield(), cash, cash, pacd.getSortorder(), totalPortfolioWeight);
+         pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
+                               asset.getColor(),
+                               totalPortfolioWeight, cash, true);
 
-         if (InvConst.MIN_MNGT_FEES_DOLLARS > InvConst.MNGT_FEES * investment)
-         {
-            pclass.setAvgCost(InvConst.MIN_MNGT_FEES_DOLLARS);
-            pclass.setTotalCost(InvConst.MIN_MNGT_FEES_DOLLARS + secExpense * investment);
-         }
-         else
-         {
-            pclass.setAvgCost(InvConst.MNGT_FEES * investment);
-            pclass.setTotalCost(InvConst.MNGT_FEES * investment + secExpense * investment);
-         }
+
+
       }
       catch (Exception e)
       {
