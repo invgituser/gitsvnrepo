@@ -976,7 +976,7 @@ public class PortfolioOptimizer
       return coVarMatrix;
    }
 
-   public double[] getHolisticWeight(ArrayList <String> tickers, double[][] targetPAssetAllocation){
+   public double[] getHolisticWeight(String tickers[], double[][] targetPAssetAllocation){
       com.invmodel.dao.rbsa.HolisticModelOptimizer hoptimizer = com.invmodel.dao.rbsa.HolisticModelOptimizer.getInstance();
 
          /*ArrayList <String> tickers = new ArrayList<String>();
@@ -995,15 +995,15 @@ public class PortfolioOptimizer
          }*/
 
       //To use these returns, call getDailyReturns with the same tickers;
-      double[][] mrData = hoptimizer.getData((String [])tickers.toArray());
+      double[][] mrData = hoptimizer.getData(tickers);
       double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
       CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
-      double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, (String [])tickers.toArray(), mrData, coVarFunds);
+      double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickers, mrData, coVarFunds);
       double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(coVarFunds);
       double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
 
       //Compute minimum error vector by comparing to target and find the best weight fit
-      double[] errorDiff = hoptimizer.getFundErrorVectorArray((String [])tickers.toArray(), targetPAssetAllocation, weights);
+      double[] errorDiff = hoptimizer.getFundErrorVectorArray(tickers, targetPAssetAllocation, weights);
 
       MergeSort mms = MergeSort.getInstance();
       int[] fundOffset = new int[errorDiff.length];
