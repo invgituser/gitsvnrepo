@@ -129,7 +129,8 @@ public class TestDistribution
 
       portfolioModel.setSecurityDao(secDao);
       // portfolioModel.setMonthlyDao(DailyReturns.getInstance());
-      profileData.setNumOfPortfolio(profileData.getHorizon());
+      //profileData.setNumOfPortfolio(profileData.getHorizon());
+      profileData.setNumOfPortfolio(1);
 
       Portfolio[] pfclass = portfolioModel.buildPortfolio(aamc, profileData);
 

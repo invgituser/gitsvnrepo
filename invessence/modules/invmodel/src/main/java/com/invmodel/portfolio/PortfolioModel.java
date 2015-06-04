@@ -314,8 +314,8 @@ public class PortfolioModel
 
             // Actual Investment is investment and recurring the next year.  Does not contain the returns.
             portfolioclass[investmentYear].setActualInvestments(actualInvestment);
-            createPortfolio(groupname, theme, assetData[investmentYear], portfolioclass[investmentYear],
-                            investment, investmentYear, profileData, offset);
+               createPortfolio(groupname, theme, assetData[investmentYear], portfolioclass[investmentYear],
+                               investment, investmentYear, profileData, offset);
 
             // Total Money = Investment + Performance
             if(investmentYear == 0)
@@ -359,6 +359,12 @@ public class PortfolioModel
    {
       try
       {
+         if (theme.toLowerCase().contains("mfs")) {
+            createPortfolioWithMFS(groupname, theme, assetClass, pclass,
+                                   investment, year, pdata, offset);
+            return;
+
+         }
 
          double amount_remain = investment;
 
@@ -498,11 +504,9 @@ public class PortfolioModel
          double secExpense = 0.0;
 
 
-         Map<String, String> tickerMap = new HashMap<String,String>();
-         ArrayList <String> tickers = new ArrayList<String>();
+         Map<String, String> tickerMap = new LinkedHashMap<String, String>();
          ArrayList <Double> primeWeights = new ArrayList<Double>();
 
-         int j = 0;
          for (String assetname : portfolioOptimizer.getAdvisorOrdertedAssetList(theme))
          {
             int tickerNum = 0;
@@ -515,7 +519,6 @@ public class PortfolioModel
                {
                   if (! tickerMap.containsKey(sd.getTicker()))  {
                      tickerMap.put(sd.getTicker(),sd.getTicker());
-                     tickers.add(sd.getTicker());
                   }
                }
 
@@ -523,11 +526,21 @@ public class PortfolioModel
             }
          }
 
-         double [][] tmpPrimeWeights = new double[1][primeWeights.size()];
-         for (int i = 0; i < primeWeights.size(); i++)
+         String [] tickers = new String[tickerMap.size()];
+         int j=0;
+         for (String ticker : tickerMap.keySet())
          {
-            tmpPrimeWeights[0][i] = primeWeights.get(i);
+            tickers[j] = ticker;
+            j++;
          }
+
+         double [][] tmpPrimeWeights = new double[1][primeWeights.size()];
+
+         for (j=0; j< primeWeights.size(); j++)
+         {
+            tmpPrimeWeights[0][j] = primeWeights.get(j);
+         }
+
          double[] optFundWeight = portfolioOptimizer.getHolisticWeight(tickers, tmpPrimeWeights);
 
 
@@ -538,7 +551,7 @@ public class PortfolioModel
          PrimeAssetClassData pacd;
          Asset asset;
          for (Integer i=0; i < optFundWeight.length; i++) {
-            ticker = tickers.get(i);
+            ticker = tickers[i];
             ticker_weight = optFundWeight[i];
             sd = securityDao.getSecurity(ticker);
             asset = assetClass.getAsset(sd.getAssetclass());
