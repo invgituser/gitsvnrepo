@@ -59,10 +59,16 @@
             <div class="Wid50"></div>
             <div class="ContainerIndent">
                 <div class="DispBlock">
-                         <p:splitButton value="Fund Account" actionListener="#{cepb.fundAccount}" icon="fa fa-dollar Fs14 white">
-                             <p:menuitem value="Start Over" resetValues="true" update="@form" icon="fa fa-repeat Fs14 red" />
-                            <p:menuitem value="Save" actionListener="#{cepb.saveProfile}" update="caddgrowl" icon="fa fa-save Fs14 white" />
-                        </p:splitButton>
+                    <p:splitButton value="Fund Account" actionListener="#{cepb.fundAccount}" rendered="#{cepb.canOpenAccount != -1}"
+                                   icon="fa fa-dollar Fs14 white">
+                        <p:menuitem value="Start Over" resetValues="true" update="@form"
+                                    actionListener="#{cepb.resetForm}"
+                                    icon="fa fa-repeat Fs14 red" />
+                        <p:menuitem value="Save" actionListener="#{cepb.saveProfile}"
+                                    update="caddgrowl" icon="fa fa-save Fs14 blue" />
+                    </p:splitButton>
+                    <p:commandButton  value="Register" styleClass="Fs18 RedButton" rendered="#{cepb.canOpenAccount == -1}"
+                               href="/signup.xhtml"></p:commandButton>
                 </div>
             </div>
         </div>
@@ -108,6 +114,7 @@
                         </div>
                     </div>
                     <div class="Container100 Responsive50 DispBlock gray">
+                        <div class="EmptyBox5"></div>
                         <div class="ContainerIndent">
                             <div class="Container25 TexAlCenter Fs16">
                                 Conservative
@@ -151,6 +158,7 @@
                     </div>
                 </div>
                 <div class="Container50 Responsive50 Fleft">
+                    <div class="EmptyBox30"></div>
                     <div class="ContainerIndent">
                         <p:dataTable styleClass="invAllocTable"
                                      value="#{cepb.editableAsset}"
@@ -171,7 +179,7 @@
                                 </h:outputText>
                             </p:column>
                             <p:column styleClass="Wid40 Fs14 TexAlRight"
-                                      headerText="Weight">
+                                      headerText="Value">
                                 <h:outputText value="#{assetList.value}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
@@ -321,25 +329,14 @@
         </div>
     </div>
 </p:fieldset>
-<p:fieldset legend="Performance" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
+<p:fieldset legend="Projected Performance" styleClass="layout-portlets-box" rendered="#{menu.hasAccessMenu('ADVISOR')}"
+            toggleable="true" toggleSpeed="500">
     <div class="Container100 Responsive50">
         <div class="ContainerIndent">
             <div class="Wid100 Responsive50 Fleft">
                 <h3 class="BigTopic">
-                    Performance
+                    Projected Performance
                 </h3>
-            </div>
-        </div>
-        <div class="Container100 Responsive50">
-            <div class="ContainerIndent">
-                <div class="Container100 Responsive50 TexAlCenter Fs16">
-                    <div class="Container100 Fleft TexAlCenter Fs16">
-                        <div class="ContainerIndent">
-                            Based on your answers, here is projected performance information.
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
 
@@ -348,7 +345,6 @@
                 <p:outputPanel deferred="true">
                     <p:chart type="line" model="#{cepb.charts.lineChart}"
                              rendered="#{cepb.charts.lineChart != null}"
-                             seriesColors="3a3859,3a3859"
                              responsive="true"/>
                 </p:outputPanel>
                 </div>
@@ -356,7 +352,6 @@
                         This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
                         (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
                         It does not take in affect any tax withholdings or distributions.
-                        <br/>
                         Past performance is no guarantee of future results. Any historical returns,
                         expected returns, or probability projections may not reflect actual future
                         performance. All securities involve risk and may result in loss. Not an offer,
@@ -372,60 +367,13 @@
 <!-- BOX END -->
 
 
-<p:dialog header="#{cepb.goal}" widgetVar="dlgIB" closable="true">
+<p:dialog header="Sorry, unable to proceed" widgetVar="dlgIB" closable="true">
 
     <h:form id="dlgIBForm">
-        <p:panelGrid cellpadding="5" styleClass="invNBgrid"
-                     rendered="#{cepb.canOpenAccount == 0}">
-            <p:row>
-                <p:column colspan="2" style="text-align:left; color: #CC0000">
-                    <h3><h:outputText value="#{cepb.forwardInstructions}" escape="false"/></h3>
-                </p:column>
-            </p:row>
-            <p:row>
-                <p:column colspan="2" style="text-align:left">
-                    <br/>
-                    <strong>Please have the following information readily available:</strong>
-                    <br/>
-                    <br/>
-                    <i>Personal Information</i>
-                    <ul>
-                        <li>Social Security Number</li>
-                        <li>Driver's License</li>
-                    </ul>
-                    <i>For an IRA you also need</i>
-                    <ul>
-                        <li>Beneficiary Information</li>
-                        <li>Beneficiary Social Security Number</li>
-                    </ul>
-                    <i>Funding</i>
-                    <ul>
-                        <li>Bank Information</li>
-                        <li>Brokerage Information</li>
-                    </ul>
-
-                    <p>
-                        You will now be redirected to Interactive Brokers.</p>
-
-                    <p>You will also be <u>logged out of Invessence</u>!</p>
-                </p:column>
-            </p:row>
-
-            <f:facet name="footer">
-               <p:commandButton value="Continue" styleClass="Fleft"
-                                ajax="true" immediate="true" process="@none"
-                                actionListener="#{cepb.forwardToIB}"/>
-               <p:commandButton value="Cancel" styleClass="Fright"
-                                onclick="PF('dlgIB').hide();"/>
-
-            </f:facet>
-        </p:panelGrid>
-
-        <p:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid"
-                     rendered="#{cepb.canOpenAccount != 0}">
+        <p:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid">
             <p:row>
                 <p:column colspan="2">
-                    <h:outputText value="#{cepb.forwardInstructions}" escape="false"/>
+                    <h:outputText value="#{cepb.forwardInstructions}" escape="true"/>
                 </p:column>
             </p:row>
 
@@ -440,6 +388,8 @@
     </h:form>
 
 </p:dialog>
+
+
 
 </h:form>
 

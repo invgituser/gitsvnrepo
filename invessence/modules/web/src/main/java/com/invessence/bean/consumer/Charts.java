@@ -217,7 +217,7 @@ public class Charts implements Serializable
          //lineChart.addSeries(lower1);
          //lineChart.addSeries(upper1);
          lineChart.addSeries(upper2);
-         //lineChart.setSeriesColors("#7C8686,#6E7878,#5E6969,#4C5858");
+         lineChart.setSeriesColors("7C8686,7C8686");
          lineChart.setShowPointLabels(true);
          lineChart.setMouseoverHighlight(false);
          lineChart.setShowDatatip(false);
@@ -227,13 +227,13 @@ public class Charts implements Serializable
          xAxis.setMin(calendarYear);
          xAxis.setMax(maxYearPoint);
          xAxis.setTickFormat("%d");
-         xAxis.setTickInterval("1");
-         xAxis.setTickAngle(90);
+         // xAxis.setTickInterval("1");
+         // xAxis.setTickAngle(90);
 
          Axis yAxis = lineChart.getAxis(AxisType.Y);
-         yAxis.setLabel("Projection");
-         //yAxis.setMin(minGrowth);
-         //yAxis.setMax(maxGrowth);
+         //yAxis.setLabel("Projection");
+         // yAxis.setMin(minGrowth);
+         // yAxis.setMax(maxGrowth);
          yAxis.setTickFormat("$%'d");
          lineChart.setExtender("line_extensions");
       }

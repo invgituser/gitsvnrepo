@@ -219,7 +219,7 @@ public class Menu implements Serializable
 
 
    public String enableMenu(String role) {
-      if (webutil.hasRole(Const.ROLE_ADMIN))
+      if (webutil.hasAccess(Const.ROLE_ADMIN))
          return "true";
       else if ((role.toUpperCase().equals(Const.ROLE_USER)) && (webutil.hasRole(role)))
          return "true";

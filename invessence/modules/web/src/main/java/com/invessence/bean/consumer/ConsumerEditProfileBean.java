@@ -1,6 +1,7 @@
 package com.invessence.bean.consumer;
 
 import java.io.Serializable;
+import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
@@ -8,7 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.advisor.AdvisorData;
@@ -38,6 +39,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       , disablesaveButton = true;
    private Boolean prefVisible = true;
    private Integer canOpenAccount;
+   private Boolean welcomeDialog = true;
 
    private Integer prefView = 0;
    private String whichChart;
@@ -45,6 +47,8 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    private Integer imageSelected = 0;
 
    private Charts charts = new Charts();
+
+   private USMaps usstates = USMaps.getInstance();
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -136,9 +140,19 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       return charts;
    }
 
+   public USMaps getUsstates()
+   {
+      return usstates;
+   }
+
    public Integer getImageSelected()
    {
       return imageSelected;
+   }
+
+   public Boolean getWelcomeDialog()
+   {
+      return welcomeDialog;
    }
 
    public void preRenderView()
@@ -160,7 +174,19 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             else {
                loadNewClientData();
             }
+
             canOpenAccount = initCanOpenAccount();
+            if (canOpenAccount == -1) {
+               welcomeDialog = true;
+               Map<String,Object> options = new HashMap<String, Object>();
+               options.put("modal", true);
+               options.put("draggable", false);
+               options.put("resizable", false);
+               options.put("contentHeight", 550);
+               RequestContext.getCurrentInstance().openDialog("/try/tryDialog",options,null);
+            }
+            else
+               welcomeDialog = false;
          }
       }
       catch (Exception e)
@@ -517,6 +543,34 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
    }
 
+   public void tryProceed() {
+      Boolean validate = false;
+      try
+      {
+         String msg = "";
+         if (getLastname() == null || getLastname().isEmpty()) {
+            msg = "lastname is required!";
+         }
+         if (getFirstname() == null || getFirstname().isEmpty()) {
+            msg = (msg.isEmpty()) ? "lastname is required!" : msg + "<br/>firstname is required!";
+         }
+         if (getEmail() == null || getEmail().isEmpty()) {
+            msg = (msg.isEmpty()) ? "Email is required!" : msg + "<br/>Email is required!";
+         }
+
+         if (! msg.isEmpty()) {
+            FacesContext.getCurrentInstance().addMessage("tryMsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
+         }
+         else {
+            RequestContext.getCurrentInstance().execute("PF('tryDialog').hide()");
+         }
+
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
    public void saveProfile() {
       long acctnum;
       Boolean validate = false;
@@ -559,7 +613,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             if (canOpenAccount == 0)
                getWebutil().redirect("/pages/consumer/funding.xhtml?acct="+getAcctnum(), null);
             else
-               RequestContext.getCurrentInstance().execute("PF('dlgIB').show()");
+               RequestContext.getCurrentInstance().closeDialog("tryDialog");
 
       }
       catch (Exception ex)
@@ -608,23 +662,26 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       try
       {
          String license;
-         if (getWebutil().isWebProdMode())
+
+         if (getLogonid() == null)
          {
-            if (getLogonid() == null)
-            {
-               return -1;
-            }
-            license = listDAO.validateState(getLogonid(), getRegisteredState());
-            if (license == null || license.equalsIgnoreCase("quota"))
-            {
-               return 1;
-            }
-            else
-            {
-               return 0;
-            }
+            return -1;
          }
-         return 2;
+         else {
+            if (getWebutil().isWebProdMode())
+            {
+               license = listDAO.validateState(getLogonid(), getRegisteredState());
+               if (license == null || license.equalsIgnoreCase("quota"))
+               {
+                  return 1;
+               }
+               else
+               {
+                  return 0;
+               }
+            }
+            return 2;
+         }
       }
       catch (Exception ex)
       {

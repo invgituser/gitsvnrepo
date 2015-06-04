@@ -143,21 +143,23 @@ public class TradeSummary
       Integer location = 0;
       if (listofHoldingTickers == null)
          listofHoldingTickers = new HashMap<String, RebalanceInfo>();
-      if (! ticker.isEmpty()) {
-         if (listofHoldingTickers.containsKey(ticker)) {
-            rinfo = listofHoldingTickers.get(ticker);
-            newBalance = rinfo.getValue() + value;
-            rinfo.setQty(rinfo.getQty() + qty);
-            rinfo.setValue(newBalance);
+      if (ticker != null) {
+         if (! ticker.isEmpty()) {
+            if (listofHoldingTickers.containsKey(ticker)) {
+               rinfo = listofHoldingTickers.get(ticker);
+               newBalance = rinfo.getValue() + value;
+               rinfo.setQty(rinfo.getQty() + qty);
+               rinfo.setValue(newBalance);
+            }
+            else {
+               rinfo = new RebalanceInfo();
+               location = listofHoldingTickers.size();
+               rinfo.setQty(qty);
+               rinfo.setValue(value);
+               newBalance = value;
+            }
+            this.listofHoldingTickers.put(ticker,rinfo);
          }
-         else {
-            rinfo = new RebalanceInfo();
-            location = listofHoldingTickers.size();
-            rinfo.setQty(qty);
-            rinfo.setValue(value);
-            newBalance = value;
-         }
-         this.listofHoldingTickers.put(ticker,rinfo);
       }
       return newBalance;
    }

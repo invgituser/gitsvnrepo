@@ -313,21 +313,19 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                   assetclass.setAsset(asset);
                   // If we have position, then use that holding.
                   String posKey = clientAccountID + "." + asset;
+                  posHolding = 0.0;
                   if (posAsset.containsKey(posKey)) {
                      posHolding = posAsset.get(posKey).getHoldingValue();
                      summary.setTotalHoldingValue(summary.getTotalHoldingValue() + posHolding);
-                     assetclass.setHoldingValue(posHolding); // Only add once, because it is from position.
                      posAsset.remove(posKey);
                   }
-                  else {
-                     assetclass.setHoldingValue(posHolding);
-                  }
+                  assetclass.setHoldingValue(posHolding); // Only add once, because it is from position.
                   if (asset.equalsIgnoreCase("cash")) {
                      assetclass.setValue(curValue);
 
                   }
                   else {
-                     assetclass.setValue(posHolding + curValue);
+                     assetclass.setValue(posHolding + curValue); // Set current value to same as position, then keep adding trades.
                      summary.setTotalAllocValue(summary.getTotalHoldingValue() + curValue);
                   }
                }

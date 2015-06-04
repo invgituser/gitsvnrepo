@@ -55,13 +55,13 @@ public class PositionBean implements Serializable
                collectData();
             }
             else {
-               webutil.redirect("/pages/common/AccessDenied.xhtml", null);
+               webutil.redirect("/access-denied.xhtml", null);
             }
          }
       }
       catch (Exception e)
       {
-         webutil.redirect("/pages/common/AccessDenied.xhtml", null);
+         webutil.redirect("/access-denied.xhtml", null);
       }
    }
 
@@ -196,7 +196,7 @@ public class PositionBean implements Serializable
       try
       {
          if (this.acctnum == null)
-            webutil.redirect("/pages/common/AccessDenied.xhtml", null);
+            webutil.redirect("/access-denied.xhtml", null);
          else
          {
             // Note: If no data is found, then blank form will display.  It is better then going to access denied, page.

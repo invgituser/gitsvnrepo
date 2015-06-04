@@ -13,50 +13,7 @@ function pie_extensions()
         drawBorder: false,
         shadow: false,
         legend: false,
-        gridPadding: {top:0, bottom:38, left:0, right:0}
-    };
-}
-
-function line_extensions()
-{
-    this.cfg.grid = {
-        backgroundColor: 'transparent',
-        drawBorder: false,
-        shadow: false
-    };
-
-    this.cfg.seriesDefaults = {
-        showMarker: false,
-	markerOptions: { 
-		show: false,
-		color: 'transparent',
-		shadow: false },
-	tickOptions : {
-            showGridline: false
-	}
-    };
-
-    this.cfg.axesDefaults = {
-	tickOptions : {
-            showGridline: false
-	}
-    };
-
-    this.cfg.axis = {
-        yaxis: {
-            drawMajorGridlines: false,
-            labelOptions: {
-                fontSize: '10pt'
-            }
-        }
-    };
-
-    this.cfg.fillBetween = {
-        series1: 0,
-        series2: 1,
-        color: "#7C8686",
-        baseSeries: 0,
-        fill: true
+        gridPadding: {top: 0, bottom: 38, left: 0, right: 0}
     };
 }
 
@@ -70,16 +27,54 @@ function meter_extensions()
 function bar_extensions()
 {
     this.cfg.grid = {
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        drawBorder: false,
+        shadow: false
     };
+
     this.cfg.axesDefaults = {
+        show: false,
         showTicks: false,
         showTickMarks: false,
-	tickOptions : {
+        tickOptions: {
             showGridline: false
-	}
+        }
     };
-    
+
+}
+
+function line_extensions()
+{
+    this.cfg.grid = {
+        backgroundColor: 'transparent',
+        drawBorder: false,
+        shadow: false
+    };
+
+    this.cfg.seriesDefaults = {
+        showMarker: false,
+        markerOptions: {
+            show: false,
+            color: 'transparent',
+            shadow: false },
+        tickOptions : {
+            showGridline: false
+        }
+    };
+
+    this.cfg.axesDefaults = {
+        tickOptions : {
+            showGridline: false
+        }
+    };
+
+    this.cfg.fillBetween = {
+        series1: 0,
+        series2: 1,
+        color: "#7C8686",
+        baseSeries: 0,
+        fill: true
+    };
 }
 
 

@@ -327,7 +327,7 @@ public class WebUtil implements Serializable
          else
             if (role != null) {
                if (! hasRole(role)) {
-                  redirect("/pages/common/AccessDenied.xhtml", null);
+                  redirect("/access-denied.xhtml", null);
                   return false;
                }
             }
