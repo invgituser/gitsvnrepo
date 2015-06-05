@@ -37,7 +37,7 @@ public class lpTest
          double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue, acct4/totalValue};
          //double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue};
 
-         String primeAssets = "PRIME-ASSET";
+         String theme = "PRIME-ASSET";
          double[][] targetPAssetAllocation = {{0.01},{0.26},{0.0},{0.11},{0.04},{0.07},{0.0},{0.04},{0.05},{0.12},{0.13},{0.07},{0.02},
             {0.01},{0.0},{0.07}};
          double targetOptProd = targetPAssetAllocation[0][0] *
@@ -45,7 +45,8 @@ public class lpTest
             targetPAssetAllocation[2][0];
 
          //To use these returns, call getDailyReturns with the same tickers;
-         double[][] mrData = hoptimizer.getData(tickers);
+         hoptimizer.loadFundDataFromDB(theme, tickers);
+         double[][] mrData = hoptimizer.getDailyReturns(tickers);
          double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
          CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
          double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickers, mrData, coVarFunds);
