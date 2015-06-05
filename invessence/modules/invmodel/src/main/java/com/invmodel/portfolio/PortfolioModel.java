@@ -506,6 +506,7 @@ public class PortfolioModel
 
          Map<String, String> tickerMap = new LinkedHashMap<String, String>();
          ArrayList <Double> primeWeights = new ArrayList<Double>();
+         Integer sizeofTickerList=0;
 
          for (String assetname : portfolioOptimizer.getAdvisorOrdertedAssetList(theme))
          {
@@ -518,6 +519,8 @@ public class PortfolioModel
                for (SecurityData sd : securityDao.getOrderedSecurityList(theme, assetname, primeassetclass))
                {
                   if (! tickerMap.containsKey(sd.getTicker()))  {
+                     if (! sd.getTicker().toUpperCase().equals("CASH"))
+                        sizeofTickerList++;
                      tickerMap.put(sd.getTicker(),sd.getTicker());
                   }
                }
@@ -526,13 +529,15 @@ public class PortfolioModel
             }
          }
 
-         String [] tickers = new String[tickerMap.size()];
+         String [] tickers = new String[sizeofTickerList];
          int j=0;
          for (String ticker : tickerMap.keySet())
          {
             if (! ticker.toUpperCase().equals("CASH")) {
-               tickers[j] = ticker;
-               j++;
+               if (j < sizeofTickerList) {
+                  tickers[j] = ticker;
+                  j++;
+               }
             }
          }
 
