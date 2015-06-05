@@ -514,19 +514,24 @@ public class PortfolioModel
             AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
             Asset asset = assetClass.getAsset(assetname);
 
-            for (String primeassetclass : assetdata.getOrderedPrimeAssetList())
-            {
-               for (SecurityData sd : securityDao.getOrderedSecurityList(theme, assetname, primeassetclass))
+            if (! asset.getAsset().toUpperCase().equals("CASH")) {
+               for (String primeassetclass : assetdata.getOrderedPrimeAssetList())
                {
-                  if (! tickerMap.containsKey(sd.getTicker()))  {
-                     if (! sd.getTicker().toUpperCase().equals("CASH"))
-                        sizeofTickerList++;
-                     tickerMap.put(sd.getTicker(),sd.getTicker());
+                  for (SecurityData sd : securityDao.getOrderedSecurityList(theme, assetname, primeassetclass))
+                  {
+                     if (! tickerMap.containsKey(sd.getTicker()))  {
+                        if (! sd.getTicker().toUpperCase().equals("CASH")) {
+                           sizeofTickerList++;
+                           tickerMap.put(sd.getTicker(),sd.getTicker());
+                        }
+                     }
                   }
+
+                  primeWeights.add(asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]);
                }
 
-               primeWeights.add(asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]);
             }
+
          }
 
          String [] tickers = new String[sizeofTickerList];
@@ -548,7 +553,7 @@ public class PortfolioModel
             tmpPrimeWeights[0][j] = primeWeights.get(j);
          }
 
-         double[] optFundWeight = portfolioOptimizer.getHolisticWeight(tickers, tmpPrimeWeights);
+         double[] optFundWeight = portfolioOptimizer.getHolisticWeight(theme, tickers, tmpPrimeWeights);
 
 
          double investByAsset = 0.0;

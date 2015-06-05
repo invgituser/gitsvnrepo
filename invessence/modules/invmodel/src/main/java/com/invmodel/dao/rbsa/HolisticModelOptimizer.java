@@ -29,9 +29,11 @@ public class HolisticModelOptimizer
    private final Lock read = readWriteLock.readLock();
    private final Lock write = readWriteLock.writeLock();
 
-   private PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
-   Map<String, HolisticData> holisticdataMap = new HashMap<String, HolisticData>();
-   Map<String, String> allPrimeAssetMap = new LinkedHashMap<String, String>();
+   private PortfolioOptimizer poptimizer;
+   Map<String, HolisticData> holisticdataMap;
+   Map<String, String> allPrimeAssetMap;
+
+   private AssetParameters assetParameters;
 
    public static synchronized HolisticModelOptimizer getInstance()
    {
@@ -46,6 +48,10 @@ public class HolisticModelOptimizer
    private HolisticModelOptimizer()
    {
       super();
+      poptimizer = PortfolioOptimizer.getInstance();
+      assetParameters = new AssetParameters();
+      allPrimeAssetMap = new LinkedHashMap<String, String>();
+      holisticdataMap = new HashMap<String, HolisticData>();
    }
 
    public Map<String, String> getAllPrimeAssetMap()
@@ -59,10 +65,10 @@ public class HolisticModelOptimizer
       return theme;
    }
 
-   public void loadFundDataFromDB(String[] tickers) {
+   public void loadFundDataFromDB(String theme, String[] tickers) {
       try {
          holisticdataMap.clear();       // Clear entire Hashmap to start new...
-         loadRBSAfromDB(tickers);
+         loadRBSAfromDB(theme, tickers);
 
          loadDailyReturnsfromDB(tickers);
 
@@ -78,7 +84,7 @@ public class HolisticModelOptimizer
    }
 
 
-   private void loadRBSAfromDB(String[] tickers)
+   private void loadRBSAfromDB(String theme, String[] tickers)
    {
       Connection connection = null;
       Statement statement = null;
@@ -91,50 +97,42 @@ public class HolisticModelOptimizer
          int tickercount=0;
          for (int i = 0; i < tickers.length; i++) {
             if (tickercount == 0)
-               tickerList += "'" + tickers[i] + "'";
+               tickerList += "'" + tickers[i].trim() + "'";
             else
-               tickerList += ", '" + tickers[i] + "'";
+               tickerList += ", '" + tickers[i].trim() + "'";
             tickercount++;
          }
 
          String whereStatement = "";
          if (tickercount > 0) {
-            whereStatement = "where ticker in (" + tickerList + ")";
+            whereStatement = " AND ticker in (" + tickerList + ")";
          }
          else
             return;
 
          connection = DBConnectionProvider.getInstance().getConnection();
          statement = connection.createStatement();
-         String theme = getTheme(null);
+         if (theme == null || theme.isEmpty())
+            theme = getTheme(null);
 
-         statement.executeQuery("SELECT ticker," +
-                                   "indexfund, " +
-                                   "theme, " +
-                                   "assetclass, " +
-                                   "primeassetclass, " +
-                                   "sortorder, " +
-                                   "lowerBound, " +
-                                   "upperBound, " +
-                                   "expectedReturn, " +
-                                   "weight " +
-                                   "FROM rbsa.vw_funds_weights " +
-                                   whereStatement + " \n" +
-                                   "UNION \n" +
-                                   "SELECT ticker as ticker," +
-                                   " ticker as indexfund, " +
-                                   " theme, " +
-                                   " assetclass, " +
-                                   " primeassetclass, " +
-                                   " sortorder, " +
-                                   " lowerBound, " +
-                                   " upperBound, " +
-                                   " expectedReturn, " +
-                                   " 1.0 as weight " +
-                                   " FROM sec_prime_asset_group " +
-                                   " WHERE  theme = '" + theme + "' "  +
-                                   " AND status in ('A') " +
-                                   " ORDER BY ticker, sortorder");
+         theme = theme.trim();
+
+         String sqlquery =  "SELECT ticker," +
+            "indexfund, " +
+            "theme, " +
+            "assetclass, " +
+            "primeassetclass, " +
+            "sortorder, " +
+            "lowerBound, " +
+            "upperBound, " +
+            "expectedReturn, " +
+            "weight " +
+            "FROM invdb.vw_funds_weights " +
+            "WHERE theme = '" + theme + "' " +
+            whereStatement + " \n" +
+            " ORDER BY sortorder, ticker";
+
+         statement.executeQuery(sqlquery);
 
          resultSet = statement.getResultSet();
          resultSet.beforeFirst();
@@ -154,18 +152,20 @@ public class HolisticModelOptimizer
                                                                resultSet.getDouble("weight"));
 
 
-            if(!allPrimeAssetMap.containsKey(primeAssetClass)){
-               allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
-            }
+            if (! ticker.toUpperCase().equals("CASH")) {
+               if(!allPrimeAssetMap.containsKey(primeAssetClass)){
+                  allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
+               }
 
-            if (! holisticdataMap.containsKey(ticker))
-            {
-               HolisticData holisticData = new HolisticData();
-               holisticData.getPrimeassets().put(primeAssetClass, pacd);
-               holisticdataMap.put(ticker, holisticData);
+               if (! holisticdataMap.containsKey(ticker))
+               {
+                  HolisticData holisticData = new HolisticData();
+                  holisticData.getPrimeassets().put(primeAssetClass, pacd);
+                  holisticdataMap.put(ticker, holisticData);
+               }
+               else
+                  holisticdataMap.get(ticker).getPrimeassets().put(primeAssetClass, pacd);
             }
-            else
-               holisticdataMap.get(ticker).getPrimeassets().put(primeAssetClass, pacd);
          }
       }
       catch (Exception e)
@@ -288,7 +288,7 @@ public class HolisticModelOptimizer
    }
 }
 
-   private double[][] getDailyReturns(String [] tickers) {
+   public double[][] getDailyReturns(String [] tickers) {
       try {
          if (tickers != null) {
             Integer smallestArray = 5000;
@@ -371,11 +371,6 @@ public class HolisticModelOptimizer
    public double [][] getCoVarFunds(double[][] mrData)
    {
       try {
-         //To use these returns, call getDailyReturns with the same tickers;
-         //CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
-         AssetParameters assetParameters = new AssetParameters();
-
-         //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(mrData);
          double[][] covarianceOfFunds = assetParameters.covarianceMatrix(mrData);
 
          return covarianceOfFunds;
@@ -384,14 +379,6 @@ public class HolisticModelOptimizer
 
       }
       return  null;
-   }
-
-   public double [][] getData(String [] tickers)
-   {
-      loadFundDataFromDB(tickers);
-      double[][] mrData = null;
-      mrData = getDailyReturns(tickers);
-      return mrData;
    }
 
    public double [][] getWeights(CapitalMarket instanceOfCapitalMarket, String[] tickers, double[][] mrData, double[][] covarianceOfFunds)
@@ -458,36 +445,6 @@ public class HolisticModelOptimizer
       return  null;
    }
 
-   public double [] getRisk(String [] tickers,CapitalMarket instanceOfCapitalMarket)
-   {
-      try {
-
-         Integer numofTicker = tickers.length;
-
-         // loadPrimeAssetDataFromDB(pAssets);
-         loadFundDataFromDB(tickers);
-         double[][] mrData = null;
-         mrData = getDailyReturns(tickers);
-
-         AssetParameters assetParameters = new AssetParameters();
-
-         double[][] covarianceOfFunds = assetParameters.covarianceMatrix(mrData);
-
-         double[] risk = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(covarianceOfFunds);
-
-         return risk;
-      }
-      catch (Exception ex) {
-
-      }
-      return  null;
-   }
-
-   public double [] getExpReturns(String [] tickers,CapitalMarket instanceOfCapitalMarket)
-   {
-      double[]expReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
-      return expReturns;
-   }
 
    public static double[][] multiplyByMatrix(double[][] m1, double[][] m2) {
       int m1ColLength = m1[0].length; // m1 columns length
