@@ -120,7 +120,7 @@ public class HolisticModelOptimizer
                                    "weight " +
                                    "FROM rbsa.vw_funds_weights " +
                                    whereStatement + " \n" +
-                                 "UNION \n" +
+                                   "UNION \n" +
                                    "SELECT ticker as ticker," +
                                    " ticker as indexfund, " +
                                    " theme, " +
@@ -135,6 +135,7 @@ public class HolisticModelOptimizer
                                    " WHERE  theme = '" + theme + "' "  +
                                    " AND status in ('A') " +
                                    " ORDER BY ticker, sortorder");
+
          resultSet = statement.getResultSet();
          resultSet.beforeFirst();
          while (resultSet.next())
@@ -190,6 +191,9 @@ public class HolisticModelOptimizer
       String tickerList = "";
       int tickercount=0;
       for (int i = 0; i < tickers.length; i++) {
+         if (tickers[i].toUpperCase().equals("CASH"))
+            continue;
+
          if (tickercount == 0)
             tickerList += "'" + tickers[i] + "'";
          else
@@ -197,16 +201,60 @@ public class HolisticModelOptimizer
          tickercount++;
       }
 
-      String whereStatement = "";
+      String tickerWhere = "";
       if (tickercount > 0) {
-         whereStatement = "where ticker in (" + tickerList + ")";
+         tickerWhere = " AND ticker in (" + tickerList + ") ";
       }
       else
          return;
 
       connection = DBConnectionProvider.getInstance().getConnection();
+
+
       statement = connection.createStatement();
-      statement.executeQuery("SELECT ticker, daily_return FROM rbsa.vw_rbsa_daily_returns " + whereStatement +" order by ticker, seqno desc");
+      statement.executeQuery("SELECT ticker," +
+                                "min(DATE_FORMAT(businessdate,'%Y%m%d')) as min_businessdate, " +
+                                "max(DATE_FORMAT(businessdate,'%Y%m%d')) as max_businessdate " +
+                                "FROM rbsa.rbsa_daily " +
+                                "WHERE upper(ticker) not in ('CASH') " +
+                                tickerWhere  +
+                                " GROUP by ticker");
+
+      resultSet = statement.getResultSet();
+      resultSet.beforeFirst();
+      Integer firstBdate = 0, lastBdate = 99999999;
+      Integer minBDate, maxBDate;
+      while (resultSet.next())
+      {
+         minBDate = resultSet.getInt("min_businessdate");
+         maxBDate = resultSet.getInt("max_businessdate");
+
+         firstBdate = (firstBdate < minBDate ) ? minBDate : firstBdate;
+         lastBdate = (maxBDate < lastBdate ) ? maxBDate : lastBdate;
+      }
+
+      String minDateWhere = "";
+      if (firstBdate > 0) {
+         minDateWhere = " AND  DATE_FORMAT(businessdate,'%Y%m%d') >= '" + firstBdate + "'";
+      }
+
+      String maxDateWhere = "";
+      if (lastBdate < 99999999) {
+         maxDateWhere = " AND  DATE_FORMAT(businessdate,'%Y%m%d') <= '" + lastBdate + "'";
+      }
+
+      statement = connection.createStatement();
+      statement.executeQuery("SELECT ticker, " +
+                                "DATE_FORMAT(businessdate,'%Y%m%d') as businessdate, " +
+                                "daily_return as daily_return " +
+                                "FROM rbsa.rbsa_daily " +
+                                "WHERE upper(ticker) not in ('CASH') " +
+                                tickerWhere  + " " +
+                                minDateWhere + " " +
+                                maxDateWhere + " " +
+                                " order by 1,2 desc");
+
+
       resultSet = statement.getResultSet();
       resultSet.beforeFirst();
       while (resultSet.next())
@@ -244,12 +292,14 @@ public class HolisticModelOptimizer
       try {
          if (tickers != null) {
             Integer smallestArray = 5000;
-            for (String ticker : holisticdataMap.keySet()) {
-               smallestArray =  (holisticdataMap.get(ticker).getMaxReturns() < smallestArray) ? holisticdataMap.get(ticker).getMaxReturns() : smallestArray;
+            for (int i =0; i < tickers.length; i++) {
+               String ticker = tickers[i];
+               if (holisticdataMap.containsKey(ticker))
+                  smallestArray =  (holisticdataMap.get(ticker).getMaxReturns() < smallestArray) ? holisticdataMap.get(ticker).getMaxReturns() : smallestArray;
             }
 
             double[][] listofReturns = new double[tickers.length][smallestArray];
-            Double value;
+            double value;
             for (int i =0; i < tickers.length; i++) {
                if (holisticdataMap.containsKey(tickers[i])) {
                   for (int count=0; count < smallestArray; count++) {
@@ -357,14 +407,19 @@ public class HolisticModelOptimizer
          int t = 0;
          for (String fTicker: tickers){
 
-            for( String pAsstName: holisticdataMap.get(fTicker).getPrimeassets().keySet()){
+            if (holisticdataMap.containsKey(fTicker)) {
+               for( String pAsstName: holisticdataMap.get(fTicker).getPrimeassets().keySet()){
 
-               PrimeAssetClassData pAsst = holisticdataMap.get(fTicker).getPrimeassets().get(pAsstName);
-               double expRet = pAsst.getExpectedReturn();
-               double wgt = pAsst.getWeight();
-               String pAsset =  pAsst.getPrimeAssetName();
+                  PrimeAssetClassData pAsst = holisticdataMap.get(fTicker).getPrimeassets().get(pAsstName);
+                  double expRet = pAsst.getExpectedReturn();
+                  double wgt = pAsst.getWeight();
+                  String pAsset =  pAsst.getPrimeAssetName();
 
-               expectedReturnsOfFunds[t] = expectedReturnsOfFunds[t] + expRet * wgt;
+                  expectedReturnsOfFunds[t] = expectedReturnsOfFunds[t] + expRet * wgt;
+               }
+            }
+            else {
+               expectedReturnsOfFunds[t] = 0.0;
             }
 
             lowerBound[t] = 0.0;

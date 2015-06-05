@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import com.invmodel.Const.InvConst;
 import com.invmodel.dao.*;
 import com.invmodel.dao.data.*;
+import com.invmodel.dao.rbsa.HolisticModelOptimizer;
 import com.invmodel.utils.MergeSort;
 import org.apache.commons.dbutils.DbUtils;
 import webcab.lib.finance.portfolio.*;
@@ -977,7 +978,7 @@ public class PortfolioOptimizer
    }
 
    public double[] getHolisticWeight(String tickers[], double[][] targetPAssetAllocation){
-      com.invmodel.dao.rbsa.HolisticModelOptimizer hoptimizer = com.invmodel.dao.rbsa.HolisticModelOptimizer.getInstance();
+      HolisticModelOptimizer hoptimizer = HolisticModelOptimizer.getInstance();
 
          /*ArrayList <String> tickers = new ArrayList<String>();
          int j = 0;
@@ -995,6 +996,7 @@ public class PortfolioOptimizer
          }*/
 
       //To use these returns, call getDailyReturns with the same tickers;
+      // optimizer.loadFundDataFromDB(tickers);
       double[][] mrData = hoptimizer.getData(tickers);
       double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
       CapitalMarket instanceOfCapitalMarket = new CapitalMarket();

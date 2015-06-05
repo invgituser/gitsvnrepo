@@ -530,8 +530,10 @@ public class PortfolioModel
          int j=0;
          for (String ticker : tickerMap.keySet())
          {
-            tickers[j] = ticker;
-            j++;
+            if (! ticker.toUpperCase().equals("CASH")) {
+               tickers[j] = ticker;
+               j++;
+            }
          }
 
          double [][] tmpPrimeWeights = new double[1][primeWeights.size()];
