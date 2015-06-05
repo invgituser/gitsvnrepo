@@ -977,7 +977,7 @@ public class PortfolioOptimizer
       return coVarMatrix;
    }
 
-   public double[] getHolisticWeight(String tickers[], double[][] targetPAssetAllocation){
+   public double[] getHolisticWeight(String theme, String tickers[], double[][] targetPAssetAllocation){
       HolisticModelOptimizer hoptimizer = HolisticModelOptimizer.getInstance();
 
          /*ArrayList <String> tickers = new ArrayList<String>();
@@ -997,9 +997,10 @@ public class PortfolioOptimizer
 
       //To use these returns, call getDailyReturns with the same tickers;
       // optimizer.loadFundDataFromDB(tickers);
-      double[][] mrData = hoptimizer.getData(tickers);
-      double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
+      hoptimizer.loadFundDataFromDB(theme, tickers);
       CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
+      double[][] mrData = hoptimizer.getDailyReturns(tickers);
+      double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
       double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickers, mrData, coVarFunds);
       double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(coVarFunds);
       double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
