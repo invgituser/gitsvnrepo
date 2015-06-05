@@ -72,7 +72,7 @@ public class HolisticModelOptimizer
       }
    }
 
-   public Map<String, HolisticData> getHolisticdataMap()
+   public Map<String, HolisticData> getHzolisticdataMap()
    {
       return holisticdataMap;
    }
