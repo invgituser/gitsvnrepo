@@ -546,11 +546,11 @@ public class PortfolioModel
             }
          }
 
-         double [][] tmpPrimeWeights = new double[1][primeWeights.size()];
+         double [][] tmpPrimeWeights = new double[primeWeights.size()][1];
 
          for (j=0; j< primeWeights.size(); j++)
          {
-            tmpPrimeWeights[0][j] = primeWeights.get(j);
+            tmpPrimeWeights[j][0] = primeWeights.get(j);
          }
 
          double[] optFundWeight = portfolioOptimizer.getHolisticWeight(theme, tickers, tmpPrimeWeights);
