@@ -31,10 +31,10 @@ public class NewRebal
       /*AssetDBCollection assetDAO = AssetDBCollection.getInstance();
       DailyReturns dailyReturnDAO = DailyReturns.getInstance();*/
 
-      SecurityDBCollection secDao = new SecurityDBCollection();
-      secDao.loadDataFromDB(InvConst.DEFAULT_THEME);
+      SecurityCollection secCollection = new SecurityCollection();
+      secCollection.loadDataFromDB(InvConst.INVESSENCE_ADVISOR, InvConst.DEFAULT_THEME);
       rbal.setPortfolioOptimizer(portfolioOptimizer);
-      rbal.setSecurityDAO(secDao);
+      rbal.setSecurityDAO(secCollection);
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
       // Now we can do rebalaning on account(s).

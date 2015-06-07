@@ -122,7 +122,7 @@ public class TestDistribution
       profileData.setAssetData(aamc);
       PortfolioModel portfolioModel = new PortfolioModel();
       portfolioModel.setPortfolioOptimizer(poptimizer);
-      SecurityDBCollection secDao = new SecurityDBCollection();
+      SecurityCollection secDao = new SecurityCollection();
 
       //secDao.loadDataFromDB("0.Core");
       //secDao.loadDataFromDB(InvConst.DEFAULT_THEME);
@@ -412,7 +412,7 @@ public class TestDistribution
       DecimalFormat df = new DecimalFormat("#.###");
 
       int y = 0;
-      for (y = 0; y < aamc.length; y++)
+      for (y = 0; y < pfclass.length; y++)
       {
          if (y == 0)
          {
