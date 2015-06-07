@@ -32,6 +32,8 @@ public class PortfolioOptimizer
 
    private Map<String, ArrayList<String>> themeAssetMap;
    private Map<String, AssetData> assetDataMap;
+   private HolisticModelOptimizer hoptimizer;
+
 
    public static synchronized PortfolioOptimizer getInstance()
    {
@@ -48,6 +50,7 @@ public class PortfolioOptimizer
       super();
       themeAssetMap = new LinkedHashMap<String, ArrayList<String>>();
       assetDataMap = new HashMap<String, AssetData>();
+      hoptimizer = HolisticModelOptimizer.getInstance();
    }
 
    public void loadDataFromDB(String theme) {
@@ -978,7 +981,6 @@ public class PortfolioOptimizer
    }
 
    public double[] getHolisticWeight(String theme, String tickers[], double[][] targetPAssetAllocation){
-      HolisticModelOptimizer hoptimizer = HolisticModelOptimizer.getInstance();
 
          /*ArrayList <String> tickers = new ArrayList<String>();
          int j = 0;
@@ -1031,5 +1033,10 @@ public class PortfolioOptimizer
       }
 
       return optFundWeight;
+   }
+
+   public HolisticModelOptimizer getHoptimizer()
+   {
+      return hoptimizer;
    }
 }

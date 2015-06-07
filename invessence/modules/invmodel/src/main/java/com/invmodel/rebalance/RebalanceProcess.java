@@ -27,7 +27,7 @@ public class RebalanceProcess
    private Map<String, SecurityTLHData> tlhSecMap = null;
    private Map<String, SecurityTLHData> tlhReverseSecMap = null;
    private TLHSecurityCollection tlhSecurityCollection = null;
-   private SecurityDBCollection securityDAO = null;
+   private SecurityCollection secCollection = null;
    private PortfolioOptimizer portfolioOptimizer = null;
 
    private String advisor;
@@ -57,9 +57,9 @@ public class RebalanceProcess
       this.portfolioOptimizer = portfolioOptimizer;
    }
 
-   public void setSecurityDAO(SecurityDBCollection securityDAO)
+   public void setSecurityDAO(SecurityCollection secCollection)
    {
-      this.securityDAO = securityDAO;
+      this.secCollection = secCollection;
    }
 
    public List<ProfileData> loadCustomerProfile(Long logonid, Long acctnum, String filter) {
@@ -167,7 +167,7 @@ public class RebalanceProcess
             loadAssetClass(pdata, years);
             PortfolioModel portfolioModel = new PortfolioModel();
             portfolioModel.setPortfolioOptimizer(portfolioOptimizer);
-            portfolioModel.setSecurityDao(securityDAO);
+            portfolioModel.setSecurityDao(secCollection);
             pdata.setNumOfPortfolio(years);
             Integer displayYear = 0;
             aamc = pdata.getAssetData();
@@ -204,7 +204,7 @@ public class RebalanceProcess
          if (tlhSecurityCollection == null)
             return null;
 
-         if (securityDAO == null)
+         if (secCollection == null)
             return null;
 
          if (portfolioOptimizer == null)

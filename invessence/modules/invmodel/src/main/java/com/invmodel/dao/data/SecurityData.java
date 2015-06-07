@@ -10,7 +10,8 @@ import static java.lang.String.valueOf;
 
 public class SecurityData
 {
-   private Long instrumentid = 0L;
+   private String advisor = "";
+   private String theme = "";
    private String ticker = "";
    private String name = "";
    private String assetclass = "";
@@ -19,49 +20,34 @@ public class SecurityData
    private String type = "";
    private String style;
    private double dailyprice = 0.0;
-   private double expenseRatio = 0.0;
-   private double adv3Month = 0.0;
-   private double aum = 0.0;
-   private double beta = 0.0;
-   private double riskSTD = 0.0;
-   private double taxableReturn = 0.0;
-   private double nonTaxableReturn = 0.0;
-   private double ubConstraint = 0.0;
-   private double lbConstraint = 0.0;
-   private double yield = 0.0;
-   private int sortorder = 0;
+   private int    sortorder = 0;
    private double rbsaWeight = 0.0;
+   private String assetcolor = "";
+   private String primeassetcolor = "";
 
    public SecurityData()
    {
       super();
    }
 
-   public SecurityData(Long instrumentid, String ticker, String name,
+   public SecurityData(String advisor, String theme, String ticker, String name,
                        String assetclass, String primeassetclass, String subassetclass, String type, String style,
-                       double dailyprice, double expenseRatio, double adv3Month,
-                       double aum, double beta, double riskSTD,
-                       double taxableReturn, double nonTaxableReturn, double ubConstraint,
-                       double lbConstraint, double yield, int sortorder, double rbsaWeight)
+                       double dailyprice, int sortorder, double rbsaWeight,
+                       String assetcolor, String primeassetcolor)
    {
       super();
-      resetSecurityData(instrumentid, ticker, name,
+      resetSecurityData(advisor, theme, ticker, name,
                         assetclass, primeassetclass, subassetclass, type, style,
-                        dailyprice, expenseRatio, adv3Month,
-                        aum, beta, riskSTD,
-                        taxableReturn, nonTaxableReturn, ubConstraint,
-                        lbConstraint, yield, sortorder, rbsaWeight);
+                        dailyprice, sortorder, rbsaWeight,
+                        assetcolor, primeassetcolor);
    }
 
-   public SecurityData resetSecurityData(Long instrumentid, String ticker, String name,
-                                         String assetclass, String subassetclass, String primeassetclass,
-                                         String type, String style,
-                                         double dailyprice, double expenseRatio, double adv3Month,
-                                         double aum, double beta, double riskSTD,
-                                         double taxableReturn, double nonTaxableReturn, double ubConstraint,
-                                         double lbConstraint, double yield, int sortorder, double rbsaweight)
+   public SecurityData resetSecurityData(String advisor, String theme, String ticker, String name,
+                                         String assetclass, String primeassetclass, String subassetclass, String type, String style,
+                                         double dailyprice, int sortorder, double rbsaWeight,
+                                         String assetcolor, String primeassetcolor)
    {
-      this.instrumentid = instrumentid;
+      this.advisor = advisor;
       this.ticker = ticker;
       this.name = name;
       this.assetclass = assetclass;
@@ -70,24 +56,16 @@ public class SecurityData
       this.type = type;
       this.style = style;
       this.dailyprice = dailyprice;
-      this.expenseRatio = expenseRatio;
-      this.adv3Month = adv3Month;
-      this.aum = aum;
-      this.beta = beta;
-      this.riskSTD = riskSTD;
-      this.taxableReturn = taxableReturn;
-      this.nonTaxableReturn = nonTaxableReturn;
-      this.ubConstraint = ubConstraint;
-      this.lbConstraint = lbConstraint;
-      this.yield = yield;
       this.sortorder = sortorder;
-      this.rbsaWeight = rbsaweight;
+      this.rbsaWeight = rbsaWeight;
+      this.assetcolor = assetcolor;
+      this.primeassetcolor = primeassetcolor;
       return this;
    }
 
-   public Long getInstrumentid()
+   public String getAdvisor()
    {
-      return instrumentid;
+      return advisor;
    }
 
    public String getTicker()
@@ -130,56 +108,6 @@ public class SecurityData
       return dailyprice;
    }
 
-   public double getExpenseRatio()
-   {
-      return expenseRatio;
-   }
-
-   public double getAdv3Month()
-   {
-      return adv3Month;
-   }
-
-   public double getAum()
-   {
-      return aum;
-   }
-
-   public double getBeta()
-   {
-      return beta;
-   }
-
-   public double getRiskSTD()
-   {
-      return riskSTD;
-   }
-
-   public double getTaxableReturn()
-   {
-      return taxableReturn;
-   }
-
-   public double getNonTaxableReturn()
-   {
-      return nonTaxableReturn;
-   }
-
-   public double getUbConstraint()
-   {
-      return ubConstraint;
-   }
-
-   public double getLbConstraint()
-   {
-      return lbConstraint;
-   }
-
-   public double getYield()
-   {
-      return yield;
-   }
-
    public int getSortorder()
    {
       return sortorder;
@@ -188,6 +116,16 @@ public class SecurityData
    public double getRbsaWeight()
    {
       return rbsaWeight;
+   }
+
+   public String getAssetcolor()
+   {
+      return assetcolor;
+   }
+
+   public String getPrimeassetcolor()
+   {
+      return primeassetcolor;
    }
 
    public String getHeader()

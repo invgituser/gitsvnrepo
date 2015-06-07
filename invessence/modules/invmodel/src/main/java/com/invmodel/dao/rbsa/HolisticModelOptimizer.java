@@ -29,7 +29,6 @@ public class HolisticModelOptimizer
    private final Lock read = readWriteLock.readLock();
    private final Lock write = readWriteLock.writeLock();
 
-   private PortfolioOptimizer poptimizer;
    Map<String, HolisticData> holisticdataMap;
    Map<String, String> allPrimeAssetMap;
 
@@ -48,7 +47,6 @@ public class HolisticModelOptimizer
    private HolisticModelOptimizer()
    {
       super();
-      poptimizer = PortfolioOptimizer.getInstance();
       assetParameters = new AssetParameters();
       allPrimeAssetMap = new LinkedHashMap<String, String>();
       holisticdataMap = new HashMap<String, HolisticData>();
@@ -78,7 +76,7 @@ public class HolisticModelOptimizer
       }
    }
 
-   public Map<String, HolisticData> getHzolisticdataMap()
+   public Map<String, HolisticData> getHolisticdataMap()
    {
       return holisticdataMap;
    }

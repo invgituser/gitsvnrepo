@@ -1,3 +1,4 @@
+/*
 package com.invmodel.dao.invdb;
 
 import java.sql.*;
@@ -13,6 +14,8 @@ import org.apache.commons.dbutils.DbUtils;
 
 public class SecurityDBCollection
 {
+*/
+/*
    private Map<String, ArrayList<SecurityData>> securityPrimeAssetMap;
    private Map<String, SecurityData> securityMap;
    private ArrayList<String> orderedsecurityList;
@@ -46,13 +49,19 @@ public class SecurityDBCollection
       {
          primeassetclass = "DISCARD";
       }
+*//*
+
+*/
 /*
       return (theme.toUpperCase() +
          "." +
          assetname.toUpperCase() +
          "." +
          primeassetclass.toUpperCase());
+*//*
 */
+/*
+
 
       return (theme.toUpperCase() +
          "." +
@@ -301,4 +310,7 @@ public class SecurityDBCollection
       return 0.0;
    }
 
+*//*
+
 }
+*/
