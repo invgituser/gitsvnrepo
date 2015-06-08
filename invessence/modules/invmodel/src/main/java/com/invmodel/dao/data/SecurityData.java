@@ -16,7 +16,6 @@ public class SecurityData
    private String name = "";
    private String assetclass = "";
    private String primeassetclass = "";
-   private String subassetclass = "";
    private String type = "";
    private String style;
    private double dailyprice = 0.0;
@@ -24,6 +23,8 @@ public class SecurityData
    private double rbsaWeight = 0.0;
    private String assetcolor = "";
    private String primeassetcolor = "";
+   private String securityAssetClass = "";
+   private String securitySubAssetClass = "";
 
    public SecurityData()
    {
@@ -31,28 +32,30 @@ public class SecurityData
    }
 
    public SecurityData(String advisor, String theme, String ticker, String name,
-                       String assetclass, String primeassetclass, String subassetclass, String type, String style,
+                       String assetclass, String primeassetclass, String type, String style,
                        double dailyprice, int sortorder, double rbsaWeight,
-                       String assetcolor, String primeassetcolor)
+                       String assetcolor, String primeassetcolor,
+                       String securityAssetClass, String securitySubAssetClass)
    {
       super();
       resetSecurityData(advisor, theme, ticker, name,
-                        assetclass, primeassetclass, subassetclass, type, style,
+                        assetclass, primeassetclass, type, style,
                         dailyprice, sortorder, rbsaWeight,
-                        assetcolor, primeassetcolor);
+                        assetcolor, primeassetcolor,
+                        securityAssetClass, securitySubAssetClass);
    }
 
    public SecurityData resetSecurityData(String advisor, String theme, String ticker, String name,
-                                         String assetclass, String primeassetclass, String subassetclass, String type, String style,
+                                         String assetclass, String primeassetclass, String type, String style,
                                          double dailyprice, int sortorder, double rbsaWeight,
-                                         String assetcolor, String primeassetcolor)
+                                         String assetcolor, String primeassetcolor,
+                                         String securityAssetClass, String securitySubAssetClass)
    {
       this.advisor = advisor;
       this.ticker = ticker;
       this.name = name;
       this.assetclass = assetclass;
       this.primeassetclass = primeassetclass;
-      this.subassetclass = subassetclass;
       this.type = type;
       this.style = style;
       this.dailyprice = dailyprice;
@@ -60,6 +63,8 @@ public class SecurityData
       this.rbsaWeight = rbsaWeight;
       this.assetcolor = assetcolor;
       this.primeassetcolor = primeassetcolor;
+      this.securityAssetClass = securityAssetClass;
+      this.securitySubAssetClass = securitySubAssetClass;
       return this;
    }
 
@@ -86,11 +91,6 @@ public class SecurityData
    public String getPrimeassetclass()
    {
       return primeassetclass;
-   }
-
-   public String getSubassetclass()
-   {
-      return subassetclass;
    }
 
    public String getType()
@@ -128,6 +128,21 @@ public class SecurityData
       return primeassetcolor;
    }
 
+   public String getTheme()
+   {
+      return theme;
+   }
+
+   public String getSecurityAssetClass()
+   {
+      return securityAssetClass;
+   }
+
+   public String getSecuritySubAssetClass()
+   {
+      return securitySubAssetClass;
+   }
+
    public String getHeader()
    {
       String str = Joiner.on(",").join(Arrays.asList("Ticker", "Name",
@@ -144,7 +159,7 @@ public class SecurityData
          String str = this.ticker + ":" + Joiner.on(",").join(Arrays.asList(getTicker(),
                                                                             getName(),
                                                                             getAssetclass(),
-                                                                            getSubassetclass(),
+                                                                            getPrimeassetclass(),
                                                                             getDailyprice(),
                                                                             getSortorder()
                                                                             ));
@@ -165,7 +180,7 @@ public class SecurityData
          xmlData = xmlData + buildElement("Ticker", getTicker()) +
             buildElement("Name", getName()) +
             buildElement("AssetType", getAssetclass()) +
-            buildElement("AssetSubtype", getSubassetclass()) +
+            buildElement("AssetSubtype", getPrimeassetclass()) +
             buildElement("DailyPrice", valueOf(getDailyprice())) +
             buildElement("Sortorder", valueOf(getSortorder()));
          return buildElement("SecurityInfo", xmlData);

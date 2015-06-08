@@ -91,7 +91,7 @@ public class PortfolioModel
 
          // NOTE:  If Theme is default, then use Invessence - Core portfolio.
          // However, the Asset Weights may have been defined by Advisor's mapping.
-         if (theme == null || theme.isEmpty())
+         if (!portfolioOptimizer.isValidTheme(theme))
          {
             theme = InvConst.DEFAULT_THEME;
          }
@@ -100,16 +100,6 @@ public class PortfolioModel
          {
             advisor = InvConst.INVESSENCE_ADVISOR;
          }
-
-         // Taxable Strategy Introduced 2/9/2015
-         if (profileData.getAccountTaxable())
-         {
-            if (!theme.toUpperCase().startsWith("T."))
-            {
-               theme = "T." + theme;
-            }
-         }
-
 
          ArrayList<String> assetList = assetData[0].getOrderedAsset();
          Double riskOffset = assetData[0].getRiskOffset();
@@ -396,11 +386,11 @@ public class PortfolioModel
 
                   totalPortfolioWeight = assetWgt;
                   pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
-                                      sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
+                                      sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getPrimeassetclass(),
                                       1.0, assetWgt,
                                       0.0, 0.0, 0.0, 0.0,
                                       cash, cash, 999999, assetWgt);
-                  pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
+                  pclass.addSubclassMap(sd.getAssetclass(), sd.getPrimeassetclass(),
                                         asset.getColor(),
                                         assetWgt, amount_remain, true);
                   portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
@@ -434,11 +424,12 @@ public class PortfolioModel
 
                            investByAsset = investByAsset + money;
                            pclass.setPortfolio(sd.getTicker(), sd.getName(), asset.getColor(),
-                                               sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
+                                               sd.getType(), sd.getStyle(),
+                                               sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
                                                price, rbsa_weight,
                                                0.0, 0.0, 0.0, 0.0,
                                                shares, money, pacd.getSortorder(), totalPortfolioWeight);
-                           pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
+                           pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
                                                  asset.getColor(),
                                                  totalPortfolioWeight, money, true);
 
@@ -511,6 +502,7 @@ public class PortfolioModel
          ArrayList<String> tickerList = new ArrayList<String>();
          ArrayList<Double> primeWeights = new ArrayList<Double>();
          Integer sizeofTickerList = 0;
+         String addTicker = "";
 
          // secCollection.doCustomSQLQuery(advisor, theme, tickerList); // Use this to load Security details for given Tickers
          for (String assetname : portfolioOptimizer.getAdvisorOrdertedAssetList(theme))
@@ -524,14 +516,26 @@ public class PortfolioModel
             {
                for (String primeassetclass : assetdata.getOrderedPrimeAssetList())
                {
-                  for (SecurityData sd : secCollection.getOrderedSecurityList(advisor, theme, primeassetclass))
+                  // For, this class is not defined in Security List.  So, Using default  from Index
+                  if (secCollection.getOrderedSecurityList(advisor, theme, primeassetclass) == null)
                   {
-                     if (!tickerMap.containsKey(sd.getTicker()))
+                     addTicker = assetdata.getPrimeAssetData(primeassetclass).getTicker();
+                     if (!addTicker.toUpperCase().equals("CASH"))
                      {
-                        if (!sd.getTicker().toUpperCase().equals("CASH"))
+                        sizeofTickerList++;
+                        tickerMap.put(addTicker, addTicker);
+                     }
+                  }
+                  else {
+                     for (SecurityData sd : secCollection.getOrderedSecurityList(advisor, theme, primeassetclass))
+                     {
+                        if (!tickerMap.containsKey(sd.getTicker()))
                         {
-                           sizeofTickerList++;
-                           tickerMap.put(sd.getTicker(), sd.getTicker());
+                           if (!sd.getTicker().toUpperCase().equals("CASH"))
+                           {
+                              sizeofTickerList++;
+                              tickerMap.put(sd.getTicker(), sd.getTicker());
+                           }
                         }
                      }
                   }
@@ -580,18 +584,15 @@ public class PortfolioModel
             ticker = tickers[i]; // NOTE: Tickers are in same order as weights...
             ticker_weight = optFundWeight[i];
             HolisticModelOptimizer hoptimizer = portfolioOptimizer.getHoptimizer();
-            sd = secCollection.getSecurity(ticker);
-            AssetData assetdata = portfolioOptimizer.getAssetData(theme, sd.getAssetclass());
-            if (!assetClass.getAssetclass().containsKey(sd.getAssetclass()))
-            {
-               assetClass.addAssetClass(sd.getAssetclass(), sd.getAssetclass(), sd.getAssetcolor(), 0.0, 0.0);
-            }
-            Asset asset = assetClass.getAsset(sd.getAssetclass());
             double shares = 0.0, money = 0.0;
             double rbsa_weight = 0.0;
             double price = 0.0;
             for (PrimeAssetClassData pacd : hoptimizer.getHolisticdataMap().get(ticker).getPrimeassets().values())
             {
+               sd = secCollection.getSecurity(advisor, pacd.getPrimeAssetName(), ticker);
+               if (sd == null)
+                  sd = secCollection.getSecurity(ticker);
+
                if (!sd.getTicker().toUpperCase().equals("CASH"))
                {
 
@@ -599,43 +600,43 @@ public class PortfolioModel
                   price = sd.getDailyprice();
                   if (rbsa_weight > 0.0 && price > 0.0)
                   {
-                     shares = shares + Math.round(((investment * rbsa_weight) / price) - 0.5);
+                     shares = Math.round(((investment * rbsa_weight) / price) - 0.5);
                      money = shares * price;
+                     String assetname = pacd.getAssetclass();
+                     AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
+                     if (!assetClass.getAssetclass().containsKey(assetname))
+                     {
+                        assetClass.addAssetClass(assetname, assetname, sd.getAssetcolor(), 0.0, 0.0);
+                     }
+                     Asset asset = assetClass.getAsset(assetname);
+                     Double moneyInvestedinThisAsset = asset.getValue() + money;
+                     asset.setValue(moneyInvestedinThisAsset);
+                     asset.setActualweight(moneyInvestedinThisAsset / investment);
+                     // asset.setExpectedReturn(assetdata.getPrimeAssetreturns()[offset]);
+                     // asset.setRisk(assetdata.getPrimeAssetrisk()[offset]);
+
+                     pclass.setPortfolio(sd.getTicker(), sd.getName(), sd.getAssetcolor(),
+                                         sd.getType(), sd.getStyle(),
+                                         sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
+                                         price, rbsa_weight,
+                                         0.0, 0.0, 0.0, 0.0,
+                                         shares, money, sd.getSortorder(), totalPortfolioWeight);
+                     pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecurityAssetClass(),
+                                           sd.getAssetcolor(),
+                                           totalPortfolioWeight, money, true);
+
+
+                     secExpense = secExpense + 0.0 * rbsa_weight;
+
+                     cash = cash - money;
+                     pclass.setCashMoney(cash);
                   }
                }
             }
-            // Only create this portfolio if there are shares and money
-            if ((shares > 0.0) && (money > 0.0))
-            {
-               totalPortfolioWeight = 0.0;
-               if (investment > 0.0)
-               {
-                  totalPortfolioWeight = money / investment;
-               }
-
-               pclass.setPortfolio(sd.getTicker(), sd.getName(), sd.getAssetcolor(),
-                                   sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getPrimeassetclass(),
-                                   price, rbsa_weight,
-                                   0.0, 0.0, 0.0, 0.0,
-                                   shares, money, sd.getSortorder(), totalPortfolioWeight);
-               pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
-                                     sd.getAssetcolor(),
-                                     totalPortfolioWeight, money, true);
-
-
-               secExpense = secExpense + 0.0 * rbsa_weight;
-            }
-            cash = cash - money;
-            pclass.setCashMoney(cash);
             //portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
             //double pAssetreturns =  assetdata.getPrimeAssetreturns()[offset];
             //portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
 
-            asset.setExpectedReturn(assetdata.getPrimeAssetreturns()[offset]);
-            asset.setRisk(assetdata.getPrimeAssetrisk()[offset]);
-            Double moneyInvestedinThisAsset = asset.getValue() + money;
-            asset.setValue(moneyInvestedinThisAsset);
-            asset.setActualweight(moneyInvestedinThisAsset / investment);
 
          }
          // Add remining into cash...
@@ -645,12 +646,17 @@ public class PortfolioModel
             sd = secCollection.getSecurity(ticker);
 
             Asset asset = assetClass.getAsset(sd.getAssetclass());
+            // asset.setExpectedReturn(assetdata.getPrimeAssetreturns()[offset]);
+            // asset.setRisk(assetdata.getPrimeAssetrisk()[offset]);
+            Double moneyInvestedinThisAsset = asset.getValue() + cash;
+            asset.setValue(moneyInvestedinThisAsset);
+            asset.setActualweight(moneyInvestedinThisAsset / investment);
             pclass.setPortfolio(sd.getTicker(), sd.getName(), sd.getAssetcolor(),
-                                sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getSubassetclass(),
+                                sd.getType(), sd.getStyle(), sd.getAssetclass(), sd.getPrimeassetclass(),
                                 1.0, 1.0,
                                 0.0, 0.0, 0.0, 0.0,
                                 cash, cash, sd.getSortorder(), totalPortfolioWeight);
-            pclass.addSubclassMap(sd.getAssetclass(), sd.getSubassetclass(),
+            pclass.addSubclassMap(sd.getAssetclass(), sd.getPrimeassetclass(),
                                   asset.getColor(),
                                   totalPortfolioWeight, cash, true);
          }

@@ -14,7 +14,7 @@ import org.apache.commons.dbutils.DbUtils;
 public class SecurityCollection
 {
    private Map<String, ArrayList<SecurityData>> seclistByKeyMap;            // Key: advisor, theme, primeasset
-   private Map<String, ArrayList<SecurityData>> listbyAdvisorPrimeassetMap; // Key: ticker , contains multiple by primeasset.
+   private Map<String, SecurityData> listbyAdvisorPrimeassetMap; // Key: ticker , contains multiple by primeasset.
    private Map<String, SecurityData> listofOrderedSecurity;                 // Key: ticker
 
    private String themeLoaded;
@@ -28,7 +28,7 @@ public class SecurityCollection
    {
       super();
       seclistByKeyMap = new LinkedHashMap<String, ArrayList<SecurityData>>();
-      listbyAdvisorPrimeassetMap = new LinkedHashMap<String, ArrayList<SecurityData>>();
+      listbyAdvisorPrimeassetMap = new LinkedHashMap<String, SecurityData>();
       listofOrderedSecurity = new LinkedHashMap<String, SecurityData>();
       themeLoaded = "";
    }
@@ -57,7 +57,7 @@ public class SecurityCollection
 
    }
 
-   private String getSecondaryKey(String advisor, String primeassetclass)
+   private String getSecondaryKey(String advisor, String primeassetclass, String ticker)
    {
       if (advisor == null || advisor.isEmpty()) {
          advisor = InvConst.INVESSENCE_ADVISOR;
@@ -70,7 +70,10 @@ public class SecurityCollection
 
       return (advisor.toUpperCase() +
          "." +
-         primeassetclass.toUpperCase());
+         primeassetclass.toUpperCase() +
+      "." +
+         ticker.toUpperCase()
+      );
 
    }
 
@@ -88,21 +91,23 @@ public class SecurityCollection
    private void setSecurityData(String advisor, String theme,
                                String ticker, String name,
                                String assetname, String primeassetclass,
-                               String subassetname, String type, String style,
+                               String type, String style,
                                double dailyprice, int sortorder, double rbsaweight,
-                               String assetcolor, String primeassetcolor)
+                               String assetcolor, String primeassetcolor,
+                               String secAssetClass, String secSubAssetClass)
    {
       try
       {
          String primaryKey, secondaryKey, thirdKey;
          boolean addData;
          primaryKey = getPrimaryKey(advisor, theme, primeassetclass);
-         secondaryKey = getSecondaryKey(advisor, primeassetclass);
+         secondaryKey = getSecondaryKey(advisor, primeassetclass, ticker);
          thirdKey = getThirdKey(ticker);
          SecurityData security = new SecurityData(advisor, theme, ticker, name,
-                                                  assetname, primeassetclass, subassetname, type, style,
+                                                  assetname, primeassetclass,  type, style,
                                                   dailyprice, sortorder, rbsaweight,
-                                                  assetcolor, primeassetcolor);
+                                                  assetcolor, primeassetcolor,
+                                                  secAssetClass, secSubAssetClass);
 
 
 
@@ -114,12 +119,8 @@ public class SecurityCollection
             seclistByKeyMap.put(primaryKey, sklist);
          }
 
-         if (listbyAdvisorPrimeassetMap.containsKey(thirdKey))
-            listbyAdvisorPrimeassetMap.get(thirdKey).add(security);
-         else {
-            ArrayList<SecurityData> pklist = new ArrayList<SecurityData>();
-            pklist.add(security);
-            seclistByKeyMap.put(thirdKey, pklist);
+         if ( !listbyAdvisorPrimeassetMap.containsKey(secondaryKey)) {
+            listbyAdvisorPrimeassetMap.put(secondaryKey, security);
          }
 
          if (! listofOrderedSecurity.containsKey(thirdKey)) {
@@ -167,12 +168,13 @@ public class SecurityCollection
                "    name," +
                "    type," +
                "    style," +
-               "    subclass," +
                "    price," +
                "    rbsaweight," +
                "    sortorder," +
                "    assetcolor," +
-               "    primeassetcolor" +
+               "    primeassetcolor," +
+               "    secAssetClass," +
+               "    secSubAssetClass" +
                "   FROM invdb.vw_securities_by_theme " +
                "   WHERE theme = '" + theme +" '" +
                "   AND advisor = '" + advisor +" '" +
@@ -197,14 +199,15 @@ public class SecurityCollection
                rs.getString("name"),  // String name
                rs.getString("assetclass"),  // String assetclass
                rs.getString("primeassetclass"),  // String primeassetclass
-               rs.getString("subclass"), // String subclass
                rs.getString("type"),  // String type
                rs.getString("style"),  // String style
                rs.getDouble("price"), // double dailyprice
                rs.getInt("sortorder"), // double sortorder
                rs.getDouble("rbsaweight"), // double weight (RBSA)
                rs.getString("assetcolor"),  // String assetcolor
-               rs.getString("primeassetcolor")  // String primeassetcolor
+               rs.getString("primeassetcolor"),  // String primeassetcolor
+               rs.getString("secAssetClass"),  // String primeassetcolor
+               rs.getString("secSubAssetClass")  // String primeassetcolor
             );
 
          }
@@ -218,14 +221,15 @@ public class SecurityCollection
                "Cash",  // String name
                "Cash",  // String assetclass
                "Cash",  // String primeassetclass
-               "Cash", // String subclass
                "Cash",  // String type
                "Cash",  // String style
                1.00, // double dailyprice
                99999, // double sortorder
                1.0, // double weight (RBSA)
                "#ffffff",  // assetcolor
-               "#ffffff"   // primeassetcolor
+               "#ffffff",   // primeassetcolor
+               "Cash",  // String secAssetClass
+               "Cash"  // String secSubAssetClass
             );
 
       }
@@ -292,19 +296,21 @@ public class SecurityCollection
             return;
 
          s.executeQuery(
-            "SELECT  advisor," +
+            "SELECT advisor," +
                "     " + theme + "' as theme," +
-               "     ticker," +
-               "     type," +
-               "     style," +
-               "     assetclass," +
-               "     subclass," +
-               "     primeassetclass," +
-               "     name," +
-               "     price," +
-               "     sortorder" +
-               "     assetcolor," +
-               "     primeassetcolor" +
+               "    assetclass," +
+               "    primeassetclass," +
+               "    ticker," +
+               "    name," +
+               "    type," +
+               "    style," +
+               "    price," +
+               "    rbsaweight," +
+               "    sortorder," +
+               "    assetcolor," +
+               "    primeassetcolor," +
+               "    secAssetClass," +
+               "    secSubAssetClass" +
                "   FROM invdb.vw_sec_rbsa_master " +
                "   WHERE advisor = '" + advisor + "'" +
                "  "+ tickerWhere + "'\n" +
@@ -328,14 +334,15 @@ public class SecurityCollection
                rs.getString("name"),  // String name
                rs.getString("assetclass"),  // String assetclass
                rs.getString("primeassetclass"),  // String primeassetclass
-               rs.getString("subclass"), // String subclass
                rs.getString("type"),  // String type
                rs.getString("style"),  // String style
                rs.getDouble("price"), // double dailyprice
                rs.getInt("sortorder"), // double sortorder
                rs.getDouble("rbsaweight"), // double weight (RBSA)
                rs.getString("assetcolor"),  // String assetcolor
-               rs.getString("primeassetcolor")  // String primeassetcolor
+               rs.getString("primeassetcolor"),  // String primeassetcolor
+               rs.getString("secAssetClass"),  // String primeassetcolor
+               rs.getString("secSubAssetClass")  // String primeassetcolor
             );
          }
       }
@@ -356,14 +363,14 @@ public class SecurityCollection
       return themeLoaded;
    }
 
-   public ArrayList<SecurityData> getOrderedSecurityList(String ticker)
+   public ArrayList<SecurityData> getOrderedSecurityList()
    {
       read.lock();
-      String key;
+      ArrayList<SecurityData> secOrderedList = new ArrayList<SecurityData>();
       try
       {
-         key = getThirdKey(ticker);
-         return listbyAdvisorPrimeassetMap.get(key);
+         for (String key: listofOrderedSecurity.keySet())
+            secOrderedList.add(listofOrderedSecurity.get(key));
       }
       catch (Exception e)
       {
@@ -373,7 +380,7 @@ public class SecurityCollection
       {
          read.unlock();
       }
-      return null;
+      return secOrderedList;
    }
 
    public ArrayList<SecurityData> getOrderedSecurityList(String advisor, String theme, String primeassetclass)
@@ -415,4 +422,22 @@ public class SecurityCollection
       return null;
    }
 
+   public SecurityData getSecurity(String advisor, String primeassetclass, String ticker)
+   {
+      read.lock();
+      try
+      {
+         String key = getSecondaryKey(advisor, primeassetclass, ticker);
+         return listbyAdvisorPrimeassetMap.get(key);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      finally
+      {
+         read.unlock();
+      }
+      return null;
+   }
 }

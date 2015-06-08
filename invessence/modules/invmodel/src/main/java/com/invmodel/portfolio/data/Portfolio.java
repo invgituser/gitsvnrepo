@@ -205,7 +205,7 @@ public class Portfolio
          {
             money = cashMoney;
             if (totalMoney > 0)
-               tickerWeight = cashMoney/totalMoney;
+               tickerWeight = cashMoney/actualInvestments;
          }
          if (!this.portfolio.containsKey(ticker))
          {
@@ -221,14 +221,14 @@ public class Portfolio
          else
          {
             data = this.portfolio.get(ticker);
-            addTotalMoney(data.getMoney() * -1);  // first subtract the original.
-            data = data.resetPortfolioData(ticker, name, color,
-                                           type, style, assetclass, subclass,
-                                           dailyprice, weight, expectedReturn, expenseRatio,
-                                           secRisk, yield, shares, money,
-                                           sortorder, tickerWeight);
-            this.portfolio.put(ticker, data);
+            money = data.getMoney() + money;
+            if (actualInvestments > 0) {
+               tickerWeight = money/actualInvestments;
+            }
+            data.setMoney(money);  // Add Money
+            data.setShares(data.getShares() + shares);  // Add Shared
             addTotalMoney(money); // Now, add the new one.
+            data.setTickerWeights(tickerWeight);
          }
       }
       catch (Exception e)

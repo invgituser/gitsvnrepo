@@ -45,6 +45,11 @@ public class AssetAllocationModel
       if (pdata == null) {
         return null;
       }
+
+      if (! portfolioOptimizer.isValidTheme(pdata.getTheme())) {
+         pdata.setTheme(InvConst.DEFAULT_THEME);
+      }
+
       if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
          return getConsumerAssetInfo(pdata);
       else
@@ -80,14 +85,6 @@ public class AssetAllocationModel
          pdata.taxRate();
 
          theme = pdata.getTheme();
-         if (theme == null || theme.length() == 0)
-            theme = InvConst.DEFAULT_THEME;
-
-         // If taxable account and theme is not taxable, them make it so.
-         if (pdata.getAccountTaxable()) {
-            if (! theme.startsWith("T."))
-               theme = "T." + theme; // Note: allocation tries to determine, if this taxable theme is not defined, then it will use the CORE
-         }
 
          int numofAllocation = pdata.getNumOfAllocation();
          if (numofAllocation <= 0)
@@ -225,14 +222,6 @@ public class AssetAllocationModel
          pdata.taxRate();
 
          theme = pdata.getTheme();
-         if (theme == null || theme.length() == 0)
-            theme = InvConst.DEFAULT_THEME;
-
-         // If taxable account and theme is not taxable, them make it so.
-         if (pdata.getAccountTaxable()) {
-            if (! theme.startsWith("T."))
-               theme = "T." + theme; // Note: allocation tries to determine, if this taxable theme is not defined, then it will use the CORE
-         }
 
          int numofAllocation = pdata.getNumOfAllocation();
          if (numofAllocation <= 0)

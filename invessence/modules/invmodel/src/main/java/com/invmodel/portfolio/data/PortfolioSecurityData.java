@@ -197,7 +197,7 @@ public class PortfolioSecurityData
       return shares;
    }
 
-   private void setShares(double shares)
+   public void setShares(double shares)
    {
       this.shares = round(shares, 2);
    }
@@ -207,7 +207,7 @@ public class PortfolioSecurityData
       return this.money;
    }
 
-   private void setMoney(double money)
+   public void setMoney(double money)
    {
       this.money = round(money, 2);
    }

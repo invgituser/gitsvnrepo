@@ -181,6 +181,9 @@ public class PortfolioOptimizer
        return null;
    }
 
+   public Boolean isValidTheme(String theme) {
+      return themeAssetMap.containsKey(checkThemeName(theme));
+   }
 
    public ArrayList<PrimeAssetClassData> getPrimeAssetDataList(String theme) {
       ArrayList<PrimeAssetClassData> primeassetdata = new ArrayList<PrimeAssetClassData>();
