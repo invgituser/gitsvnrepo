@@ -297,7 +297,7 @@ public class SecurityCollection
 
          s.executeQuery(
             "SELECT advisor," +
-               "     " + theme + "' as theme," +
+               "    '" + theme + "' as theme," +
                "    assetclass," +
                "    primeassetclass," +
                "    ticker," +

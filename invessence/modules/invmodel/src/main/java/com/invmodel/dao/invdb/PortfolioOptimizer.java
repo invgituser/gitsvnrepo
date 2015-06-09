@@ -983,7 +983,7 @@ public class PortfolioOptimizer
       return coVarMatrix;
    }
 
-   public double[] getHolisticWeight(String theme, String tickers[], double[][] targetPAssetAllocation){
+   public HolisticOptimizedData getHolisticWeight(String theme, String tickers[], double[][] targetPAssetAllocation){
 
          /*ArrayList <String> tickers = new ArrayList<String>();
          int j = 0;
@@ -1002,12 +1002,13 @@ public class PortfolioOptimizer
 
       //To use these returns, call getDailyReturns with the same tickers;
       // optimizer.loadFundDataFromDB(tickers);
+      HolisticOptimizedData hodata = new HolisticOptimizedData();
       hoptimizer.loadFundDataFromDB(theme, tickers);
       CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
       double[][] mrData = hoptimizer.getDailyReturns(tickers);
       double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
       double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickers, mrData, coVarFunds);
-      double[] risk1 = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(coVarFunds);
+      double[] risk = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(coVarFunds);
       double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
 
       //Compute minimum error vector by comparing to target and find the best weight fit
@@ -1035,7 +1036,11 @@ public class PortfolioOptimizer
          optFundWeight[i] = weights[fundOffset[0]][i];
       }
 
-      return optFundWeight;
+      hodata.setRbsatickers(tickers);
+      hodata.setOptimizedWeights(optFundWeight);
+      hodata.setRisk(risk);
+      hodata.setPortReturns(portReturns);
+      return hodata;
    }
 
    public HolisticModelOptimizer getHoptimizer()

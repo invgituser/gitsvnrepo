@@ -497,12 +497,22 @@ public class PortfolioModel
          double incEarned = 0.0;
          double secExpense = 0.0;
 
-
-         Map<String, String> tickerMap = new LinkedHashMap<String, String>();
+         Map<String, Integer> tickerMap = new LinkedHashMap<String, Integer>();
          ArrayList<String> tickerList = new ArrayList<String>();
-         ArrayList<Double> primeWeights = new ArrayList<Double>();
+         Map<String,Double> primeWeights = new LinkedHashMap<String,Double>();
          Integer sizeofTickerList = 0;
          String addTicker = "";
+
+         for (SecurityData sd: secCollection.getOrderedSecurityList()) {
+            addTicker = sd.getTicker();
+            if (!addTicker.toUpperCase().equals("CASH")) {
+               if (! tickerMap.containsKey(addTicker)) {
+                  tickerMap.put(addTicker,sizeofTickerList);
+                  tickerList.add(addTicker);
+                  sizeofTickerList++;
+               }
+             }
+         }
 
          // secCollection.doCustomSQLQuery(advisor, theme, tickerList); // Use this to load Security details for given Tickers
          for (String assetname : portfolioOptimizer.getAdvisorOrdertedAssetList(theme))
@@ -510,37 +520,14 @@ public class PortfolioModel
             int tickerNum = 0;
             AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
             Asset asset = assetClass.getAsset(assetname);
-            assetClass.getAsset(assetname).setValue(0);
+            asset.setActualweight(0.0);
+            asset.setValue(0.0);
 
             if (!asset.getAsset().toUpperCase().equals("CASH"))
             {
-               for (String primeassetclass : assetdata.getOrderedPrimeAssetList())
+               for (PrimeAssetClassData pacd : assetdata.getOrderedPrimeAssetData())
                {
-                  // For, this class is not defined in Security List.  So, Using default  from Index
-                  if (secCollection.getOrderedSecurityList(advisor, theme, primeassetclass) == null)
-                  {
-                     addTicker = assetdata.getPrimeAssetData(primeassetclass).getTicker();
-                     if (!addTicker.toUpperCase().equals("CASH"))
-                     {
-                        sizeofTickerList++;
-                        tickerMap.put(addTicker, addTicker);
-                     }
-                  }
-                  else {
-                     for (SecurityData sd : secCollection.getOrderedSecurityList(advisor, theme, primeassetclass))
-                     {
-                        if (!tickerMap.containsKey(sd.getTicker()))
-                        {
-                           if (!sd.getTicker().toUpperCase().equals("CASH"))
-                           {
-                              sizeofTickerList++;
-                              tickerMap.put(sd.getTicker(), sd.getTicker());
-                           }
-                        }
-                     }
-                  }
-
-                  primeWeights.add(asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]);
+                     primeWeights.put(pacd.getTicker(),(asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]));
                }
 
             }
@@ -549,27 +536,29 @@ public class PortfolioModel
 
          String[] tickers = new String[sizeofTickerList];
          int j = 0;
-         for (String ticker : tickerMap.keySet())
+         for (String ticker : tickerList)
          {
-            if (!ticker.toUpperCase().equals("CASH"))
-            {
                if (j < sizeofTickerList)
                {
                   tickers[j] = ticker;
-                  tickerList.add(ticker);
                   j++;
+               }
+         }
+
+         // Since PrimeAssetList order is different then Security List, we are putting the data in order of the security list.
+         Integer sizeofPrimeTickerList = primeWeights.size();
+         double[][] tmpPrimeWeights = new double[sizeofPrimeTickerList][1];
+         for (String ticker: primeWeights.keySet())
+         {
+            if (tickerMap.containsKey(ticker)) {
+               if (tickerMap.get(ticker) <= sizeofPrimeTickerList) {
+                  j = tickerMap.get(ticker);
+                  tmpPrimeWeights[j][0] = primeWeights.get(ticker);
                }
             }
          }
 
-         double[][] tmpPrimeWeights = new double[primeWeights.size()][1];
-
-         for (j = 0; j < primeWeights.size(); j++)
-         {
-            tmpPrimeWeights[j][0] = primeWeights.get(j);
-         }
-
-         double[] optFundWeight = portfolioOptimizer.getHolisticWeight(theme, tickers, tmpPrimeWeights);
+         HolisticOptimizedData hoptdata = portfolioOptimizer.getHolisticWeight(theme, tickers, tmpPrimeWeights);
 
          // Now that we have optomized Portfolio, let's do the allocation and rollup to appropriate AssetClass and PrimeAssetClass
          double investByAsset = 0.0;
@@ -579,10 +568,10 @@ public class PortfolioModel
          SecurityData sd;
 
          Map<String, Asset> newAssets = new HashMap<String, Asset>();
-         for (Integer i = 0; i < optFundWeight.length; i++)
+         for (Integer i = 0; i < hoptdata.getOptimizedWeights().length; i++)
          {
-            ticker = tickers[i]; // NOTE: Tickers are in same order as weights...
-            ticker_weight = optFundWeight[i];
+            ticker = hoptdata.getRbsatickers()[i]; // NOTE: Tickers are in same order as weights...
+            ticker_weight = hoptdata.getOptimizedWeights()[i];
             HolisticModelOptimizer hoptimizer = portfolioOptimizer.getHoptimizer();
             double shares = 0.0, money = 0.0;
             double rbsa_weight = 0.0;
@@ -633,11 +622,6 @@ public class PortfolioModel
                   }
                }
             }
-            //portfolioRisk = portfolioRisk + assetdata.getPrimeAssetrisk()[offset] * totalPortfolioWeight;
-            //double pAssetreturns =  assetdata.getPrimeAssetreturns()[offset];
-            //portfolioReturns = portfolioReturns + assetdata.getPrimeAssetreturns()[offset] * totalPortfolioWeight;
-
-
          }
          // Add remining into cash...
          if (cash > 0.0)
@@ -660,6 +644,24 @@ public class PortfolioModel
                                   asset.getColor(),
                                   totalPortfolioWeight, cash, true);
          }
+
+         pclass.setTotalRisk(hoptdata.getRisk()[0]);
+         pclass.setExpReturns(hoptdata.getPortReturns()[0]);
+         pclass.setTotalCapitalGrowth(0.0);
+         pclass.setAvgExpense(0.0 * investment);
+         ;
+
+         if (InvConst.MIN_MNGT_FEES_DOLLARS > InvConst.MNGT_FEES * investment)
+         {
+            pclass.setAvgCost(InvConst.MIN_MNGT_FEES_DOLLARS);
+            pclass.setTotalCost(InvConst.MIN_MNGT_FEES_DOLLARS + secExpense * investment);
+         }
+         else
+         {
+            pclass.setAvgCost(InvConst.MNGT_FEES * investment);
+            pclass.setTotalCost(InvConst.MNGT_FEES * investment + secExpense * investment);
+         }
+
       }
       catch (Exception e)
       {

@@ -113,7 +113,7 @@ public class TestDistribution
 
       //profileData.setAge(randomAge);
       //age = profileData.getAge();
-
+      profileData.setNumOfAllocation(1);
       AssetAllocationModel assetAllocationModel = AssetAllocationModel.getInstance();
       assetAllocationModel.setPortfolioOptimizer(poptimizer);
 
@@ -130,8 +130,8 @@ public class TestDistribution
       portfolioModel.setSecurityDao(secDao);
       // portfolioModel.setMonthlyDao(DailyReturns.getInstance());
       //profileData.setNumOfPortfolio(profileData.getHorizon());
-      profileData.setNumOfPortfolio(1);
 
+      profileData.setNumOfPortfolio(1);
       Portfolio[] pfclass = portfolioModel.buildPortfolio(aamc, profileData);
 
       tax = "No";
