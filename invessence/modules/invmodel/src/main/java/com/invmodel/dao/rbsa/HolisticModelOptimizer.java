@@ -68,7 +68,7 @@ public class HolisticModelOptimizer
          holisticdataMap.clear();       // Clear entire Hashmap to start new...
          loadRBSAfromDB(theme, tickers);
 
-         loadDailyReturnsfromDB(tickers);
+         // loadDailyReturnsfromDB(tickers);
 
       }
       catch (Exception ex) {

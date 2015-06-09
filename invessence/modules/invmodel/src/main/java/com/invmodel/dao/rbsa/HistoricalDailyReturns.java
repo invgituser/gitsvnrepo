@@ -13,8 +13,13 @@ public class HistoricalDailyReturns
    private static HistoricalDailyReturns instance = null;
    private final Logger logger = Logger.getLogger(HistoricalDailyReturns.class.getName());
 
-   private int MAX_HISTORY = 1000;  // Max number of daily returns = 20 years.
-   private Map<String, ArrayList<Double>> dailyReturnsArray = new HashMap<String, ArrayList<Double>>();
+   private int TICKER_ELEMENT = 0;  // Max number of daily returns = 20 years.
+   private int DATA_SIZE_ELEMENT = 1;  // Max number of daily returns = 20 years.
+   private int MAX_TICKERS = 500;  // Max number of daily returns = 20 years.
+   private int MAX_RETURNS = 1000;  // Max number of daily returns = 20 years.
+   private Integer maxticker = 0, maxreturns = MAX_RETURNS;
+   private Map<String, Integer[]> dailyReturnsTickerMap = new HashMap<String, Integer[]>();
+   private double[][] dailyReturnsArrayData; // Note: This array is allocated during load.
 
    private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
    private final Lock read = readWriteLock.readLock();
@@ -35,7 +40,7 @@ public class HistoricalDailyReturns
 
    public HistoricalDailyReturns()
    {
-      loadDataFromDB();
+      super();
    }
 
    public void refreshDataFromDB()
@@ -64,15 +69,23 @@ public class HistoricalDailyReturns
    {
       try
       {
-         if (dailyReturnsArray.containsKey(ticker)) {
-            if (dailyReturnsArray.get(ticker).size() < MAX_HISTORY)
-               dailyReturnsArray.get(ticker).add(value);
+         Integer arrayPos = 0, tickerPos;
+         if (dailyReturnsTickerMap.containsKey(ticker)) {
+            tickerPos = dailyReturnsTickerMap.get(ticker)[TICKER_ELEMENT];     // Array Position
+            arrayPos = dailyReturnsTickerMap.get(ticker)[DATA_SIZE_ELEMENT] + 1;  // Last position in Array
          }
          else {
-            ArrayList<Double> histReturn;
-            histReturn = new ArrayList<Double>();
-            histReturn.add(value);
-            dailyReturnsArray.put(ticker,histReturn);
+            Integer[] matrix = new Integer[2];
+            tickerPos = maxticker++;
+            matrix[0] = tickerPos;
+            matrix[1] = 0;
+            dailyReturnsTickerMap.put(ticker,matrix);
+         }
+
+         if (tickerPos < MAX_TICKERS && arrayPos < MAX_RETURNS)
+         {
+            dailyReturnsArrayData[tickerPos][arrayPos] = value;
+            dailyReturnsTickerMap.get(ticker)[1] = arrayPos;
          }
       }
       catch (Exception e)
@@ -88,16 +101,33 @@ public class HistoricalDailyReturns
       ds = dbconnection.getMySQLDataSource();
       try
       {
-         String storedProcName = "rbsa.sel_daily_historical_returns";
+         read.lock();
+         String storedProcName = "rbsa.sel_daily_prime_historical_returns";
          InvModelSP sp = new InvModelSP(ds, storedProcName,3, 99);
-         dailyReturnsArray.clear();
+         dailyReturnsTickerMap.clear();
 
+         ArrayList<Map<String, Object>> rows;
          Map outMap = sp.dhloadDailyHistoricalData();
          if (outMap != null)
          {
-            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null) {
+               maxticker = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(maxticker);
+                  String ticker = convert.getStrData(rs.get("ticker"));
+                  Integer value =  convert.getIntData(rs.get("maxrows"));
+                  maxreturns = (value < maxreturns) ? value : maxreturns;
+                  maxticker++;
+               }
+            }
+
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-2");
             if (rows != null) {
                int i = 0;
+               dailyReturnsArrayData = new double[maxticker][maxreturns];
+               maxticker = 0;
                for (Map<String, Object> map : rows)
                {
                   Map rs = (Map) rows.get(i);
@@ -107,21 +137,29 @@ public class HistoricalDailyReturns
                   i++;
                }
             }
+
          }
       }
       catch (Exception ex) {
       }
       finally
       {
+         read.unlock();
       }
    }
 
-   public Double[] getDailyReturnsArraybyTicker(String ticker)
+   public double[] getDailyReturnsArraybyTicker(String ticker)
    {
       read.lock();
       try
       {
-         return (Double []) dailyReturnsArray.get(ticker).toArray();
+         int tickerPos = 0;
+         if (dailyReturnsTickerMap.containsKey(ticker)) {
+            tickerPos =  dailyReturnsTickerMap.get(ticker)[TICKER_ELEMENT];
+            return dailyReturnsArrayData[tickerPos];
+         }
+         else
+            return null;
       }
       finally
       {
@@ -131,29 +169,31 @@ public class HistoricalDailyReturns
 
    public double[][] getDailyReturnsArray(String[] tickerList)
    {
+      Integer tickersize = dailyReturnsTickerMap.size();
+      Integer numofreturns = maxreturns;
+      double[][] tickerListArrary = new double[tickerList.length][maxreturns];
+
       read.lock();
-      double[][] tickerListArrary = null;
       try
       {
-         int maxNoReturns = MAX_HISTORY;
-         if (tickerList != null && tickerList.length > 0) {
-            if (dailyReturnsArray.containsKey(tickerList[0])) {
-               maxNoReturns = dailyReturnsArray.get(tickerList[0]).size();
-            }
-
-            tickerListArrary = new double[tickerList.length][maxNoReturns];
-            int count = 0;
-            while (count < tickerList.length)
+         //Iterator it = dailyReturnsMap.keySet().iterator();
+         int count = 0;
+         int tickerpos;
+         while (count < tickerList.length)
+         {
+            String key = tickerList[count];
+            if (dailyReturnsTickerMap.containsKey(key))
             {
-               String key = tickerList[count];
-               if (dailyReturnsArray.containsKey(key))
-               {
-                  for (int numvalue=0; numvalue < dailyReturnsArray.get(key).size(); numvalue++) {
-                     tickerListArrary[count][numvalue] = dailyReturnsArray.get(key).get(numvalue);
-                  }
-               }
-               count++;
+               tickerpos = dailyReturnsTickerMap.get(key)[TICKER_ELEMENT];
+               if (dailyReturnsTickerMap.get(key)[DATA_SIZE_ELEMENT] < maxreturns)
+                  tickerListArrary[count] = dailyReturnsArrayData[tickerpos];
             }
+            else
+            {
+               double[] empty = new double[maxreturns + 1];
+               tickerListArrary[count] = empty;
+            }
+            count++;
          }
       }
       catch (Exception e)
@@ -164,12 +204,7 @@ public class HistoricalDailyReturns
       {
          read.unlock();
       }
-
-      if (tickerListArrary == null)
-         return new double[tickerList.length][MAX_HISTORY];
-      else
-         return tickerListArrary;
+      return tickerListArrary;
    }
-
 
 }

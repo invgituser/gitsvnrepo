@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import com.invmodel.Const.InvConst;
 import com.invmodel.dao.*;
 import com.invmodel.dao.data.*;
-import com.invmodel.dao.rbsa.HolisticModelOptimizer;
+import com.invmodel.dao.rbsa.*;
 import com.invmodel.utils.MergeSort;
 import org.apache.commons.dbutils.DbUtils;
 import webcab.lib.finance.portfolio.*;
@@ -33,6 +33,7 @@ public class PortfolioOptimizer
    private Map<String, ArrayList<String>> themeAssetMap;
    private Map<String, AssetData> assetDataMap;
    private HolisticModelOptimizer hoptimizer;
+   private HistoricalDailyReturns historicaldailyreturns;
 
 
    public static synchronized PortfolioOptimizer getInstance()
@@ -51,6 +52,7 @@ public class PortfolioOptimizer
       themeAssetMap = new LinkedHashMap<String, ArrayList<String>>();
       assetDataMap = new HashMap<String, AssetData>();
       hoptimizer = HolisticModelOptimizer.getInstance();
+      historicaldailyreturns = new HistoricalDailyReturns();
    }
 
    public void loadDataFromDB(String theme) {
@@ -59,10 +61,16 @@ public class PortfolioOptimizer
          themeAssetMap.clear();
          assetDataMap.clear();
 
+         logger.info("Loading Historical Returns from RBSA");
+         historicaldailyreturns.refreshDataFromDB();
          logger.info("Loading ASSET information from DB");
          loadAssetDataFromDB(theme);
          logger.info("Loading Prime Asset information from DB");
          loadPrimeAssetsFromDB(theme);
+         logger.info("Optimize Asset Class");
+         saveAssetWeights();
+         logger.info("Optimize Prime Asset Class");
+         savePrimeAssetWeights();
 
       }
       catch (Exception ex) {
@@ -82,6 +90,8 @@ public class PortfolioOptimizer
          themeAssetMap.clear();
          assetDataMap.clear();
 
+         logger.info("Loading Historical Returns from RBSA");
+         historicaldailyreturns.refreshDataFromDB();
          logger.info("Loading ASSET information from DB");
          loadAssetDataFromDB(null);
          logger.info("Loading Prime Asset information from DB");
@@ -447,7 +457,7 @@ public class PortfolioOptimizer
       try
       {
          ArrayList asset = null;
-         DailyReturns dailyReturns = DailyReturns.getInstance();
+         // DailyReturns dailyReturns = HistoricalDailyReturns.getInstance();
          CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
          AssetParameters assetParameters = new AssetParameters();
          if(themeAssetMap.size() > 0) {
@@ -455,7 +465,7 @@ public class PortfolioOptimizer
                String[] indexFund = getAssetOrderedIndex(theme);
                if (indexFund == null)
                   return;
-               double[][] histReturns = dailyReturns.getDailyReturnsArray(indexFund);
+               double[][] histReturns = historicaldailyreturns.getDailyReturnsArray(indexFund);
                if (histReturns != null)
                {
                   //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(histReturns);
@@ -608,7 +618,7 @@ public class PortfolioOptimizer
    private void savePrimeAssetWeights()
    {
       String groupkey = null;
-      DailyReturns dailyReturns = DailyReturns.getInstance();
+      // DailyReturns dailyReturns = DailyReturns.getInstance();
       try {
 
          Integer numofTicker;
@@ -626,7 +636,7 @@ public class PortfolioOptimizer
                      double [] ubConstraints = new double[numofTicker];
                      double [] secRisk = new double[numofTicker];
                      double [] yield = new double[numofTicker];
-                     String [] tickers = new String[numofTicker];
+                     String [] indexticker = new String[numofTicker];
 
                   if (numofTicker >= 1) {
                      for (int j=0; j < numofTicker; j++) {
@@ -635,7 +645,7 @@ public class PortfolioOptimizer
                         historicalReturns[j] = pacd.get(j).getExpectedReturn();
                         secRisk[j] = pacd.get(j).getRiskSTD();
                         yield[j] = pacd.get(j).getYield();
-                        tickers[j] = pacd.get(j).getTicker();
+                        indexticker[j] = pacd.get(j).getTicker();
 
                         /*if(theme.toUpperCase().contains("INCOME"))
                         {
@@ -645,13 +655,12 @@ public class PortfolioOptimizer
                         }*/
                      }
 
-
-                     mrData = dailyReturns.getDailyReturnsArray(tickers);
-                     capMarketData = getCapitalMarketData(tickers, lbConstraints, ubConstraints, historicalReturns, mrData);
+                     mrData = historicaldailyreturns.getDailyReturnsArray(indexticker);
+                     capMarketData = getCapitalMarketData(indexticker, lbConstraints, ubConstraints, historicalReturns, mrData);
                   }
 
-                     assetDataMap.get(key).setPrimeAssetreturns(getPortfolioAssetExpectedReturns(capMarketData, historicalReturns, tickers.length));
-                     assetDataMap.get(key).setPrimeAssetweights(getPortfolioWeights(capMarketData, tickers.length));
+                     assetDataMap.get(key).setPrimeAssetreturns(getPortfolioAssetExpectedReturns(capMarketData, historicalReturns, indexticker.length));
+                     assetDataMap.get(key).setPrimeAssetweights(getPortfolioWeights(capMarketData, indexticker.length));
                      assetDataMap.get(key).setPrimeAssetrisk(getPortfolioAssetRisk(capMarketData, numofTicker, mrData, secRisk[0]));
                }
             }
@@ -1005,7 +1014,7 @@ public class PortfolioOptimizer
       HolisticOptimizedData hodata = new HolisticOptimizedData();
       hoptimizer.loadFundDataFromDB(theme, tickers);
       CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
-      double[][] mrData = hoptimizer.getDailyReturns(tickers);
+      double[][] mrData = historicaldailyreturns.getDailyReturnsArray(tickers);
       double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
       double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickers, mrData, coVarFunds);
       double[] risk = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(coVarFunds);
