@@ -559,6 +559,7 @@ public class PortfolioModel
          }
 
          HolisticOptimizedData hoptdata = portfolioOptimizer.getHolisticWeight(theme, tickers, tmpPrimeWeights);
+         hoptdata.setPrimeAssetInfo(primeWeights);
 
          // Now that we have optomized Portfolio, let's do the allocation and rollup to appropriate AssetClass and PrimeAssetClass
          double investByAsset = 0.0;
@@ -568,7 +569,7 @@ public class PortfolioModel
          SecurityData sd;
 
          Map<String, Asset> newAssets = new HashMap<String, Asset>();
-         for (Integer i = 0; i < hoptdata.getOptimizedWeights().length; i++)
+         for (Integer i = 0; i < hoptdata.getRbsatickers().length; i++)
          {
             ticker = hoptdata.getRbsatickers()[i]; // NOTE: Tickers are in same order as weights...
             ticker_weight = hoptdata.getOptimizedWeights()[i];
@@ -645,8 +646,8 @@ public class PortfolioModel
                                   totalPortfolioWeight, cash, true);
          }
 
-         pclass.setTotalRisk(hoptdata.getRisk()[0]);
-         pclass.setExpReturns(hoptdata.getPortReturns()[0]);
+         pclass.setTotalRisk(hoptdata.getRiskOffset(hoptdata.getOffset()));
+         pclass.setExpReturns(hoptdata.getPortReturnsOffset(hoptdata.getOffset()));
          pclass.setTotalCapitalGrowth(0.0);
          pclass.setAvgExpense(0.0 * investment);
          ;

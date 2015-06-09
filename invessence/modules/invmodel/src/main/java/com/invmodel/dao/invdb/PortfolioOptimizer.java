@@ -1037,6 +1037,7 @@ public class PortfolioOptimizer
       }
 
       hodata.setRbsatickers(tickers);
+      hodata.setOffset(fundOffset[0]);
       hodata.setOptimizedWeights(optFundWeight);
       hodata.setRisk(risk);
       hodata.setPortReturns(portReturns);

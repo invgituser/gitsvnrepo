@@ -1,6 +1,6 @@
 package com.invmodel.dao.data;
 
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,8 +13,8 @@ public class HolisticOptimizedData
 {
    String advisor;
    String theme;
-   ArrayList<String> primetickers = new ArrayList<String>();
-   ArrayList<Double> primeweights = new ArrayList<Double>();
+   Map<String, Double> primeAssetInfo = new HashMap<String, Double>();
+   Integer  offset;
    String[] rbsatickers;
    double[] optimizedWeights;
    double[] risk;
@@ -40,24 +40,24 @@ public class HolisticOptimizedData
       this.theme = theme;
    }
 
-   public ArrayList<String> getPrimetickers()
+   public Map<String, Double> getPrimeAssetInfo()
    {
-      return primetickers;
+      return primeAssetInfo;
    }
 
-   public void setPrimetickers(ArrayList<String> primetickers)
+   public void setPrimeAssetInfo(Map<String, Double> primeAssetInfo)
    {
-      this.primetickers = primetickers;
+      this.primeAssetInfo = primeAssetInfo;
    }
 
-   public ArrayList<Double> getPrimeweights()
+   public Integer getOffset()
    {
-      return primeweights;
+      return offset;
    }
 
-   public void setPrimeweights(ArrayList<Double> primeweights)
+   public void setOffset(Integer offset)
    {
-      this.primeweights = primeweights;
+      this.offset = offset;
    }
 
    public String[] getRbsatickers()
@@ -85,6 +85,16 @@ public class HolisticOptimizedData
       return risk;
    }
 
+   public double getRiskOffset(Integer offset)
+   {
+      offset = (offset < 0) ? 0: offset;
+
+      if (offset < risk.length)
+         return risk[offset];
+      else
+         return risk[risk.length];
+   }
+
    public void setRisk(double[] risk)
    {
       this.risk = risk;
@@ -94,6 +104,17 @@ public class HolisticOptimizedData
    {
       return portReturns;
    }
+
+   public double getPortReturnsOffset(Integer offset)
+   {
+      offset = (offset < 0) ? 0: offset;
+
+      if (offset < portReturns.length)
+         return portReturns[offset];
+      else
+         return portReturns[portReturns.length];
+   }
+
 
    public void setPortReturns(double[] portReturns)
    {
