@@ -9,7 +9,7 @@
    <!--<bean id="assetDB" class="com.invmodel.dao.AssetDBCollection" factory-method="getInstance"/>-->
    <!--<bean id="historicalReturns" class="com.invmodel.dao.HistoricalReturns" factory-method="getInstance"/>-->
    <bean id="portfolioOptimizer" class="com.invmodel.dao.invdb.PortfolioOptimizer" factory-method="getInstance"/>
-   <bean id="secDao" class="com.invmodel.dao.invdb.SecurityDBCollection"/>
+   <bean id="secDao" class="com.invmodel.dao.invdb.SecurityCollection"/>
    <bean id="tlhSecurityCollection" class="com.invmodel.rebalance.TLHSecurityCollection" factory-method="getInstance"/>
 
    <bean id="refreshDelay" class="java.lang.Long">

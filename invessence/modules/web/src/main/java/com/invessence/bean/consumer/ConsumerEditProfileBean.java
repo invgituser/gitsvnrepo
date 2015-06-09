@@ -15,6 +15,7 @@ import com.invessence.dao.consumer.*;
 import com.invessence.data.advisor.AdvisorData;
 import com.invessence.data.common.*;
 import com.invessence.util.*;
+import com.invmodel.Const.InvConst;
 import com.invmodel.performance.data.PerformanceData;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
@@ -161,6 +162,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            loadBasketInfo();
             whichChart = "pie";
             setPrefView(0);
             if (getWebutil().hasAccess("Advisor") || getWebutil().hasAccess("Admin"))
@@ -236,13 +238,14 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       setRiskCalcMethod("C");
       formEdit = true;
       offsetRiskIndex();
-      loadBasketInfo();
       createAssetPortfolio(1);
    }
 
-   public void onValueChange(ValueChangeEvent event) {
-      setRiskCalcMethod("C");
+
+   public void onTaxStrategy() {
       formEdit = true;
+      setAccountType();
+      setRiskCalcMethod("C");
       offsetRiskIndex();
       loadBasketInfo();
       createAssetPortfolio(1);
@@ -306,6 +309,12 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
    public void selectedActionBasket() {
       getExcludedSubAsset().clear();
+
+      if (getBasket() != null) {
+         setGoal(getAdvisorBasket().get(getBasket())); // Key is the Themename, value is display
+         setTheme(getBasket());                        // Set theme to the Key.  (We assigned this during selection)
+      }
+
       createAssetPortfolio(1);
    }
 
@@ -316,12 +325,10 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    }
 
    private void loadBasketInfo() {
-/*
       if (getAccountTaxable())
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
       else
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
-*/
    }
 
    private void loadNewClientData() {
@@ -334,13 +341,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
             setLogonid(uid.getLogonID());
          }
          listDAO.getNewClientProfileData((ManageGoals) this.getInstance());
-         setAge(30);
-         setInitialInvestment(100000);
-         setHorizon(20);
-         setGoal("Growth");
-         setAccountTaxable(false);
-         resetAllocationIndex();
-         resetPortfolioIndex();
+         setDefaults();
          loadBasketInfo();
          createAssetPortfolio(1); // Build default chart for the page...
          // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
@@ -438,12 +439,17 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
    private void createAssetPortfolio(Integer noOfYears) {
 
       try {
+/*
          if (getGoal().toUpperCase().contains("INCOME"))
             setTheme("0.Income");
          else if (getGoal().toUpperCase().contains("SAFETY"))
             setTheme("0.Safety");
          else
             setTheme("0.Core");
+*/
+
+         if (getTheme() == null || getTheme().isEmpty())
+            setTheme(InvConst.DEFAULT_THEME);
 
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
@@ -528,17 +534,34 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       return true;
    }
 
-   private void setDefaults() {
+   private void setAccountType() {
       if (getAccountTaxable())
          setAccountType("Taxable");
       else
          setAccountType("Non-Taxable");
 
-      if (getGoal() == null)
-         setGoal("Growth");
+   }
+
+   private void setDefaults() {
 
       if (getPortfolioName() == null)  {
          setPortfolioName(getLastname() + "-" + getGoal());
+      }
+      if (getAge() == null)
+         setAge(30);
+      if (getInitialInvestment() == null)
+         setInitialInvestment(100000);
+      if (getHorizon() == null)
+         setHorizon(20);
+      if (getGoal() == null)
+         setGoal("Growth");
+      if (getAccountType() == null) {
+         setAccountTaxable(false);
+         setAccountType();
+      }
+      if (getRiskCalcMethod() == null || getRiskCalcMethod().toUpperCase().startsWith("C")) {
+         resetAllocationIndex();
+         resetPortfolioIndex();
       }
 
    }

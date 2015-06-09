@@ -39,6 +39,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setUserid(convert.getStrData(rs.get("userid")));
             data.setAdvisor(convert.getStrData(rs.get("advisor")));
             data.setBasket(convert.getStrData(rs.get("theme")));
+            data.setTheme(convert.getStrData(rs.get("theme")));
             data.setLastname(convert.getStrData(rs.get("lastname")));
             data.setFirstname(convert.getStrData(rs.get("firstname")));
             data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
@@ -162,6 +163,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setUserid(convert.getStrData(rs.get("userid")));
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
                data.setBasket(convert.getStrData(rs.get("theme")));
+               data.setTheme(convert.getStrData(rs.get("theme")));
                data.setLastname(convert.getStrData(rs.get("lastname")));
                data.setFirstname(convert.getStrData(rs.get("firstname")));
                data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
@@ -256,7 +258,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             {
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
-               String basket = convert.getStrData(rs.get("basket"));
+               String basket = convert.getStrData(rs.get("displayname"));
                listBasket.put(theme, basket);
                i++;
             }
