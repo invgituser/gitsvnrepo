@@ -592,34 +592,36 @@ public class PortfolioModel
                   {
                      shares = Math.round(((investment * rbsa_weight) / price) - 0.5);
                      money = shares * price;
-                     String assetname = pacd.getAssetclass();
-                     AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
-                     if (!assetClass.getAssetclass().containsKey(assetname))
-                     {
-                        assetClass.addAssetClass(assetname, assetname, sd.getAssetcolor(), 0.0, 0.0);
+                     if (shares > 0 && money > 0.0) {
+                        String assetname = pacd.getAssetclass();
+                        AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
+                        if (!assetClass.getAssetclass().containsKey(assetname))
+                        {
+                           assetClass.addAssetClass(assetname, assetname, sd.getAssetcolor(), 0.0, 0.0);
+                        }
+                        Asset asset = assetClass.getAsset(assetname);
+                        Double moneyInvestedinThisAsset = asset.getValue() + money;
+                        asset.setValue(moneyInvestedinThisAsset);
+                        asset.setActualweight(moneyInvestedinThisAsset / investment);
+                        // asset.setExpectedReturn(assetdata.getPrimeAssetreturns()[offset]);
+                        // asset.setRisk(assetdata.getPrimeAssetrisk()[offset]);
+
+                        pclass.setPortfolio(sd.getTicker(), sd.getName(), sd.getAssetcolor(),
+                                            sd.getType(), sd.getStyle(),
+                                            sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
+                                            price, rbsa_weight,
+                                            0.0, 0.0, 0.0, 0.0,
+                                            shares, money, sd.getSortorder(), totalPortfolioWeight);
+                        pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecurityAssetClass(),
+                                              sd.getAssetcolor(),
+                                              totalPortfolioWeight, money, true);
+
+
+                        secExpense = secExpense + 0.0 * rbsa_weight;
+
+                        cash = cash - money;
+                        pclass.setCashMoney(cash);
                      }
-                     Asset asset = assetClass.getAsset(assetname);
-                     Double moneyInvestedinThisAsset = asset.getValue() + money;
-                     asset.setValue(moneyInvestedinThisAsset);
-                     asset.setActualweight(moneyInvestedinThisAsset / investment);
-                     // asset.setExpectedReturn(assetdata.getPrimeAssetreturns()[offset]);
-                     // asset.setRisk(assetdata.getPrimeAssetrisk()[offset]);
-
-                     pclass.setPortfolio(sd.getTicker(), sd.getName(), sd.getAssetcolor(),
-                                         sd.getType(), sd.getStyle(),
-                                         sd.getSecurityAssetClass(), sd.getSecuritySubAssetClass(),
-                                         price, rbsa_weight,
-                                         0.0, 0.0, 0.0, 0.0,
-                                         shares, money, sd.getSortorder(), totalPortfolioWeight);
-                     pclass.addSubclassMap(sd.getSecurityAssetClass(), sd.getSecurityAssetClass(),
-                                           sd.getAssetcolor(),
-                                           totalPortfolioWeight, money, true);
-
-
-                     secExpense = secExpense + 0.0 * rbsa_weight;
-
-                     cash = cash - money;
-                     pclass.setCashMoney(cash);
                   }
                }
             }
