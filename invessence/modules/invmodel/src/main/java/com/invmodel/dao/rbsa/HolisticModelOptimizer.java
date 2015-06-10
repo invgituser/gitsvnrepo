@@ -438,7 +438,7 @@ public class HolisticModelOptimizer
             covarianceOfFunds,//Covariance matrix
             expectedReturnsOfFunds, // expectedReturns
             1000, // numberInterpolationPoints
-            InvConst.ASSET_PRECISION  // precision
+            InvConst.PORTFOLIO_PRECISION  // precision
          );
 
          double[][] weights = instanceOfCapitalMarket.getEfficientFrontierAssetWeights();
