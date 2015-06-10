@@ -400,6 +400,15 @@ public class HolisticModelOptimizer
                   double wgt = pAsst.getWeight();
                   String pAsset =  pAsst.getPrimeAssetName();
 
+                  if (fTicker.length() > 4) {  // Currently hardcoding it for Mutual Fund
+                     lowerBound[t] = 0.07;
+                     upperBound[t] = 1;
+                  }
+                  else {
+                     lowerBound[t] = pAsst.getLbConstraint();
+                     upperBound[t] = pAsst.getUbConstraint();
+                  }
+
                   expectedReturnsOfFunds[t] = expectedReturnsOfFunds[t] + expRet * wgt;
                }
             }
@@ -407,8 +416,8 @@ public class HolisticModelOptimizer
                expectedReturnsOfFunds[t] = 0.0;
             }
 
-            lowerBound[t] = 0.0;
-            upperBound[t] = 1.0;
+            // lowerBound[t] = 0.0;
+            // upperBound[t] = 1.0;
             //if (fTicker.length()< 5)
             //upperBound[t] = 0.2;
 

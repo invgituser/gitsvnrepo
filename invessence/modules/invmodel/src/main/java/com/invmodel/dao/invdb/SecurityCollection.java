@@ -148,7 +148,7 @@ public class SecurityCollection
       seclistByKeyMap.clear();
       listbyAdvisorPrimeassetMap.clear();
       listofOrderedSecurity.clear();
-      themeLoaded = "";
+      themeLoaded = theme;
 
       Connection connection = null;
       Statement s = null;
@@ -276,7 +276,7 @@ public class SecurityCollection
       seclistByKeyMap.clear();
       listbyAdvisorPrimeassetMap.clear();
       listofOrderedSecurity.clear();
-      themeLoaded = "";
+      themeLoaded = theme;
 
       Connection connection = null;
       Statement s = null;
