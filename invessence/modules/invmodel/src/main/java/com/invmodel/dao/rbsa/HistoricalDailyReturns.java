@@ -154,12 +154,19 @@ public class HistoricalDailyReturns
       try
       {
          int tickerPos = 0;
+
+         // For Cash use the BIL data
+         if (ticker.toUpperCase().equals("CASH")) {
+            ticker = "BIL";
+         }
+
          if (dailyReturnsTickerMap.containsKey(ticker)) {
             tickerPos =  dailyReturnsTickerMap.get(ticker)[TICKER_ELEMENT];
             return dailyReturnsArrayData[tickerPos];
          }
-         else
-            return null;
+         else {
+            return ( new double[maxreturns] );
+         }
       }
       finally
       {
@@ -178,21 +185,10 @@ public class HistoricalDailyReturns
       {
          //Iterator it = dailyReturnsMap.keySet().iterator();
          int count = 0;
-         int tickerpos;
          while (count < tickerList.length)
          {
             String key = tickerList[count];
-            if (dailyReturnsTickerMap.containsKey(key))
-            {
-               tickerpos = dailyReturnsTickerMap.get(key)[TICKER_ELEMENT];
-               if (dailyReturnsTickerMap.get(key)[DATA_SIZE_ELEMENT] < maxreturns)
-                  tickerListArrary[count] = dailyReturnsArrayData[tickerpos];
-            }
-            else
-            {
-               double[] empty = new double[maxreturns + 1];
-               tickerListArrary[count] = empty;
-            }
+            tickerListArrary[count] = getDailyReturnsArraybyTicker(key);
             count++;
          }
       }
