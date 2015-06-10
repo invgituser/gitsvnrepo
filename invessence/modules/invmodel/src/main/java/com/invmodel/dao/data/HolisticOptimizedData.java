@@ -90,9 +90,9 @@ public class HolisticOptimizedData
       offset = (offset < 0) ? 0: offset;
 
       if (offset < risk.length)
-         return risk[offset];
+         return Math.sqrt(252)* risk[offset];
       else
-         return risk[risk.length];
+         return Math.sqrt(252)* risk[risk.length];
    }
 
    public void setRisk(double[] risk)
