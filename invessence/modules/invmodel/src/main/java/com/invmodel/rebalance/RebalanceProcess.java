@@ -1144,8 +1144,12 @@ public class RebalanceProcess
             hMoney = holdingData.getPositionValue();
             hWeight = holdingData.getWeight();
             hCostBasis = holdingData.getCostBasisMoney();
-
-            tShares = portfolioSecurityData.getShares()- holdingData.getQty();
+            if (ticker.toUpperCase().equals("CASH")) {
+               tShares = portfolioSecurityData.getShares();
+           }
+            else {
+               tShares = portfolioSecurityData.getShares()- holdingData.getQty();
+            }
             tMoney = tShares* holdingData.getMarkPrice();
             tPrice = holdingData.getMarkPrice();
             hMap.remove(ticker);
