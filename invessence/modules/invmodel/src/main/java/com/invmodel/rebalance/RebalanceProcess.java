@@ -1141,7 +1141,8 @@ public class RebalanceProcess
             hTicker = holdingData.getTicker();
             hShares = holdingData.getQty();
             hPrice = holdingData.getMarkPrice();
-            hMoney = holdingData.getPositionValue();
+            //hPrice = holdingData.getMarkPrice();
+            hMoney = hPrice * hShares;
             hWeight = holdingData.getWeight();
             hCostBasis = holdingData.getCostBasisMoney();
             if (ticker.toUpperCase().equals("CASH")) {
@@ -1151,7 +1152,8 @@ public class RebalanceProcess
                tShares = portfolioSecurityData.getShares()- holdingData.getQty();
             }
             tMoney = tShares* holdingData.getMarkPrice();
-            tPrice = holdingData.getMarkPrice();
+            tMoney = tShares* hPrice;
+            tPrice = hPrice;
             hMap.remove(ticker);
             holdingData.setProcessed(true);
          }
@@ -1241,7 +1243,6 @@ public class RebalanceProcess
             counter++;
          }
       }
-
       return tradeDataList;
    }
 }
