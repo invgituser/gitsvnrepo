@@ -2,14 +2,14 @@ package com.invmodel.rebalance;
 
 import java.util.*;
 
-import com.invmodel.dao.invdb.TaxHarvestingDAO;
+import com.invmodel.dao.invdb.InvModelDAO;
 import com.invmodel.rebalance.data.SecurityTLHData;
 
 
 public class TLHSecurityCollection
 {
    private static TLHSecurityCollection instance = null;
-   private TaxHarvestingDAO thlDAO = new TaxHarvestingDAO();
+   private InvModelDAO thlDAO = new InvModelDAO();
    Map<String, SecurityTLHData> tlhSecurityMap = null;
    private Map<String, SecurityTLHData> tlhReverseSecMap = null;
 

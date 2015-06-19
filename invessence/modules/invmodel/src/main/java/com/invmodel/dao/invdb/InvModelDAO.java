@@ -6,20 +6,19 @@ import javax.sql.DataSource;
 import com.invessence.converter.SQLData;
 import com.invmodel.asset.data.Asset;
 import com.invmodel.dao.*;
+import com.invmodel.position.data.*;
 import com.invmodel.portfolio.data.*;
 import com.invmodel.rebalance.data.*;
 import com.invmodel.inputData.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 
-public class TaxHarvestingDAO extends JdbcDaoSupport
+public class InvModelDAO extends JdbcDaoSupport
 {
-   private static TaxHarvestingDAO instance = null;
+   private static InvModelDAO instance = null;
    DBConnectionProvider dbconnection = DBConnectionProvider.getInstance();
    SQLData convert = new SQLData();
    DataSource ds = dbconnection.getMySQLDataSource();
-
-
 
    public CurrentHolding loadDBHolding(Long p_acctnum)
    {
@@ -29,7 +28,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
       CurrentHolding currentHolding = new CurrentHolding();
       currentHolding.setHoldingList(new ArrayList<HoldingData>());
 
-      Map outMap = sp.tlhloadDBData(p_acctnum);
+      Map outMap = sp.loadDBData(p_acctnum);
 
       Double longGain = 0.0,
          longLoss= 0.0,
@@ -111,7 +110,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
       // DataSource ds = getDs();
       InvModelSP sp = new InvModelSP(ds, "sel_ClientProfileData2",1, 1);
       List<ProfileData> profileList = new ArrayList<ProfileData>();
-      Map outMap = sp.tlhcollectProfileData(logonid, acctnum);
+      Map outMap = sp.collectProfileData(logonid, acctnum);
       try {
          if (outMap != null)
          {
@@ -167,7 +166,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
    public Map<String, Asset> getAllocation(Long acctnum) {
       // DataSource ds = getDs();
       InvModelSP sp = new InvModelSP(ds, "sel_asset_alloc",1, 2);
-      Map outMap = sp.tlhcollectAllocation(acctnum);
+      Map outMap = sp.collectAllocation(acctnum);
       try {
          if (outMap != null)
          {
@@ -209,7 +208,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
    public List<PortfolioSubclass> getExcludedSubclass(Long acctnum) {
       // DataSource ds = getDs();
       InvModelSP sp = new InvModelSP(ds, "sel_ExcludedSubclass",1, 3);
-      Map outMap = sp.tlhcollectSubClassExclusionList(acctnum);
+      Map outMap = sp.collectSubClassExclusionList(acctnum);
       String asset;
       try {
          if (outMap != null)
@@ -248,7 +247,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
       Map<String, ArrayList> tradeMap = new HashMap<String, ArrayList>();
 
       ArrayList<ExecutedTradesData> executedList;
-      Map outMap = sp.tlhloadDBExecutedTrades(acctnum);
+      Map outMap = sp.loadDBExecutedTrades(acctnum);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -292,7 +291,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
       InvModelSP sp = new InvModelSP(ds, storedProcName,1, 99);
       Map<String, SecurityTLHData> tlhMap = new HashMap<String, SecurityTLHData>();
 
-      Map outMap = sp.tlhloadSecurityData();
+      Map outMap = sp.loadSecurityData();
       SecurityTLHData sd = null;
       if (outMap != null)
       {
@@ -334,7 +333,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
       ArrayList<TLHData>  tlhdataList = null;
 
 
-      Map outMap = sp.tlhloadSecurityData();
+      Map outMap = sp.loadSecurityData();
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -368,7 +367,7 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
       // DataSource ds = getDs();
       String storedProcName = "del_rebalanced_trades";
       InvModelSP sp = new InvModelSP(ds, storedProcName,1, 11);
-      sp.tlhdeleteTradeData(acctnum);
+      sp.deleteTradeData(acctnum);
       }
 
 
@@ -377,8 +376,59 @@ public class TaxHarvestingDAO extends JdbcDaoSupport
       String storedProcName = "sp_save_rebalanced_trades";
       InvModelSP sp = new InvModelSP(ds, storedProcName,1, 10);
       for (TradeData tData : tradeData) {
-         sp.tlhsaveTradeData(tData);
+         sp.saveTradeData(tData);
       }
+   }
+
+   public Map<Long, PositionData> loadAllExternalPositions(Long familyacctnum)
+   {
+      // DataSource ds = getDs();
+      String storedProcName = "sel_all_positions";
+      InvModelSP sp = new InvModelSP(ds, storedProcName, 1, 11);
+      Map<Long, PositionData> currentHolding = new HashMap<Long, PositionData>();
+
+      Map outMap = sp.loadAllExternalPositions(familyacctnum);
+
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         if (rows != null)
+         {
+            int i = 0;
+            Long datafamilyacctnum = null;
+            PositionData pd = null;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               datafamilyacctnum = convert.getLongData(rs.get("FamilyAccountNumber"));
+               if (currentHolding.containsKey(datafamilyacctnum))
+               {
+                  pd = currentHolding.get(datafamilyacctnum);
+               }
+               else
+               {
+                  pd = new PositionData(datafamilyacctnum);
+               }
+
+               pd.addInfo(convert.getStrData(rs.get("clientAccountID")),
+                          0L,
+                          convert.getStrData(rs.get("symbol")),
+                          convert.getStrData(rs.get("description")),
+                          "",
+                          convert.getStrData(rs.get("assetClass")),
+                          convert.getStrData(rs.get("assetClass")),
+                          convert.getIntData(rs.get("quantity")),
+                          convert.getDoubleData(rs.get("markPrice")),
+                          convert.getDoubleData(rs.get("positionValue")),
+                          convert.getDoubleData(rs.get("costBasisMoney")),
+                          convert.getDoubleData(rs.get("fifoPnlUnrealized")),
+                          0.0
+               );
+               i++;
+            }
+         }
+      }
+      return currentHolding;
    }
 
 }

@@ -65,6 +65,9 @@ public class InvModelSP extends StoredProcedure
                case 11:
                   declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
                   break;
+               case 12:
+                  declareParameter(new SqlParameter("p_familyacctnum", Types.BIGINT));
+                  break;
                default:
                   break;
             }
@@ -83,7 +86,7 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhloadDBData(Long p_acctnum)
+   public Map loadDBData(Long p_acctnum)
    {
 
       Map inputMap = new HashMap();
@@ -92,7 +95,7 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhcollectProfileData(Long p_logonid, Long acctnum)
+   public Map collectProfileData(Long p_logonid, Long acctnum)
    {
 
       Map inputMap = new HashMap();
@@ -103,7 +106,7 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhcollectAllocation(Long acctnum)
+   public Map collectAllocation(Long acctnum)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);
@@ -111,13 +114,13 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhloadSecurityData()
+   public Map loadSecurityData()
    {
       return super.execute();
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhcollectSubClassExclusionList(Long acctnum)
+   public Map collectSubClassExclusionList(Long acctnum)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);
@@ -125,7 +128,7 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhloadDBExecutedTrades(Long acctnum)
+   public Map loadDBExecutedTrades(Long acctnum)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);
@@ -133,7 +136,7 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhsaveTradeData(TradeData tData)
+   public Map saveTradeData(TradeData tData)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_advisor", tData.getAdvisor());
@@ -162,7 +165,7 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map tlhdeleteTradeData(Long acctnum)
+   public Map deleteTradeData(Long acctnum)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);
@@ -180,4 +183,13 @@ public class InvModelSP extends StoredProcedure
    {
       return super.execute();
    }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map loadAllExternalPositions(Long familyacctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_familyacctnum", familyacctnum);
+      return super.execute(inputMap);
+   }
+
 }

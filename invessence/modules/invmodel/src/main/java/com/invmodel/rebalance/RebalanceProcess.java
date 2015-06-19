@@ -23,7 +23,7 @@ public class RebalanceProcess
    private static RebalanceProcess instance = null;
 
    private ProfileData profile;
-   private TaxHarvestingDAO thlDAO = new TaxHarvestingDAO();
+   private InvModelDAO invModelDAO = new InvModelDAO();
    private Map<String, SecurityTLHData> tlhSecMap = null;
    private Map<String, SecurityTLHData> tlhReverseSecMap = null;
    private TLHSecurityCollection tlhSecurityCollection = null;
@@ -66,7 +66,7 @@ public class RebalanceProcess
       List<ProfileData> data = null;
       try
       {
-         data = thlDAO.getListOfAccounts(logonid, acctnum, filter);
+         data = invModelDAO.getListOfAccounts(logonid, acctnum, filter);
          return data;
       }
       catch (Exception e)
@@ -81,7 +81,7 @@ public class RebalanceProcess
       CurrentHolding data = null;
       try
       {
-         data = thlDAO.loadDBHolding(acctnum);
+         data = invModelDAO.loadDBHolding(acctnum);
          if (data != null) {
             data.addTotals();
          }
@@ -99,7 +99,7 @@ public class RebalanceProcess
       Map <String, ArrayList> data = new HashMap<String, ArrayList>();
       try
       {
-         data = thlDAO.loadDBExecutedTrades(acctnum);
+         data = invModelDAO.loadDBExecutedTrades(acctnum);
          return data;
       }
       catch (Exception e)
@@ -114,7 +114,7 @@ public class RebalanceProcess
       Map<String, Asset> data = null;
       try
       {
-         data = thlDAO.getAllocation(acctnum);
+         data = invModelDAO.getAllocation(acctnum);
          return data;
       }
       catch (Exception e)
@@ -128,7 +128,7 @@ public class RebalanceProcess
       List<PortfolioSubclass> data = null;
       try
       {
-         data = thlDAO.getExcludedSubclass(acctnum);
+         data = invModelDAO.getExcludedSubclass(acctnum);
          return data;
       }
       catch (Exception e)
@@ -190,8 +190,8 @@ public class RebalanceProcess
    }
 
    public void saveTrades(Long acctnum, ArrayList<TradeData> tData) {
-      thlDAO.deleteTradeData(acctnum);
-      thlDAO.saveTradeData(tData);
+      invModelDAO.deleteTradeData(acctnum);
+      invModelDAO.saveTradeData(tData);
    }
 
    public ArrayList<TradeData> process(Long logonid, Long acctnum) throws Exception
