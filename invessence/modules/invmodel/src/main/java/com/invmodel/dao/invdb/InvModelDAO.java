@@ -383,8 +383,8 @@ public class InvModelDAO extends JdbcDaoSupport
    public Map<Long, PositionData> loadAllExternalPositions(Long familyacctnum)
    {
       // DataSource ds = getDs();
-      String storedProcName = "sel_all_positions";
-      InvModelSP sp = new InvModelSP(ds, storedProcName, 1, 11);
+      String storedProcName = "sel_external_position";
+      InvModelSP sp = new InvModelSP(ds, storedProcName, 1, 12);
       Map<Long, PositionData> currentHolding = new HashMap<Long, PositionData>();
 
       Map outMap = sp.loadAllExternalPositions(familyacctnum);
@@ -424,6 +424,7 @@ public class InvModelDAO extends JdbcDaoSupport
                           convert.getDoubleData(rs.get("fifoPnlUnrealized")),
                           0.0
                );
+               currentHolding.put(datafamilyacctnum,pd);
                i++;
             }
          }
