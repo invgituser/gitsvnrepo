@@ -289,6 +289,39 @@ public class PortfolioOptimizer
       }
    }
 
+   private void setOtherPositiondata(String clientAccountID, String ticker, double quantity,
+                             double costBasisPrice, double costBasisMoney,
+                             double markPrice, double positionValue, double fifoPnlUnrealized)
+   {
+      try
+      {
+
+         /*clientAccountID,
+            " +
+         "    assetClass,\n" +
+            "    symbol,\n" +
+            "    quantity,\n" +
+            "    costBasisPrice,\n" +
+            "    costBasisMoney,\n" +
+            "    markPrice,\n" +
+            "    positionValue,\n" +
+            "    fifoPnlUnrealized,\n" +*/
+         AssetData data = new AssetData(clientAccountID,
+                                        ticker,
+                                        quantity,
+                                        costBasisPrice,
+                                        costBasisMoney,
+                                        markPrice,
+                                        positionValue,
+                                        fifoPnlUnrealized
+         );
+         addAssetClass(advisor, assetName, data);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+   }
 
    private void loadAssetDataFromDB(String theme)
    {
@@ -334,6 +367,61 @@ public class PortfolioOptimizer
                          resultSet.getDouble("riskAdjustment"),
                          resultSet.getDouble("endAllocation"),
                          resultSet.getInt("sortorder")
+            );
+         }
+
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      finally
+      {
+         DbUtils.closeQuietly(resultSet);
+         DbUtils.closeQuietly(statement);
+         DbUtils.closeQuietly(connection);
+      }
+   }
+
+
+   private void loadPositionsFromOtherAccounts(long clientId)
+   {
+      Connection connection = null;
+      Statement statement = null;
+      ResultSet resultSet = null;
+      try
+      {
+         String where_clause="WHERE clientAccountId = " + clientId + "\n";
+
+         // Select data from the database
+         connection = DBConnectionProvider.getInstance().getConnection();
+         statement = connection.createStatement();
+         statement.executeQuery("SELECT clientAccountID,\n" +
+                                   "    assetClass,\n" +
+                                   "    symbol,\n" +
+                                   "    quantity,\n" +
+                                   "    costBasisPrice,\n" +
+                                   "    costBasisMoney,\n" +
+                                   "    markPrice,\n" +
+                                   "    positionValue,\n" +
+                                   "    fifoPnlUnrealized,\n" +
+                                   "FROM other_Positions\n" +
+                                   where_clause +
+                                   "order by symbol");
+
+         resultSet = statement.getResultSet();
+         resultSet.beforeFirst();
+         while (resultSet.next())
+         {
+            setOtherPositiondata(resultSet.getString("clientAccountID"),
+                         resultSet.getString("assetclass"),
+                         resultSet.getString("symbol"),
+                         resultSet.getDouble("quantity"),
+                         resultSet.getDouble("costBasisPrice"),
+                         resultSet.getDouble("costBasisMoney"),
+                         resultSet.getDouble("markPrice"),
+                         resultSet.getDouble("positionValue"),
+                         resultSet.getDouble("fifoPnlUnrealized")
             );
          }
 
