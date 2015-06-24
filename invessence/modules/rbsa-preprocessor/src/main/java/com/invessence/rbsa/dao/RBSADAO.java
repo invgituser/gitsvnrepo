@@ -81,7 +81,7 @@ public class RBSADAO
       RBSASP sp;
       try {
          if (ticker != null && index != null) {
-            storedProcName = "rbsa.sel_rbsa_returns";
+            storedProcName = "rbsa.sel_rbsa_fund_monthly_returns";
             sp = new RBSASP(ds, storedProcName,3);
             Map outMap = sp.loadRBSAData(ticker, index);
             ReturnInfo returnInfo;

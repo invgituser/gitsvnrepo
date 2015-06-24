@@ -18,14 +18,17 @@ public class RBSATest
    {
       RBSAData rbsaData;
       RBSA2 rp = new RBSA2();
+/*
       String [] tickAcct1 =  {"FFKEX", "OAKIX", "TWGTX"};
       String [] tickAcct2 =  {"FCNTX", "LEXCX", "MALOX"};
       String [] tickAcct3 =  {"LSHIX", "MEDAX", "NEZYX"};
       String [] tickers = concatStringArrays(tickAcct1, tickAcct2);
       tickers = concatStringArrays(tickers, tickAcct3);
+*/
+      String [] tickers =  {"FFKEX", "OAKIX", "LSHIX", "MALOX"};
       // rp.optimizeSecurity("FFKEX");
-      //solution = rp.optimizeSecurity("FFXMX");
-      //rbsaData = rp.optimizeSecurity("TWGTX");
+      // solution = rp.optimizeSecurity("FFXMX");
+      // rbsaData = rp.optimizeSecurity("TWGTX");
       for(int i = 0; i< tickers.length; i++){
          rbsaData = rp.optimizeSecurity(tickers[i]);
          Double val = 0.0;
