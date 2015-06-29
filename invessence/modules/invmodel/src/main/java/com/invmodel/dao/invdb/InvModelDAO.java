@@ -380,12 +380,12 @@ public class InvModelDAO extends JdbcDaoSupport
       }
    }
 
-   public Map<Long, PositionData> loadAllExternalPositions(Long familyacctnum)
+   public Map<Long, FamilyAccount> loadAllExternalPositions(Long familyacctnum)
    {
       // DataSource ds = getDs();
       String storedProcName = "sel_external_position";
       InvModelSP sp = new InvModelSP(ds, storedProcName, 1, 12);
-      Map<Long, PositionData> currentHolding = new HashMap<Long, PositionData>();
+      Map<Long, FamilyAccount> currentHolding = new HashMap<Long, FamilyAccount>();
 
       Map outMap = sp.loadAllExternalPositions(familyacctnum);
 
@@ -396,7 +396,7 @@ public class InvModelDAO extends JdbcDaoSupport
          {
             int i = 0;
             Long datafamilyacctnum = null;
-            PositionData pd = null;
+            FamilyAccount pd = null;
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
@@ -407,8 +407,14 @@ public class InvModelDAO extends JdbcDaoSupport
                }
                else
                {
-                  pd = new PositionData(datafamilyacctnum);
+                  pd = new FamilyAccount(datafamilyacctnum);
                }
+
+               boolean manage;
+               if (convert.getStrData(rs.get("manage")).toUpperCase().startsWith("Y"))
+                  manage = true;
+               else
+                  manage = false;
 
                pd.addInfo(convert.getStrData(rs.get("clientAccountID")),
                           0L,
@@ -422,7 +428,8 @@ public class InvModelDAO extends JdbcDaoSupport
                           convert.getDoubleData(rs.get("positionValue")),
                           convert.getDoubleData(rs.get("costBasisMoney")),
                           convert.getDoubleData(rs.get("fifoPnlUnrealized")),
-                          0.0
+                          0.0,
+                          manage
                );
                currentHolding.put(datafamilyacctnum,pd);
                i++;
