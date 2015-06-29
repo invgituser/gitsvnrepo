@@ -150,7 +150,7 @@ public class HolisticModelOptimizer
                                                                resultSet.getDouble("weight"));
 
 
-            if (! ticker.toUpperCase().equals("CASH")) {
+            if (! primeAssetClass.toUpperCase().equals("CASH")) {
                if(!allPrimeAssetMap.containsKey(primeAssetClass)){
                   allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
                }
@@ -178,7 +178,7 @@ public class HolisticModelOptimizer
       }
    }
 
-   public void loadRBSATickersfromDB(String[] tickers)
+   public void loadRBSATickersfromDB(String defaultTheme, String[] tickers)
    {
       Connection connection = null;
       Statement statement = null;
@@ -223,30 +223,28 @@ public class HolisticModelOptimizer
             String ticker = resultSet.getString("ticker");
             String primeAssetClass = resultSet.getString("primeassetclass");
 
-            PrimeAssetClassData pacd = new PrimeAssetClassData(resultSet.getString("theme"),
+            PrimeAssetClassData pacd = new PrimeAssetClassData(defaultTheme,
                                                                primeAssetClass,
-                                                               resultSet.getString("indexfund"),
-                                                               resultSet.getString("assetclass"),
-                                                               resultSet.getDouble("expectedReturn"),
-                                                               resultSet.getDouble("upperBound"),
-                                                               resultSet.getDouble("lowerBound"),
+                                                               "",
+                                                               "Unused",
                                                                0.0,
-                                                               resultSet.getInt("sortorder"),
+                                                               0.0,
+                                                               0.0,
+                                                               0.0,
+                                                               99998,
                                                                resultSet.getDouble("weight"));
 
             if (! primeAssetClass.toUpperCase().equals("CASH")) {
                if(!allPrimeAssetMap.containsKey(primeAssetClass)){
                   allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
                }
+
                if (! holisticdataMap.containsKey(ticker))
                {
                   HolisticData holisticData = new HolisticData();
                   holisticData.getPrimeassets().put(primeAssetClass, pacd);
                   holisticdataMap.put(ticker, holisticData);
                }
-               else
-                  holisticdataMap.get(ticker).getPrimeassets().put(primeAssetClass, pacd);
-
             }
          }
       }
