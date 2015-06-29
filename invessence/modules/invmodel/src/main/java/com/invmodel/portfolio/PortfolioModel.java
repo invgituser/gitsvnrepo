@@ -9,6 +9,7 @@ import com.invmodel.dao.invdb.*;
 import com.invmodel.dao.rbsa.HolisticModelOptimizer;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.portfolio.data.Portfolio;
+import com.invmodel.position.LinearOptimizer;
 
 public class PortfolioModel
 {
@@ -497,6 +498,7 @@ public class PortfolioModel
          double incEarned = 0.0;
          double secExpense = 0.0;
 
+
          Map<String, Integer> tickerMap = new LinkedHashMap<String, Integer>();
          ArrayList<String> tickerList = new ArrayList<String>();
          Map<String,Double> primeWeights = new LinkedHashMap<String,Double>();
@@ -511,7 +513,7 @@ public class PortfolioModel
                   tickerList.add(addTicker);
                   sizeofTickerList++;
                }
-             }
+            }
          }
 
          // secCollection.doCustomSQLQuery(advisor, theme, tickerList); // Use this to load Security details for given Tickers
@@ -527,22 +529,21 @@ public class PortfolioModel
             {
                for (PrimeAssetClassData pacd : assetdata.getOrderedPrimeAssetData())
                {
-                     primeWeights.put(pacd.getTicker(),(asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]));
+                  primeWeights.put(pacd.getTicker(), (asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]));
                }
 
             }
-
          }
 
          String[] tickers = new String[sizeofTickerList];
          int j = 0;
          for (String ticker : tickerList)
          {
-               if (j < sizeofTickerList)
-               {
-                  tickers[j] = ticker;
-                  j++;
-               }
+            if (j < sizeofTickerList)
+            {
+               tickers[j] = ticker;
+               j++;
+            }
          }
 
          // Since PrimeAssetList order is different then Security List, we are putting the data in order of the security list.

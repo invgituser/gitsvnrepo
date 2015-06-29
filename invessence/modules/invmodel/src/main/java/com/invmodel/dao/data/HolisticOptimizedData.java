@@ -19,6 +19,39 @@ public class HolisticOptimizedData
    double[] optimizedWeights;
    double[] risk;
    double[] portReturns;
+   double[][] weights;
+   double[][] coVarOfFunds;
+   double[] minSortedError;
+
+   public double[] getMinSortedError()
+   {
+      return minSortedError;
+   }
+
+   public void setMinSortedError(double[] minSortedError)
+   {
+      this.minSortedError = minSortedError;
+   }
+
+   public double[][] getWeights()
+   {
+      return weights;
+   }
+
+   public void setWeights(double[][] weights)
+   {
+      this.weights = weights;
+   }
+
+   public double[][] getCoVarOfFunds()
+   {
+      return coVarOfFunds;
+   }
+
+   public void setCoVarOfFunds(double[][] coVarOfFunds)
+   {
+      this.coVarOfFunds = coVarOfFunds;
+   }
 
    public String getAdvisor()
    {

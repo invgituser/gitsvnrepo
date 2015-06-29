@@ -1049,6 +1049,10 @@ public class PortfolioOptimizer
       hodata.setOptimizedWeights(optFundWeight);
       hodata.setRisk(risk);
       hodata.setPortReturns(portReturns);
+      hodata.setCoVarOfFunds(coVarFunds);
+      hodata.setWeights(weights);
+      hodata.setMinSortedError(errorDiff);
+
       return hodata;
    }
 

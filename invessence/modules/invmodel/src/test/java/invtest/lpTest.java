@@ -1,6 +1,9 @@
 package invtest;
 
+import com.invmodel.dao.data.HolisticOptimizedData;
+import com.invmodel.dao.invdb.PortfolioOptimizer;
 import com.invmodel.dao.rbsa.*;
+import com.invmodel.position.LinearOptimizer;
 import com.invmodel.utils.MergeSort;
 import lpsolve.*;
 import webcab.lib.finance.portfolio.CapitalMarket;
@@ -16,37 +19,44 @@ import webcab.lib.finance.portfolio.CapitalMarket;
 public class lpTest
 {
 
+
+
    public static void main(String[] args) {
 
       try {
 
          HolisticModelOptimizer hoptimizer = HolisticModelOptimizer.getInstance();
 
+
          String [] tickAcct1 =  {"FCNTX", "OAKIX", "LSHIX"};
          //String [] tickAcct1 =   {"FFKEX", "OAKIX", "TWGTX"};
-         String [] tickAcct4 =  {"VNQ","TLT","IEF","SHY","BIL","IAU","IVW","IVE","VTV","MDY","PFF","IWM","JNK","EMLC","VCLT","VWO","EFA"};
-         //
+         String [] tickAcct4 =  {"VNQ","TLT","IEF","SHY","IAU","MDY","SPY", "PFF","IWM","JNK","EMLC","VCLT","VWO","VEA"};
+
 
          double acct1=100000, acct2=100000, acct3=300000, acct4=500000;
          //double acct1=400000, acct2=400000, acct3=200000;
          double totalValue = acct1 + acct2 + acct3 + acct4;
          //double totalValue = acct1 + acct2 + acct3;
-         String [] tickers = concatStringArrays(tickAcct1, tickAcct4);
          //String [] tickers = concatStringArrays(tickAcct1, tickAcct4);
+         String [] tickers = concatStringArrays(tickAcct1, tickAcct4);
 
          double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue, acct4/totalValue};
          //double[] acctW = new double[] {acct1/totalValue, acct2/totalValue, acct3/totalValue};
 
-         String theme = "PRIME-ASSET";
-         double[][] targetPAssetAllocation = {{0.01},{0.26},{0.0},{0.11},{0.04},{0.07},{0.0},{0.04},{0.05},{0.12},{0.13},{0.07},{0.02},
-            {0.01},{0.0},{0.07}};
-         double targetOptProd = targetPAssetAllocation[0][0] *
-            targetPAssetAllocation[1][0] *
-            targetPAssetAllocation[2][0];
+         String theme = "0.MFS";
+         double[][] targetPAssetAllocation = {{0.01},{0.26},{0.0},{0.11},{0.04},{0.07},{0.0},{0.04},{0.05},{0.12},{0.13},{0.07},{0.02},{0.08}};
 
-         //To use these returns, call getDailyReturns with the same tickers;
+
+         PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
+         poptimizer.refreshDataFromDB();
+         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickers, targetPAssetAllocation);
+
+         /*//To use these returns, call getDailyReturns with the same tickers;
+         HistoricalDailyReturns historicaldailyreturns;
+         historicaldailyreturns = new HistoricalDailyReturns();
          hoptimizer.loadFundDataFromDB(theme, tickers);
-         double[][] mrData = hoptimizer.getDailyReturns(tickers);
+         double[][] mrData = historicaldailyreturns.getDailyReturnsArray(tickers);
+         //double[][] mrData = hoptimizer.getDailyReturns(tickers);
          double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
          CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
          double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickers, mrData, coVarFunds);
@@ -65,12 +75,12 @@ public class lpTest
          //Sort the squared error terms, and also the index which will point to the weights, risk and returns.
          mms.sort(errorDiff,fundOffset);
 
-         /*for(double i:errorDiff){
+         for(double i:errorDiff){
             System.out.print(i);
             System.out.print(" ");
             System.out.println(i);
 
-         }*/
+         }
 
          //PRIME ASSET exposure can not be larger than the account exposure.
          //If PRIME ASSET funds are in IRA and it has only a 20% value than the upperbound for these
@@ -80,11 +90,18 @@ public class lpTest
          //Also we mau want to consturct a fundConstaint matrix similar to accountConstraint.
 
 
+
          double[] optFundWeight = new double[weights[0].length];
-         double[][] accountConstraints = new double[acctW.length][acctW.length*tickers.length];
+
          for(int i=0; i<weights[0].length; i++){
             optFundWeight[i] = weights[fundOffset[0]][i];
          }
+
+         */
+
+         double[][] accountConstraints = new double[acctW.length][acctW.length*tickers.length];
+         double[][] weights = hoptdata.getWeights();
+         double[] optFundWeight = hoptdata.getOptimizedWeights();
 
          for (int r = 0; r<acctW.length; r++) {
             int colN = 0;
@@ -122,6 +139,8 @@ public class lpTest
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1}};*/
 
          AllocationOptimizer allocOpt = AllocationOptimizer.getInstance();
+
+
          double[] fundWeightsPerAccounts = allocOpt.AllocateToAccounts(optFundWeight, acctW, accountConstraints);
       }
       catch (LpSolveException e) {

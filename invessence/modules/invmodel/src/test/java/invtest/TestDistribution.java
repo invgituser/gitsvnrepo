@@ -8,6 +8,7 @@ import com.invmodel.performance.*;
 import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.*;
 import com.invmodel.portfolio.data.*;
+import com.invmodel.position.LinearOptimizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -87,7 +88,7 @@ public class TestDistribution
       //2 = Go to Cash, 1 = Stay Invested
       profileData.setStayInvested(1);
 
-      profileData.setInitialInvestment(41000);
+      profileData.setInitialInvestment(100000);
       invCapital = profileData.getInitialInvestment();
       profileData.setRecurringInvestment(5000);
 
@@ -98,7 +99,7 @@ public class TestDistribution
       profileData.setNumOfAllocation(duration);
 
       profileData.setRiskCalcMethod("C"); //Using age based option A or C
-      profileData.setAllocationIndex(30);  // When flag is A
+      profileData.setAllocationIndex(60);  // When flag is A
       profileData.setPortfolioIndex(80);
       //profileData.offsetRiskIndex();
 
@@ -120,6 +121,10 @@ public class TestDistribution
       // assetAllocationModel.setHr(HistoricalReturns.getInstance());
       AssetClass[] aamc = assetAllocationModel.buildAllocation(profileData);
       profileData.setAssetData(aamc);
+
+      LinearOptimizer lpProc = LinearOptimizer.getInstance();
+      lpProc.process(1000L,profileData.getAdvisor(),profileData.getTheme(), profileData, aamc[0]);
+
       PortfolioModel portfolioModel = new PortfolioModel();
       portfolioModel.setPortfolioOptimizer(poptimizer);
       SecurityCollection secDao = new SecurityCollection();
@@ -138,7 +143,7 @@ public class TestDistribution
 
       PortfolioPerformance portPerf = PortfolioPerformance.getInstance();
 
-      PerformanceData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
+      //PerformanceData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
 
       //Create a assetPerformanceFile
       createAssetPerformanceFile(tax, pfclass, aamc, age);
@@ -299,7 +304,7 @@ public class TestDistribution
       profileData.setNumOfPortfolio(aamc.length);
       //pfclass = PortfolioModel.getInstance().getDistributionList(aamc, profileData);
 
-      for (year = 0; year < aamc.length; year++)
+      for (year = 0; year < pfclass.length; year++)
       {
 
 

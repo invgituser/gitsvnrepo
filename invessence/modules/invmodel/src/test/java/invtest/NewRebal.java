@@ -38,7 +38,7 @@ public class NewRebal
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
       // Now we can do rebalaning on account(s).
-      ArrayList<TradeData> tradeList = rbal.process(null, 140L);
+      ArrayList<TradeData> tradeList = rbal.process(null, 113L);
       printTradeFile(tradeList);
    }
 

@@ -203,11 +203,11 @@ public class PositionData
       return tickerArray;
    }
 
-   public Double[] getAccountValue() {
-      Double [] accountValue = null;
+   public double[] getAccountValue() {
+      double [] accountValue = null;
       try {
          int numofacct = accountdetail.size();
-         accountValue = new Double[numofacct];
+         accountValue = new double[numofacct];
          int i = 0;
          for (String extacct: accountdetail.keySet()) {
             accountValue[i] = 0.0;

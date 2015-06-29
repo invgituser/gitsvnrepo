@@ -68,7 +68,7 @@ public class HolisticModelOptimizer
          holisticdataMap.clear();       // Clear entire Hashmap to start new...
          loadRBSAfromDB(theme, tickers);
 
-         // loadDailyReturnsfromDB(tickers);
+         //loadDailyReturnsfromDB(tickers);
 
       }
       catch (Exception ex) {
@@ -178,6 +178,89 @@ public class HolisticModelOptimizer
       }
    }
 
+   public void loadRBSATickersfromDB(String[] tickers)
+   {
+      Connection connection = null;
+      Statement statement = null;
+      ResultSet resultSet = null;
+      try
+      {
+
+         // Select data from the database
+         String tickerList = "";
+         int tickercount=0;
+         for (int i = 0; i < tickers.length; i++) {
+            if (tickercount == 0)
+               tickerList += "'" + tickers[i].trim() + "'";
+            else
+               tickerList += ", '" + tickers[i].trim() + "'";
+            tickercount++;
+         }
+
+         String whereStatement = "";
+         if (tickercount > 0) {
+            whereStatement = " ticker in (" + tickerList + ")";
+         }
+         else
+            return;
+
+         connection = DBConnectionProvider.getInstance().getConnection();
+         statement = connection.createStatement();
+
+         String sqlquery =  "SELECT ticker," +
+            "primeassetclass, " +
+            "weight " +
+            "FROM invdb.sec_rbsa " +
+            "WHERE " + whereStatement + " \n" +
+            " ORDER BY ticker";
+
+         statement.executeQuery(sqlquery);
+
+         resultSet = statement.getResultSet();
+         resultSet.beforeFirst();
+         while (resultSet.next())
+         {
+            String ticker = resultSet.getString("ticker");
+            String primeAssetClass = resultSet.getString("primeassetclass");
+
+            PrimeAssetClassData pacd = new PrimeAssetClassData(resultSet.getString("theme"),
+                                                               primeAssetClass,
+                                                               resultSet.getString("indexfund"),
+                                                               resultSet.getString("assetclass"),
+                                                               resultSet.getDouble("expectedReturn"),
+                                                               resultSet.getDouble("upperBound"),
+                                                               resultSet.getDouble("lowerBound"),
+                                                               0.0,
+                                                               resultSet.getInt("sortorder"),
+                                                               resultSet.getDouble("weight"));
+
+            if (! primeAssetClass.toUpperCase().equals("CASH")) {
+               if(!allPrimeAssetMap.containsKey(primeAssetClass)){
+                  allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
+               }
+               if (! holisticdataMap.containsKey(ticker))
+               {
+                  HolisticData holisticData = new HolisticData();
+                  holisticData.getPrimeassets().put(primeAssetClass, pacd);
+                  holisticdataMap.put(ticker, holisticData);
+               }
+               else
+                  holisticdataMap.get(ticker).getPrimeassets().put(primeAssetClass, pacd);
+
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         logger.severe(e.getMessage());
+      }
+      finally
+      {
+         DbUtils.closeQuietly(resultSet);
+         DbUtils.closeQuietly(statement);
+         DbUtils.closeQuietly(connection);
+      }
+   }
    private void loadDailyReturnsfromDB(String[] tickers)
 {
    Connection connection = null;
@@ -321,12 +404,12 @@ public class HolisticModelOptimizer
 
          double[] errorDiff = new double [weights.length];
          double [][] prodMatrix = null;
+         double[][] tWeight = new double[tickers.length][1];
          for (int w = 0; w < weights.length; w++ ){
             double [][] fundProductWeights = new double[allPrimeAssetMap.size()][holisticdataMap.size()];
             int pRow = 0;
             int pCol = 0;
 
-            double[][] tWeight = new double[tickers.length][1];
             for (int i = 0; i < tickers.length; i++) {
                   tWeight[i][0] = weights[w][i];
             }

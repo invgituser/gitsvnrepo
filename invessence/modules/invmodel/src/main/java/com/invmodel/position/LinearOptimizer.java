@@ -63,11 +63,11 @@ public class LinearOptimizer
       return (data);
    }
 
-   public void process(Long familyacctnum, String advisor, String theme, double[][] primeTargetWeights) {
+   public void process(Long familyacctnum, String advisor, String theme, ProfileData pdata, AssetClass aamc) {
 
       position = loadExternalPositions(familyacctnum);
 
-      HolisticOptimizedData hodata = new HolisticOptimizedData();
+      //HolisticOptimizedData hodata = new HolisticOptimizedData();
       int numofextacct;
       double[] accountValue = null; String[] tickerArray = null; double totalValue;
 
@@ -79,63 +79,46 @@ public class LinearOptimizer
          totalValue = position.get(datafamilyacctnum).getTotalValue();
       }
 
+      HolisticModelOptimizer hOptimizer = HolisticModelOptimizer.getInstance();
+      //hOptimizer.loadFundDataFromDB(theme,tickerArray);
+      hOptimizer.loadRBSATickersfromDB(tickerArray);
+      Map<String, String> allFundPrimeAssetMap;
+      allFundPrimeAssetMap = hOptimizer.getAllPrimeAssetMap();
 
+      Map<String, HolisticData> holisticdataMap;
+      holisticdataMap = hOptimizer.getHolisticdataMap();
+
+      List<String> missingPrimeAssets = new ArrayList<String>();
+      List<String> includesPrimeAssets = new ArrayList<String>();
       //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
-      for (String pAssetClass : allPrimeAssetMap.keySet()) {
+      int pCol; int pRow;
 
-         pCol = 0;
+      for (String pAssetClass : allFundPrimeAssetMap.keySet()) {
          for (String fTicker: holisticdataMap.keySet()){
-            if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
-               fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
-            else
-               fundProductWeights[pRow][pCol] = 0;
-
-            pCol++;
+            if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))   {
+               String pATicker = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getTicker();
+               if(!includesPrimeAssets.contains(pATicker))
+                  includesPrimeAssets.add(pATicker);
+            }
          }
-         pRow++;
       }
 
-      //To use these returns, call getDailyReturns with the same tickers;
-      // optimizer.loadFundDataFromDB(tickers);
+      System.out.println("The arraylist contains the following elements: "
+                            + includesPrimeAssets);
 
-      hoptimizer.loadFundDataFromDB(theme, tickerArray);
-      CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
-      double[][] mrData = historicaldailyreturns.getDailyReturnsArray(tickerArray);
-      double [][] coVarFunds = hoptimizer.getCoVarFunds(mrData);
-      double[][] weights = hoptimizer.getWeights(instanceOfCapitalMarket, tickerArray, mrData, coVarFunds);
-      double[] risk = instanceOfCapitalMarket.getEfficientFrontierPortfolioRisks(coVarFunds);
-      double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
+      Map<String,Double> primeWeightsMap = getMapOfPrimeWeights(pdata.getAdvisor(), pdata.getTheme(), pdata, aamc);
+      double[][] primeTargetWeights  = getPrimeAssetWeights(primeWeightsMap);
 
-      //Compute minimum error vector by comparing to target and find the best weight fit
-      double[] errorDiff = hoptimizer.getFundErrorVectorArray(tickerArray,primeTargetWeights , weights);
-
-      MergeSort mms = MergeSort.getInstance();
-      int[] fundOffset = new int[errorDiff.length];
-      for (int i = 0; i<errorDiff.length; i++){
-         fundOffset[i]=i;
-      }
-
-      //Sort the squared error terms, and also the index which will point to the weights, risk and returns.
-      mms.sort(errorDiff,fundOffset);
-
-      //PRIME ASSET exposure can not be larger than the account exposure.
-      //If PRIME ASSET funds are in IRA and it has only a 20% value than the upperbound for these
-      //funds must be 0.2 or below combined
-      //May have to throw out some solutions of efficient frontier where the combined numbers are higher
-      //than 20%
-      //Also we mau want to consturct a fundConstaint matrix similar to accountConstraint.
+      //Compare number of tickers in theme prime assets vs. prime assets in the funds
 
 
-      double[] optFundWeight = new double[weights[0].length];
-      for(int i=0; i<weights[0].length; i++){
-         optFundWeight[i] = weights[fundOffset[0]][i];
-      }
 
-      hodata.setRbsatickers(tickerArray);
-      hodata.setOffset(fundOffset[0]);
-      hodata.setOptimizedWeights(optFundWeight);
-      hodata.setRisk(risk);
-      hodata.setPortReturns(portReturns);
+      PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
+      HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, primeTargetWeights);
+      hoptdata.setPrimeAssetInfo(primeWeightsMap);
+
+
+
 
       //This data will be based on input by fund within an account
       /*double[][] accountConstraints = new double[][] {
@@ -180,7 +163,7 @@ public class LinearOptimizer
       AllocationOptimizer allocOpt = AllocationOptimizer.getInstance();
       try
       {
-         double[] fundWeightsPerAccounts = allocOpt.AllocateToAccounts(optFundWeight, accountValue, accountConstraints);
+         double[] fundWeightsPerAccounts = allocOpt.AllocateToAccounts(hoptdata.getOptimizedWeights(), accountValue, accountConstraints);
       }
       catch (LpSolveException e)
       {
@@ -214,6 +197,7 @@ public class LinearOptimizer
 
       for (SecurityData sd: secCollection.getOrderedSecurityList()) {
          addTicker = sd.getTicker();
+
          if (!addTicker.toUpperCase().equals("CASH")) {
             if (! tickerMap.containsKey(addTicker)) {
                tickerMap.put(addTicker,sizeofTickerList);
@@ -235,7 +219,7 @@ public class LinearOptimizer
          asset.setActualweight(0.0);
          asset.setValue(0.0);
 
-         if (!asset.getAsset().toUpperCase().equals("CASH"))
+         if (!asset.getAsset().toUpperCase().equals("CA"))
          {
             for (PrimeAssetClassData pacd : assetdata.getOrderedPrimeAssetData())
             {
