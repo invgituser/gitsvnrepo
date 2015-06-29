@@ -250,6 +250,7 @@ public class FamilyAccount
                   value[i][j] = (accountdetail.get(extacct).get(ticker).isManage()) ? 1 : 0;
                else
                   value[i][j] = 0;
+               j++;
             }
             i++;
          }
