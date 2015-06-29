@@ -45,7 +45,8 @@ public class LinearOptimizer
       return instance;
    }
 
-   public Map<Long, FamilyAccount> loadExternalPositions(Long familyacctnum) {
+   public Map<Long, FamilyAccount> loadExternalPositions(Long familyacctnum)
+   {
       Map<Long, FamilyAccount> data = null;
       try
       {
@@ -59,13 +60,16 @@ public class LinearOptimizer
       return (data);
    }
 
-   public void process(Long familyacctnum, String advisor, String theme, ProfileData pdata, AssetClass aamc) {
+   public void process(Long familyacctnum, String advisor, String theme, ProfileData pdata, AssetClass aamc)
+   {
 
       familyData = loadExternalPositions(familyacctnum);
 
       //HolisticOptimizedData hodata = new HolisticOptimizedData();
       int numofextacct;
-      double[] accountValue = null; String[] tickerArray = null; double totalValue;
+      double[] accountValue = null;
+      String[] tickerArray = null;
+      double totalValue;
 
       for (Long datafamilyacctnum : familyData.keySet())
       {
@@ -73,11 +77,10 @@ public class LinearOptimizer
          accountValue = familyData.get(datafamilyacctnum).getAccountValue();
          tickerArray = familyData.get(datafamilyacctnum).getTickerArray();
          totalValue = familyData.get(datafamilyacctnum).getTotalValue();
-      }
 
-      HolisticModelOptimizer hOptimizer = HolisticModelOptimizer.getInstance();
-      hOptimizer.loadFundDataFromDB(theme,tickerArray);
-      hOptimizer.loadRBSATickersfromDB(theme,tickerArray);
+         HolisticModelOptimizer hOptimizer = HolisticModelOptimizer.getInstance();
+         hOptimizer.loadFundDataFromDB(theme, tickerArray);
+         hOptimizer.loadRBSATickersfromDB(theme, tickerArray);
       /*Map<String, String> allFundPrimeAssetMap;
       allFundPrimeAssetMap = hOptimizer.getAllPrimeAssetMap();
 
@@ -103,56 +106,27 @@ public class LinearOptimizer
                             + includesPrimeAssets);
       */
 
-      Map<String,Double> primeWeightsMap = getMapOfPrimeWeights(pdata.getAdvisor(), pdata.getTheme(), pdata, aamc);
-      double[][] primeTargetWeights  = getPrimeAssetWeights(primeWeightsMap);
+         Map<String, Double> primeWeightsMap = getMapOfPrimeWeights(pdata.getAdvisor(), pdata.getTheme(), pdata, aamc);
+         double[][] primeTargetWeights = getPrimeAssetWeights(primeWeightsMap);
 
-      //Compare number of tickers in theme prime assets vs. prime assets in the funds
+         //Compare number of tickers in theme prime assets vs. prime assets in the funds
 
-      PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
-      HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, primeTargetWeights);
-      hoptdata.setPrimeAssetInfo(primeWeightsMap);
+         PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
+         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, primeTargetWeights);
+         hoptdata.setPrimeAssetInfo(primeWeightsMap);
 
-      //This data will be based on input by fund within an account
+         //This data will be based on input by fund within an account
       /*double[][] accountConstraints = new double[][] {
          {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
          {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
          {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
          {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1}};*/
 
-      double[][] accountConstraints = new double[accountValue.length][accountValue.length*tickerArray.length];
+         double[][] accountConstraints = familyData.get(datafamilyacctnum).getManageArray();
 
-      for (int r = 0; r<accountValue.length; r++) {
-         int colN = 0;
-         for (int a = 0; a<accountValue.length; a++) {
-            for (int f = 0; f<tickerArray.length; f++){
-
-               accountConstraints[r][colN] = 0;
-
-               if (r == a){
-
-                  if (a < accountValue.length-1) {
-
-                     familyData.get(datafamilyacctnum).getTickerArray()
-                     if (f < 9)
-                        accountConstraints[r][colN] = 1;
-                     else
-                        accountConstraints[r][colN] = 0;
-                  }
-
-                  else if (a == accountValue.length-1) {
-                     if (f > 8)
-                        accountConstraints[r][colN] = 1;
-                     else
-                        accountConstraints[r][colN] = 0;
-                  }
-               }
-               else
-                  accountConstraints[r][colN] = 0;
-               colN++;
-            }
-         }
       }
 
+/*
 
       AllocationOptimizer allocOpt = AllocationOptimizer.getInstance();
       try
@@ -163,10 +137,12 @@ public class LinearOptimizer
       {
          e.printStackTrace();
       }
+*/
    }
 
 
-   public Map<String,Double>  getMapOfPrimeWeights(String advisor, String theme, ProfileData pdata, AssetClass assetClass){
+   public Map<String, Double> getMapOfPrimeWeights(String advisor, String theme, ProfileData pdata, AssetClass assetClass)
+   {
 
       PortfolioOptimizer portfolioOptimizer = PortfolioOptimizer.getInstance();
 
@@ -185,16 +161,19 @@ public class LinearOptimizer
 
       Map<String, Integer> tickerMap = new LinkedHashMap<String, Integer>();
       ArrayList<String> tickerList = new ArrayList<String>();
-      Map<String,Double> primeWeights = new LinkedHashMap<String,Double>();
+      Map<String, Double> primeWeights = new LinkedHashMap<String, Double>();
       Integer sizeofTickerList = 0;
       String addTicker = "";
 
-      for (SecurityData sd: secCollection.getOrderedSecurityList()) {
+      for (SecurityData sd : secCollection.getOrderedSecurityList())
+      {
          addTicker = sd.getTicker();
 
-         if (!addTicker.toUpperCase().equals("CASH")) {
-            if (! tickerMap.containsKey(addTicker)) {
-               tickerMap.put(addTicker,sizeofTickerList);
+         if (!addTicker.toUpperCase().equals("CASH"))
+         {
+            if (!tickerMap.containsKey(addTicker))
+            {
+               tickerMap.put(addTicker, sizeofTickerList);
                tickerList.add(addTicker);
                sizeofTickerList++;
             }
@@ -227,7 +206,8 @@ public class LinearOptimizer
 
    }
 
-   public double[][] getPrimeAssetWeights(Map<String,Double> primeWeights){
+   public double[][] getPrimeAssetWeights(Map<String, Double> primeWeights)
+   {
 
       PortfolioOptimizer portfolioOptimizer = PortfolioOptimizer.getInstance();
 
@@ -238,15 +218,16 @@ public class LinearOptimizer
       Integer sizeofPrimeTickerList = primeWeights.size();
       double[][] tmpPrimeWeights = new double[sizeofPrimeTickerList][1];
       int j = 0;
-      for (String ticker: primeWeights.keySet())
+      for (String ticker : primeWeights.keySet())
       {
-         if (j < sizeofPrimeTickerList) {
+         if (j < sizeofPrimeTickerList)
+         {
             tmpPrimeWeights[j][0] = primeWeights.get(ticker);
             j++;
          }
       }
 
-     return tmpPrimeWeights;
+      return tmpPrimeWeights;
 
    }
 }
