@@ -22,6 +22,7 @@ public class PositionDetailData
    Double costbasisValue;
    Double pnl;
    Double gainloss;
+   boolean manage;
 
    public PositionDetailData()
    {
@@ -30,7 +31,7 @@ public class PositionDetailData
    public PositionDetailData(String external_acct, Long acctnum, String ticker, String name,
                              String index, String assetclass, String primeassetclass,
                              Integer shares, Double price, Double value, Double costbasisValue,
-                             Double pnl, Double gainloss)
+                             Double pnl, Double gainloss, boolean manage)
    {
       this.external_acct = external_acct;
       this.acctnum = acctnum;
@@ -45,6 +46,12 @@ public class PositionDetailData
       this.costbasisValue = costbasisValue;
       this.pnl = pnl;
       this.gainloss = gainloss;
+      this.manage = manage;
+   }
+
+   public boolean isManage()
+   {
+      return manage;
    }
 
    public String getExternal_acct()

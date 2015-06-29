@@ -9,7 +9,7 @@ import java.util.*;
  * Time: 11:34 AM
  * To change this template use File | Settings | File Templates.
  */
-public class PositionData
+public class FamilyAccount
 {
    Long familyacctnum;
    Double totalValue;
@@ -18,13 +18,14 @@ public class PositionData
    Double totalGainLoss;
    Double totalInvested;
    Double totalCash;
+   boolean managed;
 
    Map<String, PositionDetailData> tickerdetail = null; // Key: Ticker, PositonDetail (Summed up)
    Map<String, ArrayList<PositionDetailData>> accountdetail = null; // Key: Acct#, PositonDetail (Individual Trades)
    Map<String, PositionDetailData> assetdetail = null; // Key: AssetClass, PositonDetail (Summed up)
    Map<String, PositionDetailData> primeassetdetail = null;
 
-   public PositionData(Long familyacctnum)
+   public FamilyAccount(Long familyacctnum)
    {
       this.familyacctnum = familyacctnum;
       totalValue = 0.0;
@@ -71,6 +72,16 @@ public class PositionData
       return totalCash;
    }
 
+   public boolean isManaged()
+   {
+      return managed;
+   }
+
+   public void setManaged(boolean managed)
+   {
+      this.managed = managed;
+   }
+
    public Map<String, PositionDetailData> getTickerdetail()
    {
       return tickerdetail;
@@ -103,7 +114,8 @@ public class PositionData
                        Double value,
                        Double costbasisValue,
                        Double pnl,
-                       Double gainloss)
+                       Double gainloss,
+                       boolean managed)
    {
       PositionDetailData pdd = new PositionDetailData( external_acct,
                                                        acctnum,
@@ -117,7 +129,8 @@ public class PositionData
                                                        value,
                                                        costbasisValue,
                                                        pnl,
-                                                       gainloss);
+                                                       gainloss,
+                                                       managed);
 
 
       if (tickerdetail == null)  // Key: Ticker, PositonDetail (Summed up)
@@ -221,5 +234,26 @@ public class PositionData
 
       }
       return accountValue;
+   }
+
+   public double[][] getManageArray() {
+      double [][] value = null;
+      try {
+         int numofacct = accountdetail.size();
+         int numTickers = tickerdetail.size();
+         value = new double[numofacct][numTickers];
+         int i = 0;
+         for (String extacct: accountdetail.keySet()) {
+            int j = 0;
+            for (PositionDetailData pdd : tickerdetail.get(extacct)) {
+               value[i] += pdd.getValue();
+            }
+            i++;
+         }
+      }
+      catch (Exception ex) {
+
+      }
+      return value;
    }
 }

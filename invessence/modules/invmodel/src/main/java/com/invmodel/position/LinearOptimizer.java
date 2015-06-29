@@ -2,18 +2,14 @@ package com.invmodel.position;
 
 import java.util.*;
 
-import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.dao.rbsa.*;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.portfolio.PortfolioModel;
-import com.invmodel.position.data.PositionData;
-import com.invmodel.rebalance.data.CurrentHolding;
-import com.invmodel.utils.MergeSort;
+import com.invmodel.position.data.FamilyAccount;
 import lpsolve.LpSolveException;
-import webcab.lib.finance.portfolio.CapitalMarket;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,7 +20,7 @@ import webcab.lib.finance.portfolio.CapitalMarket;
  */
 public class LinearOptimizer
 {
-   private Map<Long, PositionData> position;
+   private Map<Long, FamilyAccount> familyData;
 
    private static LinearOptimizer instance = null;
    private InvModelDAO invModelDAO = new InvModelDAO();
@@ -49,8 +45,8 @@ public class LinearOptimizer
       return instance;
    }
 
-   public Map<Long, PositionData> loadExternalPositions(Long familyacctnum) {
-      Map<Long, PositionData> data = null;
+   public Map<Long, FamilyAccount> loadExternalPositions(Long familyacctnum) {
+      Map<Long, FamilyAccount> data = null;
       try
       {
          data = invModelDAO.loadAllExternalPositions(familyacctnum);
@@ -65,24 +61,24 @@ public class LinearOptimizer
 
    public void process(Long familyacctnum, String advisor, String theme, ProfileData pdata, AssetClass aamc) {
 
-      position = loadExternalPositions(familyacctnum);
+      familyData = loadExternalPositions(familyacctnum);
 
       //HolisticOptimizedData hodata = new HolisticOptimizedData();
       int numofextacct;
       double[] accountValue = null; String[] tickerArray = null; double totalValue;
 
-      for (Long datafamilyacctnum : position.keySet())
+      for (Long datafamilyacctnum : familyData.keySet())
       {
-         numofextacct = position.get(datafamilyacctnum).getAccountdetail().size();
-         accountValue = position.get(datafamilyacctnum).getAccountValue();
-         tickerArray = position.get(datafamilyacctnum).getTickerArray();
-         totalValue = position.get(datafamilyacctnum).getTotalValue();
+         numofextacct = familyData.get(datafamilyacctnum).getAccountdetail().size();
+         accountValue = familyData.get(datafamilyacctnum).getAccountValue();
+         tickerArray = familyData.get(datafamilyacctnum).getTickerArray();
+         totalValue = familyData.get(datafamilyacctnum).getTotalValue();
       }
 
       HolisticModelOptimizer hOptimizer = HolisticModelOptimizer.getInstance();
       hOptimizer.loadFundDataFromDB(theme,tickerArray);
-      hOptimizer.loadRBSATickersfromDB(theme, tickerArray);
-      Map<String, String> allFundPrimeAssetMap;
+      hOptimizer.loadRBSATickersfromDB(theme,tickerArray);
+      /*Map<String, String> allFundPrimeAssetMap;
       allFundPrimeAssetMap = hOptimizer.getAllPrimeAssetMap();
 
       Map<String, HolisticData> holisticdataMap;
@@ -105,20 +101,16 @@ public class LinearOptimizer
 
       System.out.println("The arraylist contains the following elements: "
                             + includesPrimeAssets);
+      */
 
       Map<String,Double> primeWeightsMap = getMapOfPrimeWeights(pdata.getAdvisor(), pdata.getTheme(), pdata, aamc);
       double[][] primeTargetWeights  = getPrimeAssetWeights(primeWeightsMap);
 
       //Compare number of tickers in theme prime assets vs. prime assets in the funds
 
-
-
       PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
       HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, primeTargetWeights);
       hoptdata.setPrimeAssetInfo(primeWeightsMap);
-
-
-
 
       //This data will be based on input by fund within an account
       /*double[][] accountConstraints = new double[][] {
@@ -139,6 +131,8 @@ public class LinearOptimizer
                if (r == a){
 
                   if (a < accountValue.length-1) {
+
+                     familyData.get(datafamilyacctnum).getTickerArray()
                      if (f < 9)
                         accountConstraints[r][colN] = 1;
                      else
