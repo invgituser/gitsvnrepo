@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import com.invmodel.Const.InvConst;
 import com.invmodel.dao.DBConnectionProvider;
 import com.invmodel.dao.data.*;
-import com.invmodel.dao.invdb.PortfolioOptimizer;
 import org.apache.commons.dbutils.DbUtils;
 import webcab.lib.finance.portfolio.*;
 
@@ -150,7 +149,7 @@ public class HolisticModelOptimizer
                                                                resultSet.getDouble("weight"));
 
 
-            if (! primeAssetClass.toUpperCase().equals("CASH")) {
+            //if (! primeAssetClass.toUpperCase().equals("CASH")) {
                if(!allPrimeAssetMap.containsKey(primeAssetClass)){
                   allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
                }
@@ -163,7 +162,7 @@ public class HolisticModelOptimizer
                }
                else
                   holisticdataMap.get(ticker).getPrimeassets().put(primeAssetClass, pacd);
-            }
+            //}
          }
       }
       catch (Exception e)
@@ -234,7 +233,7 @@ public class HolisticModelOptimizer
                                                                99998,
                                                                resultSet.getDouble("weight"));
 
-            if (! primeAssetClass.toUpperCase().equals("CASH")) {
+            //if (! primeAssetClass.toUpperCase().equals("CASH")) {
                if(!allPrimeAssetMap.containsKey(primeAssetClass)){
                   allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
                }
@@ -245,7 +244,7 @@ public class HolisticModelOptimizer
                   holisticData.getPrimeassets().put(primeAssetClass, pacd);
                   holisticdataMap.put(ticker, holisticData);
                }
-            }
+            //}
          }
       }
       catch (Exception e)
@@ -396,35 +395,41 @@ public class HolisticModelOptimizer
       return null;
    }
 
-   public double [] getFundErrorVectorArray(String [] tickers,double[][] targetOptProd, double[][] weights)
+   public double [] getFundErrorVectorArray(String [] tickers,double[][] targetPrimeAssets, double[][] weights)
    {
       try {
 
          double[] errorDiff = new double [weights.length];
          double [][] prodMatrix = null;
          double[][] tWeight = new double[tickers.length][1];
-         for (int w = 0; w < weights.length; w++ ){
-            double [][] fundProductWeights = new double[allPrimeAssetMap.size()][holisticdataMap.size()];
-            int pRow = 0;
-            int pCol = 0;
 
-            for (int i = 0; i < tickers.length; i++) {
-                  tWeight[i][0] = weights[w][i];
-            }
+         double [][] fundProductWeights = new double[allPrimeAssetMap.size()][holisticdataMap.size()];
+         int pRow = 0;
+         int pCol = 0;
+         //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
 
-            //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
-            for (String pAssetClass : allPrimeAssetMap.keySet()) {
+
+
+         for (String pAssetClass : allPrimeAssetMap.keySet()) {
 
                pCol = 0;
                for (String fTicker: holisticdataMap.keySet()){
-                 if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
-                    fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
-                 else
-                    fundProductWeights[pRow][pCol] = 0;
 
-                 pCol++;
+                  if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
+                     fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
+                  else
+                     fundProductWeights[pRow][pCol] = 0;
+
+                  pCol++;
                }
                pRow++;
+         }
+
+         for (int w = 0; w < weights.length; w++ ){
+
+            for (int i = 0; i < tickers.length; i++)
+            {
+               tWeight[i][0] = weights[w][i];
             }
 
             prodMatrix = multiplyByMatrix(fundProductWeights,tWeight);
@@ -433,7 +438,7 @@ public class HolisticModelOptimizer
 
             for (int row = 0; row < prodMatrix.length; row++) {
                for (int col = 0; col < prodMatrix[0].length; col++)  {
-                  product = product + StrictMath.pow((targetOptProd[row][0]-prodMatrix[row][0]),2);
+                  product = product + StrictMath.pow((targetPrimeAssets[row][0]-prodMatrix[row][0]),2);
                }
             }
             double squaredErr = StrictMath.pow(product, 0.5);
