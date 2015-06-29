@@ -80,8 +80,8 @@ public class LinearOptimizer
       }
 
       HolisticModelOptimizer hOptimizer = HolisticModelOptimizer.getInstance();
-      //hOptimizer.loadFundDataFromDB(theme,tickerArray);
-      hOptimizer.loadRBSATickersfromDB(tickerArray);
+      hOptimizer.loadFundDataFromDB(theme,tickerArray);
+      hOptimizer.loadRBSATickersfromDB(theme, tickerArray);
       Map<String, String> allFundPrimeAssetMap;
       allFundPrimeAssetMap = hOptimizer.getAllPrimeAssetMap();
 
