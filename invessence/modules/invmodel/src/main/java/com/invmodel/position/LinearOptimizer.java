@@ -81,30 +81,30 @@ public class LinearOptimizer
          HolisticModelOptimizer hOptimizer = HolisticModelOptimizer.getInstance();
          hOptimizer.loadFundDataFromDB(theme, tickerArray);
          hOptimizer.loadRBSATickersfromDB(theme, tickerArray);
-      /*Map<String, String> allFundPrimeAssetMap;
-      allFundPrimeAssetMap = hOptimizer.getAllPrimeAssetMap();
+         /*Map<String, String> allFundPrimeAssetMap;
+         allFundPrimeAssetMap = hOptimizer.getAllPrimeAssetMap();
 
-      Map<String, HolisticData> holisticdataMap;
-      holisticdataMap = hOptimizer.getHolisticdataMap();
+         Map<String, HolisticData> holisticdataMap;
+         holisticdataMap = hOptimizer.getHolisticdataMap();
 
-      List<String> missingPrimeAssets = new ArrayList<String>();
-      List<String> includesPrimeAssets = new ArrayList<String>();
-      //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
-      int pCol; int pRow;
+         List<String> missingPrimeAssets = new ArrayList<String>();
+         List<String> includesPrimeAssets = new ArrayList<String>();
+         //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
+         int pCol; int pRow;
 
-      for (String pAssetClass : allFundPrimeAssetMap.keySet()) {
-         for (String fTicker: holisticdataMap.keySet()){
-            if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))   {
-               String pATicker = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getTicker();
-               if(!includesPrimeAssets.contains(pATicker))
-                  includesPrimeAssets.add(pATicker);
+         for (String pAssetClass : allFundPrimeAssetMap.keySet()) {
+            for (String fTicker: holisticdataMap.keySet()){
+               if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))   {
+                  String pATicker = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getTicker();
+                  if(!includesPrimeAssets.contains(pATicker))
+                     includesPrimeAssets.add(pATicker);
+               }
             }
          }
-      }
 
-      System.out.println("The arraylist contains the following elements: "
-                            + includesPrimeAssets);
-      */
+         System.out.println("The arraylist contains the following elements: "
+                               + includesPrimeAssets);
+         */
 
          Map<String, Double> primeWeightsMap = getMapOfPrimeWeights(pdata.getAdvisor(), pdata.getTheme(), pdata, aamc);
          double[][] primeTargetWeights = getPrimeAssetWeights(primeWeightsMap);
@@ -116,7 +116,7 @@ public class LinearOptimizer
          hoptdata.setPrimeAssetInfo(primeWeightsMap);
 
          //This data will be based on input by fund within an account
-      /*double[][] accountConstraints = new double[][] {
+         /*double[][] accountConstraints = new double[][] {
          {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
          {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
          {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
