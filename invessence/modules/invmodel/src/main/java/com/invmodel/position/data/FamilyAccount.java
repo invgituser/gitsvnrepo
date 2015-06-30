@@ -241,34 +241,31 @@ public class FamilyAccount
       try {
          int numofacct = accountdetail.size();
          int numTickers = tickerdetail.size();
+         int offset = 0;
          value = new double[numofacct][numTickers*numofacct];
 
-         for (int row = 0; row < accountdetail.size(); row++)
+         int i = 0;
+         for (String extacct : accountdetail.keySet())
          {
-            int i = 0;
-            for (String extacct : accountdetail.keySet())
+            int j = 0;
+            for (String ticker : tickerdetail.keySet())
             {
-                  int j = 0;
-                  for (String ticker : tickerdetail.keySet())
+               offset = i*numTickers;
+                  if (accountdetail.get(extacct).containsKey(ticker))
                   {
-                     if (row == i)
-                     {
-                        if (accountdetail.get(extacct).containsKey(ticker))
-                           value[row][row*numTickers + j] = (accountdetail.get(extacct).get(ticker).isManage()) ? 1 : 0;
-                        else
-                           value[row][row*numTickers + j] = 0;
-                     }
-                     else
-                     {
-                        value[row][row*numTickers + j] = 0;
-                     }
-                     j++;
+                     value[i][offset + j] = (accountdetail.get(extacct).get(ticker).isManage()) ? 1 : 0;
                   }
-               i++;
+                  else
+                  {
+                     value[i][offset + j] = 0;
+                  }
+               j++;
             }
+            i++;
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
       return value;
