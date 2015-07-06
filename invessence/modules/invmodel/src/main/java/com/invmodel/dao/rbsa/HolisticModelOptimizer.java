@@ -487,7 +487,7 @@ public class HolisticModelOptimizer
                   String pAsset =  pAsst.getPrimeAssetName();
 
                   if (fTicker.length() > 4) {  // Currently hardcoding it for Mutual Fund
-                     lowerBound[t] = 0.07;
+                     lowerBound[t] = 0.0;
                      upperBound[t] = 1;
                   }
                   else {
