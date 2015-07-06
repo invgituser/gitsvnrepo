@@ -117,20 +117,6 @@ public class FamilyAccount
                        Double gainloss,
                        boolean managed)
    {
-      PositionDetailData pdd = new PositionDetailData( external_acct,
-                                                       acctnum,
-                                                       ticker,
-                                                       name,
-                                                       index,
-                                                       assetclass,
-                                                       primeassetclass,
-                                                       shares,
-                                                       price,
-                                                       value,
-                                                       costbasisValue,
-                                                       pnl,
-                                                       gainloss,
-                                                       managed);
 
 
       if (tickerdetail == null)  // Key: Ticker, PositonDetail (Summed up)
@@ -146,17 +132,72 @@ public class FamilyAccount
          primeassetdetail = new LinkedHashMap<String, PositionDetailData>();
 
       // First add this trade to Account Mapping...
+      String acctTickerKey;
+      acctTickerKey = external_acct + "." + ticker;
       if (! accountdetail.containsKey(external_acct)) {
          Map<String, PositionDetailData> arrayposlist = new LinkedHashMap<String, PositionDetailData>();
+         PositionDetailData pdd = new PositionDetailData( external_acct,
+                                                          acctnum,
+                                                          ticker,
+                                                          name,
+                                                          index,
+                                                          assetclass,
+                                                          primeassetclass,
+                                                          shares,
+                                                          price,
+                                                          value,
+                                                          costbasisValue,
+                                                          pnl,
+                                                          gainloss,
+                                                          managed);
          arrayposlist.put(ticker, pdd);
          accountdetail.put(external_acct, arrayposlist);
       }
       else {
-         accountdetail.get(external_acct).put(ticker, pdd);
+         if (accountdetail.get(external_acct).containsKey(ticker)) {
+            PositionDetailData tickerPdd = accountdetail.get(external_acct).get(ticker);
+            tickerPdd.addDetailData(shares,
+                                    value,
+                                    costbasisValue,
+                                    pnl,
+                                    gainloss);
+            accountdetail.get(external_acct).put(ticker,tickerPdd);
+         }
+         else {
+            PositionDetailData pdd = new PositionDetailData( external_acct,
+                                                             acctnum,
+                                                             ticker,
+                                                             name,
+                                                             index,
+                                                             assetclass,
+                                                             primeassetclass,
+                                                             shares,
+                                                             price,
+                                                             value,
+                                                             costbasisValue,
+                                                             pnl,
+                                                             gainloss,
+                                                             managed);
+            accountdetail.get(external_acct).put(ticker, pdd);
+         }
       }
 
 
       if (! tickerdetail.containsKey(ticker)) {
+         PositionDetailData pdd = new PositionDetailData( external_acct,
+                                                          acctnum,
+                                                          ticker,
+                                                          name,
+                                                          index,
+                                                          assetclass,
+                                                          primeassetclass,
+                                                          shares,
+                                                          price,
+                                                          value,
+                                                          costbasisValue,
+                                                          pnl,
+                                                          gainloss,
+                                                          managed);
         tickerdetail.put(ticker,pdd);
       }
       else {
@@ -168,6 +209,20 @@ public class FamilyAccount
       }
 
       if (! assetdetail.containsKey(assetclass)) {
+         PositionDetailData pdd = new PositionDetailData( external_acct,
+                                                          acctnum,
+                                                          ticker,
+                                                          name,
+                                                          index,
+                                                          assetclass,
+                                                          primeassetclass,
+                                                          shares,
+                                                          price,
+                                                          value,
+                                                          costbasisValue,
+                                                          pnl,
+                                                          gainloss,
+                                                          managed);
          assetdetail.put(assetclass,pdd);
       }
       else {
@@ -179,6 +234,20 @@ public class FamilyAccount
       }
 
       if (! primeassetdetail.containsKey(primeassetclass)) {
+         PositionDetailData pdd = new PositionDetailData( external_acct,
+                                                          acctnum,
+                                                          ticker,
+                                                          name,
+                                                          index,
+                                                          assetclass,
+                                                          primeassetclass,
+                                                          shares,
+                                                          price,
+                                                          value,
+                                                          costbasisValue,
+                                                          pnl,
+                                                          gainloss,
+                                                          managed);
          primeassetdetail.put(primeassetclass,pdd);
       }
       else {
@@ -237,9 +306,20 @@ public class FamilyAccount
       return accountValue;
    }
 
-   public double[][] getManageArray() {
+   public double[][] getManageAccountsbyTicker() {
       double [][] value = null;
       try {
+
+         //This data will be based on input by fund within an account
+         /* Example: 4 accounts, 12 tickers: 1 = managed, 0 = non-managed.
+            In the example below, all four accounts can manage all 12 tickers.
+         double[][] accountConstraints = new double[][] {
+         {1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+         {0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
+         {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1}};
+         */
+
          int numofacct = accountdetail.size();
          int numTickers = tickerdetail.size();
          int offset = 0;
@@ -260,6 +340,41 @@ public class FamilyAccount
                   {
                      value[i][offset + j] = 0;
                   }
+               j++;
+            }
+            i++;
+         }
+      }
+      catch (Exception ex)
+      {
+
+      }
+      return value;
+   }
+
+   public double[][] getAccountTickerValues() {
+      double [][] value = null;
+      try {
+         /* Example: 4 accounts, 12 tickers:.
+            In this example, we are passing the values regardless of it is managed on not..
+         */
+
+         int numofacct = accountdetail.size();
+         int numTickers = tickerdetail.size();
+         int offset = 0;
+         value = new double[numofacct][numTickers*numofacct];
+
+         int i = 0;
+         for (String extacct : accountdetail.keySet())
+         {
+            int j = 0;
+            for (String ticker : tickerdetail.keySet())
+            {
+               offset = i*numTickers;
+               if (accountdetail.get(extacct).containsKey(ticker))
+               {
+                  value[i][offset + j] = accountdetail.get(extacct).get(ticker).getValue();
+               }
                j++;
             }
             i++;
