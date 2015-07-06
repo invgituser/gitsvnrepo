@@ -28,7 +28,7 @@ public class BrokerFilesProcessor {
             List<FTPFile> filterDirectories = processingConfig.filterDirectories(remoteFiles.getRemoteDirs());
 
             for (FTPFile ftpFile : filesToRetrieve) {
-                // fileProcessor.process(ftpFile, brokerClient.getFtpClient());
+                fileProcessor.process(ftpFile, brokerClient.getFtpClient());
             }
 
             fileProcessor.retrieveReports(filterDirectories, brokerClient.getFtpClient());

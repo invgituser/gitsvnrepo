@@ -165,7 +165,8 @@ public class FileProcessor {
     }
 
     public void postProcess() {
-        updateBrokerDate();
+       updateBrokerDate();
+       doeodprocess();
     }
 
     private void updateBrokerDate() {
@@ -182,6 +183,14 @@ public class FileProcessor {
         }
     }
 
+   private void doeodprocess() {
+         try {
+            new SimpleJdbcCall(dataSource).withProcedureName("sp_eod_process").execute(null);
+            logger.info("Do final eod process ");
+         } catch (Exception e) {
+            logger.error("Unable to complete the EOD process", e);
+         }
+   }
     private void invokeStoredProcToUploadDataFromTmpTable(String storedProcName) {
         try {
             new SimpleJdbcCall(new JdbcTemplate(dataSource)).withProcedureName(storedProcName).execute(
