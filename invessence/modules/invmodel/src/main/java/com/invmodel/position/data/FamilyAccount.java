@@ -155,6 +155,7 @@ public class FamilyAccount
          accountdetail.get(external_acct).put(ticker, pdd);
       }
 
+
       if (! tickerdetail.containsKey(ticker)) {
         tickerdetail.put(ticker,pdd);
       }
