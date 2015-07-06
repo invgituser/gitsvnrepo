@@ -55,24 +55,25 @@ public class AllocationOptimizer
       int j = 0;
 
       //We will build the model row by row
-      //So we start with creating a model with 0 rows and 6 columns
+      //So we start with creating a model with 0 rows and n variable columns
       //Number of variables = (number of accounts * number of funds)
 
       int numF = optFundWeight.length;
       int numA = acctW.length;
 
-      Ncol = numA*numF;
+      Ncol = numA * numF;
 
        /* create space large enough for one row */
       int[] colno = new int[Ncol];
-      double[] row = new double[Ncol];
+      //double[] row = new double[Ncol];
 
       /* there are account*Funds number of variables in the model */
       lp = LpSolve.makeLp(0, Ncol);
-      if(lp.getLp() == 0)
+      if (lp.getLp() == 0)
          ret = 1; /* couldn't construct a new model... */
 
-      if(ret == 0) {
+      if (ret == 0)
+      {
          //The solver is solving n varibales to find an optimal allocation of funds across
          //number of accounts. Number of variables which must be solved equal
          //funds*accounts. If there are 4 accounts and 5 funds then number of variables
@@ -82,28 +83,34 @@ public class AllocationOptimizer
          // Default is c1, c2, c3...each fund has a weight in the account
          //Naming w1A1 is fund1's weight in Account 1...we are solving for all
          //the weights in various accounts
-         int col =0;
-         for (int act = 1; act<=numA; act++) {
-            for(int fund = 1; fund<= numF ; fund++){
+         int col = 0;
+         for (int act = 1; act <= numA; act++)
+         {
+            for (int fund = 1; fund <= numF; fund++)
+            {
                col++;
-               lp.setColName(col, "W"+fund+"A"+act);
+               lp.setColName(col, "W" + fund + "A" + act);
             }
          }
 
          //makes building the model faster if it is done rows by row
          lp.setAddRowmode(true);
 
+         double[] row = new double[Ncol];
+
          //Add first constraint, sum of all the variables must be less than equal to 1
          //w1A1+w1A2+w1A3+w2A1+w2A2+w2A3...WiAj <=1
-         for (j = 0; j< Ncol; j++){
-            colno[j] = j+1; /* first column */
+         for (j = 0; j < Ncol; j++)
+         {
+            colno[j] = j + 1; /* first column */
             row[j] = 1.0;
          }
          //add the row constarint to the lpsolve
          lp.addConstraintex(j, row, colno, LpSolve.LE, 1.0);
       }
 
-      if(ret == 0) {
+      if (ret == 0)
+      {
          //Set each variable constraints
          //Number of variables are equal to funds*accounts
          // WiAj >= 0.0;
@@ -112,25 +119,48 @@ public class AllocationOptimizer
          // example 1 0 0 0 0 0;
          // example 0 1 0 0 0 0;
 
-         int c = 0;
-         for (int r = 0; r< numF*numA; r++){
-            for(c = 0; c< Ncol; c++){
 
-               colno[c] = c+1; /* first column */
-               if (c == r) {
+         int c = 0;
+         int offset = 0;
+
+         for (int a = 0; a < numA; a++)
+         {
+            for (int f = 0; f < numF; ++f)
+            {
+               double[] row = new double[Ncol];
+               offset = a * numF;
+               row[offset + f] = accountConstraints[a][offset + f];
+               // add the row to lpsolve
+               lp.addConstraintex(c, row, colno, LpSolve.GE, 0.0);
+
+            }
+
+         }
+
+         /*double[] row = new double[Ncol];
+         for (int r = 0; r < numF * numA; r++)
+         {
+            for (c = 0; c < Ncol; c++)
+            {
+
+               colno[c] = c + 1; *//* first column *//*
+               if (c == r)
+               {
+
                   row[c] = 1.0;
                }
                else
                   row[c] = 0.0;
             }
-            /* add the row to lpsolve */
+            *//* add the row to lpsolve *//*
             lp.addConstraintex(c, row, colno, LpSolve.GE, 0.0);
          }
-
+*/
          /* add the row to lpsolve */
       }
 
-      if(ret == 0) {
+      if (ret == 0)
+      {
          //Set up account level constraints
          //Number of constraints = number of accounts
          // Allocate only value available in the account to various funds available
@@ -143,6 +173,18 @@ public class AllocationOptimizer
          //row array is what we need to establish to include funds in an account
          //by setting value to 1 we include the fund otherwise we skip the fund.
          //accW array is the weight of each account, which is simply $account/$total in all accounts
+
+         //calculate account weight
+         double totalAmount = 0.0;
+         for (int w = 0; w < acctW.length; w++){
+            totalAmount = totalAmount + acctW[w];
+         }
+
+         double [] accountWeight = new double [acctW.length];
+
+         for (int w = 0; w < acctW.length; w++){
+            accountWeight[w]= acctW[w]/totalAmount;
+         }
 
          int c = 0;
 
@@ -168,7 +210,7 @@ public class AllocationOptimizer
             }
             /* add the row to lpsolve */
             //May want some accounts to be fixed
-            lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.LE, acctW[r]);
+            lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.LE, accountWeight[r]);
             //lp.addConstraintex(c, row, colno, LpSolve.EQ, acctW[r]);
          }
       }
@@ -182,7 +224,7 @@ public class AllocationOptimizer
          //construct second row (0+w2A1+0+w2A2+0+w2A3 <=0.6)
 
          int c = 0;
-
+         double[] row = new double[Ncol];
          for (int f = 1; f<=numF; f++) {
             //to comapre with fund weight variable
             String varfundStr = "W" + f;
@@ -209,7 +251,7 @@ public class AllocationOptimizer
             }
             /* add the row to lpsolve */
             //May want some funds weights tobe fixed
-            lp.addConstraintex(c, row, colno, LpSolve.EQ, optFundWeight[f-1]);
+            lp.addConstraintex(c, row, colno, LpSolve.LE, optFundWeight[f-1]);
          }
       }
 
@@ -219,6 +261,8 @@ public class AllocationOptimizer
 
          /* set the objective function W1A1 + W1A2 +...+ WiAj */
          //row arry will be filled with 1. length is number of variables.
+         double[] row = new double[Ncol];
+
          j = 0;
          for (j = 0; j< Ncol; j++){
             colno[j] = j+1; /* first column */
@@ -248,7 +292,9 @@ public class AllocationOptimizer
             ret = 5;
       }
 
+      double[] row = new double[Ncol];
       if(ret == 0) {
+
          /* a solution is calculated, now lets get some results */
 
          /* objective value */
