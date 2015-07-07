@@ -22,6 +22,7 @@ public class HolisticOptimizedData
    double[][] weights;
    double[][] coVarOfFunds;
    double[] minSortedError;
+   int [] fundOffset;
 
    public double[] getMinSortedError()
    {
@@ -33,9 +34,23 @@ public class HolisticOptimizedData
       this.minSortedError = minSortedError;
    }
 
+   public int getNextFundOffset(int i)
+   {
+      return fundOffset[i];
+   }
+
+   public void setFundOffset(int[] fundOffset)
+   {
+      this.fundOffset = fundOffset;
+   }
+
    public double[][] getWeights()
    {
       return weights;
+   }
+   public double[] getNextWeights(int i)
+   {
+      return weights[i];
    }
 
    public void setWeights(double[][] weights)

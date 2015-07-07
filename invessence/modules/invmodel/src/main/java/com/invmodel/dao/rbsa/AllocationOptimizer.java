@@ -37,7 +37,9 @@ public class AllocationOptimizer
       super();
    }
 
-   public double[] AllocateToAccounts(double[] optFundWeight, double[] acctW, double[][] accountConstraints) throws LpSolveException
+   public double[] AllocateToAccounts(double[] optFundWeight, double[] acctW, double[][] accountConstraints,
+                                      double[][] fundConstraints, double[] fundWeights,
+                                      int offset) throws LpSolveException
    {
       //This is a solver which figures out how to allocate funds to various accounts.
       //Solver requires number of inequalities and constraints to come up with an optimal solution
@@ -121,15 +123,15 @@ public class AllocationOptimizer
 
 
          int c = 0;
-         int offset = 0;
+         int offsetLocal = 0;
 
          for (int a = 0; a < numA; a++)
          {
             for (int f = 0; f < numF; ++f)
             {
                double[] row = new double[Ncol];
-               offset = a * numF;
-               row[offset + f] = accountConstraints[a][offset + f];
+               offsetLocal = a * numF;
+               row[offsetLocal + f] = accountConstraints[a][offsetLocal + f];
                // add the row to lpsolve
                lp.addConstraintex(c, row, colno, LpSolve.GE, 0.0);
 
@@ -210,7 +212,11 @@ public class AllocationOptimizer
             }
             /* add the row to lpsolve */
             //May want some accounts to be fixed
-            lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.LE, accountWeight[r]);
+
+            if(offset > 10)
+               lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.LE, accountWeight[r]);
+            else
+               lp.addConstraintex(c, accountConstraints[r], colno, LpSolve.EQ, accountWeight[r]);
             //lp.addConstraintex(c, row, colno, LpSolve.EQ, acctW[r]);
          }
       }
@@ -224,34 +230,40 @@ public class AllocationOptimizer
          //construct second row (0+w2A1+0+w2A2+0+w2A3 <=0.6)
 
          int c = 0;
-         double[] row = new double[Ncol];
-         for (int f = 1; f<=numF; f++) {
+         //double[] row = new double[Ncol];
+         for (int f = 0; f<numF; f++) {
             //to comapre with fund weight variable
-            String varfundStr = "W" + f;
+            //String varfundStr = "W" + f;
 
             c =0;
             //Weight variable for funds are by accounts
             //w1A1+w2A1+w3A1...w1A3+w2A3+w3A3...
             for (int r = 0; r< numA; r++){
-               int column = r+1;
+               //int column = r+1;
 
                for(int n = 0; n< numF; n++){
-                  int k = n+1;
-                  String colName = "W" + k;
+                  //int k = n+1;
+                  //String colName = "W" + k;
                   colno[c] = c+1; /* first column */
                   // if (lp.getColName(c + 1).equals(colName))
                   //   row[c] = 1.0;
                   //if (c>= r*numA && c < ((r+1)*numA)) {
-                  if(colName.equals(varfundStr) )
-                     row[c] = 1.0;
-                  else
-                     row[c] = 0.0;
+                  //if(colName.equals(varfundStr) )
+                  //   row[c] = 1.0;
+                  //else
+                  //   row[c] = 0.0;
                   c++;
                }
             }
             /* add the row to lpsolve */
             //May want some funds weights tobe fixed
-            lp.addConstraintex(c, row, colno, LpSolve.LE, optFundWeight[f-1]);
+            //lp.addConstraintex(c, row, colno, LpSolve.LE, optFundWeight[f-1]);
+
+
+            if(offset > 10)
+               lp.addConstraintex(c, fundConstraints[f], colno, LpSolve.LE, optFundWeight[f]);
+            else
+               lp.addConstraintex(c, fundConstraints[f], colno, LpSolve.EQ, optFundWeight[f]);
          }
       }
 
@@ -312,6 +324,12 @@ public class AllocationOptimizer
       if(lp.getLp() != 0)
          lp.deleteLp();
 
-      return(row);
+      if (ret == 0)
+      {
+         return (row);
+      }
+      else
+         return null;
+
    }
 }

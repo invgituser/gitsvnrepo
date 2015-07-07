@@ -23,7 +23,7 @@ public class lpTest
 
    public static void main(String[] args) {
 
-      try {
+      //try {
 
          HolisticModelOptimizer hoptimizer = HolisticModelOptimizer.getInstance();
 
@@ -141,12 +141,12 @@ public class lpTest
          AllocationOptimizer allocOpt = AllocationOptimizer.getInstance();
 
 
-         double[] fundWeightsPerAccounts = allocOpt.AllocateToAccounts(optFundWeight, acctW, accountConstraints);
+         //double[] fundWeightsPerAccounts = allocOpt.AllocateToAccounts(optFundWeight, acctW, accountConstraints);
       }
-      catch (LpSolveException e) {
-         e.printStackTrace();
-      }
-   }
+      //catch (LpSolveException e) {
+      //   e.printStackTrace();
+      //}
+   //}
 
    public static String[] concatStringArrays(String[] string1, String[] string2){
       String[] resultString = new String[string1.length + string2.length];

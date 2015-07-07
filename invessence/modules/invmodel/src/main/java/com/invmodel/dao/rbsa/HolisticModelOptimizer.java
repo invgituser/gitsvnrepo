@@ -406,23 +406,23 @@ public class HolisticModelOptimizer
          double [][] fundProductWeights = new double[allPrimeAssetMap.size()][holisticdataMap.size()];
          int pRow = 0;
          int pCol = 0;
-         //Collect Prime Asset Weight per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
 
-
-
+         //Collect Prime Asset Weights per fund, and create a matrix of [NUmber of P Assets]x [ Number of Funds]
          for (String pAssetClass : allPrimeAssetMap.keySet()) {
 
-               pCol = 0;
-               for (String fTicker: holisticdataMap.keySet()){
+            pCol = 0;
 
-                  if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
-                     fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
-                  else
-                     fundProductWeights[pRow][pCol] = 0;
+            //for each Prime Asset, go through all the mutual funds and create weights
+            for (String fTicker : tickers){
 
-                  pCol++;
-               }
-               pRow++;
+               if (holisticdataMap.get(fTicker).getPrimeassets().containsKey(pAssetClass))
+                  fundProductWeights[pRow][pCol] = holisticdataMap.get(fTicker).getPrimeassets().get(pAssetClass).getWeight();
+               else
+                  fundProductWeights[pRow][pCol] = 0;
+
+               pCol++;
+            }
+            pRow++;
          }
 
          for (int w = 0; w < weights.length; w++ ){

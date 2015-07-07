@@ -352,7 +352,7 @@ public class FamilyAccount
       return value;
    }
 
-   public double[][] getAccountTickerValues() {
+      public double[][] getAccountTickerValues() {
       double [][] value = null;
       try {
          /* Example: 4 accounts, 12 tickers:.
@@ -362,18 +362,88 @@ public class FamilyAccount
          int numofacct = accountdetail.size();
          int numTickers = tickerdetail.size();
          int offset = 0;
-         value = new double[numofacct][numTickers*numofacct];
+         value = new double[numTickers][numTickers*numofacct];
 
          int i = 0;
-         for (String extacct : accountdetail.keySet())
+         for (String ticker : tickerdetail.keySet())
          {
             int j = 0;
-            for (String ticker : tickerdetail.keySet())
+            for (String extacct : accountdetail.keySet())
             {
-               offset = i*numTickers;
+               offset = j*numTickers;
                if (accountdetail.get(extacct).containsKey(ticker))
                {
-                  value[i][offset + j] = accountdetail.get(extacct).get(ticker).getValue();
+                  value[i][offset + i] = accountdetail.get(extacct).get(ticker).getValue();
+               }
+               j++;
+            }
+            i++;
+         }
+      }
+      catch (Exception ex)
+      {
+
+      }
+      return value;
+   }
+
+   public double[] getTickerValues() {
+      double [] value = null;
+      try {
+         /* Example: 4 accounts, 12 tickers:.
+            In this example, we are passing the values regardless of it is managed on not..
+         */
+
+         int numofacct = accountdetail.size();
+         int numTickers = tickerdetail.size();
+         int offset = 0;
+         value = new double[numTickers];
+
+         int i = 0;
+         for (String ticker : getTickerArray())
+         {
+
+            for (String extacct : accountdetail.keySet())
+            {
+
+               if (accountdetail.get(extacct).containsKey(ticker))
+               {
+                  value[i] = value[i] + accountdetail.get(extacct).get(ticker).getValue();
+               }
+
+            }
+            i++;
+         }
+      }
+      catch (Exception ex)
+      {
+
+      }
+      return value;
+   }
+
+   public double[][] getManageFunds() {
+      double [][] value = null;
+      try {
+         /* Example: 4 accounts, 12 tickers:.
+            In this example, we are passing the values regardless of it is managed on not..
+         */
+
+         int numofacct = accountdetail.size();
+         int numTickers = tickerdetail.size();
+         int offset = 0;
+         value = new double[numTickers][numTickers*numofacct];
+
+         int i = 0;
+         for (String ticker : tickerdetail.keySet())
+         {
+            int j = 0;
+            for (String extacct : accountdetail.keySet())
+            {
+               offset = j*numTickers;
+               if (accountdetail.get(extacct).containsKey(ticker))
+               {
+                  value[i][offset + i] = (accountdetail.get(extacct).get(ticker).isManage() ? 1.0:0.0);
                }
                j++;
             }

@@ -1052,6 +1052,7 @@ public class PortfolioOptimizer
       hodata.setCoVarOfFunds(coVarFunds);
       hodata.setWeights(weights);
       hodata.setMinSortedError(errorDiff);
+      hodata.setFundOffset(fundOffset);
 
       return hodata;
    }

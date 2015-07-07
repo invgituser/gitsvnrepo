@@ -124,13 +124,25 @@ public class LinearOptimizer
          */
 
          double[][] accountConstraints = familyData.get(datafamilyacctnum).getManageAccountsbyTicker();
-         double[][] accountTickerValues = familyData.get(datafamilyacctnum).getAccountTickerValues();
+         double[][] fundConstraints = familyData.get(datafamilyacctnum).getManageFunds();
+         double[] fundWeight =   familyData.get(datafamilyacctnum).getTickerValues();
+         for (int i = 0; i< tickerArray.length; i++){
+            fundWeight[i] = fundWeight[i]/familyData.get(datafamilyacctnum).getTotalValue();
+         }
 
          AllocationOptimizer allocOpt = AllocationOptimizer.getInstance();
          try
-         {
-            double[] fundWeightsPerAccounts = allocOpt.AllocateToAccounts(hoptdata.getOptimizedWeights(), accountValue, accountConstraints);
-         }
+         {  double[] fundWeightsPerAccounts = null;
+            int offset = 0;
+               while (fundWeightsPerAccounts == null)
+               {
+                  double[] optFundWeigh = hoptdata.getNextWeights(hoptdata.getNextFundOffset(offset));
+                  fundWeightsPerAccounts = allocOpt.AllocateToAccounts(optFundWeigh, accountValue, accountConstraints, fundConstraints, fundWeight, offset);
+                  offset++;
+               }
+            offset = offset;
+            }
+
          catch (LpSolveException e)
          {
             e.printStackTrace();
