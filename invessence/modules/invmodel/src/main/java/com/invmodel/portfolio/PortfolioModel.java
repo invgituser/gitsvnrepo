@@ -559,7 +559,7 @@ public class PortfolioModel
             }
          }
 
-         HolisticOptimizedData hoptdata = portfolioOptimizer.getHolisticWeight(theme, tickers, tmpPrimeWeights);
+         HolisticOptimizedData hoptdata = portfolioOptimizer.getHolisticWeight(theme, tickers, tmpPrimeWeights, primeWeights);
          hoptdata.setPrimeAssetInfo(primeWeights);
 
          // Now that we have optomized Portfolio, let's do the allocation and rollup to appropriate AssetClass and PrimeAssetClass

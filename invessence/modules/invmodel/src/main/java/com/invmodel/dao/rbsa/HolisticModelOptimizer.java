@@ -29,7 +29,7 @@ public class HolisticModelOptimizer
    private final Lock write = readWriteLock.writeLock();
 
    Map<String, HolisticData> holisticdataMap;
-   Map<String, String> allPrimeAssetMap;
+   Map<String, PrimeAssetClassData> allPrimeAssetMap;
 
    private AssetParameters assetParameters;
 
@@ -47,11 +47,11 @@ public class HolisticModelOptimizer
    {
       super();
       assetParameters = new AssetParameters();
-      allPrimeAssetMap = new LinkedHashMap<String, String>();
+      allPrimeAssetMap = new LinkedHashMap<String, PrimeAssetClassData>();
       holisticdataMap = new HashMap<String, HolisticData>();
    }
 
-   public Map<String, String> getAllPrimeAssetMap()
+   public Map<String, PrimeAssetClassData> getAllPrimeAssetMap()
    {
       return allPrimeAssetMap;
    }
@@ -80,6 +80,12 @@ public class HolisticModelOptimizer
       return holisticdataMap;
    }
 
+   public void loadAllPrimeAssetMap(ArrayList<PrimeAssetClassData> plist) {
+        allPrimeAssetMap.clear();
+        for (PrimeAssetClassData pacd : plist) {
+           allPrimeAssetMap.put(pacd.getPrimeAssetName(), pacd);
+        }
+   }
 
    private void loadRBSAfromDB(String theme, String[] tickers)
    {
@@ -114,6 +120,7 @@ public class HolisticModelOptimizer
 
          theme = theme.trim();
 
+         // NOTE: The order of security is based on the PrimeAsset..  It is important that we preserve this!!!!
          String sqlquery =  "SELECT ticker," +
             "indexfund, " +
             "theme, " +
@@ -150,9 +157,11 @@ public class HolisticModelOptimizer
 
 
             //if (! primeAssetClass.toUpperCase().equals("CASH")) {
+/*
                if(!allPrimeAssetMap.containsKey(primeAssetClass)){
-                  allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
+                  allPrimeAssetMap.put(primeAssetClass,pacd);
                }
+*/
 
                if (! holisticdataMap.containsKey(ticker))
                {
@@ -233,10 +242,15 @@ public class HolisticModelOptimizer
                                                                99998,
                                                                resultSet.getDouble("weight"));
 
+/*
             //if (! primeAssetClass.toUpperCase().equals("CASH")) {
                if(!allPrimeAssetMap.containsKey(primeAssetClass)){
-                  allPrimeAssetMap.put(primeAssetClass,primeAssetClass);
+                  allPrimeAssetMap.put(primeAssetClass,pacd);
                }
+               else {
+                  pacd = allPrimeAssetMap.get(primeAssetClass);
+               }
+*/
 
                if (! holisticdataMap.containsKey(ticker))
                {
@@ -395,7 +409,8 @@ public class HolisticModelOptimizer
       return null;
    }
 
-   public double [] getFundErrorVectorArray(String [] tickers,double[][] targetPrimeAssets, double[][] weights)
+   public double [] getFundErrorVectorArray(String [] tickers,double[][] targetPrimeAssets,
+                                            double[][] weights, Map<String, Double> primeAssetMap)
    {
       try {
 

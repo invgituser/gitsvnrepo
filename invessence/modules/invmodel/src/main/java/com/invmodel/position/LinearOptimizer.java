@@ -112,7 +112,7 @@ public class LinearOptimizer
          //Compare number of tickers in theme prime assets vs. prime assets in the funds
 
          PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
-         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, primeTargetWeights);
+         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickerArray, primeTargetWeights, primeWeightsMap);
          hoptdata.setPrimeAssetInfo(primeWeightsMap);
 
          //This data will be based on input by fund within an account
@@ -180,15 +180,15 @@ public class LinearOptimizer
       {
          addTicker = sd.getTicker();
 
-         if (!addTicker.toUpperCase().equals("CASH"))
-         {
+         //if (!addTicker.toUpperCase().equals("CASH"))
+         // {
             if (!tickerMap.containsKey(addTicker))
             {
                tickerMap.put(addTicker, sizeofTickerList);
                tickerList.add(addTicker);
                sizeofTickerList++;
             }
-         }
+        //  }
       }
 
       PortfolioModel portfolioModel = new PortfolioModel();
@@ -203,14 +203,14 @@ public class LinearOptimizer
          asset.setActualweight(0.0);
          asset.setValue(0.0);
 
-         if (!asset.getAsset().toUpperCase().equals("CA"))
-         {
+         // if (!asset.getAsset().toUpperCase().equals("CASH"))
+         // {
             for (PrimeAssetClassData pacd : assetdata.getOrderedPrimeAssetData())
             {
                primeWeights.put(pacd.getTicker(), (asset.getUserweight() * assetdata.getPrimeAssetweights()[offset][tickerNum++]));
             }
 
-         }
+         // }
       }
 
       return primeWeights;

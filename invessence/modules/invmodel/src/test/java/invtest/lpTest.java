@@ -49,7 +49,7 @@ public class lpTest
 
          PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
          poptimizer.refreshDataFromDB();
-         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickers, targetPAssetAllocation);
+         HolisticOptimizedData hoptdata = poptimizer.getHolisticWeight(theme, tickers, targetPAssetAllocation, null);
 
          /*//To use these returns, call getDailyReturns with the same tickers;
          HistoricalDailyReturns historicaldailyreturns;

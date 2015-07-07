@@ -991,7 +991,8 @@ public class PortfolioOptimizer
       return coVarMatrix;
    }
 
-   public HolisticOptimizedData getHolisticWeight(String theme, String tickers[], double[][] targetPAssetAllocation){
+   public HolisticOptimizedData getHolisticWeight(String theme, String tickers[],
+                                                  double[][] targetPAssetAllocation, Map<String, Double> primeAssetMap){
 
          /*ArrayList <String> tickers = new ArrayList<String>();
          int j = 0;
@@ -1011,6 +1012,7 @@ public class PortfolioOptimizer
       //To use these returns, call getDailyReturns with the same tickers;
       // optimizer.loadFundDataFromDB(tickers);
       HolisticOptimizedData hodata = new HolisticOptimizedData();
+      hoptimizer.loadAllPrimeAssetMap(getPrimeAssetDataList(theme));
       hoptimizer.loadFundDataFromDB(theme, tickers);
       CapitalMarket instanceOfCapitalMarket = new CapitalMarket();
       double[][] mrData = historicaldailyreturns.getDailyReturnsArray(tickers);
@@ -1020,7 +1022,7 @@ public class PortfolioOptimizer
       double[] portReturns = instanceOfCapitalMarket.getEfficientFrontierExpectedReturns();
 
       //Compute minimum error vector by comparing to target and find the best weight fit
-      double[] errorDiff = hoptimizer.getFundErrorVectorArray(tickers, targetPAssetAllocation, weights);
+      double[] errorDiff = hoptimizer.getFundErrorVectorArray(tickers, targetPAssetAllocation, weights, primeAssetMap);
 
       MergeSort mms = MergeSort.getInstance();
       int[] fundOffset = new int[errorDiff.length];
