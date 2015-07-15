@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.dao.common.*;
 import com.invessence.dao.consumer.ConsumerSaveDataDAO;
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import com.invessence.data.common.*;
 import com.invessence.io.TradeWriter;
 import com.invessence.util.*;
@@ -377,7 +377,7 @@ public class TradeBean extends TradeClientData implements Serializable
                data = getSelectedClientList().get(loop);
                if (data != null)
                {
-                  this.getInstance().copyData((ManageGoals) data);
+                  this.getInstance().copyData((CustomerData) data);
                   this.getInstance().setNumOfAllocation(1);
                   this.getInstance().setNumOfPortfolio(1);
                   this.getInstance().buildAssetClass();

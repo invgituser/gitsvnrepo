@@ -193,7 +193,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
       }
       try {
          UserInfoData uid = (UserInfoData)  getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-         setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
+         setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
          Long logonid = (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM);
          // due to reset call, make sure to reset the logonid.
          setLogonid(logonid);
@@ -468,7 +468,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
 
       UserInfoData uid = webutil.getUserInfoData();
       if (uid != null) {
-         setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
+         setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
          setLogonid(uid.getLogonID());
       }
 

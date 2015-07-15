@@ -5,8 +5,8 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.data.common.ManageGoals;
-import com.invessence.data.consumer.ClientData;
+import com.invessence.data.common.CustomerData;
+import com.invessence.data.consumer.CTO.ClientData;
 import com.invmodel.asset.data.AssetClass;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.*;
@@ -184,7 +184,7 @@ public class ConsumerSaveSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map saveProfileData(ManageGoals data)
+   public Map saveProfileData(CustomerData data)
    {
 
       String addmodflag = "";
@@ -242,7 +242,7 @@ public class ConsumerSaveSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void saveFinancials(ManageGoals data)
+   public void saveFinancials(CustomerData data)
    {
 
       String addmodflag;
@@ -279,7 +279,7 @@ public class ConsumerSaveSP extends StoredProcedure
 
    }
 
-   public void saveRiskProfile(ManageGoals data)
+   public void saveRiskProfile(CustomerData data)
    {
 
       String addmodflag;
@@ -320,7 +320,7 @@ public class ConsumerSaveSP extends StoredProcedure
       return ((riskValue == null) ? 0:  riskValue);
    }
 
-   public void deleteAllocation(ManageGoals data)
+   public void deleteAllocation(CustomerData data)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", data.getAcctnum());
@@ -330,7 +330,7 @@ public class ConsumerSaveSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void saveAllocation(ManageGoals data)
+   public void saveAllocation(CustomerData data)
    {
 
       String addmodflag;
@@ -363,7 +363,7 @@ public class ConsumerSaveSP extends StoredProcedure
       }
    }
 
-   public void deletePortfolio(ManageGoals data)
+   public void deletePortfolio(CustomerData data)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", data.getAcctnum());
@@ -371,7 +371,7 @@ public class ConsumerSaveSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void savePortfolio(ManageGoals data)
+   public void savePortfolio(CustomerData data)
    {
 
       String addmodflag = "A";

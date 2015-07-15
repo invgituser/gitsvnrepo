@@ -181,7 +181,6 @@ public class UserBean extends UserData
          cookieInfo.put("img", img);
          //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
          setIp(myIP);
-         setCookieID(img);
          setResetID(myResetID);
          setLogonstatus("T");
          setSecCode(tmpCode);
@@ -193,33 +192,41 @@ public class UserBean extends UserData
          // Save data to database....
          long loginID = userInfoDAO.addUserInfo(getInstance());
 
-         // Now send email support.
-         data.setSource("User");  // This is set to User to it insert into appropriate table.
-         data.setSender(Const.MAIL_SENDER);
-         data.setReceiver(getEmailID());
-         data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
-         String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
-         String name = getFirstName() + " " + getLastName();
+         if (loginID < 0L) {
+            String msg="This userid is already registered.  Either reset password, via FORGOT Password,or try another ID";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+            return "failed";
+         }
+         else {
+            // Now send email support.
+            data.setSource("User");  // This is set to User to it insert into appropriate table.
+            data.setSender(Const.MAIL_SENDER);
+            data.setReceiver(getEmailID());
+            data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
+            String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
+            String name = getFirstName() + " " + getLastName();
 
-         // System.out.println("MIME Type :" + getEmailmsgtype());
-         if (getEmailmsgtype() == null || getEmailmsgtype().isEmpty())
-            data.setMimeType("HTML");
-         else
-            data.setMimeType(getEmailmsgtype());
+            // System.out.println("MIME Type :" + getEmailmsgtype());
+            if (getEmailmsgtype() == null || getEmailmsgtype().isEmpty())
+               data.setMimeType("HTML");
+            else
+               data.setMimeType(getEmailmsgtype());
 
-         String msg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
-         data.setMsg(msg);
+            String msg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
+            data.setMsg(msg);
 
-         messageText.writeMessage("signup", data);
+            messageText.writeMessage("signup", data);
 
-         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
-         FacesContext.getCurrentInstance().getExternalContext().redirect("/signupApproval.xhtml");
-         return "success";
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/signupApproval.xhtml");
+            return "success";
+         }
 
       }
       catch (Exception ex)
       {
-         String stackTrace = ex.getMessage();
+         String username = getUserID();
+         String stackTrace = "User: " + username + " \n" + ex.getMessage();
          data.setMsg(messageText.buildInternalMessage("signup.failure", new Object[]{stackTrace}));
          messageText.writeMessage("Error", data);
          return "failed";
@@ -256,7 +263,6 @@ public class UserBean extends UserData
          cookieInfo.put("img", img);
          //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
          setIp(myIP);
-         setCookieID(img);
          setResetID(myResetID);
          setLogonstatus("T");
          setSecCode(tmpCode);

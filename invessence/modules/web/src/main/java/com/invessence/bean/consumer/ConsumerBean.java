@@ -12,7 +12,7 @@ import com.invessence.constant.Const;
 import com.invessence.converter.*;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.*;
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import com.invessence.util.*;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
@@ -27,7 +27,7 @@ import org.primefaces.event.*;
  */
 @ManagedBean(name = "cBean")
 @SessionScoped
-public class ConsumerBean extends ManageGoals implements Serializable
+public class ConsumerBean extends CustomerData implements Serializable
 {
 
    private static final long serialVersionUID = 1000L;
@@ -220,7 +220,7 @@ public class ConsumerBean extends ManageGoals implements Serializable
 
    public String resetConsumerBean()
    {
-      resetManagedGoalData();
+      resetCustomerData();
       setTabenable(true);
       setCurrentTab("tab1");
       setLogonid(getWebutil().getLogonid());
@@ -231,15 +231,15 @@ public class ConsumerBean extends ManageGoals implements Serializable
    {
       try
       {
-         resetManagedGoalData();
+         resetCustomerData();
          if (acctnum != null)
          {
             setLogonid(logonid);
             setAcctnum(acctnum);
-            listDAO.getProfileData((ManageGoals) this.getInstance());
+            listDAO.getProfileData((CustomerData) this.getInstance());
 
 /*
-            ManageGoals newgoals = commonDao.getSingleAccounts(acctnum);
+            CustomerData newgoals = commonDao.getSingleAccounts(acctnum);
             if (newgoals != null) {
                copyData(newgoals);
             }

@@ -4,7 +4,8 @@ package com.invessence.dao.common;
 import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
-import com.invessence.data.common.ManageGoals;
+
+import com.invessence.data.common.CustomerData;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
@@ -95,7 +96,7 @@ public class TradeSP extends StoredProcedure
 
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void deleteAllocation(ManageGoals data)
+   public void deleteAllocation(CustomerData data)
    {
       Map inputAssetMap = new HashMap();
       inputAssetMap.put("p_acctnum", data.getAcctnum());
@@ -105,7 +106,7 @@ public class TradeSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void saveAllocation(ManageGoals data)
+   public void saveAllocation(CustomerData data)
    {
       com.invmodel.asset.data.AssetClass aac[] = data.getAssetData();
       int rowSize = aac[0].getOrderedAsset().size();
@@ -127,7 +128,7 @@ public class TradeSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void deletePortfolio(ManageGoals data)
+   public void deletePortfolio(CustomerData data)
    {
       Map inputAssetMap = new HashMap();
       inputAssetMap.put("p_acctnum", data.getAcctnum());
@@ -135,7 +136,7 @@ public class TradeSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public void savePortfolio(ManageGoals data)
+   public void savePortfolio(CustomerData data)
    {
 
       Portfolio pfclass[] = data.getPortfolioData();

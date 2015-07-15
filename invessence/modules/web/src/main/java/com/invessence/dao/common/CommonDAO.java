@@ -15,10 +15,10 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public ArrayList<ManageGoals> getListOfAccounts(Long logonid, Long acctnum) {
+   public ArrayList<CustomerData> getListOfAccounts(Long logonid, Long acctnum) {
       DataSource ds = getDataSource();
       CommonSP sp = new CommonSP(ds, "sel_ClientProfileData2",0);
-      ArrayList<ManageGoals> listProfiles = new ArrayList<ManageGoals>();
+      ArrayList<CustomerData> listProfiles = new ArrayList<CustomerData>();
       Map outMap = sp.collectProfileData(logonid, acctnum);
       String action;
       try {
@@ -30,7 +30,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               ManageGoals data = new ManageGoals();
+               CustomerData data = new CustomerData();
 
                data.setAcctnum(convert.getLongData(rs.get("acctnum")));
                data.setEmail(convert.getStrData(rs.get("email")));
@@ -108,11 +108,12 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public ManageGoals getSingleAccounts(Long acctnum) {
+
+   public CustomerData getSingleAccounts(Long acctnum) {
       DataSource ds = getDataSource();
       CommonSP sp = new CommonSP(ds, "sel_ClientProfileData2",0);
       Map outMap = sp.collectProfileData(null, acctnum);
-      ManageGoals data = new ManageGoals();
+      CustomerData data = new CustomerData();
       try {
          if (outMap != null)
          {
@@ -220,6 +221,54 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
       return info;
 
    }
+
+   public ArrayList<NotificationData> getNotification(Long logonid, String status)
+   {
+      DataSource ds = getDataSource();
+
+      CommonSP sp = new CommonSP(ds, "sel_notification", 2);
+      ArrayList<NotificationData> notificationList = new ArrayList<NotificationData>();
+
+      Map outMap = sp.getNotification(logonid, status);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         if (rows != null)
+         {
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               NotificationData ndata = new NotificationData(
+                  convert.getLongData(rs.get("messageid")),
+                  convert.getStrData(rs.get("status")),
+                  convert.getLongData(rs.get("advisorlogonid")),
+                  convert.getStrData(rs.get("advisor")),
+                  convert.getLongData(rs.get("acctnum")),
+                  convert.getStrData(rs.get("noticetype")),
+                  convert.getStrData(rs.get("tagid")),
+                  convert.getStrData(rs.get("alertdatetime")),
+                  convert.getStrData(rs.get("message"))
+                  // convert.getStrData(rs.get("created")),
+
+               );
+
+               notificationList.add(i, ndata);
+               i++;
+            }
+
+         }
+      }
+      return notificationList;
+
+   }
+
+   public void saveNotice(NotificationData data) {
+      DataSource ds = getDataSource();
+      CommonSP sp = new CommonSP(ds, "sp_advisor_notification",3);
+      sp.saveNotice(data);
+   }
+
 
 
 }

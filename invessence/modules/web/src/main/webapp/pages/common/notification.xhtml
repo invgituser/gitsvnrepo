@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/invlayout.xhtml">
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box">
+            <div class="Container90 Responsive100">
+                <div class="ContainerIndent">
+                    <div class="Container100">
+
+                        <h:form id="form">
+                        <p:growl id="noticeGrowl" showDetail="true" sticky="true" escape="true"/>
+                        <h3 class="BigTopic">
+                            <div class="Wid50 Responsive50 Fleft">Messages</div>
+                            <div class="Wid50 Fright Responsive50">
+                                <p:selectOneButton value="#{commonbean.filterNotice}">
+                                    <f:selectItem itemLabel="New" itemValue="N" />
+                                    <f:selectItem itemLabel="Archived" itemValue="A" />
+                                    <p:ajax update="@form" listener="#{commonbean.filterData}" />
+                                </p:selectOneButton>
+                            </div>
+                        </h3>
+                        <div class="Container100 MarTop20">
+
+                                <p:dataTable id="messageDT" var="msg" value="#{commonbean.notificationDataList}"
+                                             emptyMessage="No Messages were created."
+                                             reflow="true">
+
+                                    <p:column style="width: 1%; background-color: #{msg.color};">
+                                        <h:outputText value=" "/>
+                                    </p:column>
+
+                                    <p:column style="width: 5%;" styleClass="TextAlLeft">
+                                        <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
+                                                         styleClass="Fs16 BlueButton"
+                                                         process="@this" immediate="true"
+                                                         icon="fa fa-check Fs14 white"
+                                                         action="#{commonbean.markDone}">
+                                            <p:tooltip id="markToolTipFade" for="markButton" value="Archive" />
+                                            <f:setPropertyActionListener value="#{msg}"
+                                                                         target="#{commonbean.selectedMessage}"/>
+                                        </p:commandButton>
+                                        <p:commandButton id="undoButton"  rendered="#{msg.status != 'N'}"
+                                                         styleClass="Fs16 GrayButton"
+                                                         process="@this" immediate="true"
+                                                         icon="fa fa-mail-reply Fs14 white"
+                                                         action="#{commonbean.markUnDone}">
+                                            <p:tooltip id="undoToolTipFade" for="undoButton" value="Undo Archive" />
+                                            <f:setPropertyActionListener value="#{msg}"
+                                                                         target="#{commonbean.selectedMessage}"/>
+                                        </p:commandButton>
+                                    </p:column>
+
+                                    <p:column style="width: 10%;" styleClass="Fs14 TexAlLeft"
+                                              headerText="Created">
+                                        <h:outputText value="#{msg.businessdate}"/>
+                                    </p:column>
+
+                                    <p:column style="width: 10%;" styleClass="Fs14 TexAlLeft"
+                                              headerText="Type">
+                                        <h:outputText value="#{msg.tagid}">
+                                        </h:outputText>
+                                    </p:column>
+
+                                    <p:column styleClass="Fs14 TexAlLeft"
+                                              headerText="Message">
+                                        <h:outputText value="#{msg.message}">
+                                        </h:outputText>
+                                    </p:column>
+
+                                </p:dataTable>
+                        </div>
+                        </h:form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Can add another element here... -->
+        </div>
+        <!-- BOX END -->
+
+
+    </ui:define>
+
+</ui:composition>

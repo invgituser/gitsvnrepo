@@ -6,12 +6,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.bean.common.PositionBean;
 import com.invessence.constant.Const;
-import com.invessence.dao.ManageAccountDAO;
 import com.invessence.dao.consumer.ConsumerListDataDAO;
-import com.invessence.data.ManageAccount;
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import com.invessence.util.*;
 
 /**
@@ -42,9 +39,9 @@ public class ConsumerManageBean implements Serializable
       this.menu = menu;
    }
 
-   private List<ManageGoals> manageAccountList;
+   private List<CustomerData> manageAccountList;
 
-   private ManageGoals selectedAccount;
+   private CustomerData selectedAccount;
 
    private String selected;
    private Long acctnum;
@@ -159,7 +156,7 @@ public class ConsumerManageBean implements Serializable
             for (int i = 0; i < manageAccountList.size(); i++)
             {
                dataCollected = true;
-               ManageGoals myaccount = manageAccountList.get(i);
+               CustomerData myaccount = manageAccountList.get(i);
                Map<String, String> addAction;
                String mylogonid = myaccount.getLogonid().toString();
                String myacctnum = myaccount.getAcctnum().toString();
@@ -258,7 +255,7 @@ public class ConsumerManageBean implements Serializable
       return dropdownMenu;
    }
 
-   public List<ManageGoals> getManageAccountList()
+   public List<CustomerData> getManageAccountList()
    {
       return manageAccountList;
    }
@@ -314,7 +311,7 @@ public class ConsumerManageBean implements Serializable
       }
    }
 
-   public ManageGoals getSelectedAccount()
+   public CustomerData getSelectedAccount()
    {
       return selectedAccount;
    }
@@ -329,7 +326,7 @@ public class ConsumerManageBean implements Serializable
       this.greetings = greetings;
    }
 
-   public void setSelectedAccount(ManageGoals selectedAccount)
+   public void setSelectedAccount(CustomerData selectedAccount)
    {
       this.selectedAccount = selectedAccount;
       setSelected(selectedAccount.getAcctnum().toString());

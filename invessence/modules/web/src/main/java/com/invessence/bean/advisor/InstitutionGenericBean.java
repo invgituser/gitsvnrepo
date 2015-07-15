@@ -67,7 +67,8 @@ public class InstitutionGenericBean implements Serializable
             accttype = getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE).toString();
             if (accttype.equalsIgnoreCase(Const.ROLE_ADVISOR)) {
                uid =  (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-               institutionImage = uid.getLogo();
+               institutionImage= "/images/InvessenceLogo.jpg";
+               //institutionImage = uid.getLogo();
                if (institutionImage == null)
                   institutionImage= "/images/InvessenceLogo.jpg";
             }

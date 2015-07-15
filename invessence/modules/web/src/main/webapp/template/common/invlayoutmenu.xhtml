@@ -29,9 +29,10 @@
                         actionListener="#{menu.doMenuAction('/advisor/alist.xhtml')}"/>
         </p:submenu>
 
-        <p:separator />
+        <p:separator rendered="#{menu.enableMenu('DEMO')}" />
 
-        <p:submenu label="Reports" icon="fa fa-list-alt">
+        <p:submenu label="Reports" icon="fa fa-list-alt"
+                   rendered="#{menu.enableMenu('DEMO')}">
             <p:menuitem value="Overview" icon="fa fa-picture-o"
                         disabled="true"/>
             <p:menuitem value="Fees" icon="fa fa-calculator"

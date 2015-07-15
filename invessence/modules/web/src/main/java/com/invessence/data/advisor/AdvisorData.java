@@ -2,8 +2,7 @@ package com.invessence.data.advisor;
 
 import java.util.*;
 
-import com.invessence.data.common.ManageGoals;
-import com.invmodel.Const.InvConst;
+import com.invessence.data.common.CustomerData;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,7 +12,7 @@ import com.invmodel.Const.InvConst;
  * To change this template use File | Settings | File Templates.
  */
 @SuppressWarnings("UnusedDeclaration")
-public class AdvisorData extends ManageGoals
+public class AdvisorData extends CustomerData
 {
 
    private Long clientLogonID;
@@ -26,7 +25,6 @@ public class AdvisorData extends ManageGoals
    private String actionIcon;
 
    private List<String> filteredOption;
-   private Map<String, String> advisorBasket;
    private List<String> rebalanceOption;
 
 
@@ -120,35 +118,6 @@ public class AdvisorData extends ManageGoals
       this.filteredOption = filteredOption;
    }
 
-   public Map<String,String> getAdvisorBasket()
-   {
-      return advisorBasket;
-   }
-
-   public void setAdvisorBasket(Map<String,String> advisorBasket)
-   {
-      this.advisorBasket = advisorBasket;
-   }
-
-   public String getThisBasket()
-   {
-      return getBasket();
-   }
-
-   // This happens in dropdown.  They select the KEY, so we are setting both KEY and value.
-   public void setThisBasket(String value)
-   {
-      if (value == null) {
-         setBasket(value, InvConst.DEFAULT_BASKET);
-         setTheme(InvConst.DEFAULT_THEME);
-      }
-      else {
-         if (this.advisorBasket.containsKey(value)) {
-            setBasket(value, this.advisorBasket.get(value));
-            setTheme(value);
-         }
-      }
-   }
 
    public String getAction()
    {
@@ -182,8 +151,8 @@ public class AdvisorData extends ManageGoals
    }
 
    public void resetAdvisorData() {
-      // Clean up ManageGoals Data first.
-      resetManagedGoalData();
+      // Clean up CustomerData Data first.
+      resetCustomerData();
 
       setClientLogonID(null);
       setClientFirstName(null);
@@ -194,8 +163,6 @@ public class AdvisorData extends ManageGoals
 
       if (filteredOption != null)
          filteredOption.clear();
-      if (advisorBasket != null)
-         advisorBasket.clear();
    }
 
 

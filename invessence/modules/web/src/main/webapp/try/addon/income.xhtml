@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+    <div class="layout-portlets-box">
+        <div class="Container100 Responsive50">
+            <div class="ContainerIndent">
+                <div class="EmptyBox5"></div>
+
+                <h:panelGrid columns="2" layout="grid" class="FormContent"
+                             style="border:0px !important; background:none;margin-bottom:10px" cellpadding="5">
+                    <div class="TexAlLeft Wid90">
+                        Salary/Wages (Yearly)<br/>
+                        <span style="font-size: small;">(Total Gross Income)</span>
+                    </div>
+                    <pe:inputNumber value="#{cepb.householdwages}" styleClass="Wid90"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </pe:inputNumber>
+
+                    <div class="TexAlLeft Wid90">
+                        Liquid Asset<br/>
+                        <span style="font-size: small;">(Cash/Savings Account, etc.)</span>
+                    </div>
+                    <pe:inputNumber value="#{cepb.moneymarket}" styleClass="Wid90"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </pe:inputNumber>
+                    <h:outputText/>
+                    <h:outputText/>
+
+                    <div class="Wid90">
+                        Other Investments<br/>
+                        <span style="font-size: small;">(Stocks, Bond, Retirement)</span>
+                    </div>
+                    <pe:inputNumber value="#{cepb.investment}" styleClass="Wid90"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </pe:inputNumber>
+
+                </h:panelGrid>
+            </div>
+        </div>
+    </div>
+</ui:composition>

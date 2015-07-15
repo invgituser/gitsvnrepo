@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50">
+        <div class="Container50 Responsive50">
+            <div class="ContainerIndent">
+                <p:panel id="inputArea" style="border: 0px;">
+                    <ui:fragment rendered="#{ltamprofile.pTab == 0}">
+                        <ui:include src="/try/ltam/addon/page1.xhtml" />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pTab == 1}">
+                        <ui:include src="/try/ltam/addon/page2.xhtml" />
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pTab == 2}">
+                        <ui:include src="/try/ltam/addon/page3.xhtml" />
+                    </ui:fragment>
+                    <f:facet name="footer">
+                        <p:commandButton value="Previous" styleClass="Fleft" rendered="#{ltamprofile.enablePrevButton}"
+                                         update=":ceForm:inputArea, :ceForm:displayInfo"
+                                         actionListener="#{ltamprofile.gotoPrevTab}"/>
+                        <p:commandButton value="Next" styleClass="Fright" rendered="#{ltamprofile.enableNextButton}"
+                                         update=":ceForm:inputArea, :ceForm:displayInfo"
+                                         actionListener="#{ltamprofile.gotoNextTab}"/>
+                    </f:facet>
+                </p:panel>
+            </div>
+        </div>
+        <div class="Container50 Responsive50">
+            <div class="ContainerIndent">
+                <p:panel id="graphArea" style="border: 0px">
+                    <p:outputPanel id="charts" style="border: 0px">
+                    </p:outputPanel>
+                </p:panel>
+            </div>
+        </div>
+
+    </div>
+    <p style="font-style: italic; font-size: .8em;">
+        This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
+        (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
+        It does not take in affect any tax withholdings or distributions.
+        Past performance is no guarantee of future results. Any historical returns,
+        expected returns, or probability projections may not reflect actual future
+        performance. All securities involve risk and may result in loss. Not an offer,
+        solicitation of an offer, or advice to buy or sell securities in jurisdictions
+        where Invessence is not registered
+    </p>
+
+</ui:composition>

@@ -6,9 +6,8 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.*;
-import com.invessence.data.*;
 import com.invessence.data.common.UserInfoData;
-import com.invessence.data.consumer.ClientData;
+import com.invessence.data.consumer.CTO.ClientData;
 import com.invessence.util.*;
 
 @ManagedBean(name = "clientBean")

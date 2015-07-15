@@ -4,10 +4,10 @@ import java.util.*;
 
 import javax.faces.bean.ManagedProperty;
 
-import com.invessence.constant.Const;
 import com.invessence.converter.JavaUtil;
 import com.invessence.data.*;
 import com.invessence.util.*;
+import com.invmodel.Const.InvConst;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
 import com.invmodel.inputData.ProfileData;
@@ -23,10 +23,10 @@ import com.invmodel.portfolio.data.*;
  * Time: 4:50 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ManageGoals extends ProfileData
+public class CustomerData extends ProfileData
 {
    private JavaUtil javautil = new JavaUtil();
-   private ManageGoals manageGoalinstance = null;
+   private CustomerData manageGoalinstance = null;
 
    @ManagedProperty("#{assetAllocationModel}")
    private AssetAllocationModel allocModel;
@@ -106,6 +106,9 @@ public class ManageGoals extends ProfileData
    ArrayList<ManagedSubclassData> orderedSubclass;
    private List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
 
+   private Map<String, String> advisorBasket;
+
+
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
    public void setWebutil(WebUtil webutil)
@@ -119,13 +122,13 @@ public class ManageGoals extends ProfileData
    }
 
 
-   public ManageGoals()
+   public CustomerData()
    {
       super();
       this.manageGoalinstance = this;
    }
 
-   public ManageGoals getInstance()
+   public CustomerData getInstance()
    {
       return manageGoalinstance;
    }
@@ -679,7 +682,7 @@ public class ManageGoals extends ProfileData
       return name;
    }
 
-   public void resetManagedGoalData() {
+   public void resetCustomerData() {
       // Master ProfileData
       // setName	(null);  Being reset at bottom.
       resetPortfolioData();
@@ -761,9 +764,11 @@ public class ManageGoals extends ProfileData
       if (orderedSubclass != null)
          orderedSubclass.clear();
 
+      advisorBasket.clear();
+
    }
 
-   public void copyData(ManageGoals newgoals) {
+   public void copyData(CustomerData newgoals) {
       // Master ProfileData
       //setName(newgoals.getName());  Being set at bottom
       setPortfolioName(newgoals.getPortfolioName());
@@ -1217,4 +1222,35 @@ public class ManageGoals extends ProfileData
    {
       this.externalPositionFile = externalPositionFile;
    }
+
+   public Map<String,String> getAdvisorBasket()
+   {
+      return advisorBasket;
+   }
+
+   public void setAdvisorBasket(Map<String,String> advisorBasket)
+   {
+      this.advisorBasket = advisorBasket;
+   }
+
+   public String getThisBasket()
+   {
+      return getBasket();
+   }
+
+   // This happens in dropdown.  They select the KEY, so we are setting both KEY and value.
+   public void setThisBasket(String value)
+   {
+      if (value == null) {
+         setBasket(value, InvConst.DEFAULT_BASKET);
+         setTheme(InvConst.DEFAULT_THEME);
+      }
+      else {
+         if (this.advisorBasket.containsKey(value)) {
+            setBasket(value, this.advisorBasket.get(value));
+            setTheme(value);
+         }
+      }
+   }
+
 }

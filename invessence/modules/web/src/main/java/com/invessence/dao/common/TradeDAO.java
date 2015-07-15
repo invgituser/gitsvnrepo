@@ -19,7 +19,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public void saveAllocation(ManageGoals data) {
+   public void saveAllocation(CustomerData data) {
       DataSource ds = getDataSource();
       TradeSP sp1 = new TradeSP(ds, "del_asset_alloc",0);
       sp1.deleteAllocation(data);
@@ -27,7 +27,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       sp.saveAllocation(data);
    }
 
-   public void savePortfolio(ManageGoals data) {
+   public void savePortfolio(CustomerData data) {
       DataSource ds = getDataSource();
       TradeSP sp1 = new TradeSP(ds, "del_virtual_portfolio",2);
       sp1.deletePortfolio(data);

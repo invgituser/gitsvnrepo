@@ -92,7 +92,7 @@ public class LoginController implements PhaseListener
                emailMessage.writeMessage("user", data);
                data.setSubject("Locked:" + uid.getUserID());
                // If user is locked, send message to support desk...
-               String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID() + "," + uid.getAcctownertype();
+               String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID() ;
                System.out.println(lockedinfo);
                data.setMsg(lockedinfo);
                data.setReceiver(null);

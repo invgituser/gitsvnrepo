@@ -15,7 +15,10 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    private String userID, email;
    private String password = null;
    private String lastname, firstname;
-   private String ip, macaddress, cookieID, resetID, acctownertype, logo, groupname, emailmsgtype;
+   private String ip, resetID;
+   private String cid, advisor;
+   private Long rep;
+   private String emailmsgtype;
    private String stateRegistered;
    private Map questAns;
    private String answer;
@@ -32,8 +35,8 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
                        boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
                        boolean accountNonLocked, Collection<GrantedAuthority> authorities,
                        String lastname, String firstname,
-                       String ip, String macaddress, String cookieID, String resetID, String acctownertype,
-                       String logo, String groupname, String stateRegistered,
+                       String ip, String resetID,
+                       String cid, String advisor, Long rep,  String stateRegistered,
                        Map questAns, Integer attempts, String access, String logonStatus, Integer randomQuestion, String emailmsgtype)
    {
       super(username, password, enabled
@@ -47,12 +50,10 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       setFirstname(firstname);
       setLastname(lastname);
       setIp(ip);
-      setMacaddress(macaddress);
-      setCookieID(cookieID);
       setResetID(resetID);
-      setAcctownertype(acctownertype);
-      setLogo(logo);
-      setGroupname(groupname);
+      setCid(cid);
+      setAdvisor(advisor);
+      setRep(rep);
       setAuthorities(authorities);
       setQuestAns(questAns);
       setAttempts(attempts);
@@ -64,6 +65,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, logonID);
    }
+
    public Long getLogonID()
    {
       return logonID;
@@ -145,26 +147,6 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       this.ip = ip;
    }
 
-   public String getMacaddress()
-   {
-      return macaddress;
-   }
-
-   public void setMacaddress(String macaddress)
-   {
-      this.macaddress = macaddress;
-   }
-
-   public String getCookieID()
-   {
-      return cookieID;
-   }
-
-   public void setCookieID(String cookieID)
-   {
-      this.cookieID = cookieID;
-   }
-
    public String getResetID()
    {
       return resetID;
@@ -175,34 +157,34 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       this.resetID = resetID;
    }
 
-   public String getAcctownertype()
+   public String getCid()
    {
-      return acctownertype;
+      return cid;
    }
 
-   public void setAcctownertype(String acctownertype)
+   public void setCid(String cid)
    {
-      this.acctownertype = acctownertype;
+      this.cid = cid;
    }
 
-   public String getLogo()
+   public String getAdvisor()
    {
-      return logo;
+      return advisor;
    }
 
-   public void setLogo(String logo)
+   public void setAdvisor(String advisor)
    {
-      this.logo = logo;
+      this.advisor = advisor;
    }
 
-   public String getGroupname()
+   public Long getRep()
    {
-      return groupname;
+      return rep;
    }
 
-   public void setGroupname(String groupname)
+   public void setRep(Long rep)
    {
-      this.groupname = groupname;
+      this.rep = rep;
    }
 
    public String getSelectedQuestion()

@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+            <h1>Which of the following best reflects your investment goals?</h1>
+
+            <h2>
+                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.selectedchoice1}">
+                    <f:selectItem itemLabel="Maximize current income." itemValue="0">
+                        Great! We'll create an income driven portfolio with low return and low risk to the portfolio.
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Emphasizing income with some potential for growth." itemValue="1">
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Emphasizing growth with some potential for income." itemValue="2">
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Growth." itemValue="3">
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Maximizing growth." itemValue="4">
+                    </f:selectItem>
+                </p:selectOneRadio>
+            </h2>
+    </div>
+
+</ui:composition>

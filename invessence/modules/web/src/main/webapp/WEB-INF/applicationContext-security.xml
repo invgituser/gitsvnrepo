@@ -91,13 +91,11 @@
     <beans:bean id="userDetailsService" class="com.invessence.dao.common.CustomJdbcDaoImpl">
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="usersByUsernameQuery"
-                        value="select logonid, userid, email, pwd, logonstatus, attempts, firstname, lastname, ip, macaddress, cookieID, state, resetID, accttype, logo, groupname,emailmsgtype, access from vw_user_logon where userid=?"/>
+                        value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access from vw_user_logon where userid=?"/>
         <beans:property name="listofQAQuery"
                         value="select question1, answer1, question2, answer2, question3, answer3 from user_logon where userid=?"/>
         <beans:property name="authoritiesByUsernameQuery"
                         value="select r.role from user_logon ul, role r where ul.logonid=r.logonid and ul.userid =?"/>
-        <beans:property name="updateAttemptsSql"
-                        value="update user_logon set attempts = ? where userid=?"/>
         <beans:property name="lockUserSql"
                         value="update user_logon set logonstatus = ?, resetID = ? where userid=?"/>
     </beans:bean>

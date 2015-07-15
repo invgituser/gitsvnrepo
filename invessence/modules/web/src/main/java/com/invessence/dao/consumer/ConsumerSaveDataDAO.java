@@ -6,8 +6,8 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.data.common.ManageGoals;
-import com.invessence.data.consumer.ClientData;
+import com.invessence.data.common.CustomerData;
+import com.invessence.data.consumer.CTO.ClientData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerSaveDataDAO")
@@ -16,7 +16,7 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public Long saveProfileData( ManageGoals mgoal)
+   public Long saveProfileData( CustomerData mgoal)
    {
       DataSource ds = getDataSource();
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_user_trade_profile",0);
@@ -27,21 +27,21 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       return (acctnum);
    }
 
-   public void saveFinancials(ManageGoals mgoal)
+   public void saveFinancials(CustomerData mgoal)
    {
       DataSource ds = getDataSource();
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_user_financial_data",1);
       sp.saveFinancials(mgoal);
    }
 
-   public void saveRiskProfile(ManageGoals mgoal )
+   public void saveRiskProfile(CustomerData mgoal )
    {
       DataSource ds = getDataSource();
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "updt_user_risk_index",2);
       sp.saveRiskProfile(mgoal);
    }
 
-   public void saveAllocation(ManageGoals mgoal )
+   public void saveAllocation(CustomerData mgoal )
    {
       DataSource ds = getDataSource();
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "del_asset_alloc",4);
@@ -50,7 +50,7 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       sp2.saveAllocation(mgoal);
    }
 
-   public void savePortfolio(ManageGoals mgoal )
+   public void savePortfolio(CustomerData mgoal )
    {
       DataSource ds = getDataSource();
       ConsumerSaveSP sp = new ConsumerSaveSP(ds, "del_virtual_portfolio",6);

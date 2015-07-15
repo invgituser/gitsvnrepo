@@ -8,7 +8,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.dao.common.CommonDAO;
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import com.invessence.util.*;
 
 @ManagedBean(name = "marketingBean")
@@ -16,9 +16,9 @@ import com.invessence.util.*;
 public class MarketingBean implements Serializable
 {
    private static final long serialVersionUID = 100080L;
-   private ArrayList <ManageGoals> fetchedDataList = new ArrayList<ManageGoals>();
-   private ArrayList <ManageGoals> displayDataList = new ArrayList<ManageGoals>();
-   private ManageGoals selectedAccount;
+   private ArrayList <CustomerData> fetchedDataList = new ArrayList<CustomerData>();
+   private ArrayList <CustomerData> displayDataList = new ArrayList<CustomerData>();
+   private CustomerData selectedAccount;
    private String selectedFilter;
 
    @ManagedProperty("#{webutil}")
@@ -94,7 +94,7 @@ public class MarketingBean implements Serializable
          if (webutil.getLogonid() != null)
          {
             if (fetchedDataList == null)
-               fetchedDataList = new ArrayList<ManageGoals>();
+               fetchedDataList = new ArrayList<CustomerData>();
             fetchedDataList.clear();
             fetchedDataList = cldDAO.getListOfAccounts(webutil.getLogonid(), null);
 /*
@@ -132,32 +132,32 @@ public class MarketingBean implements Serializable
 
    }
 
-   public ManageGoals getSelectedAccount()
+   public CustomerData getSelectedAccount()
    {
       return selectedAccount;
    }
 
-   public void setSelectedAccount(ManageGoals selectedAccount)
+   public void setSelectedAccount(CustomerData selectedAccount)
    {
       this.selectedAccount = selectedAccount;
    }
 
-   public ArrayList<ManageGoals> getFetchedDataList()
+   public ArrayList<CustomerData> getFetchedDataList()
    {
       return fetchedDataList;
    }
 
-   public void setFetchedDataList(ArrayList<ManageGoals> fetchedDataList)
+   public void setFetchedDataList(ArrayList<CustomerData> fetchedDataList)
    {
       this.fetchedDataList = fetchedDataList;
    }
 
-   public ArrayList<ManageGoals> getDisplayDataList()
+   public ArrayList<CustomerData> getDisplayDataList()
    {
       return displayDataList;
    }
 
-   public void setDisplayDataList(ArrayList<ManageGoals> displayDataList)
+   public void setDisplayDataList(ArrayList<CustomerData> displayDataList)
    {
       this.displayDataList = displayDataList;
    }

@@ -2,13 +2,12 @@ package com.invessence.bean.consumer;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.constant.Const;
 import com.invessence.dao.consumer.*;
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import com.invessence.util.*;
 
 /**
@@ -39,9 +38,9 @@ public class ConsumerDashBean implements Serializable
       this.webutil = webutil;
    }
 
-   private List<ManageGoals> manageAccountList;
+   private List<CustomerData> manageAccountList;
 
-   private ManageGoals selectedAccount;
+   private CustomerData selectedAccount;
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -104,17 +103,17 @@ public class ConsumerDashBean implements Serializable
     }
 
 
-   public List<ManageGoals> getManageAccountList()
+   public List<CustomerData> getManageAccountList()
    {
       return manageAccountList;
    }
 
-   public ManageGoals getSelectedAccount()
+   public CustomerData getSelectedAccount()
    {
       return selectedAccount;
    }
 
-   public void setSelectedAccount(ManageGoals selectedAccount)
+   public void setSelectedAccount(CustomerData selectedAccount)
    {
       this.selectedAccount = selectedAccount;
    }

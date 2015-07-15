@@ -8,8 +8,7 @@ import javax.sql.DataSource;
 import com.invessence.bean.consumer.ClientBean;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.AdvisorListSP;
-import com.invessence.dao.common.CommonSP;
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerListDataDAO")
@@ -18,10 +17,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public List<ManageGoals> getClientProfileData(Long logonid, Long acctnum) {
+   public List<CustomerData> getClientProfileData(Long logonid, Long acctnum) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData2",0);
-      List<ManageGoals> listProfiles = new ArrayList<ManageGoals>();
+      List<CustomerData> listProfiles = new ArrayList<CustomerData>();
       Map outMap = sp.loadClientProfileData(logonid, acctnum);
       if (outMap != null)
       {
@@ -30,7 +29,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          for (Map<String, Object> map : rows)
          {
             Map rs = (Map) rows.get(i);
-            ManageGoals data = new ManageGoals();
+            CustomerData data = new CustomerData();
 
             data.setLogonid(convert.getLongData(rs.get("logonid")));
             data.setAcctnum(convert.getLongData(rs.get("acctnum")));
@@ -115,7 +114,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return null;
    }
 
-   public void getNewClientProfileData(ManageGoals data) {
+   public void getNewClientProfileData(CustomerData data) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_AccountProfile",1);
       Map outMap = sp.loadClientProfileData(data.getLogonid(), 0L);
@@ -141,7 +140,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
-   public void getProfileData(ManageGoals data) {
+   public void getProfileData(CustomerData data) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_AccountProfile",1);
       Map outMap = sp.loadClientProfileData(data);

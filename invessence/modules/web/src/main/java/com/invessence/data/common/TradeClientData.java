@@ -7,7 +7,7 @@ package com.invessence.data.common;
  * Time: 10:32 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TradeClientData extends ManageGoals
+public class TradeClientData extends CustomerData
 {
    private String processStatus;
    private String reason;

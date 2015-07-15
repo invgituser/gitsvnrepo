@@ -21,7 +21,7 @@ import org.primefaces.model.*;
 public class ThemeService
 {
 /*
-   public TreeNode createTheme(ManageGoals goals)
+   public TreeNode createTheme(CustomerData goals)
    {
       TreeNode root;
       Subclass tmpTheme;

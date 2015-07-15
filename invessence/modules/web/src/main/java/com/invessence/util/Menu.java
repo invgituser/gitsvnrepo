@@ -28,7 +28,7 @@ public class Menu implements Serializable
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
    private String theme = "spark";
-   private String cid;
+   private String cid, rep;
    private String default_page;
    private String phone, email;
    private String forwardcustodianURL = "Your have made a request to visit Interactive Broker site (Your custodian).  You will be logged out of this site.  Do you want to continue?";
@@ -81,6 +81,7 @@ public class Menu implements Serializable
             if (getCid() == null || getCid().length() == 0)
             {
                setCid("0");
+               setRep("0");
             }
             email = webutil.getMessageText().lookupMessage("email." + getCid(), null);
             phone = webutil.getMessageText().lookupMessage("phone." + getCid(), null);
@@ -132,6 +133,16 @@ public class Menu implements Serializable
    public void setCid(String cid)
    {
       this.cid = cid;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
    }
 
    public String getDefault_page()
@@ -323,6 +334,7 @@ public class Menu implements Serializable
       try {
          FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
          cid="0";
+         rep="0";
          email=null;
          phone=null;
          theme="spark";

@@ -50,7 +50,6 @@ public class UserInfoDAO extends JdbcDaoSupport
                data.setUserID(convert.getStrData(rs.get("userid")));
                data.setEmail(convert.getStrData(rs.get("email")));
                data.setCurrentPassword(convert.getStrData(rs.get("pwd")));
-               data.setPrefix(convert.getStrData(rs.get("prefix")));
                data.setLastName(convert.getStrData(rs.get("lastname")));
                data.setFirstName(convert.getStrData(rs.get("firstname")));
                data.setEmailalt(convert.getStrData(rs.get("emailalt")));
@@ -61,6 +60,9 @@ public class UserInfoDAO extends JdbcDaoSupport
                data.setQ3(convert.getStrData(rs.get("question3")));
                data.setAns3(convert.getStrData(rs.get("answer3")));
                data.setEmailmsgtype(convert.getStrData(rs.get("emailmsgtype")));
+               data.setCid(convert.getStrData(rs.get("cid")));
+               data.setAdvisor(convert.getStrData(rs.get("advisor")));
+               data.setRep(convert.getLongData(rs.get("rep")));
                break;
             }
          }
@@ -131,11 +133,15 @@ public class UserInfoDAO extends JdbcDaoSupport
       if (sqlStatus == 1) {
          sql = "select logonstatus from user_logon where userid = ? and resetID = ?";
          SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userID, resetID});
-         while (rs.next())
-         {
-            count++;
-            if (rs.getString("logonstatus").toUpperCase().startsWith("A"))
-               sqlStatus = -2;
+         if (rs == null) {
+            sqlStatus = -2;
+         } else {
+            while (rs.next())
+            {
+               count++;
+               if (rs.getString("logonstatus").toUpperCase().startsWith("A"))
+                  sqlStatus = -2;
+            }
          }
       }
 

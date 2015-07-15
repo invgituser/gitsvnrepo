@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 import com.invessence.constant.*;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.*;
-import com.invessence.data.advisor.AdvisorData;
 import com.invessence.data.common.*;
 import com.invessence.util.*;
 import com.invmodel.Const.InvConst;
 import com.invmodel.performance.data.PerformanceData;
+import org.primefaces.component.tabview.Tab;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
@@ -31,7 +31,7 @@ import org.primefaces.event.*;
 
 @ManagedBean(name = "cepb")
 @SessionScoped
-public class ConsumerEditProfileBean extends AdvisorData implements Serializable
+public class ConsumerEditProfileBean extends CustomerData implements Serializable
 {
    private Long  beanAcctnum;
    private Boolean formEdit = false;
@@ -197,21 +197,6 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       }
    }
 
-   @PostConstruct
-   public void init()
-   {
-      try
-      {
-         // Since this is used by both try and Actual, we'll handle the add/save in SaveProfile function...
-         // getWebutil().validatePriviledge(Const.ROLE_OWNER);
-         whichChart = "pie";
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
    public void changeEvent(ValueChangeEvent event)
    {
       String oldValue = null;
@@ -307,40 +292,67 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       RequestContext.getCurrentInstance().openDialog("riskQuestionDialog");
    }
 
+
    public void selectedActionBasket() {
       getExcludedSubAsset().clear();
-
       if (getBasket() != null) {
          setGoal(getAdvisorBasket().get(getBasket())); // Key is the Themename, value is display
          setTheme(getBasket());                        // Set theme to the Key.  (We assigned this during selection)
       }
-
       createAssetPortfolio(1);
+   }
+
+   public void selectFirstBasket() {
+      if (getAccountTaxable()) {
+         setTheme(InvConst.DEFAULT_TAXABLE_THEME);
+      }
+      else {
+         setTheme(InvConst.DEFAULT_THEME);
+      }
+
+      if (getAdvisorBasket() == null) {
+         if (getAccountTaxable()) {
+            setGoal(InvConst.DEFAULT_TAXABLE_BASKET);
+            setBasket(InvConst.DEFAULT_TAXABLE_THEME);
+         }
+         else {
+            setGoal(InvConst.DEFAULT_BASKET);
+            setBasket(InvConst.DEFAULT_THEME);
+         }
+      }
+      else {
+         setGoal(getAdvisorBasket().get(getTheme()));
+         setBasket(getTheme());
+      }
    }
 
    private void resetDataForm() {
       disablegraphtabs = true;
       disabledetailtabs = true;
-      resetManagedGoalData();
+      resetCustomerData();
    }
 
    private void loadBasketInfo() {
-      if (getAccountTaxable())
+      if (getAccountTaxable()) {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
-      else
+         selectFirstBasket();
+      }
+      else {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
+         selectFirstBasket();
+      }
    }
 
    private void loadNewClientData() {
 
-      resetAdvisorData();
+      resetCustomerData();
       try {
          UserInfoData uid = getWebutil().getUserInfoData();
          if (uid != null) {
-            setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
+            setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
             setLogonid(uid.getLogonID());
          }
-         listDAO.getNewClientProfileData((ManageGoals) this.getInstance());
+         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
          setDefaults();
          loadBasketInfo();
          createAssetPortfolio(1); // Build default chart for the page...
@@ -353,7 +365,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
 
    private void loadData(Long acctnum) {
 
-      resetAdvisorData();
+      resetCustomerData();
       try {
          if (getWebutil().isUserLoggedIn()) {
             if (getWebutil().hasRole(Const.ROLE_OWNER) ||
@@ -361,11 +373,11 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
                getWebutil().hasRole(Const.ROLE_ADMIN)) {
                UserInfoData uid = getWebutil().getUserInfoData();
                if (uid != null) {
-                  setAdvisor(uid.getGroupname()); // Portfolio solves the null issue, or blank issue.
+                  setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
                   setLogonid(uid.getLogonID());
                }
                setAcctnum(acctnum);
-               listDAO.getProfileData((ManageGoals) this.getInstance());
+               listDAO.getProfileData((CustomerData) this.getInstance());
                loadBasketInfo();
             }
          }
@@ -663,7 +675,7 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
       catch (Exception ex)
       {
          String stackTrace = ex.getMessage();
-         getWebutil().alertSupport("managegoals.addGoals", "Error:managegoals.addGoals",
+         getWebutil().alertSupport("Consumer.addGoals", "Error:Consumer.addGoals",
                                    "error.addGoals", stackTrace);
       }
 
@@ -749,6 +761,138 @@ public class ConsumerEditProfileBean extends AdvisorData implements Serializable
          getWebutil().redirect(url, null);
          httpSession.invalidate();
 
+   }
+
+   private Integer pTab = 0, rTab = 0;
+   private Integer mTab = 0;
+
+
+   public Integer getpTab()
+   {
+      return pTab;
+   }
+
+   public void setpTab(Integer pTab)
+   {
+      this.pTab = pTab;
+   }
+
+   public Integer getrTab()
+   {
+      return rTab;
+   }
+
+   public void setrTab(Integer rTab)
+   {
+      this.rTab = rTab;
+   }
+
+   @PostConstruct
+   public void init()
+   {
+      try
+      {
+         // Since this is used by both try and Actual, we'll handle the add/save in SaveProfile function...
+         // getWebutil().validatePriviledge(Const.ROLE_OWNER);
+         whichChart = "pie";
+         pTab = 0;
+         rTab = 0;
+         mTab = 0;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+   }
+
+   public void onPTabChange(TabChangeEvent event) {
+      Tab active = event.getTab();
+      String pTabID = active.getId().toLowerCase();
+
+      if (pTabID.equals("p1"))
+         pTab = 0;
+      if (pTabID.equals("p2"))
+         pTab = 1;
+      if (pTabID.equals("p3"))
+         pTab = 2;
+      if (pTabID.equals("p4"))
+         pTab = 3;
+   }
+
+   public void onRTabChange(TabChangeEvent event) {
+      Tab active = event.getTab();
+      String pTabID = active.getId().toLowerCase();
+
+      if (pTabID.equals("q1"))
+         rTab = 0;
+      if (pTabID.equals("q2"))
+         rTab = 1;
+      if (pTabID.equals("q3"))
+         rTab = 2;
+      if (pTabID.equals("q4"))
+         rTab = 3;
+      if (pTabID.equals("q5"))
+         rTab = 4;
+      if (pTabID.equals("q6"))
+         rTab = 5;
+      if (pTabID.equals("q7"))
+         rTab = 6;
+   }
+
+   public String getEnableNextButton() {
+      if (rTab >= 6 && pTab == 3)
+         return "false";
+      return "true";
+   }
+
+   public String getEnablePrevButton() {
+      if (pTab == 0)
+         return "false";
+      return "true";
+   }
+
+   public void gotoPrevTab() {
+      switch (rTab) {
+         case 0:
+            switch (pTab) {
+               case 0:
+                  break;
+               case 1:
+               case 2:
+               case 3:
+                  pTab--;
+               default:
+                  break;
+            }
+            return;
+         case 1:
+         case 2:
+         case 3:
+         case 4:
+         case 5:
+         case 6:
+         case 7:
+         default:
+            rTab--;
+            break;
+      }
+   }
+
+   public void gotoNextTab() {
+      switch (pTab) {
+         case 0:
+         case 1:
+         case 2:
+            pTab ++;
+            rTab = 0;
+            break;
+         case 3:
+         default:
+            if (rTab < 6)
+               rTab ++;
+            break;
+
+      }
    }
 
 }

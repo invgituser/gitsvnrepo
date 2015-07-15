@@ -3,7 +3,7 @@ package com.invessence.data.advisor;
 import java.util.*;
 import javax.faces.bean.*;
 
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import com.invmodel.portfolio.data.PortfolioSubclass;
 import org.primefaces.model.*;
 
@@ -81,7 +81,7 @@ public class TreeAssetFilter
       return root;
    }
 
-   public TreeNode loadFilteredTreeNodes(ManageGoals mgoal)
+   public TreeNode loadFilteredTreeNodes(CustomerData mgoal)
    {
       TreeNode root;
       root = new DefaultTreeNode(new AssetClassFilter("DataKey","Assets", null, null, null, null, null, null), null);

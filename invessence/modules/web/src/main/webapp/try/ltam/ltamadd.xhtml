@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/invlayout.xhtml">
+
+<f:metadata>
+    <f:viewParam name="acct" value="#{ltamprofile.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{ltamprofile.preRenderView}"/>
+</f:metadata>
+
+<ui:define name="content">
+<h:outputScript name="js/invCharts.js" library="spark-layout"/>
+
+<!-- BOX START -->
+<h:form id="ceForm">
+<p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
+
+<div class="layout-portlets-box">
+    <p:panel id="dPanel1">
+        <div class="Container100 Responsive50">
+                    <p:panel id="displayInfo" styleClass="Fleft" style="border: 0px">
+                        <p:steps activeIndex="#{ltamprofile.pTab}" styleClass="custom">
+                            <p:menuitem value="Personal" />
+                            <p:menuitem value="Investment Goals" />
+                            <p:menuitem value="Investment" />
+                            <p:menuitem value="Risk" />
+                        </p:steps>
+                    </p:panel>
+        </div>
+    </p:panel>
+
+    <div class="Container100 Responsive50">
+        <div class="ContainerIndent">
+            <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
+                <ui:include src="/try/ltam/addon/profile.xhtml"/>
+            </p:fieldset>
+        </div>
+    </div>
+
+</div>
+<!-- BOX END -->
+
+
+</h:form>
+
+
+</ui:define>
+
+</ui:composition>

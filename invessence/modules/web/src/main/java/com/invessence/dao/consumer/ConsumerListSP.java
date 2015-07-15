@@ -6,7 +6,7 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import com.invessence.bean.consumer.ClientBean;
-import com.invessence.data.common.ManageGoals;
+import com.invessence.data.common.CustomerData;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -47,7 +47,7 @@ public class ConsumerListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map loadClientProfileData(ManageGoals data)
+   public Map loadClientProfileData(CustomerData data)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", data.getLogonid());

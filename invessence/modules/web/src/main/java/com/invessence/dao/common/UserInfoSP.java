@@ -33,9 +33,8 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonstatus", Types.VARCHAR));
             declareParameter(new SqlParameter("p_lastname", Types.VARCHAR));
             declareParameter(new SqlParameter("p_firstname", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_state", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_stateRegistered", Types.VARCHAR));
             declareParameter(new SqlParameter("p_emailalt", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_leadsource", Types.VARCHAR));
             declareParameter(new SqlParameter("p_question1", Types.VARCHAR));
             declareParameter(new SqlParameter("p_answer1", Types.VARCHAR));
             declareParameter(new SqlParameter("p_question2", Types.VARCHAR));
@@ -43,10 +42,13 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_question3", Types.VARCHAR));
             declareParameter(new SqlParameter("p_answer3", Types.VARCHAR));
             declareParameter(new SqlParameter("p_ip", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_macaddress", Types.VARCHAR));
             declareParameter(new SqlParameter("p_resetID", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_cookieID", Types.VARCHAR));
             declareParameter(new SqlParameter("p_emailmsgtype", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_leadsource", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_cid", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.BIGINT));
+            declareParameter(new SqlParameter("p_access", Types.BIGINT));
             break;
          case 1:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
@@ -87,7 +89,6 @@ public class UserInfoSP extends StoredProcedure
 
       Map inputMap = new HashMap();
 
-
       inputMap.put("p_addmod", action);
       inputMap.put("p_logonid", data.getLogonID());
       inputMap.put("p_userid", data.getUserID());
@@ -106,11 +107,10 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_firstname", data.getFirstName());
 
 
-      inputMap.put("p_state", data.getStateCode());
+      inputMap.put("p_stateRegistered", data.getStateCode());
 
       inputMap.put("p_emailalt", data.getEmailalt());
 
-      inputMap.put("p_leadsource", data.getLeadsource());
       inputMap.put("p_question1", data.getQ1());
       inputMap.put("p_answer1", data.getAns1());
       inputMap.put("p_question2", data.getQ2());
@@ -118,10 +118,13 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_question3", data.getQ3());
       inputMap.put("p_answer3", data.getAns3());
       inputMap.put("p_ip", data.getIp());
-      inputMap.put("p_macaddress", data.getIp());
       inputMap.put("p_resetID", data.getResetID());
-      inputMap.put("p_cookieID", data.getCookieID());
       inputMap.put("p_emailmsgtype", data.getEmailmsgtype());
+      inputMap.put("p_leadsource", data.getLeadsource());
+      inputMap.put("p_cid", data.getCid());
+      inputMap.put("p_advisor", data.getAdvisor());
+      inputMap.put("p_rep", data.getRep());
+      inputMap.put("p_access", data.getAccess());
 
       return super.execute(inputMap);
    }

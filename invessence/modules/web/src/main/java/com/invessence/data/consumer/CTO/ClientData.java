@@ -1,4 +1,4 @@
-package com.invessence.data.consumer;
+package com.invessence.data.consumer.CTO;
 
 import java.util.*;
 

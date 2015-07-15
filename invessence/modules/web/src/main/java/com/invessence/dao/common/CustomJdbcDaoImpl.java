@@ -25,7 +25,6 @@ import com.invessence.constant.*;
 public class CustomJdbcDaoImpl extends JdbcDaoImpl
 {
 
-   private String updateAttemptsSql = null;
    private String lockUserSql = null;
    private String listofQAQuery = null;
    private WebUtil webutl = new WebUtil();
@@ -33,16 +32,6 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
    boolean accountNonLocked = true;
    boolean accountNonExpired = true;
    boolean credentialsNonExpired = true;
-
-   public String getUpdateAttemptsSql()
-   {
-      return updateAttemptsSql;
-   }
-
-   public void setUpdateAttemptsSql(String updateAttemptsSql)
-   {
-      this.updateAttemptsSql = updateAttemptsSql;
-   }
 
    public String getLockUserSql()
    {
@@ -90,13 +79,13 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String savedpassword = null;
       String logonStatus = null;
       Integer attempts = 0;
-      String acctownertype = null;
-      String logo = null;
-      String groupname = null;
+      String cid=null;
+      String advisor = null;
+      Long rep = null;
       Collection<GrantedAuthority> authorities;
       String firstname, lastname;
-      String ip, macaddress, cookieID, resetID;
-      String stateRegisted;
+      String ip, resetID;
+      String stateRegistered;
       Integer randomQuestion;
       Integer rnumber;
       String sql;
@@ -135,13 +124,11 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                ip = rs.getString("ip");
                firstname = rs.getString("firstname");
                lastname = rs.getString("lastname");
-               macaddress = rs.getString("macaddress");
-               cookieID = rs.getString("cookieID");
-               stateRegisted = rs.getString("state");
+               stateRegistered = rs.getString("stateRegistered");
                resetID = rs.getString("resetID");
-               acctownertype = rs.getString("accttype");
-               logo =  rs.getString("logo");
-               groupname = rs.getString("groupname");
+               cid=rs.getString("cid");
+               advisor = rs.getString("advisor");
+               rep =  rs.getLong("rep");
                emailmsgtype = rs.getString("emailmsgtype");
                access = rs.getString("access");
                // get List of questions...
@@ -159,13 +146,11 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                firstname = "";
                lastname = "";
                ip = "";
-               macaddress = "";
-               cookieID = "";
                resetID = "";
-               acctownertype="";
-               logo="";
-               groupname="";
-               stateRegisted="";
+               cid="";
+               advisor="";
+               rep=null;
+               stateRegistered="";
                emailmsgtype="";
                access = "User";
                qa=null;
@@ -203,16 +188,16 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       credentialsNonExpired = true; // Reset for now.  We need logic to redirect.
       accountNonExpired=true;
       userInfo = new UserInfoData(logonID, userid, username, savedemail, savedpassword,
-                                  enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
-                                  authorities, lastname, firstname,
-                                  ip, macaddress, cookieID, resetID,acctownertype, logo, groupname,
-                                  stateRegisted, qa, attempts, access, logonStatus, randomQuestion,emailmsgtype);
+                                  enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,authorities,
+                                  lastname, firstname,
+                                  ip, resetID,
+                                  cid, advisor, rep, stateRegistered,
+                                  qa, attempts, access, logonStatus, randomQuestion,emailmsgtype);
 
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(Const.USER_INFO);
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USER_INFO, userInfo);
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, attempts);
-      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ACCTTYPE, acctownertype.toUpperCase());
 
       return userInfo;
    }

@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+            Page 1<br/>
+
+            <h1>
+                My name is <input type="text" class="simpleInputText" value="#{ltamprofile.firstname}"/>
+                 <input type="text" value="#{ltamprofile.lastname}" class="simpleInputText"/>.
+                <br/>
+                I am <input type="text" required="true" class="simpleInputText" value="#{ltamprofile.age}"/> years old.
+                <br/>
+                and I am
+                <p:selectOneMenu required="true" style="width:125px">
+                <f:selectItem itemLabel="Select One" itemValue="" />
+                <f:selectItem itemLabel="Retired" itemValue="Retirement" />
+                <f:selectItem itemLabel="Not Retired" itemValue="NotRetired" />
+            </p:selectOneMenu>
+                .
+            </h1>
+    </div>
+
+</ui:composition>
