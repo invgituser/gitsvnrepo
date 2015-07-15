@@ -12,6 +12,8 @@ public class InvConst
    // Used in Asset Model
    public static String DEFAULT_THEME="0.Core";
    public static String DEFAULT_BASKET="Growth";
+   public static String DEFAULT_TAXABLE_THEME="T.0.Core";
+   public static String DEFAULT_TAXABLE_BASKET="Growth";
    public static String INVESSENCE_ADVISOR="Invessence";
 
 

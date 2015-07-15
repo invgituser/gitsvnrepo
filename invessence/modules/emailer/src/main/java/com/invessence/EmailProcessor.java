@@ -41,6 +41,11 @@ public class EmailProcessor
                schedulerFactory.start();
             }
          }
+         else {
+            ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/email.util.xml");
+            Scheduler schedulerFactory = (Scheduler) applicationContext.getBean("schedulerFactory");
+            schedulerFactory.start();
+         }
       }
       catch (Error e)
       {
