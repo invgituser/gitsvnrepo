@@ -38,8 +38,8 @@ public class NewRebal
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
       // Now we can do rebalaning on account(s).
-      ArrayList<TradeData> tradeList = rbal.process(null, 113L);
-      printTradeFile(tradeList);
+      ArrayList<RebalanceTradeData> rebalanceTradeDataList = rbal.process(null, 115L);
+      printTradeFile(rebalanceTradeDataList);
    }
 
    public static PrintWriter getFileHandle(String fileName)
@@ -62,7 +62,7 @@ public class NewRebal
       return writer;
    }
 
-   public static void printTradeFile (ArrayList<TradeData> tList){
+   public static void printTradeFile (ArrayList<RebalanceTradeData> tList){
 
       if(tList != null) {
          PrintWriter writer = getFileHandle("TradeFile.csv");
@@ -76,17 +76,11 @@ public class NewRebal
                            "," + "holdingQty" +
                            "," + "holdingPrice" +
                            "," + "holdingMoney" +
-                           "," + "holdingWeight" +
-                           "," + "costBasis" +
-                           "," + "allocTicker" +
-                           "," + "allocQty" +
-                           "," + "allocPrice" +
-                           "," + "allocValue" +
-                           "," + "allocWeight" +
-                           "," + "tradeType" +
-                           "," + "CashAvailable");
+                           "," + "newQty" +
+                           "," + "newValue" +
+                           "," + "tradeType" );
 
-         for (TradeData tData : tList) {
+         for (RebalanceTradeData tData : tList) {
             writer.println(tData.getClientAccountID() +
                               "," + tData.getAcctnum() +
                               "," + tData.getTicker() +
@@ -97,15 +91,9 @@ public class NewRebal
                               "," + tData.getHoldingQty() +
                               "," + tData.getHoldingPrice() +
                               "," + tData.getHoldingValue() +
-                              "," + tData.getHoldingWeight() +
-                              "," + tData.getCostBasisValue() +
-                              "," + tData.getAllocTicker() +
-                              "," + tData.getAllocQty() +
-                              "," + tData.getAllocPrice() +
-                              "," + tData.getAllocValue() +
-                              "," + tData.getAllocWeight() +
-                              "," + tData.getTradeType() +
-                              "," + tData.getCashAvaailable());
+                              "," + tData.getNewQty() +
+                              "," + tData.getNewValue() +
+                              "," + tData.getTradeType());
 
          }
          writer.println();

@@ -9,10 +9,8 @@ import com.invmodel.rebalance.data.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
-
 public class InvModelSP extends StoredProcedure
 {
-
    public InvModelSP(DataSource datasource, String storedProcName, int process, int which)
    {
       super(datasource, storedProcName);
@@ -43,6 +41,9 @@ public class InvModelSP extends StoredProcedure
                   declareParameter(new SqlParameter("p_clientAccountID", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
                   declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_subclass", Types.VARCHAR));
+                  declareParameter(new SqlParameter("p_color", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_curQty", Types.INTEGER));
                   declareParameter(new SqlParameter("p_curPrice", Types.DOUBLE));
                   declareParameter(new SqlParameter("p_curValue", Types.DOUBLE));
@@ -136,6 +137,9 @@ public class InvModelSP extends StoredProcedure
       inputMap.put("p_clientAccountID", tData.getClientAccountID());
       inputMap.put("p_acctnum", tData.getAcctnum());
       inputMap.put("p_ticker", tData.getTicker());
+      inputMap.put("p_assetclass", tData.getAssetclass());
+      inputMap.put("p_subclass", tData.getSubclass());
+      inputMap.put("p_color", tData.getColor());
       inputMap.put("p_curQty", tData.getQty().intValue());
       inputMap.put("p_curPrice", tData.getCurPrice());
       inputMap.put("p_curValue", tData.getMoney());
