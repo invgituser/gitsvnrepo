@@ -95,33 +95,4 @@
         </repository>
     </repositories>
     
-    <profiles>
-        <profile>
-            <id>distribute</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>2.3</version>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/assemble/theme.xml</descriptor>
-                                <descriptor>src/assemble/layout.xml</descriptor>
-                            </descriptors>
-                            <finalName>${project.name}-${project.version}</finalName>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>make-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
