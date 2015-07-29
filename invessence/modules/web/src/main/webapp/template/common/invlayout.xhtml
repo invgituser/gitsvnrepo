@@ -28,7 +28,9 @@
 
         <ui:include src="/template/common/invtopbar.xhtml" />
 
-        <ui:include src="/template/common/invlayoutmenu.xhtml" />
+        <ui:fragment rendered="#{menu.isUserLoggedInMenu}">
+            <ui:include src="/template/common/invlayoutmenu.xhtml" />
+        </ui:fragment>
 
         <div id="layout-portlets-cover">
             <ui:insert name="content">

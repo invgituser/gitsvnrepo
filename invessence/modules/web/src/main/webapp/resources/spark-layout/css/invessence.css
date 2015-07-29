@@ -163,3 +163,24 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     list-style-type: none !important;
     padding: 0 0 0px 0px !important;
 }
+
+.simpleInputText {
+    background-color: transparent;
+    border: 0px none;
+    border-bottom: solid 1px #465b65;
+    font-size: 24px;
+    width: 140px;
+    text-align: center;
+}
+
+.ul-vertical-align {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.ul-vertical-align li {
+    display: inline;
+    float: left;
+}
+

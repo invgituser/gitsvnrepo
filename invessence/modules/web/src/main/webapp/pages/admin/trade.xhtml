@@ -206,9 +206,9 @@
                     <p:column 
                               style="width:12%; text-align: right" resizable="true">
                         <f:facet name="header">
-                            <h:outputText value="Allocated"/>
+                            <h:outputText value="New"/>
                         </f:facet>
-                        <h:outputText value="#{trade.totalAllocValue}">
+                        <h:outputText value="#{trade.totalNewValue}">
                             <f:convertNumber type="currency" currencySymbol="$"/>
                         </h:outputText>
                     </p:column>
@@ -217,7 +217,7 @@
                         <f:facet name="header">
                             <h:outputText value="Traded"/>
                         </f:facet>
-                        <h:outputText value="#{trade.totalNewValue}">
+                        <h:outputText value="#{trade.totalCurrentValue}">
                             <f:convertNumber type="currency" currencySymbol="$"/>
                         </h:outputText>
                     </p:column>

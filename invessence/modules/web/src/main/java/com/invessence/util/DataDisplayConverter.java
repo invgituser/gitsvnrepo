@@ -13,6 +13,20 @@ import javax.servlet.http.HttpServletRequest;
 public class DataDisplayConverter implements Serializable
 {
 
+      public String displayAsMoney(Integer value)
+      {
+         if (value != null)
+         {
+            DecimalFormat df = new DecimalFormat("###,####,###.00");
+            String strValue = df.format(value);
+            return "$" + strValue;
+         }
+         else
+         {
+            return "-";
+         }
+      }
+
    public String displayAsMoney(Double value)
    {
       if (value != null)
@@ -27,19 +41,7 @@ public class DataDisplayConverter implements Serializable
       }
    }
 
-   public String displayAsMoney(Integer value)
-   {
-      if (value != null)
-      {
-         DecimalFormat df = new DecimalFormat("###,####,##0.00");
-         String strValue = df.format(value);
-         return "$" + strValue;
-      }
-      else
-      {
-         return "-";
-      }
-   }
+
 
    public String displayAsPercent(Double value)
    {
@@ -73,7 +75,7 @@ public class DataDisplayConverter implements Serializable
    {
       if (value != null)
       {
-         DecimalFormat df = new DecimalFormat("###,###,##0.00");
+         DecimalFormat df = new DecimalFormat("###,###,###.##");
          String strValue = df.format(value);
          return strValue;
       }

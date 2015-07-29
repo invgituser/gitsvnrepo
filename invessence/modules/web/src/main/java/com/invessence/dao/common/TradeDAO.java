@@ -10,7 +10,7 @@ import com.invessence.dao.admin.AdminSP;
 import com.invessence.data.TradeDetails;
 import com.invessence.data.common.*;
 import com.invmodel.asset.data.Asset;
-import com.invmodel.rebalance.data.TradeData;
+import com.invmodel.rebalance.data.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "tradeDAO")
@@ -139,7 +139,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
       Double totalCash = 0.0, remainingBalance;
 
       String clientAccountID = "Blank",taxable, theme;
-      Double allocValue, holdingValue;
+      Double newValue, holdingValue;
       if (outMap != null)
       {
          //NOTE: SP returns two datasets
@@ -172,33 +172,30 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                else
                {
                   summary = new TradeSummary();
-                  TradeData tradedata = new TradeData("", // advisor
-                                            clientAccountID,
-                                            null,
-                                            asset,
-                                            subclass,
-                                            ticker,
-                                            0.0,    // curQty
-                                            null,   // curPrice
-                                            0.0,   // curValue
-                                            ticker,   // holdingTicker
-                                            posQty,  //  holdingQty
-                                            null,  // holdingPrice
-                                            posValue,  // holdingValue
-                                            null,      // holdingWeight
-                                            null,      // holdingCostBasis
-                                            null,      // allocTicker
-                                            null,      // allocQty
-                                            null,      // allocPrice
-                                            null,      // allocValue
-                                            null,      // allocWeight
-                                            "No-trade", // tradeType
-                                            "",          // reason
-                                            0.0        // cashAvailable
+                  RebalanceTradeData tradedata = new RebalanceTradeData(
+                     "", // advisor
+                     clientAccountID,
+                     null,
+                     ticker,
+                     asset,
+                     subclass,
+                     "",
+                     0.0,    // curQty
+                     0.0,   // curValue
+                     0.0,   // curPrice
+                     ticker,   // holdingTicker
+                     posQty,  //  holdingQty
+                     null,  // holdingPrice
+                     posValue,  // holdingValue
+                     0.0,      // newQty
+                     0.0,      // newValue
+                     "P", // tradeType
+                     "Position" // reason
                   );
-                  tradedata.setColor(color);
+
+
                   summary.getTradeData().add(tradedata);
-                }
+               }
                String posKey = clientAccountID + "." + asset;
 
                if (!posAsset.containsKey(posKey))
@@ -275,9 +272,9 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                   summary.setTheme(theme);
                   summary.setGoal(convert.getStrData(rs.get("goal")));
 
-                  summary.setTotalNewValue(0.0);
+                  summary.setTotalCurentValue(0.0);
                   summary.setTotalHoldingValue(0.0);
-                  summary.setTotalAllocValue(0.0);
+                  summary.setTotalNewValue(0.0);
 
                }
 
@@ -286,7 +283,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                String subclass = convert.getStrData(rs.get("subclass"));
                Double curValue = convert.getDoubleData(rs.get("curValue"));
                Double curQty = convert.getDoubleData(rs.get("curQty"));
-               allocValue = convert.getDoubleData(rs.get("allocValue"));
+               newValue = convert.getDoubleData(rs.get("newValue"));
                holdingValue = convert.getDoubleData(rs.get("holdingValue"));
                Double runningHolding = 0.0, runningBalance = 0.0;
                Double runningQty = 0.0, runningBalQty = 0.0;
@@ -326,7 +323,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                   }
                   else {
                      assetclass.setValue(posHolding + curValue); // Set current value to same as position, then keep adding trades.
-                     summary.setTotalAllocValue(summary.getTotalHoldingValue() + curValue);
+                     summary.setTotalNewValue(summary.getTotalNewValue() + newValue);
                   }
                }
                else
@@ -335,36 +332,33 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
                   assetclass.setValue(assetclass.getValue() + curValue);
                }
                summary.setTotalNewValue(summary.getTotalNewValue() + curValue);
+               summary.setTotalCurentValue(summary.getTotalCurrentValue() + curValue);
 
                summary.getAsset().put(asset, assetclass);
 
-               TradeData tradeData = new TradeData("",
-                                         clientAccountID,
-                                         convert.getLongData(rs.get("acctnum")),
-                                         asset,
-                                         subclass,
-                                         ticker,
-                                         convert.getDoubleData(rs.get("curQty")),
-                                         convert.getDoubleData(rs.get("curPrice")),
-                                         curValue,
-                                         convert.getStrData(rs.get("holdingTicker")),
-                                         runningQty,
-                                         convert.getDoubleData(rs.get("holdingPrice")),
-                                         runningHolding,
-                                         convert.getDoubleData(rs.get("holdingWeight")),
-                                         convert.getDoubleData(rs.get("holdingCostBasis")),
-                                         convert.getStrData(rs.get("allocTicker")),
-                                         runningBalQty,
-                                         convert.getDoubleData(rs.get("allocPrice")),
-                                         runningBalance,
-                                         convert.getDoubleData(rs.get("allocWeight")),
-                                         convert.getStrData(rs.get("tradeType")),
-                                         convert.getStrData(rs.get("reason")),
-                                         0.0  // cash Remaining
+               RebalanceTradeData tradedata = new RebalanceTradeData(
+                  convert.getStrData(rs.get("advisor")), // advisor
+                  clientAccountID,
+                  convert.getLongData(rs.get("acctnum")),
+                  ticker,
+                  asset,
+                  subclass,
+                  convert.getStrData(rs.get("color")),
+                  convert.getDoubleData(rs.get("curQty")),
+                  curValue,
+                  convert.getDoubleData(rs.get("curPrice")),
+                  convert.getStrData(rs.get("holdingTicker")),
+                  convert.getDoubleData(rs.get("holdingQty")),
+                  convert.getDoubleData(rs.get("holdingPrice")),
+                  convert.getDoubleData(rs.get("holdingValue")),
+                  convert.getDoubleData(rs.get("newQty")),
+                  convert.getDoubleData(rs.get("newValue")),
+                  convert.getStrData(rs.get("tradeType")),
+                  convert.getStrData(rs.get("reason"))
                );
-               tradeData.setColor(convert.getStrData(rs.get("color")));
 
-               summary.getTradeDetails().add(tradeData);
+
+               summary.getTradeDetails().add(tradedata);
                summary.addListofHoldingTickers(ticker,
                                                convert.getDoubleData(rs.get("curQty")),
                                                curValue);

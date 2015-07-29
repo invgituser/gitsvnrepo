@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+        <h1>Risk Tolerance is defined by investor ability to take short term losses
+        for potential for long-term gains.  Your risk tolerance for risk is ...</h1>
+        <br/>
+
+        <p:outputPanel deferred="true">
+            <p:chart type="pie" model="#{ltamprofile.charts.pieChart}"
+                     responsive="true"/>
+        </p:outputPanel>
+
+        <div class="Container80 TexAlCenter Fs16">
+            More Bonds
+        </div>
+        <div class="Container50 TexAlCenter Fs20">
+            <h:inputHidden id="allocValue" value="#{ltamprofile.riskOverride}"/>
+            <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="5" step="1">
+                <p:ajax event="slideEnd"
+                        update=":ltamForm:inputArea, :ltamForm:graphArea"
+                        listener="#{ltamprofile.onAllocSlider}"/>
+            </p:slider>
+        </div>
+        <div class="Container25 TexAlCenter Fs16">
+            More Stocks
+        </div>
+
+
+    </div>
+
+</ui:composition>

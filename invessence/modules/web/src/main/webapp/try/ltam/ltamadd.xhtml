@@ -6,47 +6,108 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/invlayout.xhtml">
 
-<f:metadata>
-    <f:viewParam name="acct" value="#{ltamprofile.beanAcctnum}"/>
-    <f:event type="preRenderView" listener="#{ltamprofile.preRenderView}"/>
-</f:metadata>
+    <f:metadata>
+        <f:viewParam name="acct" value="#{ltamprofile.beanAcctnum}"/>
+        <f:event type="preRenderView" listener="#{ltamprofile.preRenderView}"/>
+    </f:metadata>
 
-<ui:define name="content">
-<h:outputScript name="js/invCharts.js" library="spark-layout"/>
+    <ui:define name="content">
+        <h:outputScript name="js/invCharts.js" library="spark-layout"/>
 
-<!-- BOX START -->
-<h:form id="ceForm">
-<p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
+        <!-- BOX START -->
+        <h:form id="ltamForm">
+            <p:growl id="ltamgrowl" showDetail="false" sticky="true" escape="true"/>
 
-<div class="layout-portlets-box">
-    <p:panel id="dPanel1">
-        <div class="Container100 Responsive50">
-                    <p:panel id="displayInfo" styleClass="Fleft" style="border: 0px">
-                        <p:steps activeIndex="#{ltamprofile.pTab}" styleClass="custom">
-                            <p:menuitem value="Personal" />
-                            <p:menuitem value="Investment Goals" />
-                            <p:menuitem value="Investment" />
-                            <p:menuitem value="Risk" />
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive50">
+                    <div class="ContainerIndent TexAlLeft">
+                        <p:steps id="ctoprogressbar" activeIndex="#{ltamprofile.ltammenu}">
+                            <p:menuitem value="Personal"/>
+                            <p:menuitem value="Goal"/>
+                            <p:menuitem value="Investment"/>
+                            <p:menuitem value="Risk"/>
+                            <p:menuitem value="Review"/>
                         </p:steps>
+                    </div>
+                </div>
+                <div class="Container50 Responsive50">
+                    <p:panel id="inputArea" style="border: 0px">
+                        <ui:fragment rendered="#{ltamprofile.pagemanager.page == 0}">
+                            <ui:include src="/try/ltam/addon/page0.xhtml"/>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{ltamprofile.pagemanager.page == 1}">
+                            <ui:include src="/try/ltam/addon/page1.xhtml"/>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{ltamprofile.pagemanager.page == 2}">
+                            <ui:include src="/try/ltam/addon/page2.xhtml"/>
+                        </ui:fragment>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Previous" styleClass="Fleft" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+                                             update=":ltamForm:inputArea, :ltamForm:graphArea, :ltamForm:ctoprogressbar, :ltamForm:ctogrowl"
+                                             actionListener="#{ltamprofile.pagemanager.prevPage}"/>
+                            <p:commandButton value="Next" styleClass="Fright" rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                             update=":ltamForm:inputArea, :ltamForm:graphArea, :ltamForm:ctoprogressbar, :ltamForm:ctogrowl"
+                                             actionListener="#{ltamprofile.pagemanager.nextPage}"/>
+                        </f:facet>
                     </p:panel>
-        </div>
-    </p:panel>
+                </div>
+                <div class="Container50 Responsive50">
+                    <div class="ContainerIndent">
+                        <p:panel id="graphArea" style="border: 0px">
+                            <ui:fragment randerd="#{ltamprofile.displayMeter}">
+                            <div class="EmptyBox20"></div>
+                               <div class="Container100 Responsive100">
+                                   <p:outputPanel id="charts" style="border: 0px">
+                                       <p:panel style="border: 0px">
+                                           <div class="Container50  Fleft">
+                                               <div class="Container100">
+                                                   <p:outputPanel deferred="true">
+                                                       <p:chart type="pie" model="#{ltamprofile.charts.pieChart}"
+                                                                responsive="true"/>
+                                                   </p:outputPanel>
+                                               </div>
+                                           </div>
+                                           <div class="Container50 Fleft">
+                                               <div class="ContainerIndent">
+                                                   <p:dataTable styleClass="invAllocTable"
+                                                                value="#{ltamprofile.assetTable}"
+                                                                var="assetList" reflow="true">
 
-    <div class="Container100 Responsive50">
-        <div class="ContainerIndent">
-            <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
-                <ui:include src="/try/ltam/addon/profile.xhtml"/>
-            </p:fieldset>
-        </div>
-    </div>
+                                                       <p:column style="width: 2%; background-color: #{assetList.color};">
+                                                           <h:outputText value=" "/>
+                                                       </p:column>
 
-</div>
-<!-- BOX END -->
+                                                       <p:column styleClass="Wid50 TexAlLeft"
+                                                                 resizable="true" headerText="Asset">
+                                                           <h:outputText value="#{assetList.asset}"/>
+                                                       </p:column>
+                                                       <p:column styleClass="Wid40 TexAlRight"
+                                                                 resizable="true" headerText="Allocation">
+                                                           <h:outputText value="#{assetList.weight}">
+                                                               <f:convertNumber pattern="##0.00%"/>
+                                                           </h:outputText>
+                                                       </p:column>
+                                                   </p:dataTable>
+                                               </div>
+                                           </div>
+                                       </p:panel>
+                                   </p:outputPanel>
+                               </div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Container100 Responsive100">
+                                    <p:graphicImage value="#{ltamprofile.charts.meterChart}"/>
+                                </div>
+                            </ui:fragment>
+                        </p:panel>
+                    </div>
+                </div>
+
+            </div>
+
+        </h:form>
 
 
-</h:form>
-
-
-</ui:define>
+    </ui:define>
 
 </ui:composition>

@@ -1,4 +1,4 @@
-package com.invessence.bean.consumer;
+package com.invessence.bean.ltam;
 
 import java.io.Serializable;
 import java.util.*;
@@ -13,7 +13,9 @@ import com.invessence.constant.*;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.*;
+import com.invessence.data.ltam.LTAMCustomerData;
 import com.invessence.util.EmailMessage;
+import com.invessence.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
 import com.invmodel.performance.data.PerformanceData;
 import org.primefaces.component.tabview.Tab;
@@ -31,11 +33,12 @@ import org.primefaces.event.*;
 
 @ManagedBean(name = "ltamprofile")
 @SessionScoped
-public class LTAMProfileBean extends CustomerData implements Serializable
+public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 {
    private Long  beanAcctnum;
-
-   private USMaps usstates = USMaps.getInstance();
+   private PagesImpl pagemanager;
+   private Integer ltammenu;
+   private LTAMCharts charts;
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -69,56 +72,62 @@ public class LTAMProfileBean extends CustomerData implements Serializable
       this.beanAcctnum = converter.getLongData(beanAcctnum);
    }
 
-   public USMaps getUsstates()
+   public PagesImpl getPagemanager()
    {
-      return usstates;
+      return pagemanager;
    }
 
-   private Integer pTab = 0;
-
-
-   public Integer getpTab()
+   public Boolean getDisplayMeter()
    {
-      return pTab;
+      if (pagemanager != null && pagemanager.getPage() > 0)
+         return true;
+      else
+         return false;
    }
 
-   public void setpTab(Integer pTab)
+   public LTAMCharts getCharts()
    {
-      this.pTab = pTab;
+      return charts;
    }
 
-   public String getEnableNextButton() {
-      if (pTab == 3)
-         return "false";
-      return "true";
-   }
-
-   public String getEnablePrevButton() {
-      if (pTab == 0)
-         return "false";
-      return "true";
-   }
-
-   public void gotoPrevTab() {
-       pTab--;
-   }
-
-   public void gotoNextTab() {
-            pTab ++;
+   public Integer getLtammenu()
+   {
+      switch (pagemanager.getPage()) {
+         case 0:
+         case 1:
+         case 2:
+         case 3:
+            ltammenu = pagemanager.getPage();
+            break;
+         case 4:
+         case 5:
+         case 6:
+         case 7:
+         case 8:
+         case 9:
+         case 10:
+            ltammenu = 4;
+            break;
+         default:
+            ltammenu = 0;
+            break;
+      }
+      return ltammenu;
    }
 
    public void preRenderView()
    {
-
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            pTab = 0;
+            charts = new LTAMCharts();
+            pagemanager = new PagesImpl(10);
          }
       }
       catch (Exception ex) {
          ex.printStackTrace();
       }
    }
+
 }
 

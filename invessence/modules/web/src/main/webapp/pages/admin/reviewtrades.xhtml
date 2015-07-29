@@ -95,7 +95,7 @@
                                                   footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalHoldingValue)}">
                                         </p:column>
                                         <p:column colspan="2" style="text-align:right"
-                                                  footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalAllocValue)}">
+                                                  footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalNewValue)}">
                                         </p:column>
                                     </p:row>
                                 </p:columnGroup>
@@ -166,12 +166,12 @@
                             </p:column>
 
                             <p:column styleClass="Fs12" style="width:3%; text-align: right;">
-                                <h:outputText value="#{tradedata.allocQty}">
+                                <h:outputText value="#{tradedata.newQty}">
                                     <f:convertNumber pattern="###,###,###"/>
                                 </h:outputText>
                             </p:column>
                             <p:column styleClass="Fs12" style="width:12%; text-align: right;">
-                                <h:outputText value="#{tradedata.allocValue}">
+                                <h:outputText value="#{tradedata.newValue}">
                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                 </h:outputText>
                             </p:column>
@@ -200,10 +200,10 @@
                                               footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalHoldingValue)}"
                                               style="text-align:right"/>
                                     <p:column colspan="2"
-                                              footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalAllocValue)}"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalNewValue)}"
                                               style="text-align:right"/>
                                     <p:column colspan="2"
-                                              footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalNewValue)}"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(tradeBean.selectedTradeSummary.totalCurrentValue)}"
                                               style="text-align:right"/>
                                     <p:column colspan="1" footerText="" style="text-align:left"/>
                                 </p:row>

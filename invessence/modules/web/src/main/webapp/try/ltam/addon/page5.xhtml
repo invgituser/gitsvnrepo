@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+        <h1>The graph below shows potential returns and losses within a portfolio
+        based on risk tolerance over a one-year calendar period. The portfolio for the
+        highest potential returns also have the highest potential loss.  Which of these
+        portfolio best reflects your risk tolerance?</h1>
+        <br/>
+
+        <p:outputPanel deferred="true">
+            <p:chart type="bar" model="#{ltamprofile.charts.barChart}"
+                     responsive="true"/>
+        </p:outputPanel>
+
+    </div>
+
+</ui:composition>

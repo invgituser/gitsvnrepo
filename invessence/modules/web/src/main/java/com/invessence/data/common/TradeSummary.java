@@ -3,7 +3,7 @@ package com.invessence.data.common;
 import java.util.*;
 
 import com.invmodel.asset.data.Asset;
-import com.invmodel.rebalance.data.TradeData;
+import com.invmodel.rebalance.data.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,11 +20,11 @@ public class TradeSummary
    private String taxable, theme, goal;
    private String email;
    private Double totalbought, totalsold, newcash, keepLiquid;
-   private Double totalNewValue, totalAllocValue, totalHoldingValue;
+   private Double totalCurrentValue, totalNewValue, totalHoldingValue;
    private Map<String, RebalanceInfo> listofHoldingTickers = new HashMap<String, RebalanceInfo>();
    private Map<String, Asset> asset = new LinkedHashMap<String, Asset>();
-   private ArrayList<TradeData> tradeDetails = new ArrayList<TradeData>();
-   private TradeData cashDetail = new TradeData();
+   private ArrayList<RebalanceTradeData> tradeDetails = new ArrayList<RebalanceTradeData>();
+   private RebalanceTradeData cashDetail = new RebalanceTradeData();
 
    public String getClientAccountID()
    {
@@ -164,26 +164,26 @@ public class TradeSummary
       return newBalance;
    }
 
-   public ArrayList<TradeData> getTradeDetails()
+   public ArrayList<RebalanceTradeData> getTradeDetails()
    {
       return tradeDetails;
    }
 
-   public void setTradeDetails(ArrayList<TradeData> tradeDetails)
+   public void setTradeDetails(ArrayList<RebalanceTradeData> tradeDetails)
    {
       this.tradeDetails = tradeDetails;
    }
 
-   public ArrayList<TradeData> getTradeData() {
+   public ArrayList<RebalanceTradeData> getTradeData() {
       return tradeDetails;
    }
 
-   public TradeData getCashDetail()
+   public RebalanceTradeData getCashDetail()
    {
       return cashDetail;
    }
 
-   public void setCashDetail(TradeData cashDetail)
+   public void setCashDetail(RebalanceTradeData cashDetail)
    {
       this.cashDetail = cashDetail;
    }
@@ -228,33 +228,29 @@ public class TradeSummary
       this.keepLiquid = keepLiquid;
    }
 
+   public Double getTotalCurrentValue()
+   {
+      if (totalCurrentValue == null)
+         return 0.0;
+
+      return totalCurrentValue;
+   }
+
+   public void setTotalCurentValue(Double totalCurrentValue)
+   {
+      this.totalCurrentValue = totalCurrentValue;
+   }
+
    public Double getTotalNewValue()
    {
       if (totalNewValue == null)
          return 0.0;
-
       return totalNewValue;
    }
 
    public void setTotalNewValue(Double totalNewValue)
    {
       this.totalNewValue = totalNewValue;
-   }
-
-   public Double getTotalAllocValue()
-   {
-      if (totalAllocValue == null)
-         return 0.0;
-      return totalAllocValue;
-   }
-
-   public void setTotalAllocValue(Double totalAllocValue)
-   {
-      this.totalAllocValue = totalAllocValue;
-   }
-
-   public Double getNewTotalValue() {
-      return (this.totalNewValue - this.totalNewValue);
    }
 
    public Double getTotalHoldingValue()
@@ -281,7 +277,7 @@ public class TradeSummary
          }
 
          setTotalHoldingValue(totalHolding);
-         setTotalAllocValue(totalNewTrades);
+         setTotalNewValue(totalNewTrades);
          // setTotalNewValue(totalNewTrades);
       }
    }

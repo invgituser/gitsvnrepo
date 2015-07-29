@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+
+        <div class="Fright">
+            <h1>
+                My name is <input type="text" class="simpleInputText" value="#{ltamprofile.firstname}"/>
+                <input type="text" value="#{ltamprofile.lastname}" class="simpleInputText"/>.
+            </h1>
+        </div>
+        <br/>
+
+
+        <div class="Fleft">
+            <h1>
+                I am <input type="text" class="simpleInputText" value="#{ltamprofile.age}"/> years old.
+            </h1>
+        </div>
+        <br/>
+
+        <div class="Fleft">
+            <h1>
+                <!--
+                I am
+                <p:selectOneMenu value="#{ltamprofile.accttype}">
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItem itemLabel="Retired" itemValue="Retirement"/>
+                    <f:selectItem itemLabel="Not Retired" itemValue="NotRetired"/>
+                </p:selectOneMenu>
+                .
+                -->
+                I plan on investing <pe:inputNumber id="initialInvestment" styleClass="Wid90 simpleInputText"
+                                                     value="#{ltamprofile.investment}"
+                                                     maxlength="11" decimalPlaces="0" symbol="$"/>
+            </h1>
+        </div>
+    </div>
+
+</ui:composition>

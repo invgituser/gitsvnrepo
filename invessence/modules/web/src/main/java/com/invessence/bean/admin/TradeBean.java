@@ -16,7 +16,7 @@ import com.invessence.data.common.*;
 import com.invessence.io.TradeWriter;
 import com.invessence.util.*;
 import com.invmodel.rebalance.RebalanceProcess;
-import com.invmodel.rebalance.data.TradeData;
+import com.invmodel.rebalance.data.*;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.*;
 
@@ -325,7 +325,7 @@ public class TradeBean extends TradeClientData implements Serializable
    public void createtlhTrades()
    {
       TradeClientData tData = null;
-      ArrayList<TradeData> tradedata = null;
+      ArrayList<RebalanceTradeData> tradedata = null;
       try
       {
          if (getSelectedClientList() != null)
