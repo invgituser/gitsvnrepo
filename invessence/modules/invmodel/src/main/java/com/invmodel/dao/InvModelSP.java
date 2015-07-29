@@ -5,7 +5,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invmodel.rebalance.data.TradeData;
+import com.invmodel.rebalance.data.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -43,8 +43,6 @@ public class InvModelSP extends StoredProcedure
                   declareParameter(new SqlParameter("p_clientAccountID", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
                   declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
-                  declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
-                  declareParameter(new SqlParameter("p_sublass", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_curQty", Types.INTEGER));
                   declareParameter(new SqlParameter("p_curPrice", Types.DOUBLE));
                   declareParameter(new SqlParameter("p_curValue", Types.DOUBLE));
@@ -52,13 +50,8 @@ public class InvModelSP extends StoredProcedure
                   declareParameter(new SqlParameter("p_holdingQty", Types.INTEGER));
                   declareParameter(new SqlParameter("p_holdingPrice", Types.DOUBLE));
                   declareParameter(new SqlParameter("p_holdingValue", Types.DOUBLE));
-                  declareParameter(new SqlParameter("p_holdingWeight", Types.DOUBLE));
-                  declareParameter(new SqlParameter("p_holdingCostBasis", Types.DOUBLE));
-                  declareParameter(new SqlParameter("p_allocTicker", Types.VARCHAR));
-                  declareParameter(new SqlParameter("p_allocgQty", Types.INTEGER));
-                  declareParameter(new SqlParameter("p_allocPrice", Types.DOUBLE));
-                  declareParameter(new SqlParameter("p_allocValue", Types.DOUBLE));
-                  declareParameter(new SqlParameter("p_allocWeight", Types.DOUBLE));
+                  declareParameter(new SqlParameter("p_newQty", Types.INTEGER));
+                  declareParameter(new SqlParameter("p_newValue", Types.DOUBLE));
                   declareParameter(new SqlParameter("p_tradeType", Types.VARCHAR));
                   declareParameter(new SqlParameter("p_reason", Types.VARCHAR));
                   break;
@@ -136,15 +129,13 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map saveTradeData(TradeData tData)
+   public Map saveTradeData(RebalanceTradeData tData)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_advisor", tData.getAdvisor());
       inputMap.put("p_clientAccountID", tData.getClientAccountID());
       inputMap.put("p_acctnum", tData.getAcctnum());
       inputMap.put("p_ticker", tData.getTicker());
-      inputMap.put("p_assetclass", tData.getAssetclass());
-      inputMap.put("p_sublass", tData.getSubclass());
       inputMap.put("p_curQty", tData.getQty().intValue());
       inputMap.put("p_curPrice", tData.getCurPrice());
       inputMap.put("p_curValue", tData.getMoney());
@@ -152,13 +143,8 @@ public class InvModelSP extends StoredProcedure
       inputMap.put("p_holdingQty", tData.getHoldingQty());
       inputMap.put("p_holdingPrice", tData.getHoldingPrice());
       inputMap.put("p_holdingValue", tData.getHoldingValue());
-      inputMap.put("p_holdingWeight", tData.getHoldingWeight());
-      inputMap.put("p_holdingCostBasis", tData.getCostBasisValue());
-      inputMap.put("p_allocTicker", tData.getAllocTicker());
-      inputMap.put("p_allocgQty", tData.getAllocQty());
-      inputMap.put("p_allocPrice", tData.getAllocPrice());
-      inputMap.put("p_allocValue", tData.getAllocValue());
-      inputMap.put("p_allocWeight", tData.getAllocWeight());
+      inputMap.put("p_newQty", tData.getNewQty());
+      inputMap.put("p_newValue", tData.getNewValue());
       inputMap.put("p_tradeType", tData.getTradeType());
       inputMap.put("p_reason", tData.getReason());
       return super.execute(inputMap);

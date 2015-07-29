@@ -371,11 +371,11 @@ public class InvModelDAO extends JdbcDaoSupport
       }
 
 
-   public void saveTradeData(ArrayList<TradeData> tradeData) {
+   public void saveTradeData(ArrayList<RebalanceTradeData> rebalanceTradeData) {
       // DataSource ds = getDs();
       String storedProcName = "sp_save_rebalanced_trades";
       InvModelSP sp = new InvModelSP(ds, storedProcName,1, 10);
-      for (TradeData tData : tradeData) {
+      for (RebalanceTradeData tData : rebalanceTradeData) {
          sp.saveTradeData(tData);
       }
    }

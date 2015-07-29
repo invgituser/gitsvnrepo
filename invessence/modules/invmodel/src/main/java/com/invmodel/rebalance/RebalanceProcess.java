@@ -30,6 +30,9 @@ public class RebalanceProcess
    private SecurityCollection secCollection = null;
    private PortfolioOptimizer portfolioOptimizer = null;
 
+   Map<String, HoldingData> holdingMasterDataMap = new HashMap<String, HoldingData>();
+   ArrayList<RebalanceTradeData> rebalanceTradeDataList;
+
    private String advisor;
 
    private RebalanceProcess()
@@ -189,12 +192,92 @@ public class RebalanceProcess
       }
    }
 
-   public void saveTrades(Long acctnum, ArrayList<TradeData> tData) {
+   public ArrayList<RebalanceTradeData> saveTrades(ProfileData profileData, Long acctnum, ArrayList<TradeData> tData) {
       invModelDAO.deleteTradeData(acctnum);
-      invModelDAO.saveTradeData(tData);
+      ArrayList<RebalanceTradeData> rebalTrades = buildFinalTradeRebalTrades(profileData, tData);
+      invModelDAO.saveTradeData(rebalTrades);
+      return rebalTrades;
    }
 
-   public ArrayList<TradeData> process(Long logonid, Long acctnum) throws Exception
+   public ArrayList<RebalanceTradeData> buildFinalTradeRebalTrades(ProfileData profileData, ArrayList<TradeData> tradeData) {
+
+      ArrayList<RebalanceTradeData> rebalTrades = new ArrayList<RebalanceTradeData>();
+      try {
+         Map<String, HoldingData> processedMap = new HashMap<String,HoldingData>();
+         Double holdingValue, tradeValue, newValue;
+         Double holdingQty, tradeQty, newQty;
+         if (tradeData != null) {  // Process the trade File, note: we are deleting positions records as balance < 0.0
+            for (TradeData td : tradeData) {
+               String ticker = td.getTicker();
+               tradeValue = td.getMoney();
+               tradeQty = td.getQty();
+
+               if (holdingMasterDataMap.containsKey(ticker)) {
+                  holdingQty = holdingMasterDataMap.get(ticker).getQty();
+                  holdingValue = holdingMasterDataMap.get(ticker).getPositionValue();
+                  holdingMasterDataMap.get(ticker).setPositionValue(holdingValue + tradeValue);
+                  holdingMasterDataMap.get(ticker).setQty(holdingQty + tradeQty);
+                  holdingMasterDataMap.get(ticker).setProcessed(true);
+               }
+               else {
+                  HoldingData hData = new HoldingData();
+                  hData.setProcessed(true);
+                  hData.setTicker(ticker);
+                  hData.setQty(0.0);
+                  hData.setPositionValue(0.0);
+                  holdingMasterDataMap.put(ticker, hData);
+                  holdingQty = 0.0;
+                  holdingValue = 0.0;
+               }
+
+               if (ticker.toUpperCase().equals("CASH")) {
+                  newValue = tradeValue;
+                  newQty =  tradeQty;
+               }
+               else {
+                  newValue = holdingValue + tradeValue;
+                  newQty = holdingQty + tradeQty;
+               }
+
+               RebalanceTradeData rtd = new RebalanceTradeData(profileData.getAdvisor(),
+                                                               td.getClientAccountID(), td.getAcctnum(),
+                                                               td.getTicker(), td.getAssetclass(), td.getSubclass(), td.getColor(),
+                                                               tradeQty, tradeValue, td.getCurPrice(),
+                                                               td.getHoldingTicker(), holdingQty, td.getCurPrice(), holdingValue,
+                                                               newQty, newValue,
+                                                               td.getTradeType(), td.getReason()
+                                                               );
+               rebalTrades.add(rtd);
+            }
+
+            if (holdingMasterDataMap.size() > 0) {  // If we still have data in holding then create dummy trade records.
+               for (HoldingData hd : holdingMasterDataMap.values()) {
+
+                  if (! hd.isProcessed()) {
+                     RebalanceTradeData rtd = new RebalanceTradeData(profileData.getAdvisor(),
+                                                                     profileData.getClientAccountID(), profileData.getAcctnum(),
+                                                                     hd.getTicker(), hd.getAssetclass(), hd.getSubclass(), hd.getColor(),
+                                                                     0.0, 0.0, hd.getMarkPrice(),
+                                                                     hd.getTicker(), hd.getQty(), hd.getMarkPrice(), hd.getPositionValue(),
+                                                                     hd.getQty(), hd.getPositionValue(),
+                                                                     "X", "No Action"
+                     );
+                  rebalTrades.add(rtd);
+                  }
+
+               }
+
+            }
+         }
+      }
+      catch (Exception ex) {
+
+      }
+      return rebalTrades;
+
+   }
+
+   public ArrayList<RebalanceTradeData> process(Long logonid, Long acctnum) throws Exception
    {
       ArrayList <TradeData> tradeDataList = null;
       List <ProfileData> profileList;
@@ -209,6 +292,8 @@ public class RebalanceProcess
 
          if (portfolioOptimizer == null)
             return null;
+
+         rebalanceTradeDataList = new ArrayList<RebalanceTradeData>();
 
          profileList =  loadCustomerProfile(logonid, acctnum, null);
          // Note: Data is already collected, we are just assigning a local variable.
@@ -245,9 +330,28 @@ public class RebalanceProcess
 
             // Load Position Data (Current Holding)
             CurrentHolding curHolding = loadHoldings(pdata.getAcctnum());
+            //  Since, currentHolding will be changed by process, below, we are coping the original to master for final save.
+            holdingMasterDataMap.clear();
+            if (curHolding.getHoldingDataMap() != null) {
+               for (HoldingData hdata : curHolding.getHoldingDataMap().values()) {
+                  String key = hdata.getTicker();
+                  Double holdingQty = hdata.getQty();
+                  Double holdingValue = hdata.getPositionValue();
+                  if (! holdingMasterDataMap.containsKey(key)) {
+                     HoldingData hMasterData = new HoldingData();
+                     hMasterData.setProcessed(false);
+                     hMasterData.setTicker(key);
+                     hMasterData.setQty(holdingQty);
+                     hMasterData.setPositionValue(holdingValue);
+                     holdingMasterDataMap.put(key, hMasterData);
+                  }
+               }
+            }
+
 
             // Load Trade History.  This can be eliminated once we can identify the Realized Loss/Gain
             Map<String, ArrayList> tradesExecutedMap = loadExecuteTrades(pdata.getAcctnum());
+            tradeDataList = null;
 
             //pdata.setShortLossCarry(5000.00);
             //pdata.setLongLossCarry(-20000.00);
@@ -316,13 +420,15 @@ public class RebalanceProcess
                //Generate a trade list
                tradeDataList = createTradeObjectTaxAccounts(newHoldings, curHolding);
             }
+            ArrayList<RebalanceTradeData> savedList = saveTrades(pdata, acctnum, tradeDataList);
+            rebalanceTradeDataList.addAll(savedList);
+
          }
-         saveTrades(acctnum, tradeDataList);
       }
       catch (Exception ex) {
          ex.printStackTrace();
       }
-      return tradeDataList;
+      return rebalanceTradeDataList;
    }
 
    public  void setTaxLossFlags(Portfolio[] nHoldings,  CurrentHolding curHolding, Integer year) throws Exception
