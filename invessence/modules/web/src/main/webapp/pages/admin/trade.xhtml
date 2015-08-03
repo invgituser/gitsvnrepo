@@ -58,8 +58,7 @@
                         </p:commandButton>
                     </p:column>
 
-
-                    <p:column headerText="InvAcc#" style="width:5%">
+                    <p:column headerText="InvAcc#" style="width:7%">
                         #{filteredData.acctnum}
                     </p:column>
 
@@ -67,25 +66,28 @@
                         #{filteredData.clientAccountID}
                     </p:column>
 
-                    <p:column headerText="Name" style="width:30%">
+                    <p:column headerText="Name" style="width:20%">
                         #{filteredData.name}
                     </p:column>
 
-                    <p:column headerText="Type" style="width:15%">
-                        #{filteredData.accountType}
+                    <p:column headerText="Type" style="width:13%">
+                        #{filteredData.accountType}<br/>
+                        #{filteredData.cashMargin}
                     </p:column>
 
                     <p:column headerText="Reason" style="width:10%; text-align: left">
-                        #{filteredData.reason}
-                    </p:column>
-
-
-                    <p:column headerText="Description" style="width:30%; text-align: left">
+                        #{filteredData.reason}<br/>
                         #{filteredData.description}
                     </p:column>
 
+<!--
+                    <p:column headerText="Description" style="width:10; text-align: left">
+                        #{filteredData.description}
+                    </p:column>
+-->
 
-                    <p:column headerText="KeepLiquid" style="width:7%; text-align: right">
+
+                    <p:column headerText="Cash" style="width:7%; text-align: right">
                         <h:outputText value="#{filteredData.keepLiquid}">
                             <f:convertNumber type="currency" currencySymbol="$"/>
                         </h:outputText>
@@ -97,12 +99,13 @@
                         </h:outputText>
                     </p:column>
 
+<!--
                     <p:column headerText="Holding" style="width:15%; text-align: right">
                         <h:outputText value="#{filteredData.position}">
                             <f:convertNumber type="currency" currencySymbol="$"/>
                         </h:outputText>
                     </p:column>
-
+-->
                     <!--
                            <p:column style="width:5%">
                                <p:commandButton id="selectButton" process="@this"

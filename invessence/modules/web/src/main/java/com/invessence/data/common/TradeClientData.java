@@ -17,6 +17,7 @@ public class TradeClientData extends CustomerData
    private String lastUpdated;
    private String assetClass;
    private Double position, currentAllocation, requiredAllocation;
+   private String cashMargin;
 
    public TradeClientData getInstance()
    {
@@ -44,9 +45,9 @@ public class TradeClientData extends CustomerData
       else if (this.reason.toUpperCase().startsWith("V"))
          return "";
       else if (this.reason.toUpperCase().startsWith("O"))
-         return "Difference: " + (requiredAllocation - currentAllocation) +"%";
+         return getAssetAllocationOffset().toString();
       else
-         return "Last Traded: " + lastTraded;
+         return lastTraded;
 
    }
 
@@ -133,5 +134,15 @@ public class TradeClientData extends CustomerData
    public void setRequiredAllocation(Double requiredAllocation)
    {
       this.requiredAllocation = requiredAllocation;
+   }
+
+   public String getCashMargin()
+   {
+      return cashMargin;
+   }
+
+   public void setCashMargin(String cashMargin)
+   {
+      this.cashMargin = cashMargin;
    }
 }

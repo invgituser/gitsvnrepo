@@ -437,6 +437,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             data.setAssetAllocationOffset(convert.getDoubleData(rs.get("assetAllocationOffset")));
             data.setPosition(convert.getDoubleData(rs.get("position")));
             data.setAssetClass(convert.getStrData(rs.get("assetclass")));
+            data.setCashMargin(convert.getStrData(rs.get("accountCapabilities")));
             data.setCurrentAllocation(convert.getDoubleData(rs.get("currentAllocation")));
             data.setRequiredAllocation(convert.getDoubleData(rs.get("requiredAllocation")));
             data.setCreated(convert.getStrData(rs.get("created")));
