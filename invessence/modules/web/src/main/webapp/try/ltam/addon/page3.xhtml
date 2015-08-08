@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+            <h1>Based on your initial investment of $5,000.<br/>
+                What is the largest loss you could comfortably tolerate over a 1-year timeframe?</h1>
+
+            <h2>
+                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans4}">
+                    <f:selectItem itemLabel="$0 = 0%" itemValue="0"/>
+                    <f:selectItem itemLabel="-$250 = -5%" itemValue="1"/>
+                    <f:selectItem itemLabel="-$500 = -10%" itemValue="2"/>
+                    <f:selectItem itemLabel="-$750 =  -15%" itemValue="3"/>
+                    <f:selectItem itemLabel="-$1,000 = -25%" itemValue="4"/>
+                </p:selectOneRadio>
+            </h2>
+    </div>
+
+</ui:composition>

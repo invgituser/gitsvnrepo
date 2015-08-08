@@ -9,21 +9,23 @@
 
         <div class="Fright">
             <h1>
-                My name is <input type="text" class="simpleInputText" value="#{ltamprofile.firstname}"/>
-                <input type="text" value="#{ltamprofile.lastname}" class="simpleInputText"/>.
+                My name is <p:inputText class="simpleInputText" value="#{ltamprofile.firstname}"/>
+                <p:inputText class="simpleInputText" value="#{ltamprofile.lastname}"/>.
             </h1>
         </div>
         <br/>
 
+        <div class="EmptyBox50"></div>
 
         <div class="Fleft">
             <h1>
-                I am <input type="text" class="simpleInputText" value="#{ltamprofile.age}"/> years old.
+                I am <p:inputText class="simpleInputText" value="#{ltamprofile.age}"/> years old.
             </h1>
         </div>
-        <br/>
 
-        <div class="Fleft">
+        <div class="EmptyBox50"></div>
+
+        <div class="Fright">
             <h1>
                 <!--
                 I am
@@ -34,9 +36,7 @@
                 </p:selectOneMenu>
                 .
                 -->
-                I plan on investing <pe:inputNumber id="initialInvestment" styleClass="Wid90 simpleInputText"
-                                                     value="#{ltamprofile.investment}"
-                                                     maxlength="11" decimalPlaces="0" symbol="$"/>
+            I plan on investing $<p:inputText class="simpleInputText" value="#{ltamprofile.investment}"/>.
             </h1>
         </div>
     </div>

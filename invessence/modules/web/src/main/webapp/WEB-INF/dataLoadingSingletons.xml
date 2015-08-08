@@ -11,6 +11,7 @@
    <bean id="portfolioOptimizer" class="com.invmodel.dao.invdb.PortfolioOptimizer" factory-method="getInstance"/>
    <bean id="secDao" class="com.invmodel.dao.invdb.SecurityCollection"/>
    <bean id="tlhSecurityCollection" class="com.invmodel.rebalance.TLHSecurityCollection" factory-method="getInstance"/>
+   <bean id="ltamOptimizer" class="com.invmodel.ltam.LTAMOptimizer" factory-method="getInstance"/>
 
    <bean id="refreshDelay" class="java.lang.Long">
       <constructor-arg value="36000000"/>
@@ -23,6 +24,7 @@
       <!--<task:scheduled ref="secDao" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
       <task:scheduled ref="portfolioOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
       <task:scheduled ref="tlhSecurityCollection" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
+      <task:scheduled ref="ltamOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
     </task:scheduled-tasks>
 
    <bean id="assetAllocationModel" class="com.invmodel.asset.AssetAllocationModel" factory-method="getInstance">

@@ -40,14 +40,10 @@ public class TradeClientData extends CustomerData
    }
 
    public String getDescription() {
-      if (this.reason.toUpperCase().startsWith("N"))
-         return "";
-      else if (this.reason.toUpperCase().startsWith("V"))
-         return "";
-      else if (this.reason.toUpperCase().startsWith("O"))
+      if (this.reason.toUpperCase().startsWith("O"))
          return getAssetAllocationOffset().toString();
       else
-         return lastTraded;
+         return "";
 
    }
 

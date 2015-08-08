@@ -125,9 +125,6 @@ public class DateUtil {
 		return now;
     }
     
- 
-
-
 
     public static void main(String[] args) {
 

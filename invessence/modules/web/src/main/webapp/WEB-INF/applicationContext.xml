@@ -22,6 +22,7 @@
 	<import resource="messageSource.xml"/>
 	<import resource="dataSource.xml"/>
     <import resource="allDAO.xml"/>
+    <import resource="LTAMDAO.xml"/>
     <import resource="dataLoadingSingletons.xml"/>
 
    <!-- Common DAO-->
