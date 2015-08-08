@@ -86,6 +86,11 @@ public class LTAMPerformance
       return performance;
    }
 
+   public Double getPerformanceAsPercent()
+   {
+      return performance / 100.0;
+   }
+
    public void setPerformance(Double performance)
    {
       this.performance = performance;

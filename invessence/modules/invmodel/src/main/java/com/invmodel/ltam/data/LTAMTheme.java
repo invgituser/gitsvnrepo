@@ -16,6 +16,8 @@ public class LTAMTheme
    private Integer sortorder;
    private Double gain;
    private Double loss;
+   private Integer lowRisk;
+   private Integer highRisk;
    ArrayList<String> assetList;
    Map<String, LTAMAsset> asset;
    Map<String,String> indexMap;
@@ -31,13 +33,16 @@ public class LTAMTheme
       performance = new LinkedHashMap<String, LTAMPerformance>();
    }
 
-   public LTAMTheme(String theme, String displayname, Integer sortorder, Double gain, Double loss)
+   public LTAMTheme(String theme, String displayname, Integer sortorder, Double gain, Double loss,
+   Integer lowRisk, Integer highRisk)
    {
       this.theme = theme;
       this.displayname = displayname;
       this.sortorder = sortorder;
       this.gain = gain;
       this.loss = loss;
+      this.lowRisk = lowRisk;
+      this.highRisk = highRisk;
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
@@ -80,6 +85,10 @@ public class LTAMTheme
       return gain;
    }
 
+   public Double getGainAsPercent() {
+      return  gain / 100.0;
+   }
+
    public void setGain(Double gain)
    {
       this.gain = gain;
@@ -90,9 +99,40 @@ public class LTAMTheme
       return loss;
    }
 
+   public Double getLossAsPercent() {
+      return  loss / 100.0;
+   }
+
    public void setLoss(Double loss)
    {
       this.loss = loss;
+   }
+
+   public Integer getLowRisk()
+   {
+      return lowRisk;
+   }
+
+   public void setLowRisk(Integer lowRisk)
+   {
+      this.lowRisk = lowRisk;
+   }
+
+   public Integer getHighRisk()
+   {
+      return highRisk;
+   }
+
+   public void setHighRisk(Integer highRisk)
+   {
+      this.highRisk = highRisk;
+   }
+
+   public Boolean isThisTheme(Integer riskIndex) {
+      if (riskIndex >= lowRisk  && riskIndex  <= highRisk)
+         return true;
+      else
+         return false;
    }
 
    public Map<String, LTAMAsset> getAsset()
@@ -210,4 +250,59 @@ public class LTAMTheme
 
       }
    }
+
+   public ArrayList<LTAMAsset> getAssetsData() {
+      ArrayList<LTAMAsset> arrayList = new ArrayList<LTAMAsset>();
+      if (getAsset() != null) {
+         for (String asset: getAsset().keySet()) {
+            arrayList.add(getAsset().get(asset));
+         }
+      }
+      return arrayList;
+   }
+
+   public ArrayList<LTAMPortfolio> getPortfolioData() {
+      ArrayList<LTAMPortfolio> arrayList = new ArrayList<LTAMPortfolio>();
+      if (getAsset() != null) {
+         for (String asset: getAsset().keySet()) {
+            if (getAsset().get(asset).getPortfolio() != null) {
+               for (String portfolio: getAsset().get(asset).getPortfolio().keySet()) {
+                  arrayList.add(getAsset().get(asset).getPortfolio().get(portfolio));
+               }
+            }
+         }
+      }
+      return arrayList;
+   }
+
+   public ArrayList<LTAMPerformance> getPerformanceData() {
+      ArrayList<LTAMPerformance> arrayList = new ArrayList<LTAMPerformance>();
+      if (getPerformance() != null) {
+         for (String key: getPerformance().keySet()) {
+            arrayList.add(getPerformance().get(key));
+         }
+      }
+      return arrayList;
+   }
+
+   public ArrayList<String> getPerformanceIndex() {
+      ArrayList<String> arrayList = new ArrayList<String>();
+      if (getIndexMap() != null) {
+         for (String key: getIndexMap().keySet()) {
+            arrayList.add(key);
+         }
+      }
+      return arrayList;
+   }
+
+   public ArrayList<String> getPerformanceHeader() {
+      ArrayList<String> arrayList = new ArrayList<String>();
+      if (getPerformanceHeaderMap() != null) {
+         for (String key: getPerformanceHeaderMap().keySet()) {
+            arrayList.add(key);
+         }
+      }
+      return arrayList;
+   }
+
 }

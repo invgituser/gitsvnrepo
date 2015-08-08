@@ -74,6 +74,11 @@ public class LTAMAsset
       return weight;
    }
 
+   public Double getWeightAsPercent()
+   {
+      return weight / 100.0;
+   }
+
    public void setWeight(Double weight)
    {
       this.weight = weight;

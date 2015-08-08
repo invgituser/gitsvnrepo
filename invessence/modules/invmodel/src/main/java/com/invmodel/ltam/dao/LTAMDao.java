@@ -61,7 +61,9 @@ public class LTAMDao  extends JdbcDaoSupport
                      convert.getStrData(rs.get("displayname")),
                      convert.getIntData(rs.get("sortorder")),
                      convert.getDoubleData(rs.get("gain")),
-                     convert.getDoubleData(rs.get("loss"))
+                     convert.getDoubleData(rs.get("loss")),
+                     convert.getIntData(rs.get("lowRisk")),
+                     convert.getIntData(rs.get("highRisk"))
                   );
                   themes.put(theme, themeData);
                   i++;

@@ -77,7 +77,7 @@ public class LTAMOptimizer
          ltamdao.loadLTAMPerformance(themesMap);
       }
       catch (Exception ex) {
-
+         ex.printStackTrace();
       }
       finally
       {
@@ -96,79 +96,17 @@ public class LTAMOptimizer
       return arrayList;
    }
 
-   public ArrayList<LTAMAsset> getAssets(String theme) {
-      ArrayList<LTAMAsset> arrayList = new ArrayList<LTAMAsset>();
-      if (theme != null) {
-         if (themesMap != null) {
-            if (themesMap.get(theme).getAsset() != null) {
-               for (String asset: themesMap.get(theme).getAsset().keySet()) {
-                  arrayList.add(themesMap.get(theme).getAsset().get(asset));
-               }
-            }
-         }
-
-      }
-      return arrayList;
-   }
-
-   public ArrayList<LTAMPortfolio> getPortfolios(String theme) {
-      ArrayList<LTAMPortfolio> arrayList = new ArrayList<LTAMPortfolio>();
-      if (theme != null) {
-         if (themesMap != null) {
-            if (themesMap.get(theme).getAsset() != null) {
-               for (String asset: themesMap.get(theme).getAsset().keySet()) {
-                  if (themesMap.get(theme).getAsset().get(asset).getPortfolio() != null) {
-                     for (String portfolio: themesMap.get(theme).getAsset().get(asset).getPortfolio().keySet()) {
-                        arrayList.add(themesMap.get(theme).getAsset().get(asset).getPortfolio().get(portfolio));
-                     }
-
-                  }
-               }
+   public LTAMTheme getTheme(Integer riskIndex) {
+      LTAMTheme thisTheme = null;
+      if (themesMap != null) {
+         for (String theme: themesMap.keySet()) {
+            if (themesMap.get(theme).isThisTheme(riskIndex)) {
+               thisTheme = themesMap.get(theme);
+               break;
             }
          }
       }
-      return arrayList;
+      return thisTheme;
    }
 
-   public ArrayList<LTAMPerformance> getPerformanceData(String theme) {
-      ArrayList<LTAMPerformance> arrayList = new ArrayList<LTAMPerformance>();
-      if (theme != null) {
-         if (themesMap != null) {
-            if (themesMap.get(theme).getPerformance() != null) {
-               for (String key: themesMap.get(theme).getPerformance().keySet()) {
-                  arrayList.add(themesMap.get(theme).getPerformance().get(key));
-               }
-            }
-         }
-      }
-      return arrayList;
-   }
-
-   public ArrayList<String> getPerformanceIndex(String theme) {
-      ArrayList<String> arrayList = new ArrayList<String>();
-      if (theme != null) {
-         if (themesMap != null) {
-            if (themesMap.get(theme).getIndexMap() != null) {
-               for (String key: themesMap.get(theme).getIndexMap().keySet()) {
-                  arrayList.add(key);
-               }
-            }
-         }
-      }
-      return arrayList;
-   }
-
-   public ArrayList<String> getPerformanceHeader(String theme) {
-      ArrayList<String> arrayList = new ArrayList<String>();
-      if (theme != null) {
-         if (themesMap != null) {
-            if (themesMap.get(theme).getPerformanceHeaderMap() != null) {
-               for (String key: themesMap.get(theme).getPerformanceHeaderMap().keySet()) {
-                  arrayList.add(key);
-               }
-            }
-         }
-      }
-      return arrayList;
-   }
 }
