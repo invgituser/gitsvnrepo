@@ -116,12 +116,13 @@ public class HistoricalDailyReturns
             rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             if (rows != null) {
                maxticker = 0;
+               maxreturns = 0;
                for (Map<String, Object> map : rows)
                {
                   Map rs = (Map) rows.get(maxticker);
                   String ticker = convert.getStrData(rs.get("ticker"));
                   Integer value =  convert.getIntData(rs.get("maxrows"));
-                  maxreturns = (value < maxreturns) ? value : maxreturns;
+                  maxreturns = (value > maxreturns) ? value : maxreturns;
                   maxticker++;
                }
             }
@@ -129,6 +130,7 @@ public class HistoricalDailyReturns
             rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-2");
             if (rows != null) {
                int i = 0;
+               maxreturns = (maxreturns > MAX_RETURNS) ? MAX_RETURNS : maxreturns;
                dailyReturnsArrayData = new double[maxticker][maxreturns];
                maxticker = 0;
                for (Map<String, Object> map : rows)
