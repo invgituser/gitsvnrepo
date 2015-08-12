@@ -133,7 +133,9 @@ public class LTAMDao  extends JdbcDaoSupport
                String asset = convert.getStrData(rs.get("asset"));
                LTAMPortfolio portfolio = new LTAMPortfolio (
                   theme,
+                  convert.getStrData(rs.get("themename")),
                   asset,
+                  convert.getStrData(rs.get("assetname")),
                   convert.getStrData(rs.get("subasset")),
                   convert.getStrData(rs.get("displayname")),
                   convert.getStrData(rs.get("color")),

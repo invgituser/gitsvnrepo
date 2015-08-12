@@ -10,7 +10,9 @@ package com.invmodel.ltam.data;
 public class LTAMPortfolio
 {
    private String theme;
+   private String themename;
    private String asset;
+   private String assetname;
    private String subasset;
    private String displayname;
    private String color;
@@ -21,10 +23,14 @@ public class LTAMPortfolio
    {
    }
 
-   public LTAMPortfolio(String theme, String asset, String subasset, String displayname, String color, Double weight, Integer sortorder)
+   public LTAMPortfolio(String theme, String themename, String asset, String assetname,
+                        String subasset, String displayname, String color,
+                        Double weight, Integer sortorder)
    {
       this.theme = theme;
+      this.themename = themename;
       this.asset = asset;
+      this.assetname = assetname;
       this.subasset = subasset;
       this.displayname = displayname;
       this.color = color;
@@ -37,9 +43,9 @@ public class LTAMPortfolio
       return theme;
    }
 
-   public void setTheme(String theme)
+   public String getThemename()
    {
-      this.theme = theme;
+      return themename;
    }
 
    public String getAsset()
@@ -47,9 +53,9 @@ public class LTAMPortfolio
       return asset;
    }
 
-   public void setAsset(String asset)
+   public String getAssetname()
    {
-      this.asset = asset;
+      return assetname;
    }
 
    public String getSubasset()
@@ -57,19 +63,9 @@ public class LTAMPortfolio
       return subasset;
    }
 
-   public void setSubasset(String subasset)
-   {
-      this.subasset = subasset;
-   }
-
    public String getDisplayname()
    {
       return displayname;
-   }
-
-   public void setDisplayname(String displayname)
-   {
-      this.displayname = displayname;
    }
 
    public String getColor()
@@ -77,34 +73,24 @@ public class LTAMPortfolio
       return color;
    }
 
-   public void setColor(String color)
-   {
-      this.color = color;
-   }
-
    public Double getWeight()
    {
-      return weight;
+      if (weight != null)
+         return weight;
+      else
+         return 0.0;
    }
 
-   public Double getWeightAsPercent()
-   {
-      return weight / 100.0;
-   }
-
-   public void setWeight(Double weight)
-   {
-      this.weight = weight;
+   public Double getWeightAsPercent() {
+      if (weight != null)
+         return weight / 100.0;
+      else
+         return 0.0;
    }
 
    public Integer getSortorder()
    {
       return sortorder;
-   }
-
-   public void setSortorder(Integer sortorder)
-   {
-      this.sortorder = sortorder;
    }
 }
 

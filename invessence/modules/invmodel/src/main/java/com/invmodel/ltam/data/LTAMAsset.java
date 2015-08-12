@@ -44,19 +44,9 @@ public class LTAMAsset
       return theme;
    }
 
-   public void setTheme(String theme)
-   {
-      this.theme = theme;
-   }
-
    public String getAsset()
    {
       return asset;
-   }
-
-   public void setAsset(String asset)
-   {
-      this.asset = asset;
    }
 
    public String getDisplayname()
@@ -64,24 +54,20 @@ public class LTAMAsset
       return displayname;
    }
 
-   public void setDisplayname(String displayname)
-   {
-      this.displayname = displayname;
-   }
-
    public Double getWeight()
    {
-      return weight;
+      if (weight != null)
+         return weight;
+      else
+         return 0.0;
    }
 
    public Double getWeightAsPercent()
    {
-      return weight / 100.0;
-   }
-
-   public void setWeight(Double weight)
-   {
-      this.weight = weight;
+      if (weight != null)
+         return weight / 100.0;
+      else
+         return 0.0;
    }
 
    public String getColor()
@@ -89,19 +75,14 @@ public class LTAMAsset
       return color;
    }
 
-   public void setColor(String color)
-   {
-      this.color = color;
-   }
-
    public Integer getSortorder()
    {
       return sortorder;
    }
 
-   public void setSortorder(Integer sortorder)
+   public ArrayList<String> getPortfolioList()
    {
-      this.sortorder = sortorder;
+      return portfolioList;
    }
 
    public Map<String, LTAMPortfolio> getPortfolio()
