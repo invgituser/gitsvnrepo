@@ -9,7 +9,7 @@ package com.invessence.data.ltam;
  */
 public class LTAMRiskData
 {
-   private int[] riskValues; // NOTE: Q1 = Position 1.  Zero is of default.
+   private Integer[] riskValues; // NOTE: Q1 = Position 1.  Zero is of default.
    private Integer riskIndex;
    private Integer ans1;
    private Integer ans2;
@@ -18,17 +18,18 @@ public class LTAMRiskData
    private Integer ans5;
    private Integer ans6;
    private static Integer riskValueMatrix[][] = {
+      {0, 0, 0, 0, 0, 0,0,0,0},   // Question #0 - Not used
       {6, 10, 8, 6, 4, 2,0,0,0},   // Question #1 - Based on answers (sorted)
-      {9, 10, 8, 6, 4, 2,0,0,0},   // Q2
-      {6, 3, 6, 9, 12, 15,0,0,0},  // Q3
-      {9, 2, 4, 6, 8, 10,0,0,0},   // Q4
+      {9, 3, 6, 9, 12, 15,0,0,0},  // Q2
+      {6, 2, 4, 6, 8, 10,0,0,0},   // Q3
+      {9, 3, 6, 9, 12, 15,0,0,0},    // Q4
       {9, 3, 6, 9, 12, 15,0,0,0},    // Q5
       {12, 4, 8, 12, 16, 20,0,0,0}    // Q6
    };
 
    public LTAMRiskData()
    {
-      riskValues = new int[7];
+      riskValues = new Integer[riskValueMatrix.length];
       riskIndex = 51;
       ans1 = 0;
       ans2 = 0;
@@ -113,12 +114,12 @@ public class LTAMRiskData
          return;
       else
       if (value > riskValueMatrix[ans].length)
-         riskValues[ans] = 0;
+         riskValues[ans] = null;
       else
          riskValues[ans] = riskValueMatrix[ans][value];
    }
 
-   public int[] getRiskValues() {
+   public Integer[] getRiskValues() {
       return riskValues;
    }
 
@@ -141,10 +142,15 @@ public class LTAMRiskData
    }
 
    public Integer getRiskIndex() {
-      Integer riskValue=riskIndex;
+      Integer riskValue=0;
       try {
          for (int i = 0; i < riskValueMatrix.length; i++) {
-            riskValue += riskValues[i];
+            if (riskValues[i] == null) {
+               riskValue += riskValueMatrix[i][0];
+            }
+            else {
+               riskValue += riskValues[i];
+            }
          }
       }
       catch (Exception ex) {
@@ -155,7 +161,7 @@ public class LTAMRiskData
    }
 
    public void resetAllData() {
-      riskValues = new int[7]; // NOTE: Q1 = Position 1.  Zero is of default.
+      riskValues = new Integer[riskValueMatrix.length]; // NOTE: Q1 = Position 1.  Zero is of default.
       ans1 = 0;
       ans2 = 0;
       ans3 = 0;

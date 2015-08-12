@@ -102,20 +102,28 @@ public class LTAMCharts implements Serializable
    {
       if (meterGuage == null)
          createDefaultMeterGuage();
-      this.meterGuage.setValue(pointer);
+
+      if (pointer < 0)
+         pointer = 0;
+      else if (pointer > 100)
+         pointer = 100;
+
+      meterGuage.setValue(pointer);
    }
 
    public void createDefaultMeterGuage() {
       List<Number> intervals = new ArrayList<Number>(){{
-         add(16);
-         add(32);
-         add(50);
+         add(25);
+         add(42);
+         add(59);
+         add(76);
+         add(100);
       }};
-      meterGuage = new MeterGaugeChartModel(24, intervals);
-      meterGuage.setTitle("Risk");
-      meterGuage.setSeriesColors("006699, FFCC00, 990000");
+      meterGuage = new MeterGaugeChartModel(57, intervals);
+      //meterGuage.setTitle("Risk");
+      meterGuage.setSeriesColors("006699,FFCC00,990000,FFFFFF,000000");
       meterGuage.setShowTickLabels(false);
-      // this.meterGuage.setLabelHeightAdjust(-25);
+      //meterGuage.setLabelHeightAdjust(0);
       meterGuage.setIntervalOuterRadius(20);
    }
 
@@ -278,7 +286,8 @@ public class LTAMCharts implements Serializable
             }
             pieChart.setFill(true);
             pieChart.setShowDataLabels(false);
-            pieChart.setDiameter(150);
+            pieChart.setDiameter(125);
+            pieChart.setSliceMargin(5);
             pieChart.setSeriesColors(pieseriesColors);
             // pieChart.setExtender("ltam_pie");
          }

@@ -1,5 +1,6 @@
 package com.invessence.data.ltam;
 
+import com.invessence.bean.ltam.LTAMAllocationData;
 import com.invmodel.ltam.data.*;
 
 /**
@@ -31,10 +32,12 @@ public class LTAMCustomerData extends LTAMRiskData
    private String forwarded;
    private String acknowledged;
    private LTAMTheme themeData;
+   private LTAMAllocationData allocationData;
 
    public LTAMCustomerData()
    {
       super();
+      allocationData = new LTAMAllocationData();
    }
 
    public LTAMCustomerData getInstance() {
@@ -184,15 +187,15 @@ public class LTAMCustomerData extends LTAMRiskData
    {
       this.age = age;
       if (age <= 30 )
-         setAns3(1);
+         setAns1(1);
       else if (age <= 40)
-         setAns3(2);
+         setAns1(2);
       else if (age <= 50)
-         setAns3(3);
+         setAns1(3);
       else if (age <= 60)
-         setAns3(4);
+         setAns1(4);
       else if (age > 60)
-         setAns3(5);
+         setAns1(5);
    }
 
    public String getAccttype()
@@ -212,7 +215,7 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setTheme(String theme)
    {
-      this.theme = theme;
+        this.theme = theme;
    }
 
    public Double getHorizon()
@@ -272,7 +275,30 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setThemeData(LTAMTheme themeData)
    {
-      this.themeData = themeData;
+      Boolean resetvalues = false;
+      if (themeData == null)
+         return;
+
+      if (this.themeData == null)
+         resetvalues = true;
+      else if (! this.themeData.getTheme().equals(themeData.getTheme()))
+         resetvalues = true;
+
+      if (resetvalues) {
+         this.themeData = themeData;
+         allocationData.copyAssetAllocation(themeData.getAssetsData(),getInvestment());
+         allocationData.copyAssetSubAllocation(themeData.getPortfolioData(),getInvestment());
+      }
+   }
+
+   public LTAMAllocationData getAllocationData()
+   {
+      return allocationData;
+   }
+
+   public void setAllocationData(LTAMAllocationData allocationData)
+   {
+      this.allocationData = allocationData;
    }
 
    public void resetAllData() {
@@ -293,6 +319,7 @@ public class LTAMCustomerData extends LTAMRiskData
       horizon = null;
       Investment = null;
       super.resetAllData();
+      allocationData = new LTAMAllocationData();
    }
 
 

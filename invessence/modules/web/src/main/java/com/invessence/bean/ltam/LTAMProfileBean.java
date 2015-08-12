@@ -38,6 +38,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    private String beanRep;
    private String beanAmount;
    private Boolean disableInvestment;
+   private Boolean displayGraphs;
    SQLData converter = new SQLData();
    private PagesImpl pagemanager;
    private Integer ltammenu;
@@ -122,12 +123,14 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       return pagemanager;
    }
 
-   public Boolean getDisplaGraph()
+   public Boolean getDisplayGraphs()
    {
-      if (pagemanager != null && pagemanager.getPage() > 0)
-         return true;
-      else
-         return false;
+      return displayGraphs;
+   }
+
+   public void setDisplayGraphs(Boolean value)
+   {
+      displayGraphs = value;
    }
 
    public LTAMCharts getLtamcharts()
@@ -162,10 +165,13 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
    public void prevPage() {
       pagemanager.prevPage();
+      if (pagemanager.getPage() == 0)
+         setDisplayGraphs(false);
    }
 
    public void nextPage() {
       doCharts();
+      setDisplayGraphs(true);
       saveClientData();
       pagemanager.nextPage();
    }
@@ -186,6 +192,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
    private void resetBean() {
       resetAllData();
+      displayGraphs = false;
       pagemanager = new PagesImpl(6);
       if (beanAmount != null) {
          disableInvestment = true;
@@ -269,20 +276,21 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
           setRiskIndex(getRiskIndex());
           theme = ltamoptimizer.getTheme(getRiskIndex());
           if (theme != null) {
-            setThemeData(theme);
-            setTheme(theme.getTheme());
-            ltamcharts = new LTAMCharts();
+             setThemeData(theme);
+             setTheme(theme.getTheme());
+             if (ltamcharts == null)
+             {
+                ltamcharts = new LTAMCharts();
+             }
+             ltamcharts.setMeterGuage(getRiskIndex());
 
              ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
              ltamcharts.createPieModel(getThemeData().getAsset());
           }
        }
        catch (Exception ex) {
-
        }
    }
-
-
 
 }
 
