@@ -179,6 +179,7 @@ public class LTAMDao  extends JdbcDaoSupport
                   convert.getStrData(rs.get("indexname")),
                   convert.getIntData(rs.get("sortorder")),
                   convert.getStrData(rs.get("displayYear")),
+                  convert.getStrData(rs.get("color")),
                   convert.getDoubleData(rs.get("performance"))
                );
                if (themeMap.containsKey(theme)) {

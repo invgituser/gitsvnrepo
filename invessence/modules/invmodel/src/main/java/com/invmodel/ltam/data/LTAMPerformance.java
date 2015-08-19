@@ -14,6 +14,7 @@ public class LTAMPerformance
    private String indexname;
    private Integer sortorder;
    private String yearname;
+   private String color;
    private Double performance;
 
    public LTAMPerformance()
@@ -21,13 +22,15 @@ public class LTAMPerformance
    }
 
    public LTAMPerformance(String theme, String index, String indexname,
-                          Integer sortorder, String yearname, Double performance)
+                          Integer sortorder, String yearname, String color,
+                          Double performance)
    {
       this.theme = theme;
       this.index = index;
       this.indexname = indexname;
       this.sortorder = sortorder;
       this.yearname = yearname;
+      this.color = color;
       this.performance = performance;
    }
 
@@ -79,6 +82,11 @@ public class LTAMPerformance
    public void setYearname(String yearname)
    {
       this.yearname = yearname;
+   }
+
+   public String getColor()
+   {
+      return color;
    }
 
    public Double getPerformance()

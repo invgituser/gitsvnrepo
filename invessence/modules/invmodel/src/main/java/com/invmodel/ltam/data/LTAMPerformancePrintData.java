@@ -9,21 +9,21 @@ package com.invmodel.ltam.data;
  */
 public class LTAMPerformancePrintData
 {
-   String label;
-   Double value;
+   String header;
+   String value;
 
-   public LTAMPerformancePrintData(String label, Double value)
+   public LTAMPerformancePrintData(String header, String value)
    {
-      this.label = label;
+      this.header = header;
       this.value = value;
    }
 
-   public String getLabel()
+   public String getHeader()
    {
-      return label;
+      return header;
    }
 
-   public Double getValue()
+   public String getValue()
    {
       return value;
    }
