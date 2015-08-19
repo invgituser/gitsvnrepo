@@ -12,8 +12,11 @@ function ltam_pie()
         backgroundColor: 'transparent',
         drawBorder: false,
         shadow: false,
-        legend: false,
-        gridPadding: {top: 0, bottom: 38, left: 0, right: 0}
+        legend: false
+    }
+
+    this.cfg.highlighter = {
+        show: true
     };
 }
 
@@ -23,6 +26,29 @@ function ltam_meter()
         backgroundColor: 'transparent'
     };
 }
+
+function ltam_perf()
+{
+    this.cfg.grid = {
+        backgroundColor: 'transparent',
+        drawBorder: false,
+        shadow: false
+    };
+
+    this.cfg.axesDefaults = {
+        axes: {
+            xaxis: {
+                renderer: {
+                    tickOptions: {
+                        labelPosition: 'middle',
+                        angle: 15
+                    }
+                }
+            }
+        }
+    };
+}
+
 
 function ltam_bar()
 {
@@ -51,30 +77,6 @@ function ltam_line()
         shadow: false
     };
 
-    this.cfg.seriesDefaults = {
-        showMarker: false,
-        markerOptions: {
-            show: false,
-            color: 'transparent',
-            shadow: false },
-        tickOptions : {
-            showGridline: false
-        }
-    };
-
-    this.cfg.axesDefaults = {
-        tickOptions : {
-            showGridline: false
-        }
-    };
-
-    this.cfg.fillBetween = {
-        series1: 0,
-        series2: 1,
-        color: "#7C8686",
-        baseSeries: 0,
-        fill: true
-    };
 }
 
 

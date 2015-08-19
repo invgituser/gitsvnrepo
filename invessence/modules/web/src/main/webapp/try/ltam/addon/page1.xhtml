@@ -6,17 +6,39 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 Responsive50 TextAlCenter">
-            <h1>Which of the following best reflects your investment goals?</h1>
 
-            <h2>
-                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans2}">
-                    <f:selectItem itemLabel="Maximize current income." itemValue="1"/>
-                    <f:selectItem itemLabel="Emphasizing income with some potential for growth." itemValue="2"/>
-                    <f:selectItem itemLabel="Emphasizing growth with some potential for income." itemValue="3"/>
-                    <f:selectItem itemLabel="Growth." itemValue="4"/>
-                    <f:selectItem itemLabel="Maximizing growth." itemValue="5"/>
-                </p:selectOneRadio>
-            </h2>
+        <div class="Fright">
+            <h1>
+                My name is <p:inputText class="simpleInputText" value="#{ltamprofile.firstname}"/>
+                <p:inputText class="simpleInputText" value="#{ltamprofile.lastname}"/>.
+            </h1>
+        </div>
+        <br/>
+
+        <div class="EmptyBox50"></div>
+
+        <div class="Fleft">
+            <h1>
+                I am <p:inputText class="simpleInputText" value="#{ltamprofile.age}"/> years old.
+            </h1>
+        </div>
+
+        <div class="EmptyBox50"></div>
+
+        <div class="Fright">
+            <h1>
+                <!--
+                I am
+                <p:selectOneMenu value="#{ltamprofile.accttype}">
+                    <f:selectItem itemLabel="Select One" itemValue=""/>
+                    <f:selectItem itemLabel="Retired" itemValue="Retirement"/>
+                    <f:selectItem itemLabel="Not Retired" itemValue="NotRetired"/>
+                </p:selectOneMenu>
+                .
+                -->
+            I plan on investing $<p:inputText class="simpleInputText" value="#{ltamprofile.investment}"/>.
+            </h1>
+        </div>
     </div>
 
 </ui:composition>

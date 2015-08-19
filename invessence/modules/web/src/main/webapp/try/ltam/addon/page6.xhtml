@@ -6,31 +6,18 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 Responsive50 TextAlCenter">
-        <h1>Risk Tolerance is defined by investor ability to take short term losses
-        for potential for long-term gains.  Your risk tolerance for risk is ...</h1>
-        <br/>
+        <h1>Risk tolerance is defined by the investors ability to accept short term losses
+            long-term gains. Your tolerance for risk is:</h1>
 
-        <p:outputPanel deferred="true">
-            <p:chart type="pie" model="#{ltamprofile.charts.pieChart}"
-                     responsive="true"/>
-        </p:outputPanel>
-
-        <div class="Container80 TexAlCenter Fs16">
-            More Bonds
-        </div>
-        <div class="Container50 TexAlCenter Fs20">
-            <h:inputHidden id="allocValue" value="#{ltamprofile.riskOverride}"/>
-            <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="5" step="1">
-                <p:ajax event="slideEnd"
-                        update=":ltamForm:inputArea, :ltamForm:graphArea"
-                        listener="#{ltamprofile.onAllocSlider}"/>
-            </p:slider>
-        </div>
-        <div class="Container25 TexAlCenter Fs16">
-            More Stocks
-        </div>
-
-
+        <h2>
+            <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans6}">
+                <f:selectItem itemLabel="Income" itemValue="1"/>
+                <f:selectItem itemLabel="Income and Growth" itemValue="2"/>
+                <f:selectItem itemLabel="Growth and Income" itemValue="3"/>
+                <f:selectItem itemLabel="Growth" itemValue="4"/>
+                <f:selectItem itemLabel="Aggresive Growth" itemValue="5"/>
+            </p:selectOneRadio>
+        </h2>
     </div>
 
 </ui:composition>

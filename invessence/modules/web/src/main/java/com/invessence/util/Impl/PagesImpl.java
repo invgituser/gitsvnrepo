@@ -44,6 +44,29 @@ public class PagesImpl implements Serializable, Pages
       pageNo = pageno;
    }
 
+   public Boolean isLastPage() {
+      if (pageNo >= maxNoofPages)
+         return true;
+      else
+         return false;
+   }
+
+   public Boolean isNextToLastPage() {
+      if ((pageNo + 1) >= maxNoofPages)
+         return true;
+      else
+         return false;
+   }
+
+
+   public Boolean isFirstPage() {
+      if (pageNo <= 0)
+         return true;
+      else
+         return false;
+   }
+
+
    public void nextPage(){
       if (maxNoofPages > 0) {
          if (pageNo <  maxNoofPages)

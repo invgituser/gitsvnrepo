@@ -460,6 +460,18 @@ public class WebUtil implements Serializable
       }
    }
 
+   public void showMessage(String growl, String type, String subject, String msg) {
+      FacesMessage message;
+      if (type.toUpperCase().startsWith("W"))
+         message = new FacesMessage(FacesMessage.SEVERITY_WARN, subject, msg);
+      else if(type.toUpperCase().startsWith("E"))
+         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, subject, msg);
+      else
+         message = new FacesMessage(FacesMessage.SEVERITY_INFO, subject, msg);
+
+      FacesContext.getCurrentInstance().addMessage(growl, message);
+   }
+
    public void showMessage(String type, String subject, String msg) {
       FacesMessage message;
       if (type.toUpperCase().startsWith("W"))

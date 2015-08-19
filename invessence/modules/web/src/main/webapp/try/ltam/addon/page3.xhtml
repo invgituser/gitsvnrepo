@@ -6,16 +6,15 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 Responsive50 TextAlCenter">
-            <h1>Based on your initial investment of $5,000.<br/>
-                What is the largest loss you could comfortably tolerate over a 1-year timeframe?</h1>
+            <h1>How long do you plan on keeping this account invested?</h1>
 
             <h2>
-                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans4}">
-                    <f:selectItem itemLabel="$0 = 0%" itemValue="1"/>
-                    <f:selectItem itemLabel="-$250 = -5%" itemValue="2"/>
-                    <f:selectItem itemLabel="-$500 = -10%" itemValue="3"/>
-                    <f:selectItem itemLabel="-$750 =  -15%" itemValue="4"/>
-                    <f:selectItem itemLabel="-$1,000 = -25%" itemValue="5"/>
+                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans3}">
+                    <f:selectItem itemLabel="1-6 Years" itemValue="1"/>
+                    <f:selectItem itemLabel="7-8 Years" itemValue="2"/>
+                    <f:selectItem itemLabel="9-11 years" itemValue="3"/>
+                    <f:selectItem itemLabel="12-13 Years" itemValue="4"/>
+                    <f:selectItem itemLabel="14+ Years" itemValue="5"/>
                 </p:selectOneRadio>
             </h2>
     </div>

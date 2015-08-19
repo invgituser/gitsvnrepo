@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/ltamlayout.xhtml">
+
+<ui:define name="content">
+
+<!-- BOX START -->
+<h:form id="ltamForm">
+<p:panel id="testpanel" style="border: 0px; background: transparent">
+<p:growl showDetail="false" sticky="true" escape="true"/>
+
+<div class="layout-portlets-box">
+
+    <div class="Container100 Responsive50">
+        <div class="Container50 Responsive50">
+            <p:panel id="a1" style="border: 0px; background: transparent">
+                <p:panelGrid columns="2" layout="grid" styleClass="Container100 Responsive50"
+                             style="border:0px !important; background:none;" class="FormContent">
+                    <div class="Wid90">Advisor</div>
+                    <p:inputText value="#{ltamtest.advisor}" styleClass="Wid90"
+                            required="true" requiredMessage="Advisor cannot be empty!">
+                    </p:inputText>
+
+                    <div class="Wid90">Rep</div>
+                    <p:inputText value="#{ltamtest.rep}" styleClass="Wid90">
+                    </p:inputText>
+
+
+                </p:panelGrid>
+                <f:facet name="footer">
+                        <p:commandButton value="Client Portal" styleClass="Fleft"
+                                         actionListener="#{ltamtest.clientPortal}"/>
+                </f:facet>
+            </p:panel>
+        </div>
+        <div class="Container50 Responsive50">
+            <div class="ContainerIndent">
+                <p:panel id="a2" style="border: 0px; background: transparent">
+                    <p:panelGrid columns="2" layout="grid" styleClass="Container100 Responsive50"
+                                 style="border:0px !important; background:none;" class="FormContent">
+                        <div class="Wid90">First Name</div>
+                        <p:inputText value="#{ltamtest.firstname}" styleClass="Wid90">
+                        </p:inputText>
+
+                        <div class="Wid90">Last Name</div>
+                        <p:inputText value="#{ltamtest.lastname}" styleClass="Wid90">
+                        </p:inputText>
+
+                        <div class="Wid90">Amount</div>
+                        <p:inputText value="#{ltamtest.amount}" styleClass="Wid90">
+                        </p:inputText>
+
+                    </p:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Time-to-Save" styleClass="Fright"
+                                         actionListener="#{ltamtest.timetoSavePortal}"/>
+                    </f:facet>
+                </p:panel>
+            </div>
+        </div>
+    </div>
+</div>
+
+</p:panel>
+</h:form>
+
+
+</ui:define>
+
+</ui:composition>

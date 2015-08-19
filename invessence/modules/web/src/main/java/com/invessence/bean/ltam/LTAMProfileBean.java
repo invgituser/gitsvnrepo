@@ -19,7 +19,7 @@ import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
 import com.invmodel.ltam.LTAMOptimizer;
-import com.invmodel.ltam.data.LTAMTheme;
+import com.invmodel.ltam.data.*;
 
 
 /**
@@ -34,19 +34,24 @@ import com.invmodel.ltam.data.LTAMTheme;
 @SessionScoped
 public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 {
-   private String  beanAdvisor;
+   private String beanAdvisor;
    private String beanRep;
    private String beanAmount;
+   private String beanfirstname;
+   private String beanlastname;
+   private Boolean visitorMode;
    private Boolean disableInvestment;
-   private Boolean displayGraphs;
+   private Boolean displayGraphs, reviewPage, displayMeter;
    SQLData converter = new SQLData();
    private PagesImpl pagemanager;
    private Integer ltammenu;
    private LTAMCharts ltamcharts;
    private LTAMTheme theme;
+   private ArrayList<LTAMTheme> themeList;
 
    @ManagedProperty("#{ltamOptimizer}")
    private LTAMOptimizer ltamoptimizer;
+
    public void setLtamoptimizer(LTAMOptimizer ltamoptimizer)
    {
       this.ltamoptimizer = ltamoptimizer;
@@ -54,6 +59,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
    @ManagedProperty("#{ltamListDataDAO}")
    private LTAMListDataDAO listDAO;
+
    public void setListDAO(LTAMListDataDAO listDAO)
    {
       this.listDAO = listDAO;
@@ -61,6 +67,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
    @ManagedProperty("#{ltamSaveDataDAO}")
    private LTAMSaveDataDAO saveDAO;
+
    public void setSaveDAO(LTAMSaveDataDAO saveDAO)
    {
       this.saveDAO = saveDAO;
@@ -68,6 +75,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
    @ManagedProperty("#{emailMessage}")
    private EmailMessage messageText;
+
    public void setMessageText(EmailMessage messageText)
    {
       this.messageText = messageText;
@@ -83,6 +91,11 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    }
 */
 
+   public Boolean getVisitorMode()
+   {
+      return visitorMode;
+   }
+
    public String getBeanAdvisor()
    {
       return beanAdvisor;
@@ -91,6 +104,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    public void setBeanAdvisor(String beanAdvisor)
    {
       this.beanAdvisor = beanAdvisor;
+      setAdvisor(beanAdvisor);
    }
 
    public String getBeanRep()
@@ -101,16 +115,51 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    public void setBeanRep(String beanRep)
    {
       this.beanRep = beanRep;
+      setRep(beanRep);
    }
 
    public String getBeanAmount()
    {
       return beanAmount;
+
    }
 
    public void setBeanAmount(String beanAmount)
    {
       this.beanAmount = beanAmount;
+      try
+      {
+         Double value = converter.getDoubleData(beanAmount);
+         setInvestment(value);
+         visitorMode = false;
+      }
+      catch (Exception ex)
+      {
+
+      }
+
+   }
+
+   public String getBeanfirstname()
+   {
+      return beanfirstname;
+   }
+
+   public void setBeanfirstname(String beanfirstname)
+   {
+      this.beanfirstname = beanfirstname;
+      setFirstname(beanfirstname);
+   }
+
+   public String getBeanlastname()
+   {
+      return beanlastname;
+   }
+
+   public void setBeanlastname(String beanlastname)
+   {
+      this.beanlastname = beanlastname;
+      setLastname(beanlastname);
    }
 
    public Boolean getDisableInvestment()
@@ -123,9 +172,36 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       return pagemanager;
    }
 
+   public Boolean getDisplayRiskMeter()
+   {
+      if (getAge() == null)
+      {
+         return false;
+      }
+
+      if (getAge() > 0)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+
    public Boolean getDisplayGraphs()
    {
       return displayGraphs;
+   }
+
+   public Boolean getReviewPage()
+   {
+      return reviewPage;
+   }
+
+   public Boolean getDisplayMeter()
+   {
+      return displayMeter;
    }
 
    public void setDisplayGraphs(Boolean value)
@@ -138,74 +214,106 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       return ltamcharts;
    }
 
+   public ArrayList<LTAMTheme> getThemeList()
+   {
+      return themeList;
+   }
+
    public Integer getLtammenu()
    {
-      switch (pagemanager.getPage()) {
-         case 0:
-         case 1:
-         case 2:
-         case 3:
-            ltammenu = pagemanager.getPage();
-            break;
-         case 4:
-         case 5:
-         case 6:
-         case 7:
-         case 8:
-         case 9:
-         case 10:
-            ltammenu = 4;
-            break;
-         default:
-            ltammenu = 0;
-            break;
-      }
-      return ltammenu;
+      if (pagemanager == null)
+         return 0;
+      else
+         return pagemanager.getPage();
+
    }
 
-   public void prevPage() {
+   public void firstPage()
+   {
+      reviewPage = false;
+      displayMeter = false;
+      setDisplayGraphs(false);
+      pagemanager.setPage(0);
+   }
+
+   public void prevPage()
+   {
+      reviewPage = false;
       pagemanager.prevPage();
       if (pagemanager.getPage() == 0)
+      {
          setDisplayGraphs(false);
+         displayMeter = false;
+      }
    }
 
-   public void nextPage() {
+   public void nextPage()
+   {
+      //if (pagemanager.isNextToLastPage())
+      {
+         setDisplayGraphs(true);
+      }
+      if (pagemanager.isNextToLastPage()) {
+         reviewPage = true;
+      }
+      displayMeter = true;
       doCharts();
-      setDisplayGraphs(true);
       saveClientData();
       pagemanager.nextPage();
+
    }
 
    public void preRenderView()
    {
-      try {
+      try
+      {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-           // resetBean();
-           doCharts();
+            // pagemanager.setPage(0);
+            saveVisitor();
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
    }
 
-   private void resetBean() {
+   public void resetBean()
+   {
+      visitorMode = true;
       resetAllData();
       displayGraphs = false;
+      reviewPage = false;
+      displayMeter = false;
       pagemanager = new PagesImpl(6);
-      if (beanAmount != null) {
+      pagemanager.setPage(0);
+      if (beanAmount != null)
+      {
          disableInvestment = true;
          setInvestment(converter.getDoubleData(beanAmount));
       }
       else
+      {
          disableInvestment = false;
+      }
 
       if (beanAdvisor != null)
-         setAdvisor(beanAdvisor.toString());
+      {
+         setAdvisor(beanAdvisor);
+      }
 
       if (beanRep != null)
-         setRep(beanAdvisor.toString());
+      {
+         setRep(beanRep);
+      }
+
+      if (beanAmount != null) {
+         setFirstname(beanfirstname);
+         setLastname(beanlastname);
+         Double value = converter.getDoubleData(beanAmount);
+         setInvestment(value);
+      }
    }
 
    @PostConstruct
@@ -215,7 +323,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       {
          resetBean();
          // if (webutil.isWebProdMode())
-         saveVisitor();
+         doCharts();
       }
       catch (Exception e)
       {
@@ -224,72 +332,101 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    }
 
 
-   private void saveVisitor() {
+   private void saveVisitor()
+   {
 
-      try {
+      try
+      {
          setIpaddress(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
          Long logonid = null;
          // if (webutil.isWebProdMode())
-         if (getLogonid() == 0L) {
+         if (getLogonid() == 0L)
+         {
             logonid = saveDAO.saveLTAMVisitor(getInstance());
          }
 
          if (logonid == null)
+         {
             setLogonid(0L);
+         }
          else
+         {
             setLogonid(logonid);
+         }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
    }
 
-   public void saveClientData() {
+   public void saveClientData()
+   {
 
-      try {
+      try
+      {
          Long acctnum = null;
          // if (webutil.isWebProdMode())
          acctnum = saveDAO.saveLTAMUserData(getInstance());
          if (acctnum == null)
+         {
             setLogonid(0L);
+         }
          else
+         {
             setAcctnum(acctnum);
+         }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
    }
 
-   public void forwardData() {
+   public void forwardData()
+   {
 
-      try {
+      try
+      {
          setForwarded("now");
          saveClientData();
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
    }
 
-   public void doCharts() {
-       try {
-          setRiskIndex(getRiskIndex());
-          theme = ltamoptimizer.getTheme(getRiskIndex());
-          if (theme != null) {
-             setThemeData(theme);
-             setTheme(theme.getTheme());
-             if (ltamcharts == null)
-             {
-                ltamcharts = new LTAMCharts();
-             }
-             ltamcharts.setMeterGuage(getRiskIndex());
+   public void doCharts()
+   {
+      try
+      {
+         setRiskIndex(calcRiskIndex());
+         theme = ltamoptimizer.getTheme(getRiskIndex());
+         themeList = ltamoptimizer.getThemes();
+         if (theme != null)
+         {
+            setTheme(theme.getTheme());
+            setThemeData(theme);
+            if (ltamcharts == null)
+            {
+               ltamcharts = new LTAMCharts();
+            }
 
-             ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
-             ltamcharts.createPieModel(getThemeData().getAsset());
-          }
-       }
-       catch (Exception ex) {
-       }
+            ltamcharts.createPieModel(getThemeData().getAsset());
+            if (displayGraphs)
+            {
+               // ltamcharts.setMeterGuage(getRiskIndex());
+               ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
+               ltamcharts.createLineModel(theme.getPerformanceData());
+               ltamcharts.createBarPerformance(theme.getPerformanceData());
+               ArrayList<ArrayList<LTAMPerformancePrintData>> myMap = theme.getPrintedPerformanceData();
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+      }
    }
 
 }

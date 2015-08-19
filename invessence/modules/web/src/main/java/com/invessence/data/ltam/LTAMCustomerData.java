@@ -32,12 +32,14 @@ public class LTAMCustomerData extends LTAMRiskData
    private String forwarded;
    private String acknowledged;
    private LTAMTheme themeData;
+   private Boolean recalcAllocation;
    private LTAMAllocationData allocationData;
 
    public LTAMCustomerData()
    {
       super();
       allocationData = new LTAMAllocationData();
+      recalcAllocation = true;
    }
 
    public LTAMCustomerData getInstance() {
@@ -186,6 +188,7 @@ public class LTAMCustomerData extends LTAMRiskData
    public void setAge(Integer age)
    {
       this.age = age;
+      recalcAllocation = true;
       if (age <= 30 )
          setAns1(1);
       else if (age <= 40)
@@ -215,7 +218,8 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setTheme(String theme)
    {
-        this.theme = theme;
+      recalcAllocation = true;
+      this.theme = theme;
    }
 
    public Double getHorizon()
@@ -226,6 +230,7 @@ public class LTAMCustomerData extends LTAMRiskData
    public void setHorizon(Double horizon)
    {
       this.horizon = horizon;
+      recalcAllocation = true;
       if (horizon <= 6 )
          setAns3(1);
       else if (horizon <= 8)
@@ -245,6 +250,7 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setInvestment(Double investment)
    {
+      recalcAllocation = true;
       Investment = investment;
    }
 
@@ -275,19 +281,14 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setThemeData(LTAMTheme themeData)
    {
-      Boolean resetvalues = false;
       if (themeData == null)
          return;
 
-      if (this.themeData == null)
-         resetvalues = true;
-      else if (! this.themeData.getTheme().equals(themeData.getTheme()))
-         resetvalues = true;
-
-      if (resetvalues) {
+      if (recalcAllocation) {
          this.themeData = themeData;
          allocationData.copyAssetAllocation(themeData.getAssetsData(),getInvestment());
          allocationData.copyAssetSubAllocation(themeData.getPortfolioData(),getInvestment());
+         recalcAllocation = false;
       }
    }
 
@@ -320,6 +321,7 @@ public class LTAMCustomerData extends LTAMRiskData
       Investment = null;
       super.resetAllData();
       allocationData = new LTAMAllocationData();
+      recalcAllocation = true;
    }
 
 

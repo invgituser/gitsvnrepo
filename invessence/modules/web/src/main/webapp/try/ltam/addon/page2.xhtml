@@ -6,15 +6,15 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 Responsive50 TextAlCenter">
-            <h1>How long do you plan on keeping this account invested?</h1>
+            <h1>Which of the following best reflects your investment goals?</h1>
 
             <h2>
-                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans3}">
-                    <f:selectItem itemLabel="1-6 Years" itemValue="1"/>
-                    <f:selectItem itemLabel="7-8 Years" itemValue="2"/>
-                    <f:selectItem itemLabel="9-11 years" itemValue="3"/>
-                    <f:selectItem itemLabel="12-13 Years" itemValue="4"/>
-                    <f:selectItem itemLabel="14+ Years" itemValue="5"/>
+                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans2}">
+                    <f:selectItem itemLabel="Maximize current income." itemValue="1"/>
+                    <f:selectItem itemLabel="Emphasizing income with some potential for growth." itemValue="2"/>
+                    <f:selectItem itemLabel="Emphasizing growth with some potential for income." itemValue="3"/>
+                    <f:selectItem itemLabel="Growth." itemValue="4"/>
+                    <f:selectItem itemLabel="Maximizing growth." itemValue="5"/>
                 </p:selectOneRadio>
             </h2>
     </div>

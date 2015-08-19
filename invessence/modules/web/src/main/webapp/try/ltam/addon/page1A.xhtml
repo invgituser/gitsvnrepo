@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+
+        <div class="Fleft">
+            <h1>
+                Hello #{ltamprofile.firstname} #{ltamprofile.lastname};
+            </h1>
+            <h2>
+                You have been redirected here from time-to-save.<br/>
+                Now let's begin to create an investement strategy from your
+                <h:outputText value="#{ltamprofile.investment}">
+                    <f:convertNumber currencySymbol="$" type="currency"/>
+                </h:outputText> initial amount.
+            </h2>
+        </div>
+        <br/>
+
+        <div class="EmptyBox50"></div>
+
+        <div class="Fright">
+            <h1>
+                I am <p:inputText class="simpleInputText" value="#{ltamprofile.age}"/> years old.
+            </h1>
+        </div>
+
+    </div>
+
+</ui:composition>

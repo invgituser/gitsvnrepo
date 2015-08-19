@@ -103,7 +103,7 @@ public class LTAMRiskData
    public void setAns6(Integer ans)
    {
       this.ans6 = ans;
-      setRiskValues(5,ans);
+      setRiskValues(6,ans);
    }
 
    public void setRiskValues(Integer ans, Integer value) {
@@ -136,12 +136,17 @@ public class LTAMRiskData
       return riskValues[ans];
    }
 
+   public Integer getRiskIndex()
+   {
+      return riskIndex;
+   }
+
    public void setRiskIndex(Integer riskIndex)
    {
       this.riskIndex = riskIndex;
    }
 
-   public Integer getRiskIndex() {
+   public Integer calcRiskIndex() {
       Integer riskValue=0;
       try {
          for (int i = 0; i < riskValueMatrix.length; i++) {

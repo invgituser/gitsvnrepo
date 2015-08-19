@@ -20,17 +20,17 @@ import org.primefaces.model.chart.*;
 public class LTAMCharts implements Serializable
 {
    JavaUtil jutil = new JavaUtil();
-   private Integer year;
-   private Integer calendarYear, minYearPoint, maxYearPoint, minGrowth, maxGrowth,legendXrotation;
 
    private LineChartModel lineChart;
    private PieChartModel pieChart;
    private MeterGaugeChartModel meterGuage;
    private BarChartModel barChart;
+   private BarChartModel barPerformanceChart;
    private BarChartModel riskbarChart;
 
    public LTAMCharts()
    {
+      barPerformanceChart = new BarChartModel();
       pieChart = new PieChartModel();
       lineChart = new LineChartModel();
       createDefaultMeterGuage();
@@ -48,46 +48,6 @@ public class LTAMCharts implements Serializable
       return pieChart;
    }
 
-   public Integer getYear()
-   {
-      return year;
-   }
-
-   public Integer getCalendarYear()
-   {
-      return calendarYear;
-   }
-
-   public void setCalendarYear(Integer calendarYear)
-   {
-      this.calendarYear = calendarYear;
-   }
-
-   public Integer getMinYearPoint()
-   {
-      return minYearPoint;
-   }
-
-   public Integer getMaxYearPoint()
-   {
-      return maxYearPoint;
-   }
-
-   public Integer getMinGrowth()
-   {
-      return minGrowth;
-   }
-
-   public Integer getMaxGrowth()
-   {
-      return maxGrowth;
-   }
-
-   public Integer getLegendXrotation()
-   {
-      return legendXrotation;
-   }
-
    public MeterGaugeChartModel getMeterGuage()
    {
       return meterGuage;
@@ -96,6 +56,11 @@ public class LTAMCharts implements Serializable
    public BarChartModel getBarChart()
    {
       return barChart;
+   }
+
+   public BarChartModel getBarPerformanceChart()
+   {
+      return barPerformanceChart;
    }
 
    public void setMeterGuage(Integer pointer)
@@ -127,132 +92,154 @@ public class LTAMCharts implements Serializable
       meterGuage.setIntervalOuterRadius(20);
    }
 
-   public void createLineModel(PerformanceData[] performanceData)
+   public void createLineModel(Map<String, ArrayList<LTAMPerformance>> performancedata)
    {
-      Integer year;
-      Integer noOfYlabels = 0;
-      Integer totalYlabels = 0;
-      Integer yIncrement = 1;
-      Integer MAXPOINTONGRAPH = 30;
-      Long moneyInvested;
-      Long money;
-      Double dividingFactor = 1.0;
-
-      lineChart = new LineChartModel();
       try
       {
-         if (performanceData == null)
+         lineChart = null;
+         if (performancedata == null)
             return;
 
-         if (performanceData.length < 2)
+         if (performancedata.size() == 0)
             return;
 
-
-         LineChartSeries totalGrowth = new LineChartSeries();
-         LineChartSeries totalInvested = new LineChartSeries();
-         LineChartSeries lower1 = new LineChartSeries();
-         LineChartSeries lower2 = new LineChartSeries();
-         LineChartSeries upper1 = new LineChartSeries();
-         LineChartSeries upper2 = new LineChartSeries();
-
-         //growth.setLabel("Growth");
-         totalGrowth.setLabel("Growth");
-         totalInvested.setLabel("Invested");
-         lower1.setLabel("Lower1");
-         lower2.setLabel("Lower2");
-         upper1.setLabel("Upper1");
-         upper1.setLabel("Upper2");
-
-         yIncrement = (int) (((double) performanceData.length) / ((double) MAXPOINTONGRAPH));
-         yIncrement = yIncrement + 1;  // offset by 1
-         noOfYlabels = (int) (((double) performanceData.length) / ((double) yIncrement)) % MAXPOINTONGRAPH;
-         // Mod returns 0 at its interval.  So on 30, we want to rotate it 90.
-         noOfYlabels = (noOfYlabels == 0) ? performanceData.length : noOfYlabels;
-         if (noOfYlabels <= 10)
-         {
-            legendXrotation = 15;
-         }
-         else if (noOfYlabels < 15)
-         {
-            legendXrotation = 30;
-         }
-         else
-         {
-            legendXrotation = 90;
-         }
-
-         int y = 0;
-         totalYlabels = performanceData.length - 1;
+         Integer calendarYear, firstPoint, lastPoint = 0, maxPoints = 0;
          Calendar cal = Calendar.getInstance();
          calendarYear = cal.get(cal.YEAR);
-         minYearPoint = calendarYear;
-         maxYearPoint = minYearPoint + totalYlabels;
-         Integer lowervalue =  (int) ((double) performanceData[0].getLowerBand2() * .10);
-         minGrowth = ((int) performanceData[0].getLowerBand2() - lowervalue < 0) ? 0 : (int) performanceData[0].getLowerBand2() - lowervalue;
-         maxGrowth = 0;
-         while (y <= totalYlabels)
-         {
-            year = calendarYear + y;
-            // moneyInvested = Math.round(performanceData[y].getInvestedCapital() / dividingFactor);
-            money = Math.round(performanceData[y].getUpperBand2() / dividingFactor);
-            // System.out.println("Year:" + year.toString() + ", Value=" + yearlyGrowthData[y][2]);
-            maxGrowth = (maxGrowth > money.intValue()) ? maxGrowth : money.intValue();
-            // growth.set(year, portfolio[y].getTotalCapitalGrowth());
-            // totalGrowth.set(year.toString(), moneyPnL);
-            // totalInvested.set(year.toString(), moneyInvested);
-            // Double lowerMoney = (portfolio[y].getLowerTotalMoney() < moneyInvested) ? moneyInvested : portfolio[y].getLowerTotalMoney();
-            lower1.set(year.toString(),performanceData[y].getLowerBand1()/dividingFactor);
-            lower2.set(year.toString(),performanceData[y].getLowerBand2()/dividingFactor);
-            upper1.set(year.toString(),performanceData[y].getUpperBand1()/dividingFactor);
-            upper2.set(year.toString(),performanceData[y].getUpperBand2()/dividingFactor);
-            // If incrementing anything other then 1, then make sure that last year is displayed.
-            if (y == totalYlabels)
-            {
-               y++;  // If last point is plotted, then quit.
+         firstPoint = calendarYear;
+         lineChart = new LineChartModel();
+         LineChartSeries series = null;
+         String [] seriescolor= {"#6E70FF","#82FF69","#FF4F4F","#FFBD5B","#88E9FF"};
+         String color = "";
+         String tempcolor;
+         int indexnum = 0;
+         for (String index: performancedata.keySet()) {
+            int datanum = 0;
+            maxPoints = (maxPoints < performancedata.get(index).size()) ? performancedata.get(index).size(): maxPoints;
+            lastPoint =  firstPoint;
+            for (LTAMPerformance performance: performancedata.get(index)) {
+               if (indexnum > seriescolor.length)
+                  tempcolor="FFFFFF";
+               else
+                  tempcolor=seriescolor[indexnum];
+
+               if (datanum == 0) {
+                  series = new LineChartSeries();
+                  series.setLabel(performance.getIndexname());
+                  if (indexnum == 0)
+                     color = tempcolor.replace('#', ' ').trim();
+                  else
+                     color = color + "," + tempcolor.replace('#', ' ').trim();
+
+                  color = color.trim();
+               }
+               if (series != null) {
+                  series.set(lastPoint, performance.getPerformance());
+               }
+               datanum++;
+               lastPoint--;  //  Decrease years...
             }
-            else
-            {
-               y = ((y + yIncrement) > totalYlabels) ? y = totalYlabels : y + yIncrement;
+            if (series != null)  {
+               lineChart.addSeries(series);
             }
+
+            indexnum++;
          }
 
-         Integer digits = maxGrowth.toString().length();
-         Double scale = Math.pow(10, digits - 1);
-
-         maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
-         // lineModel.addSeries(growth);
-         // lineChart.addSeries(totalGrowth);
-         // lineChart.addSeries(totalInvested);
-         lineChart.addSeries(lower2);
-         //lineChart.addSeries(lower1);
-         //lineChart.addSeries(upper1);
-         lineChart.addSeries(upper2);
-         lineChart.setSeriesColors("7C8686,7C8686");
+         lineChart.setSeriesColors(color);
          lineChart.setShowPointLabels(true);
          lineChart.setMouseoverHighlight(false);
-         lineChart.setShowDatatip(false);
+         // lineChart.setShowDatatip(false);
+         lineChart.setLegendPlacement(LegendPlacement.INSIDE);
+         lineChart.setLegendPosition("ne");
 
          Axis xAxis = lineChart.getAxis(AxisType.X);
-         xAxis.setLabel("Years");
-         xAxis.setMin(calendarYear);
-         xAxis.setMax(maxYearPoint);
-         xAxis.setTickFormat("%d");
-         // xAxis.setTickInterval("1");
-         // xAxis.setTickAngle(90);
+         xAxis.setLabel("Period");
+         xAxis.setMin(lastPoint);
 
          Axis yAxis = lineChart.getAxis(AxisType.Y);
-         //yAxis.setLabel("Projection");
-         // yAxis.setMin(minGrowth);
-         // yAxis.setMax(maxGrowth);
-         yAxis.setTickFormat("$%'d");
-         lineChart.setExtender("line_extensions");
+         //yAxis.setTickFormat("%d%");
+         lineChart.setExtender("ltam_line");
       }
       catch (Exception ex)
       {
          ex.printStackTrace();
+         lineChart = null;
       }
    }
 
+   public void createBarPerformance(Map<String, ArrayList<LTAMPerformance>> performancedata)
+   {
+      try
+      {
+         barPerformanceChart = null;
+         if (performancedata == null)
+            return;
+
+         if (performancedata.size() == 0)
+            return;
+
+         Integer calendarYear, firstPoint, lastPoint, maxPoints = 0;
+         Calendar cal = Calendar.getInstance();
+         calendarYear = cal.get(cal.YEAR);
+         firstPoint = calendarYear;
+         barPerformanceChart = new BarChartModel();
+         ChartSeries series = null;
+         String color = "";
+         String tempcolor;
+         int indexnum = 0;
+         for (String index: performancedata.keySet()) {
+            int datanum = 0;
+            maxPoints = (maxPoints < performancedata.get(index).size()) ? performancedata.get(index).size(): maxPoints;
+            lastPoint =  firstPoint;
+            for (LTAMPerformance performance: performancedata.get(index)) {
+
+               if (datanum == 0) {
+                  tempcolor=performance.getColor();
+                  series = new ChartSeries();
+                  if (indexnum == 0)
+                     color = tempcolor.replace('#', ' ').trim();
+                  else
+                     color = color + "," + tempcolor.replace('#', ' ').trim();
+
+                  color = color.trim();
+               }
+               if (series != null) {
+                  series.setLabel(performance.getIndexname());
+                  series.set(performance.getYearname(), performance.getPerformance());
+               }
+               datanum++;
+               lastPoint--;  //  Decrease years...
+            }
+            if (series != null)  {
+               barPerformanceChart.addSeries(series);
+            }
+
+            indexnum++;
+         }
+
+         barPerformanceChart.setSeriesColors(color);
+         barPerformanceChart.setNegativeSeriesColors(color);
+         barPerformanceChart.setShowPointLabels(false);
+         barPerformanceChart.setMouseoverHighlight(false);
+         barPerformanceChart.setShowDatatip(false);
+         //barPerformanceChart.setLegendPlacement(LegendPlacement.OUTSIDE);
+         //barPerformanceChart.setLegendPosition("ne");
+
+         //Axis xAxis = barPerformanceChart.getAxis(AxisType.X);
+         //xAxis.setLabel("Period");
+         //xAxis.setMin(firstPoint);
+
+         //Axis yAxis = lineChart.getAxis(AxisType.Y);
+         //yAxis.setTickFormat("%d%");
+         barPerformanceChart.setExtender("ltam_perf");
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+         lineChart = null;
+      }
+   }
 
    public void createPieModel(Map assetdata)
    {
@@ -265,8 +252,6 @@ public class LTAMCharts implements Serializable
          if (assetdata != null && assetdata.size() >= 0) {
             Map<String, LTAMAsset> assetMap = (Map<String, LTAMAsset>) assetdata;
 
-            Calendar cal = Calendar.getInstance();
-            calendarYear = cal.get(cal.YEAR);
             int slice = 0;
             String pieseriesColors = "";
             for (String assetname : assetMap.keySet())
@@ -274,8 +259,9 @@ public class LTAMCharts implements Serializable
                LTAMAsset asset = assetMap.get(assetname);
                Double weightAsPercent = asset.getWeightAsPercent();
                Double displayWeight = asset.getWeight();
-               String label = assetname + " - " + jutil.displayFormat(weightAsPercent, "##0.##%");
+               String label = asset.getDisplayname() + " - " + jutil.displayFormat(weightAsPercent, "##0.##%");
                pieChart.set(label, displayWeight);
+               pieChart.setDataFormat(asset.getDisplayname());
                color = asset.getColor().replace('#',' ');
                color = color.trim();
                if (slice == 0)
@@ -285,11 +271,13 @@ public class LTAMCharts implements Serializable
                slice ++;
             }
             pieChart.setFill(true);
-            pieChart.setShowDataLabels(false);
+            // pieChart.setShowDataLabels(true);
             pieChart.setDiameter(125);
-            pieChart.setSliceMargin(5);
+            pieChart.setSliceMargin(2);
+            pieChart.setMouseoverHighlight(true);
+            pieChart.setShadow(false);
             pieChart.setSeriesColors(pieseriesColors);
-            // pieChart.setExtender("ltam_pie");
+            pieChart.setExtender("ltam_pie");
          }
 
       }
@@ -313,7 +301,7 @@ public class LTAMCharts implements Serializable
          if (assetdata != null && assetdata.size() >= 0) {
             Map<String, LTAMAsset> assetMap = (Map<String, LTAMAsset>) assetdata;
             Calendar cal = Calendar.getInstance();
-            calendarYear = cal.get(cal.YEAR);
+            Integer calendarYear = cal.get(cal.YEAR);
             ChartSeries[] series = new ChartSeries[assetdata.size()];
             int i = 0;
             for (String assetname: assetMap.keySet())
@@ -347,7 +335,7 @@ public class LTAMCharts implements Serializable
          //barChart.setLegendPlacement(LegendPlacement.OUTSIDEGRID);
          barChart.setMouseoverHighlight(false);
          barChart.setShowDatatip(false);
-         barChart.setShowPointLabels(true);
+         // barChart.setShowPointLabels(true);
          Axis xAxis = barChart.getAxis(AxisType.X);
          // xAxis.setLabel("Assets");
          // xAxis.setTickAngle(30);
@@ -378,7 +366,7 @@ public class LTAMCharts implements Serializable
          Integer minAllocated = 0;
          if (themedata != null && themedata.size() >= 0) {
             Calendar cal = Calendar.getInstance();
-            calendarYear = cal.get(cal.YEAR);
+            Integer calendarYear = cal.get(cal.YEAR);
             ChartSeries[] series = new ChartSeries[themedata.size()];
             int i = 0;
             Double weight;
