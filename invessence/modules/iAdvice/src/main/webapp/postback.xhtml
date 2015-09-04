@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+<f:metadata>
+    <f:viewParam name="ETID" value="#{ltampostback.beanETID}"/>
+    <f:viewParam name="Advisor" value="#{ltampostback.beanAdvisor}"/>
+    <f:viewParam name="Acct" value="#{ltampostback.beanAcctNum}"/>
+    <f:event type="preRenderView" listener="#{ltampostback.preRenderView}"/>
+</f:metadata>
+
+<ui:define name="content">
+<h:outputScript name="/js/ltamCharts.js" library="ltam"/>
+
+<!-- BOX START -->
+<h:form id="ltamForm">
+    <p:panel id="intropanel" style="border: 0px; background: transparent">
+
+        <div class="layout-portlets-box">
+
+            <div class="Container100 Responsive50">
+                <div class="Container100 Responsive50">
+                    <div class="ContainerIndent TexAlCenter">
+                        <h1>
+                            Thank you
+                        </h1>
+
+                        <div class="EmptyBox10"></div>
+                        Client: #{ltampostback.beanETID}<br/>
+                        Advisor: #{ltampostback.beanAdvisor}<br/>
+                        Account#: #{ltampostback.beanAcctNum}<br/>
+                        <p:separator/>
+                        Has been marked as processed
+                        <div class="EmptyBox30"></div>
+                        <p:commandButton value="Done"
+                                         onclick="PF('dlgWelcome').hide()">
+                        </p:commandButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </p:panel>
+
+</h:form>
+
+
+</ui:define>
+
+</ui:composition>

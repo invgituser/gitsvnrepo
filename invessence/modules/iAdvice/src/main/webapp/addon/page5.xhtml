@@ -1,0 +1,43 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlCenter">
+        <h2>
+            Assuming you invest for at least 10 years, in the course of any given year,
+            which of the following range of returns would be most acceptable to you?
+        </h2>
+
+        <div class="EmptyBox10"></div>
+        <div class="Container100 Responsive100">
+
+            <p:chart type="bar" model="#{ltamprofile.ltamcharts.riskbarChart}" style="height:250px"
+                     rendered="#{ltamprofile.ltamcharts.riskbarChart != null}"
+                     responsive="true">
+                <p:ajax event="itemSelect" listener="#{ltamprofile.riskChartSelected}" update=":ltamForm:page5id"/>
+            </p:chart>
+
+            <div class="EmptyBox10"></div>
+            <h:panelGrid id="page5id" columns="1" style="margin-left:50px; border: 0px" cellpadding="5">
+                <p:selectOneRadio value="#{ltamprofile.ans5}" layout="grid" columns="5"
+                                  required="true" requiredMessage="Please choose one of these choices">
+                    <f:selectItem itemLabel="Income" itemValue="1">
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Income and Growth" itemValue="2">
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Growth and Income" itemValue="3">
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Growth" itemValue="4">
+                    </f:selectItem>
+                    <f:selectItem itemLabel="Aggressive Growth" itemValue="5">
+                    </f:selectItem>
+                </p:selectOneRadio>
+            </h:panelGrid>
+
+        </div>
+    </div>
+
+</ui:composition>

@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+               <!-- BOX START -->
+        <form id="_id0" method="post"
+              action="http://test.geminifund.com/newaccountswizardnew/pages/testFormPost.aspx"
+              target="_self"
+              >
+            <p:panel id="testpanel" style="border: 0px; background: transparent">
+                <table>
+                    <tr>
+                        <td>User ID</td>
+                        <td><input type="text" name="TimeToSaveUserId" value="ABC123"/></td>
+                    </tr>
+                    <tr>
+                        <td>Investor First Name</td>
+                        <td><input type="text" name="InvestorFirstName" value="FirstName"/></td>
+                    </tr>
+                    <tr>
+                        <td>Investor Last Name</td>
+                        <td><input type="text" name="InvestorLastName" value="LastName"/></td>
+                    </tr>
+                    <tr>
+                        <td>Fund Selection</td>
+                        <td><input type="text" name="FundSelection" value="Fund"/></td>
+                    </tr>
+                    <tr>
+                        <td>Dollar Amount</td>
+                        <td><input type="text" name="DollarAmount" value="1500"/></td>
+                    </tr>
+                    <tr>
+                        <td>Unique User Identifier</td>
+                        <td><input type="text" name="UniqueUserIdentifier" value="53"/></td>
+                    </tr>
+                    <tr>
+                        <td>Rep Referral ID</td>
+                        <td><input type="text" name="RepReferralId" value="REP"/></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Submit"/>
+            </p:panel>
+        </form>
+
+
+    </ui:define>
+
+</ui:composition>
