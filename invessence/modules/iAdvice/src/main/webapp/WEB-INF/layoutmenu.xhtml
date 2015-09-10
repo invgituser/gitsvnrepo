@@ -10,10 +10,13 @@
         <h:form>
         <pm:menu>
             <p:menuitem id="rm_faq" value="FAQ" icon="icon-question_answer" url="http://www.invessence.com/faq/" target="_info"/>
-            <p:menuitem id="rm_faq2" value="FAQ2" icon="icon-question_answer" actionListener="#{uiLayout.faqURL}" />
-            <p:menuitem id="rm_about" value="About us" icon="icon-people" actionListener="#{uiLayout.aboutusURL}" />
+            <p:menuitem id="rm_faq2" value="FAQ2" icon="icon-question_answer" onclick="PF('faqDlg').show()" />
+            <p:menuitem id="rm_about" value="About us" icon="icon-people" onclick="PF('aboutusDlg').show()" />
             <p:separator/>
-            <p:menuitem id="museo" value="Museo" icon="icon-question_answer" url="http://www.invessence.com/faq/" target="_info"/>
+            <p:menuitem id="modena" value="Modena" actionListener="#{uiLayout.resetTheme('modena')}"/>
+            <p:menuitem id="museo" value="Museo" actionListener="#{uiLayout.resetTheme('museo')}"/>
+            <p:menuitem id="opensan" value="Open Sans" actionListener="#{uiLayout.resetTheme('opensans')}"/>
+            <p:menuitem id="droid" value="Droid Serif" actionListener="#{uiLayout.resetTheme('droid')}"/>
 
         </pm:menu>
 

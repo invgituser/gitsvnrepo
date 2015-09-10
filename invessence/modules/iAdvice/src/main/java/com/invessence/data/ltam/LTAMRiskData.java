@@ -100,6 +100,40 @@ public class LTAMRiskData
       return ans6;
    }
 
+   public String getTextAns6() {
+      String textAns = "";
+      if (getAns6() != null) {
+         switch (getAns6()) {
+            case 1:
+               textAns = "Low";
+               break;
+            case 2:
+               textAns = "Moderate";
+               break;
+            case 3:
+               textAns = "Moderately High";
+               break;
+            case 4:
+               textAns = "High";
+               break;
+            case 5:
+               textAns = "Very High";
+               break;
+            default:
+               textAns = "";
+               break;
+         }
+      }
+      return textAns;
+   }
+
+   public void setDefaultAns6(Integer ans)
+   {
+      if (ans6 == null || ans6 == 0)
+         setAns6(ans);
+   }
+
+
    public void setAns6(Integer ans)
    {
       this.ans6 = ans;

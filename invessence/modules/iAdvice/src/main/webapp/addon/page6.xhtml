@@ -11,16 +11,45 @@ Risk tolerance is defined by the investor's ability to accept short term losses 
 long-term gains. Your tolerance for risk is:
         </h1>
 
-        <h2>
-            <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans6}"
-                              required="true" requiredMessage="Please choose one of these choices">
-                <f:selectItem itemLabel="Income" itemValue="1"/>
-                <f:selectItem itemLabel="Income and Growth" itemValue="2"/>
-                <f:selectItem itemLabel="Growth and Income" itemValue="3"/>
-                <f:selectItem itemLabel="Growth" itemValue="4"/>
-                <f:selectItem itemLabel="Aggressive Growth" itemValue="5"/>
-            </p:selectOneRadio>
-        </h2>
+        <div class="EmptyBox50"></div>
+        <div class="Container100 TexAlCenter">
+            <h2>
+                <h:outputText id="displayAns6" value="#{ltamprofile.textAns6}"/>
+            </h2>
+            <h:inputHidden id="ans6" value="#{ltamprofile.ans6}"
+                           required="true" requiredMessage="Please use the slider below to select appropriate risk tolerance"/>
+        </div>
+        <div class="EmptyBox30"></div>
+        <table class="Container100 Responsive100" style="border: 0px">
+            <tr>
+                <td style="width: 17%; text-align: right; vertical-align: middle; padding-right: 10px">
+                    <h:outputText value="More Bonds"/>
+                </td>
+                <td style="width: 65%; text-align: center">
+                    <p:slider for="ans6" minValue="1" maxValue="5" step="1">
+                        <p:ajax event="slideEnd" listener="#{ltamprofile.onSlideEnd}" update="displayAns6" />
+                    </p:slider>
+                </td>
+                <td style="width: 17%; text-align: left; vertical-align: middle; padding-left: 10px">
+                    <h:outputText value="More Stocks"/>
+                </td>
+
+            </tr>
+	    <tr>
+                <td colspan="3">
+        		<div class="EmptyBox5"></div>
+                </td>
+            </tr>
+	    <tr>
+                <td colspan="3">
+        		<div class="Fs8 TexAlCenter">
+				Please move to the spot on the bar with the most appropriate value
+		        </div>
+                </td>
+            </tr>
+
+        </table>
+        <div class="EmptyBox30"></div>
     </div>
 
 </ui:composition>

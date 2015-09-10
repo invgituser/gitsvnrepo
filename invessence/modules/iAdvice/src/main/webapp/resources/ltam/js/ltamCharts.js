@@ -34,6 +34,13 @@ function ltam_perf()
         shadow: false
     };
 
+    /*
+    this.cfg.seriesDefaults = {
+        show: true,     // whether to render the series.
+	showMarker: true
+    }
+    */
+
     this.cfg.axesDefaults = {
         axes: {
             xaxis: {
@@ -56,7 +63,6 @@ function ltam_bar()
         shadow: false
     };
 
-
     this.cfg.axesDefaults = {
         show: false,
         showTicks: false,
@@ -74,6 +80,8 @@ function ltam_riskq3()
         drawBorder: false,
         shadow: false
     };
+
+
 
     this.cfg.axesDefaults = {
         axes: {

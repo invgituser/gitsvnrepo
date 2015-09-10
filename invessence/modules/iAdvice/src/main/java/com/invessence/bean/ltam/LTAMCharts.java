@@ -81,11 +81,14 @@ public class LTAMCharts implements Serializable
          Boolean barChartFlag = true;
          // Since Bar prints in reverse order..  We are going to reverse the data.
          ArrayList<String> performancekey = new ArrayList<String>();
+/*
          for (String index : performancedata.keySet()) {
             performancekey.add(0,index); // Since we are inserting in first position, the prior one will shift up.
          }
 
          for (String index : performancekey)
+*/
+         for (String index : performancedata.keySet())
          {
             int datanum = 0;
             maxPoints = (maxPoints < performancedata.get(index).size()) ? performancedata.get(index).size() : maxPoints;
@@ -144,9 +147,9 @@ public class LTAMCharts implements Serializable
 
          barPerformanceChart.setSeriesColors(color);
          barPerformanceChart.setNegativeSeriesColors(color);
-         barPerformanceChart.setShowPointLabels(false);
-         barPerformanceChart.setMouseoverHighlight(false);
-         barPerformanceChart.setShowDatatip(false);
+         // barPerformanceChart.setShowPointLabels(false);
+         // barPerformanceChart.setMouseoverHighlight(false);
+         // barPerformanceChart.setShowDatatip(false);
          //barPerformanceChart.setLegendPlacement(LegendPlacement.OUTSIDE);
          //barPerformanceChart.setLegendPosition("ne");
 
@@ -312,8 +315,8 @@ public class LTAMCharts implements Serializable
             // riskbarChart.setStacked(true);
             // riskbarChart.setMouseoverHighlight(false);
             //riskbarChart.setShowDatatip(true);
-            riskbarChart.setSeriesColors("00006A,00D403");
-            riskbarChart.setNegativeSeriesColors("D0006A,D0D403");
+            riskbarChart.setSeriesColors("00D404,D40000");
+            riskbarChart.setNegativeSeriesColors("00D404,D40000");
 
             riskbarChart.setExtender("ltam_riskq3");
             //riskbarChart.setLegendPlacement(LegendPlacement.OUTSIDE);

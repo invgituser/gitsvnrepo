@@ -201,16 +201,26 @@ public class LTAMCustomerData extends LTAMRiskData
    {
       this.age = age;
       recalcAllocation = true;
-      if (age <= 30 )
+      if (age <= 30 ) {
          setAns1(1);
-      else if (age <= 40)
+         setDefaultAns6(5);
+      }
+      else if (age <= 40) {
          setAns1(2);
-      else if (age <= 50)
+         setDefaultAns6(4);
+      }
+      else if (age <= 50) {
          setAns1(3);
-      else if (age <= 60)
+         setDefaultAns6(3);
+      }
+      else if (age <= 60) {
          setAns1(4);
-      else if (age > 60)
+         setDefaultAns6(2);
+      }
+      else if (age > 60) {
          setAns1(5);
+         setDefaultAns6(1);
+      }
    }
 
    public String getAccttype()

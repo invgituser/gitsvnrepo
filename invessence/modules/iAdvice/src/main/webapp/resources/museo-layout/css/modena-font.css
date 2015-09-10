@@ -1,17 +1,18 @@
-@font-face {
-  font-family: "Modena";
-  src:url("#{resource['modena-layout:fonts/Modena.eot']}");
-  src:url("#{resource['modena-layout:fonts/Modena.eot']}#iefix-edmmgb") format("embedded-opentype"),
-      url("#{resource['modena-layout:fonts/Modena.woff']}") format("woff"),
-      url("#{resource['modena-layout:fonts/Modena.ttf']}") format("truetype"),
-      url("#{resource['modena-layout:fonts/Modena.svg']}#modena") format("svg");
-  font-weight: normal;
-  font-style: normal;
+@import url("//hello.myfonts.net/count/2f10fa");
 
+@font-face {
+    font-family: 'Museo-300';
+    src: url('webfonts/2F10FA_1_0.eot');
+    src: url('webfonts/2F10FA_1_0.eot?#iefix')
+    format('embedded-opentype'), url('webfonts/2F10FA_1_0.woff2')
+    format('woff2'), url('webfonts/2F10FA_1_0.woff')
+    format('woff'), url('webfonts/2F10FA_1_0.ttf')
+    format('truetype');
 }
 
+
 [class^="icon-"], [class*=" icon-"] {
-	font-family: 'Modena';
+	font-family: 'Museo-300';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;

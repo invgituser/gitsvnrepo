@@ -16,7 +16,7 @@ import com.invessence.util.Impl.PagesImpl;
 import com.ltammodel.LTAMOptimizer;
 import com.ltammodel.data.*;
 import org.primefaces.context.RequestContext;
-import org.primefaces.event.ItemSelectEvent;
+import org.primefaces.event.*;
 
 
 /**
@@ -38,7 +38,8 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    private String beanfirstname;
    private String beanlastname;
    private Boolean welcomeDialog; // Flag to Display Welcome message if from Advisor Link
-   private Boolean visitorMode; // Defines Is it from TimeToSave or Advisor
+   private Boolean time2SaveWelcome; // Defines Is it from TimeToSave or Advisor
+   private Boolean disableWelcomeMode = false; // Defines Is it from TimeToSave or Advisor
    private Boolean disableInvestment;  // Not USED:  Display Investment as editable mode or not?
    private Boolean displayGraphs, reviewPage, displayMeter;
    SQLData converter = new SQLData();
@@ -85,9 +86,9 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    }
 */
 
-   public Boolean getVisitorMode()
+   public Boolean getTime2SaveWelcome()
    {
-      return visitorMode;
+      return time2SaveWelcome;
    }
 
    public String getBeanTimeToSaveID()
@@ -99,6 +100,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    {
       this.beanTimeToSaveID = beanTimeToSaveID;
       setTimeToSaveID(beanTimeToSaveID);
+      time2SaveWelcome = true;
    }
 
    public String getBeanAdvisor()
@@ -136,7 +138,6 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       {
          Double value = converter.getDoubleData(beanAmount);
          setInvestment(value);
-         visitorMode = false;
       }
       catch (Exception ex)
       {
@@ -257,7 +258,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       displayMeter = false;
       setDisplayGraphs(false);
       pagemanager.setPage(0);
-      webutil.redirect("/start.xhtml", null);
+      // webutil.redirect("/start.xhtml", null);
 
    }
 
@@ -265,7 +266,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    {
       reviewPage = false;
       pagemanager.prevPage();
-      if (pagemanager.getPage() == 0)
+      if (pagemanager.isFirstPage())
       {
          setDisplayGraphs(false);
          displayMeter = false;
@@ -282,6 +283,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
          reviewPage = true;
       }
       displayMeter = true;
+      disableWelcomeMode = true;
       doCharts();
       saveClientData();
       pagemanager.nextPage();
@@ -296,12 +298,23 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            if (pagemanager != null && (! pagemanager.isFirstPage())) {
+               firstPage();
+            }
             // pagemanager.setPage(0);
-            if (getBeanAmount() != null) {
-               welcomeDialog = false;
+            if (! disableWelcomeMode) {
+               if (getTimeToSaveID() != null) {
+                  welcomeDialog = false;
+               }
+               else {
+                  if (pagemanager == null || pagemanager.isFirstPage())
+                     welcomeDialog = true;
+                  else
+                     welcomeDialog = false;
+               }
             }
             else {
-               welcomeDialog = true;
+               welcomeDialog = false;
             }
             // resetBean();
             // if (webutil.isWebProdMode())
@@ -318,7 +331,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
    public void resetBean()
    {
-      visitorMode = true;
+      time2SaveWelcome = false;
       resetAllData();
       displayGraphs = false;
       reviewPage = false;
@@ -401,6 +414,12 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       }
    }
 
+   public void startOver()
+   {
+      firstPage();
+      webutil.redirect("/start.xhtml", null);
+   }
+
    public void forwardData()
    {
 
@@ -440,14 +459,15 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
             }
 
             ltamcharts.createPieModel(getThemeData().getAsset());
-            if (displayGraphs)
+            if (displayGraphs) {
+               ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
+            }
+            if (reviewPage)
             {
                // ltamcharts.setMeterGuage(getRiskIndex());
-               ltamcharts.createDonutChart(getThemeData().getAsset());
-               //ltamcharts.createRiskBarChart();
-               ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
+               // ltamcharts.createDonutChart(getThemeData().getAsset());
                ltamcharts.createBarPerformance(theme.getPerformanceData());
-               ArrayList<ArrayList<LTAMPerformancePrintData>> myMap = theme.getPrintedPerformanceData();
+               // ArrayList<ArrayList<LTAMPerformancePrintData>> myMap = theme.getPrintedPerformanceData();
             }
          }
       }
@@ -515,6 +535,18 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
          return false;
    }
 
+   public void onSlideEnd(SlideEndEvent event) {
+      if (event != null) {
+         setAns6(event.getValue());
+      }
+   }
+
+   public void setRiskQ5Image(Integer which) {
+      if (getAns5() == null)
+         return;
+
+      setAns5(which);
+   }
 
 }
 

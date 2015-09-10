@@ -29,8 +29,8 @@ public class UILayout implements Serializable
 
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
-   private String theme = "modena";
-   private String themeLibrary = "modena-layout";
+   private String theme = "opensans";
+   private String themeLibrary = "opensans-layout";
    private String themeid;
    private String cid, rep;
    private String default_page;
@@ -82,7 +82,7 @@ public class UILayout implements Serializable
             phone = webutil.getMessageText().lookupMessage("phone." + themeid, null);
             newTheme = webutil.getMessageText().lookupMessage("theme." + themeid, null);
             newLibrary = webutil.getMessageText().lookupMessage("library." + themeid, null);
-            resetTheme(newTheme, newLibrary);
+            resetTheme(newTheme);
 
             if (email == null)
                email = "info@invessence.com";
@@ -92,23 +92,23 @@ public class UILayout implements Serializable
          }
 
       }
-
-
    }
 
-   public void resetTheme(String theme, String library) {
+   public void resetTheme(String theme) {
       if (theme != null) {
+            theme = theme.trim();
             this.theme = theme;
-            this.themeLibrary = library;
-
-            if (theme == null)
-               theme = "modena";
-
-            if (themeLibrary == null)
-               themeLibrary = "modena-layout";
-
-
+            this.themeLibrary = theme + "-layout";
       }
+      else {
+
+         if (this.theme == null)
+            this.theme = "modena";
+
+         if (themeLibrary == null)
+            themeLibrary = this.theme + "-layout";
+      }
+
    }
 
    public void preRenderView()
@@ -275,18 +275,11 @@ public class UILayout implements Serializable
       options.put("resizable", false);
       options.put("contentHeight", 520);
 
-      RequestContext.getCurrentInstance().openDialog("/faqURL.xhtml", options, null);
+      RequestContext.getCurrentInstance().openDialog("faqURL", options, null);
 
    }
 
    public void aboutusURL() {
-      Map<String,Object> options = new HashMap<String, Object>();
-      options.put("modal", true);
-      options.put("draggable", false);
-      options.put("resizable", false);
-      options.put("contentHeight", 520);
-
-      RequestContext.getCurrentInstance().openDialog("http://www.ladenburg.com/about-us/about-us", options, null);
-
+      RequestContext.getCurrentInstance().openDialog("aboutus");
    }
 }

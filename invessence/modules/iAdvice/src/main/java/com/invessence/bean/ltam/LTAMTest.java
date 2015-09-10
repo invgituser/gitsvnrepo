@@ -26,6 +26,9 @@ public class LTAMTest implements Serializable
    private String amount;
    private String firstname;
    private String lastname;
+   private Double investment;
+   private Integer uid;
+   private String fund;
    private WebUtil webutil = new WebUtil();
 
    @ManagedProperty("#{uiLayout}")
@@ -102,6 +105,36 @@ public class LTAMTest implements Serializable
       this.lastname = lastname;
    }
 
+   public Double getInvestment()
+   {
+      return investment;
+   }
+
+   public void setInvestment(Double investment)
+   {
+      this.investment = investment;
+   }
+
+   public Integer getUid()
+   {
+      return uid;
+   }
+
+   public void setUid(Integer uid)
+   {
+      this.uid = uid;
+   }
+
+   public String getFund()
+   {
+      return fund;
+   }
+
+   public void setFund(String fund)
+   {
+      this.fund = fund;
+   }
+
    @PostConstruct
    public void init() {
        //menu.resetTheme("1");
@@ -165,6 +198,10 @@ public class LTAMTest implements Serializable
       else {
          webutil.showMessage(null, "W", "Firstname, Lastname,and Amount all are required.");
       }
+   }
+
+   public void postMethod() {
+      webutil.redirect("/gemini.xhtml", null);
    }
 
    public void dummyStart() {

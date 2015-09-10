@@ -51,12 +51,7 @@
         <div class="Container60 Responsive50">
             <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 0}">
-                    <ui:fragment rendered="#{ltamprofile.visitorMode}">
-                        <ui:include src="/addon/page1.xhtml"/>
-                    </ui:fragment>
-                    <ui:fragment rendered="#{ltamprofile.visitorMode ? 'false' : 'true'}">
-                        <ui:include src="/addon/page1A.xhtml"/>
-                    </ui:fragment>
+                  <ui:include src="/addon/page5A.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 1}">
                     <ui:include src="/addon/page2.xhtml"/>
@@ -198,128 +193,8 @@
     </div>
 </div>
 
-<p:outputPanel id="dataarea" style="border: 0px"
-               rendered="#{ltamprofile.displayGraphs}">
+<p:outputPanel id="dataarea" style="border: 0px">
 
-    <p:fieldset legend="Proposed Allocation" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
-        <div class="Container100 Responsive100">
-            <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.allocationData.ltamAllocatedSubAssetList}"
-                         var="suballocatedList" reflow="true">
-                <p:column style="width: 2%; background-color: #{suballocatedList.color};">
-                    <h:outputText value=" "/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Asset">
-                    <h:outputText value="#{suballocatedList.assetname}"/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Class">
-                    <h:outputText value="#{suballocatedList.subassetname}"/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlRight"
-                          resizable="true" headerText="Weight">
-                    <h:outputText value="#{suballocatedList.weightAsPercent}">
-                        <f:convertNumber pattern="##0.00%"/>
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid35 TexAlRight"
-                          resizable="true" headerText="Value">
-                    <h:outputText value="#{suballocatedList.money}">
-                        <f:convertNumber currencySymbol="$" type="currency"/>
-                    </h:outputText>
-                </p:column>
-
-            </p:dataTable>
-        </div>
-
-    </p:fieldset>
-
-    <p:fieldset legend="Historical Bar Graph" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
-        <div class="Container100 Responsive100">
-            <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.themeData.printedPerfData}"
-                         var="pdata" reflow="true">
-                <p:column style="width: 2%; background-color: #{pdata.color}">
-                    <f:facet name="header">
-                        <h:outputText value=""/>
-                    </f:facet>
-                    <h:outputText value=" "/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="Index"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.indexname}"/>
-                </p:column>
-
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2015 YTD"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value1}"/>
-                </p:column>
-
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="2014">
-                    <h:outputText value="#{pdata.value2}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs10"
-                          headerText="2013">
-                    <h:outputText value="#{pdata.value3}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="2012">
-                    <h:outputText value="#{pdata.value4}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="2011">
-                    <h:outputText value="#{pdata.value5}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="2010">
-                    <h:outputText value="#{pdata.value6}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlCenter Fs12"
-                          headerText="2009">
-                    <h:outputText value="#{pdata.value7}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="2008">
-                    <h:outputText value="#{pdata.value8}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlCenter Fs12"
-                          headerText="2007">
-                    <h:outputText value="#{pdata.value9}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="2006">
-                    <h:outputText value="#{pdata.value10}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="Since Inception">
-                    <h:outputText value="#{pdata.value11}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-            </p:dataTable>
-
-        </div>
-        <div class="EmptyBox30"></div>
-        <div class="Container100 Responsive100 ShowOnDesktop">
-            <p:chart type="bar" model="#{ltamprofile.ltamcharts.barPerformanceChart}" style="height:300px"
-                     rendered="#{ltamprofile.ltamcharts.barPerformanceChart != null}"
-                     responsive="true"/>
-        </div>
-    </p:fieldset>
 </p:outputPanel>
 
 </p:panel>

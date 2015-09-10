@@ -7,7 +7,7 @@
 
     <div class="Container100 Responsive50 TextAlCenter">
         <div class="TexAlCenter">
-            <h1>Based on your answers, recommended objective is:</h1>
+            <h1>#{ltamprofile.firstname}, Based on your answers, recommended objective is:</h1>
         </div>
         <div class="EmptyBox20"></div>
         <table class="Container100 Responsive100 TextAlCenter">
@@ -15,7 +15,16 @@
                 <td colspan="2" class="TexAlCenter">
                     <div class="DispInlBlock TexAlLeft MarTop20">
                         <div class="Fright">
-                            <h2 class="black Fs24 FontRalewayMedium">#{ltamprofile.themeData.displayname}</h2>
+                            <h2 class="black Fs24">#{ltamprofile.themeData.displayname}</h2>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="TexAlCenter">
+                    <div class="DispInlBlock TexAlLeft MarTop20">
+                        <div class="Fright">
+                            <h2 class="black Fs18">#{ltamprofile.themeData.longDescription}</h2>
                         </div>
                     </div>
                 </td>

@@ -1,31 +1,42 @@
+@import url("//hello.myfonts.net/count/2f10fa");
+
 @font-face {
-  font-family: 'robotolight';
-  src: url("#{resource['primefaces-modena:fonts/roboto-light-webfont.eot']}");
-  src: url("#{resource['primefaces-modena:fonts/roboto-light-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.woff']}") format('woff'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.svg']}#robotolight") format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Museo-700';
+    src: url('webfonts/2F10FA_0_0.eot');
+    src: url('webfonts/2F10FA_0_0.eot?#iefix')
+    format('embedded-opentype'), url('webfonts/2F10FA_0_0.woff2')
+    format('woff2'), url('webfonts/2F10FA_0_0.woff')
+    format('woff'), url('webfonts/2F10FA_0_0.ttf')
+    format('truetype');
 }
+
 @font-face {
-  font-family: 'robotoregular';
-  src: url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.eot']}");
-  src: url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.woff']}") format('woff'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.svg']}#robotoregular") format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Museo-300';
+    src: url('webfonts/2F10FA_1_0.eot');
+    src: url('webfonts/2F10FA_1_0.eot?#iefix')
+    format('embedded-opentype'), url('webfonts/2F10FA_1_0.woff2')
+    format('woff2'), url('webfonts/2F10FA_1_0.woff')
+    format('woff'), url('webfonts/2F10FA_1_0.ttf')
+    format('truetype');
 }
+
 @font-face {
-  font-family: 'robotomedium';
-  src: url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.eot']}");
-  src: url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.woff']}") format('woff'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.svg']}#robotomedium") format('svg');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Museo-500';
+    src: url('webfonts/2F10FA_2_0.eot');
+    src: url('webfonts/2F10FA_2_0.eot?#iefix')
+    format('embedded-opentype'), url('webfonts/2F10FA_2_0.woff2')
+    format('woff2'), url('webfonts/2F10FA_2_0.woff')
+    format('woff'), url('webfonts/2F10FA_2_0.ttf')
+    format('truetype');
 }
+
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-widget .ui-widget {
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-widget input,
 .ui-widget select,
@@ -771,7 +782,7 @@ label {
   font-size: 16px;
   color: #546e7a;
   letter-spacing: 0px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-weight: normal;
 }
 .ui-breadcrumb ul li .ui-menuitem-link:hover {
@@ -804,7 +815,7 @@ label {
   -moz-border-radius: 2px;
   background-color: #ffffff;
   color: #546e7a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-datatable .ui-datatable-sticky {
   border: 0px;
@@ -853,7 +864,7 @@ label {
   font-size: 20px;
   padding: 15px 10px !important;
   font-weight: normal;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-datatable .ui-datatable-summaryrow td {
   color: #a5d6f0;
@@ -898,12 +909,12 @@ label {
   -moz-border-radius: 0px !important;
 }
 .ui-datatable table tbody td {
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   padding: 10px 10px !important;
 }
 .ui-datatable-fs .ui-datatable-frozenlayout-right,
 .ui-datatable-fs .ui-datatable-frozenlayout-left {
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   padding: 0px !important;
 }
 .ui-datatable-fs .ui-datatable-frozenlayout-right .ui-datatable-scrollable-container .ui-datatable-scrollable-header .ui-datatable-scrollable-header-box table thead tr th,
@@ -922,7 +933,7 @@ label {
   border: solid 1px #c1d5df;
   outline: none;
   padding: 10px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-size: 16px;
 }
 .ui-datatable table thead tr th.ui-state-hover,
@@ -950,7 +961,7 @@ label {
   color: #546e7a;
   border: solid 1px #d9e3e8;
   font-size: 14px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-300';
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -ms-transition: all 0.5s ease;
@@ -1033,7 +1044,7 @@ label {
 .ui-datatable-footer {
   background-color: #f5f5f5;
   color: #7a8f98;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-size: 14px;
   padding: 10px !important;
   border-radius: 1px !important;
@@ -1116,7 +1127,7 @@ label {
   -moz-border-radius: 2px;
   background-color: #ffffff;
   color: #778d9b;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-datagrid .ui-datagrid-header {
   color: #ffffff;
@@ -1155,7 +1166,7 @@ label {
   -moz-border-radius: 2px;
   background-color: #ffffff;
   color: #546e7a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-datalist .ui-datalist-header {
   color: #ffffff;
@@ -1164,17 +1175,17 @@ label {
   -webkit-border-radius: 1px !important;
   -moz-border-radius: 1px !important;
   font-size: 20px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   padding: 15px 5px !important;
   font-weight: normal;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-datalist .ui-datalist-content .ui-datalist-data {
   margin: 0px;
   padding-top: 15px;
   padding-bottom: 15px;
   padding-right: 15px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-300';
   font-size: 16px;
   color: #546e7a;
 }
@@ -1224,7 +1235,7 @@ label {
   font-size: 14px;
   padding: 15px;
   color: #9ad6f8;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-paginator .ui-paginator-first,
 .ui-paginator .ui-paginator-prev,
@@ -1244,7 +1255,7 @@ label {
   transition: all 0.5s ease;
   border-radius: 0px !important;
   font-weight: normal;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-paginator .ui-paginator-rpp-options {
   outline: none;
@@ -1286,7 +1297,7 @@ label {
 .ui-paginator .ui-paginator-rpp-options {
   outline: none;
   color: #ffffff !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-size: 18px !important;
   background-color: #0277bd;
   border: solid 1px transparent;
@@ -1299,7 +1310,7 @@ label {
   display: table !important;
   font-size: 14px;
   color: #546e7a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-picklist .ui-picklist-filter {
   width: 81.5% !important;
@@ -1339,7 +1350,7 @@ label {
   transition: all 0.5s ease;
   border-top-right-radius: 2px;
   border-top-left-radius: 2px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-weight: lighter;
 }
 .ui-picklist .ui-picklist-list {
@@ -1595,7 +1606,7 @@ label {
   -moz-border-radius: 2px !important;
   background-color: #ffffff;
   color: #546e7a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-orderlist .ui-orderlist-list {
   margin-top: 10px !important;
@@ -1605,7 +1616,7 @@ label {
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-size: 18px;
 }
 .ui-orderlist .ui-orderlist-list .ui-orderlist-item {
@@ -1691,7 +1702,7 @@ label {
   background-color: #ffffff;
   color: #546e7a;
   border-radius: 2px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-300';
 }
 .ui-carousel .ui-carousel-header {
   background-color: #5c6bc0;
@@ -1700,7 +1711,7 @@ label {
   border-radius: 1px;
   -webkit-border-radius: 1px;
   -moz-border-radius: 1px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   color: #ffffff;
   font-size: 18px;
   margin: -2px -1px !important;
@@ -1789,7 +1800,7 @@ label {
 }
 .fc-header {
   background-color: #19a69a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-top-left-radius: 1px !important;
   border-top-right-radius: 1px !important;
   -webkit-border-top-left-radius: 1px !important;
@@ -1798,7 +1809,7 @@ label {
   -moz-border-top-right-radius: 1px !important;
 }
 .fc-header-center {
-  font-family: 'robotoregular' !important;
+  font-family: 'Museo-500' !important;
 }
 .fc-header-left {
   width: 30%;
@@ -1821,7 +1832,7 @@ label {
   -webkit-border-radius: 0px;
   -moz-border-radius: 0px;
   border: solid 1px transparent;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .fc-header tbody tr td .ui-state-hover,
 .fc-header tbody tr td .ui-state-active {
@@ -1848,7 +1859,7 @@ label {
   font-size: 26px;
   margin: 0px;
   color: #FFFFFF;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-weight: normal;
 }
 .fc-content {
@@ -1873,7 +1884,7 @@ label {
   border-radius: 0px !important;
   -webkit-border-radius: 0px !important;
   -moz-border-radius: 0px !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-weight: normal;
 }
 .fc-content table thead tr .fc-sun,
@@ -1919,7 +1930,7 @@ label {
   transition: all 0.3s ease;
   background-color: #ffffff;
   color: #546e7a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .fc-toolbar {
   background-color: #26a69a;
@@ -1937,7 +1948,7 @@ label {
   background-color: #26a69a;
   color: #ffffff;
   border-radius: 0px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   padding: 3px 5px !important;
   font-size: 16px;
 }
@@ -1971,7 +1982,7 @@ label {
 .fc-center {
   color: #ffffff;
   font-size: 16px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-weight: lighter;
 }
 .fc-center h2 {
@@ -2024,7 +2035,7 @@ label {
   -webkit-border-radius: 0px !important;
   -moz-border-radius: 0px !important;
   border: 0px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-weight: normal;
 }
 .fc-view-container table thead tr .fc-sun,
@@ -2034,7 +2045,7 @@ label {
 .fc-view-container .fc-content-skeleton table thead tr .fc-sun,
 .fc-view-container .fc-content-skeleton table thead tr .fc-sat {
   background-color: transparent;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .fc-view-container table tbody tr .fc-day {
   border: solid 1px #f5f5f5 !important;
@@ -2050,7 +2061,7 @@ label {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   border-top-width: 1px !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-weight: normal;
 }
 .fc-view-container .fc-month-view table tbody tr .fc-day:hover {
@@ -2118,7 +2129,7 @@ hr.ui-widget-header {
   transition: all 0.5s ease;
   background-color: #ffffff;
   padding: 10px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-tree .ui-treenode {
   padding: 3px !important;
@@ -2238,7 +2249,7 @@ hr.ui-widget-header {
   -moz-border-radius: 2px;
   color: #778d9b !important;
   background-color: #ffffff;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-treetable table tbody tr td .ui-chkbox-box {
   margin-top: 0px;
@@ -2274,7 +2285,7 @@ hr.ui-widget-header {
   -moz-border-top-right-radius: 1px !important;
   color: #ffffff !important;
   padding: 12px 5px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-treetable table {
   margin: 0px 0px 1px;
@@ -2293,7 +2304,7 @@ hr.ui-widget-header {
   border: solid 1px #69b66d;
   outline: none;
   padding: 12px 5px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-size: 16px;
 }
 .ui-treetable table thead tr th.ui-state-active,
@@ -2319,7 +2330,7 @@ hr.ui-widget-header {
 .ui-treetable table tbody .ui-state-highlight td {
   color: #03a9f4 !important;
   background-color: #eff3f5;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-treetable .ui-treetable-selectable-node .ui-chkbox.ui-selection {
   float: left;
@@ -2449,7 +2460,7 @@ hr.ui-widget-header {
   background-color: #ffffff;
   padding: 0px !important;
   width: auto !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-accordion-header {
   border-radius: 0px;
@@ -2461,7 +2472,7 @@ hr.ui-widget-header {
   padding: 13px 5px 13px 30px !important;
   margin-bottom: 1px !important;
   font-weight: normal !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-accordion .ui-accordion-header.ui-state-hover,
 .ui-accordion .ui-accordion-header.ui-state-active {
@@ -2490,7 +2501,7 @@ hr.ui-widget-header {
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
   font-size: 16px;
-  font-family: 'robotolight';
+  font-family: 'Museo-500';
 }
 .ui-panelgrid-content {
   color: #546e7a;
@@ -2658,7 +2669,7 @@ hr.ui-widget-header {
   font-size: 17px;
   padding: 14px 1em !important;
   border-radius: 0px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected,
 .ui-tabs-top .ui-tabs-nav li.ui-tabs-active,
@@ -2784,7 +2795,7 @@ hr.ui-widget-header {
   width: auto !important;
   font-size: 17px;
   padding: 14px 12px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-tabs-left .ui-tabs-nav li.ui-tabs-selected,
 .ui-tabs-left .ui-tabs-nav li.ui-tabs-active,
@@ -2850,7 +2861,7 @@ hr.ui-widget-header {
   width: auto !important;
   font-size: 17px;
   padding: 14px 16px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-tabs-right .ui-tabs-nav li.ui-tabs-selected,
 .ui-tabs-right .ui-tabs-nav li.ui-tabs-active,
@@ -2902,7 +2913,7 @@ hr.ui-widget-header {
   border-bottom-right-radius: 2px;
   font-weight: normal;
   background-color: #eceff1;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   border-top: solid 1px #e0e0e0;
 }
 .ui-tabs-bottom .ui-tabs-navscroller {
@@ -3079,7 +3090,7 @@ hr.ui-widget-header {
   font-size: 19px;
   border-top-left-radius: 1px;
   border-top-right-radius: 1px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-dialog .ui-dialog-title {
   margin: 5px 16px 5px 0px !important;
@@ -3219,7 +3230,7 @@ hr.ui-widget-header {
   color: #546e7a;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-weight: normal;
   font-size: 18px;
 }
@@ -3243,14 +3254,14 @@ hr.ui-widget-header {
 .ui-fieldset {
   border: solid 1px #e0e0e0;
   background-color: #ffffff;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-radius: 3px;
 }
 .ui-fieldset-legend {
   color: #ffffff;
   font-size: 16px;
   line-height: 15px;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   background-color: #0288d1;
   padding: 13px 20px !important;
   border-bottom-right-radius: 2px;
@@ -3290,7 +3301,7 @@ hr.ui-widget-header {
 .ui-inputfield {
   color: #546e7a;
   font-size: 16px;
-  font-family: 'robotoregular' !important;
+  font-family: 'Museo-500' !important;
   padding: 9px 10px !important;
   border: solid 0px #c6d6df;
   border-bottom: solid 1px #b0bec5;
@@ -3342,7 +3353,7 @@ hr.ui-widget-header {
   -webkit-border-radius: 2px !important;
   -moz-border-radius: 2px !important;
   font-size: 14px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   color: #ffffff;
   text-shadow: none;
   position: relative;
@@ -3415,7 +3426,7 @@ hr.ui-widget-header {
   color: #546e7a;
   border-radius: 2px;
   padding: 0px !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   -webkit-box-shadow: 0px 1px 2px 0px rgba(43, 59, 93, 0.3);
   -moz-box-shadow: 0px 1px 2px 0px rgba(43, 59, 93, 0.3);
   box-shadow: 0px 1px 2px 0px rgba(43, 59, 93, 0.3);
@@ -3431,7 +3442,7 @@ hr.ui-widget-header {
   background-color: #0288d1;
   width: 84% !important;
   border-radius: 1px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   padding: 7px 8%;
 }
 .ui-menu.ui-menu-toggleable li.ui-widget-header {
@@ -3440,7 +3451,7 @@ hr.ui-widget-header {
   background-color: #0288d1;
   width: 84% !important;
   border-radius: 1px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   padding: 7px 8%;
 }
 .ui-menu.ui-menu-toggleable li.ui-widget-header:hover {
@@ -3482,7 +3493,7 @@ hr.ui-widget-header {
 }
 .ui-menu .ui-menuitem .ui-menuitem-link {
   color: #546e7a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-size: 16px;
   padding: 14px 0px;
   width: 100%;
@@ -3569,7 +3580,7 @@ hr.ui-widget-header {
   font-weight: normal;
   margin-bottom: 1px !important;
   background-color: #0288d1;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-panelmenu .ui-panelmenu-panel h3.ui-state-hover {
   background-color: #039be5;
@@ -3605,7 +3616,7 @@ hr.ui-widget-header {
 .ui-panelmenu .ui-panelmenu-panel .ui-panelmenu-content .ui-menuitem a {
   color: #546e7a;
   font-size: 16px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   padding: 14px 5% 14px 10%;
   overflow: hidden;
   width: auto !important;
@@ -3641,7 +3652,7 @@ hr.ui-widget-header {
   font-size: 16px;
   color: #546e7a;
   padding: 12px 15px !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-weight: normal;
   line-height: 1;
 }
@@ -3672,7 +3683,7 @@ hr.ui-widget-header {
   font-size: 18px;
   font-weight: normal;
   padding: 10px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-messages-info,
 .ui-message-info {
@@ -3682,7 +3693,7 @@ hr.ui-widget-header {
   font-size: 18px;
   font-weight: normal;
   padding: 10px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-messages-info .ui-icon-close,
 .ui-messages-warn .ui-icon-close,
@@ -3700,7 +3711,7 @@ hr.ui-widget-header {
   font-size: 18px;
   font-weight: normal;
   padding: 10px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-messages-fatal,
 .ui-message-fatal {
@@ -3710,7 +3721,7 @@ hr.ui-widget-header {
   font-size: 18px;
   font-weight: normal;
   padding: 10px !important;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
 }
 .ui-messages-info-icon,
 .ui-messages-warn-icon,
@@ -3782,7 +3793,7 @@ hr.ui-widget-header {
   font-size: 18px;
   color: #ffffff;
   z-index: 100;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-weight: normal;
   border-radius: 1px !important;
   -webkit-border-radius: 1px !important;
@@ -3795,7 +3806,7 @@ hr.ui-widget-header {
   font-size: 16px;
   color: #546E7A;
   z-index: 100;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-radius: 2px !important;
   -webkit-border-radius: 2px !important;
   -moz-border-radius: 2px !important;
@@ -3834,7 +3845,7 @@ hr.ui-widget-header {
   padding: 5px !important;
   font-size: 14px;
   color: #546e7a;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-panel .ui-panel-footer {
   /*background-color: #F5F5F5;*/
@@ -3859,7 +3870,7 @@ hr.ui-widget-header {
 .ui-selectonemenu,
 .ui-selectcheckboxmenu {
   font-size: 16px !important;
-  font-family: 'robotoregular' !important;
+  font-family: 'Museo-500' !important;
   padding: 0px 56px 0px 0px !important;
   border-bottom: solid 1px #B0BEC5 !important;
   -webkit-transition: all 0.5s ease;
@@ -3993,7 +4004,7 @@ hr.ui-widget-header {
 /*Style For SelectCheckBoxMenu ------------------------------------------------------------------------------------- */
 .ui-selectcheckboxmenu {
   font-size: 16px !important;
-  font-family: 'robotoregular' !important;
+  font-family: 'Museo-500' !important;
   padding: 0px 15px 0px 0px !important;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -4098,7 +4109,7 @@ hr.ui-widget-header {
   font-size: 16px !important;
   line-height: 16px !important;
   color: #546e7a !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-growl-message .ui-growl-title {
   color: #37474f;
@@ -4383,7 +4394,7 @@ hr.ui-widget-header {
   border-radius: 2px;
 }
 #keypad-div .keypad-row button {
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   font-size: 14px;
   padding: 2px 3px;
   border: solid 1px #546e7a;
@@ -4421,7 +4432,7 @@ hr.ui-widget-header {
   color: #546e7a;
   padding: 10px !important;
   background-color: #ffffff !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-radius: 2px;
   border: solid 1px #b0bec5;
 }
@@ -4436,7 +4447,7 @@ hr.ui-widget-header {
   color: #778d9b;
   font-size: 16px;
   background-color: #1e88e5;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   height: 28px !important;
   border-bottom-right-radius: 30px;
   border-bottom-left-radius: 30px;
@@ -4482,7 +4493,7 @@ hr.ui-widget-header {
   background-color: #ffffff;
   color: #546e7a;
   padding: 0px !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-radius: 2px !important;
   border: solid 1px #e0e0e0;
   overflow: hidden;
@@ -4547,7 +4558,7 @@ hr.ui-widget-header {
   background-color: #ffffff;
   color: #546e7a;
   padding: 0px !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-radius: 2px !important;
   border: solid 1px #e0e0e0;
   font-size: 14px;
@@ -4735,7 +4746,7 @@ hr.ui-widget-header {
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   z-index: 9999;
 }
 .ui-datepicker:hover,
@@ -4909,7 +4920,7 @@ hr.ui-widget-header {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   padding: 5px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-editor-toolbar {
   background-image: none !important;
@@ -4920,7 +4931,7 @@ hr.ui-widget-header {
 }
 .ui-outputlabel {
   font-size: 16px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-outputlabel {
   color: #546E7A;
@@ -4975,7 +4986,7 @@ hr.ui-widget-header {
   color: #546E7A;
   font-size: 18px;
   line-height: 18px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   padding-top: 10px;
 }
 /*Style For UI clock --------------------------------------------------------------------------------------*/
@@ -4986,13 +4997,13 @@ hr.ui-widget-header {
   -moz-border-radius: 2px;
   background-color: #4db6ac;
   color: #e0f2f1;
-  font-family: 'robotolight';
+  font-family: 'Museo-300';
   font-weight: lighter;
   font-size: 18px;
 }
 /* Style For UI Autocomplete --------------------------------------------------------------------------------------*/
 .ui-autocomplete {
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-autocomplete .ui-autocomplete-dropdown {
   height: auto !important;
@@ -5027,7 +5038,7 @@ hr.ui-widget-header {
 .ui-autocomplete-panel {
   background-color: #ffffff;
   border-radius: 2px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-autocomplete-panel .ui-autocomplete-items {
   padding: 0px !important;
@@ -5081,7 +5092,7 @@ hr.ui-widget-header {
 .ui-autocomplete-input-token input[type="text"] {
   color: #003d50;
   font-size: 14px;
-  font-family: 'robotoregular' !important;
+  font-family: 'Museo-500' !important;
 }
 .ui-autocomplete-itemtip {
   border: solid 1px #d1d3d4;
@@ -5109,7 +5120,7 @@ hr.ui-widget-header {
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
   font-size: 16px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-top-right-radius: 2px;
   border-top-left-radius: 2px;
   border-bottom: solid 2px !important;
@@ -5120,7 +5131,7 @@ hr.ui-widget-header {
   background-color: #ffffff;
   border-top: 0px;
   padding: 0px !important;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-bottom-right-radius: 2px !important;
   border-top-right-radius: 0px !important;
   border-bottom-left-radius: 2px !important;
@@ -5306,19 +5317,19 @@ hr.ui-widget-header {
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 /*Style For UI LayoutUnit --------------------------------------------------------------------------------------*/
 .ui-layout-unit .ui-layout-unit-header {
   color: #ffffff;
   padding: 8px 6px 10px 10px !important;
   font-size: 14px;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   background-color: #003d50;
   border-radius: 2px;
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-title {
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
 }
 .ui-layout-unit .ui-layout-unit-header .ui-layout-unit-header-icon .ui-icon-close {
   background-image: url("#{resource['primefaces-modena:images/delete.svg']}") !important;
@@ -5360,7 +5371,7 @@ hr.ui-widget-header {
   padding: 10px 20px !important;
   font-size: 14px;
   color: #ffffff;
-  font-family: 'robotoregular';
+  font-family: 'Museo-500';
   border-radius: 2px !important;
   -webkit-border-radius: 2px !important;
   -moz-border-radius: 2px !important;

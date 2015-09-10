@@ -13,7 +13,8 @@
             <meta name="apple-mobile-web-app-capable" content="yes" />
         </f:facet>
         <title>iAdvice</title>
-        
+        <link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'/>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
         <h:outputScript name="js/ripple-effect.js" library="#{uiLayout.themeLibrary}" />
         <h:outputScript name="js/perfect-scrollbar.js" library="#{uiLayout.themeLibrary}" />
         <h:outputScript name="js/layout.js" library="#{uiLayout.themeLibrary}" />
@@ -59,6 +60,17 @@
                 </p:ajaxStatus>
             </div>
         </div>
+
+        <p:dialog header="FAQ" widgetVar="faqDlg" modal="true" resizable="true">
+            <ui:include src="/html/ltamFAQ.xhtml"/>
+        </p:dialog>
+
+        <p:dialog header="About Us" widgetVar="aboutusDlg" modal="true" resizable="true">
+            <p:lightBox iframe="true" id="aboutlightbox">
+                <h:outputLink value="http://www.ltam.com/our-team.html" title="About Us">
+                </h:outputLink>
+            </p:lightBox>
+        </p:dialog>
 
         <h:outputStylesheet name="css/core-layout.css" library="#{uiLayout.themeLibrary}" />
         <h:outputStylesheet name="css/animate.css" library="#{uiLayout.themeLibrary}" />
