@@ -1,6 +1,7 @@
 package com.invessence.util;
 
 import java.io.Serializable;
+import java.util.Map;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 
 @ManagedBean(name = "menu")
-@SessionScoped
+@ApplicationScoped
 @Component("config")
 public class Menu implements Serializable
 {
@@ -27,7 +28,9 @@ public class Menu implements Serializable
 
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
-   private String theme = "spark";
+   private String theme = "modena";
+   private String themeLibrary = "modena-layout";
+   private String themeid;
    private String cid, rep;
    private String default_page;
    private String phone, email;
@@ -64,6 +67,11 @@ public class Menu implements Serializable
       return theme;
    }
 
+   public String getThemeLibrary()
+   {
+      return themeLibrary;
+   }
+
    public String getWelcome() {
       return webutil.getWelcome();
    }
@@ -72,32 +80,64 @@ public class Menu implements Serializable
       return webutil.getLastFirstName();
    }
 
+   public void resetTheme(String cid) {
+      if (cid != null) {
+         if (! cid.equals(themeid)) {
+            themeid = cid;
+            email = webutil.getMessageText().lookupMessage("email." + themeid, null);
+            phone = webutil.getMessageText().lookupMessage("phone." + themeid, null);
+            theme = webutil.getMessageText().lookupMessage("theme." + themeid, null);
+            themeLibrary = webutil.getMessageText().lookupMessage("library." + themeid, null);
+
+            if (email == null)
+               email = "info@invessence.com";
+
+            if (phone == null)
+               phone = "(201) 977-2704";
+
+            if (theme == null)
+               theme = "modena";
+
+            if (themeLibrary == null)
+               themeLibrary = "modena-layout";
+
+         }
+
+      }
+
+
+   }
+
    public void preRenderView()
    {
 
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (getCid() == null || getCid().length() == 0)
+            if (getCid() == null || getCid().length() == 0) {
+               Map<String, String> params =FacesContext.getCurrentInstance().
+                  getExternalContext().getRequestParameterMap();
+               if (params != null) {
+                  String tcid = params.get("cid");
+                  if (tcid != null)
+                     cid = tcid;
+               }
+            }
+
+            if (getCid() == null)
             {
                setCid("0");
                setRep("0");
             }
-            email = webutil.getMessageText().lookupMessage("email." + getCid(), null);
-            phone = webutil.getMessageText().lookupMessage("phone." + getCid(), null);
-            theme = webutil.getMessageText().lookupMessage("theme." + getCid(), null);
-
-            email = (email == null) ? "info@invessence.com" : email;
-            phone = (phone == null) ? "(201) 977-2704" : phone;
-            theme = (theme == null) ? "spark" : theme;
-
+            resetTheme(getCid());
          }
       }
       catch (Exception e)
       {
          email = "info@invessence.com";
          phone = "(201) 977-2704";
-         theme = "spark";
+         theme = "modena";
+         themeLibrary = "modena-layout";
       }
    }
 
@@ -128,6 +168,11 @@ public class Menu implements Serializable
    public String getCid()
    {
       return cid;
+   }
+
+   public String getThemeid()
+   {
+      return themeid;
    }
 
    public void setCid(String cid)
@@ -171,8 +216,8 @@ public class Menu implements Serializable
    {
       String logo = Const.DEFAULT_LOGO;
       try {
-         if (getCid() != null) {
-            String logoid = "logo." + getCid();
+         if (getThemeid() != null) {
+            String logoid = "logo." + getThemeid();
             logo = webutil.getMessageText().buildInternalMessage(logoid,null);
          }
          if (logo == null)
@@ -189,8 +234,8 @@ public class Menu implements Serializable
       String logoAlt = Const.COMPANY_NAME;
       UserInfoData uid;
       try {
-         if (getCid() != null) {
-            String logoid = "company." + getCid();
+         if (getThemeid() != null) {
+            String logoid = "company." + getThemeid();
             logoAlt = webutil.getMessageText().buildInternalMessage(logoid, null);
          }
          if (logoAlt == null)
@@ -214,8 +259,8 @@ public class Menu implements Serializable
                return default_page;
          }
 
-         if (getCid() != null) {
-            String logoid = "homeURL." + getCid();
+         if (getThemeid() != null) {
+            String logoid = "homeURL." + getThemeid();
             homeURL = webutil.getMessageText().buildInternalMessage(logoid, null);
          }
          if (homeURL == null)
@@ -337,7 +382,7 @@ public class Menu implements Serializable
          rep="0";
          email=null;
          phone=null;
-         theme="spark";
+         theme="modena";
       }
       catch (Exception ex) {
 

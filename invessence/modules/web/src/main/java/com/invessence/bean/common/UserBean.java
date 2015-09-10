@@ -185,6 +185,7 @@ public class UserBean extends UserData
          setLogonstatus("T");
          setSecCode(tmpCode);
          setPassword(tmpCode);
+         setCid("0");
          // secCode = "Default123";
          setEmailmsgtype(getEmailmsgtype());
          String supportInfo = messageText.buildInternalMessage("secure.url", new Object[]{});

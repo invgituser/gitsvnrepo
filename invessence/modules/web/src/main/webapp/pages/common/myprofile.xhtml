@@ -37,13 +37,13 @@
                             <p:ajax event="tabChange" listener="#{profileBean.onTabChange}" update="@form"/>
 
                             <p:tab title="Security Questions">
-                                <p:panel style="border: 0px">
+                                <p:panel style="border: 0px; height: 340px;">
                                     <f:facet name="header">
                                         <h:outputText colspan="2" value="These below questions and answers will be used to further authenticate you when needed." styleClass="Wid90"/>
                                     </f:facet>
                                     <div class="EmptyBox10"/>
                                     <p:panelGrid id="questions"
-                                                 columns="2" layout="grid" style="border:0px !important; background:none;" class="FormContent">
+                                                 columns="2" layout="grid" style="border:0px !important; background:transparent;" class="FormContent">
 
                                         <h:outputText value="Select One" styleClass="Wid40"/>
                                         <p:selectOneMenu id="q1" value="#{profileBean.userData.q1}"
@@ -95,7 +95,7 @@
                                 </p:panel>
                             </p:tab>
                             <p:tab title="User Profile">
-                                <p:panel style="border: 0px">
+                                <p:panel style="border: 0px; height: 340px;">
                                     <div class="Container60 Responsive50">
                                         <p:panelGrid id="security" columns="2" layout="grid"
                                                      style="border:0px !important; padding: 5px !important; background:none;"
@@ -139,6 +139,7 @@
 
                                         </div>
                                     </div>
+                                    <div class="EmptyBox50"/>
                                     <f:facet name="footer">
                                         <p:commandButton value="Save" ajax="true" styleClass="Fright"
                                                          update="security, :myprofile:profilegrowl"

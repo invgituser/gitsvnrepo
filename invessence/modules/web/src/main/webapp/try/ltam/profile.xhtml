@@ -41,7 +41,7 @@
         </div>
         <div class="Container40 Responsive50">
             <div class="ContainerIndent">
-                <p:panel style="border: 0px; background: transparent"
+                <p:panel style="border: 0px; background: transparent; height: 270px"
                          rendered="false">
                     <div class="Container20 TexAlLeft Fs18 black Fleft">
                         Conservative
@@ -69,7 +69,7 @@
     </div>
     <div class="Container100 Responsive50">
         <div class="Container60 Responsive50">
-            <p:panel id="inputArea" style="border: 0px; background: transparent">
+            <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 0}">
                     <ui:fragment rendered="#{ltamprofile.visitorMode}">
                         <ui:include src="/try/ltam/addon/page1.xhtml"/>
@@ -96,7 +96,7 @@
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 6}">
                     <ui:include src="/try/ltam/addon/final.xhtml"/>
                 </ui:fragment>
-
+                <div class="EmptyBox10"/>
                 <f:facet name="footer">
                     <ui:fragment rendered="#{ltamprofile.pagemanager.page == 6}">
                         <p:commandLink
