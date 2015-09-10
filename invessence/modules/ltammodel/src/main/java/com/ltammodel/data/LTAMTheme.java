@@ -18,6 +18,7 @@ public class LTAMTheme
    private Double loss;
    private Integer lowRisk;
    private Integer highRisk;
+   private String longDescription;
    ArrayList<String> assetList;
    Map<String, LTAMAsset> asset;
    Map<String,String> indexMap;
@@ -33,8 +34,11 @@ public class LTAMTheme
       performance = new LinkedHashMap<String, LTAMPerformance>();
    }
 
-   public LTAMTheme(String theme, String displayname, Integer sortorder, Double gain, Double loss,
-   Integer lowRisk, Integer highRisk)
+   public LTAMTheme(String theme, String displayname,
+                    Integer sortorder,
+                    Double gain, Double loss,
+                    Integer lowRisk, Integer highRisk,
+                    String longDescription)
    {
       this.theme = theme;
       this.displayname = displayname;
@@ -43,6 +47,7 @@ public class LTAMTheme
       this.loss = loss;
       this.lowRisk = lowRisk;
       this.highRisk = highRisk;
+      this.longDescription = longDescription;
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
@@ -130,6 +135,11 @@ public class LTAMTheme
    public void setHighRisk(Integer highRisk)
    {
       this.highRisk = highRisk;
+   }
+
+   public String getLongDescription()
+   {
+      return longDescription;
    }
 
    public Boolean isThisTheme(Integer riskIndex) {
@@ -280,7 +290,7 @@ public class LTAMTheme
    }
 
    public Map<String,ArrayList<LTAMPerformance>> getPerformanceData() {
-      Map<String, ArrayList<LTAMPerformance>> arrayMap = new HashMap<String, ArrayList<LTAMPerformance>>();
+      Map<String, ArrayList<LTAMPerformance>> arrayMap = new LinkedHashMap<String, ArrayList<LTAMPerformance>>();
       if (getPerformance() != null) {
          for (String index : getPerformanceIndex()) {
             ArrayList<LTAMPerformance> performanceList = new ArrayList<LTAMPerformance>();
