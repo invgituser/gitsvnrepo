@@ -7,7 +7,7 @@ package com.ltammodel.Const;
  * Time: 6:14 PM
  * To change this template use File | Settings | File Templates.
  */
-public class InvConst
+public class LTAMConst
 {
    // Used in Asset Model
    public static String DEFAULT_THEME="0.Core";
