@@ -29,5 +29,7 @@
       <module>reports</module>
       <module>rbsa-preprocessor</module>
       <module>showcase</module>
+      <module>ltammodel</module>
+      <module>iAdvice</module>
    </modules>
 </project>
