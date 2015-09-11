@@ -422,6 +422,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3307/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3307/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3307/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -457,6 +458,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://dev.invessence.com:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://dev.invessence.com:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://dev.invessence.com:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>IamD3vMQ1</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -491,6 +493,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://dev.invessence.com:3306/tmpdb</jdbc.url>
             <rbsa.url>jdbc:mysql://dev.invessence.com:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://dev.invessence.com:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -525,6 +528,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>IamD3vMQ1</jdbc.password>
             <apache.url>http://dev.invessence.com:8080</apache.url>
@@ -560,6 +564,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://uat.invessence.com:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://uat.invessence.com:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://uat.invessence.com:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>9TfrjNyqnERM</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -595,6 +600,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>9TfrjNyqnERM</jdbc.password>
             <apache.url>http://uat.invessence.com:8080</apache.url>
@@ -628,6 +634,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://www.invessence.com:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://www.invessence.com:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://www.invessence.com:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>9TfrjNyqnERM</jdbc.password>
             <apache.url>http://uat.invessence.com:8080</apache.url>
@@ -662,6 +669,7 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://www.invessence.com:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://www.invessence.com:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://www.invessence.com:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>9TfrjNyqnERM</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -697,11 +705,80 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>9TfrjNyqnERM</jdbc.password>
             <apache.url>http://www.invessence.com</apache.url>
             <tomcat.url>http://login.invessence.com</tomcat.url>
             <ssl.url>https://www.invessence.com</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>A-LTAM-TEST</id>
+         <properties>
+            <web.mode>DEV</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://207.97.205.91:3306/invdb</jdbc.url>
+            <rbsa.url>jdbc:mysql://207.97.205.91:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://207.97.205.91:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>LTAM2u53rW3b</jdbc.password>
+            <apache.url>http://iadvise.biz</apache.url>
+            <tomcat.url>http://iadvise.biz</tomcat.url>
+            <ssl.url>https://iadvise.biz</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>A-LTAM-PROD</id>
+         <properties>
+            <web.mode>PROD</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>LTAM2u53rW3b</jdbc.password>
+            <apache.url>http://iadvise.biz</apache.url>
+            <tomcat.url>http://iadvise.biz</tomcat.url>
+            <ssl.url>https://iadvise.biz</ssl.url>
             <mail.host>smtp.gmail.com</mail.host>
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
