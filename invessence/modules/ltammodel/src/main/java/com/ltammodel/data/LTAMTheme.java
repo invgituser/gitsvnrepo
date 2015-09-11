@@ -184,6 +184,15 @@ public class LTAMTheme
       return indexMap;
    }
 
+   public ArrayList<String> getIndexArray()
+   {
+      ArrayList<String> indexarray = new ArrayList<String>();
+      for (String indexname : indexMap.keySet()) {
+         indexarray.add(indexname);
+      }
+      return indexarray;
+   }
+
    public void setIndexMap(Map<String, String> indexMap)
    {
       this.indexMap = indexMap;
@@ -236,11 +245,14 @@ public class LTAMTheme
             if (performancedata.getTheme().toUpperCase().equals(theme.toUpperCase())) {
                String index = performancedata.getIndex();
                String header = performancedata.getYearname();
-               if (! performanceHeaderMap.containsKey(header))
+               if (! performanceHeaderMap.containsKey(header)) {
+                  // performanceHeaderMap.put("color", performancedata.getColor());
+                  // performanceHeaderMap.put("index", performancedata.getIndexname());
                   performanceHeaderMap.put(header, header);
+               }
                if (! indexMap.containsKey(index))
                   indexMap.put(index, index);
-               String key = getPerformanceKey(index,header);
+               String key = performancedata.getKey();
                if (! performance.containsKey(key)) {
                   performance.put(key, performancedata);
                }
@@ -327,72 +339,7 @@ public class LTAMTheme
       return arrayList;
    }
 
-/*
-   public ArrayList<ArrayList<String>> getPrintedPerformanceData() {
-
-      try {
-         ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
-
-         if (getPerformanceHeaderMap() != null) {
-            ArrayList<String> data = new ArrayList<String>();
-            data.add("");  // Space for Indexname
-            for (String key: getPerformanceHeaderMap().keySet()) {
-               data.add(key);
-            }
-            list.add(data);
-         }
-
-         // Now add each Index
-         if (getIndexMap() != null) {
-            for (String indexname: getIndexMap().keySet()) {
-               ArrayList<String> data = new ArrayList<String>();
-               if (getPerformanceHeaderMap() != null) {
-                  data.add(indexname);
-                  for (String header: getPerformanceHeaderMap().keySet()) {
-                     String key = indexname + "." + header;
-                     data.add(performance.get(key).getPerformance().toString());
-                  }
-                  list.add(data);
-               }
-            }
-         }
-
-         return list;
-      }
-      catch (Exception ex) {
-         return null;
-      }
-   }
-*/
-
-   public ArrayList<ArrayList<LTAMPerformancePrintData>> getPrintedPerformanceData() {
-      ArrayList<ArrayList<LTAMPerformancePrintData>> arrayLists = new ArrayList<ArrayList<LTAMPerformancePrintData>>();
-      ArrayList<LTAMPerformancePrintData> performanceList;
-      int indexnum;
-      if (getPerformance() != null) {
-         for (String index : getPerformanceIndex()) {
-            performanceList = new ArrayList<LTAMPerformancePrintData>();
-            indexnum=0;
-            for (String header: getPerformanceHeader()) {
-               String key = getPerformanceKey(index, header);
-               if (indexnum == 0) {
-                  LTAMPerformancePrintData printData = new LTAMPerformancePrintData(null,index);
-                  performanceList.add(printData);
-               }
-               String value = performance.get(key).getPerformance().toString();
-               LTAMPerformancePrintData printData = new LTAMPerformancePrintData(header,value);
-               performanceList.add(printData);
-               indexnum++;
-            }
-            if (performanceList.size() > 0) {
-               arrayLists.add(performanceList);
-            }
-         }
-      }
-      return arrayLists;
-   }
-
-   public ArrayList<LTAMPrefPrintData> getPrintedPerfData() {
+   public ArrayList<LTAMPrefPrintData> getPrintPerfData() {
       ArrayList<LTAMPrefPrintData> arrayLists = new ArrayList<LTAMPrefPrintData>();
       int indexnum;
       if (getPerformance() != null) {
@@ -415,4 +362,23 @@ public class LTAMTheme
       }
       return arrayLists;
    }
+
+   public ArrayList<LTAMPerformancePrintData> getPrintProperty() {
+      ArrayList<LTAMPerformancePrintData> arrayLists = new ArrayList<LTAMPerformancePrintData>();
+      Integer ctr;
+      if (getPerformance() != null) {
+         ctr = 0;
+         for (String header: getPerformanceHeader()) {
+            if (ctr == 0) {
+               arrayLists.add(new LTAMPerformancePrintData("", "color" , "c"));
+               arrayLists.add(new LTAMPerformancePrintData("Index", "indexname", "i"));
+            }
+            arrayLists.add(new LTAMPerformancePrintData(header, "value" + (ctr+1), "v"));
+            ctr++;
+         }
+      }
+      return arrayLists;
+   }
+
+
 }

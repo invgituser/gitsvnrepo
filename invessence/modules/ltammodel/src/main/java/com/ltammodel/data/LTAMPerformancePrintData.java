@@ -11,11 +11,13 @@ public class LTAMPerformancePrintData
 {
    String header;
    String value;
+   String type;
 
-   public LTAMPerformancePrintData(String header, String value)
+   public LTAMPerformancePrintData(String header, String value, String type)
    {
       this.header = header;
       this.value = value;
+      this.type = type;
    }
 
    public String getHeader()
@@ -26,5 +28,26 @@ public class LTAMPerformancePrintData
    public String getValue()
    {
       return value;
+   }
+
+   public Boolean isColor() {
+      if (this.type.toUpperCase().startsWith("C"))
+         return true;
+      else
+         return false;
+   }
+
+   public Boolean isIndex() {
+      if (this.type.toUpperCase().startsWith("I"))
+         return true;
+      else
+         return false;
+   }
+
+   public Boolean isValue() {
+      if (this.type.toUpperCase().startsWith("V"))
+         return true;
+      else
+         return false;
    }
 }

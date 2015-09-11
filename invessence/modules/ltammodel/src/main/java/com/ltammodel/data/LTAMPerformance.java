@@ -36,6 +36,10 @@ public class LTAMPerformance
       this.performance = performance;
    }
 
+   public String getKey() {
+      return index + "." + yearname;
+   }
+
    public String getTheme()
    {
       return theme;
