@@ -434,7 +434,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
          args.put("DollarAmount", getInvestment().toString());
          args.put("UniqueUserIdentifier", getAcctnum().toString());
          args.put("RepReferralId", getAdvisor());
-         webutil.redirect("http://test.geminifund.com/newaccountswizardnew/pages/testFormPost.aspx", args);
+         //webutil.redirect(webutil.getUiLayout().getUiprofile().getForwardURL(), args);
       }
       catch (Exception ex)
       {
@@ -460,7 +460,8 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
             ltamcharts.createPieModel(getThemeData().getAsset());
             if (displayGraphs) {
-               ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
+               if (ltamcharts.getRiskbarChart() == null)
+                  ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
             }
             if (reviewPage)
             {

@@ -12,8 +12,20 @@
         </h2>
 
         <div class="EmptyBox10"></div>
-        <div class="Container100 Responsive100">
 
+            <p:panel id="page5table" styleClass="Container100 Responsive100" style="border: 0px">
+
+ <!--
+            <p:selectOneRadio id="page5custom" value="#{ltamprofile.ans5}" layout="custom"
+                              required="true" requiredMessage="Please choose one of these choices"
+                              update=":ltamForm:page5table">
+                <f:selectItem itemLabel="1" itemValue="1"/>
+                <f:selectItem itemLabel="2" itemValue="2"/>
+                <f:selectItem itemLabel="3" itemValue="3"/>
+                <f:selectItem itemLabel="4" itemValue="4"/>
+                <f:selectItem itemLabel="5" itemValue="5"/>
+            </p:selectOneRadio>
+-->
             <p:chart type="bar" model="#{ltamprofile.ltamcharts.riskbarChart}" style="height:250px"
                      rendered="#{ltamprofile.ltamcharts.riskbarChart != null}"
                      responsive="true">
@@ -21,23 +33,18 @@
             </p:chart>
 
             <div class="EmptyBox10"></div>
-            <h:panelGrid id="page5id" columns="1" style="margin-left:50px; border: 0px" cellpadding="5">
+               <p:panel id="page5id" style="margin-left:50px; border: 0px;">
                 <p:selectOneRadio value="#{ltamprofile.ans5}" layout="grid" columns="5"
                                   required="true" requiredMessage="Please choose one of these choices">
-                    <f:selectItem itemLabel="Income" itemValue="1">
-                    </f:selectItem>
-                    <f:selectItem itemLabel="Income and Growth" itemValue="2">
-                    </f:selectItem>
-                    <f:selectItem itemLabel="Growth and Income" itemValue="3">
-                    </f:selectItem>
-                    <f:selectItem itemLabel="Growth" itemValue="4">
-                    </f:selectItem>
-                    <f:selectItem itemLabel="Aggressive Growth" itemValue="5">
-                    </f:selectItem>
+                    <f:selectItem itemLabel="Income" itemValue="1"/>
+                    <f:selectItem itemLabel="Income and Growth" itemValue="2"/>
+                    <f:selectItem itemLabel="Growth and Income" itemValue="3"/>
+                    <f:selectItem itemLabel="Growth" itemValue="4"/>
+                    <f:selectItem itemLabel="Aggressive Growth" itemValue="5"/>
                 </p:selectOneRadio>
-            </h:panelGrid>
+            </p:panel>
 
-        </div>
+        </p:panel>
     </div>
 
 </ui:composition>

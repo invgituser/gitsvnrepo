@@ -9,6 +9,7 @@
 			<list>
 				<value>messages</value>
 				<value>error_messages</value>
+				<value>company</value>
 			</list>
 		</property>
 

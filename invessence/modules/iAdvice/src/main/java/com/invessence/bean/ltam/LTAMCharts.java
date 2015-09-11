@@ -20,7 +20,6 @@ public class LTAMCharts implements Serializable
    JavaUtil jutil = new JavaUtil();
 
    private PieChartModel pieChart;
-   private DonutChartModel donutChart;
    private BarChartModel barPerformanceChart;
    private BarChartModel riskbarChart;
 
@@ -28,7 +27,6 @@ public class LTAMCharts implements Serializable
    public LTAMCharts()
    {
       pieChart = null;
-      donutChart = null;
       barPerformanceChart = null;
       riskbarChart = null;
    }
@@ -36,11 +34,6 @@ public class LTAMCharts implements Serializable
    public PieChartModel getPieChart()
    {
       return pieChart;
-   }
-
-   public DonutChartModel getDonutChart()
-   {
-      return donutChart;
    }
 
    public BarChartModel getBarPerformanceChart()
@@ -52,6 +45,60 @@ public class LTAMCharts implements Serializable
    {
       return riskbarChart;
    }
+
+   public void createPieModel(Map assetdata)
+   {
+      String color;
+      pieChart = new PieChartModel();
+      try
+      {
+         if (assetdata == null)
+         {
+            return;
+         }
+
+         if (assetdata != null && assetdata.size() >= 0)
+         {
+            Map<String, LTAMAsset> assetMap = (Map<String, LTAMAsset>) assetdata;
+
+            int slice = 0;
+            String pieseriesColors = "";
+            for (String assetname : assetMap.keySet())
+            {
+               LTAMAsset asset = assetMap.get(assetname);
+               Double weightAsPercent = asset.getWeightAsPercent();
+               Double displayWeight = asset.getWeight();
+               String label = asset.getDisplayname();
+               pieChart.set(label, displayWeight);
+               pieChart.setDataFormat(asset.getDisplayname());
+               color = asset.getColor().replace('#', ' ');
+               color = color.trim();
+               if (slice == 0)
+               {
+                  pieseriesColors = color;
+               }
+               else
+               {
+                  pieseriesColors = pieseriesColors + "," + color;
+               }
+               slice++;
+            }
+            pieChart.setFill(true);
+            //pieChart.setShowDataLabels(true);
+            pieChart.setDiameter(125);
+            pieChart.setSliceMargin(2);
+            pieChart.setShadow(false);
+            pieChart.setSeriesColors(pieseriesColors);
+            pieChart.setExtender("ltam_pie");
+         }
+
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
 
    public void createBarPerformance(Map<String, ArrayList<LTAMPerformance>> performancedata)
    {
@@ -147,18 +194,10 @@ public class LTAMCharts implements Serializable
 
          barPerformanceChart.setSeriesColors(color);
          barPerformanceChart.setNegativeSeriesColors(color);
-         // barPerformanceChart.setShowPointLabels(false);
-         // barPerformanceChart.setMouseoverHighlight(false);
-         // barPerformanceChart.setShowDatatip(false);
-         //barPerformanceChart.setLegendPlacement(LegendPlacement.OUTSIDE);
-         //barPerformanceChart.setLegendPosition("ne");
+         barPerformanceChart.setShowPointLabels(false);
+         barPerformanceChart.setMouseoverHighlight(false);
+         barPerformanceChart.setShowDatatip(false);
 
-         //Axis xAxis = barPerformanceChart.getAxis(AxisType.X);
-         //xAxis.setLabel("Period");
-         //xAxis.setMin(firstPoint);
-
-         //Axis yAxis = lineChart.getAxis(AxisType.Y);
-         //yAxis.setTickFormat("%d%");
          barPerformanceChart.setExtender("ltam_perf");
       }
 
@@ -170,113 +209,6 @@ public class LTAMCharts implements Serializable
          ex.printStackTrace();
       }
 
-   }
-
-   public void createPieModel(Map assetdata)
-   {
-      String color;
-      pieChart = new PieChartModel();
-      try
-      {
-         if (assetdata == null)
-         {
-            return;
-         }
-
-         if (assetdata != null && assetdata.size() >= 0)
-         {
-            Map<String, LTAMAsset> assetMap = (Map<String, LTAMAsset>) assetdata;
-
-            int slice = 0;
-            String pieseriesColors = "";
-            for (String assetname : assetMap.keySet())
-            {
-               LTAMAsset asset = assetMap.get(assetname);
-               Double weightAsPercent = asset.getWeightAsPercent();
-               Double displayWeight = asset.getWeight();
-               String label = asset.getDisplayname();
-               pieChart.set(label, displayWeight);
-               pieChart.setDataFormat(asset.getDisplayname());
-               color = asset.getColor().replace('#', ' ');
-               color = color.trim();
-               if (slice == 0)
-               {
-                  pieseriesColors = color;
-               }
-               else
-               {
-                  pieseriesColors = pieseriesColors + "," + color;
-               }
-               slice++;
-            }
-            pieChart.setFill(true);
-            //pieChart.setShowDataLabels(true);
-            pieChart.setDiameter(125);
-            pieChart.setSliceMargin(2);
-            pieChart.setShadow(false);
-            pieChart.setSeriesColors(pieseriesColors);
-            pieChart.setExtender("ltam_pie");
-         }
-
-      }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
-      }
-   }
-
-   public void createDonutChart(Map assetdata)
-   {
-      String color;
-      donutChart = new DonutChartModel();
-      try
-      {
-         if (assetdata == null)
-         {
-            return;
-         }
-
-         if (assetdata != null && assetdata.size() >= 0)
-         {
-            Map<String, LTAMAsset> assetMap = (Map<String, LTAMAsset>) assetdata;
-
-            int slice = 0;
-            String pieseriesColors = "";
-            Map<String, Number> circle = new LinkedHashMap<String, Number>();
-            for (String assetname : assetMap.keySet())
-            {
-               LTAMAsset asset = assetMap.get(assetname);
-               Double weightAsPercent = asset.getWeightAsPercent();
-               Double displayWeight = asset.getWeight() * 100;
-               String label = asset.getDisplayname();
-               circle.put(label, displayWeight);
-               color = asset.getColor().replace('#', ' ');
-               color = color.trim();
-               if (slice == 0)
-               {
-                  pieseriesColors = color;
-               }
-               else
-               {
-                  pieseriesColors = pieseriesColors + "," + color;
-               }
-               slice++;
-            }
-            donutChart.addCircle(circle);
-            donutChart.setFill(true);
-            // pieChart.setShowDataLabels(true);
-            donutChart.setSliceMargin(2);
-            // donutChart.setMouseoverHighlight(true);
-            // donutChart.setShadow(false);
-            donutChart.setSeriesColors(pieseriesColors);
-            donutChart.setExtender("ltam_donut");
-         }
-
-      }
-      catch (Exception ex)
-      {
-         ex.printStackTrace();
-      }
    }
 
    public void createRiskBarChart(ArrayList<LTAMTheme> themedata)
@@ -293,37 +225,37 @@ public class LTAMCharts implements Serializable
 
       try
       {
-         String barseriesColors = "";
-         Integer maxAllocated = 0;
-         Integer minAllocated = 0;
          if (themedata != null && themedata.size() >= 0)
          {
             riskbarChart = new BarChartModel();
             Calendar cal = Calendar.getInstance();
-            Integer calendarYear = cal.get(cal.YEAR);
             BarChartSeries gain = new BarChartSeries();
             BarChartSeries loss = new BarChartSeries();
-            int i = 0;
+            Integer i = 1;
             Double weight;
             for (LTAMTheme theme : themedata)
             {    // For every theme, there is gain and loss, so show both graphs.
-               gain.set(theme.getDisplayname(), theme.getGain());
-               loss.set(theme.getDisplayname(),theme.getLoss());
+               //String label = "<p:radioButton id=\"opt" + i + "\" for=\"page5custom\" itemIndex=\""+ i + "\"/>" +
+               //"<h:outputLabel for=\"opt" + i + "\" value=\"" + theme.getDisplayname() + "\"/>";
+               String label = theme.getDisplayname();
+
+               gain.set(label, theme.getGain());
+               loss.set(label,theme.getLoss());
+               i++;
             }
             riskbarChart.addSeries(gain);
             riskbarChart.addSeries(loss);
-            // riskbarChart.setStacked(true);
-            // riskbarChart.setMouseoverHighlight(false);
-            //riskbarChart.setShowDatatip(true);
+            riskbarChart.setShowPointLabels(true);
+            riskbarChart.setStacked(true);
+            riskbarChart.setMouseoverHighlight(false);
+            riskbarChart.setShowDatatip(false);
             riskbarChart.setSeriesColors("00D404,D40000");
             riskbarChart.setNegativeSeriesColors("00D404,D40000");
-
-            riskbarChart.setExtender("ltam_riskq3");
-            //riskbarChart.setLegendPlacement(LegendPlacement.OUTSIDE);
-            //riskbarChart.setLegendPosition("ne");
-
             Axis yAxis = riskbarChart.getAxis(AxisType.Y);
             yAxis.setTickFormat("%#.2f%%");
+
+            riskbarChart.setExtender("ltam_riskq5");
+
          }
       }
       catch (Exception ex)

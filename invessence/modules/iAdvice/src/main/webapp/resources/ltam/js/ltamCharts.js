@@ -34,13 +34,6 @@ function ltam_perf()
         shadow: false
     };
 
-    /*
-    this.cfg.seriesDefaults = {
-        show: true,     // whether to render the series.
-	showMarker: true
-    }
-    */
-
     this.cfg.axesDefaults = {
         axes: {
             xaxis: {
@@ -55,33 +48,13 @@ function ltam_perf()
     };
 }
 
-function ltam_bar()
+function ltam_riskq5()
 {
     this.cfg.grid = {
         backgroundColor: 'transparent',
         drawBorder: false,
         shadow: false
     };
-
-    this.cfg.axesDefaults = {
-        show: false,
-        showTicks: false,
-        showTickMarks: false,
-        tickOptions: {
-            showGridline: false
-        }
-    };
-}
-
-function ltam_riskq3()
-{
-    this.cfg.grid = {
-        backgroundColor: 'transparent',
-        drawBorder: false,
-        shadow: false
-    };
-
-
 
     this.cfg.axesDefaults = {
         axes: {
@@ -94,16 +67,12 @@ function ltam_riskq3()
             }
          }
     };
+
+    /*
+     this.cfg.seriesDefaults = {
+     show: true,     // whether to render the series.
+     showMarker: true
+     }
+     */
 }
-
-function ltam_donut()
-{
-    this.cfg.grid = {
-        backgroundColor: 'transparent',
-        drawBorder: false
-    };
-}
-
-
-
 

@@ -27,7 +27,7 @@
 
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>#{uiLayout.theme}</param-value>
+        <param-value>#{uiLayout.uiprofile.theme}</param-value>
     </context-param>
 
     <context-param>

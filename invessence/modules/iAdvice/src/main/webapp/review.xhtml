@@ -37,7 +37,7 @@
     <div class="Container100 Responsive100">
         <div class="Container60 Responsive100">
             <form id="_id0" method="post"
-                  action="http://test.geminifund.com/newaccountswizardnew/pages/testFormPost.aspx"
+                  action="#{uiLayout.uiprofile.forwardURL}"
                   target="_self">
                 <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
                     <ui:include src="/addon/final.xhtml"/>
@@ -49,6 +49,7 @@
                     <input type="hidden" name="DollarAmount" value="#{ltamprofile.investment}"/>
                     <input type="hidden" name="UniqueUserIdentifier" value="#{ltamprofile.acctnum}"/>
                     <input type="hidden" name="RepReferralId" value="#{ltamprofile.advisor}"/>
+                    <input type="hidden" name="FundFamilyId" value="100"/>
                     <f:facet name="footer">
                         <div class="Fleft">
                             <a href="/start.xhtml">
@@ -119,11 +120,6 @@
                                                          responsive="true">
                                                 </p:chart>
                                             </p:outputPanel>
-                                        </div>
-                                    </div>
-                                    <div class="Container100  Fleft">
-                                        <div class="ContainerIndent TexAlCenter">
-                                            <h:outputText id="showSliceID" value="#{ltamprofile.selectedPie}"></h:outputText>
                                         </div>
                                     </div>
                                 </p:panel>
@@ -210,98 +206,22 @@
     <p:fieldset legend="Historical Performance" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
         <div class="Container100 Responsive100">
             <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.themeData.printedPerfData}"
+                         value="#{ltamprofile.themeData.printPerfData}"
                          var="pdata" reflow="true">
-                <p:column style="width: 2%; background-color: #{pdata.color}">
+                <p:columns  value="#{ltamprofile.themeData.printProperty}" var="col">
                     <f:facet name="header">
-                        <h:outputText value=""/>
+                        <h:outputText value="#{col.header}" />
                     </f:facet>
-                    <h:outputText value=" "/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="Index"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.indexname}"/>
-                </p:column>
-
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="Since Inception"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value1}"/>
-                </p:column>
-
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2006"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value2}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2007"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value3}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2008"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value4}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2009"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value5}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2010"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value6}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2011"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value7}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2012"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value8}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2013"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value9}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2014"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value10}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="2015 YTD"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value11}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
+                    <p:column style="width: 2px;" rendered="#{col.isColor()}">
+                        <p:spacer width="15" style="background-color: #{pdata[col.value]}; foreground-color: #{pdata[col.value]}"/>
+                    </p:column>
+                    <p:column style="width: 10%;" rendered="#{col.isIndex()}">
+                        <h:outputText value="#{pdata[col.value]}"   />
+                    </p:column>
+                    <p:column style="width: 5%;" rendered="#{col.isValue()}">
+                        <h:outputText value="#{pdata[col.value]}"/>
+                    </p:column>
+                </p:columns>
             </p:dataTable>
 
         </div>

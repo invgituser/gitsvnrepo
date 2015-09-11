@@ -15,9 +15,9 @@
         <title>iAdvice</title>
         <link href='https://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'/>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
-        <h:outputScript name="js/ripple-effect.js" library="#{uiLayout.themeLibrary}" />
-        <h:outputScript name="js/perfect-scrollbar.js" library="#{uiLayout.themeLibrary}" />
-        <h:outputScript name="js/layout.js" library="#{uiLayout.themeLibrary}" />
+        <h:outputScript name="js/ripple-effect.js" library="#{uiLayout.uiprofile.themelib}" />
+        <h:outputScript name="js/perfect-scrollbar.js" library="#{uiLayout.uiprofile.themelib}" />
+        <h:outputScript name="js/layout.js" library="#{uiLayout.uiprofile.themelib}" />
         <h:outputScript name="js/googleanalytics.js" library="ltam" />
 
         <ui:insert name="head" />
@@ -42,7 +42,7 @@
                         <!-- footer -->
                         <div class="Container100">
                             <div class="ContainerIndent TexAlCenter Fs14 BoldGray">
-                                iAdvice  |  All Rights Reserved.
+                                <i class="fa fa-copyright"></i>  #{uiLayout.uiprofile.companyname} - All rights reserved.
                             </div>
                         </div>
                         
@@ -51,7 +51,7 @@
                 
                 <p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
                     <f:facet name="start">
-                        <p:graphicImage name="images/preloader.gif" library="#{uiLayout.themeLibrary}"/>
+                        <p:graphicImage name="images/preloader.gif" library="#{uiLayout.uiprofile.themelib}"/>
                     </f:facet>
 
                     <f:facet name="complete">
@@ -61,7 +61,8 @@
             </div>
         </div>
 
-        <p:dialog header="FAQ" widgetVar="faqDlg" modal="true" resizable="true">
+        <p:dialog header="FAQ" widgetVar="faqDlg" modal="true"
+                  resizable="true" height="500" width="700" closable="true">
             <ui:include src="/html/ltamFAQ.xhtml"/>
         </p:dialog>
 
@@ -72,13 +73,12 @@
             </p:lightBox>
         </p:dialog>
 
-        <h:outputStylesheet name="css/core-layout.css" library="#{uiLayout.themeLibrary}" />
-        <h:outputStylesheet name="css/animate.css" library="#{uiLayout.themeLibrary}" />
-        <h:outputStylesheet name="css/modena-font.css" library="#{uiLayout.themeLibrary}" />
-        <h:outputStylesheet name="css/ripple-effect.css" library="#{uiLayout.themeLibrary}" />
-        <h:outputStylesheet name="css/perfect-scrollbar.css" library="#{uiLayout.themeLibrary}" />
-        <h:outputStylesheet name="css/font-awesome.css" library="#{uiLayout.themeLibrary}" />
-        <h:outputStylesheet name="css/modena-layout.css" library="#{uiLayout.themeLibrary}" />
+        <h:outputStylesheet name="css/core-layout.css" library="#{uiLayout.uiprofile.themelib}" />
+        <h:outputStylesheet name="css/animate.css" library="#{uiLayout.uiprofile.themelib}" />
+        <h:outputStylesheet name="css/modena-font.css" library="#{uiLayout.uiprofile.themelib}" />
+        <h:outputStylesheet name="css/ripple-effect.css" library="#{uiLayout.uiprofile.themelib}" />
+        <h:outputStylesheet name="css/font-awesome.css" library="#{uiLayout.uiprofile.themelib}" />
+        <h:outputStylesheet name="css/modena-layout.css" library="#{uiLayout.uiprofile.themelib}" />
         <h:outputStylesheet name="css/ltam.css" library="ltam" />
     </h:body>
 

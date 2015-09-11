@@ -2,11 +2,11 @@ package com.invessence.util;
 
 import java.io.Serializable;
 import java.util.*;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
-import org.primefaces.component.lightbox.LightBox;
+import com.invessence.data.UIProfile;
 import org.primefaces.component.tabview.TabView;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.TabChangeEvent;
@@ -27,15 +27,12 @@ public class UILayout implements Serializable
 {
    private static final long serialVersionUID = -1992L;
 
+   private UIProfile uiprofile = new UIProfile();
+   private String cid;
+   private String rep;
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
-   private String theme = "opensans";
-   private String themeLibrary = "opensans-layout";
-   private String themeid;
-   private String cid, rep;
    private String default_page;
-   private String phone, email;
-   private String forwardcustodianURL = "Your have made a request to visit Interactive Broker site (Your custodian).  You will be logged out of this site.  Do you want to continue?";
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil = new WebUtil();
@@ -48,67 +45,65 @@ public class UILayout implements Serializable
       return webutil;
    }
 
-   public String getForwardcustodianURL()
+   public UIProfile getUiprofile()
    {
-      return forwardcustodianURL;
+      return uiprofile;
    }
 
-   public String getPhone()
+
+   public void resetCIDProfile(String cid)
    {
-      return phone;
-   }
-
-   public String getEmail()
-   {
-      return email;
-   }
-
-   public String getTheme()
-   {
-      return theme;
-   }
-
-   public String getThemeLibrary()
-   {
-      return themeLibrary;
-   }
-
-   public void resetCIDProfile(String cid) {
-      String newTheme,newLibrary;
-      if (cid != null) {
-         if (! cid.equals(themeid)) {
-            themeid = cid;
-            email = webutil.getMessageText().lookupMessage("email." + themeid, null);
-            phone = webutil.getMessageText().lookupMessage("phone." + themeid, null);
-            newTheme = webutil.getMessageText().lookupMessage("theme." + themeid, null);
-            newLibrary = webutil.getMessageText().lookupMessage("library." + themeid, null);
-            resetTheme(newTheme);
-
-            if (email == null)
-               email = "info@invessence.com";
-
-            if (phone == null)
-               phone = "(201) 977-2704";
+      if (cid != null)
+      {
+         if (uiprofile == null) {
+            uiprofile = new UIProfile();
          }
 
+         if (!cid.equals(uiprofile.getCid()))
+         {
+            String companyname;
+            String homeurl, securehomeurl;
+            String logo, logosize, logolib;
+            String mainemail, supportemail;
+            String mainphone, supportphone;
+            String copyright, forwardURL;
+            String theme, themelib;
+
+            companyname = webutil.getMessageText().lookupMessage("companyname." + cid, null);
+            homeurl = webutil.getMessageText().lookupMessage("website.url." + cid, null);
+            securehomeurl = webutil.getMessageText().lookupMessage("secure.url." + cid, null);
+            logo = webutil.getMessageText().lookupMessage("logo." + cid, null);
+            logosize = webutil.getMessageText().lookupMessage("logosize." + cid, null);
+            logolib = webutil.getMessageText().lookupMessage("logolib." + cid, null);
+            mainemail = webutil.getMessageText().lookupMessage("mainemail." + cid, null);
+            supportemail = webutil.getMessageText().lookupMessage("supportemail." + cid, null);
+            mainphone = webutil.getMessageText().lookupMessage("mainphone." + cid, null);
+            supportphone = webutil.getMessageText().lookupMessage("supportphone." + cid, null);
+            copyright = webutil.getMessageText().lookupMessage("copyright." + cid, null);
+            forwardURL = webutil.getMessageText().lookupMessage("forwardURL." + cid, null);
+            theme = webutil.getMessageText().lookupMessage("theme." + cid, null);
+            themelib = webutil.getMessageText().lookupMessage("themelib." + cid, null);
+
+            uiprofile.resetAllInfo(cid, rep, companyname,
+                                   homeurl, securehomeurl,
+                                   logo, logosize, logolib,
+                                   mainemail, supportemail,
+                                   mainphone, supportphone,
+                                   copyright, forwardURL);
+            uiprofile.resetTheme(theme, themelib);
+
+         }
       }
    }
 
-   public void resetTheme(String theme) {
-      if (theme != null) {
-            theme = theme.trim();
-            this.theme = theme;
-            this.themeLibrary = theme + "-layout";
+   @PostConstruct
+   public void init() {
+      if (getCid() == null)
+      {
+         setCid("0");
+         setRep("");
+         resetCIDProfile(getCid());
       }
-      else {
-
-         if (this.theme == null)
-            this.theme = "modena";
-
-         if (themeLibrary == null)
-            themeLibrary = this.theme + "-layout";
-      }
-
    }
 
    public void preRenderView()
@@ -130,19 +125,16 @@ public class UILayout implements Serializable
             if (getCid() == null)
             {
                setCid("0");
-               setRep("0");
+               setRep("");
             }
             resetCIDProfile(getCid());
          }
       }
       catch (Exception e)
       {
-         email = "info@invessence.com";
-         phone = "(201) 977-2704";
-         theme = "modena";
-         themeLibrary = "modena-layout";
       }
    }
+
 
 
    public static long getSerialVersionUID()
@@ -171,11 +163,6 @@ public class UILayout implements Serializable
    public String getCid()
    {
       return cid;
-   }
-
-   public String getThemeid()
-   {
-      return themeid;
    }
 
    public void setCid(String cid)
@@ -215,39 +202,6 @@ public class UILayout implements Serializable
       this.setTabMenu(activeIndex);
    }
 
-   public String getLogo()
-   {
-      String logo = Const.DEFAULT_LOGO;
-      try {
-         if (getThemeid() != null) {
-            String logoid = "logo." + getThemeid();
-            logo = webutil.getMessageText().buildInternalMessage(logoid,null);
-         }
-         if (logo == null)
-            logo = Const.DEFAULT_LOGO;
-      }
-      catch (Exception ex) {
-         logo = Const.DEFAULT_LOGO;
-      }
-      return logo;
-   }
-
-   public String getLogoAlt()
-   {
-      String logoAlt = Const.COMPANY_NAME;
-      try {
-         if (getThemeid() != null) {
-            String logoid = "company." + getThemeid();
-            logoAlt = webutil.getMessageText().buildInternalMessage(logoid, null);
-         }
-         if (logoAlt == null)
-            logoAlt = Const.COMPANY_NAME;
-      }
-      catch (Exception ex) {
-         logoAlt = Const.COMPANY_NAME;
-      }
-      return logoAlt;
-   }
 
    public void forwardURL(String menuItem){
       webutil.redirect(menuItem,null);
@@ -258,9 +212,6 @@ public class UILayout implements Serializable
          FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
          cid="0";
          rep="0";
-         email=null;
-         phone=null;
-         theme="modena";
       }
       catch (Exception ex) {
 
@@ -279,7 +230,4 @@ public class UILayout implements Serializable
 
    }
 
-   public void aboutusURL() {
-      RequestContext.getCurrentInstance().openDialog("aboutus");
-   }
 }
