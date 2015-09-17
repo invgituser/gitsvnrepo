@@ -46,8 +46,8 @@
     border-bottom:  0px none !important;
 }
 
-.openaccount {
-    background: transparent url("#{resource['ltam:images/openaccount.png']}") no-repeat top;
+.investnow {
+    background: transparent url("#{resource['ltam:images/investnow.png']}") no-repeat top;
     width: 150px;
     height: 80px;
     float: right;

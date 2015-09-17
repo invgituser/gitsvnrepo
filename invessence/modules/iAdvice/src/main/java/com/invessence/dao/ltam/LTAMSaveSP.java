@@ -58,7 +58,7 @@ public class LTAMSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_risk7", Types.INTEGER));
             break;
          case 2: // updt_user_risk_index
-            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_ext_acctnum", Types.VARCHAR));
             declareParameter(new SqlOutParameter("p_msg", Types.VARCHAR));
@@ -140,13 +140,13 @@ public class LTAMSaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map savePostBack(Long acctnum, String advisor, String ext_acctnum)
+   public Map savePostBack(String myacctnum, String advisor, String ext_acctnum)
    {
-      if (acctnum == null) {
+      if (myacctnum == null) {
          return null;
       }
       Map inputMap = new HashMap();
-      inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_acctnum", myacctnum);
       inputMap.put("p_advisor", advisor);
       inputMap.put("p_ext_acctnum", ext_acctnum);
       return super.execute(inputMap);

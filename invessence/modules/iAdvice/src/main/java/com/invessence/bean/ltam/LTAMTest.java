@@ -158,7 +158,6 @@ public class LTAMTest implements Serializable
             args.put("rep", rep);
 
          profilebean.resetBean();
-         args.put("cid","1");
          webutil.redirect("/start.xhtml", args);
       }
       else {

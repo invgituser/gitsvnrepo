@@ -21,7 +21,7 @@ import org.springframework.stereotype.Component;
  */
 
 @ManagedBean(name = "uiLayout")
-@ApplicationScoped
+@SessionScoped
 @Component("config")
 public class UILayout implements Serializable
 {

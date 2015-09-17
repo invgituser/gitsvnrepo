@@ -49,14 +49,13 @@
                     <input type="hidden" name="DollarAmount" value="#{ltamprofile.investment}"/>
                     <input type="hidden" name="UniqueUserIdentifier" value="#{ltamprofile.acctnum}"/>
                     <input type="hidden" name="RepReferralId" value="#{ltamprofile.advisor}"/>
-                    <input type="hidden" name="FundFamilyId" value="100"/>
                     <f:facet name="footer">
                         <div class="Fleft">
                             <a href="/start.xhtml">
-                                <img src="#{resource['ltam:images/startover.png']}"/>
+                                <img class="startover"/>
                             </a>
                         </div>
-                        <h:commandButton type="submit" styleClass="openaccount"/>
+                        <h:commandButton type="submit" styleClass="investnow"/>
                     </f:facet>
                 </p:panel>
             </form>

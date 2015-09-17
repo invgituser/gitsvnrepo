@@ -31,6 +31,8 @@ import org.primefaces.event.*;
 @SessionScoped
 public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 {
+   private String mode;
+   private Boolean demomode;
    private String beanTimeToSaveID;
    private String beanAdvisor;
    private String beanRep;
@@ -38,7 +40,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
    private String beanfirstname;
    private String beanlastname;
    private Boolean welcomeDialog; // Flag to Display Welcome message if from Advisor Link
-   private Boolean time2SaveWelcome; // Defines Is it from TimeToSave or Advisor
+   private Boolean time2SaveWelcome = false; // Defines Is it from TimeToSave or Advisor
    private Boolean disableWelcomeMode = false; // Defines Is it from TimeToSave or Advisor
    private Boolean disableInvestment;  // Not USED:  Display Investment as editable mode or not?
    private Boolean displayGraphs, reviewPage, displayMeter;
@@ -85,6 +87,16 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       this.beanAdvisor = converter.getLongData(beanAdvisor);
    }
 */
+
+   public String getMode()
+   {
+      return mode;
+   }
+
+   public void setMode(String mode)
+   {
+      this.mode = mode;
+   }
 
    public Boolean getTime2SaveWelcome()
    {
@@ -298,12 +310,26 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            if (pagemanager == null) {
+               resetBean();
+            }
+
             if (pagemanager != null && (! pagemanager.isFirstPage())) {
                firstPage();
             }
+
+            if (mode != null && mode.toUpperCase().equals("DEMO")) {
+               disableWelcomeMode = true;
+               demomode = true;
+            }
+            else {
+               demomode = false;
+            }
+
+
             // pagemanager.setPage(0);
             if (! disableWelcomeMode) {
-               if (getTimeToSaveID() != null) {
+               if (getBeanTimeToSaveID() != null) {
                   welcomeDialog = false;
                }
                else {
@@ -366,6 +392,11 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
       try
       {
+         if (demomode)  {
+            setLogonid(0L);
+            return;
+         }
+
          setIpaddress(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
          Long logonid = null;
          // if (webutil.isWebProdMode())
@@ -396,6 +427,9 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
       try
       {
+         if (demomode)
+            return;
+
          Long acctnum = null;
          // if (webutil.isWebProdMode())
          acctnum = saveDAO.saveLTAMUserData(getInstance());

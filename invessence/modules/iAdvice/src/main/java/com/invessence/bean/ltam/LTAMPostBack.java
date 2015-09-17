@@ -99,10 +99,7 @@ public class LTAMPostBack implements Serializable
       String msg = null;
       try {
          if (beanETID != null) {
-            Long etid = converter.getLongData(beanETID);
-            if (etid != null) {
-               msg = saveDAO.savePostBack(etid, beanAdvisor, beanAcctNum);
-            }
+            msg = saveDAO.savePostBack(beanETID, beanAdvisor, beanAcctNum);
          }
       }
       catch (Exception ex) {

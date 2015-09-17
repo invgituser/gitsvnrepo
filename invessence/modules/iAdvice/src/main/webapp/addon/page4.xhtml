@@ -28,7 +28,7 @@
 
             <h:panelGrid styleClass="page4table" columns="4" cellpadding="0">
                 <p:radioButton id="opt1" for="customRadio" itemIndex="0"/>
-                <h:outputLabel for="opt1" value="$0"/>
+                <h:outputLabel for="opt1" value="Less than #{dataDisplayConverter.displayAsMoney(ltamprofile.investment * 0.049)}"/>
                 <p:commandLink id="img1" update=":ltamForm:page4table"
                                ajax="true" 
                                actionListener="#{ltamprofile.image(1)}"
@@ -37,7 +37,7 @@
                     <p:graphicImage name="images/arrowtick.svg" library="ltam" style="height: 40px" rendered="#{! ltamprofile.isImageSelected(1)}">
                     </p:graphicImage>
                 </p:commandLink>
-                <p:outputLabel for="opt1" value="(0%)"/>
+                <p:outputLabel for="opt1" value="(less than 5%)"/>
 
                 <p:radioButton id="opt2" for="customRadio" itemIndex="1"/>
                 <h:outputLabel for="opt2" value="-#{dataDisplayConverter.displayAsMoney(ltamprofile.investment * 0.05)}"/>

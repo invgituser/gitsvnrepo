@@ -253,15 +253,15 @@ public class LTAMCustomerData extends LTAMRiskData
    {
       this.horizon = horizon;
       recalcAllocation = true;
-      if (horizon <= 6 )
+      if (horizon <= 3 )
          setAns3(1);
-      else if (horizon <= 8)
+      else if (horizon <= 6)
          setAns3(2);
-      else if (horizon <= 11)
+      else if (horizon <= 9)
          setAns3(3);
-      else if (horizon <= 13)
+      else if (horizon <= 12)
          setAns3(4);
-      else if (horizon > 13)
+      else if (horizon >= 13)
          setAns3(5);
    }
 

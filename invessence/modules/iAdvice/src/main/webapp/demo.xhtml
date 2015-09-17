@@ -3,17 +3,15 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions"
-                template="/WEB-INF/template.xhtml">
+                xmlns:pe="http://primefaces.org/ui/extensions">
 
 <f:metadata>
-    <f:viewParam name="cid" value="#{uiLayout.cid}"/>
-    <f:viewParam name="rep" value="#{uiLayout.rep}"/>
-    <f:event type="preRenderView" listener="#{uiLayout.preRenderView()}"/>
+    <f:viewParam name="cid" value="#{demobean.cid}"/>
+    <f:event type="preRenderView" listener="#{demobean.preRenderView}"/>
 </f:metadata>
 
 <ui:define name="content">
-
+    <h:outputText value="#{demobean.redirect()}" style="display: none;"/>
 </ui:define>
 
 </ui:composition>

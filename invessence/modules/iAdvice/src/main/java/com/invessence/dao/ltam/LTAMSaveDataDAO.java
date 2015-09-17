@@ -69,11 +69,11 @@ public class LTAMSaveDataDAO extends JdbcDaoSupport implements Serializable
       return (acctnum);
    }
 
-   public String savePostBack(Long etid, String advisor, String ext_acctnum)
+   public String savePostBack(String myacctnum, String advisor, String ext_acctnum)
    {
       DataSource ds = getDS();
       LTAMSaveSP sp = new LTAMSaveSP(ds, "ltam.save_acct_info_ack",2);
-      Map outMap = sp.savePostBack(etid, advisor, ext_acctnum);
+      Map outMap = sp.savePostBack(myacctnum, advisor, ext_acctnum);
       String msg = ((String) outMap.get("p_msg"));
       return (msg);
    }

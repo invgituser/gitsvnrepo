@@ -66,11 +66,9 @@
             <ui:include src="/html/ltamFAQ.xhtml"/>
         </p:dialog>
 
-        <p:dialog header="About Us" widgetVar="aboutusDlg" modal="true" resizable="true">
-            <p:lightBox iframe="true" id="aboutlightbox">
-                <h:outputLink value="http://www.ltam.com/our-team.html" title="About Us">
-                </h:outputLink>
-            </p:lightBox>
+        <p:dialog header="About Us" widgetVar="aboutusDlg" modal="true"
+                  resizable="true" height="500" width="700" closable="true">
+
         </p:dialog>
 
         <h:outputStylesheet name="css/core-layout.css" library="#{uiLayout.uiprofile.themelib}" />
