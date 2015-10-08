@@ -44,7 +44,7 @@ public class DBConnection
 
          dbProperties.load(getClass().getClassLoader().getResourceAsStream("db.properties"));
          connectionUrl = dbProperties.getProperty("jdbc.url") +
-            "?user=" + dbProperties.getProperty("jdbc.username") +
+            "&user=" + dbProperties.getProperty("jdbc.username") +
             "&password=" + dbProperties.getProperty("jdbc.password");
 
          Class.forName(dbProperties.getProperty("jdbc.driverClassName")).newInstance();

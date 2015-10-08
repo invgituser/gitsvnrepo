@@ -230,4 +230,39 @@ public class UILayout implements Serializable
 
    }
 
+   public String getPageInfo(Integer pageno)
+   {
+      String txt = null;
+      String msg;
+      if (webutil != null)
+      {
+         if (pageno != null)
+         {
+            if (pageno >= 0) {
+               msg = "p" + pageno.toString() + "info." + cid;
+            }
+            else {
+               msg = "pinfo." + cid;
+            }
+            txt = webutil.getMessageText().lookupMessage(msg, null);
+         }
+      }
+      if (txt != null && txt.length() > 0)
+         return txt;
+      else
+         return null;
+   }
+
+   public String getDisclaimer() {
+      String txt = null;
+      if (webutil != null) {
+         txt = webutil.getMessageText().lookupMessage("disclaimer." + cid, null);
+      }
+      if (txt != null && txt.length() > 0)
+         return txt;
+      else
+         return null;
+
+   }
+
 }

@@ -98,6 +98,11 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       this.mode = mode;
    }
 
+   public Boolean getDemomode()
+   {
+      return demomode;
+   }
+
    public Boolean getTime2SaveWelcome()
    {
       return time2SaveWelcome;
@@ -582,6 +587,5 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
       setAns5(which);
    }
-
 }
 

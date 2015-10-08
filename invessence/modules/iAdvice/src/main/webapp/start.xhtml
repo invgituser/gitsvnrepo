@@ -28,8 +28,8 @@
 
         <div class="layout-portlets-box">
 
-            <div class="Container100 Responsive50">
-                <div class="Container100 Responsive50">
+            <div class="Container100 Responsive100">
+                <div class="Container100 Responsive100">
                     <div class="ContainerIndent TexAlCenter">
                         <h1>
                             You have entered<br/>
@@ -49,6 +49,12 @@
                             Affiliate of Ladenburg Thalmann Asset Management, Inc. (LTAM) and have entered LTAM's
                             iAdvice Website. The individual(s) of the Affiliate and the Affiliate may receive a referral fee
                             for referring you to this site.
+                        </div>
+                        <div class="EmptyBox10"></div>
+                        <div class="Fs8 TexAlCenter">
+                           By using iAdvice you consent to electronic delivery of our
+                           <a href="http://www.ladenburgfunds.com/docs/LTAM-iAdvice-Brochure.pdf" target="_ltam">brochure</a>
+                            with privacy policy.
                         </div>
                         <div class="EmptyBox10"></div>
                         <p:commandButton value="Get Started"
@@ -116,10 +122,10 @@
                 <div class="EmptyBox10"/>
                 <f:facet name="footer">
                      <p:commandButton value="Previous" styleClass="Fleft" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
-                                      update=":ltamForm:contentpanel"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
                                       actionListener="#{ltamprofile.prevPage}"/>
                      <p:commandButton value="Next" styleClass="Fright" rendered="#{ltamprofile.pagemanager.nextButtonStat}"
-                                      update=":ltamForm:contentpanel"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
                                       actionListener="#{ltamprofile.nextPage}"/>
                 </f:facet>
             </p:panel>
@@ -353,6 +359,37 @@
                      responsive="true"/>
         </div>
     </p:fieldset>
+</p:outputPanel>
+
+<p:outputPanel id="disclaimer" style="border: 0px"
+               rendered="#{! ltamprofile.demomode}">
+<div class="layout-portlets-box">
+    <div class="Container100 Responsive100">
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent Responsive100">
+                <div class="Fs12 TexAlCenter">
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 1}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 2}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 3}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 4}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 5}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                <div class="EmptyBox10"></div>
+                    <h:outputText value="#{uiLayout.disclaimer}" escape="false"/>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
 </p:outputPanel>
 
 </p:panel>

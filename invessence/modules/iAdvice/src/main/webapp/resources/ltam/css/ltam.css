@@ -37,9 +37,9 @@
 }
 
 .startover {
-    background: transparent url("#{resource['ltam:images/startover.png']}") no-repeat top;
-    width: 150px;
-    height: 80px;
+    background: transparent url("#{resource['ltam:images/start-over-button.jpg']}") no-repeat top;
+    width: 160px;
+    height: 60px;
     float: left;
     background-color: transparent !important;
     border: 0px none !important;
@@ -47,9 +47,9 @@
 }
 
 .investnow {
-    background: transparent url("#{resource['ltam:images/investnow.png']}") no-repeat top;
-    width: 150px;
-    height: 80px;
+    background: transparent url("#{resource['ltam:images/open-account-button.jpg']}") no-repeat top;
+    width: 160px;
+    height: 60px;
     float: right;
     background-color: transparent !important;
     border: 0px none !important;

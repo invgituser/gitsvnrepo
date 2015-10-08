@@ -20,7 +20,8 @@
   transition: all 0.5s ease;
 }
 .ui-widget-content a {
-  color: #455a64;
+  /*color: #455a64;*/
+    color: blue;
 }
 .ui-widget-header {
   color: #ffffff;

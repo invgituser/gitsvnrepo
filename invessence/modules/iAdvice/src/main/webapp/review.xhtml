@@ -202,7 +202,9 @@
 
     </p:fieldset>
 
-    <p:fieldset legend="Historical Performance" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
+    <p:fieldset legend="Historical Performance" styleClass="layout-portlets-box"
+                toggleable="true" toggleSpeed="500"
+                rendered="false" >
         <div class="Container100 Responsive100">
             <p:dataTable styleClass="invAllocTable"
                          value="#{ltamprofile.themeData.printPerfData}"
@@ -231,6 +233,23 @@
                      responsive="true"/>
         </div>
     </p:fieldset>
+</p:outputPanel>
+
+<p:outputPanel id="disclaimer" style="border: 0px"
+               rendered="#{! ltamprofile.demomode}">
+    <div class="layout-portlets-box">
+        <div class="Container100 Responsive100">
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent Responsive100">
+                    <div class="Fs12 TexAlCenter">
+                        <ui:fragment rendered="#{ltamprofile.reviewPage}">
+                            <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                        </ui:fragment>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </p:outputPanel>
 
 </p:panel>
