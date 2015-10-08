@@ -162,6 +162,7 @@ public class EmailJob
       LOG.info("Ended saveMsg:run()...");
    }
 
+/*
    public static void main(String[] args)
    {
 
@@ -186,4 +187,5 @@ public class EmailJob
 
 
    }
+*/
 }

@@ -104,11 +104,6 @@ public class MsgData implements Serializable
       this.status = status;
    }
 
-   public static void main(String[] args)
-   {
-      System.out.println("TEST");
-   }
-
    public int getCategory()
    {
       return category;
