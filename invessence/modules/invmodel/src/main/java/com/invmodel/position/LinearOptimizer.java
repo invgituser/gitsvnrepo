@@ -18,6 +18,7 @@ import lpsolve.LpSolveException;
  * Time: 4:08 PM
  * To change this template use File | Settings | File Templates.
  */
+
 public class LinearOptimizer
 {
    private Map<Long, FamilyAccount> familyData;
