@@ -162,6 +162,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            if (! getWebutil().isUserLoggedIn()) {
+               getWebutil().redirect("/login.xhtml",null);
+            }
             loadBasketInfo();
             whichChart = "pie";
             setPrefView(0);

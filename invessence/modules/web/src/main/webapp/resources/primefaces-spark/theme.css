@@ -591,7 +591,7 @@ label{font-weight:normal !important;}
         -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
             /*.ui-datatable table tbody tr td.ui-state-error{border: solid 1px #D9E3E8 !important;}
             .ui-datatable table tbody tr td.ui-state-error .ui-inputfield{border-color:#F03369;} */
-            .ui-datatable  table tbody tr td .ui-row-toggler.ui-icon-circle-triangle-s{background-image:url("#{resource['primefaces-spark:images/downarrow-gray.svg']}"); 
+            .ui-datatable  table tbody tr td .ui-row-toggler.ui-icon-circle-triangle-s{background-image:url("#{resource['primefaces-spark:images/downarrow-gray.svg']}");
                             background-position:center !important; background-size:110%;}
             .ui-datatable  table tbody tr td .ui-row-toggler.ui-icon-circle-triangle-e{background-image:url("#{resource['primefaces-spark:images/rightarrow-gray.svg']}"); 
                             background-position:center !important; background-size:110%;}
@@ -1088,8 +1088,8 @@ hr.ui-widget-header{background-color: #E5EBF0; border-width:0px;}
 .ui-tabs-top{border:solid 1px #C6D6DF; background-color: #FBFCFD; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px; padding: 0px !important;}
 .ui-tabs-top:hover{}
     .ui-tabs-top .ui-tabs-nav{border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-right-radius: 2px; border-top-left-radius: 2px; background-color:#778D9B;}
-    .ui-tabs-top .ui-tabs-navscroller{border-top-right-radius: 2px; border-top-left-radius: 2px;}
-        .ui-tabs-top .ui-tabs-navscroller .ui-tabs-nav{border-radius:0px; -webkit-border-radius:0px; -moz-border-radius:0px; line-height: 1.2;}
+    .ui-tabs-top .ui-tabs-navscroller{border-top-right-radius: 5px; border-top-left-radius: 5px; padding-left: 24px !important;}
+        .ui-tabs-top .ui-tabs-navscroller .ui-tabs-nav{border-radius:0px; -webkit-border-radius:0px; -moz-border-radius:0px;}
         .ui-tabs-top .ui-tabs-navscroller .ui-tabs-navscroller-btn{height: 36px; padding: 0px 4px; background-color:#5FCF80;}
         .ui-tabs-top .ui-tabs-navscroller .ui-tabs-navscroller-btn-left{border-bottom-right-radius: 0px; border-top-right-radius: 0px; border-top-left-radius: 2px; left:0px;}
             .ui-tabs-top .ui-tabs-navscroller .ui-tabs-navscroller-btn-left .ui-icon{background-image:url("#{resource['primefaces-spark:images/left-arrow.svg']}"); background-position: center !important; 
@@ -1162,20 +1162,20 @@ hr.ui-widget-header{background-color: #E5EBF0; border-width:0px;}
         .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-nav{border-radius:0px; -webkit-border-radius:0px; -moz-border-radius:0px; line-height: 1.2;}
         .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn{height: 36px; padding: 0px 4px; background-color:#5FCF80;}
         .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-left{border-bottom-right-radius: 0px; border-top-right-radius: 0px; border-top-left-radius: 0px !important; border-bottom-left-radius: 2px; left:0px;}
-            .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-left .ui-icon{background-image:url("#{resource['primefaces-spark:images/left-arrow.svg']}"); background-position: center !important; 
+            .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-left .ui-icon{background-image:url("#{resource['primefaces-spark:images/left-arrow.svg']}"); background-position: center !important;
                          background-repeat: no-repeat; background-size: 110%; margin-top: 9px;}
         .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-right{border-bottom-left-radius: 0px; border-top-left-radius: 0px; border-top-right-radius: 0px !important; border-bottom-right-radius: 2px; right: 0px;}
-            .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-right .ui-icon{background-image:url("#{resource['primefaces-spark:images/right-arrow.svg']}"); background-position: center !important; 
+            .ui-tabs-bottom .ui-tabs-navscroller .ui-tabs-navscroller-btn-right .ui-icon{background-image:url("#{resource['primefaces-spark:images/right-arrow.svg']}"); background-position: center !important;
                          background-repeat: no-repeat; background-size: 110%; margin-top: 9px;}
-        
+
         .ui-tabs-bottom .ui-tabs-navscroller .ui-state-disabled{opacity:1; filter: alpha(opacity=100);}
             .ui-tabs-bottom .ui-tabs-navscroller .ui-state-disabled .ui-icon{opacity:0.4; filter: alpha(opacity=40);}
-        
+
         .ui-tabs-bottom .ui-tabs-nav li{border:solid 1px transparent !important; top:1px !important; font-size: 14px;  margin: -1px .2em 2px 0 !important;}
-            .ui-tabs-bottom .ui-tabs-nav li .ui-icon-close{background-image:url("#{resource['primefaces-spark:images/delete.svg']}"); background-position: center !important; 
+            .ui-tabs-bottom .ui-tabs-nav li .ui-icon-close{background-image:url("#{resource['primefaces-spark:images/delete.svg']}"); background-position: center !important;
                          background-repeat: no-repeat; background-size: 100%; margin-top: 8px !important;}
             .ui-tabs-bottom .ui-tabs-nav li.ui-state-hover .ui-icon-close,
-            .ui-tabs-bottom .ui-tabs-nav li.ui-state-active .ui-icon-close{background-image:url("#{resource['primefaces-spark:images/delete-green.svg']}"); background-position: center !important; 
+            .ui-tabs-bottom .ui-tabs-nav li.ui-state-active .ui-icon-close{background-image:url("#{resource['primefaces-spark:images/delete-green.svg']}"); background-position: center !important;
                          background-repeat: no-repeat; background-size: 100%; margin-top: 8px !important;}
         .ui-tabs-bottom .ui-tabs-nav li a{color:#FBFCFD !important; font-size: 15px;}
         .ui-tabs-bottom .ui-tabs-nav li.ui-tabs-selected,
@@ -1183,7 +1183,7 @@ hr.ui-widget-header{background-color: #E5EBF0; border-width:0px;}
         .ui-tabs-bottom .ui-tabs-nav li.ui-state-hover{background-color:#FBFCFD !important; border: solid 1px #FBFCFD !important;}
         .ui-tabs-bottom .ui-tabs-nav li.ui-tabs-selected a,
         .ui-tabs-bottom .ui-tabs-nav li.ui-tabs-active a,
-        .ui-tabs-bottom .ui-tabs-nav li.ui-state-hover a{color: #5FCF80 !important;}
+        .ui-tabs-bottom .ui-tabs-nav li.ui-state-hover a{color:#5FCF80 !important;}
  
  
 /*Style For UI Dasboard------------------------------------------------------------------------------------- */
@@ -1294,9 +1294,9 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
 .ui-button-text-icon-right .ui-button-text {padding: 8px 40px 8px 20px !important;}
 .ui-button-text-icon-right .ui-button-icon-right{z-index:9999; right:18px;}
 .ui-button-icon-only .ui-icon.fa, .ui-button-text-icon-left .ui-icon.fa, .ui-button-text-icon-right .ui-icon.fa{margin-top:-8px !important;}
-    
-    
-/*Style For UI SplitButton ------------------------------------------------------------------------------------- */ 
+
+
+/*Style For UI SplitButton ------------------------------------------------------------------------------------- */
 
 .ui-splitbutton{border: solid 1px #D9E3E8; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; padding: 2px 1px 1px 2px; background-color: #fff;}
 .ui-splitbutton:hover, .ui-splitbutton:focus{}
@@ -1402,7 +1402,7 @@ ui-message-fatal{color: #F55151 !important; background-color: #FBFCFD !important
                                 background-size: 110% !important;}
              .ui-panel .ui-panel-titlebar .ui-icon-gear{background-image:url("#{resource['primefaces-spark:images/gear.svg']}") !important; background-position: center !important;
                                 background-size: 110% !important;}
-    .ui-panel .ui-panel-content{padding:5px !important; font-size: 15px; color: #778D9B; font-family: 'ralewayregular';}
+    .ui-panel .ui-panel-content{padding:5px !important; overflow:hidden; font-size: 15px; color: #778D9B; font-family: 'ralewayregular';}
     .ui-panel .ui-panel-footer{border-top: solid 1px #E8EDF2 !important; background-color:#F6FAFC; margin: 0px -2px -2px -2px !important; font-size: 14px;
                     border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; color:#C7D5DB;}
 	

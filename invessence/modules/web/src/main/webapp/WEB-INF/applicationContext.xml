@@ -24,7 +24,6 @@
    <!--import resource for consumers business-->
    <import resource="allDAO.xml"/>
    <import resource="consumerDAO.xml"/>
-   <import resource="LTAMDAO.xml"/>
    <!-- Common DAO-->
    <import resource="CommonBean.xml"/>
 

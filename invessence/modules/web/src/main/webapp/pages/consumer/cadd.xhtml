@@ -19,30 +19,30 @@
 <p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
 
 <div class="layout-portlets-box">
-    <p:panel id="dPanel1" style="height: 70px">
+    <p:panel id="dPanel1" style="height:80px">
 
-        <div class="Container33 Responsive">
+        <div class="Container33">
             <div class="ContainerIndent">
-                <div class="Container100">
                     <div class="DispInlBlock">
-                        <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
-                        <p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
-                            <h3 class="black Fs15 FontRalewayMedium">#{cepb.fullName}</h3>
-                            <span class="Fs15 gray FontRalewayRegular DispBlock">#{cepb.portfolioName}</span>
-                            <span class="Fs15 gray FontRalewayRegular DispBlock">
-                               <p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
-                               <p:outputLabel value="Non-Taxable" rendered="#{! cepb.accountTaxable}"/>
-                            </span>
-                        </p:panel>
+                        <div class="Container100">
+				<i class="fa fa-user Fs50 red Fleft MarRight10"></i>
+                        	<p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
+                            	<h3 class="black Fs15 FontRalewayMedium">#{cepb.fullName}</h3>
+                            	<span class="Fs15 gray FontRalewayRegular DispBlock">#{cepb.portfolioName}</span>
+                            	<span class="Fs15 gray FontRalewayRegular DispBlock">
+                               	<p:outputLabel value="Taxable" rendered="#{cepb.accountTaxable}"/>
+                               	<p:outputLabel value="Non-Taxable" rendered="#{! cepb.accountTaxable}"/>
+                            	</span>
+                        	</p:panel>
+			</div>
                     </div>
-                </div>
             </div>
         </div>
 
-        <div class="Container33 Responsive">
+        <div class="Container33">
             <div class="ContainerIndent">
                 <div class="DispBlock">
-                    <div class="Wid50 Fleft TexAlCenter">
+                    <div class="Fleft TexAlCenter">
                         <div class="ContainerIndent">
                             <h3 class="black Fs15 FontRalewayMedium">Investment</h3>
                             <span class="Fs20 gray FontRalewayRegular DispBlock">
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        <div class="Container33 Responsive">
+        <div class="Container33">
             <div class="Wid50"></div>
             <div class="ContainerIndent">
                 <div class="DispBlock">

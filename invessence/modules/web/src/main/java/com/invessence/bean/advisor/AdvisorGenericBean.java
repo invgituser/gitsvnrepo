@@ -6,7 +6,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 @ManagedBean(name = "advisorGenericBean")
-@ApplicationScoped
+@SessionScoped
 public class AdvisorGenericBean implements Serializable
 {
    private static final long serialVersionUID = 100000L;

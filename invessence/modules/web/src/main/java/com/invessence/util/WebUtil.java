@@ -19,7 +19,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 
 
 @ManagedBean(name = "webutil")
-@ApplicationScoped
+@SessionScoped
 public class WebUtil implements Serializable
 {
 

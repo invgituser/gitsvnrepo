@@ -1,6 +1,9 @@
 package com.invessence.data.advisor;
 
 import java.util.*;
+import javax.faces.bean.ManagedProperty;
+
+import com.invessence.dao.advisor.AdvisorListDataDAO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +12,6 @@ import java.util.*;
  * Time: 8:58 PM
  * To change this template use File | Settings | File Templates.
  */
-@SuppressWarnings("UnusedDeclaration")
 public class AdvisorDashData
 {
      private String advisorname;
@@ -17,6 +19,15 @@ public class AdvisorDashData
      private Map<String, Double> securityInfo;
      private Map<String, Integer> statInfo;
      private Map<String, String> newsInfo;
+     private Map<String, Integer> salesInfo;
+
+   @ManagedProperty("#{advisorListDataDAO}")
+   private AdvisorListDataDAO listDAO;
+
+   public void setListDAO(AdvisorListDataDAO listDAO)
+   {
+      this.listDAO = listDAO;
+   }
 
    public AdvisorDashData()
    {
@@ -70,5 +81,21 @@ public class AdvisorDashData
    public void setNewsInfo(Map<String, String> newsInfo)
    {
       this.newsInfo = newsInfo;
+   }
+
+   public Map<String, Integer> getSalesInfo()
+   {
+      return salesInfo;
+   }
+
+   public void setSalesInfo(Map<String, Integer> salesInfo)
+   {
+      this.salesInfo = salesInfo;
+   }
+
+   public void reloadData() {
+      if (listDAO != null) {
+         listDAO.reloadAdvisorDashBoard(this);
+      }
    }
 }

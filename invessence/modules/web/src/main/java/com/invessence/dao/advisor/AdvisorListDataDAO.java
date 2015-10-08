@@ -6,7 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.data.advisor.AdvisorData;
+import com.invessence.data.advisor.*;
 import com.invessence.data.common.AccountData;
 import com.invmodel.asset.data.*;
 import com.invmodel.portfolio.data.*;
@@ -244,6 +244,10 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
          ex.printStackTrace();
       }
       return null;
+   }
+
+   public void reloadAdvisorDashBoard(AdvisorDashData addata) {
+
    }
 
 }

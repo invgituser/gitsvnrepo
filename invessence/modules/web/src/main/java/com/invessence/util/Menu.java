@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 
 @ManagedBean(name = "menu")
-@ApplicationScoped
+@SessionScoped
 @Component("config")
 public class Menu implements Serializable
 {

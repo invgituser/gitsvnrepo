@@ -45,7 +45,7 @@
                                </p:outputPanel>
                            </f:facet>
 
-                            <p:column style="width:4%">
+                            <p:column style="width:5%">
                                 <p:commandButton id="activeButton" rendered="#{managedVar.acctStatus == 'Active'}"
                                                  styleClass="Fs16 GreenButton"
                                                  process="@this" immediate="true"
@@ -65,7 +65,7 @@
                                                                  target="#{manageAdvisorBean.selectedAccount}"/>
                                 </p:commandButton>
                             </p:column>
-                            <p:column style="width:4%">
+                            <p:column style="width:5%">
                                 <p:commandButton id="menuDelete" rendered="#{managedVar.acctStatus != 'Active'}"
                                                  styleClass="Fs16 RedButton"
                                                  process="@this" immediate="true"

@@ -7,6 +7,7 @@
      <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
 			<list>
+				<value>company</value>
 				<value>messages</value>
 				<value>error_messages</value>
 			</list>
