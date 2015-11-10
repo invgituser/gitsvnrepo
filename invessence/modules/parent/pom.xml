@@ -632,13 +632,13 @@
          <properties>
             <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://www.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://www.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <ltam.url>jdbc:mysql://www.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.url>jdbc:mysql://207.97.205.89:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://207.97.205.89:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://207.97.205.89:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>Inv3553nc3</jdbc.password>
-            <apache.url>http://uat.invessence.com:8080</apache.url>
-            <tomcat.url>http://uat.invessence.com:8080</tomcat.url>
+            <apache.url>http://localhost:8080</apache.url>
+            <tomcat.url>http://localhost:8080</tomcat.url>
             <ssl.url>http://localhost:8080</ssl.url>
             <mail.host>smtp.gmail.com</mail.host>
             <mail.username>no-reply@invessence.com</mail.username>
@@ -663,18 +663,18 @@
          </properties>
       </profile>
       <profile>
-         <id>5.1-UAT-PROD</id>
+         <id>5.1-PROD-UAT</id>
          <properties>
             <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://www.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://www.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <ltam.url>jdbc:mysql://www.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.url>jdbc:mysql://207.97.205.89:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://207.97.205.89:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://207.97.205.89:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>Inv3553nc3</jdbc.password>
-            <apache.url>http://localhost:8080</apache.url>
-            <tomcat.url>http://localhost:8080</tomcat.url>
-            <ssl.url>http://localhost:8080</ssl.url>
+            <apache.url>http://demo.invessence.com:8080</apache.url>
+            <tomcat.url>http://demo.invessence.com:8080</tomcat.url>
+            <ssl.url>http://demo.invessence.com:8080</ssl.url>
             <mail.host>smtp.gmail.com</mail.host>
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>

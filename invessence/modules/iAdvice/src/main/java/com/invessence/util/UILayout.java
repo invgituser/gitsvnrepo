@@ -22,7 +22,6 @@ import org.springframework.stereotype.Component;
 
 @ManagedBean(name = "uiLayout")
 @SessionScoped
-@Component("config")
 public class UILayout implements Serializable
 {
    private static final long serialVersionUID = -1992L;
@@ -263,6 +262,10 @@ public class UILayout implements Serializable
       else
          return null;
 
+   }
+
+   public Boolean isProdMode() {
+      return webutil.isWebProdMode();
    }
 
 }

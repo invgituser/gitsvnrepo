@@ -17,7 +17,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 
 
 @ManagedBean(name = "webutil")
-@ApplicationScoped
+@SessionScoped
 public class WebUtil implements Serializable
 {
 
@@ -34,17 +34,13 @@ public class WebUtil implements Serializable
    }
 
    public boolean isWebProdMode() {
-      if (messageText == null)
-         return false;
-
-      String mode = messageText.buildInternalMessage("web.mode",null);
-      if (mode == null)
-         return false;
-      else
+      Boolean modeStatus=false;
+      String mode = getMode();
+      if (mode != null) {
          if (mode.toUpperCase().equals("PROD") || mode.toUpperCase().equals("UAT"))
-            return true;
-
-      return false;
+            modeStatus=true;
+      }
+      return modeStatus;
    }
 
    public static boolean isNull(String val) {
@@ -236,7 +232,17 @@ public class WebUtil implements Serializable
 
 
    public String getMode() {
-      return ("Prod");
+      if (messageText == null)
+         return "Dev";
+
+      String mode = messageText.buildInternalMessage("web.mode",null);
+      if (mode == null)
+         return "Dev";
+      else
+      if (mode.toUpperCase().equals("PROD") || mode.toUpperCase().equals("UAT"))
+         return mode;
+
+      return "Dev";
    }
 
    public Long getAcctnum() {

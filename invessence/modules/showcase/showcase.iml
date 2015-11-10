@@ -11,6 +11,45 @@
           <root url="file://$MODULE_DIR$/src/main/java" relative="sources" />
         </webroots>
       </configuration>
+      <facet type="jsf" name="JSF">
+        <configuration />
+      </facet>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/webapp/resources/demo/images/car/Volvo.gif</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/overlay/dialog/focus.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/overlay/confirmDialog.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/tree/rtl.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/multimedia/galleria.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/java/org</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/resources/primefaces-spark/images/uparrow-blue.svg</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/datatable/columnToggler.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/datatable/contextMenu.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/datatable/sort.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/datatable/lazy.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/datatable/basic.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/view/chart</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/resources/primefaces-spark/images/left-end-arrow.svg</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/view/multimedia</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/view/menu</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/input/inputText.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/view/data</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/domain</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/datatable/columnResize.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/view/misc</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/datatable/edit.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/component</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/service</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/filter</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/spark/ui/data/diagram/basic.xhtml</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/convert</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark/invessence</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces</file>
+          <file>file://$MODULE_DIR$/src/main/java/org/primefaces/spark</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">

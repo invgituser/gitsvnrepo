@@ -133,7 +133,7 @@
         <div class="Container40 Responsive100">
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px; background: transparent"
-                         rendered="#{ltamprofile.displayRiskMeter}">
+                         rendered="#{ltamprofile.displayGraphs}">
                         <div class="EmptyBox5"></div>
                         <div class="Container100 Responsive100">
                             <p:panel style="border: 0px; background: transparent"
@@ -238,127 +238,6 @@
 
 <p:outputPanel id="dataarea" style="border: 0px"
                rendered="#{ltamprofile.reviewPage}">
-
-    <p:fieldset legend="Proposed Allocation" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
-        <div class="Container100 Responsive100">
-            <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.allocationData.ltamAllocatedSubAssetList}"
-                         var="suballocatedList" reflow="true">
-                <p:column style="width: 2%; background-color: #{suballocatedList.color};">
-                    <h:outputText value=" "/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Asset">
-                    <h:outputText value="#{suballocatedList.assetname}"/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Class">
-                    <h:outputText value="#{suballocatedList.subassetname}"/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlRight"
-                          resizable="true" headerText="Weight">
-                    <h:outputText value="#{suballocatedList.weightAsPercent}">
-                        <f:convertNumber pattern="##0.00%"/>
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid35 TexAlRight"
-                          resizable="true" headerText="Value">
-                    <h:outputText value="#{suballocatedList.money}">
-                        <f:convertNumber currencySymbol="$" type="currency"/>
-                    </h:outputText>
-                </p:column>
-
-            </p:dataTable>
-        </div>
-
-    </p:fieldset>
-
-    <p:fieldset legend="Historical Performance" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
-        <div class="Container100 Responsive100">
-            <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.themeData.printedPerfData}"
-                         var="pdata" reflow="true">
-                <p:column style="width: 2%; background-color: #{pdata.color}">
-                    <f:facet name="header">
-                        <h:outputText value=""/>
-                    </f:facet>
-                    <h:outputText value=" "/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="Index"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.indexname}"/>
-                </p:column>
-
-                <p:column styleClass="Wid5 TexAlCenter Fs12">
-                    <f:facet name="header">
-                        <h:outputText value="#{pdata.header1}"/>
-                    </f:facet>
-                    <h:outputText value="#{pdata.value1}"/>
-                </p:column>
-
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header2}">
-                    <h:outputText value="#{pdata.value2}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header3}">
-                    <h:outputText value="#{pdata.value3}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header4}">
-                    <h:outputText value="#{pdata.value4}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header5}">
-                    <h:outputText value="#{pdata.value5}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header6}">
-                    <h:outputText value="#{pdata.value6}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlCenter Fs12"
-                          headerText="#{pdata.header7}">
-                    <h:outputText value="#{pdata.value7}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header8}">
-                    <h:outputText value="#{pdata.value8}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid10 TexAlCenter Fs12"
-                          headerText="#{pdata.header9}">
-                    <h:outputText value="#{pdata.value9}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header10}">
-                    <h:outputText value="#{pdata.value10}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid5 TexAlCenter Fs12"
-                          headerText="#{pdata.header11}">
-                    <h:outputText value="#{pdata.value11}" styleClass="TexAlCenter">
-                    </h:outputText>
-                </p:column>
-            </p:dataTable>
-
-        </div>
-        <div class="EmptyBox30"></div>
-        <div class="Container100 Responsive100 ShowOnDesktop">
-            <p:chart type="bar" model="#{ltamprofile.ltamcharts.barPerformanceChart}" style="height:300px"
-                     rendered="#{ltamprofile.ltamcharts.barPerformanceChart != null}"
-                     extender="ltam_perf"
-                     responsive="true"/>
-        </div>
-    </p:fieldset>
 </p:outputPanel>
 
 <p:outputPanel id="disclaimer" style="border: 0px"

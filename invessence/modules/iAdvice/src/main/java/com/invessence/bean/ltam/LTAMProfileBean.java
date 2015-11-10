@@ -200,23 +200,6 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       return welcomeDialog;
    }
 
-   public Boolean getDisplayRiskMeter()
-   {
-      if (getAge() == null)
-      {
-         return false;
-      }
-
-      if (getAge() > 0)
-      {
-         return true;
-      }
-      else
-      {
-         return false;
-      }
-   }
-
    public Boolean getDisplayGraphs()
    {
       return displayGraphs;
@@ -292,15 +275,20 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
    public void nextPage()
    {
-      //if (pagemanager.isNextToLastPage())
-      {
-         setDisplayGraphs(true);
+      disableWelcomeMode = true;
+      if (pagemanager.isFirstPage()) {
+         if (getInvestment() < 500.00) {
+            FacesMessage message;
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Min Investment of $500.00", "Min Investment of $500.00");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
       }
+      setDisplayGraphs(true);
+      displayMeter = true;
       if (pagemanager.isNextToLastPage()) {
          reviewPage = true;
       }
-      displayMeter = true;
-      disableWelcomeMode = true;
       doCharts();
       saveClientData();
       pagemanager.nextPage();

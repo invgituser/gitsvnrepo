@@ -63,12 +63,22 @@
 
         <p:dialog header="FAQ" widgetVar="faqDlg" modal="true"
                   resizable="true" height="500" width="700" closable="true">
-            <ui:include src="/html/ltamFAQ.xhtml"/>
+            <ui:fragment rendered="#{uiLayout.isProdMode}">
+               <ui:include src="/html/ltamFAQ.xhtml"/>
+            </ui:fragment>
+            <ui:fragment rendered="#{! uiLayout.isProdMode}">
+                <ui:include src="/html/faq.xhtml"/>
+            </ui:fragment>
         </p:dialog>
 
         <p:dialog header="About Us" widgetVar="aboutusDlg" modal="true"
                   resizable="true" height="500" width="700" closable="true">
-            <ui:include src="/html/ltamaboutus.xhtml"/>
+            <ui:fragment rendered="#{uiLayout.isProdMode}">
+                <ui:include src="/html/ltamaboutus.xhtml"/>
+            </ui:fragment>
+            <ui:fragment rendered="#{! uiLayout.isProdMode}">
+                <ui:include src="/html/aboutus.xhtml"/>
+            </ui:fragment>
         </p:dialog>
 
         <h:outputStylesheet name="css/core-layout.css" library="#{uiLayout.uiprofile.themelib}" />

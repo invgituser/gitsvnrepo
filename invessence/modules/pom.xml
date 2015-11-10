@@ -21,6 +21,7 @@
       <module>eod</module>
       <module>docusign</module>
       <module>invmodel</module>
+      <module>yodlee</module>
       <module>web</module>
       <module>virtual-trades</module>
       <module>emailer</module>
