@@ -13,10 +13,13 @@ package com.invmodel.performance;
  *
  */
 
+import java.util.ArrayList;
+
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.AssetClass;
 import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.data.Portfolio;
+import com.invmodel.inputData.*;
 
 
 //Formula to convert longTermReturns to daily returns
@@ -86,63 +89,69 @@ public class PortfolioPerformance
    public PerformanceData[] getPortfolioPerformance(Portfolio[] portfolioClass, int numOfYears, int currentYear)
    {
 
-      PerformanceData[] perfData = new PerformanceData[numOfYears];
-      double portGrowth = 0.0;
+       double portGrowth = 0.0;
       double investmentCapital = 0.0;
+      double totalcapitalgain = 0.0;
+      PerformanceData prevYearPerformanceData;
 
       try
       {
+         numOfYears = (numOfYears <= 0) ? 1 : numOfYears;
+         PerformanceData[] perfData = new PerformanceData[numOfYears];
+         Double investmentReturn, investmentRisk, invested, recurring, totalCost;
          perfData[0] = new PerformanceData();
-         perfData[0].setTotalCapitalWithGains(portfolioClass[currentYear].getTotalMoney());
+         invested = portfolioClass[currentYear].getTotalMoney();
+         recurring = portfolioClass[currentYear].getRecurInvestments();
+         investmentReturn = portfolioClass[currentYear].getExpReturns();
+         investmentRisk = portfolioClass[currentYear].getTotalRisk();
+         totalCost = portfolioClass[currentYear].getTotalCost();
+         perfData[0].setTotalCapitalWithGains(invested);
          perfData[0].setTotalCost(0.0);
-         perfData[0].setInvestmentReturns(portfolioClass[currentYear].getExpReturns());
-         perfData[0].setInvestmentRisk(portfolioClass[currentYear].getTotalRisk());
-         perfData[0].setUpperBand1(portfolioClass[currentYear].getTotalMoney());
-         perfData[0].setUpperBand2(portfolioClass[currentYear].getTotalMoney());
-         perfData[0].setLowerBand1(portfolioClass[currentYear].getTotalMoney());
-         perfData[0].setLowerBand2(portfolioClass[currentYear].getTotalMoney());
-         perfData[0].setInvestedCapital(portfolioClass[currentYear].getTotalMoney());
-         perfData[0].setRecurInvestments(portfolioClass[currentYear].getRecurInvestments());
+         perfData[0].setInvestmentReturns(investmentReturn);
+         perfData[0].setInvestmentRisk(investmentRisk);
+         perfData[0].setUpperBand1(invested);
+         perfData[0].setUpperBand2(invested);
+         perfData[0].setLowerBand1(invested);
+         perfData[0].setLowerBand2(invested);
+         perfData[0].setInvestedCapital(invested);
+         perfData[0].setRecurInvestments(recurring);
 
          for (int year = 1; year < numOfYears; year++)
          {
             perfData[year] = new PerformanceData();
+            prevYearPerformanceData =  perfData[year-1];
 
 
-            investmentCapital = perfData[year-1].getTotalCapitalWithGains() + perfData[year-1].getRecurInvestments();
 
-            perfData[year].setTotalCost((portfolioClass[currentYear].getTotalCost() /
-               portfolioClass[currentYear].getTotalMoney()) * investmentCapital +
-                                           perfData[year - 1].getTotalCost());
+            investmentCapital = prevYearPerformanceData.getTotalCapitalWithGains() +
+               prevYearPerformanceData.getRecurInvestments();
+            Double cost = (totalCost / invested) * investmentCapital;
+            perfData[year].setTotalCost(cost + prevYearPerformanceData.getTotalCost());
 
-            perfData[year].setTotalCapitalWithGains(portfolioClass[currentYear].getExpReturns() *
-                                                       investmentCapital + investmentCapital -
-                                                       (portfolioClass[currentYear].getTotalCost() /
-                                                          portfolioClass[currentYear].getTotalMoney()) *
-                                                          investmentCapital);
+            totalcapitalgain = (investmentReturn * investmentCapital + investmentCapital - cost);
+            portGrowth = investmentReturn * investmentCapital + portGrowth - cost;
 
-            perfData[year].setInvestedCapital(perfData[year - 1].getInvestedCapital() + perfData[year - 1].getRecurInvestments());
-            perfData[year].setRecurInvestments(perfData[year-1].getRecurInvestments());
+            perfData[year].setTotalCapitalWithGains(totalcapitalgain);
 
-            perfData[year].setInvestmentReturns(portfolioClass[currentYear].getExpReturns());
+            perfData[year].setInvestedCapital(prevYearPerformanceData.getInvestedCapital() +
+                                                 prevYearPerformanceData.getRecurInvestments());
+            perfData[year].setRecurInvestments(prevYearPerformanceData.getRecurInvestments());
 
-            perfData[year].setInvestmentRisk(portfolioClass[currentYear].getTotalRisk());
+            perfData[year].setInvestmentReturns(investmentReturn);
 
-            portGrowth = portfolioClass[currentYear].getExpReturns() * investmentCapital + portGrowth -
-               (portfolioClass[currentYear].getTotalCost() / portfolioClass[currentYear].getTotalMoney() )*
-                  investmentCapital;
+            perfData[year].setInvestmentRisk(investmentRisk);
 
-            double upper1 = ( portfolioClass[currentYear].getTotalRisk() * investmentCapital ) + investmentCapital;
-            double upper2 = ( 2 * portfolioClass[currentYear].getTotalRisk() * investmentCapital ) + investmentCapital;
-            double lower1 = ( -1 * portfolioClass[currentYear].getTotalRisk() * investmentCapital ) + investmentCapital;
-            double lower2 = ( -2 * portfolioClass[currentYear].getTotalRisk() * investmentCapital) + investmentCapital;
+
+            double upper1 = ( investmentRisk * investmentCapital ) + investmentCapital;
+            double upper2 = ( 2 * investmentRisk * investmentCapital ) + investmentCapital;
+            double lower1 = ( -1 * investmentRisk * investmentCapital ) + investmentCapital;
+            double lower2 = ( -2 * investmentRisk * investmentCapital) + investmentCapital;
 
             perfData[year].setUpperBand1(upper1);
             perfData[year].setUpperBand2(upper2);
             perfData[year].setLowerBand1(lower1);
             perfData[year].setLowerBand2(lower2);
             perfData[year].setTotalGains(portGrowth);
-
          }
 
          return perfData;
@@ -152,6 +161,87 @@ public class PortfolioPerformance
          e.printStackTrace();
       }
       return null;
+   }
+
+   public void calcGrowthInfo(PerformanceData[] performancedata, int years, ProfileData pfdata)
+   {
+      int termyear = 0;
+
+      Double goalAmount, interestRate, actualInitialAmount, recurringAmount, calcRecurringAmount;
+      ArrayList<Double> growth = new ArrayList<Double>();
+      try
+      {
+         if (pfdata.getGoalData() == null)
+         {
+            return;
+         }
+
+         if (performancedata == null)
+         {
+            return;
+         }
+
+         termyear = (years < performancedata.length) ? years : performancedata.length;
+
+
+         if (pfdata.getGoalData().getGoalDesired() == null)
+         {
+            goalAmount = performancedata[termyear - 1].getLowerBand1();
+         }
+         else
+         {
+            goalAmount = pfdata.getGoalData().getGoalDesired();
+         }
+
+         interestRate = performancedata[0].getInvestmentReturns();
+         actualInitialAmount = performancedata[0].getInvestedCapital();
+         recurringAmount = performancedata[0].getRecurInvestments();
+
+         pfdata.getGoalData().setRisk(performancedata[0].getInvestmentRisk());
+         pfdata.getGoalData().setInterestrate(performancedata[0].getInvestmentReturns());
+         pfdata.getGoalData().setActualInitialAmount(actualInitialAmount);
+         pfdata.getGoalData().setActualRecurringAmount(recurringAmount);
+         pfdata.getGoalData().setTerm((double) termyear);
+
+
+         Double n1 = Math.pow((1.0 + interestRate), termyear);
+         Double n2 = actualInitialAmount * n1;
+         //Double n3 = goalAmount - n2;
+         Double n3 = goalAmount - performancedata[termyear - 1].getLowerBand2();
+         Double numerator = interestRate * n3;
+         Double d1 = Math.pow((1 + interestRate), (termyear + 1));
+         Double denominator = (d1 - 1 - interestRate);
+
+         calcRecurringAmount = numerator / denominator;
+
+         pfdata.getGoalData().setCalcRecurringAmount(calcRecurringAmount);
+
+         if (calcRecurringAmount <= 0 || calcRecurringAmount <= recurringAmount)
+         {
+            pfdata.getGoalData().setReachable(true);
+         }
+         else
+         {
+            pfdata.getGoalData().setReachable(false);
+         }
+      }
+      catch (Exception ex)
+      {
+
+      }
+   }
+
+   private void fillData(PerformanceData[] performancedata, int years, ProfileData pfdata) {
+      pfdata.getGoalData().setYearGoalAchieved(years);
+
+      if (years > performancedata.length - 1)
+         years = performancedata.length - 1;
+
+      for (int year = 0; year <= years; year++)
+      {
+         performancedata[year].setGoalsrequired(performancedata[year].getTotalCapitalWithGains());
+         pfdata.getGoalData().addGrowthData(performancedata[year].getTotalCapitalWithGains());
+      }
    }
 
    public double[][] assetPerformanceData(double invCapital, double yearlyReinvestments, AssetClass[] aamc) throws Exception

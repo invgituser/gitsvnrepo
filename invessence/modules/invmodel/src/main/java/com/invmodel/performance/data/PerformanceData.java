@@ -20,6 +20,7 @@ public class PerformanceData {
    double upperBand2;
    double lowerBand1;
    double lowerBand2;
+   double goalsrequired;
 
 
    public PerformanceData() {
@@ -135,5 +136,15 @@ public class PerformanceData {
 
     public void setTotalCapitalWithGains(double totalCapitalWithGains) {
            this.totalCapitalWithGains = totalCapitalWithGains;
-       }
+    }
+
+   public double getGoalsrequired()
+   {
+      return goalsrequired;
+   }
+
+   public void setGoalsrequired(double goalsrequired)
+   {
+      this.goalsrequired = goalsrequired;
+   }
 }

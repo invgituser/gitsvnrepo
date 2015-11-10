@@ -3,7 +3,7 @@ package invtest;
 import com.invmodel.asset.*;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.invdb.*;
-import com.invmodel.inputData.ProfileData;
+import com.invmodel.inputData.*;
 import com.invmodel.performance.*;
 import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.*;
@@ -71,7 +71,7 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.Mfs");
+      profileData.setTheme("0.Core");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
@@ -122,8 +122,8 @@ public class TestDistribution
       AssetClass[] aamc = assetAllocationModel.buildAllocation(profileData);
       profileData.setAssetData(aamc);
 
-      LinearOptimizer lpProc = LinearOptimizer.getInstance();
-      lpProc.process(1000L,profileData.getAdvisor(),profileData.getTheme(), profileData, aamc[0]);
+      // LinearOptimizer lpProc = LinearOptimizer.getInstance();
+      // lpProc.process(1000L,profileData.getAdvisor(),profileData.getTheme(), profileData, aamc[0]);
 
       PortfolioModel portfolioModel = new PortfolioModel();
       portfolioModel.setPortfolioOptimizer(poptimizer);
@@ -142,13 +142,14 @@ public class TestDistribution
       tax = "No";
 
       PortfolioPerformance portPerf = PortfolioPerformance.getInstance();
-
-      //PerformanceData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
+      PerformanceData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
+      portPerf.calcGrowthInfo(perfData, perfData.length, profileData);
 
       //Create a assetPerformanceFile
-      createAssetPerformanceFile(tax, pfclass, aamc, age);
+      //createAssetPerformanceFile(tax, pfclass, aamc, age);
 
-      createHoldingsFile(pfclass, tax, aamc, profileData);
+      //createHoldingsFile(pfclass, tax, aamc, profileData);
+      createPerformanceDataFile(perfData, profileData.getGoalData());
    }
 
    public static void createRandomNumbers()
@@ -439,6 +440,63 @@ public class TestDistribution
                            + sigmaError + ","
                            + df.format(pfclass[y].getUpperTotalMoney()) + ","
                            + df.format(pfclass[y].getLowerTotalMoney()));
+
+      }
+
+      writer.println();
+      writer.close();
+   }
+
+   public static void createPerformanceDataFile(PerformanceData[] pdata, GoalsData goalsData) throws Exception
+   {
+
+      String fileName;
+      PrintWriter writer = null;
+
+      fileName = "performanceData.csv";
+      writer = TestDistribution.getInstance().getFileHandle("No", fileName);
+
+      DecimalFormat df = new DecimalFormat("#.###");
+
+      int y = 0;
+      for (y = 0; y < pdata.length; y++)
+      {
+         if (y == 0)
+         {
+            writer.println("Year" + "," +
+                            "investmentRisk" + "," +
+                              "investmentReturns" + "," +
+                              "totalCost" + "," +
+                              "totalCapitalWithGains" +","+
+                              "investedCapital" + "," +
+                              "recurInvestments" + "," +
+                              "investmentYield" + "," +
+                              "totalGains" + "," +
+                              "upperBand1" + "," +
+                              "upperBand2" + "," +
+                              "lowerBand1" + "," +
+                              "lowerBand2" + "," +
+                              "goalsrequired" + "," +
+                              "NewRecurring"
+            );
+         }
+
+         writer.println(y + "," +
+                           df.format(pdata[y].getInvestmentRisk()) + "," +
+                           df.format(pdata[y].getInvestmentReturns()) + "," +
+                           df.format(pdata[y].getTotalCost()) + "," +
+                           df.format(pdata[y].getTotalCapitalWithGains()) + "," +
+                           df.format(pdata[y].getInvestedCapital()) + "," +
+                           df.format(pdata[y].getRecurInvestments()) + "," +
+                           df.format(pdata[y].getInvestmentYield()) + "," +
+                           df.format(pdata[y].getTotalGains()) + "," +
+                           df.format(pdata[y].getUpperBand1()) + "," +
+                           df.format(pdata[y].getUpperBand2()) + "," +
+                           df.format(pdata[y].getLowerBand1()) + "," +
+                           df.format(pdata[y].getLowerBand2()) + "," +
+                           df.format(goalsData.getGoalDesired()) + "," +
+                           df.format(goalsData.getCalcRecurringAmount())
+                        );
 
       }
 

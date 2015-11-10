@@ -135,7 +135,7 @@ public class InvModelDAO extends JdbcDaoSupport
                data.setRiskIndex(convert.getIntData(rs.get("riskIndex")));
                data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
                data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
-               data.setActualInvestment(convert.getIntData(rs.get("actualCapital")));
+               data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));

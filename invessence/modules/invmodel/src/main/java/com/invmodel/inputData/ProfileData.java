@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
+import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.data.Portfolio;
 import com.invmodel.riskCalculator.RiskIndex;
 
@@ -34,7 +35,8 @@ public class
    private Integer numOfAllocation = 1;
    private Integer numOfPortfolio = 1;
    private Integer initialInvestment;
-   private Integer actualInvestment;
+   private Double    actualInvestment;
+   private GoalsData goalData = new GoalsData();
    private Integer keepLiquid;
    private Integer recurringInvestment;
    private Integer experience = 2; // 1 = Experienced, 2 = inExperienced (See method strExpeience)
@@ -75,8 +77,9 @@ public class
    private Integer portfolioIndex = InvConst.PORTFOLIO_DEFAULT_POINT;
    private Integer meterRiskIndicator = 5;
    private ArrayList<Asset> editableAsset = new ArrayList<Asset>();
-   private AssetClass assetData[];
+   private AssetClass[] assetData;
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.
+   private PerformanceData[] performanceData;
 
    private String iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
 
@@ -370,15 +373,15 @@ public class
    }
 */
 
-   public Integer getDefaultInvestment()
+   public Double getDefaultInvestment()
    {
       if (actualInvestment != null && actualInvestment != 0)
          return actualInvestment;
       else {
          if (initialInvestment != null && initialInvestment != 0)
-            return initialInvestment;
+            return initialInvestment.doubleValue();
          else
-            return 100000;
+            return 100000.00;
       }
    }
 
@@ -393,14 +396,27 @@ public class
       this.initialInvestment = initialInvestment;
    }
 
-   public Integer getActualInvestment()
+   public Double getActualInvestment()
    {
       return actualInvestment;
    }
 
-   public void setActualInvestment(Integer actualInvestment)
+   public void setActualInvestment(Double actualInvestment)
    {
       this.actualInvestment = actualInvestment;
+   }
+
+   public GoalsData getGoalData()
+   {
+      if (goalData == null)
+         return new GoalsData();
+      else
+         return goalData;
+   }
+
+   public void setGoalData(GoalsData goalData)
+   {
+      this.goalData = goalData;
    }
 
    public Integer getKeepLiquid()
@@ -1000,6 +1016,16 @@ public class
       this.portfolioData = portfolioData;
    }
 
+   public PerformanceData[] getPerformanceData()
+   {
+      return performanceData;
+   }
+
+   public void setPerformanceData(PerformanceData[] performanceData)
+   {
+      this.performanceData = performanceData;
+   }
+
    public String getAgetip()
    {
       return "The variation in portfolio return is determined by asset allocation. " +
@@ -1214,6 +1240,7 @@ public class
       setTheme(InvConst.DEFAULT_THEME);
       setBasket(InvConst.DEFAULT_BASKET);
       setRiskAnswers(null);
+      goalData = new GoalsData();
 
       setStayInvested(1); // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
       setCharitableGoals(null);
@@ -1243,6 +1270,9 @@ public class
 
       if (getPortfolioData() != null)
          setPortfolioData(null);
+
+      if (getPerformanceData() != null)
+         setPerformanceData(null);
 
       setIblink("https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.");
 
