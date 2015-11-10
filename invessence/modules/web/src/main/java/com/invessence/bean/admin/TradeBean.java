@@ -39,7 +39,7 @@ public class TradeBean extends TradeClientData implements Serializable
    private TradeSummary selectedTradeSummary;
 
 
-   Menu menu = new Menu();
+   UIPortal menu = new UIPortal();
 
    @ManagedProperty("#{tradeDAO}")
    private TradeDAO tradeDAO;

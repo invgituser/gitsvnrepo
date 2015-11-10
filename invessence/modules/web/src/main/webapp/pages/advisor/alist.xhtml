@@ -5,6 +5,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template/common/invlayout.xhtml">
 
+    <f:metadata>
+        <f:viewParam name="Action" value="#{manageAdvisorBean.filteredClient}"/>
+        <f:event type="preRenderView" listener="#{manageAdvisorBean.preRenderView}"/>
+    </f:metadata>
+
     <ui:define name="content">
 
         <!-- BOX START -->
@@ -28,7 +33,7 @@
                                 <f:selectItem itemLabel="ALL" itemValue="" />
                                 <f:selectItem itemLabel="Pending" itemValue="P" />
                                 <f:selectItem itemLabel="Active" itemValue="A" />
-                                <p:ajax update="@form" listener="#{manageAdvisorBean.filterData}" />
+                                <p:ajax update="@form" listener="#{manageAdvisorBean.refreshPage}" />
                             </p:selectOneButton>
                         </div>
                     </h3>
@@ -36,14 +41,16 @@
                         <p:dataTable id="managedDataList" var="managedVar" widgetVar="managedTable"
                                      value="#{manageAdvisorBean.filteredDataList}">
 
+<!--
                            <f:facet name="header" style="text-align:right">
                                <p:outputPanel style="text-align:right">
                                    <h:outputText value="Search:" />
                                    <p:inputText id="globalFilter" onkeyup="PF('managedTable').filter()"
-                                                style="width:150px" placeholder="Enter keyword"/>
+                                                style="width:150px; margin-left: 5px" placeholder="Enter keyword"/>
                                    <p:commandButton value="Clear" onclick="PF('managedTable').clearFilters();"/>
                                </p:outputPanel>
                            </f:facet>
+-->
 
                             <p:column style="width:5%">
                                 <p:commandButton id="activeButton" rendered="#{managedVar.acctStatus == 'Active'}"

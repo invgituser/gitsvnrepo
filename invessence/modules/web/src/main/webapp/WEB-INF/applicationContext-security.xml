@@ -20,7 +20,7 @@
    <http pattern="/message.xhtml" security="none"/>
 
    <http pattern="/tryus.xhtml" security="none" />
-   <http pattern="/ForgotPassword.xhtml" security="none"/>
+   <http pattern="/backup/ForgotPassword.xhtml" security="none"/>
 
    <http pattern="/css/**" security="none"/>
    <http pattern="/js/**" security="none"/>

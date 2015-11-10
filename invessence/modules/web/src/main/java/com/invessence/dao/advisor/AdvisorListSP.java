@@ -16,22 +16,31 @@ public class AdvisorListSP extends StoredProcedure
    {
       super(datasource, sp_name);
       switch (mode) {
-         case 0:
+         case 0: // sel_ClientProfileData2
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
-         case 1:
+         case 1: // sel_AdvisorAcctProfile
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
-         case 2:
+         case 2: // sel_AdvisorBaskets
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_strategy", Types.VARCHAR));
             break;
-         case 3:
+         case 3: // sel_asset_alloc
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
-         case 4:
+         case 4: // sel_ExcludedSubclass
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
+         case 5: // sel_advisorDashBoard
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            break;
+         case 6: // advisor_sel_assetclass
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            break;
+         case 7: // advisor_sel_primeassetclass
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
          default:
       }
@@ -77,4 +86,23 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map collectDashBoardData(Long logonid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      return super.execute(inputMap);
+   }
+
+   public Map collectAssetClass(Long logonid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      return super.execute(inputMap);
+   }
+   public Map collectPrimeAssetClass(Long logonid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      return super.execute(inputMap);
+   }
 }

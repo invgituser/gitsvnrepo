@@ -84,6 +84,11 @@
 .FontRalewayRegular{font-family: 'ralewayregular';}
 .FontRalewayLight{font-family: 'ralewaylight';}
 
+.FontThemeBold{font-family: 'ralewaybold';}
+.FontThemeSemiBold{font-family: 'ralewaysemibold';}
+.FontThemeMedium{font-family: 'ralewaymedium';}
+.FontThemeRegular{font-family: 'ralewayregular';}
+.FontThemeLight{font-family: 'ralewaylight';}
 
 /*BODY*/
 body{margin:0px; background-image:url("#{resource['spark-layout:images/background.png']}"); background-repeat:repeat; background-position:center; background-color:#C3CCD5; 

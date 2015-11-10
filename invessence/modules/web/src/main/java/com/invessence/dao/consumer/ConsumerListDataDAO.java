@@ -9,6 +9,7 @@ import com.invessence.bean.consumer.ClientBean;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.AdvisorListSP;
 import com.invessence.data.common.CustomerData;
+import com.invessence.data.consumer.ReportData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerListDataDAO")
@@ -62,7 +63,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setRiskIndex(convert.getIntData(rs.get("riskIndex")));
             data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
             data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
-            data.setActualInvestment(convert.getIntData(rs.get("actualCapital")));
+            data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
             data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
             data.setObjective(convert.getIntData(rs.get("longTermGoal")));
             data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
@@ -185,7 +186,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setRiskIndex(convert.getIntData(rs.get("riskIndex")));
                data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
                data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
-               data.setActualInvestment(convert.getIntData(rs.get("actualCapital")));
+               data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
@@ -366,6 +367,44 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       }
       return info;
 
+   }
+
+
+   public ArrayList<ReportData> loadReports(Long logonid, String fromDate, String toDate) {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_reports",4);
+      Map outMap = sp.loadReports(logonid, fromDate, toDate);
+      ArrayList<ReportData> reports = new ArrayList<ReportData>();
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         if (rows != null) {
+            int i = 0;
+            String filename;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               ReportData rdata = new ReportData();
+               rdata.setAcctnum(convert.getStrData(rs.get("IB_acctnum")));
+               rdata.setBusinessdate(convert.getStrData(rs.get("reportDate")));
+               filename = convert.getStrData(rs.get("filename"));
+               rdata.setFilename(filename);
+               rdata.setReportName(convert.getStrData(rs.get("reportName")));
+               rdata.setSource(convert.getStrData(rs.get("src")));
+               if (filename.contains(".pdf")) {
+                  rdata.setDownloadReport(true);
+                  rdata.setViewReport(false);
+               }
+               else {
+                  rdata.setViewReport(true);
+                  rdata.setDownloadReport(false);
+               }
+               reports.add(rdata);
+               i++;
+            }
+         }
+      }
+      return reports;
    }
 
 

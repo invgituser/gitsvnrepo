@@ -5,6 +5,7 @@ import java.util.*;
 
 import com.invessence.converter.JavaUtil;
 import com.invmodel.asset.data.*;
+import com.invmodel.inputData.*;
 import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.data.Portfolio;
 import org.primefaces.model.chart.*;
@@ -27,6 +28,7 @@ public class Charts implements Serializable
    private PieChartModel pieChart;
    private MeterGaugeChartModel meterGuage;
    private BarChartModel barChart;
+   private LineChartModel goalChart;
 
    public Charts()
    {
@@ -34,6 +36,7 @@ public class Charts implements Serializable
       lineChart = new LineChartModel();
       createDefaultMeterGuage();
       barChart = new BarChartModel();
+      goalChart = new LineChartModel();
    }
 
    public CartesianChartModel getLineChart()
@@ -94,6 +97,16 @@ public class Charts implements Serializable
    public BarChartModel getBarChart()
    {
       return barChart;
+   }
+
+   public LineChartModel getGoalChart()
+   {
+      return goalChart;
+   }
+
+   public void setGoalChart(LineChartModel goalChart)
+   {
+      this.goalChart = goalChart;
    }
 
    public void setMeterGuage(Integer pointer)
@@ -236,6 +249,212 @@ public class Charts implements Serializable
          // yAxis.setMax(maxGrowth);
          yAxis.setTickFormat("$%'d");
          lineChart.setExtender("line_extensions");
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void createGoalChart(PerformanceData[] performanceData, GoalsData goalData)
+   {
+      Integer year;
+      Integer noOfYlabels = 0;
+      Integer totalYlabels = 0;
+      Integer yIncrement = 1;
+      Integer MAXPOINTONGRAPH = 30;
+      Long moneyInvested;
+      Long money;
+      Double dividingFactor = 1.0;
+      Boolean isthereagoal = (goalData != null) ? true: false;
+
+      lineChart = new LineChartModel();
+      try
+      {
+         if (performanceData == null)
+            return;
+
+         if (performanceData.length < 2)
+            return;
+
+
+         // LineChartSeries totalGrowth = new LineChartSeries();
+         LineChartSeries totalInvested = new LineChartSeries();
+         // LineChartSeries lower1 = new LineChartSeries();
+         LineChartSeries lower2 = new LineChartSeries();
+         // LineChartSeries upper1 = new LineChartSeries();
+         LineChartSeries upper2 = new LineChartSeries();
+         LineChartSeries goalline = new LineChartSeries();
+
+
+         //growth.setLabel("Growth");
+         // totalGrowth.setLabel("Growth");
+         totalInvested.setLabel("Invested");
+         // lower1.setLabel("Lower1");
+         lower2.setLabel("Lower2");
+         //upper1.setLabel("Upper1");
+         upper2.setLabel("Upper2");
+         goalline.setLabel("Goal");
+
+         yIncrement = (int) (((double) performanceData.length) / ((double) MAXPOINTONGRAPH));
+         yIncrement = yIncrement + 1;  // offset by 1
+         noOfYlabels = (int) (((double) performanceData.length) / ((double) yIncrement)) % MAXPOINTONGRAPH;
+         // Mod returns 0 at its interval.  So on 30, we want to rotate it 90.
+         noOfYlabels = (noOfYlabels == 0) ? performanceData.length : noOfYlabels;
+         if (noOfYlabels <= 10)
+         {
+            legendXrotation = 15;
+         }
+         else if (noOfYlabels < 15)
+         {
+            legendXrotation = 30;
+         }
+         else
+         {
+            legendXrotation = 90;
+         }
+
+         int y = 0;
+         totalYlabels = performanceData.length - 1;
+         Calendar cal = Calendar.getInstance();
+         calendarYear = cal.get(cal.YEAR);
+         minYearPoint = calendarYear;
+         maxYearPoint = minYearPoint + totalYlabels;
+         Integer lowervalue =  (int) ((double) performanceData[0].getLowerBand2() * .10);
+         minGrowth = ((int) performanceData[0].getLowerBand2() - lowervalue < 0) ? 0 : (int) performanceData[0].getLowerBand2() - lowervalue;
+         maxGrowth = 0;
+         while (y <= totalYlabels)
+         {
+            year = calendarYear + y;
+            // moneyInvested = Math.round(performanceData[y].getInvestedCapital() / dividingFactor);
+            money = Math.round(performanceData[y].getUpperBand2() / dividingFactor);
+            // System.out.println("Year:" + year.toString() + ", Value=" + yearlyGrowthData[y][2]);
+            maxGrowth = (maxGrowth > money.intValue()) ? maxGrowth : money.intValue();
+            // growth.set(year, portfolio[y].getTotalCapitalGrowth());
+            // totalGrowth.set(year.toString(), performanceData[y].getTotalCapitalWithGains()/dividingFactor);
+            // totalInvested.set(year.toString(), moneyInvested);
+            // Double lowerMoney = (portfolio[y].getLowerTotalMoney() < moneyInvested) ? moneyInvested : portfolio[y].getLowerTotalMoney();
+            //lower1.set(year.toString(),performanceData[y].getLowerBand1()/dividingFactor);
+            lower2.set(year.toString(),performanceData[y].getLowerBand2()/dividingFactor);
+            //upper1.set(year.toString(),performanceData[y].getUpperBand1()/dividingFactor);
+            upper2.set(year.toString(),performanceData[y].getUpperBand2()/dividingFactor);
+            if (isthereagoal) {
+               goalline.set(year.toString(), goalData.getGoalDesired());
+            }
+            // If incrementing anything other then 1, then make sure that last year is displayed.
+            if (y == totalYlabels)
+            {
+               y++;  // If last point is plotted, then quit.
+            }
+            else
+            {
+               y = ((y + yIncrement) > totalYlabels) ? y = totalYlabels : y + yIncrement;
+            }
+         }
+
+         Integer digits = maxGrowth.toString().length();
+         Double scale = Math.pow(10, digits - 1);
+
+         maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
+         // lineModel.addSeries(growth);
+         //lineChart.addSeries(totalGrowth);
+         // lineChart.addSeries(totalInvested);
+         lineChart.addSeries(lower2);
+         //lineChart.addSeries(lower1);
+         //lineChart.addSeries(upper1);
+         lineChart.addSeries(upper2);
+         if (isthereagoal) {
+            lineChart.addSeries(goalline);
+            //lineChart.setSeriesColors("00FF00,7C8686,0000FF,0000FF,7C8686,FF0000");
+            lineChart.setSeriesColors("009ABB,009ABB,BB2100");
+         }
+         else {
+            //lineChart.setSeriesColors("00FF00,7C8686,0000FF,0000FF,7C8686");
+            lineChart.setSeriesColors("009ABB,009ABB");
+         }
+         lineChart.setShowPointLabels(true);
+         lineChart.setMouseoverHighlight(false);
+         lineChart.setShowDatatip(false);
+
+         Axis xAxis = lineChart.getAxis(AxisType.X);
+         xAxis.setLabel("Years");
+         xAxis.setMin(calendarYear);
+         xAxis.setMax(maxYearPoint);
+         xAxis.setTickFormat("%d");
+         // xAxis.setTickInterval("1");
+         // xAxis.setTickAngle(90);
+
+         Axis yAxis = lineChart.getAxis(AxisType.Y);
+         //yAxis.setLabel("Projection");
+         // yAxis.setMin(minGrowth);
+         // yAxis.setMax(maxGrowth);
+         yAxis.setTickFormat("$%'d");
+         lineChart.setExtender("line_extensions");
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void createGoalChart(GoalsData goalData)
+   {
+      Integer year;
+
+      if (goalData == null) {
+         goalChart = null;
+      }
+
+      Boolean isthereagoal = (goalData != null) ? true: false;
+
+      goalChart = new LineChartModel();
+      try
+      {
+         LineChartSeries lower = new LineChartSeries();
+         LineChartSeries upper = new LineChartSeries();
+         LineChartSeries goalpotential = new LineChartSeries();
+
+         int y = 0;
+         Calendar cal = Calendar.getInstance();
+         calendarYear = cal.get(cal.YEAR);
+         minYearPoint = calendarYear;
+         maxYearPoint = minYearPoint + goalData.getTerm().intValue();
+         Integer lowervalue =  (int) (goalData.getLowerGrowth().get(0) * .10);
+         minGrowth =(int) ((goalData.getLowerGrowth().get(0) - lowervalue < 0.0) ? 0.0 : goalData.getLowerGrowth().get(0) - lowervalue);
+         maxGrowth = 0;
+         while (y < goalData.getTerm().intValue())
+         {
+            year = calendarYear + y;
+            lower.set(year.toString(),goalData.getLowerGrowth().get(y));
+            upper.set(year.toString(),goalData.getUpperGrowth().get(y));
+            // If incrementing anything other then 1, then make sure that last year is displayed.
+            goalpotential.set(year.toString(),goalData.getGoalDesired());
+
+            y++;
+         }
+
+         Integer digits = maxGrowth.toString().length();
+         Double scale = Math.pow(10, digits - 1);
+
+         maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
+         goalChart.addSeries(lower);
+         goalChart.addSeries(upper);
+         goalChart.addSeries(goalpotential);
+         goalChart.setSeriesColors("0000FF,0000FF,FF0000");
+
+         goalChart.setShowPointLabels(true);
+         goalChart.setMouseoverHighlight(false);
+         goalChart.setShowDatatip(false);
+
+         Axis xAxis = goalChart.getAxis(AxisType.X);
+         xAxis.setLabel("Years");
+         xAxis.setMin(calendarYear);
+         xAxis.setMax(maxYearPoint);
+         xAxis.setTickFormat("%d");
+
+         Axis yAxis = goalChart.getAxis(AxisType.Y);
+         yAxis.setTickFormat("$%'d");
+         goalChart.setExtender("goals_extensions");
       }
       catch (Exception ex)
       {

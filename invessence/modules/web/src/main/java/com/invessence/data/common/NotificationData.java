@@ -1,5 +1,8 @@
 package com.invessence.data.common;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Prashant
@@ -19,6 +22,9 @@ public class NotificationData
    String businessdate;
    String message;
    String color;
+   String javaDate;
+   final String JAVA_FORMAT = "EEE MMM dd HH:mm:ss z yyyy";
+   final String SQL_FORMAT = "yyyy/MM/dd HH:mm";
 
    public NotificationData()
    {
@@ -123,6 +129,42 @@ public class NotificationData
       this.businessdate = businessdate;
    }
 
+   public String getJavaDate()
+   {
+      return javaDate;
+/*
+      try {
+      if (businessdate != null) {
+         SimpleDateFormat sdf = new SimpleDateFormat(SQL_FORMAT);
+         Date d = sdf.parse(businessdate);
+         sdf.applyPattern(JAVA_FORMAT);
+         javaDate = sdf.format(d);
+         return javaDate;
+      }
+      else
+         return null;
+      }
+      catch (Exception ex) {
+
+      }
+      return null;
+*/
+   }
+
+   public void setJavaDate(String javaDate)
+   {
+      this.javaDate = javaDate;
+      try {
+         SimpleDateFormat sdf = new SimpleDateFormat(JAVA_FORMAT);
+         Date d = sdf.parse(javaDate);
+         sdf.applyPattern(SQL_FORMAT);
+         businessdate = sdf.format(d);
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
    public String getMessage()
    {
       return message;
@@ -135,7 +177,7 @@ public class NotificationData
 
    public Boolean isError() {
       if (noticetype != null)
-         if (noticetype.toUpperCase().startsWith("E"))
+         if (noticetype.toUpperCase().startsWith("E") || noticetype.toUpperCase().startsWith("1"))
             return true;
 
       return false;

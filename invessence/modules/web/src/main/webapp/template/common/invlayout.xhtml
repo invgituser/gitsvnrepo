@@ -18,19 +18,12 @@
         <ui:insert name="head" />
     </h:head>
 
-    <f:metadata>
-        <f:viewParam name="cid" value="#{menu.cid}"/>
-        <f:event type="preRenderView" listener="#{menu.preRenderView}"/>
-    </f:metadata>
-
-    <h:body>    
+    <h:body>
         <div id="menu-mask"></div>
 
         <ui:include src="/template/common/invtopbar.xhtml" />
 
-        <ui:fragment rendered="#{menu.isUserLoggedInMenu}">
             <ui:include src="/template/common/invlayoutmenu.xhtml" />
-        </ui:fragment>
 
         <div id="layout-portlets-cover">
             <ui:insert name="content">
@@ -38,7 +31,7 @@
             </ui:insert>
 
             <div class="layout-portlets-box TexAlCenter">
-                <span class="Fs14 gray FontRalewayRegular">Invessence  |   All rights reserved.</span>
+                <span class="Fs14 gray FontThemeRegular">Invessence  |   All rights reserved.</span>
             </div>
         </div>
 
@@ -52,10 +45,12 @@
             </f:facet>
         </p:ajaxStatus>
 
-        <h:outputStylesheet name="css/core-layout.css" library="spark-layout" />
-        <h:outputStylesheet name="css/font-awesome.css" library="spark-layout" />
-        <h:outputStylesheet name="css/animate.css" library="spark-layout" />
-        <h:outputStylesheet name="css/spark-layout.css" library="spark-layout" />
+        <h:outputStylesheet name="css/core-layout.css" library="modena-layout" />
+        <h:outputStylesheet name="css/font-awesome.css" library="modena-layout" />
+        <h:outputStylesheet name="css/animate.css" library="modena-layout" />
+        <h:outputStylesheet name="css/spark-layout.css" library="modena-layout" />
+        <h:outputStylesheet name="css/animate.css" library="modena-layout" />
+        <h:outputStylesheet name="css/font-modena.css" library="modena-layout" />
         <h:outputStylesheet name="css/invessence.css" library="invessence" />
     </h:body>
 

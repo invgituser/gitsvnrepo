@@ -71,7 +71,7 @@ function line_extensions()
     this.cfg.fillBetween = {
         series1: 0,
         series2: 1,
-        color: "#7C8686",
+        color: "#CFD449",
         baseSeries: 0,
         fill: true
     };

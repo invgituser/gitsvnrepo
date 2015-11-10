@@ -1,6 +1,7 @@
 package com.invessence.bean.consumer;
 
 import java.io.Serializable;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -8,6 +9,7 @@ import com.invessence.constant.USMaps;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.CustomerData;
+import com.invessence.data.consumer.CTO.InvestorData;
 import com.invessence.util.EmailMessage;
 import com.invessence.util.Impl.PagesImpl;
 
@@ -22,7 +24,7 @@ import com.invessence.util.Impl.PagesImpl;
 
 @ManagedBean(name = "ctobean")
 @SessionScoped
-public class CTOBean extends CustomerData implements Serializable
+public class CTOBean extends InvestorData implements Serializable
 {
    private Long  beanAcctnum;
    private PagesImpl pagemanager;
@@ -69,12 +71,22 @@ public class CTOBean extends CustomerData implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            pagemanager = new PagesImpl(3);
+            pagemanager = new PagesImpl(6);
          }
       }
       catch (Exception ex) {
          ex.printStackTrace();
       }
+   }
+
+   public void prevPage()
+   {
+      pagemanager.prevPage();
+   }
+
+   public void nextPage()
+   {
+      pagemanager.nextPage();
    }
 
 

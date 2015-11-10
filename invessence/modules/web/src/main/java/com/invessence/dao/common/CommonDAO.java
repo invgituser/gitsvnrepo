@@ -26,7 +26,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             int i = 0;
-            Integer actualCapital = 0;
+            Double actualCapital = 0.0;
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
@@ -46,11 +46,11 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                // data.setAcctstatus(acctStatus);
                if (acctStatus.equalsIgnoreCase("pending")) {
                   data.setManaged(false);
-                  actualCapital = convert.getIntData(rs.get("initialInvestment"));
+                  actualCapital = convert.getDoubleData(rs.get("initialInvestment"));
                }
                else {
                   data.setManaged(true);
-                  actualCapital = convert.getIntData(rs.get("actualCapital"));
+                  actualCapital = convert.getDoubleData(rs.get("actualCapital"));
                   if (actualCapital != null && actualCapital > 0) {
                      data.setActualInvestment(actualCapital);
                      data.setManagedtotalMoney(convert.getDoubleData(rs.get("actualCapital")));
@@ -119,7 +119,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             int i = 0;
-            Integer actualCapital = 0;
+            Double actualCapital = 0.0;
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
@@ -141,7 +141,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                }
                else {
                   data.setManaged(true);
-                  actualCapital = convert.getIntData(rs.get("actualCapital"));
+                  actualCapital = convert.getDoubleData(rs.get("actualCapital"));
                   if (actualCapital != null && actualCapital > 0) {
                      data.setActualInvestment(actualCapital);
                      data.setManagedtotalMoney(convert.getDoubleData(rs.get("actualCapital")));
@@ -222,14 +222,14 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
 
    }
 
-   public ArrayList<NotificationData> getNotification(Long logonid, String status)
+   public ArrayList<NotificationData> getNotification(Long logonid, String messageType, String status)
    {
       DataSource ds = getDataSource();
 
       CommonSP sp = new CommonSP(ds, "sel_notification", 2);
       ArrayList<NotificationData> notificationList = new ArrayList<NotificationData>();
 
-      Map outMap = sp.getNotification(logonid, status);
+      Map outMap = sp.getNotification(logonid, messageType, status);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -269,6 +269,36 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
       sp.saveNotice(data);
    }
 
+   public Map<String, Integer> getNotificationInfo(Long logonid) {
+      if (logonid == null)
+         return null;
 
+      DataSource ds = getDataSource();
+      CommonSP sp = new CommonSP(ds, "sel_notificationInfo",99);
+      Map outMap = sp.getNotificationInfo(logonid);
+      Map<String, Integer> statInfo = new HashMap<String, Integer>();
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  statInfo.put(convert.getStrData(rs.get("src")),
+                               convert.getIntData(rs.get("value")));
+                  i++;
+               }
+            }
+         }
+         return statInfo;
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+      return null;
+   }
 
 }

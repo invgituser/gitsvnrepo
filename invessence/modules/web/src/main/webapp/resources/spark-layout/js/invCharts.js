@@ -57,13 +57,13 @@ function line_extensions()
             show: false,
             color: 'transparent',
             shadow: false },
-        tickOptions : {
+        tickOptions: {
             showGridline: false
         }
     };
 
     this.cfg.axesDefaults = {
-        tickOptions : {
+        tickOptions: {
             showGridline: false
         }
     };
@@ -75,6 +75,41 @@ function line_extensions()
         baseSeries: 0,
         fill: true
     };
+}
+
+function goals_extensions()
+{
+    this.cfg.grid = {
+        backgroundColor: 'transparent',
+        drawBorder: false,
+        shadow: false
+    };
+
+    this.cfg.seriesDefaults = {
+        showMarker: false,
+        markerOptions: {
+            show: false,
+            color: 'transparent',
+            shadow: false },
+        tickOptions: {
+            showGridline: false
+        }
+    };
+
+    this.cfg.axesDefaults = {
+        tickOptions: {
+            showGridline: false
+        }
+    };
+
+    this.cfg.fillBetween = {
+        series1: 0,
+        series2: 1,
+        color: "#00FF00",
+        baseSeries: 0,
+        fill: true
+    };
+
 }
 
 

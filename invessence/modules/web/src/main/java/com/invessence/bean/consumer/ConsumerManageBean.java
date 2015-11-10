@@ -32,11 +32,11 @@ public class ConsumerManageBean implements Serializable
       this.webutil = webutil;
    }
 
-   @ManagedProperty("#{menu}")
-   private Menu menu;
-   public void setMenu(Menu menu)
+   @ManagedProperty("#{uiportal}")
+   private UIPortal uiPortal;
+   public void setUiPortal(UIPortal uiPortal)
    {
-      this.menu = menu;
+      this.uiPortal = uiPortal;
    }
 
    private List<CustomerData> manageAccountList;
@@ -365,7 +365,7 @@ public class ConsumerManageBean implements Serializable
          }
 
 
-         menu.doMenuAction(whichXML);
+         uiPortal.doMenuAction(whichXML);
       }
       catch (Exception ex)
       {

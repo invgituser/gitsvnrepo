@@ -1,0 +1,86 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/invlayout.xhtml">
+
+<f:metadata>
+    <f:viewParam name="acct" value="#{cepb.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{cepb.preRenderView}"/>
+</f:metadata>
+
+<ui:define name="content">
+<h:outputScript name="js/invCharts.js" library="spark-layout"/>
+
+<!-- BOX START -->
+<h:form id="ceForm">
+<p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
+
+<div class="layout-portlets-box">
+    <p:panel id="goalsArea" style="border: 0px">
+
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Wid30 Responsive100 Fleft">
+                    <h3 class="BigTopic">
+                        Goal Calculator
+                    </h3>
+                </div>
+                <p:panel id="goalHeaderArea" styleClass="Wid60 Fright" style="border: 0px"
+                         rendered="#{cepb.goalData.goaldesired != null}">
+                    <div class="Container100 Responsive100">
+                        <div class="Container100">
+                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10">
+                                <div class="ContainerIndent">
+                                    <div class="EmptyBox5"></div>
+                                    <span class="Fs14 DispBlock gray">Investment Risk</span>
+                               <span class="Fs24 DispBlock red">
+                                   <h:outputText value="#{cepb.totalRisk}">
+                                       <f:convertNumber pattern="##0.00%"/>
+                                   </h:outputText>
+                                   </span>
+
+                                    <div class="EmptyBox5"></div>
+                                </div>
+                            </div>
+
+                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10">
+                                <div class="ContainerIndent">
+                                    <div class="EmptyBox5"></div>
+                                    <span class="Fs14 DispBlock gray">Expected Return</span>
+                               <span class="Fs24 DispBlock invessenceblue">
+                                    <h:outputText value="#{cepb.totalExpectedReturns}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                   </span>
+
+                                    <div class="EmptyBox5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+        </div>
+
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
+                <p:outputPanel deferred="true">
+                    <ui:include src="/pages/consumer/addon/cGoal.xhtml"/>
+                </p:outputPanel>
+            </div>
+        </div>
+
+    </p:panel>
+
+</div>
+<!-- BOX END -->
+
+</h:form>
+
+
+</ui:define>
+
+</ui:composition>

@@ -11,14 +11,12 @@ import com.invessence.constant.Const;
  */
 public class UIProfile
 {
-   Boolean prodmode;
    String cid;
    String advisor;
    String companyname;
    String homepage;
    String securehomepage;
    String logo;
-   String logosize;
    String logolib;
    String mainemail;
    String supportemail;
@@ -34,19 +32,26 @@ public class UIProfile
    {
    }
 
-   public UIProfile(String webmode, String cid, String advisor, String companyname,
+   public UIProfile(String cid, String advisor, String companyname,
                     String homepage, String securehomepage,
-                    String logo, String logosize, String logolib,
+                    String logo, String logolib,
                     String mainemail, String supportemail,
                     String mainphone, String supportphone,
                     String copyright, String forwardURL)
    {
-      resetAllInfo( webmode,  cid,  advisor,  companyname,
-                    homepage,  securehomepage,
-                    logo,  logosize,  logolib,
-                    mainemail,  supportemail,
-                    mainphone,  supportphone,
-                    copyright,  forwardURL);
+      this.cid = cid;
+      this.advisor = advisor;
+      this.companyname = companyname;
+      this.homepage = homepage;
+      this.securehomepage = securehomepage;
+      this.logo = logo;
+      this.logolib = logolib;
+      this.mainemail = mainemail;
+      this.supportemail = supportemail;
+      this.mainphone = mainphone;
+      this.supportphone = supportphone;
+      this.copyright = copyright;
+      this.forwardURL = forwardURL;
 
 
    }
@@ -103,14 +108,24 @@ public class UIProfile
       this.logo = logo;
    }
 
-   public String getLogosize()
+   public String getHomepage()
    {
-      return logosize;
+      return homepage;
    }
 
-   public void setLogosize(String logosize)
+   public void setHomepage(String homepage)
    {
-      this.logosize = logosize;
+      this.homepage = homepage;
+   }
+
+   public String getSecurehomepage()
+   {
+      return securehomepage;
+   }
+
+   public void setSecurehomepage(String securehomepage)
+   {
+      this.securehomepage = securehomepage;
    }
 
    public String getLogolib()
@@ -221,41 +236,30 @@ public class UIProfile
       this.themelib = themelib;
    }
 
-   public void resetAllInfo(String webmode, String cid, String advisor, String companyname,
+   public void resetAllInfo(String cid, String advisor, String companyname,
                             String homepage, String securehomepage,
-                            String logo, String logosize, String logolib,
+                            String logo, String logolib,
                             String mainemail, String supportemail,
                             String mainphone, String supportphone,
                             String copyright, String forwardURL)
    {
-      if (webmode.toUpperCase().equals("PROD"))
-         prodmode = true;
-      else
-         prodmode = false;
-
-      if (!prodmode || this.cid == null) {
-         this.cid = cid;
-         this.advisor = advisor;
-         this.companyname = companyname;
-         this.homepage = homepage;
-         this.securehomepage = securehomepage;
-         this.logo = logo;
-         this.logosize = logosize;
-         this.logolib = logolib;
-         this.mainemail = mainemail;
-         this.supportemail = supportemail;
-         this.mainphone = mainphone;
-         this.supportphone = supportphone;
-         this.copyright = copyright;
-         this.forwardURL = forwardURL;
-      }
+      this.cid = cid;
+      this.advisor = advisor;
+      this.companyname = companyname;
+      this.homepage = homepage;
+      this.securehomepage = securehomepage;
+      this.logo = logo;
+      this.logolib = logolib;
+      this.mainemail = mainemail;
+      this.supportemail = supportemail;
+      this.mainphone = mainphone;
+      this.supportphone = supportphone;
+      this.copyright = copyright;
+      this.forwardURL = forwardURL;
    }
 
 
    public void resetTheme(String theme) {
-      if (prodmode)
-         return;
-
       if (theme != null) {
          theme = theme.trim();
          this.theme = theme;
@@ -273,9 +277,6 @@ public class UIProfile
    }
 
    public void resetTheme(String theme, String library) {
-      if (prodmode)
-         return;
-
       if (theme != null) {
          theme = theme.trim();
          this.theme = theme;
@@ -294,5 +295,6 @@ public class UIProfile
       }
 
    }
+
 
 }

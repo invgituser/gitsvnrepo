@@ -8,12 +8,12 @@
 
     <div id="layout-topbar" class="ShadowGray">
         <div id="layout-topbar-indent">
-            <a href="#{menu.defaultHome}">
-                <h:graphicImage name="#{menu.logo}" alt="#{menu.logoAlt}"
+            <a href="#{uiportal.defaultHome}">
+                <h:graphicImage name="#{uiportal.logo}" alt="#{uiportal.logoAlt}"
                                 styleClass="Fleft" library="invessence" id="logo" class="Fleft"/>
             </a>
 
-            <ui:fragment rendered="#{menu.isUserLoggedInMenu}">
+            <ui:fragment rendered="#{uiportal.isUserLoggedInMenu}">
                 <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>
                 <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Top Menu</a>
 
@@ -23,17 +23,17 @@
                     </li>
                     <li class="fa fa-ellipsis-v menu-separator"></li>
                     <li>
-                        <ui:fragment rendered="#{menu.hasAccessMenu('ADVISOR')}">
-                            <a class="Animated05 CursPointer"><i class="fa fa-user"></i> #{menu.welcome} <i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i></a>
+                        <ui:fragment rendered="#{uiportal.hasAccessMenu('ADVISOR')}">
+                            <a class="Animated05 CursPointer"><i class="fa fa-user"></i> #{uiportal.welcome} <i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i></a>
                             <ul style="width:175px; margin-left:-10px;" class="Animated03 submenu">
-                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{menu.username}</span></a></li>
+                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiportal.username}</span></a></li>
                                 <li><a href="/pages/common/myprofile.xhtml" class="Animated05"><i class="fa fa-dashboard"></i> My Profile</a></li>
                             </ul>
                         </ui:fragment>
-                        <ui:fragment rendered="#{! menu.hasAccessMenu('ADVISOR')}">
-                            <a class="Animated05 CursPointer"><i class="fa fa-user"></i> #{menu.welcome} <i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i></a>
+                        <ui:fragment rendered="#{! uiportal.hasAccessMenu('ADVISOR')}">
+                            <a class="Animated05 CursPointer"><i class="fa fa-user"></i> #{uiportal.welcome} <i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i></a>
                             <ul style="width:175px; margin-left:-10px;" class="Animated03 submenu">
-                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{menu.username}</span></a></li>
+                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiportal.username}</span></a></li>
                                 <li><a href="/pages/common/myprofile.xhtml" class="Animated05"><i class="fa fa-dashboard"></i> My Profile</a></li>
                             </ul>
                         </ui:fragment>

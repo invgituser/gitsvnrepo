@@ -120,7 +120,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setConvertRiskIndex(convert.getIntData(rs.get("riskIndex")));
                data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
                data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
-               data.setActualInvestment(convert.getIntData(rs.get("actualCapital")));
+               data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
                data.setObjective(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
@@ -247,7 +247,126 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
    }
 
    public void reloadAdvisorDashBoard(AdvisorDashData addata) {
+      if (addata == null)
+         return;
 
+      DataSource ds = getDataSource();
+      AdvisorListSP sp = new AdvisorListSP(ds, "sel_advisorDashBoard",5);
+      Map outMap = sp.collectDashBoardData(addata.getLogonid());
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  addata.addSalesInfo(convert.getStrData(rs.get("src")),
+                                      convert.getIntData(rs.get("value")));
+                  i++;
+               }
+            }
+
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-2");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  addata.addSecurityInfo(convert.getStrData(rs.get("ticker")),
+                                         convert.getDoubleData(rs.get("close_price")));
+                  i++;
+               }
+            }
+
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
    }
 
+   public void collectAssetClass(Long logonid, AdvisorTheme advisorTheme) {
+      if (advisorTheme == null)
+         return;
+
+      advisorTheme.getAssetdataMap().clear();
+      DataSource ds = getDataSource();
+      AdvisorListSP sp = new AdvisorListSP(ds, "advisor_sel_assetclass",6);
+      Map outMap = sp.collectAssetClass(logonid);
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  advisorTheme.addAssetData(
+                     // convert.getStrData(rs.get("advisor")),
+                     convert.getStrData(rs.get("theme")), // theme
+                     convert.getStrData(rs.get("themename")), // themename
+                     convert.getStrData(rs.get("status")), // status
+                     convert.getStrData(rs.get("assetclass")), // assetclass
+                     convert.getStrData(rs.get("displayName")), // displayName
+                     convert.getStrData(rs.get("ticker")), // indexTicker
+                     convert.getIntData(rs.get("sortorder")), // sortorder
+                     convert.getDoubleData(rs.get("lowerBound")),  //  lowerBound
+                     convert.getDoubleData(rs.get("upperBound")),   //  upperbound
+                     convert.getDoubleData(rs.get("endAllocation")), //  endAllocation
+                     convert.getDoubleData(rs.get("riskAdjustment")),//  riskAdjustment
+                     convert.getStrData(rs.get("color"))  // color
+                  );
+                  i++;
+               }
+            }
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
+   public void collectPrimeAssetClass(Long logonid, AdvisorTheme advisorTheme) {
+      if (advisorTheme == null)
+         return;
+
+      advisorTheme.getPrimeassetdataMap().clear();
+      DataSource ds = getDataSource();
+      AdvisorListSP sp = new AdvisorListSP(ds, "advisor_sel_primeassetclass",7);
+      Map outMap = sp.collectPrimeAssetClass(logonid);
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  advisorTheme.addPrimeAssetData(
+                     convert.getStrData(rs.get("theme")), // theme
+                     convert.getStrData(rs.get("assetclass")), // assetclass
+                     convert.getStrData(rs.get("primeassetclass")), // primeassetclass
+                     convert.getStrData(rs.get("ticker")), // ticker
+                     convert.getStrData(rs.get("status")), // active
+                     convert.getIntData(rs.get("sortorder")), // sortorder
+                     convert.getDoubleData(rs.get("lowerBound")),  //  lowerBound
+                     convert.getDoubleData(rs.get("upperBound")),   //  upperbound
+                     convert.getDoubleData(rs.get("expectedReturn")) //  expectedReturn
+                  );
+                  i++;
+               }
+            }
+         }
+      }
+      catch (Exception ex) {
+        ex.printStackTrace();
+      }
+   }
 }

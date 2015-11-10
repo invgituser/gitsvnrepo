@@ -24,9 +24,9 @@ public class ConsumerDashBean implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
-   @ManagedProperty("#{menu}")
-   private Menu menu;
-   public void setMenu(Menu menu)
+   @ManagedProperty("#{uiportal}")
+   private UIPortal menu;
+   public void setMenu(UIPortal menu)
    {
       this.menu = menu;
    }

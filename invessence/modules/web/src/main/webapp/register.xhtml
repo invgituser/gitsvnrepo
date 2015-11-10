@@ -1,114 +1,87 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/invsimplelayout.xhtml">
 
-<h:head>
-    <f:facet name="first">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-        <meta name="apple-mobile-web-app-capable" content="yes"/>
-    </f:facet>
-    <title>Invessence - Register</title>
-    <h:outputScript name="js/layout.js" library="spark-layout"/>
+    <f:metadata>
+        <f:viewParam name="u" value="#{userBean.beanUserID}"/>
+        <f:viewParam name="r" value="#{userBean.beanResetID}"/>
+        <f:event type="preRenderView" listener="#{userBean.preRenderView}"/>
+    </f:metadata>
 
-    <h:outputText value="&lt;!--[if gte IE 9]&gt;" escape="false"/>
-    <style type="text/css">
-            /* styles for IE 9 */
-    </style>
-    <h:outputText value="&lt;![endif]--&gt;" escape="false"/>
+    <ui:define name="content">
+        <div id="layout-portlets-cover">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                 style="margin-top:5%;">
+                <div class="Container90 Fnone MarAuto TexAlCenter">
+                    <div class="EmptyBox20"></div>
+                    <h:form>
+                        <h:graphicImage id="logo" name="#{menu.logo}" styleClass="Fleft" library="spark-layout"
+                                        class="MarAuto MarTop20 MarBot10"/>
 
+                        <h:inputHidden value="#{userBean.beanUserID}" styleClass="Wid90"/>
+                        <h:inputHidden id="resetCode" value="#{userBean.beanResetID}"/>
+                        <div class="EmptyBox10"></div>
+                        <div class="Container90">
+                            <p:growl id="sgrowl" escape="false" autoUpdate="true"/>
+                        </div>
+                        <div class="EmptyBox5"></div>
+                        <p:panel id="signup" styleClass="Container100" style="border:0px">
 
-    <ui:insert name="head"/>
-</h:head>
+                            <p:panel id="p1" styleClass="Container100 Responsive50 TexAlLeft"
+                                     style="border: 0px">
+                                <div class="Container90 Responsive50">
+                                    <div class="ContainerIndent">
+                                    </div>
+                                    <p:panelGrid columns="3" layout="grid"
+                                                 style="border:0px !important; padding: 5px !important; background:none;" class="FormContent">
+                                        <h:outputText value="User ID" styleClass="Wid90"/>
+                                        <h:outputText value="#{userBean.beanUserID}" styleClass="Wid90"/>
+                                        <h:outputText styleClass="Wid90"/>
 
-<f:metadata>
-    <f:viewParam name="u" value="#{userBean.beanUserID}"/>
-    <f:viewParam name="r" value="#{userBean.beanResetID}"/>
-    <f:event type="preRenderView" listener="#{userBean.preRenderView}"/>
-</f:metadata>
+                                        <h:outputText value="Password" styleClass="Wid90"/>
+                                        <p:password id="pwd1" value="#{userBean.password}" styleClass="Wid90"
+                                                    placeholder="New Password"
+                                                    feedback="true" inline="true">
+                                        </p:password>
+                                        <p:commandButton id="pwdHelp"  styleClass="Wid90"
+                                                         icon="fa fa-question-circle white"
+                                                         value="Help" process="@none"/>
 
+                                        <h:outputText value="Confirm Password" styleClass="Wid90"/>
+                                        <p:password id="pwd2" value="#{userBean.confirmNewPassword}" styleClass="Wid90"
+                                                    placeholder="Confirm Password"/>
+                                        <h:outputText styleClass="Wid90"/>
 
-<h:body>
+                                    </p:panelGrid>
+                                </div>
+                            </p:panel>
 
-    <div id="layout-portlets-cover">
-        <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-             style="margin-top:5%;">
-            <div class="Container90 Fnone MarAuto TexAlCenter">
-                <div class="EmptyBox20"></div>
-                <h:form>
-                    <h:graphicImage id="logo" name="#{menu.logo}" styleClass="Fleft" library="spark-layout"
-                                    class="MarAuto MarTop20 MarBot10"/>
+                            <f:facet name="footer">
+                                <p:commandButton value="Next" type="submit" styleClass="Fright"
+                                                 actionListener="#{userBean.register}"
+                                                 update="p1, sgrowl"/>
+                            </f:facet>
+                            <p:overlayPanel id="helpPanel" for="pwdHelp" hideEffect="fade" dynamic="false"
+                                            showCloseIcon="true"
+                                            style="width:300px">
+                                Password Must contain a minimum of 8 Characters including at least:
+                                <ul>
+                                    <li>1 uppercase letter</li>
+                                    <li>1 number</li>
+                                    <li>1 of these special characters: !,#,$,%,?</li>
+                                </ul>
+                            </p:overlayPanel>
 
-                    <h:inputHidden value="#{userBean.beanUserID}" styleClass="Wid90"/>
-                    <h:inputHidden id="resetCode" value="#{userBean.beanResetID}"/>
-                    <div class="EmptyBox10"></div>
-                    <div class="Container90">
-                        <p:growl id="sgrowl" escape="false" autoUpdate="true"/>
-                    </div>
-                    <div class="EmptyBox5"></div>
-                    <p:panel id="signup" styleClass="Container100" style="border:0px">
-
-                        <p:panel id="p1" styleClass="Container100 Responsive50 TexAlLeft"
-                                 style="border: 0px">
-                            <div class="Container90 Responsive50">
-                            <div class="ContainerIndent">
-                            </div>
-                                <p:panelGrid columns="3" layout="grid"
-                                             style="border:0px !important; padding: 5px !important; background:none;" class="FormContent">
-                                    <h:outputText value="User ID" styleClass="Wid90"/>
-                                    <h:outputText value="#{userBean.beanUserID}" styleClass="Wid90"/>
-                                    <h:outputText styleClass="Wid90"/>
-
-                                    <h:outputText value="Password" styleClass="Wid90"/>
-                                    <p:password id="pwd1" value="#{userBean.password}" styleClass="Wid90"
-                                                placeholder="New Password"
-                                                feedback="true" inline="true">
-                                    </p:password>
-                                    <p:commandButton id="pwdHelp"  styleClass="Wid90"
-                                                     icon="fa fa-question-circle white"
-                                                     value="Help" process="@none"/>
-
-                                    <h:outputText value="Confirm Password" styleClass="Wid90"/>
-                                    <p:password id="pwd2" value="#{userBean.confirmNewPassword}" styleClass="Wid90"
-                                                placeholder="Confirm Password"/>
-                                    <h:outputText styleClass="Wid90"/>
-
-                                </p:panelGrid>
-                            </div>
                         </p:panel>
-
-                        <f:facet name="footer">
-                            <p:commandButton value="Next" type="submit" styleClass="Fright"
-                                             actionListener="#{userBean.register}"
-                                             update="p1, sgrowl"/>
-                         </f:facet>
-                        <p:overlayPanel id="helpPanel" for="pwdHelp" hideEffect="fade" dynamic="false"
-                                        showCloseIcon="true"
-                                        style="width:300px">
-                            Password Must contain a minimum of 8 Characters including at least:
-                            <ul>
-                                <li>1 uppercase letter</li>
-                                <li>1 number</li>
-                                <li>1 of these special characters: !,#,$,%,?</li>
-                            </ul>
-                        </p:overlayPanel>
-
-                    </p:panel>
-                </h:form>
+                    </h:form>
+                </div>
+                <div class="EmptyBox50"></div>
             </div>
-            <div class="EmptyBox50"></div>
         </div>
-    </div>
 
-    <h:outputStylesheet name="css/core-layout.css" library="spark-layout"/>
-    <h:outputStylesheet name="css/font-awesome.css" library="spark-layout"/>
-    <h:outputStylesheet name="css/animate.css" library="spark-layout"/>
-    <h:outputStylesheet name="css/spark-layout.css" library="spark-layout"/>
+    </ui:define>
 
-</h:body>
-
-</html>
+</ui:composition>

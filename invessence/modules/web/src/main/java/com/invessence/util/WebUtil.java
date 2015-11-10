@@ -490,6 +490,17 @@ public class WebUtil implements Serializable
       messageText.alertSupport(module, subject, message_line, stacktrace, getUserInfoData().getUserID());
    }
 
+   public void seriousError(String module, String subject,
+                            String message_line, String stacktrace) {
+      String user = "User:" + getUserInfoData().getEmail() + "\n\n";
+      alertSupport( module, subject,
+                            message_line,  user + stacktrace);
+
+      String url="/message.xhtml?faces-redirect=true&type=Error&title=mtse&message=mbse";
+      redirect(url,null);
+
+   }
+
    public static String validateNewPass(String pass1, String pass2){
       StringBuilder retVal = new StringBuilder();
 

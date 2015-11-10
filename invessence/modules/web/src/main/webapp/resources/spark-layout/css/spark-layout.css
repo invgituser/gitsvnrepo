@@ -84,6 +84,11 @@
 .FontRalewayRegular{font-family: 'ralewayregular';}
 .FontRalewayLight{font-family: 'ralewaylight';}
 
+.FontThemeBold{font-family: 'ralewaybold';}
+.FontThemeSemiBold{font-family: 'ralewaysemibold';}
+.FontThemeMedium{font-family: 'ralewaymedium';}
+.FontThemeRegular{font-family: 'ralewayregular';}
+.FontThemeLight{font-family: 'ralewaylight';}
 
 /*BODY*/
 body{margin:0px; background-image:url("#{resource['spark-layout:images/background.png']}"); background-repeat:repeat; background-position:center; background-color:#C3CCD5; 
@@ -106,7 +111,7 @@ body{margin:0px; background-image:url("#{resource['spark-layout:images/backgroun
 			#layout-topbar-menu>li{float:right; text-align:center; padding-bottom:10px;}
 				#layout-topbar-menu>li a{padding:10px 0px;}
 				#layout-topbar-menu a{font-size:14px; line-height:16px; color:#778D9B; display:inline-block;}
-				#layout-topbar-menu li:hover>a{color:#009ABB;}
+				/*#layout-topbar-menu li:hover>a{color:#009ABB;}*/
 					#layout-topbar-menu i{font-size:18px;}
 			#layout-topbar-menu .menu-separator{float:right; margin:0px 20px; font-size:14px; line-height:20px; color:#778D9B; margin-top:10px;}
 			#layout-topbar-menu .notification-bubble{background-color:#d1626c; font-size:12px; padding:3px; color:#F1F6F9; line-height:12px; display:inline-block; margin-top:-5px;}

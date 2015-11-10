@@ -28,6 +28,13 @@
 .FontRobotoMedium {
   font-family: 'robotomedium';
 }
+
+.FontThemeBold{font-family: 'ralewaybold'; font-weight: bold;}
+.FontThemeSemiBold{font-family: 'robotoregular'; font-weight: bold;}
+.FontThemeMedium{font-family: 'robotomedium';}
+.FontThemeRegular{font-family: 'robotoregular';}
+.FontThemeLight{font-family: 'robotolight';}
+
 /*BODY*/
 html {
   height: 100%;
@@ -530,6 +537,8 @@ body {
 .menu-level-3 {
   text-indent: 60px;
 }
+
+
 /*Layout Portlets Cover*/
 #layout-portlets-cover {
   display: block;

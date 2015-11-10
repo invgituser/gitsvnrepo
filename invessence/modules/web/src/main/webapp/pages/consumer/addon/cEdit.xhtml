@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <div class="Container100 Responsive50">
+    <div class="Container100">
         <div class="Container50 Responsive50">
             <div class="ContainerIndent">
                 <p:panel id="inputArea" style="border: 0px">
@@ -14,7 +14,7 @@
                                dynamic="false" cache="false"
                                effect="slide" effectDuration="fast">
                         <p:ajax event="tabChange"
-                                update=":ceForm:inputArea"
+                                update=":ceForm:inputArea, :ceForm:graphArea"
                                 listener="#{cepb.onPTabChange}"/>
                         <p:tab id="p1" title="Overview">
                             <ui:include src="/pages/consumer/addon/core0.xhtml"/>
@@ -27,6 +27,7 @@
                         </p:tab>
                         <p:tab id="p4" title="Risk">
                             <p:tabView id="rTabView" orientation="top" activeIndex="#{cepb.rTab}"
+                                       styleClass="NBwidget"
                                        cache="false" dynamic="false">
                                 <p:ajax event="tabChange" listener="#{cepb.onRTabChange}"/>
                                 <p:tab id="q1" title="1">
@@ -51,6 +52,9 @@
                                     <ui:include src="/pages/consumer/addon/q7.xhtml"/>
                                 </p:tab>
                             </p:tabView>
+                        </p:tab>
+                        <p:tab id="p5" title="Set Goals">
+                            <ui:include src="/pages/consumer/addon/cGoal.xhtml"/>
                         </p:tab>
                     </p:tabView>
                     <f:facet name="footer">
@@ -100,14 +104,13 @@
                             </div>
                         </div>
 
-                        <p:outputPanel id="charts" style="border: 0px">
-                            <p:panel style="border: 0px">
+                        <p:outputPanel id="charts" style="border: 0px"
+                                       deferred="true">
+                            <p:panel style="border: 0px" rendered="#{! cepb.showGoalChart}">
                                 <div class="Container50  Fleft">
                                     <div class="Container100">
-                                        <p:outputPanel deferred="true">
                                             <p:chart type="pie" model="#{cepb.charts.pieChart}"
                                                      responsive="true"/>
-                                        </p:outputPanel>
                                     </div>
                                 </div>
                                 <div class="Container50 Fleft">
@@ -134,12 +137,23 @@
                                     </div>
                                 </div>
                             </p:panel>
+                            <p:panel style="border: 0px" rendered="#{cepb.showGoalChart}">
+                                <div class="Container100  Fleft">
+                                    <div class="Container100">
+                                            <p:chart type="line" model="#{cepb.charts.lineChart}"
+                                                     rendered="#{cepb.charts.lineChart != null}"
+                                                     responsive="true"/>
+                                    </div>
+                                </div>
+                            </p:panel>
                         </p:outputPanel>
                     </div>
                 </p:panel>
             </div>
         </div>
 
+    </div>
+    <div class="Container100 Responsive50">
         <p style="font-style: italic; font-size: .8em;">
             This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
             (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.

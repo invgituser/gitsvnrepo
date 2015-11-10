@@ -32,8 +32,8 @@ public class LoginController implements PhaseListener
    @ManagedProperty("#{emailMessage}")
    private EmailMessage emailMessage;
 
-   @ManagedProperty("#{menu}")
-   private Menu menu;
+   @ManagedProperty("#{uiportal}")
+   private UIPortal uiPortal;
 
    private MsgData data = new MsgData();
 
@@ -42,9 +42,9 @@ public class LoginController implements PhaseListener
       this.emailMessage = emailMessage;
    }
 
-   public void setMenu(Menu menu)
+   public void setUiPortal(UIPortal uiPortal)
    {
-      this.menu = menu;
+      this.uiPortal = uiPortal;
    }
 
    /**
@@ -184,15 +184,15 @@ public class LoginController implements PhaseListener
 
    public String getRedirect()
    {
-      menu.setDefault_page(null);
-      menu.redirectStartPage();
+      uiPortal.setDefault_page(null);
+      uiPortal.redirectStartPage();
       return "success";
    }
 
 
    public void logout() {
       try {
-         menu.logout();
+         uiPortal.logout();
       }
       catch (Exception ex) {
 

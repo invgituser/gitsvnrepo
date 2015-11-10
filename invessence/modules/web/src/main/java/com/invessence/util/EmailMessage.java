@@ -61,7 +61,8 @@ public class EmailMessage implements MessageSourceAware, Serializable
             obj = new Object[]{};
          }
          if (text != null) {
-            msgText =  messageSource.getMessage(text, obj, null);
+            if (messageSource != null)
+               msgText =  messageSource.getMessage(text, obj, null);
          }
 
       }

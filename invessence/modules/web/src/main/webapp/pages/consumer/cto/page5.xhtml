@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50">
+        <div class="Container70 Responsive50">
+            <div class="ContainerIndent">
+                <p:panelGrid columns="4" layout="grid" styleClass="Container100 Responsive50"
+                             style="border:0px !important; background:none;" class="FormContent">
+                    <div class="Wid90">Name of Bank</div>
+                    <p:inputText styleClass="Wid90" placeholder="Name of Bank">
+                    </p:inputText>
+                    <div class="Wid90">Type of Account</div>
+                    <p:selectOneMenu
+                            required="true" requiredMessage="Select one account type.">
+                        <f:selectItem itemLabel="Choose One" itemValue=""/>
+                        <f:selectItem itemLabel="Checking" itemValue="Checking"/>
+                        <f:selectItem itemLabel="Savings" itemValue="Savings"/>
+                        <f:selectItem itemLabel="Money Market" itemValue="MM"/>
+                    </p:selectOneMenu>
+
+                    <div class="Wid90">Routing#</div>
+                    <p:inputText styleClass="Wid90" placeholder="Routing Number" maxlength="9">
+                    </p:inputText>
+                    <div class="Wid90">Account#</div>
+                    <p:inputText styleClass="Wid90" placeholder="Bank Account" maxlength="12">
+                    </p:inputText>
+
+                    <div class="Wid90">Initial Amount</div>
+                    <p:inputText styleClass="Wid90" placeholder="Initial Amount" maxlength="9">
+                    </p:inputText>
+                    <div class="Wid90">Recurring Amount</div>
+                    <p:inputText styleClass="Wid90" placeholder="Recurring Amount" maxlength="12">
+                    </p:inputText>
+
+
+                </p:panelGrid>
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <p:selectBooleanButton onLabel="Yes" offLabel="No"/>
+                        <p:commandLink id="autoWithdrawl" ajax="false" styleClass="MarLeft5">
+                            <h:outputText value="I want to sign up for automatic Investment plan" />
+                        </p:commandLink>
+                        <p:overlayPanel for="autoWithdrawl" hideEffect="fade" showEvent="mouseover" hideEvent="mousedown">
+                            <h:outputText value="Automatic Investment plan will withdrawl recurring amount speciied from your account per
+                            scheduled defined (monthly, quaterly or yearly).  This action can be changed later."
+                                    />
+                        </p:overlayPanel>
+
+                    </div>
+                </div>
+                <div class="Container100">
+                    <p:separator/>
+                    <div class="EmptyBox30"></div>
+                </div>
+
+                <div class="Container100">
+                    <p:graphicImage value="/images/check_image.gif"/>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

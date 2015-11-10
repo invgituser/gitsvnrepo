@@ -24,18 +24,10 @@ import org.primefaces.model.TreeNode;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
-@ManagedBean(name = "adbean")
+@ManagedBean(name = "adashbean")
 @SessionScoped
 public class AdvisorDashBean extends AdvisorDashData implements Serializable
 {
-   private static final long serialVersionUID = 100002L;
-
-   @ManagedProperty("#{menu}")
-   private Menu menu;
-   public void setMenu(Menu menu)
-   {
-      this.menu = menu;
-   }
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -59,11 +51,9 @@ public class AdvisorDashBean extends AdvisorDashData implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             if (webutil.validatePriviledge(Const.ROLE_ADVISOR)) {
+               setLogonid(webutil.getLogonid());
                setAdvisorname(webutil.getUserInfoData().getFullName());
-               setTitle("Advisor");
-               collectStat();
-               collectSecurityInfo();
-               collectNewsInfo();
+               reloadData();
             }
          }
       }
@@ -72,42 +62,5 @@ public class AdvisorDashBean extends AdvisorDashData implements Serializable
          e.printStackTrace();
       }
    }
-
-   public void collectStat()
-   {
-
-      try
-      {
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
-   public void collectSecurityInfo()
-   {
-
-      try
-      {
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
-   public void collectNewsInfo()
-   {
-
-      try
-      {
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
 
 }

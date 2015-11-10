@@ -9,65 +9,67 @@
     <h:form id="menutopbar">
     <ps:menu>
         <f:facet name="options">
-            <p:commandButton value="Dashboard" icon="fa fa-home" styleClass="Fs18 BlueButton"
-                             actionListener="#{menu.redirectStartPage}"/>
+            <p:commandButton value="Dashboard" icon="fa fa-home" styleClass="Fs14 BlueButton"
+                             actionListener="#{uiportal.redirectStartPage}"/>
         </f:facet>
 
         <p:submenu label="Account" icon="fa fa-file-text-o">
-            <p:menuitem value="New Application" icon="fa fa-plus-square" rendered="#{menu.enableMenu('USER')}"
-                        actionListener="#{menu.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
+            <p:menuitem value="New Application" icon="fa fa-plus-square" rendered="#{uiportal.enableMenu('USER')}"
+                        actionListener="#{uiportal.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
             <p:menuitem value="Interactive Broker" icon="fa fa-institution"
-                        actionListener="#{menu.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
+                        actionListener="#{uiportal.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
         </p:submenu>
 
-        <p:separator rendered="#{menu.hasAccessMenu('ADVISOR')}" />
+        <p:separator rendered="#{uiportal.hasAccessMenu('ADVISOR')}" />
 
-        <p:submenu label="Advisor" icon="fa fa-user-plus" rendered="#{menu.hasAccessMenu('ADVISOR')}">
-            <p:menuitem value="New Client" icon="fa fa-plus-square" disabled="true"
-                        actionListener="#{menu.doMenuAction('/advisor/aadd.xhtml?acct=0')}"/>
+        <p:submenu label="Advisor" icon="fa fa-user-plus" rendered="#{uiportal.hasAccessMenu('ADVISOR')}">
+            <p:menuitem value="Invite Client" icon="fa fa-plus-square" disabled="true"
+                        actionListener="#{uiportal.doMenuAction('/advisor/aadd.xhtml?acct=0')}"/>
             <p:menuitem value="Review Clients" icon="fa fa-th-list"
-                        actionListener="#{menu.doMenuAction('/advisor/alist.xhtml')}"/>
+                        actionListener="#{uiportal.doMenuAction('/advisor/alist.xhtml')}"/>
         </p:submenu>
 
-        <p:separator rendered="#{menu.enableMenu('DEMO')}" />
+        <p:separator rendered="#{uiportal.hasAccessMenu('USER')}" />
 
         <p:submenu label="Reports" icon="fa fa-list-alt"
-                   rendered="#{menu.enableMenu('DEMO')}">
+                   rendered="#{uiportal.hasAccessMenu('USER')}">
             <p:menuitem value="Overview" icon="fa fa-picture-o"
-                        disabled="true"/>
+                        actionListener="#{uiportal.doMenuAction('/consumer/creports.xhtml')}"/>
             <p:menuitem value="Fees" icon="fa fa-calculator"
                         disabled="true"/>
         </p:submenu>
 
-            <p:separator rendered="#{menu.enableMenu('SALES')}" />
+            <p:separator rendered="#{uiportal.enableMenu('SALES')}" />
 
-            <p:submenu label="Marketing" icon="fa fa-wifi" rendered="#{menu.enableMenu('SALES')}">
+            <p:submenu label="Marketing" icon="fa fa-wifi" rendered="#{uiportal.enableMenu('SALES')}">
                 <p:menuitem value="Marketing Dashboard" icon="fa fa-user"
-                            actionListener="#{menu.doMenuAction('/advisor/marketing.xhtml')}"/>
+                            actionListener="#{uiportal.doMenuAction('/advisor/marketing.xhtml')}"/>
             </p:submenu>
 
-            <p:separator rendered="#{menu.enableMenu('ADMIN')}" />
+            <p:separator rendered="#{uiportal.enableMenu('ADMIN')}" />
 
-            <p:submenu label="Admin" icon="fa fa-cogs" rendered="#{menu.enableMenu('ADMIN')}">
+            <p:submenu label="Admin" icon="fa fa-cogs" rendered="#{uiportal.enableMenu('ADMIN')}">
                 <p:menuitem value="Review Profiles" icon="fa fa-user"
-                            actionListener="#{menu.doMenuAction('/admin/users.xhtml')}"/>
+                            actionListener="#{uiportal.doMenuAction('/admin/users.xhtml')}"/>
                 <p:menuitem value="Trade/Rebalance" icon="fa fa-th-list"
-                            actionListener="#{menu.doMenuAction('/admin/trade.xhtml')}"/>
+                            actionListener="#{uiportal.doMenuAction('/admin/trade.xhtml')}"/>
             </p:submenu>
 
-        <p:separator rendered="#{menu.enableMenu('DEMO')}" />
+        <p:separator rendered="#{uiportal.enableMenu('DEMO')}" />
 
         <p:submenu label="Demo" icon="fa fa-asterisk"
-                   rendered="#{menu.enableMenu('DEMO')}">
-            <p:menuitem value="Advisor Dashboard"
-                        actionListener="#{menu.doMenuAction('/advisor/adash.xhtml')}"/>
-            <p:menuitem value="Client-Take-On"
-                        actionListener="#{menu.doMenuAction('/consumer/personalprofile1.xhtml')}"/>
+                   rendered="#{uiportal.enableMenu('DEMO')}">
+            <p:menuitem value="CTO" outcome="/pages/consumer/cto/cto.xhtml"/>
+            <p:menuitem value="Asset" outcome="/pages/advisor/assets.xhtml"/>
+            <p:menuitem value="Reports" icon="fa fa-picture-o"
+                        actionListener="#{uiportal.doMenuAction('/consumer/creports.xhtml')}"/>
+            <p:menuitem value="Standard Dashboard" outcome="/spark/dashboard.xhtml"/>
+            <p:menuitem value="Font Icons" icon="fa fa-paint-brush" outcome="/spark/font-icons.xhtml"/>
         </p:submenu>
 
-        <p:separator rendered="#{menu.enableMenu('DEVELOPER')}" />
+        <p:separator rendered="#{uiportal.enableMenu('DEVELOPER')}" />
 
-        <p:submenu label="Primefaces" icon="fa fa-sitemap" rendered="#{menu.enableMenu('DEVELOPER')}">
+        <p:submenu label="Primefaces" icon="fa fa-sitemap" rendered="#{uiportal.enableMenu('DEVELOPER')}">
             <p:submenu label="Design" icon="fa fa-folder">
                 <p:submenu label="Theme" icon="fa fa-rocket">
                     <p:menuitem value="Forms" icon="fa fa-file-text-o" outcome="/spark/forms.xhtml" />

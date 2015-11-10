@@ -8,6 +8,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.bean.*;
+import com.invessence.constant.Const;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.common.AccountData;
 import com.invessence.util.*;
@@ -17,8 +18,6 @@ import com.invessence.util.*;
 @ViewScoped
 public class ManageAdvisorBean implements Serializable
 {
-   private static final long serialVersionUID = 100003L;
-
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
    public void setWebutil(WebUtil webutil)
@@ -26,7 +25,7 @@ public class ManageAdvisorBean implements Serializable
       this.webutil = webutil;
    }
 
-   Menu menu = new Menu();
+   UIPortal menu = new UIPortal();
 
 /*
    @ManagedProperty("#{advisorBean}")
@@ -63,19 +62,22 @@ public class ManageAdvisorBean implements Serializable
       this.messageSource = messageSource;
    }
 
-   @PostConstruct
-   public void init()
+   public void preRenderView()
    {
-      Long logonid;
+
       try
       {
-         if (webutil.validatePriviledge("ADVISOR")) {
-            logonid = webutil.getLogonid();
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            if (webutil.validatePriviledge(Const.ROLE_ADVISOR)) {
+               Long logonid;
+               logonid = webutil.getLogonid();
 
-            if (logonid != null)
-            {
-               if (accountDataList == null || accountDataList.size() == 0) {
-                  filterData();
+               if (logonid != null)
+               {
+                  if (accountDataList == null || accountDataList.size() == 0) {
+                     filterData();
+                  }
                }
             }
          }
@@ -85,7 +87,6 @@ public class ManageAdvisorBean implements Serializable
          e.printStackTrace();
       }
    }
-
 
 /*
    public void setAbean(AdvisorBean abean)
@@ -158,6 +159,14 @@ public class ManageAdvisorBean implements Serializable
             if (adata.getAcctStatus().startsWith(getFilteredClient()))
                filteredDataList.add(adata);
          }
+      }
+   }
+
+   public void refreshPage() {
+      String url;
+      if (getFilteredClient() != null) {
+        url = "/pages/advisor/alist.xhtml?Action=" + getFilteredClient();
+         webutil.redirect(url,null);
       }
    }
 

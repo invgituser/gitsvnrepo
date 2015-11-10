@@ -194,6 +194,16 @@ public class CustomerData extends ProfileData
       return value;
    }
 
+   public Double getEstimatedGoal() {
+      Double value = getInvestment().doubleValue();
+      Integer finalyear;
+      if (getPerformanceData() != null) {
+         finalyear = getPerformanceData().length;
+         value = getPerformanceData()[finalyear-1].getTotalCapitalWithGains();
+      }
+      return value;
+   }
+
    public ProfileData getSubInstance()
    {
       return manageGoalinstance;
@@ -1058,17 +1068,29 @@ public class CustomerData extends ProfileData
       }
    }
 
-   public PerformanceData[] buildPerformanceData() {
-      Integer numOfYears = getAge();
-      if (numOfYears == null)
-         numOfYears = 20;
+   public void buildPerformanceData() {
+
+      Integer numOfYears = 20;
+      if (getGoalData() != null && getGoalData().getTerm() != null) {
+         numOfYears = getGoalData().getTerm().intValue();
+      }
       else {
-         numOfYears = ((65 - numOfYears) > 20) ? 20 : (65 - numOfYears);
+         if (getHorizon() == null) {
+               numOfYears = ((65 - getAge()) > 20) ? 20 : (65 - getAge());
+         }
+         else {
+            numOfYears = getHorizon();
+         }
+
          if (numOfYears < 5)
             numOfYears = 5;
       }
-      PerformanceData[] perfData = portfolioPerformance.getPortfolioPerformance(getPortfolioData(), numOfYears,0);
-      return perfData;
+
+
+      PerformanceData[] perfData = portfolioPerformance.getPortfolioPerformance(getPortfolioData(), numOfYears+1,0);
+      portfolioPerformance.calcGrowthInfo(perfData, numOfYears+1, getSubInstance());
+      setPerformanceData(perfData);
+
    }
 
    public void totalAssetClassWeights(Map<String, Asset> assetdata, Integer offset)

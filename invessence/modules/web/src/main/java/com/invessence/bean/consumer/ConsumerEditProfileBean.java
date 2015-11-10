@@ -37,7 +37,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private Boolean formEdit = false;
    private Boolean disablegraphtabs = true
       , disabledetailtabs = true
-      , disablesaveButton = true;
+      , disablesaveButton = true
+      , showGoalChart = false;
    private Boolean prefVisible = true;
    private Integer canOpenAccount;
    private Boolean welcomeDialog = true;
@@ -229,6 +230,22 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       createAssetPortfolio(1);
    }
 
+   public void onGoalChangeValue() {
+      calculateGoal();
+   }
+
+   public void calculateGoal() {
+      setRiskCalcMethod("C");
+      formEdit = true;
+      getGoalData().setTerm(getHorizon().doubleValue());
+      setShowGoalChart(true);
+      offsetRiskIndex();
+      createAssetPortfolio(1);
+      //if (getPortfolioData() != null) {
+         //charts.createGoalChart(getPerformanceData(), getGoalData());
+      //}
+
+   }
 
    public void onTaxStrategy() {
       formEdit = true;
@@ -451,6 +468,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       formEdit = true;
    }
 
+
    private void createAssetPortfolio(Integer noOfYears) {
 
       try {
@@ -509,8 +527,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          }
 
          if (getPortfolioData() != null) {
-            PerformanceData[] perfData = buildPerformanceData();
-            charts.createLineModel(perfData);
+            buildPerformanceData();
+            charts.createLineModel(getPerformanceData());
+            charts.createGoalChart(getPerformanceData(),getGoalData());
          }
 
       }
@@ -797,6 +816,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          // Since this is used by both try and Actual, we'll handle the add/save in SaveProfile function...
          // getWebutil().validatePriviledge(Const.ROLE_OWNER);
+         showGoalChart = false;
          whichChart = "pie";
          pTab = 0;
          rTab = 0;
@@ -812,6 +832,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       Tab active = event.getTab();
       String pTabID = active.getId().toLowerCase();
 
+      showGoalChart = false;
       if (pTabID.equals("p1"))
          pTab = 0;
       if (pTabID.equals("p2"))
@@ -820,6 +841,10 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          pTab = 2;
       if (pTabID.equals("p4"))
          pTab = 3;
+      if (pTabID.equals("p5")) {
+         pTab = 4;
+         setShowGoalChart(true);
+      }
    }
 
    public void onRTabChange(TabChangeEvent event) {
@@ -843,7 +868,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public String getEnableNextButton() {
-      if (rTab >= 6 && pTab == 3)
+      if (pTab == 4)
          return "false";
       return "true";
    }
@@ -863,6 +888,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
                case 1:
                case 2:
                case 3:
+               case 4:
                   pTab--;
                default:
                   break;
@@ -882,6 +908,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public void gotoNextTab() {
+      showGoalChart = false;
       switch (pTab) {
          case 0:
          case 1:
@@ -891,12 +918,30 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             break;
          case 3:
          default:
-            if (rTab < 6)
-               rTab ++;
+            if (rTab >= 6) {
+               pTab ++;
+               rTab=0;
+               setShowGoalChart(true);
+            }
+            else
+               rTab++;
             break;
 
       }
    }
 
+   public void setShowGoalChart(Boolean showGoalChart)
+   {
+      this.showGoalChart = false;
+      if (showGoalChart != null && getGoalData() != null) {
+         if (getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0)
+            this.showGoalChart = showGoalChart;
+      }
+   }
+
+   public Boolean getShowGoalChart()
+   {
+      return showGoalChart;
+   }
 }
 

@@ -25,8 +25,9 @@ public class CommonSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_state", Types.VARCHAR));
             break;
-         case 2: // SP: sel_messages
+         case 2: // SP: sel_notification
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
             declareParameter(new SqlParameter("p_archive", Types.VARCHAR));
             break;
          case 3: // SP: sp_advisor_notification
@@ -39,6 +40,9 @@ public class CommonSP extends StoredProcedure
             declareParameter(new SqlParameter("p_tagid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_alertdatetime", Types.VARCHAR));
             declareParameter(new SqlParameter("p_message", Types.VARCHAR));
+            break;
+         case 99: // SP: sel_notificationInfo
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
          default:
       }
@@ -63,10 +67,11 @@ public class CommonSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map getNotification(Long acctnum, String status)
+   public Map getNotification(Long acctnum, String messagetype, String status)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", acctnum);
+      inputMap.put("p_messagetype", messagetype);
       inputMap.put("p_archive", status);
       return super.execute(inputMap);
    }
@@ -86,5 +91,11 @@ public class CommonSP extends StoredProcedure
       super.execute(inputMap);
    }
 
+   public Map getNotificationInfo(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", acctnum);
+      return super.execute(inputMap);
+   }
 
 }

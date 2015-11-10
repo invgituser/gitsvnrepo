@@ -33,6 +33,11 @@ public class ConsumerListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_state", Types.VARCHAR));
             break;
+         case 4:   // SP: sel_newClient
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_fromdate", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_todate", Types.VARCHAR));
+            break;
          default:
       }
       compile();
@@ -70,6 +75,16 @@ public class ConsumerListSP extends StoredProcedure
       inputMap.put("p_state", state);
       return super.execute(inputMap);
    }
+
+   public Map loadReports(Long logonid, String fromDate, String toDate)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_fromdate", fromDate);
+      inputMap.put("p_todate", toDate);
+      return super.execute(inputMap);
+   }
+
 
 
 }
