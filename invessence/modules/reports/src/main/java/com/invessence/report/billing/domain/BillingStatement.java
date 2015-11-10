@@ -429,7 +429,8 @@ public class BillingStatement
    private void addAdvisoryNote(Document document) throws DocumentException
    {
       String text = "Advisory Fee Formula: Maximum of ($250*(days per month)/365) or (NAV * 0.25%)*(days per month/365); Net Asset Value (NAV) on the last business day of the month. \n\n" +
-         "Invoice = Advisory Fees - Commissions - Other Fees.\n\n" +
+         "Invoice = Advisory Fees + Brokerage Charges.\n\n" +
+         "Advisory Fees: Commissions + Other Fees.\n\n" +
          "Commissions: Fees charged by Interactive Brokers for trades.\n\n" +
          "Other Fees: Fees charged by Interactive Brokers to administer the account.";
 

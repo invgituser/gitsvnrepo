@@ -39,7 +39,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
     </bean>
 
    <bean id="billingInfoProcessor" class="com.invessence.report.billing.processor.BillingInfoProcessor">
-        <property name="filepath" value="${report.localdir}"/>
+        <property name="filepath" value="${base.data.dir}/billing/"/>
    </bean>
 
    <bean id="dbUpdater" class="com.invessence.report.billing.dao.BillingProcessDBUpdate">
