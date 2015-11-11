@@ -272,7 +272,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 			if(ulLst==null || ulLst.size()==0){
 				System.out.println("Invessence User Details object get Null");
 				YodleeError ye=new YodleeError();
-				ye.setMessage("User not available in YodleeProject Database.");
+				ye.setMessage("User not available in Yodlee Project Database.");
 				resultMap.put("errorDetails", ye);	
 			}else{
 				UserLogon ur=ulLst.get(0);
