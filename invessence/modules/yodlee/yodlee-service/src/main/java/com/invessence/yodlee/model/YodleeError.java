@@ -6,8 +6,19 @@ public class YodleeError {
 	private String exceptionType;
 	private String referenceCode;
 	private String message;
-	
-	public String getErrorOccurred() {
+   private int loginStatus;
+
+   public int getLoginStatus()
+   {
+      return loginStatus;
+   }
+
+   public void setLoginStatus(int loginStatus)
+   {
+      this.loginStatus = loginStatus;
+   }
+
+   public String getErrorOccurred() {
 		return errorOccurred;
 	}
 	public void setErrorOccurred(String errorOccurred) {
