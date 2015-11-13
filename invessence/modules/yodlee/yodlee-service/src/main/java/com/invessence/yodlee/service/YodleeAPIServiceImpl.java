@@ -120,6 +120,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 				resultMap=new HashMap<String, Object>();
 				System.out.println("Invessence User Details object get Null");
 				YodleeError ye=new YodleeError();
+            ye.setSeverity(-1);
 				ye.setMessage("User not available in Invessence Database.");
 				resultMap.put("errorDetails", ye);	
 			}else{
@@ -136,6 +137,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 				Boolean errCheck = jb.has("errorOccurred");
 				if(errCheck==true){
 					YodleeError ye=new YodleeError();
+               ye.setSeverity(-1);
 					ye.setErrorOccurred(jb.getString("errorOccurred"));
 					ye.setExceptionType(jb.getString("exceptionType"));
 					ye.setReferenceCode(jb.getString("referenceCode"));
@@ -266,14 +268,15 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 			if(cobrandSessionToken==null){
 				coBrandSessionManager();
 			}
-			List<UserLogon> ulLst=userLogonDAO.findByWhereCluase("invUserId="+invUserId); 
+			List<UserLogon> ulLst=userLogonDAO.findByWhereCluase("invUserId="+invUserId);
 			resultMap=new HashMap<String, Object>();
 			//List <SiteDetail> sdl= siteDetailsDAO.findByWhereCluase("SITE_ACC_ID="+sd.getSiteAccId());
 			if(ulLst==null || ulLst.size()==0){
 				System.out.println("Invessence User Details object get Null");
 				YodleeError ye=new YodleeError();
+            ye.setSeverity(1);
 				ye.setMessage("User not available in Yodlee Project Database.");
-				resultMap.put("errorDetails", ye);	
+				resultMap.put("errorDetails", ye);
 			}else{
 				UserLogon ur=ulLst.get(0);
 				ur.setSiteDetails(null);
@@ -284,6 +287,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 				Boolean errCheck = jb.has("errorOccurred");
 				if(errCheck==true){
 					YodleeError ye=new YodleeError();
+               ye.setSeverity(-1);
 					ye.setErrorOccurred(jb.getString("errorOccurred")==null?null:jb.getString("errorOccurred"));
 					ye.setExceptionType(jb.getString("exceptionType")==null?null:jb.getString("exceptionType"));
 					ye.setReferenceCode(jb.getString("referenceCode")==null?null:jb.getString("referenceCode"));
@@ -311,7 +315,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 									
 				}else{
 					if(jb.length()>0){
-						
+
 						JSONObject userConvCreds = jb.getJSONObject("userContext").getJSONObject("conversationCredentials");
 						//resultMap.put("userSessionToken", (String) userConvCreds.get("sessionToken"));	
 						ur.setUserSessionToken((String) userConvCreds.get("sessionToken"));

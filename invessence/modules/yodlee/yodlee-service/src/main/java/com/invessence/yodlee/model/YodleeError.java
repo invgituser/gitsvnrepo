@@ -2,20 +2,20 @@ package com.invessence.yodlee.model;
 
 public class YodleeError {
 
+   private Integer severity;
 	private String errorOccurred;
 	private String exceptionType;
 	private String referenceCode;
 	private String message;
-   private int loginStatus;
 
-   public int getLoginStatus()
+   public Integer getSeverity()
    {
-      return loginStatus;
+      return severity;
    }
 
-   public void setLoginStatus(int loginStatus)
+   public void setSeverity(Integer severity)
    {
-      this.loginStatus = loginStatus;
+      this.severity = severity;
    }
 
    public String getErrorOccurred() {
