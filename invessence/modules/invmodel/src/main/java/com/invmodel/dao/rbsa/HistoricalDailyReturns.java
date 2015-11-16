@@ -105,7 +105,7 @@ public class HistoricalDailyReturns
       try
       {
          read.lock();
-         String storedProcName = "rbsa.sel_daily_prime_historical_returns";
+         String storedProcName = "invdb.sel_daily_prime_historical_returns";
          InvModelSP sp = new InvModelSP(ds, storedProcName,3, 99);
          dailyReturnsTickerMap.clear();
 
@@ -284,7 +284,7 @@ public class HistoricalDailyReturns
          statement.executeQuery("SELECT ticker, " +
                                    "DATE_FORMAT(businessdate,'%Y%m%d') as businessdate, " +
                                    "daily_return as daily_return " +
-                                   "FROM rbsa.rbsa_daily " +
+                                   "FROM invdb.sec_daily_info " +
                                    tickerWhere  + " " +
                                    minDateWhere + " " +
                                    maxDateWhere + " " +

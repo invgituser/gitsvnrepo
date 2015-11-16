@@ -71,7 +71,7 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.Core");
+      profileData.setTheme("0.TRowe");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
@@ -146,10 +146,10 @@ public class TestDistribution
       portPerf.calcGrowthInfo(perfData, perfData.length, profileData);
 
       //Create a assetPerformanceFile
-      //createAssetPerformanceFile(tax, pfclass, aamc, age);
+      createAssetPerformanceFile(tax, pfclass, aamc, age);
 
-      //createHoldingsFile(pfclass, tax, aamc, profileData);
-      createPerformanceDataFile(perfData, profileData.getGoalData());
+      createHoldingsFile(pfclass, tax, aamc, profileData);
+      //createPerformanceDataFile(perfData, profileData.getGoalData());
    }
 
    public static void createRandomNumbers()

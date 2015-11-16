@@ -89,7 +89,7 @@ public class HistoricalMonthlyReturns
       ds = dbconnection.getMySQLDataSource();
       try
       {
-         String storedProcName = "rbsa.sel_monthly_historical_returns";
+         String storedProcName = "invdb.sel_monthly_historical_returns";
          InvModelSP sp = new InvModelSP(ds, storedProcName,4, 99);
          monthlyReturnsArray.clear();
 

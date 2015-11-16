@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/invlayout.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{yodleeBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="aggrform">
+
+            <p:dialog widgetVar="dlgWelcome" closable="true" appendTo="@(body)"
+                      visible="#{yodleeBean.welcomeDialog}">
+                <p:panel id="intropanel" style="border: 0px; background: transparent; width: 500px">
+
+                    <div class="layout-portlets-box">
+
+                        <div class="Container100 Responsive100">
+                                <div class="ContainerIndent TexAlCenter">
+                                    <h1>
+                                        Registration
+                                    </h1>
+
+                                    <div class="EmptyBox10"></div>
+                                    Your Account is not yet registered for Aggregation process.
+                                    <div class="EmptyBox20"></div>
+                                    Should we add you to this process?  If so, then you will have the oppertunity to add additional
+                                    accounts.  You will need to provide online connection to information, only then the process will collect
+                                    the financial details.
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Fs8 TexAlCenter">
+
+                                    </div>
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Fs8 TexAlCenter">
+                                        This process connects to external services to collect your finacial data.
+                                        We do not share your password crediatials with anyone.  We use highly encrypted method to fetch your data.
+                                    </div>
+                                    <div class="EmptyBox10"></div>
+                                </div>
+                            </div>
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent TexAlCenter">
+                                    <p:commandButton value="Cancel" styleClass="Fleft"
+                                                     onclick="PF('dlgWelcome').hide()">
+                                    </p:commandButton>
+                                    <p:commandButton value="Get Started" styleClass="Fright"
+                                                     onclick="PF('dlgWelcome').hide()">
+                                    </p:commandButton>
+                                </div>
+                            </div>
+                    </div>
+
+                </p:panel>
+            </p:dialog>
+
+            <div class="Container100">
+                <!-- Left Column -->
+               <ui:include src="leftMenu.xhtml"/>
+                <!-- Right Column -->
+                <div class="Container90 Responsive100">
+                    <div class="Card Wid90 Fright">
+                        <!-- Section -->
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect">
+                                    <h2 class="CardTopic">Data</h2>
+
+                                    <div class="Seperator"></div>
+                                    <div class="EmptyBox20"></div>
+
+                                    <div class="Container100 Responsive50">
+                                        <div class="EmptyBox150"></div>
+                                        <div class="EmptyBox150"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -42,7 +42,7 @@
     class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
         <list>
-            <value>classpath:resources.properties</value>
+            <value>resources.properties</value>
         </list>
     </property>
 	</bean>

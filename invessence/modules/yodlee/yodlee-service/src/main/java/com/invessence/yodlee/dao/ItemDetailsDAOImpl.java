@@ -2,7 +2,6 @@ package com.invessence.yodlee.dao;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.invessence.yodlee.model.BankDetail;
 import com.invessence.yodlee.model.ItemDetail;
 import com.invessence.yodlee.util.HibernateUtil;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional

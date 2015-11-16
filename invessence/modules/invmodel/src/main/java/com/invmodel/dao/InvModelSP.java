@@ -3,6 +3,7 @@ package com.invmodel.dao;
 
 import java.sql.Types;
 import java.util.*;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 import com.invmodel.rebalance.data.*;
@@ -11,6 +12,8 @@ import org.springframework.jdbc.object.StoredProcedure;
 
 public class InvModelSP extends StoredProcedure
 {
+   private final Logger logger = Logger.getLogger(InvModelSP.class.getName());
+
    public InvModelSP(DataSource datasource, String storedProcName, int process, int which)
    {
       super(datasource, storedProcName);

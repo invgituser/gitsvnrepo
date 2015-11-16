@@ -3,7 +3,6 @@ package com.invessence.yodlee.dao;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.invessence.yodlee.model.UserLogon;
 import com.invessence.yodlee.util.HibernateUtil;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
