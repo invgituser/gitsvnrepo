@@ -330,7 +330,7 @@
         </div>
     </div>
 </p:fieldset>
-<p:fieldset legend="Goal Planning" rendered="#{cepb.goalData.goalDesired != null}"
+<p:fieldset legend="Goal Planning" rendered="false"
             toggleable="true" toggleSpeed="500">
     <div class="Container100 Responsive100">
         <div class="ContainerIndent">
@@ -407,7 +407,9 @@
 <div class="layout-portlets-box">
     <div class="Container100 Responsive100">
         <div class="ContainerIndent">
+	  <p:outputPanel style="background: #ffffff" >
             <p style="font-style: italic; font-size: .8em;">
+		<br/>
                 This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
                 (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
                 It does not take in affect any tax withholdings or distributions.
@@ -416,7 +418,10 @@
                 performance. All securities involve risk and may result in loss. Not an offer,
                 solicitation of an offer, or advice to buy or sell securities in jurisdictions
                 where Invessence is not registered
+		<br/>
+		<br/>
             </p>
+	  </p:outputPanel>
         </div>
     </div>
 </div>

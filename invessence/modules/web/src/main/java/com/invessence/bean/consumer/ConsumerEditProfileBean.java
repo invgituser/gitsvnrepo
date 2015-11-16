@@ -748,6 +748,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    public String getForwardInstructions() {
       String msg;
+      if (getCanOpenAccount() == null) {
+         canOpenAccount = -1;
+      }
       switch (getCanOpenAccount()) {
          case -1:
             msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +

@@ -14,13 +14,19 @@ public class AdvisorTheme
    Map<String, ArrayList<AssetData>> assetdataMap;
    Map<String, ArrayList<PrimeAssetData>> primeassetdataMap;
 
-   Map<String, String> theme;
+   Map<String, String> themeMap;
+   Map<String, String> assetnamesMap;
+   Map<String, String> primeassetnameMap;
+   Map<String, String> tickerMap;
 
    public AdvisorTheme()
    {
       assetdataMap = new HashMap<String, ArrayList<AssetData>>();
       primeassetdataMap = new HashMap<String, ArrayList<PrimeAssetData>>();
-      theme = new HashMap<String, String>();
+      themeMap = new HashMap<String, String>();
+      assetnamesMap = new HashMap<String, String>();
+      primeassetnameMap = new HashMap<String, String>();
+      tickerMap = new HashMap<String, String>();
    }
 
    public Map<String, ArrayList<AssetData>> getAssetdataMap()
@@ -69,27 +75,42 @@ public class AdvisorTheme
 
    public Map<String, String> getTheme()
    {
-      return theme;
+      return themeMap;
    }
 
    public Map<String, String> getTheme(Boolean taxable)
    {
-      Map<String, String> filteredTheme = null;
+      Map<String, String> filteredThemeMap = null;
       if (taxable != null) {
-         filteredTheme = new HashMap<String, String>();
-         for (String key: theme.keySet()) {
+         filteredThemeMap = new HashMap<String, String>();
+         for (String key: themeMap.keySet()) {
             if (taxable) {
                if (key.toUpperCase().startsWith("T"))
-                  filteredTheme.put(key, theme.get(key));
+                  filteredThemeMap.put(key, themeMap.get(key));
             }
             else {
                if (! key.toUpperCase().startsWith("T")) {
-               filteredTheme.put(key, theme.get(key));
+                  filteredThemeMap.put(key, themeMap.get(key));
                }
             }
          }
       }
-      return filteredTheme;
+      return filteredThemeMap;
+   }
+
+   public Map<String, String> getAssetnamesMap()
+   {
+      return assetnamesMap;
+   }
+
+   public Map<String, String> getPrimeassetnameMap()
+   {
+      return primeassetnameMap;
+   }
+
+   public Map<String, String> getTickerMap()
+   {
+      return tickerMap;
    }
 
    public void addAssetData(String theme, String themename,
@@ -123,9 +144,13 @@ public class AdvisorTheme
          assetdataMap.put(theme, assetlist);
       }
 
-      if (! this.theme.containsKey(theme)) {
-         this.theme.put(theme, themename);
+      if (! this.themeMap.containsKey(theme)) {
+         this.themeMap.put(theme, themename);
       }
+
+      if (! assetnamesMap.containsKey(assetclass))
+         assetnamesMap.put(assetclass, displayName);
+
 
    }
 
@@ -150,6 +175,13 @@ public class AdvisorTheme
          primeassetlist.add(primeasset);
          primeassetdataMap.put(theme, primeassetlist);
       }
+
+      if (! primeassetnameMap.containsKey(primeassetclass)) {
+         primeassetnameMap.put(primeassetclass, primeassetclass);
+      }
+
+      if (! tickerMap.containsKey(ticker))
+         tickerMap.put(ticker, ticker);
 
    }
 }

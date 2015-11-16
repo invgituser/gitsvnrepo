@@ -78,6 +78,11 @@
           <groupId>webcab</groupId>
           <artifactId>portfolioJ2SE</artifactId>
        </dependency>
+		<dependency>
+			<groupId>com.invessence</groupId>
+			<artifactId>yodlee-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 
       <dependency>
          <groupId>commons-beanutils</groupId>

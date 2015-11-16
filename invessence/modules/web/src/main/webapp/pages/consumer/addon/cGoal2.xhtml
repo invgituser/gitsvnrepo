@@ -6,68 +6,104 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 Responsive50">
-        <div class="Container40 Responsive100">
-            <p:panelGrid id="goalEntryArea" columns="2" layout="grid" styleClass="Container100 Responsive50"
-                         style="border:0px !important; background:none;" class="FormContent">
+        <p:panel id="goalEntryArea" style="border:0px !important; background:none;">
 
-                <div class="Wid90">Desired Goal</div>
-                <p:inputText value="#{cepb.initialInvestment}" styleClass="Wid90">
-                </p:inputText>
-
-                <div class="Wid90">Initial Investement</div>
-                <p:inputText value="#{cepb.initialInvestment}" styleClass="Wid90">
-                </p:inputText>
-
-
-                <div class="Wid90">Recurring Investement</div>
-                <p:inputText value="#{cepb.recurringInvestment}" styleClass="Wid90">
-                </p:inputText>
-
-
-                <div class="Wid90">Risk</div>
-                <div class="Container90 Responsive100 DispBlock gray">
-                    <div class="ContainerIndent">
-                        <div class="Container15 TexAlCenter Fs16">
-                            Low
-                        </div>
-                        <div class="Container70 TexAlCenter Fs20">
-                            <h:inputHidden id="riskID" value="#{cepb.allocationIndex}"/>
-                            <p:slider id="riskSlider" for="riskID" minValue="0" maxValue="79" step="1">
-                            </p:slider>
-                        </div>
-                        <div class="Container15 TexAlCenter Fs16">
-                            High
-                        </div>
+            <div class="Container100 Responsive50">
+                <div class="Container30">
+                    <div class="Wid90">Desired Goal</div>
+                </div>
+                <div class="Container60">
+                    <pe:inputNumber styleClass="Wid80"
+                                    value="#{cepb.goalData.goalDesired}"
+                                    maxlength="11" decimalPlaces="0" symbol="$">
+                    </pe:inputNumber>
+                </div>
+            </div>
+            <div class="EmptyBox20"></div>
+            <div class="Container100 Responsive100 TexAlCenter">
+                <div class="Wid90">Number of years when needed</div>
+            </div>
+            <div class="Container100 Responsive100 TexAlCenter">
+                <div class="Wid90">
+                    <div class="Container20 TexAlCenter Fs16">
+                        1
+                    </div>
+                    <div class="Container60 TexAlCenter Fs20">
+                        <h:inputHidden id="horizonID" value="#{cepb.horizon}"/>
+                        <p:slider id="horizonSlider" for="horizonID" minValue="1" maxValue="40" step="1"
+                                  display="termOutput" displayTemplate="Invest for {value} years">
+                        </p:slider>
+                    </div>
+                    <div class="Container20 TexAlCenter Fs16">
+                        40
                     </div>
                 </div>
-
-            </p:panelGrid>
-        </div>
-        <div class="Container60 Responsive100">
-            <div class="ContainerIndent">
-                <p:panel id="goalGraphArea" style="border: 0px">
-                    <p:chart type="line" model="#{cepb.charts.lineChart}"
-                             rendered="#{cepb.charts.lineChart != null}"
-                             responsive="true"/>
-                </p:panel>
             </div>
-        </div>
-    </div>
+            <div class="Container100 Responsive100 TexAlCenter">
+                <div class="Wid90">
+                    <h:outputText id="termOutput" style="font-weight: bold"
+                                  value="Invest for #{cepb.horizon} years" />
+                </div>
+            </div>
 
+            <div class="Container100 MarTop10 Responsive50">
+                <div class="Container30">
+                    <div class="Wid90">Initial Investment</div>
+                </div>
+                <div class="Container60">
+                    <pe:inputNumber styleClass="Wid90"
+                                    value="#{cepb.initialInvestment}"
+                                    maxlength="11" decimalPlaces="0" symbol="$">
+                        <p:ajax event="blur" listener="#{cepb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
+                    </pe:inputNumber>
+                </div>
+            </div>
 
-    <div class="Container100 Responsive">
-        <div class="ContainerIndent">
-            <p style="font-style: italic; font-size: .8em;">
-                This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
-                (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
-                It does not take in affect any tax withholdings or distributions.
-                Past performance is no guarantee of future results. Any historical returns,
-                expected returns, or probability projections may not reflect actual future
-                performance. All securities involve risk and may result in loss. Not an offer,
-                solicitation of an offer, or advice to buy or sell securities in jurisdictions
-                where Invessence is not registered
-            </p>
-        </div>
+            <div class="Container100 MarTop10 Responsive50">
+                <div class="Container30">
+                    <div class="Wid90">Recurring Investment</div>
+                </div>
+                <div class="Container60">
+                    <pe:inputNumber
+                            value="#{cepb.recurringInvestment}"
+                            maxlength="11" decimalPlaces="0" symbol="$">
+                        <p:ajax event="blur" listener="#{cepb.onChange}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </pe:inputNumber>
+
+                    <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
+                                  rendered="#{! cepb.goalData.reachable}"
+                                  value="#{cepb.goalData.calcRecurringAmount}">
+                        <f:convertNumber pattern="$##,###,###"/>
+                    </h:outputText>
+                </div>
+            </div>
+            <div class="Container100 MarTop10 Responsive">
+                <div class="ContainerIndent TexAlCenter">
+                    <p:commandButton value="Calculate" actionListener="#{cepb.calculateGoal}"
+                                     update="ceForm:pTabView:goalEntryArea, :ceForm:workArea, :ceForm:graphArea"/>
+                </div>
+            </div>
+            <div class="Container100 Responsive">
+                <div class="ContainerIndent">
+                    <p:outputPanel deferred="true" rendered="#{cepb.goalData.goalDesired != null}" style="border: 0px">
+                        <p:panel style="border: 0px" rendered="#{cepb.goalData.reachable}">
+                            <p style="font-size: 1.5em; color: green">
+                                Great, you'll reach this goal.
+                            </p>
+                        </p:panel>
+                        <p:panel style="border: 0px" rendered="#{! cepb.goalData.reachable}">
+                            <p style="font-size: 1.5em; color: red">
+                                To reach this goal, change recurring amount!
+                            </p>
+                        </p:panel>
+                    </p:outputPanel>
+                </div>
+            </div>
+
+        </p:panel>
+
     </div>
 
 </ui:composition>

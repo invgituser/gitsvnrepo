@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100">
-        <div class="Container50 Responsive50">
+        <div class="Container50 Fleft Responsive50">
             <div class="ContainerIndent">
                 <p:panel id="inputArea" style="border: 0px">
                     <p:tabView id="pTabView" activeIndex="#{cepb.pTab}"
@@ -53,9 +53,11 @@
                                 </p:tab>
                             </p:tabView>
                         </p:tab>
+
                         <p:tab id="p5" title="Set Goals">
                             <ui:include src="/pages/consumer/addon/cGoal.xhtml"/>
                         </p:tab>
+
                     </p:tabView>
                     <f:facet name="footer">
                         <p:commandButton value="Previous" styleClass="Fleft" rendered="#{cepb.enablePrevButton}"
@@ -68,10 +70,9 @@
                 </p:panel>
             </div>
         </div>
-        <div class="Container50 Responsive50">
+        <div class="Container50 Fleft Responsive50">
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px">
-                    <div class="EmptyBox10"></div>
                     <div class="Container100 Responsive100">
                         <div class="Container100">
                             <div class="Wid45 BorderedBox Fright TexAlCenter Mar10">
@@ -138,6 +139,20 @@
                                 </div>
                             </p:panel>
                             <p:panel style="border: 0px" rendered="#{cepb.showGoalChart}">
+                                <div class="Container100 Responsive">
+                                    <div class="ContainerIndent">
+                                        <p:outputPanel deferred="true" rendered="#{cepb.goalData.goalDesired != null}" style="border: 0px" styleClass="TexAlCenter">
+                                            <h:outputText value="Great, you'll reach this goal."
+							rendered="#{cepb.goalData.reachable}"
+							style="font-size: 1.2em; color: green">
+					    </h:outputText>
+                                            <h:outputText value="To reach your goal, see suggested recurring amount!"
+							rendered="#{! cepb.goalData.reachable}"
+							style="font-size: 1.2em; color: red">
+					    </h:outputText>
+                                        </p:outputPanel>
+                                    </div>
+                                </div>
                                 <div class="Container100  Fleft">
                                     <div class="Container100">
                                             <p:chart type="line" model="#{cepb.charts.lineChart}"

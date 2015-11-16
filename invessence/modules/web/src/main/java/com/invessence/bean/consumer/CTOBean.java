@@ -71,7 +71,7 @@ public class CTOBean extends InvestorData implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            pagemanager = new PagesImpl(6);
+            pagemanager = new PagesImpl(4);
          }
       }
       catch (Exception ex) {

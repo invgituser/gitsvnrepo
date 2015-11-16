@@ -184,3 +184,11 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     float: left;
 }
 
+.Fix80Spinner {
+    width: 80px !important;
+}
+
+.Fix80Spinner .ui-inputfield 
+{
+    width: 80px !important;
+}
