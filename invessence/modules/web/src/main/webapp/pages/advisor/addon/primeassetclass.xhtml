@@ -85,15 +85,17 @@
 
     <p:dialog header="Prime Assets" widgetVar="editPrimeAssetDialog"
               modal="true" showEffect="fade" hideEffect="fade" resizable="true">
-        <p:outputPanel id="primeAssetPanel" style="text-align:center;">
-            <p:panelGrid  columns="2"
-                          columnClasses="label,value">
+        <p:panel id="primeAssetPanel" style="text-align:center;">
+            <p:panelGrid  columns="2" style="border: 0px;"
+                          columnClasses="label,value" class="FormContent">
 
-                <h:outputText value="Theme:" />
-                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.theme}" />
+                <h:outputText value="Theme:"/>
+                <h:outputText value="#{advisorAssetBean.selectedAsset.themename}"
+                              style="text-align: left; font-size: 1.2em"/>
 
-                <h:outputText value="Asset:" />
-                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.assetclass}" />
+                <h:outputText value="Theme:"/>
+                <h:outputText value="#{advisorAssetBean.selectedPrimeAssetData.assetclass}"
+                              style="text-align: left; font-size: 1.2em"/>
 
                 <h:outputText value="Prime Asset:" />
                 <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.primeassetclass}" />
@@ -110,7 +112,14 @@
                 <h:outputText value="Upper Bound:" />
                 <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.upperbound}" />
             </p:panelGrid>
-        </p:outputPanel>
+            <f:facet name="footer">
+                <p:commandButton value="Cancel" styleClass="Fleft"
+                                 oncomplete="PF('editPrimeAssetDialog').hide();" />
+                <p:commandButton value="Save" styleClass="Fright"
+                                 actionListener="#{advisorAssetBean.savePrimeAsset(advisorAssetBean.selectedPrimeAssetData)}"
+                                 oncomplete="PF('editPrimeAssetDialog').hide();" />
+            </f:facet>
+        </p:panel>
     </p:dialog>
 
 

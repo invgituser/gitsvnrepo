@@ -23,7 +23,7 @@
                              icon="fa fa-pencil Fs14 white"
                              oncomplete="PF('editAssetDialog').show()"
                              update="assetform:assetID:assetEditPanel">
-                <p:tooltip id="editTipFade" for="editAsset" value="Edit" />
+                <p:tooltip id="editTipFade" for="editAsset" value="Edit"/>
                 <f:setPropertyActionListener value="#{assetVar}"
                                              target="#{advisorAssetBean.selectedAsset}"/>
             </p:commandButton>
@@ -93,41 +93,50 @@
 
     <p:dialog header="Assets" widgetVar="editAssetDialog"
               modal="true" showEffect="fade" hideEffect="fade" resizable="true">
-        <p:outputPanel id="assetEditPanel" style="text-align:center;">
-            <p:panelGrid  columns="2"
-                          columnClasses="label,value">
+        <p:panel id="assetEditPanel" style="text-align:center;">
+            <p:panelGrid columns="2" style="border: 0px;"
+                         columnClasses="label,value" class="FormContent">
 
-                <h:outputText value="Theme:" />
-                <p:inputText value="#{advisorAssetBean.selectedAsset.theme}" />
+                <h:outputText value="Theme:"/>
+                <h:outputText value="#{advisorAssetBean.selectedAsset.themename}"
+                              style="text-align: left; font-size: 1.2em"/>
 
-                <h:outputText value="Asset:" />
-                <p:inputText value="#{advisorAssetBean.selectedAsset.assetclass}" />
+                <h:outputText value="Asset:"/>
+                <p:inputText value="#{advisorAssetBean.selectedAsset.assetclass}"/>
 
-                <h:outputText value="Status:" />
-                <p:inputText value="#{advisorAssetBean.selectedAsset.status}" />
-
-                <h:outputText value="Display Name:" />
+                <h:outputText value="Display Name:"/>
                 <p:inputText value="#{advisorAssetBean.selectedAsset.displayName}"/>
 
-                <h:outputText value="Index Ticker:" />
+                <h:outputText value="Status:"/>
+                <p:inputText value="#{advisorAssetBean.selectedAsset.status}"/>
+
+                <h:outputText value="Index Ticker:"/>
                 <p:inputText value="#{advisorAssetBean.selectedAsset.indexticker}"/>
 
-                <h:outputText value="Sort Order:" />
-                <p:inputText value="#{advisorAssetBean.selectedAsset.sortorder}" />
+                <h:outputText value="Sort Order:"/>
+                <p:inputText value="#{advisorAssetBean.selectedAsset.sortorder}"/>
 
-                <h:outputText value="Lower Bound:" />
+                <h:outputText value="Lower Bound:"/>
                 <p:inputText value="#{advisorAssetBean.selectedAsset.lowerbound}">
-               </p:inputText>
+                </p:inputText>
 
-                <h:outputText value="Upper Bound:" />
+                <h:outputText value="Upper Bound:"/>
                 <p:inputText value="#{advisorAssetBean.selectedAsset.upperbound}">
                 </p:inputText>
 
-
-                <h:outputText value="Color:" />
+                <h:outputText value="Color:"/>
                 <p:inputText value="#{advisorAssetBean.selectedAsset.color}"/>
             </p:panelGrid>
-        </p:outputPanel>
+            <f:facet name="footer">
+                <p:commandButton value="Cancel" styleClass="Fleft"
+                                 oncomplete="PF('editAssetDialog').hide();"/>
+                <p:commandButton value="Save" styleClass="Fright"
+                                 actionListener="#{advisorAssetBean.saveAsset(advisorAssetBean.selectedAsset)}"
+                                 oncomplete="PF('editAssetDialog').hide();" />
+            </f:facet>
+
+        </p:panel>
+
     </p:dialog>
 
 
