@@ -5,7 +5,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.data.advisor.AdvisorData;
+import com.invessence.data.advisor.*;
 import com.invmodel.asset.data.Asset;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.*;
@@ -75,6 +75,32 @@ public class AdvisorSaveSP extends StoredProcedure
             break;
          case 7:  // Delete User Account
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
+         case 8:  // saveAssetData sp_save_sec_assetclass_group
+            declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_status", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_displayName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_sortorder", Types.INTEGER));
+            declareParameter(new SqlParameter("p_lower_bound", Types.FLOAT));
+            declareParameter(new SqlParameter("p_upper_bound", Types.FLOAT));
+            declareParameter(new SqlParameter("p_color", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_averageReturn", Types.FLOAT));
+            declareParameter(new SqlParameter("p_riskAdjustment", Types.FLOAT));
+            declareParameter(new SqlParameter("p_endAllocation", Types.FLOAT));
+            break;
+         case 9:  // savePrimeAssetData sp_save_sec_assetclass_group
+            declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_primeassetclass", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_ticker", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_status", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_sortorder", Types.INTEGER));
+            declareParameter(new SqlParameter("p_color", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_lower_bound", Types.FLOAT));
+            declareParameter(new SqlParameter("p_upper_bound", Types.FLOAT));
+            declareParameter(new SqlParameter("p_expectedReturn", Types.FLOAT));
             break;
          default:
       }
@@ -218,6 +244,39 @@ public class AdvisorSaveSP extends StoredProcedure
    {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);
+      super.execute(inputMap);
+   }
+
+   public void saveAssetData(AssetData data) {
+      Map inputMap = new HashMap();
+      inputMap.put("p_theme", data.getTheme());
+      inputMap.put("p_status", data.getStatus());
+      inputMap.put("p_assetclass", data.getAssetclass());
+      inputMap.put("p_displayName", data.getDisplayName());
+      inputMap.put("p_ticker", data.getIndexticker());
+      inputMap.put("p_sortorder", data.getSortorder());
+      inputMap.put("p_lower_bound", data.getLowerbound());
+      inputMap.put("p_upper_bound", data.getUpperbound());
+      inputMap.put("p_color", data.getColor());
+      inputMap.put("p_averageReturn", 0.0);
+      inputMap.put("p_riskAdjustment", data.getRiskAdjustment());
+      inputMap.put("p_endAllocation", data.getEndAllocation());
+      super.execute(inputMap);
+
+   }
+
+   public void savePrimeAssetData(PrimeAssetData data) {
+      Map inputMap = new HashMap();
+      inputMap.put("p_theme", data.getTheme());
+      inputMap.put("p_status", data.getActive());
+      inputMap.put("p_assetclass", data.getAssetclass());
+      inputMap.put("p_primeassetclass", data.getPrimeassetclass());
+      inputMap.put("p_ticker", data.getTicker());
+      inputMap.put("p_sortorder", data.getSortorder());
+      inputMap.put("p_color", "");
+      inputMap.put("p_lower_bound", data.getLowerbound());
+      inputMap.put("p_upper_bound", data.getUpperbound());
+      inputMap.put("p_expectedReturn", data.getExpectedReturn());
       super.execute(inputMap);
    }
 

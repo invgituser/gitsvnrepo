@@ -203,27 +203,30 @@ public class PortfolioPerformance
          pfdata.getGoalData().setActualRecurringAmount(recurringAmount);
          pfdata.getGoalData().setTerm((double) termyear);
 
+         if (pfdata.getGoalData().getGoalDesired() <= performancedata[termyear].getTotalCapitalWithGains()) {
+            Double n1 = Math.pow((1.0 + interestRate), termyear);
+            Double n2 = actualInitialAmount * n1;
+            //Double n3 = goalAmount - n2;
+            Double n3 = goalAmount - performancedata[termyear - 1].getLowerBand2();
+            Double numerator = interestRate * n3;
+            Double d1 = Math.pow((1 + interestRate), (termyear + 1));
+            Double denominator = (d1 - 1 - interestRate);
 
-         Double n1 = Math.pow((1.0 + interestRate), termyear);
-         Double n2 = actualInitialAmount * n1;
-         //Double n3 = goalAmount - n2;
-         Double n3 = goalAmount - performancedata[termyear - 1].getLowerBand2();
-         Double numerator = interestRate * n3;
-         Double d1 = Math.pow((1 + interestRate), (termyear + 1));
-         Double denominator = (d1 - 1 - interestRate);
+            calcRecurringAmount = numerator / denominator;
 
-         calcRecurringAmount = numerator / denominator;
+            pfdata.getGoalData().setCalcRecurringAmount(calcRecurringAmount);
 
-         pfdata.getGoalData().setCalcRecurringAmount(calcRecurringAmount);
-
-         if (calcRecurringAmount <= 0 || calcRecurringAmount <= recurringAmount)
-         {
-            pfdata.getGoalData().setReachable(true);
+            if (calcRecurringAmount <= 0 || calcRecurringAmount <= recurringAmount)
+            {
+               pfdata.getGoalData().setReachable(true);
+            }
+            else
+            {
+               pfdata.getGoalData().setReachable(false);
+            }
          }
          else
-         {
             pfdata.getGoalData().setReachable(false);
-         }
       }
       catch (Exception ex)
       {

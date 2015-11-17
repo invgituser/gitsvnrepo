@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.faces.bean.*;
 import javax.sql.DataSource;
 
-import com.invessence.data.advisor.AdvisorData;
+import com.invessence.data.advisor.*;
 import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -59,6 +59,20 @@ public class AdvisorSaveDataDAO extends JdbcDaoSupport implements Serializable
       AdvisorSaveSP sp = new AdvisorSaveSP(ds, "delete_userAccount",7);
       sp.deleteAccount(acctnum);
 
+   }
+
+   public Boolean saveAssetData(AssetData data) {
+      DataSource ds = getDataSource();
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "save_assetData",8);
+      sp.saveAssetData(data);
+      return true;
+   }
+
+   public Boolean savePrimeAssetData(PrimeAssetData data) {
+      DataSource ds = getDataSource();
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "save_primeAssetData",9);
+      sp.savePrimeAssetData(data);
+      return true;
    }
 }
 

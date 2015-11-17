@@ -14,51 +14,41 @@
         </f:facet>
 
         <p:submenu label="Account" icon="fa fa-file-text-o">
-            <p:menuitem value="New Application" icon="fa fa-plus-square" rendered="#{uiportal.enableMenu('USER')}"
+            <p:menuitem value="New" icon="fa fa-plus-square" rendered="#{uiportal.enableMenu('USER')}"
                         actionListener="#{uiportal.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
-            <p:menuitem value="Interactive Broker" icon="fa fa-institution"
+            <p:menuitem value="Management" icon="fa fa-institution"
                         actionListener="#{uiportal.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
         </p:submenu>
 
         <p:separator rendered="#{uiportal.hasAccessMenu('ADVISOR')}" />
 
-        <p:submenu label="Advisor" icon="fa fa-user-plus" rendered="#{uiportal.hasAccessMenu('ADVISOR')}">
-            <p:menuitem value="Invite Client" icon="fa fa-plus-square" disabled="true"
-                        actionListener="#{uiportal.doMenuAction('/advisor/aadd.xhtml?acct=0')}"/>
-            <p:menuitem value="Review Clients" icon="fa fa-th-list"
+            <p:menuitem value="Sales Rep" icon="fa fa-user-md" rendered="#{uiportal.hasAccessMenu('ADVISOR')}"
                         actionListener="#{uiportal.doMenuAction('/advisor/alist.xhtml')}"/>
-        </p:submenu>
 
         <p:separator rendered="#{uiportal.hasAccessMenu('USER')}" />
 
-        <p:submenu label="Reports" icon="fa fa-list-alt"
-                   rendered="#{uiportal.hasAccessMenu('USER')}">
-            <p:menuitem value="Overview" icon="fa fa-picture-o"
+            <p:menuitem value="Reports" icon="fa fa-picture-o" rendered="#{uiportal.hasAccessMenu('USER')}"
                         actionListener="#{uiportal.doMenuAction('/consumer/creports.xhtml')}"/>
-            <p:menuitem value="Fees" icon="fa fa-calculator"
-                        disabled="true"/>
-        </p:submenu>
 
             <p:separator rendered="#{uiportal.enableMenu('SALES')}" />
 
-            <p:submenu label="Marketing" icon="fa fa-wifi" rendered="#{uiportal.enableMenu('SALES')}">
-                <p:menuitem value="Marketing Dashboard" icon="fa fa-user"
+                <p:menuitem value="Marketing" icon="fa fa-wifi" rendered="#{uiportal.enableMenu('SALES')}"
                             actionListener="#{uiportal.doMenuAction('/advisor/marketing.xhtml')}"/>
-            </p:submenu>
 
             <p:separator rendered="#{uiportal.enableMenu('ADMIN')}" />
 
-            <p:submenu label="Admin" icon="fa fa-cogs" rendered="#{uiportal.enableMenu('ADMIN')}">
-                <p:menuitem value="Review Profiles" icon="fa fa-user"
-                            actionListener="#{uiportal.doMenuAction('/admin/users.xhtml')}"/>
-                <p:menuitem value="Trade/Rebalance" icon="fa fa-th-list"
+                <p:menuitem value="Operations" icon="fa fa-briefcase" rendered="#{uiportal.enableMenu('ADMIN')}"
                             actionListener="#{uiportal.doMenuAction('/admin/trade.xhtml')}"/>
-            </p:submenu>
 
-        <p:separator rendered="#{uiportal.enableMenu('DEMO')}" />
+        <p:separator rendered="#{uiportal.enableMenu('ADVISOR')}" />
+
+            <p:menuitem value="Investments" icon="fa fa-th-list" outcome="/pages/advisor/assets.xhtml"
+		rendered="#{uiportal.enableMenu('ADVISOR')}"/>
+
+        <p:separator rendered="#{uiportal.enableMenu('DEVELOPER')}" />
 
         <p:submenu label="Demo" icon="fa fa-asterisk"
-                   rendered="#{uiportal.enableMenu('DEMO')}">
+                   rendered="#{uiportal.enableMenu('DEVELOPER')}">
             <p:menuitem value="CTO" outcome="/pages/consumer/cto/cto.xhtml"/>
             <p:menuitem value="Asset" outcome="/pages/advisor/assets.xhtml"/>
             <p:menuitem value="Yodlee" outcome="/pages/consumer/aggr/main.xhtml"/>

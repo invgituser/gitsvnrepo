@@ -90,4 +90,14 @@ public class ReportData
    {
       this.downloadReport = downloadReport;
    }
+
+   public Boolean getIsPdf()
+   {
+      if (this.filename != null) {
+         if (this.filename.toUpperCase().endsWith("PDF"))
+            return true;
+      }
+      return false;
+
+   }
 }

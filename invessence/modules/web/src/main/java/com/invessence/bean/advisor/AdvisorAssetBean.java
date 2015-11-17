@@ -190,4 +190,38 @@ public class AdvisorAssetBean implements Serializable
       return null;
    }
 
+   public void saveAsset(AssetData saveAssetData) {
+      try {
+         if (saveAssetData != null) {
+            if (webutil.isUserLoggedIn()) {
+               Boolean saved = advisorSaveDataDAO.saveAssetData(saveAssetData);
+               if (! saved) {
+                  webutil.alertSupport("SaveAssetData", "Attempting to Save", "Attempting to Save", null );
+               }
+            }
+         }
+
+      }
+      catch (Exception ex) {
+         webutil.alertSupport("SaveAssetData", "Attempting to Save", "Exception, When Attempting to Save", null );
+      }
+   }
+
+   public void savePrimeAsset(PrimeAssetData savePrimeAssetData) {
+      try {
+         if (savePrimeAssetData != null) {
+            if (webutil.isUserLoggedIn()) {
+               Boolean saved = advisorSaveDataDAO.savePrimeAssetData(savePrimeAssetData);
+               if (! saved) {
+                  webutil.alertSupport("SavePrimeAsset", "Attempting to Save", "Attempting to Save", null );
+               }
+            }
+         }
+
+      }
+      catch (Exception ex) {
+         webutil.alertSupport("SavePrimeAsset", "Attempting to Save", "Exception, When Attempting to Save", null );
+      }
+   }
+
 }

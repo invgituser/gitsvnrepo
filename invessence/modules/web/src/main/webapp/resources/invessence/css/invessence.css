@@ -19,30 +19,36 @@
     border: 0px;
 }
 
+
 .invNBgrid {
     border: 0px;
     border-collapse: collapse;
     border-spacing: 1px !important;
-    valign: top;
+    vertical-align: middle;
 }
 
+.FormContent tbody,
 .invNBgrid tbody {
      border: 0px;
 }
 
+.FormContent tbody tr,
 .invNBgrid tbody tr {
     border: 0px;
 }
 
+.FormContent tbody tr td,
 .invNBgrid tbody tr td {
     border: 0px;
 }
 
+.FormContent tr,
 .invNBgrid tr {
     border-width: 0px !important;
-    vertical-align: top !important;
+    vertical-align: middle !important;
 }
 
+.FormContent td,
 .invNBgrid td {
     border-width: 0px !important;
 }

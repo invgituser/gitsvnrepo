@@ -55,6 +55,7 @@ public class PositionDAO extends JdbcDaoSupport
             data.setExpenseRatio(convert.getDoubleData(rs.get("expenseRatio")));
             data.setRisk(convert.getDoubleData(rs.get("risk")));
             data.setFees(convert.getDoubleData(rs.get("ytdinvoiceFee")));
+            data.setGoalAmount(convert.getDoubleData(rs.get("goalAmount")));
             positionList.add(i, data);
             i++;
          }

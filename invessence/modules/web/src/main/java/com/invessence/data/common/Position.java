@@ -41,6 +41,7 @@ public class Position implements Serializable
    private Double expenseRatio;
    private Double risk;
    private Double fees;
+   private Double goalAmount;
 
    public Position()
    {
@@ -186,11 +187,16 @@ public class Position implements Serializable
       this.fees = fees;
    }
 
-   public Double getWeightAsPercent() {
+   public Double getWeightAsPercent()
+   {
       if (getWeight() != null)
+      {
          return (getWeight() * 100);
+      }
       else
+      {
          return 0.0;
+      }
    }
 
    public String getClientAccountID()
@@ -323,14 +329,19 @@ public class Position implements Serializable
       this.lastname = lastname;
    }
 
-   public String getFullName() {
+   public String getFullName()
+   {
       if (lastname != null && lastname.length() > 0)
+      {
          return this.lastname + ", " + this.firstname;
+      }
       else
+      {
          return firstname + " Portfolio";
+      }
    }
 
-public String getDateOpened()
+   public String getDateOpened()
    {
       return dateOpened;
    }
@@ -338,5 +349,15 @@ public String getDateOpened()
    public void setDateOpened(String dateOpened)
    {
       this.dateOpened = dateOpened;
+   }
+
+   public Double getGoalAmount()
+   {
+      return goalAmount;
+   }
+
+   public void setGoalAmount(Double goalAmount)
+   {
+      this.goalAmount = goalAmount;
    }
 }

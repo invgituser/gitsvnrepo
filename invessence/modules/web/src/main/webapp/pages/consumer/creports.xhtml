@@ -76,13 +76,23 @@
 
                                 <p:column styleClass="Wid20 TextAlLeft">
 
-                                  <p:commandButton id="viewButton" value="View"
-                                                   styleClass="Fs16 BlueButton"
-                                                   process="@this" immediate="true"
-                                                   icon="fa fa-list-alt Fs14 white"
-                                                   actionListener="#{reportBean.viewReport(report)}">
-                                  </p:commandButton>
+                                    <ui:fragment rendered="#{! report.isPdf}">
+                                        <p:lightBox iframe="true" rendered="#{! report.isPdf}">
+                                            <h:outputLink value="#{report.filename}" title="#{report.reportName}">
+                                                <span class="fa-search-plus">
+                                                  <h:outputText value="View" />
+                                                </span>
+                                            </h:outputLink>
+                                        </p:lightBox>
+                                    </ui:fragment>
 
+                                    <ui:fragment rendered="#{report.isPdf}">
+                                        <p:commandButton value="Download" ajax="false"
+                                                         onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                         icon="ui-icon-arrowthick-1-s">
+                                            <p:fileDownload value="#{report.filename}" />
+                                        </p:commandButton>
+                                    </ui:fragment>
 
                                 </p:column>
                             </p:dataTable>
@@ -96,7 +106,6 @@
                 </h:form>
             </div>
             <!-- BOX END -->
-
 
     </ui:define>
 

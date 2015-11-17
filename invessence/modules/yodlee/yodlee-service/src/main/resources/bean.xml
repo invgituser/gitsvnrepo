@@ -42,7 +42,7 @@
     class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="locations">
         <list>
-            <value>resources.properties</value>
+            <value>classpath:resources.properties</value>
         </list>
     </property>
 	</bean>
@@ -51,7 +51,7 @@
     <property name="staticMethod" value="com.invessence.yodlee.util.YodleeAPI.setHOST_URI"/>
     <property name="arguments">
         <list>
-            <value>${HOST_URI}</value>
+            <value>https://yisandbox.yodleeinteractive.com/services/srest/private-sandbox124/</value>
         </list>
    </property>
 </bean>

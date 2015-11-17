@@ -667,8 +667,10 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             if (validate) {
                saveProfile();
             }
-            if (canOpenAccount == 0)
-               getWebutil().redirect("/pages/consumer/funding.xhtml?acct="+getAcctnum(), null);
+            if (canOpenAccount == 0) {
+               //getWebutil().redirect("/pages/consumer/funding.xhtml?acct="+getAcctnum(), null);
+               getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
+            }
             else
                RequestContext.getCurrentInstance().closeDialog("tryDialog");
 

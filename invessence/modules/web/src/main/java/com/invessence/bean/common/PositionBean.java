@@ -41,6 +41,8 @@ public class PositionBean implements Serializable
    private Double totalExpenseRatio;
    private Double totalRisk;
    private Double totalFees;
+   private Double goalDesired;
+   private Double goalReached;
    private Long acctnum;
    private String firstname, lastname, dateOpened, clientAccountID;
    private Boolean managed;
@@ -225,6 +227,8 @@ public class PositionBean implements Serializable
          totalYield = 0.0;
          totalExpenseRatio = 0.0;
          totalFees = 0.0;
+         goalDesired = 0.0;
+         goalReached = 0.0;
 
          displayPositionList.clear();
          if (positionList == null)
@@ -282,6 +286,13 @@ public class PositionBean implements Serializable
             totalRisk = totalRisk + (position.getRisk());
             totalExpenseRatio = totalExpenseRatio + (position.getExpenseRatio());
             totalYield = totalYield + (position.getYield());
+            if (position.getGoalAmount() != null) {
+               goalDesired = position.getGoalAmount();
+            }
+
+            if (position.getGoalAmount() > 0.0) {
+               goalReached = totalmoney / goalDesired;
+            }
 
          }
          createPieModel();
@@ -381,6 +392,16 @@ public class PositionBean implements Serializable
    public void setTotalFees(Double totalFees)
    {
       this.totalFees = totalFees;
+   }
+
+   public Double getGoalDesired()
+   {
+      return goalDesired;
+   }
+
+   public Double getGoalReached()
+   {
+      return goalReached;
    }
 
    public String reviseRisk()
