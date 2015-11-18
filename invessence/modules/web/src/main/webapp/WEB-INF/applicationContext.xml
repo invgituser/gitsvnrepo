@@ -20,9 +20,7 @@
 	<import resource="messageSource.xml"/>
 	<import resource="dataSource.xml"/>
     <import resource="dataLoadingSingletons.xml"/>
-<!--
-    <import resource="classpath*:/bean.xml" />
--->
+    <import resource="classpath*:/yodleeBeanConf.xml" />
 
    <!--import resource for consumers business-->
    <import resource="allDAO.xml"/>
