@@ -80,8 +80,8 @@
        </dependency>
 		<dependency>
 			<groupId>com.invessence</groupId>
-			<artifactId>yodlee-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<artifactId>yodlee-services</artifactId>
+    <version>1.0-SNAPSHOT</version>
 		</dependency>
 
       <dependency>

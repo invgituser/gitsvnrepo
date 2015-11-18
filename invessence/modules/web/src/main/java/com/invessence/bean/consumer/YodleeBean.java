@@ -4,18 +4,10 @@ import java.io.Serializable;
 import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
-import com.google.gson.Gson;
 import com.invessence.util.WebUtil;
 import com.invessence.yodlee.model.*;
 import com.invessence.yodlee.service.YodleeAPIService;
-import com.invessence.yodlee.util.YodleeAPI;
-import org.json.JSONArray;
-import org.primefaces.context.RequestContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,8 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class YodleeBean implements Serializable
 {
    private Boolean welcomeDialog;
-
-   @Autowired
+   @ManagedProperty("#{yodleeAPIService}")
    YodleeAPIService yodleeAPIService;
    public YodleeAPIService getYodleeAPIService() {
       return yodleeAPIService;
@@ -64,14 +55,16 @@ public class YodleeBean implements Serializable
 
    public void preRenderView()
    {
-
+   System.out.println("preRenderView");
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             if (! getWebutil().isUserLoggedIn()) {
                getWebutil().redirect("/login.xhtml",null);
             }
-            welcomeDialog = isUserRegisteredAtYodlee();
+            //welcomeDialog = isUserRegisteredAtYodlee();
+            Long logonid = webutil.getLogonid();
+            welcomeDialog = yodleeAPIService.isUserRegisteredAtYodlee(logonid);
          }
       }
       catch (Exception e)
@@ -79,7 +72,23 @@ public class YodleeBean implements Serializable
       }
    }
 
-   public Boolean isUserRegisteredAtYodlee() {
+   public void userRegistration(){
+      System.out.println("userRegistration");
+      Map<String, Object> result =null;
+      try
+      {
+         Long logonid = webutil.getLogonid();
+         result = yodleeAPIService.userRegistration(logonid);
+         //return result;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      //return result;
+   }
+
+/*   public Boolean isUserRegisteredAtYodlee() {
       try {
         Long logonid = webutil.getLogonid();
         Map <String, Object> result = yodleeAPIService.userLogin(logonid);
@@ -102,11 +111,13 @@ public class YodleeBean implements Serializable
         redirecttoErrorPage(null);
       }
       return true;
-   }
+   }*/
 
    public void redirecttoErrorPage(YodleeError errorInfo) {
 
    }
+
+
 
 
 }

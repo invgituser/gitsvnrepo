@@ -50,7 +50,8 @@
                                                      onclick="PF('dlgWelcome').hide()">
                                     </p:commandButton>
                                     <p:commandButton value="Get Started" styleClass="Fright"
-                                                     onclick="PF('dlgWelcome').hide()">
+                                                     actionListener="#{yodleeBean.userRegistration}"
+                                                     oncomplete="PF('dlgWelcome').hide();" >
                                     </p:commandButton>
                                 </div>
                             </div>
