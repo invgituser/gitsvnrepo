@@ -21,7 +21,7 @@
       <module>eod</module>
       <module>docusign</module>
       <module>invmodel</module>
-      <module>yodlee</module>
+      <module>yodlee-services</module>
       <module>web</module>
       <module>virtual-trades</module>
       <module>emailer</module>
@@ -32,5 +32,6 @@
       <module>showcase</module>
       <module>ltammodel</module>
       <module>iAdvice</module>
+      <module>yodlee-web</module>
    </modules>
 </project>
