@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head><title>Welcome to OTV_JSF_Spring_Hibernate_Project</title></h:head>
+<h:body>
+	<h:commandLink action="#{userMB.addUser}">View Users </h:commandLink>
+	<h:form>
+		<p:dataTable id="users" var="user" value="#{userMB.userList}" style="width: 10%">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Id" />
+				</f:facet>
+				<h:outputText value="#{user.invUserId}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="User Id" />
+				</f:facet>
+				<h:outputText value="#{user.userId}" />
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Email" />
+				</f:facet>
+				<h:outputText value="#{user.email}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Registration" />
+				</f:facet>
+
+				<h:commandLink action="#{userMB.userRegistration(user.invUserId)}" value="Registration">
+
+				</h:commandLink>
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+				</f:facet>
+				<h:commandLink action="#{userMB.userLogin(user.invUserId)}" value="Login" >
+
+				</h:commandLink>
+
+			</p:column>
+		</p:dataTable>
+
+
+
+	</h:form>
+
+
+
+</h:body>
+</html> 
