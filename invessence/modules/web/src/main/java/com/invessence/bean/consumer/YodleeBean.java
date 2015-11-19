@@ -6,8 +6,8 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.util.WebUtil;
-import com.invessence.yodlee.model.*;
-import com.invessence.yodlee.service.YodleeAPIService;
+//import com.invessence.yodlee.model.*;
+//import com.invessence.yodlee.service.YodleeAPIService;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +20,9 @@ import com.invessence.yodlee.service.YodleeAPIService;
 @SessionScoped
 public class YodleeBean implements Serializable
 {
-   private Boolean welcomeDialog;
+   private Integer controlWidget;
+
+/*
    @ManagedProperty("#{yodleeAPIService}")
    YodleeAPIService yodleeAPIService;
    public YodleeAPIService getYodleeAPIService() {
@@ -30,6 +32,7 @@ public class YodleeBean implements Serializable
    public void setYodleeAPIService(YodleeAPIService yodleeAPIService) {
       this.yodleeAPIService = yodleeAPIService;
    }
+*/
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -43,19 +46,20 @@ public class YodleeBean implements Serializable
       return webutil;
    }
 
-   public Boolean getWelcomeDialog()
+   public Integer getControlWidget()
    {
-      return welcomeDialog;
+      return controlWidget;
    }
 
-   public void setWelcomeDialog(Boolean welcomeDialog)
+   public void setControlWidget(Integer controlWidget)
    {
-      this.welcomeDialog = welcomeDialog;
+      this.controlWidget = controlWidget;
    }
 
    public void preRenderView()
    {
    System.out.println("preRenderView");
+/*
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
@@ -64,14 +68,19 @@ public class YodleeBean implements Serializable
             }
             //welcomeDialog = isUserRegisteredAtYodlee();
             Long logonid = webutil.getLogonid();
-            welcomeDialog = yodleeAPIService.isUserRegisteredAtYodlee(logonid);
+            if (yodleeAPIService.isUserRegisteredAtYodlee(logonid)) {
+               controlWidget = 4;
+               webutil.redirect("/pages/consumer/aggr/profile.xhtml", null);
+            }
          }
       }
       catch (Exception e)
       {
       }
+*/
    }
 
+/*
    public void userRegistration(){
       System.out.println("userRegistration");
       Map<String, Object> result =null;
@@ -88,6 +97,7 @@ public class YodleeBean implements Serializable
       //return result;
    }
 
+*/
 /*   public Boolean isUserRegisteredAtYodlee() {
       try {
         Long logonid = webutil.getLogonid();
@@ -111,12 +121,14 @@ public class YodleeBean implements Serializable
         redirecttoErrorPage(null);
       }
       return true;
-   }*/
+   }*//*
+
 
    public void redirecttoErrorPage(YodleeError errorInfo) {
 
    }
 
+*/
 
 
 

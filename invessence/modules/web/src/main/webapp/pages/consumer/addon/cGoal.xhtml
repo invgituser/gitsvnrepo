@@ -50,8 +50,11 @@
 
             <div class="Container100 MarTop10 Responsive">
                 <div class="ContainerIndent TexAlCenter">
-                    <p:commandButton value="Calculate" actionListener="#{cepb.calculateGoal}"
+                    <p:commandButton id="calcButton" value="Calculate" actionListener="#{cepb.calculateGoal}"
                                      update="ceForm:pTabView:goalEntryArea, :ceForm:workArea, :ceForm:graphArea"/>
+                    <ui:fragment rendered="#{! cepb.enableNextButton}">
+                        <p:defaultCommand target="calcButton"/>
+                    </ui:fragment>
                 </div>
             </div>
 

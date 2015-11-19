@@ -23,13 +23,13 @@
         <p:row>
             <p:column colspan="6">
                 <h:outputText value="Hide:"/>
-                <p:selectManyButton value="#{tradeBean.selectedFilterOptions}">
+                <p:selectManyButton styleClass="MarLeft10" value="#{tradeBean.selectedFilterOptions}">
                     <f:selectItem itemLabel="View" itemValue="V"/>
                     <f:selectItem itemLabel="Date" itemValue="D"/>
                     <f:selectItem itemLabel="Variance" itemValue="O"/>
                     <f:selectItem itemLabel="New" itemValue="N"/>
                 </p:selectManyButton>
-                <p:commandButton value="Refresh"
+                <p:commandButton styleClass="MarLeft20" value="Refresh"
                                  process="@form" update="dataGrid"
                                  actionListener="#{tradeBean.refreshTradeClient}"/>
                 <p:commandButton value="Reload"

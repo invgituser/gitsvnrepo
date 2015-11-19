@@ -235,15 +235,20 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public void calculateGoal() {
-      setRiskCalcMethod("C");
-      formEdit = true;
-      getGoalData().setTerm(getHorizon().doubleValue());
-      setShowGoalChart(true);
-      offsetRiskIndex();
-      createAssetPortfolio(1);
-      //if (getPortfolioData() != null) {
-         //charts.createGoalChart(getPerformanceData(), getGoalData());
-      //}
+      if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0) {
+         setRiskCalcMethod("C");
+         formEdit = true;
+         getGoalData().setTerm(getHorizon().doubleValue());
+         setShowGoalChart(true);
+         offsetRiskIndex();
+         createAssetPortfolio(1);
+         //if (getPortfolioData() != null) {
+            //charts.createGoalChart(getPerformanceData(), getGoalData());
+         //}
+      }
+      else {
+         setShowGoalChart(false);
+      }
 
    }
 
@@ -520,7 +525,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
       try {
          formEdit = true;
-         charts.setMeterGuage(getMeterRiskIndicator());
+         // charts.setMeterGuage(getMeterRiskIndicator());
          if (getAssetData() != null) {
             charts.createPieModel(getAssetData(),0);
             charts.createBarChart(getAssetData(),0);
@@ -529,7 +534,10 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          if (getPortfolioData() != null) {
             buildPerformanceData();
             charts.createLineModel(getPerformanceData());
-            charts.createGoalChart(getPerformanceData(),getGoalData());
+            if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
+               charts.createGoalChart(getPerformanceData(),getGoalData());
+            else
+               setShowGoalChart(false);
          }
 
       }

@@ -60,13 +60,16 @@
 
                     </p:tabView>
                     <f:facet name="footer">
-                        <p:commandButton value="Previous" styleClass="Fleft" rendered="#{cepb.enablePrevButton}"
+                        <p:commandButton id="prevBtn" value="Previous" styleClass="Fleft" rendered="#{cepb.enablePrevButton}"
                                          update=":ceForm:inputArea, :ceForm:pTabView:rTabView"
                                          actionListener="#{cepb.gotoPrevTab}"/>
-                        <p:commandButton value="Next" styleClass="Fright" rendered="#{cepb.enableNextButton}"
+                        <p:commandButton id="nextBtn" value="Next" styleClass="Fright" rendered="#{cepb.enableNextButton}"
                                          type="submit"
                                          update=":ceForm:inputArea, :ceForm:pTabView:rTabView"
                                          actionListener="#{cepb.gotoNextTab}"/>
+                        <ui:fragment rendered="#{cepb.enableNextButton}">
+                            <p:defaultCommand target="nextBtn"/>
+                        </ui:fragment>
                     </f:facet>
                 </p:panel>
             </div>

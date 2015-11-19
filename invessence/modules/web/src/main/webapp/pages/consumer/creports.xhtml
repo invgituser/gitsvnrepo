@@ -39,16 +39,18 @@
                         <div class="ContainerIndent">
                             <div class="DispInlBlock MarTop5">
                                 <div class="Container100">
-                                    <div class="Fright">
+                                    <p:panelGrid columns="2" layout="grid"
+                                                 style="border:0px !important; background:none;" class="FormContent">
                                         <h:outputText for="acct" value="Select Account#:"/>
                                         <p:selectOneMenu id="acct" styleClass="Wid90"
                                                          value="#{reportBean.account}">
                                             <p:ajax listener="#{reportBean.filterAccount}"
                                                     update=":crform:workArea"/>
+                                            <f:selectItem itemLabel="Choose" itemValue=""/>
                                             <f:selectItems value="#{reportBean.accountList.entrySet()}"
                                                            var="acct" itemLabel="#{acct.value}" itemValue="#{acct.key}"/>
                                         </p:selectOneMenu>
-                                    </div>
+                                    </p:panelGrid>
                                 </div>
                             </div>
                         </div>
@@ -77,24 +79,13 @@
                                 <p:column styleClass="Wid20 TextAlLeft">
 
                                     <ui:fragment rendered="#{! report.isPdf}">
-                                        <p:lightBox iframe="true" rendered="#{! report.isPdf}">
-                                            <h:outputLink value="#{report.filename}" title="#{report.reportName}">
-                                                <span class="fa-search-plus">
-                                                  <h:outputText value="View" />
-                                                </span>
-                                            </h:outputLink>
-                                        </p:lightBox>
+                                        <h:outputLink value="#{report.filename}" target="_report"
+                                                      title="#{report.reportName}">
+                                            <h:outputText value="View"/>
+                                        </h:outputLink>
                                     </ui:fragment>
 
-                                    <ui:fragment rendered="#{report.isPdf}">
-                                        <p:commandButton value="Download" ajax="false"
-                                                         onclick="PrimeFaces.monitorDownload(start, stop);"
-                                                         icon="ui-icon-arrowthick-1-s">
-                                            <p:fileDownload value="#{report.filename}" />
-                                        </p:commandButton>
-                                    </ui:fragment>
-
-                                </p:column>
+                            </p:column>
                             </p:dataTable>
 
                         </p:panel>
