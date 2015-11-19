@@ -203,7 +203,6 @@ public class PortfolioPerformance
          pfdata.getGoalData().setActualRecurringAmount(recurringAmount);
          pfdata.getGoalData().setTerm((double) termyear);
 
-         if (pfdata.getGoalData().getGoalDesired() <= performancedata[termyear].getTotalCapitalWithGains()) {
             Double n1 = Math.pow((1.0 + interestRate), termyear);
             Double n2 = actualInitialAmount * n1;
             //Double n3 = goalAmount - n2;
@@ -222,11 +221,13 @@ public class PortfolioPerformance
             }
             else
             {
-               pfdata.getGoalData().setReachable(false);
+               if (pfdata.getGoalData().getGoalDesired() <= performancedata[termyear-1].getTotalCapitalWithGains()) {
+                  pfdata.getGoalData().setReachable(true);
+               }
+               else {
+                  pfdata.getGoalData().setReachable(false);
+               }
             }
-         }
-         else
-            pfdata.getGoalData().setReachable(false);
       }
       catch (Exception ex)
       {
