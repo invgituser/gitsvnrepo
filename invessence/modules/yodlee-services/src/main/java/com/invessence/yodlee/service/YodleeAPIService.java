@@ -25,5 +25,9 @@ public interface YodleeAPIService {
 	public Map<String, Object> getItemSummariesForSite(String siteAccId, Long invUserId) ;
 	
 	public Map<String, Object> getFastLinkDetails(String operation, String siteAccId, Long invUserId);
+
+	//public Map<String, Object> getUserSiteDetails(Long invUserId);
+
+	public Map<String, Object> getUserAccountsDetail(Long invUserId);
 		
 }

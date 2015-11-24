@@ -37,11 +37,10 @@ public class UserLogon implements java.io.Serializable {
 	private Date updatedOn;
 	private Long updatedBy;
 	
-	@Transient
 	private transient String userSessionToken;
-	
-	
-	
+
+
+	@Transient
 	public String getUserSessionToken() {
 		return userSessionToken;
 	}
@@ -205,5 +204,6 @@ public class UserLogon implements java.io.Serializable {
 			Set<ConsolidateData> consolidateData) {
 		this.consolidateData = consolidateData;
 	}
+
 
 }

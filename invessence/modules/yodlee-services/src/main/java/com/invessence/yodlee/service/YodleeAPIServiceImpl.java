@@ -1,12 +1,8 @@
 package com.invessence.yodlee.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+
+import com.invessence.yodlee.util.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +27,6 @@ import com.invessence.yodlee.model.SiteDetail;
 import com.invessence.yodlee.model.UserLogon;
 import com.invessence.yodlee.model.ConsolidateData;
 import com.invessence.yodlee.model.YodleeError;
-import com.invessence.yodlee.util.AESencrp;
-import com.invessence.yodlee.util.CommonUtil;
-import com.invessence.yodlee.util.YodleeAPIRepository;
 
 public class YodleeAPIServiceImpl implements YodleeAPIService {
 	
@@ -52,7 +45,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 	
 	@Value("${FL_REFR_URL}") private String FL_REFR_URL;
 	@Value("${FL_REFR_PARAM}") private String FL_REFR_PARAM;*/
-	private String COBRAND_LOGIN = "sandbox124";
+	/*private String COBRAND_LOGIN = "sandbox124";
 	private String COBRAND_PASSWORD = "Yodlee@123";
 
 	private String BRIDGE_APP_ID = "10003200";
@@ -67,13 +60,13 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 
 	private String FL_REFR_URL = "https://yisandboxfl.yodleeinteractive.com/appscenter/private-sandbox124/refreshSiteAccount.yisandboxfl.action";
 	private String FL_REFR_PARAM = "access_type=oauthdeeplink&oauth_callback=http://www.google.com&siteAccountId=$SITE_ACC_ID$&_flowId=refresh";
-	private static String cobrandSessionToken;
+	*/private static String cobrandSessionToken;
 
 	public YodleeAPIServiceImpl() {
 		System.out.println("**********************************************************************************************************");
 		loggedInUsers=new HashMap<Long, UserLogon>();
 
-		System.out.println(COBRAND_LOGIN+" : "+COBRAND_LOGIN);
+		System.out.println(Parameters.COBRAND_LOGIN+" : "+Parameters.COBRAND_LOGIN);
 	}
 
 	@Autowired
@@ -278,7 +271,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 		JSONObject jb=null;
 		try{
 			System.out.println("YodleeAPIServiceImpl.advisorLogin()");
-			jb=yodleeAPIRepo.loginCobrand(COBRAND_LOGIN, COBRAND_PASSWORD);
+			jb=yodleeAPIRepo.loginCobrand(Parameters.COBRAND_LOGIN, Parameters.COBRAND_PASSWORD);
 			JSONObject userConvCreds = jb.getJSONObject("cobrandConversationCredentials");
 			resultMap=new HashMap<String, Object>();
 			cobrandSessionToken=(String) userConvCreds.get("sessionToken");
@@ -407,6 +400,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 						siteDetailsDAO.insertSiteDetails(sd);
 					}
 					siteAccLst.add(sd);
+					getItemSummariesForSite(sd.getSiteAccId().toString(),invUserId);
 					System.out.println(jo.getString("siteAccountId")+" : "+jo.getString("isCustom")+sd.getSiteName());
 				}
 
@@ -569,6 +563,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 														consData.setItemDetail(id);
 														consData.setAccountDetail(ad);
 														consData.setPfolioDetId(bd.getId());
+														consData.setAccType(bd.getAccType());
+														consData.setAvilbBal(bd.getAvilbBal());
 														consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -578,6 +574,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 														ConsolidateData consData=conDataLst.get(0);
 														System.out.println("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(bd.getId());
+														consData.setAccType(bd.getAccType());
+														consData.setAvilbBal(bd.getAvilbBal());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -715,6 +713,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 														consData.setItemDetail(id);
 														consData.setAccountDetail(ad);
 														consData.setPfolioDetId(cardDet.getId());
+														consData.setAccType(cardDet.getAccType());
+														consData.setAvilbBal(cardDet.getAvilbCredit());
 														consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -724,6 +724,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 														ConsolidateData consData=conDataLst.get(0);
 														System.out.println("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(cardDet.getId());
+														consData.setAccType(cardDet.getAccType());
+														consData.setAvilbBal(cardDet.getAvilbCredit());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -881,6 +883,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 														consData.setItemDetail(id);
 														consData.setAccountDetail(ad);
 														consData.setPfolioDetId(invDet.getId());
+														consData.setAccType(invDet.getAccType());
+														consData.setAvilbBal(invDet.getTotBal());
 														consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -890,6 +894,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 														ConsolidateData consData=conDataLst.get(0);
 														System.out.println("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(invDet.getId());
+														consData.setAccType(invDet.getAccType());
+														consData.setAvilbBal(invDet.getTotBal());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -970,15 +976,12 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 																	ad.setId(accLst.get(0).getId());
 																}
 
-
-
 																LoanDetail loanDet=new LoanDetail();
 																loanDet.setAccountDetail(ad);
 
 																loanDet.setAccName(loanAccJO.getString("accountName")==null?null:loanAccJO.getString("accountName"));
 																loanDet.setAccNum(loanAccJO.getString("accountNumber")==null?null:loanAccJO.getString("accountNumber"));
 																loanDet.setCollateral(loanAccJO.getString("collateral")==null?null:loanAccJO.getString("collateral"));
-
 
 																loanDet.setDescription(loanAccJO.getString("description")==null?null:loanAccJO.getString("description"));
 																loanDet.setTypeLoan(loanAccJO.getString("loanType")==null?null:loanAccJO.getString("loanType"));
@@ -1049,6 +1052,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 																	consData.setItemDetail(id);
 																	consData.setAccountDetail(ad);
 																	consData.setPfolioDetId(loanDet.getId());
+																	consData.setAccType(loanDet.getTypeLoan());
+																	consData.setAvilbBal(loanDet.getPrincBal());
 																	consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 																	consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -1058,6 +1063,8 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 																	ConsolidateData consData=conDataLst.get(0);
 																	System.out.println("Consilidated data available : "+consData.getId());
 																	consData.setPfolioDetId(loanDet.getId());
+																	consData.setAccType(loanDet.getTypeLoan());
+																	consData.setAvilbBal(loanDet.getPrincBal());
 																	consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 																	consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 																	consolidateDataDAO.updateConsolidateData(consData);
@@ -1128,7 +1135,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 		try{
 
 			System.out.println("YodleeAPIServiceImpl.getFastLinkDetails()");
-			jb=yodleeAPIRepo.getToken(cobrandSessionToken, loggedInUsers.get(invUserId).getUserSessionToken(), BRIDGE_APP_ID);
+			jb=yodleeAPIRepo.getToken(cobrandSessionToken, loggedInUsers.get(invUserId).getUserSessionToken(), Parameters.BRIDGE_APP_ID);
 			resultMap=new HashMap<String, Object>();
 			Boolean errCheck = jb.has("errorOccurred");
 			if(errCheck==true){
@@ -1146,21 +1153,21 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 					map.put("OAUTH_TOKEN", jb.getString("token"));
 					map.put("OAUTH_TOKEN_SECRET", jb.getString("tokenSecret"));
 
-					map.put("APPLICATION_KEY", APPLICATION_KEY);
-					map.put("APPLICATION_TOKEN", APPLICATION_TOKEN);
+					map.put("APPLICATION_KEY", Parameters.APPLICATION_KEY);
+					map.put("APPLICATION_TOKEN", Parameters.APPLICATION_TOKEN);
 
 					if(operation.equals("ADD_ACC")){
 
-						map.put("FL_API_URL", FL_ADD_ACC_URL);
-						map.put("FL_API_PARAM", FL_ADD_ACC_PARAM);
+						map.put("FL_API_URL", Parameters.FL_ADD_ACC_URL);
+						map.put("FL_API_PARAM", Parameters.FL_ADD_ACC_PARAM);
 					}else if (operation.equals("EDIT_ACC")) {
 
-						map.put("FL_API_URL", FL_EDIT_ACC_URL);
-						map.put("FL_API_PARAM", FL_EDIT_ACC_PARAM.replace("$SITE_ACC_ID$", siteAccId));
+						map.put("FL_API_URL", Parameters.FL_EDIT_ACC_URL);
+						map.put("FL_API_PARAM", Parameters.FL_EDIT_ACC_PARAM.replace("$SITE_ACC_ID$", siteAccId));
 					}else if (operation.equals("REFRESH_ACC")) {
 
-						map.put("FL_API_URL", FL_REFR_URL);
-						map.put("FL_API_PARAM", FL_REFR_PARAM.replace("$SITE_ACC_ID$", siteAccId));
+						map.put("FL_API_URL", Parameters.FL_REFR_URL);
+						map.put("FL_API_PARAM", Parameters.FL_REFR_PARAM.replace("$SITE_ACC_ID$", siteAccId));
 					}
 					/*map.put("FL_API_URL", FL_ADD_ACC_URL);
 					map.put("FL_API_PARAM", FL_ADD_ACC_URL);
@@ -1240,7 +1247,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 		JSONObject jb=null;
 		try{
 			System.out.println("YodleeAPIServiceImpl.advisorLogin()");
-			jb=yodleeAPIRepo.loginCobrand(COBRAND_LOGIN, COBRAND_PASSWORD);
+			jb=yodleeAPIRepo.loginCobrand(Parameters.COBRAND_LOGIN, Parameters.COBRAND_PASSWORD);
 			JSONObject userConvCreds = jb.getJSONObject("cobrandConversationCredentials");
 			cobrandSessionToken=(String) userConvCreds.get("sessionToken");
 			//resultMap.put("cobrandSessionToken", (String) userConvCreds.get("sessionToken"));
@@ -1254,93 +1261,6 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 
 	}
 
-	public String getCOBRAND_LOGIN() {
-		return COBRAND_LOGIN;
-	}
-
-	public void setCOBRAND_LOGIN(String cOBRAND_LOGIN) {
-		COBRAND_LOGIN = cOBRAND_LOGIN;
-	}
-
-	public String getCOBRAND_PASSWORD() {
-		return COBRAND_PASSWORD;
-	}
-
-	public void setCOBRAND_PASSWORD(String cOBRAND_PASSWORD) {
-		COBRAND_PASSWORD = cOBRAND_PASSWORD;
-	}
-
-	public String getBRIDGE_APP_ID() {
-		return BRIDGE_APP_ID;
-	}
-
-	public void setBRIDGE_APP_ID(String bRIDGE_APP_ID) {
-		BRIDGE_APP_ID = bRIDGE_APP_ID;
-	}
-
-	public String getAPPLICATION_KEY() {
-		return APPLICATION_KEY;
-	}
-
-	public void setAPPLICATION_KEY(String aPPLICATION_KEY) {
-		APPLICATION_KEY = aPPLICATION_KEY;
-	}
-
-	public String getAPPLICATION_TOKEN() {
-		return APPLICATION_TOKEN;
-	}
-
-	public void setAPPLICATION_TOKEN(String aPPLICATION_TOKEN) {
-		APPLICATION_TOKEN = aPPLICATION_TOKEN;
-	}
-
-	public String getFL_ADD_ACC_URL() {
-		return FL_ADD_ACC_URL;
-	}
-
-	public void setFL_ADD_ACC_URL(String fL_ADD_ACC_URL) {
-		FL_ADD_ACC_URL = fL_ADD_ACC_URL;
-	}
-
-	public String getFL_ADD_ACC_PARAM() {
-		return FL_ADD_ACC_PARAM;
-	}
-
-	public void setFL_ADD_ACC_PARAM(String fL_ADD_ACC_PARAM) {
-		FL_ADD_ACC_PARAM = fL_ADD_ACC_PARAM;
-	}
-
-	public String getFL_EDIT_ACC_URL() {
-		return FL_EDIT_ACC_URL;
-	}
-
-	public void setFL_EDIT_ACC_URL(String fL_EDIT_ACC_URL) {
-		FL_EDIT_ACC_URL = fL_EDIT_ACC_URL;
-	}
-
-	public String getFL_EDIT_ACC_PARAM() {
-		return FL_EDIT_ACC_PARAM;
-	}
-
-	public void setFL_EDIT_ACC_PARAM(String fL_EDIT_ACC_PARAM) {
-		FL_EDIT_ACC_PARAM = fL_EDIT_ACC_PARAM;
-	}
-
-	public String getFL_REFR_URL() {
-		return FL_REFR_URL;
-	}
-
-	public void setFL_REFR_URL(String fL_REFR_URL) {
-		FL_REFR_URL = fL_REFR_URL;
-	}
-
-	public String getFL_REFR_PARAM() {
-		return FL_REFR_PARAM;
-	}
-
-	public void setFL_REFR_PARAM(String fL_REFR_PARAM) {
-		FL_REFR_PARAM = fL_REFR_PARAM;
-	}
 
 	public static String getCobrandSessionToken() {
 		return cobrandSessionToken;
@@ -1358,6 +1278,46 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 		this.loggedInUsers = loggedInUsers;
 	}
 
+	public Map<String, Object> getUserAccountsDetail(Long invUserId){
+
+		Map<String, Object> resultMap=null;
+		try{
+			List<UserLogon> ulLst=userLogonDAO.findByWhereCluase("invUserId="+invUserId);
+			resultMap=new HashMap<String, Object>();
+			//List <SiteDetail> sdl= siteDetailsDAO.findByWhereCluase("SITE_ACC_ID="+sd.getSiteAccId());
+			if(ulLst==null || ulLst.size()==0){
+				System.out.println("Invessence User Details object get Null");
+				YodleeError ye=new YodleeError();
+				ye.setMessage("User not available in YodleeProject Database.");
+				resultMap.put("errorDetails", ye);
+			}else{
+				UserLogon ur=ulLst.get(0);
+
+				List<ConsolidateData> consDataList=consolidateDataDAO.findByWhereCluase("USER_LOG_ID="+ur.getId()+" ORDER BY itemDetail.contServName");
+				resultMap=new HashMap<String, Object>();
+				if(consDataList==null || consDataList.size()==0){
+					System.out.println("Invessence User Details object get Null");
+					YodleeError ye=new YodleeError();
+					ye.setMessage("User not available in YodleeProject Database.");
+					resultMap.put("errorDetails", ye);
+				}else{
+					Iterator<ConsolidateData> itr=consDataList.iterator();
+					while (itr.hasNext()) {
+						ConsolidateData consolidateData = (ConsolidateData) itr.next();
+						System.out.println(consolidateData.getSiteDetail().getSiteName());
+						System.out.println(consolidateData.getItemDetail().getItemDispName());
+						System.out.println(consolidateData.getItemDetail().getItemId());
+						System.out.println(consolidateData.getAccountDetail().getAccName());
+
+					}
+					resultMap.put("consDataList", consDataList);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
 
 
 }
