@@ -185,7 +185,7 @@ public class FileProcessor {
 
    private void doeodprocess() {
          try {
-            new SimpleJdbcCall(dataSource).withProcedureName("sp_eod_process").execute(null);
+            new SimpleJdbcCall(dataSource).withProcedureName("sp_eod_process").execute();
             logger.info("Do final eod process ");
          } catch (Exception e) {
             logger.error("Unable to complete the EOD process", e);
