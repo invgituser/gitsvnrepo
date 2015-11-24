@@ -9,7 +9,8 @@ import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import com.invessence.yodlee.model.UserLogon;
+
+import com.invessence.yodlee.model.*;
 import com.invessence.yodlee.service.YodleeAPIService;
 
 @ManagedBean(name="userMB")
@@ -28,6 +29,7 @@ public class UserManagedBean implements Serializable {
 	YodleeAPIService yodleeAPIService;
 
 	List<UserLogon> userList;
+	//List<ConsolidateData> consDataList = (List<ConsolidateData>) yodleeAPIService.getUserAccountsDetail(new Long(64)).get("consDataList");
 
 	private String id;
 	private String password;
@@ -166,6 +168,17 @@ public class UserManagedBean implements Serializable {
 
 
 
+	/*public List<ConsolidateData> getConsDataList() {
+		consDataList = new ArrayList<ConsolidateData>();
+		consDataList=(List<ConsolidateData>) yodleeAPIService.getUserAccountsDetail(new Long(64)).get("consDataList");
+		System.out.println(userList.size()+" LIST SIZE");
+		return consDataList;
+	}*/
+
+/*
+	public void setConsDataList(List<ConsolidateData> consDataList) {
+		this.consDataList = consDataList;
+	}*/
 
 
 
