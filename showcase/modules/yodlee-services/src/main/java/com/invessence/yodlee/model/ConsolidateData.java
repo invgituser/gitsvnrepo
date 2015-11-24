@@ -33,6 +33,9 @@ public class ConsolidateData implements java.io.Serializable {
 	private Timestamp updatedOn;
 	private Long updatedBy;
 
+	private String accType;
+	private Double avilbBal;
+
 	// Constructors
 
 	/** default constructor */
@@ -179,4 +182,22 @@ public class ConsolidateData implements java.io.Serializable {
 		this.updatedBy = updatedBy;
 	}
 
+
+	@Column(name = "ACC_TYPE", length = 100)
+	public String getAccType() {
+		return this.accType;
+	}
+
+	public void setAccType(String accType) {
+		this.accType = accType;
+	}
+
+	@Column(name = "AVILB_BAL", precision = 20, scale = 4)
+	public Double getAvilbBal() {
+		return this.avilbBal;
+	}
+
+	public void setAvilbBal(Double avilbBal) {
+		this.avilbBal = avilbBal;
+	}
 }

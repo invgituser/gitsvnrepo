@@ -13,7 +13,7 @@
 
    <artifactId>modules</artifactId>
    <version>1.0-SNAPSHOT</version>
-   <name>Invessence</name>
+   <name>showcase</name>
    <packaging>pom</packaging>
 
    <modules>

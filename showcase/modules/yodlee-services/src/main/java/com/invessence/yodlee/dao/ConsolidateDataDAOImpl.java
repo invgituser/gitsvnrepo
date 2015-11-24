@@ -1,6 +1,7 @@
 package com.invessence.yodlee.dao;
 
-import java.util.List;
+import java.util.*;
+
 import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,14 @@ public class ConsolidateDataDAOImpl implements ConsolidateDataDAO {
 		List<ConsolidateData> lst = null;
 		try {
 			lst = (List<ConsolidateData>) sessionFactory.getCurrentSession()
-					.createQuery("from ConsolidateData where " + where).list();
+				.createQuery("from ConsolidateData where " + where).list();
+			Iterator<ConsolidateData> itr=lst.iterator();
+			while (itr.hasNext()) {
+				ConsolidateData consolidateData = (ConsolidateData) itr.next();
+				System.out.println(consolidateData.getSiteDetail().getSiteName());
+				System.out.println(consolidateData.getItemDetail().getItemDispName());
+				System.out.println(consolidateData.getAccountDetail().getAccName());
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
