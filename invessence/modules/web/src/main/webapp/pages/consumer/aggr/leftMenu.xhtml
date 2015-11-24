@@ -1,5 +1,5 @@
 <!-- Left Column -->
-<div class="Container10 Responsive100">
+<div class="Container10 Responsive100" xmlns:p="http://java.sun.com/jsf/html">
 
     <div class="Card Container100">
 
@@ -9,7 +9,9 @@
                     <i class="fa fa-dashboard Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Dashboard</span>
+                    <span class="FontThemeRegular Fs12">
+                        <p:commandLink action="#{yodleeBean.moveToDash}">Dashboard</p:commandLink>
+                    </span>
                 </div>
             </div>
         </div>

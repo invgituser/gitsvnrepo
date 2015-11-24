@@ -10,9 +10,6 @@
           <root url="file://$MODULE_DIR$/db/sql/routine" relative="/WEB-INF" />
         </webroots>
       </configuration>
-      <facet type="jsf" name="JSF">
-        <configuration />
-      </facet>
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
@@ -58,10 +55,9 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
-    <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.idea" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
@@ -70,4 +66,3 @@
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
-
