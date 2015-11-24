@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/invlayout.xhtml">
+
+
+<!--    <f:metadata>
+        <f:event type="preRenderView" listener="#{yodleeBean.preRenderView}"/>
+    </f:metadata>-->
+
+    <ui:define name="content">
+
+        <h:form id="aggrform">
+
+            <div class="Container100">
+                <!-- Left Column -->
+               <ui:include src="leftMenu.xhtml"/>
+                <!-- Right Column -->
+                <div class="Container90 Responsive100">
+                    <div class="Card Wid90 Fright">
+                        <!-- Section -->
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect">
+                                    <h2 class="CardTopic">Dashboard</h2>
+
+                                    <div class="Seperator"><p:commandLink id="myId" onclick="confirmDelete('Id');">click</p:commandLink></div>
+                                    <div class="EmptyBox20">
+
+                                        <p:commandLink action="#{yodleeBean.userRegistration}">Registration</p:commandLink>
+                                    </div>
+                                    <div class="EmptyBox20">
+
+                                        <p:commandLink action="#{yodleeBean.userLogin}">Login</p:commandLink>
+                                    </div>
+                                    <div class="EmptyBox20">
+
+                                        <h:outputScript library="yodlee" name="js/jquery-1.11.1.min.js"/>
+                                        <h:outputScript library="yodlee" name="js/oauth.js" />
+                                        <h:outputScript library="yodlee" name="js/sha1.js" />
+                                        <h:outputScript library="yodlee" name="js/jquery.colorbox.js" />
+
+                                        <h:outputScript library="yodlee" name="css/colorbox.css" />
+                                        <h:outputScript library="yodlee" name="css/main.css" />
+
+                                        <h:outputScript library="yodlee" name="js/yodleeCommon.js" />
+
+                                         <p:commandLink action="#{yodleeBean.addAcount}">Add Account</p:commandLink>
+                                    </div>
+
+                                    <div class="Container100 Responsive50">
+                                        <div>
+                                            <p:commandLink action="#{yodleeBean.refreshAccountsData}">RefreshAllAccountData</p:commandLink>
+                                            <p:dataTable var="consData" value="#{yodleeBean.consDataList}">
+                                                <p:column headerText="siteName" >
+                                                    <h:outputText value="#{consData.siteDetail.siteName}" />
+                                                </p:column>
+                                                <p:column headerText="itemDispName" >
+                                                    <h:outputText value="#{consData.itemDetail.itemDispName}" />
+                                                </p:column><!--
+                                            <p:column>
+                                                    <h:outputText value="ItemId" />
+                                                <h:outputText value="#{consData.itemDetail.itemId}" />
+                                            </p:column>-->
+                                                <p:column headerText="ContServName" >
+                                                    <h:outputText value="#{consData.itemDetail.contServName}" />
+                                                </p:column>
+
+
+                                                <p:column headerText="accName">
+                                                    <h:outputText value="#{consData.accountDetail.accName}" />
+                                                </p:column>
+
+                                                <p:column headerText="Acc Type" >
+                                                    <h:outputText value="#{consData.accType}" />
+                                                </p:column>
+
+                                                <p:column headerText="Available Balance" >
+                                                    <h:outputText value="#{consData.avilbBal}" />
+                                                </p:column>
+
+                                            </p:dataTable>
+                                        </div>
+                                        <div class="EmptyBox150"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
