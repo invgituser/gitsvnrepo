@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="aggrform">
+            <div class="Container100">
+                <!-- Left Column -->
+               <ui:include src="leftMenu.xhtml"/>
+                <!-- Right Column -->
+                <div class="Container90 Responsive100">
+                    <div class="Card Wid90 Fright">
+                        <!-- Section -->
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="Card ShadowEffect">
+                                    <h2 class="CardTopic">Account</h2>
+
+                                    <div class="Seperator"></div>
+                                    <div class="EmptyBox20"></div>
+
+                                    <div class="Container100 Responsive50">
+                                        <div class="EmptyBox150"></div>
+                                        <div class="EmptyBox150"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
