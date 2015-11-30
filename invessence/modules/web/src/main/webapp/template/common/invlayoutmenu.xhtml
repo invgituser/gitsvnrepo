@@ -18,6 +18,8 @@
                         actionListener="#{uiportal.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
             <p:menuitem value="Management" icon="fa fa-institution"
                         actionListener="#{uiportal.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
+            <p:menuitem value="Yodlee" icon="fa fa-plus-square" rendered="#{uiportal.enableMenu('USER')}"
+                        actionListener="#{yodleeBean.startup}"/>
         </p:submenu>
 
         <p:separator rendered="#{uiportal.hasAccessMenu('ADVISOR')}" />

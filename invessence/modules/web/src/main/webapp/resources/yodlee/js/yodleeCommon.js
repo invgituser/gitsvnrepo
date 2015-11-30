@@ -10,7 +10,7 @@
             var signature_method = "HMAC-SHA1";
             var timestamp = freshTimestamp();
             var nonce = freshNonce();
-            alert(timestamp+" : "+nonce);
+            //alert(timestamp+" : "+nonce);
 
             var parameters = "";
             parameters += "&oauth_consumer_key="+consumer_key;

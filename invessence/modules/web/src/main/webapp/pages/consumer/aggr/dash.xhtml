@@ -27,33 +27,18 @@
                                 <div class="Card ShadowEffect">
                                     <h2 class="CardTopic">Dashboard</h2>
 
-                                    <div class="Seperator"><p:commandLink id="myId" onclick="confirmDelete('Id');">click</p:commandLink></div>
                                     <div class="EmptyBox20">
 
-                                        <p:commandLink action="#{yodleeBean.userRegistration}">Registration</p:commandLink>
+
                                     </div>
                                     <div class="EmptyBox20">
 
-                                        <p:commandLink action="#{yodleeBean.userLogin}">Login</p:commandLink>
                                     </div>
                                     <div class="EmptyBox20">
-
-                                        <h:outputScript library="yodlee" name="js/jquery-1.11.1.min.js"/>
-                                        <h:outputScript library="yodlee" name="js/oauth.js" />
-                                        <h:outputScript library="yodlee" name="js/sha1.js" />
-                                        <h:outputScript library="yodlee" name="js/jquery.colorbox.js" />
-
-                                        <h:outputScript library="yodlee" name="css/colorbox.css" />
-                                        <h:outputScript library="yodlee" name="css/main.css" />
-
-                                        <h:outputScript library="yodlee" name="js/yodleeCommon.js" />
-
-                                         <p:commandLink action="#{yodleeBean.addAcount}">Add Account</p:commandLink>
                                     </div>
 
                                     <div class="Container100 Responsive50">
                                         <div>
-                                            <p:commandLink action="#{yodleeBean.refreshAccountsData}">RefreshAllAccountData</p:commandLink>
                                             <p:dataTable var="consData" value="#{yodleeBean.consDataList}">
                                                 <p:column headerText="siteName" >
                                                     <h:outputText value="#{consData.siteDetail.siteName}" />

@@ -2,6 +2,7 @@ package com.invessence.bean.consumer;
 
 import java.io.Serializable;
 import java.util.*;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -73,21 +74,60 @@ public class YodleeBean implements Serializable
       }
    }*/
 
-   public void moveToDash(){
+   public void startup()
+   {
+      System.out.println("startup");
+      System.out.print(yodleeAPIService.getInvUserList());
+      try {
+         Long logonid = webutil.getLogonid();
+         if (yodleeAPIService.isUserRegisteredAtYodlee(logonid)) {
+            Map<String, Object>  result = yodleeAPIService.userLogin(logonid);
+            getConsDataList();
+            webutil.redirect("/pages/consumer/aggr/acct.xhtml", null);
+         }
+         else {
+            webutil.redirect("/pages/consumer/aggr/profile.xhtml", null);
+         }
+      }
+      catch (Exception e)
+      {
+      }
+   }
+
+   public void userUnRegistration(){
       System.out.println("userRegistration");
       Map<String, Object> result =null;
       try
       {
-         System.out.println("moveToDash");
-         getConsDataList();
-         //return result;
+         Long logonid = webutil.getLogonid();
+         result = yodleeAPIService.userUnRegistration(logonid);
       }
       catch (Exception e)
       {
          e.printStackTrace();
       }
-      webutil.redirect("/pages/consumer/aggr/ydash.xhtml", null);
-      //return "yDash";
+   }
+
+   public void yodleeNavigation(String pageId){
+      System.out.println("yodleeNavigation");
+      Map<String, Object> result =null;
+      try
+      {
+         if(pageId.equalsIgnoreCase("dash")){
+            getConsDataList();
+         }else if(pageId.equalsIgnoreCase("acct")){
+            getConsDataList();
+         }else if(pageId.equalsIgnoreCase("profile")){
+
+         }
+         getConsDataList();
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      webutil.redirect("/pages/consumer/aggr/"+pageId+".xhtml", null);
+
    }
 
    public void refreshAccountsData(){
@@ -116,6 +156,21 @@ public class YodleeBean implements Serializable
       return consDataList;
    }
 
+   List<Map<String,ConsolidateData>> consDataMapList;
+   public List<Map<String,ConsolidateData>> getconsDataMapList() {
+      consDataMapList = new ArrayList<Map<String,ConsolidateData>>();
+      Long logonid = webutil.getLogonid();
+      List<ConsolidateData> consDataLst=(List<ConsolidateData>) yodleeAPIService.getUserAccountsDetail(logonid).get("consDataList");
+      Iterator<ConsolidateData> iterator=consDataLst.iterator();
+
+      while (iterator.hasNext())
+      {
+         ConsolidateData cd=(ConsolidateData)iterator.next();
+
+      }
+      return consDataMapList;
+   }
+
 
    public void setConsDataList(List<ConsolidateData> consDataList) {
       this.consDataList = consDataList;
@@ -130,6 +185,11 @@ public class YodleeBean implements Serializable
          Long logonid = webutil.getLogonid();
          result = yodleeAPIService.userRegistration(logonid);
          //return result;
+         if(result.get("errorDetails")!=null)
+         {
+           YodleeError ye=(YodleeError)result.get("errorDetails");
+            addMessage(ye.getMessage());
+         }
       }
       catch (Exception e)
       {
@@ -138,8 +198,13 @@ public class YodleeBean implements Serializable
       //return result;
    }
 
+   public void addMessage(String summary) {
+      FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+      FacesContext.getCurrentInstance().addMessage(null, message);
+   }
+
    public void userLogin(){
-      System.out.println("userRegistration");
+      System.out.println("userLogin");
       Map<String, Object> result =null;
       try
       {
@@ -154,13 +219,13 @@ public class YodleeBean implements Serializable
       //return result;
    }
 
-   public void addAcount(){
+   public void addAcount(String operation, String siteId){
       System.out.println("userRegistration");
       Map<String, Object> result =null;
       try
       {
          Long logonid = webutil.getLogonid();
-         result = yodleeAPIService.getFastLinkDetails("ADD_ACC","",logonid);
+         result = yodleeAPIService.getFastLinkDetails(operation,siteId,logonid);
          RequestContext requestContext = RequestContext.getCurrentInstance();
          Map<String , String> flDetails= (Map<String, String>) result.get("flDetails");
          int i=100;

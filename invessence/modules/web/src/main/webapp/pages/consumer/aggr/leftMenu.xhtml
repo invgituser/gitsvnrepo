@@ -10,7 +10,7 @@
 
                     <div class="EmptyBox5"></div>
                     <span class="FontThemeRegular Fs12">
-                        <p:commandLink action="#{yodleeBean.moveToDash}">Dashboard</p:commandLink>
+                        <p:commandLink action="#{yodleeBean.yodleeNavigation('dash')}">Dashboard</p:commandLink>
                     </span>
                 </div>
             </div>
@@ -21,7 +21,9 @@
                     <i class="fa fa-bank Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Accounts</span>
+                    <span class="FontThemeRegular Fs12">
+                         <p:commandLink action="#{yodleeBean.yodleeNavigation('acct')}">Accounts</p:commandLink>
+                    </span>
                 </div>
             </div>
         </div>
@@ -32,7 +34,9 @@
                     <i class="fa fa-bar-chart Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Aggregate</span>
+                    <span class="FontThemeRegular Fs12">
+                        <p:commandLink action="#{yodleeBean.yodleeNavigation('aggr')}">Aggregate</p:commandLink>
+                    </span>
                 </div>
             </div>
         </div>
@@ -43,7 +47,9 @@
                     <i class="fa fa-cog Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Profile</span>
+                    <span class="FontThemeRegular Fs12">
+                         <p:commandLink action="#{yodleeBean.yodleeNavigation('profile')}">Profile</p:commandLink>
+                    </span>
                 </div>
             </div>
         </div>
