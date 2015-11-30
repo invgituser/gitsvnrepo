@@ -123,11 +123,11 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 			List<UserLogon> ulLst = userLogonDAO.findByWhereCluase("invUserId=" + invUserId);
 			if (ulLst == null || ulLst.size() == 0)
 			{
-				return true;
+				return false;
 			}
 			else
 			{
-				return false;
+				return true;
 			}
 		}catch(Exception e){
 			e.printStackTrace();
