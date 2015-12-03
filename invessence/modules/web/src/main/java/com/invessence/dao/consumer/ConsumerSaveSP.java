@@ -43,6 +43,7 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_riskCalcMethod", Types.VARCHAR));
             declareParameter(new SqlParameter("p_allocIndex", Types.INTEGER));
             declareParameter(new SqlParameter("p_portfolioIndex", Types.INTEGER));
+            declareParameter(new SqlParameter("p_goalDesired", Types.DOUBLE));
             break;
          case 1:  // save_user_financial_data
             declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
@@ -189,6 +190,7 @@ public class ConsumerSaveSP extends StoredProcedure
 
       String addmodflag = "";
       int rowExists = 0;
+      Double goalDesired = 0.0;
       Map inputMap = new HashMap();
 
       try
@@ -230,6 +232,10 @@ public class ConsumerSaveSP extends StoredProcedure
          inputMap.put("p_riskCalcMethod", data.getRiskCalcMethod());
          inputMap.put("p_allocIndex", data.getAllocationIndex());
          inputMap.put("p_portfolioIndex", data.getPortfolioIndex());
+         if (data.getGoalData() != null)
+            goalDesired = data.getGoalData().getGoalDesired();
+         inputMap.put("p_goalDesired", goalDesired);
+
          return super.execute(inputMap);
 
       }

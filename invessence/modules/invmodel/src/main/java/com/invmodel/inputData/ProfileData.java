@@ -391,9 +391,16 @@ public class
          return initialInvestment;
    }
 
+   public void setOnlyInitialInvestment(Integer initialInvestment)
+   {
+      this.initialInvestment = initialInvestment;
+   }
+
    public void setInitialInvestment(Integer initialInvestment)
    {
       this.initialInvestment = initialInvestment;
+      if ((getGoalData() != null)  && (initialInvestment != null))
+         getGoalData().setActualInitialAmount(initialInvestment.doubleValue());
    }
 
    public Double getActualInvestment()
@@ -434,9 +441,17 @@ public class
       return recurringInvestment;
    }
 
+   public void setOnlyRecurringInvestment(Integer recurringInvestment)
+   {
+      this.recurringInvestment = recurringInvestment;
+   }
+
    public void setRecurringInvestment(Integer recurringInvestment)
    {
       this.recurringInvestment = recurringInvestment;
+      if ((getGoalData() != null) && (recurringInvestment != null)) {
+         getGoalData().setActualRecurringAmount(recurringInvestment.doubleValue());
+      }
    }
 
    public Integer getExperience()

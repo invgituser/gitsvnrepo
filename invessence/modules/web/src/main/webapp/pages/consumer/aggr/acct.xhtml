@@ -7,8 +7,18 @@
                 template="/template/common/invlayout.xhtml">
 
     <ui:define name="content">
-        <p:growl id="growl" life="2000" />
+        <h:outputScript library="yodlee" name="js/jquery-1.11.1.min.js"/>
+        <h:outputScript library="yodlee" name="js/oauth.js" />
+        <h:outputScript library="yodlee" name="js/sha1.js" />
+        <h:outputScript library="yodlee" name="js/jquery.colorbox.js" />
+
+        <h:outputStylesheet library="yodlee" name="css/colorbox.css" />
+        <h:outputStylesheet library="yodlee" name="css/main.css" />
+
+        <h:outputScript library="yodlee" name="js/yodleeCommon.js" />
+
         <h:form id="aggrform">
+        <p:growl id="growl" life="2000" />
             <div class="Container100">
                 <!-- Left Column -->
                <ui:include src="leftMenu.xhtml"/>
@@ -18,61 +28,71 @@
                         <!-- Section -->
                         <div class="Container100">
                             <div class="ContainerIndent">
-                                <div class="Card ShadowEffect">
-                                    <h2 class="CardTopic">Account</h2>
-                                    <h:outputScript library="yodlee" name="js/jquery-1.11.1.min.js"/>
-                                    <h:outputScript library="yodlee" name="js/oauth.js" />
-                                    <h:outputScript library="yodlee" name="js/sha1.js" />
-                                    <h:outputScript library="yodlee" name="js/jquery.colorbox.js" />
+                                <div class="BigTopic">
+                                    <div class="Wid50 Fleft">
+                                        <h3>Accounts</h3>
+                                    </div>
+                                    <div class="Wid50 Fright">
+                                        <p:commandButton value="Add Site" id="addSite" styleClass="Fright"
+                                                         actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
+                                                         update=":aggrform:acctData"
+                                                         icon="fa fa-plus" />
+                                    </div>
+                                </div>
 
-                                    <h:outputStylesheet library="yodlee" name="css/colorbox.css" />
-                                    <h:outputStylesheet library="yodlee" name="css/main.css" />
 
-                                    <h:outputScript library="yodlee" name="js/yodleeCommon.js" />
-                                    <div>
-                                        <p:commandButton value="Add Site" id="addSite" actionListener="#{yodleeBean.addAcount('ADD_ACC','')}" icon="fa fa-plus" />
+                                <div class="Container100">
 
-                                        <p:dataTable var="consData" value="#{yodleeBean.consDataList}">
-                                            <p:column headerText="siteName" >
+                                        <p:dataTable id="acctData" var="consData" value="#{yodleeBean.consDataList}">
+                                            <p:column headerText="Site" >
                                                 <h:outputText value="#{consData.siteDetail.siteName}" />
+<!--
                                                 <h:outputText value="#{consData.siteDetail.siteAccId}" />
+-->
                                             </p:column>
-                                            <p:column headerText="itemDispName" >
+<!--
+                                            <p:column headerText="Name" >
                                                 <h:outputText value="#{consData.itemDetail.itemDispName}" />
-                                            </p:column><!--
+                                            </p:column>
+ -->
+                                            <!--
                                             <p:column>
                                                     <h:outputText value="ItemId" />
                                                 <h:outputText value="#{consData.itemDetail.itemId}" />
-                                            </p:column>-->
-                                            <p:column headerText="ContServName" >
+                                            </p:column>
+                                            -->
+                                            <p:column headerText="Type" >
                                                 <h:outputText value="#{consData.itemDetail.contServName}" />
                                             </p:column>
 
 
-                                            <p:column headerText="accName">
+                                            <p:column headerText="Account Name">
                                                 <h:outputText value="#{consData.accountDetail.accName}" />
                                             </p:column>
 
-                                            <p:column headerText="Acc Type" >
+                                            <p:column headerText="Account Type" >
                                                 <h:outputText value="#{consData.accType}" />
                                             </p:column>
 
-                                            <p:column headerText="Available Balance" >
-                                                <h:outputText value="#{consData.avilbBal}" />
+                                            <p:column headerText="Balance"
+                                                      style="width:10%; text-align: right">
+                                                <h:outputText value="#{consData.avilbBal}">
+                                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                                </h:outputText>
                                             </p:column>
 
                                             <p:column headerText="Operations">
-                                                <p:commandButton id="editSite" actionListener="#{yodleeBean.addAcount('EDIT_ACC',consData.siteDetail.siteAccId)}" icon="fa fa-fw fa-edit" />
-                                                <p:commandButton id="refreshSite" actionListener="#{yodleeBean.addAcount('REFRESH_ACC',consData.siteDetail.siteAccId)}" icon="fa fa-fw fa-refresh" />
+                                                <p:commandButton id="editSite"
+                                                                 actionListener="#{yodleeBean.addAcount('EDIT_ACC',consData.siteDetail.siteAccId)}"
+                                                                 icon="fa fa-fw fa-edit" />
+                                                <p:commandButton id="refreshSite"
+                                                                 actionListener="#{yodleeBean.addAcount('REFRESH_ACC',consData.siteDetail.siteAccId)}"
+                                                                 icon="fa fa-fw fa-refresh" />
 
-                                                <!--<h:outputText value="#{consData.avilbBal}" rendered="#{consData.itemDetail.contServName == 'bank'}" >
-                                                    b
-                                                        </h:outputText>-->
                                             </p:column>
                                         </p:dataTable>
                                     </div>
 
-                                </div>
                             </div>
                         </div>
                     </div>

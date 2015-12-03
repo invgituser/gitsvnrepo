@@ -11,7 +11,7 @@ import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.CustomerData;
 import com.invessence.data.consumer.CTO.InvestorData;
-import com.invessence.util.EmailMessage;
+import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
 import org.primefaces.context.RequestContext;
 
@@ -55,6 +55,13 @@ public class CTOBean extends InvestorData implements Serializable
       this.messageText = messageText;
    }
 
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
    public Long getBeanAcctnum()
    {
       return beanAcctnum;
@@ -77,6 +84,35 @@ public class CTOBean extends InvestorData implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             pagemanager = new PagesImpl(5);
+            // New form, make sure that all data is reset.
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
+   public void changeView()
+   {
+      try {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            pagemanager = new PagesImpl(4);
+            // fetch all Data to change.
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
+   public void custReview()
+   {
+      try {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            pagemanager = new PagesImpl(4);
+            // fetch Customer Data
          }
       }
       catch (Exception ex) {
@@ -91,7 +127,16 @@ public class CTOBean extends InvestorData implements Serializable
 
    public void nextPage()
    {
+      save();
       pagemanager.nextPage();
+   }
+
+   public void save()
+   {
+   }
+
+   public void cancel()
+   {
    }
 
    public void setDisclosure(Integer pos) {
@@ -99,15 +144,20 @@ public class CTOBean extends InvestorData implements Serializable
          if (pos == 1) {
             popupDialog(pos);
          }
-         else {
+         markedChecked(pos);
+      }
+   }
 
-         }
-
+   public void markedChecked(Integer pos) {
+      if ((pos != null) && (pos > 0) && (pos < disclosure.length)) {
+         if (disclosure[pos] == null || disclosure[pos] == 0)
+            allApproved++;
+         disclosure[pos] = 1;
       }
    }
 
    public Boolean getAllApproved() {
-      if (allApproved >= 5)
+      if (allApproved >= 1)
          return true;
       return false;
    }
@@ -120,27 +170,35 @@ public class CTOBean extends InvestorData implements Serializable
       return false;
    }
 
-   public void accept() {
+   public void acceptandClose() {
       if ((whichDisclosure != null) && (whichDisclosure > 0) && (whichDisclosure < disclosure.length)) {
-         if (disclosure[whichDisclosure] > 0)
-            allApproved++;
-         disclosure[whichDisclosure] = 1;
+         markedChecked(whichDisclosure);
+         RequestContext.getCurrentInstance().openDialog("/pages/consumer/cto/disclosure");
       }
    }
 
-   public void accept(Integer pos) {
-      if ((pos != null) && (pos > 0) && (pos < disclosure.length)) {
-         if (disclosure[pos] > 0)
-            allApproved++;
-         disclosure[pos] = 1;
+   public void acceptAll() {
+      allApproved = 0;
+      for (int i=0; i < disclosure.length; i++) {
+         disclosure[i] = 1;
+         allApproved++;
       }
+   }
+
+   public void accept() {
+      markedChecked(whichDisclosure);
+   }
+
+   public void accept(Integer pos) {
+      markedChecked(pos);
    }
 
    public void popupDialog(Integer whichone) {
       whichDisclosure = whichone;
+
       Map<String,Object> options = new HashMap<String, Object>();
-      options.put("resizable", false);
-      options.put("draggable", false);
+      options.put("resizable", true);
+      options.put("draggable", true);
       options.put("modal", true);
       RequestContext.getCurrentInstance().openDialog("/pages/consumer/cto/disclosure", options, null);
    }

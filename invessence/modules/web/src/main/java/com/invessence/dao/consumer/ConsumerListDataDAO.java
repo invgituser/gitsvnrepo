@@ -10,6 +10,7 @@ import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.AdvisorListSP;
 import com.invessence.data.common.CustomerData;
 import com.invessence.data.consumer.ReportData;
+import com.invmodel.inputData.GoalsData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerListDataDAO")
@@ -106,6 +107,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setSelectedchoice13(convert.getStrData(rs.get("ans13")));
             data.setSelectedchoice14(convert.getStrData(rs.get("ans14")));
             data.setSelectedchoice15(convert.getStrData(rs.get("ans15")));
+            if (data.getGoalData() == null )
+               data.setGoalData(new GoalsData());
+
+            data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
 
             listProfiles.add(i, data);
             i++;
@@ -234,6 +239,11 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setSelectedchoice13(convert.getStrData(rs.get("ans13")));
                data.setSelectedchoice14(convert.getStrData(rs.get("ans14")));
                data.setSelectedchoice15(convert.getStrData(rs.get("ans15")));
+               if (data.getGoalData() == null )
+                  data.setGoalData(new GoalsData());
+
+               data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
+
                i++;
                break;  // Only load the first account info.
             }

@@ -81,7 +81,7 @@
 		<dependency>
 			<groupId>com.invessence</groupId>
 			<artifactId>yodlee-services</artifactId>
-    <version>1.0-SNAPSHOT</version>
+            <version>1.0-SNAPSHOT</version>
 		</dependency>
 
       <dependency>

@@ -34,28 +34,6 @@
                     </div>
                 </div>
                 <h:form id="crform">
-                <div class="Container100">
-                    <div class="Container50">
-                        <div class="ContainerIndent">
-                            <div class="DispInlBlock MarTop5">
-                                <div class="Container100">
-                                    <p:panelGrid columns="2" layout="grid"
-                                                 style="border:0px !important; background:none;" class="FormContent">
-                                        <h:outputText for="acct" value="Select Account#:"/>
-                                        <p:selectOneMenu id="acct" styleClass="Wid90"
-                                                         value="#{reportBean.account}">
-                                            <p:ajax listener="#{reportBean.filterAccount}"
-                                                    update=":crform:workArea"/>
-                                            <f:selectItem itemLabel="Choose" itemValue=""/>
-                                            <f:selectItems value="#{reportBean.accountList.entrySet()}"
-                                                           var="acct" itemLabel="#{acct.value}" itemValue="#{acct.key}"/>
-                                        </p:selectOneMenu>
-                                    </p:panelGrid>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="Container100 Responsive100">
                     <div class="Container60 ">
                         <p:panel id="workArea" style="border:0px !important; background:none;">
@@ -79,13 +57,34 @@
                                 <p:column styleClass="Wid20 TextAlLeft">
 
                                     <ui:fragment rendered="#{! report.isPdf}">
-                                        <h:outputLink value="#{report.filename}" target="_report"
+<!--                                        <h:outputLink value="#{report.filename}" target="_report"
                                                       title="#{report.reportName}">
                                             <h:outputText value="View"/>
                                         </h:outputLink>
+ -->
+                                        <p:commandButton id="viewButton" rendered="#{! report.isPdf}"
+                                                         styleClass="Fs16 GreenButton"
+                                                         process="@this" immediate="true"
+                                                         icon="fa fa-search-plus Fs14 white"
+                                                         actionListener="#{reportBean.viewReport(report)}">
+                                            <f:setPropertyActionListener value="#{report}"
+                                                                         target="#{reportBean.selectReport}"/>
+                                        </p:commandButton>
+<!--
+                                        <p:commandLink value="View"
+                                                       actionListener="#{reportBean.viewReport(report)}"/>
+-->
                                     </ui:fragment>
 
                             </p:column>
+                                <p:column>
+                                    <ui:fragment rendered="#{report.isPdf}">
+                                        <p:commandLink value="Download" ajax="false"
+                                                       onclick="PrimeFaces.monitorDownload(start, stop);">
+                                            <p:fileDownload value="#{report.reportName}" />
+                                        </p:commandLink>
+                                    </ui:fragment>
+                                </p:column>
                             </p:dataTable>
 
                         </p:panel>

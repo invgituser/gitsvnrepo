@@ -181,6 +181,10 @@ public class PortfolioPerformance
             return;
          }
 
+         actualInitialAmount = pfdata.getGoalData().getActualInitialAmount();
+         recurringAmount = pfdata.getGoalData().getActualRecurringAmount();
+         // pfdata.getGoalData().setActualInitialAmount(actualInitialAmount);
+         // pfdata.getGoalData().setActualRecurringAmount(recurringAmount);
          termyear = (years < performancedata.length) ? years : performancedata.length;
 
 
@@ -194,13 +198,9 @@ public class PortfolioPerformance
          }
 
          interestRate = performancedata[0].getInvestmentReturns();
-         actualInitialAmount = performancedata[0].getInvestedCapital();
-         recurringAmount = performancedata[0].getRecurInvestments();
 
          pfdata.getGoalData().setRisk(performancedata[0].getInvestmentRisk());
          pfdata.getGoalData().setInterestrate(performancedata[0].getInvestmentReturns());
-         pfdata.getGoalData().setActualInitialAmount(actualInitialAmount);
-         pfdata.getGoalData().setActualRecurringAmount(recurringAmount);
          pfdata.getGoalData().setTerm((double) termyear);
 
             Double n1 = Math.pow((1.0 + interestRate), termyear);

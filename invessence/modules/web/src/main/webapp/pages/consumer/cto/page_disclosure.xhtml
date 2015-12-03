@@ -1,0 +1,54 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 ">
+
+            <div class="ContainerIndent">
+                <div class="Card ShadowEffect">
+                    <h2 class="CardTopic">Disclosure</h2>
+
+                    <div class="Seperator"></div>
+                    <div class="EmptyBox20"></div>
+                    <div class="Container100">
+                        <h3>Read each of the electronic documents and click on "I accept"</h3>
+                        Once you consent to, and have read all of documents, the approval process can begin:
+                    </div>
+                    <div class="Container100">
+                        <p:panel id="disclosurePanel"
+                                 style="border:0px !important; background:none;">
+                            <p:panelGrid columns="2"
+                                         style="border:0px !important; background:none;" class="FormContent">
+
+                                <p:graphicImage value="/images/checked.png"
+                                                style="height: 20px; width: 20px;"
+                                                rendered="#{ctobean.disclosure(1)}"/>
+                                <p:graphicImage value="/images/unchecked.png"
+                                                style="height: 20px; width: 20px;"
+                                                rendered="#{! ctobean.disclosure(1)}"/>
+                                <p:commandLink styleClass="MarLeft10"
+                                               update=":ceForm:disclosurePanel"
+                                               actionListener="#{ctobean.setDisclosure(1)}">
+                                    Online Agreement
+                                </p:commandLink>
+
+                            </p:panelGrid>
+
+                            <div class="Container100 TexAlCenter MarTop10">
+                                <p:commandButton value="I Accept" disabled="#{ctobean.allApproved}"
+                                                 styleClass="Fleft"
+                                                 update=":ceForm:disclosurePanel"
+                                                 actionListener="#{ctobean.acceptAll}"/>
+                            </div>
+
+                        </p:panel>
+
+                    </div>
+                </div>
+            </div>
+    </div>
+
+</ui:composition>

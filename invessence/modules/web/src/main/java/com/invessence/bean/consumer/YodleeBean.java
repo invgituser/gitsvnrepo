@@ -22,7 +22,9 @@ import org.primefaces.context.RequestContext;
 @SessionScoped
 public class YodleeBean implements Serializable
 {
-   private Boolean welcomeDialog;
+   private Long logonid;
+   private String controlURL;
+
    @ManagedProperty("#{yodleeAPIService}")
    YodleeAPIService yodleeAPIService;
    public YodleeAPIService getYodleeAPIService() {
@@ -45,45 +47,26 @@ public class YodleeBean implements Serializable
       return webutil;
    }
 
-   public Boolean getWelcomeDialog()
+   public Long getLogonid()
    {
-      return welcomeDialog;
+      return logonid;
    }
 
-   public void setWelcomeDialog(Boolean welcomeDialog)
+   public String getControlURL()
    {
-      this.welcomeDialog = welcomeDialog;
+      return controlURL;
    }
-
-  /* public void preRenderView()
-   {
-   System.out.println("preRenderView");
-      try {
-         if (!FacesContext.getCurrentInstance().isPostback())
-         {
-            if (! getWebutil().isUserLoggedIn()) {
-               getWebutil().redirect("/login.xhtml",null);
-            }
-            //welcomeDialog = isUserRegisteredAtYodlee();
-            Long logonid = webutil.getLogonid();
-            welcomeDialog = yodleeAPIService.isUserRegisteredAtYodlee(logonid);
-         }
-      }
-      catch (Exception e)
-      {
-      }
-   }*/
 
    public void startup()
    {
       System.out.println("startup");
       System.out.print(yodleeAPIService.getInvUserList());
       try {
-         Long logonid = webutil.getLogonid();
+         logonid = webutil.getLogonid();
          if (yodleeAPIService.isUserRegisteredAtYodlee(logonid)) {
             Map<String, Object>  result = yodleeAPIService.userLogin(logonid);
             getConsDataList();
-            webutil.redirect("/pages/consumer/aggr/acct.xhtml", null);
+            webutil.redirect("/pages/consumer/aggr/dash.xhtml", null);
          }
          else {
             webutil.redirect("/pages/consumer/aggr/profile.xhtml", null);
@@ -253,17 +236,20 @@ public class YodleeBean implements Serializable
       //return result;
    }
 
-/*   public Boolean isUserRegisteredAtYodlee() {
+   public Boolean isUserRegisteredAtYodlee(Long logonid) {
       try {
-        Long logonid = webutil.getLogonid();
+         if (logonid == null || logonid == 0L) {
+            return false;
+         }
+
         Map <String, Object> result = yodleeAPIService.userLogin(logonid);
         if (result == null) {
-           return false;
+           return true;
         }
         if (result.containsKey("errorDetails")) {
            YodleeError obj = (YodleeError) result.get("errorDetails");
            if (obj.getSeverity() > 0) {
-              return true;
+              return false;
            }
            else
               redirecttoErrorPage(obj);
@@ -276,7 +262,7 @@ public class YodleeBean implements Serializable
         redirecttoErrorPage(null);
       }
       return true;
-   }*/
+   }
 
    public void redirecttoErrorPage(YodleeError errorInfo) {
 

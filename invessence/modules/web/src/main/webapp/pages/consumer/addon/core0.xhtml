@@ -47,14 +47,6 @@
                         update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
             </pe:inputNumber>
 
-            <div class="Wid90">Recurring investment</div>
-            <pe:inputNumber id="recurringinvestment" styleClass="Wid90"
-                            value="#{cepb.recurringInvestment}"
-                            maxlength="11" decimalPlaces="0" symbol="$">
-                <p:ajax event="blur" listener="#{cepb.onChange}"
-                        update=":ceForm:workArea, :ceForm:graphArea"/>
-            </pe:inputNumber>
-
         </p:panelGrid>
     </div>
 

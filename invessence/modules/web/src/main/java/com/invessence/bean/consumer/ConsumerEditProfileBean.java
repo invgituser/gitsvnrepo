@@ -245,6 +245,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          //if (getPortfolioData() != null) {
             //charts.createGoalChart(getPerformanceData(), getGoalData());
          //}
+         saveProfile();
       }
       else {
          setShowGoalChart(false);
@@ -641,18 +642,25 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       Boolean validate = false;
       try
       {
-         if (formEdit)  {
-            validate = validateProfile();
+         if (formEdit == null)
+            validate = validateProfile(); // Redirect to logon window.
+         else {
+            if (formEdit)  {
+               validate = validateProfile(); // Check if session is still valid.  If not, redirect to logon
 
-            if (validate) {
-               setDefaults();
-               acctnum = saveDAO.saveProfileData(getInstance());
-               setAcctnum(acctnum);
-               saveDAO.saveFinancials(getInstance());
-               saveDAO.saveRiskProfile(getInstance());
-               saveDAO.saveAllocation(getInstance());
-               saveDAO.savePortfolio(getInstance());
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+               if (validate) {
+                  // setDefaults();
+                  acctnum = saveDAO.saveProfileData(getInstance());
+                  if (acctnum > 0) {
+                     setAcctnum(acctnum);
+                     saveDAO.saveFinancials(getInstance());
+                     saveDAO.saveRiskProfile(getInstance());
+                     saveDAO.saveAllocation(getInstance());
+                     saveDAO.savePortfolio(getInstance());
+                  }
+                  // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+                  formEdit = false;
+               }
             }
          }
       }
@@ -858,6 +866,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          pTab = 4;
          setShowGoalChart(true);
       }
+      saveProfile();
+
    }
 
    public void onRTabChange(TabChangeEvent event) {
@@ -878,6 +888,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          rTab = 5;
       if (pTabID.equals("q7"))
          rTab = 6;
+      saveProfile();
+
    }
 
    public String getEnableNextButton() {
@@ -918,6 +930,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             rTab--;
             break;
       }
+      saveProfile();
    }
 
    public void gotoNextTab() {
@@ -941,14 +954,17 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             break;
 
       }
+      saveProfile();
    }
 
    public void setShowGoalChart(Boolean showGoalChart)
    {
       this.showGoalChart = false;
       if (showGoalChart != null && getGoalData() != null) {
-         if (getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0)
+         if (getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0) {
             this.showGoalChart = showGoalChart;
+         }
+
       }
    }
 

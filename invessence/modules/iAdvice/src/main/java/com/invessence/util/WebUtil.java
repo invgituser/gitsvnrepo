@@ -300,7 +300,7 @@ public class WebUtil implements Serializable
                   key + "=" + val;
             }
          }
-         //System.out.println("Redirecting to:" + url + strToPass);
+         // System.out.println("Redirecting to:" + url + strToPass);
          getCurrentInstance().getExternalContext().redirect(url + strToPass );
       }
       catch (Exception ex) {

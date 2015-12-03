@@ -7,9 +7,9 @@
                 template="/template/common/invlayout.xhtml">
 
 
-<!--    <f:metadata>
-        <f:event type="preRenderView" listener="#{yodleeBean.preRenderView}"/>
-    </f:metadata>-->
+    <!--    <f:metadata>
+            <f:event type="preRenderView" listener="#{yodleeBean.preRenderView}"/>
+        </f:metadata>-->
 
     <ui:define name="content">
 
@@ -17,59 +17,62 @@
 
             <div class="Container100">
                 <!-- Left Column -->
-               <ui:include src="leftMenu.xhtml"/>
+                <ui:include src="leftMenu.xhtml"/>
                 <!-- Right Column -->
                 <div class="Container90 Responsive100">
                     <div class="Card Wid90 Fright">
                         <!-- Section -->
                         <div class="Container100">
                             <div class="ContainerIndent">
-                                <div class="Card ShadowEffect">
-                                    <h2 class="CardTopic">Dashboard</h2>
-
-                                    <div class="EmptyBox20">
-
-
+                                <div class="BigTopic">
+                                    <div class="Wid50 Fleft">
+                                        <h3>Dashboard</h3>
                                     </div>
-                                    <div class="EmptyBox20">
-
+                                    <div class="Wid50 Fright">
+                                        <p:commandButton value="Refresh All" styleClass="Fright"
+                                                         id="refreshData"
+                                                         actionListener="#{yodleeBean.refreshAccountsData}"
+                                                         update=":aggrform:dashData"
+                                                         icon="fa fa-refresh"/>
                                     </div>
-                                    <div class="EmptyBox20">
-                                    </div>
+                                </div>
 
-                                    <div class="Container100 Responsive50">
-                                        <div>
-                                            <p:dataTable var="consData" value="#{yodleeBean.consDataList}">
-                                                <p:column headerText="siteName" >
-                                                    <h:outputText value="#{consData.siteDetail.siteName}" />
-                                                </p:column>
-                                                <p:column headerText="itemDispName" >
-                                                    <h:outputText value="#{consData.itemDetail.itemDispName}" />
-                                                </p:column><!--
+
+
+                                <div class="Container100 Responsive50">
+                                    <div>
+                                        <p:dataTable id="dashData" var="consData" value="#{yodleeBean.consDataList}">
+                                            <p:column headerText="Site">
+                                                <h:outputText value="#{consData.siteDetail.siteName}"/>
+                                            </p:column>
+                                            <p:column headerText="Name">
+                                                <h:outputText value="#{consData.itemDetail.itemDispName}"/>
+                                            </p:column><!--
                                             <p:column>
                                                     <h:outputText value="ItemId" />
                                                 <h:outputText value="#{consData.itemDetail.itemId}" />
                                             </p:column>-->
-                                                <p:column headerText="ContServName" >
-                                                    <h:outputText value="#{consData.itemDetail.contServName}" />
-                                                </p:column>
+                                            <p:column headerText="ContServName">
+                                                <h:outputText value="#{consData.itemDetail.contServName}"/>
+                                            </p:column>
 
 
-                                                <p:column headerText="accName">
-                                                    <h:outputText value="#{consData.accountDetail.accName}" />
-                                                </p:column>
+                                            <p:column headerText="Account Name">
+                                                <h:outputText value="#{consData.accountDetail.accName}"/>
+                                            </p:column>
 
-                                                <p:column headerText="Acc Type" >
-                                                    <h:outputText value="#{consData.accType}" />
-                                                </p:column>
+                                            <p:column headerText="Type">
+                                                <h:outputText value="#{consData.accType}"/>
+                                            </p:column>
 
-                                                <p:column headerText="Available Balance" >
-                                                    <h:outputText value="#{consData.avilbBal}" />
-                                                </p:column>
+                                            <p:column headerText="Balance"
+                                                      style="width:10%; text-align: right">
+                                                <h:outputText value="#{consData.avilbBal}">
+                                                   <f:convertNumber currencySymbol="$" type="currency"/>
+                                                </h:outputText>
+                                            </p:column>
 
-                                            </p:dataTable>
-                                        </div>
-                                        <div class="EmptyBox150"></div>
+                                        </p:dataTable>
                                     </div>
                                 </div>
                             </div>
