@@ -300,15 +300,15 @@ public class YodleeAPIRepository
 		return null;
 	}
 
-	public String getItemSummaries(String cobrandSessionToken,
-			String userSessionToken) {
+	public JSONArray getItemSummaries(String cobrandSessionToken,
+												 String userSessionToken) {
 		// String userSessionToken=null;
 		DefaultHttpClient httpclient = new DefaultHttpClient();
-
+		JSONArray jsonObject=null;
 		String url = HOST_URI + DATA_SERVICE;
 		try {
 			HttpsURLConnection
-					.setDefaultHostnameVerifier(new NullHostnameVerifier());
+				.setDefaultHostnameVerifier(new NullHostnameVerifier());
 
 			PostMethod pm = new PostMethod(url);
 			pm.addParameter(paramNameCobSessionToken, cobrandSessionToken);
@@ -326,7 +326,15 @@ public class YodleeAPIRepository
 			 * userSessionToken= (String) userConvCreds.get("sessionToken");
 			 */
 
-			System.out.println(pm.getResponseBodyAsString());
+			String source=pm.getResponseBodyAsString().trim();
+			System.out.println("Source :"+source);
+
+			if(source==null || source.isEmpty() || source.trim().equals("{\"key\":{}}"))
+			{
+				jsonObject = new JSONArray();
+			}else{
+				jsonObject = new JSONArray(source);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -334,8 +342,9 @@ public class YodleeAPIRepository
 			httpclient.getConnectionManager().shutdown();
 		}
 
-		return null;
+		return jsonObject;
 	}
+
 
 	public JSONArray getItemSummariesForSite(String cobrandSessionToken,
 			String userSessionToken, String siteAccId) {

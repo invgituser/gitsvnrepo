@@ -1,35 +1,19 @@
 package com.invessence.yodlee.service;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.invessence.yodlee.dao.*;
+import com.invessence.yodlee.model.*;
 import com.invessence.yodlee.util.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.invessence.yodlee.dao.AccountDetailsDAO;
-import com.invessence.yodlee.dao.BankDetailsDAO;
-import com.invessence.yodlee.dao.CardDetailsDAO;
-import com.invessence.yodlee.dao.InvestmentDetailsDAO;
-import com.invessence.yodlee.dao.ItemDetailsDAO;
-import com.invessence.yodlee.dao.LoanDetailsDAO;
-import com.invessence.yodlee.dao.SiteDetailsDAO;
-import com.invessence.yodlee.dao.UserLogonDAO;
-import com.invessence.yodlee.dao.ConsolidateDataDAO;
-import com.invessence.yodlee.model.AccountDetail;
-import com.invessence.yodlee.model.BankDetail;
-import com.invessence.yodlee.model.CardDetail;
-import com.invessence.yodlee.model.InvestmentDetail;
-import com.invessence.yodlee.model.ItemDetail;
-import com.invessence.yodlee.model.LoanDetail;
-import com.invessence.yodlee.model.SiteDetail;
-import com.invessence.yodlee.model.UserLogon;
-import com.invessence.yodlee.model.ConsolidateData;
-import com.invessence.yodlee.model.YodleeError;
 
 public class YodleeAPIServiceImpl implements YodleeAPIService {
-	
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 /*	@Value("${COBRAND_LOGIN}") private String COBRAND_LOGIN;
 	@Value("${COBRAND_PASSWORD}") private String COBRAND_PASSWORD;
 	
@@ -89,6 +73,12 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 
 	@Autowired
 	private InvestmentDetailsDAO investmentDetailsDAO;
+
+	@Autowired
+	private InvestmentHoldingsDAO investmentHoldingsDAO;
+
+	@Autowired
+	private InvestmentTransactionsDAO investmentTransactionsDAO;
 
 	@Autowired
 	private CardDetailsDAO cardDetailsDAO;
@@ -1320,4 +1310,875 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 	}
 
 
+	public Map<String, Object> refreshUserAccDetails(Long invUserId) {
+		Map<String, Object> resultMap=null;
+		JSONArray ja=null;
+		try{
+			System.out.println("YodleeAPIServiceImpl.getItemSummariesForSite()");
+			resultMap=new HashMap<String, Object>();
+
+
+			System.out.println("******************************************************** getItemSummaries *********************************************************");
+			ja=yodleeAPIRepo.getItemSummaries(cobrandSessionToken,loggedInUsers.get(invUserId).getUserSessionToken());
+
+			System.out.println("***********************************************************************************************************************************");
+			int siteAccLen=ja.length();
+			System.out.println("Array Size :"+siteAccLen);
+			if(siteAccLen==0){
+				YodleeError ye=new YodleeError();
+				ye.setMessage("User does't have summaries site details.");
+				resultMap.put("errorDetails", ye);
+			}else if(siteAccLen>0){
+
+				for (int x = 0; x < ja.length(); x++) {
+					JSONObject siJO= ja.getJSONObject(x);
+					String siteAccId=siJO.getString("memSiteAccId");
+					System.out.println("siteAccId :"+siteAccId);
+
+					List<SiteDetail> sdLst=siteDetailsDAO.findByWhereCluase("siteAccId="+siteAccId);
+					if(sdLst==null || sdLst.size()==0){
+						System.out.println("Invessence User Details object get Null");
+					}else{
+
+						SiteDetail sd=sdLst.get(0);
+
+						int arrLen=ja.length();
+						System.out.println("Array Size :"+arrLen);
+
+						if(arrLen==0){
+							YodleeError ye=new YodleeError();
+							ye.setMessage("Site does't have summaries item Details.");
+							resultMap.put("errorDetails", ye);
+						}else if(arrLen>0){
+
+							for (int i = 0; i < ja.length(); i++) {
+								ItemDetail id=new ItemDetail();
+								JSONObject jo= ja.getJSONObject(i);
+								id.setItemId(jo.getString("itemId")==null?null:jo.getLong("itemId"));
+								id.setItemDispName(jo.getString("itemDisplayName")==null?null:jo.getString("itemDisplayName"));
+								id.setContServId(jo.getString("contentServiceId")==null?null:jo.getLong("contentServiceId"));
+								System.out.println("contentServiceId: "+jo.getLong("contentServiceId"));
+								if(jo.has("contentServiceInfo")){
+									JSONObject contentServiceJO=jo.getJSONObject("contentServiceInfo");
+									if(contentServiceJO.has("containerInfo")){
+										JSONObject containerInfoJO=contentServiceJO.getJSONObject("containerInfo");
+										id.setContServName(containerInfoJO.getString("containerName")==null?null:containerInfoJO.getString("containerName"));
+
+										List<ItemDetail> itemLst=itemDetailsDAO.findByWhereCluase("itemId="+id.getItemId());
+										if(itemLst==null || itemLst.size()==0){
+											id.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+											id.setInsertedBy(loggedInUsers.get(invUserId).getId());
+											SiteDetail siteDetails=new SiteDetail();
+											siteDetails.setId(sd.getId());
+											id.setSiteDetail(siteDetails);
+											itemDetailsDAO.insertItemDetails(id);
+										}else{
+											id.setId(itemLst.get(0).getId());
+										}
+
+										System.out.println("containerName: "+id.getContServName());
+
+										if(id.getContServName().equals("bank")){
+
+											if(jo.has("itemData")){
+
+												JSONObject itemDataJO=jo.getJSONObject("itemData");
+												if(itemDataJO.has("accounts")){
+													JSONArray accountsJA=itemDataJO.getJSONArray("accounts");
+
+													int accArrLen=accountsJA.length();
+													if(accArrLen>0){
+
+														for (int j = 0; j < accountsJA.length(); j++) {
+
+															JSONObject accJO= accountsJA.getJSONObject(j);
+
+															AccountDetail ad=new AccountDetail();
+															ad.setItemDetail(id);
+
+															//id.setContServName(siteRefreshModeJO.getString("containerName")==null?null:siteRefreshModeJO.getString("containerName"));
+															ad.setAccId(accJO.getString("accountId")==null?null:accJO.getLong("accountId"));
+															ad.setItemAccId(accJO.getString("itemAccountId")==null?null:accJO.getLong("itemAccountId"));
+															ad.setAccName(accJO.getString("accountName")==null?null:accJO.getString("accountName"));
+
+															ad.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+															ad.setInsertedBy(loggedInUsers.get(invUserId).getId());
+															List<AccountDetail> accLst=accountDetailsDAO.findByWhereCluase("itemAccId="+ad.getItemAccId());
+															if(accLst==null || accLst.size()==0){
+																accountDetailsDAO.insertAccountDetails(ad);
+															}else{
+																ad.setId(accLst.get(0).getId());
+															}
+
+
+
+															BankDetail bd=new BankDetail();
+															bd.setAccountDetail(ad);
+															bd.setAccHolder(accJO.getString("accountHolder")==null?null:accJO.getString("accountHolder"));
+															bd.setAccName(accJO.getString("accountName")==null?null:accJO.getString("accountName"));
+
+															bd.setAccNum(accJO.getString("accountNumber")==null?null:accJO.getString("accountNumber"));
+															bd.setAccType(accJO.getString("acctType")==null?null:accJO.getString("acctType"));
+
+															if(accJO.has("asOfDate")){
+																JSONObject adnJO=accJO.getJSONObject("asOfDate");
+																if(adnJO.has("date")){
+																	bd.setAsOfDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																}
+															}
+															if(accJO.has("maturityDate")){
+																JSONObject adnJO=accJO.getJSONObject("maturityDate");
+																if(adnJO.has("date")){
+																	bd.setMatDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																}
+															}
+
+															bd.setAccName(accJO.getString("accountName")==null?null:accJO.getString("accountName"));
+
+													/*if(accJO.has("accountDisplayName")){
+														JSONObject adnJO=accJO.getJSONObject("accountDisplayName");
+														bd.set(adnJO.getString("defaultNormalAccountName")==null?null:adnJO.getString("defaultNormalAccountName"));
+													}*/
+
+															if(accJO.has("accountClassification")){
+																JSONObject adnJO=accJO.getJSONObject("accountClassification");
+																bd.setAccClassification(adnJO.getString("accountClassification")==null?null:adnJO.getString("accountClassification"));
+															}
+
+															if(accJO.has("availableBalance")){
+																JSONObject adnJO=accJO.getJSONObject("availableBalance");
+																bd.setAvilbBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("currentBalance")){
+																JSONObject adnJO=accJO.getJSONObject("currentBalance");
+																bd.setCurBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															bd.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+															bd.setInsertedBy(loggedInUsers.get(invUserId).getId());
+															bankDetailsDAO.insertBankDetails(bd);
+
+															System.out.println(loggedInUsers.get(invUserId).getId()+" : "+sd.getId()+" : "+id.getId()+" : "+ad.getId());
+															List<ConsolidateData> conDataLst=consolidateDataDAO.findByWhereCluase(" USER_LOG_ID=? AND  SITE_DET_ID=? AND ITEM_DET_ID=? AND ACC_DET_ID=?", new Object[]{loggedInUsers.get(invUserId).getId(),sd.getId(),id.getId(),ad.getId()});
+
+															if(conDataLst==null || conDataLst.size()==0){
+																System.out.println("Consilidated data not available.");
+
+																UserLogon ul=new UserLogon();
+																ul.setId(loggedInUsers.get(invUserId).getId());
+																ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, bd.getId(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
+
+																consolidateDataDAO.insertConsolidateData(consData);
+															}else{
+
+																ConsolidateData consData=conDataLst.get(0);
+																System.out.println("Consilidated data available : "+consData.getId());
+																consData.setPfolioDetId(bd.getId());
+																consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
+																consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
+																consolidateDataDAO.updateConsolidateData(consData);
+															}
+
+
+														}
+
+													}
+												}
+											}
+										}
+
+
+										if(id.getContServName().equals("credits")){
+
+											if(jo.has("itemData")){
+
+												JSONObject itemDataJO=jo.getJSONObject("itemData");
+												if(itemDataJO.has("accounts")){
+													JSONArray accountsJA=itemDataJO.getJSONArray("accounts");
+
+													int accArrLen=accountsJA.length();
+													if(accArrLen>0){
+
+														for (int j = 0; j < accountsJA.length(); j++) {
+
+															JSONObject accJO= accountsJA.getJSONObject(j);
+
+															AccountDetail ad=new AccountDetail();
+															ad.setItemDetail(id);
+
+															//id.setContServName(siteRefreshModeJO.getString("containerName")==null?null:siteRefreshModeJO.getString("containerName"));
+															ad.setAccId(accJO.getString("accountId")==null?null:accJO.getLong("accountId"));
+															ad.setItemAccId(accJO.getString("itemAccountId")==null?null:accJO.getLong("itemAccountId"));
+															ad.setAccName(accJO.getString("accountName")==null?null:accJO.getString("accountName"));
+
+															ad.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+															ad.setInsertedBy(loggedInUsers.get(invUserId).getId());
+															List<AccountDetail> accLst=accountDetailsDAO.findByWhereCluase("itemAccId="+ad.getItemAccId());
+															if(accLst==null || accLst.size()==0){
+																accountDetailsDAO.insertAccountDetails(ad);
+															}else{
+																ad.setId(accLst.get(0).getId());
+															}
+
+
+															CardDetail cardDet=new CardDetail();
+															cardDet.setAccountDetail(ad);
+															cardDet.setAccHolder(accJO.getString("accountHolder")==null?null:accJO.getString("accountHolder"));
+															cardDet.setAccName(accJO.getString("accountName")==null?null:accJO.getString("accountName"));
+															cardDet.setAccNum(accJO.getString("accountNumber")==null?null:accJO.getString("accountNumber"));
+															cardDet.setAccType(accJO.getString("acctType")==null?null:accJO.getString("acctType"));
+
+															if(accJO.has("dueDate")){
+																JSONObject adnJO=accJO.getJSONObject("dueDate");
+																if(adnJO.has("date")){
+																	cardDet.setDueDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																}
+															}
+															if(accJO.has("lastPaymentDate")){
+																JSONObject adnJO=accJO.getJSONObject("lastPaymentDate");
+																if(adnJO.has("date")){
+																	cardDet.setLastPayDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																}
+															}
+
+															if(accJO.has("accountClassification")){
+																JSONObject adnJO=accJO.getJSONObject("accountClassification");
+																cardDet.setAccClassification(adnJO.getString("accountClassification")==null?null:adnJO.getString("accountClassification"));
+															}
+
+															if(accJO.has("availableCash")){
+																JSONObject adnJO=accJO.getJSONObject("availableCash");
+																cardDet.setAvilbCash(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("availableCredit")){
+																JSONObject adnJO=accJO.getJSONObject("availableCredit");
+																cardDet.setAvilbCredit(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+
+															if(accJO.has("lastPayment")){
+																JSONObject adnJO=accJO.getJSONObject("lastPayment");
+																cardDet.setLastPay(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+
+															if(accJO.has("totalCashLimit")){
+																JSONObject adnJO=accJO.getJSONObject("totalCashLimit");
+																cardDet.setTotCashLimit(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("totalCreditLine")){
+																JSONObject adnJO=accJO.getJSONObject("totalCreditLine");
+																cardDet.setTotCreditLine(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("runningBalance")){
+																JSONObject adnJO=accJO.getJSONObject("runningBalance");
+																cardDet.setRunningBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															cardDet.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+															cardDet.setInsertedBy(loggedInUsers.get(invUserId).getId());
+															cardDetailsDAO.insertCardDetails(cardDet);
+
+
+															System.out.println(loggedInUsers.get(invUserId).getId()+" : "+sd.getId()+" : "+id.getId()+" : "+ad.getId());
+															List<ConsolidateData> conDataLst=consolidateDataDAO.findByWhereCluase(" USER_LOG_ID=? AND  SITE_DET_ID=? AND ITEM_DET_ID=? AND ACC_DET_ID=?", new Object[]{loggedInUsers.get(invUserId).getId(),sd.getId(),id.getId(),ad.getId()});
+
+															if(conDataLst==null || conDataLst.size()==0){
+																System.out.println("Consilidated data not available.");
+
+																UserLogon ul=new UserLogon();
+																ul.setId(loggedInUsers.get(invUserId).getId());
+																ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, cardDet.getId(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
+
+																consolidateDataDAO.insertConsolidateData(consData);
+															}else{
+
+																ConsolidateData consData=conDataLst.get(0);
+																System.out.println("Consilidated data available : "+consData.getId());
+																consData.setPfolioDetId(cardDet.getId());
+																consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
+																consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
+																consolidateDataDAO.updateConsolidateData(consData);
+															}
+
+														}
+
+
+													}
+												}
+											}
+										}
+
+										if(id.getContServName().equals("stocks")){
+
+											if(jo.has("itemData")){
+
+												JSONObject itemDataJO=jo.getJSONObject("itemData");
+												if(itemDataJO.has("accounts")){
+													JSONArray accountsJA=itemDataJO.getJSONArray("accounts");
+
+
+													int accArrLen=accountsJA.length();
+													if(accArrLen>0){
+
+														for (int j = 0; j < accountsJA.length(); j++) {
+
+															JSONObject accJO= accountsJA.getJSONObject(j);
+
+															AccountDetail ad=new AccountDetail();
+															ad.setItemDetail(id);
+
+															//id.setContServName(siteRefreshModeJO.getString("containerName")==null?null:siteRefreshModeJO.getString("containerName"));
+															ad.setAccId(accJO.getString("accountId")==null?null:accJO.getLong("accountId"));
+															ad.setItemAccId(accJO.getString("itemAccountId")==null?null:accJO.getLong("itemAccountId"));
+															if(accJO.has("accountDisplayName")){
+																JSONObject adnJO=accJO.getJSONObject("accountDisplayName");
+																ad.setAccName(adnJO.getString("defaultNormalAccountName")==null?null:adnJO.getString("defaultNormalAccountName"));
+															}
+
+															ad.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+															ad.setInsertedBy(loggedInUsers.get(invUserId).getId());
+
+															List<AccountDetail> accLst=accountDetailsDAO.findByWhereCluase("itemAccId="+ad.getItemAccId());
+															if(accLst==null || accLst.size()==0){
+																accountDetailsDAO.insertAccountDetails(ad);
+															}else{
+																ad.setId(accLst.get(0).getId());
+															}
+
+
+
+															InvestmentDetail invDet=new InvestmentDetail();
+															invDet.setAccountDetail(ad);
+															invDet.setAccHolder(accJO.getString("accountHolder")==null?null:accJO.getString("accountHolder"));
+															//invDet.setAccName(accJO.getString("accountName")==null?null:accJO.getString("accountName"));
+															if(accJO.has("accountDisplayName")){
+																JSONObject adnJO=accJO.getJSONObject("accountDisplayName");
+																invDet.setAccName(adnJO.getString("defaultNormalAccountName")==null?null:adnJO.getString("defaultNormalAccountName"));
+															}
+															invDet.setAccNum(accJO.getString("accountNumber")==null?null:accJO.getString("accountNumber"));
+															invDet.setAccType(accJO.getString("acctType")==null?null:accJO.getString("acctType"));
+															//invDet.setPlanName(accJO.getString("planName")==null?null:accJO.getString("planName"));
+
+
+															if(accJO.has("accountClassification")){
+																JSONObject adnJO=accJO.getJSONObject("accountClassification");
+																invDet.setAccClassification(adnJO.getString("accountClassification")==null?null:adnJO.getString("accountClassification"));
+															}
+
+															if(accJO.has("cash")){
+																JSONObject adnJO=accJO.getJSONObject("cash");
+																invDet.setCash(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("buyingPower")){
+																JSONObject adnJO=accJO.getJSONObject("buyingPower");
+																invDet.setDayTradMargBuyingPower(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("loan_401k")){
+																JSONObject adnJO=accJO.getJSONObject("loan_401k");
+																invDet.setLoan401k(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("marginBalance")){
+																JSONObject adnJO=accJO.getJSONObject("marginBalance");
+																invDet.setMargBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("moneyMarketBalance")){
+																JSONObject adnJO=accJO.getJSONObject("moneyMarketBalance");
+																invDet.setMoneyMarketBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("shortBalance")){
+																JSONObject adnJO=accJO.getJSONObject("shortBalance");
+																invDet.setShortBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("totalBalance")){
+																JSONObject adnJO=accJO.getJSONObject("totalBalance");
+																invDet.setTotBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("totalVestedBalance")){
+																JSONObject adnJO=accJO.getJSONObject("totalVestedBalance");
+																invDet.setTotVestedBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+															if(accJO.has("totalUnvestedBalance")){
+																JSONObject adnJO=accJO.getJSONObject("totalUnvestedBalance");
+																invDet.setTotUnvestedBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+															}
+
+
+															invDet.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+															invDet.setInsertedBy(loggedInUsers.get(invUserId).getId());
+															investmentDetailsDAO.insertInvestmentDetails(invDet);
+
+
+															System.out.println(loggedInUsers.get(invUserId).getId()+" : "+sd.getId()+" : "+id.getId()+" : "+ad.getId());
+															List<ConsolidateData> conDataLst=consolidateDataDAO.findByWhereCluase(" USER_LOG_ID=? AND  SITE_DET_ID=? AND ITEM_DET_ID=? AND ACC_DET_ID=?", new Object[]{loggedInUsers.get(invUserId).getId(),sd.getId(),id.getId(),ad.getId()});
+
+															if(conDataLst==null || conDataLst.size()==0){
+																System.out.println("Consilidated data not available.");
+
+																UserLogon ul=new UserLogon();
+																ul.setId(loggedInUsers.get(invUserId).getId());
+																ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, invDet.getId(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
+
+																consolidateDataDAO.insertConsolidateData(consData);
+															}else{
+
+																ConsolidateData consData=conDataLst.get(0);
+																System.out.println("Consilidated data available : "+consData.getId());
+																consData.setPfolioDetId(invDet.getId());
+																consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
+																consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
+																consolidateDataDAO.updateConsolidateData(consData);
+															}
+
+
+
+															if(accJO.has("holdings")){
+																JSONArray accHoldJA=accJO.getJSONArray("holdings");
+																System.out.println("accHoldJA: "+accHoldJA);
+
+
+																int accHoldLen=accHoldJA.length();
+																if(accHoldLen>0){
+																	for (int a = 0; a < accHoldJA.length(); a++) {
+
+																		JSONObject accHoldJO= accHoldJA.getJSONObject(a);
+																/*System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+																System.out.println("accTranJO: "+accHoldJO);
+	*/														InvestmentHolding invHold=new InvestmentHolding();
+																		invHold.setAccountDetail(ad);
+																		if (accHoldJO.has("commodityType")) {
+																			System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+																			System.out.println("commodityType :"+accHoldJO.getString("commodityType"));
+																			invHold.setCommodityType(accHoldJO.getString("commodityType")==null?null:accHoldJO.getString("commodityType"));
+																		}
+																		if (accHoldJO.has("costBasis")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("costBasis");
+																			invHold.setCostBasis(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+																		if (accHoldJO.has("couponFreq")) {
+																			invHold.setCouponFrequency(accHoldJO.getString("couponFreq")==null?null:accHoldJO.getString("couponFreq"));
+																		}
+																		if (accHoldJO.has("couponRate")) {
+																			invHold.setCouponRate(accHoldJO.getString("couponRate")==null?null:accHoldJO.getDouble("couponRate"));
+																		}
+																		if (accHoldJO.has("cusipNumber")) {
+																			invHold.setCusipNum(accHoldJO.getString("cusipNumber")==null?null:accHoldJO.getString("cusipNumber"));
+																		}
+																		if (accHoldJO.has("description")) {
+																			invHold.setDescription(accHoldJO.getString("description")==null?null:accHoldJO.getString("description"));
+																		}
+																		if (accHoldJO.has("employeeContribution")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("employeeContribution");
+																			invHold.setEmpContr(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+																		/*if (accTranJO.has("commission")) {
+																			invHold.setEspType(accTranJO.getString("commodityType")==null?null:accTranJO.getString("commodityType"));
+																		}*/
+																		if (accHoldJO.has("expirationDate")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("expirationDate");
+																			if(intJO.has("date")){
+																				invHold.setExpirationDate(intJO.getString("date")==null || intJO.getString("date").equals("{}")?null:sdf.parse(intJO.getString("date")));
+																			}
+																		}
+																		if (accHoldJO.has("faceValue")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("faceValue");
+																			invHold.setFaceValue(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+																		if (accHoldJO.has("holdingType")) {
+																			invHold.setHoldingType(accHoldJO.getString("holdingType")==null?null:accHoldJO.getString("holdingType"));
+																		}
+
+																		invHold.setInsertedBy(loggedInUsers.get(invUserId).getId());
+																		invHold.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+
+																		if (accHoldJO.has("interestRate")) {
+																			invHold.setIntRate(accHoldJO.getString("interestRate")==null?null:accHoldJO.getDouble("interestRate"));
+																		}
+																		if (accHoldJO.has("lastContribution")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("lastContribution");
+																			invHold.setLastContr(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+																		/*if (accTranJO.has("commission")) {
+																			invHold.setLinkedBankAccNum(accTranJO.getString("commodityType")==null?null:accTranJO.getString("commodityType"));
+																		}
+																		if (accTranJO.has("commission")) {
+																			invHold.setLotSize(accTranJO.getString("commodityType")==null?null:accTranJO.getString("commodityType"));
+																		}*/
+																		if (accHoldJO.has("maturityDate")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("maturityDate");
+																			if(intJO.has("date")){
+																				invHold.setMatDate(intJO.getString("date")==null || intJO.getString("date").equals("{}")?null:sdf.parse(intJO.getString("date")));
+																			}
+																		}
+																		if (accHoldJO.has("mutualFundType")) {
+																			invHold.setMutualFundType(accHoldJO.getString("mutualFundType")==null?null:accHoldJO.getString("mutualFundType"));
+																		}
+																		if (accHoldJO.has("optionType")) {
+																			invHold.setOptionType(accHoldJO.getString("optionType")==null?null:accHoldJO.getString("optionType"));
+																		}
+																		if (accHoldJO.has("parValue")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("parValue");
+																			invHold.setParValue(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+																		if (accHoldJO.has("percentAllocation")) {
+																			invHold.setPercAlloc(accHoldJO.getString("percentAllocation")==null?null:accHoldJO.getDouble("percentAllocation"));
+																		}
+																		/*if (accTranJO.has("commission")) {
+																			invHold.setPlanName(accTranJO.getString("commodityType")==null?null:accTranJO.getString("commodityType"));
+																		}
+																		if (accTranJO.has("commission")) {
+																			invHold.setPlanNum(accTranJO.getString("commodityType")==null?null:accTranJO.getString("commodityType"));
+																		}*/
+																		if (accHoldJO.has("price")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("price");
+																			invHold.setPrice(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+																		if (accHoldJO.has("symbol")) {
+																			invHold.setSymbol(accHoldJO.getString("symbol")==null?null:accHoldJO.getString("symbol"));
+																		}
+																		/*if (accHoldJO.has("term")) {
+																			invHold.setTerm(accHoldJO.getString("term")==null?null:accHoldJO.getLong("term"));
+																		}*/
+																		if (accHoldJO.has("value")) {
+																			JSONObject intJO=accHoldJO.getJSONObject("value");
+																			invHold.setTotValue(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+
+																		investmentHoldingsDAO.insertInvestmentHoldings(invHold);
+
+																	}
+																}
+															}
+
+
+
+
+
+
+															if(accJO.has("investmentTransactions")){
+																JSONArray accTranJA=accJO.getJSONArray("investmentTransactions");
+
+
+																int accTranLen=accTranJA.length();
+																if(accTranLen>0){
+																	for (int a = 0; a < accTranJA.length(); a++) {
+
+																		JSONObject accTranJO= accTranJA.getJSONObject(a);
+																/*System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+																System.out.println("accTranJO: "+accTranJO);
+	*/
+																		InvestmentTransaction invTran=new InvestmentTransaction();
+																		invTran.setAccountDetail(ad);
+
+																		if(accTranJO.has("amount")){
+																			JSONObject intJO=accTranJO.getJSONObject("amount");
+																			invTran.setAmt(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}
+																		if(accTranJO.has("commission")){
+																			JSONObject intJO=accTranJO.getJSONObject("commission");
+																			invTran.setCommission(intJO.getString("amount")==null?null:intJO.getString("amount"));
+																		}
+																		if(accTranJO.has("cusipNumber")){
+																			invTran.setCusipNum(accTranJO.getString("cusipNumber")==null?null:accTranJO.getString("cusipNumber"));
+																		}
+																		if(accTranJO.has("description")){
+																			invTran.setDescription(accTranJO.getString("description")==null?null:accTranJO.getString("description"));
+																		}if(accTranJO.has("price")){
+																			JSONObject intJO=accTranJO.getJSONObject("price");
+																			invTran.setPrice(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}if(accTranJO.has("quantity")){
+																			invTran.setQuantity(accTranJO.getString("quantity")==null?null:accTranJO.getDouble("quantity"));
+																		}if(accTranJO.has("secFee")){
+																			JSONObject intJO=accTranJO.getJSONObject("secFee");
+																			invTran.setSecFee(intJO.getString("amount")==null?null:intJO.getDouble("amount"));
+																		}if(accTranJO.has("settleDate")){
+																			JSONObject intJO=accTranJO.getJSONObject("settleDate");
+																			if(intJO.has("date")){
+																				invTran.setSettleDate(intJO.getString("date")==null || intJO.getString("date").equals("{}")?null:sdf.parse(intJO.getString("date")));
+																			}
+																		}
+
+																		if(accTranJO.has("symbol")){
+																			invTran.setSymbol(accTranJO.getString("symbol")==null?null:accTranJO.getString("symbol"));
+																		}if(accTranJO.has("transactionBaseType")){
+																			invTran.setTranBaseType(accTranJO.getString("transactionBaseType")==null?null:accTranJO.getString("transactionBaseType"));
+																		}if(accTranJO.has("transDate")){
+																			JSONObject intJO=accTranJO.getJSONObject("transDate");
+																			if(intJO.has("date")){
+																				invTran.setTranDate(intJO.getString("date")==null || intJO.getString("date").equals("{}")?null:sdf.parse(intJO.getString("date")));
+																			}
+																		}
+																		if(accTranJO.has("transactionType")){
+																			invTran.setTranType(accTranJO.getString("transactionType")==null?null:accTranJO.getString("transactionType"));
+																		}
+																		invTran.setInsertedBy(loggedInUsers.get(invUserId).getId());
+																		invTran.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+
+																		investmentTransactionsDAO.insertInvestmentTransactions(invTran);
+
+																	}
+																}
+															}
+
+
+
+
+														}
+
+
+
+													}
+												}
+											}
+										}
+
+
+
+										if(id.getContServName().equals("loans")){
+
+											if(jo.has("itemData")){
+
+												JSONObject itemDataJO=jo.getJSONObject("itemData");
+												if(itemDataJO.has("accounts")){
+													JSONArray accountsJA=itemDataJO.getJSONArray("accounts");
+													int accArrLen=accountsJA.length();
+													if(accArrLen>0){
+
+														for (int j = 0; j < accountsJA.length(); j++) {
+															JSONObject accJO= accountsJA.getJSONObject(j);
+
+															if(accJO.has("loans")){
+																JSONArray loanAccountsJA=accJO.getJSONArray("loans");
+																int loanArrLen=loanAccountsJA.length();
+																if(loanArrLen>0){
+
+																	for (int k = 0; k < loanAccountsJA.length(); k++) {
+																		JSONObject loanAccJO= loanAccountsJA.getJSONObject(k);
+
+																		AccountDetail ad=new AccountDetail();
+																		ad.setItemDetail(id);
+
+																		//id.setContServName(siteRefreshModeJO.getString("containerName")==null?null:siteRefreshModeJO.getString("containerName"));
+																		ad.setAccId(loanAccJO.getString("accountId")==null?null:loanAccJO.getLong("accountId"));
+																		ad.setItemAccId(loanAccJO.getString("itemAccountId")==null?null:loanAccJO.getLong("itemAccountId"));
+																		ad.setAccName(loanAccJO.getString("accountName")==null?null:loanAccJO.getString("accountName"));
+
+																		ad.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+																		ad.setInsertedBy(loggedInUsers.get(invUserId).getId());
+																		List<AccountDetail> accLst=accountDetailsDAO.findByWhereCluase("itemAccId="+ad.getItemAccId());
+																		if(accLst==null || accLst.size()==0){
+																			accountDetailsDAO.insertAccountDetails(ad);
+																		}else{
+																			ad.setId(accLst.get(0).getId());
+																		}
+
+
+
+																		LoanDetail loanDet=new LoanDetail();
+																		loanDet.setAccountDetail(ad);
+
+																		loanDet.setAccName(loanAccJO.getString("accountName")==null?null:loanAccJO.getString("accountName"));
+																		loanDet.setAccNum(loanAccJO.getString("accountNumber")==null?null:loanAccJO.getString("accountNumber"));
+																		loanDet.setCollateral(loanAccJO.getString("collateral")==null?null:loanAccJO.getString("collateral"));
+
+
+																		loanDet.setDescription(loanAccJO.getString("description")==null?null:loanAccJO.getString("description"));
+																		loanDet.setTypeLoan(loanAccJO.getString("loanType")==null?null:loanAccJO.getString("loanType"));
+
+																		loanDet.setIntRate(loanAccJO.getString("interestRate")==null?null:loanAccJO.getDouble("interestRate"));
+																		loanDet.setIntRateType(loanAccJO.getString("loanInterestRateType")==null?null:loanAccJO.getString("loanInterestRateType"));
+
+																		if(loanAccJO.has("dueDate")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("dueDate");
+																			if(adnJO.has("date")){
+																				loanDet.setDueDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																			}
+																		}
+																		if(loanAccJO.has("lastPaymentDate")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("lastPaymentDate");
+																			if(adnJO.has("date")){
+																				loanDet.setLastPayDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																			}
+																		}
+																		if(loanAccJO.has("maturityDate")){
+
+																			JSONObject adnJO=loanAccJO.getJSONObject("maturityDate");
+																			if(adnJO.has("date")){
+																				loanDet.setMatDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																			}
+																		}
+																		if(loanAccJO.has("originationDate")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("originationDate");
+																			if(adnJO.has("date")){
+																				loanDet.setOriginationDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																			}
+																		}
+																		if(loanAccJO.has("firstPaymentDate")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("firstPaymentDate");
+																			if(adnJO.has("date")){
+																				loanDet.setFirstPayDate(adnJO.getString("date")==null || adnJO.getString("date").equals("{}")?null:sdf.parse(adnJO.getString("date")));
+																			}
+																		}
+
+
+																		if(loanAccJO.has("accountClassification")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("accountClassification");
+																			loanDet.setAccClassification(adnJO.getString("accountClassification")==null?null:adnJO.getString("accountClassification"));
+																		}
+
+																		if(loanAccJO.has("interestPaidLastYear")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("interestPaidLastYear");
+																			loanDet.setIntPaidLastYear(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+																		}
+
+																		if(loanAccJO.has("lastPaymentAmount")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("lastPaymentAmount");
+																			loanDet.setLastPayAmt(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+																		}
+
+																		if(loanAccJO.has("originalLoanAmount")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("originalLoanAmount");
+																			loanDet.setOrgnlLoanAmt(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+																		}
+
+																		if(loanAccJO.has("principalBalance")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("principalBalance");
+																			loanDet.setPrincBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+																		}
+
+																		if(loanAccJO.has("interestPaidYtd")){
+																			JSONObject adnJO=loanAccJO.getJSONObject("interestPaidYtd");
+																			loanDet.setIntPaidYtd(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+																		}
+
+
+
+																		loanDet.setInsertedOn(CommonUtil.getCurrentTimeStamp());
+																		loanDet.setInsertedBy(loggedInUsers.get(invUserId).getId());
+																		loanDetailsDAO.insertLoanDetails(loanDet);
+
+
+																		System.out.println(loggedInUsers.get(invUserId).getId()+" : "+sd.getId()+" : "+id.getId()+" : "+ad.getId());
+																		List<ConsolidateData> conDataLst=consolidateDataDAO.findByWhereCluase(" USER_LOG_ID=? AND  SITE_DET_ID=? AND ITEM_DET_ID=? AND ACC_DET_ID=?", new Object[]{loggedInUsers.get(invUserId).getId(),sd.getId(),id.getId(),ad.getId()});
+
+																		if(conDataLst==null || conDataLst.size()==0){
+																			System.out.println("Consilidated data not available.");
+
+																			UserLogon ul=new UserLogon();
+																			ul.setId(loggedInUsers.get(invUserId).getId());
+																			ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, loanDet.getId(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
+
+																			consolidateDataDAO.insertConsolidateData(consData);
+																		}else{
+
+																			ConsolidateData consData=conDataLst.get(0);
+																			System.out.println("Consilidated data available : "+consData.getId());
+																			consData.setPfolioDetId(loanDet.getId());
+																			consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
+																			consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
+																			consolidateDataDAO.updateConsolidateData(consData);
+																		}
+
+																	}
+
+																}
+
+
+															}
+														}
+
+													}
+												}
+											}
+										}
+
+									}
+								}
+
+							}
+
+
+						}
+					}
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resultMap;
+
+	}
+	public Map<String, Object> getinvestmentHoldings(Long invUserId){
+		Map<String, Object> resultMap=null;
+		try{
+			List<UserLogon> ulLst=userLogonDAO.findByWhereCluase("invUserId="+invUserId);
+			resultMap=new HashMap<String, Object>();
+			//List <SiteDetail> sdl= siteDetailsDAO.findByWhereCluase("SITE_ACC_ID="+sd.getSiteAccId());
+			if(ulLst==null || ulLst.size()==0){
+				System.out.println("Invessence User Details object get Null");
+				YodleeError ye=new YodleeError();
+				ye.setMessage("User not available in YodleeProject Database.");
+				resultMap.put("errorDetails", ye);
+			}else{
+				UserLogon ur=ulLst.get(0);
+
+				List<InvestmentHolding> invHoldDataList=investmentHoldingsDAO.findByWhereCluase("accountDetail.itemDetail.siteDetail.userLogon="+ur.getId());
+				resultMap=new HashMap<String, Object>();
+				if(invHoldDataList==null || invHoldDataList.size()==0){
+					System.out.println("Invessence User Details object get Null");
+					YodleeError ye=new YodleeError();
+					ye.setMessage("User not available in YodleeProject Database.");
+					resultMap.put("errorDetails", ye);
+				}else{
+//				Iterator<InvestmentHolding> itr=invHoldDataList.iterator();
+//				String contServ=null;
+//				Map<String, List<InvestmentHolding>> condDataMap=new HashMap<String, List<InvestmentHolding>>();
+//				List<InvestmentHolding> condDataList=new ArrayList<InvestmentHolding>();
+//				while (itr.hasNext()) {
+//					InvestmentHolding consolidateData = (InvestmentHolding) itr.next();
+//					System.out.println(consolidateData.getCusipNum()+" Cusin Number");
+//					/*if(contServ==null){
+//						contServ=consolidateData.getItemDetail().getContServName();
+//						condDataList.add(consolidateData);
+//					}else if(contServ.equals(consolidateData.getItemDetail().getContServName())){
+//						condDataList.add(consolidateData);
+//					}else{
+//						condDataMap.put(contServ, condDataList);
+//
+//						contServ=consolidateData.getItemDetail().getContServName();
+//						condDataList=new ArrayList<InvestmentHolding>();
+//						condDataList.add(consolidateData);
+//					}*/
+//
+//				}
+//				condDataMap.put(contServ, condDataList);
+//
+//				System.out.println("MAp SIze : "+condDataMap.size());
+
+
+					resultMap.put("invHoldDataList", invHoldDataList);
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+
+	public Map<String, Object> getinvestmentTransactions(Long invUserId){
+
+		return null;
+	}
 }
