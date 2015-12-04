@@ -28,7 +28,8 @@ public class YodleeBean implements Serializable
    private Long logonid;
    private String controlWidget;
 
-   @Autowired
+   //@Autowired
+   @ManagedProperty("#{yodleeAPIService}")
    YodleeAPIService yodleeAPIService;
    public YodleeAPIService getYodleeAPIService() {
       return yodleeAPIService;
@@ -37,6 +38,7 @@ public class YodleeBean implements Serializable
    public void setYodleeAPIService(YodleeAPIService yodleeAPIService) {
       this.yodleeAPIService = yodleeAPIService;
    }
+
 
    public Long getLogonid()
    {

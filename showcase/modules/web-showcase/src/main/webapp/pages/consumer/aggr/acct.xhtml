@@ -21,7 +21,12 @@
                                 <div class="Card ShadowEffect">
                                     <h2 class="CardTopic">Account</h2>
 
-                                    <div class="Seperator"></div>
+                                    <div class="Seperator">
+                                        <p:commandButton value="Register" id="register" actionListener="#{yodleeBean.userRegistration}" update="growl" icon="ui-icon-disk" />
+                                        <p:commandButton value="UnRegister" id="unRegister" actionListener="#{yodleeBean.userUnregistration}" update="growl" icon="ui-icon-disk" />
+
+                                        <p:commandButton value="Disabled"  id="disabled" disabled="true" />
+                                    </div>
                                     <div class="EmptyBox20"></div>
 
                                     <div class="Container100 Responsive50">
