@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <form id="_id0" method="post"
+              action="https://iadvice.biz/postback.xhtml"
+              target="_self"
+                >
+            <p:panel id="testpanel" style="border: 0px; background: transparent">
+                <table>
+                    <tr>
+                        <td>Unique User Identifier</td>
+                        <td><input type="text" name="ETID" value="100"/></td>
+                    </tr>
+                    <tr>
+                        <td>Rep Referral ID</td>
+                        <td><input type="text" name="Advisor" value="Bob"/></td>
+                    </tr>
+                    <tr>
+                        <td>New Acct</td>
+                        <td><input type="text" name="Acct" value="145"/></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Submit"/>
+            </p:panel>
+        </form>
+
+
+    </ui:define>
+
+</ui:composition>

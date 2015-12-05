@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/modules/core/core.iml" filepath="$PROJECT_DIR$/modules/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/emailer/emailer.iml" filepath="$PROJECT_DIR$/modules/emailer/emailer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/iAdvice/iAdvice.iml" filepath="$PROJECT_DIR$/modules/iAdvice/iAdvice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ltam.iml" filepath="$PROJECT_DIR$/ltam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/ltammodel/ltammodel.iml" filepath="$PROJECT_DIR$/modules/ltammodel/ltammodel.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/modules.iml" filepath="$PROJECT_DIR$/modules/modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/showcase.iml" filepath="$PROJECT_DIR$/showcase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/web-showcase/web-showcase.iml" filepath="$PROJECT_DIR$/modules/web-showcase/web-showcase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/yodlee-services/yodlee-services.iml" filepath="$PROJECT_DIR$/modules/yodlee-services/yodlee-services.iml" />
+    </modules>
+  </component>
+</project>
+
