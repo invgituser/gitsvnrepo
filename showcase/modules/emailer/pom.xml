@@ -122,7 +122,7 @@
         <defaultGoal>install</defaultGoal>
         <resources>
             <resource>
-                <directory>src/main/resources</directory>
+                <directory>sitename/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
