@@ -43,13 +43,15 @@ public class ConsolidateData implements java.io.Serializable {
 	}
 
 	public ConsolidateData(UserLogon userLogon, SiteDetail siteDetail, ItemDetail itemDetail,
-								  AccountDetail accountDetail, Long pfolioDetId, Timestamp insertedOn, Long insertedBy) {
+								  AccountDetail accountDetail, Long pfolioDetId, String accType, Double avilbBal, Timestamp insertedOn, Long insertedBy) {
 		super();
 		this.userLogon = userLogon;
 		this.itemDetail = itemDetail;
 		this.siteDetail = siteDetail;
 		this.accountDetail = accountDetail;
 		this.pfolioDetId = pfolioDetId;
+		this.accType = accType;
+		this.avilbBal = avilbBal;
 		this.insertedOn = insertedOn;
 		this.insertedBy = insertedBy;
 	}

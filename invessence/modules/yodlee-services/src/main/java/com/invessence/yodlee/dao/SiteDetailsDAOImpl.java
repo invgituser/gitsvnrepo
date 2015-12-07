@@ -33,7 +33,7 @@ public class SiteDetailsDAOImpl implements SiteDetailsDAO{
 	public SiteDetail updateSiteDetails(SiteDetail siteDetails) {
 		try {
 			sessionFactory.getCurrentSession().update(siteDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return siteDetails;
 	}
@@ -41,7 +41,7 @@ public class SiteDetailsDAOImpl implements SiteDetailsDAO{
 	public SiteDetail deleteSiteDetails(SiteDetail siteDetails) {
 		try {
 			sessionFactory.getCurrentSession().delete(siteDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return siteDetails;
 	}
@@ -50,7 +50,7 @@ public class SiteDetailsDAOImpl implements SiteDetailsDAO{
 		List<SiteDetail> list = null;
 		try {
 			list = sessionFactory.getCurrentSession().createQuery("from SiteDetails").list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -59,7 +59,7 @@ public class SiteDetailsDAOImpl implements SiteDetailsDAO{
 		SiteDetail sd = null;
 		try {
 			sd=(SiteDetail)sessionFactory.getCurrentSession().get(SiteDetail.class, Id);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return sd;
 	}
@@ -68,7 +68,7 @@ public class SiteDetailsDAOImpl implements SiteDetailsDAO{
 		List<SiteDetail> list = null;
 		try {
 			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", SiteDetail.class, where, values);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -77,7 +77,7 @@ public class SiteDetailsDAOImpl implements SiteDetailsDAO{
 		List<SiteDetail> lst = null; 
 		try {
 			lst=(List<SiteDetail>)sessionFactory.getCurrentSession().createQuery("from SiteDetail where "+where).list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst;
 	}

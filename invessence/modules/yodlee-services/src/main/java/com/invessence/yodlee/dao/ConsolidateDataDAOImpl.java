@@ -69,7 +69,7 @@ public class ConsolidateDataDAOImpl implements ConsolidateDataDAO {
 		List<ConsolidateData> list = null;
 		try {
 			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "ydl_consolidate_data",
-					ConsolidateData.class, where, values);
+															 ConsolidateData.class, where, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,9 +84,9 @@ public class ConsolidateDataDAOImpl implements ConsolidateDataDAO {
 			Iterator<ConsolidateData> itr=lst.iterator();
 			while (itr.hasNext()) {
 				ConsolidateData consolidateData = (ConsolidateData) itr.next();
-				System.out.println(consolidateData.getSiteDetail().getSiteName());
-				System.out.println(consolidateData.getItemDetail().getItemDispName());
-				System.out.println(consolidateData.getAccountDetail().getAccName());
+				consolidateData.getSiteDetail().getSiteName();
+				consolidateData.getItemDetail().getItemDispName();
+				consolidateData.getAccountDetail().getAccName();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

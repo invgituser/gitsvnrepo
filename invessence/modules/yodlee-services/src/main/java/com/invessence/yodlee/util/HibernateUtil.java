@@ -19,7 +19,7 @@ public class HibernateUtil {
         for (int i = 0; i < arg.length; i++) {
         	
         	if(arg[i]!=null)
-        	System.out.println(arg[i].getClass().getName());
+        	//System.out.println(arg[i].getClass().getName());
         	
             if (arg[i] instanceof Integer) {
                 q.setInteger( i, ((Integer)arg[i]).intValue() );

@@ -596,13 +596,12 @@ public class YodleeAPIRepository
 		return userSessionToken;
 	}
 
-	public String getSiteInfo(String cobrandSessionToken,
-			String userSessionToken) {
+	public JSONObject getSiteInfo(String cobrandSessionToken, String userSessionToken, String siteId) {
 		DefaultHttpClient httpclient = new DefaultHttpClient();
-
+		JSONObject jsonObject =null;
 		// String excludeContentServiceInfo = "false";
 		String reqSpecifier = "128";
-		String siteId = "16441";
+		//String siteId = "16441";
 
 		String url = HOST_URI + GET_SITE_INFO;
 		try {
@@ -627,8 +626,9 @@ public class YodleeAPIRepository
 			hc.executeMethod(pm);
 
 			String source = pm.getResponseBodyAsString();
-
+			System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 			System.out.println(pm.getResponseBodyAsString());
+			jsonObject=new JSONObject(source);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -636,7 +636,7 @@ public class YodleeAPIRepository
 			httpclient.getConnectionManager().shutdown();
 		}
 
-		return userSessionToken;
+		return jsonObject;
 	}
 
 	public JSONArray getPopularSites(String cobrandSessionToken,
