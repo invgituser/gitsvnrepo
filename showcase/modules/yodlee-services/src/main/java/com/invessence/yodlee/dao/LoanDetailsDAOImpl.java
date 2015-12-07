@@ -24,7 +24,7 @@ public class LoanDetailsDAOImpl implements LoanDetailsDAO {
 	public LoanDetail insertLoanDetails(LoanDetail loanDetails) {
 		try {
 			sessionFactory.getCurrentSession().save(loanDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return loanDetails;
 	}
@@ -32,7 +32,7 @@ public class LoanDetailsDAOImpl implements LoanDetailsDAO {
 	public LoanDetail updateLoanDetails(LoanDetail loanDetails) {
 		try {
 			sessionFactory.getCurrentSession().update(loanDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return loanDetails;
 	}
@@ -40,7 +40,7 @@ public class LoanDetailsDAOImpl implements LoanDetailsDAO {
 	public LoanDetail deleteLoanDetails(LoanDetail loanDetails) {
 		try {
 			sessionFactory.getCurrentSession().delete(loanDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return loanDetails;
 	}
@@ -49,7 +49,7 @@ public class LoanDetailsDAOImpl implements LoanDetailsDAO {
 		List<LoanDetail> list = null;
 		try {
 			list = sessionFactory.getCurrentSession().createQuery("from LoanDetails").list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -58,7 +58,7 @@ public class LoanDetailsDAOImpl implements LoanDetailsDAO {
 		List<LoanDetail> lst = null;
 		try {
 			lst=(List<LoanDetail>)sessionFactory.getCurrentSession().createQuery("from LoanDetails sm where sm.SM_ID=:ID").setLong("ID", Id).list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst==null?null:lst.size()==0?null:lst.get(0);
 	}
@@ -67,7 +67,7 @@ public class LoanDetailsDAOImpl implements LoanDetailsDAO {
 		List<LoanDetail> list = null;
 		try {
 			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", LoanDetail.class, where, values);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -76,7 +76,7 @@ public class LoanDetailsDAOImpl implements LoanDetailsDAO {
 		List<LoanDetail> lst = null; 
 		try {
 			lst=(List<LoanDetail>)sessionFactory.getCurrentSession().createQuery("from LoanDetails where "+where).list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst;
 	}

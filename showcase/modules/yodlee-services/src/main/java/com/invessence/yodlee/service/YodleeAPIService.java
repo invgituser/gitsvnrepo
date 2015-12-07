@@ -29,5 +29,12 @@ public interface YodleeAPIService {
 	//public Map<String, Object> getUserSiteDetails(Long invUserId);
 
 	public Map<String, Object> getUserAccountsDetail(Long invUserId);
-		
+
+	public Map<String, Object> refreshUserAccDetails(Long invUserId);
+
+	public Map<String, Object> getInvestmentHoldings(Long invUserId);
+
+	public Map<String, Object> getInvestmentTransactions(Long invUserId);
+
+
 }

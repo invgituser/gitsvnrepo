@@ -30,11 +30,11 @@ public class InvestmentHolding implements java.io.Serializable {
 	private Long quantity;
 	private Double price;
 	private Double totValue;
-	private Long cusipNum;
+	private String cusipNum;
 	private String description;
 	private String mutualFundType;
 	private Double couponRate;
-	private Double couponFrequency;
+	private String couponFrequency;
 	private Double strikePrice;
 	private String espType;
 	private Double percAlloc;
@@ -72,53 +72,7 @@ public class InvestmentHolding implements java.io.Serializable {
 		this.insertedBy = insertedBy;
 	}
 
-	/** full constructor */
-	public InvestmentHolding(Long id, AccountDetail accountDetail,
-			String holdingType, String symbol, Long quantity, Double price,
-			Double totValue, Long cusipNum, String description,
-			String mutualFundType, Double couponRate, Double couponFrequency,
-			Double strikePrice, String espType, Double percAlloc,
-			Double empContr, Double costBasis, Long term, Double faceValue,
-			Double intRate, Date matDate, Date expirationDate,
-			String optionType, Long lotSize, String linkedBankAccNum,
-			Date priceAsOfDate, String planName, String planNum,
-			Double parValue, String commodityType, Double lastContr,
-			Timestamp insertedOn, Long insertedBy) {
-		this.id = id;
-		this.accountDetail = accountDetail;
-		this.holdingType = holdingType;
-		this.symbol = symbol;
-		this.quantity = quantity;
-		this.price = price;
-		this.totValue = totValue;
-		this.cusipNum = cusipNum;
-		this.description = description;
-		this.mutualFundType = mutualFundType;
-		this.couponRate = couponRate;
-		this.couponFrequency = couponFrequency;
-		this.strikePrice = strikePrice;
-		this.espType = espType;
-		this.percAlloc = percAlloc;
-		this.empContr = empContr;
-		this.costBasis = costBasis;
-		this.term = term;
-		this.faceValue = faceValue;
-		this.intRate = intRate;
-		this.matDate = matDate;
-		this.expirationDate = expirationDate;
-		this.optionType = optionType;
-		this.lotSize = lotSize;
-		this.linkedBankAccNum = linkedBankAccNum;
-		this.priceAsOfDate = priceAsOfDate;
-		this.planName = planName;
-		this.planNum = planNum;
-		this.parValue = parValue;
-		this.commodityType = commodityType;
-		this.lastContr = lastContr;
-		this.insertedOn = insertedOn;
-		this.insertedBy = insertedBy;
-	}
-
+	
 	// Property accessors
 	@Id @GeneratedValue
 	@Column(name = "ID", unique = true, nullable = false)
@@ -185,12 +139,12 @@ public class InvestmentHolding implements java.io.Serializable {
 		this.totValue = totValue;
 	}
 
-	@Column(name = "CUSIP_NUM")
-	public Long getCusipNum() {
+	@Column(name = "CUSIP_NUM", length = 50)
+	public String getCusipNum() {
 		return this.cusipNum;
 	}
 
-	public void setCusipNum(Long cusipNum) {
+	public void setCusipNum(String cusipNum) {
 		this.cusipNum = cusipNum;
 	}
 
@@ -221,12 +175,12 @@ public class InvestmentHolding implements java.io.Serializable {
 		this.couponRate = couponRate;
 	}
 
-	@Column(name = "COUPON_FREQUENCY", precision = 22, scale = 0)
-	public Double getCouponFrequency() {
+	@Column(name = "COUPON_FREQUENCY", length=50)
+	public String getCouponFrequency() {
 		return this.couponFrequency;
 	}
 
-	public void setCouponFrequency(Double couponFrequency) {
+	public void setCouponFrequency(String couponFrequency) {
 		this.couponFrequency = couponFrequency;
 	}
 

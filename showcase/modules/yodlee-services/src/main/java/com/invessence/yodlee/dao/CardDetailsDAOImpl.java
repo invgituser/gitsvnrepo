@@ -21,7 +21,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 	public CardDetail insertCardDetails(CardDetail cardDetails) {
 		try {
 			sessionFactory.getCurrentSession().save(cardDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return cardDetails;
 	}
@@ -29,7 +29,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 	public CardDetail updateCardDetails(CardDetail cardDetails) {
 		try {
 			sessionFactory.getCurrentSession().update(cardDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return cardDetails;
 	}
@@ -37,7 +37,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 	public CardDetail deleteCardDetails(CardDetail cardDetails) {
 		try {
 			sessionFactory.getCurrentSession().delete(cardDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return cardDetails;
 	}
@@ -46,7 +46,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 		List<CardDetail> list = null;
 		try {
 			list = sessionFactory.getCurrentSession().createQuery("from CardDetails").list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -55,7 +55,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 		List<CardDetail> lst = null;
 		try {
 			lst=(List<CardDetail>)sessionFactory.getCurrentSession().createQuery("from CardDetails sm where sm.SM_ID=:ID").setLong("ID", Id).list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst==null?null:lst.size()==0?null:lst.get(0);
 	}
@@ -64,7 +64,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 		List<CardDetail> list = null;
 		try {
 			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", CardDetail.class, where, values);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -73,7 +73,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 		List<CardDetail> lst = null; 
 		try {
 			lst=(List<CardDetail>)sessionFactory.getCurrentSession().createQuery("from CardDetails where "+where).list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst;
 	}

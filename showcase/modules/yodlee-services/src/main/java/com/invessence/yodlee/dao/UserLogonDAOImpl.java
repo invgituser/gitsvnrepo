@@ -70,7 +70,7 @@ public class UserLogonDAOImpl implements UserLogonDAO {
 	public UserLogon insertUserLogon(UserLogon userLogon) {
 		try {
 			sessionFactory.getCurrentSession().save(userLogon);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return userLogon;
 	}
@@ -78,7 +78,7 @@ public class UserLogonDAOImpl implements UserLogonDAO {
 	public UserLogon updateUserLogon(UserLogon userLogon) {
 		try {
 			sessionFactory.getCurrentSession().update(userLogon);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return userLogon;
 	}
@@ -118,7 +118,7 @@ public class UserLogonDAOImpl implements UserLogonDAO {
 		List<UserLogon> list = null;
 		try {
 			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "ydl_user_logon", UserLogon.class, where, values);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}

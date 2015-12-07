@@ -24,7 +24,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 	public InvestmentDetail insertInvestmentDetails(InvestmentDetail investmentDetails) {
 		try {
 			sessionFactory.getCurrentSession().save(investmentDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return investmentDetails;
 	}
@@ -32,7 +32,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 	public InvestmentDetail updateInvestmentDetails(InvestmentDetail investmentDetails) {
 		try {
 			sessionFactory.getCurrentSession().update(investmentDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return investmentDetails;
 	}
@@ -40,7 +40,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 	public InvestmentDetail deleteInvestmentDetails(InvestmentDetail investmentDetails) {
 		try {
 			sessionFactory.getCurrentSession().delete(investmentDetails);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return investmentDetails;
 	}
@@ -49,7 +49,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 		List<InvestmentDetail> list = null;
 		try {
 			list = sessionFactory.getCurrentSession().createQuery("from InvestmentDetails").list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -58,7 +58,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 		List<InvestmentDetail> lst = null;
 		try {
 			lst=(List<InvestmentDetail>)sessionFactory.getCurrentSession().createQuery("from InvestmentDetails sm where sm.SM_ID=:ID").setLong("ID", Id).list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst==null?null:lst.size()==0?null:lst.get(0);
 	}
@@ -67,7 +67,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 		List<InvestmentDetail> list = null;
 		try {
 			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", InvestmentDetail.class, where, values);
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
 	}
@@ -76,7 +76,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 		List<InvestmentDetail> lst = null; 
 		try {
 			lst=(List<InvestmentDetail>)sessionFactory.getCurrentSession().createQuery("from InvestmentDetails where "+where).list();
-		} catch (Exception e) {
+		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst;
 	}
