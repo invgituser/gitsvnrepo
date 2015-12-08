@@ -28,7 +28,7 @@ public class BankDetail implements java.io.Serializable {
 	private String accType;
 	private String accNum;
 	private String accName;
-	private Double avilbBal;
+	private Double availBal;
 	private Date matDate;
 	private Double curBal;
 	private Double overdraftProtection;
@@ -63,7 +63,7 @@ public class BankDetail implements java.io.Serializable {
 	/** full constructor */
 	public BankDetail(Long id, AccountDetail accountDetail,
 			String accHolder, String accType, String accNum, String accName,
-			Double avilbBal, Date matDate, Double curBal,
+			Double availBal, Date matDate, Double curBal,
 			Double overdraftProtection, Double preYearIntEarned,
 			Long routingNum, Double intRate, Date asOfDate, Double matAmt,
 			String term, Double intEarnedYtd, String nomineeName,
@@ -75,7 +75,7 @@ public class BankDetail implements java.io.Serializable {
 		this.accType = accType;
 		this.accNum = accNum;
 		this.accName = accName;
-		this.avilbBal = avilbBal;
+		this.availBal = availBal;
 		this.matDate = matDate;
 		this.curBal = curBal;
 		this.overdraftProtection = overdraftProtection;
@@ -150,13 +150,13 @@ public class BankDetail implements java.io.Serializable {
 		this.accName = accName;
 	}
 
-	@Column(name = "AVILB_BAL", precision = 20, scale = 4)
-	public Double getAvilbBal() {
-		return this.avilbBal;
+	@Column(name = "AVAIL_BAL", precision = 20, scale = 4)
+	public Double getAvailBal() {
+		return this.availBal;
 	}
 
-	public void setAvilbBal(Double avilbBal) {
-		this.avilbBal = avilbBal;
+	public void setAvailBal(Double availBal) {
+		this.availBal = availBal;
 	}
 
 	@Temporal(TemporalType.DATE)

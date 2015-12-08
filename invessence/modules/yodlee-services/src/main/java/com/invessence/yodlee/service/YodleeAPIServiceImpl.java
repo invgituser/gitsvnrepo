@@ -22,52 +22,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class YodleeAPIServiceImpl implements YodleeAPIService {
 	private static final Logger logger = Logger.getLogger(YodleeAPIServiceImpl.class);
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-/*	@Value("${COBRAND_LOGIN}") private String COBRAND_LOGIN;
-	@Value("${COBRAND_PASSWORD}") private String COBRAND_PASSWORD;
+	private static String cobrandSessionToken;
+	private String path;
 	
-	@Value("${BRIDGE_APP_ID}") private String BRIDGE_APP_ID;
-	@Value("${APPLICATION_KEY}") private String APPLICATION_KEY;
-	@Value("${APPLICATION_TOKEN}") private String APPLICATION_TOKEN;
-	
-	@Value("${FL_ADD_ACC_URL}") private String FL_ADD_ACC_URL;
-	@Value("${FL_ADD_ACC_PARAM}") private String FL_ADD_ACC_PARAM;
-	
-	@Value("${FL_EDIT_ACC_URL}") private String FL_EDIT_ACC_URL;
-	@Value("${FL_EDIT_ACC_PARAM}") private String FL_EDIT_ACC_PARAM;
-	
-	@Value("${FL_REFR_URL}") private String FL_REFR_URL;
-	@Value("${FL_REFR_PARAM}") private String FL_REFR_PARAM;*/
-	/*private String COBRAND_LOGIN = "sandbox124";
-	private String COBRAND_PASSWORD = "Yodlee@123";
-
-	private String BRIDGE_APP_ID = "10003200";
-	private String APPLICATION_KEY = "5e1597a5f8fd4401a25c654c93df73b6";
-	private String APPLICATION_TOKEN = " 1063669881884e458e606b6194d4e0a4";
-
-	private String FL_ADD_ACC_URL = "https://yisandboxfl.yodleeinteractive.com/appscenter/private-sandbox124/linkAccount.yisandboxfl.action";
-	private String FL_ADD_ACC_PARAM = "access_type=oauthdeeplink&displayMode=desktop&oauth_callback=https://www.google.com";
-
-	private String FL_EDIT_ACC_URL = "https://yisandboxfl.yodleeinteractive.com/appscenter/private-sandbox124/prepareEditSiteAccounts.yisandboxfl.action";
-	private String FL_EDIT_ACC_PARAM = "access_type=oauthdeeplink&oauth_callback=http://www.google.com&siteAccountId=$SITE_ACC_ID$";
-
-	private String FL_REFR_URL = "https://yisandboxfl.yodleeinteractive.com/appscenter/private-sandbox124/refreshSiteAccount.yisandboxfl.action";
-	private String FL_REFR_PARAM = "access_type=oauthdeeplink&oauth_callback=http://www.google.com&siteAccountId=$SITE_ACC_ID$&_flowId=refresh";
-	*/private static String cobrandSessionToken;
-private String path;
 	public YodleeAPIServiceImpl() {
 		logger.info("**********************************************************************************************************");
-		
-		
-	        File jarPath=new File(YodleeAPIServiceImpl.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-	        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
-	        System.out.println(" propertiesPath-"+propertiesPath);
-	        System.out.println(propertiesPath.substring(0,propertiesPath.indexOf("WEB-INF")));
-	        path=propertiesPath.substring(0,propertiesPath.indexOf("WEB-INF"));
-
-
+				
+        File jarPath=new File(YodleeAPIServiceImpl.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        String propertiesPath=jarPath.getParentFile().getAbsolutePath();
+        logger.info(" propertiesPath-"+propertiesPath);
+        logger.info(propertiesPath.substring(0,propertiesPath.indexOf("WEB-INF")));
+        path=propertiesPath.substring(0,propertiesPath.indexOf("WEB-INF"));
 		
 		loggedInUsers=new HashMap<Long, UserLogon>();
-
 		logger.info(Parameters.COBRAND_LOGIN+" : "+Parameters.COBRAND_LOGIN);
 	}
 
@@ -108,7 +75,6 @@ private String path;
 	@Autowired
 	private ConsolidateDataDAO consolidateDataDAO;
 
-
 	private HashMap<Long, UserLogon> loggedInUsers=null;
 
 	public Map<String, Object> getInvUserList(){
@@ -124,30 +90,36 @@ private String path;
 		}
 		return resultMap;
 	}
+	
+	public Map<String, Object> getUserRegistrationList() {
+		Map<String, Object> resultMap=null;
+		try{
+			logger.info("YodleeAPIServiceImpl.getUserLogonList()");
+			resultMap=new HashMap<String, Object>();
+			List<UserLogon> userLst=userLogonDAO.getUserLogonList();
+			logger.info("User List Size :"+userLst.size());
+			resultMap.put("userList", userLst);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
 
 	public Boolean isUserRegisteredAtYodlee(Long invUserId){
-
 		try
 		{
 			List<UserLogon> ulLst = userLogonDAO.findByWhereCluase("invUserId=" + invUserId);
-			if (ulLst == null || ulLst.size() == 0)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
+			return ulLst == null || ulLst.size() == 0?false:true;
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return false;
 	}
+	
 	public Map<String, Object> userRegistration(Long invUserId) {
 		Map<String, Object> resultMap=null;
 		JSONObject jb=null;
 		try{
-			logger.info("YodleeAPIServiceImpl.advisorLogin()");
 			UserLogon invUserDetails=userLogonDAO.getInvUserDetails(invUserId);
 			if(invUserDetails==null){
 				resultMap=new HashMap<String, Object>();
@@ -179,36 +151,25 @@ private String path;
 					if(jb.length()>0){
 						UserLogon ur=new UserLogon();
 
-
-						logger.info("********************************");
-						logger.info(invUserDetails.getUserId());
-						logger.info(invUserId);
-						logger.info(AESencrp.encrypt(password.toString()));
-						logger.info(invUserDetails.getEmail());
-						logger.info(CommonUtil.getCurrentTimeStamp());
-						logger.info(invUserId);
-						logger.info("********************************");
-
 						ur.setUserId(invUserDetails.getUserId());
 						ur.setInvUserId(invUserId);
 						ur.setPassword(AESencrp.encrypt(password.toString()));
 						ur.setEmail(invUserDetails.getEmail());
 						ur.setRegisteredOn(CommonUtil.getCurrentTimeStamp());
 						ur.setRegisteredBy(invUserId);
-
+						
 						userLogonDAO.insertUserLogon(ur);
-						logger.info("ur.getID() :"+ur.getId());
+						logger.info(ur.toString());
+						
 						JSONObject userConvCreds = jb.getJSONObject("userContext").getJSONObject("conversationCredentials");
 						ur.setUserSessionToken((String) userConvCreds.get("sessionToken"));
-						//ur.setREGISTERED_BY(uSR_REGISTERED_BY);
 						loggedInUsers.put(ur.getInvUserId(), ur);
 						ur.setPassword(null);
 						ur.setConsolidateDatas(null);
 						ur.setSiteDetails(null);
 						resultMap.put("userDetails", ur);
 					}else{
-						logger.info("-------------------------------");
-						logger.info("Object is empty or null!");
+						logger.info("User Registration JSON Object is empty or null!");
 					}
 				}
 			}
@@ -225,8 +186,7 @@ private String path;
 		Map<String, Object> resultMap=null;
 		JSONObject jb=null;
 		try{
-			logger.info("YodleeAPIServiceImpl.advisorLogin()");
-
+			
 			resultMap=new HashMap<String, Object>();
 			jb=yodleeAPIRepo.unRegisterUser(cobrandSessionToken, loggedInUsers.get(invUserId).getUserSessionToken());
 			Boolean errCheck = jb.has("errorOccurred");
@@ -244,36 +204,17 @@ private String path;
 				userLogonDAO.deleteUserLogon(ur);
 				if(jb.length()>0){
 
-
-					//ur.setREGISTERED_BY(uSR_REGISTERED_BY);
 				}else{
 					logger.info("-------------------------------");
-					logger.info("Object is empty or null!");
+					logger.info("User UnRegistration JSON Object is empty or null!");
 				}
 			}
-			//resultMap.put("cobrandSessionToken", (String) userConvCreds.get("sessionToken"));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return resultMap;
 	}
 
-
-
-
-	public Map<String, Object> getUserRegistrationList() {
-		Map<String, Object> resultMap=null;
-		try{
-			logger.info("YodleeAPIServiceImpl.getUserLogonList()");
-			resultMap=new HashMap<String, Object>();
-			List<UserLogon> userLst=userLogonDAO.getUserLogonList();
-			logger.info("User List Size :"+userLst.size());
-			resultMap.put("userList", userLst);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return resultMap;
-	}
 
 	public Map<String, Object> advisorLogin() {
 		Map<String, Object> resultMap=null;
@@ -311,7 +252,6 @@ private String path;
 				UserLogon ur=ulLst.get(0);
 				ur.setSiteDetails(null);
 				ur.setConsolidateDatas(null);
-				logger.info("YodleeAPIServiceImpl.usertLogin()");
 				jb=yodleeAPIRepo.loginUser(cobrandSessionToken, ur.getUserId(), AESencrp.decrypt(ur.getPassword()));
 
 				Boolean errCheck = jb.has("errorOccurred");
@@ -325,7 +265,6 @@ private String path;
 				}else if(jb.has("Error")==true){
 
 					JSONArray errJA=jb.getJSONArray("Error");
-
 					int accArrLen=errJA.length();
 					if(accArrLen>0){
 
@@ -346,14 +285,11 @@ private String path;
 					if(jb.length()>0){
 
 						JSONObject userConvCreds = jb.getJSONObject("userContext").getJSONObject("conversationCredentials");
-						//resultMap.put("userSessionToken", (String) userConvCreds.get("sessionToken"));
 						ur.setUserSessionToken((String) userConvCreds.get("sessionToken"));
-						resultMap.put("userDetails", ur);
 						loggedInUsers.put(ur.getInvUserId(), ur);
-
+						resultMap.put("userDetails", ur);
 					}
 				}
-
 
 			}
 		}catch(Exception e){
@@ -366,11 +302,8 @@ private String path;
 		Map<String, Object> resultMap=null;
 		JSONArray ja=null;
 		try{
-			logger.info("YodleeAPIServiceImpl.getAllSiteAccounts()");
-			logger.info("cobrandSessionToken :"+cobrandSessionToken+" userSessionToken:"+loggedInUsers.get(invUserId).getUserSessionToken());
 			ja=yodleeAPIRepo.getAllSiteAccounts(cobrandSessionToken,loggedInUsers.get(invUserId).getUserSessionToken());
 			int arrLen=ja.length();
-			logger.info("Array Size :"+arrLen);
 
 			resultMap=new HashMap<String, Object>();
 			List<SiteDetail> siteAccLst=new ArrayList<SiteDetail>();
@@ -402,24 +335,20 @@ private String path;
 					
 						File file = new File(path+"/resources/yodlee/images/IconImage_" + sd.getSiteId() + ".png");
 						if(!file.exists()){
-							if(jsonObject.has("defaultFavIcon"))
-							{
+							if(jsonObject.has("defaultFavIcon")){
 								JSONArray imageval = (JSONArray) jsonObject.get("defaultFavIcon");
-
-								byte[] byteArr = new byte[imageval.length()];
-
-								for (int p = 0; p < imageval.length(); p++)
-								{
-
-									byteArr[p] = (byte) imageval.getInt(p);
-								}
-
-								BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
-								out.write(byteArr);
-								out.close();
-								System.out.println("Icon Image written to " + file.getAbsolutePath());
+		
+		                        byte[] byteArr = new byte[imageval.length()];
+		
+		                        for (int p = 0; p < imageval.length(); p++) {
+		
+		                        	byteArr[p] = (byte)imageval.getInt(p);
+								}								
+								
+								BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file)); 
+								out.write(byteArr);								
+								out.close();	
 							}
-									
 						}	
 						File logoFile = new File(path+"/resources/yodlee/images/LogoImage_" + sd.getSiteId() + ".png");
 						if(!logoFile.exists()){									
@@ -441,7 +370,6 @@ private String path;
 									BufferedOutputStream logoOut = new BufferedOutputStream(new FileOutputStream(logoFile)); 
 									logoOut.write(logoByteArr);								
 									logoOut.close();	
-									System.out.println("Icon Image written to " + logoFile.getAbsolutePath());
 									}
 								}
 							}
@@ -474,7 +402,7 @@ private String path;
 
 
 
-	public Map<String, Object> getItemSummariesForSite(String siteAccId, Long invUserId) {
+	/*public Map<String, Object> getItemSummariesForSite(String siteAccId, Long invUserId) {
 		Map<String, Object> resultMap=null;
 		JSONArray ja=null;
 		try{
@@ -561,8 +489,6 @@ private String path;
 														ad.setId(accLst.get(0).getId());
 													}
 
-
-
 													BankDetail bd=new BankDetail();
 													bd.setAccountDetail(ad);
 													bd.setAccHolder(accJO.getString("accountHolder")==null?null:accJO.getString("accountHolder"));
@@ -585,10 +511,10 @@ private String path;
 
 													bd.setAccName(accJO.getString("accountName")==null?null:accJO.getString("accountName"));
 
-													/*if(accJO.has("accountDisplayName")){
+													if(accJO.has("accountDisplayName")){
 														JSONObject adnJO=accJO.getJSONObject("accountDisplayName");
 														bd.set(adnJO.getString("defaultNormalAccountName")==null?null:adnJO.getString("defaultNormalAccountName"));
-													}*/
+													}
 													if(accJO.has("accountClassification")){
 														JSONObject adnJO=accJO.getJSONObject("accountClassification");
 														bd.setAccClassification(adnJO.getString("accountClassification")==null?null:adnJO.getString("accountClassification"));
@@ -596,7 +522,7 @@ private String path;
 
 													if(accJO.has("availableBalance")){
 														JSONObject adnJO=accJO.getJSONObject("availableBalance");
-														bd.setAvilbBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+														bd.setAvailBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
 													}
 
 													if(accJO.has("currentBalance")){
@@ -622,7 +548,7 @@ private String path;
 														consData.setAccountDetail(ad);
 														consData.setPfolioDetId(bd.getId());
 														consData.setAccType(bd.getAccType());
-														consData.setAvilbBal(bd.getAvilbBal());
+														consData.setAvailBal(bd.getAvailBal());
 														consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -633,7 +559,7 @@ private String path;
 														logger.info("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(bd.getId());
 														consData.setAccType(bd.getAccType());
-														consData.setAvilbBal(bd.getAvilbBal());
+														consData.setAvailBal(bd.getAvailBal());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -723,12 +649,12 @@ private String path;
 
 													if(accJO.has("availableCash")){
 														JSONObject adnJO=accJO.getJSONObject("availableCash");
-														cardDet.setAvilbCash(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+														cardDet.setAvailCash(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
 													}
 
 													if(accJO.has("availableCredit")){
 														JSONObject adnJO=accJO.getJSONObject("availableCredit");
-														cardDet.setAvilbCredit(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+														cardDet.setAvailCredit(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
 													}
 
 
@@ -772,7 +698,7 @@ private String path;
 														consData.setAccountDetail(ad);
 														consData.setPfolioDetId(cardDet.getId());
 														consData.setAccType(cardDet.getAccType());
-														consData.setAvilbBal(cardDet.getAvilbCredit());
+														consData.setAvailBal(cardDet.getAvailCredit());
 														consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -783,7 +709,7 @@ private String path;
 														logger.info("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(cardDet.getId());
 														consData.setAccType(cardDet.getAccType());
-														consData.setAvilbBal(cardDet.getAvilbCredit());
+														consData.setAvailBal(cardDet.getAvailCredit());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -942,7 +868,7 @@ private String path;
 														consData.setAccountDetail(ad);
 														consData.setPfolioDetId(invDet.getId());
 														consData.setAccType(invDet.getAccType());
-														consData.setAvilbBal(invDet.getTotBal());
+														consData.setAvailBal(invDet.getTotBal());
 														consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -953,7 +879,7 @@ private String path;
 														logger.info("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(invDet.getId());
 														consData.setAccType(invDet.getAccType());
-														consData.setAvilbBal(invDet.getTotBal());
+														consData.setAvailBal(invDet.getTotBal());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -1048,12 +974,12 @@ private String path;
 																loanDet.setIntRateType(loanAccJO.getString("loanInterestRateType")==null?null:loanAccJO.getString("loanInterestRateType"));
 
 
-														/*loanDet.setDueDate(loanAccJO.getString("dueDate")==null?null:loanAccJO.getString("dueDate"));
+														loanDet.setDueDate(loanAccJO.getString("dueDate")==null?null:loanAccJO.getString("dueDate"));
 														loanDet.setLastPayDate(loanAccJO.getString("lastPaymentDate")==null?null:loanAccJO.getString("lastPaymentDate"));
 														loanDet.setMatDate(loanAccJO.getString("maturityDate")==null?null:loanAccJO.getString("maturityDate"));
 														loanDet.setOriginationDate(loanAccJO.getString("originationDate")==null?null:loanAccJO.getString("originationDate"));
 														loanDet.setFirstPayDate(loanAccJO.getString("firstPaymentDate")==null?null:loanAccJO.getString("firstPaymentDate"));
-													*/
+													
 
 																//date yyyy-MM-dd
 
@@ -1111,7 +1037,7 @@ private String path;
 																	consData.setAccountDetail(ad);
 																	consData.setPfolioDetId(loanDet.getId());
 																	consData.setAccType(loanDet.getTypeLoan());
-																	consData.setAvilbBal(loanDet.getPrincBal());
+																	consData.setAvailBal(loanDet.getPrincBal());
 																	consData.setInsertedOn(CommonUtil.getCurrentTimeStamp());
 																	consData.setInsertedBy(loggedInUsers.get(invUserId).getId());
 
@@ -1122,7 +1048,7 @@ private String path;
 																	logger.info("Consilidated data available : "+consData.getId());
 																	consData.setPfolioDetId(loanDet.getId());
 																	consData.setAccType(loanDet.getTypeLoan());
-																	consData.setAvilbBal(loanDet.getPrincBal());
+																	consData.setAvailBal(loanDet.getPrincBal());
 																	consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 																	consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 																	consolidateDataDAO.updateConsolidateData(consData);
@@ -1186,13 +1112,14 @@ private String path;
 
 	}
 
+	*/
+	
 	public Map<String, Object> getFastLinkDetails(String operation, String siteAccId, Long invUserId) {
 
 		Map<String, Object> resultMap=null;
 		JSONObject jb=null;
 		try{
 
-			logger.info("YodleeAPIServiceImpl.getFastLinkDetails()");
 			jb=yodleeAPIRepo.getToken(cobrandSessionToken, loggedInUsers.get(invUserId).getUserSessionToken(), Parameters.BRIDGE_APP_ID);
 			resultMap=new HashMap<String, Object>();
 			Boolean errCheck = jb.has("errorOccurred");
@@ -1283,10 +1210,10 @@ private String path;
 	}
 
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 
 		ApplicationContext appContext = new ClassPathXmlApplicationContext("bean.xml");
-	}
+	}*/
 
 	public YodleeAPIRepository getYodleeAPI() {
 		return yodleeAPIRepo;
@@ -1299,24 +1226,17 @@ private String path;
 
 	public void coBrandSessionManager(){
 		logger.info("****************************************************************************************");
-		logger.info(new Date());
-		logger.info("coBrandSession "+cobrandSessionToken);
+		logger.info(new Date()+" coBrandSession "+cobrandSessionToken);
 
 		JSONObject jb=null;
 		try{
-			logger.info("YodleeAPIServiceImpl.advisorLogin()");
 			jb=yodleeAPIRepo.loginCobrand(Parameters.COBRAND_LOGIN, Parameters.COBRAND_PASSWORD);
 			JSONObject userConvCreds = jb.getJSONObject("cobrandConversationCredentials");
 			cobrandSessionToken=(String) userConvCreds.get("sessionToken");
-			//resultMap.put("cobrandSessionToken", (String) userConvCreds.get("sessionToken"));
 
-			logger.info("****************************************************************************************");
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
-
-
 	}
 
 
@@ -1354,20 +1274,20 @@ private String path;
 				List<ConsolidateData> consDataList=consolidateDataDAO.findByWhereCluase("USER_LOG_ID="+ur.getId()+" ORDER BY itemDetail.contServName");
 				resultMap=new HashMap<String, Object>();
 				if(consDataList==null || consDataList.size()==0){
-					logger.info("Invessence User Details object get Null");
+					logger.info("Consolidate Details object get Null");
 					YodleeError ye=new YodleeError();
-					ye.setMessage("User not available in YodleeProject Database.");
+					ye.setMessage("Consolidate details are not available for this User.");
 					resultMap.put("errorDetails", ye);
 				}else{
-					Iterator<ConsolidateData> itr=consDataList.iterator();
+					/*Iterator<ConsolidateData> itr=consDataList.iterator();
 					while (itr.hasNext()) {
 						ConsolidateData consolidateData = (ConsolidateData) itr.next();
-						/*logger.info(consolidateData.getSiteDetail().getSiteName());
+						logger.info(consolidateData.getSiteDetail().getSiteName());
 						logger.info(consolidateData.getItemDetail().getItemDispName());
 						logger.info(consolidateData.getItemDetail().getItemId());
-						logger.info(consolidateData.getAccountDetail().getAccName());*/
+						logger.info(consolidateData.getAccountDetail().getAccName());
 
-					}
+					}*/
 					resultMap.put("consDataList", consDataList);
 				}
 			}
@@ -1382,7 +1302,6 @@ private String path;
 		Map<String, Object> resultMap=null;
 		JSONArray ja=null;
 		try{
-			logger.info("YodleeAPIServiceImpl.getItemSummariesForSite()");
 			resultMap=new HashMap<String, Object>();
 
 			getAllSiteAccounts(invUserId);
@@ -1410,8 +1329,7 @@ private String path;
 					}else{
 
 						SiteDetail sd=sdLst.get(0);
-
-					
+						
 						ItemDetail id=new ItemDetail();
 						id.setItemId(jo.getString("itemId")==null?null:jo.getLong("itemId"));
 						id.setItemDispName(jo.getString("itemDisplayName")==null?null:jo.getString("itemDisplayName"));
@@ -1506,7 +1424,7 @@ private String path;
 
 													if(accJO.has("availableBalance")){
 														JSONObject adnJO=accJO.getJSONObject("availableBalance");
-														bd.setAvilbBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+														bd.setAvailBal(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
 													}
 
 													if(accJO.has("currentBalance")){
@@ -1526,7 +1444,7 @@ private String path;
 
 														UserLogon ul=new UserLogon();
 														ul.setId(loggedInUsers.get(invUserId).getId());
-														ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, bd.getId(),bd.getAccType(), bd.getAvilbBal(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
+														ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, bd.getId(),bd.getAccType(), bd.getAvailBal(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
 
 														consolidateDataDAO.insertConsolidateData(consData);
 													}else{
@@ -1535,7 +1453,7 @@ private String path;
 														logger.info("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(bd.getId());
 														consData.setAccType(bd.getAccType());
-														consData.setAvilbBal(bd.getAvilbBal());
+														consData.setAvailBal(bd.getAvailBal());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -1610,12 +1528,12 @@ private String path;
 
 													if(accJO.has("availableCash")){
 														JSONObject adnJO=accJO.getJSONObject("availableCash");
-														cardDet.setAvilbCash(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+														cardDet.setAvailCash(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
 													}
 
 													if(accJO.has("availableCredit")){
 														JSONObject adnJO=accJO.getJSONObject("availableCredit");
-														cardDet.setAvilbCredit(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
+														cardDet.setAvailCredit(adnJO.getString("amount")==null?null:adnJO.getDouble("amount"));
 													}
 
 
@@ -1667,8 +1585,8 @@ private String path;
 																crdStmt.setAccType(accType);
 																crdStmt.setAmtDue(amtDue);
 																crdStmt.setApr(apr);
-																crdStmt.setAvilbCash(avilbCash);
-																crdStmt.setAvilbCredit(avilbCredit);
+																crdStmt.setAvailCash(availCash);
+																crdStmt.setAvailCredit(availCredit);
 																crdStmt.setBillDate(billDate);
 																crdStmt.setBillingPrdEnd(billingPrdEnd);
 																crdStmt.setBillingPrdStart(billingPrdStart);
@@ -1756,7 +1674,7 @@ private String path;
 
 														UserLogon ul=new UserLogon();
 														ul.setId(loggedInUsers.get(invUserId).getId());
-														ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, cardDet.getId(),cardDet.getAccType(),cardDet.getAvilbCredit(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
+														ConsolidateData consData=new ConsolidateData(ul, sd, id, ad, cardDet.getId(),cardDet.getAccType(),cardDet.getAvailCredit(), CommonUtil.getCurrentTimeStamp(), loggedInUsers.get(invUserId).getId());
 
 														consolidateDataDAO.insertConsolidateData(consData);
 													}else{
@@ -1765,7 +1683,7 @@ private String path;
 														logger.info("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(cardDet.getId());
 														consData.setAccType(cardDet.getAccType());
-														consData.setAvilbBal(cardDet.getAvilbCredit());
+														consData.setAvailBal(cardDet.getAvailCredit());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -1904,7 +1822,7 @@ private String path;
 														logger.info("Consilidated data available : "+consData.getId());
 														consData.setPfolioDetId(invDet.getId());
 														consData.setAccType(invDet.getAccType());
-														consData.setAvilbBal(invDet.getTotBal());
+														consData.setAvailBal(invDet.getTotBal());
 														consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 														consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 														consolidateDataDAO.updateConsolidateData(consData);
@@ -1920,7 +1838,6 @@ private String path;
 														int accHoldLen=accHoldJA.length();
 														if(accHoldLen>0){
 															List<InvestmentHolding> ihList=investmentHoldingsDAO.findByWhereCluase("accountDetail.itemDetail.siteDetail.userLogon="+loggedInUsers.get(invUserId).getId()+" and accountDetail.accId="+ad.getAccId());
-
 															Iterator<InvestmentHolding> itr=ihList.iterator();
 															while (itr.hasNext()) {
 																InvestmentHolding investmentHolding = (InvestmentHolding) itr.next();
@@ -2259,7 +2176,7 @@ private String path;
 																	logger.info("Consilidated data available : "+consData.getId());
 																	consData.setPfolioDetId(loanDet.getId());
 																	consData.setAccType(loanDet.getTypeLoan());
-																	consData.setAvilbBal(loanDet.getPrincBal());
+																	consData.setAvailBal(loanDet.getPrincBal());
 																	consData.setUpdatedOn(CommonUtil.getCurrentTimeStamp());
 																	consData.setUpdatedBy(loggedInUsers.get(invUserId).getId());
 																	consolidateDataDAO.updateConsolidateData(consData);

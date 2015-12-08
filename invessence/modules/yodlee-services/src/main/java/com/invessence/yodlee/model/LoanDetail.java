@@ -39,7 +39,7 @@ public class LoanDetail implements java.io.Serializable {
 	private Double intRate;
 	private Double payOffAmt;
 	private Date payByDate;
-	private Double avilbCredit;
+	private Double availCredit;
 	private Double creditLimit;
 	private String accNum;
 	private String accHolderFullName;
@@ -99,7 +99,7 @@ public class LoanDetail implements java.io.Serializable {
 			Double lastPayAmt, Double princBal, Double orgnlLoanAmt,
 			Double intPaidYtd, Double intPaidLastYear, Date lastPayDate,
 			Date matDate, Date originationDate, Double intRate,
-			Double payOffAmt, Date payByDate, Double avilbCredit,
+			Double payOffAmt, Date payByDate, Double availCredit,
 			Double creditLimit, String accNum, String accHolderFullName,
 			String longTerm, String collateral, Double amtDue, Date dueDate,
 			Double escrowBal, String guarantor, Double recurringPay,
@@ -127,7 +127,7 @@ public class LoanDetail implements java.io.Serializable {
 		this.intRate = intRate;
 		this.payOffAmt = payOffAmt;
 		this.payByDate = payByDate;
-		this.avilbCredit = avilbCredit;
+		this.availCredit = availCredit;
 		this.creditLimit = creditLimit;
 		this.accNum = accNum;
 		this.accHolderFullName = accHolderFullName;
@@ -318,13 +318,13 @@ public class LoanDetail implements java.io.Serializable {
 		this.payByDate = payByDate;
 	}
 
-	@Column(name = "AVILB_CREDIT", precision = 20, scale = 4)
-	public Double getAvilbCredit() {
-		return this.avilbCredit;
+	@Column(name = "AVAIL_CREDIT", precision = 20, scale = 4)
+	public Double getAvailCredit() {
+		return this.availCredit;
 	}
 
-	public void setAvilbCredit(Double avilbCredit) {
-		this.avilbCredit = avilbCredit;
+	public void setAvailCredit(Double availCredit) {
+		this.availCredit = availCredit;
 	}
 
 	@Column(name = "CREDIT_LIMIT", precision = 20, scale = 4)

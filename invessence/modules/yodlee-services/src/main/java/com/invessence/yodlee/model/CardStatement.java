@@ -36,7 +36,7 @@ public class CardStatement  implements java.io.Serializable {
      private Date billDate;
      private Double totCreditLine;
      private Date dueDate;
-     private Double avilbCredit;
+     private Double availCredit;
      private Double amtDue;
      private Double minPay;
      private Double endingBal;
@@ -52,7 +52,7 @@ public class CardStatement  implements java.io.Serializable {
      private Double credit;
      private Double lastPay;
      private Double pays;
-     private Double avilbCash;
+     private Double availCash;
      private Double totCashLimit;
      private Double prevAmtDue;
      private Double intPaidThisPrd;
@@ -76,7 +76,7 @@ public class CardStatement  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public CardStatement(Long id, AccountDetail accountDetail, String accType, String accNum, String accName, String accHolder, Date billDate, Double totCreditLine, Date dueDate, Double avilbCredit, Double amtDue, Double minPay, Double endingBal, Double pastDueAmt, Date billingPrdStart, Date billingPrdEnd, Date apr, Date lastPayDate, Double newCharges, Double cashAdvance, Double financeCharges, Double prevEndingBal, Double credit, Double lastPay, Double pays, Double avilbCash, Double totCashLimit, Double prevAmtDue, Double intPaidThisPrd, Double intPaidYtd, Timestamp insertedOn, Long insertedBy) {
+    public CardStatement(Long id, AccountDetail accountDetail, String accType, String accNum, String accName, String accHolder, Date billDate, Double totCreditLine, Date dueDate, Double availCredit, Double amtDue, Double minPay, Double endingBal, Double pastDueAmt, Date billingPrdStart, Date billingPrdEnd, Date apr, Date lastPayDate, Double newCharges, Double cashAdvance, Double financeCharges, Double prevEndingBal, Double credit, Double lastPay, Double pays, Double availCash, Double totCashLimit, Double prevAmtDue, Double intPaidThisPrd, Double intPaidYtd, Timestamp insertedOn, Long insertedBy) {
         this.id = id;
         this.accountDetail = accountDetail;
         this.accType = accType;
@@ -86,7 +86,7 @@ public class CardStatement  implements java.io.Serializable {
         this.billDate = billDate;
         this.totCreditLine = totCreditLine;
         this.dueDate = dueDate;
-        this.avilbCredit = avilbCredit;
+        this.availCredit = availCredit;
         this.amtDue = amtDue;
         this.minPay = minPay;
         this.endingBal = endingBal;
@@ -102,7 +102,7 @@ public class CardStatement  implements java.io.Serializable {
         this.credit = credit;
         this.lastPay = lastPay;
         this.pays = pays;
-        this.avilbCash = avilbCash;
+        this.availCash = availCash;
         this.totCashLimit = totCashLimit;
         this.prevAmtDue = prevAmtDue;
         this.intPaidThisPrd = intPaidThisPrd;
@@ -205,14 +205,14 @@ public class CardStatement  implements java.io.Serializable {
         this.dueDate = dueDate;
     }
     
-    @Column(name="AVILB_CREDIT", precision=20, scale=4)
+    @Column(name="AVAIL_CREDIT", precision=20, scale=4)
 
-    public Double getAvilbCredit() {
-        return this.avilbCredit;
+    public Double getAvailCredit() {
+        return this.availCredit;
     }
     
-    public void setAvilbCredit(Double avilbCredit) {
-        this.avilbCredit = avilbCredit;
+    public void setAvailCredit(Double availCredit) {
+        this.availCredit = availCredit;
     }
     
     @Column(name="AMT_DUE", precision=20, scale=4)
@@ -365,14 +365,14 @@ public class CardStatement  implements java.io.Serializable {
         this.pays = pays;
     }
     
-    @Column(name="AVILB_CASH", precision=20, scale=4)
+    @Column(name="AVAIL_CASH", precision=20, scale=4)
 
-    public Double getAvilbCash() {
-        return this.avilbCash;
+    public Double getAvailCash() {
+        return this.availCash;
     }
     
-    public void setAvilbCash(Double avilbCash) {
-        this.avilbCash = avilbCash;
+    public void setAvailCash(Double availCash) {
+        this.availCash = availCash;
     }
     
     @Column(name="TOT_CASH_LIMIT", precision=20, scale=4)

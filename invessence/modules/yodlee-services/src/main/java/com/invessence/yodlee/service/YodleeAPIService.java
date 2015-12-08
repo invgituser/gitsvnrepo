@@ -22,7 +22,7 @@ public interface YodleeAPIService {
 	
 	public Map<String, Object> getAllSiteAccounts(Long invUserId) ;
 
-	public Map<String, Object> getItemSummariesForSite(String siteAccId, Long invUserId) ;
+	/*public Map<String, Object> getItemSummariesForSite(String siteAccId, Long invUserId) ;*/
 	
 	public Map<String, Object> getFastLinkDetails(String operation, String siteAccId, Long invUserId);
 

@@ -34,7 +34,7 @@ public class ConsolidateData implements java.io.Serializable {
 	private Long updatedBy;
 
 	private String accType;
-	private Double avilbBal;
+	private Double availBal;
 
 	// Constructors
 
@@ -43,7 +43,7 @@ public class ConsolidateData implements java.io.Serializable {
 	}
 
 	public ConsolidateData(UserLogon userLogon, SiteDetail siteDetail, ItemDetail itemDetail,
-								  AccountDetail accountDetail, Long pfolioDetId, String accType, Double avilbBal, Timestamp insertedOn, Long insertedBy) {
+								  AccountDetail accountDetail, Long pfolioDetId, String accType, Double availBal, Timestamp insertedOn, Long insertedBy) {
 		super();
 		this.userLogon = userLogon;
 		this.itemDetail = itemDetail;
@@ -51,7 +51,7 @@ public class ConsolidateData implements java.io.Serializable {
 		this.accountDetail = accountDetail;
 		this.pfolioDetId = pfolioDetId;
 		this.accType = accType;
-		this.avilbBal = avilbBal;
+		this.availBal = availBal;
 		this.insertedOn = insertedOn;
 		this.insertedBy = insertedBy;
 	}
@@ -206,12 +206,12 @@ public class ConsolidateData implements java.io.Serializable {
 		this.accType = accType;
 	}
 
-	@Column(name = "AVILB_BAL", precision = 20, scale = 4)
-	public Double getAvilbBal() {
-		return this.avilbBal;
+	@Column(name = "AVAIL_BAL", precision = 20, scale = 4)
+	public Double getAvailBal() {
+		return this.availBal;
 	}
 
-	public void setAvilbBal(Double avilbBal) {
-		this.avilbBal = avilbBal;
+	public void setAvailBal(Double availBal) {
+		this.availBal = availBal;
 	}
 }

@@ -205,5 +205,12 @@ public class UserLogon implements java.io.Serializable {
 		this.consolidateData = consolidateData;
 	}
 
+	@Override
+	public String toString() {
+		return "UserLogon [id=" + id + ", invUserId=" + invUserId + ", userId=" + userId + ", email=" + email
+				+ ", status=" + status + "]";
+	}
+
+	
 
 }

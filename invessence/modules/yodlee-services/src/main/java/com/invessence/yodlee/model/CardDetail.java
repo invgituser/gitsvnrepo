@@ -37,8 +37,8 @@ public class CardDetail implements java.io.Serializable {
 	private Double minPay;
 	private Double lastPay;
 	private Double runningBal;
-	private Double avilbCredit;
-	private Double avilbCash;
+	private Double availCredit;
+	private Double availCash;
 	private Double totCreditLine;
 	private Double totCashLimit;
 	private Long apr;
@@ -79,7 +79,7 @@ public class CardDetail implements java.io.Serializable {
 			String accHolder, String accType, String accNum, String accName,
 			String brandName, String accClassification, Date lastPayDate,
 			Date dueDate, Double amtDue, Double minPay, Double lastPay,
-			Double runningBal, Double avilbCredit, Double avilbCash,
+			Double runningBal, Double availCredit, Double availCash,
 			Double totCreditLine, Double totCashLimit, Long apr, Long cashApr,
 			String secAccHolderName, Double newCharges, Double pays,
 			String aprType, String cashAprType, Long balTransferApr,
@@ -101,8 +101,8 @@ public class CardDetail implements java.io.Serializable {
 		this.minPay = minPay;
 		this.lastPay = lastPay;
 		this.runningBal = runningBal;
-		this.avilbCredit = avilbCredit;
-		this.avilbCash = avilbCash;
+		this.availCredit = availCredit;
+		this.availCash = availCash;
 		this.totCreditLine = totCreditLine;
 		this.totCashLimit = totCashLimit;
 		this.apr = apr;
@@ -255,22 +255,22 @@ public class CardDetail implements java.io.Serializable {
 		this.runningBal = runningBal;
 	}
 
-	@Column(name = "AVILB_CREDIT", precision = 20, scale = 4)
-	public Double getAvilbCredit() {
-		return this.avilbCredit;
+	@Column(name = "AVAIL_CREDIT", precision = 20, scale = 4)
+	public Double getAvailCredit() {
+		return this.availCredit;
 	}
 
-	public void setAvilbCredit(Double avilbCredit) {
-		this.avilbCredit = avilbCredit;
+	public void setAvailCredit(Double availCredit) {
+		this.availCredit = availCredit;
 	}
 
-	@Column(name = "AVILB_CASH", precision = 20, scale = 4)
-	public Double getAvilbCash() {
-		return this.avilbCash;
+	@Column(name = "AVAIL_CASH", precision = 20, scale = 4)
+	public Double getAvailCash() {
+		return this.availCash;
 	}
 
-	public void setAvilbCash(Double avilbCash) {
-		this.avilbCash = avilbCash;
+	public void setAvailCash(Double availCash) {
+		this.availCash = availCash;
 	}
 
 	@Column(name = "TOT_CREDIT_LINE", precision = 20, scale = 4)
