@@ -8,7 +8,7 @@
 
     <ui:define name="content">
 
-        <h:form id="aggrform">
+        <h:form id="agform">
         <p:growl id="growl" life="2000" />
             <div class="Container100">
                 <!-- Left Column -->
@@ -27,60 +27,63 @@
                                         <p:commandButton value="Refresh All" styleClass="MarLeft5 Fright"
                                                          id="refreshData"
                                                          actionListener="#{yodleeBean.refreshAccountsData}"
-                                                         update=":aggrform:dashData"
+                                                         update=":agform:agArea"
                                                          icon="fa fa-refresh"/>
                                         <p:commandButton value="Add Site" id="addSite" styleClass="MarLeft5 Fright"
                                                          actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
-                                                         update=":aggrform:acctData"
+                                                         update=":agform:agArea"
                                                          icon="fa fa-plus" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="Container100">
-                            <div class="ContainerIndent">
-                                <p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget">
-                                    <p:fieldset legend="Summary" toggleable="true">
-                                        <div class="Container60">
-                                            <p:dataTable id="aggrDT" var="aggrViewData"
-                                                         value="#{yodleeBean.aggrData.totalAssetArray}"
-                                                         styleClass="invAllocTable" style="border: 0px;"
-                                                         reflow="true">
-                                                <p:column style="width:2%; text-align: left">
-                                                    <h:outputText value="#{aggrViewData.info}"/>
-                                                </p:column>
+                        <p:outputPanel id="agArea" style="border: 0px">
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget">
+                                        <p:fieldset legend="Summary" toggleable="true">
+                                            <div class="Container60">
+                                                <p:dataTable id="aggrDT" var="aggrViewData"
+                                                             value="#{yodleeBean.aggrData.totalAssetArray}"
+                                                             styleClass="invAllocTable" style="border: 0px;"
+                                                             reflow="true">
+                                                    <p:column style="width:2%; text-align: left; background: #{aggrViewData.info}">
+                                                        <p:spacer width="1"/>
+                                                    </p:column>
 
-                                                <p:column headerText="Type"
-                                                          style="width:20%; text-align: left">
-                                                    <h:outputText value="#{aggrViewData.key}"/>
-                                                </p:column>
+                                                    <p:column headerText="Type"
+                                                              style="width:20%; text-align: left">
+                                                        <h:outputText value="#{aggrViewData.key}"/>
+                                                    </p:column>
 
-                                                <p:column headerText="Balance"
-                                                          style="width:15%; text-align: right">
-                                                    <h:outputText value="#{aggrViewData.positionValue}">
-                                                        <f:convertNumber currencySymbol="$" type="currency"/>
-                                                    </h:outputText>
-                                                </p:column>
+                                                    <p:column headerText="Balance"
+                                                              style="width:15%; text-align: right">
+                                                        <h:outputText value="#{aggrViewData.positionValue}">
+                                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                                        </h:outputText>
+                                                    </p:column>
 
-                                                <p:column headerText="Weight"
-                                                          style="width:10%; text-align: right">
-                                                    <h:outputText value="#{yodleeBean.aggrData.getPercentValue(aggrViewData.positionValue, yodleeBean.aggrData.grandTotalPositionValue)}">
-                                                        <f:convertNumber pattern="###.00%"/>
-                                                    </h:outputText>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </div>
-                                        <div class="Container40">
-                                            <p:chart type="bar" model="#{yodleeCharts.horizontalBarModel}"/>
-                                        </div>
-                                    </p:fieldset>
-                                    <div class="EmptyBox20"/>
-                                    <p:fieldset legend="Details" toggleable="true" collapsed="true">
+                                                    <p:column headerText="Weight"
+                                                              style="width:10%; text-align: right">
+                                                        <h:outputText value="#{yodleeBean.aggrData.getPercentValue(aggrViewData.positionValue, yodleeBean.aggrData.grandAbsTotalPositionValue)}">
+                                                            <f:convertNumber pattern="###.00%"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                            <div class="Container40">
+                                                <p:chart type="bar" model="#{yodleeCharts.horizontalBarModel}"/>
+                                            </div>
+                                        </p:fieldset>
+                                        <div class="EmptyBox20"/>
+                                        <p:fieldset legend="Details" toggleable="true" collapsed="true">
 
-                                    </p:fieldset>
-                                </p:outputPanel>
+                                        </p:fieldset>
+                                    </p:outputPanel>
+                                </div>
                             </div>
-                        </div>
+
+                        </p:outputPanel>
                     </div>
 
                 </div>

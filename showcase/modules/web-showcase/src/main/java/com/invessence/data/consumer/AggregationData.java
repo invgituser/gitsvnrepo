@@ -30,6 +30,7 @@ public class AggregationData {
     private Double  grandTotalCostBasisMoney;
     private Double  grandTotalPositionValue;
     private Double  grandTotalFifoPnlUnrealized;
+    private Double  grandAbsTotalPositionValue;
 
     public AggregationData() {
         aggregationDetailDataArrayMap = new HashMap<String, ArrayList<AggregationDetailData>>();
@@ -91,6 +92,7 @@ public class AggregationData {
         grandTotalCostBasisMoney = addDoubleValue(grandTotalCostBasisMoney, costBasisMoney);
         grandTotalPositionValue = addDoubleValue(grandTotalPositionValue, positionValue);
         grandTotalFifoPnlUnrealized = addDoubleValue(grandTotalFifoPnlUnrealized, fifoPnlUnrealized);
+        grandAbsTotalPositionValue = addDoubleValue(grandAbsTotalPositionValue, Math.abs(positionValue));
 
 
     }
@@ -208,6 +210,10 @@ public class AggregationData {
         return grandTotalFifoPnlUnrealized;
     }
 
+    public Double getGrandAbsTotalPositionValue() {
+        return grandAbsTotalPositionValue;
+    }
+
     public Double getPercentValue(Double value1, Double value2) {
         if (value1 == null)
             return 0.0;
@@ -287,8 +293,8 @@ public class AggregationData {
                 aggrData1.setCostBasisMoney(addDoubleValue(costBasisMoney, aggrData1.getCostBasisMoney()));
                 aggrData1.setPositionValue(addDoubleValue(positionValue, aggrData1.getPositionValue()));
                 aggrData1.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggrData1.getFifoPnlUnrealized()));
-                siteMap.put(info,aggrData1);
-                aggregationLevelArrayMap.put(level,siteMap);
+                siteMap.put(info, aggrData1);
+                aggregationLevelArrayMap.put(level, siteMap);
                 return;
             }
             siteMap = aggregationLevelArrayMap.get(level);
@@ -344,8 +350,8 @@ public class AggregationData {
                 aggrData1.setCostBasisMoney(addDoubleValue(costBasisMoney, aggrData1.getCostBasisMoney()));
                 aggrData1.setPositionValue(addDoubleValue(positionValue, aggrData1.getPositionValue()));
                 aggrData1.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggrData1.getFifoPnlUnrealized()));
-                siteMap.put(info,aggrData1);
-                aggregationAssetArrayMap.put(assetClass,siteMap);
+                siteMap.put(info, aggrData1);
+                aggregationAssetArrayMap.put(assetClass, siteMap);
                 return;
             }
             siteMap = aggregationAssetArrayMap.get(assetClass);
@@ -373,8 +379,8 @@ public class AggregationData {
                 aggrData1.setCostBasisMoney(addDoubleValue(costBasisMoney, aggrData1.getCostBasisMoney()));
                 aggrData1.setPositionValue(addDoubleValue(positionValue, aggrData1.getPositionValue()));
                 aggrData1.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggrData1.getFifoPnlUnrealized()));
-                siteMap.put(info,aggrData1);
-                aggregationSubAssetArrayMap.put(subclass,siteMap);
+                siteMap.put(info, aggrData1);
+                aggregationSubAssetArrayMap.put(subclass, siteMap);
                 return;
             }
             siteMap = aggregationSubAssetArrayMap.get(subclass);

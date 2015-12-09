@@ -2,150 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="b3597f85-8ee5-4a63-a81e-2ce854761b28" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/Impl" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/InvessenceLogo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/InvessenceLogo.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/InvessenceLogo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/InvessenceLogo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/LOGO.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/LOGO.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/TRobo-dark-font.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/images/Thumbs.db" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/apple.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/apple.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/images/border.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/WEB-INF/classes" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/dao/common" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/common" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/constant" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/dao/consumer" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/images/controls.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/forgotpassword.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/forgotpassword.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/generic.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/generic.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/generic2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/generic2.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/generic3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/generic3.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/generic4.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/generic4.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/iADVICE_LOGO.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/iADVICE_LOGO.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/iAdvice.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/images" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/invessence_logo-clear-300x65.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/invessence_logo-clear-300x65.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/invessence_logo_RGB1-300x65.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/invessence_logo_RGB1-300x65.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/images/loading.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/images/loading_background.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/locked.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/locked.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/loginimage.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/loginimage.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/new-frontier-logo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/images/overlay.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/preloader.gif" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/register.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/register.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/sage.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/sage.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/sam-mcpherson.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/sam-mcpherson.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/images/logo/uobkh.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/logo/uobkh.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/validator" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/dao/consumer/AggregationDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationDetailData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/dao/consumer/AggregationSP.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationSummaryData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/validator/AllocationValidator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/yodlee-services/src/main/java/com/invessence/yodlee/model/ContainerMaster.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/DataDisplayConverter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/DateUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/DialogBox.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/validator/EmailFormatValidator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/EmailMessage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/yodlee-services/src/main/java/com/invessence/yodlee/util/ImageManipulation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/WEB-INF/Invessence-servlet.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/yodlee-services/src/main/java/com/invessence/yodlee/dao/InvestmentHoldingsDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/yodlee-services/src/main/java/com/invessence/yodlee/dao/InvestmentHoldingsDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/yodlee-services/src/main/java/com/invessence/yodlee/dao/InvestmentTransactionsDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/yodlee-services/src/main/java/com/invessence/yodlee/dao/InvestmentTransactionsDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/MonitorSession.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/MsgDigester.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/Pages.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/Impl/PagesImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/PasswordGenerator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/common/RoleData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/constant/SecurityQuestions.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/TabHelper.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/UIPortal.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/common/UIProfile.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/constant/USMaps.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/common/UserData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/validator/UserIDValidator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/dao/common/UserInfoDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/common/UserInfoData.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/dao/common/UserInfoSP.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/UserValidation.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/Util.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/WebUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/util/XMLBuilder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeCharts.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/africa.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/asia.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/css/colorbox.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/resources/company.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common/copyright.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/dash.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/resources/demo.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common/disclaimer.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/resources/error_messages.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/europe.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/js/invCharts.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/js/invCharts.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/invessence/css/invessence.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/css/invessence.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/resources/invessence.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common/invlayout.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common/invlayoutmenu.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common/invsimplelayout.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common/invtopbar.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/jquery-1.11.1.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/jquery.colorbox.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/resources/log4j.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/css/main.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/resources/messages.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/middleeast.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/oauth.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/resources/resources.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/sha1.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/template/common/sharedDialog.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/southamerica.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/modena-layout/css/spark-layout.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/spark-layout/images/usa.svg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/yacct.xhtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/ydlCharts.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/yodleeCommon.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeBean.java" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeBean.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationData.java" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationData.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/acct.xhtml" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/acct.xhtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/aggr.xhtml" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/aggr.xhtml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/dash.xhtml" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/dash.xhtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/ydlCharts.js" afterPath="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/ydlCharts.js" />
     </list>
     <ignored path="showcase.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -155,7 +17,7 @@
     <file path="/start.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449433936613" ignored="false" />
     <file path="/fragment.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449440073443" ignored="false" />
     <file path="/ConsumerListDataDAO.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449437310363" ignored="false" />
-    <file path="/AggregationData.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449683196036" ignored="false" />
+    <file path="/AggregationData.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449689442054" ignored="false" />
     <file path="/AggregationDetailData.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449544734430" ignored="false" />
     <file path="/AggregationDAO.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449457310900" ignored="false" />
     <file path="/properties.xml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449515556856" ignored="false" />
@@ -165,11 +27,11 @@
     <file path="/*.regexp" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449519952537" ignored="false" />
     <file path="/YodleeAPIServiceImpl.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449522153482" ignored="false" />
     <file path="/yacct.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449522267722" ignored="false" />
-    <file path="/aggr.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449685273242" ignored="false" />
+    <file path="/aggr.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449690889211" ignored="false" />
     <file path="/Dummy.txt" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449687648285" ignored="false" />
-    <file path="/acct.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449682384248" ignored="false" />
+    <file path="/acct.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449688920618" ignored="false" />
     <file path="/AggregationSummaryData.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449543269966" ignored="false" />
-    <file path="/dash.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449627620579" ignored="false" />
+    <file path="/dash.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449688894572" ignored="false" />
     <file path="/YodleeCharts.java" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449685473191" ignored="false" />
     <file path="/ydlCharts.js" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449598333421" ignored="false" />
     <file path="/profile.xhtml" changelist="b3597f85-8ee5-4a63-a81e-2ce854761b28" time="1449632060628" ignored="false" />
@@ -188,23 +50,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeBean.java" line="130" class="com.invessence.bean.consumer.YodleeBean" package="com.invessence.bean.consumer">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -241,7 +87,7 @@
         <option name="LOG_MESSAGE" value="&#13;&#13;JAVA" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -251,13 +97,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AggregationData.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="AggregationData.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="35" selection-start="4460" selection-end="4460" vertical-scroll-proportion="-13.12">
+            <state line="217" column="0" selection-start="9791" selection-end="9791" vertical-scroll-proportion="0.025411062">
               <folding>
-                <element signature="e#5776#5800#0" expanded="true" />
-                <element signature="e#6304#6328#0" expanded="true" />
+                <element signature="e#5930#5954#0" expanded="true" />
+                <element signature="e#6458#6482#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -266,10 +112,8 @@
       <file leaf-file-name="YodleeCharts.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeCharts.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="30" selection-start="2219" selection-end="2233" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="117" column="32" selection-start="3961" selection-end="3961" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -278,9 +122,7 @@
         <entry file="file://$PROJECT_DIR$/../Invessence/modules/web/src/main/java/com/invessence/bean/consumer/Charts.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="593" column="33" selection-start="20628" selection-end="20643" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -297,7 +139,7 @@
       <file leaf-file-name="ydlCharts.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/ydlCharts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="19" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0">
+            <state line="37" column="23" selection-start="756" selection-end="756" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -306,21 +148,17 @@
       <file leaf-file-name="LTAMCharts.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../Invessence/modules/iAdvice/src/main/java/com/invessence/bean/ltam/LTAMCharts.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="251" column="0" selection-start="7348" selection-end="7545" vertical-scroll-proportion="-10.48">
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state line="251" column="0" selection-start="7348" selection-end="7545" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="YodleeBean.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="YodleeBean.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeBean.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="138" column="46" selection-start="3760" selection-end="3760" vertical-scroll-proportion="0.85714287">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="130" column="0" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -328,17 +166,18 @@
       <file leaf-file-name="acct.xhtml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/acct.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="0" selection-start="1683" selection-end="2527" vertical-scroll-proportion="-9.807693">
+            <state line="49" column="0" selection-start="2666" selection-end="2666" vertical-scroll-proportion="0.0">
               <folding>
-                <marker date="1449682561183" expanded="true" signature="3025:3033" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="3274:3301" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="3570:3598" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="4040:4068" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="4981:4993" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="5145:5172" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="5473:5501" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="6456:6483" placeholder="{...}" />
-                <marker date="1449682561183" expanded="true" signature="6751:6779" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="2724:2735" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="3088:3096" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="3337:3364" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="3633:3661" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="4103:4131" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="5044:5056" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="5208:5235" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="5536:5564" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="6519:6546" placeholder="{...}" />
+                <marker date="1449689037086" expanded="true" signature="6814:6842" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -347,14 +186,20 @@
       <file leaf-file-name="aggr.xhtml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/aggr.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="81" selection-start="3584" selection-end="3584" vertical-scroll-proportion="-11.269231">
+            <state line="63" column="82" selection-start="4184" selection-end="4184" vertical-scroll-proportion="0.0">
               <folding>
-                <marker date="1449685349085" expanded="true" signature="829:857" placeholder="{...}" />
-                <marker date="1449685349085" expanded="true" signature="2840:2852" placeholder="{...}" />
-                <marker date="1449685349085" expanded="true" signature="2991:3017" placeholder="{...}" />
-                <marker date="1449685349085" expanded="true" signature="3319:3346" placeholder="{...}" />
-                <marker date="1449685349085" expanded="true" signature="3650:3678" placeholder="{...}" />
-                <marker date="1449685349085" expanded="true" signature="4168:4196" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="199:211" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="288:314" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="486:513" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="635:663" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="827:855" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="981:1009" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="2242:2253" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="2934:2946" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="3093:3133" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="3448:3475" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="3795:3823" placeholder="{...}" />
+                <marker date="1449689540855" expanded="true" signature="4337:4365" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -363,17 +208,25 @@
       <file leaf-file-name="dash.xhtml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/dash.xhtml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="0" selection-start="2518" selection-end="5063" vertical-scroll-proportion="-4.576923">
+            <state line="39" column="71" selection-start="2104" selection-end="2104" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="tag#p:dataTable#0;tag#div#0;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#div#0;tag#h:form#0;tag#ui:define#0;tag#ui:composition#0" expanded="false" />
-                <marker date="1449682561192" expanded="true" signature="2702:2714" placeholder="{...}" />
-                <marker date="1449682561192" expanded="true" signature="2778:2786" placeholder="{...}" />
-                <marker date="1449682561192" expanded="true" signature="3043:3070" placeholder="{...}" />
-                <marker date="1449682561192" expanded="true" signature="3354:3382" placeholder="{...}" />
-                <marker date="1449682561192" expanded="true" signature="3987:3999" placeholder="{...}" />
-                <marker date="1449682561192" expanded="true" signature="4151:4178" placeholder="{...}" />
-                <marker date="1449682561192" expanded="true" signature="4495:4523" placeholder="{...}" />
-                <marker date="1449682561192" expanded="true" signature="5505:5529" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="108:120" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="169:177" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="398:425" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="560:588" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="760:772" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="848:875" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="1086:1114" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="2165:2189" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="2396:2407" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="2778:2790" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="2854:2862" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="3119:3146" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="3430:3458" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="4064:4076" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="4228:4255" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="4572:4600" placeholder="{...}" />
+                <marker date="1449689037095" expanded="true" signature="5610:5634" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -398,13 +251,13 @@
         <option value="$PROJECT_DIR$/modules/core/src/main/java/com/invessence/converter/SQLData.java" />
         <option value="$PROJECT_DIR$/modules/core/src/main/java/com/invessence/converter/JavaUtil.java" />
         <option value="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/profile.xhtml" />
-        <option value="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/acct.xhtml" />
+        <option value="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeBean.java" />
         <option value="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/dash.xhtml" />
+        <option value="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/acct.xhtml" />
         <option value="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/ydlCharts.js" />
+        <option value="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeCharts.java" />
         <option value="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationData.java" />
         <option value="$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/aggr.xhtml" />
-        <option value="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeCharts.java" />
-        <option value="$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeBean.java" />
       </list>
     </option>
   </component>
@@ -961,8 +814,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -979,9 +832,9 @@
     <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -1033,6 +886,19 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -1059,19 +925,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -1299,6 +1152,10 @@
           <option name="myCopyRoot" value="C:\Workspace\Source\Prod\showcase" />
         </SvnCopyRootSimple>
         <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="C:\Workspace\Source\Prod\showcase\.idea" />
+          <option name="myCopyRoot" value="C:\Workspace\Source\Prod\showcase\.idea" />
+        </SvnCopyRootSimple>
+        <SvnCopyRootSimple>
           <option name="myVcsRoot" value="C:\Workspace\Source\Prod\showcase\modules" />
           <option name="myCopyRoot" value="C:\Workspace\Source\Prod\showcase\modules" />
         </SvnCopyRootSimple>
@@ -1332,7 +1189,6 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="b3597f85-8ee5-4a63-a81e-2ce854761b28" name="Default" comment="" />
-      <changelist id="" name="Exclude" comment="" />
       <created>1449283044631</created>
       <updated>1449283044631</updated>
     </task>
@@ -1352,39 +1208,43 @@
       <created>1449686102106</created>
       <updated>1449686102106</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Showcase for Yodlee">
+      <created>1449687793105</created>
+      <updated>1449687793105</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.53910613" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.53910613" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Maven-2 Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41759777" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49022347" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.575419" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36871508" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0984556" sideWeight="0.46089387" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0984556" sideWeight="0.424581" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960895" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25611326" sideWeight="0.46089387" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25611326" sideWeight="0.424581" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2444134" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.41759777" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36871508" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -1461,25 +1321,17 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/modules/core/src/main/java/com/invessence/converter/SQLData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="0" selection-start="2538" selection-end="2538" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
+        <state line="138" column="0" selection-start="2538" selection-end="2538" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/core/src/main/java/com/invessence/converter/JavaUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="27" selection-start="2273" selection-end="2273" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="83" column="27" selection-start="2273" selection-end="2273" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/primefaces/primefaces/5.2.RC3/primefaces-5.2.RC3.jar!/org/primefaces/component/api/UIData.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="139" column="19" selection-start="7452" selection-end="7452" vertical-scroll-proportion="-4.0">
-          <folding />
-        </state>
+        <state line="139" column="19" selection-start="7452" selection-end="7452" vertical-scroll-proportion="-4.0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationSummaryData.java">
@@ -1492,11 +1344,7 @@
     <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/start.xhtml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1449521727092" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1449521727092" expanded="true" signature="-1:-1" placeholder="{...}" />
-            <marker date="1449521727092" expanded="true" signature="-1:-1" placeholder="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1504,40 +1352,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="50" column="20" selection-start="2498" selection-end="2498" vertical-scroll-proportion="-17.538462">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/acct.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="0" selection-start="1683" selection-end="2527" vertical-scroll-proportion="-9.807693">
-          <folding>
-            <marker date="1449682561183" expanded="true" signature="3025:3033" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="3274:3301" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="3570:3598" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="4040:4068" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="4981:4993" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="5145:5172" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="5473:5501" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="6456:6483" placeholder="{...}" />
-            <marker date="1449682561183" expanded="true" signature="6751:6779" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/dash.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="2518" selection-end="5063" vertical-scroll-proportion="-4.576923">
-          <folding>
-            <element signature="tag#p:dataTable#0;tag#div#0;tag#div#0;tag#div#1;tag#div#0;tag#div#0;tag#div#0;tag#h:form#0;tag#ui:define#0;tag#ui:composition#0" expanded="false" />
-            <marker date="1449682561192" expanded="true" signature="2702:2714" placeholder="{...}" />
-            <marker date="1449682561192" expanded="true" signature="2778:2786" placeholder="{...}" />
-            <marker date="1449682561192" expanded="true" signature="3043:3070" placeholder="{...}" />
-            <marker date="1449682561192" expanded="true" signature="3354:3382" placeholder="{...}" />
-            <marker date="1449682561192" expanded="true" signature="3987:3999" placeholder="{...}" />
-            <marker date="1449682561192" expanded="true" signature="4151:4178" placeholder="{...}" />
-            <marker date="1449682561192" expanded="true" signature="4495:4523" placeholder="{...}" />
-            <marker date="1449682561192" expanded="true" signature="5505:5529" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1550,67 +1364,108 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../Invessence/modules/iAdvice/src/main/java/com/invessence/bean/ltam/LTAMCharts.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="251" column="0" selection-start="7348" selection-end="7545" vertical-scroll-proportion="-10.48">
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/ydlCharts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="19" selection-start="544" selection-end="544" vertical-scroll-proportion="0.0">
+        <state line="251" column="0" selection-start="7348" selection-end="7545" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="35" selection-start="4460" selection-end="4460" vertical-scroll-proportion="-13.12">
-          <folding>
-            <element signature="e#5776#5800#0" expanded="true" />
-            <element signature="e#6304#6328#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/aggr.xhtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="81" selection-start="3584" selection-end="3584" vertical-scroll-proportion="-11.269231">
-          <folding>
-            <marker date="1449685349085" expanded="true" signature="829:857" placeholder="{...}" />
-            <marker date="1449685349085" expanded="true" signature="2840:2852" placeholder="{...}" />
-            <marker date="1449685349085" expanded="true" signature="2991:3017" placeholder="{...}" />
-            <marker date="1449685349085" expanded="true" signature="3319:3346" placeholder="{...}" />
-            <marker date="1449685349085" expanded="true" signature="3650:3678" placeholder="{...}" />
-            <marker date="1449685349085" expanded="true" signature="4168:4196" placeholder="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Invessence/modules/web/src/main/java/com/invessence/bean/consumer/Charts.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="593" column="33" selection-start="20628" selection-end="20643" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/dash.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="71" selection-start="2104" selection-end="2104" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="false" />
+            <marker date="1449689037095" expanded="true" signature="108:120" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="169:177" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="398:425" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="560:588" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="760:772" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="848:875" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="1086:1114" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="2165:2189" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="2396:2407" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="2778:2790" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="2854:2862" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="3119:3146" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="3430:3458" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="4064:4076" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="4228:4255" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="4572:4600" placeholder="{...}" />
+            <marker date="1449689037095" expanded="true" signature="5610:5634" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeCharts.java">
+    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/resources/yodlee/js/ydlCharts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="30" selection-start="2219" selection-end="2233" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="37" column="23" selection-start="756" selection-end="756" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeBean.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="138" column="46" selection-start="3760" selection-end="3760" vertical-scroll-proportion="0.85714287">
+        <state line="130" column="0" selection-start="3556" selection-end="3556" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/bean/consumer/YodleeCharts.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="32" selection-start="3961" selection-end="3961" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/acct.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="0" selection-start="2666" selection-end="2666" vertical-scroll-proportion="0.0">
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1449689037086" expanded="true" signature="2724:2735" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="3088:3096" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="3337:3364" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="3633:3661" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="4103:4131" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="5044:5056" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="5208:5235" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="5536:5564" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="6519:6546" placeholder="{...}" />
+            <marker date="1449689037086" expanded="true" signature="6814:6842" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/webapp/pages/consumer/aggr/aggr.xhtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="63" column="82" selection-start="4184" selection-end="4184" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1449689540855" expanded="true" signature="199:211" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="288:314" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="486:513" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="635:663" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="827:855" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="981:1009" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="2242:2253" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="2934:2946" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="3093:3133" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="3448:3475" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="3795:3823" placeholder="{...}" />
+            <marker date="1449689540855" expanded="true" signature="4337:4365" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/web-showcase/src/main/java/com/invessence/data/consumer/AggregationData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="217" column="0" selection-start="9791" selection-end="9791" vertical-scroll-proportion="0.025411062">
+          <folding>
+            <element signature="e#5930#5954#0" expanded="true" />
+            <element signature="e#6458#6482#0" expanded="true" />
           </folding>
         </state>
       </provider>

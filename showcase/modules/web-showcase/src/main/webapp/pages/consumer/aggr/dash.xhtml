@@ -14,7 +14,7 @@
     <ui:define name="content">
         <h:outputScript name="js/ydlCharts.js" library="yodlee"/>
 
-        <h:form id="aggrform">
+        <h:form id="dform">
 
             <div class="Container100">
                 <!-- Left Column -->
@@ -33,21 +33,22 @@
                                         <p:commandButton value="Refresh All" styleClass="MarLeft5 Fright"
                                                          id="refreshData"
                                                          actionListener="#{yodleeBean.refreshAccountsData}"
-                                                         update=":aggrform:dashData"
+                                                         update=":dform:awArea"
                                                          icon="fa fa-refresh"/>
                                         <p:commandButton value="Add Site" id="addSite" styleClass="MarLeft5 Fright"
                                                          actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
-                                                         update=":aggrform:acctData"
+                                                         update=":dform:awArea"
                                                          icon="fa fa-plus" />
                                     </div>
                                 </div>
                            </div>
                         </div>
-                        <div class="Container100">
-                            <div class="Container50">
-                                <div class="ContainerIndent">
+                        <p:outputPanel id="awArea" style="border: 0px">
+                            <div class="Container100">
+                                <div class="Container50">
+                                    <div class="ContainerIndent">
                                         <p:dataTable id="dashData" var="dashData" value="#{yodleeBean.aggrData.totalLevelArray}"
-                                                style="border: 0px;">
+                                                     style="border: 0px;">
                                             <p:column style="width:6%">
                                                 <p:rowToggler />
                                             </p:column>
@@ -59,7 +60,7 @@
                                             <p:column headerText="Balance"
                                                       style="width:20%; text-align: right">
                                                 <h:outputText value="#{dashData.positionValue}">
-                                                   <f:convertNumber currencySymbol="$" type="currency"/>
+                                                    <f:convertNumber currencySymbol="$" type="currency"/>
                                                 </h:outputText>
                                             </p:column>
 
@@ -80,17 +81,18 @@
                                                 </p:dataTable>
                                             </p:rowExpansion>
                                         </p:dataTable>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="Container50">
-                                <div class="ContainerIndent">
-                                    <p:chart type="pie" model="#{yodleeBean.yodleeCharts.pieChart}"
-                                             rendered="#{yodleeBean.yodleeCharts.pieChart != null}"
-                                             style="width:450px;height:300px" />
+                                <div class="Container50">
+                                    <div class="ContainerIndent">
+                                        <p:chart type="pie" model="#{yodleeBean.yodleeCharts.pieChart}"
+                                                 rendered="#{yodleeBean.yodleeCharts.pieChart != null}"
+                                                 style="width:450px;height:300px" />
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </p:outputPanel>
                     </div>
 
                 </div>

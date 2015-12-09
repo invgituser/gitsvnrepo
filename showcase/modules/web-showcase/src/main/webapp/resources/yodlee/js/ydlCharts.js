@@ -26,14 +26,11 @@ function ydl_bar_extensions()
     };
 
     this.cfg.axesDefaults = {
-        axes: {
-            xaxis: {
-                renderer: {
-                    tickOptions: {
-                        labelPosition: 'middle'
-                    }
-                }
-            }
+        show: false,
+        showTicks: false,
+        showTickMarks: false,
+        tickOptions: {
+            showGridline: false
         }
     };
 
@@ -44,6 +41,5 @@ function ydl_bar_extensions()
      }
      */
 }
-
 
 
