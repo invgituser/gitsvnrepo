@@ -730,70 +730,70 @@ public class YodleeAPIRepository
 		return jsonObject;
 	}
 	
-	public static void main(String[] args) {
-		String cobrandLoginValue = "sbCobuabc";
-		String cobrandPasswordValue = "b04031a3-98d9-4a83-8341-d2895e5c45a6";
-
-		String usernameValue = "sbMemuabc1";
-		String passwordValue = "sbMemuabc1#123";
-
-		YodleeAPIRepository tPost = new YodleeAPIRepository();
-		String cobrandSessionToken = null;
-
-		System.out.println("\n\n\n\n loginCobrand ");
-		//cobrandSessionToken = tPost.loginCobrand(cobrandLoginValue, cobrandPasswordValue);
-		
-		System.out.println("\n\n\n\n loginUser ");
-		//String userSessionToken = tPost.loginUser(cobrandSessionToken, usernameValue, passwordValue);
-
-		// System.out.println("createUser ----------\n"+value);
-//		cobrandPasswordValue = tPost.createAndRegisterUser(cobrandLoginValue);
-		
-		// System.out.println("createUserData ----------\n"+value);
-//		cobrandSessionToken = tPost.loginCobrand(cobrandLoginValue, cobrandPasswordValue);
-//		tPost.createUserData(cobrandSessionToken);
-
-		// System.out.println("getUserData ----------\n"+value);
-//		 String value = tPost.getUserData(cobrandSessionToken);
-
-		// System.out.println("getLoginFormDetails ----------\n"+value);
-		// tPost.getLoginFormDetails(cobrandSessionToken, userSessionToken);
-
-		// System.out.println("\n\n\n\n searchSite ");
-		// tPost.searchSite(cobrandSessionToken, userSessionToken);
-		
-		// System.out.println("\n\n\n\n Register ");
-//			String newUsernameValue = "mem";
-//			String newPasswordValue = "yodlee123";
-//			String newInstanceTypeValue = "com.yodlee.ext.login.PasswordCredentials";
-//			String newEmailValue = "a@b.com";
-		 
-		// tPost.registerUser(cobrandSessionToken, newUsernameValue,
-		// newPasswordValue,newInstanceTypeValue, newEmailValue);
-		
-//		System.out.println("\n Transaction \n\n\n");
-//		tPost.transactionSearchService(cobrandSessionToken,userSessionToken,
-//		 "all", "500", "1", "500", "1", "1", "DataSearchService", "USD",
-//		 "07-09-2011", "07-09-2013", "ALL_TRANSACTION", "true");
-		 
-		// System.out.println("\n ItemSummaries \n\n\n");
-		// tPost.getItemSummaries(cobrandSessionToken,userSessionToken);
-		 
-		// System.out.println("\n GetSiteInfo \n\n\n");
-		// tPost.getSiteInfo(cobrandSessionToken, userSessionToken);
-		
-		// System.out.println("\n GetAllSites \n\n\n");
-		// tPost.getAllSites(cobrandSessionToken, userSessionToken);
-
-		// System.out.println("\n GetPopularSites \n\n\n");
-		// tPost.getPopularSites(cobrandSessionToken, userSessionToken);
-
-		// System.out.println("\n GetItemSummariesForSite \n\n\n");
-		// tPost.getItemSummariesForSite(cobrandSessionToken,userSessionToken);
-
-		// System.out.println("\n addSiteAccount \n\n\n");
-		// tPost.addSiteAccount(cobrandSessionToken,userSessionToken);
-	}
+//	public static void main(String[] args) {
+//		String cobrandLoginValue = "sbCobuabc";
+//		String cobrandPasswordValue = "b04031a3-98d9-4a83-8341-d2895e5c45a6";
+//
+//		String usernameValue = "sbMemuabc1";
+//		String passwordValue = "sbMemuabc1#123";
+//
+//		YodleeAPIRepository tPost = new YodleeAPIRepository();
+//		String cobrandSessionToken = null;
+//
+//		System.out.println("\n\n\n\n loginCobrand ");
+//		//cobrandSessionToken = tPost.loginCobrand(cobrandLoginValue, cobrandPasswordValue);
+//		
+//		System.out.println("\n\n\n\n loginUser ");
+//		//String userSessionToken = tPost.loginUser(cobrandSessionToken, usernameValue, passwordValue);
+//
+//		// System.out.println("createUser ----------\n"+value);
+////		cobrandPasswordValue = tPost.createAndRegisterUser(cobrandLoginValue);
+//		
+//		// System.out.println("createUserData ----------\n"+value);
+////		cobrandSessionToken = tPost.loginCobrand(cobrandLoginValue, cobrandPasswordValue);
+////		tPost.createUserData(cobrandSessionToken);
+//
+//		// System.out.println("getUserData ----------\n"+value);
+////		 String value = tPost.getUserData(cobrandSessionToken);
+//
+//		// System.out.println("getLoginFormDetails ----------\n"+value);
+//		// tPost.getLoginFormDetails(cobrandSessionToken, userSessionToken);
+//
+//		// System.out.println("\n\n\n\n searchSite ");
+//		// tPost.searchSite(cobrandSessionToken, userSessionToken);
+//		
+//		// System.out.println("\n\n\n\n Register ");
+////			String newUsernameValue = "mem";
+////			String newPasswordValue = "yodlee123";
+////			String newInstanceTypeValue = "com.yodlee.ext.login.PasswordCredentials";
+////			String newEmailValue = "a@b.com";
+//		 
+//		// tPost.registerUser(cobrandSessionToken, newUsernameValue,
+//		// newPasswordValue,newInstanceTypeValue, newEmailValue);
+//		
+////		System.out.println("\n Transaction \n\n\n");
+////		tPost.transactionSearchService(cobrandSessionToken,userSessionToken,
+////		 "all", "500", "1", "500", "1", "1", "DataSearchService", "USD",
+////		 "07-09-2011", "07-09-2013", "ALL_TRANSACTION", "true");
+//		 
+//		// System.out.println("\n ItemSummaries \n\n\n");
+//		// tPost.getItemSummaries(cobrandSessionToken,userSessionToken);
+//		 
+//		// System.out.println("\n GetSiteInfo \n\n\n");
+//		// tPost.getSiteInfo(cobrandSessionToken, userSessionToken);
+//		
+//		// System.out.println("\n GetAllSites \n\n\n");
+//		// tPost.getAllSites(cobrandSessionToken, userSessionToken);
+//
+//		// System.out.println("\n GetPopularSites \n\n\n");
+//		// tPost.getPopularSites(cobrandSessionToken, userSessionToken);
+//
+//		// System.out.println("\n GetItemSummariesForSite \n\n\n");
+//		// tPost.getItemSummariesForSite(cobrandSessionToken,userSessionToken);
+//
+//		// System.out.println("\n addSiteAccount \n\n\n");
+//		// tPost.addSiteAccount(cobrandSessionToken,userSessionToken);
+//	}
 
 	private static class NullHostnameVerifier implements HostnameVerifier {
 		public boolean verify(String hostname, SSLSession session) {

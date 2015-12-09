@@ -180,6 +180,10 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 .MarRight10{ margin-right:10px;}
 .MarRight20{ margin-right:20px;}
 
+.MarLeft5{ margin-left:5px;}
+.MarLeft10{ margin-left:10px;}
+.MarLeft20{ margin-left:20px;}
+
 
 /* Paddings */
 .NoPadding{padding:0px !important;}

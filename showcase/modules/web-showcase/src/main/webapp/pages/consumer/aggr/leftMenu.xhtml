@@ -1,48 +1,64 @@
 <!-- Left Column -->
-<div class="Container10 Responsive100">
+<div class="Container10 Responsive100" xmlns:p="http://java.sun.com/jsf/html">
 
     <div class="Card Container100">
 
         <div class="Container100">
             <div class="ContainerIndent">
+                <p:commandLink action="#{yodleeBean.yodleeNavigation('dash')}">
                 <div class="Card SoftGrayBack TexAlCenter">
                     <i class="fa fa-dashboard Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Dashboard</span>
+                    <span class="FontThemeRegular Fs12">
+                        Dashboard
+                    </span>
                 </div>
+                </p:commandLink>
             </div>
         </div>
         <div class="Container100 MarTop10">
             <div class="ContainerIndent">
+                <p:commandLink action="#{yodleeBean.yodleeNavigation('acct')}">
                 <div class="Card SoftGrayBack TexAlCenter">
                     <i class="fa fa-bank Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Accounts</span>
+                    <span class="FontThemeRegular Fs12">
+                         Accounts
+                    </span>
                 </div>
+                </p:commandLink>
             </div>
         </div>
 
         <div class="Container100 MarTop10">
             <div class="ContainerIndent">
+                <p:commandLink action="#{yodleeBean.yodleeNavigation('aggr')}">
                 <div class="Card SoftGrayBack TexAlCenter">
                     <i class="fa fa-bar-chart Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Aggregate</span>
+                    <span class="FontThemeRegular Fs12">
+                        Aggregate
+                    </span>
                 </div>
+                </p:commandLink>
             </div>
         </div>
 
         <div class="Container100 MarTop10">
             <div class="ContainerIndent">
+                <p:commandLink action="#{yodleeBean.yodleeNavigation('profile')}">
                 <div class="Card SoftGrayBack TexAlCenter">
                     <i class="fa fa-cog Fs50 red"></i>
 
                     <div class="EmptyBox5"></div>
-                    <span class="FontThemeRegular Fs12">Profile</span>
+                    <span class="FontThemeRegular Fs12">
+                         Profile
+                    </span>
                 </div>
+                </p:commandLink>
             </div>
         </div>
     </div>

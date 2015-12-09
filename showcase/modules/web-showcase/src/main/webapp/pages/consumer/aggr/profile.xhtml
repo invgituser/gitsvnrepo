@@ -9,6 +9,7 @@
     <ui:define name="content">
 
         <h:form id="aggrform">
+            <p:growl id="growl" life="3000" />
             <div class="Container100">
                 <!-- Left Column -->
                <ui:include src="leftMenu.xhtml"/>
@@ -22,17 +23,29 @@
                                     <h2 class="CardTopic">Profile</h2>
 
                                     <div class="Seperator"></div>
-                                    <div class="EmptyBox20"></div>
+                                    <div class="Container100 Responsive100">
+                                        <p:commandButton value="Register" id="register"
+                                                         rendered="#{! yodleeBean.isUserRegisteredAtYodlee()}"
+                                                         actionListener="#{yodleeBean.userRegistration}"
+                                                         update="@form"
+                                                         icon="fa fa-check" />
 
-                                    <div class="Container100 Responsive50">
-                                        <div class="EmptyBox150"></div>
-                                        <div class="EmptyBox150"></div>
+                                        <p:commandButton value="UnRegister" id="unRegister"
+                                                         rendered="#{yodleeBean.isUserRegisteredAtYodlee()}"
+                                                         actionListener="#{yodleeBean.userUnRegistration}"
+                                                         update="@form"
+                                                         icon="fa fa-close" />
+
+                                        <!--<p:commandButton value="Disabled" id="disabled" disabled="true" />-->
                                     </div>
+
+
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="EmptyBox150"/>
                 </div>
             </div>
 

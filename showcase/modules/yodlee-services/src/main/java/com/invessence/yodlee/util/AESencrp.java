@@ -45,12 +45,10 @@ public class AESencrp {
     	
     	try {    		
     		
-    		System.out.println("encrypt String : " + encrypt("jdbc:oracle:thin:@10.144.18.90:1521:TRAPPS"));
     		System.out.println("encrypt String : " + encrypt("Password@2015"));    		
 			System.out.println("encrypt String : " + encrypt("Just4fun"));
 			
 
-			System.out.println("decrypt String : " + decrypt("4lnjh/1uLERvHTy1WNq9W0N/BciqHfDgFpqDVfrqQ3oxjPXgLTV0/mnMZnOGjLhA"));
 			System.out.println("decrypt String : " + decrypt("oVnWHoENqXNtLFxrFiQC0w=="));
 			System.out.println("decrypt String : " + decrypt("aKetuUj7d7r32AOHzJAaTg=="));
 		} catch (Exception e) {

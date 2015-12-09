@@ -1,0 +1,97 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="content">
+
+        <h:form id="aggrform">
+        <p:growl id="growl" life="2000" />
+            <div class="Container100">
+                <!-- Left Column -->
+               <ui:include src="leftMenu.xhtml"/>
+                <!-- Right Column -->
+                <div class="Container90 Responsive100">
+                    <div class="Card Wid90 Fright">
+                        <!-- Section -->
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="BigTopic">
+                                    <div class="Wid50 Fleft">
+                                        <h3>Aggregation</h3>
+                                    </div>
+                                    <div class="Wid50 Fright">
+                                        <p:commandButton value="Refresh" id="refresh" styleClass="Fright"
+                                                         actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
+                                                         update=":aggrform:acctData"
+                                                         icon="fa fa-plus" />
+                                    </div>
+                                </div>
+
+
+                                <div class="Container100">
+
+                                        <p:dataTable id="acctData" var="consData" value="#{yodleeBean.consDataList}">
+                                            <p:column headerText="Site" >
+                                                <h:outputText value="#{consData.siteDetail.siteName}" />
+<!--
+                                                <h:outputText value="#{consData.siteDetail.siteAccId}" />
+-->
+                                            </p:column>
+<!--
+                                            <p:column headerText="Name" >
+                                                <h:outputText value="#{consData.itemDetail.itemDispName}" />
+                                            </p:column>
+ -->
+                                            <!--
+                                            <p:column>
+                                                    <h:outputText value="ItemId" />
+                                                <h:outputText value="#{consData.itemDetail.itemId}" />
+                                            </p:column>
+                                            -->
+                                            <p:column headerText="Type" >
+                                                <h:outputText value="#{consData.itemDetail.contServName}" />
+                                            </p:column>
+
+
+                                            <p:column headerText="Account Name">
+                                                <h:outputText value="#{consData.accountDetail.accName}" />
+                                            </p:column>
+
+                                            <p:column headerText="Account Type" >
+                                                <h:outputText value="#{consData.accType}" />
+                                            </p:column>
+
+                                            <p:column headerText="Balance"
+                                                      style="width:10%; text-align: right">
+                                                <h:outputText value="#{consData.avilbBal}">
+                                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                                </h:outputText>
+                                            </p:column>
+
+                                            <p:column headerText="Operations">
+                                                <p:commandButton id="editSite"
+                                                                 actionListener="#{yodleeBean.addAcount('EDIT_ACC',consData.siteDetail.siteAccId)}"
+                                                                 icon="fa fa-fw fa-edit" />
+                                                <p:commandButton id="refreshSite"
+                                                                 actionListener="#{yodleeBean.addAcount('REFRESH_ACC',consData.siteDetail.siteAccId)}"
+                                                                 icon="fa fa-fw fa-refresh" />
+
+                                            </p:column>
+                                        </p:dataTable>
+                                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

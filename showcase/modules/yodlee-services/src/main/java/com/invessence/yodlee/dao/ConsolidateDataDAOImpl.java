@@ -69,7 +69,7 @@ public class ConsolidateDataDAOImpl implements ConsolidateDataDAO {
 		List<ConsolidateData> list = null;
 		try {
 			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "ydl_consolidate_data",
-															 ConsolidateData.class, where, values);
+					ConsolidateData.class, where, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
