@@ -128,7 +128,7 @@ public class YodleeBean implements Serializable {
             } else if (pageId.equalsIgnoreCase("profile")) {
 
             } else if (pageId.equalsIgnoreCase("aggr")) {
-
+                displayAggr();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,21 +213,6 @@ public class YodleeBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void userLogin() {
-        System.out.println("userLogin");
-        Map<String, Object> result = null;
-        try {
-            if (logonid == null) {
-                logonid = webutil.getLogonid();
-            }
-            result = yodleeAPIService.userLogin(logonid);
-            //return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //return result;
-    }
-
     public void addAcount(String operation, String siteId) {
         System.out.println("userRegistration");
         Map<String, Object> result = null;
@@ -292,6 +277,16 @@ public class YodleeBean implements Serializable {
             yodleeCharts.createPieModel(aggrData.getTotalLevelArray());
         else
             yodleeCharts.createPieModel(null);
+    }
+
+    private void displayAggr() {
+        if (yodleeCharts == null) {
+            yodleeCharts = new YodleeCharts();
+        }
+        if (aggrData != null && aggrData.getTotalAssetArray().size() > 0)
+            yodleeCharts.createBarModel(aggrData.getTotalAssetArray());
+        else
+            yodleeCharts.createBarModel(null);
     }
 
     public void redirecttoErrorPage(YodleeError errorInfo) {

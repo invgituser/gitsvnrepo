@@ -33,7 +33,12 @@
                                         <h3>Accounts</h3>
                                     </div>
                                     <div class="Wid50 Fright">
-                                        <p:commandButton value="Add Site" id="addSite" styleClass="Fright"
+                                        <p:commandButton value="Refresh All" styleClass="MarLeft5 Fright"
+                                                         id="refreshData"
+                                                         actionListener="#{yodleeBean.refreshAccountsData}"
+                                                         update=":aggrform:dashData"
+                                                         icon="fa fa-refresh"/>
+                                        <p:commandButton value="Add Site" id="addSite" styleClass="MarLeft5 Fright"
                                                          actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
                                                          update=":aggrform:acctData"
                                                          icon="fa fa-plus" />

@@ -1,0 +1,102 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/WEB-INF/template.xhtml">
+
+
+    <!--    <f:metadata>
+            <f:event type="preRenderView" listener="#{yodleeBean.preRenderView}"/>
+        </f:metadata>-->
+
+    <ui:define name="content">
+        <h:outputScript name="js/ydlCharts.js" library="yodlee"/>
+
+        <h:form id="aggrform">
+
+            <div class="Container100">
+                <!-- Left Column -->
+                <ui:include src="leftMenu.xhtml"/>
+                <!-- Right Column -->
+                <div class="Container90 Responsive100">
+                    <div class="Card Wid90 Fright">
+                        <!-- Section -->
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="BigTopic">
+                                    <div class="Wid50 Fleft">
+                                        <h3>Dashboard</h3>
+                                    </div>
+                                    <div class="Wid50 Fright">
+                                        <p:commandButton value="Refresh All" styleClass="MarLeft5 Fright"
+                                                         id="refreshData"
+                                                         actionListener="#{yodleeBean.refreshAccountsData}"
+                                                         update=":aggrform:dashData"
+                                                         icon="fa fa-refresh"/>
+                                        <p:commandButton value="Add Site" id="addSite" styleClass="MarLeft5 Fright"
+                                                         actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
+                                                         update=":aggrform:acctData"
+                                                         icon="fa fa-plus" />
+                                    </div>
+                                </div>
+                           </div>
+                        </div>
+                        <div class="Container100">
+                            <div class="Container50">
+                                <div class="ContainerIndent">
+                                        <p:dataTable id="dashData" var="dashData" value="#{yodleeBean.aggrData.totalLevelArray}"
+                                                style="border: 0px;">
+                                            <p:column style="width:6%">
+                                                <p:rowToggler />
+                                            </p:column>
+                                            <p:column headerText="Type"
+                                                      style="width:40%; text-align: left">
+                                                <h:outputText value="#{dashData.key}"/>
+                                            </p:column>
+
+                                            <p:column headerText="Balance"
+                                                      style="width:20%; text-align: right">
+                                                <h:outputText value="#{dashData.positionValue}">
+                                                   <f:convertNumber currencySymbol="$" type="currency"/>
+                                                </h:outputText>
+                                            </p:column>
+
+                                            <p:rowExpansion>
+                                                <p:dataTable  var="dashDetail" value="#{yodleeBean.aggrData.getAggregationLevelArray(dashData.key)}"
+                                                              style="border: 0px;">
+                                                    <p:column headerText="Site"
+                                                              style="width:50%; text-align: left">
+                                                        <h:outputText value="#{dashDetail.info}"/>
+                                                    </p:column>
+
+                                                    <p:column headerText="Value"
+                                                              style="width:25%; text-align: right">
+                                                        <h:outputText value="#{dashDetail.positionValue}">
+                                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </p:rowExpansion>
+                                        </p:dataTable>
+                                </div>
+                            </div>
+                            <div class="Container50">
+                                <div class="ContainerIndent">
+                                    <p:chart type="pie" model="#{yodleeBean.yodleeCharts.pieChart}"
+                                             rendered="#{yodleeBean.yodleeCharts.pieChart != null}"
+                                             style="width:450px;height:300px" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>
