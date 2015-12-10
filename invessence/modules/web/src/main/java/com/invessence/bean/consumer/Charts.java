@@ -268,7 +268,7 @@ public class Charts implements Serializable
       Double dividingFactor = 1.0;
       Boolean isthereagoal = (goalData != null) ? true: false;
 
-      lineChart = new LineChartModel();
+      goalChart = new LineChartModel();
       try
       {
          if (performanceData == null)
@@ -359,24 +359,24 @@ public class Charts implements Serializable
          // lineModel.addSeries(growth);
          //lineChart.addSeries(totalGrowth);
          // lineChart.addSeries(totalInvested);
-         lineChart.addSeries(lower2);
+         goalChart.addSeries(lower2);
          //lineChart.addSeries(lower1);
          //lineChart.addSeries(upper1);
-         lineChart.addSeries(upper2);
+         goalChart.addSeries(upper2);
          if (isthereagoal) {
-            lineChart.addSeries(goalline);
-            //lineChart.setSeriesColors("00FF00,7C8686,0000FF,0000FF,7C8686,FF0000");
-            lineChart.setSeriesColors("009ABB,009ABB,BB2100");
+            goalChart.addSeries(goalline);
+            //goalChart.setSeriesColors("00FF00,7C8686,0000FF,0000FF,7C8686,FF0000");
+            goalChart.setSeriesColors("009ABB,009ABB,BB2100");
          }
          else {
-            //lineChart.setSeriesColors("00FF00,7C8686,0000FF,0000FF,7C8686");
-            lineChart.setSeriesColors("009ABB,009ABB");
+            //goalChart.setSeriesColors("00FF00,7C8686,0000FF,0000FF,7C8686");
+            goalChart.setSeriesColors("009ABB,009ABB");
          }
-         lineChart.setShowPointLabels(true);
-         lineChart.setMouseoverHighlight(false);
-         lineChart.setShowDatatip(false);
+         goalChart.setShowPointLabels(true);
+         goalChart.setMouseoverHighlight(false);
+         goalChart.setShowDatatip(false);
 
-         Axis xAxis = lineChart.getAxis(AxisType.X);
+         Axis xAxis = goalChart.getAxis(AxisType.X);
          xAxis.setLabel("Years");
          xAxis.setMin(calendarYear);
          xAxis.setMax(maxYearPoint);
@@ -384,12 +384,12 @@ public class Charts implements Serializable
          // xAxis.setTickInterval("1");
          // xAxis.setTickAngle(90);
 
-         Axis yAxis = lineChart.getAxis(AxisType.Y);
+         Axis yAxis = goalChart.getAxis(AxisType.Y);
          //yAxis.setLabel("Projection");
          // yAxis.setMin(minGrowth);
          // yAxis.setMax(maxGrowth);
          yAxis.setTickFormat("$%'d");
-         lineChart.setExtender("line_extensions");
+         goalChart.setExtender("goals_extensions");
       }
       catch (Exception ex)
       {

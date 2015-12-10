@@ -171,17 +171,20 @@ public class ReportBean implements Serializable
          }
       }
    }
-   public void viewReport(ReportData thisReport) {
+   public String viewReport() {
+      ReportData thisReport = selectReport;
       if (thisReport != null) {
          if (thisReport.getViewReport())
             RequestContext.getCurrentInstance().openDialog("creportDialog");
       }
+      return "Success";
    }
 
 
    public String downloadReport() {
-      if (selectReport != null) {
-         if (selectReport.getDownloadReport())
+      ReportData thisReport = selectReport;
+      if (thisReport != null) {
+         if (thisReport.getDownloadReport())
             RequestContext.getCurrentInstance().openDialog("creportDialog");
       }
       return "Success";

@@ -30,7 +30,7 @@
                                                 style="height: 20px; width: 20px;"
                                                 rendered="#{! ctobean.disclosure(1)}"/>
                                 <p:commandLink styleClass="MarLeft10"
-                                               update=":ceForm:disclosurePanel"
+                                               update=":ctoForm:disclosurePanel"
                                                actionListener="#{ctobean.setDisclosure(1)}">
                                     Online Agreement
                                 </p:commandLink>
@@ -40,7 +40,7 @@
                             <div class="Container100 TexAlCenter MarTop10">
                                 <p:commandButton value="I Accept" disabled="#{ctobean.allApproved}"
                                                  styleClass="Fleft"
-                                                 update=":ceForm:disclosurePanel"
+                                                 update=":ctoForm:disclosurePanel"
                                                  actionListener="#{ctobean.acceptAll}"/>
                             </div>
 

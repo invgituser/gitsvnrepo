@@ -534,11 +534,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
          if (getPortfolioData() != null) {
             buildPerformanceData();
-            charts.createLineModel(getPerformanceData());
+            // charts.createLineModel(getPerformanceData());
             if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
                charts.createGoalChart(getPerformanceData(),getGoalData());
-            else
-               setShowGoalChart(false);
          }
 
       }
@@ -905,6 +903,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public void gotoPrevTab() {
+      showGoalChart = false;
       switch (rTab) {
          case 0:
             switch (pTab) {
@@ -961,15 +960,17 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    {
       this.showGoalChart = false;
       if (showGoalChart != null && getGoalData() != null) {
-         if (getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0) {
+              if (getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0) {
             this.showGoalChart = showGoalChart;
-         }
+              }
 
-      }
-   }
+           }
+         }
 
    public Boolean getShowGoalChart()
    {
+      if (showGoalChart == null)
+         return false;
       return showGoalChart;
    }
 }

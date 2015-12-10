@@ -8,7 +8,7 @@
 
     <f:metadata>
             <f:viewParam name="acct" value="#{ctobean.beanAcctnum}"/>
-            <f:event type="preRenderView" listener="#{ctobean.preRenderView}"/>
+            <f:event type="preRenderView" listener="#{ctobean.changeView}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -22,12 +22,11 @@
                     <div class="Container100 Responsive100">
                         <div class="ContainerIndent Responsive100">
                             <p:steps id="ctoprogressbar" activeIndex="#{ctobean.pagemanager.page}">
-                                <p:menuitem value="Start"/>
+                                <p:menuitem value="Account"/>
                                 <p:menuitem value="Address"/>
                                 <p:menuitem value="Personal"/>
                                 <p:menuitem value="Beneficiary"/>
-                                <p:menuitem value="Funding"/>
-                                <p:menuitem value="Disclosure"/>
+                                <p:menuitem value="Bank Info"/>
                             </p:steps>
                         </div>
                         <div class="Container100 Responsive100">
@@ -52,11 +51,8 @@
                             <ui:fragment rendered="#{ctobean.pagemanager.page == 3}">
                                 <ui:include src="/pages/consumer/cto/page_beneficiary.xhtml"/>
                             </ui:fragment>
-                            <ui:fragment rendered="#{ctobean.pagemanager.page == 4}">
+                            <ui:fragment rendered="#{ctobean.pagemanager.page == 3}">
                                 <ui:include src="/pages/consumer/cto/page_bank.xhtml"/>
-                            </ui:fragment>
-                            <ui:fragment rendered="#{ctobean.pagemanager.page == 5}">
-                                <ui:include src="/pages/consumer/cto/page_disclosure.xhtml"/>
                             </ui:fragment>
 
                             <div class="EmptyBox10"/>
@@ -76,6 +72,7 @@
             <!-- BOX END -->
 
         </h:form>
+
 
 
     </ui:define>

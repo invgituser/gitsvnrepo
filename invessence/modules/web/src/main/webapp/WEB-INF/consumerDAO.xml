@@ -20,6 +20,9 @@
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
 
+    <bean id="aggregationDAO" class="com.invessence.dao.consumer.AggregationDAO" >
+   		<property name="dataSource" ref="dataSource"/>
+   	</bean>
 
 
 </beans>

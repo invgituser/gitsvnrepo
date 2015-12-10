@@ -111,8 +111,9 @@
                             <p:panel style="border: 0px" rendered="#{! cepb.showGoalChart}">
                                 <div class="Container50  Fleft">
                                     <div class="Container100">
-                                            <p:chart type="pie" model="#{cepb.charts.pieChart}"
-                                                     responsive="true"/>
+                                        <p:chart type="pie" model="#{cepb.charts.pieChart}"
+                                                 rendered="#{cepb.charts.pieChart != null}"
+                                                 responsive="true"/>
                                     </div>
                                 </div>
                                 <div class="Container50 Fleft">
@@ -144,21 +145,21 @@
                                     <div class="ContainerIndent">
                                         <p:outputPanel deferred="true" rendered="#{cepb.goalData.goalDesired != null}" style="border: 0px" styleClass="TexAlCenter">
                                             <h:outputText value="Great, you'll reach this goal."
-							rendered="#{cepb.goalData.reachable}"
-							style="font-size: 1.2em; color: green">
-					    </h:outputText>
+                                                          rendered="#{cepb.goalData.reachable}"
+                                                          style="font-size: 1.2em; color: green">
+                                            </h:outputText>
                                             <h:outputText value="To reach your goal, see suggested recurring amount!"
-							rendered="#{! cepb.goalData.reachable}"
-							style="font-size: 1.2em; color: red">
-					    </h:outputText>
+                                                          rendered="#{! cepb.goalData.reachable}"
+                                                          style="font-size: 1.2em; color: red">
+                                            </h:outputText>
                                         </p:outputPanel>
                                     </div>
                                 </div>
                                 <div class="Container100  Fleft">
                                     <div class="Container100">
-                                            <p:chart type="line" model="#{cepb.charts.lineChart}"
-                                                     rendered="#{cepb.charts.lineChart != null}"
-                                                     responsive="true"/>
+                                        <p:chart type="line" model="#{cepb.charts.goalChart}"
+                                                 rendered="#{cepb.charts.goalChart != null}"
+                                                 responsive="true"/>
                                     </div>
                                 </div>
                             </p:panel>
