@@ -2,7 +2,29 @@
  * Created by abhangp on 11/23/2015.
  */
         function getFastLinkUrl(oauth_token, token_secret, consumer_key, consumer_secret, url, oauthCallBackURL) {
-           // alert("Parameters :\n"+oauth_token+"\n"+ token_secret+"\n"+ consumer_key+"\n"+ consumer_secret+"\n"+ url+"\n"+ oauthCallBackURL)
+
+            var finalUrl=getUrlWithSignature(oauth_token, token_secret, consumer_key, consumer_secret, url, oauthCallBackURL);
+
+        var ifrm = document.createElement("IFRAME");
+            ifrm.style.width = 750 + "px";
+            ifrm.style.height = 525 + "px";
+            $.colorbox({inline:true, href: ifrm});
+            ifrm.setAttribute("src", finalUrl);
+            // What a silly solution
+            cover = document.createElement("DIV");
+            cover.style.width = 30 + "px";
+            cover.style.height = 30 + "px";
+            cover.style.background = "#ffffff";
+            cover.style.position = "absolute";
+            cover.style.top = "5px";
+            cover.style.right = "5px";
+            $('#cboxContent').css('position','relative');
+            $('#cboxContent').append(cover);
+        }
+
+        function getUrlWithSignature(oauth_token, token_secret, consumer_key, consumer_secret, url, oauthCallBackURL){
+
+            // alert("Parameters :\n"+oauth_token+"\n"+ token_secret+"\n"+ consumer_key+"\n"+ consumer_secret+"\n"+ url+"\n"+ oauthCallBackURL)
             var method = "GET";
             var signature = "+";
             var authSeconds;
@@ -28,23 +50,13 @@
             var finalUrl = url + "?"+oauthCallBackURL+"&"+parameters;
             finalUrl += "&oauth_signature="+signature;
 
+            //alert(finalUrl);
 
+            if(/\+/.test(finalUrl)) {
+                return getUrlWithSignature(oauth_token, token_secret, consumer_key, consumer_secret, url, oauthCallBackURL);
+            }
 
-            var ifrm = document.createElement("IFRAME");
-            ifrm.style.width = 750 + "px";
-            ifrm.style.height = 525 + "px";
-            $.colorbox({inline:true, href: ifrm});
-            ifrm.setAttribute("src", finalUrl);
-            // What a silly solution
-            cover = document.createElement("DIV");
-            cover.style.width = 30 + "px";
-            cover.style.height = 30 + "px";
-            cover.style.background = "#ffffff";
-            cover.style.position = "absolute";
-            cover.style.top = "5px";
-            cover.style.right = "5px";
-            $('#cboxContent').css('position','relative');
-            $('#cboxContent').append(cover);
+            return finalUrl;
         }
 
         function freshTimestamp() {
