@@ -10,11 +10,11 @@
     </parent>
 
     <groupId>org.primefaces</groupId>
-    <artifactId>ltam</artifactId>
+    <artifactId>Symbil</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>ltam</name>
+    <name>Symbil</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -78,10 +78,6 @@
             <groupId>com.invessence</groupId>
             <artifactId>ltammodel</artifactId>
             <version>${invessence.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>webcab</groupId>
-            <artifactId>portfolioJ2SE</artifactId>
         </dependency>
 
         <dependency>

@@ -10,6 +10,22 @@
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
       </configuration>
+      <facet type="jsf" name="JSF">
+        <configuration />
+      </facet>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/LTAMDAO.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/allDAO.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/messageSource.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/dataLoadingSingletons.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/dataSource.xml</file>
+          <file>file://$MODULE_DIR$/src/main/webapp/WEB-INF/properties.xml</file>
+        </fileset>
+      </configuration>
     </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="false">
@@ -60,7 +76,6 @@
     <orderEntry type="library" name="Maven: com.google.guava:guava:r08" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-dbutils:commons-dbutils:1.5" level="project" />
-    <orderEntry type="library" name="Maven: webcab:portfolioJ2SE:5.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.collections:google-collections:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.jdom:jdom:1.1" level="project" />
     <orderEntry type="library" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0-m02" level="project" />

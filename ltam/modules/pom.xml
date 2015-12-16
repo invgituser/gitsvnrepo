@@ -20,6 +20,6 @@
       <module>core</module>
       <module>emailer</module>
       <module>ltammodel</module>
-      <module>iAdvice</module>
+      <module>Symbil</module>
    </modules>
 </project>
