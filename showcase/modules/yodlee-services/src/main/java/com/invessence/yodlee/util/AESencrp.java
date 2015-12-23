@@ -1,7 +1,6 @@
 package com.invessence.yodlee.util;
 
 import java.security.Key;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import sun.misc.BASE64Decoder;
@@ -9,7 +8,7 @@ import sun.misc.BASE64Encoder;
 
 public class AESencrp {
     
-    private static final String ALGO = "AES";
+   private static final String ALGO = "AES";
    private static final byte[] keyValue = new byte[] { 'I', 'n', 'v', 'e', 's', 's', 'e' ,'n', 'c', 'e', 'Y', 'o', 'd', 'l', 'e', 'e'};
 
 

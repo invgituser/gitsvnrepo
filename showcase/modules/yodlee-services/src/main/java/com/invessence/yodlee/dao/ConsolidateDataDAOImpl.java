@@ -56,9 +56,9 @@ public class ConsolidateDataDAOImpl implements ConsolidateDataDAO {
 	}
 
 	public ConsolidateData findByPK(Long Id) {
-		ConsolidateData consData= null;
+		ConsolidateData consData = null;
 		try {
-			consData=(ConsolidateData)sessionFactory.getCurrentSession().get(ConsolidateData.class, Id);
+			consData = (ConsolidateData) sessionFactory.getCurrentSession().get(ConsolidateData.class, Id);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -80,8 +80,8 @@ public class ConsolidateDataDAOImpl implements ConsolidateDataDAO {
 		List<ConsolidateData> lst = null;
 		try {
 			lst = (List<ConsolidateData>) sessionFactory.getCurrentSession()
-				.createQuery("from ConsolidateData where " + where).list();
-			Iterator<ConsolidateData> itr=lst.iterator();
+					.createQuery("from ConsolidateData where " + where).list();
+			Iterator<ConsolidateData> itr = lst.iterator();
 			while (itr.hasNext()) {
 				ConsolidateData consolidateData = (ConsolidateData) itr.next();
 				consolidateData.getSiteDetail().getSiteName();

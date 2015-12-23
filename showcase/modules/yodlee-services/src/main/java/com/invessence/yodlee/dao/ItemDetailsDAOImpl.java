@@ -2,7 +2,6 @@ package com.invessence.yodlee.dao;
 
 import java.util.List;
 
-
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,10 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class ItemDetailsDAOImpl implements ItemDetailsDAO {
 
 	@Autowired
-    private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	@Autowired
 	HibernateUtil hibernateutil;
-	
+
 	public ItemDetail insertItemDetails(ItemDetail itemDetails) {
 		try {
 			sessionFactory.getCurrentSession().save(itemDetails);
@@ -42,7 +41,8 @@ public class ItemDetailsDAOImpl implements ItemDetailsDAO {
 	public ItemDetail deleteItemDetails(ItemDetail itemDetails) {
 		try {
 			sessionFactory.getCurrentSession().delete(itemDetails);
-		} catch (Exception e) {e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return itemDetails;
 	}
@@ -51,7 +51,8 @@ public class ItemDetailsDAOImpl implements ItemDetailsDAO {
 		List<ItemDetail> list = null;
 		try {
 			list = sessionFactory.getCurrentSession().createQuery("from ItemDetail").list();
-		} catch (Exception e) {e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -59,26 +60,32 @@ public class ItemDetailsDAOImpl implements ItemDetailsDAO {
 	public ItemDetail findByPK(Long Id) {
 		List<ItemDetail> lst = null;
 		try {
-			lst=(List<ItemDetail>)sessionFactory.getCurrentSession().createQuery("from ItemDetail sm where sm.SM_ID=:ID").setLong("ID", Id).list();
-		} catch (Exception e) {e.printStackTrace();
+			lst = (List<ItemDetail>) sessionFactory.getCurrentSession()
+					.createQuery("from ItemDetail sm where sm.SM_ID=:ID").setLong("ID", Id).list();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return lst==null?null:lst.size()==0?null:lst.get(0);
+		return lst == null ? null : lst.size() == 0 ? null : lst.get(0);
 	}
 
 	public List<ItemDetail> findByWhereCluase(String where, Object[] values) {
 		List<ItemDetail> list = null;
 		try {
-			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", ItemDetail.class, where, values);
-		} catch (Exception e) {e.printStackTrace();
+			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "ydl_item_details", ItemDetail.class,
+					where, values);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
 
 	public List<ItemDetail> findByWhereCluase(String where) {
-		List<ItemDetail> lst = null; 
+		List<ItemDetail> lst = null;
 		try {
-			lst=(List<ItemDetail>)sessionFactory.getCurrentSession().createQuery("from ItemDetail where "+where).list();
-		} catch (Exception e) {e.printStackTrace();
+			lst = (List<ItemDetail>) sessionFactory.getCurrentSession().createQuery("from ItemDetail where " + where)
+					.list();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return lst;
 	}

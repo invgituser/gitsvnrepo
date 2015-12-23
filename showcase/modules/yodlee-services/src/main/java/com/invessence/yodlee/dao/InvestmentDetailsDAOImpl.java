@@ -48,7 +48,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 	public List<InvestmentDetail> getInvestmentDetailsList() {
 		List<InvestmentDetail> list = null;
 		try {
-			list = sessionFactory.getCurrentSession().createQuery("from InvestmentDetails").list();
+			list = sessionFactory.getCurrentSession().createQuery("from InvestmentDetail").list();
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
@@ -57,7 +57,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 	public InvestmentDetail findByPK(Long Id) {
 		List<InvestmentDetail> lst = null;
 		try {
-			lst=(List<InvestmentDetail>)sessionFactory.getCurrentSession().createQuery("from InvestmentDetails sm where sm.SM_ID=:ID").setLong("ID", Id).list();
+			lst=(List<InvestmentDetail>)sessionFactory.getCurrentSession().createQuery("from InvestmentDetail sm where sm.SM_ID=:ID").setLong("ID", Id).list();
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst==null?null:lst.size()==0?null:lst.get(0);
@@ -66,7 +66,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 	public List<InvestmentDetail> findByWhereCluase(String where, Object[] values) {
 		List<InvestmentDetail> list = null;
 		try {
-			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", InvestmentDetail.class, where, values);
+			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "ydl_investment_details", InvestmentDetail.class, where, values);
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
@@ -75,7 +75,7 @@ public class InvestmentDetailsDAOImpl implements InvestmentDetailsDAO {
 	public List<InvestmentDetail> findByWhereCluase(String where) {
 		List<InvestmentDetail> lst = null; 
 		try {
-			lst=(List<InvestmentDetail>)sessionFactory.getCurrentSession().createQuery("from InvestmentDetails where "+where).list();
+			lst=(List<InvestmentDetail>)sessionFactory.getCurrentSession().createQuery("from InvestmentDetail where "+where).list();
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst;

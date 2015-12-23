@@ -12,17 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class BankDetailsDAOImpl implements BankDetailsDAO{
+public class BankDetailsDAOImpl implements BankDetailsDAO {
 
 	@Autowired
-    private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory;
 	@Autowired
 	HibernateUtil hibernateutil;
-	
+
 	public BankDetail insertBankDetails(BankDetail bankDetails) {
 		try {
 			sessionFactory.getCurrentSession().save(bankDetails);
-		} catch (Exception e) {e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return bankDetails;
 	}
@@ -30,7 +31,8 @@ public class BankDetailsDAOImpl implements BankDetailsDAO{
 	public BankDetail updateBankDetails(BankDetail bankDetails) {
 		try {
 			sessionFactory.getCurrentSession().update(bankDetails);
-		} catch (Exception e) {e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return bankDetails;
 	}
@@ -38,7 +40,8 @@ public class BankDetailsDAOImpl implements BankDetailsDAO{
 	public BankDetail deleteBankDetails(BankDetail bankDetails) {
 		try {
 			sessionFactory.getCurrentSession().delete(bankDetails);
-		} catch (Exception e) {e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return bankDetails;
 	}
@@ -47,7 +50,8 @@ public class BankDetailsDAOImpl implements BankDetailsDAO{
 		List<BankDetail> list = null;
 		try {
 			list = sessionFactory.getCurrentSession().createQuery("from BankDetail").list();
-		} catch (Exception e) {e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
@@ -55,26 +59,32 @@ public class BankDetailsDAOImpl implements BankDetailsDAO{
 	public BankDetail findByPK(Long Id) {
 		List<BankDetail> lst = null;
 		try {
-			lst=(List<BankDetail>)sessionFactory.getCurrentSession().createQuery("from BankDetail sm where sm.SM_ID=:ID").setLong("ID", Id).list();
-		} catch (Exception e) {e.printStackTrace();
+			lst = (List<BankDetail>) sessionFactory.getCurrentSession()
+					.createQuery("from BankDetail sm where sm.SM_ID=:ID").setLong("ID", Id).list();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return lst==null?null:lst.size()==0?null:lst.get(0);
+		return lst == null ? null : lst.size() == 0 ? null : lst.get(0);
 	}
 
 	public List<BankDetail> findByWhereCluase(String where, Object[] values) {
 		List<BankDetail> list = null;
 		try {
-			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", BankDetail.class, where, values);
-		} catch (Exception e) {e.printStackTrace();
+			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "ydl_bank_details", BankDetail.class,
+					where, values);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return list;
 	}
 
 	public List<BankDetail> findByWhereCluase(String where) {
-		List<BankDetail> lst = null; 
+		List<BankDetail> lst = null;
 		try {
-			lst=(List<BankDetail>)sessionFactory.getCurrentSession().createQuery("from BankDetail where "+where).list();
-		} catch (Exception e) {e.printStackTrace();
+			lst = (List<BankDetail>) sessionFactory.getCurrentSession().createQuery("from BankDetail where " + where)
+					.list();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return lst;
 	}
