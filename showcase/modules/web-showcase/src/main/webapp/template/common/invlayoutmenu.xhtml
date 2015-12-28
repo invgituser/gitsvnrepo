@@ -8,65 +8,9 @@
 
     <h:form id="menutopbar">
         <ps:menu>
-            <f:facet name="options">
-                <p:commandButton value="Dashboard" icon="fa fa-home" styleClass="Fs14 BlueButton"
-                                 actionListener="#{uiportal.redirectStartPage}"/>
-            </f:facet>
-
-            <p:submenu label="Account" icon="fa fa-file-text-o">
-                <p:menuitem value="New" icon="fa fa-plus-square"
-                            actionListener="#{uiportal.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
-                <p:menuitem value="Management" icon="fa fa-institution"
-                            actionListener="#{uiportal.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
-                <p:menuitem value="Yodlee" icon="fa fa-plus-square"
-                            rendered="#{uiportal.hasAccessMenu('USER')}"
-                            actionListener="#{yodleeBean.startup}"/>
-                <p:menuitem value="Change Account Info"
-                            rendered="#{uiportal.hasAccessMenu('USER')}"
-                            outcome="/pages/consumer/cto/acctchange.xhtml"/>
-            </p:submenu>
-
-            <p:separator rendered="#{uiportal.hasAccessMenu('USER')}"/>
-
-            <p:menuitem value="Reports" icon="fa fa-picture-o" rendered="#{uiportal.hasAccessMenu('USER')}"
-                        actionListener="#{uiportal.doMenuAction('/consumer/creports.xhtml')}"/>
-
-            <p:separator rendered="#{uiportal.hasAccessMenu('ADVISOR')}"/>
-
-            <p:menuitem value="Sales Rep" icon="fa fa-user-md"
-                        rendered="#{uiportal.hasAccessMenu('ADVISOR')}"
-                        actionListener="#{uiportal.doMenuAction('/advisor/alist.xhtml')}"/>
-
-
-            <p:separator rendered="#{uiportal.enableMenu('SALES')}"/>
-
-            <p:menuitem value="Marketing" icon="fa fa-wifi" rendered="#{uiportal.enableMenu('SALES')}"
-                        actionListener="#{uiportal.doMenuAction('/advisor/marketing.xhtml')}"/>
-
-            <p:separator rendered="#{uiportal.enableMenu('ADMIN')}"/>
-
-            <p:menuitem value="Operations" icon="fa fa-briefcase" rendered="#{uiportal.enableMenu('ADMIN')}"
-                        actionListener="#{uiportal.doMenuAction('/admin/trade.xhtml')}"/>
-
-            <p:separator rendered="#{uiportal.enableMenu('ADVISOR')}"/>
-
-            <p:menuitem value="Investments" icon="fa fa-th-list" outcome="/pages/advisor/assets.xhtml"
-                        rendered="#{uiportal.enableMenu('ADVISOR')}"/>
-
-            <p:separator rendered="#{uiportal.enableMenu('DEMO')}"/>
-
-            <p:submenu label="Demo" icon="fa fa-file-text-o"
-                       rendered="#{uiportal.enableMenu('DEMO')}">
-                <p:menuitem value="Compliance"
-                            actionListener="#{uiportal.doMenuAction('/consumer/custReview.xhtml')}"/>
-            </p:submenu>
-
-            <p:separator rendered="#{uiportal.enableMenu('DEVELOPER')}"/>
-
-            <p:submenu label="Developer" icon="fa fa-asterisk"
-                       rendered="#{uiportal.enableMenu('DEVELOPER')}">
-                <p:menuitem value="Standard Dashboard" outcome="/spark/dashboard.xhtml"/>
-                <p:menuitem value="Font Icons" icon="fa fa-paint-brush" outcome="/spark/font-icons.xhtml"/>
+            <p:submenu label="DEMO" icon="fa fa-file-text-o">
+               <p:menuitem value="Yodlee" icon="fa fa-plus-square"
+                           outcome="/pages/consumer/aggr/start.xhtml"/>
             </p:submenu>
 
         </ps:menu>

@@ -4,15 +4,17 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
-                template="/WEB-INF/template.xhtml">
+                template="/template/common/invlayout.xhtml">
 
     <ui:define name="content">
+        <h:outputScript name="js/ydlCharts.js" library="yodlee"/>
 
         <h:form id="agform">
-        <p:growl id="growl" life="2000" />
+            <p:growl id="growl" life="2000"/>
+
             <div class="Container100">
                 <!-- Left Column -->
-               <ui:include src="leftMenu.xhtml"/>
+                <ui:include src="leftMenu.xhtml"/>
                 <!-- Right Column -->
                 <div class="Container90 Responsive100">
                     <div class="Card Wid90 Fright">
@@ -32,27 +34,28 @@
                                         <p:commandButton value="Add Site" id="addSite" styleClass="MarLeft5 Fright"
                                                          actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
                                                          update=":agform:agArea"
-                                                         icon="fa fa-plus" />
+                                                         icon="fa fa-plus"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <p:outputPanel id="agArea" style="border: 0px">
                             <div class="Container100">
-                                <div class="ContainerIndent">
-                                    <p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget">
-                                        <p:fieldset legend="Summary" toggleable="true">
-                                            <div class="Container60">
+                                <p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget">
+                                    <p:fieldset legend="Summary" toggleable="true">
+                                        <div class="Container50">
+                                            <div class="ContainerIndent">
                                                 <p:dataTable id="aggrDT" var="aggrViewData"
                                                              value="#{yodleeBean.aggrData.totalAssetArray}"
                                                              styleClass="invAllocTable" style="border: 0px;"
                                                              reflow="true">
-                                                    <p:column style="width:2%; text-align: left; background: #{aggrViewData.info}">
+                                                    <p:column
+                                                            style="width:2%; text-align: left; background: #{aggrViewData.info}">
                                                         <p:spacer width="1"/>
                                                     </p:column>
 
                                                     <p:column headerText="Type"
-                                                              style="width:20%; text-align: left">
+                                                              style="width:40%; text-align: left">
                                                         <h:outputText value="#{aggrViewData.key}"/>
                                                     </p:column>
 
@@ -65,22 +68,25 @@
 
                                                     <p:column headerText="Weight"
                                                               style="width:10%; text-align: right">
-                                                        <h:outputText value="#{yodleeBean.aggrData.getPercentValue(aggrViewData.positionValue, yodleeBean.aggrData.grandAbsTotalPositionValue)}">
+                                                        <h:outputText value="#{aggrViewData.percentAllocation}">
                                                             <f:convertNumber pattern="###.00%"/>
                                                         </h:outputText>
                                                     </p:column>
                                                 </p:dataTable>
                                             </div>
-                                            <div class="Container40">
-                                                <p:chart type="bar" model="#{yodleeCharts.horizontalBarModel}"/>
+                                        </div>
+                                        <div class="Container50">
+                                            <div class="ContainerIndent">
+                                                <p:chart type="bar" model="#{yodleeCharts.barModel}"/>
                                             </div>
-                                        </p:fieldset>
-                                        <div class="EmptyBox20"/>
-                                        <p:fieldset legend="Details" toggleable="true" collapsed="true">
+                                        </div>
+                                    </p:fieldset>
 
-                                        </p:fieldset>
-                                    </p:outputPanel>
-                                </div>
+                                    <div class="EmptyBox20"/>
+                                    <p:fieldset legend="Details" toggleable="true" collapsed="true">
+
+                                    </p:fieldset>
+                                </p:outputPanel>
                             </div>
 
                         </p:outputPanel>

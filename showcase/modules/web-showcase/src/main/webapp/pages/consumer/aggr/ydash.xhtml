@@ -7,11 +7,9 @@
                 template="/template/common/invlayout.xhtml">
 
 
-    <!--
-        <f:metadata>
+    <!--    <f:metadata>
             <f:event type="preRenderView" listener="#{yodleeBean.preRenderView}"/>
-        </f:metadata>
-    -->
+        </f:metadata>-->
 
     <ui:define name="content">
         <h:outputScript library="yodlee" name="js/oauth.js"/>
@@ -73,7 +71,7 @@
                                         <p:commandButton value="Add Site" id="addSite" styleClass="MarLeft5 Fleft"
                                                          actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
                                                          icon="fa fa-institution">
-                                            <p:ajax oncomplete="onComplete()" update=":adform:adArea"/>
+                                            <p:ajax oncomplete="#{yodleeBean.refreshAccountsData}" update=":adform:adArea"/>
                                         </p:commandButton>
                                         <p:commandButton value="Refresh All" styleClass="MarLeft5 Fright"
                                                          id="refreshData"
@@ -87,13 +85,8 @@
                                         <p:dataTable id="dashData" var="dashData"
                                                      value="#{yodleeBean.aggrData.totalSiteArray}"
                                                      style="border: 0px;">
-
-                                            <p:column style="width:5%">
-                                                <p:rowToggler />
-                                            </p:column>
-
                                             <p:column headerText="Type"
-                                                      style="width:60%; text-align: left">
+                                                      style="width:30%; text-align: left">
                                                 <h:outputText value="#{dashData.key}"/>
                                             </p:column>
 
@@ -105,42 +98,19 @@
                                             </p:column>
 
                                             <p:column headerText="Percent"
-                                                      style="width:15%; text-align: right">
+                                                      style="width:10%; text-align: right">
                                                 <h:outputText value="#{dashData.percentAllocation}">
                                                     <f:convertNumber pattern="###.00%"/>
                                                 </h:outputText>
                                             </p:column>
-
-                                            <p:rowExpansion>
-                                                <table class="invNBgrid">
-
-                                                    <ui:repeat var="sublist" value="#{dashData.alternateList}" >
-
-                                                        <tr>
-                                                            <td style="width: 60%;">#{sublist.key}</td>
-                                                            <td style="text-align: right; width: 20%">
-                                                                <h:outputText value="#{sublist.positionValue}">
-                                                                    <f:convertNumber currencySymbol="$" type="currency"/>
-                                                                </h:outputText>
-                                                            </td>
-                                                        </tr>
-
-                                                    </ui:repeat>
-
-                                                </table>
-                                            </p:rowExpansion>
-
                                         </p:dataTable>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="Container50">
+                           <div class="Container50">
                                 <div class="ContainerIndent">
-                                    <p:chart type="bar" model="#{yodleeBean.yodleeCharts.ydl_typeModel}"
-                                            rendered="#{yodleeBean.yodleeCharts.ydl_typeModel != null}"
-                                            responsive="true"
-                                            style="height: 600px"/>
+                                    <p:chart type="bar" model="#{yodleeBean.yodleeCharts.ydl_typeModel}"/>
                                 </div>
                             </div>
                         </div>

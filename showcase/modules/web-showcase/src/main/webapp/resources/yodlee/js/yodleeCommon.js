@@ -92,3 +92,8 @@
                 return true;
             }
         }
+
+        function onComplete(data)
+        {
+            return true;
+        }
