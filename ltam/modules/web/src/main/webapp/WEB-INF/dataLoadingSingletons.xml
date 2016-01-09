@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+       xmlns:task="http://www.springframework.org/schema/task">
+
+   <!--
+      <bean id="portfolioOptimizer" class="com.invmodel.dao.invdb.PortfolioOptimizer" factory-method="getInstance"/>
+      <bean id="secDao" class="com.invmodel.dao.invdb.SecurityCollection"/>
+      <bean id="tlhSecurityCollection" class="com.invmodel.rebalance.TLHSecurityCollection" factory-method="getInstance"/>
+
+      <bean id="refreshDelay" class="java.lang.Long">
+         <constructor-arg value="36000000"/>
+      </bean>
+
+      <task:scheduled-tasks>
+         <task:scheduled ref="portfolioOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
+         <task:scheduled ref="tlhSecurityCollection" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
+       </task:scheduled-tasks>
+
+      <bean id="assetAllocationModel" class="com.invmodel.asset.AssetAllocationModel" factory-method="getInstance">
+         <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      </bean>
+
+      &lt;!&ndash;  This is no longer an Instance, instead, it is get Portfolio object &ndash;&gt;
+      <bean id="portfolioModel" class="com.invmodel.portfolio.PortfolioModel">
+         <property name="securityDao" ref="secDao"/>
+         <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      </bean>
+
+      <bean id="rebalanceProcess" class="com.invmodel.rebalance.RebalanceProcess" factory-method="getInstance">
+         <property name="tlhSecurityCollection" ref="tlhSecurityCollection"/>
+         <property name="securityDAO" ref="secDao"/>
+         <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      </bean>
+
+      <bean id="portfolioPerformance" class="com.invmodel.performance.PortfolioPerformance" factory-method="getInstance">
+      </bean>
+   -->
+
+   <bean id="ltamOptimizer" class="com.ltammodel.LTAMOptimizer" factory-method="getInstance"/>
+
+
+   <bean id="refreshDelay" class="java.lang.Long">
+      <constructor-arg value="36000000"/>
+   </bean>
+
+   <task:scheduled-tasks>
+      <task:scheduled ref="ltamOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
+    </task:scheduled-tasks>
+
+
+
+</beans>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="EntryPointsManager">
+    <entry_points version="2.0" />
+  </component>
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/modules/iAdvice" />
+    <file type="web" url="file://$PROJECT_DIR$/modules/showcase" />
+    <file type="web" url="file://$PROJECT_DIR$/modules/web" />
+    <file type="web" url="file://$PROJECT_DIR$/modules/web2" />
+    <file type="web" url="file://$PROJECT_DIR$/modules/yodlee-web/yodlee-jsf" />
+    <file type="web" url="file://$PROJECT_DIR$/modules/yodlee-web/yodlee-poc" />
+    <file type="web" url="file://$PROJECT_DIR$/modules/yodlee/yodlee-jsf" />
+    <file type="web" url="file://$PROJECT_DIR$/modules/yodlee/yodlee-poc" />
+    <file type="web" url="file://$PROJECT_DIR$/web-internal" />
+  </component>
+  <component name="IdProvider" IDEtalkID="D526D9B67D834AC489F3E91AF93F84D0" />
+  <component name="JsfProjectComponent">
+    <option name="faceletsSupport" value="ENABLED" />
+  </component>
+  <component name="MavenBuildProjectComponent">
+    <option name="mavenExecutable" value="" />
+    <option name="Settings File" value="C:\Users\Prashant\.m2\settings.xml" />
+    <option name="mavenCommandLineParams" value="" />
+    <option name="vmOptions" value="" />
+    <option name="useMavenEmbedder" value="false" />
+    <option name="useFilter" value="false" />
+    <option name="Batch Mode" value="false" />
+    <option name="Check Plugin Updates" value="false" />
+    <option name="Debug" value="false" />
+    <option name="Errors" value="false" />
+    <option name="Fail At End" value="false" />
+    <option name="Fail Fast" value="false" />
+    <option name="Fail Never" value="false" />
+    <option name="Lax Checksums" value="false" />
+    <option name="No Plugin Registry" value="false" />
+    <option name="No Plugin Updates" value="false" />
+    <option name="Non Recursive" value="false" />
+    <option name="Offline" value="false" />
+    <option name="Reactor" value="false" />
+    <option name="Strict Checksums" value="false" />
+    <option name="Update Plugins" value="false" />
+    <option name="Update Snapshots" value="false" />
+    <option name="Skip Tests" value="false" />
+    <pom-list />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/modules/docusign/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/iAdvice/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/ibservice/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/invmodel/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/rbsa-preprocessor/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/reports/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/showcase/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/trade/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/virtual-trades/pom.xml" />
+        <option value="$PROJECT_DIR$/modules/yodlee-web/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_6" assert-keyword="true" jdk-15="true" project-jdk-name="1.7" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+  <component name="SvnBranchConfigurationManager">
+    <option name="myConfigurationMap">
+      <map>
+        <entry key="$PROJECT_DIR$">
+          <value>
+            <SvnBranchConfiguration>
+              <option name="branchUrls">
+                <list>
+                  <option value="http://69.195.39.117:1000/repos" />
+                </list>
+              </option>
+              <option name="trunkUrl" value="http://69.195.39.117:1000/repos/InvEssence/trunk/invessence" />
+            </SvnBranchConfiguration>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="mySupportsUserInfoFilter" value="true" />
+  </component>
+</project>
+

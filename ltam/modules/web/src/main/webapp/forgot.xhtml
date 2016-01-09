@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/simplelayout.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="email" value="#{userBean.email}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <div id="layout-portlets-cover">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                 style="margin-top:5%;">
+                <div class="Container90 Fnone MarAuto TexAlCenter">
+                    <div class="EmptyBox20"></div>
+                    <h:form>
+                        <h:graphicImage id="logo" name="#{menu.logo}" styleClass="Fleft" library="spark-layout"
+                                        class="MarAuto MarTop20 MarBot10"/>
+                        <div class="EmptyBox15"></div>
+                        <p:panel id="forgotID" styleClass="Container100" style="border:0px">
+
+                            <p:panel id="p1" styleClass="Container100 Responsive50 TexAlLeft"
+                                     style="border: 0px">
+                                <div class="Container90 Responsive50">
+                                    <div class="ContainerIndent">
+                                        <p:panelGrid columns="1" layout="grid"
+                                                     style="border:0px !important; padding: 5px !important; background:none;" class="FormContent">
+                                            <p:messages id="messages" autoUpdate="true" styleClass="Wid90"/>
+                                            <p:inputText id="userID" placeholder="User ID" styleClass="Container80 Fnone MarAuto Fs18"
+                                                         required="true" requiredMessage="Please enter User ID."
+                                                         value="#{userBean.beanUserID}">
+                                                <p:watermark value="User ID" for="userID"/>
+                                            </p:inputText>
+                                        </p:panelGrid>
+                                    </div>
+                                </div>
+                            </p:panel>
+                            <div class="EmptyBox30"></div>
+                            <f:facet name="footer">
+                                <p:commandButton value="Send Email" type="submit" styleClass="Fs16 Blue Fright"
+                                                 actionListener="#{userBean.forgotPassword}"
+                                                 update="p1"/>
+                            </f:facet>
+                        </p:panel>
+                    </h:form>
+                </div>
+                <div class="EmptyBox50"></div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

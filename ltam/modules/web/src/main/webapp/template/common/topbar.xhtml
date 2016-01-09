@@ -1,0 +1,29 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    
+    <!-- TOPBAR START -->
+    <div id="layout-topbar">
+        <a id="mobile-menu-button">
+            <span class="ButtonLine" id="ButtonLine1"></span>
+            <span class="ButtonLine" id="ButtonLine2"></span>
+            <span class="ButtonLine" id="ButtonLine3"></span>
+        </a>
+        <a href="#" id="logo">
+            <h:graphicImage name="#{uiLayout.uiprofile.logo}" styleClass="Fleft"
+                            library="#{uiLayout.uiprofile.logolib}" />
+        </a>
+        
+        <a id="show-top-menu" class="ShowOnMobile ripplelink">
+            <i class="icon-more_vert" id="active"></i>
+            <i class="icon-close DispNone" id="passive"></i>
+        </a>
+        
+    </div>
+    <!-- TOPBAR END -->
+    
+</ui:composition>
