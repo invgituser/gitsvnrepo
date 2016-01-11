@@ -1,6 +1,14 @@
 package com.invessence.yodlee.util;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import org.springframework.util.ClassUtils;
 
 public class CommonUtil {
 	
@@ -13,9 +21,10 @@ public class CommonUtil {
 
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
-
 	}
 
+	/*  To generate random password */
+	
 	public static String passGenerator() {
 
 		Random r = new Random();
@@ -46,15 +55,40 @@ public class CommonUtil {
 		return "Password@2015";//pass;
 	}
 
-	/*
-	 * public static void main(String[] args) { System.out.println(new
-	 * CommonUtil().passGenerator()); }
-	 */
+	/*  To print strackTrace in log file	 */
 
-	public static void main(String[] args) {
+ 	public static String stackTraceToString(StackTraceElement[] stackTrace) {
+        StringWriter sw = new StringWriter();
+        printStackTrace(stackTrace, new PrintWriter(sw));
+        return sw.toString();
+    }
+    public static void printStackTrace(StackTraceElement[] stackTrace, PrintWriter pw) {
+        for(StackTraceElement stackTraceEl : stackTrace) {
+            pw.println(stackTraceEl);
+        }
+    }
+	
+    
+    /*  To print all class object in console */
+	public static String objectToString(Object o) {
+		ArrayList<String> list = new ArrayList<String>();
+		CommonUtil.objectToString(o, o.getClass(), list);
+		return o.getClass().getName().concat(list.toString());
+	}
 
-		
-		
+	private static void objectToString(Object o, Class<?> clazz, List<String> list) {
+		Field f[] = clazz.getDeclaredFields();
+		AccessibleObject.setAccessible(f, true);
+		for (int i = 0; i < f.length; i++) {
+			try {
+				list.add(f[i].getName() + "=" + f[i].get(o));
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		}
+		if (clazz.getSuperclass().getSuperclass() != null) {
+			objectToString(o, clazz.getSuperclass(), list);
+		}
 	}
 
 }

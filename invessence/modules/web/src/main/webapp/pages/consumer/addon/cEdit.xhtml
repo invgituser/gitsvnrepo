@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100">
-        <div class="Container50 Fleft Responsive50">
+        <div class="Container50 Fleft Responsive100">
             <div class="ContainerIndent">
                 <p:panel id="inputArea" style="border: 0px">
                     <p:tabView id="pTabView" activeIndex="#{cepb.pTab}"
@@ -61,22 +61,22 @@
                     </p:tabView>
                     <f:facet name="footer">
                         <p:commandButton id="prevBtn" value="Previous" styleClass="Fleft" rendered="#{cepb.enablePrevButton}"
-                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView"
+                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
                                          actionListener="#{cepb.gotoPrevTab}"/>
                         <p:commandButton id="nextBtn" value="Next" styleClass="Fright" rendered="#{cepb.enableNextButton}"
                                          type="submit"
-                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView"
+                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
                                          actionListener="#{cepb.gotoNextTab}"/>
                     </f:facet>
                 </p:panel>
             </div>
         </div>
-        <div class="Container50 Fleft Responsive50">
+        <div class="Container50 Fleft Responsive100">
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px">
                     <div class="Container100 Responsive100">
                         <div class="Container100">
-                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10">
+                            <div class="Wid25 BorderedBox Fright TexAlCenter Mar10 MarLeft5">
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Investment Risk</span>
@@ -91,7 +91,7 @@
                             </div>
 
 
-                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10">
+                            <div class="Wid25 BorderedBox Fright TexAlCenter Mar10 MarLeft5">
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Expected Return</span>
@@ -106,8 +106,7 @@
                             </div>
                         </div>
 
-                        <p:outputPanel id="charts" style="border: 0px"
-                                       deferred="true">
+                        <p:outputPanel id="charts" style="border: 0px">
                             <p:panel style="border: 0px" rendered="#{! cepb.showGoalChart}">
                                 <div class="Container50  Fleft">
                                     <div class="Container100">

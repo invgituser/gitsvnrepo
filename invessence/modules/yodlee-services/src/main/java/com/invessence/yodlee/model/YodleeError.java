@@ -7,8 +7,34 @@ public class YodleeError {
 	private String exceptionType;
 	private String referenceCode;
 	private String message;
+	private int errorCode;
 
-   public Integer getSeverity()
+	public YodleeError() {
+		// TODO Auto-generated constructor stub
+	}
+ 
+
+public YodleeError(Integer severity, String errorOccurred, String exceptionType, String referenceCode,
+			String message, int errorCode) {
+		super();
+		this.severity = severity;
+		this.errorOccurred = errorOccurred;
+		this.exceptionType = exceptionType;
+		this.referenceCode = referenceCode;
+		this.message = message;
+		this.errorCode = errorCode;
+	}
+
+
+public int getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
+
+public Integer getSeverity()
    {
       return severity;
    }

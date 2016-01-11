@@ -4,6 +4,7 @@ import com.invessence.converter.JavaUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -14,204 +15,97 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class AggregationData {
-    private Map<String,ArrayList<AggregationDetailData>> aggregationDetailDataArrayMap; // Map of Accounts with details
-    private Map<String,Map<String,AggregationSummaryData>> aggregationLevelArrayMap;      // Map of Sites with details
-    private Map<String,Map<String,AggregationSummaryData>> aggregationSiteArrayMap;      // Map of Sites with details
-    private Map<String,Map<String,AggregationSummaryData>> aggregationAssetArrayMap;     // Map of Asset with details
-    private Map<String,Map<String,AggregationSummaryData>> aggregationSubAssetArrayMap;  // Map of Subasset with details
+    private ArrayList<AggregationDetailData> aggregationDetailDataArray; // Map of Accounts with details
 
     private Map<String,String> siteLogo;                               // Map of Logo
-    private Map<String,AggregationSummaryData> totalLevelArrayMap;     // Map of Level for total
-    private Map<String,AggregationSummaryData> totalSiteArrayMap;      // Map of Sites for total
-    private Map<String,AggregationSummaryData> totalAssetArrayMap;     // Map of Asset for total
-    private Map<String,AggregationSummaryData> totalSubAssetArrayMap;  // Map of Subasset for total
+    private Map<String,AssetMaster> assetMasterMap;                    // Map of Colors
 
-    private Integer grandTotalQuantity;
-    private Double  grandTotalCostBasisMoney;
-    private Double  grandTotalPositionValue;
-    private Double  grandTotalFifoPnlUnrealized;
-    private Double  grandAbsTotalPositionValue;
+    private Map<String, AggregationSummaryData> totalTypeMap;      // Array of Level for total
+    private Map<String, AggregationSummaryData> totalSiteMap;      // Array of Sites + Accounts for total
+    private Map<String, AggregationSummaryData> totalAssetMap;     // Array of Site + Asset for total
+
+    private ArrayList<AggregationSummaryData> assetList;           // Array of Assets for total
+
+    private Double  grandTotalAssetValue;
+    private Double  grandTotalLiabilityValue;
+    private Double  grandAbsTotalValue;
+
 
     public AggregationData() {
-        aggregationDetailDataArrayMap = new HashMap<String, ArrayList<AggregationDetailData>>();
-        aggregationLevelArrayMap = new HashMap<String, Map<String,AggregationSummaryData>>();
-        aggregationSiteArrayMap = new HashMap<String, Map<String,AggregationSummaryData>>();
-        aggregationAssetArrayMap = new HashMap<String, Map<String,AggregationSummaryData>>();
-        aggregationSubAssetArrayMap = new HashMap<String, Map<String,AggregationSummaryData>>();
-        totalLevelArrayMap = new HashMap<String, AggregationSummaryData>();
-        totalSiteArrayMap = new HashMap<String, AggregationSummaryData>();
-        totalAssetArrayMap = new HashMap<String, AggregationSummaryData>();
-        totalSubAssetArrayMap = new HashMap<String, AggregationSummaryData>();
+        aggregationDetailDataArray = new ArrayList<AggregationDetailData>();
+        assetMasterMap = new LinkedHashMap<String,AssetMaster>();
+        grandTotalAssetValue = 0.0;
+        grandTotalLiabilityValue = 0.0;
+        grandAbsTotalValue = 0.0;
+
     }
 
-    public void addData(Integer sortorder, String sitename, String siteid,
+    public void addData(Integer sortorder, String src, String sitename, String siteid, String datatype,
                         Long acctnum, String clientAccountID, String acctname,
                         String currencyPrimary, String assetClass, String color, String subclass,
                         Double fxRateToBase, String symbol, String description, String reportDate, String side,
                         Integer quantity, Double costBasisPrice, Double costBasisMoney, Double markPrice,
-                        Double positionValue, Double fifoPnlUnrealized, String levelOfDetail) {
+                        Double positionValue, Double fifoPnlUnrealized) {
 
-        levelOfDetail = JavaUtil.UppercaseFirstLetters(levelOfDetail);
+        datatype = JavaUtil.UppercaseFirstLetters(datatype);
         assetClass = JavaUtil.UppercaseFirstLetters(assetClass);
         subclass = JavaUtil.UppercaseFirstLetters(subclass);
 
         if (side != null && side.toUpperCase().startsWith("S")) {
-            quantity = quantity * -1;
             costBasisMoney = costBasisMoney * -1;
             positionValue = positionValue * -1;
             fifoPnlUnrealized = positionValue - costBasisMoney;
         }
 
-        addToLevel(levelOfDetail, sitename,
-                   quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        addToSite(sitename, acctname,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        addToAsset(assetClass, sitename,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        addToSubAsset(subclass, description,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-
-        totalByLevel(levelOfDetail, sitename,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        totalBySite(sitename, acctname,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        totalByAsset(assetClass, color,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        totalBySubAsset(subclass, description,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-
         addSiteLogo(sitename, siteid);
-        addToDetail(sortorder,  sitename, siteid,
+
+        if (aggregationDetailDataArray == null) {
+            aggregationDetailDataArray = new ArrayList<AggregationDetailData>();
+        }
+
+        AggregationDetailData aggrData = new AggregationDetailData(sortorder,  src,
+                sitename, siteid, datatype,
                 acctnum,  clientAccountID,  acctname,
                 currencyPrimary,  assetClass,  color,  subclass,
                 fxRateToBase,  symbol,  description,  reportDate,  side,
                 quantity,  costBasisPrice,  costBasisMoney,  markPrice,
-                positionValue,  fifoPnlUnrealized,  levelOfDetail );
+                positionValue,  fifoPnlUnrealized);
 
-        grandTotalQuantity = addIntValue(grandTotalQuantity,quantity);
-        grandTotalCostBasisMoney = addDoubleValue(grandTotalCostBasisMoney, costBasisMoney);
-        grandTotalPositionValue = addDoubleValue(grandTotalPositionValue, positionValue);
-        grandTotalFifoPnlUnrealized = addDoubleValue(grandTotalFifoPnlUnrealized, fifoPnlUnrealized);
-        grandAbsTotalPositionValue = addDoubleValue(grandAbsTotalPositionValue, Math.abs(positionValue));
+        aggregationDetailDataArray.add(aggrData);
 
-
-    }
-
-    public ArrayList<AggregationDetailData> getAggregationDetailDataArray(String clientAccountID) {
-        if (aggregationDetailDataArrayMap == null)
-            return null;
-        return aggregationDetailDataArrayMap.get(clientAccountID);
-    }
-
-    public ArrayList<AggregationSummaryData> getAggregationLevelArray(String levelname) {
-        if (aggregationLevelArrayMap == null)
-            return null;
-        if (! aggregationLevelArrayMap.containsKey(levelname))
-            return null;
-
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: aggregationLevelArrayMap.get(levelname).keySet()) {
-                alist.add(aggregationLevelArrayMap.get(levelname).get(key));
+        if (datatype.toUpperCase().equals("INVESTMENT") || datatype.toUpperCase().equals("CASH")) {
+            grandTotalAssetValue = addDoubleValue(grandTotalAssetValue, Math.abs(positionValue));
         }
-        return alist;
-    }
-
-    public ArrayList<AggregationSummaryData> getAggregationSiteArray(String sitename) {
-        if (aggregationSiteArrayMap == null)
-            return null;
-        if (! aggregationSiteArrayMap.containsKey(sitename))
-            return null;
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: aggregationSiteArrayMap.get(sitename).keySet()) {
-            alist.add(aggregationSiteArrayMap.get(sitename).get(key));
+        else {
+            if (positionValue < 0.0) {
+                grandTotalLiabilityValue = addDoubleValue(grandTotalLiabilityValue, Math.abs(positionValue));
+            }
         }
-        return alist;
+
+        grandAbsTotalValue = addDoubleValue(grandAbsTotalValue, Math.abs(positionValue));
+
+
     }
 
-    public ArrayList<AggregationSummaryData> getAggregationSubAssetArray(String assetclass) {
-        if (aggregationAssetArrayMap == null)
-            return null;
-        if (! aggregationAssetArrayMap.containsKey(assetclass))
-            return null;
-
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: aggregationAssetArrayMap.get(assetclass).keySet()) {
-            alist.add(aggregationAssetArrayMap.get(assetclass).get(key));
+    public void addAssetMasterData(String assetclass, String subclass,
+                                   String color, Integer sortorder) {
+        if (assetMasterMap == null) {
+            assetMasterMap = new LinkedHashMap<String, AssetMaster>();
         }
-        return alist;
-    }
 
-    public ArrayList<AggregationSummaryData> getAggregationAssetArray(String subclass) {
-        if (aggregationSubAssetArrayMap == null)
-            return null;
-        if (! aggregationSubAssetArrayMap.containsKey(subclass))
-            return null;
-
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: aggregationSubAssetArrayMap.get(subclass).keySet()) {
-            alist.add(aggregationSubAssetArrayMap.get(subclass).get(key));
+        if (! assetMasterMap.containsKey(assetclass)) {
+            AssetMaster assetMasterData = new AssetMaster(assetclass, subclass, color, sortorder);
+            assetMasterMap.put(assetclass,assetMasterData);
         }
-        return alist;
+
+
     }
 
-    public ArrayList<AggregationSummaryData> getTotalLevelArray() {
-        if (totalLevelArrayMap == null)
-            return null;
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: totalLevelArrayMap.keySet()) {
-            alist.add(totalLevelArrayMap.get(key));
-        }
-        return alist;
-    }
-
-    public ArrayList<AggregationSummaryData> getTotalSiteArray() {
-        if (totalSiteArrayMap == null)
-            return null;
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: totalSiteArrayMap.keySet()) {
-            alist.add(totalSiteArrayMap.get(key));
-        }
-        return alist;
-    }
-
-    public ArrayList<AggregationSummaryData> getTotalAssetArray() {
-        if (totalAssetArrayMap == null)
-            return null;
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: totalAssetArrayMap.keySet()) {
-            alist.add(totalAssetArrayMap.get(key));
-        }
-        return alist;
-    }
-
-    public ArrayList<AggregationSummaryData> getTotalSubAssetArray() {
-        if (totalSubAssetArrayMap == null)
-            return null;
-        ArrayList<AggregationSummaryData> alist = new ArrayList<AggregationSummaryData>();
-        for (String key: totalSubAssetArrayMap.keySet()) {
-            alist.add(totalSubAssetArrayMap.get(key));
-        }
-        return alist;
-    }
-
-    public Integer getGrandTotalQuantity() {
-        return grandTotalQuantity;
-    }
-
-    public Double getGrandTotalCostBasisMoney() {
-        return grandTotalCostBasisMoney;
-    }
-
-    public Double getGrandTotalPositionValue() {
-        return grandTotalPositionValue;
-    }
-
-    public Double getGrandTotalFifoPnlUnrealized() {
-        return grandTotalFifoPnlUnrealized;
-    }
-
-    public Double getGrandAbsTotalPositionValue() {
-        return grandAbsTotalPositionValue;
+    public void addTotal() {
+        totalTypeMap = getAllDataTypes("TYPE");
+        totalSiteMap = getAllDataTypes("SITE");
+        totalAssetMap = getAllDataTypes("ASSETS");
+        assetList = buildAssetList();
     }
 
     public Double getPercentValue(Double value1, Double value2) {
@@ -224,32 +118,6 @@ public class AggregationData {
         return Math.abs(value1) / Math.abs(value2);
     }
 
-    private void addToDetail(Integer sortorder, String sitename, String siteid,
-                             Long acctnum, String clientAccountID, String acctname,
-                             String currencyPrimary, String assetClass, String color, String subclass,
-                             Double fxRateToBase, String symbol, String description, String reportDate, String side,
-                             Integer quantity, Double costBasisPrice, Double costBasisMoney, Double markPrice,
-                             Double positionValue, Double fifoPnlUnrealized, String levelOfDetail) {
-
-        ArrayList<AggregationDetailData> aggregationDetailDataList;
-        AggregationDetailData aggregationDetailData = new AggregationDetailData(
-                 sortorder,  sitename, siteid,
-                 acctnum,  clientAccountID,  acctname,
-                 currencyPrimary,  assetClass,  color,  subclass,
-                 fxRateToBase,  symbol,  description,  reportDate,  side,
-                 quantity,  costBasisPrice,  costBasisMoney,  markPrice,
-                 positionValue,  fifoPnlUnrealized,  levelOfDetail
-        );
-
-        if (aggregationDetailDataArrayMap.containsKey(clientAccountID)) {
-            aggregationDetailDataList = aggregationDetailDataArrayMap.get(clientAccountID);
-        }
-        else {
-            aggregationDetailDataList = new ArrayList<AggregationDetailData>();
-        }
-        aggregationDetailDataList.add(aggregationDetailData);
-        aggregationDetailDataArrayMap.put(clientAccountID,aggregationDetailDataList);
-    }
 
     private Integer addIntValue(Integer value1, Integer value2) {
         if (value1 == null && value2 == null) {
@@ -279,196 +147,16 @@ public class AggregationData {
 
     }
 
-    private void addToLevel(String level, String info,
-                               Integer quantity, Double costBasisMoney,
-                               Double positionValue, Double fifoPnlUnrealized) {
-
-        AggregationSummaryData aggrData1;
-        Map<String,AggregationSummaryData> siteMap;
-        if (aggregationLevelArrayMap.containsKey(level)) {
-            if (aggregationLevelArrayMap.get(level).containsKey(info)) {
-                siteMap = aggregationLevelArrayMap.get(level);
-                aggrData1 = aggregationLevelArrayMap.get(level).get(info);
-                aggrData1.setQuantity(addIntValue(quantity, aggrData1.getQuantity()));
-                aggrData1.setCostBasisMoney(addDoubleValue(costBasisMoney, aggrData1.getCostBasisMoney()));
-                aggrData1.setPositionValue(addDoubleValue(positionValue, aggrData1.getPositionValue()));
-                aggrData1.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggrData1.getFifoPnlUnrealized()));
-                siteMap.put(info, aggrData1);
-                aggregationLevelArrayMap.put(level, siteMap);
-                return;
-            }
-            siteMap = aggregationLevelArrayMap.get(level);
-        }
-        else {
-            siteMap = new HashMap<String, AggregationSummaryData>();
-        }
-        aggrData1 = new AggregationSummaryData(level, info,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        siteMap.put(info,aggrData1);
-        aggregationLevelArrayMap.put(level,siteMap);
+    public Double getGrandTotalAssetValue() {
+        return grandTotalAssetValue;
     }
 
-    private void addToSite(String sitename, String info,
-                           Integer quantity, Double costBasisMoney,
-                           Double positionValue, Double fifoPnlUnrealized) {
-        AggregationSummaryData aggrData1;
-        Map<String,AggregationSummaryData> siteMap;
-        if (aggregationSiteArrayMap.containsKey(sitename)) {
-            if (aggregationSiteArrayMap.get(sitename).containsKey(info)) {
-                siteMap = aggregationSiteArrayMap.get(sitename);
-                aggrData1 = aggregationSiteArrayMap.get(sitename).get(info);
-                aggrData1.setQuantity(addIntValue(quantity, aggrData1.getQuantity()));
-                aggrData1.setCostBasisMoney(addDoubleValue(costBasisMoney, aggrData1.getCostBasisMoney()));
-                aggrData1.setPositionValue(addDoubleValue(positionValue, aggrData1.getPositionValue()));
-                aggrData1.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggrData1.getFifoPnlUnrealized()));
-                siteMap.put(info,aggrData1);
-                aggregationSiteArrayMap.put(sitename,siteMap);
-                return;
-            }
-            siteMap = aggregationSiteArrayMap.get(sitename);
-        }
-        else {
-            siteMap = new HashMap<String, AggregationSummaryData>();
-        }
-        aggrData1 = new AggregationSummaryData(sitename, info,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        siteMap.put(info,aggrData1);
-        aggregationSiteArrayMap.put(sitename,siteMap);
+    public Double getGrandTotalLiabilityValue() {
+        return grandTotalLiabilityValue;
     }
 
-    private void addToAsset(String assetClass, String info,
-                           Integer quantity, Double costBasisMoney,
-                           Double positionValue, Double fifoPnlUnrealized) {
-
-        AggregationSummaryData aggrData1;
-        Map<String,AggregationSummaryData> siteMap;
-        if (aggregationAssetArrayMap.containsKey(assetClass)) {
-            if (aggregationAssetArrayMap.get(assetClass).containsKey(info)) {
-                siteMap = aggregationAssetArrayMap.get(assetClass);
-                aggrData1 = aggregationAssetArrayMap.get(assetClass).get(info);
-                aggrData1.setQuantity(addIntValue(quantity, aggrData1.getQuantity()));
-                aggrData1.setCostBasisMoney(addDoubleValue(costBasisMoney, aggrData1.getCostBasisMoney()));
-                aggrData1.setPositionValue(addDoubleValue(positionValue, aggrData1.getPositionValue()));
-                aggrData1.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggrData1.getFifoPnlUnrealized()));
-                siteMap.put(info, aggrData1);
-                aggregationAssetArrayMap.put(assetClass, siteMap);
-                return;
-            }
-            siteMap = aggregationAssetArrayMap.get(assetClass);
-        }
-        else {
-            siteMap = new HashMap<String, AggregationSummaryData>();
-        }
-        aggrData1 = new AggregationSummaryData(assetClass, info,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        siteMap.put(info,aggrData1);
-        aggregationAssetArrayMap.put(assetClass,siteMap);
-    }
-
-    private void addToSubAsset(String subclass, String info,
-                            Integer quantity, Double costBasisMoney,
-                            Double positionValue, Double fifoPnlUnrealized) {
-
-        AggregationSummaryData aggrData1;
-        Map<String,AggregationSummaryData> siteMap;
-        if (aggregationSubAssetArrayMap.containsKey(subclass)) {
-            if (aggregationSubAssetArrayMap.get(subclass).containsKey(info)) {
-                siteMap = aggregationSubAssetArrayMap.get(subclass);
-                aggrData1 = aggregationSubAssetArrayMap.get(subclass).get(info);
-                aggrData1.setQuantity(addIntValue(quantity, aggrData1.getQuantity()));
-                aggrData1.setCostBasisMoney(addDoubleValue(costBasisMoney, aggrData1.getCostBasisMoney()));
-                aggrData1.setPositionValue(addDoubleValue(positionValue, aggrData1.getPositionValue()));
-                aggrData1.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggrData1.getFifoPnlUnrealized()));
-                siteMap.put(info, aggrData1);
-                aggregationSubAssetArrayMap.put(subclass, siteMap);
-                return;
-            }
-            siteMap = aggregationSubAssetArrayMap.get(subclass);
-        }
-        else {
-            siteMap = new HashMap<String, AggregationSummaryData>();
-        }
-        aggrData1 = new AggregationSummaryData(subclass, info,
-                quantity, costBasisMoney, positionValue, fifoPnlUnrealized);
-        siteMap.put(info,aggrData1);
-        aggregationSubAssetArrayMap.put(subclass,siteMap);
-    }
-
-
-    private void totalByLevel(String levelname, String info,
-                             Integer quantity, Double costBasisMoney,
-                             Double positionValue, Double fifoPnlUnrealized) {
-        AggregationSummaryData aggr2Data;
-        if (totalLevelArrayMap.containsKey(levelname)) {
-            aggr2Data = totalLevelArrayMap.get(levelname);
-            aggr2Data.setQuantity(addIntValue(quantity, aggr2Data.getQuantity()));
-            aggr2Data.setCostBasisMoney(addDoubleValue(costBasisMoney, aggr2Data.getCostBasisMoney()));
-            aggr2Data.setPositionValue(addDoubleValue(positionValue, aggr2Data.getPositionValue()));
-            aggr2Data.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggr2Data.getFifoPnlUnrealized()));
-        }
-        else {
-            aggr2Data = new AggregationSummaryData(levelname, info,
-                    quantity, costBasisMoney,
-                    positionValue,fifoPnlUnrealized);
-            totalLevelArrayMap.put(levelname, aggr2Data);
-        }
-    }
-
-    private void totalBySite(String sitename, String info,
-                           Integer quantity, Double costBasisMoney,
-                           Double positionValue, Double fifoPnlUnrealized) {
-        AggregationSummaryData aggr2Data;
-            if (totalSiteArrayMap.containsKey(sitename)) {
-                aggr2Data = totalSiteArrayMap.get(sitename);
-                aggr2Data.setQuantity(addIntValue(quantity, aggr2Data.getQuantity()));
-                aggr2Data.setCostBasisMoney(addDoubleValue(costBasisMoney, aggr2Data.getCostBasisMoney()));
-                aggr2Data.setPositionValue(addDoubleValue(positionValue, aggr2Data.getPositionValue()));
-                aggr2Data.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggr2Data.getFifoPnlUnrealized()));
-            }
-        else {
-                aggr2Data = new AggregationSummaryData(sitename, info,
-                        quantity, costBasisMoney,
-                        positionValue,fifoPnlUnrealized);
-                totalSiteArrayMap.put(sitename, aggr2Data);
-            }
-    }
-
-    private void totalByAsset(String assetclass, String info,
-                             Integer quantity, Double costBasisMoney,
-                             Double positionValue, Double fifoPnlUnrealized) {
-        AggregationSummaryData aggr2Data;
-        if (totalAssetArrayMap.containsKey(assetclass)) {
-            aggr2Data = totalAssetArrayMap.get(assetclass);
-            aggr2Data.setQuantity(addIntValue(quantity, aggr2Data.getQuantity()));
-            aggr2Data.setCostBasisMoney(addDoubleValue(costBasisMoney, aggr2Data.getCostBasisMoney()));
-            aggr2Data.setPositionValue(addDoubleValue(positionValue, aggr2Data.getPositionValue()));
-            aggr2Data.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggr2Data.getFifoPnlUnrealized()));
-        }
-        else {
-            aggr2Data = new AggregationSummaryData(assetclass, info,
-                    quantity, costBasisMoney,
-                    positionValue,fifoPnlUnrealized);
-            totalAssetArrayMap.put(assetclass, aggr2Data);
-        }
-    }
-
-    private void totalBySubAsset(String subclass, String info,
-                              Integer quantity, Double costBasisMoney,
-                              Double positionValue, Double fifoPnlUnrealized) {
-        AggregationSummaryData aggr2Data;
-        if (totalSubAssetArrayMap.containsKey(subclass)) {
-            aggr2Data = totalSubAssetArrayMap.get(subclass);
-            aggr2Data.setQuantity(addIntValue(quantity, aggr2Data.getQuantity()));
-            aggr2Data.setCostBasisMoney(addDoubleValue(costBasisMoney, aggr2Data.getCostBasisMoney()));
-            aggr2Data.setPositionValue(addDoubleValue(positionValue, aggr2Data.getPositionValue()));
-            aggr2Data.setFifoPnlUnrealized(addDoubleValue(fifoPnlUnrealized, aggr2Data.getFifoPnlUnrealized()));
-        }
-        else {
-            aggr2Data = new AggregationSummaryData(subclass, info,
-                    quantity, costBasisMoney,
-                    positionValue,fifoPnlUnrealized);
-            totalSubAssetArrayMap.put(subclass, aggr2Data);
-        }
+    public Double getGrandAbsTotalValue() {
+        return grandAbsTotalValue;
     }
 
     private void addSiteLogo(String sitename, String siteid) {
@@ -483,10 +171,223 @@ public class AggregationData {
         }
     }
 
+    public String getAssetColor(String assetclass) {
+
+        if (assetclass != null) {
+            if (assetMasterMap.containsKey(assetclass)) {
+                return assetMasterMap.get(assetclass).getColor();
+            }
+        }
+        return "#F5F5F5";
+    }
+
     public String getLogo(String sitename) {
         if (siteLogo.containsKey(sitename))
             return siteLogo.get(sitename);
         return null;
+    }
+
+    private void buildMap(Map<String, AggregationSummaryData> dataMap,
+                         String datakey, String info, String subListKey,
+                         AggregationDetailData detail) {
+
+        Double costBasisMoney;
+        Double positionValue;
+        Double fifoPnlUnrealized;
+        Double percentAllocation;
+        AggregationSummaryData summaryData;
+        String color;
+
+
+        color = null;
+        if (assetMasterMap != null) {
+            if (assetMasterMap.containsKey(subListKey))
+                color = assetMasterMap.get(subListKey).getColor();
+            else
+                color = null;
+        }
+        if (dataMap.containsKey(datakey)) {
+            // If data found, then add total and add detail record
+            summaryData = dataMap.get(datakey);
+            costBasisMoney = addDoubleValue(detail.getCostBasisMoney(), summaryData.getCostBasisMoney());
+            positionValue = addDoubleValue(detail.getPositionValue(), summaryData.getPositionValue());
+            fifoPnlUnrealized = addDoubleValue(detail.getFifoPnlUnrealized(), summaryData.getFifoPnlUnrealized());
+            percentAllocation = getPercentValue(positionValue,grandAbsTotalValue);
+            summaryData.setCostBasisMoney(costBasisMoney);
+            summaryData.setPositionValue(positionValue);
+            summaryData.setFifoPnlUnrealized(fifoPnlUnrealized);
+            summaryData.setPercentAllocation(percentAllocation);
+            summaryData.addAlternateMap(subListKey, color,
+                    detail.getCostBasisMoney(), detail.getPositionValue(),
+                    detail.getFifoPnlUnrealized(), percentAllocation);
+            dataMap.put(datakey, summaryData);
+        }
+        else {
+            // Create new Summary record
+            positionValue = detail.getPositionValue();
+            percentAllocation = getPercentValue(positionValue, grandAbsTotalValue);
+            summaryData = new AggregationSummaryData(datakey, info,
+                                detail.getCostBasisMoney(),
+                                detail.getPositionValue(),
+                                detail.getFifoPnlUnrealized(),
+                                percentAllocation);
+            summaryData.addAlternateMap(subListKey, color,
+                    detail.getCostBasisMoney(), detail.getPositionValue(),
+                    detail.getFifoPnlUnrealized(), percentAllocation);
+            dataMap.put(datakey, summaryData);
+        }
+    }
+
+    private ArrayList<AggregationSummaryData> buildArrayList(Map<String, AggregationSummaryData> dataMap) {
+       ArrayList<AggregationSummaryData> arrayList = new ArrayList<AggregationSummaryData>();
+       try {
+           if (dataMap != null) {
+              for (AggregationSummaryData data: dataMap.values()) {
+                  arrayList.add(data);
+              }
+           }
+           return arrayList;
+       }
+       catch (Exception ex) {
+          return null;
+       }
+    }
+
+    public Map<String, AggregationSummaryData> getAllDataTypes(String dataname) {
+        String datakey;
+        String info;
+        String subListKey;
+        AggregationDetailData aggrData;
+
+        Integer datapos = 9;
+
+        if (dataname.toUpperCase().equals("ASSETS"))
+            datapos = 0;
+        else
+        if (dataname.toUpperCase().equals("SITE"))
+            datapos = 1;
+        else
+        if (dataname.toUpperCase().equals("TYPE"))
+            datapos = 2;
+
+        Map<String, AggregationSummaryData> dataMap = new HashMap<String, AggregationSummaryData>();
+
+        try {
+            datakey = null;
+            info = null;
+            subListKey = null;
+            for (AggregationDetailData detail : aggregationDetailDataArray) {
+                switch (datapos) {
+                    case 0:
+                        if (detail.getDatatype().toUpperCase().equals("INVESTMENT")) {
+                            datakey = detail.getSitename();
+                            info = detail.getSiteid();
+                            subListKey = detail.getAssetClass();
+                        }
+                        else
+                            continue;
+                        break;
+                    case 1:
+                        datakey = detail.getSitename();
+                        info = detail.getSiteid();
+                        subListKey = detail.getAcctname();
+                        break;
+                    case 2:
+                        datakey = detail.getDatatype();
+                        info = detail.getSitename();
+                        subListKey = detail.getSitename();
+                        break;
+                    default:
+                        break;
+                }
+                if (datakey != null) {
+                    buildMap(dataMap, datakey, info, subListKey, detail);
+                }
+            }
+        }
+        catch (Exception ex) {
+            return null;
+        }
+        return dataMap;
+    }
+
+    public ArrayList<AggregationSummaryData> getTotalTypeArray() {
+        return buildArrayList(totalTypeMap);
+    }
+
+    public ArrayList<AggregationSummaryData> getTotalSiteArray() {
+        return buildArrayList(totalSiteMap);
+    }
+
+    public ArrayList<AggregationSummaryData> getTotalAssetArray() {
+        return buildArrayList(totalAssetMap);
+    }
+
+    public Map<String, AggregationSummaryData> getTotalTypeMap() {
+        return totalTypeMap;
+    }
+
+    public Map<String, AggregationSummaryData> getTotalSiteMap() {
+        return totalSiteMap;
+    }
+
+    public Map<String, AggregationSummaryData> getTotalAssetMap() {
+        return totalAssetMap;
+    }
+
+    public Map<String, AssetMaster> getAssetMasterMap() {
+        return assetMasterMap;
+    }
+
+    public ArrayList<AggregationSummaryData> getAssetList() {
+        return assetList;
+    }
+
+    public ArrayList<AssetMaster> getAssetMasterList() {
+        if (assetMasterMap == null)
+            return null;
+
+        ArrayList<AssetMaster> arrayList = new ArrayList<AssetMaster>();
+        for (String key: assetMasterMap.keySet()) {
+            arrayList.add(assetMasterMap.get(key));
+        }
+        return arrayList;
+    }
+
+    public ArrayList<AggregationSummaryData> buildAssetList() {
+        if (assetMasterMap == null)
+            return null;
+
+        ArrayList<AggregationSummaryData> arrayList = new ArrayList<AggregationSummaryData>();
+        AggregationSummaryData data;
+        Double posValue;
+        Double percent;
+        for (String assetname : assetMasterMap.keySet()) {
+            data = new AggregationSummaryData(
+                    assetname, assetMasterMap.get(assetname).getColor(),
+                    0.0,
+                    0.0,
+                    0.0,
+                    0.0);
+            posValue = 0.0;
+            percent = 0.0;
+            if (totalAssetMap != null) {
+                // For every sitename, find its assetclass.
+                for (String sitename : totalAssetMap.keySet()) {
+                    if (totalAssetMap.get(sitename).getAlternateMap() != null) {
+                        if (totalAssetMap.get(sitename).getAlternateMap().containsKey(assetname)) {
+                            posValue = posValue + totalAssetMap.get(sitename).getAlternateMap().get(assetname).getPositionValue();
+                        }
+                    }
+                }
+                data.setPositionValue(posValue);
+                data.setPercentAllocation(posValue / getGrandTotalAssetValue());
+            }
+
+            arrayList.add(data);
+        }
+        return arrayList;
+
     }
 
 }

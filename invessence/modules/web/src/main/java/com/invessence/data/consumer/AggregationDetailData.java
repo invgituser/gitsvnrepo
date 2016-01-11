@@ -9,8 +9,10 @@ package com.invessence.data.consumer;
  */
 public class AggregationDetailData {
     private Integer sortorder;
+    private String src;
     private String sitename;
     private String siteid;
+    private String datatype;
     private Long acctnum;
     private String clientAccountID;
     private String acctname;
@@ -29,20 +31,22 @@ public class AggregationDetailData {
     private Double markPrice;
     private Double positionValue;
     private Double fifoPnlUnrealized;
-    private String levelOfDetail;
+    private Double percentAllocation;
 
     public AggregationDetailData() {
     }
 
-    public AggregationDetailData(Integer sortorder, String sitename, String siteid,
+    public AggregationDetailData(Integer sortorder, String src, String sitename, String siteid, String datatype,
                                  Long acctnum, String clientAccountID, String acctname,
                                  String currencyPrimary, String assetClass, String color, String subclass,
                                  Double fxRateToBase, String symbol, String description, String reportDate, String side,
                                  Integer quantity, Double costBasisPrice, Double costBasisMoney, Double markPrice,
-                                 Double positionValue, Double fifoPnlUnrealized, String levelOfDetail) {
+                                 Double positionValue, Double fifoPnlUnrealized) {
         this.sortorder = sortorder;
+        this.src = src;
         this.sitename = sitename;
         this.siteid = siteid;
+        this.datatype = datatype;
         this.acctnum = acctnum;
         this.clientAccountID = clientAccountID;
         this.acctname = acctname;
@@ -61,7 +65,6 @@ public class AggregationDetailData {
         this.markPrice = markPrice;
         this.positionValue = positionValue;
         this.fifoPnlUnrealized = fifoPnlUnrealized;
-        this.levelOfDetail = levelOfDetail;
     }
 
     public Integer getSortorder() {
@@ -70,6 +73,14 @@ public class AggregationDetailData {
 
     public void setSortorder(Integer sortorder) {
         this.sortorder = sortorder;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 
     public String getSitename() {
@@ -86,6 +97,14 @@ public class AggregationDetailData {
 
     public void setSiteid(String siteid) {
         this.siteid = siteid;
+    }
+
+    public String getDatatype() {
+        return datatype;
+    }
+
+    public void setDatatype(String datatype) {
+        this.datatype = datatype;
     }
 
     public Long getAcctnum() {
@@ -232,11 +251,28 @@ public class AggregationDetailData {
         this.fifoPnlUnrealized = fifoPnlUnrealized;
     }
 
-    public String getLevelOfDetail() {
-        return levelOfDetail;
+    public Double getPercentAllocation() {
+        return percentAllocation;
     }
 
-    public void setLevelOfDetail(String levelOfDetail) {
-        this.levelOfDetail = levelOfDetail;
+    public void setPercentAllocation(Double percentAllocation) {
+        this.percentAllocation = percentAllocation;
+    }
+
+    public AggregationDetailData copyData() {
+        try {
+            AggregationDetailData newData = new AggregationDetailData(
+                    this.sortorder, this.src, this.sitename, this.siteid, this.datatype,
+                    this.acctnum, this.clientAccountID, this.acctname,
+                    this.currencyPrimary, this.assetClass, this.color, this.subclass,
+                    this.fxRateToBase, this.symbol, this.description, this.reportDate, this.side,
+                    this.quantity, this.costBasisPrice, this.costBasisMoney, this.markPrice,
+                    this.positionValue, this.fifoPnlUnrealized);
+            newData.setPercentAllocation(this.percentAllocation);
+            return newData;
+        }
+        catch (Exception ex) {
+            return null;
+        }
     }
 }

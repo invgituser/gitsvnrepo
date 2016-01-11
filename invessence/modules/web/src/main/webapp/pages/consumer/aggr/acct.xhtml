@@ -7,7 +7,7 @@
                 template="/template/common/invlayout.xhtml">
 
     <ui:define name="content">
-        <h:outputScript library="yodlee" name="js/jquery-1.11.1.min.js"/>
+
         <h:outputScript library="yodlee" name="js/oauth.js" />
         <h:outputScript library="yodlee" name="js/sha1.js" />
         <h:outputScript library="yodlee" name="js/jquery.colorbox.js" />
@@ -53,9 +53,6 @@
                             <div class="Container50">
                                 <div class="ContainerIndent">
                                     <p:dataTable id="acctData" var="siteData" value="#{yodleeBean.aggrData.totalSiteArray}">
-                                        <p:column style="width:6%">
-                                            <p:rowToggler />
-                                        </p:column>
                                         <p:column headerText="Site"
                                                   style="width:35%; text-align: left">
                                             <h:outputText value="#{siteData.key}" />
@@ -78,42 +75,31 @@
                                                              icon="fa fa-fw fa-refresh" />
 
                                         </p:column>
-                                        <p:rowExpansion>
-                                            <p:dataTable  var="acctDetail" value="#{yodleeBean.aggrData.getAggregationSiteArray(siteData.key)}"
-                                                          style="border: 0px;">
-                                                <p:column headerText="Account Name"
-                                                          style="width:50%; text-align: left">
-                                                    <h:outputText value="#{acctDetail.info}"/>
-                                                </p:column>
-
-                                                <p:column headerText="Value"
-                                                          style="width:25%; text-align: right">
-                                                    <h:outputText value="#{acctDetail.positionValue}">
-                                                        <f:convertNumber currencySymbol="$" type="currency"/>
-                                                    </h:outputText>
-                                                </p:column>
-                                            </p:dataTable>
-                                        </p:rowExpansion>
-
                                     </p:dataTable>
                                 </div>
 
                             </div>
                             <div class="Container50">
                                 <div class="ContainerIndent">
-                                    <p:dataTable id="dashData" var="dashData" value="#{yodleeBean.aggrData.totalLevelArray}">
+                                    <p:dataTable id="dashData" var="dashData" value="#{yodleeBean.aggrData.totalTypeArray}">
                                         <p:column headerText="Type"
-                                                  style="width:40%; text-align: left">
+                                                  style="width:30%; text-align: left">
                                             <h:outputText value="#{dashData.key}"/>
                                         </p:column>
 
-                                        <p:column headerText="Balance"
+                                        <p:column headerText="Value"
                                                   style="width:20%; text-align: right">
                                             <h:outputText value="#{dashData.positionValue}">
                                                 <f:convertNumber currencySymbol="$" type="currency"/>
                                             </h:outputText>
                                         </p:column>
 
+                                        <p:column headerText="Percent"
+                                                  style="width:10%; text-align: right">
+                                            <h:outputText value="#{dashData.percentAllocation}">
+                                                <f:convertNumber pattern="###.00%"/>
+                                            </h:outputText>
+                                        </p:column>
                                     </p:dataTable>
                                 </div>
                             </div>

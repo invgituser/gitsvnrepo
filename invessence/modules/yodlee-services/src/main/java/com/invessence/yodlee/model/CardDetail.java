@@ -58,7 +58,8 @@ public class CardDetail implements java.io.Serializable {
 	private String cardType;
 	private Timestamp insertedOn;
 	private Long insertedBy;
-
+	private Timestamp updatedOn;
+	private Long updatedBy;
 	// Constructors
 
 	/** default constructor */
@@ -445,4 +446,21 @@ public class CardDetail implements java.io.Serializable {
 		this.insertedBy = insertedBy;
 	}
 
+	@Column(name = "UPDATED_ON", length = 19)
+	public Timestamp getUpdatedOn() {
+		return this.updatedOn;
+	}
+
+	public void setUpdatedOn(Timestamp updatedOn) {
+		this.updatedOn = updatedOn;
+	}
+
+	@Column(name = "UPDATED_BY")
+	public Long getUpdatedBy() {
+		return this.updatedBy;
+	}
+
+	public void setUpdatedBy(Long updatedBy) {
+		this.updatedBy = updatedBy;
+	}
 }

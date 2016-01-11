@@ -10,7 +10,7 @@ import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
 
 import com.invessence.constant.*;
-import com.invessence.converter.SQLData;
+import com.invessence.converter.*;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.*;
 import com.invessence.util.*;
@@ -47,7 +47,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private String whichChart;
 
    private Integer imageSelected = 0;
-
+   private JavaUtil jutil = new JavaUtil();
    private Charts charts = new Charts();
 
    private USMaps usstates = USMaps.getInstance();
@@ -174,6 +174,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             else
                setRiskCalcMethod("C");
 
+            disablegraphtabs = true;
+            disabledetailtabs = true;
+            showGoalChart = false;
             if (getBeanAcctnum() != null && getBeanAcctnum() > 0L) {
                loadData(getBeanAcctnum());
             }
@@ -355,6 +358,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private void resetDataForm() {
       disablegraphtabs = true;
       disabledetailtabs = true;
+      showGoalChart = false;
       resetCustomerData();
    }
 
@@ -371,7 +375,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    private void loadNewClientData() {
 
-      resetCustomerData();
+      resetDataForm();
       try {
          UserInfoData uid = getWebutil().getUserInfoData();
          if (uid != null) {
@@ -391,7 +395,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    private void loadData(Long acctnum) {
 
-      resetCustomerData();
+      resetDataForm();
       try {
          if (getWebutil().isUserLoggedIn()) {
             if (getWebutil().hasRole(Const.ROLE_OWNER) ||
@@ -528,14 +532,17 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          formEdit = true;
          // charts.setMeterGuage(getMeterRiskIndicator());
          if (getAssetData() != null) {
-            charts.createPieModel(getAssetData(),0);
-            charts.createBarChart(getAssetData(),0);
+            charts.createPieModel(getAssetData(), 0);
+            charts.createBarChart(getAssetData(), 0);
+         }
+         else {
+            charts.resetCharts();
          }
 
          if (getPortfolioData() != null) {
             buildPerformanceData();
             // charts.createLineModel(getPerformanceData());
-            if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
+            // if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
                charts.createGoalChart(getPerformanceData(),getGoalData());
          }
 
@@ -862,7 +869,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          pTab = 3;
       if (pTabID.equals("p5")) {
          pTab = 4;
-         setShowGoalChart(true);
+         // setShowGoalChart(true);
       }
       saveProfile();
 
@@ -903,7 +910,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public void gotoPrevTab() {
-      showGoalChart = false;
+      setShowGoalChart(false);
       switch (rTab) {
          case 0:
             switch (pTab) {
@@ -972,6 +979,12 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       if (showGoalChart == null)
          return false;
       return showGoalChart;
+   }
+
+   public String getGoalAdjustment() {
+      if (showGoalChart && (! getGoalData().getReachable()))
+         return jutil.displayFormat(getGoalData().getCalcRecurringAmount(),"$###,###,###");
+      else return "";
    }
 }
 

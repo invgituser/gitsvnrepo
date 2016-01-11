@@ -29,9 +29,5 @@
       <module>ibservice</module>
       <module>reports</module>
       <module>rbsa-preprocessor</module>
-      <module>showcase</module>
-      <module>ltammodel</module>
-      <module>iAdvice</module>
-      <module>yodlee-web</module>
    </modules>
 </project>

@@ -45,7 +45,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 	public List<CardDetail> getCardDetailsList() {
 		List<CardDetail> list = null;
 		try {
-			list = sessionFactory.getCurrentSession().createQuery("from CardDetails").list();
+			list = sessionFactory.getCurrentSession().createQuery("from CardDetail").list();
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
@@ -54,7 +54,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 	public CardDetail findByPK(Long Id) {
 		List<CardDetail> lst = null;
 		try {
-			lst=(List<CardDetail>)sessionFactory.getCurrentSession().createQuery("from CardDetails sm where sm.SM_ID=:ID").setLong("ID", Id).list();
+			lst=(List<CardDetail>)sessionFactory.getCurrentSession().createQuery("from CardDetail sm where sm.SM_ID=:ID").setLong("ID", Id).list();
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst==null?null:lst.size()==0?null:lst.get(0);
@@ -63,7 +63,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 	public List<CardDetail> findByWhereCluase(String where, Object[] values) {
 		List<CardDetail> list = null;
 		try {
-			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "SKILL_MASTER", CardDetail.class, where, values);
+			list = hibernateutil.executeSQLQuery(sessionFactory.getCurrentSession(), "ydl_card_details", CardDetail.class, where, values);
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return list;
@@ -72,7 +72,7 @@ public class CardDetailsDAOImpl implements CardDetailsDAO {
 	public List<CardDetail> findByWhereCluase(String where) {
 		List<CardDetail> lst = null; 
 		try {
-			lst=(List<CardDetail>)sessionFactory.getCurrentSession().createQuery("from CardDetails where "+where).list();
+			lst=(List<CardDetail>)sessionFactory.getCurrentSession().createQuery("from CardDetail where "+where).list();
 		} catch (Exception e) {e.printStackTrace();
 		}
 		return lst;

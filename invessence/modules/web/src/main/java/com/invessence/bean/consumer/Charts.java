@@ -32,11 +32,7 @@ public class Charts implements Serializable
 
    public Charts()
    {
-      pieChart = new PieChartModel();
-      lineChart = new LineChartModel();
-      createDefaultMeterGuage();
-      barChart = new BarChartModel();
-      goalChart = new LineChartModel();
+      resetCharts();
    }
 
    public CartesianChartModel getLineChart()
@@ -611,6 +607,15 @@ public class Charts implements Serializable
       catch (Exception ex) {
          ex.printStackTrace();
       }
+   }
+
+   public void resetCharts() {
+      pieChart = null;
+      lineChart = null;
+      meterGuage = null;
+      barChart = null;
+      goalChart = null;
+
    }
 
 

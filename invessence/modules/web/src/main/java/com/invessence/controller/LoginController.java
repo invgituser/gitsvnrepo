@@ -104,6 +104,9 @@ public class LoginController implements PhaseListener
             String redirectUrl="/message.xhtml?faces-redirect=true&"+ lockedMsg + type + title;
             webutil.redirect(redirectUrl, null);
          }
+         else {
+            System.out.println("Exception during login time: " + e.getMessage());
+         }
       }
 
       FacesContext.getCurrentInstance().responseComplete();

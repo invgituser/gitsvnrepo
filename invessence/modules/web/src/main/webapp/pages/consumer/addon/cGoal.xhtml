@@ -37,11 +37,8 @@
                     <p:ajax event="blur" listener="#{cepb.onChange}"
                             update=":ceForm:workArea, :ceForm:graphArea"/>
                 </pe:inputNumber>
-                <p:spacer width="1" rendered="#{cepb.goalData.reachable}"/>
                 <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
-                              rendered="#{! cepb.goalData.reachable}"
-                              value="#{cepb.goalData.calcRecurringAmount}">
-                    <f:convertNumber pattern="$##,###,###"/>
+                              value="#{cepb.goalAdjustment}">
                 </h:outputText>
 
 

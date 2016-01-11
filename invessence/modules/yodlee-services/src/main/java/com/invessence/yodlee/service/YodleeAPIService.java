@@ -16,7 +16,7 @@ public interface YodleeAPIService {
 	
 	public Map<String, Object> getUserRegistrationList();
 	
-	public Map<String, Object> advisorLogin();
+	/*public Map<String, Object> advisorLogin();*/
 	
 	public Map<String, Object> userLogin(Long invUserId);
 	

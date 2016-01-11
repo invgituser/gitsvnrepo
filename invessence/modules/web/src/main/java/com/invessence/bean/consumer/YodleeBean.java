@@ -5,6 +5,7 @@ import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 
 import com.invessence.dao.consumer.AggregationDAO;
 import com.invessence.data.consumer.AggregationData;
@@ -25,6 +26,10 @@ import org.primefaces.context.RequestContext;
 public class YodleeBean implements Serializable {
     private Long logonid;
     private String controlURL;
+
+    private enum Severity {
+        INFO, WARNING, ERROR
+    }
 
     private AggregationData aggrData;
 
@@ -92,7 +97,7 @@ public class YodleeBean implements Serializable {
                 logonid = webutil.getLogonid();
             }
             if (isUserRegisteredAtYodlee()) {
-                aggrData = aggregationDAO.loadDetailData(logonid);
+                loadData(logonid);
                 yodleeNavigation("dash");
             } else {
                 yodleeNavigation("profile");
@@ -103,6 +108,12 @@ public class YodleeBean implements Serializable {
         }
     }
 
+    private void loadData(Long logonid) {
+        aggrData = aggregationDAO.loadDetailData(logonid);
+        aggrData.addTotal();
+
+    }
+
     public void userUnRegistration() {
         System.out.println("userRegistration");
         Map<String, Object> result = null;
@@ -111,6 +122,13 @@ public class YodleeBean implements Serializable {
                 logonid = webutil.getLogonid();
             }
             result = yodleeAPIService.userUnRegistration(logonid);
+            if (result != null && result.get("errorDetails") != null) {
+                YodleeError ye = (YodleeError) result.get("errorDetails");
+                promptMessage(Severity.ERROR, ye.getMessage());
+            }
+            else {
+                promptMessage(Severity.INFO, "Successfully, unregisted.  ALL data will be purged in 24 hours.");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,14 +145,13 @@ public class YodleeBean implements Serializable {
                 displayDash();
             } else if (pageId.equalsIgnoreCase("profile")) {
 
-            } else if (pageId.equalsIgnoreCase("aggr")) {
+            } else if (pageId.equalsIgnoreCase("investment")) {
                 displayAggr();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         webutil.redirect("/pages/consumer/aggr/" + pageId + ".xhtml", null);
-
     }
 
     public void refreshAccountsData() {
@@ -145,49 +162,15 @@ public class YodleeBean implements Serializable {
                 logonid = webutil.getLogonid();
             }
             yodleeAPIService.refreshUserAccDetails(logonid);
-            aggrData = aggregationDAO.loadDetailData(logonid);
+            loadData(logonid);
+            displayDash();  // Refresh Charts on Dashboard.
             //return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
         // webutil.showMessage("", "Success", "Accounts data sucessfully refreshed!");
-        //return "yDash";
+        //return "dash";
     }
-
-    List<ConsolidateData> consDataList;
-
-    public List<ConsolidateData> getConsDataList() {
-        consDataList = new ArrayList<ConsolidateData>();
-        if (logonid == null) {
-            logonid = webutil.getLogonid();
-        }
-        consDataList = (List<ConsolidateData>) yodleeAPIService.getUserAccountsDetail(logonid).get("consDataList");
-        //System.out.println(consDataList.size()+" LIST SIZE");
-        return consDataList;
-    }
-
-    List<Map<String, ConsolidateData>> consDataMapList;
-
-    public List<Map<String, ConsolidateData>> getconsDataMapList() {
-        consDataMapList = new ArrayList<Map<String, ConsolidateData>>();
-        if (logonid == null) {
-            logonid = webutil.getLogonid();
-        }
-        List<ConsolidateData> consDataLst = (List<ConsolidateData>) yodleeAPIService.getUserAccountsDetail(logonid).get("consDataList");
-        Iterator<ConsolidateData> iterator = consDataLst.iterator();
-
-        while (iterator.hasNext()) {
-            ConsolidateData cd = (ConsolidateData) iterator.next();
-
-        }
-        return consDataMapList;
-    }
-
-
-    public void setConsDataList(List<ConsolidateData> consDataList) {
-        this.consDataList = consDataList;
-    }
-
 
     public void userRegistration() {
         System.out.println("userRegistration");
@@ -198,9 +181,12 @@ public class YodleeBean implements Serializable {
             }
             result = yodleeAPIService.userRegistration(logonid);
             //return result;
-            if (result.get("errorDetails") != null) {
+            if (result != null && result.get("errorDetails") != null) {
                 YodleeError ye = (YodleeError) result.get("errorDetails");
-                addMessage(ye.getMessage());
+                promptMessage(Severity.ERROR, ye.getMessage());
+            }
+            else {
+                promptMessage(Severity.INFO, "Successfully, registed.");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,9 +194,22 @@ public class YodleeBean implements Serializable {
         //return result;
     }
 
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+    public void promptMessage(Severity severity, String summary) {
+        FacesMessage message = null;
+        switch (severity) {
+            case INFO:
+                message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+                break;
+            case WARNING:
+                message = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, null);
+                break;
+            case ERROR:
+                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
+                break;
+            default:
+        }
+        if (message != null)
+            FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
     public void addAcount(String operation, String siteId) {
@@ -261,7 +260,7 @@ public class YodleeBean implements Serializable {
             }
             if (result.containsKey("errorDetails")) {
                 return false;
-           } else {
+            } else {
                 return true;
             }
         } catch (Exception ex) {
@@ -273,24 +272,28 @@ public class YodleeBean implements Serializable {
         if (yodleeCharts == null) {
             yodleeCharts = new YodleeCharts();
         }
-        if (aggrData != null && aggrData.getTotalLevelArray().size() > 0)
-            yodleeCharts.createPieModel(aggrData.getTotalLevelArray());
+        if (aggrData != null && aggrData.getTotalTypeArray().size() > 0)
+            yodleeCharts.createTypeModel(aggrData.getTotalTypeArray());
         else
-            yodleeCharts.createPieModel(null);
+            yodleeCharts.createTypeModel(null);
     }
 
     private void displayAggr() {
         if (yodleeCharts == null) {
             yodleeCharts = new YodleeCharts();
         }
-        if (aggrData != null && aggrData.getTotalAssetArray().size() > 0)
-            yodleeCharts.createBarModel(aggrData.getTotalAssetArray());
+        if (aggrData != null && aggrData.getTotalAssetMap() != null && aggrData.getTotalAssetMap().size() > 0)
+            yodleeCharts.createAssetModel(aggrData.getTotalAssetMap(), aggrData.getAssetMasterMap());
         else
-            yodleeCharts.createBarModel(null);
+            yodleeCharts.createAssetModel(null, null);
     }
 
     public void redirecttoErrorPage(YodleeError errorInfo) {
 
+    }
+
+    public void onCompleteEvent(AjaxBehaviorEvent event) {
+        return;
     }
 
 
