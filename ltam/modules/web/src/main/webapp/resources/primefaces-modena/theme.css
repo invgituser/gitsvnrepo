@@ -846,7 +846,7 @@ label {
 .ui-datatable .ui-datatable-subtable-header,
 .ui-datatable .ui-datatable-summaryrow {
   color: #ffffff;
-  background-color: #009ABB;
+  background-color: #0288d1;
   border-radius: 1px !important;
   -webkit-border-radius: 1px !important;
   -moz-border-radius: 1px !important;
@@ -1124,7 +1124,7 @@ label {
   -webkit-border-radius: 0px !important;
   -moz-border-radius: 0px !important;
   font-size: 20px;
-  background-color: #009ABB;
+  background-color: #0288d1;
   padding: 15px 10px !important;
   font-weight: normal;
 }
@@ -1159,7 +1159,7 @@ label {
 }
 .ui-datalist .ui-datalist-header {
   color: #ffffff;
-  background-color: #009ABB;
+  background-color: #0288d1;
   border-radius: 1px !important;
   -webkit-border-radius: 1px !important;
   -moz-border-radius: 1px !important;
@@ -1209,15 +1209,15 @@ label {
 .ui-paginator .ui-paginator-prev.ui-state-focus,
 .ui-paginator .ui-paginator-next.ui-state-focus,
 .ui-paginator .ui-paginator-last.ui-state-focus {
-  background-color: #009ABB;
+  background-color: #0288d1;
   color: #ffffff;
 }
 .ui-paginator-top {
-  background-color: #009ABB;
+  background-color: #0277bd;
   border-radius: 1px;
 }
 .ui-paginator-bottom {
-  background-color: #009ABB;
+  background-color: #0277bd;
   border-radius: 1px;
 }
 .ui-paginator .ui-paginator-current {
@@ -1288,11 +1288,11 @@ label {
   color: #ffffff !important;
   font-family: 'robotoregular';
   font-size: 18px !important;
-  background-color: #009ABB;
+  background-color: #0277bd;
   border: solid 1px transparent;
 }
 .ui-paginator .ui-paginator-rpp-options.ui-state-focus {
-  background-color: #009ABB !important;
+  background-color: #0288d1 !important;
 }
 /*Style For PickList ------------------------------------------------------------------------------------- */
 .ui-picklist {
@@ -2676,7 +2676,7 @@ hr.ui-widget-header {
 .ui-tabs-top .ui-tabs-panels {
   background-color: transparent;
   margin: -1px 0px 3px 0px;
-  border: solid 0px #fbfcfd;
+  border: solid 1px #fbfcfd;
   background-image: none !important;
 }
 .ui-tabs-panels {
@@ -2747,7 +2747,7 @@ hr.ui-widget-header {
   -moz-border-radius: 3px;
 }
 .ui-ribbon .ui-ribbon-group-content .ui-button {
-  background-color: #009ABB;
+  background-color: #0288d1;
   color: #FFFFFF;
 }
 .ui-ribbon .ui-ribbon-group-content .ui-button.ui-state-hover {
@@ -3251,7 +3251,7 @@ hr.ui-widget-header {
   font-size: 16px;
   line-height: 15px;
   font-family: 'robotolight';
-  background-color: #009ABB;
+  background-color: #0288d1;
   padding: 13px 20px !important;
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;
@@ -3346,7 +3346,7 @@ hr.ui-widget-header {
   color: #ffffff;
   text-shadow: none;
   position: relative;
-  background-color: #009ABB;
+  background-color: #0288d1;
   font-weight: normal;
   border: 0px none;
   -webkit-transition: all 0.3s ease;
@@ -3428,7 +3428,7 @@ hr.ui-widget-header {
 .ui-menu .ui-menu-list .ui-widget-header {
   font-size: 16px;
   color: #ffffff;
-  background-color: #009ABB;
+  background-color: #0288d1;
   width: 84% !important;
   border-radius: 1px;
   font-family: 'robotoregular';
@@ -3437,7 +3437,7 @@ hr.ui-widget-header {
 .ui-menu.ui-menu-toggleable li.ui-widget-header {
   font-size: 16px;
   color: #ffffff;
-  background-color: #009ABB;
+  background-color: #0288d1;
   width: 84% !important;
   border-radius: 1px;
   font-family: 'robotoregular';
@@ -3568,7 +3568,7 @@ hr.ui-widget-header {
   font-size: 16px;
   font-weight: normal;
   margin-bottom: 1px !important;
-  background-color: #009ABB;
+  background-color: #0288d1;
   font-family: 'robotoregular';
 }
 .ui-panelmenu .ui-panelmenu-panel h3.ui-state-hover {
@@ -3647,12 +3647,12 @@ hr.ui-widget-header {
 }
 .ui-tabmenu .ui-tabmenu-nav .ui-state-hover,
 .ui-tabmenu .ui-tabmenu-nav .ui-state-active {
-  border-bottom: solid 5px #009ABB !important;
-  color: #009ABB;
+  border-bottom: solid 5px #0288d1 !important;
+  color: #0288d1;
 }
 .ui-tabmenu .ui-tabmenu-nav .ui-state-hover a,
 .ui-tabmenu .ui-tabmenu-nav .ui-state-active a {
-  color: #009ABB;
+  color: #0288d1;
 }
 .ui-tabmenu .ui-tabmenu-nav .ui-state-active a .ui-icon {
   background-position: center !important;
@@ -3774,7 +3774,7 @@ hr.ui-widget-header {
 .ui-panel {
   border: 1px solid #e0e0e0;
   padding: 2px !important;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   border-radius: 2px;
 }
 .ui-panel .ui-panel-titlebar {
@@ -3837,7 +3837,7 @@ hr.ui-widget-header {
   font-family: 'robotoregular';
 }
 .ui-panel .ui-panel-footer {
-  background-color: #F5F5F5;
+  /*background-color: #F5F5F5;*/
   margin: 0px -2px -2px -2px !important;
   font-size: 14px;
   border-bottom-right-radius: 1px;
@@ -4965,7 +4965,7 @@ hr.ui-widget-header {
   height: 5px !important;
 }
 .ui-progressbar-value {
-  background-color: #009ABB;
+  background-color: #0288d1;
   overflow: hidden;
   margin: 0px !important;
   background-image: none!important;
@@ -5224,10 +5224,10 @@ hr.ui-widget-header {
 /*Style For UI Steps --------------------------------------------------------------------------------------*/
 .ui-steps {
   min-height: 50px;
-  margin-top: 50px;
+  margin-top: 5px;
 }
 .ui-steps .ui-steps-item {
-  background-color: #003D50;
+  background-color: #00006A;
   margin-right: 1px;
 }
 .ui-steps .ui-steps-item .ui-menuitem-link {
@@ -5244,7 +5244,7 @@ hr.ui-widget-header {
   border-radius: 3px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  background-color: #CE2246 !important;
+  background-color: #00D404 !important;
 }
 .ui-steps .ui-steps-title {
   color: #778D9B;
@@ -5364,7 +5364,7 @@ hr.ui-widget-header {
   border-radius: 2px !important;
   -webkit-border-radius: 2px !important;
   -moz-border-radius: 2px !important;
-  background-color: #009ABB;
+  background-color: #0288d1;
 }
 .ui-wizard .ui-wizard-step-titles li.ui-state-highlight {
   background-color: #29a1ec;
@@ -5598,7 +5598,7 @@ hr.ui-widget-header {
   color: #03A9F4;
 }
 .Blue {
-  color: #009ABB;
+  color: #0288D1;
 }
 .Turquoise {
   color: #26C6DA;

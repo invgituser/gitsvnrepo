@@ -5,14 +5,13 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template/common/simplelayout.xhtml">
 
-        <f:metadata>
-            <f:viewParam name="u" value="#{userBean.beanUserID}"/>
-            <f:viewParam name="r" value="#{userBean.beanResetID}"/>
-            <f:viewParam name="f" value="#{userBean.beanfirstname}"/>
-            <f:viewParam name="l" value="#{userBean.beanlastname}"/>
-            <f:viewParam name="a" value="#{userBean.beanCustID}"/>
-            <f:event type="preRenderView" listener="#{userBean.preRenderView}"/>
-        </f:metadata>
+<!--
+    <f:metadata>
+        <f:viewParam name="u" value="#{userBean.beanUserID}"/>
+        <f:viewParam name="r" value="#{userBean.beanResetID}"/>
+        <f:event type="preRenderView" listener="#{userBean.preRenderView}"/>
+    </f:metadata>
+-->
 
 
     <ui:define name="content">
@@ -26,7 +25,7 @@
                             <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}" styleClass="Fleft" library="invessence"
                                             class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
                         </div>
-                        <div class="EmptyBox10"></div>
+                       <div class="EmptyBox10"></div>
                         <div class="Container90">
                             <p:growl id="sgrowl"/>
                         </div>
@@ -34,7 +33,7 @@
                         <p:panel id="signup" styleClass="Container100" style="border:0px">
 
                             <p:panel id="p1" styleClass="Container100 Responsive50" style="border: 0px">
-                                <div class="Container50">
+                                <div class="Container50 Responsive50">
                                     <div class="ContainerIndent">
                                         <p:inputText id="firstName" styleClass="Container95 Fleft MarAuto Fs18"
                                                      value="#{userBean.firstName}" placeholder="FirstName"
@@ -42,7 +41,7 @@
                                         </p:inputText>
                                     </div>
                                 </div>
-                                <div class="Container50">
+                                <div class="Container50 Responsive50">
                                     <div class="ContainerIndent">
                                         <p:inputText id="lastName" styleClass="Container95 Fleft MarAuto Fs18"
                                                      value="#{userBean.lastName}" placeholder="Last Name"
@@ -55,8 +54,8 @@
                                 <div class="Container100">
                                     <div class="ContainerIndent">
                                         <p:inputText id="email" styleClass="Container80 Fleft MarAuto Fs18"
-                                                     value="#{userBean.userID}" placeholder="UserID"
-                                                     required="true" requiredMessage="Please enter UserID."
+                                                     value="#{userBean.userID}" placeholder="Email"
+                                                     required="true" requiredMessage="Please enter Email."
                                                      validatorMessage="Email format is not correct.">
                                             <p:watermark for="email" value="Email Address"/>
                                         </p:inputText>
@@ -64,61 +63,50 @@
                                     </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
-                                <div class="Container100 Responsive100">
-                                    <div class="Container70">
-                                        <div class="ContainerIndent">
-                                            <p:password id="pwd1" styleClass="Container60 Fleft MarAuto Fs18"
-                                                        value="#{userBean.password}"
-                                                        placeholder="Password"
-                                                        feedback="true" inline="true"
-                                                        required="true" requiredMessage="Password must be entered.">
-                                            </p:password>
-
-                                        </div>
-                                    </div>
-                                    <div class="Container25 Fright">
-                                        <div class="ContainerIndent">
-                                            <p:commandButton id="pwdHelp" styleClass="Wid25 Fright"
-                                                             icon="fa fa-question-circle white"
-                                                             value="Help" process="@none"/>
-
-                                            <p:overlayPanel id="helpPanel" for="pwdHelp" hideEffect="fade" dynamic="false"
-                                                            showCloseIcon="true"
-                                                            style="width:300px">
-                                                Password Must contain a minimum of 8 Characters including at least:
-                                                <ul>
-                                                    <li>1 uppercase letter</li>
-                                                    <li>1 number</li>
-                                                    <li>1 of these special characters: [!,#$%?:.]</li>
-                                                </ul>
-                                            </p:overlayPanel>
-                                        </div>
-
-                                    </div>
-                                    <div class="EmptyBox10"></div>
-                                    <div class="Container70">
-                                        <div class="ContainerIndent">
-                                            <p:password id="pwd2" styleClass="Container60 Fleft MarAuto Fs18"
-                                                        value="#{userBean.confirmNewPassword}"
-                                                        placeholder="Confirm Password"
-                                                        feedback="true" inline="true">
-                                            </p:password>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="Container100">
+                                    <div class="ContainerIndent">
+                                        <p:password id="pwd1" styleClass="Container60 Fleft MarAuto Fs18"
+                                                    value="#{userBean.password}"
+                                                    placeholder="Password"
+                                                    feedback="true" inline="true"
+                                                required="true" requiredMessage="Password must be entered.">
+                                        </p:password>
+                                        <p:commandButton id="pwdHelp"  styleClass="Wid25 Fright"
+                                                         icon="fa fa-question-circle white"
+                                                         value="Help" process="@none"/>
+
+                                        <p:overlayPanel id="helpPanel" for="pwdHelp" hideEffect="fade" dynamic="false"
+                                                        showCloseIcon="true"
+                                                        style="width:300px">
+                                            Password Must contain a minimum of 8 Characters including at least:
+                                            <ul>
+                                                <li>1 uppercase letter</li>
+                                                <li>1 number</li>
+                                                <li>1 of these special characters: [!,#$%?:.]</li>
+                                            </ul>
+                                        </p:overlayPanel>
+
+                                    </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <div class="Container100">
-                                    <div class="ContainerIndent TexAlCenter">
-                                        <p:commandButton value="Sign Up" type="submit"
-                                                         actionListener="#{userBean.signUp}"
-                                                         update="p1, sgrowl"/>
+                                    <div class="ContainerIndent">
+                                        <p:password id="pwd2" styleClass="Container60 Fleft MarAuto Fs18"
+                                                    value="#{userBean.confirmNewPassword}"
+                                                    placeholder="Confirm Password"
+                                                    feedback="true" inline="true">
+                                        </p:password>
                                     </div>
                                 </div>
                             </p:panel>
-                        </p:panel>
 
+                            <f:facet name="footer">
+                                <p:commandButton value="Sign Up" type="submit" styleClass="Fright"
+                                                 actionListener="#{userBean.resetPassword}"
+                                                 update="p1, sgrowl"/>
+                            </f:facet>
+
+                        </p:panel>
                         <div class="EmptyBox20"></div>
                     </h:form>
                 </div>
