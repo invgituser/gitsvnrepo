@@ -28,10 +28,10 @@ public class BrokerFilesProcessor {
             List<FTPFile> filterDirectories = processingConfig.filterDirectories(remoteFiles.getRemoteDirs());
 
             for (FTPFile ftpFile : filesToRetrieve) {
-                fileProcessor.process(ftpFile, brokerClient.getFtpClient());
+                fileProcessor.process(ftpFile, brokerClient.getFtpsClient());
             }
 
-            fileProcessor.retrieveReports(filterDirectories, brokerClient.getFtpClient());
+            fileProcessor.retrieveReports(filterDirectories, brokerClient.getFtpsClient());
             applicationContext.close();
         } catch (Exception e) {
             logger.error("Error running broker files processor", e);

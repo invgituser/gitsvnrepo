@@ -10,7 +10,7 @@ public class BrokerFtpClient {
     private String ftpHost;
     private String ftpUsername;
     private String ftpPassword;
-    private FTPClient ftpClient;
+    private FTPSClient ftpsClient;
 
     public BrokerFtpClient(String ftpHost, String ftpUsername, String ftpPassword) {
         this.ftpHost = ftpHost;
@@ -20,9 +20,9 @@ public class BrokerFtpClient {
 
     public RemoteFiles retrieveFileList() throws IOException {
         try {
-            ftpClient = loginToRemoteServer(ftpHost, ftpUsername, ftpPassword);
-            changeRemoteDirectory(ftpClient);
-            return retrieveFileList(ftpClient);
+           ftpsClient = loginToRemoteServer(ftpHost, ftpUsername, ftpPassword);
+            changeRemoteDirectory(ftpsClient);
+            return retrieveFileList(ftpsClient);
         } catch (IOException e) {
             logger.error("Error retrieving file list", e);
             throw e;
@@ -50,21 +50,21 @@ public class BrokerFtpClient {
         logger.info("Current directory is " + ftpClient.printWorkingDirectory());
     }
 
-    private FTPClient loginToRemoteServer(String ftpHost, String ftpUsername, String ftpPassword) throws IOException {
-        FTPClient ftpClient = new FTPClient();
-        ftpClient.connect(ftpHost);
+    private FTPSClient loginToRemoteServer(String ftpHost, String ftpUsername, String ftpPassword) throws IOException {
+        FTPSClient ftpsClient = new FTPSClient();
+       ftpsClient.connect(ftpHost);
 
-        if (!ftpClient.login(ftpUsername, ftpPassword)) {
-            ftpClient.logout();
+        if (!ftpsClient.login(ftpUsername, ftpPassword)) {
+           ftpsClient.logout();
             String error = "Cannot login to " + ftpHost + " with username " + ftpUsername + " and password "
                     + ftpPassword;
             logger.error(error);
             throw new IllegalStateException(error);
         }
-        return ftpClient;
+        return ftpsClient;
     }
 
-    public FTPClient getFtpClient() {
-        return ftpClient;
+    public FTPSClient getFtpsClient() {
+        return ftpsClient;
     }
 }

@@ -278,6 +278,20 @@ public class WebUtil implements Serializable
          return username + ", Welcome";
    }
 
+   public String getFullname() {
+      String username = null;
+      if (isUserLoggedIn()) {
+         UserInfoData uid = getUserInfoData();
+         if (uid != null)
+            username = uid.getFullName();
+      }
+
+      if (username == null)
+         return "";
+      else
+         return username;
+   }
+
    public String getLastFirstName() {
       String username = null;
       if (isUserLoggedIn()) {

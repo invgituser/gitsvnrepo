@@ -34,7 +34,7 @@ public class FileProcessor {
         this.dataSource = dataSource;
     }
 
-    public static boolean downloadSingleFile(FTPClient ftpClient, String remoteFilePath, String savePath)
+    public static boolean downloadSingleFile(FTPSClient ftpsClient, String remoteFilePath, String savePath)
             throws IOException {
         File downloadFile = new File(savePath);
 
@@ -45,8 +45,8 @@ public class FileProcessor {
 
         OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(downloadFile));
         try {
-            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
-            return ftpClient.retrieveFile(remoteFilePath, outputStream);
+           ftpsClient.setFileType(FTP.BINARY_FILE_TYPE);
+            return ftpsClient.retrieveFile(remoteFilePath, outputStream);
         } catch (IOException ex) {
             throw ex;
         } finally {
@@ -56,7 +56,7 @@ public class FileProcessor {
         }
     }
 
-    public void process(FTPFile remoteFile, FTPClient ftpClient) throws IOException {
+    public void process(FTPFile remoteFile, FTPSClient ftpsClient) throws IOException {
         if (remoteFile.isFile()) {
             String[] splitName = remoteFile.getName().split("\\.");
             if (splitName.length > 2) {
@@ -68,7 +68,7 @@ public class FileProcessor {
 
                         logger.info("Backup File to:" + dataFileInfo.getDownloadDir());
                         dataFileInfo.setDownloaded(true);
-                        File localFile = copyRemoteFileToLocalDir(remoteFile, dataFileInfo.getDownloadDir(), ftpClient);
+                        File localFile = copyRemoteFileToLocalDir(remoteFile, dataFileInfo.getDownloadDir(), ftpsClient);
                         if (!dataFileInfo.getPostProcess().equalsIgnoreCase("WEB")) {
                             uploadFileContentsToDB(localFile, dataFileInfo);
                         } else {
@@ -145,7 +145,7 @@ public class FileProcessor {
         return lines;
     }
 
-    private File copyRemoteFileToLocalDir(FTPFile remoteFile, String downloadDir, FTPClient ftpClient) {
+    private File copyRemoteFileToLocalDir(FTPFile remoteFile, String downloadDir, FTPSClient ftpsClient) {
 
         File downloadLocation = new File(localDir, downloadDir);
 
@@ -156,7 +156,7 @@ public class FileProcessor {
         File localFile = new File(downloadLocation, remoteFile.getName());
         try {
             OutputStream output = new FileOutputStream(localFile);
-            ftpClient.retrieveFile(remoteFile.getName(), output);
+           ftpsClient.retrieveFile(remoteFile.getName(), output);
             output.close();
         } catch (IOException e) {
             logger.error("Error reading contents of remote file " + remoteFile.getName(), e);
@@ -200,7 +200,7 @@ public class FileProcessor {
         }
     }
 
-    public void retrieveReports(List<FTPFile> dirToRetrieve, FTPClient ftpClient) throws IOException {
+    public void retrieveReports(List<FTPFile> dirToRetrieve, FTPSClient ftpsClient) throws IOException {
         File localReportDir = new File(reportLocalDir);
         if (!localReportDir.exists()) {
             localReportDir.mkdir();
@@ -211,20 +211,20 @@ public class FileProcessor {
                 if (localDir.exists()) {
                     continue;
                 }
-                downloadDirectory(ftpClient, remoteDir.getName(), "", reportLocalDir);
+                downloadDirectory(ftpsClient, remoteDir.getName(), "", reportLocalDir);
 
             }
         }
     }
 
-    public void downloadDirectory(FTPClient ftpClient, String parentDir, String currentDir, String saveDir)
+    public void downloadDirectory(FTPSClient ftpsClient, String parentDir, String currentDir, String saveDir)
             throws IOException {
         String dirToList = parentDir;
         if (!currentDir.equals("")) {
             dirToList += "/" + currentDir;
         }
 
-        FTPFile[] subFiles = ftpClient.listFiles(dirToList);
+        FTPFile[] subFiles = ftpsClient.listFiles(dirToList);
 
         if (subFiles != null && subFiles.length > 0) {
             for (FTPFile aFile : subFiles) {
@@ -255,10 +255,10 @@ public class FileProcessor {
                     }
 
                     // download the sub directory
-                    downloadDirectory(ftpClient, dirToList, currentFileName, saveDir);
+                    downloadDirectory(ftpsClient, dirToList, currentFileName, saveDir);
                 } else {
                     // download the file
-                    boolean success = downloadSingleFile(ftpClient, filePath, newDirPath);
+                    boolean success = downloadSingleFile(ftpsClient, filePath, newDirPath);
                     if (success) {
                         System.out.println("DOWNLOADED the file: " + filePath);
                     } else {
