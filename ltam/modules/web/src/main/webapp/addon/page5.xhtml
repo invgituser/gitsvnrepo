@@ -28,7 +28,8 @@
 -->
             <p:chart type="bar" model="#{ltamprofile.ltamcharts.riskbarChart}" style="height:250px"
                      rendered="#{ltamprofile.ltamcharts.riskbarChart != null}"
-                     responsive="true">
+                     responsive="true"
+                     extender="ltam_riskq5">
                 <p:ajax event="itemSelect" listener="#{ltamprofile.riskChartSelected}" update=":ltamForm:page5id"/>
             </p:chart>
 

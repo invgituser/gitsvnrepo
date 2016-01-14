@@ -14,42 +14,33 @@
                     <h:form>
                         <div class="EmptyBox20"></div>
                         <div class="Container100 TexAlCenter">
-                            <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}" styleClass="Fleft" library="invessence"
+                            <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}"
+                                            styleClass="Fleft" library="invessence"
                                             class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
                         </div>
                        <div class="EmptyBox10"></div>
-                        <div class="Container90">
-                            <p:growl id="sgrowl"/>
-                        </div>
+                       <p:growl id="sgrowl"/>
                         <div class="EmptyBox5"></div>
                         <p:panel id="signup" styleClass="Container100" style="border:0px">
 
-                            <p:panel id="p1" styleClass="Container100 Responsive50" style="border: 0px">
-                                <div class="Container50 Responsive50">
+                            <p:panel id="p1" styleClass="Container100" style="border: 0px">
+                                <div class="Container100">
                                     <div class="ContainerIndent">
-                                        <p:inputText id="firstName" styleClass="Container95 Fleft MarAuto Fs18"
-                                                     value="#{userBean.firstName}" placeholder="FirstName"
-                                                     required="true" requiredMessage="Please enter First Name.">
+                                        <p:inputText id="email" styleClass="Container80 Fleft MarAuto Fs18"
+                                                     value="#{userBean.email}" placeholder="Email"
+                                                     required="true" requiredMessage="Please enter Email."
+                                                     validatorMessage="Email format is not correct.">
                                         </p:inputText>
-                                    </div>
-                                </div>
-                                <div class="Container50 Responsive50">
-                                    <div class="ContainerIndent">
-                                        <p:inputText id="lastName" styleClass="Container95 Fleft MarAuto Fs18"
-                                                     value="#{userBean.lastName}" placeholder="Last Name"
-                                                     required="true" requiredMessage="Please enter Last Name.">
-                                            <p:watermark for="lastName" value="Last Name"/>
-                                        </p:inputText>
+
                                     </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <div class="Container100">
                                     <div class="ContainerIndent">
-                                        <p:inputText id="email" styleClass="Container80 Fleft MarAuto Fs18"
-                                                     value="#{userBean.userID}" placeholder="Email"
-                                                     required="true" requiredMessage="Please enter Email."
-                                                     validatorMessage="Email format is not correct.">
-                                            <p:watermark for="email" value="Email Address"/>
+                                        <p:inputText id="userid" styleClass="Container80 Fleft MarAuto Fs18"
+                                                     value="#{userBean.userID}" placeholder="User ID"
+                                                     required="true" requiredMessage="Please create your User ID."
+                                                     validatorMessage="User ID format is not correct.">
                                         </p:inputText>
 
                                     </div>
@@ -60,16 +51,17 @@
                                         <p:password id="pwd1" styleClass="Container60 Fleft MarAuto Fs18"
                                                     value="#{userBean.password}"
                                                     placeholder="Password"
-                                                    feedback="true" inline="true"
-                                                required="true" requiredMessage="Password must be entered.">
+                                                    feedback="true" inline="false"
+                                                    required="true" requiredMessage="Password must be entered.">
                                         </p:password>
-                                        <p:commandButton id="pwdHelp"  styleClass="Wid25 Fright"
+                                        <p:commandButton id="pwdHelp"  styleClass="Container25 Fright"
                                                          icon="fa fa-question-circle white"
                                                          value="Help" process="@none"/>
 
-                                        <p:overlayPanel id="helpPanel" for="pwdHelp" hideEffect="fade" dynamic="false"
+                                        <p:overlayPanel id="helpPanel" for="pwdHelp"
+                                                        hideEffect="fade" dynamic="false"
                                                         showCloseIcon="true"
-                                                        style="width:300px">
+                                                        style="width:300px; margin-left: 5px">
                                             Password Must contain a minimum of 8 Characters including at least:
                                             <ul>
                                                 <li>1 uppercase letter</li>
@@ -90,13 +82,17 @@
                                         </p:password>
                                     </div>
                                 </div>
+                                <div class="EmptyBox10"></div>
+                                <p:separator/>
+                                <div class="EmptyBox5"></div>
+                                <div class="Container100 TexAlCenter">
+                                   <div class="ContainerIndent">
+                                       <p:commandButton value="Sign Up" type="submit" styleClass="Fright"
+                                                        actionListener="#{userBean.signUp}"
+                                                        update="p1, sgrowl"/>
+                                   </div>
+                                </div>
                             </p:panel>
-
-                            <f:facet name="footer">
-                                <p:commandButton value="Sign Up" type="submit" styleClass="Fright"
-                                                 actionListener="#{userBean.resetPassword}"
-                                                 update="p1, sgrowl"/>
-                            </f:facet>
 
                         </p:panel>
                         <div class="EmptyBox20"></div>

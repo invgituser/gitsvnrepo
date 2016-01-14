@@ -6,192 +6,131 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/template.xhtml">
 
-<ui:define name="content">
-<h:outputScript name="/js/ltamCharts.js" library="ltam"/>
+    <f:metadata>
+        <f:viewParam name="acctnum" value="#{positionBean.beanacctnum}"/>
+        <f:event type="preRenderView" listener="#{positionBean.preRenderView}"/>
+    </f:metadata>
 
-<!-- BOX START -->
-<p:panel id="contentpanel" style="border: 0px; background: transparent">
+    <ui:define name="content">
+        <h:outputScript name="/js/ltamCharts.js" library="ltam"/>
 
-<div class="layout-portlets-box">
+        <!-- BOX START -->
+        <p:panel id="contentpanel" style="border: 0px; background: transparent">
 
-    <div class="Container100 Responsive100">
-        <div class="Container50">
-            <div class="ContainerIndent">
-                <p:panel id="graphArea" style="border: 0px; background: transparent">
-                    <div class="EmptyBox5"></div>
-                    <div class="Container100">
-                        <p:panel style="border: 0px; background: transparent"
-                                 rendered="#{ltamprofile.displayMeter}">
-                            <div class="EmptyBox5"></div>
-                            <div class="Container100">
-                                <table style="width: 100%">
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="TexAlCenter" style="font-size: 1.5em">
-                                                Your current risk level is
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="EmptyBox5"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 5%; text-align: right; vertical-align: middle">Low</td>
-                                        <td style="width: 90%; text-align: center; vertical-align: middle">
-                                            <ui:repeat var="tlist" value="#{ltamprofile.themeList}">
-                                                <h:graphicImage name="images/riskMeter.svg" library="ltam"
-                                                                rendered="#{ltamprofile.themeData.sortorder != tlist.sortorder}"
-                                                                style="width: 20%; background: transparent"
-                                                                styleClass="Fleft"/>
-                                                <h:graphicImage name="images/SriskMeter.svg" library="ltam"
-                                                                rendered="#{ltamprofile.themeData.sortorder == tlist.sortorder}"
-                                                                style="width: 20%; background: transparent"
-                                                                styleClass="Fleft"/>
-                                            </ui:repeat>
-                                        </td>
-                                        <td style="width: 5%; text-align: left; vertical-align: middle">High</td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </p:panel>
+            <div class="layout-portlets-box">
 
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
                     </div>
-                    <div class="Container100 Responsive100">
-                        <div class="EmptyBox10"></div>
-                        <div class="Container100 Responsive100">
-                            <p:outputPanel id="charts" style="border: 0px; background: transparent">
-                                <p:panel style="border: 0px; background: transparent"
-                                         rendered="#{ltamprofile.reviewPage ? 'false' : 'true'}">
-                                    <div class="Container100  Fleft">
+                </div>
+
+                <div class="Container100 Responsive100">
+                    <p:panel id="graphArea" style="border: 0px; background: transparent">
+                        <div class="EmptyBox5"></div>
+                        <div class="Container100">
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100 ">
+                                <p:outputPanel id="charts" style="border: 0px; background: transparent">
+                                    <div class="Container20 Fleft ShowOnDesktopTablet">
+                                    <div class="Container100 Responsive100">
                                         <div class="ContainerIndent">
                                             <p:outputPanel deferred="true">
-                                                <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
-                                                         rendered="#{ltamprofile.ltamcharts.pieChart != null}"
+                                                <p:chart type="pie" model="#{positionBean.positionCharts.summaryPieChart}"
+                                                         rendered="#{positionBean.positionCharts.summaryPieChart != null}"
                                                          style="width:100%;height:170px;"
-                                                         responsive="true">
+                                                         responsive="true"
+                                                         extender="ltam_pie">
                                                 </p:chart>
                                             </p:outputPanel>
                                         </div>
-                                    </div>
-                                </p:panel>
-                                <p:panel style="border: 0px; background: transparent"
-                                         rendered="#{ltamprofile.reviewPage}">
-                                    <div class="Container100 Fleft">
+				    </div>
+				    </div>
+                                    <div class="Container80 Fleft">
                                         <div class="ContainerIndent">
                                             <p:dataTable styleClass="invAllocTable"
-                                                         value="#{ltamprofile.allocationData.ltamAllocatedAssetList}"
-                                                         var="allocatedList" reflow="true">
+                                                         value="#{positionBean.positionSummaryData.assetList}"
+                                                         var="allocatedList">
 
-                                                <p:column style="width: 2%; background-color: #{allocatedList.color};">
+                                                <p:column style="width: 2%; background-color: #{allocatedList.color};"
+						    priority="0">
                                                     <h:outputText value=" "/>
                                                 </p:column>
 
                                                 <p:column styleClass="Wid40 TexAlLeft"
-                                                          resizable="true" headerText="Asset">
-                                                    <h:outputText value="#{allocatedList.displayname}"/>
+                                                          resizable="true" headerText="Asset"
+							  priority="0">
+                                                    <h:outputText value="#{allocatedList.assetname}"/>
                                                 </p:column>
-                                                <p:column styleClass="Wid20 TexAlRight"
-                                                          resizable="true" headerText="Weight">
-                                                    <h:outputText value="#{allocatedList.weightAsPercent}">
+                                                <p:column styleClass="Wid20 TexAlRight" 
+                                                          resizable="true" headerText="Weight"
+							  priority="2">
+                                                    <h:outputText value="#{allocatedList.allocation}">
                                                         <f:convertNumber pattern="##0%"/>
                                                     </h:outputText>
                                                 </p:column>
                                                 <p:column styleClass="Wid30 TexAlRight"
-                                                          resizable="true" headerText="Value">
-                                                    <h:outputText value="#{allocatedList.money}">
+                                                          resizable="true" headerText="Value"
+							  priority="0">
+                                                    <h:outputText value="#{allocatedList.positionValue}">
                                                         <f:convertNumber currencySymbol="$" type="currency"/>
                                                     </h:outputText>
                                                 </p:column>
                                             </p:dataTable>
                                         </div>
                                     </div>
-                                </p:panel>
-                            </p:outputPanel>
+                                </p:outputPanel>
+                            </div>
                         </div>
-                    </div>
-                    <div class="Container100 Responsive100">
-                    </div>
-                </p:panel>
+                    </p:panel>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
 
-<p:outputPanel id="dataarea" style="border: 0px"
-               rendered="#{ltamprofile.reviewPage}">
+            <p:outputPanel id="dataarea" style="border: 0px">
 
-    <p:fieldset legend="Proposed Allocation" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
-        <div class="Container100 Responsive100">
-            <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.allocationData.ltamAllocatedSubAssetList}"
-                         var="suballocatedList" reflow="true">
-                <p:column style="width: 2%; background-color: #{suballocatedList.color};">
-                    <h:outputText value=" "/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Asset">
-                    <h:outputText value="#{suballocatedList.assetname}"/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Class">
-                    <h:outputText value="#{suballocatedList.subassetname}"/>
-                </p:column>
-                <p:column styleClass="Wid20 TexAlRight"
-                          resizable="true" headerText="Weight">
-                    <h:outputText value="#{suballocatedList.weightAsPercent}">
-                        <f:convertNumber pattern="##0.00%"/>
-                    </h:outputText>
-                </p:column>
-                <p:column styleClass="Wid35 TexAlRight"
-                          resizable="true" headerText="Value">
-                    <h:outputText value="#{suballocatedList.money}">
-                        <f:convertNumber currencySymbol="$" type="currency"/>
-                    </h:outputText>
-                </p:column>
+                <p:fieldset legend="Detail" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
+                    <div class="Container100 Responsive100">
+                        <p:dataTable styleClass="invAllocTable"
+                                     value="#{positionBean.positionSummaryData.positionList}"
+                                     var="suballocatedList">
+                            <p:column style="width: 2%; background-color: #{suballocatedList.color};"
+				priority="0">
+                                <h:outputText value=" "/>
+                            </p:column>
+                            <p:column styleClass="Wid30 TexAlLeft"
+                                      resizable="true" headerText="Asset"
+				      priority="2">
+                                <h:outputText value="#{suballocatedList.assetname}"/>
+                            </p:column>
+                            <p:column styleClass="Wid30 TexAlLeft"
+                                      resizable="true" headerText="Class"
+				      priority="0">
+                                <h:outputText value="#{suballocatedList.displayname}"/>
+                            </p:column>
+                            <p:column styleClass="Wid18 TexAlRight"
+                                      resizable="true" headerText="Weight"
+				      priority="2">
+                                <h:outputText value="#{suballocatedList.allocation}">
+                                    <f:convertNumber pattern="##0.00%"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column styleClass="Wid20 TexAlRight"
+                                      resizable="true" headerText="Value"
+				      priority="0">
+                                <h:outputText value="#{suballocatedList.positionValue}">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
+                            </p:column>
 
-            </p:dataTable>
-        </div>
+                        </p:dataTable>
+                    </div>
 
-    </p:fieldset>
+                </p:fieldset>
 
-    <p:fieldset legend="Historical Performance" styleClass="layout-portlets-box"
-                toggleable="true" toggleSpeed="500"
-                rendered="false" >
-        <div class="Container100 Responsive100">
-            <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.themeData.printPerfData}"
-                         var="pdata" reflow="true">
-                <p:columns  value="#{ltamprofile.themeData.printProperty}" var="col">
-                    <f:facet name="header">
-                        <h:outputText value="#{col.header}" />
-                    </f:facet>
-                    <p:column style="width: 2px;" rendered="#{col.isColor()}">
-                        <p:spacer width="15" style="background-color: #{pdata[col.value]}; foreground-color: #{pdata[col.value]}"/>
-                    </p:column>
-                    <p:column style="width: 10%;" rendered="#{col.isIndex()}">
-                        <h:outputText value="#{pdata[col.value]}"   />
-                    </p:column>
-                    <p:column style="width: 5%;" rendered="#{col.isValue()}">
-                        <h:outputText value="#{pdata[col.value]}"/>
-                    </p:column>
-                </p:columns>
-            </p:dataTable>
-
-        </div>
-        <div class="EmptyBox30"></div>
-        <div class="Container100 Responsive100 ShowOnDesktop">
-            <p:chart type="bar" model="#{ltamprofile.ltamcharts.barPerformanceChart}" style="height:300px"
-                     rendered="#{ltamprofile.ltamcharts.barPerformanceChart != null}"
-                     responsive="true"/>
-        </div>
-    </p:fieldset>
-</p:outputPanel>
+            </p:outputPanel>
 
 
-</p:panel>
+        </p:panel>
 
-</ui:define>
+    </ui:define>
 
 </ui:composition>

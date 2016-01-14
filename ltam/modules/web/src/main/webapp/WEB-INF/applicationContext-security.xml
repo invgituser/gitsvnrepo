@@ -10,6 +10,7 @@
 
 
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/index.xhtml" security="none"/>
    <http pattern="/signup.xhtml" security="none"/>
    <http pattern="/register.xhtml" security="none"/>
    <http pattern="/resetPassword.xhtml" security="none"/>

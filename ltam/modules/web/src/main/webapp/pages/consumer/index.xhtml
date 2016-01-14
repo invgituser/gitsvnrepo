@@ -62,7 +62,14 @@
                                                         </tr>
                                                         <tr style="font-size: 13px;">
                                                             <td colspan="2" style="width: 100%; margin-left: 5px">
-                                                                <a href="#">Review</a>
+                                                                <ui:fragment rendered="#{acct.managed == 'Y'}">
+                                                                    <p:link outcome="/pages/consumer/overview.xhtml" value="Review">
+                                                                        <f:param name="acctnum" value="#{acct.acctnum}" />
+                                                                    </p:link>
+                                                                </ui:fragment>
+                                                                <ui:fragment rendered="#{acct.managed != 'Y'}">
+                                                                    <p:outputLabel class="SoftRed">Pending</p:outputLabel>
+                                                                </ui:fragment>
                                                             </td>
                                                         </tr>
                                                     </table>

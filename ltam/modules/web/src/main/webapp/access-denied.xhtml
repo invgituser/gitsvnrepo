@@ -17,13 +17,15 @@
                             <h:graphicImage name="images/locked.png" library="spark-layout" class="MarAuto MarTop20 Wid30"/>
                             <span class="Fs40 Wid100 DispBlock red">Access Denied</span>
                             <span class="Wid100 DispBlock Fs30 red">Please Check Your Permissions !</span><br/>
-                    <span class="Wid100 DispBlock Fs18 red">Sorry, but you have no access to this page.<br/>
-                    </span>
+                            <span class="Wid100 DispBlock Fs18 red">Sorry, but you have no access to this page.<br/>
+                            </span>
+
                             <div class="EmptyBox30"></div>
                             <h:commandButton styleClass="Fs16 RedButton"
-                                             type="submit" value="OK"
-                                             action="#{menu.redirectStartPage}"/>
+                                             value="OK"
+                                             actionListener="#{uiLayout.goToStartPage}"/>
                         </h:form>
+
                         <div class="EmptyBox50"></div>
                     </div>
                 </div>
