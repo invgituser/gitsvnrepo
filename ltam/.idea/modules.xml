@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/modules/eod/eod.iml" filepath="$PROJECT_DIR$/modules/eod/eod.iml" />
       <module fileurl="file://$PROJECT_DIR$/invessence.iml" filepath="$PROJECT_DIR$/invessence.iml" />
       <module fileurl="file://$PROJECT_DIR$/invessence.iml" filepath="$PROJECT_DIR$/invessence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ltam.iml" filepath="$PROJECT_DIR$/ltam.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ltammodel/ltammodel.iml" filepath="$PROJECT_DIR$/modules/ltammodel/ltammodel.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/modules.iml" filepath="$PROJECT_DIR$/modules/modules.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/parent.iml" filepath="$PROJECT_DIR$/modules/parent.iml" />

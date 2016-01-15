@@ -293,7 +293,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       saveClientData();
       pagemanager.nextPage();
       if (pagemanager.isLastPage()) {
-         webutil.redirect("/review.xhtml", null);
+         webutil.redirect("/pages/try/review.xhtml", null);
       }
    }
 
@@ -327,7 +327,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
                }
                else {
                   if (pagemanager == null || pagemanager.isFirstPage())
-                     welcomeDialog = true;
+                     welcomeDialog = false;
                   else
                      welcomeDialog = false;
                }
@@ -374,7 +374,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       }
       else
       {
-         welcomeDialog = true;
+         welcomeDialog = false;
          disableInvestment = false;
       }
 

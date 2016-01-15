@@ -26,6 +26,23 @@ function ltam_pie()
     };
 }
 
+function ltam_pos_pie()
+{
+    this.cfg.grid = {
+        backgroundColor: 'transparent',
+        drawBorder: false,
+        shadow: false
+    };
+
+    this.cfg.legend = {
+        show:false
+    };
+
+    this.cfg.highlighter = {
+        show: false
+    };
+}
+
 function ltam_perf()
 {
     this.cfg.grid = {

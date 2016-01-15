@@ -9,8 +9,18 @@
     <div class="Animated05" id="layout-menu-cover">
         <h:form>
         <pm:menu>
-            <p:menuitem id="rm_faq2" value="FAQ" icon="icon-question_answer" onclick="PF('faqDlg').show()" />
-            <p:menuitem id="rm_about" value="About us" icon="icon-people" onclick="PF('aboutusDlg').show()" />
+            <p:menuitem id="home" value="Home" icon="icon-home" outcome="/index.xhtml"
+                        rendered="#{! webutil.isUserLoggedIn()}"/>
+            <p:menuitem id="rm_faq2" value="FAQ" icon="icon-question_answer" outcome="/static/faq.xhtml"
+                    rendered="#{! webutil.isUserLoggedIn()}"/>
+            <p:menuitem id="rm_about" value="About us" icon="icon-people" outcome="/static/aboutus.xhtml"
+                    rendered="#{! webutil.isUserLoggedIn()}"/>
+            <p:menuitem id="logon" value="Login" icon="icon-https" outcome="/login.xhtml"
+                        rendered="#{! webutil.isUserLoggedIn()}"/>
+            <p:menuitem id="dash" value="Dashboard" icon="icon-dashboard" outcome="/pages/consumer/index.xhtml"
+                        rendered="#{webutil.isUserLoggedIn()}"/>
+            <p:menuitem id="logout" value="Logout" icon="icon-lock_open" actionListener="#{uiLayout.logout}"
+                        rendered="#{webutil.isUserLoggedIn()}"/>
         </pm:menu>
 
         </h:form>

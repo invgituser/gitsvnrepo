@@ -29,10 +29,12 @@
    <http pattern="/javax.faces.resource/**" security="none"/>
    <http pattern="/images/**" security="none"/>
    <http pattern="/pages/try/**" security="none"/>
+   <http pattern="/static/**" security="none"/>
    <http pattern="/pages/static/**" security="none"/>
    <http pattern="/spark/**" security="none"/>
    <http pattern="/reports/**" security="none"/>
    <http pattern="/spark/ui/**" security="none"/>
+   <http pattern="/modena/ui/**" security="none"/>
 
 
    <!--

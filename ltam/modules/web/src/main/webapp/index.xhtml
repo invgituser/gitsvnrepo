@@ -6,6 +6,8 @@
                 template="/template/common/simplelayout.xhtml">
 
     <f:metadata>
+        <f:viewParam name="mode" value="#{ltamprofile.mode}"/>
+        <f:event type="preRenderView" listener="#{ltamprofile.preRenderView}"/>
         <f:viewParam name="cid" value="#{uiLayout.cid}"/>
         <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
     </f:metadata>
@@ -14,46 +16,37 @@
 
         <div id="layout-portlets-cover">
             <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-                 style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
+                 style="margin-top:5%;">
                 <div class="Container90 Fnone MarAuto TexAlCenter">
                     <h:form id="logonForm" prependId="false">
-                        <div class="EmptyBox50"></div>
-                        <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}" styleClass="Fleft" library="invessence"
-                                        class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
+                        <div class="EmptyBox30"></div>
+                        <h1>
+                            You have entered<br/>
+                            <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}" styleClass="Fleft" library="invessence"
+                                            class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
+
+                        </h1>
                         <div class="EmptyBox20"></div>
-                        <p:messages id="messages" autoUpdate="true"/>
-                        <f:event listener="#{loginController.updateMessages}" type="preRenderView"/>
-                        <p:inputText id="j_username" placeholder="Username" styleClass="Container80 Fnone MarAuto Fs18"
-                                     required="true"
-                                     requiredMessage="Please enter UserID."
-                                     value="#{loginController.userID}">
-                        </p:inputText>
-                        <div class="EmptyBox10"></div>
-                        <p:password id="j_password"  placeholder="Password" styleClass="Container80 Fnone MarAuto Fs18"
-                                    feedback="false" value="#{loginController.password}"
-                                    requiredMessage="Please enter Password."/>
-                        <div class="EmptyBox5"></div>
-                        <h:outputLabel styleClass="Container80 Fnone MarAuto Fs18"
-                                       id="question"
-                                       value="#{loginController.question}"
-                                       rendered="#{loginController.needAdditionalInfo}">
-                        </h:outputLabel>
-                        <div class="EmptyBox10"></div>
-                        <h:inputText styleClass="Container80 Fnone MarAuto Fs18"
-                                     id="ans" placeholder="Answer" required="true"
-                                     value="#{loginController.answer}"
-                                     rendered="#{loginController.needAdditionalInfo}">
-                        </h:inputText>
+                        Clients have trusted Ladenburg Thalmann Asset Management
+                        to manage over $2 billion of their assets.
                         <div class="EmptyBox20"></div>
-                        <h:commandButton styleClass="Fs16"
-                                         type="submit" id="login" image="images/login.png"
-                                         action="#{loginController.doLogin}"/>
-                        <div class="EmptyBox10"></div>
+                        See what LTAM has to offer by answering a few short questions
+                        to help us build you a risk managed portfolio customized to your
+                        financial needs.
+                        <div class="EmptyBox20"></div>
+                        <p:button  value="Get Started" icon="icon-input" styleClass="Fs16 BlueButton" href="/pages/try/index.xhtml"></p:button>
+                        <div class="EmptyBox20"></div>
+                        <p:button  value="Login" icon="icon-https" styleClass="Fs16 RaisedButton" href="/login.xhtml"></p:button>
+                        <div class="EmptyBox20"></div>
                         <div class="Seperator"></div>
                         <div class="EmptyBox10"></div>
-                        <p:button  value="Forgot Password ?" styleClass="Fs16 RedButton" href="/forgot.xhtml"></p:button>
-                        <p:button  value="Register" styleClass="Fs16 OrangeButton" href="/signup.xhtml"></p:button>
-                        <div class="EmptyBox50"></div>
+                        <div class="Fs8 TexAlCenter">
+                            By using Symbil you consent to electronic delivery of our
+                            <a href="http://www.ladenburgfunds.com/docs/LTAM-Symbil-Brochure.pdf"
+                               target="_ltam">brochure</a>
+                            with privacy policy.
+                        </div>
+                        <div class="EmptyBox40"></div>
                     </h:form>
                 </div>
             </div>
