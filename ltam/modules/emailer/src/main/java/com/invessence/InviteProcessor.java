@@ -29,7 +29,7 @@ public class InviteProcessor
          for (InvitedGuestData data : list)
          {
             System.out.println("Send Invitation to " + data.getName() + ": " + data.getEmail());
-            String emailTxt = emailCreator.buildMessage("HTML", "html.welcome", "txt.welcome", new Object[]{data.getName(), data.getEmail()});
+            String emailTxt = emailCreator.buildMessage("HTML", "html.welcome", "txt.welcome", new Object[]{data.getName(), data.getWeburl(), data.getEmail()});
             //System.out.println("Output Text: \n" + emailTxt);
 
             MsgData msgData = new MsgData();
@@ -40,6 +40,7 @@ public class InviteProcessor
             msgData.setSender("noreply@symbil.com");
             msgData.setMsg(emailTxt);
             emailCreator.writeMessage("User", msgData);
+            inviteDAO.updMsgStatus("R",data.getEmail());
 
          }
       }

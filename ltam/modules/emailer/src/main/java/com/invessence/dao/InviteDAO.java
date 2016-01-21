@@ -34,6 +34,7 @@ public class InviteDAO extends JdbcDaoSupport
             InvitedGuestData data = new InvitedGuestData();
             data.setEmail(rs.getString("email"));
             data.setName(rs.getString("name"));
+            data.setWeburl(weburl);
             return data;
          }
       };
@@ -48,7 +49,7 @@ public class InviteDAO extends JdbcDaoSupport
    public void updMsgStatus(String status, String email)
    {
       String sql = null;
-      sql = "update ltam_acct_info set invite = ?, where email = ?";
+      sql = "update ltam_acct_info set invite = ? where email = ?";
 
       if (sql != null)
          getJdbcTemplate().update(sql, new Object[]{status, email});
