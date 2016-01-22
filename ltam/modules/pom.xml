@@ -24,5 +24,6 @@
       <module>emailer</module>
       <module>brokerservices</module>
       <module>ltammodel</module>
+      <module>broker-services</module>
    </modules>
 </project>
