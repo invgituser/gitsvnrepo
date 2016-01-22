@@ -12,12 +12,12 @@ public class Main {
       try {
 
          ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("brokerBeanConf.xml");
-         BrokerFileProcessor pp = context.getBean(BrokerFileProcessor.class);
+         BrokerFileProcessor pp = (BrokerFileProcessor)context.getBean("brokerFileProcessor");
          pp.process();
 
          context.close();
       } catch (Exception e) {
-         e.printStackTrace();
+         //e.printStackTrace();
       }
 
    }

@@ -15,4 +15,5 @@ public interface CommonDao
    public Map<String, DBParameters> getDBParametres() throws SQLException;
    public void insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException;
    public void trancateTable(String tableName) throws SQLException;
+   public void callEODProcess(String proc) throws SQLException;
 }

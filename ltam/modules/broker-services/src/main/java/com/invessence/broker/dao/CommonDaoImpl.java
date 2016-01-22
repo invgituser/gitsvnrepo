@@ -113,5 +113,19 @@ public class CommonDaoImpl implements CommonDao
 
 
    }
+   public void callEODProcess(String proc) throws SQLException{
+      new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
+//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+//         .withProcedureName(proc);
+//
+//      Map<String, Object> inParamMap = new HashMap<String, Object>();
+//      inParamMap.put("firstName", "Smita");
+//      inParamMap.put("lastName", "Chaudhari");
+//      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+//
+//
+//      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+//      System.out.println(simpleJdbcCallResult);
+   }
 
 }

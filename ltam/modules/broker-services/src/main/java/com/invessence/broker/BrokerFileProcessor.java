@@ -1,6 +1,7 @@
 package com.invessence.broker;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -26,15 +27,26 @@ public class BrokerFileProcessor
    @Autowired
    CommonDao commonDao;
 
-   @Autowired
-   protected MessageSource resource;
-
-   protected String getMessage(String code, Object[] object, Locale locale) {
-      return resource.getMessage(code, object, locale);
-   }
+//   @Autowired
+//   protected MessageSource resource;
+//
+//   protected String getMessage(String code, Object[] object, Locale locale) {
+//      return resource.getMessage(code, object, locale);
+//   }
    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-   public void process() {
+   String baseDirectory;
+   String eodProcedure;
+
+   public BrokerFileProcessor(String _baseDirectory, String _eodProcedure){
+      this.baseDirectory=_baseDirectory;
+      this.eodProcedure=_eodProcedure;
+   }
+
+   public void process()
+   {
+      System.out.println("baseDirectory"+baseDirectory);
+      System.out.println("eodProcedure"+eodProcedure);
       StringBuilder mailAlertMsg=null;
       try {
          mailAlertMsg=new StringBuilder();
@@ -93,7 +105,7 @@ public class BrokerFileProcessor
                         {
                            InputStream in = channel.get(downloadFileDetails.getFileName() + "_" + dbParamMap.get("BROKER_BDATE").getValue() + ".csv");
                            // set local file
-                           File localDir = new File(getMessage("baseDirectory", null, null) + "/" + downloadFileDetails.getDownloadDir() + "/");
+                           File localDir = new File(baseDirectory + "/" + downloadFileDetails.getDownloadDir() + "/");
                            System.out.println("theDir :" + localDir);
                            // if the directory does not exist, create it
                            if (!localDir.exists())
@@ -163,12 +175,18 @@ public class BrokerFileProcessor
       } catch (Exception e) {
          exceptionHandler(e, mailAlertMsg, "While processing files");
 
-      }finally
+      }
+      if( mailAlertMsg.length()>0){
+         System.out.println("MailAlertMsg :"+ mailAlertMsg);
+      }else
       {
-         if( mailAlertMsg.length()>0){
-            System.out.println("MailAlertMsg :"+ mailAlertMsg);
-         }else{
-            System.out.println("MailAlertMsg is empty");
+         try
+         {
+            commonDao.callEODProcess(eodProcedure);
+         }
+         catch (Exception e)
+         {
+            exceptionHandler(e, mailAlertMsg, "While calling EOD process");
          }
       }
    }
@@ -214,14 +232,22 @@ public class BrokerFileProcessor
          if(inLst.size()>0)
          {
             System.out.println("MailAlertMsg is empty" + inLst.size());
+            StringBuilder insertQuery=new StringBuilder("insert into "+fileDetails.getTmp_TableName()+" values (");
+            int inColLen=inLst.get(0).length;
+            for(int i=1; i<=inColLen; i++){
+               insertQuery.append("?"+(i!=inColLen?",":")"));
+            }
+            System.out.println("insertQuery :" + insertQuery);
             commonDao.trancateTable(fileDetails.getTmp_TableName());
-            commonDao.insertBatch(inLst, getMessage("sqlInsert" + fileDetails.getTmp_TableName(), null, null), fileDetails.getPostInstruction());
+            commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
          }else
          {
-            throw new FileEmptyException(fileDetails.getFileName()+" file is empty");
+            if(fileDetails.getContainsheader().equalsIgnoreCase("N")) {
+               throw new FileEmptyException(fileDetails.getFileName() + " file is empty");
+            }
          }
       }finally {
-         if (br != null) {try { br.close(); } catch (IOException e) {  e.printStackTrace();}}
+         if (br != null) {try { br.close(); } catch (IOException e) {  /*e.printStackTrace();*/}}
       }
    }
 
@@ -239,7 +265,7 @@ public class BrokerFileProcessor
       try{
 
          System.out.println("Exception Class :" + ex.getClass());
-         ex.printStackTrace();
+         //ex.printStackTrace();
          logger.error(ex.getMessage());
          logger.error(CommonUtil.stackTraceToString(ex.getStackTrace()));
 
@@ -271,7 +297,7 @@ public class BrokerFileProcessor
       }catch(Exception e){
          mailAlertMsg.append(process + " : " + ex.getMessage() + "\n");
          System.out.println(process + " : " + ex.getMessage());
-         ex.printStackTrace();
+         //ex.printStackTrace();
       }
    }
    public static String unescape(String data)
