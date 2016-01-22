@@ -1,11 +1,11 @@
-package com.ltammodel;
+package com.invessence;
 
 import java.util.*;
 import java.util.concurrent.locks.*;
 import java.util.logging.Logger;
 
-import com.ltammodel.dao.LTAMDao;
-import com.ltammodel.data.LTAMTheme;
+import com.invessence.dao.LTAMDao;
+import com.invessence.data.LTAMTheme;
 
 /**
  * Created with IntelliJ IDEA.

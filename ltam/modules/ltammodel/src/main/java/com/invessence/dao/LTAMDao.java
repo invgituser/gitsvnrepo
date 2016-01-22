@@ -1,10 +1,10 @@
-package com.ltammodel.dao;
+package com.invessence.dao;
 
 import java.util.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.ltammodel.data.*;
+import com.invessence.data.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 /**

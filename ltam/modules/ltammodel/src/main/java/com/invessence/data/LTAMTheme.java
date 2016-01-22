@@ -1,4 +1,4 @@
-package com.ltammodel.data;
+package com.invessence.data;
 
 import java.util.*;
 

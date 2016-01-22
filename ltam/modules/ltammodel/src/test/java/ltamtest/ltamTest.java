@@ -1,8 +1,8 @@
 package ltamtest;
 
 
-import com.ltammodel.LTAMOptimizer;
-import com.ltammodel.data.LTAMTheme;
+import com.invessence.LTAMOptimizer;
+import com.invessence.data.LTAMTheme;
 
 /**
  * Created with IntelliJ IDEA.

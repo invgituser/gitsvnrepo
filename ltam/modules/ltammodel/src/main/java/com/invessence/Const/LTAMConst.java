@@ -1,4 +1,4 @@
-package com.ltammodel.Const;
+package com.invessence.Const;
 
 /**
  * Created with IntelliJ IDEA.
