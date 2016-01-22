@@ -197,7 +197,13 @@ public class BrokerFileProcessor
             if (!line.equals(""))
             {
                String[] lineArr = line.split(cvsSplitBy);
-               inLst.add(lineArr);
+               if(lineArr.length>fileDetails.getKeyData())
+               {
+                  if (!lineArr[fileDetails.getKeyData()].trim().equals("") || lineArr[fileDetails.getKeyData()].trim() != null)
+                  {
+                     inLst.add(lineArr);
+                  }
+               }
             }
          }
          System.out.println("MailAlertMsg is empty"+inLst.size());
@@ -205,9 +211,15 @@ public class BrokerFileProcessor
             System.out.println("WE R INSIDE MailAlertMsg is empty"+inLst.size());
             inLst.remove(0);
          }
-         System.out.println("MailAlertMsg is empty"+inLst.size());
-         commonDao.trancateTable(fileDetails.getTmp_TableName());
-         commonDao.insertBatch(inLst,getMessage("sqlInsert"+fileDetails.getTmp_TableName(),null,null), fileDetails.getPostInstruction());
+         if(inLst.size()>0)
+         {
+            System.out.println("MailAlertMsg is empty" + inLst.size());
+            commonDao.trancateTable(fileDetails.getTmp_TableName());
+            commonDao.insertBatch(inLst, getMessage("sqlInsert" + fileDetails.getTmp_TableName(), null, null), fileDetails.getPostInstruction());
+         }else
+         {
+            throw new FileEmptyException(fileDetails.getFileName()+" file is empty");
+         }
       }finally {
          if (br != null) {try { br.close(); } catch (IOException e) {  e.printStackTrace();}}
       }
@@ -231,7 +243,11 @@ public class BrokerFileProcessor
          logger.error(ex.getMessage());
          logger.error(CommonUtil.stackTraceToString(ex.getStackTrace()));
 
-         if(ex instanceof FileNotFoundException)
+         if(ex instanceof FileEmptyException)
+         {
+            mailAlertMsg.append(process+" : " + ex.getMessage()+"\n");
+            System.out.println(process+" : " + ex.getMessage());
+         }else  if(ex instanceof FileNotFoundException)
          {
             mailAlertMsg.append(process+" : " + ex.getMessage()+"\n");
             System.out.println(process+" : " + ex.getMessage());

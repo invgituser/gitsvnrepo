@@ -19,12 +19,23 @@ public class DownloadFileDetails
    private String postProcess;
    private String postInstruction;
    private String containsheader;
+   private int keyData;
 
 
    private boolean isEmpty;
    private boolean isCopied;
    private boolean isError;
    private String errorMsg;
+
+   public int getKeyData()
+   {
+      return keyData;
+   }
+
+   public void setKeyData(int keyData)
+   {
+      this.keyData = keyData;
+   }
 
    public String getTmp_TableName()
    {
