@@ -26,21 +26,7 @@ public class SignupSP extends StoredProcedure {
 	    
 	    compile();
 	}
-	   
-	public Map addAddUser(UserData data) {
-		
-		
-	    Map inputMap = new HashMap();
-	    inputMap.put( "firstName", data.getFirstName());
-	    inputMap.put( "lastName", data.getLastName() );
-	    inputMap.put( "userID", data.getUserID() );
-	    inputMap.put( "emailID", data.getEmailID() );
-	    inputMap.put( "password", data.getPassword() );	
-	    inputMap.put( "secCode", data.getSecCode());
 
-	    return super.execute(inputMap); 
-    }
-	
 	public static void main(String[] args) {
 		//SignupStoredProcedure sp = new SignupStoredProcedure(ds);	
 	}

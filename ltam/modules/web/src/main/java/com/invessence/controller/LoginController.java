@@ -148,6 +148,7 @@ public class LoginController implements PhaseListener
          }
          else if (e instanceof AuthenticationServiceException) {
             String msg = e.getMessage();
+            System.out.println(msg);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                           msg,

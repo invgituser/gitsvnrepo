@@ -137,6 +137,16 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                // Note: it is either set with number of attempts or it was set in past attempt.
                randomQuestion = webutl.randomGenerator(0,2);
                enabled=true;
+               if (logonStatus == null) {
+                  if (logonStatus.toUpperCase().startsWith("I")) {
+                     enabled = false;
+                     throw new BadCredentialsException("Username is disabled!");
+                  }
+                  else if (logonStatus.toUpperCase().startsWith("T")) {
+                     enabled = false;
+                     throw new BadCredentialsException("Username is not active, please activate account!");
+                  }
+               }
             }
          else {
                logonStatus = "X";

@@ -72,7 +72,7 @@
       <dependency>
          <groupId>com.invessence</groupId>
          <artifactId>ltammodel</artifactId>
-         <version>${invessence.version}</version>
+         <version>1.0-SNAPSHOT</version>
       </dependency>
 
       <dependency>

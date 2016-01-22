@@ -24,57 +24,55 @@ public class UserInfoDAO extends JdbcDaoSupport
 
    public Long addUserInfo(UserData userData)
    {
-      UserInfoSP sp = new UserInfoSP(getDataSource(),"sp_login_add_mod",0);
-      String action = Const.DB_FUNCTION_ADD;
+      UserInfoSP sp = new UserInfoSP(getDataSource(),"sp_add_ltam_login",0);
+      Map outMap = sp.addUser(userData);
 
-      Map outMap = sp.addUser(action, userData);
-
-      return ((Long) outMap.get(Const.LOGONID_PARAM)).longValue();
+      Long logonid = convert.getLongData(outMap.get(Const.LOGONID_PARAM));
+      return logonid;
    }
 
-   public UserData selectUserInfo(Long logonid)
+   // Called By profileBean;
+   public void selectUserInfo(Long logonid, String userid, UserData data)
    {
       UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1);
-      Map outMap = sp.selectUserProfile(logonid);
+      Map outMap = sp.selectUserProfile(logonid, userid);
       try {
-         UserData data = new UserData();
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-            int i = 0;
-            for (Map<String, Object> map : rows)
-            {
-               Map rs = (Map) rows.get(i);
+            if (rows != null) {
+               int i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
 
-               data.setLogonID(convert.getLongData(rs.get("logonid")));
-               data.setUserID(convert.getStrData(rs.get("userid")));
-               data.setEmail(convert.getStrData(rs.get("email")));
-               data.setCurrentPassword(convert.getStrData(rs.get("pwd")));
-               data.setLastName(convert.getStrData(rs.get("lastname")));
-               data.setFirstName(convert.getStrData(rs.get("firstname")));
-               data.setEmailalt(convert.getStrData(rs.get("emailalt")));
-               data.setQ1(convert.getStrData(rs.get("question1")));
-               data.setAns1(convert.getStrData(rs.get("answer1")));
-               data.setQ2(convert.getStrData(rs.get("question2")));
-               data.setAns2(convert.getStrData(rs.get("answer2")));
-               data.setQ3(convert.getStrData(rs.get("question3")));
-               data.setAns3(convert.getStrData(rs.get("answer3")));
-               data.setEmailmsgtype(convert.getStrData(rs.get("emailmsgtype")));
-               data.setCid(convert.getStrData(rs.get("cid")));
-               data.setAdvisor(convert.getStrData(rs.get("advisor")));
-               data.setRep(convert.getLongData(rs.get("rep")));
-               break;
+                  data.setLogonID(convert.getLongData(rs.get("logonid")));
+                  data.setUserID(convert.getStrData(rs.get("userid")));
+                  data.setEmail(convert.getStrData(rs.get("email")));
+                  data.setPasswordEncrypted(convert.getStrData(rs.get("pwd")));
+                  data.setLastName(convert.getStrData(rs.get("lastname")));
+                  data.setFirstName(convert.getStrData(rs.get("firstname")));
+                  data.setQ1(convert.getStrData(rs.get("question1")));
+                  data.setAns1(convert.getStrData(rs.get("answer1")));
+                  data.setQ2(convert.getStrData(rs.get("question2")));
+                  data.setAns2(convert.getStrData(rs.get("answer2")));
+                  data.setQ3(convert.getStrData(rs.get("question3")));
+                  data.setAns3(convert.getStrData(rs.get("answer3")));
+                  data.setEmailmsgtype(convert.getStrData(rs.get("emailmsgtype")));
+                  data.setCid(convert.getStrData(rs.get("cid")));
+                  data.setAdvisor(convert.getStrData(rs.get("advisor")));
+                  data.setRep(convert.getLongData(rs.get("rep")));
+                  break;
+               }
             }
          }
-         return data;
       }
       catch (Exception ex) {
          ex.printStackTrace();
       }
-      return null;
    }
 
-
+   // Called by ProfileBean: To update userid/password.
    public String updateUserProfile(UserData userData)
    {
       String message;
@@ -86,6 +84,7 @@ public class UserInfoDAO extends JdbcDaoSupport
 
    }
 
+   // Called by ProfileBean: To update security questions.
    public void updateSecurityQuestions(UserData userData)
    {
 
@@ -95,6 +94,7 @@ public class UserInfoDAO extends JdbcDaoSupport
 
    }
 
+   // Called by UserBean to reset password.
    public void resetPassword(String userID, String password)
    {
 
@@ -104,6 +104,27 @@ public class UserInfoDAO extends JdbcDaoSupport
    }
 
 
+
+   // Called by UserBean to check email, when signup process is called.
+   public Integer validateUserID(String userid)
+   {
+
+      String sql = "select userid from user_logon where userid = ?";
+      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userid});
+      String dbuserid = "";
+      while (rs.next())
+      {
+         dbuserid = rs.getString(1);
+         break; // Only get the first email.
+      }
+
+      if (dbuserid == null || dbuserid.isEmpty()) {
+         return 0;
+      }
+      else {
+         return -1;
+      }
+   }
 
    public String checkEmailID(String userid)
    {
@@ -120,40 +141,20 @@ public class UserInfoDAO extends JdbcDaoSupport
 
    }
 
-   public int checkReset(String userID, String resetID)
+   // Called by UserBean to check resetID, for given User. (Used during Registration and Reset Password)
+   public int checkReset(String check, String userID, String resetID)
    {
       int sqlStatus = 0;
       int count=0;
       String sql = "";
       // First check that we have valid userid.
-      sql = "select count(*) from user_logon where userid = ?";
-      sqlStatus = getJdbcTemplate().queryForInt(sql, new Object[]{userID});
-
-      // Now check that logonstatus is not active, if so then we cannot reset password.
-      if (sqlStatus == 1) {
-         sql = "select logonstatus from user_logon where userid = ? and resetID = ?";
-         SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userID, resetID});
-         if (rs == null) {
-            sqlStatus = -2;
-         } else {
-            while (rs.next())
-            {
-               count++;
-               if (rs.getString("logonstatus").toUpperCase().startsWith("A"))
-                  sqlStatus = -2;
-            }
-         }
-      }
-
-      /*
-      if (count == 0 && sqlStatus == 1)
-         sqlStatus = -1;
-       */
-
+      sql = "select sel_user_status(?,?,?)";
+      sqlStatus = getJdbcTemplate().queryForInt(sql, new Object[]{check,userID,resetID});
       return sqlStatus;
    }
 
 
+   // Called by Logon process when locking user
    public int updResetID(String userID, String resetID)
    {
       String sql = "update user_logon set resetID = ?, lastupdated = now(), logonstatus = 'R' " +
@@ -162,34 +163,54 @@ public class UserInfoDAO extends JdbcDaoSupport
       return this.getJdbcTemplate().update(sql, new Object[]{resetID, userID});
    }
 
-   public List<UserData> getUserByEmail(final String emailID) throws DataAccessException
+   // Userbean: Collect UserInfo
+   public void getUserByEmail(UserData userdata) throws DataAccessException
    {
 
-      String sql = "select usr.logonid, usr.userid, usr.status, \n" +
-         "\tusr.phone  \n" +
-         "\tfrom user_logon usr \n" +
-         "\twhere (usr.email = ?)\n";
+      if (userdata != null) {
+         UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_info",5);
 
-      ParameterizedRowMapper<UserData> mapper = new ParameterizedRowMapper<UserData>()
-      {
-         public UserData mapRow(ResultSet rs, int rowNum) throws SQLException
-         {
+         Map outMap = sp.getUserByEmail(userdata.getEmail());
+         try {
+            if (outMap != null)
+            {
+               ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+               if (rows != null) {
+                  int i = 0;
+                  for (Map<String, Object> map : rows)
+                  {
+                     Map rs = (Map) rows.get(i);
 
-            UserData data = new UserData();
-            data.setLogonID(rs.getInt(1));
-            data.setUserID(rs.getString(2));
-            data.setStatus(rs.getInt(3));
-            // data.setPhone(rs.getString(4));
-            // data.setSendText(rs.getInt(5));
+                     userdata.setFullName(convert.getStrData(rs.get("name")));
+                     userdata.setRep(convert.getLongData(rs.get("repNum")));
+                     userdata.setAdvisor(convert.getStrData(rs.get("repName")));
+                     userdata.setLogonID(convert.getLongData(rs.get("logonid")));
+                     userdata.setUserID(convert.getStrData(rs.get("userid")));
+                     // We only need the first data.
+                     i++;
+                     break;
+                  }
 
-            data.setEmailID(emailID);
+                  if (i == 0){
+                     userdata.setFullName(null);
+                     userdata.setRep(0L);
+                     userdata.setAdvisor(null);
+                     userdata.setLogonID(0L);
+                     userdata.setUserID(null);
 
-            return data;
+                  }
+
+               }
+            }
          }
-      };
-
-      return getJdbcTemplate().query(sql, mapper, emailID);
-
+         catch (Exception ex) {
+            userdata.setFullName(null);
+            userdata.setRep(0L);
+            userdata.setAdvisor(null);
+            userdata.setLogonID(0L);
+            userdata.setUserID(null);
+         }
+      }
    }
 
    public String checkMimeType(String userID)

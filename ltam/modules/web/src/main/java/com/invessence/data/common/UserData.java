@@ -15,41 +15,23 @@ public class UserData
    private long logonID = 0;
    private String logonstatus = "A";
 
-   private String prefix = null;
    private String firstName = null;
-   private String middleInitial = null;
    private String lastName = null;
-   private String suffix = null;
-
    private String email = null;
-   private String emailalt = null;
 
    private String userID = null;
-   private String emailID = null;
-   private String emailIDVerify = null;
-   private String password = null;
-
-   private String leadsource = null;
-
-   private String confirmNewPassword = null;
-   private String currentPassword = null;
-   private String secCode = null;
+   private String passwordEncrypted = null;
 
    private RoleData roleData = new RoleData();
    private List<RoleData> roleDataList = new ArrayList<RoleData>();
-   private int sendText = -1;
-   private int status = 0;
-   private String captchaAnswer = null;
    private String fullName = null;
-   private String message = null;
-
-   private String stateCode;
 
    private String q1, q2, q3;
    private String ans1, ans2, ans3;
    private String ip;
-   Integer resetID;
+   private Integer resetID;
    private String cid;
+   private String leadSource;
    private String advisor;
    private Long rep;
    private String access;
@@ -63,14 +45,31 @@ public class UserData
       instance = this;
    }
 
+   public UserData(long logonID, String logonstatus, String email,
+                   String userID,
+                   String q1, String q2, String q3, String ans1, String ans2, String ans3,
+                   String ip, Integer resetID, String emailmsgtype
+                  )
+      {
+      super();
+      instance = this;
+      this.logonID = logonID;
+      this.logonstatus = logonstatus;
+      this.email = email;
+      this.userID = userID;
+      this.q1 = q1;
+      this.q2 = q2;
+      this.q3 = q3;
+      this.ans1 = ans1;
+      this.ans2 = ans2;
+      this.ans3 = ans3;
+      this.ip = ip;
+      this.resetID = resetID;
+      this.emailmsgtype = emailmsgtype;
+   }
+
    public static UserData getInstance()
    {
-/*
-      if (instance == null) {
-         instance = new UserData();
-      }
-*/
-
       return instance;
    }
 
@@ -95,27 +94,6 @@ public class UserData
       this.logonstatus = logonstatus;
    }
 
-   public String getPassword()
-   {
-      return password;
-   }
-
-   public void setPassword(String password)
-   {
-      this.password = password;
-   }
-
-   public String getStateCode()
-   {
-      return stateCode;
-   }
-
-   public void setStateCode(String stateCode)
-   {
-      this.stateCode = stateCode;
-   }
-
-
    public String getEmail()
    {
       return email;
@@ -126,17 +104,6 @@ public class UserData
       this.email = email;
    }
 
-   public String getEmailalt()
-   {
-      return emailalt;
-   }
-
-   public void setEmailalt(String emailalt)
-   {
-      this.emailalt = emailalt;
-   }
-
-
    public String getUserID()
    {
       return userID;
@@ -145,37 +112,6 @@ public class UserData
    public void setUserID(String userID)
    {
       this.userID = userID;
-   }
-
-   public String getEmailID()
-   {
-      return emailID;
-   }
-
-   public void setEmailID(String emailID)
-   {
-      System.out.println("Signon Try:" + emailID);
-      this.emailID = emailID;
-   }
-
-   public String getConfirmNewPassword()
-   {
-      return confirmNewPassword;
-   }
-
-   public void setConfirmNewPassword(String confirmNewPassword)
-   {
-      this.confirmNewPassword = confirmNewPassword;
-   }
-
-   public String getCurrentPassword()
-   {
-      return currentPassword;
-   }
-
-   public void setCurrentPassword(String currentPassword)
-   {
-      this.currentPassword = currentPassword;
    }
 
    public RoleData getRoleData()
@@ -188,16 +124,6 @@ public class UserData
       this.roleData = roleData;
    }
 
-   public int getSendText()
-   {
-      return sendText;
-   }
-
-   public void setSendText(int sendText)
-   {
-      this.sendText = sendText;
-   }
-
    public List<RoleData> getRoleDataList()
    {
       return roleDataList;
@@ -208,82 +134,24 @@ public class UserData
       this.roleDataList = roleDataList;
    }
 
-   public int getStatus()
+   public String getPasswordEncrypted()
    {
-      return status;
+      return passwordEncrypted;
    }
 
-   public void setStatus(int status)
+   public void setPasswordEncrypted(String passwordEncrypted)
    {
-      this.status = status;
-   }
-
-   public String getSecCode()
-   {
-      return secCode;
-   }
-
-   public void setSecCode(String secCode)
-   {
-      this.secCode = secCode;
-   }
-
-   public String getCaptchaAnswer()
-   {
-      return captchaAnswer;
-   }
-
-   public void setCaptchaAnswer(String captchaAnswer)
-   {
-      this.captchaAnswer = captchaAnswer;
+      this.passwordEncrypted = passwordEncrypted;
    }
 
    public String getFullName()
    {
-
-      if (!WebUtil.isNull(firstName))
-      {
-         this.fullName = firstName;
-      }
-
-      if (!WebUtil.isNull(middleInitial))
-      {
-         this.fullName += " " + middleInitial;
-      }
-
-      if (!WebUtil.isNull(lastName))
-      {
-         this.fullName += " " + lastName;
-      }
-
-      return this.fullName;
-
-
+      return fullName;
    }
 
    public void setFullName(String fullName)
    {
       this.fullName = fullName;
-   }
-
-   public String getEmailIDVerify()
-   {
-      return emailIDVerify;
-   }
-
-   public void setEmailIDVerify(String emailIDVerify)
-   {
-      this.emailIDVerify = emailIDVerify;
-   }
-
-   public String getPrefix()
-   {
-      return prefix;
-   }
-
-   public void setPrefix(String prefix)
-   {
-      this.prefix = prefix;
    }
 
    public String getFirstName()
@@ -296,16 +164,6 @@ public class UserData
       this.firstName = firstName;
    }
 
-   public String getMiddleInitial()
-   {
-      return middleInitial;
-   }
-
-   public void setMiddleInitial(String middleInitial)
-   {
-      this.middleInitial = middleInitial;
-   }
-
    public String getLastName()
    {
       return lastName;
@@ -314,37 +172,6 @@ public class UserData
    public void setLastName(String lastName)
    {
       this.lastName = lastName;
-   }
-
-   public String getSuffix()
-   {
-      return suffix;
-   }
-
-   public void setSuffix(String suffix)
-   {
-      this.suffix = suffix;
-   }
-
-   public String getLeadsource()
-   {
-      return leadsource;
-   }
-
-   public void setLeadsource(String leadsource)
-   {
-      this.leadsource = leadsource;
-   }
-
-   public String getMessage()
-   {
-      return message;
-   }
-
-
-   public void setMessage(String message)
-   {
-      this.message = message;
    }
 
    public String getQ1()
@@ -450,6 +277,16 @@ public class UserData
    public void setCid(String cid)
    {
       this.cid = cid;
+   }
+
+   public String getLeadSource()
+   {
+      return leadSource;
+   }
+
+   public void setLeadSource(String leadSource)
+   {
+      this.leadSource = leadSource;
    }
 
    public String getAdvisor()

@@ -39,7 +39,7 @@
       </bean>
    -->
 
-   <bean id="ltamOptimizer" class="com.ltammodel.LTAMOptimizer" factory-method="getInstance"/>
+   <bean id="ltamOptimizer" class="com.invessence.LTAMOptimizer" factory-method="getInstance"/>
 
 
    <bean id="refreshDelay" class="java.lang.Long">

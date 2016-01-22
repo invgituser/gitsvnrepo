@@ -1,12 +1,9 @@
 package com.invessence.bean.ltam;
 
 import java.io.Serializable;
-import java.util.*;
 
 import javax.faces.bean.*;
 
-import com.invessence.converter.JavaUtil;
-import com.ltammodel.data.*;
 import org.primefaces.model.chart.*;
 
 /**

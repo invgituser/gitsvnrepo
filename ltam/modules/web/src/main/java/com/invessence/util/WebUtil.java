@@ -500,8 +500,7 @@ public class WebUtil implements Serializable
 
    public void alertSupport(String module, String subject,
                             String message_line, String stacktrace) {
-
-      messageText.alertSupport(module, subject, message_line, stacktrace, getUserInfoData().getUserID());
+      //messageText.alertSupport(module, subject, message_line, stacktrace, getUserInfoData().getUserID());
    }
 
    public void seriousError(String module, String subject,
@@ -532,26 +531,26 @@ public class WebUtil implements Serializable
          boolean noSpecialChar = pass1.matches("[a-zA-Z0-9 ]*");
 
          if (pass1.length() < 8) {
-            retVal.append("Password is too short. Needs to have 8 characters <br>");
+            retVal.append("Password is too short. Needs to have 8 characters");
          }
 
          if (!hasUppercase) {
-            retVal.append("Password needs an upper case <br>");
+            retVal.append("Password needs an upper case");
          }
 
          if (!hasLowercase) {
-            retVal.append("Password needs a lowercase <br>");
+            retVal.append("Password needs a lowercase");
          }
 
          if (!hasNumber) {
-            retVal.append("Password needs a number <br>");
+            retVal.append("Password needs a number");
          }
 
          if(noSpecialChar){
-            retVal.append("Password needs a special character i.e. !,@,#, etc.  <br>");
+            retVal.append("Password needs a special character i.e. !,@,#, etc.");
          }
       }else{
-         retVal.append("Passwords don't match<br>");
+         retVal.append("Passwords don't match");
       }
 
       if(retVal.length() == 0){

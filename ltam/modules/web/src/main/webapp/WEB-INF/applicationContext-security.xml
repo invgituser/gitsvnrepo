@@ -12,16 +12,17 @@
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/index.xhtml" security="none"/>
    <http pattern="/signup.xhtml" security="none"/>
+   <http pattern="/signup2.xhtml" security="none"/>
    <http pattern="/register.xhtml" security="none"/>
    <http pattern="/resetPassword.xhtml" security="none"/>
-   <http pattern="/setPassword.xhtml" security="none"/>
    <http pattern="/viewExpired.xhtml" security="none"/>
    <http pattern="/forgot.xhtml" security="none"/>
    <http pattern="/signupApproval.xhtml" security="none"/>
    <http pattern="/message.xhtml" security="none"/>
    <http pattern="/test.xhtml" security="none"/>
    <http pattern="/start.xhtml" security="none"/>
-   <http pattern="/review.xhtml" security="none"/>
+   <http pattern="/welcome.xhtml" security="none"/>
+   <http pattern="/announcement.xhtml" security="none"/>
 
    <http pattern="/css/**" security="none"/>
    <http pattern="/js/**" security="none"/>

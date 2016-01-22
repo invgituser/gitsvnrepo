@@ -1,5 +1,6 @@
 package com.invessence.bean.common;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.regex.Pattern;
 import javax.annotation.PostConstruct;
@@ -18,44 +19,69 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
-public class UserBean extends UserData {
-    private String beanUserID, beanResetID, beanEmail;
-   private String beanfirstname, beanlastname, beanCustID;
+public class UserBean extends UserData implements Serializable
+{
+   private String beanUserID, beanResetID, beanEmail;
+   private String beanCustID;
 
-    private WebUtil webutil = new WebUtil();
+   private String pwd1, pwd2;
+   private String q1, q2, q3, ans1, ans2, ans3;
 
-    private Integer sTab = 0;
+   private SecurityQuestions securityQuestions;
 
-    private USMaps usstates = USMaps.getInstance();
-    private String[] uscountry;
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
-    @ManagedProperty("#{emailMessage}")
-    private EmailMessage messageText;
-    public void setMessageText(EmailMessage messageText) {
-        this.messageText = messageText;
-    }
+   @ManagedProperty("#{emailMessage}")
+   private EmailMessage messageText;
 
-    @ManagedProperty("#{userInfoDAO}")
-    private UserInfoDAO userInfoDAO;
-    public void setUserInfoDAO(UserInfoDAO userInfoDAO) {
-        this.userInfoDAO = userInfoDAO;
-    }
+   public void setMessageText(EmailMessage messageText)
+   {
+      this.messageText = messageText;
+   }
 
-    public String getBeanUserID() {
-        return beanUserID;
-    }
+   @ManagedProperty("#{userInfoDAO}")
+   private UserInfoDAO userInfoDAO;
 
-    public void setBeanUserID(String beanUserID) {
-        this.beanUserID = beanUserID;
-    }
+   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
+   {
+      this.userInfoDAO = userInfoDAO;
+   }
 
-    public String getBeanResetID() {
-        return beanResetID;
-    }
+   @ManagedProperty("#{uiLayout}")
+   private UILayout uiLayout;
 
-    public void setBeanResetID(String beanResetID) {
-        this.beanResetID = beanResetID;
-    }
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
+   }
+
+   private USMaps usstates = USMaps.getInstance();
+   private String[] uscountry;
+
+   public String getBeanUserID()
+   {
+      return beanUserID;
+   }
+
+   public void setBeanUserID(String beanUserID)
+   {
+      this.beanUserID = beanUserID;
+   }
+
+   public String getBeanResetID()
+   {
+      return beanResetID;
+   }
+
+   public void setBeanResetID(String beanResetID)
+   {
+      this.beanResetID = beanResetID;
+   }
 
    public String getBeanEmail()
    {
@@ -65,26 +91,6 @@ public class UserBean extends UserData {
    public void setBeanEmail(String beanEmail)
    {
       this.beanEmail = beanEmail;
-   }
-
-   public String getBeanfirstname()
-   {
-      return beanfirstname;
-   }
-
-   public void setBeanfirstname(String beanfirstname)
-   {
-      this.beanfirstname = beanfirstname;
-   }
-
-   public String getBeanlastname()
-   {
-      return beanlastname;
-   }
-
-   public void setBeanlastname(String beanlastname)
-   {
-      this.beanlastname = beanlastname;
    }
 
    public String getBeanCustID()
@@ -97,360 +103,260 @@ public class UserBean extends UserData {
       this.beanCustID = beanCustID;
    }
 
-   public EmailMessage getMessageText() {
-        return messageText;
-    }
+   public EmailMessage getMessageText()
+   {
+      return messageText;
+   }
 
+   public String getPwd1()
+   {
+      return pwd1;
+   }
 
-    public Integer getsTab() {
-        return sTab;
-    }
+   public void setPwd1(String pwd1)
+   {
+      this.pwd1 = pwd1;
+   }
 
-    public Map<String, String> getUsstates() {
-        return usstates.getStates();
-    }
+   public String getPwd2()
+   {
+      return pwd2;
+   }
 
-    public UserInfoDAO getUserInfoDAO() {
-        return userInfoDAO;
-    }
+   public void setPwd2(String pwd2)
+   {
+      this.pwd2 = pwd2;
+   }
 
+   public String getQ1()
+   {
+      return q1;
+   }
 
-    public void preRenderView() {
+   public void setQ1(String q1)
+   {
+      this.q1 = q1;
+   }
 
-        String msg = null;
-        try {
+   public String getQ2()
+   {
+      return q2;
+   }
+
+   public void setQ2(String q2)
+   {
+      this.q2 = q2;
+   }
+
+   public String getQ3()
+   {
+      return q3;
+   }
+
+   public void setQ3(String q3)
+   {
+      this.q3 = q3;
+   }
+
+   public String getAns1()
+   {
+      return ans1;
+   }
+
+   public void setAns1(String ans1)
+   {
+      this.ans1 = ans1;
+   }
+
+   public String getAns2()
+   {
+      return ans2;
+   }
+
+   public void setAns2(String ans2)
+   {
+      this.ans2 = ans2;
+   }
+
+   public String getAns3()
+   {
+      return ans3;
+   }
+
+   public void setAns3(String ans3)
+   {
+      this.ans3 = ans3;
+   }
+
+   public SecurityQuestions getSecurityQuestions()
+   {
+      return securityQuestions;
+   }
+
+   public Map<String, String> getUsstates()
+   {
+      return usstates.getStates();
+   }
+
+   public void collectUserData()
+   {
+      setEmail(beanEmail);
+      userInfoDAO.getUserByEmail(getInstance());
+   }
+
+   /*
+      public void preRenderActivateUser() {
+         String msg;
+         try {
             if (!FacesContext.getCurrentInstance().isPostback()) {
-                msg = validateUser();
-                if (msg != null) {
-                    webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to access the registration process, but the link contains invalid data.<br>" + msg);
-                }
+               if (beanUserID != null && beanResetID != null) {
+                  if (! beanUserID.isEmpty() && ! beanResetID.isEmpty()) {
+                     int ind = userInfoDAO.checkReset("R", beanUserID, beanResetID);
+                     if (ind == 0) {
+                        webutil.redirect("/rdone.xhtml", null); }
+                     else {
+                        webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data.");
+                     }
+                  }
+               }
             }
+         }
+         catch (Exception ex) {
+            webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data.");
+         }
+      }
+   */
 
-        } catch (Exception e) {
-            msg = "System error: contact support.";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-        }
-    }
 
-    public String validateUser() {
-        String msg = null;
-        try {
-            setUserID(beanUserID);
-            setResetID(Integer.valueOf(beanResetID));
-            if (webutil.isNull(getUserID())) {
-                msg = "Invalid UserID";
-            } else if (webutil.isNull(getResetID().toString())) {
-                msg = "Invalid Registration ID";
-            } else {
-                int ind = userInfoDAO.checkReset(getUserID(), getResetID().toString());
-                switch (ind) {
-                    case -1:
-                        msg = "User is already registered!";
-                        break;
-                    case -2:
-                        msg = "You are already registered!<br/>Please use forgot my password to reset password.";
-                        break;
-                    case 0:
-                        msg = "Not registered user.";
-                        break;
-                    case 1:
-                        break;
-                    default:
-                        msg = "System error: contact support.";
-                }
+   // This method is used during Pre-signup process.  Validate the Email.
+   public void preRenderSignup()
+   {
+      String msg;
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            collectUserData();
+            if (getUserID() != null && !getUserID().isEmpty())
+            {
+               webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.");
             }
-        } catch (Exception e) {
-            msg = "System error: contact support.";
-        }
-        return msg;
-    }
-
-
-    public String signUp() {
-        if (getUserID() == null || getUserID().length() < 5) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Email", "Invalid Email"));
-        }
-        MsgData data = new MsgData();
-        //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
-
-        System.out.println("Registered by: " + getFullName() + ", EmailID: " + getUserID());
-        try {
-            if (messageText == null) {
-                System.out.println("Email alert system is down!!!!!!");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
-                return "Error";
+/*          Commented out to do beta testing of anyone able to sign up..
+            if (getRep() == null || getRep() == 0L)
+            { // Userid is UserData.
+               webutil.redirecttoMessagePage("ERROR", "Cannot Signup", "Sorry, you are attempting to activate account, but you have to be invited.  Please click on the email invitation link.");
             }
+*/
+         }
+      }
+      catch (Exception ex)
+      {
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data.");
+      }
+   }
 
-            // We are using the First Name, Last Name from UserData as entered.
-            setUserID(getUserID());
-            setEmail(getUserID());
-            setEmailID(getUserID());
-            String rndmPassword = PasswordGenerator.getSecCode();
-            String tmpCode = MsgDigester.getMessageDigest(rndmPassword);
-            String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-            Integer myResetID = webutil.randomGenerator(0, 347896);
-            String img = "123";
-            Map<String, String> cookieInfo = new HashMap<String, String>();
-            cookieInfo.put("img", img);
-            //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
-            setIp(myIP);
-            setResetID(myResetID);
-            setLogonstatus("T");
-            setSecCode(tmpCode);
-            setPassword(tmpCode);
-            setCid("0");
-            // secCode = "Default123";
-            setEmailmsgtype(getEmailmsgtype());
-            String supportInfo = messageText.buildInternalMessage("secure.url", new Object[]{});
-
-            // Save data to database....
-            long loginID = userInfoDAO.addUserInfo(getInstance());
-
-            if (loginID < 0L) {
-                String msg = "This userid is already registered.  Either reset password, via FORGOT Password,or try another ID";
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-                return "failed";
-            } else {
-                // Now send email support.
-                data.setSource("User");  // This is set to User to it insert into appropriate table.
-                data.setSender(Const.MAIL_SENDER);
-                data.setReceiver(getEmailID());
-                data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
-                String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
-                String name = getFirstName() + " " + getLastName();
-
-                // System.out.println("MIME Type :" + getEmailmsgtype());
-                if (getEmailmsgtype() == null || getEmailmsgtype().isEmpty())
-                    data.setMimeType("HTML");
-                else
-                    data.setMimeType(getEmailmsgtype());
-
-                String msg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
-                data.setMsg(msg);
-
-                messageText.writeMessage("signup", data);
-
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/signupApproval.xhtml");
-                return "success";
+   public void gotoSignPage2()
+   {
+      try {
+         Integer status = userInfoDAO.validateUserID(beanUserID);
+         if (status != 0) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID taken", "Try different UserID, this one is taken."));
+         }
+         else {
+            // Check if the username/password match.  Cannot change the Email Address.
+            String msg = webutil.validateNewPass(pwd1, pwd2);
+            if (!msg.toUpperCase().equals("SUCCESS"))
+            {
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+               return;
             }
+            webutil.redirect("/signup2.xhtml", null);
+         }
 
-        } catch (Exception ex) {
-            String username = getUserID();
-            String stackTrace = "User: " + username + " \n" + ex.getMessage();
-            data.setMsg(messageText.buildInternalMessage("signup.failure", new Object[]{stackTrace}));
-            messageText.writeMessage("Error", data);
-            return "failed";
-        }
-    }
+      }
+      catch (Exception ex) {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID issue", "Contact Support"));
+      }
+   }
 
-    public String tryus() {
-        MsgData data = new MsgData();
-        //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
-        System.out.println("Demo by: " + getFullName() + ", EmailID: " + getUserID());
-        try {
-         /*  // For Demo if the email is down, then don't worry.  Let the user continue to test.  They can reset the password later.
+   public void saveUser()
+   {
+      if (beanUserID == null || beanUserID.length() < 5)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid UserID", "Invalid UserID"));
+      }
+      MsgData data = new MsgData();
+      //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
+
+      System.out.println("Trying Registering by: " + beanEmail + ", UserID: " + beanUserID);
+      try
+      {
          if (messageText == null)
          {
             System.out.println("Email alert system is down!!!!!!");
             FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
-            return "Error";
+            return;
          }
-         */
 
-            // We are using the First Name, Last Name from UserData as entered.
-            setUserID(getUserID());
-            setEmail(getUserID());
-            setEmailID(getUserID());
-            String rndmPassword = PasswordGenerator.getSecCode();
-            String tmpCode = MsgDigester.getMessageDigest(rndmPassword);
-            String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-            Integer myResetID = webutil.randomGenerator(0, 347896);
-            String img = "123";
-            Map<String, String> cookieInfo = new HashMap<String, String>();
-            cookieInfo.put("img", img);
-            //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
-            setIp(myIP);
-            setResetID(myResetID);
-            setLogonstatus("T");
-            setSecCode(tmpCode);
-            setPassword(tmpCode);
-            setEmailmsgtype("Text");
-            // secCode = "Default123";
+         // We are using the First Name, Last Name from UserData as entered.
+         String passwordEncrypted = MsgDigester.getMessageDigest(pwd1);
+         String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+         Integer myResetID = webutil.randomGenerator(0, 347896);
+         //Map<String, String> cookieInfo = new HashMap<String, String>();
+         //cookieInfo.put("img", img);
+         //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
 
+         String emailMsgType = "HTML";
+         setLogonID(0L);
+         setLogonstatus("T");
+         setEmail(beanEmail);
+         setUserID(beanUserID);
+         setPasswordEncrypted(passwordEncrypted);
+         setQ1(q1);
+         setQ2(q2);
+         setQ3(q3);
+         setAns1(ans1);
+         setAns2(ans2);
+         setAns3(ans3);
+         setIp(myIP);
+         setResetID(myResetID);
+         setEmailmsgtype(emailMsgType);
+         // Save data to database....
+         long loginID = userInfoDAO.addUserInfo(getInstance());
 
-            String name = getFirstName() + " " + getLastName();
-            // Save data to database....
-            long loginID = userInfoDAO.addUserInfo(getInstance());
+         if (loginID < 0L)
+         {
+            String msg = "This userid is already registered.  Either reset password, via FORGOT Password,or try another ID";
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+            return;
+         }
+         else
+         {
+            // Now send email support.
+            data.setSource("User");  // This is set to User to it insert into appropriate table.
+            data.setSender(Const.MAIL_SENDER);
+            data.setReceiver(beanEmail);
+            data.setSubject("Successfully registered");
+            String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
+            String name = getFullName();
 
-            Boolean sendEmail = false;
-            String redirectTo = null;
-            String msg;
-            if (loginID <= -90) {
-                sendEmail = true;
-                msg = "demouser.id.taken";
-                redirectTo = "message.xhtml?message=" + msg;
-            } else if (loginID <= 0) {
-                sendEmail = false;
-                redirectTo = null;
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This email is already registered.  Use Login to view account.", null));
-                return "failed";
-            } else {
-                sendEmail = true;
-                msg = "";
-                redirectTo = "/createInvestment.xhtml";
-            }
+            // System.out.println("MIME Type :" + getEmailmsgtype());
+            String msg = messageText.buildMessage(emailMsgType, "signup.email.template", "signup.email", new Object[]{secureUrl, beanUserID, beanEmail, beanResetID, null});
+            data.setMsg(msg);
 
-            if (sendEmail) {
-                // Now send email support.
-                if (messageText != null) {
-                    String supportInfo = messageText.buildInternalMessage("support.info", new Object[]{});
-                    String secureUrl = messageText.buildInternalMessage("secure.url", new Object[]{});
-                    data.setSource("User");  // This is set to User to it insert into appropriate table.
-                    data.setSender(Const.MAIL_SENDER);
-                    data.setReceiver(getEmailID());
-                    data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
-                    String emailmsg = messageText.buildMessage(getEmailmsgtype(), "signup.email.template", "signup.email", new Object[]{name, getUserID(), secureUrl, getEmailID(), getResetID().toString(), supportInfo});
-                    data.setMsg(emailmsg);
-                    data.setMimeType(getEmailmsgtype());
-                    messageText.writeMessage("User", data);
-                }
-            }
+            messageText.writeMessage("signup", data);
 
-            if (redirectTo != null) {
-                if (loginID > 0) {
-                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
-                }
-                FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo);
-                return "success";
-            } else {
-                return "failed";
-            }
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/signup3.xhtml");
+         }
 
-        } catch (Exception ex) {
-            String stackTrace = ex.getMessage();
-            if (messageText != null) {
-                String msg = "Demo failed for ( " + getEmailID() + "), " + stackTrace;
-                data.setMsg(messageText.buildInternalMessage("signup.failure", new Object[]{msg}));
-                messageText.writeMessage("Error", data);
-            }
-            System.out.println("Demo failed: " + getFullName());
-            System.out.println("Messsage:" + stackTrace);
-            ex.printStackTrace();
+      }
+      catch (Exception ex)
+      {
+         webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support.");
+         webutil.alertSupport("signup", "Signup -" + beanEmail, "Exception: " + ex.getMessage(), null);
+         ex.printStackTrace();
+      }
+   }
 
-            return "failed";
-        }
-    }
-
-
-    public void register() {
-        String msg;
-        try {
-            msg = webutil.validateNewPass(getPassword(), getConfirmNewPassword());
-            if (!msg.toUpperCase().equals("SUCCESS")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-                return;
-            }
-
-            String passwordEncrypted = MsgDigester.getMessageDigest(getPassword());
-
-            userInfoDAO.resetPassword(beanUserID, passwordEncrypted);
-
-            msg = "registered.success";
-            webutil.redirect("message.xhtml?faces-redirect=true&message=" + msg, null);
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void setPassword() {
-        String msg;
-        try {
-            msg = webutil.validateNewPass(getPassword(), getConfirmNewPassword());
-            if (!msg.toUpperCase().equals("SUCCESS")) {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-                return;
-            }
-
-            String passwordEncrypted = MsgDigester.getMessageDigest(getPassword());
-
-            userInfoDAO.resetPassword(beanUserID, passwordEncrypted);
-
-            msg = "password.set.success";
-            webutil.redirect("message.xhtml?faces-redirect=true&message=" + msg, null);
-        } catch (Exception ex) {
-
-        }
-    }
-
-    public void forgotPassword() {
-        try {
-            String check;
-            check = userInfoDAO.checkEmailID(beanUserID);
-            if (check == null || check.length() == 0) {
-                webutil.redirect("message.xhtml?faces-redirect=true&message=User not found", null);
-            } else {
-                beanEmail = check;
-                Integer myResetID = webutil.randomGenerator(0, 347896);
-                beanResetID = myResetID.toString();
-                validateSecurityQuestions();
-            }
-        } catch (Exception ex) {
-            webutil.redirect("message.xhtml?faces-redirect=true&type=E&message=Error when attempting to reset.", null);
-            webutil.alertSupport("ForgotPwd", "Resetting password", "Error when attempting to reset for" + beanUserID, null);
-        }
-    }
-
-    public void validateSecurityQuestions() {
-
-        // Save ResetID
-        userInfoDAO.updResetID(beanUserID, beanResetID);
-
-        //String websiteName = messageSource.getMessage("website.name", new Object[]{}, null);
-        MsgData data = new MsgData();
-        //data.setLogonID(loginID);
-        data.setSource("User");
-        data.setSender(Const.MAIL_SENDER);
-        data.setReceiver(beanEmail);
-        data.setSubject(Const.COMPANY_NAME + ": Forgot Password");
-        //data.setMsg(MsgConst.getSignupMsg(userData));
-
-        // System.out.println("MIME TYPE :" + userInfoDAO.checkMimeType(getEmailID()));
-        if (messageText == null) {
-            webutil.redirect("message.xhtml?faces-redirect=true&type=E&&message=Email process is down.", null);
-            webutil.alertSupport("ForgotPwd", "Resetting password", "messageText Context is null for " + beanUserID, null);
-        }
-
-        String websiteUrl = messageText.buildInternalMessage("website.url", new Object[]{});
-        String name = "User";
-        String mimetype = userInfoDAO.checkMimeType(beanUserID);
-        data.setMimeType(mimetype);
-        String msg = messageText.buildMessage(mimetype, "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, beanUserID, beanResetID});
-
-        data.setMsg(msg);
-        messageText.writeMessage(name, data);
-
-        String resetMsg = "password.reset";
-        webutil.redirect("message.xhtml?faces-redirect=true&message=" + resetMsg, null);
-
-    }
-
-    public void gotoPrevTab() {
-        if (sTab <= 0) {
-            sTab = 0;
-        } else {
-            sTab--;
-        }
-
-    }
-
-    public void gotoNextTab() {
-        if (sTab >= 1) {
-            String status = signUp();
-        } else {
-            sTab++;
-        }
-
-    }
 }

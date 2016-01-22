@@ -1,25 +1,14 @@
 package com.invessence.bean.consumer;
 
 import java.io.Serializable;
-import java.util.*;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
-import com.invessence.bean.ltam.LTAMCharts;
 import com.invessence.constant.Const;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.ConsumerListDataDAO;
-import com.invessence.dao.ltam.*;
 import com.invessence.data.consumer.*;
-import com.invessence.data.ltam.LTAMCustomerData;
-import com.invessence.util.Impl.PagesImpl;
 import com.invessence.util.WebUtil;
-import com.ltammodel.LTAMOptimizer;
-import com.ltammodel.data.LTAMTheme;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.*;
 
 
 /**

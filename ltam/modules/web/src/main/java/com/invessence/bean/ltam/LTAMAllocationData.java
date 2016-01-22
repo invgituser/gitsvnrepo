@@ -2,7 +2,7 @@ package com.invessence.bean.ltam;
 
 import java.util.ArrayList;
 
-import com.ltammodel.data.*;
+import com.invessence.data.*;
 
 
 /**

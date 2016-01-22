@@ -25,7 +25,6 @@ public class UserInfoSP extends StoredProcedure
       super(datasource, sp_name);
       switch (mode) {
          case 0:
-            declareParameter(new SqlParameter("p_addmod", Types.VARCHAR));
             declareParameter(new SqlOutParameter(Const.LOGONID_PARAM, Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
@@ -33,8 +32,6 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonstatus", Types.VARCHAR));
             declareParameter(new SqlParameter("p_lastname", Types.VARCHAR));
             declareParameter(new SqlParameter("p_firstname", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_stateRegistered", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_emailalt", Types.VARCHAR));
             declareParameter(new SqlParameter("p_question1", Types.VARCHAR));
             declareParameter(new SqlParameter("p_answer1", Types.VARCHAR));
             declareParameter(new SqlParameter("p_question2", Types.VARCHAR));
@@ -50,8 +47,10 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_rep", Types.BIGINT));
             declareParameter(new SqlParameter("p_access", Types.BIGINT));
             break;
+
          case 1:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             break;
          case 2:
             declareParameter(new SqlOutParameter("message", Types.VARCHAR));
@@ -74,6 +73,8 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));
             break;
          case 5:
+            declareParameter(new SqlParameter("p_email", Types.VARCHAR));
+            break;
          default:
             break;
       }
@@ -83,33 +84,20 @@ public class UserInfoSP extends StoredProcedure
    }
 
 
-   public Map addUser(String action, UserData data)
+   public Map addUser(UserData data)
    {
 
 
       Map inputMap = new HashMap();
 
-      inputMap.put("p_addmod", action);
       inputMap.put("p_logonid", data.getLogonID());
       inputMap.put("p_userid", data.getUserID());
-      inputMap.put("p_email", data.getEmailID());
-      inputMap.put("p_pwd", data.getPassword());
-      if (action.equals("A"))
-      {
-         inputMap.put("p_logonstatus", "T");
-      }
-      else
-      {
-         inputMap.put("p_logonstatus", data.getLogonstatus());
-      }
+      inputMap.put("p_email", data.getEmail());
+      inputMap.put("p_pwd", data.getPasswordEncrypted());
+      inputMap.put("p_logonstatus", "T");
 
       inputMap.put("p_lastname", data.getLastName());
       inputMap.put("p_firstname", data.getFirstName());
-
-
-      inputMap.put("p_stateRegistered", data.getStateCode());
-
-      inputMap.put("p_emailalt", data.getEmailalt());
 
       inputMap.put("p_question1", data.getQ1());
       inputMap.put("p_answer1", data.getAns1());
@@ -120,7 +108,7 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_ip", data.getIp());
       inputMap.put("p_resetID", data.getResetID());
       inputMap.put("p_emailmsgtype", data.getEmailmsgtype());
-      inputMap.put("p_leadsource", data.getLeadsource());
+      inputMap.put("p_leadsource", data.getLeadSource());
       inputMap.put("p_cid", data.getCid());
       inputMap.put("p_advisor", data.getAdvisor());
       inputMap.put("p_rep", data.getRep());
@@ -129,10 +117,11 @@ public class UserInfoSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map selectUserProfile(Long logonid)
+   public Map selectUserProfile(Long logonid, String userid)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
+      inputMap.put("p_userid", userid);
       return super.execute(inputMap);
    }
 
@@ -142,8 +131,8 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("message", "");
       inputMap.put("p_logonid", data.getLogonID());
       inputMap.put("p_userid", data.getUserID());
-      inputMap.put("p_email", data.getEmailID());
-      inputMap.put("p_pwd", data.getPassword());
+      inputMap.put("p_email", data.getEmail());
+      inputMap.put("p_pwd", data.getPasswordEncrypted());
       return super.execute(inputMap);
    }
 
@@ -165,6 +154,13 @@ public class UserInfoSP extends StoredProcedure
       Map inputMap = new HashMap();
       inputMap.put("p_userid", userID);
       inputMap.put("p_pwd", password);
+      return super.execute(inputMap);
+   }
+
+   public Map getUserByEmail(String email)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_email", email);
       return super.execute(inputMap);
    }
 }

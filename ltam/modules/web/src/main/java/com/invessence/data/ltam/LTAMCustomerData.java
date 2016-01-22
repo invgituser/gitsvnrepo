@@ -1,7 +1,7 @@
 package com.invessence.data.ltam;
 
 import com.invessence.bean.ltam.LTAMAllocationData;
-import com.ltammodel.data.LTAMTheme;
+import com.invessence.data.LTAMTheme;
 
 /**
  * Created with IntelliJ IDEA.

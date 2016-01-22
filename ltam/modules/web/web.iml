@@ -69,7 +69,7 @@
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
     <orderEntry type="library" name="Maven: javax.mail:mail:1.4" level="project" />
     <orderEntry type="library" name="Maven: javax.activation:activation:1.1" level="project" />
-    <orderEntry type="module" module-name="ltammodel" />
+    <orderEntry type="library" name="Maven: com.invessence:ltammodel:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: javax.ejb:ejb-api:3.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:r08" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
