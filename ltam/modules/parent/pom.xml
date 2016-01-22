@@ -865,7 +865,7 @@
             <pdf.localdir>${base.data.dir}\pdf\</pdf.localdir>
             <doc.localdir>${base.data.dir}\doc\</doc.localdir>
             <web_reports_dir>${base.web.dir}\static\reports\</web_reports_dir>
-            <email_templates_dir>${base.web.dir}\template\html\</email_templates_dir>
+            <email_templates_dir>C:\Workspace\Source\html\template\html\</email_templates_dir>
          </properties>
       </profile>
       <profile>
