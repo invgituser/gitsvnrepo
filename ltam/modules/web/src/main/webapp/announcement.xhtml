@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+<f:metadata>
+    <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
+</f:metadata>
+
+<ui:define name="content">
+
+    <div id="layout-portlets-cover">
+        <div class="other-pages-box Container100 Responsive100 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+             style="margin-top:5%;">
+            <div class="Container100 Fnone MarAuto TexAlCenter">
+                <h:form id="logonForm" prependId="false">
+                    <div class="EmptyBox50"></div>
+                    <h:graphicImage name="images/announcement/Symbil_3000x2000" library="ltam"
+                                    class="MarAuto MarTop10 MarBot10"/>
+                </h:form>
+            </div>
+        </div>
+    </div>
+
+</ui:define>
+
+</ui:composition>
