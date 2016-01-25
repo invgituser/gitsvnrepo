@@ -51,6 +51,7 @@ public class UserInfoSP extends StoredProcedure
          case 1:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             break;
          case 2:
             declareParameter(new SqlOutParameter("message", Types.VARCHAR));
@@ -117,11 +118,12 @@ public class UserInfoSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map selectUserProfile(Long logonid, String userid)
+   public Map selectUserProfile(Long logonid, String userid, String email)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
       inputMap.put("p_userid", userid);
+      inputMap.put("p_email", email);
       return super.execute(inputMap);
    }
 

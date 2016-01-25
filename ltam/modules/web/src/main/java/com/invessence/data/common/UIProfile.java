@@ -289,4 +289,23 @@ public class UIProfile
 
    }
 
+   public String getHomepage()
+   {
+      return homepage;
+   }
+
+   public void setHomepage(String homepage)
+   {
+      this.homepage = homepage;
+   }
+
+   public String getSecurehomepage()
+   {
+      return securehomepage;
+   }
+
+   public void setSecurehomepage(String securehomepage)
+   {
+      this.securehomepage = securehomepage;
+   }
 }

@@ -8,6 +8,7 @@
     <f:metadata>
         <f:viewParam name="e" value="#{userBean.beanEmail}"/>
         <f:event type="preRenderView" listener="#{userBean.preRenderSignup}"/>
+        <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -51,10 +52,10 @@
                                                         hideEffect="fade" dynamic="false"
                                                         showCloseIcon="true"
                                                         style="width:350px; margin-left: 5px">
-                                            UserID must contain a minimum of 6 Characters:
+                                            UserID must contain a minimum of 6 characters:
                                             <ul>
                                                 <li>Only Alpha-Numeric characters</li>
-                                                <li>May contains these special character [_-.]</li>
+                                                <li>May contain these special characters [._-]</li>
                                             </ul>
                                         </p:overlayPanel>
 

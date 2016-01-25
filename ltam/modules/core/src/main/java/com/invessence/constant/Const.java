@@ -3,10 +3,10 @@ package com.invessence.constant;
 public class Const
 {
    public static String MENU_HOME = "Home";
-   public final static String COMPANY_NAME = "Invessence";
+   public final static String COMPANY_NAME = "Symbil";
    public final static String DEFAULT_THEME = "modena";
-   public final static String DEFAULT_LOGO = "images/logo/LOGO.png";
-   public final static String DEFAULT_LOGOLIB = "inv";
+   public final static String DEFAULT_LOGO = "images/logo/Symbil.png";
+   public final static String DEFAULT_LOGOLIB = "invessence";
 
    public static String LOGONID_PARAM = "p_logonid";
    public static String ACCTNO_PARAM = "p_acctnum";
@@ -20,8 +20,8 @@ public class Const
 
 
    //public final static String WEBSITE_URL= "http://invessence.com";
-   public static String MAIL_SENDER = "noreply@invessence.com";
-   public static String MAIL_SUPPORT = "support@invessence.com";
+   public static String MAIL_SENDER = "noreply@symbil.com";
+   public static String MAIL_SUPPORT = "support@symbil.com";
 
    public final static String URL_HOME = "index.html";
 

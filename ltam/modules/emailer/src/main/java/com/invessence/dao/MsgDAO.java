@@ -14,7 +14,9 @@ public class MsgDAO extends JdbcDaoSupport
    {
 
       String sql = "select source, messageid, sender, receiver, cc, bcc, subject, msg, status, " +
-         "category, priority, created, lastupdated, sentdate, mimetype, attachments " +
+         "category, priority, DATE_FORMAT(created,'%Y-%m-%d %H:%M') as created, \n" +
+         "DATE_FORMAT(lastupdated,'%Y-%m-%d %H:%M') as lastupdated,\n" +
+         "DATE_FORMAT(sentdate,'%Y-%m-%d %H:%M') as sentdate, mimetype, attachments " +
          "from vw_email_alerts " +
          "order by messageid";
 

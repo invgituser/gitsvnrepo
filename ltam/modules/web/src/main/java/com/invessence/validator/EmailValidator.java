@@ -56,18 +56,15 @@ public class EmailValidator implements Validator {
 
 		}
 
-		if (userInfoDAO == null) {
-			System.out.println("null userInfoDAO");
-		}
+      if (userInfoDAO != null) {
+         String emailid = userInfoDAO.checkEmailID(emailID);
+         if (emailid != null && emailid.length() > 0) {
+            msg =  new FacesMessage("Email already exists.", "Duplicate email.");
+            msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+            throw new ValidatorException(msg);
 
-      String pwd = userInfoDAO.checkEmailID(emailID);
-		if (pwd != null && pwd.length() > 0) {
-			msg =  new FacesMessage("Email already exists.", "Duplicate email.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(msg);
-			
-		}
-		
+         }
+      }
 	}
 
    public String validateEmailPattern(String emailID) {

@@ -531,33 +531,29 @@ public class WebUtil implements Serializable
          boolean noSpecialChar = pass1.matches("[a-zA-Z0-9 ]*");
 
          if (pass1.length() < 8) {
-            retVal.append("Password is too short. Needs to have 8 characters");
+            return("Password is too short. Must have minimum of 8 characters");
          }
 
          if (!hasUppercase) {
-            retVal.append("Password needs an upper case");
+            return("Password must contain at least one upper case");
          }
 
          if (!hasLowercase) {
-            retVal.append("Password needs a lowercase");
+            return("Password must have at least one lowercase character");
          }
 
          if (!hasNumber) {
-            retVal.append("Password needs a number");
+            return("Password must contain at least one numeric value");
          }
 
          if(noSpecialChar){
-            retVal.append("Password needs a special character i.e. !,@,#, etc.");
+            return("Password must contain at lease one special character i.e. !,@,#, etc.");
          }
       }else{
-         retVal.append("Passwords don't match");
+         return("Two passwords don't match");
       }
 
-      if(retVal.length() == 0){
-         retVal.append("Success");
-      }
-
-      return retVal.toString();
+      return("Success");
 
    }
 

@@ -35,34 +35,39 @@ public class EmailFormatValidator implements Validator {
 	public void validate(FacesContext context, UIComponent component,
 			Object value) throws ValidatorException {
 
-		
-		String emailID = (String)value.toString();
-		matcher = pattern.matcher(emailID);
-		
-		FacesMessage msg = null;
-		
-		if ( (emailID == null) || (emailID.trim().equals("")) ||
-	         (emailID.indexOf('.') == -1) ||
-	         (emailID.indexOf('@') == -1) )  {
-			msg =  new FacesMessage("Invalid E-mail.", "Invalid E-mail.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			throw new ValidatorException(msg);
-			
-		} 
-		
-		if(!matcher.matches()){
 
-			msg =  new FacesMessage("E-mail validation failed.", "Invalid E-mail format.");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(msg);
-				
+      String emailID = (String)value.toString();
+      matcher = pattern.matcher(emailID);
 
-		}
+      FacesMessage msg = null;
+      String msgStr =  validateEmailPattern(emailID);
+      if ( msgStr != null )  {
+         msg =  new FacesMessage(msgStr, msgStr);
+         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+         FacesContext.getCurrentInstance().addMessage(null, msg);
+         throw new ValidatorException(msg);
+      }
 	
 
 	}
-	
+
+   public String validateEmailPattern(String emailID) {
+      String msg = null;
+      if ( (emailID == null) || (emailID.trim().equals("")) ||
+         (emailID.indexOf('.') == -1) ||
+         (emailID.indexOf('@') == -1) )  {
+         msg =  "Invalid E-mail.";
+      }
+
+      matcher = pattern.matcher(emailID);
+      if(!matcher.matches()){
+
+         msg =  "E-mail validation failed.";
+      }
+      return msg;
+
+   }
+
+
 
 }

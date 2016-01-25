@@ -52,8 +52,8 @@ public class BrokerFileProcessor
          mailAlertMsg=new StringBuilder();
          //System.out.println("Parameters"+Parameters.sqlInsertNewaccounts);
          Map<String, DBParameters> dbParamMap = commonDao.getDBParametres();
-         logger.info("BROKER_BDATE :" + dbParamMap.get("BROKER_BDATE").getValue());
-         if(dbParamMap==null || dbParamMap.size()==0 || ! dbParamMap.containsKey("BROKER_BDATE")){
+         logger.info("BUSINESS_DATE :" + dbParamMap.get("BUSINESS_DATE").getValue());
+         if(dbParamMap==null || dbParamMap.size()==0 || ! dbParamMap.containsKey("BUSINESS_DATE")){
             mailAlertMsg.append("Required DB parameters not available");
             System.out.println("Required DB parameters not available");
          }else {
@@ -103,7 +103,7 @@ public class BrokerFileProcessor
                      if(mayDownloadFile) {
                         try
                         {
-                           InputStream in = channel.get(downloadFileDetails.getFileName() + "_" + dbParamMap.get("BROKER_BDATE").getValue() + ".csv");
+                           InputStream in = channel.get(downloadFileDetails.getFileName() + "_" + dbParamMap.get("BUSINESS_DATE").getValue() + ".csv");
                            // set local file
                            File localDir = new File(baseDirectory + "/" + downloadFileDetails.getDownloadDir() + "/");
                            System.out.println("theDir :" + localDir);
@@ -120,7 +120,7 @@ public class BrokerFileProcessor
                                  exceptionHandler(e, mailAlertMsg, "While local directory creation");
                               }
                            }
-                           String localFileName = localDir + "/" + downloadFileDetails.getFileName() + "_" + dbParamMap.get("BROKER_BDATE").getValue() + "."+downloadFileDetails.getFormat();
+                           String localFileName = localDir + "/" + downloadFileDetails.getFileName() + "_" + dbParamMap.get("BUSINESS_DATE").getValue() + "."+downloadFileDetails.getFormat();
 
                            try
                            {

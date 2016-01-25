@@ -18,12 +18,10 @@
 
    <modules>
       <module>core</module>
-      <module>eod</module>
-      <module>yodlee-services</module>
-      <module>web</module>
-      <module>emailer</module>
-      <module>brokerservices</module>
       <module>ltammodel</module>
+      <module>web</module>
+      <module>eod</module>
+      <module>emailer</module>
       <module>broker-services</module>
    </modules>
 </project>

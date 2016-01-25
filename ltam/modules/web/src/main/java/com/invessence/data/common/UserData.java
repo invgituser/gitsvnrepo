@@ -6,13 +6,14 @@ import java.util.*;
 import com.invessence.util.*;
 import com.invessence.data.*;
 import com.invessence.constant.*;
+import org.springframework.beans.factory.annotation.*;
 
 public class UserData
 {
    private SecurityQuestions securityQuestions = new SecurityQuestions();
 
    private static UserData instance = null;
-   private long logonID = 0;
+   private Long logonID = null;
    private String logonstatus = "A";
 
    private String firstName = null;
@@ -37,7 +38,16 @@ public class UserData
    private String access;
 
    private String emailmsgtype = null;
+   private String randomQ = null;
+   private String randomAns = null;
 
+   @Autowired
+   private WebUtil webUtil;
+
+   public void setWebUtil(WebUtil webUtil)
+   {
+      this.webUtil = webUtil;
+   }
 
    public UserData()
    {
@@ -68,18 +78,26 @@ public class UserData
       this.emailmsgtype = emailmsgtype;
    }
 
+   public void resetData() {
+      logonID = null;
+      logonstatus = null;
+      email = null;
+      userID = null;
+      resetID = null;
+   }
+
    public static UserData getInstance()
    {
       return instance;
    }
 
-   public long getLogonID()
+   public Long getLogonID()
 
    {
       return logonID;
    }
 
-   public void setLogonID(long logonID)
+   public void setLogonID(Long logonID)
    {
       this.logonID = logonID;
    }
@@ -317,5 +335,60 @@ public class UserData
    public void setAccess(String access)
    {
       this.access = access;
+   }
+
+   public String getRandomQ()
+   {
+      return randomQ;
+   }
+
+   public void setRandomQ(String randomQ)
+   {
+      this.randomQ = randomQ;
+   }
+
+   public void setRandomQuestion() {
+      Integer qnum = webUtil.randomGenerator(1,3);
+       switch (qnum) {
+          case 0:
+          case 1:
+             if (q1 != null && ans1 != null) {
+                setRandomQ(q1);
+                setRandomAns(ans1);
+                break;
+             }
+          case 2:
+             if (q2 != null && ans2 != null) {
+                setRandomQ(q2);
+                setRandomAns(ans2);
+                break;
+             }
+
+          case 3:
+             if (q3 != null && ans3 != null) {
+                setRandomQ(q3);
+                setRandomAns(ans3);
+                break;
+             }
+          default:
+             if (randomQ == null) {
+                Integer num1 = webUtil.randomGenerator(1,9);
+                Integer num2 = webUtil.randomGenerator(1,9);
+                Integer sum = num1 + num2;
+                setRandomQ("What is sum of " + num1.toString() + " + " + num2.toString());
+                setRandomAns(sum.toString());
+             }
+             break;
+       }
+   }
+
+   public String getRandomAns()
+   {
+      return randomAns;
+   }
+
+   public void setRandomAns(String randomAns)
+   {
+      this.randomAns = randomAns;
    }
 }

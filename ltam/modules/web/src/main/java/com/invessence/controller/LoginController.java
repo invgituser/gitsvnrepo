@@ -78,10 +78,10 @@ public class LoginController implements PhaseListener
          if (e instanceof LockedException) {
             uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
             if (uid != null) {
-               String secureUrl = emailMessage.buildInternalMessage("secure.url", new Object[]{});
+               String secureUrl = uiLayout.getUiprofile().getSecurehomepage();
 
                // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
-               String msg = emailMessage.buildMessage(uid.getEmailmsgtype(),"accountlocked.email.template", "accountlocked.email", new Object[]{secureUrl, uid.getEmail(), uid.getResetID()} );
+               String msg = emailMessage.buildMessage(uid.getEmailmsgtype(),"html.accountlocked.email", "txt.accountlocked.email", new Object[]{secureUrl, uid.getUserID(), uid.getResetID().toString()} );
                data.setSource("User");  // This is set to User to it insert into appropriate table.
                data.setSender(Const.MAIL_SENDER);
                data.setReceiver(uid.getEmail());
@@ -89,13 +89,15 @@ public class LoginController implements PhaseListener
                data.setMsg(msg);
                data.setMimeType(uid.getEmailmsgtype());
                emailMessage.writeMessage("user", data);
+/*
                data.setSubject("Locked:" + uid.getUserID());
                // If user is locked, send message to support desk...
-               String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID() ;
+               String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID().toString() ;
                System.out.println(lockedinfo);
                data.setMsg(lockedinfo);
                data.setReceiver(null);
                emailMessage.writeMessage("WARN", data);
+*/
             }
             String lockedMsg = "&message=mbal";
             String type="&type=E";

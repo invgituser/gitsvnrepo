@@ -55,8 +55,8 @@ public class UserIDValidator implements Validator {
       }
 
       if (userInfoDAO != null) {
-         String pwd = userInfoDAO.checkEmailID(userid);
-         if (pwd != null && pwd.length() > 0) {
+         String uid = userInfoDAO.checkUserID(userid);
+         if (uid != null && uid.length() > 0) {
             msg =  new FacesMessage("UserID already exists.", "UserID already exists, try again.");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             throw new ValidatorException(msg);

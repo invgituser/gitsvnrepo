@@ -127,13 +127,23 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    }
 
    public String getFullName() {
+      if (firstname == null && lastname == null)
+         return "";
+      if (firstname == null)
+         return lastname;
+      if (lastname == null)
+         return firstname;
       return firstname + " " + lastname;
    }
 
    public String getLastFirstName() {
+      if (firstname == null && lastname == null)
+         return "";
+
       if (lastname == null)
          return firstname;
-      else
+      if (firstname == null)
+         return lastname;
       return lastname + ", " + firstname;
    }
 

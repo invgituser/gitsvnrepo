@@ -32,10 +32,10 @@ public class UserInfoDAO extends JdbcDaoSupport
    }
 
    // Called By profileBean;
-   public void selectUserInfo(Long logonid, String userid, UserData data)
+   public void selectUserInfo(Long logonID, String userid, String email, UserData data)
    {
       UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1);
-      Map outMap = sp.selectUserProfile(logonid, userid);
+      Map outMap = sp.selectUserProfile(logonID, userid, email);
       try {
          if (outMap != null)
          {
@@ -58,10 +58,14 @@ public class UserInfoDAO extends JdbcDaoSupport
                   data.setAns2(convert.getStrData(rs.get("answer2")));
                   data.setQ3(convert.getStrData(rs.get("question3")));
                   data.setAns3(convert.getStrData(rs.get("answer3")));
-                  data.setEmailmsgtype(convert.getStrData(rs.get("emailmsgtype")));
                   data.setCid(convert.getStrData(rs.get("cid")));
                   data.setAdvisor(convert.getStrData(rs.get("advisor")));
                   data.setRep(convert.getLongData(rs.get("rep")));
+                  data.setLogonstatus(convert.getStrData(rs.get("logonstatus")));
+                  data.setResetID(convert.getIntData(rs.get("resetID")));
+                  data.setAccess(convert.getStrData(rs.get("access")));
+                  data.setIp(convert.getStrData(rs.get("ip")));
+                  data.setEmailmsgtype(convert.getStrData(rs.get("emailmsgtype")));
                   break;
                }
             }
@@ -126,18 +130,33 @@ public class UserInfoDAO extends JdbcDaoSupport
       }
    }
 
-   public String checkEmailID(String userid)
+   public String checkEmailID(String email)
+   {
+
+      String sql = "select email from user_logon where email = ?";
+
+      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{email});
+      String value = "";
+      while (rs.next())
+      {
+         value = rs.getString(1);
+      }
+      return value;
+
+   }
+
+   public String checkUserID(String userid)
    {
 
       String sql = "select email from user_logon where userid = ?";
 
       SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userid});
-      String email = "";
+      String value = "";
       while (rs.next())
       {
-         email = rs.getString(1);
+         value = rs.getString(1);
       }
-      return email;
+      return value;
 
    }
 
@@ -154,6 +173,14 @@ public class UserInfoDAO extends JdbcDaoSupport
    }
 
 
+   public int updLogonStatus(String userID)
+   {
+      String sql = "update user_logon set logonstatus = 'A', resetID = null, lastupdated = now() " +
+         "where userid = ?";
+
+      return this.getJdbcTemplate().update(sql, new Object[]{userID});
+   }
+
    // Called by Logon process when locking user
    public int updResetID(String userID, String resetID)
    {
@@ -164,13 +191,13 @@ public class UserInfoDAO extends JdbcDaoSupport
    }
 
    // Userbean: Collect UserInfo
-   public void getUserByEmail(UserData userdata) throws DataAccessException
+   public void getUserByEmail(String email, UserData userdata) throws DataAccessException
    {
 
       if (userdata != null) {
          UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_info",5);
-
-         Map outMap = sp.getUserByEmail(userdata.getEmail());
+         userdata.resetData();
+         Map outMap = sp.getUserByEmail(email);
          try {
             if (outMap != null)
             {
@@ -180,7 +207,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                   for (Map<String, Object> map : rows)
                   {
                      Map rs = (Map) rows.get(i);
-
+                     userdata.setEmail(convert.getStrData(rs.get("email")));
                      userdata.setFullName(convert.getStrData(rs.get("name")));
                      userdata.setRep(convert.getLongData(rs.get("repNum")));
                      userdata.setAdvisor(convert.getStrData(rs.get("repName")));
