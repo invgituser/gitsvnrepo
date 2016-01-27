@@ -12,8 +12,9 @@
                 <div class="Container90 Fnone MarAuto TexAlLeft">
                     <div class="EmptyBox20"></div>
                     <h:form>
-                        <h:graphicImage id="logo" name="#{menu.logo}" styleClass="Fleft" library="spark-layout"
-                                        class="MarAuto MarTop20 MarBot10"/>
+                        <h:graphicImage id="logo" name="#{uiportal.logo}" styleClass="Fleft" library="invessence"
+                                        class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
+
                         <div class="EmptyBox10"></div>
                         <div class="Container90">
                             <p:growl id="sgrowl"/>
@@ -22,17 +23,15 @@
                         <p:panel id="signup" styleClass="Container100" style="border:0px">
 
                             <p:panel id="p1" styleClass="Container100 Responsive50" style="border: 0px">
-                                <div class="Container50 Responsive50">
-                                    <div class="ContainerIndent">
+                                <div class="ContainerIndent">
+                                    <div class="Container50">
                                         <p:inputText id="firstName" styleClass="Container95 Fleft MarAuto Fs18"
                                                      value="#{userBean.firstName}" placeholder="FirstName"
                                                      required="true" requiredMessage="Please enter First Name.">
                                         </p:inputText>
                                     </div>
-                                </div>
-                                <div class="Container50 Responsive50">
-                                    <div class="ContainerIndent">
-                                        <p:inputText id="lastName" styleClass="Container95 Fleft MarAuto Fs18"
+                                    <div class="Container50">
+                                        <p:inputText id="lastName" styleClass="Container95 Fs18" style="margin-left: 2px"
                                                      value="#{userBean.lastName}" placeholder="Last Name"
                                                      required="true" requiredMessage="Please enter Last Name.">
                                             <p:watermark for="lastName" value="Last Name"/>
@@ -52,18 +51,6 @@
                                     </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
-                                <div class="Container100">
-                                    <div class="ContainerIndent">
-                                        <h:outputLabel value="State of Residence" styleClass="Container40 Fleft MarAuto Fs18"/>
-                                        <p:selectOneMenu id="state" value="#{userBean.stateCode}"
-                                                         styleClass="Container40 Fleft MarAuto Fs18" required="true"
-                                                         requiredMessage="Please select your state of resident.">
-                                            <f:selectItem itemLabel="-- Choose one --" itemValue=""/>
-                                            <f:selectItems value="#{userBean.usstates.entrySet()}"
-                                                           var="state" itemLabel="#{state.value}" itemValue="#{state.key}"/>
-                                        </p:selectOneMenu>
-                                    </div>
-                                </div>
                             </p:panel>
 
                             <f:facet name="footer">
@@ -73,6 +60,7 @@
                             </f:facet>
 
                         </p:panel>
+
                         <div class="EmptyBox20"></div>
                     </h:form>
                 </div>
