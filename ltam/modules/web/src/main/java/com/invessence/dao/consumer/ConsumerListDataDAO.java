@@ -73,6 +73,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                   convert.getStrData(rs.get("clientAccountID")),
                   convert.getStrData(rs.get("name")),
                   convert.getStrData(rs.get("repName")),
+                  convert.getStrData(rs.get("description")),
                   convert.getStrData(rs.get("theme")),
                   convert.getStrData(rs.get("dateOpened")),
                   convert.getStrData(rs.get("assetClass")),

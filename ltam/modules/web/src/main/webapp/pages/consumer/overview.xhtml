@@ -21,6 +21,18 @@
 
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
+                        <div class="DispInlBlock MarTop20" style="width:100%">
+                            <div class="Container10"><i class="fa fa-user Fs50 blue Fleft MarRight10"></i></div>
+                            <div class="Container80">
+                                <div class="Fleft">
+                                <h2 class="black Fs16 FontBold">Account#: #{positionBean.positionSummaryData.displayClientAccountID}</h2>
+                                <span class="Fs14 black FontLight DispBlock">#{positionBean.positionSummaryData.name}
+                                </span>
+                                <span class="Fs14 black FontLight DispBlock">Investment Strategy: #{positionBean.positionSummaryData.securitydesc}
+                                </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -37,7 +49,6 @@
                                             <p:outputPanel deferred="true">
                                                 <p:chart type="pie" model="#{positionBean.positionCharts.summaryPieChart}"
                                                          rendered="#{positionBean.positionCharts.summaryPieChart != null}"
-                                                         style="width:100%;height:170px;"
                                                          responsive="true">
                                                 </p:chart>
                                             </p:outputPanel>

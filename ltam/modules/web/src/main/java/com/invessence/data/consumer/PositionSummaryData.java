@@ -15,11 +15,14 @@ public class PositionSummaryData implements Serializable
 
    Map<String, PositionData> positionMap;
    Map<String, PositionData> assetMap;
+   Boolean hasClientData;
+   String name, clientAccountID, securitydesc, repName;
 
    public PositionSummaryData()
    {
       positionMap = new LinkedHashMap<String, PositionData>();
       assetMap = new LinkedHashMap<String, PositionData>();
+      hasClientData = false;
    }
 
    public Map<String, PositionData> getPositionMap()
@@ -32,8 +35,73 @@ public class PositionSummaryData implements Serializable
       return assetMap;
    }
 
+   public String getName()
+   {
+      return name;
+   }
+
+   public void setName(String name)
+   {
+      this.name = name;
+   }
+
+   public String getClientAccountID()
+   {
+      return clientAccountID;
+   }
+
+   public String getDisplayClientAccountID()
+   {
+      Integer idlen = 0;
+      String displayID = "XXXXXXXXXXXXXXX";
+      if (clientAccountID != null) {
+         String id = clientAccountID.trim();
+         idlen = id.length();
+         if (idlen > 5)
+            displayID = id.substring(0,1) + "XXXXXXXXXXXXXX".substring(0,idlen-3) + id.substring(idlen-2);
+         else
+            displayID = "XXXXXXXXXXXXXX".substring(0,idlen-3) + id.substring(idlen-2);
+      }
+      return displayID;
+   }
+
+
+   public void setClientAccountID(String clientAccountID)
+   {
+      this.clientAccountID = clientAccountID;
+   }
+
+   public String getSecuritydesc()
+   {
+      return securitydesc;
+   }
+
+   public void setSecuritydesc(String securitydesc)
+   {
+      this.securitydesc = securitydesc;
+   }
+
+   public String getRepName()
+   {
+      return repName;
+   }
+
+   public void setRepName(String repName)
+   {
+      this.repName = repName;
+   }
+
+   private void addClientData(String clientAccountID, String name, String description, String repName) {
+       if (! hasClientData) {
+          this.name = name;
+          this.clientAccountID = clientAccountID;
+          this.securitydesc = description;
+          this.repName = repName;
+       }
+   }
+
    public void addPosition(Integer sortorder, Long acctnum,
-                      String clientAccountID, String name, String repName,
+                      String clientAccountID, String name, String repName, String description,
                       String theme, String dateOpened, String assetClass, String assetname,
                       String subasset, String displayname, String color, String status,
                       Double allocation, String reportDate, String side, Double quantity,
@@ -44,6 +112,8 @@ public class PositionSummaryData implements Serializable
          if (positionMap == null) {
             positionMap = new LinkedHashMap<String, PositionData>();
          }
+
+         addClientData(clientAccountID, name, description, repName);
 
          PositionData data;
          if (positionMap.containsKey(subasset)) {
