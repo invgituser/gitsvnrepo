@@ -22,7 +22,7 @@
                         <div class="ContainerIndent">
 
                             <h3>
-                                The security of your account is our top priority.  you will receive a confirmation email soon.
+                                The security of your account is our top priority.  You will receive a confirmation email soon.
                                 Follow the instructions in the email message to activate your account. Once activated, you will
                                 have access to your personalized portfolio.
                             </h3>
@@ -34,10 +34,10 @@
                             </p>
                         </div>
                         <div class="EmptyBox20"></div>
-                        <p:button  value="OK" styleClass="Fs16 BlueButton" href="/login.xhtml"></p:button>
+                        <p:button  value="OK" styleClass="Fs16 BlueButton" href="/login.xhtml"/>
                         <div class="EmptyBox20"></div>
                         <p:commandButton  value="Resend confirmation" styleClass="Fs16 OrangeButton"
-                                   actionListener="#{userBean.resendCode}"></p:commandButton>
+                                   actionListener="#{userBean.emailResetInfo}"/>
                         <div class="EmptyBox50"></div>
 
                     </h:form>

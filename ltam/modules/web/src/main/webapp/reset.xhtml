@@ -14,18 +14,37 @@
     <ui:define name="content">
 
         <div id="layout-portlets-cover">
-            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-                 style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray "
+                 style="background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
                 <div class="Container90 Fnone MarAuto TexAlCenter">
                     <h:form id="logonForm" prependId="false">
                         <div class="EmptyBox50"></div>
                         <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}" styleClass="Fleft" library="invessence"
                                         class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
-
-                        <div class="EmptyBox20"></div>
-                        <p:messages id="messages" autoUpdate="true"/>
-                        <div class="EmptyBox10"></div>
                         <p:panel id="p1" styleClass="Container100" style="border: 0px; background: transparent">
+                            <div class="EmptyBox20"></div>
+                            <p:growl id="sgrowl"/>
+
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <p:inputText id="email" readonly="true"
+                                                 styleClass="Container80 Fleft MarAuto Fs18"
+                                                 value="#{userBean.email}" placeholder="Email">
+                                    </p:inputText>
+
+                                </div>
+                            </div>
+                            <div class="EmptyBox10"></div>
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <p:inputText id="userid" styleClass="Container60 Fleft MarAuto Fs18"
+                                                 value="#{userBean.beanUserID}" placeholder="User ID"
+                                                 required="true" requiredMessage="User ID is requiired.">
+                                    </p:inputText>
+                                </div>
+                            </div>
+                            <div class="EmptyBox10"></div>
                             <div class="Container100">
                                 <div class="ContainerIndent">
                                     <p:password id="pwd1" styleClass="Container60 Fleft MarAuto Fs18"
@@ -34,19 +53,19 @@
                                                 feedback="true" inline="false"
                                                 required="true" requiredMessage="Password must be entered.">
                                     </p:password>
-                                    <p:commandButton id="pwdHelp"  styleClass="Container10 Fright"
+                                    <p:commandButton id="pwdHelp" styleClass="Container10 Fright"
                                                      icon="fa fa-question Fs18 white"
                                                      process="@none"/>
 
                                     <p:overlayPanel id="helpPanel" for="pwdHelp"
                                                     hideEffect="fade" dynamic="false"
                                                     showCloseIcon="true"
-                                                    style="width:350px; margin-left: 5px">
-                                        Password Must contain a minimum of 8 Characters including at least:
+                                                    style="width:350px; text-align: left; margin-left: 5px">
+                                        Password must contain a minimum of 8 characters including at least:
                                         <ul>
                                             <li>1 uppercase letter</li>
                                             <li>1 number</li>
-                                            <li>1 of these special characters: [!,#$%?:.]</li>
+                                            <li>1 of these special characters: !,#$%?:.</li>
                                         </ul>
                                     </p:overlayPanel>
 
@@ -62,17 +81,20 @@
                                 </div>
                             </div>
                             <div class="EmptyBox10"></div>
-                            <h:outputLabel styleClass="Container80 Fnone MarAuto Fs18"
-                                           id="question"
-                                           value="#{userBean.beanq1}">
-                            </h:outputLabel>
-
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <h:outputLabel styleClass="Container90 Fleft MarAuto Fs18 TexAlLeft"
+                                                   id="question"
+                                                   value="Question: #{userBean.randomQ}">
+                                    </h:outputLabel>
+                            	    <div class="EmptyBox10"></div>
+                                    <p:inputText styleClass="Container60 Fleft MarAuto Fs18"
+                                                 value="#{userBean.beanans1}" placeholder="Answer"
+                                                 required="true" requiredMessage="Please answer the security question.">
+                                    </p:inputText>
+                                </div>
+                            </div>
                             <div class="EmptyBox10"></div>
-                            <h:inputText styleClass="Container80 Fnone MarAuto Fs18"
-                                         id="ans" placeholder="Answer" required="true"
-                                         value="#{userBean.beanans1}">
-                            </h:inputText>
-
                             <p:separator/>
                             <div class="EmptyBox5"></div>
                             <div class="Container100">
@@ -83,6 +105,7 @@
                                 </div>
                             </div>
                         </p:panel>
+
                         <div class="EmptyBox50"></div>
                     </h:form>
                 </div>

@@ -8,9 +8,18 @@
          <property name="dataSource" ref="dataSource"/>
      </bean>
 
-<!--
-   <bean id="tradeDAO" class="com.invessence.dao.common.TradeDAO">
-         <property name="dataSource" ref="dataSource"/>
-     </bean>
--->
+   <bean id="webutil" class="com.invessence.util.WebUtil">
+         <property name="messageText" ref="emailMessage"/>
+   </bean>
+
+   <bean id="uiLayout" class="com.invessence.util.UILayout">
+         <property name="webutil" ref="webutil"/>
+   </bean>
+
+
+   <!--
+      <bean id="tradeDAO" class="com.invessence.dao.common.TradeDAO">
+            <property name="dataSource" ref="dataSource"/>
+        </bean>
+   -->
 </beans>

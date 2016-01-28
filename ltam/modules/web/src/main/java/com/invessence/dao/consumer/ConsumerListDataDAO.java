@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
 import com.invessence.data.consumer.*;
+import com.invessence.util.EmailMessage;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerListDataDAO")

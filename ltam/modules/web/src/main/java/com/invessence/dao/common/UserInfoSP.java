@@ -44,8 +44,8 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_leadsource", Types.VARCHAR));
             declareParameter(new SqlParameter("p_cid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_rep", Types.BIGINT));
-            declareParameter(new SqlParameter("p_access", Types.BIGINT));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_access", Types.VARCHAR));
             break;
 
          case 1:

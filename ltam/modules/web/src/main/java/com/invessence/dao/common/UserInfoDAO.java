@@ -60,7 +60,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                   data.setAns3(convert.getStrData(rs.get("answer3")));
                   data.setCid(convert.getStrData(rs.get("cid")));
                   data.setAdvisor(convert.getStrData(rs.get("advisor")));
-                  data.setRep(convert.getLongData(rs.get("rep")));
+                  data.setRep(convert.getStrData(rs.get("rep")));
                   data.setLogonstatus(convert.getStrData(rs.get("logonstatus")));
                   data.setResetID(convert.getIntData(rs.get("resetID")));
                   data.setAccess(convert.getStrData(rs.get("access")));
@@ -209,7 +209,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                      Map rs = (Map) rows.get(i);
                      userdata.setEmail(convert.getStrData(rs.get("email")));
                      userdata.setFullName(convert.getStrData(rs.get("name")));
-                     userdata.setRep(convert.getLongData(rs.get("repNum")));
+                     userdata.setRep(convert.getStrData(rs.get("repNum")));
                      userdata.setAdvisor(convert.getStrData(rs.get("repName")));
                      userdata.setLogonID(convert.getLongData(rs.get("logonid")));
                      userdata.setUserID(convert.getStrData(rs.get("userid")));
@@ -220,7 +220,7 @@ public class UserInfoDAO extends JdbcDaoSupport
 
                   if (i == 0){
                      userdata.setFullName(null);
-                     userdata.setRep(0L);
+                     userdata.setRep(null);
                      userdata.setAdvisor(null);
                      userdata.setLogonID(0L);
                      userdata.setUserID(null);
@@ -232,7 +232,7 @@ public class UserInfoDAO extends JdbcDaoSupport
          }
          catch (Exception ex) {
             userdata.setFullName(null);
-            userdata.setRep(0L);
+            userdata.setRep(null);
             userdata.setAdvisor(null);
             userdata.setLogonID(0L);
             userdata.setUserID(null);

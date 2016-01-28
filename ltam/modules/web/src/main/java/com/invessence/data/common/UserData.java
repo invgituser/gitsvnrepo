@@ -34,20 +34,12 @@ public class UserData
    private String cid;
    private String leadSource;
    private String advisor;
-   private Long rep;
+   private String rep;
    private String access;
 
    private String emailmsgtype = null;
    private String randomQ = null;
    private String randomAns = null;
-
-   @Autowired
-   private WebUtil webUtil;
-
-   public void setWebUtil(WebUtil webUtil)
-   {
-      this.webUtil = webUtil;
-   }
 
    public UserData()
    {
@@ -317,12 +309,12 @@ public class UserData
       this.advisor = advisor;
    }
 
-   public Long getRep()
+   public String getRep()
    {
       return rep;
    }
 
-   public void setRep(Long rep)
+   public void setRep(String rep)
    {
       this.rep = rep;
    }
@@ -345,41 +337,6 @@ public class UserData
    public void setRandomQ(String randomQ)
    {
       this.randomQ = randomQ;
-   }
-
-   public void setRandomQuestion() {
-      Integer qnum = webUtil.randomGenerator(1,3);
-       switch (qnum) {
-          case 0:
-          case 1:
-             if (q1 != null && ans1 != null) {
-                setRandomQ(q1);
-                setRandomAns(ans1);
-                break;
-             }
-          case 2:
-             if (q2 != null && ans2 != null) {
-                setRandomQ(q2);
-                setRandomAns(ans2);
-                break;
-             }
-
-          case 3:
-             if (q3 != null && ans3 != null) {
-                setRandomQ(q3);
-                setRandomAns(ans3);
-                break;
-             }
-          default:
-             if (randomQ == null) {
-                Integer num1 = webUtil.randomGenerator(1,9);
-                Integer num2 = webUtil.randomGenerator(1,9);
-                Integer sum = num1 + num2;
-                setRandomQ("What is sum of " + num1.toString() + " + " + num2.toString());
-                setRandomAns(sum.toString());
-             }
-             break;
-       }
    }
 
    public String getRandomAns()

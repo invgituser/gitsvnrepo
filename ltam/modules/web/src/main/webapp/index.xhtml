@@ -6,7 +6,12 @@
                 template="/template/common/simplelayout.xhtml">
 
     <f:metadata>
-        <f:viewParam name="mode" value="#{ltamprofile.mode}"/>
+        <f:viewParam name="advisor" value="#{ltamprofile.beanAdvisor}"/>
+        <f:viewParam name="rep" value="#{ltamprofile.beanRep}"/>
+        <f:viewParam name="TimeToSaveID" value="#{ltamprofile.beanTimeToSaveID}"/>
+        <f:viewParam name="amount" value="#{ltamprofile.beanAmount}"/>
+        <f:viewParam name="first" value="#{ltamprofile.beanfirstname}"/>
+        <f:viewParam name="last" value="#{ltamprofile.beanlastname}"/>
         <f:event type="preRenderView" listener="#{ltamprofile.preRenderView}"/>
         <f:viewParam name="cid" value="#{uiLayout.cid}"/>
         <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
@@ -15,8 +20,7 @@
     <ui:define name="content">
 
         <div id="layout-portlets-cover">
-            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-                 style="margin-top:5%;">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray">
                 <div class="Container90 Fnone MarAuto TexAlCenter">
                     <h:form id="logonForm" prependId="false">
                         <div class="EmptyBox30"></div>
@@ -42,7 +46,7 @@
                         <div class="EmptyBox10"></div>
                         <div class="Fs8 TexAlCenter">
                             By using Symbil you consent to electronic delivery of our
-                            <a href="http://www.ladenburgfunds.com/docs/LTAM-Symbil-Brochure.pdf"
+                            <a href="/reports/docs/LTAM-Symbil-Brochure.pdf"
                                target="_ltam">brochure</a>
                             with privacy policy.
                         </div>

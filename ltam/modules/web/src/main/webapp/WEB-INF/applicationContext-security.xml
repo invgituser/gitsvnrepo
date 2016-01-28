@@ -101,6 +101,9 @@
 
     <beans:bean id="userDetailsService" class="com.invessence.dao.common.CustomJdbcDaoImpl">
         <beans:property name="dataSource" ref="dataSource"/>
+        <beans:property name="emailMessage" ref="emailMessage"/>
+        <beans:property name="uiLayout" ref="uiLayout"/>
+
         <beans:property name="usersByUsernameQuery"
                         value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, resetID, cid, advisor, rep, emailmsgtype, access from user_logon where userid=?"/>
         <beans:property name="listofQAQuery"

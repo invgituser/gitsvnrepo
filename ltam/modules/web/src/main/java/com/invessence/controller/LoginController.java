@@ -28,23 +28,22 @@ public class LoginController implements PhaseListener
    private String userID, password, question, answer, savedAnswer;
    private Boolean needAdditionalInfo = false;
    private UserInfoData uid;
+   @ManagedProperty("#{uiLayout}")
+   private UILayout uiLayout;
 
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
+   }
+
+/*
    @ManagedProperty("#{emailMessage}")
    private EmailMessage emailMessage;
    public void setEmailMessage(EmailMessage emailMessage)
    {
       this.emailMessage = emailMessage;
    }
-
-   @ManagedProperty("#{uiLayout}")
-   private UILayout uiLayout;
-   public void setUiLayout(UILayout uiLayout)
-   {
-      this.uiLayout = uiLayout;
-   }
-
-   private MsgData data = new MsgData();
-
+*/
 
    /**
     * Redirects the login request directly to spring security check.
@@ -59,9 +58,11 @@ public class LoginController implements PhaseListener
    {
       ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
-      if (answer != null && ! answer.isEmpty()) {
+      if (answer != null && !answer.isEmpty())
+      {
          uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-         if (uid != null) {
+         if (uid != null)
+         {
             uid.setAnswer(answer);
          }
       }
@@ -71,44 +72,6 @@ public class LoginController implements PhaseListener
 
       dispatcher.forward((ServletRequest) context.getRequest(),
                          (ServletResponse) context.getResponse());
-
-      Exception e = (Exception) FacesContext.getCurrentInstance().
-         getExternalContext().getSessionMap().get(WebAttributes.AUTHENTICATION_EXCEPTION);
-      if (e != null) {
-         if (e instanceof LockedException) {
-            uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-            if (uid != null) {
-               String secureUrl = uiLayout.getUiprofile().getSecurehomepage();
-
-               // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
-               String msg = emailMessage.buildMessage(uid.getEmailmsgtype(),"html.accountlocked.email", "txt.accountlocked.email", new Object[]{secureUrl, uid.getUserID(), uid.getResetID().toString()} );
-               data.setSource("User");  // This is set to User to it insert into appropriate table.
-               data.setSender(Const.MAIL_SENDER);
-               data.setReceiver(uid.getEmail());
-               data.setSubject(Const.COMPANY_NAME + " - Account Locked");
-               data.setMsg(msg);
-               data.setMimeType(uid.getEmailmsgtype());
-               emailMessage.writeMessage("user", data);
-/*
-               data.setSubject("Locked:" + uid.getUserID());
-               // If user is locked, send message to support desk...
-               String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID().toString() ;
-               System.out.println(lockedinfo);
-               data.setMsg(lockedinfo);
-               data.setReceiver(null);
-               emailMessage.writeMessage("WARN", data);
-*/
-            }
-            String lockedMsg = "&message=mbal";
-            String type="&type=E";
-            String title="&title=mtal";
-            String redirectUrl="/message.xhtml?faces-redirect=true&"+ lockedMsg + type + title;
-            webutil.redirect(redirectUrl, null);
-         }
-         else {
-            System.out.println("Exception during login time: " + e.getMessage());
-         }
-      }
 
       FacesContext.getCurrentInstance().responseComplete();
    }
@@ -120,13 +83,8 @@ public class LoginController implements PhaseListener
 
       if (e != null)
       {
-         uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
          if (e instanceof BadCredentialsException)
          {
-            if (uid != null && uid.getAttempts() > 1) {
-               setNeedAdditionalInfo(true);
-               setQuestion(uid.getSelectedQuestion());
-            }
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                           "Invalid Password.",
@@ -134,8 +92,6 @@ public class LoginController implements PhaseListener
          }
          else if (e instanceof CredentialsExpiredException)
          {
-            setNeedAdditionalInfo(true);
-            setQuestion("What is your first name?");
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_WARN,
                                                                           "Need additional Credential",
@@ -148,14 +104,25 @@ public class LoginController implements PhaseListener
                                                                           "Account is locked",
                                                                           "Account is locked"));
          }
-         else if (e instanceof AuthenticationServiceException) {
+         else if (e instanceof AuthenticationServiceException)
+         {
             String msg = e.getMessage();
-            System.out.println(msg);
+            // System.out.println(msg);
             FacesContext.getCurrentInstance().addMessage(null,
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                           msg,
                                                                           msg));
 
+         }
+         else
+         {
+            System.out.println("Exception during login time: " + e.getMessage());
+            String msg = e.getMessage();
+            // System.out.println(msg);
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                          msg,
+                                                                          msg));
          }
       }
    }
@@ -197,16 +164,20 @@ public class LoginController implements PhaseListener
 
    public String getRedirect()
    {
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, 0);
       uiLayout.goToStartPage();
       return "success";
    }
 
 
-   public void logout() {
-      try {
+   public void logout()
+   {
+      try
+      {
          uiLayout.logout();
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
       webutil.redirect("/j_spring_security_logout", null);

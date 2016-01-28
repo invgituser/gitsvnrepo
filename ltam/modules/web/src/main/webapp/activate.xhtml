@@ -13,32 +13,30 @@
 
     <ui:define name="content">
         <div id="layout-portlets-cover">
-            <div id="layout-portlets-cover">
-                <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter BlueModena">
-                    <div class="Container100 Fnone MarAuto TexAlLeft">
-                        <div class="Container100 TexAlCenter">
-                            <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}"
-                                            styleClass="Fleft" library="invessence"
-                                            class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
-                        </div>
-                        <div class="EmptyBox20"></div>
-                        <div class="Container90">
-                            <h1>Account is activated.</h1>
-                        </div>
+            <div class="other-pages-box Container40 Responsive40 MarAuto Fnone TexAlCenter BlueModena">
+                <div class="Container100 Fnone MarAuto TexAlLeft">
+                    <div class="Container100 TexAlCenter">
+                        <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}"
+                                        styleClass="Fleft" library="invessence"
+                                        class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
+                    </div>
+                    <div class="EmptyBox20"></div>
+                    <div class="ContainerIndent TexAlCenter">
+                        <h1>Account is activated.</h1>
+
                         <div class="EmptyBox20"></div>
                         <h:form>
-                            <div class="Container90">
-                                <p>
-                                    You may click on login button to access your account.
-                                </p>
+                            <p>
+                                You may click on login button to access your account.
+                            </p>
 
-                                <p>
-                                    or return to home page.
-                                </p>
-                            </div>
+                            <p>
+                                or return to home page.
+                            </p>
+
                             <div class="EmptyBox20"></div>
-                            <p:button value="Login" styleClass="Fs16 BlueButton" href="/login.xhtml"></p:button>
-                            <p:button value="Home" styleClass="Fs16 OrangeButton" href="${apache.url}"></p:button>
+                            <p:button value="Login" styleClass="Fs16 BlueButton Fleft" href="/login.xhtml"></p:button>
+                            <p:button value="Home" styleClass="Fs16 OrangeButton Fright" href="/index.xhtml"></p:button>
 
                             <div class="EmptyBox50"></div>
                         </h:form>
