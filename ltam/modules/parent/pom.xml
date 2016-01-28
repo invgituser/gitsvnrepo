@@ -878,9 +878,9 @@
             <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-            <apache.url>http://demo2.invessence.com:8080</apache.url>
-            <tomcat.url>http://demo2.invessence.com:8080</tomcat.url>
-            <ssl.url>http://demo2.invessence.com:8080</ssl.url>
+            <apache.url>http://symbil.invessence.com:8080</apache.url>
+            <tomcat.url>http://symbil.invessence.com:8080</tomcat.url>
+            <ssl.url>http://symbil.invessence.com:8080</ssl.url>
             <mail.host>smtp.mailgun.org</mail.host>
             <mail.username>noreply@symbil.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>

@@ -14,7 +14,7 @@ public class LTAMConst
    public static String DEFAULT_BASKET="Growth";
    public static String DEFAULT_TAXABLE_THEME="T.0.Core";
    public static String DEFAULT_TAXABLE_BASKET="Growth";
-   public static String INVESSENCE_ADVISOR="Invessence";
+   public static String INVESSENCE_ADVISOR="Symbil";
 
 
    public static Double MNGT_FEES = 0.0025;

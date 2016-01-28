@@ -36,7 +36,7 @@ public class Const
 
    public final static String WEB_CONSUMER = "User";
    public final static String WEB_ADVISOR = "Advisor";
-   public final static String WEB_INTERNAL = "Invessence";
+   public final static String WEB_INTERNAL = "Symbil";
 
    public final static String WEB_MODE = "PROD";
 

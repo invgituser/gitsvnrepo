@@ -57,7 +57,7 @@ public class MsgSP extends StoredProcedure
       inputs.put("p_bcc", data.getBcc());
       inputs.put("p_subject", data.getSubject());
       if (data.getSubject() == null)
-         data.setSubject("Invessence");
+         data.setSubject("Symbil");
       inputs.put("p_msg", data.getMsg());
       inputs.put("p_status", data.getStatus());
       inputs.put("p_category", data.getCategory());

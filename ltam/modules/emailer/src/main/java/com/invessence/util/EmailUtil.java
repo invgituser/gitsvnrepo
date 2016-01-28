@@ -32,7 +32,7 @@ public class EmailUtil
       MimeMessage message = mailSender.createMimeMessage();
 
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(msgData.getSender(), "Invessence");
+      helper.setFrom(msgData.getSender(), "Symbil");
       helper.setSubject(msgData.getSubject());
 
 
