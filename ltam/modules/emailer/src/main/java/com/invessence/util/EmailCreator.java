@@ -180,6 +180,39 @@ public class EmailCreator implements MessageSourceAware, Serializable
       return message;
    }
 
+   public void sendToSupport(String typeofalert, String subject, String message) {
+      String receiver = null;
+      try {
+
+         // In it is warning or error, then send to support desk as well as write to email_alert table.
+
+         if (typeofalert != null) {
+            if (typeofalert.toUpperCase().contains("WARN")) {
+                  receiver =  messageSource.getMessage("supportdesk.L1", null, null);
+               }
+               else if (typeofalert.toUpperCase().contains("ERR")) {
+                  receiver =  messageSource.getMessage("supportdesk.L2", null, null);
+               }
+               else receiver = messageSource.getMessage("supportdesk.L1", null, null);
+            }
+
+               MsgData msgData = new MsgData();
+               msgData.setMimeType("TEXT");
+               msgData.setSource("Internal");
+               msgData.setSubject(subject);
+               msgData.setReceiver(receiver);
+               // msgData.setCc();
+               msgData.setSender("noreply@symbil.com");
+               msgData.setMsg(message);
+               writeMessage("Internal", msgData);
+               msgDAO.saveMsg(msgData);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
+
    public void writeMessage(String typeofalert, MsgData data) {
       String receiver = null;
       try {
