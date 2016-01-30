@@ -56,13 +56,13 @@ public class EmailFormatValidator implements Validator {
       if ( (emailID == null) || (emailID.trim().equals("")) ||
          (emailID.indexOf('.') == -1) ||
          (emailID.indexOf('@') == -1) )  {
-         msg =  "Invalid E-mail.";
+         msg =  "Not valid E-mail format.";
       }
 
       matcher = pattern.matcher(emailID);
       if(!matcher.matches()){
 
-         msg =  "E-mail validation failed.";
+         msg =  "Not valid E-mail format.";
       }
       return msg;
 
