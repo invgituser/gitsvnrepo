@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.sql.DataSource;
 
 import com.invessence.broker.bean.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.core.namedparam.*;
@@ -21,35 +22,33 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CommonDaoImpl implements CommonDao
 {
+   private static final Logger logger = Logger.getLogger(CommonDaoImpl.class);
    @Autowired
    JdbcTemplate jdbcTemplate;
 
    public List<BrokerHostDetails> getBrokerHostDetails(String where)throws SQLException
    {
       List<BrokerHostDetails> lst = null;
-         System.out.println("CommonDaoImpl.getBrokerHostDetails()");
-         String sql = "select vendor, environment, host, username, password, sourcedir from host_info "+where;
-         lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
-         System.out.println("lst size :" + lst.size());
-         return lst;
+      logger.info("Fetching broker host details");
+      String sql = "select vendor, environment, host, username, password, sourcedir from host_info "+where;
+      lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
+      return lst;
    }
 
    public List<DownloadFileDetails> getDownloadFileDetails(String where)throws SQLException
    {
       List<DownloadFileDetails> lst = null;
-      System.out.println("CommonDaoImpl.getDownloadFileDetails()");
+      logger.info("Fetching download files");
       String sql = "SELECT vendor, filename, active, tmp_tableName, available, sourcepath, downloaddir, format, required, canbeempty, postProcess, postInstruction,containsheader,keyData FROM download_files "+where;
       lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DownloadFileDetails.class));
-      System.out.println("lst size :" + lst.size());
       return lst;
-
    }
 
    public Map<String, DBParameters> getDBParametres() throws SQLException{
       List<DBParameters> dbParamsLst = null;
       Map<String, DBParameters> dbParamsMap = null;
      // try {
-         System.out.println("CommonDaoImpl.getDBParametres()");
+      logger.info("Fetching DB parameters");
          String sql = "SELECT name, value, format, description FROM invessence_switch /*where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')*/";
          dbParamsLst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
          if(dbParamsLst.size()>0){
@@ -75,10 +74,10 @@ public class CommonDaoImpl implements CommonDao
 
    @Transactional
    public void insertBatch(final List<String[]> dataArrLst, String sql, String proc)throws SQLException{
-
-      System.out.println("sql :"+sql+"   proc :"+proc);
+      logger.info("Processing batch insertion");
       if(sql==null || sql.equals("")){
-         System.out.println("Insertion sql is empty");
+         System.out.println("Insertion sql is not valid");
+         logger.info("Insertion sql is not valid");
       }else
       {
          jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
@@ -93,15 +92,22 @@ public class CommonDaoImpl implements CommonDao
                String[] inData = dataArrLst.get(i);
                for (int ip = 1; ip <= inData.length; ip++)
                {
-                  System.out.print((inData[ip - 1].trim().replaceAll("\"", "")) + ",");
+                  //System.out.print((inData[ip - 1].trim().replaceAll("\"", "")) + ",");
                   ps.setString(ip, inData[ip - 1].trim().replaceAll("\"", ""));
                }
-               System.out.println("");
+               //System.out.println("");
             }
          });
       }
 //      System.out.println("******************************");
-   new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
+      if(proc==null || proc.equals("")){
+         logger.info("Procedure name is not valid");
+      }else
+      {
+         logger.info("Calling post process procedure :"+proc);
+         new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
+      }
+
 //      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc);
 //      simpleJdbcCall.execute();
 //      Map<String, Object> inParamMap = new HashMap<String, Object>();
