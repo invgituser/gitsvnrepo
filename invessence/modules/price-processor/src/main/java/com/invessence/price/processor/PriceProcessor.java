@@ -199,12 +199,22 @@ public class PriceProcessor {
 //			System.out.println("DayHigh   :" + stk.getQuote().getDayHigh());
 //			System.out.println("DayLow   :" + stk.getQuote().getDayLow());
 //			System.out.println("PreviousClose   :" + stk.getQuote().getPreviousClose());
-			priceDataDao.insert(pd);
+
+			if(Double.valueOf(""+stk.getQuote().getPrice()).equals(0)){
+
+				SecMaster secMaster = new SecMaster();
+				System.out.println("Ticker Exception:" + secMaster.getTicker());
+				StringBuilder mailAlertMsg = null;
+				mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker());
+			}
+			else{
+				priceDataDao.insert(pd);
+			}
 		}else if(provider.equalsIgnoreCase("xignite")){
 			
 		
 		}else{
-			
+
 		}
 			
 
@@ -249,7 +259,8 @@ public class PriceProcessor {
 				Iterator<HistoricalQuote> itr = hstLst.iterator();
 				System.out.println("*********************Historical Data************************");
 
-				while (itr.hasNext()) {
+				while (itr.hasNext())
+				{
 
 					HistoricalQuote historicalQuote = (HistoricalQuote) itr.next();
 //					System.out.println("Ticker :" + historicalQuote.getSymbol());
@@ -268,10 +279,15 @@ public class PriceProcessor {
 															Double.valueOf("" + historicalQuote.getHigh()), Double.valueOf("" + historicalQuote.getLow()),
 															Long.valueOf(historicalQuote.getVolume()), new Date(),
 															Double.valueOf("" + historicalQuote.getAdjClose()), new Long(2), new Date());
-					pdl.add(hpd);
-				}
 
-				priceDataDao.insertBatch(pdl);
+
+					if (!Double.valueOf("" + historicalQuote.getClose()).equals(0))
+					{
+						pdl.add(hpd);
+					}
+
+					priceDataDao.insert(pd);
+				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -282,6 +298,88 @@ public class PriceProcessor {
 
 		}else{
 
+		}
+
+	}
+	public void onDemand(String ticker) throws Exception {
+
+		SecMaster secMaster=new SecMaster();
+		if(ticker.equals(secMaster.getTicker())){
+			System.out.println("TICKER ALREADY PRESENT"+ secMaster.getTicker());
+			StringBuilder mailAlertMsg= null;
+			mailAlertMsg.append("TICKER ALREADY PRESENT"+ secMaster.getTicker());
+
+		}
+		else{
+			System.out.println("***********"+price_provider+"********");
+			if(price_provider.equalsIgnoreCase("yahoo")){
+
+				try {
+
+					List<PriceData> pdl = new ArrayList<PriceData>();
+					Stock stk = YahooFinance.get(ticker);
+					System.out.println("*********************Daily Data************************");
+					System.out.println("Ticker :" + stk.getQuote().getSymbol());
+					System.out.println("LastTradeDate : " + sdf.format(stk.getQuote().getLastTradeTime().getTime()));
+					System.out.println("Open :" + stk.getQuote().getOpen());
+					System.out.println("LastTradePriceOnly :" +
+												 stk.getQuote().getPrice());
+					System.out.println("Volume :" + stk.getQuote().getVolume());
+					System.out.println("DayHigh :" + stk.getQuote().getDayHigh());
+					System.out.println("DayLow :" + stk.getQuote().getDayLow());
+					System.out.println("PreviousClose :" + stk.getQuote().getPreviousClose());
+					PriceData pd = new PriceData(stk.getQuote().getSymbol(),
+														  sdf.format(stk.getQuote().getLastTradeTime().getTime()),
+														  Double.valueOf("" + stk.getQuote().getOpen()), Double.valueOf("" + stk.getQuote().getPrice()),
+														  Double.valueOf("" + stk.getQuote().getDayHigh()), Double.valueOf("" + stk.getQuote().getDayLow()),
+														  Long.valueOf(stk.getQuote().getVolume()), new Date(),
+														  Double.valueOf("" + stk.getQuote().getPreviousClose()), new Long(2), new Date());
+
+					//pdl.add(pd);
+					Date d = new Date();
+					Calendar from = new GregorianCalendar(2015, 9, 5);// Calendar.getInstance();
+					Calendar to = new GregorianCalendar(2016, 1, 29);// Calendar.getInstance();//2007-05-30
+					from.add(Calendar.YEAR, -20); // from 5 years ago
+					List<HistoricalQuote> hstLst = stk.getHistory(from, to, Interval.DAILY);
+
+					Iterator<HistoricalQuote> itr = hstLst.iterator();
+					System.out.println("*********************Historical Data************************");
+
+					while (itr.hasNext()) {
+
+						HistoricalQuote historicalQuote = (HistoricalQuote) itr.next();
+						System.out.println("Ticker :" + historicalQuote.getSymbol());
+						System.out.println("LastTradeDate : "+sdf.format(historicalQuote.getDate().getTime()));
+						System.out.println("Open :" + historicalQuote.getOpen());
+						System.out.println("LastTradePriceOnly :" +historicalQuote.getClose());
+						System.out.println("Volume :" + historicalQuote.getVolume());
+						System.out.println("DayHigh :" + historicalQuote.getHigh());
+						System.out.println("DayLow :" + historicalQuote.getLow());
+						System.out.println("PreviousClose :" +
+													 historicalQuote.getAdjClose());
+
+						PriceData hpd = new PriceData(historicalQuote.getSymbol(),
+																sdf.format(historicalQuote.getDate().getTime()),
+																Double.valueOf("" + historicalQuote.getOpen()), Double.valueOf("" + historicalQuote.getClose()),
+																Double.valueOf("" + historicalQuote.getHigh()), Double.valueOf("" + historicalQuote.getLow()),
+																Long.valueOf(historicalQuote.getVolume()), new Date(),
+																Double.valueOf("" + historicalQuote.getAdjClose()), new Long(2), new Date());
+						if(!Double.valueOf(""+historicalQuote.getClose()).equals(0)){
+							pdl.add(hpd);
+						}
+
+						priceDataDao.insertBatch(pdl);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			else if(price_provider.equalsIgnoreCase("xignite")){
+
+
+			}else{
+
+			}
 		}
 
 	}

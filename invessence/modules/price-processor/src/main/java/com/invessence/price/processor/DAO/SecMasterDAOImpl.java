@@ -26,7 +26,7 @@ public class SecMasterDAOImpl implements SecMasterDao {
 			System.out.println("lst size :" + lst.size());
 			return lst;
 		} catch (Exception e) {
-			e.printStackTrace();
+			// TODO: handle exception
 		}
 		return lst;
 	}

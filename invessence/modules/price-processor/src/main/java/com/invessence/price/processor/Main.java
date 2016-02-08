@@ -11,7 +11,6 @@ public class Main {
 			ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("priceBeanConf.xml");
 			PriceProcessor pp = context.getBean(PriceProcessor.class);
 			pp.process();
-
 			context.close();
 		} catch (Exception e) {
 			e.printStackTrace();
