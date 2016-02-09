@@ -36,19 +36,19 @@
   <property name="dataSource" ref="dataSource"></property>
 </bean>
 
-   <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-           <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-           <property name="url" value="jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true"/>
-           <property name="username" value="webuser"/>
-           <property name="password" value="inv3ss3nc3u530n1y"/>
-       </bean>
+   <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
+           <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+           <!--<property name="url" value="jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true"/>-->
+           <!--<property name="username" value="webuser"/>-->
+           <!--<property name="password" value="inv3ss3nc3u530n1y"/>-->
+       <!--</bean>-->
 
-     <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
-        <!--<property name="driverClassName" value="${jdbc.driverClassName}"/>-->
-        <!--<property name="url" value="${jdbc.url}?noAccessToProcedureBodies=true"/>-->
-        <!--<property name="username" value="${jdbc.username}"/>-->
-        <!--<property name="password" value="${jdbc.password}"/>-->
-    <!--</bean>-->
+     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${rbsa.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
 
 
 
