@@ -1,6 +1,5 @@
 #!/bin/sh
 
-LOG=/home/abhangp/broker/log
 LIB_HOME=/home/abhangp/price
 LOG_HOME=/home/abhangp/price/log
 
