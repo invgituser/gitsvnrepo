@@ -662,7 +662,7 @@
          </properties>
       </profile>
       <profile>
-         <id>4.3-UOB</id>
+         <id>4.3-BP-PROD</id>
          <properties>
             <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
@@ -670,10 +670,10 @@
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>UOB2u53rW3b</jdbc.password>
-            <apache.url>http://uob.invessence.com:8080</apache.url>
-            <tomcat.url>http://uob.invessence.com:8080</tomcat.url>
-            <ssl.url>http://uob.invessence.com:8080</ssl.url>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <apache.url>http://bp.invessence.com:8080</apache.url>
+            <tomcat.url>http://bp.invessence.com:8080</tomcat.url>
+            <ssl.url>http://bp.invessence.com:8080</ssl.url>
             <mail.host>smtp.gmail.com</mail.host>
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
@@ -682,42 +682,7 @@
             <base.rbsa.dir>/inv/data</base.rbsa.dir>
             <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
             <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
-            <base.web.dir>/inv/www/uob/ROOT</base.web.dir>
-            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
-            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
-            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
-            <report.localdir>${base.data.dir}/rpt/</report.localdir>
-            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
-            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
-            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
-            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
-         </properties>
-      </profile>
-      <profile>
-         <id>4.4-UOB-TEST</id>
-         <properties>
-            <web.mode>PROD</web.mode>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://uob.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://uob.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <ltam.url>jdbc:mysql://uob.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>UOB2u53rW3b</jdbc.password>
-            <apache.url>http://localhost:8080</apache.url>
-            <tomcat.url>http://localhost:8080</tomcat.url>
-            <ssl.url>http://localhost:8080</ssl.url>
-            <mail.host>smtp.gmail.com</mail.host>
-            <mail.username>no-reply@invessence.com</mail.username>
-            <mail.password>G3n3r@l89</mail.password>
-            <mail.port>587</mail.port>
-
-            <base.data.dir>C:\INV\data</base.data.dir>
-            <base.rbsa.dir>C:\INV\RBSA</base.rbsa.dir>
-            <base.clientdata.dir>C:\INV\client</base.clientdata.dir>
-            <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
-            <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
+            <base.web.dir>/inv/www/bp/ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>

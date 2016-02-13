@@ -29,5 +29,6 @@
       <module>ibservice</module>
       <module>reports</module>
       <module>rbsa-preprocessor</module>
+      <module>price-processor</module>
    </modules>
 </project>

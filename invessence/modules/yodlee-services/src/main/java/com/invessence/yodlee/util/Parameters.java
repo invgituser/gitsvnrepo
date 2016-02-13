@@ -8,6 +8,8 @@ public class Parameters {
 
 	protected static Properties parameters=null;
 
+	public static String YODLEE_PROCESS_STATUS;
+
 	public static String COBRAND_LOGIN;
 	public static String COBRAND_PASSWORD;
 
@@ -32,7 +34,7 @@ public class Parameters {
 		try {
 
 			parameters.load(Parameters.class.getResourceAsStream("/resources.properties"));
-
+			YODLEE_PROCESS_STATUS=parameters.getProperty("YODLEE_PROCESS_STATUS");
 			COBRAND_LOGIN=parameters.getProperty("COBRAND_LOGIN");
 			COBRAND_PASSWORD=parameters.getProperty("COBRAND_PASSWORD");
 			BRIDGE_APP_ID=parameters.getProperty("BRIDGE_APP_ID");
