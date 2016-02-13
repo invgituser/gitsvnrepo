@@ -97,7 +97,6 @@ public class YodleeBean implements Serializable {
                 logonid = webutil.getLogonid();
             }
             if (isUserRegisteredAtYodlee()) {
-                loadData(logonid);
                 yodleeNavigation("dash");
             } else {
                 yodleeNavigation("profile");
@@ -162,7 +161,6 @@ public class YodleeBean implements Serializable {
                 logonid = webutil.getLogonid();
             }
             yodleeAPIService.refreshUserAccDetails(logonid);
-            loadData(logonid);
             displayDash();  // Refresh Charts on Dashboard.
             //return result;
         } catch (Exception e) {
@@ -269,6 +267,7 @@ public class YodleeBean implements Serializable {
     }
 
     private void displayDash() {
+       loadData(logonid);
         if (yodleeCharts == null) {
             yodleeCharts = new YodleeCharts();
         }
@@ -279,6 +278,7 @@ public class YodleeBean implements Serializable {
     }
 
     private void displayAggr() {
+       loadData(logonid);
         if (yodleeCharts == null) {
             yodleeCharts = new YodleeCharts();
         }
