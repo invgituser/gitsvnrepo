@@ -88,5 +88,21 @@ public class JavaUtil implements Serializable
          return null;
    }
 
+   public String getDisplayHiddenID(String clientAccountID)
+   {
+      Integer idlen = 0;
+      String displayID = "XXXXXXXXXXXXXXXX000";
+      if (clientAccountID != null) {
+         String id = clientAccountID.trim();
+         idlen = id.length();
+         if (idlen > 5)
+            displayID = id.substring(0,1) + "XXXXXXXXXXXXXX".substring(0,idlen-3) + id.substring(idlen-2);
+         else
+            displayID = "XXXXXXXXXXXXXX".substring(0,idlen-3) + id.substring(idlen-2);
+      }
+      return displayID;
+   }
+
+
 
 }

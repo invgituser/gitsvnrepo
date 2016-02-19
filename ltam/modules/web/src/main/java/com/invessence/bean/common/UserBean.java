@@ -232,26 +232,28 @@ public class UserBean extends UserData implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             resetBean();
+            logger.debug("Calling preRenderResetUser, UserID = " + beanUserID);
             if (beanUserID != null && beanResetID != null)
             {
                if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
                {
                   collectUserLogon(beanUserID, null);
+                  logger.debug("After collectUserLogon ResetID " + getResetID().toString());
                   if (!beanResetID.equals(getResetID().toString()))
                   {
-                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.");
+                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid Reset data.");
                   }
                   setRandomQuestion();
                }
                else {
-                  webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.");
+                  webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid User data.");
                }
             }
          }
       }
       catch (Exception ex)
       {
-         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.");
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.  Exception raised:" + ex.getMessage());
       }
    }
 
@@ -263,6 +265,7 @@ public class UserBean extends UserData implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             resetBean();
+            logger.debug("Calling preRenderActivateUser, UserID = " + beanUserID + ", Reset " + beanResetID);
             if (beanUserID != null && beanResetID != null)
             {
                if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
@@ -270,11 +273,11 @@ public class UserBean extends UserData implements Serializable
                   collectUserLogon(beanUserID, null);
                   if (!beanResetID.equals(getResetID().toString()))
                   {
-                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.");
+                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
                   }
                }
                else {
-                  webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.");
+                  webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid user data.");
                }
             }
          }
@@ -283,7 +286,7 @@ public class UserBean extends UserData implements Serializable
       }
       catch (Exception ex)
       {
-         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.");
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data. Exception raised:" + ex.getMessage());
       }
    }
 
@@ -300,12 +303,13 @@ public class UserBean extends UserData implements Serializable
             beanResetID = null;
             resetBean();
             collectClientData();
-            logger.debug("collectClientData:" + getUserID() + "," + getEmail() + ")");
+            logger.debug("After collectClientData:" + getUserID() + "," + getEmail() + ")");
             if (getUserID() != null && !getUserID().isEmpty())
             {
                webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.");
             }
             // Commented out to do beta testing of anyone able to sign up..
+            logger.debug("Existing client:" + getEmail());
             if (getEmail() == null || getEmail().isEmpty())  // If no email in the system, then warn
             { // Userid is UserData.
                webutil.redirecttoMessagePage("WARN", "Cannot Signup", "Sorry, you are attempting to activate account, but you have to be invited.  If you received this email, please click on the email invitation link.");
@@ -314,7 +318,7 @@ public class UserBean extends UserData implements Serializable
       }
       catch (Exception ex)
       {
-         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data.");
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data. Exception raised:" + ex.getMessage());
       }
    }
 
@@ -389,11 +393,13 @@ public class UserBean extends UserData implements Serializable
       MsgData data = new MsgData();
       //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
+      logger.debug("Trying Registering by: " + beanEmail + ", UserID: " + beanUserID);
       System.out.println("Trying Registering by: " + beanEmail + ", UserID: " + beanUserID);
       try
       {
          if (messageText == null)
          {
+            logger.debug("Email alert system is down!!!!!!");
             System.out.println("Email alert system is down!!!!!!");
             FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
             return;
@@ -424,6 +430,7 @@ public class UserBean extends UserData implements Serializable
          setEmailmsgtype(emailMsgType);
          // Save data to database....
          long loginID = userInfoDAO.addUserInfo(getInstance());
+         logger.debug("After addUserInfo got " + loginID);
 
          if (loginID < 0L)
          {
@@ -434,6 +441,7 @@ public class UserBean extends UserData implements Serializable
          else
          {
             // Now send email support.
+            logger.debug("Set Activation email " + beanEmail);
             data.setSource("User");  // This is set to User to it insert into appropriate table.
             data.setSender(Const.MAIL_SENDER);
             data.setReceiver(beanEmail);
@@ -453,7 +461,8 @@ public class UserBean extends UserData implements Serializable
       }
       catch (Exception ex)
       {
-         webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support.");
+         logger.debug("Exception " + ex.getMessage());
+         webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support. Exception:" + ex.getMessage());
          webutil.alertSupport("signup", "Signup -" + beanEmail, "Exception: " + ex.getMessage(), null);
          ex.printStackTrace();
       }

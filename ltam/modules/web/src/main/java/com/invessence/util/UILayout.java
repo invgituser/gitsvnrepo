@@ -195,7 +195,7 @@ public class UILayout implements Serializable
          webutil.redirect(default_page, null);
      }
      else {
-        if (webutil.hasAccess(Const.ROLE_ADVISOR)) {
+        if (webutil.hasAccess(Const.WEB_ADVISOR)) {
            webutil.redirect("/pages/advisor/index.xhtml", null);
         }
         else {

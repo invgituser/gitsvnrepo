@@ -7,7 +7,7 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.constant.Const;
 import com.invessence.dao.consumer.*;
-import com.invessence.data.consumer.DashboardData;
+import com.invessence.data.consumer.ConsumerData;
 import com.invessence.util.*;
 
 /**
@@ -38,9 +38,9 @@ public class ConsumerDashBean implements Serializable
       this.webutil = webutil;
    }
 
-   private List<DashboardData> dashboardList;
+   private List<ConsumerData> dashboardList;
 
-   private DashboardData selectedAccount;
+   private ConsumerData selectedAccount;
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -57,7 +57,7 @@ public class ConsumerDashBean implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.ROLE_USER)) {
+            if (webutil.validatePriviledge(Const.WEB_USER)) {
                logonid = webutil.getLogonid();
 
                if (logonid != null)
@@ -71,49 +71,27 @@ public class ConsumerDashBean implements Serializable
       }
    }
 
-/*
-   @PostConstruct
-   public void init()
-   {
-      Long logonid;
-      String fetchStatus;
-      try
-      {
-         if (webutil.validatePriviledge(Const.ROLE_USER)) {
-            logonid = webutil.getLogonid();
-
-            if (logonid != null)
-               collectData(logonid);
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-*/
-
    public String getLoggedUserName() {
       return webutil.getFullname();
    }
 
    public void collectData(Long logonid)
    {
-      dashboardList = listDAO.getClientProfileData(logonid);
+      dashboardList = listDAO.getClientProfileData(logonid, null);
     }
 
 
-   public List<DashboardData> getDashboardList()
+   public List<ConsumerData> getDashboardList()
    {
       return dashboardList;
    }
 
-   public DashboardData getSelectedAccount()
+   public ConsumerData getSelectedAccount()
    {
       return selectedAccount;
    }
 
-   public void setSelectedAccount(DashboardData selectedAccount)
+   public void setSelectedAccount(ConsumerData selectedAccount)
    {
       this.selectedAccount = selectedAccount;
    }

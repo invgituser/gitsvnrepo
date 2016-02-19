@@ -69,7 +69,7 @@ public class PositionBean implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.ROLE_USER)) {
+            if (webutil.validatePriviledge(Const.WEB_USER)) {
                Long logonid = webutil.getLogonid();
                collectData(logonid, beanacctnum);
             }

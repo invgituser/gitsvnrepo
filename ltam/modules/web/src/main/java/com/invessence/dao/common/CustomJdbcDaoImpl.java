@@ -336,7 +336,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
 
       if (rs == null)
       {
-         list.add(new SimpleGrantedAuthority(Const.ROLE_USER));
+         list.add(new SimpleGrantedAuthority(Const.WEB_USER));
          return list;
       }
 

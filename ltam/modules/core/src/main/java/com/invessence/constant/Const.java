@@ -26,16 +26,16 @@ public class Const
    public final static String URL_HOME = "index.html";
 
    public final static String ROLE_ADMIN = "ADMIN";
+   public final static String ROLE_USER = "USER";
    public final static String ROLE_SALES = "SALES";
    public final static String ROLE_SUPPORT = "SUPPORT";
    public final static String ROLE_ADVISOR = "ADVISOR";
-   public final static String DEVEL_ADVISOR = "DEVELOPER";
+   public final static String ROLE_DEVELOPER = "DEVELOPER";
 
-   public final static String ROLE_OWNER = "OWNER";
-   public final static String ROLE_USER = "USER";
-
-   public final static String WEB_CONSUMER = "User";
+   public final static String WEB_ALL = "ALL";
+   public final static String WEB_USER = "USER";
    public final static String WEB_ADVISOR = "Advisor";
+   public final static String WEB_ADMIN = "ADMIN";
    public final static String WEB_INTERNAL = "Symbil";
 
    public final static String WEB_MODE = "PROD";

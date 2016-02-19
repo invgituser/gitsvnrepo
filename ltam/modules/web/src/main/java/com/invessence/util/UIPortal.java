@@ -275,9 +275,9 @@ public class UIPortal implements Serializable
 
 
    public String enableMenu(String role) {
-      if (webutil.hasAccess(Const.ROLE_ADMIN))
+      if (webutil.hasAccess(Const.WEB_ADMIN))
          return "true";
-      else if ((role.toUpperCase().equals(Const.ROLE_USER)) && (webutil.hasRole(role)))
+      else if ((webutil.hasAccess(Const.WEB_USER)) && (webutil.hasRole(role)))
          return "true";
       else if ((webutil.hasAccess(Const.WEB_ADVISOR)) && (webutil.hasRole(role)))
          return "true";

@@ -33,11 +33,11 @@
 
                     <div class="Container100 MarTop20">
                         <p:growl id="profilegrowl" autoUpdate="true" escape="false"/>
-                        <p:tabView>
+                        <p:tabView style="background: transparent !important">
                             <p:ajax event="tabChange" listener="#{profileBean.onTabChange}" update="@form"/>
 
                             <p:tab title="Security Questions">
-                                <p:panel style="border: 0px; height: 340px;">
+                                <p:panel style="border: 0px; background: transparent">
                                     <div class="Container100">
                                         <h3>
                                             <h:outputText value="These below questions and answers will be used to further authenticate you when needed." styleClass="Wid90"/>
@@ -111,13 +111,13 @@
                                                          required="true" requiredMessage="Email must be defined."/>
 
                                             <h:outputText value="Password" styleClass="Wid90"/>
-                                            <p:password id="pwd1" value="#{profileBean.userData.password}"
+                                            <p:password id="pwd1" value="#{profileBean.password}"
                                                         styleClass="Wid90" placeholder="New Password"
                                                         match="pwd2" label="Password">
                                             </p:password>
 
                                             <h:outputText value="Confirm Password" styleClass="Wid90"/>
-                                            <p:password id="pwd2" value="#{profileBean.userData.confirmNewPassword}" styleClass="Wid90"
+                                            <p:password id="pwd2" value="#{profileBean.confirmPassword}" styleClass="Wid90"
                                                         placeholder="Confirm Password"/>
                                         </p:panelGrid>
                                     </div>

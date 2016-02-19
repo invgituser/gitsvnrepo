@@ -330,7 +330,7 @@ public class WebUtil implements Serializable
 
    }
 
-   public Boolean validatePriviledge(String role)
+   public Boolean validatePriviledge(String access)
    {
       try {
          if (! isUserLoggedIn())
@@ -339,8 +339,12 @@ public class WebUtil implements Serializable
             return false;
          }
          else
-            if (role != null) {
-               if (! hasRole(role)) {
+            if (access == null)
+               return true;
+            else {
+               if (hasAccess(access))
+                  return true;
+               else {
                   redirect("/access-denied.xhtml", null);
                   return false;
                }
@@ -351,7 +355,6 @@ public class WebUtil implements Serializable
          redirect(url,null);
          return false;
       }
-      return true;
    }
 
    public boolean hasRole(String role) {
@@ -373,9 +376,9 @@ public class WebUtil implements Serializable
                            return true;
                   }
                }
-               // If roles table is blank, then they must be USER or OWNER of account.
-               if (role.equalsIgnoreCase(Const.ROLE_USER) || role.equalsIgnoreCase(Const.ROLE_OWNER))
-                  return true;
+               // Changed Roles and Access are two different functions....
+               // if (role.equalsIgnoreCase(Const.ROLE_USER) || role.equalsIgnoreCase(Const.ROLE_OWNER))
+               //   return true;
             }
       }
       catch (Exception ex) {
@@ -388,7 +391,9 @@ public class WebUtil implements Serializable
 
       String access = getAccess();
       if (access != null) {
-         if (access.equalsIgnoreCase("ADMIN"))
+         if (role.equalsIgnoreCase(Const.WEB_ALL))
+            return true;
+         else if (access.equalsIgnoreCase(Const.WEB_ADMIN))
             return true;
          else if (access.equalsIgnoreCase(role))
             return true;

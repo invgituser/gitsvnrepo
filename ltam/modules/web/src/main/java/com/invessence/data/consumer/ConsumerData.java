@@ -1,5 +1,9 @@
 package com.invessence.data.consumer;
 
+import java.util.Comparator;
+
+import com.invessence.converter.JavaUtil;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Prashant
@@ -7,13 +11,10 @@ package com.invessence.data.consumer;
  * Time: 4:38 PM
  * To change this template use File | Settings | File Templates.
  */
-public class DashboardData
+public class ConsumerData implements Comparable<ConsumerData>
 {
    private Long logonid;
    private Long acctnum;
-   private String functionid;
-   private String role;
-   private String privileges;
    private String firstName;
    private String lastName;
    private Double investment;
@@ -23,21 +24,18 @@ public class DashboardData
    private String clientAccountID;
    private String description;
 
-   public DashboardData()
+   private JavaUtil jutil = new JavaUtil();
+
+   public ConsumerData()
    {
    }
 
-   public DashboardData(Long logonid, Long acctnum,
-                        String functionid, String role,
-                        String privileges, String firstName, String lastName,
-                        Double investment, Double riskIndex, String managed,
-                        String dateOpened, String clientAccountID, String description)
+   public ConsumerData(Long acctnum,
+                       String firstName, String lastName,
+                       Double investment, Double riskIndex, String managed,
+                       String dateOpened, String clientAccountID, String description)
    {
-      this.logonid = logonid;
       this.acctnum = acctnum;
-      this.functionid = functionid;
-      this.role = role;
-      this.privileges = privileges;
       this.firstName = firstName;
       this.lastName = lastName;
       this.investment = investment;
@@ -68,34 +66,11 @@ public class DashboardData
       this.acctnum = acctnum;
    }
 
-   public String getFunctionid()
-   {
-      return functionid;
-   }
-
-   public void setFunctionid(String functionid)
-   {
-      this.functionid = functionid;
-   }
-
-   public String getRole()
-   {
-      return role;
-   }
-
-   public void setRole(String role)
-   {
-      this.role = role;
-   }
-
-   public String getPrivileges()
-   {
-      return privileges;
-   }
-
-   public void setPrivileges(String privileges)
-   {
-      this.privileges = privileges;
+   public String getDisplayAccount() {
+      if (clientAccountID == null)
+         return ("Pending");
+      else
+         return jutil.getDisplayHiddenID(clientAccountID);
    }
 
    public String getFirstName()
@@ -116,6 +91,26 @@ public class DashboardData
    public void setLastName(String lastName)
    {
       this.lastName = lastName;
+   }
+
+   public String getFullname()
+   {
+      if (firstName == null && lastName == null)
+      {
+         return "Undefined";
+      }
+
+      if (firstName == null)
+      {
+         return lastName;
+      }
+
+      if (lastName == null)
+      {
+         return firstName;
+      }
+
+      return firstName + " " + lastName;
    }
 
    public Double getInvestment()
@@ -177,4 +172,50 @@ public class DashboardData
    {
       this.description = description;
    }
+
+   public static Comparator<ConsumerData> ConsumerDataDateOpenedComparator
+      = new Comparator<ConsumerData>() {
+
+      public int compare(ConsumerData date1, ConsumerData date2) {
+
+         String dateOpen1 = date1.getDateOpened();
+         String dateOpen2 = date2.getDateOpened();
+
+         //ascending order
+         // return dateOpen1.compareTo(dateOpen2);
+
+         //descending order
+         return dateOpen2.compareTo(dateOpen1);
+      }
+   };
+
+   public int compareTo(ConsumerData compareInvestment) {
+
+      int compareAmount = ((ConsumerData) compareInvestment).getInvestment().intValue();
+
+      //ascending order
+      // return this.investment.intValue() - compareAmount;
+
+      //descending order
+      return compareAmount - this.investment.intValue();
+
+   }
+
+   static class DateOpenedComparator implements Comparator {
+      public int compare(Object o1, Object o2) {
+         if (!(o1 instanceof ConsumerData) || !(o2 instanceof ConsumerData))
+            throw new ClassCastException();
+
+         String c1 = ((ConsumerData) o1).getDateOpened();
+         String c2 = ((ConsumerData) o2).getDateOpened();
+
+         // ascending order
+         // return c1.compareTo(c2);
+
+         // descending order
+         return c2.compareTo(c1);
+
+      }
+   }
+
 }

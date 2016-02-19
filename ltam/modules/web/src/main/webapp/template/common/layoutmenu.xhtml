@@ -17,7 +17,7 @@
                     rendered="#{! webutil.isUserLoggedIn()}"/>
             <p:menuitem id="logon" value="Login" icon="icon-https" outcome="/login.xhtml"
                         rendered="#{! webutil.isUserLoggedIn()}"/>
-            <p:menuitem id="dash" value="Dashboard" icon="icon-dashboard" outcome="/pages/consumer/index.xhtml"
+            <p:menuitem id="dash" value="Dashboard" icon="icon-dashboard" actionListener="#{uiLayout.goToStartPage}"
                         rendered="#{webutil.isUserLoggedIn()}"/>
             <p:menuitem id="logout" value="Logout" icon="icon-lock_open" actionListener="#{uiLayout.logout}"
                         rendered="#{webutil.isUserLoggedIn()}"/>

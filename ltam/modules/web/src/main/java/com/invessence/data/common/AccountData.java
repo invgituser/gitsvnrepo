@@ -588,4 +588,55 @@ public class AccountData
    {
       this.created = created;
    }
+
+   public void resetData() {
+      logonid	=	null	;
+      acctnum	=	null	;
+      email	=	null	;
+      userid	=	null	;
+      advisor	=	null	;
+      theme	=	null	;
+      lastname	=	null	;
+      firstname	=	null	;
+      state	=	null	;
+      clientAccountID	=	null	;
+      acctStatus	=	null	;
+      tradePreference	=	null	;
+      goal	=	null	;
+      accttype	=	null	;
+      age	=	null	;
+      horizon	=	null	;
+      yearnum	=	null	;
+      riskIndex	=	null	;
+      initialInvestment	=	null	;
+      actualCapital	=	null	;
+      keepLiquid	=	null	;
+      recurringInvestment	=	null	;
+      longTermGoal	=	null	;
+      stayInvested	=	null	;
+      dependent	=	null	;
+      dateOpened	=	null	;
+      totalIncomeAnnulized	=	null	;
+      totalExpenseAnnulized	=	null	;
+      totalAsset	=	null	;
+      totalDebt	=	null	;
+      liquidnetworth	=	null	;
+      networth	=	null	;
+      ans1	=	null	;
+      ans2	=	null	;
+      ans3	=	null	;
+      ans4	=	null	;
+      ans5	=	null	;
+      ans6	=	null	;
+      ans7	=	null	;
+      ans8	=	null	;
+      ans9	=	null	;
+      ans10	=	null	;
+      ans11	=	null	;
+      ans12	=	null	;
+      ans13	=	null	;
+      ans14	=	null	;
+      ans15	=	null	;
+      created	=	null	;
+   }
 }

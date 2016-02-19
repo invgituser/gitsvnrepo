@@ -8,10 +8,10 @@
    <bean id="advisorSaveDataDAO" class="com.invessence.dao.advisor.AdvisorSaveDataDAO">
          <property name="dataSource" ref="dataSource"/>
      </bean>
+-->
 
    <bean id="advisorListDataDAO" class="com.invessence.dao.advisor.AdvisorListDataDAO">
          <property name="dataSource" ref="dataSource"/>
    </bean>
--->
 
 </beans>

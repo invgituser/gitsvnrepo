@@ -629,15 +629,59 @@ li {
 }
 .BigTopic {
   font-size: 20px;
-    font-family: 'Open Sans', sans-serif;;
+  font-family: 'Open Sans', sans-serif;;
   font-weight: lighter;
   color: #546E7A;
   padding: 10px 0px;
 }
+
 .changecolor:hover {
   background-color: #FBB040;
   padding: 10px;
 }
+
+/* bordered box */
+.BorderedBox {
+    border: solid 1px #D9E3E8;
+    background-color: #EDF3F6;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+.BottomBorderedBox {
+    border-bottom: solid 1px #D9E3E8;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    margin-bottom: 15px;
+}
+
+/* hover effect for boxlink and links */
+.HoverEffect:hover {
+    border: solid 1px #009ABB !important;
+    color: #009ABB !important;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.HoverLink:hover {
+    color: #009ABB !important;
+}
+
 /* MEDIA QUERIES **************************************************************************************************************** */
 /* Large desktop */
 /* Portrait tablet to landscape and desktop */
@@ -1213,6 +1257,18 @@ li {
 }
 .Yellow {
   color: #F7D100;
+}
+.SymbilBlue{
+  color: #00006A;
+}
+.SymbilGreen{
+    color: #00D404;
+}
+.SymbilRed{
+    color: #D40000;
+}
+.SymbilYellow{
+    color: #D0D403;
 }
 /* background colors */
 .WhiteBlueBack {

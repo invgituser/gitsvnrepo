@@ -3,6 +3,8 @@ package com.invessence.data.consumer;
 import java.io.Serializable;
 import java.util.*;
 
+import com.invessence.converter.JavaUtil;
+
 /**
  * Created with IntelliJ IDEA.
  * User: pichaimanir
@@ -17,6 +19,8 @@ public class PositionSummaryData implements Serializable
    Map<String, PositionData> assetMap;
    Boolean hasClientData;
    String name, clientAccountID, securitydesc, repName;
+
+   private JavaUtil jutil = new JavaUtil();
 
    public PositionSummaryData()
    {
@@ -52,17 +56,7 @@ public class PositionSummaryData implements Serializable
 
    public String getDisplayClientAccountID()
    {
-      Integer idlen = 0;
-      String displayID = "XXXXXXXXXXXXXXX";
-      if (clientAccountID != null) {
-         String id = clientAccountID.trim();
-         idlen = id.length();
-         if (idlen > 5)
-            displayID = id.substring(0,1) + "XXXXXXXXXXXXXX".substring(0,idlen-3) + id.substring(idlen-2);
-         else
-            displayID = "XXXXXXXXXXXXXX".substring(0,idlen-3) + id.substring(idlen-2);
-      }
-      return displayID;
+      return (jutil.getDisplayHiddenID(clientAccountID));
    }
 
 

@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="filter" value="#{manageAdvisorBean.filter}"/>
+        <f:viewParam name="sort" value="#{manageAdvisorBean.sort}"/>
+        <f:event type="preRenderView" listener="#{manageAdvisorBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box">
+            <div class="Container90 Responsive50">
+                <div class="ContainerIndent">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
+                        <h:form>
+                            <p:commandButton value="Yes" type="button"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button"
+                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </h:form>
+                    </p:confirmDialog>
+
+                    <h:form id="form">
+                        <div class="Container100">
+                            <div class="Wid50 Responsive50 Fleft">
+                                <h3 class="BigTopic">
+                                    List of Accounts
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="Container100">
+                            <p:dataTable id="managedDataList" var="managedVar" widgetVar="managedTable"
+                                         value="#{manageAdvisorBean.consumerData}">
+
+
+                                <p:column sortBy="#{managedVar.fullname}"
+                                          headerText="Name"
+                                          style="width:20%; text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.fullname}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.displayAccount}"
+                                          headerText="Acct#"
+                                          style="width:20%; text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.displayAccount}"/>
+                                </p:column>
+
+                                <p:column sortBy="#{managedVar.description}"
+                                          headerText="Security"
+                                          style="width:20%; text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.description}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.dateOpened}"
+                                          headerText="Opened"
+                                          style="width:10%; text-align: right"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.dateOpened}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.investment}"
+                                          headerText="Amount"
+                                          style="width:15%; text-align: right"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.investment}">
+                                        <f:convertNumber currencySymbol="$" type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>

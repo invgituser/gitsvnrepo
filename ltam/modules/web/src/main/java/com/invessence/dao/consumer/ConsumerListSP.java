@@ -18,6 +18,7 @@ public class ConsumerListSP extends StoredProcedure
       switch (mode) {
          case 0:   // SP: sel_ClientProfileData2
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             break;
          case 1:   // SP: sel_position
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
@@ -29,10 +30,11 @@ public class ConsumerListSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map loadClientProfileData(Long logonid)
+   public Map loadClientProfileData(Long logonid, String filter)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
+      inputMap.put("p_filter", filter);
       return super.execute(inputMap);
    }
 

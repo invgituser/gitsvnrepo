@@ -9,24 +9,24 @@
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
    <!-- Entry points -->
-   <http pattern="/test.xhtml" security="none"/>
-   <http pattern="/start.xhtml" security="none"/>
-   <http pattern="/welcome.xhtml" security="none"/>
-   <http pattern="/announcement.xhtml" security="none"/>
+   <http pattern="/test.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/start.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/welcome.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/announcement.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
-   <http pattern="/message.xhtml" security="none"/>
-   <http pattern="/index.xhtml" security="none"/>
-   <http pattern="/viewExpired.xhtml" security="none"/>
-   <http pattern="/404.xhtml" security="none"/>
+   <http pattern="/message.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/index.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/viewExpired.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/404.xhtml" security="none" create-session="never" use-expressions="true"/>
 
    <!-- Signup/Password Setup  -->
-   <http pattern="/signup.xhtml" security="none"/>
-   <http pattern="/signup2.xhtml" security="none"/>
-   <http pattern="/signup3.xhtml" security="none"/>
-   <http pattern="/forgot.xhtml" security="none"/>
-   <http pattern="/activate.xhtml" security="none"/>
-   <http pattern="/reset.xhtml" security="none"/>
-   <http pattern="/approved.xhtml" security="none"/>
+   <http pattern="/signup.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/signup2.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/signup3.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/forgot.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/activate.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/reset.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/approved.xhtml" security="none" create-session="never" use-expressions="true"/>
 
    <!-- Base Directories for Project to exclude from Security  -->
    <http pattern="/css/**" security="none"/>
@@ -42,16 +42,6 @@
    <http pattern="/reports/**" security="none"/>
    <http pattern="/spark/ui/**" security="none"/>
    <http pattern="/modena/ui/**" security="none"/>
-
-
-   <!--
-      <http pattern="/chartTest.xhtml" security="none" />
-      <http pattern="/chartTest2.xhtml"security="none" />
-      <http pattern="/test1.xhtml" security="none" />
-      <http pattern="/test1.jsp" security="none" />
-      <http pattern="/test2.xhtml" security="none" />
-      <http pattern="/test2.jsp" security="none" />
-   -->
 
    <http auto-config="true" access-denied-page="/access-denied.xhtml">
       <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />

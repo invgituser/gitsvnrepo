@@ -256,6 +256,12 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 .FontBold{ font-weight:bold;}
 .FontLight{ font-weight:lighter;}
 .FontNormal{ font-weight:normal;}
+.FontThemeBold{font-family: 'Open Sans', sans-serif; font-weight: bold;}
+.FontThemeSemiBold{font-family: 'Open Sans', sans-serif; font-weight: bold;}
+.FontThemeMedium{font-family: 'Open Sans', sans-serif;}
+.FontThemeRegular{font-family: 'Open Sans', sans-serif;}
+.FontThemeLight{font-family: 'Open Sans', sans-serif;}
+
 
 /* Animated */
 .Animated03{-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -ms-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;}
