@@ -140,12 +140,12 @@ public class NotificationBean implements Serializable
       if (data != null) {
          data.setStatus("A");
          commonDao.saveNotice(data);
-         webutil.redirect("/pages/common/notification.xhtml", null);
-/*
-         selectedMessage = null;
+//         webutil.redirect("/pages/common/notification.xhtml", null);
+
          collectNotification();
+         selectedMessage = null;
          RequestContext.getCurrentInstance().update("messageDT");
-*/
+
          return "success";
       }
       return "failed";
@@ -157,12 +157,13 @@ public class NotificationBean implements Serializable
       if (data != null) {
          data.setStatus("N");
          commonDao.saveNotice(data);
-         webutil.redirect("/pages/common/notification.xhtml", null);
-/*
+
+//         webutil.redirect("/pages/common/notification.xhtml", null);
+
          selectedMessage = null;
          collectNotification();
          RequestContext.getCurrentInstance().update("messageDT");
-*/
+
          return "success";
       }
       return "failed";
