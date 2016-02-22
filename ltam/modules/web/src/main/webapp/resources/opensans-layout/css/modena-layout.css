@@ -206,7 +206,7 @@ body {
   height: 37px;
   cursor: pointer;
   display: block;
-  color: #ffffff;
+  color: #00006A;
   overflow: hidden;
 }
 #top-menu > li > a:hover,
@@ -313,7 +313,7 @@ body {
   width: 42px;
   height: 39px;
   cursor: pointer;
-  color: #ffffff;
+  color: #00006a !important;
   overflow: hidden;
   float: right;
   padding-top: 3px;
@@ -629,17 +629,15 @@ li {
 }
 .BigTopic {
   font-size: 20px;
-  font-family: 'Open Sans', sans-serif;;
+    font-family: 'Open Sans', sans-serif;;
   font-weight: lighter;
   color: #546E7A;
   padding: 10px 0px;
 }
-
 .changecolor:hover {
   background-color: #FBB040;
   padding: 10px;
 }
-
 /* bordered box */
 .BorderedBox {
     border: solid 1px #D9E3E8;
@@ -681,7 +679,6 @@ li {
 .HoverLink:hover {
     color: #009ABB !important;
 }
-
 /* MEDIA QUERIES **************************************************************************************************************** */
 /* Large desktop */
 /* Portrait tablet to landscape and desktop */
@@ -1342,3 +1339,23 @@ li {
   border: solid 1px #E0E0E0;
 }
 
+@media (min-width:360px) and (max-width: 480px) {
+  #layout-portlets-cover {
+    padding: 10px;
+  }
+
+}
+
+@media (min-width:320px) and (max-width: 360px) {
+  #layout-portlets-cover {
+    padding: 10px;
+  }
+}
+
+
+@media (min-width:200px) and (max-width: 320px) {
+  #layout-portlets-cover {
+    padding: 10px;
+  }
+
+}

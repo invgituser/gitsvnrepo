@@ -3375,7 +3375,7 @@ hr.ui-widget-header {
   font-size: 16px !important;
 }
 .ui-button-text-only .ui-button-text {
-  padding: 10px 24px !important;
+  padding: 0px 5px !important;
 }
 .ui-button.ui-button-icon-only .ui-button-text {
   padding: 10px 0px !important;
@@ -5555,7 +5555,7 @@ hr.ui-widget-header {
 .CyanButton {
   background-color: #00ACC1;
 }
-.CyanButton.ui-state-hover .CyanButton.ui-state-focus t {
+.CyanButton.ui-state-hover .CyanButton.ui-state-focus {
   background-color: #26C6DA !important;
 }
 .BrownButton {
@@ -5645,4 +5645,5 @@ hr.ui-widget-header {
 .Yellow {
   color: #F7D100;
 }
+
 

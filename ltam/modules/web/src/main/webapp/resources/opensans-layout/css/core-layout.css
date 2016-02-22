@@ -262,22 +262,57 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 .FontThemeRegular{font-family: 'Open Sans', sans-serif;}
 .FontThemeLight{font-family: 'Open Sans', sans-serif;}
 
-
 /* Animated */
 .Animated03{-webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -ms-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;}
 .Animated05{-webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
 .Animated1{-webkit-transition: all 1s ease; -moz-transition: all 1s ease; -ms-transition: all 1s ease; -o-transition: all 1s ease; transition: all 1s ease;}
+
+
+
+/*vivek CSS */
+
+.tab_main {padding:0 100px; padding-top:20px;}
+.top_desk {margin-top:-290px;}
+.tp1 {margin-top:20px;}
+.pg5_h1 {height: 40px;}
+.page4_left {margin-left:40px; border: 0px;}
+.selection tr {
+       float: left;
+        width: 20%;
+    }
+.f1 {font-size:18px;}     
+
+
+
+
+
+
+
 
 /******************************************************************************************************************************** */
 
 /* MEDIA QUERIES FOR CORE LAYOUT **************************************************************************************************************** */
 
 /* Large desktop */
+
+@media (max-width: 1300px){
+	 /*vivek CSS */
+	.tab_main {padding:0 100px; padding-top:20px;}
+	.input_wid1 {width:120px;}
+	.title1 {font-size:1.5em;}
+
+}
+	
 @media (min-width: 960px){
 	/*visibilities according to the platform*/
 	.ShowOnMobile{display:none; opacity:0;}
 	.ShowOnDesktop{display:inherit; opacity:1;}
     .ShowOnDesktopTablet{display:inherit; opacity:1;}
+    
+    /*vivek CSS */
+	.tab_main {padding:0 80px; padding-top:20px;}
+	.input_wid1 {width:140px;}
+	.title1 {font-size:1.5em;}
 }
  
 @media (min-width: 960px) and (max-width:1200px){
@@ -289,6 +324,12 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
     /* make auto of element width attribute on mobile devices with media queries */
     .WidAutoOnMobile{width:auto !important;}
     .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
+    
+     /*vivek CSS */
+	.tab_main {padding:0 80px; padding-top:20px;}
+	.input_wid1 {width:140px;}
+	.title1 {font-size:1.5em;}
+	.top_desk {margin-top:10px;}
 } 
  
 /* Portrait tablet to landscape and desktop */
@@ -298,6 +339,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	.ShowOnDesktop{display:none; opacity:0;}
     .ShowOnDesktopTablet{display:inherit; opacity:1;}
     .FloatNoneOnMobile{float:none !important;}
+    
 	
 	/* responsive support */
 	.Responsive{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
@@ -333,6 +375,13 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	.Fs60{font-size:40px !important;}
 	.Fs100{font-size:60px !important;}
 	.Fs130{font-size:70px !important;}
+	
+	 /*vivek CSS */
+	.tab_main {padding:0 40px; padding-top:20px;}
+	.input_wid1 {width:100px;}
+	.title1 {font-size:1.5em;}
+	.top_desk {margin-top:10px;}
+	.page4_left {margin-left:10px; border: 0px;}
 }
  
  
@@ -380,8 +429,33 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	.Fs60{font-size:35px !important;}
 	.Fs100{font-size:40px !important;}
 	.Fs130{font-size:50px !important;}
+	
+	/*vivek CSS */
+	.tab_main {padding:0 60px; padding-top:20px;}
+	h1 {font-size:1.5em;}
+	.input_wid1 {width:100px;}
+	.title1 {font-size:1.2em;}
+	.top_desk {margin-top:10px;}
+	.jqplot-xaxis-tick {-ms-transform: rotate(-30deg); /* IE 9 */
+					    -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
+						transform:rotate(-30deg);
+						font-size:12px;
+						margin-left:0px;
+						
+						margin-top:15px;
+						}
+	.tp1 {margin-top:15px;}
+	.selection {margin-left:0px;}
+	.selection tr {
+       float: left;
+        width: 50%;
+    }
+
+	
+	
 }
  
+
  
 /* Portrait phones and down */
 @media (min-width:200px) and (max-width: 480px) {
@@ -427,7 +501,146 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	.Fs60{font-size:32px !important;}
 	.Fs100{font-size:35px !important;}
 	.Fs130{font-size:40px !important;}
+	
+	/*vivek CSS */
+	.tab_main {padding:0 45px; padding-top:20px;}
+	h1 {font-size:1em;}
+	h1 > input {font-size:1em;}
+	.input_wid1 {width:90px;}
+	.title1 {font-size:1.2em;}
+	.top_desk {margin-top:10px;}
+	
+	.ui-outputlabel {font-size:12px;}
+
+					
 }
+
+
+
+@media (min-width:360px) and (max-width: 480px) {
+	/*vivek CSS */
+	.tab_main {padding:0 30px; padding-top:15px;}
+	.ui-steps .ui-steps-item .ui-steps-number {font-size:16px;}
+	h1 {font-size:1em;}
+	h1 > input {font-size:1.5em;}
+	.input_wid1 {width:100px;}
+	.ShowOnMobile { height:5px; }
+	.title1 {font-size:1.2em;}
+	.top_desk {margin-top:10px;}
+	.ui-panel .ui-panel-content {margin-top:-15px;}
+	.ui-messages-error, .ui-message-error {font-size:13px;}
+	.ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {margin-top:5px; margin-bottom:0px;}
+	.jqplot-xaxis-tick {-ms-transform: rotate(-40deg); /* IE 9 */
+					    -webkit-transform: rotate(-40deg); /* Chrome, Safari, Opera */
+						transform:rotate(-40deg);
+						font-size:11px;
+						margin-left:-20px;
+						
+						margin-top:18px;
+						}
+						.Fs24 {font-size:16px !important;} 
+						.tp1 {margin-top:10px;}
+						.startover {width:145px;}
+						.investnow {width:145px;}
+						.btn_left {margin-left:-20px;}
+						.btn_rite {margin-right:-20px;}
+						.ui-outputlabel {font-size:12px;}
+						.pg5_h1 {height:30px;}
+						.tp2 {margin-top:5px;}
+						.label {font-size:12px;}
+					.selection {margin-left:0px;}
+	.selection tr {
+       float: left;
+        width: 50%;
+    
+    }
+    .ui-selectoneradio label {font-size:13px;}
+    .f1 {font-size:16px;}
+
+
+}	
+
+@media (min-width:320px) and (max-width: 360px) {
+	/*vivek CSS */
+	.tab_main {padding:0 20px; padding-top:15px;}
+	.ui-steps .ui-steps-item .ui-steps-number {font-size:13px;}
+	.ui-steps .ui-steps-item .ui-menuitem-link {
+ 		 height: 8px;
+  	padding: 0px 8px !important;}
+  .input_wid1 {width:100px;}
+  .ltamInputText {font-size:12px;}
+  .ShowOnMobile { height:5px; }
+  .ui-selectoneradio label {font-size:0.6em;}
+  	h1 {font-size:1em;}
+	h1 > input {font-size:1.5em;}
+	.title1 {font-size:1.2em;}
+	.EmptyBox_v {height:10px;}
+	.ui-panel .ui-panel-content {margin-top:-15px;}
+	.ui-messages-error, .ui-message-error {font-size:12px;}
+	.top_desk {margin-top:10px;}
+	.jqplot-xaxis-tick {-ms-transform: rotate(-40deg); /* IE 9 */
+					    -webkit-transform: rotate(-40deg); /* Chrome, Safari, Opera */
+						transform:rotate(-40deg);
+						font-size:11px;
+						margin-left:-30px;
+						
+						margin-top:18px;
+						}
+				.tp1 {margin-top:10px;}
+				.Fs24 {font-size:16px !important;}
+				.btn_left {margin-left:-25px;}
+				.btn_rite {margin-right:-25px;}
+				.startover {width:30px;}
+				.investnow {width:100px;}
+				.ui-outputlabel {font-size:12px;}
+				.pg5_h1 {height: 30px;}
+				.tp2 {margin-top:5px;}
+				label {font-size:12px;}
+				.selection {margin-left:0px;}
+	.selection tr {
+       float: left;
+        width: 100%;
+    
+    }
+    .ui-selectoneradio label {font-size:13px;}
+    .f1 {font-size:13px;}
+    .investnow {width:140px;}
+
+
+
+
+}
+
+
+@media (min-width:200px) and (max-width: 320px) {
+	/*vivek CSS */
+	.tab_main {padding:0 15px; padding-top:15px;}
+	.ui-steps .ui-steps-item .ui-steps-number {font-size:11px;}
+		h1 {font-size:1em;}
+		.input_wid1 {width:100px; height:20px;}
+		.ltamInputText {font-size:14px;}
+		.EmptyBox30 {height:15px;}
+		.ShowOnMobile { height:5px; }
+		.title1 {font-size:1.2em;}
+		.EmptyBox_v {height:10px;}
+		.ui-panel .ui-panel-content {margin-top:-15px;}
+		.ui-messages-error, .ui-message-error {font-size:12px;}
+		.top_desk {margin-top:10px;}
+		.tp1 {margin-top:10px;}
+		.Fs24 {font-size:16px !important;}
+		.btn_left {margin-left:-30px;}
+		.btn_rite {margin-right:-30px;}
+		.startover {width:75px;}
+		.investnow {width:75px;}
+		.tp2 {margin-top:5px;}
+		label {font-size:12px;}
+		.f1 {font-size:14px;}
+		.investnow {width:140px;}
+         .tbl1 {font-size:12px;}
+
+		
+}
+
 
 /* clearfix for Container */
 .Container:before,.Container:after {
@@ -439,3 +652,5 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 .Container:after {
     clear: both; 
 }
+
+

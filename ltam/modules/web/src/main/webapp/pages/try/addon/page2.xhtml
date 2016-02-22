@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <div class="Container100 Responsive50 TextAlCenter">
+    <div class="Container100 Responsive100 TextAlCenter">
             <h1>Which of the following best reflects your investment goals?</h1>
 
             <h2>
@@ -18,6 +18,13 @@
                     <f:selectItem itemLabel="Maximizing growth." itemValue="5"/>
                 </p:selectOneRadio>
             </h2>
+            <div class="EmptyBox10"></div>
+            <p:commandButton styleClass="prev" value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.nextPage}"/>
     </div>
 
 </ui:composition>

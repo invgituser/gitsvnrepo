@@ -39,9 +39,14 @@
 		</td>
 	    </tr>
         </table>
-        <div class="EmptyBox30"></div>
+        <div class="EmptyBox20"></div>
 
-
+	<p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.nextPage}"/>
     </div>
 
 </ui:composition>

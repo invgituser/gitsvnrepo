@@ -5209,7 +5209,7 @@ hr.ui-widget-header {
 }
 /*Style For UI Steps --------------------------------------------------------------------------------------*/
 .ui-steps {
-  min-height: 50px;
+  min-height: 40px;
   margin-top: 5px;
 }
 .ui-steps .ui-steps-item {
@@ -5541,7 +5541,7 @@ hr.ui-widget-header {
 .CyanButton {
   background-color: #00ACC1;
 }
-.CyanButton.ui-state-hover .CyanButton.ui-state-focus t {
+.CyanButton.ui-state-hover .CyanButton.ui-state-focus {
   background-color: #26C6DA !important;
 }
 .BrownButton {
@@ -5630,5 +5630,28 @@ hr.ui-widget-header {
 }
 .Yellow {
   color: #F7D100;
+}
+
+@media (min-width:360px) and (max-width: 480px) {
+  /*vivek CSS */
+  .ui-datatable table tbody tr td {font-size:12px;}
+  .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {font-size:11px;}
+  .ui-datatable table tbody td {padding:5px;}
+}
+
+@media (min-width:320px) and (max-width: 360px) {
+  /*vivek CSS */
+  .ui-datatable table tbody tr td {font-size:12px;}
+  .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {font-size:13px;}
+  .ui-datatable table tbody td {padding:5px;}
+
+}
+
+@media (min-width:200px) and (max-width: 320px) {
+  /*vivek CSS */
+  .ui-datatable table tbody tr td {font-size:12px;}
+  .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {font-size:13px;}
+  .ui-datatable table tbody td {padding:5px;}
+
 }
 

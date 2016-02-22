@@ -6,15 +6,15 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <h2>
+        <h1>
             Tolerating losses in some years is part of investing.
             Based on your initial investment of #{dataDisplayConverter.displayAsMoney(ltamprofile.investment)},
             what is the largest loss you would comfortably tolerate during a 1-year-time-frame?
-        </h2>
+        </h1>
 
         <!--ltamDownArrow-->
         <p:panel id="page4table" styleClass="Container100" style="border: 0px">
-            <div class="EmptyBox5"/>
+            <div class="EmptyBox20"/>
 
             <p:selectOneRadio id="customRadio" value="#{ltamprofile.ans4}" layout="custom"
                     required="true" requiredMessage="Please choose one of these choices"
@@ -33,8 +33,8 @@
                                ajax="true" 
                                actionListener="#{ltamprofile.image(1)}"
                                onfocus="ltamprofile.hoverImage(1)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" style="height: 40px" rendered="#{ltamprofile.isImageSelected(1)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" style="height: 40px" rendered="#{! ltamprofile.isImageSelected(1)}">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1"  rendered="#{ltamprofile.isImageSelected(1)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(1)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt1" value="(less than 5%)"/>
@@ -45,8 +45,8 @@
                                ajax="true" immediate="true"
                                actionListener="#{ltamprofile.image(2)}"
                                onfocus="ltamprofile.hoverImage(2)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" style="height: 40px" rendered="#{ltamprofile.isImageSelected(2)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" style="height: 40px" rendered="#{! ltamprofile.isImageSelected(2)}">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(2)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(2)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt2" value="( - 5%)"/>
@@ -57,8 +57,8 @@
                                ajax="true" immediate="true"
                                actionListener="#{ltamprofile.image(3)}"
                                onfocus="ltamprofile.hoverImage(3)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" style="height: 40px" rendered="#{ltamprofile.isImageSelected(3)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" style="height: 40px" rendered="#{! ltamprofile.isImageSelected(3)}">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(3)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(3)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt3" value="( - 10%)"/>
@@ -69,8 +69,8 @@
                                ajax="true" immediate="true"
                                actionListener="#{ltamprofile.image(4)}"
                                onfocus="ltamprofile.hoverImage(4)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" style="height: 40px" rendered="#{ltamprofile.isImageSelected(4)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" style="height: 40px" rendered="#{! ltamprofile.isImageSelected(4)}">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(4)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(4)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt4" value="( - 15%)"/>
@@ -81,8 +81,8 @@
                                ajax="true" immediate="true"
                                actionListener="#{ltamprofile.image(5)}"
                                onfocus="ltamprofile.hoverImage(5)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" style="height: 40px" rendered="#{ltamprofile.isImageSelected(5)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" style="height: 40px" rendered="#{! ltamprofile.isImageSelected(5)}">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(5)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(5)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt5" value="( - 25%)"/>
@@ -90,13 +90,20 @@
 
                 <h:outputLabel id="opt6" value="" for="customRadio" itemIndex="5"/>
                 <h:outputLabel value=""/>
-                <p:graphicImage name="images/arrow.svg" library="ltam" style="height: 40px"/>
+                <p:graphicImage name="images/arrow.svg" library="ltam" styleClass="pg5_h1"/>
                 <p:outputLabel value=""/>
             </h:panelGrid>
 
 
-            <div class="EmptyBox5"/>
+            
         </p:panel>
+        <div class="tp2"></div>
+        <p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.nextPage}"/>
     </div>
 
 </ui:composition>

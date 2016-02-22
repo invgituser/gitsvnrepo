@@ -6,10 +6,10 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <h2>
+        <h1>
             Assuming you invest for at least 10 years, in the course of any given year,
             which of the following range of returns would be most acceptable to you?
-        </h2>
+        </h1>
 
         <div class="EmptyBox10"></div>
 
@@ -33,9 +33,9 @@
                 <p:ajax event="itemSelect" listener="#{ltamprofile.riskChartSelected}" update=":ltamForm:page5id"/>
             </p:chart>
 
-            <div class="EmptyBox10"></div>
-               <p:panel id="page5id" style="margin-left:50px; border: 0px;">
-                <p:selectOneRadio value="#{ltamprofile.ans5}" layout="grid" columns="5"
+            <div class="EmptyBox40"></div>
+               <h:panelGroup layout="block" styleClass="selection page4_left" id="page5id">
+                <p:selectOneRadio value="#{ltamprofile.ans5}" layout="pageDirection" 
                                   required="true" requiredMessage="Please choose one of these choices">
                     <f:selectItem itemLabel="Income" itemValue="1"/>
                     <f:selectItem itemLabel="Income and Growth" itemValue="2"/>
@@ -43,9 +43,16 @@
                     <f:selectItem itemLabel="Growth" itemValue="4"/>
                     <f:selectItem itemLabel="Aggressive Growth" itemValue="5"/>
                 </p:selectOneRadio>
-            </p:panel>
+            </h:panelGroup>
 
         </p:panel>
+        <div class="EmptyBox20"></div>
+        <p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ltamprofile.nextPage}"/>
     </div>
 
 </ui:composition>

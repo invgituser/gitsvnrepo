@@ -111,5 +111,28 @@
 @media (min-width: 220px) and (max-width: 480px) {
     .ui-steps .ui-steps-title {
         display: none;
+        
     }
+    .ltamInputText {
+    background-color: transparent;
+    border: 0px none;
+    border-bottom: solid 1px #465b65;
+    font-size: 14px;
+    text-align: center;}
+    .investnow {width:140px;} 
+
+
+.ltamInputText input {font-size: 14px;}
+
 }
+
+@media (min-width: 320px) and (max-width: 360px) {
+	 .investnow {width:150px;} 
+	 
+}
+
+@media (min-width: 200px) and (max-width: 320px) {
+	 .investnow {width:140px;} 
+	 
+}	 	 
+	

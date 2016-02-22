@@ -15,9 +15,10 @@
 
 <div class="layout-portlets-box">
 
-    <div class="Container100 Responsive100">
-        <div class="Container100 Responsive100">
-            <div class="ContainerIndent Responsive100">
+   
+        <div class="Container100 Responsive100 ">
+            <div class="ContainerIndent Responsive100 tab_main">
+            		
                             <p:steps id="ltamprogressbar" activeIndex="#{ltamprofile.ltammenu}">
                                 <p:menuitem value="Start"/>
                                 <p:menuitem value="Goal" />
@@ -27,6 +28,7 @@
                                 <p:menuitem value="Risk"/>
                                 <p:menuitem value="Review"/>
                             </p:steps>
+                          
            </div>
             <div class="Container100 Responsive100">
                 <div class="ContainerIndent Responsive100">
@@ -34,46 +36,53 @@
                 </div>
              </div>
         </div>
-   </div>
+
     <div class="Container100 Responsive100">
-        <div class="Container60 Responsive100">
+        
             <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 0}">
                     <ui:fragment rendered="#{! ltamprofile.time2SaveWelcome}">
+                         <div class="Containe50 Responsive100">
                         <ui:include src="/pages/try/addon/page1.xhtml"/>
+                        </div>
                     </ui:fragment>
                     <ui:fragment rendered="#{ltamprofile.time2SaveWelcome}">
+                         <div class="Container50 Responsive100">
                         <ui:include src="/pages/try/addon/page1A.xhtml"/>
+                        </div>
                     </ui:fragment>
                 </ui:fragment>
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 1}">
+                    <div class="Container50 Responsive100">
                     <ui:include src="/pages/try/addon/page2.xhtml"/>
+                    </div>
                 </ui:fragment>
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 2}">
+                    <div class="Container50 Responsive100">
                     <ui:include src="/pages/try/addon/page3.xhtml"/>
+                    </div>
                 </ui:fragment>
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 3}">
+                    <div class="Container50 Responsive100">
                     <ui:include src="/pages/try/addon/page5.xhtml"/>
+                    </div>
                 </ui:fragment>
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 4}">
+                    <div class="Container50 Responsive100">
                     <ui:include src="/pages/try/addon/page4.xhtml"/>
+                    </div>
                 </ui:fragment>
                 <ui:fragment rendered="#{ltamprofile.pagemanager.page == 5}">
+                     <div class="Container50 Responsive100">
                     <ui:include src="/pages/try/addon/page6.xhtml"/>
+                    </div>
                 </ui:fragment>
 
-                <div class="EmptyBox10"/>
-                <f:facet name="footer">
-                     <p:commandButton value="Previous" styleClass="Fleft" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
-                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.prevPage}"/>
-                     <p:commandButton value="Next" styleClass="Fright" rendered="#{ltamprofile.pagemanager.nextButtonStat}"
-                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.nextPage}"/>
-                </f:facet>
+              
             </p:panel>
-        </div>
-        <div class="Container40 Responsive100">
+            
+        
+        <div class="Container50 Responsive100 top_desk">
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px; background: transparent"
                          rendered="#{ltamprofile.displayGraphs}">
@@ -86,7 +95,7 @@
                                     <table style="width: 100%">
                                         <tr>
                                             <td colspan="3">
-                                                <div class="TexAlCenter" style="font-size: 1.5em">
+                                                <div class="TexAlCenter title1">
                                                     Your current risk level is
                                                 </div>
                                             </td>
@@ -97,8 +106,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="width: 5%; text-align: right; vertical-align: middle">Low</td>
-                                            <td style="width: 90%; text-align: center; vertical-align: middle">
+                                            <td style="width: 10%; text-align: right; vertical-align: middle">Low</td>
+                                            <td style="width: 80%; text-align: center; vertical-align: middle">
                                                 <ui:repeat var="tlist" value="#{ltamprofile.themeList}">
                                                     <h:graphicImage name="images/riskMeter.svg" library="ltam"
                                                                     rendered="#{ltamprofile.themeData.sortorder != tlist.sortorder}"
@@ -128,7 +137,7 @@
                                             <p:outputPanel deferred="true">
                                                 <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
                                                          rendered="#{ltamprofile.ltamcharts.pieChart != null}"
-                                                         style="width:100%;height:190px;"
+                                                         style="width:100%;height:210px;"
                                                          extender="ltam_pie"
                                                          responsive="true">
                                                 </p:chart>

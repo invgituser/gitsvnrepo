@@ -15,8 +15,8 @@
 <div class="layout-portlets-box">
 
     <div class="Container100 Responsive100">
-        <div class="Container100 Responsive100">
-            <div class="ContainerIndent Responsive100">
+       
+            <div class="ContainerIndent Responsive100 tab_main">
                 <p:steps id="ltamprogressbar" activeIndex="#{ltamprofile.ltammenu}">
                     <p:menuitem value="Start"/>
                     <p:menuitem value="Goal"/>
@@ -32,7 +32,7 @@
                     <p:messages showDetail="false" escape="true" closable="true"/>
                 </div>
             </div>
-        </div>
+     
     </div>
     <div class="Container100 Responsive100">
         <div class="Container60 Responsive100">
@@ -41,7 +41,7 @@
                   target="_self">
                 <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
                     <ui:include src="/pages/try/addon/final.xhtml"/>
-                    <div class="EmptyBox10"/>
+                    
                     <input type="hidden" name="TimeToSaveUserId" value="#{ltamprofile.timeToSaveID}"/>
                     <input type="hidden" name="InvestorFirstName" value="#{ltamprofile.firstname}"/>
                     <input type="hidden" name="InvestorLastName" value="#{ltamprofile.lastname}"/>
@@ -50,12 +50,12 @@
                     <input type="hidden" name="UniqueUserIdentifier" value="#{ltamprofile.acctnum}"/>
                     <input type="hidden" name="RepReferralId" value="#{ltamprofile.advisor}"/>
                     <f:facet name="footer">
-                        <div class="Fleft">
+                        <div class="Fleft btn_left">
                             <a href="/start.xhtml">
                                 <img class="startover"/>
                             </a>
                         </div>
-                        <h:commandButton type="submit" styleClass="investnow"/>
+                        <h:commandButton type="submit" styleClass="investnow btn_rite"/>
                     </f:facet>
                 </p:panel>
             </form>
@@ -73,7 +73,7 @@
                                 <table style="width: 100%">
                                     <tr>
                                         <td colspan="3">
-                                            <div class="TexAlCenter" style="font-size: 1.5em">
+                                            <div class="TexAlCenter title1 MarTop10">
                                                 Your current risk level is
                                             </div>
                                         </td>
@@ -115,37 +115,37 @@
                                             <p:outputPanel deferred="true">
                                                 <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
                                                          rendered="#{ltamprofile.ltamcharts.pieChart != null}"
-                                                         style="width:100%;height:170px;"
+                                                         style="width:100%;height:210px;"
                                                          responsive="true">
                                                 </p:chart>
                                             </p:outputPanel>
                                         </div>
                                     </div>
                                 </p:panel>
-                                <p:panel style="border: 0px; background: transparent"
+                                <h:panelGroup layout="block" style="border: 0px; background: transparent"
                                          rendered="#{ltamprofile.reviewPage}">
                                     <div class="Container100 Fleft">
                                         <div class="ContainerIndent">
                                             <p:dataTable styleClass="invAllocTable"
                                                          value="#{ltamprofile.allocationData.ltamAllocatedAssetList}"
-                                                         var="allocatedList" reflow="true">
+                                                         var="allocatedList">
 
-                                                <p:column style="width: 2%; background-color: #{allocatedList.color};">
+                                                <p:column style="width: 2%; background-color: #{allocatedList.color};" priority="0">
                                                     <h:outputText value=" "/>
                                                 </p:column>
 
-                                                <p:column styleClass="Wid40 TexAlLeft"
-                                                          resizable="true" headerText="Asset">
+                                                <p:column styleClass="Wid30 TexAlLeft"
+                                                          resizable="true" headerText="Asset" priority="0">
                                                     <h:outputText value="#{allocatedList.displayname}"/>
                                                 </p:column>
                                                 <p:column styleClass="Wid20 TexAlRight"
-                                                          resizable="true" headerText="Weight">
+                                                          resizable="true" headerText="Weight" priority="2">
                                                     <h:outputText value="#{allocatedList.weightAsPercent}">
                                                         <f:convertNumber pattern="##0%"/>
                                                     </h:outputText>
                                                 </p:column>
-                                                <p:column styleClass="Wid30 TexAlRight"
-                                                          resizable="true" headerText="Value">
+                                                <p:column styleClass="Wid40 TexAlRight"
+                                                          resizable="true" headerText="Value" priority="0">
                                                     <h:outputText value="#{allocatedList.money}">
                                                         <f:convertNumber currencySymbol="$" type="currency"/>
                                                     </h:outputText>
@@ -153,7 +153,7 @@
                                             </p:dataTable>
                                         </div>
                                     </div>
-                                </p:panel>
+                                </h:panelGroup>
                             </p:outputPanel>
                         </div>
                     </div>
@@ -172,26 +172,26 @@
         <div class="Container100 Responsive100">
             <p:dataTable styleClass="invAllocTable"
                          value="#{ltamprofile.allocationData.ltamAllocatedSubAssetList}"
-                         var="suballocatedList" reflow="true">
-                <p:column style="width: 2%; background-color: #{suballocatedList.color};">
+                         var="suballocatedList">
+                <p:column style="width: 2%; background-color: #{suballocatedList.color};" priority="0">
                     <h:outputText value=" "/>
                 </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Asset">
+                <p:column styleClass="Wid30 TexAlLeft"
+                          resizable="true" headerText="Asset" priority="2">
                     <h:outputText value="#{suballocatedList.assetname}"/>
                 </p:column>
-                <p:column styleClass="Wid20 TexAlLeft"
-                          resizable="true" headerText="Class">
+                <p:column styleClass="Wid30 TexAlLeft"
+                          resizable="true" headerText="Class" priority="0">
                     <h:outputText value="#{suballocatedList.subassetname}"/>
                 </p:column>
-                <p:column styleClass="Wid20 TexAlRight"
-                          resizable="true" headerText="Weight">
+                <p:column styleClass="Wid18 TexAlRight"
+                          resizable="true" headerText="Weight" priority="2">
                     <h:outputText value="#{suballocatedList.weightAsPercent}">
                         <f:convertNumber pattern="##0.00%"/>
                     </h:outputText>
                 </p:column>
-                <p:column styleClass="Wid35 TexAlRight"
-                          resizable="true" headerText="Value">
+                <p:column styleClass="Wid20 TexAlRight"
+                          resizable="true" headerText="Value" priority="0">
                     <h:outputText value="#{suballocatedList.money}">
                         <f:convertNumber currencySymbol="$" type="currency"/>
                     </h:outputText>
