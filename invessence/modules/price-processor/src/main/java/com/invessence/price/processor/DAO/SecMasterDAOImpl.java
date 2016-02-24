@@ -17,18 +17,23 @@ public class SecMasterDAOImpl implements SecMasterDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public List<SecMaster> findByWhere(String where){
+	public List<SecMaster> findByWhere(String where) throws SQLException{
 		List<SecMaster> lst = null;
-		try {
+
 			System.out.println("SecMasterDAOImpl.findByWhere()");
-			String sql = "SELECT instrumentid, status, ticker, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield FROM invdb.sec_master where "+where;
+			String sql = "SELECT instrumentid, status, ticker, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master where "+where;
 			lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(SecMaster.class));
 			System.out.println("lst size :" + lst.size());
 			return lst;
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		return lst;
+	}
+
+	public SecMaster findByTicker(String ticker) throws SQLException{
+		List<SecMaster> lst = null;
+			System.out.println("SecMasterDAOImpl.findByWhere()");
+			String sql = "SELECT instrumentid, status, ticker, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master where ticker='"+ticker+"'";
+			lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(SecMaster.class));
+			System.out.println("lst size :" + lst.size());
+			return lst==null?null:lst.get(0);
 	}
 
 }

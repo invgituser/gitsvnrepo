@@ -6,36 +6,31 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
+import com.invessence.price.util.*;
 import com.invessence.rbsa.RBSA2;
 import com.invessence.rbsa.dao.data.RBSAData;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.*;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Component;
 
 import com.invessence.price.processor.DAO.DBParametersDao;
 import com.invessence.price.processor.DAO.MessageDao;
-import com.invessence.price.processor.DAO.PriceDataDAOImpl;
 import com.invessence.price.processor.DAO.PriceDataDao;
 import com.invessence.price.processor.DAO.SecMasterDao;
 import com.invessence.price.processor.bean.DBParameters;
 import com.invessence.price.processor.bean.PriceData;
 import com.invessence.price.processor.bean.SecMaster;
-import com.invessence.price.processor.bean.meassage_data;
-import com.invessence.price.util.CommonUtil;
 import com.invessence.price.yahoo.Stock;
 import com.invessence.price.yahoo.YahooFinance;
 import com.invessence.price.yahoo.histquotes.HistoricalQuote;
@@ -44,114 +39,62 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 
 @Component
 public class PriceProcessor {
-
+	private static final Logger logger = Logger.getLogger(PriceProcessor.class);
 	@Autowired
 	DBParametersDao dbParametersDao;
 	@Autowired
 	SecMasterDao secMasterDao;
 	@Autowired
 	PriceDataDao priceDataDao;
-	
+
 	@Autowired
 	private
 	MessageDao messageDao;
-	
+
 	@Value(value="${securities.provider}")
 	String price_provider;
-	
+
 	@Autowired
 	DataSource dataSource;
 	private JdbcTemplate jdbcTemplate;
- 
-	
-	
-	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
 
 	public void process() {
-			
 
 		StringBuilder mailAlertMsg = null;
-            
+
 		try {
 			mailAlertMsg = new StringBuilder();
-			
+
 			Map<String, DBParameters> dbParamMap = dbParametersDao.getDBParametres();
 			if (dbParamMap == null && dbParamMap.size()== 0) {
-				mailAlertMsg.append("parameters not available");
-				System.out.println("parameters not available");
+				mailAlertMsg.append("DB parameters are not available");
+				System.out.println("DB parameters are not available");
 			} else {
 				System.out.println("LAST_BDATE_OF_MONTH :" + dbParamMap.get("LAST_BDATE_OF_MONTH").getValue());
 				List<SecMaster> lst = secMasterDao.findByWhere("status = 'A'");
 				if (lst != null && lst.size() > 0) {
-
-					if (CommonUtil.dateCompare(dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false) {
-
-						System.out.println("PriceProcessor.process() executing Daily Process");
-						Iterator<SecMaster> sec = lst.iterator();
-                         priceDataDao.delete();
-						int i = 0;
-						while (sec.hasNext()) {
-							SecMaster secMaster = (SecMaster) sec.next();
-							System.out.println(secMaster.toString());
-							try {
-								dailyProcess(secMaster.getTicker(), price_provider);								
-							} catch (Exception e) {
-
-								System.out.println("Ticker Exception :" + secMaster.getTicker());
-								mailAlertMsg.append("Ticker Exception :" + secMaster.getTicker());
-								exceptionHandler(e, mailAlertMsg, "Ticker Exception :");
-								
-							}
-						}
-						priceDataDao.callProcedure("DAILY","","");
-					} else if (CommonUtil.dateCompare(dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true) {
-						System.out.println("PriceProcessor.process() executing Monthly Process");
-						Iterator<SecMaster> sec = lst.iterator();
-
-						int i = 0;
-						while (sec.hasNext()) {
-							SecMaster secMaster = (SecMaster) sec.next();
-							System.out.println(secMaster.toString());
-							try {
-								priceDataDao.delete();
-								monthlyProcess(secMaster.getTicker(),price_provider);
-								try {
-									priceDataDao.callProcedure("MONTHLY",sdf.format(new Date()),secMaster.getTicker());
-
-									try {
-										rbsaCall(secMaster.getTicker());
-									} catch (Exception e) {
-										//e.printStackTrace();
-										System.out.println("rbsa call:" + secMaster.getTicker());
-										mailAlertMsg.append("rbsa call:" + secMaster.getTicker());
-										exceptionHandler(e, mailAlertMsg, "RBSA Process :");
-									}
-								} catch (Exception e) {
-									//e.printStackTrace();
-									System.out.println("callProcedure:" + secMaster.getTicker());
-									mailAlertMsg.append("callProcedure:" + secMaster.getTicker());
-									exceptionHandler(e, mailAlertMsg, "callProcedure :");
-								}
-								// Call Procedure
-							} catch (Exception e) {
-								System.out.println("Ticker Exception:" + secMaster.getTicker());
-								mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker());
-								exceptionHandler(e, mailAlertMsg, "Ticker Exception :");
-							}
-						}
+					String businessDate=sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
+					System.out.println("Business Date :"+businessDate);
+					if (dbParamMap.get("BUSINESS_DATE").getValue().toString().equals(dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false) {
+						sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
+						dailyProcess(businessDate,lst,mailAlertMsg);
+					} else if (dbParamMap.get("BUSINESS_DATE").getValue().toString().equals(dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString())  == true) {
+						monthlyProcess(businessDate,lst,mailAlertMsg);
 					}
 				} else {
-					mailAlertMsg.append("list  not available from  yahoo:");
-					System.out.println("list  not available from  yahoo:");
+					mailAlertMsg.append("Ticker list not available for process");
+					System.out.println("Ticker list not available for process");
 				}
 			}
 		} catch (Exception e) {
 			System.out.println("PriceProcessor.process() WE R HERE..");
 			exceptionHandler(e, mailAlertMsg, "main process");
 		}
-              
-	
+
+
 		finally {
 			if (mailAlertMsg.length() > 0) {
 				System.out.println("MailAlertMsg IS :" + mailAlertMsg);
@@ -159,8 +102,184 @@ public class PriceProcessor {
 				System.out.println("MailAlertMsg is empty");
 			}
 		}
-		
+
 	}
+
+	public void dailyProcess(String businessDate, List<SecMaster> tickerList,StringBuilder mailAlertMsg)
+	{
+		System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+		System.out.println("PriceProcessor.process() executing Daily Process");
+		List<PriceData> pdList=null;
+		try{
+			priceDataDao.delete();
+
+		pdList= getDailyPriceData(tickerList, mailAlertMsg);
+		if(pdList==null ||pdList.size()==0){
+			mailAlertMsg.append("Daily price data not available for upload");
+		}else{
+			try{
+				priceDataDao.insertBatch(pdList);
+				if(mailAlertMsg.length()==0){
+					try
+					{
+						priceDataDao.callProcedure(PriceProcessConst.DAILY, "", "");
+						try
+						{
+							priceDataDao.callEodProcedure(PriceProcessConst.DAILY);
+						}catch(Exception e){
+								mailAlertMsg.append("Daily price eod process issue "+e.getMessage());
+						}
+					}catch(Exception e){
+						mailAlertMsg.append("Daily price data operation issue " +e.getMessage());
+					}
+				}
+			}catch(Exception e){
+				mailAlertMsg.append("Daily price data upload issue");
+			}
+		}
+		}catch(Exception e){
+			mailAlertMsg.append("Daily price data upload issue");
+		}
+	}
+
+	public void monthlyProcess(String businessDate, List<SecMaster> tickerList,StringBuilder mailAlertMsg)
+	{
+		System.out.println("PriceProcessor.process() executing Monthly Process");
+		List<PriceData> pdList=null;
+		Iterator<SecMaster> sec = tickerList.iterator();
+		int i = 0;
+		while (sec.hasNext()) {
+			SecMaster secMaster = (SecMaster) sec.next();
+			System.out.println(secMaster.toString());
+			try {
+				priceDataDao.delete();
+				pdList= getHistoricalPriceData(secMaster.getTicker(), mailAlertMsg);
+				if(pdList==null ||pdList.size()==0){
+					mailAlertMsg.append("Historical price data not available for ticker "+secMaster.getTicker()+"\n");
+				}else{
+					try{
+						priceDataDao.insertBatch(pdList);
+						try
+						{
+							priceDataDao.callProcedure(PriceProcessConst.MONTHLY,businessDate,secMaster.getTicker());
+							if(secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
+							{
+								try
+								{
+									rbsaCall(secMaster.getTicker());
+								}catch (Exception e) {
+									mailAlertMsg.append("RBSA process call issue for ticker " + secMaster.getTicker()+"\n"+e.getMessage()+"\n");
+								}
+							}
+
+						}catch(Exception e){
+							e.printStackTrace();
+							mailAlertMsg.append("Historical price data operation issue for ticker "+secMaster.getTicker()+"\n"+e.getMessage()+"\n");
+						}
+					}catch(Exception e){
+						mailAlertMsg.append("Historical price data upload issue "+secMaster.getTicker()+"\n"+e.getMessage()+"\n");
+					}
+				}
+			} catch (Exception e) {
+				System.out.println("Ticker Exception:" + secMaster.getTicker());
+				mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker()+"\n");
+				exceptionHandler(e, mailAlertMsg, "Ticker Exception :");
+			}
+		}
+			if (mailAlertMsg.length() > 0) {
+				System.out.println("MailAlertMsg IS :" + mailAlertMsg);
+			} else {
+				System.out.println("MailAlertMsg is empty");
+				try
+				{
+					priceDataDao.callEodProcedure(PriceProcessConst.DAILY);
+				}catch(Exception e){
+					mailAlertMsg.append("Daily price eod process issue "+e.getMessage());
+				}
+			}
+
+	}
+
+
+
+	public void onDemandProcess(String ticker)
+	{
+		StringBuilder mailAlertMsg=null;
+		System.out.println("PriceProcessor.process() executing Monthly Process");
+		List<PriceData> pdList=null;
+		try{
+			SecMaster secMaster = secMasterDao.findByTicker(ticker);
+			if(secMaster==null){
+				//Need to call API for ticker information for stored into DB
+			}else{
+				try{
+				Map<String, DBParameters> dbParamMap = dbParametersDao.getDBParametres();
+				if (dbParamMap == null && dbParamMap.size()== 0) {
+					mailAlertMsg.append("DB parameters are not available");
+					System.out.println("DB parameters are not available");
+				} else
+				{
+					String businessDate = sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
+					try
+					{
+						priceDataDao.delete();
+						pdList = getHistoricalPriceData(secMaster.getTicker(), mailAlertMsg);
+						if (pdList == null || pdList.size() == 0)
+						{
+							mailAlertMsg.append("OnDemand price data not available for ticker " + secMaster.getTicker() + "\n");
+						}
+						else
+						{
+							try
+							{
+								priceDataDao.insertBatch(pdList);
+								try
+								{
+									priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, businessDate, secMaster.getTicker());
+									if (secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
+									{
+										try
+										{
+											rbsaCall(secMaster.getTicker());
+										}
+										catch (Exception e)
+										{
+											mailAlertMsg.append("RBSA process call issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+										}
+									}
+
+								}
+								catch (Exception e)
+								{
+									e.printStackTrace();
+									mailAlertMsg.append("OnDemand price data operation issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+								}
+							}
+							catch (Exception e)
+							{
+								mailAlertMsg.append("OnDemand price data upload issue " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+							}
+						}
+					}catch (Exception e) {
+						System.out.println("Ticker Exception:" + secMaster.getTicker());
+						mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker()+"\n");
+						exceptionHandler(e, mailAlertMsg, "Ticker Exception :");
+					}
+				}
+				}catch (Exception e) {
+				System.out.println("Ticker Exception:" + secMaster.getTicker());
+				mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker()+"\n");
+				exceptionHandler(e, mailAlertMsg, "Ticker Exception :");
+			}
+			}
+			} catch (Exception e) {
+			System.out.println("Ticker Exception:" + ticker);
+			mailAlertMsg.append("Ticker Exception:" + ticker+"\n");
+			exceptionHandler(e, mailAlertMsg, "Ticker Exception :");
+		}
+
+	}
+
 	public void rbsaCall(String ticker)throws Exception
 	{
 
@@ -182,16 +301,45 @@ public class PriceProcessor {
 		}
 	}
 
-	public void dailyProcess(String ticker, String provider)throws Exception{
-		if(provider.equalsIgnoreCase("yahoo")){
-			
-			Stock stk = YahooFinance.get(ticker);
-			PriceData pd = new PriceData(stk.getQuote().getSymbol(),
-					sdf.format(stk.getQuote().getLastTradeTime().getTime()),
-					Double.valueOf("" + stk.getQuote().getOpen()), Double.valueOf("" + stk.getQuote().getPrice()),
-					Double.valueOf("" + stk.getQuote().getDayHigh()), Double.valueOf("" + stk.getQuote().getDayLow()),
-					Long.valueOf(stk.getQuote().getVolume()), new Date(),
-					Double.valueOf("" + stk.getQuote().getPreviousClose()), new Long(2), new Date());
+	public List<PriceData> getDailyPriceData(List<SecMaster> tickerList, StringBuilder mailAlertMsg){
+		List<PriceData> pdList=null;
+		PriceData pd=null;
+
+			Iterator<SecMaster> sec = tickerList.iterator();
+		try {
+			priceDataDao.delete();
+
+			int i = 0;
+			pdList=new ArrayList<PriceData>();
+			while (sec.hasNext()) {
+				SecMaster secMaster = (SecMaster) sec.next();
+				System.out.println(secMaster.toString());
+				try {
+					//Stock stk = YahooFinance.get(secMaster.getTicker());
+					Calendar from = Calendar.getInstance();
+					from.add(Calendar.DATE,-1);
+					Stock stk = YahooFinance.get(secMaster.getTicker(),from, Interval.DAILY);
+					// stk.print();
+
+					pd = new PriceData(stk.getQuote().getSymbol(),
+											 sdf.format(stk.getQuote().getLastTradeTime().getTime()),
+											 Double.valueOf("" + stk.getQuote().getOpen()), Double.valueOf("" + stk.getQuote().getPrice()),
+											 Double.valueOf("" + stk.getQuote().getDayHigh()), Double.valueOf("" + stk.getQuote().getDayLow()),
+											 Long.valueOf(stk.getQuote().getVolume()), new Date(),
+											 Double.valueOf("" + stk.getQuote().getPreviousClose()), new Long(2), new Date());
+			System.out.println(sdf.format(stk.getQuote().getLastTradeTime().getTime()));
+					if(Double.valueOf(""+stk.getQuote().getPrice()).equals(0)){
+						mailAlertMsg.append("Price value getting 0 for ticker:" + secMaster.getTicker()+"\n");
+					}else{
+						pdList.add(pd);
+					}
+				} catch (Exception e) {
+					mailAlertMsg.append("Price api exception for ticker:" + secMaster.getTicker()+"\n"+e.getMessage());
+				}
+
+
+			}
+
 
 //			System.out.println("Open   :" + stk.getQuote().getOpen());
 //			System.out.println("LastTradePriceOnly   :" + stk.getQuote().getPrice());
@@ -200,33 +348,19 @@ public class PriceProcessor {
 //			System.out.println("DayLow   :" + stk.getQuote().getDayLow());
 //			System.out.println("PreviousClose   :" + stk.getQuote().getPreviousClose());
 
-			if(Double.valueOf(""+stk.getQuote().getPrice()).equals(0)){
-
-				SecMaster secMaster = new SecMaster();
-				System.out.println("Ticker Exception:" + secMaster.getTicker());
-				StringBuilder mailAlertMsg = null;
-				mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker());
-			}
-			else{
-				priceDataDao.insert(pd);
-			}
-		}else if(provider.equalsIgnoreCase("xignite")){
-			
-		
-		}else{
-
+		} catch (Exception e) {
+			mailAlertMsg.append("Price api exception for ticker: \n"+e.getMessage());
 		}
-			
 
+		return pdList;
 	}
 
-	public void monthlyProcess(String ticker,String provider) throws Exception {
+		List<PriceData> getHistoricalPriceData(String ticker, StringBuilder mailAlertMsg){
+			List<PriceData> pdList=null;
 		System.out.println("***********"+price_provider+"********");
-		if(provider.equalsIgnoreCase("yahoo")){
 
 			try {
 
-				List<PriceData> pdl = new ArrayList<PriceData>();
 				Stock stk = YahooFinance.get(ticker);
 //				System.out.println("*********************Daily Data************************");
 //				System.out.println("Ticker :" + stk.getQuote().getSymbol());
@@ -238,6 +372,7 @@ public class PriceProcessor {
 //				System.out.println("DayHigh :" + stk.getQuote().getDayHigh());
 //				System.out.println("DayLow :" + stk.getQuote().getDayLow());
 //				System.out.println("PreviousClose :" + stk.getQuote().getPreviousClose());
+				pdList= new ArrayList<PriceData>();
 				PriceData pd = new PriceData(stk.getQuote().getSymbol(),
 													  sdf.format(stk.getQuote().getLastTradeTime().getTime()),
 													  Double.valueOf("" + stk.getQuote().getOpen()), Double.valueOf("" + stk.getQuote().getPrice()),
@@ -283,24 +418,17 @@ public class PriceProcessor {
 
 					if (!Double.valueOf("" + historicalQuote.getClose()).equals(0))
 					{
-						pdl.add(hpd);
+						pdList.add(hpd);
 					}
 
-					priceDataDao.insert(pd);
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else if(provider.equalsIgnoreCase("xignite")){
-
-
-		}else{
-
-		}
-
+		return  pdList;
 	}
+
 	public void onDemand(String ticker) throws Exception {
 
 		SecMaster secMaster=new SecMaster();
@@ -389,46 +517,46 @@ public class PriceProcessor {
 			System.out.println("EXCEPTION CLASS:" + ex.getClass());
 			ex.printStackTrace();
 			if (ex instanceof MySQLIntegrityConstraintViolationException) {
-				mailAlertMsg.append(process + "MySQLViolationException: " + ex.getMessage() + "\n");
+				//mailAlertMsg.append(process + "MySQLViolationException: " + ex.getMessage() + "\n");
 				System.out.println(process + " MySQLViolationException: " + ex.getMessage());
 			} else if (ex instanceof BadSqlGrammarException) {
-				mailAlertMsg.append(process + "SqlGrammarException : " + ex.getMessage() + "\n");
+				//mailAlertMsg.append(process + "SqlGrammarException : " + ex.getMessage() + "\n");
 				System.out.println(process + "SqlGrammarException : " + ex.getMessage());
 			} else if (ex instanceof CannotGetJdbcConnectionException) {
-				mailAlertMsg.append(process + "JDBC ConnectionException : " + ex.getMessage() + "\n");
+				//mailAlertMsg.append(process + "JDBC ConnectionException : " + ex.getMessage() + "\n");
 				System.out.println(process + "ConnectionException : " + ex.getMessage());
 			} else if (ex instanceof DuplicateKeyException) {
-				mailAlertMsg.append(process + "DUPLICATE KEY : " + ex.getMessage() + "\n");
+				//mailAlertMsg.append(process + "DUPLICATE KEY : " + ex.getMessage() + "\n");
 				System.out.println(process + "DUPLICATE KEY : " + ex.getMessage());
 			}
 			else if (ex instanceof DataIntegrityViolationException) {
-				mailAlertMsg.append(process + "DATA TRUNCATION : " + ex.getMessage() + "\n");
+				//mailAlertMsg.append(process + "DATA TRUNCATION : " + ex.getMessage() + "\n");
 				System.out.println(process + "DATA TRUNCATION : " + ex.getMessage());
 			}
 			 else if (ex instanceof NullPointerException) {
-					mailAlertMsg.append(process +  "NULL POINTER EXCEPTION:" + ex.getMessage() + "\n");
+					//mailAlertMsg.append(process +  "NULL POINTER EXCEPTION:" + ex.getMessage() + "\n");
 					System.out.println(process + "NULL POINTER EXCEPTION:" + ex.getMessage());
 				}
 			 else if (ex instanceof SQLException) {
-					mailAlertMsg.append(process +  "sql exception:"  + ex.getMessage() + "\n");
+					//mailAlertMsg.append(process +  "sql exception:"  + ex.getMessage() + "\n");
 					System.out.println(process +    "sql exception:"  + ex.getMessage());
 				}
 			else if (ex instanceof InvalidDataAccessApiUsageException) {
-				mailAlertMsg.append(process +  "Required input parameter  is missing:"  + ex.getMessage() + "\n");
+				//mailAlertMsg.append(process +  "Required input parameter  is missing:"  + ex.getMessage() + "\n");
 				System.out.println(process +    "Required input parameter  is missing:"  + ex.getMessage());
 			}
 			else {
-				mailAlertMsg.append(process + "NO Exception:" + ex.getMessage() + "\n");
+				//mailAlertMsg.append(process + "NO Exception:" + ex.getMessage() + "\n");
 				System.out.println(process + " : " + ex.getMessage());
 			}
 			
 			
-			meassage_data md = new meassage_data();
-			md.setMsg(mailAlertMsg);		
-            messageDao.insert(md);
-			
+//			meassage_data md = new meassage_data();
+//			md.setMsg(mailAlertMsg);
+//            messageDao.insert(md);
+
 		    } catch (Exception e) {
-			mailAlertMsg.append(process + " QAZ: " + ex.getMessage() + "\n");
+			//mailAlertMsg.append(process + " QAZ: " + ex.getMessage() + "\n");
 			System.out.println(process + " QAZ: " + ex.getMessage());
 			
 		}

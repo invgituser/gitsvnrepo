@@ -32,7 +32,7 @@ public class DBParametersDAOImpl implements DBParametersDao {
 		Map<String, DBParameters> dbParamsMap = null;
 		try {
 			System.out.println("SecMasterDAOImpl.findByWhere()");
-			String sql = "SELECT name, value, format, description FROM invdb.invessence_switch where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')";
+			String sql = "SELECT name, value, format, description FROM invdb.invessence_switch where name in('BUSINESS_DATE','LAST_BDATE_OF_MONTH','PRICE_DATE')";
 			dbParamsLst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
 			if(dbParamsLst.size()>0){
 				dbParamsMap=new HashMap<String, DBParameters>();

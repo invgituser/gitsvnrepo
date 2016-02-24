@@ -26,23 +26,20 @@ import com.invessence.price.processor.bean.PriceData;
 public class PriceDataDAOImpl implements PriceDataDao {
 	@Autowired
 	DataSource dataSource;
+	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	public void delete() {
-		try {
-			
+	public void delete() throws SQLException{
+
 			String sql = "DELETE from tmp_rbsa_daily";
-			jdbcTemplate = new JdbcTemplate(dataSource);
+			//jdbcTemplate = new JdbcTemplate(dataSource);
 			jdbcTemplate.execute(sql);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
-	public void callProcedure(String process, String businessDate, String ticker){
-		try{
-	       System.out.println("******************************");
-	       jdbcTemplate = new JdbcTemplate(dataSource);			
+	public void callProcedure(String process, String businessDate, String ticker)throws SQLException{
+
+		System.out.println("******************************");
+		//jdbcTemplate = new JdbcTemplate(dataSource);
 	        SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
 			.withProcedureName("price_processor");
 			Map<String, Object> inParamMap = new HashMap<String, Object>();
@@ -53,11 +50,23 @@ public class PriceDataDAOImpl implements PriceDataDao {
 			Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
 			System.out.println(simpleJdbcCallResult);
 			System.out.println("******************************");
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+
 		
+	}
+
+	public void callEodProcedure(String process)throws SQLException{
+			System.out.println("******************************");
+			//jdbcTemplate = new JdbcTemplate(dataSource);
+			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+				.withProcedureName("end_of_price_rocess");
+			Map<String, Object> inParamMap = new HashMap<String, Object>();
+			inParamMap.put("p_process",process);
+			SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+			Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+			System.out.println(simpleJdbcCallResult);
+			System.out.println("******************************");
+
+
 	}
 	public void insert(PriceData priceData) throws SQLException {
 
@@ -66,7 +75,7 @@ public class PriceDataDAOImpl implements PriceDataDao {
 			String sql = "INSERT INTO tmp_rbsa_daily "
 					+ "(TICKER, BUSINESSDATE, OPEN_PRICE, CLOSE_PRICE, HIGH_PRICE, LOW_PRICE, PREV_CLOSE_PRICE,VOLUME/*,INSERTED_BY,INSERTED_ON*/) VALUES (?, ?, ?, ?,?,?,?,?/*, ?, ?*/)";
 
-			jdbcTemplate = new JdbcTemplate(dataSource);
+			//jdbcTemplate = new JdbcTemplate(dataSource);
 
 			jdbcTemplate.update(sql,
 					new Object[] { priceData.getTicker(), priceData.getBusinessDate(), priceData.getOpenPrice(),

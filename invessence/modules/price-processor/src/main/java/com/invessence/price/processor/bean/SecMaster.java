@@ -27,6 +27,8 @@ public class SecMaster {
 	private Double lowerbound;
 	private Double upperbound;
 	private Double yield;
+	private String rbsaFlag;
+
 	
 	
 	public Long getInstrumentId() {
@@ -173,6 +175,17 @@ public class SecMaster {
 	public void setYield(Double yield) {
 		this.yield = yield;
 	}
+
+	public String getRbsaFlag()
+	{
+		return rbsaFlag;
+	}
+
+	public void setRbsaFlag(String rbsaFlag)
+	{
+		this.rbsaFlag = rbsaFlag;
+	}
+
 	@Override
 	public String toString() {
 		return "SecMaster [instrumentId=" + instrumentId + ", status=" + status + ", ticker=" + ticker + ", cusip="

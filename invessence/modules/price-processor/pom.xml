@@ -132,8 +132,6 @@
 							<Class-Path>.</Class-Path>
 						</manifestEntries>
 					</archive>
-
-					<!--<finalName>broker-services/broker-services</finalName>-->
 					<finalName>price-processor/${artifactId}-${version}</finalName>
 				</configuration>
 			</plugin>
