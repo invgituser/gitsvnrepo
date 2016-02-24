@@ -125,7 +125,7 @@ public class PriceProcessor {
 						priceDataDao.callProcedure(PriceProcessConst.DAILY, "", "");
 						try
 						{
-							priceDataDao.callEodProcedure(PriceProcessConst.DAILY);
+							priceDataDao.callEodProcedure(PriceProcessConst.DAILY,businessDate);
 						}catch(Exception e){
 								mailAlertMsg.append("Daily price eod process issue "+e.getMessage());
 						}
@@ -192,9 +192,9 @@ public class PriceProcessor {
 				System.out.println("MailAlertMsg is empty");
 				try
 				{
-					priceDataDao.callEodProcedure(PriceProcessConst.DAILY);
+					priceDataDao.callEodProcedure(PriceProcessConst.MONTHLY, businessDate);
 				}catch(Exception e){
-					mailAlertMsg.append("Daily price eod process issue "+e.getMessage());
+					mailAlertMsg.append("Historical price eod process issue "+e.getMessage());
 				}
 			}
 

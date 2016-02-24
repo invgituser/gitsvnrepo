@@ -15,7 +15,7 @@ public interface PriceDataDao {
 	public List<PriceData> findByDate(String date);
 	public PriceData findByTickerNDate(String ticker, String date);
 	public void callProcedure(String process, String businessDate, String ticker)throws SQLException;
-	public void callEodProcedure(String process)throws SQLException;
+	public void callEodProcedure(String process, String businessDate)throws SQLException;
 	
 		
 	

@@ -54,13 +54,14 @@ public class PriceDataDAOImpl implements PriceDataDao {
 		
 	}
 
-	public void callEodProcedure(String process)throws SQLException{
+	public void callEodProcedure(String process,String businessDate )throws SQLException{
 			System.out.println("******************************");
 			//jdbcTemplate = new JdbcTemplate(dataSource);
 			SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-				.withProcedureName("end_of_price_rocess");
+				.withProcedureName("end_of_price_process");
 			Map<String, Object> inParamMap = new HashMap<String, Object>();
 			inParamMap.put("p_process",process);
+			inParamMap.put("p_businessdate",businessDate);
 			SqlParameterSource in = new MapSqlParameterSource(inParamMap);
 			Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
 			System.out.println(simpleJdbcCallResult);
