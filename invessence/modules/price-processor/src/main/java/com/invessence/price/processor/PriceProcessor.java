@@ -113,7 +113,7 @@ public class PriceProcessor {
 		try{
 			priceDataDao.delete();
 
-		pdList= getDailyPriceData(tickerList, mailAlertMsg);
+		pdList= getDailyPriceData(businessDate,tickerList, mailAlertMsg);
 		if(pdList==null ||pdList.size()==0){
 			mailAlertMsg.append("Daily price data not available for upload");
 		}else{
@@ -122,7 +122,7 @@ public class PriceProcessor {
 				if(mailAlertMsg.length()==0){
 					try
 					{
-						priceDataDao.callProcedure(PriceProcessConst.DAILY, "", "");
+						priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, "");
 						try
 						{
 							priceDataDao.callEodProcedure(PriceProcessConst.DAILY,businessDate);
@@ -153,7 +153,7 @@ public class PriceProcessor {
 			System.out.println(secMaster.toString());
 			try {
 				priceDataDao.delete();
-				pdList= getHistoricalPriceData(secMaster.getTicker(), mailAlertMsg);
+				pdList= getHistoricalPriceData(businessDate,secMaster.getTicker(), mailAlertMsg);
 				if(pdList==null ||pdList.size()==0){
 					mailAlertMsg.append("Historical price data not available for ticker "+secMaster.getTicker()+"\n");
 				}else{
@@ -223,7 +223,7 @@ public class PriceProcessor {
 					try
 					{
 						priceDataDao.delete();
-						pdList = getHistoricalPriceData(secMaster.getTicker(), mailAlertMsg);
+						pdList = getHistoricalPriceData(businessDate, secMaster.getTicker(), mailAlertMsg);
 						if (pdList == null || pdList.size() == 0)
 						{
 							mailAlertMsg.append("OnDemand price data not available for ticker " + secMaster.getTicker() + "\n");
@@ -301,7 +301,7 @@ public class PriceProcessor {
 		}
 	}
 
-	public List<PriceData> getDailyPriceData(List<SecMaster> tickerList, StringBuilder mailAlertMsg){
+	public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList, StringBuilder mailAlertMsg){
 		List<PriceData> pdList=null;
 		PriceData pd=null;
 
@@ -316,8 +316,9 @@ public class PriceProcessor {
 				System.out.println(secMaster.toString());
 				try {
 					//Stock stk = YahooFinance.get(secMaster.getTicker());
+					Date d=sdf.parse(businessDate);
 					Calendar from = Calendar.getInstance();
-					from.add(Calendar.DATE,-1);
+					from.setTime(d);
 					Stock stk = YahooFinance.get(secMaster.getTicker(),from, Interval.DAILY);
 					// stk.print();
 
@@ -355,7 +356,7 @@ public class PriceProcessor {
 		return pdList;
 	}
 
-		List<PriceData> getHistoricalPriceData(String ticker, StringBuilder mailAlertMsg){
+		List<PriceData> getHistoricalPriceData(String businessDate, String ticker, StringBuilder mailAlertMsg){
 			List<PriceData> pdList=null;
 		System.out.println("***********"+price_provider+"********");
 
@@ -381,13 +382,13 @@ public class PriceProcessor {
 													  Double.valueOf("" + stk.getQuote().getPreviousClose()), new Long(2), new Date());
 
 				//pdl.add(pd);
-				Date d = new Date();
+				Date d=sdf.parse(businessDate);
 //				Calendar from = new GregorianCalendar(2015, 9, 5);// Calendar.getInstance();
 //				Calendar to = new GregorianCalendar(2016, 1, 29);// Calendar.getInstance();//2007-05-30
 				Calendar from = Calendar.getInstance();
-				from.setTime(new Date());
+				from.setTime(d);
 				Calendar to = Calendar.getInstance();//2007-05-30
-				to.setTime(new Date());
+				to.setTime(d);
 				from.add(Calendar.YEAR, -20); // from 5 years ago
 				List<HistoricalQuote> hstLst = stk.getHistory(from, to, Interval.DAILY);
 
