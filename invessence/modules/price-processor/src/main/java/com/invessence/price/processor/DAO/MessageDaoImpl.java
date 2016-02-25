@@ -2,17 +2,13 @@ package com.invessence.price.processor.DAO;
 
 import java.sql.SQLException;
 
-import javax.sql.DataSource;
-
+import com.invessence.price.processor.bean.EmailMsg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.invessence.price.processor.Messages;
-import com.invessence.price.processor.bean.meassage_data;
 @Repository
 @Transactional
 public class MessageDaoImpl  implements MessageDao{
@@ -31,7 +27,7 @@ public class MessageDaoImpl  implements MessageDao{
     
     
 	
-	public void insert(meassage_data md) throws SQLException{
+	public void insert(EmailMsg md) throws SQLException{
 		
 		
 		try {

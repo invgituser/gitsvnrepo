@@ -2,7 +2,8 @@ package com.invessence.price.processor.bean;
 
 import java.math.BigInteger;
 
-public class meassage_data {
+public class EmailMsg
+{
 	private BigInteger messageid;
 	private StringBuilder msg;
 	private String sender;
@@ -10,13 +11,13 @@ public class meassage_data {
 	
 	
 	
-	public meassage_data() {
+	public EmailMsg() {
 		// TODO Auto-generated constructor stub
 	}
 
 
 
-	public meassage_data(BigInteger messageid, StringBuilder msg, String sender, String subject) {
+	public EmailMsg(BigInteger messageid, StringBuilder msg, String sender, String subject) {
 		super();
 		this.messageid = messageid;
 		this.msg = msg;

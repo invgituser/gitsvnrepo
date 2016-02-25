@@ -1,13 +1,12 @@
 package com.invessence.price.processor.DAO;
 
 import java.sql.SQLException;
-import java.util.List;
 
-import com.invessence.price.processor.bean.meassage_data;
+import com.invessence.price.processor.bean.EmailMsg;
 
 public interface MessageDao {
 	
 
-	public void insert(meassage_data md) throws SQLException ;
+	public void insert(EmailMsg md) throws SQLException ;
 
 }

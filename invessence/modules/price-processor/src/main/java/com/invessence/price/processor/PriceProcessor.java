@@ -5,13 +5,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
+import com.invessence.price.processor.bean.*;
 import com.invessence.price.util.*;
 import com.invessence.rbsa.RBSA2;
 import com.invessence.rbsa.dao.data.RBSAData;
@@ -28,9 +28,6 @@ import com.invessence.price.processor.DAO.DBParametersDao;
 import com.invessence.price.processor.DAO.MessageDao;
 import com.invessence.price.processor.DAO.PriceDataDao;
 import com.invessence.price.processor.DAO.SecMasterDao;
-import com.invessence.price.processor.bean.DBParameters;
-import com.invessence.price.processor.bean.PriceData;
-import com.invessence.price.processor.bean.SecMaster;
 import com.invessence.price.yahoo.Stock;
 import com.invessence.price.yahoo.YahooFinance;
 import com.invessence.price.yahoo.histquotes.HistoricalQuote;
@@ -98,6 +95,9 @@ public class PriceProcessor {
 		finally {
 			if (mailAlertMsg.length() > 0) {
 				System.out.println("MailAlertMsg IS :" + mailAlertMsg);
+				EmailMsg md = new EmailMsg();
+				md.setMsg(mailAlertMsg);
+            try{messageDao.insert(md);}catch(Exception e){e.printStackTrace();}
 			} else {
 				System.out.println("MailAlertMsg is empty");
 			}
@@ -430,88 +430,88 @@ public class PriceProcessor {
 		return  pdList;
 	}
 
-	public void onDemand(String ticker) throws Exception {
-
-		SecMaster secMaster=new SecMaster();
-		if(ticker.equals(secMaster.getTicker())){
-			System.out.println("TICKER ALREADY PRESENT"+ secMaster.getTicker());
-			StringBuilder mailAlertMsg= null;
-			mailAlertMsg.append("TICKER ALREADY PRESENT"+ secMaster.getTicker());
-
-		}
-		else{
-			System.out.println("***********"+price_provider+"********");
-			if(price_provider.equalsIgnoreCase("yahoo")){
-
-				try {
-
-					List<PriceData> pdl = new ArrayList<PriceData>();
-					Stock stk = YahooFinance.get(ticker);
-					System.out.println("*********************Daily Data************************");
-					System.out.println("Ticker :" + stk.getQuote().getSymbol());
-					System.out.println("LastTradeDate : " + sdf.format(stk.getQuote().getLastTradeTime().getTime()));
-					System.out.println("Open :" + stk.getQuote().getOpen());
-					System.out.println("LastTradePriceOnly :" +
-												 stk.getQuote().getPrice());
-					System.out.println("Volume :" + stk.getQuote().getVolume());
-					System.out.println("DayHigh :" + stk.getQuote().getDayHigh());
-					System.out.println("DayLow :" + stk.getQuote().getDayLow());
-					System.out.println("PreviousClose :" + stk.getQuote().getPreviousClose());
-					PriceData pd = new PriceData(stk.getQuote().getSymbol(),
-														  sdf.format(stk.getQuote().getLastTradeTime().getTime()),
-														  Double.valueOf("" + stk.getQuote().getOpen()), Double.valueOf("" + stk.getQuote().getPrice()),
-														  Double.valueOf("" + stk.getQuote().getDayHigh()), Double.valueOf("" + stk.getQuote().getDayLow()),
-														  Long.valueOf(stk.getQuote().getVolume()), new Date(),
-														  Double.valueOf("" + stk.getQuote().getPreviousClose()), new Long(2), new Date());
-
-					//pdl.add(pd);
-					Date d = new Date();
-					Calendar from = new GregorianCalendar(2015, 9, 5);// Calendar.getInstance();
-					Calendar to = new GregorianCalendar(2016, 1, 29);// Calendar.getInstance();//2007-05-30
-					from.add(Calendar.YEAR, -20); // from 5 years ago
-					List<HistoricalQuote> hstLst = stk.getHistory(from, to, Interval.DAILY);
-
-					Iterator<HistoricalQuote> itr = hstLst.iterator();
-					System.out.println("*********************Historical Data************************");
-
-					while (itr.hasNext()) {
-
-						HistoricalQuote historicalQuote = (HistoricalQuote) itr.next();
-						System.out.println("Ticker :" + historicalQuote.getSymbol());
-						System.out.println("LastTradeDate : "+sdf.format(historicalQuote.getDate().getTime()));
-						System.out.println("Open :" + historicalQuote.getOpen());
-						System.out.println("LastTradePriceOnly :" +historicalQuote.getClose());
-						System.out.println("Volume :" + historicalQuote.getVolume());
-						System.out.println("DayHigh :" + historicalQuote.getHigh());
-						System.out.println("DayLow :" + historicalQuote.getLow());
-						System.out.println("PreviousClose :" +
-													 historicalQuote.getAdjClose());
-
-						PriceData hpd = new PriceData(historicalQuote.getSymbol(),
-																sdf.format(historicalQuote.getDate().getTime()),
-																Double.valueOf("" + historicalQuote.getOpen()), Double.valueOf("" + historicalQuote.getClose()),
-																Double.valueOf("" + historicalQuote.getHigh()), Double.valueOf("" + historicalQuote.getLow()),
-																Long.valueOf(historicalQuote.getVolume()), new Date(),
-																Double.valueOf("" + historicalQuote.getAdjClose()), new Long(2), new Date());
-						if(!Double.valueOf(""+historicalQuote.getClose()).equals(0)){
-							pdl.add(hpd);
-						}
-
-						priceDataDao.insertBatch(pdl);
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			else if(price_provider.equalsIgnoreCase("xignite")){
-
-
-			}else{
-
-			}
-		}
-
-	}
+//	public void onDemand(String ticker) throws Exception {
+//
+//		SecMaster secMaster=new SecMaster();
+//		if(ticker.equals(secMaster.getTicker())){
+//			System.out.println("TICKER ALREADY PRESENT"+ secMaster.getTicker());
+//			StringBuilder mailAlertMsg= null;
+//			mailAlertMsg.append("TICKER ALREADY PRESENT"+ secMaster.getTicker());
+//
+//		}
+//		else{
+//			System.out.println("***********"+price_provider+"********");
+//			if(price_provider.equalsIgnoreCase("yahoo")){
+//
+//				try {
+//
+//					List<PriceData> pdl = new ArrayList<PriceData>();
+//					Stock stk = YahooFinance.get(ticker);
+//					System.out.println("*********************Daily Data************************");
+//					System.out.println("Ticker :" + stk.getQuote().getSymbol());
+//					System.out.println("LastTradeDate : " + sdf.format(stk.getQuote().getLastTradeTime().getTime()));
+//					System.out.println("Open :" + stk.getQuote().getOpen());
+//					System.out.println("LastTradePriceOnly :" +
+//												 stk.getQuote().getPrice());
+//					System.out.println("Volume :" + stk.getQuote().getVolume());
+//					System.out.println("DayHigh :" + stk.getQuote().getDayHigh());
+//					System.out.println("DayLow :" + stk.getQuote().getDayLow());
+//					System.out.println("PreviousClose :" + stk.getQuote().getPreviousClose());
+//					PriceData pd = new PriceData(stk.getQuote().getSymbol(),
+//														  sdf.format(stk.getQuote().getLastTradeTime().getTime()),
+//														  Double.valueOf("" + stk.getQuote().getOpen()), Double.valueOf("" + stk.getQuote().getPrice()),
+//														  Double.valueOf("" + stk.getQuote().getDayHigh()), Double.valueOf("" + stk.getQuote().getDayLow()),
+//														  Long.valueOf(stk.getQuote().getVolume()), new Date(),
+//														  Double.valueOf("" + stk.getQuote().getPreviousClose()), new Long(2), new Date());
+//
+//					//pdl.add(pd);
+//					Date d = new Date();
+//					Calendar from = new GregorianCalendar(2015, 9, 5);// Calendar.getInstance();
+//					Calendar to = new GregorianCalendar(2016, 1, 29);// Calendar.getInstance();//2007-05-30
+//					from.add(Calendar.YEAR, -20); // from 5 years ago
+//					List<HistoricalQuote> hstLst = stk.getHistory(from, to, Interval.DAILY);
+//
+//					Iterator<HistoricalQuote> itr = hstLst.iterator();
+//					System.out.println("*********************Historical Data************************");
+//
+//					while (itr.hasNext()) {
+//
+//						HistoricalQuote historicalQuote = (HistoricalQuote) itr.next();
+//						System.out.println("Ticker :" + historicalQuote.getSymbol());
+//						System.out.println("LastTradeDate : "+sdf.format(historicalQuote.getDate().getTime()));
+//						System.out.println("Open :" + historicalQuote.getOpen());
+//						System.out.println("LastTradePriceOnly :" +historicalQuote.getClose());
+//						System.out.println("Volume :" + historicalQuote.getVolume());
+//						System.out.println("DayHigh :" + historicalQuote.getHigh());
+//						System.out.println("DayLow :" + historicalQuote.getLow());
+//						System.out.println("PreviousClose :" +
+//													 historicalQuote.getAdjClose());
+//
+//						PriceData hpd = new PriceData(historicalQuote.getSymbol(),
+//																sdf.format(historicalQuote.getDate().getTime()),
+//																Double.valueOf("" + historicalQuote.getOpen()), Double.valueOf("" + historicalQuote.getClose()),
+//																Double.valueOf("" + historicalQuote.getHigh()), Double.valueOf("" + historicalQuote.getLow()),
+//																Long.valueOf(historicalQuote.getVolume()), new Date(),
+//																Double.valueOf("" + historicalQuote.getAdjClose()), new Long(2), new Date());
+//						if(!Double.valueOf(""+historicalQuote.getClose()).equals(0)){
+//							pdl.add(hpd);
+//						}
+//
+//						priceDataDao.insertBatch(pdl);
+//					}
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			else if(price_provider.equalsIgnoreCase("xignite")){
+//
+//
+//			}else{
+//
+//			}
+//		}
+//
+//	}
 
 	public void exceptionHandler(Exception ex, StringBuilder mailAlertMsg, String process) {
 		try {
@@ -552,7 +552,7 @@ public class PriceProcessor {
 			}
 			
 			
-//			meassage_data md = new meassage_data();
+//			EmailMsg md = new EmailMsg();
 //			md.setMsg(mailAlertMsg);
 //            messageDao.insert(md);
 
