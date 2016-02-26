@@ -1,7 +1,7 @@
 package com.invessence.bean.common;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -19,6 +19,7 @@ public class NotificationBean implements Serializable
    private ArrayList<NotificationData> notificationDataList = null;
    private NotificationData notificationData = new NotificationData();
    private NotificationData selectedMessage = null;
+   private List<NotificationData> selectedMessages = null;
    private String filterNotice = "N";
    private String notificationType = "";
 
@@ -50,6 +51,16 @@ public class NotificationBean implements Serializable
    public void setSelectedMessage(NotificationData selectedMessage)
    {
       this.selectedMessage = selectedMessage;
+   }
+
+   public List<NotificationData> getSelectedMessages()
+   {
+      return selectedMessages;
+   }
+
+   public void setSelectedMessages(List<NotificationData> selectedMessages)
+   {
+      this.selectedMessages = selectedMessages;
    }
 
    public String getFilterNotice()
@@ -134,7 +145,24 @@ public class NotificationBean implements Serializable
          return "Messages";
    }
 
-   public String markDone()
+   public void markRead()
+   {
+      if (selectedMessages != null) {
+         for (NotificationData data : selectedMessages) {
+            data.setStatus("A");
+            commonDao.saveNotice(data);
+         }
+//         webutil.redirect("/pages/common/notification.xhtml", null);
+
+         collectNotification();
+         selectedMessages = null;
+         RequestContext.getCurrentInstance().update("messageDT");
+
+      }
+   }
+
+
+   public void markDone()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
@@ -146,12 +174,10 @@ public class NotificationBean implements Serializable
          selectedMessage = null;
          RequestContext.getCurrentInstance().update("messageDT");
 
-         return "success";
       }
-      return "failed";
    }
 
-   public String markUnDone()
+   public void markUnDone()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
@@ -164,9 +190,7 @@ public class NotificationBean implements Serializable
          collectNotification();
          RequestContext.getCurrentInstance().update("messageDT");
 
-         return "success";
       }
-      return "failed";
    }
 
    public void saveNotification()

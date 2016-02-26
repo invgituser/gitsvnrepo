@@ -34,57 +34,38 @@
 
                         <div class="Container100 MarTop20">
                             <p:dataTable id="messageDT" var="msg" value="#{notificationBean.notificationDataList}"
-                                             widgetVar="messageWidget"
-                                             emptyMessage="No Messages were created."
-                                             reflow="true">
+                                         selection="#{notificationBean.selectedMessages}"
+                                         rowKey="#{msg.messageid}"
+                                         style="margin-bottom:0"
+                                         widgetVar="messageWidget"
+                                         emptyMessage="No Messages were created."
+                                         reflow="true">
 
-                                <f:facet name="header" style="text-align:left">
-                                    <p:outputPanel style="text-align:left">
-                                        <p:commandButton id="addButton" rendered="#{notificationBean.addAllowed}"
-                                                         styleClass="Fs16 BlueButton"
-                                                         icon="fa fa-plus Fs14 white"
-                                                         value="Add Task"
-                                                         onclick="PF('addNotification').show();"/>
-                                    </p:outputPanel>
+                                <f:facet name="header">
+                                    Unread Messages
                                 </f:facet>
+                                <p:column selectionMode="multiple"/>
 
-                                    <p:column style="width: 1%; background-color: #{msg.color};">
-                                        <h:outputText value=" "/>
-                                    </p:column>
+                                <p:column styleClass="Fs14 TexAlLeft"
+                                          headerText="Created">
+                                    <h:outputText value="#{msg.businessdate}"/>
+                                </p:column>
 
-                                    <p:column style="width: 5%;" styleClass="TextAlLeft">
-                                        <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
-                                                         styleClass="Fs16 BlueButton"
-                                                         process="@this" immediate="true"
-                                                         icon="fa fa-check Fs14 white"
-                                                         action="#{notificationBean.markDone}">
-                                            <p:tooltip id="markToolTipFade" for="markButton" value="Archive" />
-                                            <f:setPropertyActionListener value="#{msg}"
-                                                                         target="#{notificationBean.selectedMessage}"/>
-                                        </p:commandButton>
-                                        <p:commandButton id="undoButton"  rendered="#{msg.status != 'N'}"
-                                                         styleClass="Fs16 GrayButton"
-                                                         process="@this" immediate="true"
-                                                         icon="fa fa-mail-reply Fs14 white"
-                                                         action="#{notificationBean.markUnDone}">
-                                            <p:tooltip id="undoToolTipFade" for="undoButton" value="Undo Archive" />
-                                            <f:setPropertyActionListener value="#{msg}"
-                                                                         target="#{notificationBean.selectedMessage}"/>
-                                        </p:commandButton>
-                                    </p:column>
+                                <p:column styleClass="Fs14 TexAlLeft"
+                                          headerText="Message">
+                                    <h:outputText value="#{msg.message}">
+                                    </h:outputText>
+                                </p:column>
 
-                                    <p:column style="width: 10%;" styleClass="Fs14 TexAlLeft"
-                                              headerText="Created">
-                                        <h:outputText value="#{msg.businessdate}"/>
-                                    </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton process="messageDT"
+                                                     update=":form:messageDT"
+                                                     icon="ui-icon-search"
+                                                     value="Mark as Read"
+                                                     actionListener="#{notificationBean.markRead}" />
+                                </f:facet>
+                            </p:dataTable>
 
-                                    <p:column styleClass="Fs14 TexAlLeft"
-                                              headerText="Message">
-                                        <h:outputText value="#{msg.message}">
-                                        </h:outputText>
-                                    </p:column>
-
-                                </p:dataTable>
                         </div>
                     </div>
                 </div>
