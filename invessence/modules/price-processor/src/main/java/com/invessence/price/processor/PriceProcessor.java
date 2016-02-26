@@ -503,7 +503,7 @@ public class PriceProcessor {
 //					e.printStackTrace();
 //				}
 //			}
-//			else if(price_provider.equalsIgnoreCase("xignite")){
+//			else if(price_provider.equalsIgnoreCase("com.invessence.xignite")){
 //
 //
 //			}else{
