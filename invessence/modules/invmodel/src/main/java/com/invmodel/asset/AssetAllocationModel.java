@@ -4,7 +4,7 @@ import java.util.*;
 
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
-import com.invmodel.dao.invdb.PortfolioOptimizer;
+import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.inputData.ProfileData;
 import webcab.lib.finance.portfolio.*;
 

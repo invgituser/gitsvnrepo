@@ -7,6 +7,7 @@ import com.invmodel.dao.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.dao.rbsa.*;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.position.data.FamilyAccount;
 import lpsolve.LpSolveException;

@@ -7,6 +7,7 @@ import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
 import com.invmodel.rebalance.data.*;

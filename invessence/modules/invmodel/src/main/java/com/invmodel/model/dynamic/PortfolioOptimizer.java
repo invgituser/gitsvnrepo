@@ -1,4 +1,4 @@
-package com.invmodel.dao.invdb;
+package com.invmodel.model.dynamic;
 
 import java.sql.*;
 import java.util.*;

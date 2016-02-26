@@ -1,4 +1,4 @@
-package com.invmodel.ltam.data;
+package com.invmodel.model.fixedmodel.data;
 
 import java.util.*;
 
@@ -9,45 +9,43 @@ import java.util.*;
  * Time: 12:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LTAMTheme
+public class FIData
 {
    private String theme;
+   private String level;
    private String displayname;
    private Integer sortorder;
-   private Double gain;
-   private Double loss;
    private Integer lowRisk;
    private Integer highRisk;
    ArrayList<String> assetList;
-   Map<String, LTAMAsset> asset;
+   Map<String, FIAsset> asset;
    Map<String,String> indexMap;
    Map<String,String> performanceHeaderMap;
-   Map<String, LTAMPerformance> performance;
+   Map<String, FIPerformance> performance;
 
-   public LTAMTheme()
+   public FIData()
    {
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
-      asset = new LinkedHashMap<String, LTAMAsset>();
-      performance = new LinkedHashMap<String, LTAMPerformance>();
+      asset = new LinkedHashMap<String, FIAsset>();
+      performance = new LinkedHashMap<String, FIPerformance>();
    }
 
-   public LTAMTheme(String theme, String displayname, Integer sortorder, Double gain, Double loss,
-   Integer lowRisk, Integer highRisk)
+   public FIData(String theme, String level, String displayname, Integer sortorder,
+                 Integer lowRisk, Integer highRisk)
    {
       this.theme = theme;
+      this.level = level;
       this.displayname = displayname;
       this.sortorder = sortorder;
-      this.gain = gain;
-      this.loss = loss;
       this.lowRisk = lowRisk;
       this.highRisk = highRisk;
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
-      asset = new LinkedHashMap<String, LTAMAsset>();
-      performance = new LinkedHashMap<String, LTAMPerformance>();
+      asset = new LinkedHashMap<String, FIAsset>();
+      performance = new LinkedHashMap<String, FIPerformance>();
    }
 
    public String getPerformanceKey(String index, String header) {
@@ -62,6 +60,16 @@ public class LTAMTheme
    public void setTheme(String theme)
    {
       this.theme = theme;
+   }
+
+   public String getLevel()
+   {
+      return level;
+   }
+
+   public void setLevel(String level)
+   {
+      this.level = level;
    }
 
    public String getDisplayname()
@@ -82,34 +90,6 @@ public class LTAMTheme
    public void setSortorder(Integer sortorder)
    {
       this.sortorder = sortorder;
-   }
-
-   public Double getGain()
-   {
-      return gain;
-   }
-
-   public Double getGainAsPercent() {
-      return  gain / 100.0;
-   }
-
-   public void setGain(Double gain)
-   {
-      this.gain = gain;
-   }
-
-   public Double getLoss()
-   {
-      return loss;
-   }
-
-   public Double getLossAsPercent() {
-      return  loss / 100.0;
-   }
-
-   public void setLoss(Double loss)
-   {
-      this.loss = loss;
    }
 
    public Integer getLowRisk()
@@ -139,22 +119,22 @@ public class LTAMTheme
          return false;
    }
 
-   public Map<String, LTAMAsset> getAsset()
+   public Map<String, FIAsset> getAsset()
    {
       return asset;
    }
 
-   public void setAsset(Map<String, LTAMAsset> asset)
+   public void setAsset(Map<String, FIAsset> asset)
    {
       this.asset = asset;
    }
 
-   public Map<String, LTAMPerformance> getPerformance()
+   public Map<String, FIPerformance> getPerformance()
    {
       return performance;
    }
 
-   public void setPerformance(Map<String, LTAMPerformance> performance)
+   public void setPerformance(Map<String, FIPerformance> performance)
    {
       this.performance = performance;
    }
@@ -189,7 +169,7 @@ public class LTAMTheme
       this.performanceHeaderMap = performanceHeaderMap;
    }
 
-   public void addAsset(LTAMAsset assetdata) {
+   public void addAsset(FIAsset assetdata) {
       try {
          if (assetdata != null) {
             if (assetdata.getTheme().toUpperCase().equals(theme.toUpperCase())) {
@@ -206,10 +186,10 @@ public class LTAMTheme
       }
    }
 
-   public void addAsset(Map<String,LTAMAsset> assetMap) {
+   public void addAsset(Map<String,FIAsset> assetMap) {
       try {
          if (assetMap != null) {
-            for (LTAMAsset asset : assetMap.values()) {
+            for (FIAsset asset : assetMap.values()) {
                   addAsset(asset);
             }
          }
@@ -220,7 +200,7 @@ public class LTAMTheme
    }
 
 
-   public void addPerformance(LTAMPerformance performancedata) {
+   public void addPerformance(FIPerformance performancedata) {
       try {
          if (performancedata != null) {
             if (performancedata.getTheme().toUpperCase().equals(theme.toUpperCase())) {
@@ -242,10 +222,10 @@ public class LTAMTheme
       }
    }
 
-   public void addPerformance(Map<String, LTAMPerformance> performanceMap) {
+   public void addPerformance(Map<String, FIPerformance> performanceMap) {
       try {
          if (performanceMap != null) {
-            for (LTAMPerformance performance: performanceMap.values()) {
+            for (FIPerformance performance: performanceMap.values()) {
                   addPerformance(performance);
             }
          }
@@ -255,8 +235,8 @@ public class LTAMTheme
       }
    }
 
-   public ArrayList<LTAMAsset> getAssetsData() {
-      ArrayList<LTAMAsset> arrayList = new ArrayList<LTAMAsset>();
+   public ArrayList<FIAsset> getAssetsData() {
+      ArrayList<FIAsset> arrayList = new ArrayList<FIAsset>();
       if (getAsset() != null) {
          for (String asset: getAsset().keySet()) {
             arrayList.add(getAsset().get(asset));
@@ -265,8 +245,8 @@ public class LTAMTheme
       return arrayList;
    }
 
-   public ArrayList<LTAMPortfolio> getPortfolioData() {
-      ArrayList<LTAMPortfolio> arrayList = new ArrayList<LTAMPortfolio>();
+   public ArrayList<FIPortfolio> getPortfolioData() {
+      ArrayList<FIPortfolio> arrayList = new ArrayList<FIPortfolio>();
       if (getAsset() != null) {
          for (String asset: getAsset().keySet()) {
             if (getAsset().get(asset).getPortfolio() != null) {
@@ -279,14 +259,14 @@ public class LTAMTheme
       return arrayList;
    }
 
-   public Map<String,ArrayList<LTAMPerformance>> getPerformanceData() {
-      Map<String, ArrayList<LTAMPerformance>> arrayMap = new HashMap<String, ArrayList<LTAMPerformance>>();
+   public Map<String,ArrayList<FIPerformance>> getPerformanceData() {
+      Map<String, ArrayList<FIPerformance>> arrayMap = new HashMap<String, ArrayList<FIPerformance>>();
       if (getPerformance() != null) {
          for (String index : getPerformanceIndex()) {
-            ArrayList<LTAMPerformance> performanceList = new ArrayList<LTAMPerformance>();
+            ArrayList<FIPerformance> performanceList = new ArrayList<FIPerformance>();
             for (String header: getPerformanceHeader()) {
                String key = getPerformanceKey(index, header);
-               LTAMPerformance perfdata = performance.get(key);
+               FIPerformance perfdata = performance.get(key);
                performanceList.add(perfdata);
             }
             if (performanceList.size() > 0) {
@@ -355,22 +335,22 @@ public class LTAMTheme
    }
 */
 
-   public ArrayList<ArrayList<LTAMPerformancePrintData>> getPrintedPerformanceData() {
-      ArrayList<ArrayList<LTAMPerformancePrintData>> arrayLists = new ArrayList<ArrayList<LTAMPerformancePrintData>>();
-      ArrayList<LTAMPerformancePrintData> performanceList;
+   public ArrayList<ArrayList<FIPerformancePrintData>> getPrintedPerformanceData() {
+      ArrayList<ArrayList<FIPerformancePrintData>> arrayLists = new ArrayList<ArrayList<FIPerformancePrintData>>();
+      ArrayList<FIPerformancePrintData> performanceList;
       int indexnum;
       if (getPerformance() != null) {
          for (String index : getPerformanceIndex()) {
-            performanceList = new ArrayList<LTAMPerformancePrintData>();
+            performanceList = new ArrayList<FIPerformancePrintData>();
             indexnum=0;
             for (String header: getPerformanceHeader()) {
                String key = getPerformanceKey(index, header);
                if (indexnum == 0) {
-                  LTAMPerformancePrintData printData = new LTAMPerformancePrintData(null,index);
+                  FIPerformancePrintData printData = new FIPerformancePrintData(null,index);
                   performanceList.add(printData);
                }
                String value = performance.get(key).getPerformance().toString();
-               LTAMPerformancePrintData printData = new LTAMPerformancePrintData(header,value);
+               FIPerformancePrintData printData = new FIPerformancePrintData(header,value);
                performanceList.add(printData);
                indexnum++;
             }
@@ -382,13 +362,13 @@ public class LTAMTheme
       return arrayLists;
    }
 
-   public ArrayList<LTAMPrefPrintData> getPrintedPerfData() {
-      ArrayList<LTAMPrefPrintData> arrayLists = new ArrayList<LTAMPrefPrintData>();
+   public ArrayList<FIPrefPrintData> getPrintedPerfData() {
+      ArrayList<FIPrefPrintData> arrayLists = new ArrayList<FIPrefPrintData>();
       int indexnum;
       if (getPerformance() != null) {
          for (String index : getPerformanceIndex()) {
             indexnum=0;
-            LTAMPrefPrintData prefData = new LTAMPrefPrintData();
+            FIPrefPrintData prefData = new FIPrefPrintData();
             for (String header: getPerformanceHeader()) {
                String key = getPerformanceKey(index, header);
                if (indexnum == 0) {

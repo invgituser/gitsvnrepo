@@ -1,12 +1,8 @@
 package invtest;
 
 import com.invmodel.dao.data.HolisticOptimizedData;
-import com.invmodel.dao.invdb.PortfolioOptimizer;
+import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.dao.rbsa.*;
-import com.invmodel.position.LinearOptimizer;
-import com.invmodel.utils.MergeSort;
-import lpsolve.*;
-import webcab.lib.finance.portfolio.CapitalMarket;
 
 
 /**

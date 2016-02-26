@@ -1,4 +1,4 @@
-package com.invmodel.ltam.data;
+package com.invmodel.model.fixedmodel.data;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,7 +7,7 @@ package com.invmodel.ltam.data;
  * Time: 12:05 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LTAMPortfolio
+public class FIPortfolio
 {
    private String theme;
    private String themename;
@@ -19,13 +19,13 @@ public class LTAMPortfolio
    private Double weight;
    private Integer sortorder;
 
-   public LTAMPortfolio()
+   public FIPortfolio()
    {
    }
 
-   public LTAMPortfolio(String theme, String themename, String asset, String assetname,
-                        String subasset, String displayname, String color,
-                        Double weight, Integer sortorder)
+   public FIPortfolio(String theme, String themename, String asset, String assetname,
+                      String subasset, String displayname, String color,
+                      Double weight, Integer sortorder)
    {
       this.theme = theme;
       this.themename = themename;

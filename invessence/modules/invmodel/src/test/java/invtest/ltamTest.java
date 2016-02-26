@@ -1,10 +1,7 @@
 package invtest;
 
-import com.invmodel.dao.data.HolisticOptimizedData;
-import com.invmodel.dao.invdb.PortfolioOptimizer;
-import com.invmodel.dao.rbsa.*;
-import com.invmodel.ltam.LTAMOptimizer;
-import com.invmodel.ltam.data.LTAMTheme;
+import com.invmodel.model.fixedmodel.FixedModelOptimizer;
+import com.invmodel.model.fixedmodel.data.FIData;
 
 
 /**
@@ -23,10 +20,10 @@ public class ltamTest
 
       //try {
 
-      LTAMOptimizer ltamoptimzer = LTAMOptimizer.getInstance();
+      FixedModelOptimizer ltamoptimzer = FixedModelOptimizer.getInstance();
 
       ltamoptimzer.refreshDataFromDB();
-      LTAMTheme theme =  ltamoptimzer.getTheme(51);
+      FIData theme =  ltamoptimzer.getTheme(51);
       if (theme != null)
          System.out.println("Data Loaded: " + theme.getTheme());
       else

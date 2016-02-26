@@ -1,4 +1,4 @@
-package com.invmodel.ltam.data;
+package com.invmodel.model.fixedmodel.data;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,7 +7,7 @@ package com.invmodel.ltam.data;
  * Time: 9:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LTAMPrefPrintData
+public class FIPrefPrintData
 {
    String indexname;
    String color;

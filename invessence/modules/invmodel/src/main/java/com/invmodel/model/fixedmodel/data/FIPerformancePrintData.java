@@ -1,4 +1,4 @@
-package com.invmodel.ltam.data;
+package com.invmodel.model.fixedmodel.data;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,12 +7,12 @@ package com.invmodel.ltam.data;
  * Time: 9:08 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LTAMPerformancePrintData
+public class FIPerformancePrintData
 {
    String header;
    String value;
 
-   public LTAMPerformancePrintData(String header, String value)
+   public FIPerformancePrintData(String header, String value)
    {
       this.header = header;
       this.value = value;

@@ -1,11 +1,11 @@
-package com.invmodel.ltam.dao;
+package com.invmodel.dao.invdb;
 
 import java.util.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
 import com.invmodel.dao.*;
-import com.invmodel.ltam.data.*;
+import com.invmodel.model.fixedmodel.data.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 /**
@@ -15,36 +15,36 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
  * Time: 1:18 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LTAMDao  extends JdbcDaoSupport
+public class FixedModelDao extends JdbcDaoSupport
 {
-      private static LTAMDao instance = null;
+      private static FixedModelDao instance = null;
       DBConnectionProvider dbconnection;
       SQLData convert;
       DataSource ds;
 
-   public static synchronized LTAMDao getInstance()
+   public static synchronized FixedModelDao getInstance()
    {
       if (instance == null)
       {
-         instance = new LTAMDao();
+         instance = new FixedModelDao();
       }
 
       return instance;
    }
 
-   private LTAMDao()
+   private FixedModelDao()
    {
       dbconnection = DBConnectionProvider.getInstance();
       convert = new SQLData();
       ds = dbconnection.getMySQLDataSource();
    }
 
-   public Map<String, LTAMTheme> loadLTAMThemes()
+   public Map<String, FIData> load_fixedmodule()
       {
          // DataSource ds = getDs();
-         String storedProcName = "ltam.sel_themes";
-         LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
-         Map<String, LTAMTheme> themes = new LinkedHashMap<String, LTAMTheme>();
+         String storedProcName = "sel_fixedmodule";
+         FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
+         Map<String, FIData> themes = new LinkedHashMap<String, FIData>();
 
          Map outMap = sp.loadLTAMThemes();
 
@@ -56,12 +56,11 @@ public class LTAMDao  extends JdbcDaoSupport
                for (Map<String, Object> map : rows) {
                   Map rs = (Map) rows.get(i);
                   String theme = convert.getStrData(rs.get("theme"));
-                  LTAMTheme themeData = new LTAMTheme(
+                  FIData themeData = new FIData(
                      theme,
+                     convert.getStrData(rs.get("level")),
                      convert.getStrData(rs.get("displayname")),
                      convert.getIntData(rs.get("sortorder")),
-                     convert.getDoubleData(rs.get("gain")),
-                     convert.getDoubleData(rs.get("loss")),
                      convert.getIntData(rs.get("lowRisk")),
                      convert.getIntData(rs.get("highRisk"))
                   );
@@ -74,14 +73,14 @@ public class LTAMDao  extends JdbcDaoSupport
 
       }
 
-   public void loadLTAMAssets(Map<String, LTAMTheme> themeMap)
+   public void load_fixedmodule_assets(Map<String, FIData> themeMap)
    {
       // DataSource ds = getDs();
       if (themeMap == null)
          return;
 
-      String storedProcName = "ltam.sel_assets";
-      LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
+      String storedProcName = "sel_fixedmodule_assets";
+      FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
       Map outMap = sp.loadLTAMAsset();
 
       if (outMap != null)
@@ -92,7 +91,7 @@ public class LTAMDao  extends JdbcDaoSupport
             for (Map<String, Object> map : rows) {
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
-               LTAMAsset asset = new LTAMAsset (
+               FIAsset asset = new FIAsset(
                   theme,
                   convert.getStrData(rs.get("asset")),
                   convert.getStrData(rs.get("displayname")),
@@ -101,7 +100,7 @@ public class LTAMDao  extends JdbcDaoSupport
                   convert.getIntData(rs.get("sortorder"))
                );
                if (themeMap.containsKey(theme)) {
-                  LTAMTheme themedata = themeMap.get(theme);
+                  FIData themedata = themeMap.get(theme);
                   themedata.addAsset(asset);
                }
                i++;
@@ -110,15 +109,15 @@ public class LTAMDao  extends JdbcDaoSupport
       }
    }
 
-   public void loadLTAMPortfolios(Map<String, LTAMTheme> themeMap)
+   public void load_fixedmodule_subassets(Map<String, FIData> themeMap)
    {
 
       if (themeMap == null)
          return;
 
       // DataSource ds = getDs();
-      String storedProcName = "ltam.sel_subassets";
-      LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
+      String storedProcName = "sel_fixedmodule_subassets";
+      FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
 
       Map outMap = sp.loadLTAMPortfolio();
 
@@ -131,7 +130,7 @@ public class LTAMDao  extends JdbcDaoSupport
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
                String asset = convert.getStrData(rs.get("asset"));
-               LTAMPortfolio portfolio = new LTAMPortfolio (
+               FIPortfolio portfolio = new FIPortfolio(
                   theme,
                   convert.getStrData(rs.get("themename")),
                   asset,
@@ -153,15 +152,15 @@ public class LTAMDao  extends JdbcDaoSupport
       }
    }
 
-   public void loadLTAMPerformance(Map<String, LTAMTheme> themeMap)
+   public void load_fixedmodule_performance(Map<String, FIData> themeMap)
    {
 
       if (themeMap == null)
          return;
 
       // DataSource ds = getDs();
-      String storedProcName = "ltam.sel_performance";
-      LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
+      String storedProcName = "sel_fixedmodule_performance";
+      FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
 
       Map outMap = sp.loadLTAMPerformance();
 
@@ -173,7 +172,7 @@ public class LTAMDao  extends JdbcDaoSupport
             for (Map<String, Object> map : rows) {
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
-               LTAMPerformance performance = new LTAMPerformance (
+               FIPerformance performance = new FIPerformance(
                   theme,
                   convert.getStrData(rs.get("index")),
                   convert.getStrData(rs.get("indexname")),

@@ -1,19 +1,16 @@
-package com.invmodel.ltam.dao;
+package com.invmodel.dao.invdb;
 
 
-import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invmodel.rebalance.data.TradeData;
-import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 
-public class LTAMSP extends StoredProcedure
+public class FixedModelSP extends StoredProcedure
 {
 
-   public LTAMSP(DataSource datasource, String storedProcName, int process, int which)
+   public FixedModelSP(DataSource datasource, String storedProcName, int process, int which)
    {
       super(datasource, storedProcName);
       switch (process) {

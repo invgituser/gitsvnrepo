@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.invmodel.Const.InvConst;
 import com.invmodel.dao.invdb.*;
+import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.rebalance.*;
 import com.invmodel.rebalance.data.*;
 

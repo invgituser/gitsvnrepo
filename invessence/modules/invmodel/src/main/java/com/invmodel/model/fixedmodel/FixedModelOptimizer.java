@@ -1,11 +1,11 @@
-package com.invmodel.ltam;
+package com.invmodel.model.fixedmodel;
 
 import java.util.*;
 import java.util.concurrent.locks.*;
 import java.util.logging.Logger;
 
-import com.invmodel.ltam.dao.LTAMDao;
-import com.invmodel.ltam.data.*;
+import com.invmodel.dao.invdb.FixedModelDao;
+import com.invmodel.model.fixedmodel.data.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,33 +14,33 @@ import com.invmodel.ltam.data.*;
  * Time: 12:06 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LTAMOptimizer
+public class FixedModelOptimizer
 {
-   private static LTAMOptimizer instance = null;
-   private final Logger logger = Logger.getLogger(LTAMOptimizer.class.getName());
+   private static FixedModelOptimizer instance = null;
+   private final Logger logger = Logger.getLogger(FixedModelOptimizer.class.getName());
 
-   private Map<String, LTAMTheme> themesMap;
-   private LTAMDao ltamdao;
+   private Map<String, FIData> themesMap;
+   private FixedModelDao ltamdao;
 
    private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
    private final Lock read = readWriteLock.readLock();
    private final Lock write = readWriteLock.writeLock();
 
 
-   public static synchronized LTAMOptimizer getInstance()
+   public static synchronized FixedModelOptimizer getInstance()
    {
       if (instance == null)
       {
-         instance = new LTAMOptimizer();
+         instance = new FixedModelOptimizer();
       }
 
       return instance;
    }
 
-   private LTAMOptimizer()
+   private FixedModelOptimizer()
    {
       super();
-      ltamdao = LTAMDao.getInstance();
+      ltamdao = FixedModelDao.getInstance();
    }
 
    private String getThemeKey(String theme) {
@@ -67,14 +67,14 @@ public class LTAMOptimizer
    public void refreshDataFromDB() {
       write.lock();
       try {
-         logger.info("Load LTAM Themes");
-         themesMap = ltamdao.loadLTAMThemes();
-         logger.info("Load LTAM Assets");
-         ltamdao.loadLTAMAssets(themesMap);
-         logger.info("Load LTAM SubAsset");
-         ltamdao.loadLTAMPortfolios(themesMap);
-         logger.info("Load LTAM Performance Data");
-         ltamdao.loadLTAMPerformance(themesMap);
+         logger.info("Load Fixed Module");
+         themesMap = ltamdao.load_fixedmodule();
+         logger.info("Load Fixed Module Assets");
+         ltamdao.load_fixedmodule_assets(themesMap);
+         logger.info("Load Fixed Module SubAsset");
+         ltamdao.load_fixedmodule_subassets(themesMap);
+         logger.info("Load Fixed Module Performance Data");
+         ltamdao.load_fixedmodule_performance(themesMap);
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -86,8 +86,8 @@ public class LTAMOptimizer
 
    }
 
-   public ArrayList<LTAMTheme> getThemes() {
-      ArrayList<LTAMTheme> arrayList = new ArrayList<LTAMTheme>();
+   public ArrayList<FIData> getThemes() {
+      ArrayList<FIData> arrayList = new ArrayList<FIData>();
       if (themesMap != null) {
          for (String theme: themesMap.keySet()) {
             arrayList.add(themesMap.get(theme));
@@ -96,8 +96,8 @@ public class LTAMOptimizer
       return arrayList;
    }
 
-   public LTAMTheme getTheme(Integer riskIndex) {
-      LTAMTheme thisTheme = null;
+   public FIData getTheme(Integer riskIndex) {
+      FIData thisTheme = null;
       if (themesMap != null) {
          for (String theme: themesMap.keySet()) {
             if (themesMap.get(theme).isThisTheme(riskIndex)) {

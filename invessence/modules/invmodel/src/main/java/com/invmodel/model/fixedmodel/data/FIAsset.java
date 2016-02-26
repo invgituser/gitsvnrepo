@@ -1,4 +1,4 @@
-package com.invmodel.ltam.data;
+package com.invmodel.model.fixedmodel.data;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ import java.util.*;
  * Time: 12:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public class LTAMAsset
+public class FIAsset
 {
    private String theme;
    private String asset;
@@ -18,15 +18,15 @@ public class LTAMAsset
    private String color;
    private Integer sortorder;
    ArrayList<String> portfolioList;
-   Map<String, LTAMPortfolio> portfolio;
+   Map<String, FIPortfolio> portfolio;
 
-   public LTAMAsset()
+   public FIAsset()
    {
       portfolioList = new ArrayList<String>();
-      portfolio = new LinkedHashMap<String, LTAMPortfolio>();
+      portfolio = new LinkedHashMap<String, FIPortfolio>();
    }
 
-   public LTAMAsset(String theme, String asset, String displayname, Double weight, String color, Integer sortorder)
+   public FIAsset(String theme, String asset, String displayname, Double weight, String color, Integer sortorder)
    {
       this.theme = theme;
       this.asset = asset;
@@ -35,7 +35,7 @@ public class LTAMAsset
       this.color = color;
       this.sortorder = sortorder;
       portfolioList = new ArrayList<String>();
-      portfolio = new LinkedHashMap<String, LTAMPortfolio>();
+      portfolio = new LinkedHashMap<String, FIPortfolio>();
 
    }
 
@@ -85,17 +85,17 @@ public class LTAMAsset
       return portfolioList;
    }
 
-   public Map<String, LTAMPortfolio> getPortfolio()
+   public Map<String, FIPortfolio> getPortfolio()
    {
       return portfolio;
    }
 
-   public void setPortfolio(Map<String, LTAMPortfolio> portfolio)
+   public void setPortfolio(Map<String, FIPortfolio> portfolio)
    {
       this.portfolio = portfolio;
    }
 
-   public void addPortfolio(LTAMPortfolio portfoliodata) {
+   public void addPortfolio(FIPortfolio portfoliodata) {
       try {
          if (portfoliodata != null) {
             if (portfoliodata.getAsset().toUpperCase().equals(asset.toUpperCase())) {
@@ -112,10 +112,10 @@ public class LTAMAsset
       }
    }
 
-   public void addPortfolio(Map<String, LTAMPortfolio> portfolioMap) {
+   public void addPortfolio(Map<String, FIPortfolio> portfolioMap) {
       try {
          if (portfolioMap != null) {
-            for (LTAMPortfolio pdata : portfolioMap.values())
+            for (FIPortfolio pdata : portfolioMap.values())
                addPortfolio(pdata);
          }
       }

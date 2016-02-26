@@ -8,8 +8,8 @@ import com.invmodel.dao.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.dao.rbsa.HolisticModelOptimizer;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.portfolio.data.Portfolio;
-import com.invmodel.position.LinearOptimizer;
 
 public class PortfolioModel
 {

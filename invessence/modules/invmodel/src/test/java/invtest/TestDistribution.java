@@ -4,11 +4,11 @@ import com.invmodel.asset.*;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.inputData.*;
+import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.performance.*;
 import com.invmodel.performance.data.PerformanceData;
 import com.invmodel.portfolio.*;
 import com.invmodel.portfolio.data.*;
-import com.invmodel.position.LinearOptimizer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -71,7 +71,7 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.TRowe");
+      profileData.setTheme("0.VCM_MinR");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
