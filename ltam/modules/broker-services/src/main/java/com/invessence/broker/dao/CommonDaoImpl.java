@@ -69,7 +69,7 @@ public class CommonDaoImpl implements CommonDao
 //         e.printStackTrace();
 //      }
    }
-   public void trancateTable(String tableName) throws SQLException{
+   public void truncateTable(String tableName) throws SQLException{
       String sql = "delete from "+tableName;
       jdbcTemplate.execute(sql);
    }

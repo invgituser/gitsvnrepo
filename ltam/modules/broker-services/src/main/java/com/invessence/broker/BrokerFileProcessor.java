@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.*;
 import org.springframework.stereotype.Component;
-import sun.security.krb5.internal.ccache.CredentialsCache;
 
 /**
  * Created by abhangp on 1/17/2016.
@@ -467,7 +466,7 @@ public class BrokerFileProcessor
 //               logger.info(arr[15]);
 //            }
             logger.info("insertQuery :" + insertQuery);
-            commonDao.trancateTable(fileDetails.getTmp_TableName());
+            commonDao.truncateTable(fileDetails.getTmp_TableName());
             commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
          }else
          {
