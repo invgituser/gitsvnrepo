@@ -28,7 +28,10 @@ public class BrokerFileProcessor
    CommonDao commonDao;
 
    @Autowired
-      EmailCreator emailCreator;
+   EmailCreator emailCreator;
+
+   @Autowired
+   GPGUtil gpgUtil;
 
 //   @Autowired
 //   protected MessageSource resource;
@@ -36,11 +39,12 @@ public class BrokerFileProcessor
 //   protected String getMessage(String code, Object[] object, Locale locale) {
 //      return resource.getMessage(code, object, locale);
 //   }
+
    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
    SimpleDateFormat sdfFileParsing = new SimpleDateFormat("yyyyMMdd");
 
-   String baseDirectory;
-   String eodProcedure;
+   private String baseDirectory;
+   private String eodProcedure;
 
    public BrokerFileProcessor(String _baseDirectory, String _eodProcedure){
       this.baseDirectory=_baseDirectory;
@@ -72,12 +76,12 @@ public class BrokerFileProcessor
                while (hostDetailsItr.hasNext())
                {
                BrokerHostDetails hostDetails = (BrokerHostDetails) hostDetailsItr.next();
-               logger.info(hostDetails.toString());
+               logger.info("Host Details :"+hostDetails.toString());
                List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + hostDetails.getVendor() + "'");
                   if(downloadFilesLst == null && downloadFilesLst.size() == 0)
                   {
-                     mailAlertMsg.append("Download files are not available for broker :"+hostDetails.getVendor());
-                     logger.info("Download files are not available for broker :" + hostDetails.getVendor());
+                     mailAlertMsg.append("Download files details are not available for broker :"+hostDetails.getVendor());
+                     logger.info("Download files details are not available for broker :" + hostDetails.getVendor());
                   }else{
                      try
                      {
@@ -114,14 +118,15 @@ public class BrokerFileProcessor
                               if(mayDownloadFile)
                               {
                                  List<String> fileNameLst = new ArrayList<String>();
-                                 Vector v = channel.ls(downloadFileDetails.getFileName() + "*");
+                                 Vector v = channel.ls(downloadFileDetails.getFileName() +"*"+downloadFileDetails.getFileExtension());
+                                 logger.info("Fetching list of " + downloadFileDetails.getFileName() +"*"+downloadFileDetails.getFileExtension() + " files from server"+v.size());
                                  ChannelSftp.LsEntry entry = null;
                                  for (int i = 0; i < v.size(); i++)
                                  {
                                     entry = (ChannelSftp.LsEntry) v.get(i);
                                     fileNameLst.add(entry.getFilename());
                                  }
-                                 logger.info("Fetching list of " + downloadFileDetails.getFileName() + " files from server");
+                                 logger.info("Fetching list of " + downloadFileDetails.getFileName() + " files from server"+v.size());
                                  if (fileNameLst == null || fileNameLst.size() == 0)
                                  {
                                     mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server for download.\n");
@@ -129,6 +134,7 @@ public class BrokerFileProcessor
                                  }
                                  else
                                  {
+                                    Collections.sort(fileNameLst);
                                     List<String> filesToLoad = getFilesToLoad(fileNameLst, sdfFileParsing.parse("" + dbParamMap.get("BUSINESS_DATE").getValue()), downloadFileDetails.getFileName());
                                     if (filesToLoad == null || filesToLoad.size() == 0)
                                     {
@@ -158,7 +164,7 @@ public class BrokerFileProcessor
                                                 }
                                                 catch (Exception e)
                                                 {
-                                                   logger.error("Creating local directory :" + localDirectory);
+                                                   logger.error("Creating local directory :" + localDirectory +" \n"+e.getMessage());
                                                 }
                                              }
                                              String localFileName = localDirectory + "/" + fileToDownload;
@@ -176,36 +182,66 @@ public class BrokerFileProcessor
                                                 in.close();
                                                 tergetFile.close();
                                                 tergetFile.flush();
-                                                if (downloadFileDetails.getFormat().equalsIgnoreCase("csv"))
+                                                if (downloadFileDetails.getEncryptionMethod() == null || downloadFileDetails.getEncryptionMethod().equals(""))
                                                 {
+                                                   if (downloadFileDetails.getLoadFormat().equalsIgnoreCase("csv"))
+                                                   {
+                                                      try
+                                                      {
+                                                         processCsvFile(localFileName, downloadFileDetails);
+                                                      }
+                                                      catch (Exception e)
+                                                      {
+                                                         logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
+                                                         exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                      }
+                                                   }
+                                                } else
+
+                                                {
+
+                                                   //(InputStream in, OutputStream out, InputStream secKeyIn, InputStream pubKeyIn, char[] pass)
+                                                   String decryptedFileName = localDirectory + "/" + fileToDownload.replace(downloadFileDetails.getFileExtension(),downloadFileDetails.getLoadFormat());
                                                    try
                                                    {
-                                                      processCsvFile(localFileName, downloadFileDetails);
-                                                   }
-                                                   catch (Exception e)
+                                                      gpgUtil.decryptFile(new FileInputStream(localFileName), new FileOutputStream(decryptedFileName));
+                                                      if (downloadFileDetails.getLoadFormat().equalsIgnoreCase("csv"))
+                                                      {
+                                                         try
+                                                         {
+                                                            processCsvFile(decryptedFileName, downloadFileDetails);
+                                                            deleteDecryptedFile(decryptedFileName);
+                                                         }
+                                                         catch (Exception e)
+                                                         {
+                                                            logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
+                                                            exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                         }
+                                                      }
+                                                   }catch(Exception e){
+                                                      e.printStackTrace();
+                                                   }finally
                                                    {
-                                                      logger.error("While " + fileToDownload + " csv file processing");
-                                                      exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                      deleteDecryptedFile(decryptedFileName);
                                                    }
+
                                                 }
-                                             }
-                                             catch (Exception e)
+                                             }catch (Exception e)
                                              {
-                                                logger.error("While " + fileToDownload + " file reading into local directory");
+                                                logger.error("While " + fileToDownload + " file reading into local directory \n"+e.getMessage());
                                                 exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping into local directory");
                                              }
 
                                           }
                                           catch (Exception e)
                                           {
-                                             logger.error("While " + fileToDownload + " file coping from server");
+                                             logger.error("While " + fileToDownload + " file coping from server \n"+e.getMessage());
                                              exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping from server");
                                           }
                                        }
 
                                     }
                                  }
-
 
                                  if (fileNameLst == null || fileNameLst.size() == 0){
                                     logger.info(downloadFileDetails.getFileName() + " files are not available on server to delete.");
@@ -244,12 +280,12 @@ public class BrokerFileProcessor
                            session.disconnect();
 
                         }catch (Exception e){
-                           logger.error("Source directory not available on Server");
+                           logger.error("Source directory not available on Server \n"+e.getMessage());
                            logger.error(e.getStackTrace());
                         }
 
                      }catch (Exception e){
-                        logger.error("While connecting to host server");
+                        logger.error("While connecting to host server \n"+e.getMessage());
                         logger.error(e.getStackTrace());
                      }
                   }
@@ -257,8 +293,8 @@ public class BrokerFileProcessor
             }
          }
       } catch (Exception e) {
-         logger.error("While processing files");
-         logger.error(e.getStackTrace());
+         logger.error("While processing files \n"+e.getMessage());
+         logger.error(CommonUtil.stackTraceToString(e.getStackTrace()));
       }
       if( mailAlertMsg.length() > 0)
       {
@@ -269,7 +305,7 @@ public class BrokerFileProcessor
             //emailCreator.sendToSupport("", "Broker File Upload Process", mailAlertMsg.toString());
          }catch (Exception e)
          {
-            logger.error("While email processing");
+            logger.error("While email processing \n"+e.getMessage());
             logger.error(e.getStackTrace());
          }
       }else
@@ -287,7 +323,17 @@ public class BrokerFileProcessor
          }
       }
    }
-
+   private void deleteDecryptedFile(String fileName){
+      try{
+         File fileTodelete=new File(fileName);
+         if(fileTodelete.exists()){
+            logger.info("Deleting decrypted file :"+fileName);
+            logger.info(fileTodelete.delete());
+         }
+      }catch(Exception e){
+         e.printStackTrace();
+      }
+   }
    private List<String> getFilesToLoad(List<String> fileNameLst, Date businessDate, String fileName){
       List<String> fileLstToLoad = null;
       logger.info("Checking "+fileName+" files to load into DB for business date :"+businessDate);
@@ -307,13 +353,13 @@ public class BrokerFileProcessor
                }
             }catch (Exception e)
             {
-               logger.error("Date parsing issue");
+               logger.error("Date parsing issue \n"+e.getMessage());
                logger.error(e.getStackTrace());
             }
          }
 
       }catch (Exception e){
-         logger.error("Checking "+fileName+" files to load into DB for business date :"+businessDate);
+         logger.error("Checking "+fileName+" files to load into DB for business date :"+businessDate+"\n"+e.getMessage());
          logger.error(e.getStackTrace());
       }
       return fileLstToLoad;
@@ -347,7 +393,7 @@ public class BrokerFileProcessor
          }
 
       }catch (Exception e){
-         logger.error("Checking "+fileName+" files to delete from server before business date :"+lastDate);
+         logger.error("Checking "+fileName+" files to delete from server before business date :"+lastDate+"\n"+e.getMessage());
          logger.error(e.getStackTrace());
       }
       return filesToDelete;
@@ -364,8 +410,10 @@ public class BrokerFileProcessor
          StringBuilder sb = null;
          br = new BufferedReader(new FileReader(csvFile));
          List<String[]> inLst = new LinkedList<String[]>();
+         int counter=0;
          while ((line = br.readLine()) != null)
          {
+
             if (!line.equals(""))
             {
                String[] lineArr = line.split(cvsSplitBy);
@@ -373,16 +421,22 @@ public class BrokerFileProcessor
                {
                   if (!lineArr[fileDetails.getKeyData()].trim().equals("") || lineArr[fileDetails.getKeyData()].trim() != null)
                   {
-                     inLst.add(lineArr);
+                     if(counter==0 && fileDetails.getContainsheader().equalsIgnoreCase("Y"))
+                     {
+                        logger.info("Avoiding first row to add in db because it's header");
+                     }else{
+                        inLst.add(lineArr);
+                     }
+                     counter++;
                   }
                }
             }
          }
-         if(fileDetails.getContainsheader().equalsIgnoreCase("Y") && inLst !=null && inLst.size() > 0)
-         {
-            logger.info("Removing header row of "+fileDetails.getFileName()+" file");
-            inLst.remove(0);
-         }
+//         if(fileDetails.getContainsheader().equalsIgnoreCase("Y") && inLst !=null && inLst.size() > 0)
+//         {
+//            logger.info("Removing header row of "+fileDetails.getFileName()+" file");
+//            inLst.remove(0);
+//         }
          if(inLst.size()>0)
          {
             StringBuilder insertQuery=new StringBuilder("insert into "+fileDetails.getTmp_TableName()+" values (");
@@ -390,6 +444,28 @@ public class BrokerFileProcessor
             for(int i=1; i<=inColLen; i++){
                insertQuery.append("?"+(i!=inColLen?",":")"));
             }
+            if(fileDetails.getEncColumns()!=null)
+            {
+               String []encColumns=fileDetails.getEncColumns().split(",");
+               for (int i = 0; i < inLst.size(); i++)
+               {
+                  String[] arr = (String[]) inLst.get(i);
+//                  logger.info("-----------" + i);
+                  for(int j=0; j<encColumns.length; j++){
+                     int val=Integer.parseInt(encColumns[j])-1;
+//                     logger.info("-----------val" + val);
+                        arr[val] = MsgDigester.getMessageDigest(arr[val]);
+                  }
+                  inLst.set(i, arr);
+               }
+            }
+
+//            Iterator itr=inLst.iterator();
+//            while(itr.hasNext()){
+//               logger.info("-----------");
+//               String []arr= (String[]) itr.next();
+//               logger.info(arr[15]);
+//            }
             logger.info("insertQuery :" + insertQuery);
             commonDao.trancateTable(fileDetails.getTmp_TableName());
             commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());

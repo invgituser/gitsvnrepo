@@ -12,8 +12,8 @@ public class Main {
       try {
 
          ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("brokerBeanConf.xml");
-         BrokerFileProcessor pp = (BrokerFileProcessor)context.getBean("brokerFileProcessor");
-         pp.process();
+         BrokerFileProcessor bfp = (BrokerFileProcessor)context.getBean("brokerFileProcessor");
+         bfp.process();
 
          context.close();
       } catch (Exception e) {

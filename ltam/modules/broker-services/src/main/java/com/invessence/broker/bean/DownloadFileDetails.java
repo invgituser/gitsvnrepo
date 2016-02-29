@@ -13,39 +13,22 @@ public class DownloadFileDetails
    private String available;
    private String sourcePath;
    private String downloadDir;
-   private String format;
+   private String loadFormat;
    private String required;
    private String canBeEmpty;
    private String postProcess;
    private String postInstruction;
    private String containsheader;
    private int keyData;
+   private String encColumns;
+   private String fileExtension;
+   private String encryptionMethod;
 
 
    private boolean isEmpty;
    private boolean isCopied;
    private boolean isError;
    private String errorMsg;
-
-   public int getKeyData()
-   {
-      return keyData;
-   }
-
-   public void setKeyData(int keyData)
-   {
-      this.keyData = keyData;
-   }
-
-   public String getTmp_TableName()
-   {
-      return tmp_TableName;
-   }
-
-   public void setTmp_TableName(String tmp_TableName)
-   {
-      this.tmp_TableName = tmp_TableName;
-   }
 
    public String getActive()
    {
@@ -77,6 +60,16 @@ public class DownloadFileDetails
       this.canBeEmpty = canBeEmpty;
    }
 
+   public String getContainsheader()
+   {
+      return containsheader;
+   }
+
+   public void setContainsheader(String containsheader)
+   {
+      this.containsheader = containsheader;
+   }
+
    public String getDownloadDir()
    {
       return downloadDir;
@@ -85,6 +78,46 @@ public class DownloadFileDetails
    public void setDownloadDir(String downloadDir)
    {
       this.downloadDir = downloadDir;
+   }
+
+   public String getEncColumns()
+   {
+      return encColumns;
+   }
+
+   public void setEncColumns(String encColumns)
+   {
+      this.encColumns = encColumns;
+   }
+
+   public String getEncryptionMethod()
+   {
+      return encryptionMethod;
+   }
+
+   public void setEncryptionMethod(String encryptionMethod)
+   {
+      this.encryptionMethod = encryptionMethod;
+   }
+
+   public String getErrorMsg()
+   {
+      return errorMsg;
+   }
+
+   public void setErrorMsg(String errorMsg)
+   {
+      this.errorMsg = errorMsg;
+   }
+
+   public String getFileExtension()
+   {
+      return fileExtension;
+   }
+
+   public void setFileExtension(String fileExtension)
+   {
+      this.fileExtension = fileExtension;
    }
 
    public String getFileName()
@@ -97,14 +130,54 @@ public class DownloadFileDetails
       this.fileName = fileName;
    }
 
-   public String getFormat()
+   public boolean isCopied()
    {
-      return format;
+      return isCopied;
    }
 
-   public void setFormat(String format)
+   public void setCopied(boolean copied)
    {
-      this.format = format;
+      isCopied = copied;
+   }
+
+   public boolean isEmpty()
+   {
+      return isEmpty;
+   }
+
+   public void setEmpty(boolean empty)
+   {
+      isEmpty = empty;
+   }
+
+   public boolean isError()
+   {
+      return isError;
+   }
+
+   public void setError(boolean error)
+   {
+      isError = error;
+   }
+
+   public int getKeyData()
+   {
+      return keyData;
+   }
+
+   public void setKeyData(int keyData)
+   {
+      this.keyData = keyData;
+   }
+
+   public String getLoadFormat()
+   {
+      return loadFormat;
+   }
+
+   public void setLoadFormat(String loadFormat)
+   {
+      this.loadFormat = loadFormat;
    }
 
    public String getPostInstruction()
@@ -147,6 +220,16 @@ public class DownloadFileDetails
       this.sourcePath = sourcePath;
    }
 
+   public String getTmp_TableName()
+   {
+      return tmp_TableName;
+   }
+
+   public void setTmp_TableName(String tmp_TableName)
+   {
+      this.tmp_TableName = tmp_TableName;
+   }
+
    public String getTmpTableName()
    {
       return tmpTableName;
@@ -167,56 +250,6 @@ public class DownloadFileDetails
       this.vendor = vendor;
    }
 
-   public String getErrorMsg()
-   {
-      return errorMsg;
-   }
-
-   public void setErrorMsg(String errorMsg)
-   {
-      this.errorMsg = errorMsg;
-   }
-
-   public boolean isCopied()
-   {
-      return isCopied;
-   }
-
-   public void setIsCopied(boolean isCopied)
-   {
-      this.isCopied = isCopied;
-   }
-
-   public boolean isEmpty()
-   {
-      return isEmpty;
-   }
-
-   public void setIsEmpty(boolean isEmpty)
-   {
-      this.isEmpty = isEmpty;
-   }
-
-   public boolean isError()
-   {
-      return isError;
-   }
-
-   public void setIsError(boolean isError)
-   {
-      this.isError = isError;
-   }
-
-   public String getContainsheader()
-   {
-      return containsheader;
-   }
-
-   public void setContainsheader(String containsheader)
-   {
-      this.containsheader = containsheader;
-   }
-
    @Override
    public String toString()
    {
@@ -229,12 +262,16 @@ public class DownloadFileDetails
          ", available='" + available + '\'' +
          ", sourcePath='" + sourcePath + '\'' +
          ", downloadDir='" + downloadDir + '\'' +
-         ", format='" + format + '\'' +
+         ", loadFormat='" + loadFormat + '\'' +
          ", required='" + required + '\'' +
          ", canBeEmpty='" + canBeEmpty + '\'' +
          ", postProcess='" + postProcess + '\'' +
          ", postInstruction='" + postInstruction + '\'' +
          ", containsheader='" + containsheader + '\'' +
+         ", keyData=" + keyData +
+         ", encColumns='" + encColumns + '\'' +
+         ", fileExtension='" + fileExtension + '\'' +
+         ", encryptionMethod='" + encryptionMethod + '\'' +
          ", isEmpty=" + isEmpty +
          ", isCopied=" + isCopied +
          ", isError=" + isError +

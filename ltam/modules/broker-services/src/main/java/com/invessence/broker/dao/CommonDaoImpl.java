@@ -39,7 +39,10 @@ public class CommonDaoImpl implements CommonDao
    {
       List<DownloadFileDetails> lst = null;
       logger.info("Fetching download files");
-      String sql = "SELECT vendor, filename, active, tmp_tableName, available, sourcepath, downloaddir, format, required, canbeempty, postProcess, postInstruction,containsheader,keyData FROM download_files "+where;
+      //String sql = "SELECT vendor, filename, active, tmp_tableName, available, sourcepath, downloaddir, format, required, canbeempty, postProcess, postInstruction,containsheader,keyData FROM download_files "+where;
+      String sql = "Select vendor, filename, active, tmp_tableName, available, sourcepath, downloaddir, loadFormat, required, " +
+         "canbeempty, postProcess, postInstruction, containsheader, keyData, encColumns, fileExtension, encryptionMethod " +
+         "FROM download_files "+where;
       lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DownloadFileDetails.class));
       return lst;
    }
