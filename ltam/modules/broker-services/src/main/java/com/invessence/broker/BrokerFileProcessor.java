@@ -187,12 +187,13 @@ public class BrokerFileProcessor
                                                    {
                                                       try
                                                       {
-                                                         processCsvFile(localFileName, downloadFileDetails);
+                                                         processCsvFile(mailAlertMsg, localFileName, downloadFileDetails);
                                                       }
                                                       catch (Exception e)
                                                       {
                                                          logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
-                                                         exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                         //exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                         mailAlertMsg.append("Issue " + fileToDownload + " csv file processing \n");
                                                       }
                                                    }
                                                 } else
@@ -208,13 +209,14 @@ public class BrokerFileProcessor
                                                       {
                                                          try
                                                          {
-                                                            processCsvFile(decryptedFileName, downloadFileDetails);
+                                                            processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails);
                                                             deleteDecryptedFile(decryptedFileName);
                                                          }
                                                          catch (Exception e)
                                                          {
                                                             logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
-                                                            exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                            //exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                            mailAlertMsg.append("Issue " + fileToDownload + " csv file processing \n");
                                                          }
                                                       }
                                                    }catch(Exception e){
@@ -228,14 +230,16 @@ public class BrokerFileProcessor
                                              }catch (Exception e)
                                              {
                                                 logger.error("While " + fileToDownload + " file reading into local directory \n"+e.getMessage());
-                                                exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping into local directory");
+                                                mailAlertMsg.append("While " + fileToDownload + " file reading into local directory \n"+e.getMessage());
+                                                //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping into local directory");
                                              }
 
                                           }
                                           catch (Exception e)
                                           {
                                              logger.error("While " + fileToDownload + " file coping from server \n"+e.getMessage());
-                                             exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping from server");
+                                             mailAlertMsg.append("While " + fileToDownload + " file coping from server \n"+e.getMessage());
+                                             //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping from server");
                                           }
                                        }
 
@@ -294,40 +298,43 @@ public class BrokerFileProcessor
       } catch (Exception e) {
          logger.error("While processing files \n"+e.getMessage());
          logger.error(CommonUtil.stackTraceToString(e.getStackTrace()));
-      }
-      if( mailAlertMsg.length() > 0)
+      }finally
       {
          logger.info("MailAlertMsg :"+ mailAlertMsg);
-         try
+         if( mailAlertMsg.length() > 0)
          {
-            logger.info("Sending email to support team");
-            //emailCreator.sendToSupport("", "Broker File Upload Process", mailAlertMsg.toString());
-         }catch (Exception e)
+            try
+            {
+               logger.info("Sending email to support team");
+               //emailCreator.sendToSupport("", "Broker File Upload Process", mailAlertMsg.toString());
+            }catch (Exception e)
+            {
+               logger.error("While email processing \n"+e.getMessage());
+               logger.error(e.getStackTrace());
+            }
+         }else
          {
-            logger.error("While email processing \n"+e.getMessage());
-            logger.error(e.getStackTrace());
-         }
-      }else
-      {
-         try
-         {
-            logger.info("Calling EOD process");
-            commonDao.callEODProcess(eodProcedure);
-         }
-         catch (Exception e)
-         {
-            exceptionHandler(e, mailAlertMsg, "While calling EOD process");
-            logger.error("Calling EOD process");
-            logger.error(e.getStackTrace());
+            try
+            {
+               logger.info("Calling EOD process");
+               commonDao.callEODProcess(eodProcedure);
+            }
+            catch (Exception e)
+            {
+               //exceptionHandler(e, mailAlertMsg, "While calling EOD process");
+               //mailAlertMsg.append("While calling EOD process \n"+e.getMessage());
+               logger.error("Calling EOD process \n"+e.getMessage());
+               logger.error(e.getStackTrace());
+            }
          }
       }
+
    }
    private void deleteDecryptedFile(String fileName){
       try{
          File fileTodelete=new File(fileName);
          if(fileTodelete.exists()){
-            logger.info("Deleting decrypted file :"+fileName);
-            logger.info(fileTodelete.delete());
+            logger.info("Deleting decrypted file :"+fileName+", isFileDeleted:"+fileTodelete.delete());
          }
       }catch(Exception e){
          e.printStackTrace();
@@ -398,7 +405,7 @@ public class BrokerFileProcessor
       return filesToDelete;
    }
 
-   private void processCsvFile(String csvFile,DownloadFileDetails fileDetails)throws FileNotFoundException, IOException, Exception{
+   private void processCsvFile(StringBuilder mailAlertMsg, String csvFile,DownloadFileDetails fileDetails){
 
       BufferedReader br = null;
       String line = "";
@@ -407,74 +414,113 @@ public class BrokerFileProcessor
       try
       {
          StringBuilder sb = null;
-         br = new BufferedReader(new FileReader(csvFile));
-         List<String[]> inLst = new LinkedList<String[]>();
-         int counter=0;
-         while ((line = br.readLine()) != null)
+         try
          {
-
-            if (!line.equals(""))
+            br = new BufferedReader(new FileReader(csvFile));
+            List<String[]> inLst = new LinkedList<String[]>();
+            int counter=0;
+            while ((line = br.readLine()) != null)
             {
-               String[] lineArr = line.split(cvsSplitBy);
-               if(lineArr.length>fileDetails.getKeyData())
+               if (!line.equals(""))
                {
-                  if (!lineArr[fileDetails.getKeyData()].trim().equals("") || lineArr[fileDetails.getKeyData()].trim() != null)
+                  String[] lineArr = line.split(cvsSplitBy);
+                  if(lineArr.length>fileDetails.getKeyData())
                   {
-                     if(counter==0 && fileDetails.getContainsheader().equalsIgnoreCase("Y"))
+                     if (!lineArr[fileDetails.getKeyData()].trim().equals("") || lineArr[fileDetails.getKeyData()].trim() != null)
                      {
-                        logger.info("Avoiding first row to add in db because it's header");
-                     }else{
-                        inLst.add(lineArr);
+                        if(counter==0 && fileDetails.getContainsheader().equalsIgnoreCase("Y"))
+                        {
+                           logger.info("Avoiding first row to add in db because it's header");
+                        }else{
+                           inLst.add(lineArr);
+                        }
+                        counter++;
                      }
-                     counter++;
                   }
                }
             }
+            if(inLst.size()>0)
+            {
+               StringBuilder insertQuery=new StringBuilder("insert into "+fileDetails.getTmp_TableName()+" values (");
+               int inColLen=inLst.get(0).length;
+               for(int i=1; i<=inColLen; i++){
+                  insertQuery.append("?"+(i!=inColLen?",":")"));
+               }
+               if(fileDetails.getEncColumns()==null){
+                  logger.info("Encryption columns are not set");
+               }else if(fileDetails.getEncColumns()!=null || !fileDetails.getEncColumns().trim().equals(""))
+               {
+                  String []encColumns=fileDetails.getEncColumns().split(",");
+                  for (int i = 0; i < inLst.size(); i++)
+                  {
+                     String[] arr = (String[]) inLst.get(i);
+                     for(int j=0; j<encColumns.length; j++){
+                        try
+                        {
+                           int val = Integer.parseInt(encColumns[j]) - 1;
+                           logger.info(encColumns[j]+":"+arr.length+":"+val);
+                           if(val<=arr.length)
+                           {
+                              arr[val] = MsgDigester.getMessageDigest(arr[val]);
+                           }else{
+                              logger.info("Encryption columns value :"+encColumns[j]+"is not valid \n");
+                           }
+                        }catch(Exception e){
+                           //mailAlertMsg.append("Encryption columns value :"+encColumns[j]+"is not valid \n"+e.getMessage());
+                           logger.error("Encryption columns value :"+encColumns[j]+"is not valid"+e.getMessage());
+                        }
+                     }
+                     inLst.set(i, arr);
+                  }
+               }
+               logger.info("insertQuery :" + insertQuery);
+               try
+               {
+                  commonDao.truncateTable(fileDetails.getTmp_TableName());
+               }catch (Exception e)
+               {
+                  mailAlertMsg.append("While delete data from table "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+                  logger.error("While delete data from table "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+               }
+               try
+               {
+                  commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
+               }catch (Exception e)
+               {
+                  mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+                  logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+               }
+
+            }else
+            {
+               logger.info(fileDetails.getFileName()+" file is empty");
+               if(fileDetails.getCanBeEmpty().equalsIgnoreCase("N"))
+               {
+                  mailAlertMsg.append(csvFile + " file is empty \n");
+               }
+//            logger.info(fileDetails.getFileName()+" file is empty");
+//            if(fileDetails.getContainsheader().equalsIgnoreCase("N")) {
+//               throw new FileEmptyException(fileDetails.getFileName() + " file is empty");
+//            }
+            }
          }
+         catch (FileNotFoundException e)
+         {
+            mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+            logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+         }
+         catch (IOException e)
+         {
+            mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+            logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+         }
+
 //         if(fileDetails.getContainsheader().equalsIgnoreCase("Y") && inLst !=null && inLst.size() > 0)
 //         {
 //            logger.info("Removing header row of "+fileDetails.getFileName()+" file");
 //            inLst.remove(0);
 //         }
-         if(inLst.size()>0)
-         {
-            StringBuilder insertQuery=new StringBuilder("insert into "+fileDetails.getTmp_TableName()+" values (");
-            int inColLen=inLst.get(0).length;
-            for(int i=1; i<=inColLen; i++){
-               insertQuery.append("?"+(i!=inColLen?",":")"));
-            }
-            if(fileDetails.getEncColumns()!=null)
-            {
-               String []encColumns=fileDetails.getEncColumns().split(",");
-               for (int i = 0; i < inLst.size(); i++)
-               {
-                  String[] arr = (String[]) inLst.get(i);
-//                  logger.info("-----------" + i);
-                  for(int j=0; j<encColumns.length; j++){
-                     int val=Integer.parseInt(encColumns[j])-1;
-//                     logger.info("-----------val" + val);
-                        arr[val] = MsgDigester.getMessageDigest(arr[val]);
-                  }
-                  inLst.set(i, arr);
-               }
-            }
 
-//            Iterator itr=inLst.iterator();
-//            while(itr.hasNext()){
-//               logger.info("-----------");
-//               String []arr= (String[]) itr.next();
-//               logger.info(arr[15]);
-//            }
-            logger.info("insertQuery :" + insertQuery);
-            commonDao.truncateTable(fileDetails.getTmp_TableName());
-            commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
-         }else
-         {
-            logger.info(fileDetails.getFileName()+" file is empty");
-            if(fileDetails.getContainsheader().equalsIgnoreCase("N")) {
-               throw new FileEmptyException(fileDetails.getFileName() + " file is empty");
-            }
-         }
       }finally {
          if (br != null) {try { br.close(); } catch (IOException e) {  /*e.printStackTrace();*/}}
       }
@@ -489,47 +535,47 @@ public class BrokerFileProcessor
 //   }
 
 
-   public void exceptionHandler(Exception ex, StringBuilder mailAlertMsg, String process){
-      Map<String, Object> errorDetails=new HashMap<String, Object>();
-      try
-      {
-
-         logger.error("Exception Class :" + ex.getClass());
-         //ex.printStackTrace();
-         logger.error(ex.getMessage());
-         logger.error(CommonUtil.stackTraceToString(ex.getStackTrace()));
-
-         if(ex instanceof FileEmptyException)
-         {
-            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
-            logger.error(process+" : " + ex.getMessage());
-         }else  if(ex instanceof FileNotFoundException)
-         {
-            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
-            logger.error(process+" : " + ex.getMessage());
-         }else if(ex instanceof MySQLIntegrityConstraintViolationException)
-         {
-            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
-            logger.error(process+" : " + ex.getMessage());
-         }else if(ex instanceof BadSqlGrammarException)
-         {
-            mailAlertMsg.append(process + " : " + ex.getMessage() + "\n");
-            logger.error(process + " : " + ex.getMessage());
-         }else if(ex instanceof CannotGetJdbcConnectionException)
-         {
-            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
-            logger.error(process+" : " + ex.getMessage());
-         }else
-         {
-            mailAlertMsg.append(process+" : " +  ex.getMessage() + "\n");
-            logger.error(process+" : " + ex.getMessage());
-         }
-      }catch(Exception e){
-         mailAlertMsg.append(process + " : " + ex.getMessage() + "\n");
-         logger.error(process + " : " + ex.getMessage());
-         //ex.printStackTrace();
-      }
-   }
+//   public void exceptionHandler(Exception ex, StringBuilder mailAlertMsg, String process){
+//      Map<String, Object> errorDetails=new HashMap<String, Object>();
+//      try
+//      {
+//
+//         logger.error("Exception Class :" + ex.getClass());
+//         //ex.printStackTrace();
+//         logger.error(ex.getMessage());
+//         logger.error(CommonUtil.stackTraceToString(ex.getStackTrace()));
+//
+//         if(ex instanceof FileEmptyException)
+//         {
+//            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
+//            logger.error(process+" : " + ex.getMessage());
+//         }else  if(ex instanceof FileNotFoundException)
+//         {
+//            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
+//            logger.error(process+" : " + ex.getMessage());
+//         }else if(ex instanceof MySQLIntegrityConstraintViolationException)
+//         {
+//            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
+//            logger.error(process+" : " + ex.getMessage());
+//         }else if(ex instanceof BadSqlGrammarException)
+//         {
+//            mailAlertMsg.append(process + " : " + ex.getMessage() + "\n");
+//            logger.error(process + " : " + ex.getMessage());
+//         }else if(ex instanceof CannotGetJdbcConnectionException)
+//         {
+//            mailAlertMsg.append(process+" : " + ex.getMessage() + "\n");
+//            logger.error(process+" : " + ex.getMessage());
+//         }else
+//         {
+//            mailAlertMsg.append(process+" : " +  ex.getMessage() + "\n");
+//            logger.error(process+" : " + ex.getMessage());
+//         }
+//      }catch(Exception e){
+//         mailAlertMsg.append(process + " : " + ex.getMessage() + "\n");
+//         logger.error(process + " : " + ex.getMessage());
+//         //ex.printStackTrace();
+//      }
+//   }
    public static String unescape(String data)
    {
       StringBuilder buffer = new StringBuilder(data.length());
