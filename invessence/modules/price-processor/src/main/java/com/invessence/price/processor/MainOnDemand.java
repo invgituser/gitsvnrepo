@@ -9,8 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Created by abhangp on 3/4/2016.
  */
-public class MainOnDemand
-{
+public class MainOnDemand{
    public static void main (String[] args)
    {
       try {
@@ -19,11 +18,8 @@ public class MainOnDemand
 
       //  prompt for the user's name
       System.out.print("Enter Ticker name to process onDemand: ");
-
       // get their input as a String
       String tickerName = scanner.next();
-
-
       if(tickerName==null || tickerName.equals("")){
          System.out.print("Please Enter Ticker name for onDemand process");
       }else
