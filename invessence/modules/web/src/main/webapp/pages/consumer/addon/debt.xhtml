@@ -8,12 +8,12 @@
 
         <div class="Container100 Responsive50">
             <div class="ContainerIndent">
-                <h:panelGrid columns="2" layout="grid" class="FormContent"
+                <h:panelGrid columns="2" layout="grid" class="FormContent fltleft"
                              style="border:0px !important; background:none;margin-bottom:10px" cellpadding="5">
-                    <div class="TexAlLeft Wid90">
+                    <div class="TexAlLeft">
                         Number of Dependents
                     </div>
-                        <p:selectOneRadio value="#{cepb.dependent}" styleClass="Wid90">
+                        <p:selectOneRadio value="#{cepb.dependent}" stytleclass="fltr">
                             <p:ajax listener="#{cepb.onChangeValue}"
                                     update=":ceForm:workArea, :ceForm:graphArea"/>
                             <f:selectItem itemLabel="0" itemValue="0"/>

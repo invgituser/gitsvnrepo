@@ -19,6 +19,10 @@
   font-weight: normal;
   font-style: normal;
 }
+
+
+
+
 /* Component containers
 ----------------------------------*/
 .ui-widget {
@@ -2556,7 +2560,7 @@ hr.ui-widget-header {
 }
 /*Style For Ribbon And TabView --------------------------------------------------------------------------------------*/
 .ui-tabs .ui-tabs-panel {
-  padding: 10px !important;
+  padding: 10px 5px !important;
 }
 .ui-tabs-top {
   border: solid 1px #e0e0e0;
@@ -2654,10 +2658,10 @@ hr.ui-widget-header {
   margin-top: 8px !important;
 }
 .ui-tabs-top .ui-tabs-nav li a {
-  color: #546e7a !important;
+  color: #546e7a ;
   font-size: 17px;
-  padding: 14px 1em !important;
-  border-radius: 0px !important;
+  padding:10px;
+  border-radius: 0px ;
   font-family: 'robotolight';
 }
 .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected,
@@ -5645,4 +5649,169 @@ hr.ui-widget-header {
 .Yellow {
   color: #F7D100;
 }
+
+/* ROHIT's CSS */
+.ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {font-size:14px;}
+
+.h1 {height:85px;}
+
+.invest {text-align:right;}
+.tp1 {margin-top:20px;}
+.ui-panelgrid .ui-grid-responsive .ui-panelgrid-cell .brd {border-width:1px !important; border-style:solid !important;}
+
+
+@media (min-width: 800px) and (max-width:960px) {
+.num-text-align{text-align:left;}
+  .Fright{text-align:left;}
+  /* .ui-tabs .ui-tabs-nav li{width:100%!important;} */
+  .ui-tabs .ui-tabs-nav li a{width:100%!important; padding:10px 15px!important; font-size:14px!important;}
+  .ContainerIndent{padding:0!important;}
+  .layout-portlets-box{padding:1%!important;  width: 98%!important;}
+  .ui-fieldset, .ui-fieldset .ui-fieldset-legend{padding:0.3em!important;}
+  #layout-portlets-cover {display: block;  margin: 0 auto;  width: 100%;}
+  .h1 {height:50px;}
+  .t1 {margin-top:10px;}
+  .l1 {margin-left:-25px; margin-top:15px;}
+  .head {font-size:20px;}	
+	.tp1 {margin-top:15px;}	
+	.ui-panelgrid {font-size:14px;}
+	
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 640px) and (max-width:800px) {
+
+.num-text-align{text-align:left;}
+
+  .Fright{text-align:left;}
+  /* .ui-tabs .ui-tabs-nav li{width:100%!important;} */
+  .ui-tabs .ui-tabs-nav li a{width:100%!important; padding:10px 15px!important; font-size:14px!important;}
+  .ContainerIndent{padding:0!important;}
+  .layout-portlets-box{padding:1%!important;  width: 98%!important;}
+  .ui-fieldset, .ui-fieldset .ui-fieldset-legend{padding:0.3em!important;}
+  #layout-portlets-cover {display: block;  margin: 0 auto;  width: 100%;}
+  .h1 {height:50px;}
+  .t1 {margin-top:10px;}
+  .l1 {margin-left:-25px; margin-top:15px;}
+  .head {font-size:20px;}	
+	.tp1 {margin-top:15px;}	
+	.ui-panelgrid {font-size:14px;}
+	
+	  
+	 
+
+
+}
+
+
+/* Landscape phone to portrait tablet */
+@media (min-width:480px) and (max-width: 640px) {
+	.num-text-align{text-align:left;}
+  .hide-mobile{display:none;}
+  .Fright{text-align:left;}
+  /* .ui-tabs .ui-tabs-nav li{width:100%!important;} */
+  .ui-tabs .ui-tabs-nav li a{width:100%!important; padding:10px 10px!important; font-size:14px!important;}
+  .ContainerIndent{padding:0!important;}
+  .layout-portlets-box{padding:1%!important;  width: 98% !important;}
+  .ui-fieldset, .ui-fieldset .ui-fieldset-legend{padding:0.3em !important;}
+  #layout-portlets-cover {display: block;  margin: 0 auto;  width: 100%;}
+  .h1 {height:50px;}
+  .t1 {margin-top:10px;}
+  .l1 {margin-left:-30px; margin-top:15px;}
+  .invest {text-align:left;}
+   .head {font-size:20px !important;}
+   .tp1 {margin-top:15px;}
+   .tbl_hide {display:none;}
+   .ui-panelgrid {font-size:14px;}
+	
+
+}
+
+@media (min-width:360px) and (max-width: 480px) {
+	.num-text-align{text-align:left;}
+  .hide-mobile{display:none;}
+  /* .ui-tabs .ui-tabs-nav li{width:100%!important;} */
+  .ui-tabs .ui-tabs-nav li a{width:100%!important; padding:10px 3px!important; font-size:12px!important;}
+  .ui-tabs.ui-tabs-top > .ui-tabs-nav{padding:0;}
+  .ContainerIndent{padding:0;}
+  .layout-portlets-box{padding:0%!important;  width:100%!important;}
+  .ContainerIndent{padding:0!important;}
+  .ui-fieldset, .ui-fieldset .ui-fieldset-legend{padding:0.3em!important;}
+  .h1 {height:50px;}
+  .t1 {margin-top:10px;}
+    .l1 {margin-left:-20px; margin-top:15px;}
+	.ui-panelgrid {font-size:13px !important;}
+	.ui-inputfield {font-size:13px !important;}
+	.ui-datatable table tbody tr td {font-size:13px !important;}
+	.ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {font-size:13px !important;}
+	.ui-radiobutton .ui-radiobutton-box {width:10px !important; height:10px !important;}
+  	.ui-radiobutton .ui-state-active .ui-icon-bullet, .ui-radiobutton .ui-state-focus .ui-icon-bullet {width:10px !important; height:10px !important;}
+  	.ui-selectoneradio label {margin: 1px 12px 0px 0px !important;}
+  	.fltleft td {float:left;}
+  	 .invest {text-align:left;}
+  	 .head {font-size:18px !important;}
+  	 .tp1 {margin-top:0px;}
+  	 .tbl_hide {display:none;}
+}
+
+
+@media (min-width:320px) and (max-width: 360px) {
+	.num-text-align{text-align:left;}
+  .hide-mobile{display:none;}
+  /* .ui-tabs .ui-tabs-nav li{width:100%!important;} */
+  .ui-tabs .ui-tabs-nav li a{width:100%!important; padding:10px 3px!important; font-size:12px!important;}
+  .ui-tabs.ui-tabs-top > .ui-tabs-nav{padding:0;}
+  .ContainerIndent{padding:0;}
+  .layout-portlets-box{padding:0%!important;  width:100%!important;}
+
+  .ContainerIndent{padding:0!important;}
+  .ui-fieldset, .ui-fieldset .ui-fieldset-legend{padding:0.3em!important;}
+  .h1 {height:50px;}
+  .t1 {margin-top:5px;}
+  .l1 {margin-left:-20px; margin-top:15px;}
+   .ui-panelgrid {font-size:13px !important;}
+   .ui-inputfield {font-size:13px !important;}
+   .ui-datatable table tbody tr td {font-size:12px !important;}
+   .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {font-size:12px !important;}
+   .ui-tabs-panels {font-size:13px !important;}
+   .ui-selectoneradio label {font-size:12px !important;}
+   .ui-radiobutton .ui-radiobutton-box {width:10px !important; height:10px !important;}
+   .ui-radiobutton .ui-state-active .ui-icon-bullet, .ui-radiobutton .ui-state-focus .ui-icon-bullet {width:10px !important; height:10px !important;}
+   .ui-selectoneradio label {margin: 4px 10px 0px 0px !important;}
+   .fltleft td {float:left;}
+    .invest {text-align:left;}
+    .head {font-size:18px !important;}
+     .tp1 {margin-top:0px;}
+     .tbl_hide {display:none;}
+   
+}
+
+@media (min-width:200px) and (max-width: 320px) {
+	.num-text-align{text-align:left;}
+  .hide-mobile{display:none;}
+  /* .ui-tabs .ui-tabs-nav li{width:100%!important;} */
+  .ui-tabs .ui-tabs-nav li a{width:100%!important; padding:10px 3px!important; font-size:12px!important;}
+  .ui-tabs.ui-tabs-top > .ui-tabs-nav{padding:0;}
+  .ContainerIndent{padding:0;}
+  .layout-portlets-box{padding:0%!important;  width:100%!important;}
+
+  .ContainerIndent{padding:0!important;}
+  .ui-fieldset, .ui-fieldset .ui-fieldset-legend{padding:0.3em!important;}
+  .h1 {height:50px;}
+  .t1 {margin-top:5px;}
+  .l1 {margin-left:-20px; margin-top:15px;}
+  .ui-panelgrid {font-size:13px !important;}
+  .ui-inputfield {font-size:13px !important;}
+  .ui-datatable table tbody tr td {font-size:12px !important;}
+  .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {font-size:12px !important;}
+  .ui-tabs-panels {font-size:13px !important;}
+  .ui-selectoneradio label {font-size:12px !important;}
+  .ui-radiobutton .ui-radiobutton-box {width:10px !important; height:10px !important;}
+  .ui-radiobutton .ui-state-active .ui-icon-bullet, .ui-radiobutton .ui-state-focus .ui-icon-bullet {width:10px !important; height:10px !important;}
+  .ui-selectoneradio label {margin: 4px 6px 0px 0px !important;}
+   .fltleft td {float:left;}
+    .invest {text-align:left;}
+    .head {font-size:18px !important;}
+     .tp1 {margin-top:0px;}
+     .tbl_hide {display:none;}
+}	
 

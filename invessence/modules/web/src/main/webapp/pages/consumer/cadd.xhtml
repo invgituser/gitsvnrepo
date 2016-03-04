@@ -13,15 +13,14 @@
 
 <ui:define name="content">
 <h:outputScript name="js/invCharts.js" library="spark-layout"/>
-
 <!-- BOX START -->
 <h:form id="ceForm">
 <p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
 
 <div class="layout-portlets-box">
-    <p:panel id="dPanel1" style="height:85px">
+    <p:panel id="dPanel1" class="h1">
 
-        <div class="Container33" style="margin-top: -5px">
+        <div class="Container33 hide-mobile" style="margin-top: -5px"><!-- ROHIT's CHANGE -->
             <div class="ContainerIndent">
                 <div class="DispInlBlock">
                     <div class="Container100">
@@ -39,7 +38,7 @@
             </div>
         </div>
 
-        <div class="Container33">
+        <div class="Container33 hide-mobile"><!-- ROHIT's CHANGE -->
             <div class="ContainerIndent">
                 <div class="DispBlock">
                     <div class="Fleft TexAlCenter">
@@ -55,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="Container33">
+        <div class="Container33 Responsive100"><!-- ROHIT's CHANGE -->
             <div class="Wid50"></div>
             <div class="ContainerIndent">
                 <div class="DispBlock">
@@ -75,7 +74,7 @@
 
     </p:panel>
 
-    <div class="Container100 Responsive100">
+    <div class="Container100 Responsive100 t1">
         <div class="ContainerIndent">
             <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
                 <ui:include src="/pages/consumer/addon/cEdit.xhtml"/>
@@ -114,6 +113,7 @@
                         You can adjust the risk level of your asset allocation with this slider.
                     </div>
                 </div>
+                <div class="EmptyBox10"></div>
                 <div class="Container100 Responsive50 DispBlock gray">
                     <div class="EmptyBox5"></div>
                     <div class="ContainerIndent">
@@ -132,6 +132,7 @@
                             Aggressive
                         </div>
                     </div>
+                    <div class="EmptyBox5"></div>
                     <div class="Container100 TexAlCenter">
                         <div class="ContainerIndent">
                             <p:commandButton id="allocSliderResetButton" value="Recommended"
@@ -163,9 +164,9 @@
                 <div class="ContainerIndent">
                     <p:dataTable styleClass="invAllocTable"
                                  value="#{cepb.editableAsset}"
-                                 var="assetList" reflow="true">
+                                 var="assetList">
 
-                        <p:column style="width: 1%; background-color: #{assetList.color};">
+                        <p:column style="width:1%; background-color: #{assetList.color};">
                             <h:outputText value=" "/>
                         </p:column>
 
@@ -173,14 +174,14 @@
                                   headerText="Asset">
                             <h:outputText value="#{assetList.asset}"/>
                         </p:column>
-                        <p:column styleClass="Wid15 Fs14 TexAlRight"
-                                  headerText="Weight">
+                        <p:column styleClass="Wid20 Fs14 num-text-align TexAlRight"
+                                  headerText="Weight"><!-- ROHIT's CHANGE -->
                             <h:outputText value="#{assetList.userEdit}">
                                 <f:convertNumber pattern="##0.00%"/>
                             </h:outputText>
                         </p:column>
-                        <p:column styleClass="Wid40 Fs14 TexAlRight"
-                                  headerText="Value">
+                        <p:column styleClass="Wid30 Fs14 num-text-align TexAlRight"
+                                  headerText="Value"><!-- ROHIT's CHANGE -->
                             <h:outputText value="#{assetList.value}">
                                 <f:convertNumber currencySymbol="$" type="currency"/>
                             </h:outputText>
@@ -226,6 +227,7 @@
                         You can adjust the risk level <strong>within</strong> each asset class with this slider.
                     </div>
                 </div>
+                <div class="EmptyBox10"></div>
                 <div class="Container100 Responsive50 DispBlock gray">
                     <div class="ContainerIndent">
                         <div class="Container25 TexAlCenter Fs16">
@@ -243,6 +245,7 @@
                             Aggressive
                         </div>
                     </div>
+                    <div class="EmptyBox5"></div>
                     <div class="Container100 TexAlCenter">
                         <div class="ContainerIndent">
                             <p:commandButton id="portSliderResetButton"
@@ -251,6 +254,7 @@
                                              actionListener="#{cepb.doPortfolioReset}"/>
                         </div>
                     </div>
+                    <div class="EmptyBox10"></div>
                 </div>
             </div>
 
@@ -259,27 +263,27 @@
     <div class="Container100 Responsive50">
         <div class="ContainerIndent">
             <p:dataTable var="ticker" value="#{cepb.displayPortfolioList}"
-                         reflow="true">
+                         >
 
-                <p:column style="width: 3px; background-color: #{ticker.color}">
+                <p:column style="width:1%; background-color: #{ticker.color}">
                     <h:outputText value=" "/>
                 </p:column>
 
-                <p:column priority="4" styleClass="Wid15 Fs12 TexAlLeft">
+                <p:column priority="4" style="width:14%;" styleClass="Fs12 TexAlLeft">
                     <f:facet name="header">
                         <h:outputText value="Asset"/>
                     </f:facet>
                     <h:outputText value="#{ticker.assetType}"/>
                 </p:column>
 
-                <p:column styleClass="Wid15 Fs12 TexAlLeft">
+                <p:column style="width:15%;" styleClass="Fs12 TexAlLeft">
                     <f:facet name="header">
                         <h:outputText value="Class"/>
                     </f:facet>
                     <h:outputText value="#{ticker.subclass}"/>
                 </p:column>
 
-                <p:column styleClass="Wid10 Fs12 TexAlRight">
+                <p:column style="width:12%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
                     <f:facet name="header">
                         <h:outputText value="Allocated"/>
                     </f:facet>
@@ -288,21 +292,21 @@
                     </h:outputText>
                 </p:column>
 
-                <p:column styleClass="Wid10 Fs12 TexAlLeft">
+                <p:column style="width:10%;" styleClass="Fs12 TexAlLeft">
                     <f:facet name="header">
                         <h:outputText value="Ticker"/>
                     </f:facet>
                     <h:outputText value="#{ticker.symbol}"/>
                 </p:column>
 
-                <p:column priority="3" styleClass="Wid35 Fs12 TexAlLeft">
+                <p:column priority="3" style="width:25%;" styleClass="Fs12 TexAlLeft">
                     <f:facet name="header">
                         <h:outputText value="Name"/>
                     </f:facet>
                     <h:outputText value="#{ticker.name}"/>
                 </p:column>
 
-                <p:column styleClass="Wid15 Fs12 TexAlRight">
+                <p:column style="width:18%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
                     <f:facet name="header">
                         <h:outputText value="Value"/>
                     </f:facet>
@@ -339,7 +343,7 @@
                     Goals Detail
                 </h3>
             </div>
-            <div class="Wid50 Responsive50 Fleft">
+            <div class="Wid50 Responsive50 Fleft"><!-- ROHIT's CHANGE -->
                 <div class="ContainerIndent">
 
                     <div class="Wid35 BorderedBox Fright TexAlCenter Mar10">

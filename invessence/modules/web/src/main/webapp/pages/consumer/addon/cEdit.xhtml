@@ -12,7 +12,7 @@
                     <p:tabView id="pTabView" activeIndex="#{cepb.pTab}"
                                styleClass="Container100" orientation="top"
                                dynamic="false" cache="false"
-                               effect="slide" effectDuration="fast">
+                               effect="slide" effectDuration="fast" >	<!-- ROHIT's CHANGE -->
                         <p:ajax event="tabChange"
                                 update=":ceForm:inputArea, :ceForm:graphArea"
                                 listener="#{cepb.onPTabChange}"/>
@@ -75,8 +75,8 @@
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px">
                     <div class="Container100 Responsive100">
-                        <div class="Container100">
-                            <div class="Wid25 BorderedBox Fright TexAlCenter Mar10 MarLeft5">
+                        <div class="Container100 l1">
+                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Investment Risk</span>
@@ -91,7 +91,7 @@
                             </div>
 
 
-                            <div class="Wid25 BorderedBox Fright TexAlCenter Mar10 MarLeft5">
+                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Expected Return</span>
@@ -106,31 +106,31 @@
                             </div>
                         </div>
 
-                        <p:outputPanel id="charts" style="border: 0px">
+                        <p:outputPanel id="charts" style="border:0px">
                             <p:panel style="border: 0px" rendered="#{! cepb.showGoalChart}">
-                                <div class="Container50  Fleft">
+                                <div class="Container50  Fleft Responsive100"><!-- ROHIT's CHANGE -->
                                     <div class="Container100">
                                         <p:chart type="pie" model="#{cepb.charts.pieChart}"
                                                  rendered="#{cepb.charts.pieChart != null}"
                                                  responsive="true"/>
                                     </div>
                                 </div>
-                                <div class="Container50 Fleft">
+                                <div class="Container50 Fleft Responsive100"><!-- ROHIT's CHANGE -->
                                     <div class="ContainerIndent">
                                         <p:dataTable styleClass="invAllocTable"
                                                      value="#{cepb.editableAsset}"
-                                                     var="assetList" reflow="true">
+                                                     var="assetList">
 
                                             <p:column style="width: 2%; background-color: #{assetList.color};">
                                                 <h:outputText value=" "/>
                                             </p:column>
 
-                                            <p:column styleClass="Wid50 TexAlLeft"
-                                                      resizable="true" headerText="Asset">
+                                            <p:column styleClass="Wid40 TexAlLeft"
+                                                      resizable="true" headerText="Asset"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{assetList.asset}"/>
                                             </p:column>
-                                            <p:column styleClass="Wid40 TexAlRight"
-                                                      resizable="true" headerText="Weight">
+                                            <p:column styleClass="Wid40 num-text-align TexAlRight"
+                                                      resizable="true" headerText="Weight"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{assetList.userEdit}">
                                                     <f:convertNumber pattern="##0.00%"/>
                                                 </h:outputText>

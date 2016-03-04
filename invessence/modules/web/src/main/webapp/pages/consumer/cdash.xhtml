@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+ <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -14,7 +14,7 @@
         <h:form id="form">
             <!-- BOX START -->
             <div class="layout-portlets-box">
-                <div class="Container50 Responsive100">
+                <div class="Container100 Responsive100"><!-- ROHIT's CHANGE -->
                     <div class="ContainerIndent">
                         <div class="Container100">
 
@@ -22,7 +22,7 @@
                                 <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
                                 <div class="Container80">
                                     <div class="Fright">
-                                        <h2 class="black Fs24 FontThemeMedium">#{uiportal.webutil.lastFirstName}</h2>
+                                        <h2 class="black head FontThemeMedium">#{uiportal.webutil.lastFirstName}</h2>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
-                        <div class="Container100 MarTop20">
+                        <div class="Container100 tp1">
 
                             <p:dataTable id="singleDT" var="investment" value="#{cdash.manageAccountList}"
                                          emptyMessage="No account were created.  Use new application to add account."
@@ -64,7 +64,7 @@
                                                                      target="#{cdash.selectedAccount}"/>
                                     </p:commandButton>
                                 </p:column>
-                                <p:column styleClass="Wid30 TextAlLeft"
+                                <p:column styleClass="Wid25 TextAlLeft"
                                           sortBy="#{investment.portfolioName}" headerText="Portfolio" priority="2"
                                           resizable="true">
                                     <h:outputText value="#{investment.portfolioName}"/>
@@ -76,15 +76,15 @@
                                     <h:outputText value="#{investment.goal}"/>
                                 </p:column>
 
-                                <p:column styleClass="Wid15 TexAlLeft"
+                                <p:column styleClass="Wid20 TexAlLeft"
                                           sortBy="#{investment.displayActiveAcctNum}" headerText="Account#"
                                           resizable="true">
                                     <h:outputText value="#{investment.displayActiveAcctNum}"/>
                                 </p:column>
 
-                                <p:column styleClass="Wid20 TexAlRight"
+                                <p:column styleClass="Wid15 num-text-align invest"
                                           headerText="Invested"
-                                          resizable="true">
+                                          resizable="true"><!-- ROHIT's CHANGE -->
                                     <h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">
                                         <f:convertNumber currencySymbol="$" type="currency"/>
                                     </h:outputText>
