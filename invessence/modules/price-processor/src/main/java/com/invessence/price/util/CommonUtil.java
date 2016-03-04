@@ -2,20 +2,27 @@ package com.invessence.price.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.text.ParseException;
+import java.util.*;
 public class CommonUtil {
 
 	static SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMdd");
 	
-	public static boolean dateCompare(String lbDate){
+	public static boolean dateCompare(String bDate,String lbDate){
 		try {
-			
-			Date tDate =new Date();
-			String td=sdf.format(tDate);
-			
-			System.out.println(lbDate+" : "+td);
-			if(lbDate.equals(td)){
+
+			Date bdate= sdf.parse(bDate);
+			Date lbdate= sdf.parse(lbDate);
+
+
+			System.out.println(bDate+" : "+lbDate);
+			if(bdate.after(lbdate)||bDate.equals(lbDate)){
 				return true;
+				// else if(CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(),dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString())==true)
+				//Date date = formatter.parse(dateInString);
+				//System.out.println(date);
+				//System.out.println(formatter.format(date));
+				// if(CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(),dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString())==false)
 			}
 			
 		} catch (Exception e) {
@@ -26,8 +33,7 @@ public class CommonUtil {
 		
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(new CommonUtil().dateCompare("20151130"));
+	public static void main(String[] args) {//System.out.println(new CommonUtil().dateCompare());
 	}
 
 	public static Object stackTraceToString(StackTraceElement[] stackTrace) {

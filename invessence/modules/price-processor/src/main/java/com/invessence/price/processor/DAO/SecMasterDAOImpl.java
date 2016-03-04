@@ -29,7 +29,7 @@ public class SecMasterDAOImpl implements SecMasterDao {
 
 	public SecMaster findByTicker(String ticker) throws SQLException{
 		List<SecMaster> lst = null;
-			System.out.println("SecMasterDAOImpl.findByWhere()");
+			System.out.println("SecMasterDAOImpl.findByTicker()");
 			String sql = "SELECT instrumentid, status, ticker, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master where ticker='"+ticker+"'";
 			lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(SecMaster.class));
 			System.out.println("lst size :" + lst.size());
