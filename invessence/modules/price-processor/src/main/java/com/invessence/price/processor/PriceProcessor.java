@@ -211,6 +211,7 @@ public class PriceProcessor {
 			SecMaster secMaster = secMasterDao.findByTicker(ticker);
 			if(secMaster==null){
 				//Need to call API for ticker information for stored into DB
+				System.out.println("Ticker "+ticker+" not available in our database");
 			}else{
 				try{
 				Map<String, DBParameters> dbParamMap = dbParametersDao.getDBParametres();
