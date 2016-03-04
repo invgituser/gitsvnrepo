@@ -33,7 +33,7 @@ public class SecMasterDAOImpl implements SecMasterDao {
 			String sql = "SELECT instrumentid, status, ticker, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master where ticker='"+ticker+"'";
 			lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(SecMaster.class));
 			System.out.println("lst size :" + lst.size());
-			return lst==null?null:lst.get(0);
+			return lst==null?null:lst.size()==0?null:lst.get(0);
 	}
 
 }
