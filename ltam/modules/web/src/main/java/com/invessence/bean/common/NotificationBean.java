@@ -1,7 +1,7 @@
 package com.invessence.bean.common;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -13,13 +13,12 @@ import com.invessence.util.*;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "notificationBean")
-@RequestScoped
+@SessionScoped
 public class NotificationBean implements Serializable
 {
-   private ArrayList<NotificationData> notificationDataList = null;
-   private NotificationData notificationData = new NotificationData();
+   private ArrayList<NotificationData> notificationDataList;
+   private NotificationData saveData;
    private NotificationData selectedMessage = null;
-   private List<NotificationData> selectedMessages = null;
    private String filterNotice = "N";
    private String notificationType = "";
 
@@ -43,6 +42,21 @@ public class NotificationBean implements Serializable
       return notificationDataList;
    }
 
+   public void setNotificationDataList(ArrayList<NotificationData> notificationDataList)
+   {
+      this.notificationDataList = notificationDataList;
+   }
+
+   public NotificationData getSaveData()
+   {
+      return saveData;
+   }
+
+   public void setSaveData(NotificationData saveData)
+   {
+      this.saveData = saveData;
+   }
+
    public NotificationData getSelectedMessage()
    {
       return selectedMessage;
@@ -51,16 +65,6 @@ public class NotificationBean implements Serializable
    public void setSelectedMessage(NotificationData selectedMessage)
    {
       this.selectedMessage = selectedMessage;
-   }
-
-   public List<NotificationData> getSelectedMessages()
-   {
-      return selectedMessages;
-   }
-
-   public void setSelectedMessages(List<NotificationData> selectedMessages)
-   {
-      this.selectedMessages = selectedMessages;
    }
 
    public String getFilterNotice()
@@ -81,16 +85,6 @@ public class NotificationBean implements Serializable
    public void setNotificationType(String notificationType)
    {
       this.notificationType = notificationType.substring(0,1);
-   }
-
-   public NotificationData getNotificationData()
-   {
-      return notificationData;
-   }
-
-   public void setNotificationData(NotificationData notificationData)
-   {
-      this.notificationData = notificationData;
    }
 
    public void preRenderView()
@@ -117,7 +111,7 @@ public class NotificationBean implements Serializable
          logonid = webutil.getLogonid();
          if (notificationType == null || notificationType.isEmpty())
             notificationType = "M";
-         notificationDataList = commonDao.getNotification(logonid, notificationType, filterNotice);
+         setNotificationDataList(commonDao.getNotification(logonid, notificationType, filterNotice));
       }
    }
 
@@ -145,62 +139,49 @@ public class NotificationBean implements Serializable
          return "Messages";
    }
 
-   public void markRead()
-   {
-      if (selectedMessages != null) {
-         for (NotificationData data : selectedMessages) {
-            data.setStatus("A");
-            commonDao.saveNotice(data);
-         }
-//         webutil.redirect("/pages/common/notification.xhtml", null);
-
-         collectNotification();
-         selectedMessages = null;
-         RequestContext.getCurrentInstance().update("messageDT");
-
-      }
-   }
-
-
-   public void markDone()
+   public String markDone()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("A");
          commonDao.saveNotice(data);
-//         webutil.redirect("/pages/common/notification.xhtml", null);
-
-         collectNotification();
+         webutil.redirect("/pages/common/notification.xhtml", null);
+/*
          selectedMessage = null;
+         collectNotification();
          RequestContext.getCurrentInstance().update("messageDT");
-
+*/
+         return "success";
       }
+      return "failed";
    }
 
-   public void markUnDone()
+   public String markUnDone()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("N");
          commonDao.saveNotice(data);
-
-//         webutil.redirect("/pages/common/notification.xhtml", null);
-
+         webutil.redirect("/pages/common/notification.xhtml", null);
+/*
          selectedMessage = null;
          collectNotification();
          RequestContext.getCurrentInstance().update("messageDT");
-
+*/
+         return "success";
       }
+      return "failed";
    }
+
 
    public void saveNotification()
    {
-      if (notificationData != null) {
-         notificationData.setStatus("N");
-         notificationData.setTagid("T");
-         notificationData.setAdvisorlogonid(webutil.getLogonid());
-         notificationData.setNoticetype(notificationData.getNoticetype().substring(1,1));
-         commonDao.saveNotice(notificationData);
+      if (saveData != null) {
+         saveData.setStatus("N");
+         saveData.setTagid("T");
+         saveData.setAdvisorlogonid(webutil.getLogonid());
+         saveData.setNoticetype(saveData.getNoticetype().substring(1,1));
+         commonDao.saveNotice(saveData);
          collectNotification();
          // RequestContext.getCurrentInstance().closeDialog("addNotification");
       }

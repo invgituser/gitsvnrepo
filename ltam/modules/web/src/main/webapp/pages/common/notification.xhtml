@@ -14,73 +14,80 @@
 
         <!-- BOX START -->
         <h:form id="form">
-        <div class="layout-portlets-box">
-            <div class="Container90 Responsive100">
-                <div class="ContainerIndent">
-                    <div class="Container100">
+            <div class="layout-portlets-box">
+                <div class="Container90 Responsive100">
+                    <div class="ContainerIndent">
+                        <div class="Container100">
 
-                        <p:growl id="noticeGrowl" showDetail="true" sticky="true" escape="true"/>
+                            <p:growl id="noticeGrowl" showDetail="true" sticky="true" escape="true"/>
 
                             <div class="Wid50 Responsive50 Fleft">
                                 <h3 class="BigTopic"><h:outputText value="#{notificationBean.messageHeader}"/></h3>
                             </div>
                             <div class="Wid50 Fright Responsive50">
                                 <p:selectOneButton value="#{notificationBean.filterNotice}">
-                                    <f:selectItem itemLabel="New" itemValue="N" />
-                                    <f:selectItem itemLabel="Archived" itemValue="A" />
-                                    <p:ajax update="@form" listener="#{notificationBean.filterData}" />
+                                    <f:selectItem itemLabel="New" itemValue="N"/>
+                                    <f:selectItem itemLabel="Archived" itemValue="A"/>
+                                    <p:ajax update="@form" listener="#{notificationBean.filterData}"/>
                                 </p:selectOneButton>
                             </div>
 
-                        <div class="Container100 MarTop20">
-                            <p:dataTable id="messageDT" var="msg" value="#{notificationBean.notificationDataList}"
-                                         selection="#{notificationBean.selectedMessages}"
-                                         rowKey="#{msg.messageid}"
-                                         style="margin-bottom:0"
-                                         widgetVar="messageWidget"
-                                         emptyMessage="No Messages were created."
-                                         reflow="true">
+                            <div class="Container100 MarTop20">
+                                <p:dataTable id="messageDT" var="msg" value="#{notificationBean.notificationDataList}"
+                                             widgetVar="messageWidget"
+                                             emptyMessage="No Messages were created."
+                                             reflow="true">
 
-                                <f:facet name="header">
-                                    Unread Messages
-                                </f:facet>
-                                <p:column selectionMode="multiple"/>
+                                    <p:column style="width: 1%; background-color: #{msg.color};">
+                                        <h:outputText value=" "/>
+                                    </p:column>
 
-                                <p:column styleClass="Fs14 TexAlLeft"
-                                          headerText="Created">
-                                    <h:outputText value="#{msg.businessdate}"/>
-                                </p:column>
+                                    <p:column style="width: 5%" styleClass="TextAlLeft">
+                                        <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
+                                                         styleClass="Fs16 BlueButton"
+                                                         process="@this" immediate="true"
+                                                         icon="fa fa-check Fs14 white"
+                                                         action="#{notificationBean.markDone}">
+                                            <f:setPropertyActionListener value="#{msg}"
+                                                                         target="#{notificationBean.selectedMessage}"/>
+                                        </p:commandButton>
+                                        <p:commandButton id="undoButton" rendered="#{msg.status != 'N'}"
+                                                         styleClass="Fs16 GrayButton"
+                                                         process="@this" immediate="true"
+                                                         icon="fa fa-mail-reply Fs14 white"
+                                                         action="#{notificationBean.markUnDone}">
+                                            <f:setPropertyActionListener value="#{msg}"
+                                                                         target="#{notificationBean.selectedMessage}"/>
+                                        </p:commandButton>
+                                    </p:column>
 
-                                <p:column styleClass="Fs14 TexAlLeft"
-                                          headerText="Message">
-                                    <h:outputText value="#{msg.message}">
-                                    </h:outputText>
-                                </p:column>
+                                    <p:column style="width: 10%" styleClass="Fs14 TexAlLeft"
+                                              headerText="Created">
+                                        <h:outputText value="#{msg.businessdate}"/>
+                                    </p:column>
 
-                                <f:facet name="footer">
-                                    <p:commandButton process="messageDT"
-                                                     update=":form:messageDT"
-                                                     icon="ui-icon-search"
-                                                     value="Mark as Read"
-                                                     actionListener="#{notificationBean.markRead}" />
-                                </f:facet>
-                            </p:dataTable>
+                                    <p:column styleClass="Fs14 TexAlLeft"
+                                              headerText="Message">
+                                        <h:outputText value="#{msg.message}">
+                                        </h:outputText>
+                                    </p:column>
 
+                                </p:dataTable>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Can add another element here... -->
-        </div>
-        <!-- BOX END -->
+                <!-- Can add another element here... -->
+            </div>
+            <!-- BOX END -->
 
             <p:dialog widgetVar="addNotification" header="Notification Details"
                       showEffect="clip" hideEffect="clip">
                 <h:panelGrid id="noticeDetail" columns="2">
 
                     <p:outputLabel for="priority" value="Priority" />
-                    <p:selectOneMenu id="priority" value="#{notificationBean.notificationData.noticetype}"
+                    <p:selectOneMenu id="priority" value="#{notificationBean.saveData.noticetype}"
                                      style="width:125px"
                                      required="true">
                         <f:selectItem itemLabel="Select One" itemValue="" />
@@ -90,13 +97,13 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel for="businessdate" value="Business Date:" />
-                        <p:calendar id="businessdate" value="#{notificationBean.notificationData.javaDate}"
-                                    timeZone="GMT-5" pattern="MM/dd/yyyy HH:mm"
-                                    required="true" showOn="button"/>
+                    <p:calendar id="businessdate" value="#{notificationBean.saveData.javaDate}"
+                                timeZone="GMT-5" pattern="MM/dd/yyyy HH:mm"
+                                required="true" showOn="button"/>
 
 
                     <p:outputLabel for="message" value="Message" />
-                    <p:inputTextarea id="message" value="#{notificationBean.notificationData.message}"
+                    <p:inputTextarea id="message" value="#{notificationBean.saveData.message}"
                                      required="true"
                                      rows="5" cols="30" counter="display" maxlength="120"
                                      counterTemplate="{0} characters remaining." autoResize="true" />
@@ -111,6 +118,7 @@
                                      oncomplete="PF('addNotification').hide();"/>
                 </h:panelGrid>
             </p:dialog>
+
         </h:form>
 
 

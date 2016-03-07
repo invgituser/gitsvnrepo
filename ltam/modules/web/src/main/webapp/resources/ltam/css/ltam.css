@@ -84,6 +84,21 @@
     background-color: #00D404 !important;
 }
 
+.SymbilBG.Geometry {
+    background-image: url("#{resource['ltam:images/train.jpg']}");
+    background-attachment: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.SymbilBG {
+    background-image: none;
+}
+
+.SymbilBG #layout-topbar {
+    background-color: #FAFAFA;
+}
+
 @media (min-width: 960px) and (max-width: 1110px) {
     .ui-steps .ui-steps-title {
         width: 70px !important

@@ -210,7 +210,10 @@ public class UserInfoDAO extends JdbcDaoSupport
                      userdata.setEmail(convert.getStrData(rs.get("email")));
                      userdata.setFullName(convert.getStrData(rs.get("name")));
                      userdata.setRep(convert.getStrData(rs.get("repNum")));
-                     userdata.setAdvisor(convert.getStrData(rs.get("repName")));
+                     // userdata.setAdvisor(convert.getStrData(rs.get("repName")));
+                     userdata.setFirstName(convert.getStrData(rs.get("firstname")));
+                     userdata.setLastName(convert.getStrData(rs.get("lastname")));
+                     userdata.setAccess(convert.getStrData(rs.get("access")));
                      userdata.setLogonID(convert.getLongData(rs.get("logonid")));
                      userdata.setUserID(convert.getStrData(rs.get("userid")));
                      // We only need the first data.
@@ -220,6 +223,9 @@ public class UserInfoDAO extends JdbcDaoSupport
 
                   if (i == 0){
                      userdata.setFullName(null);
+                     userdata.setFirstName(null);
+                     userdata.setLastName(null);
+                     userdata.setAccess(null);
                      userdata.setRep(null);
                      userdata.setAdvisor(null);
                      userdata.setLogonID(0L);

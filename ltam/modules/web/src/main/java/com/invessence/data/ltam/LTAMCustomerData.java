@@ -1,6 +1,7 @@
 package com.invessence.data.ltam;
 
 import com.invessence.bean.ltam.LTAMAllocationData;
+import com.invessence.constant.Const;
 import com.invessence.data.LTAMTheme;
 
 /**
@@ -84,6 +85,8 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public String getAdvisor()
    {
+      if (advisor == null || advisor.isEmpty())
+         return Const.DEFAULT_ADVISOR;
       return advisor;
    }
 

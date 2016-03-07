@@ -7,6 +7,7 @@ public class Const
    public final static String DEFAULT_THEME = "modena";
    public final static String DEFAULT_LOGO = "images/logo/Symbil.png";
    public final static String DEFAULT_LOGOLIB = "invessence";
+   public final static String DEFAULT_ADVISOR = "9AK";
 
    public static String LOGONID_PARAM = "p_logonid";
    public static String ACCTNO_PARAM = "p_acctnum";

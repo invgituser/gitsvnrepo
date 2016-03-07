@@ -292,6 +292,10 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       saveClientData();
       pagemanager.nextPage();
       if (pagemanager.isLastPage()) {
+         System.out.print("Forward to Gemini: Acct="
+                             + getAcctnum().toString()
+                             + ", advisor=" + getAdvisor()
+                             + ", theme=" + getTheme());
          webutil.redirect("/pages/try/review.xhtml", null);
       }
    }

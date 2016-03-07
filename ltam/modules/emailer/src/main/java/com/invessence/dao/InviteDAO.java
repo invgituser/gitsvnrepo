@@ -20,11 +20,10 @@ public class InviteDAO extends JdbcDaoSupport
    {
 
       String sql = " select distinct email, " +
-                   " acctRegistration as name " +
-                   " from ltam_acct_info " +
+                   " concat(firstName,' ', lastName)  as name " +
+                   " from email_invitation " +
                    " where invite = 'P' " +
                    " and length(trim(email)) > 0";
-
 
       ParameterizedRowMapper<InvitedGuestData> mapper = new ParameterizedRowMapper<InvitedGuestData>()
       {
@@ -49,7 +48,7 @@ public class InviteDAO extends JdbcDaoSupport
    public void updMsgStatus(String status, String email)
    {
       String sql = null;
-      sql = "update ltam_acct_info set invite = ? where email = ?";
+      sql = "update email_invitation set invite = ? where email = ?";
 
       if (sql != null)
          getJdbcTemplate().update(sql, new Object[]{status, email});

@@ -83,7 +83,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
 
    public void saveNotice(NotificationData data) {
       DataSource ds = getDataSource();
-      CommonSP sp = new CommonSP(ds, "sp_advisor_notification",3);
+      CommonSP sp = new CommonSP(ds, "save_notification",3);
       sp.saveNotice(data);
    }
 

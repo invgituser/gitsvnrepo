@@ -306,7 +306,7 @@ public class BrokerFileProcessor
             try
             {
                logger.info("Sending email to support team");
-               //emailCreator.sendToSupport("", "Broker File Upload Process", mailAlertMsg.toString());
+               emailCreator.sendToSupport("ERR", "Broker File Upload Process", mailAlertMsg.toString());
             }catch (Exception e)
             {
                logger.error("While email processing \n"+e.getMessage());
