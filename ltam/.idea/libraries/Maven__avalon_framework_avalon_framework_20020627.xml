@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: avalon-framework:avalon-framework:20020627">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/avalon-framework/avalon-framework/20020627/avalon-framework-20020627.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/avalon-framework/avalon-framework/20020627/avalon-framework-20020627-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/avalon-framework/avalon-framework/20020627/avalon-framework-20020627-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

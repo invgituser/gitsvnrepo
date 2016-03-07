@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+    <div class="drow">
+       <div class="dpanelP1">
+           <div class="dPrefPart">
+               <div class="dTop">
+<!--
+                   <p:commandLink update=":advisorDialogForm:customProfileID" onclick="PF('customProfile').show();">
+                       <p:graphicImage value="/images/control-panel.png" alt="Advisor Panel"
+                                       width="40" height="40"/>
+                   </p:commandLink>
+-->
+               </div>
+           </div>
+           <div class="dFiller">
+           </div>
+
+           <div class="dEndPan">
+              <h:panelGrid columns="3" style="margin-bottom: 5px; vertical-align: top;">
+                  <h:outputLabel value="Investment Strategy "
+                                 style="vertical-align: top; font-weight: bold"/>
+                  <p:selectOneMenu id="basket" value="#{cepb.thisBasket}"
+                                     required="false">
+                      <p:ajax listener="#{cepb.selectedActionBasket}" update=":advisorEditForm:workArea"/>
+                      <f:selectItems value="#{cepb.advisorBasket.entrySet()}"
+                                     var="bskt" itemLabel="#{bskt.value}" itemValue="#{bskt.key}"/>
+                  </p:selectOneMenu>
+               </h:panelGrid>
+
+           </div>
+       </div>
+    </div>
+</h:body>
+</html>
+
+

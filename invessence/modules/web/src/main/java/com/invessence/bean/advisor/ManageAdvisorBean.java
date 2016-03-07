@@ -3,36 +3,52 @@ package com.invessence.bean.advisor;
 import java.io.Serializable;
 import java.util.*;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.bean.*;
 import com.invessence.constant.Const;
-import com.invessence.dao.advisor.AdvisorListDataDAO;
-import com.invessence.data.ManageAccount;
-import com.invessence.data.advisor.AdvisorData;
-import com.invessence.util.EmailMessage;
+import com.invessence.dao.advisor.*;
+import com.invessence.data.common.AccountData;
+import com.invessence.util.*;
 
 
 @ManagedBean(name = "manageAdvisorBean")
 @ViewScoped
 public class ManageAdvisorBean implements Serializable
 {
-   private static final long serialVersionUID = 100003L;
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
+   UIPortal menu = new UIPortal();
+
+/*
+   @ManagedProperty("#{advisorBean}")
+   private AdvisorBean abean;
+*/
 
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
 
-   private List<AdvisorData> advisorManagedAccountList;
-   private List<AdvisorData> advisorPendingAccountList;
-   private List<AdvisorData> filteredManagedAccountList;
-   private List<AdvisorData> filteredPendingAccountList;
-   private AdvisorData selectedAccount;
+   @ManagedProperty("#{advisorSaveDataDAO}")
+   private AdvisorSaveDataDAO advisorSaveDataDAO;
 
+/*
+   @ManagedProperty("#{positionBean}")
+   private PositionBean positionBean;
+*/
 
-   private Long acctnum;
-   private Long logonid;
+   private ArrayList<AccountData> accountDataList = new ArrayList<AccountData>();
+   private ArrayList<AccountData> filteredDataList = new ArrayList<AccountData>();
+   private String filteredClient;
+   private AccountData selectedAccount;
 
+   @ManagedProperty("#{emailMessage}")
    private EmailMessage messageSource;
 
 
@@ -46,25 +62,24 @@ public class ManageAdvisorBean implements Serializable
       this.messageSource = messageSource;
    }
 
-   @PostConstruct
-   public void init()
+   public void preRenderView()
    {
-      String userName;
+
       try
       {
-         if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM) == null)
+         if (!FacesContext.getCurrentInstance().isPostback())
          {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
-         }
+            if (webutil.validatePriviledge(Const.ROLE_ADVISOR)) {
+               Long logonid;
+               logonid = webutil.getLogonid();
 
-         if (FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM) != null)
-         {
-            setLogonid((Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM));
-            collectData(getLogonid());
-         }
-         else
-         {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
+               if (logonid != null)
+               {
+                  if (accountDataList == null || accountDataList.size() == 0) {
+                     filterData();
+                  }
+               }
+            }
          }
       }
       catch (Exception e)
@@ -73,9 +88,41 @@ public class ManageAdvisorBean implements Serializable
       }
    }
 
+/*
+   public void setAbean(AdvisorBean abean)
+   {
+      this.abean = abean;
+   }
+
+   public void setPositionBean(PositionBean positionBean)
+   {
+      this.positionBean = positionBean;
+   }
+*/
+
    public void setAdvisorListDataDAO(AdvisorListDataDAO advisorListDataDAO)
    {
       this.advisorListDataDAO = advisorListDataDAO;
+   }
+
+   public void setAdvisorSaveDataDAO(AdvisorSaveDataDAO advisorSaveDataDAO)
+   {
+      this.advisorSaveDataDAO = advisorSaveDataDAO;
+   }
+
+   public AdvisorSaveDataDAO getAdvisorSaveDataDAO()
+   {
+      return advisorSaveDataDAO;
+   }
+
+   public ArrayList<AccountData> getAccountDataList()
+   {
+      return accountDataList;
+   }
+
+   public void setAccountDataList(ArrayList<AccountData> accountDataList)
+   {
+      this.accountDataList = accountDataList;
    }
 
    public void collectData(Long logonid)
@@ -84,95 +131,82 @@ public class ManageAdvisorBean implements Serializable
       {
          if (logonid != null)
          {
-            if (advisorManagedAccountList != null)
-               advisorManagedAccountList.clear();
-            if (advisorPendingAccountList != null)
-               advisorPendingAccountList.clear();
-            advisorManagedAccountList = advisorListDataDAO.getAccountData(logonid,"Active");
-            advisorPendingAccountList = advisorListDataDAO.getAccountData(logonid,"Pending");
-         }
+            if (accountDataList == null)
+               accountDataList = new ArrayList<AccountData>();
 
+            if (filteredDataList == null)
+               filteredDataList = new ArrayList<AccountData>();
+
+            accountDataList.clear();
+
+            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, null);
+         }
       }
       catch (Exception ex)
       {
-         System.out.println("Error in Advisor collecting data on ManageAdvisorBean:" + ex.getMessage());
+         System.out.println("Error in Advisor collecting data:" + ex.getMessage());
       }
    }
 
-   public List<AdvisorData> getAdvisorManagedAccountList()
-   {
-      return advisorManagedAccountList;
+   public void filterData() {
+
+      collectData(webutil.getLogonid());
+      if (getFilteredClient() == null || getFilteredClient().length() == 0)
+        filteredDataList = accountDataList;
+      else {
+         filteredDataList.clear();
+         for (AccountData adata: accountDataList){
+            if (adata.getAcctStatus().startsWith(getFilteredClient()))
+               filteredDataList.add(adata);
+         }
+      }
    }
 
-   public void setAdvisorManagedAccountList(List<AdvisorData> advisorManagedAccountList)
-   {
-      this.advisorManagedAccountList = advisorManagedAccountList;
+   public void refreshPage() {
+      String url;
+      if (getFilteredClient() != null) {
+        url = "/pages/advisor/alist.xhtml?Action=" + getFilteredClient();
+         webutil.redirect(url,null);
+      }
    }
 
-   public List<AdvisorData> getAdvisorPendingAccountList()
+   public AdvisorListDataDAO getAdvisorListDataDAO()
    {
-      return advisorPendingAccountList;
+      return advisorListDataDAO;
    }
 
-   public void setAdvisorPendingAccountList(List<AdvisorData> advisorPendingAccountList)
+   public ArrayList<AccountData> getFilteredDataList()
    {
-      this.advisorPendingAccountList = advisorPendingAccountList;
+      return filteredDataList;
    }
 
-   public List<AdvisorData> getFilteredManagedAccountList()
+   public void setFilteredDataList(ArrayList<AccountData> filteredDataList)
    {
-      return filteredManagedAccountList;
+      this.filteredDataList = filteredDataList;
    }
 
-   public void setFilteredManagedAccountList(List<AdvisorData> filteredManagedAccountList)
+   public String getFilteredClient()
    {
-      this.filteredManagedAccountList = filteredManagedAccountList;
+      return filteredClient;
    }
 
-   public List<AdvisorData> getFilteredPendingAccountList()
+   public void setFilteredClient(String filteredClient)
    {
-      return filteredPendingAccountList;
+      this.filteredClient = filteredClient;
    }
 
-   public void setFilteredPendingAccountList(List<AdvisorData> filteredPendingAccountList)
-   {
-      this.filteredPendingAccountList = filteredPendingAccountList;
-   }
-
-   public AdvisorData getSelectedAccount()
+   public AccountData getSelectedAccount()
    {
       return selectedAccount;
    }
 
-   public void setSelectedAccount(AdvisorData selectedAccount)
+   public void setSelectedAccount(AccountData selectedAccount)
    {
       this.selectedAccount = selectedAccount;
    }
 
-   public Long getAcctnum()
-   {
-      return acctnum;
-   }
-
-   public void setAcctnum(Long acctnum)
-   {
-      this.acctnum = acctnum;
-   }
-
-   public Long getLogonid()
-   {
-      return logonid;
-   }
-
-   public void setLogonid(Long logonid)
-   {
-      this.logonid = logonid;
-   }
-
    public String doManagedAction()
    {
-      String whichXML;
-
       try
       {
          if (getSelectedAccount() == null)
@@ -180,19 +214,17 @@ public class ManageAdvisorBean implements Serializable
             return "failed";
          }
 
-         if (getSelectedAccount().getAcctstatus().equals("Active"))
+         if (getSelectedAccount().getAcctStatus().equals("Active"))
          {
-            whichXML = "/advisor/position.xhtml";
-            //advisorpositionBean.findPosition(getLogonid(), getAcctnum());
+            //positionBean.findPosition(getSelectedAccount().getLogonid(), getSelectedAccount().getAcctnum());
+            menu.doMenuAction("/common/overview.xhtml?acct="+getSelectedAccount().getAcctnum().toString());
          }
          else
          {
-            whichXML = "/advisor/custProfile.xhtml";
+            //abean.loadData(getSelectedAccount().getAcctnum());
+            menu.doMenuAction("/consumer/cadd.xhtml?acct="+getSelectedAccount().getAcctnum().toString());
             //advisorBean.findGoals(getLogonid(), getAcctnum());
          }
-
-
-         FacesContext.getCurrentInstance().getExternalContext().redirect(whichXML);
       }
       catch (Exception ex)
       {
@@ -202,5 +234,35 @@ public class ManageAdvisorBean implements Serializable
       return ("success");
    }
 
+   public String doDelete(AccountData selected)
+   {
+      try
+      {
+         if (selected == null)
+         {
+            return "failed";
+         }
+
+         if (selected.getAccttype().equals("Active"))
+         {
+            FacesContext.getCurrentInstance().addMessage(null,
+                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                          "",
+                                                                          "Can not delete ACTIVE account.  Please close the account."));
+         }
+         else
+         {
+            advisorSaveDataDAO.deleteUserAccount(selected.getAcctnum());
+            filterData();
+         }
+
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
 
 }

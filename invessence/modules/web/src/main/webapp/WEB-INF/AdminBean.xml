@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="adminDAO" class="com.invessence.dao.AdminDAO">
+    <bean id="adminDAO" class="com.invessence.dao.common.AdminDAO">
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
 </beans>

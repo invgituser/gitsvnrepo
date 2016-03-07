@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/invlayout.xhtml">
+
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <div class="Container100 Responsive">
+                <div class="ContainerIndent">
+
+                    <h:form id="marketingForm">
+                        <p:messages id="marketingmsg"/>
+
+                        <h:panelGrid columns="3" style="margin-bottom:10px" cellpadding="5">
+                            <p:outputLabel value="Filter:"/>
+                            <p:selectManyCheckbox id="basic" value="#{marketing.selectedFilter}">
+                                <f:selectItem itemLabel="All" itemValue=""/>
+                                <f:selectItem itemLabel="New" itemValue="New"/>
+                                <f:selectItem itemLabel="Active" itemValue="Active"/>
+                                <f:selectItem itemLabel="Closed" itemValue="Closed"/>
+                            </p:selectManyCheckbox>
+                            <p:commandButton value="Refresh" process="@form" update="dataGrid"
+                                             actionListener="#{marketing.refreshButton}"/>
+                        </h:panelGrid>
+                        <br/>
+
+                        <p>
+                            Actions: Swipe Left to add to call list, Swipe Right to add to email list.<br/>
+                            Tap/Click to see additional details.
+                        </p>
+                        <p:dataTable id="dataGrid" var="user" value="#{marketing.marketingList}"
+                                     selectionMode="multiple" selection="#{marketing.selectedUser}"
+                                     rowKey="#{user.acctnum}"
+                                     tableStyleClass="ui-table-columntoggle">
+
+                            <p:ajax event="swipeleft" listener="#{marketing.onRowSwipeLeft}" update="@parent:msgs"/>
+                            <p:ajax event="swiperight" listener="#{marketing.onRowSwipeRight}" update="@this"/>
+
+                            <p:column style="width:32px;text-align: center">
+                                <p:commandButton update=":form:dataGrid"
+                                                 oncomplete="PF('userOP').show('#{component.clientId}')"
+                                                 icon="ui-icon-search" title="View">
+                                    <f:setPropertyActionListener value="#{user}" target="#{marketing.selectedUser}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                            <p:column headerText="Account" sortBy="#{user.acctnum}" priority="1">
+                                <h:outputText value="#{user.acctnum}"/>
+                            </p:column>
+
+                            <p:column headerText="Last Name" sortBy="#{user.lastname}" priority="2">
+                                <h:outputText value="#{user.lastname}"/>
+                            </p:column>
+
+                            <p:column headerText="First Name" sortBy="#{user.firstname}" priority="3">
+                                <h:outputText value="#{user.firstname}"/>
+                            </p:column>
+
+                            <p:column headerText="Email Address" sortBy="#{user.firstname}" priority="4">
+                                <h:outputText value="#{user.firstname}"/>
+                            </p:column>
+
+                            <p:column headerText="Last Contact" sortBy="#{user.lastcontact}" priority="5">
+                                <h:outputText value="#{user.lastcontact}"/>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:overlayPanel widgetVar="userOP" showEffect="fade" hideEffect="fade"
+                                        dismissable="false" showCloseIcon="true">
+                            <p:outputPanel id="carDetail" style="text-align:center;">
+                                <p:panelGrid columns="2" rendered="#{not empty marketing.selectedUser}"
+                                             columnClasses="label,value">
+                                    <h:outputText value="Goal:"/>
+                                    <h:outputText value="#{marketing.selectedUser.goal}"/>
+
+                                    <h:outputText value="Type:"/>
+                                    <h:outputText value="#{marketing.selectedUser.type}"/>
+
+                                    <h:outputText value="Age:"/>
+                                    <h:outputText value="#{marketing.selectedUser.age}"/>
+
+                                    <h:outputText value="Horizon:"/>
+                                    <h:outputText value="$#{marketing.selectedUser.horizon}"/>
+
+                                    <h:outputText value="Asset:"/>
+                                    <h:outputText value="$#{marketing.selectedUser.asset}"/>
+
+                                    <h:outputText value="Risk:"/>
+                                    <h:outputText value="$#{marketing.selectedUser.risk}"/>
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:overlayPanel>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

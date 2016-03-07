@@ -15,19 +15,23 @@
 	 <context:component-scan base-package="com.invessence.dao"/>
 	 <context:component-scan base-package="com.invessence.validator"/>
 
-   <!--import resource for consumers business-->
-    <import resource="consumerDAO.xml"/>
    <!--import resource for general business-->
 	<import resource="properties.xml"/>
 	<import resource="messageSource.xml"/>
 	<import resource="dataSource.xml"/>
-    <import resource="allDAO.xml"/>
     <import resource="dataLoadingSingletons.xml"/>
+    <import resource="classpath*:/yodleeBeanConf.xml"/>
 
-   <!-- Admin tools-->
+   <!--import resource for consumers business-->
+   <import resource="allDAO.xml"/>
+   <import resource="consumerDAO.xml"/>
+   <!-- Common DAO-->
+   <import resource="CommonBean.xml"/>
+
+   <!-- Admin DAO-->
    <import resource="AdminBean.xml"/>
 
-   <!-- Advisor tools-->
+   <!-- Advisor DAO-->
    <import resource="AdvisorBean.xml"/>
 
 </beans>

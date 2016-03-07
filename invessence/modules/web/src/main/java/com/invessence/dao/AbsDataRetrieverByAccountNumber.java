@@ -5,7 +5,6 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import com.google.inject.internal.Maps;
-import com.invessence.data.ManageGoals;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
 

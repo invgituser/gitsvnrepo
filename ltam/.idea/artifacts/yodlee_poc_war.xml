@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="yodlee-poc:war">
+    <output-path>$PROJECT_DIR$/modules/yodlee-web/yodlee-poc/target</output-path>
+    <root id="archive" name="yodlee-poc.war">
+      <element id="artifact" artifact-name="yodlee-poc:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -12,57 +12,9 @@
 
    <properties>
       <invessence.version>1.0-SNAPSHOT</invessence.version>
-      <commons-beanutils-version>1.8.0</commons-beanutils-version>
-      <commons-dbcp-version>1.4</commons-dbcp-version>
-      <commons-digester-version>2.0</commons-digester-version>
-      <commons-fileupload-version>1.2.2</commons-fileupload-version>
-      <commons-lang3-version>3.1</commons-lang3-version>
-      <commons-logging-version>1.1.1</commons-logging-version>
-      <commons-pool-version>1.6</commons-pool-version>
-      <commons-dbutils-version>1.5</commons-dbutils-version>
-      <commons-io-version>2.4</commons-io-version>
-      <google-collections-version>1.0</google-collections-version>
-      <javax.faces-version>2.2.6</javax.faces-version>
-      <javax.ws.rs-api-version>2.0-m02</javax.ws.rs-api-version>
-      <jstl-version>1.2</jstl-version>
-      <camel.version>2.11.0</camel.version>
-      <slf4j-api-version>1.6.6</slf4j-api-version>
-      <slf4j-version>1.7.5</slf4j-version>
-      <slf-log4j-version>1.7.5</slf-log4j-version>
-      <log4j-version>1.2.17</log4j-version>
-      <mysql-connector-version>5.1.9</mysql-connector-version>
-      <junit-version>4.8.1</junit-version>
-      <guava-version>r08</guava-version>
-      <jersey-client-version>1.16</jersey-client-version>
-      <jersey-core-version>1.16</jersey-core-version>
-      <jersey-server-version>1.1.2-ea</jersey-server-version>
-      <jdom-version>1.1</jdom-version>
-      <commons-httpclient-version>3.1</commons-httpclient-version>
-      <asm-version>3.1</asm-version>
       <spring-version>3.2.0.RELEASE</spring-version>
       <spring-security-version>3.2.0.M1</spring-security-version>
-      <quartz-version>1.8.4</quartz-version>
-      <jfreechart-version>1.0.13</jfreechart-version>
-      <simplecaptcha-version>1.2.1</simplecaptcha-version>
-      <bluesky-version>1.0.1</bluesky-version>
-      <primefaces-version>4.0</primefaces-version>
-      <primefaces-extensions-version>1.2.1</primefaces-extensions-version>
-      <javax.servlet-api-version>3.0.1</javax.servlet-api-version>
-      <javax.mail-version>1.4</javax.mail-version>
-      <jfreechart-version>1.0.13</jfreechart-version>
-      <webcap-portfolioJ2SE-version>5.0</webcap-portfolioJ2SE-version>
-      <invessence-theme-version>1.0</invessence-theme-version>
-      <fop-version>0.20.5</fop-version>
-      <xalan-version>2.7.1</xalan-version>
-      <jtidy-version>4aug2000r7-dev</jtidy-version>
-      <avalon-version>20020627</avalon-version>
-      <avalonlog-version>2.2.1</avalonlog-version>
-      <batik-version>0.20-5</batik-version>
-      <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-      <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
-      <jdbc.username>root</jdbc.username>
-      <jdbc.password>password</jdbc.password>
-      <google-api>1.18.0-rc</google-api>
+      <camel-version>2.11.0</camel-version>
    </properties>
 
    <repositories>
@@ -100,9 +52,26 @@
    <dependencyManagement>
       <dependencies>
          <dependency>
+            <groupId>com.invessence</groupId>
+            <artifactId>core</artifactId>
+            <version>${invessence.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>com.invessence</groupId>
+            <artifactId>invmodel</artifactId>
+            <version>${invessence.version}</version>
+         </dependency>
+         <dependency>
+            <groupId>com.invessence</groupId>
+            <artifactId>virtual-trades</artifactId>
+            <version>${invessence.version}</version>
+         </dependency>
+
+         <!-- camel dependencies -->
+         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-quartz</artifactId>
-            <version>${camel.version}</version>
+            <version>${camel-version}</version>
          </dependency>
          <dependency>
             <groupId>commons-net</groupId>
@@ -112,72 +81,73 @@
          <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core</artifactId>
-            <version>${camel.version}</version>
+            <version>${camel-version}</version>
          </dependency>
          <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-ftp</artifactId>
-            <version>${camel.version}</version>
+            <version>${camel-version}</version>
          </dependency>
          <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-spring</artifactId>
-            <version>${camel.version}</version>
+            <version>${camel-version}</version>
          </dependency>
          <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-sql</artifactId>
-            <version>${camel.version}</version>
+            <version>${camel-version}</version>
          </dependency>
+
          <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api-version}</version>
+            <version>1.6.6</version>
          </dependency>
          <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j-version}</version>
+            <version>1.7.5</version>
          </dependency>
          <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava-version}</version>
+            <version>r08</version>
         </dependency>
          <dependency>
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
-            <version>${commons-dbutils-version}</version>
+            <version>1.5</version>
         </dependency>
          <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>${commons-beanutils-version}</version>
+            <version>1.8.0</version>
          </dependency>
          <dependency>
             <groupId>commons-dbcp</groupId>
             <artifactId>commons-dbcp</artifactId>
-            <version>${commons-dbcp-version}</version>
+            <version>1.4</version>
          </dependency>
          <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons-io-version}</version>
+            <version>2.4</version>
          </dependency>
          <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
-            <version>${commons-digester-version}</version>
+            <version>2.0</version>
          </dependency>
          <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
-            <version>${commons-fileupload-version}</version>
+            <version>1.2.2</version>
          </dependency>
          <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${junit-version}</version>
+            <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
          <dependency>
@@ -187,95 +157,84 @@
             <scope>test</scope>
          </dependency>
          <dependency>
+             <groupId>org.apache.commons</groupId>
+             <artifactId>commons-math</artifactId>
+             <version>2.2</version>
+         </dependency>
+         <dependency>
+             <groupId>colt</groupId>
+             <artifactId>colt</artifactId>
+             <version>1.2.0</version>
+         </dependency>
+         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>${commons-lang3-version}</version>
+            <version>3.1</version>
          </dependency>
          <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
-            <version>${commons-logging-version}</version>
+            <version>1.1.1</version>
          </dependency>
          <dependency>
             <groupId>commons-pool</groupId>
             <artifactId>commons-pool</artifactId>
-            <version>${commons-pool-version}</version>
+            <version>1.6</version>
          </dependency>
          <dependency>
             <groupId>com.google.collections</groupId>
             <artifactId>google-collections</artifactId>
-            <version>${google-collections-version}</version>
+            <version>1.0</version>
          </dependency>
          <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom</artifactId>
-            <version>${jdom-version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.faces</artifactId>
-            <version>${javax.faces-version}</version>
+            <version>1.1</version>
          </dependency>
          <dependency>
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
-            <version>${javax.ws.rs-api-version}</version>
-         </dependency>
-         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>${jstl-version}</version>
-            <scope>provided</scope>
+            <version>2.0-m02</version>
          </dependency>
          <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>${log4j-version}</version>
+            <version>1.2.17</version>
          </dependency>
          <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql-connector-version}</version>
+            <version>5.1.11</version>
          </dependency>
          <dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>${primefaces-version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>primefaces-extensions</artifactId>
-            <version>${primefaces-extensions-version}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.primefaces.themes</groupId>
-            <artifactId>bluesky</artifactId>
-            <version>${bluesky-version}</version>
-         </dependency>
-          <dependency>
-             <groupId>webcap</groupId>
-             <artifactId>portfolioJ2SE</artifactId>
-             <version>${webcap-portfolioJ2SE-version}</version>
-             </dependency>
-         <dependency>
-            <groupId>jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>${jfreechart-version}</version>
-         </dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.11-beta2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.11-beta2</version>
+        </dependency>
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>portfolioJ2SE</artifactId>
+          <version>5.0</version>
+        </dependency>
+        <dependency>
+          <groupId>webcab</groupId>
+          <artifactId>optimization</artifactId>
+          <version>2.6</version>
+        </dependency>
+        <dependency>
+          <groupId>joptimizer</groupId>
+          <artifactId>joptimizer</artifactId>
+          <version>3.3.0</version>
+        </dependency>
          <dependency>
             <groupId>org.quartz-scheduler</groupId>
             <artifactId>quartz</artifactId>
-            <version>${quartz-version}</version>
-         </dependency>
-         <dependency>
-            <groupId>com.invessence</groupId>
-            <artifactId>invmodel</artifactId>
-            <version>1.0-SNAPSHOT</version>
-         </dependency>
-         <dependency>
-            <groupId>com.invessence</groupId>
-            <artifactId>virtual-trades</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.8.4</version>
          </dependency>
          <dependency>
             <groupId>com.google.code.maven-play-plugin.org.playframework</groupId>
@@ -428,59 +387,42 @@
             <version>${spring-security-version}</version>
          </dependency>
          <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${javax.servlet-api-version}</version>
-         </dependency>
-         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>${javax.mail-version}</version>
+            <version>1.4</version>
          </dependency>
-          <dependency>
-              <groupId>fop</groupId>
-              <artifactId>fop</artifactId>
-              <version>${fop-version}</version>
-          </dependency>
-          <dependency>
-              <groupId>xalan</groupId>
-              <artifactId>xalan</artifactId>
-              <version>${xalan-version}</version>
-          </dependency>
-          <dependency>
-              <groupId>jtidy</groupId>
-              <artifactId>jtidy</artifactId>
-              <version>${jtidy-version}</version>
-          </dependency>
           <dependency>
               <groupId>avalon-framework</groupId>
               <artifactId>avalon-framework</artifactId>
-              <version>${avalon-version}</version>
+              <version>20020627</version>
           </dependency>
           <dependency>
               <groupId>org.apache.avalon.logkit</groupId>
               <artifactId>avalon-logkit</artifactId>
-              <version>${avalonlog-version}</version>
-          </dependency>
-          <dependency>
-              <groupId>batik</groupId>
-              <artifactId>batik-1.5-fop</artifactId>
-              <version>${batik-version}</version>
+              <version>2.2.1</version>
           </dependency>
           <dependency>
             <groupId>com.google.api-client</groupId>
             <artifactId>google-api-client</artifactId>
-            <version>${google-api}</version>
+            <version>1.18.0-rc</version>
           </dependency>
+
+
+
       </dependencies>
+
+      <!-- for JSF 2.x -->
    </dependencyManagement>
 
    <profiles>
       <profile>
          <id>1-LOCAL</id>
          <properties>
+            <web.mode>DEV</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://localhost:3307/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3307/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3307/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -490,16 +432,68 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
-            <ftp.localdir>C:\INV\Log\</ftp.localdir>
-            <report.localdir>C:\INV\Rpt\</report.localdir>
-            <doc.localdir>C:\INV\doc\</doc.localdir>
+
+            <base.data.dir>C:\\INV\\data</base.data.dir>
+            <base.rbsa.dir>C:\\INV\\RBSA</base.rbsa.dir>
+            <base.clientdata.dir>C:\\INV\\client</base.clientdata.dir>
+            <base.advisor.dir>C:\\INV\\advisor</base.advisor.dir>
+            <base.web.dir>C:\\workspace\\web\\www\\ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
+            <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
+            <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\\doc\\</doc.localdir>
+            <web_reports_dir>${base.web.dir}\\static\\reports\\</web_reports_dir>
+            <email_templates_dir>${base.web.dir}\\template\html\\</email_templates_dir>
+
          </properties>
       </profile>
       <profile>
          <id>2-DEVTEST</id>
          <properties>
+            <web.mode>DEV</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://69.195.39.117:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://dev.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://dev.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://dev.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>root</jdbc.username>
+            <jdbc.password>IamD3vMQ1</jdbc.password>
+            <apache.url>http://localhost:8080</apache.url>
+            <tomcat.url>http://localhost:8080</tomcat.url>
+            <ssl.url>http://localhost:8080</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+
+            <base.data.dir>C:\\INV\\data</base.data.dir>
+            <base.rbsa.dir>C:\\INV\\RBSA</base.rbsa.dir>
+            <base.clientdata.dir>C:\\INV\\client</base.clientdata.dir>
+            <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
+            <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
+            <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
+            <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\\doc\\</doc.localdir>
+            <web_reports_dir>${base.web.dir}\\static\\reports\\</web_reports_dir>
+            <email_templates_dir>${base.web.dir}\\template\\html\\</email_templates_dir>
+        </properties>
+      </profile>
+      <profile>
+         <id>3-TMPDB</id>
+         <properties>
+            <web.mode>DEV</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://dev.invessence.com:3306/tmpdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://dev.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://dev.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>root</jdbc.username>
             <jdbc.password>d1ysy5_ml</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
@@ -509,75 +503,70 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
-            <ftp.localdir>C:\INV\Log\</ftp.localdir>
-            <report.localdir>C:\INV\Rpt\</report.localdir>
-            <doc.localdir>C:\INV\doc\</doc.localdir>
-         </properties>
+
+            <base.data.dir>C:\\INV\\data</base.data.dir>
+            <base.rbsa.dir>C:\\INV\\RBSA</base.rbsa.dir>
+            <base.clientdata.dir>C:\\INV\\client</base.clientdata.dir>
+            <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
+            <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
+            <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
+            <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\\doc\\</doc.localdir>
+            <web_reports_dir>${base.web.dir}\\static\\reports\\</web_reports_dir>
+            <email_templates_dir>${base.web.dir}\\template\\html\\</email_templates_dir>
+        </properties>
       </profile>
       <profile>
          <id>3-DEV</id>
          <properties>
+            <web.mode>DEV</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://69.195.39.117:3306/invdb</jdbc.url>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>root</jdbc.username>
-            <jdbc.password>d1ysy5_ml</jdbc.password>
-            <apache.url>http://dev.invessence.com:1008</apache.url>
+            <jdbc.password>IamD3vMQ1</jdbc.password>
+            <apache.url>http://dev.invessence.com:8080</apache.url>
             <tomcat.url>http://dev.invessence.com:8080</tomcat.url>
             <ssl.url>http://dev.invessence.com:8080</ssl.url>
             <mail.host>smtp.gmail.com</mail.host>
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
-            <ftp.localdir>/opt/dev/inv/data/</ftp.localdir>
-            <report.localdir>/opt/dev/inv/rpt/</report.localdir>
-            <doc.localdir>/opt/dev/inv/doc/</doc.localdir>
+
+            <base.data.dir>/data/dev/data</base.data.dir>
+            <base.rbsa.dir>/data/dev/RBSA</base.rbsa.dir>
+            <base.clientdata.dir>/data/dev/client</base.clientdata.dir>
+            <base.advisor.dir>/data/dev/advisor</base.advisor.dir>
+            <base.web.dir>/data/apps/tomcat/devsite/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+
          </properties>
       </profile>
       <profile>
-         <id>4-UAT</id>
+         <id>4-UAT-TEST</id>
          <properties>
+            <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://69.195.39.117:3306/uat_invdb</jdbc.url>
-            <jdbc.username>root</jdbc.username>
-            <jdbc.password>d1ysy5_ml</jdbc.password>
-            <apache.url>http://uat.invessence.com:1008</apache.url>
-            <tomcat.url>http://uat.invessence.com:8080</tomcat.url>
-            <ssl.url>http://uat.invessence.com:8080</ssl.url>
-            <mail.host>smtp.gmail.com</mail.host>
-            <mail.username>no-reply@invessence.com</mail.username>
-            <mail.password>G3n3r@l89</mail.password>
-            <mail.port>587</mail.port>
-            <ftp.localdir>/opt/uat/inv/data/</ftp.localdir>
-            <report.localdir>/opt/uat/inv/rpt/</report.localdir>
-            <doc.localdir>/opt/uat/inv/doc/</doc.localdir>
-         </properties>
-      </profile>
-      <profile>
-         <id>4.1-UAT-PROD</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://162.242.204.228:3306/invdb</jdbc.url>
-            <jdbc.username>root</jdbc.username>
-            <jdbc.password>9TfrjNyqnERM</jdbc.password>
-            <apache.url>http://uat.invessence.com:1008</apache.url>
-            <tomcat.url>http://uat.invessence.com:8080</tomcat.url>
-            <ssl.url>http://uat.invessence.com:8080</ssl.url>
-            <mail.host>smtp.gmail.com</mail.host>
-            <mail.username>no-reply@invessence.com</mail.username>
-            <mail.password>G3n3r@l89</mail.password>
-            <mail.port>587</mail.port>
-            <ftp.localdir>/opt/uat/inv/data/</ftp.localdir>
-            <report.localdir>/opt/uat/inv/rpt/</report.localdir>
-            <doc.localdir>/opt/uat/inv/doc/</doc.localdir>
-         </properties>
-      </profile>
-      <profile>
-         <id>5-PROD-TEST</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://162.242.204.228:3306/invdb</jdbc.url>
-            <jdbc.username>root</jdbc.username>
-            <jdbc.password>9TfrjNyqnERM</jdbc.password>
+            <jdbc.url>jdbc:mysql://uat.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://uat.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
             <apache.url>http://localhost:8080</apache.url>
             <tomcat.url>http://localhost:8080</tomcat.url>
             <ssl.url>http://localhost:8080</ssl.url>
@@ -585,18 +574,207 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
-            <ftp.localdir>C:\INV\Log\</ftp.localdir>
-            <report.localdir>C:\INV\Log\</report.localdir>
-            <doc.localdir>C:\INV\doc\</doc.localdir>
+
+            <base.data.dir>C:\INV\data</base.data.dir>
+            <base.rbsa.dir>C:\INV\RBSA</base.rbsa.dir>
+            <base.clientdata.dir>C:\INV\client</base.clientdata.dir>
+            <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
+            <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
+            <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
+            <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\\doc\\</doc.localdir>
+            <web_reports_dir>${base.web.dir}\\static\\reports\\</web_reports_dir>
+            <email_templates_dir>${base.web.dir}\\template\\html\\</email_templates_dir>
+
+         </properties>
+      </profile>
+      <profile>
+         <id>4.1-UAT</id>
+         <properties>
+            <web.mode>PROD</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <apache.url>http://uat.invessence.com:8080</apache.url>
+            <tomcat.url>http://uat.invessence.com:8080</tomcat.url>
+            <ssl.url>http://uat.invessence.com:8080</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>4.2-UAT-DEMO</id>
+         <properties>
+            <web.mode>PROD</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <apache.url>http://demo.invessence.com:8080</apache.url>
+            <tomcat.url>http://demo.invessence.com:8080</tomcat.url>
+            <ssl.url>http://demo.invessence.com:8080</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>4.3-BP-PROD</id>
+         <properties>
+            <web.mode>PROD</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <apache.url>http://bp.invessence.com:8080</apache.url>
+            <tomcat.url>http://bp.invessence.com:8080</tomcat.url>
+            <ssl.url>http://bp.invessence.com:8080</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/www/bp/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>5-PROD-TEST</id>
+         <properties>
+            <web.mode>PROD</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://207.97.205.89:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://207.97.205.89:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://207.97.205.89:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>Inv3553nc3</jdbc.password>
+            <apache.url>http://localhost:8080</apache.url>
+            <tomcat.url>http://localhost:8080</tomcat.url>
+            <ssl.url>http://localhost:8080</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+
+            <base.data.dir>C:\INV\data</base.data.dir>
+            <base.rbsa.dir>C:\INV\RBSA</base.rbsa.dir>
+            <base.clientdata.dir>C:\INV\client</base.clientdata.dir>
+            <base.advisor.dir>C:\INV\advisor</base.advisor.dir>
+            <base.web.dir>C:\workspace\web\www\ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}\upload\</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}\download\</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}\ftp\</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}\RBSA\</rsba.localdir>
+            <report.localdir>${base.data.dir}\rpt\</report.localdir>
+            <pdf.localdir>${base.data.dir}\pdf\</pdf.localdir>
+            <doc.localdir>${base.data.dir}\doc\</doc.localdir>
+            <web_reports_dir>${base.web.dir}\static\reports\</web_reports_dir>
+            <email_templates_dir>${base.web.dir}\template\html\</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>5.1-PROD-UAT</id>
+         <properties>
+            <web.mode>PROD</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://207.97.205.89:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://207.97.205.89:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://207.97.205.89:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>Inv3553nc3</jdbc.password>
+            <apache.url>http://demo.invessence.com:8080</apache.url>
+            <tomcat.url>http://demo.invessence.com:8080</tomcat.url>
+            <ssl.url>http://demo.invessence.com:8080</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
          </properties>
       </profile>
       <profile>
          <id>6-PROD</id>
          <properties>
+            <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://localhost:3306/invdb</jdbc.url>
-            <jdbc.username>root</jdbc.username>
-            <jdbc.password>9TfrjNyqnERM</jdbc.password>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>weblocal</jdbc.username>
+            <jdbc.password>Ma5t3r0p7i0n</jdbc.password>
             <apache.url>http://www.invessence.com</apache.url>
             <tomcat.url>http://login.invessence.com</tomcat.url>
             <ssl.url>https://www.invessence.com</ssl.url>
@@ -604,9 +782,123 @@
             <mail.username>no-reply@invessence.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
-            <ftp.localdir>/inv/data/</ftp.localdir>
-            <report.localdir>/inv/rpt/</report.localdir>
-            <doc.localdir>/inv/doc/</doc.localdir>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>A-LTAM-TEST</id>
+         <properties>
+            <web.mode>DEV</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://207.97.205.91:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://207.97.205.91:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://207.97.205.91:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <apache.url>http://iadvise.biz</apache.url>
+            <tomcat.url>http://iadvise.biz</tomcat.url>
+            <ssl.url>https://iadvise.biz</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>A-LTAM-PROD</id>
+         <properties>
+            <web.mode>PROD</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <apache.url>http://iadvise.biz</apache.url>
+            <tomcat.url>http://iadvise.biz</tomcat.url>
+            <ssl.url>https://iadvise.biz</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/web/tomcat/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+      <profile>
+         <id>Z-DEMO</id>
+         <properties>
+            <web.mode>DEMO</web.mode>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <apache.url>http://invessence.com</apache.url>
+            <tomcat.url>http://invessence.com</tomcat.url>
+            <ssl.url>https://invessence.com</ssl.url>
+            <mail.host>smtp.gmail.com</mail.host>
+            <mail.username>no-reply@invessence.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+            <base.data.dir>/inv/data</base.data.dir>
+            <base.rbsa.dir>/inv/data</base.rbsa.dir>
+            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
+            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/www/demo/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/ftp/</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.data.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
          </properties>
       </profile>
    </profiles>

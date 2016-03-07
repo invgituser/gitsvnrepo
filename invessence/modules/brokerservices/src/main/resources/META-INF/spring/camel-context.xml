@@ -68,6 +68,10 @@ http://camel.apache.org/schema/spring/camel-spring.xsd">
       <property name="dateFilter" ref="dateFilter"/>
    </bean>
 
+   <bean id="relAndUnrelFileFilter" class="com.invessence.broker.filters.RelAndUnrelFileFilter">
+      <property name="dateFilter" ref="dateFilter"/>
+   </bean>
+
    <bean id="summaryFileFilter" class="com.invessence.broker.filters.SummaryFileFilter">
       <property name="dateFilter" ref="dateFilter"/>
       <property name="dao" ref="dbBean"/>
@@ -83,7 +87,7 @@ http://camel.apache.org/schema/spring/camel-spring.xsd">
       <property name="dao" ref="dbBean"/>
    </bean>
 
-   <bean id="cashReportFileProcessor" class="com.invessence.broker.processors.CashReportProcessor">
+   <bean id="cashReportFileProcessor" class="com.invessence.broker.processors.CashReportFileProcessor">
       <property name="dataSource" ref="dataSource"/>
       <property name="dao" ref="dbBean"/>
    </bean>
@@ -109,6 +113,11 @@ http://camel.apache.org/schema/spring/camel-spring.xsd">
    </bean>
 
    <bean id="unbndldCommissionFileProcessor" class="com.invessence.broker.processors.UnbndldCommissionFileProcessor">
+      <property name="dataSource" ref="dataSource"/>
+      <property name="dao" ref="dbBean"/>
+   </bean>
+
+   <bean id="relAndUnrelFileProcessor" class="com.invessence.broker.processors.RelAndUnrealFileProcessor">
       <property name="dataSource" ref="dataSource"/>
       <property name="dao" ref="dbBean"/>
    </bean>
@@ -247,10 +256,51 @@ http://camel.apache.org/schema/spring/camel-spring.xsd">
           <to uri="sql:{{sql.insertunbndldCommission}}?batch=true"/>
       </route>
 
-      <route id="ftpSummaryFilesFromBroker">
+      <route id="ftpRelAndUnrelFilesFromBroker">
          <from
-            uri="ftp://{{ftp.username}}@{{ftp.host}}/Outgoing?password={{ftp.password}}&amp;filter=#summaryFileFilter&amp;recursive=true&amp;delay={{ftp.delay}}"/>
-         <to uri="file://{{ftp.localdir}}/Summary"/>
+            uri="ftp://{{ftp.username}}@{{ftp.host}}/Outgoing?password={{ftp.password}}&amp;filter=#relAndUnrelFileFilter&amp;delay={{ftp.delay}}"/>
+         <to uri="file://{{ftp.localdir}}/RelAndUnrel"/>
+         <to uri="direct:processRelAndUnrelFiles"/>
       </route>
+      <route id="processRelAndUnrelFiles">
+         <from uri="direct:processRelAndUnrelFiles"/>
+         <to uri="bean:relAndUnrelFileProcessor?method=process"/>
+         <to uri="direct:uploadRelAndUnrelToDB"/>
+      </route>
+      <route id="insertRelAndUnrelToDB">
+         <from uri="direct:uploadRelAndUnrelToDB"/>
+          <to uri="sql:{{sql.insertrelAndunrel}}?batch=true"/>
+      </route>
+
+      <route id="retrieveDailyReports">
+         <from uri="sql:{{sql.getdailyreport}}"/>
+         <to uri="direct:downloadRpt"/>
+      </route>
+      <route id="ftpSummaryFilesFromBroker">
+         <from uri="direct:downloadRpt"/>
+         <from
+            uri="ftp://{{ftp.username}}@{{ftp.host}}/Outgoing?password={{ftp.password}}&amp;filter=#dailyFileFilter&amp;recursive=true&amp;delay={{ftp.delay}}"/>
+         <to uri="direct:markDB"/>
+      </route>
+      <route id="addRptToDB">
+         <from uri="direct:markDB"/>
+         <to uri="bean:dbUpdater?method=process"/>
+      </route>
+
+      <route id="retrieveMonthlyReports">
+         <from uri="sql:{{sql.getmonthlyreport}}"/>
+         <to uri="direct:downloadRpt"/>
+      </route>
+      <route id="ftpSummaryFilesFromBroker">
+         <from uri="direct:downloadRpt"/>
+         <from
+            uri="ftp://{{ftp.username}}@{{ftp.host}}/Outgoing?password={{ftp.password}}&amp;filter=#monthlyFileFilter&amp;recursive=true&amp;delay={{ftp.delay}}"/>
+         <to uri="direct:markDB"/>
+      </route>
+      <route id="addRptToDB">
+         <from uri="direct:markDB"/>
+         <to uri="bean:dbUpdater?method=process"/>
+      </route>
+
    </camelContext>
 </beans>

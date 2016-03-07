@@ -22,7 +22,7 @@ public class SummaryFileFilter implements GenericFileFilter
       {
          return true;
       }
-      boolean retrieveFile = file.getFileName().contains("Monthly_Statement") && dateFilter.acceptSummaryFile(file.getFileName());
+      boolean retrieveFile = file.getFileName().contains("Monthly_Statement") && dateFilter.accept(file.getFileName());
       if (retrieveFile)
       {
          logger.info("Retrieving Monthly Summary File: " + file.getFileName());

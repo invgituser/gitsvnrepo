@@ -10,98 +10,67 @@ import static java.lang.String.valueOf;
 
 public class SecurityData
 {
-   private Long instrumentid = 0L;
+   private String advisor = "";
+   private String theme = "";
    private String ticker = "";
    private String name = "";
    private String assetclass = "";
-   private String subassetclass = "";
+   private String primeassetclass = "";
    private String type = "";
    private String style;
    private double dailyprice = 0.0;
-   private double expenseRatio = 0.0;
-   private double adv3Month = 0.0;
-   private double aum = 0.0;
-   private double beta = 0.0;
-   private double riskSTD = 0.0;
-   private double taxableReturn = 0.0;
-   private double nonTaxableReturn = 0.0;
-   private double ubConstraint = 0.0;
-   private double lbConstraint = 0.0;
-   private double yield = 0.0;
-   private int sortorder = 0;
+   private int    sortorder = 0;
+   private double rbsaWeight = 0.0;
+   private String assetcolor = "";
+   private String primeassetcolor = "";
+   private String securityAssetClass = "";
+   private String securitySubAssetClass = "";
 
    public SecurityData()
    {
       super();
    }
 
-   public SecurityData(Long instrumentid, String ticker, String name,
-                       String assetclass, String subassetclass, String type, String style,
-                       double dailyprice, double expenseRatio, double adv3Month,
-                       double aum, double beta, double riskSTD,
-                       double taxableReturn, double nonTaxableReturn, double ubConstraint,
-                       double lbConstraint, double yield, int sortorder)
+   public SecurityData(String advisor, String theme, String ticker, String name,
+                       String assetclass, String primeassetclass, String type, String style,
+                       double dailyprice, int sortorder, double rbsaWeight,
+                       String assetcolor, String primeassetcolor,
+                       String securityAssetClass, String securitySubAssetClass)
    {
       super();
-      this.instrumentid = instrumentid;
-      this.ticker = ticker;
-      this.name = name;
-      this.assetclass = assetclass;
-      this.subassetclass = subassetclass;
-      this.type = type;
-      this.style = style;
-      this.style = style;
-      this.dailyprice = dailyprice;
-      this.expenseRatio = expenseRatio;
-      this.adv3Month = adv3Month;
-      this.aum = aum;
-      this.beta = beta;
-      this.riskSTD = riskSTD;
-      this.taxableReturn = taxableReturn;
-      this.nonTaxableReturn = nonTaxableReturn;
-      this.ubConstraint = ubConstraint;
-      this.lbConstraint = lbConstraint;
-      this.yield = yield;
-      this.sortorder = sortorder;
+      resetSecurityData(advisor, theme, ticker, name,
+                        assetclass, primeassetclass, type, style,
+                        dailyprice, sortorder, rbsaWeight,
+                        assetcolor, primeassetcolor,
+                        securityAssetClass, securitySubAssetClass);
    }
 
-   public SecurityData resetSecurityData(Long instrumentid, String ticker, String name,
-                                         String assetclass, String subassetclass, String type, String style,
-                                         double dailyprice, double expenseRatio, double adv3Month,
-                                         double aum, double beta, double riskSTD,
-                                         double taxableReturn, double nonTaxableReturn, double ubConstraint,
-                                         double lbConstraint, double yield, int sortorder)
+   public SecurityData resetSecurityData(String advisor, String theme, String ticker, String name,
+                                         String assetclass, String primeassetclass, String type, String style,
+                                         double dailyprice, int sortorder, double rbsaWeight,
+                                         String assetcolor, String primeassetcolor,
+                                         String securityAssetClass, String securitySubAssetClass)
    {
-      this.instrumentid = instrumentid;
+      this.advisor = advisor;
       this.ticker = ticker;
       this.name = name;
       this.assetclass = assetclass;
-      this.subassetclass = subassetclass;
+      this.primeassetclass = primeassetclass;
       this.type = type;
       this.style = style;
       this.dailyprice = dailyprice;
-      this.expenseRatio = expenseRatio;
-      this.adv3Month = adv3Month;
-      this.aum = aum;
-      this.beta = beta;
-      this.riskSTD = riskSTD;
-      this.taxableReturn = taxableReturn;
-      this.nonTaxableReturn = nonTaxableReturn;
-      this.ubConstraint = ubConstraint;
-      this.lbConstraint = lbConstraint;
-      this.yield = yield;
       this.sortorder = sortorder;
+      this.rbsaWeight = rbsaWeight;
+      this.assetcolor = assetcolor;
+      this.primeassetcolor = primeassetcolor;
+      this.securityAssetClass = securityAssetClass;
+      this.securitySubAssetClass = securitySubAssetClass;
       return this;
    }
 
-   public Long getInstrumentid()
+   public String getAdvisor()
    {
-      return instrumentid;
-   }
-
-   public void setInstrumentid(Long instrumentid)
-   {
-      this.instrumentid = instrumentid;
+      return advisor;
    }
 
    public String getTicker()
@@ -109,19 +78,9 @@ public class SecurityData
       return ticker;
    }
 
-   public void setTicker(String ticker)
-   {
-      this.ticker = ticker;
-   }
-
    public String getName()
    {
       return name;
-   }
-
-   public void setName(String name)
-   {
-      this.name = name;
    }
 
    public String getAssetclass()
@@ -129,19 +88,9 @@ public class SecurityData
       return assetclass;
    }
 
-   public void setAssetclass(String assetclass)
+   public String getPrimeassetclass()
    {
-      this.assetclass = assetclass;
-   }
-
-   public String getSubassetclass()
-   {
-      return subassetclass;
-   }
-
-   public void setSubassetclass(String subassetclass)
-   {
-      this.subassetclass = subassetclass;
+      return primeassetclass;
    }
 
    public String getType()
@@ -149,19 +98,9 @@ public class SecurityData
       return type;
    }
 
-   public void setType(String type)
-   {
-      this.type = type;
-   }
-
    public String getStyle()
    {
       return style;
-   }
-
-   public void setStyle(String style)
-   {
-      this.style = style;
    }
 
    public double getDailyprice()
@@ -169,119 +108,39 @@ public class SecurityData
       return dailyprice;
    }
 
-   public void setDailyprice(double dailyprice)
-   {
-      this.dailyprice = dailyprice;
-   }
-
-   public double getExpenseRatio()
-   {
-      return expenseRatio;
-   }
-
-   public void setExpenseRatio(double expenseRatio)
-   {
-      this.expenseRatio = expenseRatio;
-   }
-
-   public double getAdv3Month()
-   {
-      return adv3Month;
-   }
-
-   public void setAdv3Month(double adv3Month)
-   {
-      this.adv3Month = adv3Month;
-   }
-
-   public double getAum()
-   {
-      return aum;
-   }
-
-   public void setAum(double aum)
-   {
-      this.aum = aum;
-   }
-
-   public double getBeta()
-   {
-      return beta;
-   }
-
-   public void setBeta(double beta)
-   {
-      this.beta = beta;
-   }
-
-   public double getRiskSTD()
-   {
-      return riskSTD;
-   }
-
-   public void setRiskSTD(double riskSTD)
-   {
-      this.riskSTD = riskSTD;
-   }
-
-   public double getTaxableReturn()
-   {
-      return taxableReturn;
-   }
-
-   public void setTaxableReturn(double taxableReturn)
-   {
-      this.taxableReturn = taxableReturn;
-   }
-
-   public double getNonTaxableReturn()
-   {
-      return nonTaxableReturn;
-   }
-
-   public void setNonTaxableReturn(double nonTaxableReturn)
-   {
-      this.nonTaxableReturn = nonTaxableReturn;
-   }
-
-   public double getUbConstraint()
-   {
-      return ubConstraint;
-   }
-
-   public void setUbConstraint(double ubConstraint)
-   {
-      this.ubConstraint = ubConstraint;
-   }
-
-   public double getLbConstraint()
-   {
-      return lbConstraint;
-   }
-
-   public void setLbConstraint(double lbConstraint)
-   {
-      this.lbConstraint = lbConstraint;
-   }
-
-   public double getYield()
-   {
-      return yield;
-   }
-
-   public void setYield(double yield)
-   {
-      this.yield = yield;
-   }
-
    public int getSortorder()
    {
       return sortorder;
    }
 
-   public void setSortorder(int sortorder)
+   public double getRbsaWeight()
    {
-      this.sortorder = sortorder;
+      return rbsaWeight;
+   }
+
+   public String getAssetcolor()
+   {
+      return assetcolor;
+   }
+
+   public String getPrimeassetcolor()
+   {
+      return primeassetcolor;
+   }
+
+   public String getTheme()
+   {
+      return theme;
+   }
+
+   public String getSecurityAssetClass()
+   {
+      return securityAssetClass;
+   }
+
+   public String getSecuritySubAssetClass()
+   {
+      return securitySubAssetClass;
    }
 
    public String getHeader()
@@ -300,7 +159,7 @@ public class SecurityData
          String str = this.ticker + ":" + Joiner.on(",").join(Arrays.asList(getTicker(),
                                                                             getName(),
                                                                             getAssetclass(),
-                                                                            getSubassetclass(),
+                                                                            getPrimeassetclass(),
                                                                             getDailyprice(),
                                                                             getSortorder()
                                                                             ));
@@ -321,7 +180,7 @@ public class SecurityData
          xmlData = xmlData + buildElement("Ticker", getTicker()) +
             buildElement("Name", getName()) +
             buildElement("AssetType", getAssetclass()) +
-            buildElement("AssetSubtype", getSubassetclass()) +
+            buildElement("AssetSubtype", getPrimeassetclass()) +
             buildElement("DailyPrice", valueOf(getDailyprice())) +
             buildElement("Sortorder", valueOf(getSortorder()));
          return buildElement("SecurityInfo", xmlData);

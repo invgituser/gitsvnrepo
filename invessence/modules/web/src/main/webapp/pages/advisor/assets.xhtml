@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/invlayout.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{advisorAssetBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box">
+            <div class="Container90 Responsive50">
+                <div class="ContainerIndent">
+                    <h:form id="assetform">
+                        <div class="Container100 Responsive50">
+                        <h3 class="BigTopic">
+                            <div class="Wid40 Responsive50 Fleft">Asset Allocation Control Panel</div>
+                            <div class="Wid30 Fleft Responsive50">
+                                <p:selectOneButton value="#{advisorAssetBean.taxableFilter}" disabled="">
+                                    <f:selectItem itemLabel="Taxable" itemValue="T"/>
+                                    <f:selectItem itemLabel="Non-taxable" itemValue="N"/>
+                                    <p:ajax update=":assetform:themeSelect,:assetform:assetID" listener="#{advisorAssetBean.filterTheme}"/>
+                                </p:selectOneButton>
+                            </div>
+                            <div class="Wid20 Fright Responsive50">
+                                <p:selectOneMenu id="themeSelect"
+                                                 value="#{advisorAssetBean.selectedTheme}" style="width:125px">
+                                    <f:selectItem itemLabel="Choose one" itemValue=""/>
+                                    <f:selectItems value="#{advisorAssetBean.themes.entrySet()}"
+                                                   var="bskt" itemLabel="#{bskt.value}" itemValue="#{bskt.key}"/>
+                                    <p:ajax listener="#{advisorAssetBean.filterData}"
+                                            update=":assetform:assetID"/>
+                                </p:selectOneMenu>
+                            </div>
+                        </h3>
+                        </div>
+                         <div class="Container100 Responsive50">
+                             <p:growl id="msgs" showDetail="true"/>
+                         </div>
+                        <div class="Container100 Responsive50">
+
+
+                        <p:accordionPanel id="assetID" >
+                            <p:tab title="Assets" >
+                                <ui:include src="/pages/advisor/addon/assetclass.xhtml"/>
+                            </p:tab>
+                            <p:tab title="Prime Assets">
+                                <ui:include src="/pages/advisor/addon/primeassetclass.xhtml"/>
+                            </p:tab>
+                        </p:accordionPanel>
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>

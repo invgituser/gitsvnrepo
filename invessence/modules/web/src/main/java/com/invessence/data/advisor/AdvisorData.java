@@ -2,9 +2,7 @@ package com.invessence.data.advisor;
 
 import java.util.*;
 
-import com.invessence.data.*;
-import com.invmodel.asset.AssetAllocationModel;
-import com.invmodel.portfolio.PortfolioModel;
+import com.invessence.data.common.CustomerData;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,18 +12,25 @@ import com.invmodel.portfolio.PortfolioModel;
  * To change this template use File | Settings | File Templates.
  */
 @SuppressWarnings("UnusedDeclaration")
-public class AdvisorData extends ManageGoals
+public class AdvisorData extends CustomerData
 {
+
    private Long clientLogonID;
    private String clientFirstName;
    private String clientLastname;
    private String clientEmail;
+   private Integer advisorRiskIndex;
+
    private String action;
    private String actionIcon;
 
    private List<String> filteredOption;
-   private List<DataPortfolio> excludeList = new ArrayList<DataPortfolio>();
+   private List<String> rebalanceOption;
 
+
+   public AdvisorData getInstance() {
+      return this;
+   }
 
    public Long getClientLogonID()
    {
@@ -82,6 +87,27 @@ public class AdvisorData extends ManageGoals
       this.clientEmail = clientEmail;
    }
 
+   public Integer getAdvisorRiskIndex()
+   {
+      return advisorRiskIndex;
+   }
+
+   public void setConvertRiskIndex(Integer riskIndex)
+   {
+      Integer weightedRisk;
+      weightedRisk = convertRiskWeight2Index(riskIndex.doubleValue());
+      this.advisorRiskIndex = weightedRisk;
+      setRiskIndex(riskIndex);
+   }
+
+   public void setAdvisorRiskIndex(Integer advisorRiskIndex)
+   {
+      Double weightedRisk;
+      this.advisorRiskIndex = advisorRiskIndex;
+      weightedRisk = convertIndex2RiskWeight(advisorRiskIndex);
+      setRiskIndex(weightedRisk.intValue());
+   }
+
    public List<String> getFilteredOption()
    {
       return filteredOption;
@@ -92,15 +118,6 @@ public class AdvisorData extends ManageGoals
       this.filteredOption = filteredOption;
    }
 
-   public List<DataPortfolio> getExcludeList()
-   {
-      return excludeList;
-   }
-
-   public void setExcludeList(List<DataPortfolio> excludeList)
-   {
-      this.excludeList = excludeList;
-   }
 
    public String getAction()
    {
@@ -132,4 +149,22 @@ public class AdvisorData extends ManageGoals
    {
       this.actionIcon = actionIcon;
    }
+
+   public void resetAdvisorData() {
+      // Clean up CustomerData Data first.
+      resetCustomerData();
+
+      setClientLogonID(null);
+      setClientFirstName(null);
+      setClientLastname(null);
+      setClientEmail(null);
+      setAction(null);
+      setActionIcon(null);
+
+      if (filteredOption != null)
+         filteredOption.clear();
+   }
+
+
+
 }

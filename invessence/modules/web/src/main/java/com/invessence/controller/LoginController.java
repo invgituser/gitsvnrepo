@@ -9,6 +9,7 @@ import javax.servlet.*;
 
 import com.invessence.constant.Const;
 import com.invessence.data.*;
+import com.invessence.data.common.UserInfoData;
 import com.invessence.util.*;
 import org.apache.commons.logging.*;
 import org.springframework.security.authentication.*;
@@ -17,31 +18,33 @@ import org.springframework.security.web.WebAttributes;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
 @ManagedBean(name = "loginController")
-@RequestScoped
+@ViewScoped
 public class LoginController implements PhaseListener
 {
 
    protected final Log logger = LogFactory.getLog(getClass());
-   private Long acctnum;
-   private UserValidation uv = new UserValidation();
+   private Long logonid;
+   private WebUtil webutil = new WebUtil();
    private String userID, password, question, answer, savedAnswer;
    private Boolean needAdditionalInfo = false;
    private UserInfoData uid;
 
    @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
-   MsgData data = new MsgData();
-   UserValidation urv = new UserValidation();
+   private EmailMessage emailMessage;
 
+   @ManagedProperty("#{uiportal}")
+   private UIPortal uiPortal;
 
-   public EmailMessage getMessageText()
+   private MsgData data = new MsgData();
+
+   public void setEmailMessage(EmailMessage emailMessage)
    {
-      return messageText;
+      this.emailMessage = emailMessage;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setUiPortal(UIPortal uiPortal)
    {
-      this.messageText = messageText;
+      this.uiPortal = uiPortal;
    }
 
    /**
@@ -76,28 +79,34 @@ public class LoginController implements PhaseListener
          if (e instanceof LockedException) {
             uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
             if (uid != null) {
-               String secureUrl = messageText.getMessagetext("secure.url", new Object[]{});
-               String msg = messageText.getMessagetext("accountlocked.email",
-                                                       new Object[]{secureUrl, uid.getEmail(), uid.getResetID()});
+               String secureUrl = emailMessage.buildInternalMessage("secure.url", new Object[]{});
+
+               // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
+               String msg = emailMessage.buildMessage(uid.getEmailmsgtype(),"accountlocked.email.template", "accountlocked.email", new Object[]{secureUrl, uid.getEmail(), uid.getResetID()} );
                data.setSource("User");  // This is set to User to it insert into appropriate table.
                data.setSender(Const.MAIL_SENDER);
                data.setReceiver(uid.getEmail());
                data.setSubject(Const.COMPANY_NAME + " - Account Locked");
                data.setMsg(msg);
-               messageText.writeMessage("user", data);
+               data.setMimeType(uid.getEmailmsgtype());
+               emailMessage.writeMessage("user", data);
                data.setSubject("Locked:" + uid.getUserID());
                // If user is locked, send message to support desk...
-               String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID() + "," + uid.getAcctownertype();
+               String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID() ;
                System.out.println(lockedinfo);
                data.setMsg(lockedinfo);
                data.setReceiver(null);
-               messageText.writeMessage("WARN",data);
+               emailMessage.writeMessage("WARN", data);
             }
-            String lockedMsg = messageText.getMessagetext("accountlocked.msg", new Object[]{});
-            String redirectUrl="\\message.xhtml?faces-redirect=true&message=" + lockedMsg;
-            urv.redirect(redirectUrl,null);
+            String lockedMsg = "&message=mbal";
+            String type="&type=E";
+            String title="&title=mtal";
+            String redirectUrl="/message.xhtml?faces-redirect=true&"+ lockedMsg + type + title;
+            webutil.redirect(redirectUrl, null);
          }
-         return;
+         else {
+            System.out.println("Exception during login time: " + e.getMessage());
+         }
       }
 
       FacesContext.getCurrentInstance().responseComplete();
@@ -111,16 +120,9 @@ public class LoginController implements PhaseListener
       if (e != null)
       {
          uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
-         if (uid == null) {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "Username/password not valid.",
-                                                                          "Username/password not valid."));
-
-         }
-         else if (e instanceof BadCredentialsException)
+         if (e instanceof BadCredentialsException)
          {
-            if (uid.getAttempts() > 1) {
+            if (uid != null && uid.getAttempts() > 1) {
                setNeedAdditionalInfo(true);
                setQuestion(uid.getSelectedQuestion());
             }
@@ -144,12 +146,6 @@ public class LoginController implements PhaseListener
                                                          new FacesMessage(FacesMessage.SEVERITY_ERROR,
                                                                           "Account is locked",
                                                                           "Account is locked"));
-         }
-         else {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "Contact Support." + e.getMessage(),
-                                                                          "Contact Support." + e.getMessage()));
          }
       }
    }
@@ -191,49 +187,30 @@ public class LoginController implements PhaseListener
 
    public String getRedirect()
    {
-      String accttype;
-      String url = "/manageAccount.xhtml";
-      try {
-         if (getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE) != null)
-         {
-            accttype = getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE).toString();
-            if (accttype.equalsIgnoreCase(Const.ROLE_ADVISOR)) {
-              url = "/advisor/welcome.xhtml";
-            }
-            else  if (accttype.equalsIgnoreCase(Const.ROLE_ADMIN)) {
-                     url = "/admin/welcome.xhtml";
-                  }
-            else
-               url = "/manageAccount.xhtml";
-         }
-         else {
-            url = "/manageAccount.xhtml";
-         }
-
-      }
-      catch (Exception ex) {
-          ex.printStackTrace();
-      }
-      finally {
-         urv.redirect(url,null);
-      }
+      uiPortal.setDefault_page(null);
+      uiPortal.redirectStartPage();
       return "success";
    }
 
-   public String logout()
-   {
-      FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-      return "index.html";
+
+   public void logout() {
+      try {
+         uiPortal.logout();
+      }
+      catch (Exception ex) {
+
+      }
+      webutil.redirect("/j_spring_security_logout", null);
    }
 
-   public Long getAcctnum()
+   public Long getLogonid()
    {
-      return acctnum;
+      return logonid;
    }
 
-   public void setAcctnum(Long acctnum)
+   public void setLogonid(Long logonid)
    {
-      this.acctnum = acctnum;
+      this.logonid = logonid;
    }
 
    public String getUserID()

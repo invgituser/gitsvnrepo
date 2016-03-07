@@ -3,6 +3,7 @@ package com.invessence.data.admin;
 import java.util.List;
 
 import com.invessence.data.*;
+import com.invessence.data.common.*;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.portfolio.PortfolioModel;
 
@@ -38,9 +39,9 @@ public class AdminData
 
    private List<IBData> ibList;
    private List<InvessenceData> invessenceList;
-   private List<AdminTradeClient> adminTradeClientList;
-   private AdminTradeClient[] selectedTradeAccounts;
-   private AdminTradeClient singleTradeAccount;
+   private List<TradeClientData> tradeDataList;
+   private TradeClientData[] selectedTradeAccounts;
+   private TradeClientData singleTradeAccount;
    private List<TradeDetails> tradedetails;
 
    public AssetAllocationModel getAllocModel()
@@ -243,32 +244,32 @@ public class AdminData
       this.filteredOption = filteredOption;
    }
 
-   public List<AdminTradeClient> getAdminTradeClientList()
+   public List<TradeClientData> getTradeDataList()
    {
-      return adminTradeClientList;
+      return tradeDataList;
    }
 
-   public void setAdminTradeClientList(List<AdminTradeClient> adminTradeClientList)
+   public void setTradeDataList(List<TradeClientData> tradeClientDataList)
    {
-      this.adminTradeClientList = adminTradeClientList;
+      this.tradeDataList = tradeClientDataList;
    }
 
-   public AdminTradeClient[] getSelectedTradeAccounts()
+   public TradeClientData[] getSelectedTradeAccounts()
    {
       return selectedTradeAccounts;
    }
 
-   public void setSelectedTradeAccounts(AdminTradeClient[] selectedTradeAccounts)
+   public void setSelectedTradeAccounts(TradeClientData[] selectedTradeAccounts)
    {
          this.selectedTradeAccounts = selectedTradeAccounts;
    }
 
-   public AdminTradeClient getSingleTradeAccount()
+   public TradeClientData getSingleTradeAccount()
    {
       return singleTradeAccount;
    }
 
-   public void setSingleTradeAccount(AdminTradeClient singleTradeAccount)
+   public void setSingleTradeAccount(TradeClientData singleTradeAccount)
    {
       this.singleTradeAccount = singleTradeAccount;
    }

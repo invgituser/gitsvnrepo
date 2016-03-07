@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+   <bean id="userInfoDAO" class="com.invessence.dao.common.UserInfoDAO">
+         <property name="dataSource" ref="dataSource"/>
+   </bean>
+
+   <bean id="msgDAO" class="com.invessence.dao.MsgDAO">
+         <property name="dataSource" ref="dataSource"/>
+   </bean>
+
+    <bean id="aggregationDAO" class="com.invessence.dao.consumer.AggregationDAO">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+</beans>

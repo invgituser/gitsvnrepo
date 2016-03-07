@@ -6,7 +6,9 @@ import java.util.*;
 
 import com.google.common.base.*;
 import com.google.common.collect.Iterables;
+import com.invessence.converter.SQLData;
 import com.invessence.shared.io.BufferedFileFactory;
+import org.ocpsoft.rewrite.annotation.Convert;
 
 public class TradeWriter
 {
@@ -18,13 +20,27 @@ public class TradeWriter
    {
       try
       {
+         if (data != null) {
+            List<Map<String, Object>> directionData = new ArrayList<Map<String, Object>>();
+            Map<String, List<TradeAccountInfo>> sharesByAccount = new HashMap<String, List<TradeAccountInfo>>();
+            for (Map<String, Object> row : data)
+            {
+               SQLData convert = new SQLData();
+               String action = convert.getStrData(row.get("action"));
+               if (action.toUpperCase().contains(direction.toUpperCase())) {
+                  directionData.add(row);
+               }
+            }
 
-         Map<String, List<TradeAccountInfo>> sharesByAccountNum = processData(data, direction);
-         //fileName = getFileNameWithDateAndTime(tradeFile);
-         writeTradesFile(sharesByAccountNum, tradeFile);
+            if (directionData.size() > 0) {
+               Map<String, List<TradeAccountInfo>> sharesByAccountNum = processData(directionData);
+               //fileName = getFileNameWithDateAndTime(tradeFile);
+               writeTradesFile(sharesByAccountNum, tradeFile);
 
-         //fileName = getFileNameWithDateAndTime(allocationFile);
-         writeAllocationFile(sharesByAccountNum, allocationFile);
+               //fileName = getFileNameWithDateAndTime(allocationFile);
+               writeAllocationFile(sharesByAccountNum, allocationFile);
+            }
+         }
       }
       catch (Exception ex)
       {
@@ -63,7 +79,7 @@ public class TradeWriter
                @Override
                public String apply(com.invessence.io.TradeWriter.TradeAccountInfo tradeAccountInfo)
                {
-                  return ticker + "," + tradeAccountInfo.accountNum + "," + tradeAccountInfo.quantity;
+                  return ticker + "," + tradeAccountInfo.clientAccountID + "," + Math.abs(tradeAccountInfo.qty);
                }
             })));
          }
@@ -94,7 +110,7 @@ public class TradeWriter
 
       try
       {
-         System.out.print("Generating Trades file: " + filepath + " ... ");
+         // System.out.print("Generating Trades file: " + filepath + " ... ");
          writer = new BufferedFileFactory().getBufferedWriter(filepath);
          writeWithNewLine(writer, HEADER);
 
@@ -102,7 +118,7 @@ public class TradeWriter
          {
             writeWithNewLine(writer, prepareTradesLine(entry.getKey(), entry.getValue(), dateString));
          }
-         System.out.println("Done");
+         // System.out.println("Done");
       }
       catch (IOException e)
       {
@@ -130,7 +146,7 @@ public class TradeWriter
             action = "BUY";
 
          return Joiner.on(",").join(Arrays.asList(action,
-                                                  qty,
+                                                  Math.abs(qty),
                                                   ticker,
                                                   "STK",
                                                   "SMART/ISE",
@@ -151,43 +167,51 @@ public class TradeWriter
       int sum = 0;
       for (TradeAccountInfo tradeAccountInfo : accountInfos)
       {
-         sum += tradeAccountInfo.quantity;
+         sum += tradeAccountInfo.qty;
       }
 
       return sum;
    }
 
-   private Map<String, List<TradeAccountInfo>> processData(List<Map<String, Object>> data, String direction)
+   private Map<String, List<TradeAccountInfo>> processData(List<Map<String, Object>> data)
    {
       Map<String, List<TradeAccountInfo>> sharesByAccount = new HashMap<String, List<TradeAccountInfo>>();
       for (Map<String, Object> row : data)
       {
-         Integer quantity = (Integer) row.get("qty");
-         String accountNum = (String) row.get("clientAccountID");
-         String ticker = (String) row.get("ticker");
+         SQLData convert = new SQLData();
+         Integer quantity = convert.getIntData(row.get("qty"));
+         String accountNum = convert.getStrData( row.get("clientAccountID") );
+         String ticker = convert.getStrData(row.get("ticker"));
 
          // Note this process is called only for Buy or Sell.  So, add to this list only one type.
          // Add to list if it is BUY.
-         if (direction.startsWith("B") && quantity > 0) {
             List<TradeAccountInfo> tradeAccountInfos = sharesByAccount.get(ticker);
             if (tradeAccountInfos == null)
             {
                tradeAccountInfos = new LinkedList<TradeAccountInfo>();
                sharesByAccount.put(ticker, tradeAccountInfos);
             }
-            tradeAccountInfos.add(new TradeAccountInfo(accountNum, quantity));
-         }
-         // Only add to list sells. of the flag is sell.
-         if (direction.startsWith("S") && quantity < 0) {
-            List<TradeAccountInfo> tradeAccountInfos = sharesByAccount.get(ticker);
-            if (tradeAccountInfos == null)
-            {
-               tradeAccountInfos = new LinkedList<TradeAccountInfo>();
-               sharesByAccount.put(ticker, tradeAccountInfos);
-            }
-            tradeAccountInfos.add(new TradeAccountInfo(accountNum, quantity));
-         }
-
+            tradeAccountInfos.add(new TradeAccountInfo(
+               convert.getLongData(row.get("acctnum")),
+               convert.getStrData(row.get("clientAccountID")),
+               convert.getStrData(row.get("tradeStatus")),
+               convert.getStrData(row.get("tradedate")),
+               convert.getStrData(row.get("ticker")),
+               convert.getStrData(row.get("action")),
+               convert.getStrData(row.get("sectype")),
+               convert.getStrData(row.get("exchange")),
+               convert.getStrData(row.get("currency")),
+               convert.getStrData(row.get("timeinforce")),
+               convert.getIntData(row.get("qty")),
+               convert.getDoubleData(row.get("tradeprice")),
+               convert.getDoubleData(row.get("investmentamount")),
+               convert.getStrData(row.get("tradeID")),
+               convert.getStrData(row.get("ordertype")),
+               convert.getStrData(row.get("confirmationID")),
+               convert.getStrData(row.get("firmAccount")),
+               convert.getStrData(row.get("created")),
+               convert.getStrData(row.get("lastupdated"))
+               ));
       }
       return sharesByAccount;
    }
@@ -202,13 +226,53 @@ public class TradeWriter
 
    class TradeAccountInfo
    {
-      String accountNum;
-      Integer quantity;
+      Long acctnum;
+      String clientAccountID;
+      String tradeStatus;
+      String tradedate;
+      String ticker;
+      String action;
+      String sectype;
+      String exchange;
+      String currency;
+      String timeinforce;
+      Integer qty;
+      Double tradepricel;
+      Double investmentamount;
+      String tradeID;
+      String ordertype;
+      String confirmationID;
+      String firmAccount;
+      String created;
+      String lastupdated;
 
-      TradeAccountInfo(String accountNum, Integer quantity)
+      TradeAccountInfo(Long acctnum, String clientAccountID,
+                       String tradeStatus, String tradedate,
+                       String ticker, String action, String sectype, String exchange,
+                       String currency, String timeinforce,
+                       Integer qty, Double tradepricel, Double investmentamount,
+                       String tradeID, String ordertype, String confirmationID,
+                       String firmAccount, String created, String lastupdated)
       {
-         this.accountNum = accountNum;
-         this.quantity = quantity;
+         this.acctnum = acctnum;
+         this.clientAccountID = clientAccountID;
+         this.tradeStatus = tradeStatus;
+         this.tradedate = tradedate;
+         this.ticker = ticker;
+         this.action = action;
+         this.sectype = sectype;
+         this.exchange = exchange;
+         this.currency = currency;
+         this.timeinforce = timeinforce;
+         this.qty = qty;
+         this.tradepricel = tradepricel;
+         this.investmentamount = investmentamount;
+         this.tradeID = tradeID;
+         this.ordertype = ordertype;
+         this.confirmationID = confirmationID;
+         this.firmAccount = firmAccount;
+         this.created = created;
+         this.lastupdated = lastupdated;
       }
    }
 }

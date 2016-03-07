@@ -1,5 +1,6 @@
 package com.invessence.converter;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**
@@ -9,7 +10,7 @@ import java.text.DecimalFormat;
  * Time: 6:17 PM
  * To change this template use File | Settings | File Templates.
  */
-public class JavaUtil
+public class JavaUtil implements Serializable
 {
 
    public String displayFormat(Integer value, String format) {
@@ -50,7 +51,7 @@ public class JavaUtil
             return ("");
          }
          else {
-            if (input.contains("/")) {
+            if (input.contains("/") || input.contains("-")) {
                return input;
             }
             else {
@@ -65,5 +66,27 @@ public class JavaUtil
          return input;
       }
    }
+
+   public static String UppercaseFirstLetters(String str)
+   {
+      if (str != null) {
+         boolean prevWasWhiteSp = true;
+         char[] chars = str.toCharArray();
+         for (int i = 0; i < chars.length; i++) {
+            if (Character.isLetter(chars[i])) {
+               if (prevWasWhiteSp) {
+                  chars[i] = Character.toUpperCase(chars[i]);
+               }
+               prevWasWhiteSp = false;
+            } else {
+               prevWasWhiteSp = Character.isWhitespace(chars[i]);
+            }
+         }
+         return new String(chars);
+      }
+      else
+         return null;
+   }
+
 
 }

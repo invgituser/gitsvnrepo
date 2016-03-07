@@ -12,25 +12,23 @@
     <application>
         <el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
     </application>
+
+
+    <application>
+      <action-listener>org.primefaces.application.DialogActionListener</action-listener>
+      <navigation-handler>org.primefaces.application.DialogNavigationHandler</navigation-handler>
+      <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
+    </application>
+
    <!-- Basic Info -->
-   <managed-bean>
-        <managed-bean-name>loginController</managed-bean-name>
-        <managed-bean-class>com.invessence.controller.LoginController</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-   </managed-bean>
 
    <managed-bean>
         <managed-bean-name>userBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.UserBean</managed-bean-class>
+        <managed-bean-class>com.invessence.bean.common.UserBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-            <property-name>accountDAO</property-name>
-            <value>#{accountDAO}</value>
+            <property-name>userInfoDAO</property-name>
+            <value>#{userInfoDAO}</value>
         </managed-property>
         <managed-property>
             <property-name>messageText</property-name>
@@ -41,168 +39,15 @@
 
    <managed-bean>
         <managed-bean-name>resetPasswordData</managed-bean-name>
-        <managed-bean-class>com.invessence.data.ResetPasswordData</managed-bean-class>
+        <managed-bean-class>com.invessence.data.common.ResetPasswordData</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
-            <property-name>accountDAO</property-name>
-            <value>#{accountDAO}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-   </managed-bean>
-   <managed-bean>
-        <managed-bean-name>messageBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.MessageBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-   </managed-bean>
-   <!-- Create Allocation Properties -->
-
-   <!-- Create Portfolio Properties -->
-
-    <managed-bean>
-        <managed-bean-name>manageAccountBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.ManageAccountBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>manageAccountDAO</property-name>
-            <value>#{manageAccountDAO}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>messageSource</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>managegoals</property-name>
-            <property-class>com.invessence.bean.ManageGoalsBean</property-class>
-            <value>#{managegoals}</value>
-        </managed-property>
-         <managed-property>
-            <property-name>positionBean</property-name>
-            <property-class>com.invessence.bean.PositionBean</property-class>
-            <value>#{positionBean}</value>
+            <property-name>userInfoDAO</property-name>
+            <value>#{userInfoDAO}</value>
         </managed-property>
    </managed-bean>
 
-    <managed-bean>
-        <managed-bean-name>managegoals</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.ManageGoalsBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>goalsBo</property-name>
-            <value>#{goalsBo}</value>
-        </managed-property>
-         <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-        <managed-property>
-         <property-name>allocModel</property-name>
-         <value>#{assetAllocationModel}</value>
-      </managed-property>
-      <managed-property>
-         <property-name>portfolioModel</property-name>
-         <value>#{portfolioModel}</value>
-      </managed-property>
-    </managed-bean>
-
-   <managed-bean>
-        <managed-bean-name>advisorBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.advisor.AdvisorBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>advisorSaveDataDAO</property-name>
-            <value>#{advisorSaveDataDAO}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-        <managed-property>
-         <property-name>allocModel</property-name>
-         <value>#{assetAllocationModel}</value>
-      </managed-property>
-      <managed-property>
-         <property-name>portfolioModel</property-name>
-         <value>#{portfolioModel}</value>
-      </managed-property>
-   </managed-bean>
-
-   <!--  Admin pages
-   -->
-   <managed-bean>
-      <managed-bean-name>adminbean</managed-bean-name>
-      <managed-bean-class>com.invessence.bean.admin.AdminBean</managed-bean-class>
-      <managed-bean-scope>session</managed-bean-scope>
-      <managed-property>
-         <property-name>adminDAO</property-name>
-         <value>#{adminDAO}</value>
-      </managed-property>
-      <managed-property>
-         <property-name>goalsBo</property-name>
-         <value>#{goalsBo}</value>
-      </managed-property>
-      <managed-property>
-         <property-name>allocModel</property-name>
-         <value>#{assetAllocationModel}</value>
-      </managed-property>
-      <managed-property>
-         <property-name>portfolioModel</property-name>
-         <value>#{portfolioModel}</value>
-      </managed-property>
-   </managed-bean>
-
-     <managed-bean>
-        <managed-bean-name>admindoc</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.admin.AdminDocBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>goalsBo</property-name>
-            <value>#{goalsBo}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>adminDAO</property-name>
-            <value>#{adminDAO}</value>
-        </managed-property>
-     </managed-bean>
-
-   <managed-bean>
-        <managed-bean-name>DynamicImageBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.DynamicImageBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-
-    <managed-bean>
-        <managed-bean-name>testBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.TestBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-    </managed-bean>
-
-   <managed-bean>
-        <managed-bean-name>positionBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.PositionBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-        <managed-property>
-            <property-name>positionDAO</property-name>
-            <value>#{positionDAO}</value>
-        </managed-property>
-    </managed-bean>
-
+   <!-- Client Take On Process-->
    <navigation-rule>
         <from-view-id>/signup.xhtml</from-view-id>
         <navigation-case>
@@ -214,7 +59,7 @@
         <navigation-case>
             <from-action>#{userBean.signUp2}</from-action>
             <from-outcome>error</from-outcome>
-            <to-view-id>/error.xhtml</to-view-id>
+            <to-view-id>/backup/error.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 

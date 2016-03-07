@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100">
+            <div class="ContainerIndent">
+                <p:panel id="addressPanel" style="border: 0px; background: transparent">
+		   <div class="Container50 Responsive100">
+                        <div class="Container100">
+                            <h4>Legal Address</h4>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <p:inputText styleClass="Wid90" placeholder="Address1">
+                            </p:inputText>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <p:inputText styleClass="Wid90" placeholder="Address2">
+                            </p:inputText>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <div class="Container40 Responsive100">
+                                <p:inputText styleClass="Wid90" placeholder="City">
+                                </p:inputText>
+                            </div>
+                            <div class="Container50 Responsive100">
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid80" placeholder="State">
+                                </p:inputText>
+                            </div>
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid100" placeholder="Zip">
+                                </p:inputText>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid90" placeholder="Country">
+                                </p:inputText>
+                            </div>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <p:selectBooleanCheckbox value="#{ctobean.hasMailingAddress}">
+                                <p:ajax update=":ctoForm:addressPanel"/>
+                            </p:selectBooleanCheckbox>
+                            <h:outputText style="margin-left: 5px" value="Different Mailing address"/>
+                        </div>
+                     </div>
+
+		   <div class="Container50 Responsive100">
+                     <p:panel id="mailingAddressPanel"
+                              style="border: 0px; background: transparent; margin-top: -10px;"
+                                 rendered="#{ctobean.hasMailingAddress}">
+                        <div class="Container100">
+                            <h4>Mailing Address</h4>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <p:inputText styleClass="Wid90" placeholder="Address1">
+                            </p:inputText>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <p:inputText styleClass="Wid90" placeholder="Address2">
+                            </p:inputText>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <div class="Container40 Responsive100">
+                                <p:inputText styleClass="Wid90" placeholder="City">
+                                </p:inputText>
+                            </div>
+                            <div class="Container50 Responsive100">
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid80" placeholder="State">
+                                </p:inputText>
+                            </div>
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid100" placeholder="Zip">
+                                </p:inputText>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="Container100 MarTop5">
+                            <div class="Container50">
+                                <p:inputText styleClass="Wid90" placeholder="Country">
+                                </p:inputText>
+                            </div>
+                        </div>
+		     </p:panel>
+                     </div>
+
+
+                </p:panel>
+        </div>
+    </div>
+
+</ui:composition>

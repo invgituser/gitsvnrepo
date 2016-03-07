@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<f:metadata>
+    <f:viewParam name="acct" value="#{clientBean.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{clientBean.preRenderView}"/>
+</f:metadata>
+<h:body>
+    <ui:composition template="/template/common/backup/responsivelayout.xhtml/common/responsivelayout.xhtml">
+        <ui:define name="content">
+            <div id="et-main-area">
+                <div id="main-content">
+                    <div class="entry-content">
+                        <div class="et_pb_section et_section_regular">
+                            <div class="et_pb_row">
+                                <div class="et_pb_column et_pb_column_4_4">
+                                    <div class="et_pb_text et_pb_bg_layout_light et_pb_text_align_left">
+                                        <h:form id="mainform" class="a_1232 nform no_submit_hidden no_save_form placeholder  ltr none spin check_conflict allow_multi three  no_block_label star_ horizontal fc-common" ng-style="{background: con[0].bg_image, width: con[0].fw, borderRadius: con[0].fr+&quot;px&quot;, MozBorderRadius: con[0].fr+&quot;px&quot;, WebkitBorderRadius: con[0].fr+&quot;px&quot;, fontFamily: con[0].formfamily}" style="width: 750px; font-family: 'Helvetica Neue', Arial;">
+                                            <p:panel id="mainPanel" header="Beneficiary" style="text-align: left; position:relative;">
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline4 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Full Name"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline4 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:selectOneMenu id="beneficiaryPrefix" value="#{clientBean.beneficiaryPrefix}" style='medium gfield_select' required="false">
+                                                                <f:selectItem itemLabel="-- Select Prefix -- " itemValue="0"/>
+                                                                <f:selectItem itemLabel="Mr." itemValue="1" />
+                                                                <f:selectItem itemLabel="Mrs." itemValue="2" />
+                                                                <f:selectItem itemLabel="Ms." itemValue="3" />
+                                                                <f:selectItem itemLabel="Dr" itemValue="4" />
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline4 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryFirstName" value="#{clientBean.beneficiaryFirstName}" label="beneficiaryFirstName" required="true" requiredMessage="Please enter First Name."  style="width: 100%; font-size: 14px;"><p:watermark for="beneficiaryFirstName" value="First Name"/></p:inputText>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_1_1232" class="nform_li ng-scope inline4 left fe_1 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryLastName" value="#{clientBean.beneficiaryLastName}" label="beneficiaryLastName" required="true" requiredMessage="Please enter Last Name." style="width: 100%; font-size: 14px;"><p:watermark for="beneficiaryLastName" value="Last Name"/></p:inputText>
+
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline1 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Address:"/>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Street #1"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryAddress1" value="#{clientBean.beneficiaryAddress1}" label="beneficiaryAddress1" required="true" requiredMessage="Please enter Street #1." ><p:watermark for="beneficiaryAddress1" value="Street#1" /></p:inputText>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Street #2"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryAddress2" value="#{clientBean.beneficiaryAddress2}" label="beneficiaryAddress2" required="true" requiredMessage="Please enter Street #2." ><p:watermark for="beneficiaryAddress2" value="Street#2" /></p:inputText>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="City"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryCity" value="#{clientBean.beneficiaryCity}" label="beneficiaryCity" required="true" requiredMessage="Please enter City." ><p:watermark for="beneficiaryCity" value="City" /></p:inputText>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="State"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryStateName" value="#{clientBean.beneficiaryStateName}" label="beneficiaryStateName" required="true" requiredMessage="Please enter State." ><p:watermark for="beneficiaryStateName" value="State" /></p:inputText>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Zip/Postal Code"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryZipCode" value="#{clientBean.beneficiaryZipCode}" label="beneficiaryZipCode" required="true" requiredMessage="Please enter Zip/Postal Code." ><p:watermark for="beneficiaryZipCode" value="Zip/Postal Code" /></p:inputText>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Country"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:selectOneMenu id="countries" value="#{clientBean.beneficiaryCountry}" style='medium gfield_select' required="false">
+                                                                <f:selectItem itemLabel="-- Select a Country -- " itemValue="0"/>
+                                                                <f:selectItems value="#{clientBean.countries}" var="country" itemValue="#{country.id}" itemLabel="#{country.name}"/>
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Social Security Number"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputMask id="beneficiarySocialSecurity" value="#{clientBean.beneficiarySocialSecurity}" required="true" requiredMessage="Please enter Social Security Number." validatorMessage="Please enter Social Security Number." maxlength="15" mask="999-99-9999">  <pe:keyFilter regEx="/[\d]/"/></p:inputMask>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Non U.S. ID : Type of Identification"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:selectOneMenu id="beneficiaryTypeOfID" value="#{clientBean.beneficiaryTypeOfID}" style='medium gfield_select' required="false">
+                                                                <f:selectItem itemLabel="-- Select Prefix -- " itemValue="0"/>
+                                                                <f:selectItem itemLabel="Allien Identification Card" itemValue="1" />
+                                                                <f:selectItem itemLabel="Driver's License" itemValue="2" />
+                                                                <f:selectItem itemLabel="National Identity Card" itemValue="3" />
+                                                                <f:selectItem itemLabel="Passport" itemValue="4" />
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Non U.S : Country of Issuance"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:selectOneMenu id="bcountries" value="#{clientBean.beneficiaryCountryOfIssuance}" style='medium gfield_select' required="false">
+                                                                <f:selectItem itemLabel="-- Select a Country -- " itemValue="0"/>
+                                                                <f:selectItems value="#{clientBean.countries}" var="bcountry" itemValue="#{bcountry.id}" itemLabel="#{bcountry.name}"/>
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Non U.S : Identification Number"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:inputText id="beneficiaryIDNumber" value="#{clientBean.beneficiaryIDNumber}" label="beneficiaryIDNumber" required="true" requiredMessage="Please enter Identification Number." ></p:inputText>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Date of Birth"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:calendar id="beneficiaryDateOfBirth" value="#{clientBean.beneficiaryDateOfBirth}" navigator="true" display="inline" label="Date of Birth" readonly="false" yearRange="c-100:c+10" pattern="MM/dd/yyyy"><f:convertDateTime pattern="MM/dd/yyyy" /></p:calendar>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:outputLabel value="Relationship"/>
+                                                        </div>
+                                                    </li>
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                        <div>
+                                                            <p:selectOneMenu id="beneficiaryRelationship" value="#{clientBean.beneficiaryRelationship}" style='medium gfield_select' required="false">
+                                                                <f:selectItem itemLabel="-- Select Relationship -- " itemValue="0"/>
+                                                                <f:selectItem itemLabel="Brother" itemValue="1" />
+                                                                <f:selectItem itemLabel="Daughter" itemValue="2" />
+                                                                <f:selectItem itemLabel="Father" itemValue="3" />
+                                                                <f:selectItem itemLabel="Mother" itemValue="4" />
+                                                                <f:selectItem itemLabel="Other" itemValue="5" />
+                                                                <f:selectItem itemLabel="Sister" itemValue="6" />
+                                                                <f:selectItem itemLabel="Son" itemValue="7" />
+                                                            </p:selectOneMenu>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                    <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_2_1232" class="nform_li ng-scope inline1 left fe_2 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px; position: relative;">
+                                                        <div>
+                                                            <f:facet name="footer">
+                                                                <p:commandButton value="Next" ajax="true" actionListener="#{clientBean.saveBeneficiary}" icon="ui-icon-check" />
+                                                            </f:facet>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </p:panel>
+                                        </h:form>
+                                    </div> <!-- .et_pb_text -->
+                                </div> <!-- .et_pb_column -->
+                            </div> <!-- .et_pb_row -->
+                        </div> <!-- .et_pb_section -->
+                    </div> <!-- .entry-content -->
+                </div> <!-- #main-content -->
+            </div>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+            <h:form id="advisorDialogForm">
+
+            <p:dialog header="Profile" widgetVar="customProfile" modal="true"
+                      showEffect="fade" hideEffect="fade" resizable="true"
+                      width="500px" top="120px" style="background-color: #fff">
+                <p:outputPanel id="customProfileID" layout="block">
+                <p:panelGrid id="goalsgrid" styleClass="invNBgrid" style="background-color: #f5f5f5;">
+                    <p:row>
+                        <p:column styleClass="invLabel" style="width:130px">
+                            <h:outputLabel value="Upload Positions"/>
+                        </p:column>
+                        <p:column colspan="2">
+                            <p:fileUpload fileUploadListener="#{cepb.handleFileUpload}" mode="advanced"
+                                          auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(csv|txt)$/" />
+                        </p:column>
+                    </p:row>
+                    <f:facet name="footer">
+                        <p:row>
+                            <p:column style="text-align: left">
+                                <p:commandButton value="Save" icon="ui-icon-check"
+                                                 actionListener="#{cepb.saveCustomProfile}"
+                                                 oncomplete="PF('customProfile').hide();"/>
+
+                            </p:column>
+                            <p:column >
+                                <p:commandButton value="Reset" update="customProfileID" process="@this" style="text-align: left" >
+                                    <p:resetInput target="customProfileID" />
+                                </p:commandButton>
+                            </p:column>
+                            <p:column>
+                                <p:commandButton value="Cancel" style="text-align: right" icon="ui-icon-close"
+                                                 oncomplete="PF('customProfile').hide();"/>
+                            </p:column>
+
+                        </p:row>
+                    </f:facet>
+                </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>
+
+            </h:form>
+
+</h:body>
+</html>
+
+

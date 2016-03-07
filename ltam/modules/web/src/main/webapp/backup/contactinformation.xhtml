@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+<h:head>
+    <style type="text/css">
+        .ui-panelgrid td, .ui-panelgrid tr
+        {
+            border-style: none !important
+        }
+    </style>
+</h:head>
+<h:body>
+    <p:panel id="contactpanel">
+    <p:messages/>
+    <p:panelGrid columns="4" cellpadding="10" id="contactgrid" styleClass="invNBgrid">
+        <h:outputLabel for="phone" value="Phone *"/>
+
+        <p:inputMask id="phone" value="#{contactinformation.phone}" required="true" requiredMessage="Please enter Phone Number."
+                     validatorMessage="Please enter valid Phone Number." maxlength="15" size="15" mask="(999) 999-9999">  <pe:keyFilter regEx="/[\d]/"/></p:inputMask>
+        <h:outputLabel for="altphone" value="Alternate Phone "/>
+        <p:inputMask id="altphone" value="#{contactinformation.altphone}" maxlength="15" size="15" mask="(999) 999-9999">  <pe:keyFilter regEx="/[\d]/"/></p:inputMask>
+        <h:outputLabel for="email" value="Email: *"/>
+        <p:inputText id="email" value="#{contactinformation.email}" required="true" requiredMessage="Please enter Email."
+                     validatorMessage="Please enter valid Email id." maxlength="50" size="25">
+            <f:validateRegex
+                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+        </p:inputText>
+
+        <h:outputLabel for="altemail" value="Alternate Email "/>
+        <p:inputText id="altemail" value="#{contactinformation.altemail}" validatorMessage="Please enter valid Alternate Email id." maxlength="50" size="25">
+            <f:validateRegex
+                    pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+        </p:inputText>
+
+        <h:outputLabel for="address1" value="Address Line 1 "/>
+        <p:inputText id="address1" value="#{contactinformation.address1}" maxlength="50" size="25"/>
+
+        <h:outputLabel for="altaddress1" value="Mailing Address 1 "/>
+        <p:inputText id="altaddress1" value="#{contactinformation.altaddress1}" maxlength="50" size="25"/>
+
+        <h:outputLabel for="address2" value="Address Line 2 "/>
+        <p:inputText id="address2" value="#{contactinformation.address2}" maxlength="50" size="25"/>
+
+        <h:outputLabel for="altaddress2" value="Mailing Address 2 "/>
+        <p:inputText id="altaddress2" value="#{contactinformation.altaddress2}" maxlength="50" size="25"/>
+
+        <h:outputLabel for="city" value="City "/>
+        <p:inputText id="city" value="#{contactinformation.city}" maxlength="25" size="10"/>
+
+        <h:outputLabel for="altcity" value="City "/>
+        <p:inputText id="altcity" value="#{contactinformation.altcity}" maxlength="25" size="10"/>
+
+        <h:outputLabel for="state" value="State "/>
+        <p:inputText id="state" value="#{contactinformation.state}" maxlength="25" size="10"/>
+
+        <h:outputLabel for="altstate" value="State "/>
+        <p:inputText id="altstate" value="#{contactinformation.altstate}" maxlength="25" size="10"/>
+
+        <h:outputLabel for="zipcode" value="Zipcode "/>
+        <p:inputText id="zipcode" value="#{contactinformation.zipcode}" maxlength="25" size="10">
+            <pe:keyFilter regEx="/[\d]/"/>
+        </p:inputText>
+
+        <h:outputLabel for="altzipcode" value="Zipcode "/>
+        <p:inputText id="altzipcode" value="#{contactinformation.altzipcode}" maxlength="25" size="10">
+            <pe:keyFilter regEx="/[\d]/"/>
+        </p:inputText>
+
+        <f:facet name="footer">
+            <p:commandButton value="Next" ajax="true" actionListener="#{contactinformation.saveContactInformation}"
+                             icon="ui-icon-check" update="contactpanel"
+                             oncomplete="if (!args.validationFailed){AccountTabView.select(3);}" style="margin:0"/>
+        </f:facet>
+    </p:panelGrid>
+    </p:panel>
+</h:body>
+</html>

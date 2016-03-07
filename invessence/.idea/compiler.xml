@@ -33,6 +33,9 @@
         <module name="emailer" />
         <module name="eod" />
         <module name="invmodel" />
+        <module name="rbsa-preprocessor" />
+        <module name="reports" />
+        <module name="showcase" />
         <module name="virtual-trades" />
         <module name="web" />
         <module name="web-internal" />
@@ -45,8 +48,11 @@
       <module name="emailer" target="1.6" />
       <module name="eod" target="1.6" />
       <module name="invmodel" target="1.6" />
+      <module name="rbsa-preprocessor" target="1.6" />
+      <module name="reports" target="1.6" />
       <module name="service-locator" target="1.6" />
       <module name="services" target="1.6" />
+      <module name="showcase" target="1.6" />
       <module name="trade" target="1.6" />
       <module name="virtual-trades" target="1.6" />
     </bytecodeTargetLevel>

@@ -1,12 +1,15 @@
 package com.invessence.dao;
 
 import java.util.*;
+import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.data.ManageAccount;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
-public class ManageAccountDAO extends SimpleJdbcDaoSupport
+@ManagedBean(name = "manageAccountDAO")
+@SessionScoped
+public class ManageAccountDAO extends JdbcDaoSupport
 {
    public List<ManageAccount> getManageAccount(Long p_logonid, String p_userid)
    {

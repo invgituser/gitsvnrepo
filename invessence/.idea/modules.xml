@@ -11,10 +11,11 @@
       <module fileurl="file://$PROJECT_DIR$/modules/invmodel/invmodel.iml" filepath="$PROJECT_DIR$/modules/invmodel/invmodel.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/modules.iml" filepath="$PROJECT_DIR$/modules/modules.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/parent.iml" filepath="$PROJECT_DIR$/modules/parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/rbsa-preprocessor/rbsa-preprocessor.iml" filepath="$PROJECT_DIR$/modules/rbsa-preprocessor/rbsa-preprocessor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/reports/reports.iml" filepath="$PROJECT_DIR$/modules/reports/reports.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/showcase/showcase.iml" filepath="$PROJECT_DIR$/modules/showcase/showcase.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/virtual-trades/virtual-trades.iml" filepath="$PROJECT_DIR$/modules/virtual-trades/virtual-trades.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/web/web.iml" filepath="$PROJECT_DIR$/modules/web/web.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modules/web2/web2.iml" filepath="$PROJECT_DIR$/modules/web2/web2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/modules/web2/web2.iml" filepath="$PROJECT_DIR$/modules/web2/web2.iml" />
     </modules>
   </component>
 </project>

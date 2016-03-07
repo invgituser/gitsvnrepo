@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/invlayout.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="js/ydlCharts.js" library="yodlee"/>
+
+        <h:form id="agform">
+            <p:growl id="growl" life="2000"/>
+
+            <div class="Container100">
+                <!-- Left Column -->
+                <ui:include src="leftMenu.xhtml"/>
+                <!-- Right Column -->
+                <div class="Container90 Responsive100">
+                    <div class="Card Wid90 Fright">
+                        <!-- Section -->
+                        <div class="Container100">
+                            <div class="ContainerIndent">
+                                <div class="BigTopic">
+                                    <div class="Wid50 Fleft">
+                                        <h3>Aggregation</h3>
+                                    </div>
+                                    <div class="Wid50 Fright">
+                                        <p:commandButton value="Refresh All" styleClass="MarLeft5 Fright"
+                                                         id="refreshData"
+                                                         actionListener="#{yodleeBean.refreshAccountsData}"
+                                                         update=":agform:agArea"
+                                                         icon="fa fa-refresh"/>
+                                        <p:commandButton value="Add Site" id="addSite" styleClass="MarLeft5 Fright"
+                                                         actionListener="#{yodleeBean.addAcount('ADD_ACC','')}"
+                                                         update=":agform:agArea"
+                                                         icon="fa fa-plus"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p:outputPanel id="agArea" style="border: 0px">
+                            <div class="Container100">
+                                <p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget">
+                                    <p:fieldset legend="Summary" toggleable="true">
+                                        <div class="Container50">
+                                            <div class="ContainerIndent">
+                                                <p:dataTable id="aggrDT" var="aggrViewData"
+                                                             value="#{yodleeBean.aggrData.totalAssetArray}"
+                                                             styleClass="invAllocTable" style="border: 0px;"
+                                                             reflow="true">
+                                                    <p:column
+                                                            style="width:2%; text-align: left; background: #{aggrViewData.info}">
+                                                        <p:spacer width="1"/>
+                                                    </p:column>
+
+                                                    <p:column headerText="Type"
+                                                              style="width:40%; text-align: left">
+                                                        <h:outputText value="#{aggrViewData.key}"/>
+                                                    </p:column>
+
+                                                    <p:column headerText="Balance"
+                                                              style="width:15%; text-align: right">
+                                                        <h:outputText value="#{aggrViewData.positionValue}">
+                                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                                        </h:outputText>
+                                                    </p:column>
+
+                                                    <p:column headerText="Weight"
+                                                              style="width:10%; text-align: right">
+                                                        <h:outputText value="#{aggrViewData.percentAllocation}">
+                                                            <f:convertNumber pattern="###.00%"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </div>
+                                        </div>
+                                        <div class="Container50">
+                                            <div class="ContainerIndent">
+                                                <p:chart type="bar" model="#{yodleeCharts.barModel}"/>
+                                            </div>
+                                        </div>
+                                    </p:fieldset>
+
+                                    <div class="EmptyBox20"/>
+                                    <p:fieldset legend="Details" toggleable="true" collapsed="true">
+
+                                    </p:fieldset>
+                                </p:outputPanel>
+                            </div>
+
+                        </p:outputPanel>
+                    </div>
+
+                </div>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

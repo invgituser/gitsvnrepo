@@ -2,7 +2,6 @@ package com.invessence.dao;
 
 
 import org.springframework.jdbc.core.SqlParameter;
-import org.springframework.jdbc.core.simple.SimpleJdbcDaoSupport;
 import org.springframework.jdbc.object.StoredProcedure;
 
 import javax.sql.DataSource;

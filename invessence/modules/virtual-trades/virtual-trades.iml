@@ -4,8 +4,8 @@
     <facet type="Spring" name="Spring">
       <configuration>
         <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/src/main/java/com/invessence</file>
           <file>file://$MODULE_DIR$/src/main/resources/META-INF/spring/camel-context.xml</file>
-          <file>file://$MODULE_DIR$/src/test/java</file>
         </fileset>
       </configuration>
     </facet>
@@ -21,6 +21,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="core" />
     <orderEntry type="library" name="Maven: org.apache.camel:camel-core:2.11.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.6.6" level="project" />
     <orderEntry type="library" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.6" level="project" />
@@ -37,9 +38,8 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:3.2.0.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
-    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.9" level="project" />
+    <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.11" level="project" />
     <orderEntry type="library" name="Maven: com.google.guava:guava:r08" level="project" />
-    <orderEntry type="module" module-name="core" />
   </component>
 </module>
 

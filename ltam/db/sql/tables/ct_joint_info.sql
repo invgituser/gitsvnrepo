@@ -1,0 +1,41 @@
+delimiter $$
+
+CREATE TABLE `joint_info` (
+  `acctnum` bigint(20) NOT NULL,
+  `jointseqnum` tinyint(4) NOT NULL,
+  `prefix` varchar(25) DEFAULT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) DEFAULT NULL,
+  `middlename` varchar(25) DEFAULT NULL,
+  `suffix` varchar(25) DEFAULT NULL,
+  `address` varchar(80) DEFAULT NULL,
+  `address2` varchar(30) DEFAULT NULL,
+  `city` varchar(25) DEFAULT NULL,
+  `state` varchar(20) NOT NULL,
+  `country` varchar(20) NOT NULL,
+  `zip` varchar(9) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `phone` varchar(14) DEFAULT NULL,
+  `email` varchar(60) DEFAULT NULL,
+  `fedidind` varchar(1) DEFAULT NULL,
+  `taxid` varchar(9) DEFAULT NULL,
+  `uscitizen` varchar(3) DEFAULT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `lastupdated` timestamp NULL DEFAULT NULL,
+  `phonetype` varchar(1) DEFAULT NULL,
+  `phonealt` varchar(14) DEFAULT NULL,
+  `phonetypealt` varchar(1) DEFAULT NULL,
+  `emailalt` varchar(60) DEFAULT NULL,
+  `addressalt` varchar(80) DEFAULT NULL,
+  `address2alt` varchar(80) DEFAULT NULL,
+  `cityalt` varchar(25) DEFAULT NULL,
+  `statealt` varchar(20) DEFAULT NULL,
+  `countryalt` varchar(20) DEFAULT NULL,
+  `zipalt` varchar(9) DEFAULT NULL,
+  `countryofbirth` varchar(20) DEFAULT NULL,
+  `driverslicensest` varchar(20) DEFAULT NULL,
+  `driverslicense` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`acctnum`,`jointseqnum`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+$$
+

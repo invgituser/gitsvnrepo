@@ -11,12 +11,16 @@ public class AssetClass
 {
    private Map<String, Asset> assetclass = new HashMap<String, Asset>();
    private ArrayList<String> orderedAsset = new ArrayList<String>();
-   private double cashWeight = 1.0;
+   private String theme;
    private Integer age;
    private Integer horizon;
    private Integer risk;
    private Double riskOffset;
    private Integer stayInvested;
+   private Double totalInvested = 0.0;
+   private Double percentequity = 0.0;
+   private Double percentfixedIncome = 0.0;
+   private Double percentcash = 0.0;
 
 
    public AssetClass()
@@ -26,45 +30,56 @@ public class AssetClass
    }
 
    public AssetClass(Integer age, Integer horizon, Double riskOffset, Integer stayInvested,
-                     String asset, double weight, double avgReturn, String color)
+                     String theme, String asset, String displayName, String color, double weight, double avgReturn)
    {
       super();
       this.age = age;
       this.horizon = horizon;
+      this.theme = theme;
       this.riskOffset = riskOffset;
       this.stayInvested = stayInvested;
-      addAssetClass(asset, weight, avgReturn, color);
+      addAssetClass(asset, displayName, color, weight, avgReturn);
    }
 
-   public void initAssetClass(Integer age, Integer horizon, Double riskOffset, Integer stayInvested)
+   public void initAssetClass(Integer age, Integer horizon, Double riskOffset, Integer stayInvested, String theme)
    {
       this.age = age;
       this.horizon = horizon;
       this.riskOffset = riskOffset;
       this.stayInvested = stayInvested;
+      this.theme = theme;
    }
 
-   public void addAssetClass(String asset, double weight, double avgReturn, String color)
+   public void addAssetClass(String asset, String displayName, String color, double weight, double avgReturn)
    {
       if (!assetclass.containsKey(asset))
       {
-         Asset data = new Asset(asset, weight, avgReturn, color);
-         cashWeight = cashWeight - weight;
+         Asset data = new Asset(asset, displayName, color, weight, avgReturn);
          assetclass.put(asset, data);
          orderedAsset.add(asset);
       }
       else
       {
          Asset data = assetclass.get(asset);
-         this.cashWeight = cashWeight + data.getWeight(); // Restore the old one
-         data.setWeight(weight);
+         data.setAllocweight(weight);
          data.setAvgReturn(avgReturn);
          data.setColor(color);
-         data.setRisk(0.0);
-         data.setExpectedReturn(0.0);
-         this.cashWeight = cashWeight - weight;
          this.assetclass.put(asset, data);
       }
+   }
+
+   public String getTheme()
+   {
+      return theme;
+   }
+
+   public void setTheme(String theme)
+   {
+      this.theme = theme;
+   }
+
+   public Map<String,Asset> getAssetclass() {
+       return this.assetclass;
    }
 
    public Integer getAge()
@@ -107,18 +122,22 @@ public class AssetClass
       this.riskOffset = riskOffset;
    }
 
-   public int getCashWeight()
+   public int getCashAllocWeight()
    {
       if (assetclass.containsKey("Cash"))
       {
-         return ((int) assetclass.get("Cash").getWeight());
+         return ((int) assetclass.get("Cash").getAllocweight());
       }
       return 0;
    }
 
-   public void setCashWeight(double cashWeight)
+   public int getCashActualWeight()
    {
-      this.cashWeight = cashWeight;
+      if (assetclass.containsKey("Cash"))
+      {
+         return ((int) assetclass.get("Cash").getActualweight());
+      }
+      return 0;
    }
 
    public Integer getStayInvested()
@@ -129,6 +148,51 @@ public class AssetClass
    public void setStayInvested(Integer stayInvested)
    {
       this.stayInvested = stayInvested;
+   }
+
+   public double getTotalInvested()
+   {
+      return totalInvested;
+   }
+
+   public void setTotalInvested(double totalInvested)
+   {
+      this.totalInvested = totalInvested;
+   }
+
+   public void setTotalInvested(Double totalInvested)
+   {
+      this.totalInvested = totalInvested;
+   }
+
+   public Double getPercentequity()
+   {
+      return percentequity;
+   }
+
+   public void setPercentequity(Double percentequity)
+   {
+      this.percentequity = percentequity;
+   }
+
+   public Double getPercentfixedIncome()
+   {
+      return percentfixedIncome;
+   }
+
+   public void setPercentfixedIncome(Double percentfixedIncome)
+   {
+      this.percentfixedIncome = percentfixedIncome;
+   }
+
+   public Double getPercentcash()
+   {
+      return percentcash;
+   }
+
+   public void setPercentcash(Double percentcash)
+   {
+      this.percentcash = percentcash;
    }
 
    public Asset getAsset(String asset)
@@ -146,239 +210,6 @@ public class AssetClass
       }
       return null;
    }
-
-   public void setAssetWeight(String asset, double weight)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            assetclass.get(asset).setWeight(weight);
-         }
-/*
-         else
-         {
-            addAssetClass(asset, weight, 1.0, "");
-         }
-*/
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
-   public Double getTotalAssetWeight()
-   {
-      try
-      {
-         String assetname;
-         Double totalWeight = 0.0;
-         for (int i = 0; i < this.getOrderedAsset().size();i++) {
-            assetname = this.getOrderedAsset().get(i);
-            totalWeight = totalWeight + this.getAsset(assetname).getWeight();
-         }
-         return totalWeight;
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0.0;
-   }
-
-
-   public void setAssetActualWeight(String asset, double weight)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            assetclass.get(asset).setActualweight(weight);
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
-   public double getAssetWeight(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return (assetclass.get(asset).getWeight());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0.0;
-   }
-
-   public double getAssetActualWeight(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return (assetclass.get(asset).getActualweight());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0.0;
-   }
-
-   public int getAssetRoundedWeight(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return ((int) assetclass.get(asset).getWeight());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0;
-   }
-
-   public int getAssetRoundedActualWeight(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return (assetclass.get(asset).getRoundedActualWeight());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0;
-   }
-
-   public void setAssetRisk(String asset, double risk)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            assetclass.get(asset).setRisk(risk);
-         }
-
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
-   public double getAssetRisk(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return (assetclass.get(asset).getRisk());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0.0;
-   }
-
-   public void setAssetExpectedReturns(String asset, double expReturns)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            assetclass.get(asset).setExpectedReturn(expReturns);
-         }
-
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
-   public double getAssetExpectedReturns(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return (assetclass.get(asset).getExpectedReturn());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0.0;
-   }
-
-   public void setAssetAverageReturns(String asset, double avgReturn)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            assetclass.get(asset).setAvgReturn(avgReturn);
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-
-   public double getAssetAverageReturns(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return (assetclass.get(asset).getAvgReturn());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return 0.0;
-   }
-
-
-   public String getAssetColor(String asset)
-   {
-      try
-      {
-         if (assetclass.containsKey(asset))
-         {
-            return (assetclass.get(asset).getColor());
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return "";
-   }
-
 
    @SuppressWarnings("rawtypes")
    @Override

@@ -21,10 +21,14 @@
       <module>eod</module>
       <module>docusign</module>
       <module>invmodel</module>
+      <module>yodlee-services</module>
       <module>web</module>
       <module>virtual-trades</module>
       <module>emailer</module>
       <module>brokerservices</module>
-      <module>web2</module>
+      <module>ibservice</module>
+      <module>reports</module>
+      <module>rbsa-preprocessor</module>
+      <module>price-processor</module>
    </modules>
 </project>

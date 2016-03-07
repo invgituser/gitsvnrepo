@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: webcab:portfolioJ2SE:5.0">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/webcab/portfolioJ2SE/5.0/portfolioJ2SE-5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/webcab/portfolioJ2SE/5.0/portfolioJ2SE-5.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/webcab/portfolioJ2SE/5.0/portfolioJ2SE-5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

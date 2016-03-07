@@ -9,23 +9,30 @@
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
-   <http pattern="/tryus.xhtml" security="none"/>
+   <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/signup.xhtml" security="none"/>
+   <http pattern="/register.xhtml" security="none"/>
    <http pattern="/resetPassword.xhtml" security="none"/>
    <http pattern="/setPassword.xhtml" security="none"/>
-   <http pattern="/ForgotPassword.xhtml" security="none"/>
+   <http pattern="/viewExpired.xhtml" security="none"/>
+   <http pattern="/forgot.xhtml" security="none"/>
    <http pattern="/signupApproval.xhtml" security="none"/>
    <http pattern="/message.xhtml" security="none"/>
-   <http pattern="/securitypolicy.html" security="none"/>
-   <http pattern="/testDialog.xhtml" security="none"/>
-   <!--  Admin pages  -->
-   <http pattern="/admin.xhtml" security="none"/>
-   <http pattern="/admin_document.xhtml" security="none"/>
-   <http pattern="/admin_profile.xhtml" security="none"/>
-   <http pattern="/admin_rebal.xhtml" security="none"/>
-   <http pattern="/test.xhtml" security="none"/>
 
-   <http pattern="/advisor/**" security="none"/>
+   <http pattern="/tryus.xhtml" security="none" />
+   <http pattern="/backup/ForgotPassword.xhtml" security="none"/>
+
+   <http pattern="/css/**" security="none"/>
+   <http pattern="/js/**" security="none"/>
+   <http pattern="/javax.faces.resource/*" security="none"/>
+   <http pattern="/javax.faces.resource/**" security="none"/>
+   <http pattern="/images/**" security="none"/>
+   <http pattern="/try/**" security="none"/>
+   <http pattern="/pages/static/**" security="none"/>
+   <http pattern="/spark/**" security="none"/>
+   <http pattern="/reports/**" security="none"/>
+   <http pattern="/spark/ui/**" security="none"/>
+
 
    <!--
       <http pattern="/chartTest.xhtml" security="none" />
@@ -36,57 +43,44 @@
       <http pattern="/test2.jsp" security="none" />
    -->
 
-   <http auto-config="true" access-denied-page="/AccessDenied.xhtml">
-   <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />
-   <form-login login-page="/login.xhtml" default-target-url="${ssl.url}/loginRedirection.xhtml"
-               always-use-default-target="true"/>
+   <http auto-config="true" access-denied-page="/access-denied.xhtml">
+      <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />
+      <form-login login-page="/login.xhtml" default-target-url="${ssl.url}/loginRedirection.xhtml"
+                  always-use-default-target="true"/>
 
       <!--  Active pages -->
-   <intercept-url pattern="/javax.faces.resource/*" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/javax.faces.resource/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/images/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/images/institution/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/css/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/js/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/loginRedirection.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/createInvestment.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageAccount.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/managegoals.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageallocation.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/managePortfolio.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/debtandliabilities.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/risktolerance.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/position.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-
-      <!--  Account Take on process - Disabled  -->
-   <intercept-url pattern="/backup/createAccount.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/accountholder.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/contactinformation.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/financialprofile.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/employmentprofile.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/sourceoffund.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/updateAccounts.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/incomeandsavings.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/backup/approvePortfolio.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/loginRedirection.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/createInvestment.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/manage.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/managegoals.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/manageallocation.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/managePortfolio.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/debtandliabilities.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/risktolerance.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/position.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
       <!--  Test Pages - Disabled  -->
-   <intercept-url pattern="/setPassword.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageportfolio2.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageportfolio2.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-   <intercept-url pattern="/manageAccount_bak.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
-      <!--  Session Expired Page  -->
-   <intercept-url pattern="/viewExpired.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <!--  Original  pages  -->
+      <intercept-url pattern="/admin/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+   <!--  Advisor pages  -->
+      <intercept-url pattern="/advisor/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
+      <!--  Admin pages  -->
+      <intercept-url pattern="/pages/admin/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <!--  Advisor/Consumer pages  -->
+      <intercept-url pattern="/pages/advisor/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/pages/consumer/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/pages/common/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
-   <logout logout-success-url="${apache.url}"/>
 
-   <intercept-url pattern="/**" access="ROLE_USER"/>
-   <session-management invalid-session-url="${ssl.url}/viewExpired.xhtml"/>
-   <remember-me key="${ssl.url}"/>
-</http>
+      <logout logout-success-url="${apache.url}"/>
+
+      <intercept-url pattern="/**" access="ROLE_USER"/>
+      <session-management invalid-session-url="${ssl.url}/pages/common/view-expired.xhtml"/>
+      <remember-me key="${ssl.url}"/>
+   </http>
 
 
     <authentication-manager>
@@ -95,16 +89,14 @@
         </authentication-provider>
     </authentication-manager>
 
-    <beans:bean id="userDetailsService" class="com.invessence.dao.CustomJdbcDaoImpl">
+    <beans:bean id="userDetailsService" class="com.invessence.dao.common.CustomJdbcDaoImpl">
         <beans:property name="dataSource" ref="dataSource"/>
         <beans:property name="usersByUsernameQuery"
-                        value="select logonid, userid, email, pwd, logonstatus, attempts, ip, macaddress, cookieID, resetID, accttype, logo, groupname from vw_user_logon where userid=?"/>
+                        value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access from vw_user_logon where userid=?"/>
         <beans:property name="listofQAQuery"
                         value="select question1, answer1, question2, answer2, question3, answer3 from user_logon where userid=?"/>
         <beans:property name="authoritiesByUsernameQuery"
                         value="select r.role from user_logon ul, role r where ul.logonid=r.logonid and ul.userid =?"/>
-        <beans:property name="updateAttemptsSql"
-                        value="update user_logon set attempts = ? where userid=?"/>
         <beans:property name="lockUserSql"
                         value="update user_logon set logonstatus = ?, resetID = ? where userid=?"/>
     </beans:bean>
@@ -115,7 +107,7 @@
     </beans:bean>
 
     <beans:bean id="monitorSession" class="com.invessence.util.MonitorSession">
-        <beans:property name="invalidSessionUrl" value="/viewExpired.xhtml" />
+        <beans:property name="invalidSessionUrl" value="/view-expired.xhtml" />
     </beans:bean>
 
     <beans:bean id="httpSessionSecurityContextRepository" class="org.springframework.security.web.context.HttpSessionSecurityContextRepository"/>

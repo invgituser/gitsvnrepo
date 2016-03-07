@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="iAdvice:war">
+    <output-path>$PROJECT_DIR$/modules/iAdvice/target</output-path>
+    <root id="archive" name="iAdvice-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="iAdvice:war exploded" />
+    </root>
+  </artifact>
+</component>

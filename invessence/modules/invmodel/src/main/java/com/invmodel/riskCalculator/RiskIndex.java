@@ -17,9 +17,9 @@ public class RiskIndex
       {0, 4, 0, 0, 0, 0, 0, 0, 0, 0}, // Q2
       {0, 1, 2, 3, 14, 0, 0, 0, 0, 0}, // Q3
       {0, 7, 14, 21, 28, 0, 0, 0, 0, 0}, // Q4
-      {0, 7, 14, 28, 28, 0, 0, 0, 0, 0}, // Q5
+      {0, 7, 14, 25, 28, 0, 0, 0, 0, 0}, // Q5
       {0, 14, 21, 28, 28, 0, 0, 0, 0, 0}, // Q6
-      {0, 7, 14, 25, 25, 0, 0, 0, 0, 0}, // Q7
+      {0, 7, 14, 25, 28, 0, 0, 0, 0, 0}, // Q7
       {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, // Q8
       {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, // Q9
    };
@@ -28,59 +28,62 @@ public class RiskIndex
    private String[] risk_Question;
 
    private static String[][] _Questions = {
-      {"Which of the following statements best describes your employment situation?", "5"},
+      {"What is your employment situation?", "5"},
       {"Do you have any other sources of income?", "2"},
-      {"Which of the following statements best describes your financial situation? Please consider your regular living expenses and your ability to repay outstanding loans as well as saving for retirement and emergencies.", "5"},
-      {"What level of risk are you willing to take to get a higher return on your investment? ", "5"},
-      {"Which of the following statements best describes your investment approach? (If you don't currently have any investments, choose the response that best describes how you think you would like to manage your investments.)", "5"},
-      {"Which of the following statements best describes your attitude toward the level of risk or volatility that you are prepared to live with during the time these assets will be invested?", "4"},
-      {"Which of the following statements best describes your investment philosophy?", "4"}
+      {"What is your financial situation, including expenses, loans, savings for retirement and emergencies?", "5"},
+      {"What level of investment risk are you willing to take? ", "5"},
+      {"What best describes your investment approach?", "5"},
+      {"What level of volatility are you prepared to accept?", "4"},
+      {"What is your long-term investment intention?", "4"}
    };
 
 
    private static String[][] _Choices = {
-      {  "My job is very secure and my current income covers my expenses.",
-         "For now my job is secure but this could change quickly.",
-         "I am currently not working or retired but I have secure sources of income that cover my expenses.",
+      {
+         "My job is very secure.",
+         "My job security could change quickly.",
+         "I am not working or retired but have secure income.",
          "I feel my job is not secure.",
-         "I am currently unemployed, retired, or stay at home and I rely on my savings for income and emergency cash needs."
-      },
-      {  "I have enough other sources of income to manage my current expenses.",
-         "I don’t have any other sources of income.",
-      },
-      {  "I feel very secure about all my financial needs.",
-         "I feel my financial situation is stable and I won’t need to use my investment to meet any current expenses. However, I may need to access these funds in an emergency.",
-         "I don’t need to use my investment for current expenses now but I may need to do that in the next 12 months.",
-         "I am not very confident in my financial situation. I am concerned that I am spending more than I am saving and that I may need to use my investment for current expenses.",
-         "I definitely need my investment to supplement my income."
+         "I am currently unemployed or retired."
       },
       {
-         "Highest",
-         "High",
-         "Moderate",
-         "Low",
-         "Lowest"
+         "Yes.",
+         "No."
       },
       {
-         "My investments tend to be aggressive. My objectives are long term and I am willing to take on some risk for a greater expected return.  I don't often make changes to my portfolio unless my reasons for investing have changed.",
-         "I tend to choose moderately aggressive investment funds for long-term growth.  I understand this means that the value of my portfolio may fluctuate more than the market because I’m investing in riskier securities.",
-         "Most of my investments tend to be conservative, such as bond mutual funds or large-cap dividend-paying stocks, with a focus on preserving capital over growth.",
-         "All of my investments to date have been in cash because I’m not sure what I should be investing in.",
-         "All of my investments to date have been in cash because I need the security."
+         "I feel very secure about all my financial needs.",
+         "I feel fairly secure.",
+         "I feel secure for the next 12 months.",
+         "I don’t feel very secure.",
+         "I don’t feel at all secure."
       },
       {
-         "I am comfortable with volatility and prefer more aggressive investments. I understand that in the short term this strategy may result in a decline in market value but I prefer having a better long-term chance for greater returns and capital gains.",
-         "I am comfortable that the value of my assets may fluctuate daily. I would prefer that up to half of my assets be invested in high volatility equity securities and the balance invested in other securities. ",
-         "I would feel most comfortable investing in assets that tend to generate a more stable return year-to-year, as opposed to assets that fluctuate with more volatility.",
-         "I prefer very little volatility."
+         "Highest.",
+         "High.",
+         "Moderate.",
+         "Low.",
+         "Lowest."
       },
       {
-         "I have a more aggressive, long term investment horizon.  I prefer to invest the majority of my assets in the equity market, as I am comfortable this is the best strategy for producing greater returns over the long run.",
-         "I understand the opportunity for greater returns does come with taking a higher level of risk and am prepared to do so with more than half of my assets.",
-         "I understand the opportunity for greater returns does come with taking a higher level of risk and am comfortable doing so with up to half of my assets.",
-         "I am comfortable taking a higher level of risk with less than quarter of my assets in order to keep up with inflation."
-
-      }
+         "Aggressive – long-term growth.",
+         "Moderately aggressive – long-term growth.",
+         "Conservative – preserve capital more than growth.",
+         "Ultra conservative – safe with very low risk.",
+         "No risk – all cash."
+      },
+      {
+         "High – I am comfortable with volatility.",
+         "Moderate – Up to half volatile and half balanced.",
+         "Medium – Stable annual return with low volatility.",
+         "None – No volatility."
+      },
+      {
+         "Majority of my assets at higher risk, for greater returns.",
+         "More than half my assets at higher risk, for greater returns.",
+         "Up to half my assets at higher risk, to balance stability with greater returns.",
+         "Less than a quarter of my assets at higher risk, to keep up with inflation.",
+         "None of my assets at high risk, to preserve capital."
+      },
    };
 
    static <K, V extends Comparable<? super V>>

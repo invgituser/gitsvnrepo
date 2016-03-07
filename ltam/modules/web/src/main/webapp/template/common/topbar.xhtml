@@ -1,0 +1,46 @@
+<ui:composition 
+
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+    <!-- TOPBAR START -->
+    <div id="layout-topbar">
+        <a id="mobile-menu-button">
+            <span class="ButtonLine" id="ButtonLine1"></span>
+            <span class="ButtonLine" id="ButtonLine2"></span>
+            <span class="ButtonLine" id="ButtonLine3"></span>
+        </a>
+        <a href="#" id="logo">
+            <h:graphicImage name="#{uiLayout.uiprofile.logo}" styleClass="Fleft"
+                            library="#{uiLayout.uiprofile.logolib}" />
+        </a>
+
+        <a id="show-top-menu" class="ShowOnMobile ripplelink black SymbilGreen">
+            <i class="icon-more_vert" id="active"></i>
+            <i class="icon-close DispNone" id="passive"></i>
+        </a>
+
+        <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
+            <ul id="top-menu">
+                <li>
+                    <a href="/pages/common/myprofile.xhtml">
+                        <i class="icon-cog SymbilBlue"></i><span class="ShowOnMobile">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <p:commandLink id="ajax" styleClass="SymbilRed" actionListener="#{uiLayout.logout}">
+                        <i class="icon-lock_open"></i> Sign-off
+                    </p:commandLink>
+                </li>
+
+            </ul>
+        </ui:fragment>
+
+    </div>
+    <!-- TOPBAR END -->
+    
+</ui:composition>

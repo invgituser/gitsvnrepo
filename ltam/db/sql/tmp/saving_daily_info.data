@@ -1,0 +1,31 @@
+INSERT INTO `invdb`.`sec_daily_info`
+(`instrumentid`,
+`ticker`,
+`businessdate`,
+`open_price`,
+`close_price`,
+`high_price`,
+`low_price`,
+`adjusted_price`,
+`prev_businessdate`,
+`prev_close_price`,
+`daily_return`,
+`volume`
+)
+select 
+t.`instrumentid`,
+t.`ticker`,
+t.`businessdate`,
+t.`open`,
+t.`close`,
+t.`high`,
+t.`low`,
+t.`adjusted`,
+d.`prev_businessdate`,
+d.`prev_close`,
+d.`daily_return`,
+t.`volume`
+from tmp_sec_daily_info t,
+daily_returns d
+where t.instrumentid = d.instrumentid
+and t.businessdate = d.businessdate

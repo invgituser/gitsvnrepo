@@ -16,6 +16,11 @@
 
    <dependencies>
       <dependency>
+         <groupId>com.invessence</groupId>
+         <artifactId>core</artifactId>
+         <version>${invessence.version}</version>
+      </dependency>
+      <dependency>
          <groupId>org.apache.camel</groupId>
          <artifactId>camel-core</artifactId>
       </dependency>

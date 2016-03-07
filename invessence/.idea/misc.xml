@@ -4,6 +4,7 @@
     <entry_points version="2.0" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/modules/showcase" />
     <file type="web" url="file://$PROJECT_DIR$/modules/web" />
     <file type="web" url="file://$PROJECT_DIR$/modules/web2" />
     <file type="web" url="file://$PROJECT_DIR$/web-internal" />

@@ -4,40 +4,25 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-   	<bean id="goalsBo"
-          class="com.invessence.bo.impl.GoalsBoImpl" >
-   		<property name="goalsDao" ref="goalsDao" />
-   	</bean>
-
-   	<bean id="goalsDao"
-          class="com.invessence.dao.impl.GoalsDaoImpl" >
-   		<property name="dataSource" ref="dataSource"/>
-   	</bean>
-
     <bean id="manageAccountDAO" class="com.invessence.dao.ManageAccountDAO">
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
 
-    <bean id="portfolioBo"
-          class="com.invessence.bo.impl.PortfolioBoImpl" >
-        <property name="portfolioDao" ref="portfolioDao" />
-    </bean>
-
-    <bean id="portfolioDao"
-          class="com.invessence.dao.impl.PortfolioDaoImpl" >
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    <bean id="positionDAO" class="com.invessence.dao.PositionDAO">
+    <bean id="positionDAO" class="com.invessence.dao.common.PositionDAO">
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
 
-    <bean id="allocationBo" class="com.invessence.bo.impl.AllocationBoImpl" >
-   		<property name="allocationDao" ref="allocationDao" />
-   	</bean>
-
-   	<bean id="allocationDao" class="com.invessence.dao.impl.AllocationDaoImpl" >
+    <bean id="consumerListDataDAO" class="com.invessence.dao.consumer.ConsumerListDataDAO" >
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
+
+    <bean id="consumerSaveDataDAO" class="com.invessence.dao.consumer.ConsumerSaveDataDAO" >
+   		<property name="dataSource" ref="dataSource"/>
+   	</bean>
+
+    <bean id="aggregationDAO" class="com.invessence.dao.consumer.AggregationDAO" >
+   		<property name="dataSource" ref="dataSource"/>
+   	</bean>
+
 
 </beans>

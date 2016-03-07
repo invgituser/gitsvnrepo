@@ -4,12 +4,15 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-   <bean id="accountDAO" class="com.invessence.dao.AccountDAO">
+   <bean id="userInfoDAO" class="com.invessence.dao.common.UserInfoDAO">
+         <property name="dataSource" ref="dataSource"/>
+   </bean>
+
+   <bean id="surveyDAO" class="com.invessence.dao.SurveyDAO">
          <property name="dataSource" ref="dataSource"/>
    </bean>
 
    <bean id="msgDAO" class="com.invessence.dao.MsgDAO">
          <property name="dataSource" ref="dataSource"/>
    </bean>
-
 </beans>

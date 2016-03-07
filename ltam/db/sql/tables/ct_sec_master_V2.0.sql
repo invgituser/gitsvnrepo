@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS `sec_master`;
+
+CREATE TABLE `sec_master` (
+  `instrumentid` bigint(20) NOT NULL,
+  `status` varchar(1) DEFAULT 'A' COMMENT 'A - Active,M - Matured,I - Inactive,D - Defaulted,S - Split,R - Reverse Split',
+  `ticker` varchar(20) NOT NULL,
+  `cusip` varchar(12) DEFAULT NULL,
+  `isin` varchar(15) DEFAULT NULL,
+  `name` varchar(60) DEFAULT NULL,
+  `assetclass` varchar(20) DEFAULT NULL COMMENT 'Equities, Bonds, Commodities, etc.',
+  `subclass` varchar(20) DEFAULT NULL COMMENT 'LargeCap, SmallCap, etc.',
+  `type` varchar(12) DEFAULT NULL COMMENT 'Equity,Bond,Cash',
+  `style` varchar(30) DEFAULT NULL COMMENT 'Value,Growth,Divident',
+  `expenseRatio` double DEFAULT NULL,
+  `lowerBoundReturn` double DEFAULT NULL,
+  `upperBoundReturn` double DEFAULT NULL,
+  `taxableReturn` double DEFAULT NULL,
+  `nontaxableReturn` double DEFAULT NULL,
+  `inception` date DEFAULT NULL,
+  `issuer` varchar(20) DEFAULT NULL,
+  `adv3months` double DEFAULT NULL,
+  `aum` double DEFAULT NULL,
+  `beta` double DEFAULT NULL,
+  `securityRiskSTD` double DEFAULT NULL,
+  `lowerbound` double DEFAULT '0',
+  `upperbound` double DEFAULT '0',
+  `yield` double DEFAULT NULL,
+  PRIMARY KEY (`instrumentid`),
+  UNIQUE KEY `InstrID_UNIQUE` (`instrumentid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

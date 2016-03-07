@@ -1,0 +1,19 @@
+<ui:composition
+
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <div id="layout-topbar" class="ShadowGray">
+        <div id="layout-topbar-indent">
+            <a href="#{menu.defaultHome}">
+                <h:graphicImage name="#{menu.logo}" alt="#{menu.logoAlt}"
+                                styleClass="Fleft" library="spark-layout" id="logo" class="Fleft"/>
+            </a>
+            <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>
+        </div>
+    </div>
+
+</ui:composition>
