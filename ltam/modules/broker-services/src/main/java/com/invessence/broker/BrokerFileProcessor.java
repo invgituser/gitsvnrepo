@@ -413,106 +413,107 @@ public class BrokerFileProcessor
 
       try
       {
-         StringBuilder sb = null;
          try
          {
-            br = new BufferedReader(new FileReader(csvFile));
-            List<String[]> inLst = new LinkedList<String[]>();
-            int counter=0;
-            while ((line = br.readLine()) != null)
-            {
-               if (!line.equals(""))
-               {
-                  String[] lineArr = line.split(cvsSplitBy);
-                  if(lineArr.length>fileDetails.getKeyData())
-                  {
-                     if (!lineArr[fileDetails.getKeyData()].trim().equals("") || lineArr[fileDetails.getKeyData()].trim() != null)
-                     {
-                        if(counter==0 && fileDetails.getContainsheader().equalsIgnoreCase("Y"))
-                        {
-                           logger.info("Avoiding first row to add in db because it's header");
-                        }else{
-                           inLst.add(lineArr);
-                        }
-                        counter++;
-                     }
-                  }
-               }
-            }
-            if(inLst.size()>0)
-            {
-               StringBuilder insertQuery=new StringBuilder("insert into "+fileDetails.getTmp_TableName()+" values (");
-               int inColLen=inLst.get(0).length;
-               for(int i=1; i<=inColLen; i++){
-                  insertQuery.append("?"+(i!=inColLen?",":")"));
-               }
-               if(fileDetails.getEncColumns()==null){
-                  logger.info("Encryption columns are not set");
-               }else if(fileDetails.getEncColumns()!=null || !fileDetails.getEncColumns().trim().equals(""))
-               {
-                  String []encColumns=fileDetails.getEncColumns().split(",");
-                  for (int i = 0; i < inLst.size(); i++)
-                  {
-                     String[] arr = (String[]) inLst.get(i);
-                     for(int j=0; j<encColumns.length; j++){
-                        try
-                        {
-                           int val = Integer.parseInt(encColumns[j]) - 1;
-                           logger.info(encColumns[j]+":"+arr.length+":"+val);
-                           if(val<=arr.length)
-                           {
-                              arr[val] = MsgDigester.getMessageDigest(arr[val]);
-                           }else{
-                              logger.info("Encryption columns value :"+encColumns[j]+"is not valid \n");
-                           }
-                        }catch(Exception e){
-                           //mailAlertMsg.append("Encryption columns value :"+encColumns[j]+"is not valid \n"+e.getMessage());
-                           logger.error("Encryption columns value :"+encColumns[j]+"is not valid"+e.getMessage());
-                        }
-                     }
-                     inLst.set(i, arr);
-                  }
-               }
-               logger.info("insertQuery :" + insertQuery);
-               try
-               {
-                  commonDao.truncateTable(fileDetails.getTmp_TableName());
-               }catch (Exception e)
-               {
-                  mailAlertMsg.append("While delete data from table "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
-                  logger.error("While delete data from table "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
-               }
-               try
-               {
-                  commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
-               }catch (Exception e)
-               {
-                  mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
-                  logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
-               }
+            commonDao.truncateTable(fileDetails.getTmp_TableName());
 
-            }else
+            StringBuilder sb = null;
+            try
             {
-               logger.info(fileDetails.getFileName()+" file is empty");
-               if(fileDetails.getCanBeEmpty().equalsIgnoreCase("N"))
+               br = new BufferedReader(new FileReader(csvFile));
+               List<String[]> inLst = new LinkedList<String[]>();
+               int counter=0;
+               while ((line = br.readLine()) != null)
                {
-                  mailAlertMsg.append(csvFile + " file is empty \n");
+                  if (!line.equals(""))
+                  {
+                     String[] lineArr = line.split(cvsSplitBy);
+                     if(lineArr.length>fileDetails.getKeyData())
+                     {
+                        if (!lineArr[fileDetails.getKeyData()].trim().equals("") || lineArr[fileDetails.getKeyData()].trim() != null)
+                        {
+                           if(counter==0 && fileDetails.getContainsheader().equalsIgnoreCase("Y"))
+                           {
+                              logger.info("Avoiding first row to add in db because it's header");
+                           }else{
+                              inLst.add(lineArr);
+                           }
+                           counter++;
+                        }
+                     }
+                  }
                }
-//            logger.info(fileDetails.getFileName()+" file is empty");
-//            if(fileDetails.getContainsheader().equalsIgnoreCase("N")) {
-//               throw new FileEmptyException(fileDetails.getFileName() + " file is empty");
-//            }
+               if(inLst.size()>0)
+               {
+                  StringBuilder insertQuery=new StringBuilder("insert into "+fileDetails.getTmp_TableName()+" values (");
+                  int inColLen=inLst.get(0).length;
+                  for(int i=1; i<=inColLen; i++){
+                     insertQuery.append("?"+(i!=inColLen?",":")"));
+                  }
+                  if(fileDetails.getEncColumns()==null || fileDetails.getEncColumns().trim().equals("")){
+                     logger.info("Encryption columns are not set");
+                  }else if(fileDetails.getEncColumns()!=null && !fileDetails.getEncColumns().trim().equals(""))
+                  {
+                     String []encColumns=fileDetails.getEncColumns().split(",");
+                     for (int i = 0; i < inLst.size(); i++)
+                     {
+                        String[] arr = (String[]) inLst.get(i);
+                        for(int j=0; j<encColumns.length; j++){
+                           try
+                           {
+                              int val = Integer.parseInt(encColumns[j].trim()) - 1;
+                              logger.info(encColumns[j]+":"+arr.length+":"+val);
+                              if(val<=arr.length)
+                              {
+                                 arr[val] = MsgDigester.getMessageDigest(arr[val]);
+                              }else{
+                                 logger.info("Encryption columns value :"+encColumns[j]+"is not valid \n");
+                              }
+                           }catch(Exception e){
+                              //mailAlertMsg.append("Encryption columns value :"+encColumns[j]+"is not valid \n"+e.getMessage());
+                              logger.error("Encryption columns value :"+encColumns[j]+"is not valid"+e.getMessage());
+                           }
+                        }
+                        inLst.set(i, arr);
+                     }
+                  }
+                  logger.info("insertQuery :" + insertQuery);
+                  try
+                  {
+                     commonDao.insertBatch(inLst, insertQuery.toString(), fileDetails.getPostInstruction());
+                  }catch (Exception e)
+                  {
+                     mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+                     logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+                  }
+
+               }else
+               {
+                  logger.info(fileDetails.getFileName()+" file is empty");
+                  if(fileDetails.getCanBeEmpty().equalsIgnoreCase("N"))
+                  {
+                     mailAlertMsg.append(csvFile + " file is empty \n");
+                  }
+   //            logger.info(fileDetails.getFileName()+" file is empty");
+   //            if(fileDetails.getContainsheader().equalsIgnoreCase("N")) {
+   //               throw new FileEmptyException(fileDetails.getFileName() + " file is empty");
+   //            }
+               }
             }
-         }
-         catch (FileNotFoundException e)
+            catch (FileNotFoundException e)
+            {
+               mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+               logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+            }
+            catch (IOException e)
+            {
+               mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+               logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+            }
+         }catch (Exception e)
          {
-            mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
-            logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
-         }
-         catch (IOException e)
-         {
-            mailAlertMsg.append("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
-            logger.error("While batch insertion "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+            mailAlertMsg.append("While delete data from table "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
+            logger.error("While delete data from table "+fileDetails.getTmp_TableName()+"\n"+e.getMessage());
          }
 
 //         if(fileDetails.getContainsheader().equalsIgnoreCase("Y") && inLst !=null && inLst.size() > 0)
