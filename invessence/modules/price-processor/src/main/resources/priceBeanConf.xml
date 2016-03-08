@@ -21,9 +21,16 @@
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 
-		<property name="location">
-			<value>Messages.properties</value>
+		<property name="locations">
+ <list>
+                <value>XigniteConfig.properties</value>
+	            <value>Messages.properties</value>
+            </list>
+
 		</property>
+
+
+
 	</bean>
 
 
