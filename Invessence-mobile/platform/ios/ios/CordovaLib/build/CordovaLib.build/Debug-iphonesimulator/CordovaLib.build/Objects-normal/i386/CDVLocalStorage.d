@@ -1,0 +1,20 @@
+dependencies: \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Private/Plugins/CDVLocalStorage/CDVLocalStorage.m \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Private/Plugins/CDVLocalStorage/CDVLocalStorage.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVPlugin.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVPluginResult.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVAvailability.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVAvailabilityDeprecated.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/NSMutableArray+QueueAdditions.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVCommandDelegate.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVInvokedUrlCommand.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVWebViewEngineProtocol.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDV.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVAppDelegate.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVViewController.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVCommandQueue.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVScreenOrientationDelegate.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVURLProtocol.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVWhitelist.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVTimer.h \
+  /Users/hemant/Desktop/Inv/29-2-16/Invessence/platforms/ios/CordovaLib/Classes/Public/CDVUserAgentUtil.h
