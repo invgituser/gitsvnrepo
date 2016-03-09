@@ -65,6 +65,7 @@ public class CallingProgram {
 					// TODO Raise an exception to support team, 'Failed" is an
 					// error caught at xignite layer while calling api or
 					// manipulating xignite layer
+					// mailAlertMsg
 					System.out.println("Callling Program:: Failed errror");
 				} else {
 					// Call parsing program here parsing here

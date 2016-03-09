@@ -3,13 +3,10 @@ package com.invessence.price.xignite.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.invessence.price.xignite.bo.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import com.invessence.price.xignite.bo.EndOfDayQuote;
-import com.invessence.price.xignite.bo.EndOfDayQuotes;
-import com.invessence.price.xignite.bo.Securities;
 
 /**
  * This calls can be used as utility class, contains methods for conversion of
@@ -61,6 +58,7 @@ public class JsonToObject {
 				} else { // Success
 					System.out.println("Object Parsing ");
 					EndOfDayQuote endOfDayQuote = new EndOfDayQuote();
+					CommonTypes commonTypes =new CommonTypes();
 					endOfDayQuote.setDate(jsonObject.get("Date") == null ? null : jsonObject.getString("Date"));
 					endOfDayQuote.setLast(jsonObject.getDouble("Last"));
 					endOfDayQuote.setOpen(jsonObject.getDouble("Open"));
@@ -104,10 +102,15 @@ public class JsonToObject {
 							: jsonObject.getString("ExchangeCloseDate"));
 					endOfDayQuote.setValuationDate(
 							jsonObject.get("ValuationDate") == null ? null : jsonObject.getString("ValuationDate"));
+					commonTypes.setOutcome(jsonObject.get("Outcome")== null?null :jsonObject.getString("Outcome"));
+					commonTypes.setMessage(jsonObject.get("Message")== null?null :jsonObject.getString("Message"));
+					commonTypes.setIdentity(jsonObject.get("Identity")== null?null :jsonObject.getString("Identity"));
+					commonTypes.setDelay(jsonObject.getDouble("Delay"));
 
 					// setting security object
 					JSONObject sec = (JSONObject) jsonObject.get("Security");
 					Securities securities = new Securities();
+					CommonTypes commonsecurities =new CommonTypes();
 					if (sec != null) {
 						securities.setCik(sec.get("CIK") == null ? null : sec.getString("CIK"));
 						securities.setCusip(sec.get("CUSIP") == null ? null : sec.getString("CUSIP"));
@@ -130,8 +133,11 @@ public class JsonToObject {
 					}
 
 					endOfDayQuote.setSecurity(securities);
+					endOfDayQuote.setCommTypes(commonTypes);
 					// Adding object to list for each iteration
 					endOfDayQuotesLst.add(endOfDayQuote);
+
+					//endOfDayQuotesLst.add(commonTypes);
 				}
 				endOfDayQuotes.setEndOfDayQuotes(endOfDayQuotesLst);
 			}
