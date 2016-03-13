@@ -6,6 +6,8 @@ import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.model.fixedmodel.FixedModelOptimizer;
+import com.invmodel.model.fixedmodel.data.*;
 import webcab.lib.finance.portfolio.*;
 
 //------------------------------
@@ -21,6 +23,7 @@ public class AssetAllocationModel
    private static AssetAllocationModel instance = null;
    private AssetParameters assetParameters = new AssetParameters();
    private PortfolioOptimizer portfolioOptimizer;
+   private FixedModelOptimizer fixedOptimizer;
 
    public static synchronized AssetAllocationModel getInstance()
    {
@@ -41,30 +44,60 @@ public class AssetAllocationModel
       this.portfolioOptimizer = portfolioOptimizer;
    }
 
-   public AssetClass[] buildAllocation(ProfileData pdata) {
-      if (pdata == null) {
-        return null;
+   public void setFixedOptimizer(FixedModelOptimizer fixedOptimizer)
+   {
+      this.fixedOptimizer = fixedOptimizer;
+   }
+
+   public AssetClass[] buildAllocation(ProfileData pdata)
+   {
+      if (pdata == null)
+      {
+         return null;
       }
 
-      if (! portfolioOptimizer.isValidTheme(pdata.getTheme())) {
+      if (fixedOptimizer != null)
+      {
+         if (fixedOptimizer.isThisFixedTheme(pdata.getTheme()))
+         {
+            pdata.setFixedModel(true);
+            pdata.setNumOfAllocation(1);
+            AssetClass[] assetclass = new AssetClass[pdata.getNumOfAllocation()];
+            pdata.setMaxAssetAllocatonPoints(fixedOptimizer.getThemes(pdata.getTheme()).size());
+            assetclass[0] = fixedModelAllocation(pdata);
+
+            return assetclass;
+         }
+      }
+
+      if (!portfolioOptimizer.isValidTheme(pdata.getTheme()))
+      {
          pdata.setTheme(InvConst.DEFAULT_THEME);
       }
 
+      pdata.setMaxAssetAllocatonPoints(portfolioOptimizer.getAssetAllocationPoints());
       if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
+      {
          return getConsumerAssetInfo(pdata);
+      }
       else
+      {
          return getAdvisorAssetsInfo(pdata);
+      }
    }
 
-   public Integer getAllocationIndex(ProfileData pdata) {
+   public Integer getAllocationIndex(ProfileData pdata)
+   {
 
       if (pdata == null)
+      {
          return InvConst.ASSET_DEFAULT_POINT;
+      }
 
       Integer age = pdata.getDefaultAge();
       Integer duration = pdata.getDefaultHorizon();
       Integer riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
-      Double adj_riskOffet = calc_riskOffset(age,duration,riskIndex);
+      Double adj_riskOffet = calc_riskOffset(age, duration, riskIndex);
 
       //Age based offset
       int offset = (int) (100 - ((age < 21) ? 21 : ((age > 100) ? 100 : age)));
@@ -88,7 +121,9 @@ public class AssetAllocationModel
 
          int numofAllocation = pdata.getNumOfAllocation();
          if (numofAllocation <= 0)
+         {
             numofAllocation = 1;
+         }
          assetclass = new AssetClass[numofAllocation];
          int counter = 0;
          int offset = (pdata.getAllocationIndex() == null) ? InvConst.ASSET_DEFAULT_POINT : pdata.getAllocationIndex();
@@ -96,14 +131,14 @@ public class AssetAllocationModel
          {
             //Offset is now a slider (Just moving along the points)
             // offset = InvConst.ASSET_INTERPOLATION - offset;
-            offset = (offset > InvConst.ASSET_INTERPOLATION - 1 ) ? InvConst.ASSET_INTERPOLATION - 1: offset;
+            offset = (offset > InvConst.ASSET_INTERPOLATION - 1) ? InvConst.ASSET_INTERPOLATION - 1 : offset;
             offset = (offset < 0) ? 0 : offset;
             assetclass[counter] = noAdjustDurationRisk(theme, offset, duration,
-                                                     age, stayInvested);
+                                                       age, stayInvested);
             age++;
             duration--;
             numofAllocation--;
-            offset ++;
+            offset++;
             counter++;
          }
          return assetclass;
@@ -116,7 +151,7 @@ public class AssetAllocationModel
    }
 
    private AssetClass noAdjustDurationRisk(String theme, int offset, int duration,
-                                         int age, Integer stayInvested)
+                                           int age, Integer stayInvested)
    {
 
       AssetClass assetclass = new AssetClass();
@@ -139,15 +174,17 @@ public class AssetAllocationModel
          for (int i = 0; i < (orderedAssets.size()); i++)
          {
             String assetname = orderedAssets.get(i);
-            String displayName =  portfolioOptimizer.getAssetData(theme, assetname).getDisplayname();
+            String displayName = portfolioOptimizer.getAssetData(theme, assetname).getDisplayname();
             String assetcolor = portfolioOptimizer.getAssetData(theme, assetname).getColor();
 
             // Always add each to asset List.
-            assetclass.addAssetClass(assetname , displayName, assetcolor, 0.0, 0.0);
+            assetclass.addAssetClass(assetname, displayName, assetcolor, 0.0, 0.0);
 
             wght = weights[i];
             if (wght < 0.0001)
+            {
                continue;
+            }
 
             // If input from user is to go to cash then risk_adjustment should be 0
             // If input from user is stay_invested then initial equity allocation is
@@ -160,23 +197,25 @@ public class AssetAllocationModel
             if (!assetname.equals("Cash"))
             {
 
-/*             Do not adjust base on age or stay invested.
+               // Do not adjust base on age or stay invested.
                if (stayInvested == 1)
                {
-                  risk_adjustment = portfolioOptimizer.getRiskAdjustment(theme,assetname);
+                  risk_adjustment = portfolioOptimizer.getRiskAdjustment(theme, assetname);
                }
                else
                {
 
-                  risk_adjustment = portfolioOptimizer.getEnd_allocation(theme,assetname);
+                  risk_adjustment = portfolioOptimizer.getEnd_allocation(theme, assetname);
                }
 
                double factor = (risk_adjustment - wght) * Math.pow(baseNum, powerNum);
                wght = (wght + factor);
-*/
+
 
                if (wght > totalWeight)
+               {
                   wght = totalWeight;
+               }
 
                assetclass.getAsset(assetname).setAllocweight(wght);
                assetclass.getAsset(assetname).setAvgReturn(avgReturns[i]);
@@ -188,7 +227,9 @@ public class AssetAllocationModel
             else
             {
                if (totalWeight < 0.0)
+               {
                   totalWeight = 0.0;
+               }
                assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
                // allocation Cash here with color.
                //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
@@ -217,7 +258,7 @@ public class AssetAllocationModel
          Integer riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
          Integer stayInvested = pdata.getStayInvested();
          Integer objective = pdata.getObjective();
-         adj_riskOffet = calc_riskOffset(age,duration,riskIndex);
+         adj_riskOffet = calc_riskOffset(age, duration, riskIndex);
 
          pdata.taxRate();
 
@@ -225,17 +266,21 @@ public class AssetAllocationModel
 
          int numofAllocation = pdata.getNumOfAllocation();
          if (numofAllocation <= 0)
+         {
             numofAllocation = 1;
+         }
          assetclass = new AssetClass[numofAllocation];
          int counter = 0;
-          while (numofAllocation > 0)
+         while (numofAllocation > 0)
          {
             //Age based offset
             int offset = (int) (100 - ((age < 21) ? 21 : ((age > 100) ? 100 : age)));
             //JAV 8/28/2013
             offset = (int) (offset * adj_riskOffet);
             if (counter == 0)
+            {
                pdata.setAllocationIndex(offset);
+            }
 
             assetclass[counter] = adjustDurationRisk(theme, offset, duration,
                                                      age, stayInvested);
@@ -252,6 +297,7 @@ public class AssetAllocationModel
       }
       return null;
    }
+
 
 
    private AssetClass adjustDurationRisk(String theme, int offset, int duration,
@@ -278,15 +324,17 @@ public class AssetAllocationModel
          for (int i = 0; i < (orderedAssets.size()); i++)
          {
             String assetname = orderedAssets.get(i);
-            String displayName =  portfolioOptimizer.getAssetData(theme, assetname).getDisplayname();
+            String displayName = portfolioOptimizer.getAssetData(theme, assetname).getDisplayname();
             String assetcolor = portfolioOptimizer.getAssetData(theme, assetname).getColor();
 
             // Always add each to asset List.
-            assetclass.addAssetClass(assetname , displayName, assetcolor, 0.0, 0.0);
+            assetclass.addAssetClass(assetname, displayName, assetcolor, 0.0, 0.0);
 
             wght = weights[i];
             if (wght < 0.0001)
+            {
                continue;
+            }
 
             // If input from user is to go to cash then risk_adjustment should be 0
             // If input from user is stay_invested then initial equity allocation is
@@ -301,19 +349,21 @@ public class AssetAllocationModel
 
                if (stayInvested == 1)
                {
-                  risk_adjustment = portfolioOptimizer.getRiskAdjustment(theme,assetname);
+                  risk_adjustment = portfolioOptimizer.getRiskAdjustment(theme, assetname);
                }
                else
                {
 
-                  risk_adjustment = portfolioOptimizer.getEnd_allocation(theme,assetname);
+                  risk_adjustment = portfolioOptimizer.getEnd_allocation(theme, assetname);
                }
 
                double factor = (risk_adjustment - wght) * Math.pow(baseNum, powerNum);
                wght = (wght + factor);
 
                if (wght > totalWeight)
+               {
                   wght = totalWeight;
+               }
 
                assetclass.getAsset(assetname).setAllocweight(wght);
                assetclass.getAsset(assetname).setAvgReturn(avgReturns[i]);
@@ -325,7 +375,9 @@ public class AssetAllocationModel
             else
             {
                if (totalWeight < 0.0)
+               {
                   totalWeight = 0.0;
+               }
                assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
                // allocation Cash here with color.
                //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
@@ -353,9 +405,13 @@ public class AssetAllocationModel
          //pdata.offsetRiskIndex();
          Integer riskOffset;
          if (riskIndex == null)
+         {
             riskOffset = 0;
+         }
          else
+         {
             riskOffset = riskIndex;
+         }
 
 
          adj_riskpoint = ((InvConst.MAX_RISK_OFFSET.doubleValue() - riskOffset.doubleValue()) / InvConst.MAX_RISK_OFFSET);
@@ -375,16 +431,20 @@ public class AssetAllocationModel
       return (0.0);
    }
 
-   public void overrideAssetWeight(AssetClass aac, List<Asset> userAsset) {
+   public void overrideAssetWeight(AssetClass aac, List<Asset> userAsset)
+   {
       String assetname;
 
-      if (userAsset == null) {
+      if (userAsset == null)
+      {
          return;
       }
 
-      if (aac != null) {
+      if (aac != null)
+      {
          // First reset all weight to zero for AssetClass, else it may not add to 100
-         for (int loop = 0; loop < aac.getOrderedAsset().size(); loop++) {
+         for (int loop = 0; loop < aac.getOrderedAsset().size(); loop++)
+         {
             assetname = aac.getOrderedAsset().get(loop);
             aac.getAsset(assetname).setUserweight(0.0);
          }
@@ -398,5 +458,91 @@ public class AssetAllocationModel
       }
    }
 
+   private AssetClass fixedModelAllocation(ProfileData pdata)
+   {
+
+      AssetClass assetclass = new AssetClass();
+      try
+      {
+         FMData fixedModelData;
+         Double wght;
+         Double totalWeight = 1.0;
+         Double investment = pdata.getActualInvestment();
+         String theme =  pdata.getTheme();
+
+         Double riskMeter = calc_riskOffset(pdata.getAge(), pdata.getDefaultHorizon(), pdata.getRiskIndex());
+         assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), riskMeter,
+                                   pdata.getStayInvested(), theme);
+         if (pdata.getRiskCalcMethod().equalsIgnoreCase("C")) {
+            fixedModelData = fixedOptimizer.getTheme(theme, riskMeter.intValue());
+         }
+         else {
+            fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getPortfolioIndex());
+         }
+
+         if (fixedModelData != null) {
+            pdata.setAllocationIndex(fixedModelData.getIndex());
+            for (FMAsset fiasset : fixedModelData.getAssetsData())
+            {
+               String assetname = fiasset.getAsset();
+               String displayName = fiasset.getDisplayname();
+               String assetcolor = fiasset.getColor();
+
+               // Always add each to asset List.
+               assetclass.addAssetClass(assetname, displayName, assetcolor, 0.0, 0.0);
+
+               wght = fiasset.getWeight();
+
+               if (wght >= 1.0)
+               {
+                  wght = wght / 100.0;
+               }
+
+               if (wght < 0.0001)
+               {
+                  continue;
+               }
+
+               if (!assetname.equalsIgnoreCase("Cash"))
+               {
+
+                  Double risk_adjustment = 0.0;
+
+                  if (wght > totalWeight)
+                  {
+                     wght = totalWeight;
+                  }
+
+                  assetclass.getAsset(assetname).setAllocweight(wght);
+                  assetclass.getAsset(assetname).setValue(wght * investment);
+                  assetclass.getAsset(assetname).setAvgReturn(0.0);
+                  if (!assetname.equals("Cash"))
+                  {
+                     totalWeight = totalWeight - wght;
+                  }
+               }
+               else
+               {
+                  if (totalWeight < 0.0)
+                  {
+                     totalWeight = 0.0;
+                  }
+                  assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
+                  assetclass.getAsset("Cash").setHoldingValue(totalWeight * investment);
+                  // allocation Cash here with color.
+                  //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
+               }
+            }
+         }
+
+            return assetclass;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return null;
+
+   }
 
 }

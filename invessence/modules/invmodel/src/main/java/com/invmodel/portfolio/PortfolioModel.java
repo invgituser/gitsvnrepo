@@ -9,7 +9,10 @@ import com.invmodel.dao.invdb.*;
 import com.invmodel.dao.rbsa.HolisticModelOptimizer;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
+import com.invmodel.model.fixedmodel.FixedModelOptimizer;
+import com.invmodel.model.fixedmodel.data.*;
 import com.invmodel.portfolio.data.Portfolio;
+import org.springframework.context.annotation.Profile;
 
 public class PortfolioModel
 {
@@ -17,6 +20,7 @@ public class PortfolioModel
    //private SecurityDBCollection securityDao;
    private SecurityCollection secCollection;
    private PortfolioOptimizer portfolioOptimizer;
+   private FixedModelOptimizer fixedOptimizer;
 
    public PortfolioModel()
    {
@@ -30,6 +34,11 @@ public class PortfolioModel
    public void setSecurityDao(SecurityCollection secCollection)
    {
       this.secCollection = secCollection;
+   }
+
+   public void setFixedOptimizer(FixedModelOptimizer fixedOptimizer)
+   {
+      this.fixedOptimizer = fixedOptimizer;
    }
 
    public double calcAssetValue(double invCapital, double avgYearReturns) throws Exception
@@ -89,25 +98,9 @@ public class PortfolioModel
 
          theme = profileData.getTheme();
          advisor = profileData.getAdvisor();
-
-         // NOTE:  If Theme is default, then use Invessence - Core portfolio.
-         // However, the Asset Weights may have been defined by Advisor's mapping.
-         if (!portfolioOptimizer.isValidTheme(theme))
-         {
-            theme = InvConst.DEFAULT_THEME;
-         }
-
-         if (advisor == null || advisor.isEmpty())
-         {
-            advisor = InvConst.INVESSENCE_ADVISOR;
-         }
-
          ArrayList<String> assetList = assetData[0].getOrderedAsset();
          Double riskOffset = assetData[0].getRiskOffset();
-
          duration = profileData.getDefaultHorizon();
-
-
          double totalIncEarned = 0.0;
          double investment = invCapital - keepLiquidCash;
 
@@ -132,6 +125,32 @@ public class PortfolioModel
             secCollection.loadDataFromDB(advisor, theme);
          }
 
+         if (fixedOptimizer != null)
+         {
+            if (fixedOptimizer.isThisFixedTheme(theme))
+            {
+               profileData.setFixedModel(true);
+               profileData.setNumOfPortfolio(1);
+               Portfolio[] portfolio = new Portfolio[profileData.getNumOfPortfolio()];
+               profileData.setMaxPortfolioAllocationPoints(fixedOptimizer.getThemes(theme).size());
+               portfolio[0] = createFixedPortfolio(assetData, profileData);
+
+               return portfolio;
+            }
+         }
+
+         // NOTE:  If Theme is default, then use Invessence - Core portfolio.
+         // However, the Asset Weights may have been defined by Advisor's mapping.
+         if (!portfolioOptimizer.isValidTheme(theme))
+         {
+            theme = InvConst.DEFAULT_THEME;
+         }
+
+         if (advisor == null || advisor.isEmpty())
+         {
+            advisor = InvConst.INVESSENCE_ADVISOR;
+         }
+         profileData.setMaxPortfolioAllocationPoints(InvConst.PORTFOLIO_INTERPOLATION - 1);
          if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith("C"))
          {
             return getConsumerPortfolio(assetData, profileData,
@@ -672,4 +691,123 @@ public class PortfolioModel
          e.printStackTrace();
       }
    }
+
+   private Portfolio createFixedPortfolio(AssetClass[] assetData, ProfileData pdata)
+   {
+
+      String theme = pdata.getTheme();
+      Double price;
+      String type, style;
+      String assetname, subclass, color, sec_name;
+      Integer sortorder;
+      Portfolio portfolio = new Portfolio();
+      double totalWeight = 1.0;
+      double investment = pdata.getActualInvestment();
+      double amount_remain = investment;
+
+      portfolio.setTheme(pdata.getTheme());
+      portfolio.setCashMoney(investment);
+      FMData fixedModelData;
+      if (pdata.getRiskCalcMethod().equalsIgnoreCase("C")) {
+         fixedModelData = fixedOptimizer.getTheme(theme, assetData[0].getRiskOffset().intValue());
+      }
+      else {
+         fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getPortfolioIndex());
+      }
+
+      if (fixedModelData != null) {
+         pdata.setPortfolioIndex(fixedModelData.getIndex());
+         for (FMPortfolio portfoliodata : fixedModelData.getPortfolioData())
+         {
+            Double wght = portfoliodata.getWeight();
+            String ticker = portfoliodata.getTicker();
+            double shares = 0.0;
+
+            if (wght >= 1.0)
+            {
+               wght = wght / 100.0;
+            }
+
+            if (wght < 0)
+            {
+               wght = 0.0;
+            }
+            SecurityData sd = secCollection.getSecurity(ticker);
+            if (sd != null) {
+               price = sd.getDailyprice();
+               type = sd.getType();
+               style = sd.getStyle();
+               subclass = sd.getPrimeassetclass();
+               assetname = sd.getAssetclass();
+               color = sd.getAssetcolor();
+               sortorder = sd.getSortorder();
+               sec_name = sd.getName();
+            }
+            else {
+               price = 100.00;
+               type = portfoliodata.getAsset();
+               style = portfoliodata.getSubasset();
+               subclass =  portfoliodata.getSubasset();
+               assetname = portfoliodata.getAsset();
+               color = portfoliodata.getColor();
+               sortorder =  portfoliodata.getSortorder();
+               sec_name = portfoliodata.getSec_name();
+
+            }
+
+            if (ticker.equalsIgnoreCase("Cash"))
+            {
+               wght = totalWeight;
+            }
+            else
+            {
+               if ((totalWeight - wght) < 0.0)
+               {
+                  wght = totalWeight;
+               }
+            }
+            totalWeight -= wght;
+            if (price == null || price == 0.0) {
+               shares = 1.0;
+            }
+            else {
+               shares = Math.round(((investment * wght) / price) - 0.5);
+            }
+
+            Double money = wght * investment;
+            Double totalPortfolioWeight = money / investment;
+            portfolio.setPortfolio(ticker, sec_name, color,
+                                   type, style, assetname, subclass,
+                                   price, wght,
+                                   0.0, 0.0, 0.0, 0.0,
+                                   shares, money, sortorder, totalPortfolioWeight);
+            portfolio.addSubclassMap(assetname, subclass,
+                                     color,
+                                     totalPortfolioWeight, amount_remain, true);
+            amount_remain = amount_remain - money;
+            portfolio.setCashMoney(amount_remain);
+         }
+         if (!portfolio.getPortfolioMap().containsKey("Cash"))
+         {
+            Double money = totalWeight * investment;
+            portfolio.setPortfolio("Cash", "Cash", null,
+                                   null, null, "Cash", "Cash",
+                                   1.0, totalWeight,
+                                   0.0, 0.0, 0.0, 0.0,
+                                   money, money, 999999, totalWeight);
+            portfolio.addSubclassMap("Cash", "Cash",
+                                     null,
+                                     totalWeight, money, true);
+
+         }
+         portfolio.setExpReturns(0.0);
+         portfolio.setTotalRisk(0.0);
+         portfolio.setTotalCapitalGrowth(0.0);
+         portfolio.setAvgExpense(0.0);
+
+      }
+
+      return portfolio;
+   }
+
 }

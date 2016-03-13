@@ -201,7 +201,7 @@ public class Portfolio
       PortfolioSecurityData data;
       try
       {
-         if (type.equals("Cash"))
+         if (assetclass.equalsIgnoreCase("Cash"))
          {
             money = cashMoney;
             if (totalMoney > 0)

@@ -8,6 +8,7 @@ import com.invmodel.asset.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
+import com.invmodel.model.fixedmodel.FixedModelOptimizer;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
 import com.invmodel.rebalance.data.*;
@@ -30,6 +31,7 @@ public class RebalanceProcess
    private TLHSecurityCollection tlhSecurityCollection = null;
    private SecurityCollection secCollection = null;
    private PortfolioOptimizer portfolioOptimizer = null;
+   private FixedModelOptimizer fixedOptimizer = null;
 
    Map<String, HoldingData> holdingMasterDataMap = new HashMap<String, HoldingData>();
    ArrayList<RebalanceTradeData> rebalanceTradeDataList;
@@ -59,6 +61,11 @@ public class RebalanceProcess
    public void setPortfolioOptimizer(PortfolioOptimizer portfolioOptimizer)
    {
       this.portfolioOptimizer = portfolioOptimizer;
+   }
+
+   public void setFixedOptimizer(FixedModelOptimizer fixedOptimizer)
+   {
+      this.fixedOptimizer = fixedOptimizer;
    }
 
    public void setSecurityDAO(SecurityCollection secCollection)
@@ -147,6 +154,7 @@ public class RebalanceProcess
          if (pdata.getAssetData() == null) {
             AssetAllocationModel assetAllocationModel = AssetAllocationModel.getInstance();
             assetAllocationModel.setPortfolioOptimizer(portfolioOptimizer);
+            assetAllocationModel.setFixedOptimizer(fixedOptimizer);
             AssetClass[] aamc;
             if (years == null)
                years = pdata.getHorizon();
@@ -171,6 +179,7 @@ public class RebalanceProcess
             loadAssetClass(pdata, years);
             PortfolioModel portfolioModel = new PortfolioModel();
             portfolioModel.setPortfolioOptimizer(portfolioOptimizer);
+            portfolioModel.setFixedOptimizer(fixedOptimizer);
             portfolioModel.setSecurityDao(secCollection);
             pdata.setNumOfPortfolio(years);
             Integer displayYear = 0;

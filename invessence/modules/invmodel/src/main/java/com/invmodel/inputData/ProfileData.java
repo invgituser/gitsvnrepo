@@ -77,6 +77,9 @@ public class
    private Integer portfolioIndex = InvConst.PORTFOLIO_DEFAULT_POINT;
    private Integer meterRiskIndicator = 5;
    private ArrayList<Asset> editableAsset = new ArrayList<Asset>();
+   private Integer maxAssetAllocatonPoints;
+   private Integer maxPortfolioAllocationPoints;
+   private Boolean fixedModel;
    private AssetClass[] assetData;
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.
    private PerformanceData[] performanceData;
@@ -405,6 +408,10 @@ public class
 
    public Double getActualInvestment()
    {
+      if (actualInvestment == null)
+         return initialInvestment.doubleValue();
+      if (actualInvestment == 0.0)
+         return initialInvestment.doubleValue();
       return actualInvestment;
    }
 
@@ -1009,6 +1016,39 @@ public class
             calc = (allocationIndex * portfolioIndex) / (allocationIndex + portfolioIndex);
          setMeterRiskIndicator(calc);
       }
+   }
+
+   public Integer getMaxAssetAllocatonPoints()
+   {
+      return maxAssetAllocatonPoints;
+   }
+
+   public void setMaxAssetAllocatonPoints(Integer maxAssetAllocatonPoints)
+   {
+      this.maxAssetAllocatonPoints = maxAssetAllocatonPoints;
+   }
+
+   public Integer getMaxPortfolioAllocationPoints()
+   {
+      return maxPortfolioAllocationPoints;
+   }
+
+   public void setMaxPortfolioAllocationPoints(Integer maxPortfolioAllocationPoints)
+   {
+      this.maxPortfolioAllocationPoints = maxPortfolioAllocationPoints;
+   }
+
+   public Boolean getFixedModel()
+   {
+      if (fixedModel == null)
+         return false;
+
+      return fixedModel;
+   }
+
+   public void setFixedModel(Boolean fixedModel)
+   {
+      this.fixedModel = fixedModel;
    }
 
    public AssetClass[] getAssetData()

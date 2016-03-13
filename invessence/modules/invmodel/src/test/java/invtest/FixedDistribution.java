@@ -1,38 +1,36 @@
 package invtest;
 
-import com.invmodel.asset.*;
-import com.invmodel.asset.data.*;
-import com.invmodel.dao.invdb.*;
+import java.io.*;
+import java.text.DecimalFormat;
+import java.util.Random;
+
+import com.invmodel.asset.AssetAllocationModel;
+import com.invmodel.asset.data.AssetClass;
+import com.invmodel.dao.invdb.SecurityCollection;
 import com.invmodel.inputData.*;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
-import com.invmodel.performance.*;
+import com.invmodel.performance.PortfolioPerformance;
 import com.invmodel.performance.data.PerformanceData;
-import com.invmodel.portfolio.*;
+import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.text.DecimalFormat;
-import java.util.*;
 
 import static java.lang.String.valueOf;
 
 /**
  * Hello world!
  */
-public class TestDistribution
+public class FixedDistribution
 {
-   private static TestDistribution instance = null;
+   private static FixedDistribution instance = null;
    private static String datadir = "C:/Users/Jigar/Work Related/RiverFrontAdvisors/";
 
 
-   public static synchronized TestDistribution getInstance()
+   public static synchronized FixedDistribution getInstance()
    {
       if (instance == null)
       {
-         instance = new TestDistribution();
+         instance = new FixedDistribution();
       }
 
       return instance;
@@ -72,7 +70,7 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.VCM_MinR");
+      profileData.setTheme("0.VCM");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
@@ -106,13 +104,9 @@ public class TestDistribution
 
       //createRandomNumbers();
 
-      PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
-      poptimizer.refreshDataFromDB();
+      PortfolioOptimizer portfolioOptimizer = PortfolioOptimizer.getInstance();
       FixedModelOptimizer fixoptimizer = FixedModelOptimizer.getInstance();
       fixoptimizer.refreshDataFromDB();
-
-
-      Random randomGenerator = new Random();
 
       //int randomAge = randomGenerator.nextInt(100);
 
@@ -120,7 +114,7 @@ public class TestDistribution
       //age = profileData.getAge();
       profileData.setNumOfAllocation(1);
       AssetAllocationModel assetAllocationModel = AssetAllocationModel.getInstance();
-      assetAllocationModel.setPortfolioOptimizer(poptimizer);
+      assetAllocationModel.setPortfolioOptimizer(portfolioOptimizer);
       assetAllocationModel.setFixedOptimizer(fixoptimizer);
 
       // assetAllocationModel.setHr(HistoricalReturns.getInstance());
@@ -130,17 +124,16 @@ public class TestDistribution
       // LinearOptimizer lpProc = LinearOptimizer.getInstance();
       // lpProc.process(1000L,profileData.getAdvisor(),profileData.getTheme(), profileData, aamc[0]);
 
-      PortfolioModel portfolioModel = new PortfolioModel();
-      portfolioModel.setPortfolioOptimizer(poptimizer);
-      portfolioModel.setFixedOptimizer(fixoptimizer);
       SecurityCollection secDao = new SecurityCollection();
+      PortfolioModel portfolioModel = new PortfolioModel();
+      portfolioModel.setPortfolioOptimizer(portfolioOptimizer);
+      portfolioModel.setFixedOptimizer(fixoptimizer);
       portfolioModel.setSecurityDao(secDao);
-      // portfolioModel.setMonthlyDao(DailyReturns.getInstance());
-      //profileData.setNumOfPortfolio(profileData.getHorizon());
 
       profileData.setNumOfPortfolio(1);
       Portfolio[] pfclass = portfolioModel.buildPortfolio(aamc, profileData);
 
+/*
       tax = "No";
 
       PortfolioPerformance portPerf = PortfolioPerformance.getInstance();
@@ -149,6 +142,7 @@ public class TestDistribution
 
       //Create a assetPerformanceFile
       createAssetPerformanceFile(tax, pfclass, aamc, age);
+*/
 
       createHoldingsFile(pfclass, tax, aamc, profileData);
       //createPerformanceDataFile(perfData, profileData.getGoalData());
@@ -169,7 +163,7 @@ public class TestDistribution
       PrintWriter writer = null;
       fileName = "normalDistribution" + ".csv";
 
-      writer = TestDistribution.getInstance().getFileHandle("No", fileName);
+      writer = FixedDistribution.getInstance().getFileHandle("No", fileName);
       writer.println("Count" + "," + "Number" );
 
 
@@ -284,7 +278,7 @@ public class TestDistribution
          fileName = "taxablePortfolioHoldings.csv";
       }
 
-      writer = TestDistribution.getInstance().getFileHandle(tax, fileName);
+      writer = FixedDistribution.getInstance().getFileHandle(tax, fileName);
 
       writer.println("Year" +
                         "," + "Ticker" +
@@ -387,7 +381,7 @@ public class TestDistribution
          fileName = "taxablePortRisk.csv";
       }
 
-      writer = TestDistribution.getInstance().getFileHandle(tax, fileName);
+      writer = FixedDistribution.getInstance().getFileHandle(tax, fileName);
 
       writer.println("Portfolio Risk" + ", Security Weighted Risk" + ", Portfolio Return");
 
@@ -415,7 +409,7 @@ public class TestDistribution
       {
          fileName = "taxedAssetsGrowth.csv";
       }
-      writer = TestDistribution.getInstance().getFileHandle(tax, fileName);
+      writer = FixedDistribution.getInstance().getFileHandle(tax, fileName);
 
       DecimalFormat df = new DecimalFormat("#.###");
 
@@ -456,7 +450,7 @@ public class TestDistribution
       PrintWriter writer = null;
 
       fileName = "performanceData.csv";
-      writer = TestDistribution.getInstance().getFileHandle("No", fileName);
+      writer = FixedDistribution.getInstance().getFileHandle("No", fileName);
 
       DecimalFormat df = new DecimalFormat("#.###");
 
@@ -524,7 +518,7 @@ public class TestDistribution
       {
          fileName = "taxableAssets.csv";
       }
-      writer = TestDistribution.getInstance().getFileHandle(tax, fileName);
+      writer = FixedDistribution.getInstance().getFileHandle(tax, fileName);
 
       writer.println("Profile: Age " + String.valueOf(age) + ", Risk " + risk +
                         ", Duration " + String.valueOf(duration) + ", Investment Capital " + String.valueOf(invCapital) + ", Tax rate 30% " + tax);

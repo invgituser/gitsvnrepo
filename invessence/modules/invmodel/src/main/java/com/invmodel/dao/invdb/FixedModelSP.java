@@ -20,28 +20,28 @@ public class FixedModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map loadLTAMThemes()
+   public Map loadThemes()
    {
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map loadLTAMAsset()
+   public Map loadAsset()
    {
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map loadLTAMPortfolio()
+   public Map loadPortfolio()
    {
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map loadLTAMPerformance()
+   public Map loadPerformance()
    {
       Map inputMap = new HashMap();
       return super.execute(inputMap);

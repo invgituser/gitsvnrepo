@@ -1063,4 +1063,12 @@ public class PortfolioOptimizer
    {
       return hoptimizer;
    }
+
+   public Integer getAssetAllocationPoints() {
+      return InvConst.ASSET_INTERPOLATION - 1;
+   }
+
+   public Integer getPrimeAssetAllocationPoints() {
+      return InvConst.PORTFOLIO_INTERPOLATION - 1;
+   }
 }

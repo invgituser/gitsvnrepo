@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
 import com.invmodel.dao.*;
+import com.invmodel.model.fixedmodel.FixedModelOptimizer;
 import com.invmodel.model.fixedmodel.data.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -39,14 +40,13 @@ public class FixedModelDao extends JdbcDaoSupport
       ds = dbconnection.getMySQLDataSource();
    }
 
-   public Map<String, FIData> load_fixedmodule()
+   public void load_fixedmodule(FixedModelOptimizer fimodel)
       {
          // DataSource ds = getDs();
-         String storedProcName = "sel_fixedmodule";
+         String storedProcName = "sel_sec_fixedmodel";
          FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
-         Map<String, FIData> themes = new LinkedHashMap<String, FIData>();
 
-         Map outMap = sp.loadLTAMThemes();
+         Map outMap = sp.loadThemes();
 
          if (outMap != null)
          {
@@ -56,32 +56,31 @@ public class FixedModelDao extends JdbcDaoSupport
                for (Map<String, Object> map : rows) {
                   Map rs = (Map) rows.get(i);
                   String theme = convert.getStrData(rs.get("theme"));
-                  FIData themeData = new FIData(
+                  FMData themeData = new FMData(
                      theme,
                      convert.getStrData(rs.get("level")),
+                     0, // During adding in buffer, we are calculalating the actual value
                      convert.getStrData(rs.get("displayname")),
                      convert.getIntData(rs.get("sortorder")),
                      convert.getIntData(rs.get("lowRisk")),
                      convert.getIntData(rs.get("highRisk"))
                   );
-                  themes.put(theme, themeData);
+                  fimodel.addTheme(themeData);
                   i++;
                }
             }
          }
-         return themes;
-
       }
 
-   public void load_fixedmodule_assets(Map<String, FIData> themeMap)
+   public void load_fixedmodule_assets(Map<String, FMData> themeMap)
    {
       // DataSource ds = getDs();
       if (themeMap == null)
          return;
 
-      String storedProcName = "sel_fixedmodule_assets";
+      String storedProcName = "sel_sec_fixedmodel_assets";
       FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
-      Map outMap = sp.loadLTAMAsset();
+      Map outMap = sp.loadAsset();
 
       if (outMap != null)
       {
@@ -91,16 +90,19 @@ public class FixedModelDao extends JdbcDaoSupport
             for (Map<String, Object> map : rows) {
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
-               FIAsset asset = new FIAsset(
+               String level = convert.getStrData(rs.get("level"));
+               String key =  theme + "." + level;
+               FMAsset asset = new FMAsset(
                   theme,
+                  level,
                   convert.getStrData(rs.get("asset")),
                   convert.getStrData(rs.get("displayname")),
                   convert.getDoubleData(rs.get("allocation")),
                   convert.getStrData(rs.get("color")),
                   convert.getIntData(rs.get("sortorder"))
                );
-               if (themeMap.containsKey(theme)) {
-                  FIData themedata = themeMap.get(theme);
+               if (themeMap.containsKey(key)) {
+                  FMData themedata = themeMap.get(key);
                   themedata.addAsset(asset);
                }
                i++;
@@ -109,17 +111,17 @@ public class FixedModelDao extends JdbcDaoSupport
       }
    }
 
-   public void load_fixedmodule_subassets(Map<String, FIData> themeMap)
+   public void load_fixedmodule_subassets(Map<String, FMData> themeMap)
    {
 
       if (themeMap == null)
          return;
 
       // DataSource ds = getDs();
-      String storedProcName = "sel_fixedmodule_subassets";
+      String storedProcName = "sel_sec_fixedmodel_subassets";
       FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
 
-      Map outMap = sp.loadLTAMPortfolio();
+      Map outMap = sp.loadPortfolio();
 
       if (outMap != null)
       {
@@ -129,21 +131,26 @@ public class FixedModelDao extends JdbcDaoSupport
             for (Map<String, Object> map : rows) {
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
+               String level = convert.getStrData(rs.get("level"));
+               String key =  theme + "." + level;
                String asset = convert.getStrData(rs.get("asset"));
-               FIPortfolio portfolio = new FIPortfolio(
+               FMPortfolio portfolio = new FMPortfolio(
                   theme,
-                  convert.getStrData(rs.get("themename")),
+                  level,
+                  theme,
                   asset,
-                  convert.getStrData(rs.get("assetname")),
-                  convert.getStrData(rs.get("subasset")),
-                  convert.getStrData(rs.get("displayname")),
+                  convert.getStrData(rs.get("asset")),
+                  convert.getStrData(rs.get("ticker")),
+                  convert.getStrData(rs.get("name")),
+                  convert.getStrData(rs.get("subclass")),
+                  convert.getStrData(rs.get("displayName")),
                   convert.getStrData(rs.get("color")),
                   convert.getDoubleData(rs.get("allocation")),
                   convert.getIntData(rs.get("sortorder"))
                );
-               if (themeMap.containsKey(theme)) {
-                  if (themeMap.get(theme).getAsset().containsKey(asset)) {
-                     themeMap.get(theme).getAsset().get(asset).addPortfolio(portfolio);
+               if (themeMap.containsKey(key)) {
+                  if (themeMap.get(key).getAsset().containsKey(asset)) {
+                     themeMap.get(key).getAsset().get(asset).addPortfolio(portfolio);
                   }
                }
                i++;
@@ -152,17 +159,17 @@ public class FixedModelDao extends JdbcDaoSupport
       }
    }
 
-   public void load_fixedmodule_performance(Map<String, FIData> themeMap)
+   public void load_fixedmodule_performance(Map<String, FMData> themeMap)
    {
 
       if (themeMap == null)
          return;
 
       // DataSource ds = getDs();
-      String storedProcName = "sel_fixedmodule_performance";
+      String storedProcName = "sel_sec_fixedmodule_performance";
       FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
 
-      Map outMap = sp.loadLTAMPerformance();
+      Map outMap = sp.loadPerformance();
 
       if (outMap != null)
       {
@@ -172,7 +179,7 @@ public class FixedModelDao extends JdbcDaoSupport
             for (Map<String, Object> map : rows) {
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
-               FIPerformance performance = new FIPerformance(
+               FMPerformance performance = new FMPerformance(
                   theme,
                   convert.getStrData(rs.get("index")),
                   convert.getStrData(rs.get("indexname")),

@@ -4,8 +4,11 @@ import java.util.*;
 import java.util.concurrent.locks.*;
 import java.util.logging.Logger;
 
+import com.invmodel.asset.data.AssetClass;
 import com.invmodel.dao.invdb.FixedModelDao;
+import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.fixedmodel.data.*;
+import com.invmodel.portfolio.data.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,8 +22,9 @@ public class FixedModelOptimizer
    private static FixedModelOptimizer instance = null;
    private final Logger logger = Logger.getLogger(FixedModelOptimizer.class.getName());
 
-   private Map<String, FIData> themesMap;
-   private FixedModelDao ltamdao;
+   private Map<String, ArrayList<FMData>> fixedThemeMap;
+   private Map<String, FMData> themesMap;
+   private FixedModelDao fixedModelDao;
 
    private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
    private final Lock read = readWriteLock.readLock();
@@ -40,26 +44,35 @@ public class FixedModelOptimizer
    private FixedModelOptimizer()
    {
       super();
-      ltamdao = FixedModelDao.getInstance();
+      fixedModelDao = FixedModelDao.getInstance();
    }
 
+   private void allocateTheme() {
+      if (fixedThemeMap == null) {
+         fixedThemeMap = new HashMap<String, ArrayList<FMData>>();
+      }
+
+      if (themesMap == null) {
+         themesMap = new HashMap<String, FMData>();
+      }
+   }
    private String getThemeKey(String theme) {
        if (theme == null)
-          return "DEFAULT";
+          return "FIXED";
       else
           return theme.toUpperCase();
    }
 
    private String getAssetKey(String theme, String asset) {
       if (asset == null)
-         asset = "DEFAULT";
+         asset = "FIXED";
 
       return (getThemeKey(theme) + "." + asset.toUpperCase());
    }
 
    private String getSubAssetKey(String theme, String asset, String subasset) {
       if (subasset == null)
-         subasset = "DEFAULT";
+         subasset = "FIXED";
 
       return (getAssetKey(theme, asset) + "." + subasset.toUpperCase());
    }
@@ -67,14 +80,16 @@ public class FixedModelOptimizer
    public void refreshDataFromDB() {
       write.lock();
       try {
+         allocateTheme();
+         fixedThemeMap.clear();
          logger.info("Load Fixed Module");
-         themesMap = ltamdao.load_fixedmodule();
+         fixedModelDao.load_fixedmodule(instance);
          logger.info("Load Fixed Module Assets");
-         ltamdao.load_fixedmodule_assets(themesMap);
+         fixedModelDao.load_fixedmodule_assets(themesMap);
          logger.info("Load Fixed Module SubAsset");
-         ltamdao.load_fixedmodule_subassets(themesMap);
-         logger.info("Load Fixed Module Performance Data");
-         ltamdao.load_fixedmodule_performance(themesMap);
+         fixedModelDao.load_fixedmodule_subassets(themesMap);
+         // logger.info("Load Fixed Module Performance Data");
+         // fixedModelDao.load_fixedmodule_performance(themesMap);
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -86,27 +101,79 @@ public class FixedModelOptimizer
 
    }
 
-   public ArrayList<FIData> getThemes() {
-      ArrayList<FIData> arrayList = new ArrayList<FIData>();
-      if (themesMap != null) {
-         for (String theme: themesMap.keySet()) {
-            arrayList.add(themesMap.get(theme));
+   public Boolean isThisFixedTheme(String theme) {
+      if (fixedThemeMap == null)
+         return false;
+      if (theme == null)
+         return false;
+      if (fixedThemeMap.containsKey(theme))
+         return true;
+      else
+         return false;
+   }
+
+   public ArrayList<FMData> getThemes(String theme) {
+      ArrayList<FMData> arrayList = new ArrayList<FMData>();
+      if (isThisFixedTheme(theme)) {
+         for (FMData data: fixedThemeMap.get(theme)) {
+            arrayList.add(data);
          }
       }
       return arrayList;
    }
 
-   public FIData getTheme(Integer riskIndex) {
-      FIData thisTheme = null;
-      if (themesMap != null) {
-         for (String theme: themesMap.keySet()) {
-            if (themesMap.get(theme).isThisTheme(riskIndex)) {
-               thisTheme = themesMap.get(theme);
+   public FMData getTheme(String theme, Integer riskIndex) {
+      FMData thisTheme = null;
+      if (fixedThemeMap != null) {
+         for (FMData data: fixedThemeMap.get(theme)) {
+            if (data.isItThisTheme(riskIndex)) {
+               thisTheme = data;
                break;
             }
          }
       }
       return thisTheme;
+   }
+
+   public FMData getThemeByIndex(String theme, Integer pos) {
+      FMData thisTheme = null;
+      if (fixedThemeMap != null) {
+         if (pos > getThemes(theme).size()) {
+            thisTheme = getThemes(theme).get(0);
+         }
+         else {
+            thisTheme = getThemes(theme).get(pos);
+         }
+      }
+      return thisTheme;
+   }
+
+   public void addTheme(FMData FMData) {
+      try {
+         if (FMData != null) {
+            String themeName = FMData.getTheme();
+            String themeLevel = FMData.getLevel();
+
+            allocateTheme();
+
+            if (fixedThemeMap.containsKey(themeName)) {
+               Integer last = fixedThemeMap.get(themeName).size();
+               FMData.setIndex(last+1);
+               fixedThemeMap.get(themeName).add(FMData);
+            }
+            else {
+               ArrayList<FMData> data = new ArrayList<FMData>();
+               FMData.setIndex(0);
+               data.add(FMData);
+               fixedThemeMap.put(themeName,data);
+            }
+
+            themesMap.put(themeName + "." + themeLevel, FMData);
+         }
+      }
+      catch (Exception ex) {
+
+      }
    }
 
 }
