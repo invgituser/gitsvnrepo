@@ -29,7 +29,14 @@ public class InviteProcessor
          for (InvitedGuestData data : list)
          {
             System.out.println("Send Invitation to " + data.getName() + ": " + data.getEmail());
-            String emailTxt = emailCreator.buildMessage("HTML", "html.welcome", "txt.welcome", new Object[]{data.getName(), data.getWeburl(), data.getEmail()});
+            String emailTxt;
+            if (data.getGuesttype() == null || data.getGuesttype().equalsIgnoreCase("I")) {
+               emailTxt = emailCreator.buildMessage("HTML", "html.guest.welcome", "txt.guest.welcome", new Object[]{data.getName(), data.getWeburl(), data.getEmail()});
+            }
+            else {
+               emailTxt = emailCreator.buildMessage("HTML", "html.advisor.welcome", "txt.advisor.welcome", new Object[]{data.getName(), data.getWeburl(), data.getEmail()});
+            }
+
             //System.out.println("Output Text: \n" + emailTxt);
 
             MsgData msgData = new MsgData();

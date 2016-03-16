@@ -20,7 +20,8 @@ public class InviteDAO extends JdbcDaoSupport
    {
 
       String sql = " select distinct email, " +
-                   " concat(firstName,' ', lastName)  as name " +
+                   " concat(firstName,' ', lastName)  as name, " +
+                   " guesttype " +
                    " from email_invitation " +
                    " where invite = 'P' " +
                    " and length(trim(email)) > 0";
@@ -33,6 +34,7 @@ public class InviteDAO extends JdbcDaoSupport
             InvitedGuestData data = new InvitedGuestData();
             data.setEmail(rs.getString("email"));
             data.setName(rs.getString("name"));
+            data.setGuesttype(rs.getString("guesttype"));
             data.setWeburl(weburl);
             return data;
          }

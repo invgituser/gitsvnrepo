@@ -14,6 +14,7 @@ public class InvitedGuestData implements Serializable
 {
    private String email = null;
    private String name = null;
+   private String guesttype = null;
    private String weburl = null;
 
    public String getEmail()
@@ -34,6 +35,16 @@ public class InvitedGuestData implements Serializable
    public void setName(String name)
    {
       this.name = name;
+   }
+
+   public String getGuesttype()
+   {
+      return guesttype;
+   }
+
+   public void setGuesttype(String guesttype)
+   {
+      this.guesttype = guesttype;
    }
 
    public String getWeburl()
