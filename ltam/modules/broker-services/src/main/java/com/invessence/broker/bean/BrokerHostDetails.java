@@ -11,6 +11,7 @@ public class BrokerHostDetails
    private String username;
    private String password;
    private String sourcedir;
+   private String encrDecrKey;
 
    public String getEnvironment()
    {
@@ -72,6 +73,16 @@ public class BrokerHostDetails
       this.vendor = vendor;
    }
 
+   public String getEncrDecrKey()
+   {
+      return encrDecrKey;
+   }
+
+   public void setEncrDecrKey(String encrDecrKey)
+   {
+      this.encrDecrKey = encrDecrKey;
+   }
+
    @Override
    public String toString()
    {
@@ -82,6 +93,7 @@ public class BrokerHostDetails
          ", username='" + username + '\'' +
          ", password='" + password + '\'' +
          ", sourcedir='" + sourcedir + '\'' +
+         ", encrDecrKey='" + encrDecrKey + '\'' +
          '}';
    }
 }

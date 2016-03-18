@@ -30,7 +30,7 @@ public class CommonDaoImpl implements CommonDao
    {
       List<BrokerHostDetails> lst = null;
       logger.info("Fetching broker host details");
-      String sql = "select vendor, environment, host, username, password, sourcedir from host_info "+where;
+      String sql = "select vendor, environment, host, username, password, sourcedir, encrDecrKey from host_info "+where;
       lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
       return lst;
    }

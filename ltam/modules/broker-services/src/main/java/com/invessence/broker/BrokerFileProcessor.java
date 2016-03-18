@@ -7,12 +7,10 @@ import java.util.*;
 import com.invessence.broker.bean.*;
 import com.invessence.broker.dao.*;
 import com.invessence.broker.util.*;
-import com.invessence.util.EmailCreator;
+import com.invessence.util.*;
 import com.jcraft.jsch.*;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.*;
 import org.springframework.stereotype.Component;
 
 /**
@@ -187,7 +185,7 @@ public class BrokerFileProcessor
                                                    {
                                                       try
                                                       {
-                                                         processCsvFile(mailAlertMsg, localFileName, downloadFileDetails);
+                                                         processCsvFile(mailAlertMsg, localFileName, downloadFileDetails, hostDetails.getEncrDecrKey());
                                                       }
                                                       catch (Exception e)
                                                       {
@@ -209,7 +207,7 @@ public class BrokerFileProcessor
                                                       {
                                                          try
                                                          {
-                                                            processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails);
+                                                            processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails, hostDetails.getEncrDecrKey());
                                                             deleteDecryptedFile(decryptedFileName);
                                                          }
                                                          catch (Exception e)
@@ -405,7 +403,7 @@ public class BrokerFileProcessor
       return filesToDelete;
    }
 
-   private void processCsvFile(StringBuilder mailAlertMsg, String csvFile,DownloadFileDetails fileDetails){
+   private void processCsvFile(StringBuilder mailAlertMsg, String csvFile,DownloadFileDetails fileDetails, String key){
 
       BufferedReader br = null;
       String line = "";
@@ -465,7 +463,7 @@ public class BrokerFileProcessor
                               logger.info(encColumns[j]+":"+arr.length+":"+val);
                               if(val<=arr.length)
                               {
-                                 arr[val] = MsgDigester.getMessageDigest(arr[val]);
+                                 arr[val] = EncryDecryAES.encrypt(arr[val], key) ;//MsgDigester.getMessageDigest(arr[val]);
                               }else{
                                  logger.info("Encryption columns value :"+encColumns[j]+"is not valid \n");
                               }
