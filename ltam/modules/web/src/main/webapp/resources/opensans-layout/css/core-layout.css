@@ -272,7 +272,10 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 /*vivek CSS */
 
 .tab_main {padding:0 100px; padding-top:20px;}
-.top_desk {margin-top:-290px;}
+.top_desk {
+	margin-top:-290px;
+	float: right;
+}
 .tp1 {margin-top:20px;}
 .pg5_h1 {height: 40px;}
 .page4_left {margin-left:40px; border: 0px;}
@@ -310,7 +313,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
     .ShowOnDesktopTablet{display:inherit; opacity:1;}
     
     /*vivek CSS */
-	.tab_main {padding:0 80px; padding-top:20px;}
+	.tab_main {padding:0 40px; padding-top:20px;}
 	.input_wid1 {width:140px;}
 	.title1 {font-size:1.5em;}
 }
@@ -326,10 +329,10 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
     .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
     
      /*vivek CSS */
-	.tab_main {padding:0 80px; padding-top:20px;}
+	.tab_main {padding:0 50px; padding-top:20px;}
 	.input_wid1 {width:140px;}
 	.title1 {font-size:1.5em;}
-	.top_desk {margin-top:10px;}
+	.top_desk {margin-top:10px; float: none;}
 } 
  
 /* Portrait tablet to landscape and desktop */
@@ -380,7 +383,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	.tab_main {padding:0 40px; padding-top:20px;}
 	.input_wid1 {width:100px;}
 	.title1 {font-size:1.5em;}
-	.top_desk {margin-top:10px;}
+	.top_desk {margin-top:10px;  float: none;}
 	.page4_left {margin-left:10px; border: 0px;}
 }
  
@@ -390,7 +393,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	/*visibilities according to the platform*/
 	.ShowOnMobile{display:inherit; opacity:1;}
 	.ShowOnDesktop{display:none; opacity:0;}
-    .ShowOnDesktopTablet{display:inherit; opacity:1;}
+    .ShowOnDesktopTablet{display:none; opacity:0;}
     .FloatNoneOnMobile{float:none !important;}
 	
 	/* responsive support */
@@ -435,7 +438,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	h1 {font-size:1.5em;}
 	.input_wid1 {width:100px;}
 	.title1 {font-size:1.2em;}
-	.top_desk {margin-top:10px;}
+	.top_desk {margin-top:10px;  float: none;}
 	.jqplot-xaxis-tick {-ms-transform: rotate(-30deg); /* IE 9 */
 					    -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
 						transform:rotate(-30deg);
@@ -508,7 +511,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	h1 > input {font-size:1em;}
 	.input_wid1 {width:90px;}
 	.title1 {font-size:1.2em;}
-	.top_desk {margin-top:10px;}
+	.top_desk {margin-top:10px;  float: none;}
 	
 	.ui-outputlabel {font-size:12px;}
 
@@ -526,7 +529,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	.input_wid1 {width:100px;}
 	.ShowOnMobile { height:5px; }
 	.title1 {font-size:1.2em;}
-	.top_desk {margin-top:10px;}
+	.top_desk {margin-top:10px;  float: none;}
 	.ui-panel .ui-panel-content {margin-top:-15px;}
 	.ui-messages-error, .ui-message-error {font-size:13px;}
 	.ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {margin-top:5px; margin-bottom:0px;}
@@ -577,7 +580,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	.EmptyBox_v {height:10px;}
 	.ui-panel .ui-panel-content {margin-top:-15px;}
 	.ui-messages-error, .ui-message-error {font-size:12px;}
-	.top_desk {margin-top:10px;}
+	.top_desk {margin-top:10px;  float: none;}
 	.jqplot-xaxis-tick {-ms-transform: rotate(-40deg); /* IE 9 */
 					    -webkit-transform: rotate(-40deg); /* Chrome, Safari, Opera */
 						transform:rotate(-40deg);
@@ -625,7 +628,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 		.EmptyBox_v {height:10px;}
 		.ui-panel .ui-panel-content {margin-top:-15px;}
 		.ui-messages-error, .ui-message-error {font-size:12px;}
-		.top_desk {margin-top:10px;}
+		.top_desk {margin-top:10px;  float: none;}
 		.tp1 {margin-top:10px;}
 		.Fs24 {font-size:16px !important;}
 		.btn_left {margin-left:-30px;}

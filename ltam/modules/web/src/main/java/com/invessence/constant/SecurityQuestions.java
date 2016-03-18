@@ -11,15 +11,15 @@ import java.util.*;
  */
 public class SecurityQuestions
 {
-
    // Set of personal questions.
    private static String[][] _Questions = {
-      {  "Home town/city at age 10?",
+      {
+         "Home town/city at age 10?",
          "Name of favorite teacher?",
          "Name of first pet?",
+         "What's your mother's maiden name?",
          "Favorite US President?",
-         "How much money I need to retire?",
-         "Name of mentor?"
+         "What was your childhood nickname?"
       },
       {
          "Favorite sports team?",
@@ -30,11 +30,14 @@ public class SecurityQuestions
          "Favorite comedian?"
       },
       {
-        "Describe yourself",
-        "I like to ___________",
-        "I enjoy  ____________",
-        "I would like to be ___________"}
-      };
+         "What was the make and model of your first car?",
+         "What was the name of your elementary school?",
+         "In what city were you born?",
+         "What was the name of the street where you first lived?",
+         "What is the first name of your best friend?",
+         "What is the last name of your favorite athlete?"
+      }
+   };
 
    public Map<String, String> getQuestion(Integer question_number)
    {
@@ -46,7 +49,8 @@ public class SecurityQuestions
             question_number = 0;
          }
 
-         for (Integer question_num = 0; question_num < _Questions[question_number].length; question_num++) {
+         for (Integer question_num = 0; question_num < _Questions[question_number].length; question_num++)
+         {
             map.put(question_num.toString(), _Questions[question_number][question_num]);
          }
 

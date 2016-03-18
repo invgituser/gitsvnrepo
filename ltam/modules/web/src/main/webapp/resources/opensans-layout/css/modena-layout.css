@@ -829,6 +829,7 @@ li {
     padding: 75px 1% 30px;
     margin-left: 0px;
   }
+
 }
 /* Landscape phone to portrait tablet */
 @media (min-width: 480px) and (max-width: 640px) {
@@ -1340,22 +1341,19 @@ li {
 }
 
 @media (min-width:360px) and (max-width: 480px) {
-  #layout-portlets-cover {
-    padding: 10px;
-  }
 
+  /* layout portlet box*/
+  .layout-portlets-box{width: 100%;
+    padding-top: 0px;
+    margin-left: -10px;
+  }
 }
 
 @media (min-width:320px) and (max-width: 360px) {
-  #layout-portlets-cover {
-    padding: 10px;
-  }
+
 }
 
 
 @media (min-width:200px) and (max-width: 320px) {
-  #layout-portlets-cover {
-    padding: 10px;
-  }
 
 }

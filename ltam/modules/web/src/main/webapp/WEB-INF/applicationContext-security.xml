@@ -18,6 +18,9 @@
    <http pattern="/index.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/viewExpired.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/404.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/home.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/faq.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/about.xhtml" security="none" create-session="never" use-expressions="true"/>
 
    <!-- Signup/Password Setup  -->
    <http pattern="/signup.xhtml" security="none" create-session="never" use-expressions="true"/>
@@ -45,7 +48,7 @@
 
    <http auto-config="true" access-denied-page="/access-denied.xhtml">
       <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />
-      <form-login login-page="/login.xhtml" default-target-url="${ssl.url}/loginRedirection.xhtml"
+      <form-login login-page="/login.xhtml" default-target-url="https://symbil.com/loginRedirection.xhtml"
                   always-use-default-target="true"/>
 
       <!--  Active pages -->
@@ -75,11 +78,11 @@
       <intercept-url pattern="/pages/common/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
-      <logout logout-success-url="${apache.url}"/>
+      <logout logout-success-url="http://symbil.com"/>
 
       <intercept-url pattern="/**" access="ROLE_USER"/>
-      <session-management invalid-session-url="${ssl.url}/pages/common/view-expired.xhtml"/>
-      <remember-me key="${ssl.url}"/>
+      <session-management invalid-session-url="https://symbil.com/pages/common/view-expired.xhtml"/>
+      <remember-me key="https://symbil.com"/>
    </http>
 
 
