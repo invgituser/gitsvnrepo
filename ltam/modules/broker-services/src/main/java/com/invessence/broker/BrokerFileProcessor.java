@@ -72,9 +72,10 @@ public class BrokerFileProcessor
                Iterator<BrokerHostDetails> hostDetailsItr = hostLst.iterator();
                while (hostDetailsItr.hasNext())
                {
-               BrokerHostDetails hostDetails = (BrokerHostDetails) hostDetailsItr.next();
-               logger.info("Host Details :"+hostDetails.toString());
-               List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + hostDetails.getVendor() + "'");
+                  BrokerHostDetails hostDetails = (BrokerHostDetails) hostDetailsItr.next();
+                  String encryDecryKey="aRXDugfr4WQpVrxu";
+                  logger.info("Host Details :"+hostDetails.toString());
+                  List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + hostDetails.getVendor() + "'");
                   if(downloadFilesLst == null && downloadFilesLst.size() == 0)
                   {
                      mailAlertMsg.append("Download files details are not available for broker :"+hostDetails.getVendor());
@@ -185,7 +186,7 @@ public class BrokerFileProcessor
                                                    {
                                                       try
                                                       {
-                                                         processCsvFile(mailAlertMsg, localFileName, downloadFileDetails, hostDetails.getEncrDecrKey());
+                                                         processCsvFile(mailAlertMsg, localFileName, downloadFileDetails, encryDecryKey);//hostDetails.getEncrDecrKey()
                                                       }
                                                       catch (Exception e)
                                                       {
@@ -207,7 +208,7 @@ public class BrokerFileProcessor
                                                       {
                                                          try
                                                          {
-                                                            processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails, hostDetails.getEncrDecrKey());
+                                                            processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails, encryDecryKey);//hostDetails.getEncrDecrKey()
                                                             deleteDecryptedFile(decryptedFileName);
                                                          }
                                                          catch (Exception e)
