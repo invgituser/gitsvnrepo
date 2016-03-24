@@ -1295,6 +1295,7 @@ public class
       setTheme(InvConst.DEFAULT_THEME);
       setBasket(InvConst.DEFAULT_BASKET);
       setRiskAnswers(null);
+      setFixedModel(false);
       goalData = new GoalsData();
 
       setStayInvested(1); // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
@@ -1315,6 +1316,8 @@ public class
       setRiskIndex(0);
       setAllocationIndex(InvConst.ASSET_DEFAULT_POINT);
       setPortfolioIndex(InvConst.PORTFOLIO_DEFAULT_POINT);
+      setNumOfAllocation(InvConst.ASSET_INTERPOLATION);
+      setNumOfPortfolio(InvConst.PORTFOLIO_INTERPOLATION);
       setMeterRiskIndicator(10);
 
       if (getEditableAsset() != null)

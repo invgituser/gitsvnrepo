@@ -35,6 +35,9 @@ public class GoalsData
 
    public Boolean getReachable()
    {
+      if (reachable == null) {
+         return false;
+      }
       return reachable;
    }
 

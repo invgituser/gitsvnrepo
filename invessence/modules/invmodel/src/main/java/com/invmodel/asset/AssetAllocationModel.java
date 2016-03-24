@@ -467,14 +467,20 @@ public class AssetAllocationModel
          FMData fixedModelData;
          Double wght;
          Double totalWeight = 1.0;
+         Integer age =  pdata.getAge();
          Double investment = pdata.getActualInvestment();
          String theme =  pdata.getTheme();
 
-         Double riskMeter = calc_riskOffset(pdata.getAge(), pdata.getDefaultHorizon(), pdata.getRiskIndex());
-         assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), riskMeter,
+         Double adj_riskOffet = calc_riskOffset(age, pdata.getDefaultHorizon(), pdata.getRiskIndex());
+         //Age based offset
+         Integer offset = (int) (100 - ((age < 21) ? 21 : ((age > 100) ? 100 : age)));
+         //JAV 8/28/2013
+         offset = (int) (offset * adj_riskOffet);
+         assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), offset.doubleValue(),
                                    pdata.getStayInvested(), theme);
+
          if (pdata.getRiskCalcMethod().equalsIgnoreCase("C")) {
-            fixedModelData = fixedOptimizer.getTheme(theme, riskMeter.intValue());
+            fixedModelData = fixedOptimizer.getTheme(theme, offset.intValue());
          }
          else {
             fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getPortfolioIndex());
