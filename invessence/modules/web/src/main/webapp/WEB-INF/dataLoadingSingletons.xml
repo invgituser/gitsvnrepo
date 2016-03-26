@@ -9,6 +9,7 @@
    <!--<bean id="assetDB" class="com.invmodel.dao.AssetDBCollection" factory-method="getInstance"/>-->
    <!--<bean id="historicalReturns" class="com.invmodel.dao.HistoricalReturns" factory-method="getInstance"/>-->
    <bean id="portfolioOptimizer" class="com.invmodel.model.dynamic.PortfolioOptimizer" factory-method="getInstance"/>
+   <bean id="fixedOptimizer" class="com.invmodel.model.fixedmodel.FixedModelOptimizer" factory-method="getInstance"/>
    <bean id="secDao" class="com.invmodel.dao.invdb.SecurityCollection"/>
    <bean id="tlhSecurityCollection" class="com.invmodel.rebalance.TLHSecurityCollection" factory-method="getInstance"/>
 
@@ -21,12 +22,14 @@
       <!--<task:scheduled ref="dailyReturns" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
       <!--<task:scheduled ref="historicalReturns" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
       <!--<task:scheduled ref="secDao" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
+      <task:scheduled ref="fixedOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
       <task:scheduled ref="portfolioOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
       <task:scheduled ref="tlhSecurityCollection" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
     </task:scheduled-tasks>
 
    <bean id="assetAllocationModel" class="com.invmodel.asset.AssetAllocationModel" factory-method="getInstance">
       <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      <property name="fixedOptimizer" ref="fixedOptimizer"/>
       <!--<property name="assetdao" ref="assetDB"/>-->
       <!--<property name="hr" ref="historicalReturns"/>-->
    </bean>
@@ -42,6 +45,7 @@
    <bean id="portfolioModel" class="com.invmodel.portfolio.PortfolioModel">
       <property name="securityDao" ref="secDao"/>
       <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      <property name="fixedOptimizer" ref="fixedOptimizer"/>
    </bean>
 
 
@@ -52,6 +56,7 @@
       <!--<property name="dailyReturnsDAO" ref="dailyReturns"/>-->
       <property name="securityDAO" ref="secDao"/>
       <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      <property name="fixedOptimizer" ref="fixedOptimizer"/>
    </bean>
 
    <bean id="portfolioPerformance" class="com.invmodel.performance.PortfolioPerformance" factory-method="getInstance">

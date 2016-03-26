@@ -325,18 +325,20 @@ public class TradeBean extends TradeClientData implements Serializable
    public void createtlhTrades()
    {
       TradeClientData tData = null;
+      Long logonid;
       ArrayList<RebalanceTradeData> tradedata = null;
       try
       {
          if (getSelectedClientList() != null)
          {
             webutil.progessreset();
+            logonid = webutil.getLogonid();
             Integer numClients = getSelectedClientList().size();
             for (Integer loop = 0; loop < numClients; loop++)
             {
                webutil.setProgressbar((loop/numClients) * 100);
                tData = getSelectedClientList().get(loop);
-               tradedata = rebalProcess.process(tData.getLogonid(), tData.getAcctnum());
+               tradedata = rebalProcess.process(logonid, tData.getAcctnum());
             }
             String msg = "";
             if (tradedata == null  || tradedata.size() == 0) {

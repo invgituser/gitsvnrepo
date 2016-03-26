@@ -236,7 +236,7 @@ public class ConsumerBean extends CustomerData implements Serializable
          {
             setLogonid(logonid);
             setAcctnum(acctnum);
-            listDAO.getProfileData((CustomerData) this.getInstance());
+            listDAO.getProfileData(getInstance());
 
 /*
             CustomerData newgoals = commonDao.getSingleAccounts(acctnum);

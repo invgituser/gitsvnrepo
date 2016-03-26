@@ -12,7 +12,7 @@
                     <p:tabView id="pTabView" activeIndex="#{cepb.pTab}"
                                styleClass="Container100" orientation="top"
                                dynamic="false" cache="false"
-                               effect="slide" effectDuration="fast" >	<!-- ROHIT's CHANGE -->
+                               effect="slide" effectDuration="fast">    <!-- ROHIT's CHANGE -->
                         <p:ajax event="tabChange"
                                 update=":ceForm:inputArea, :ceForm:graphArea"
                                 listener="#{cepb.onPTabChange}"/>
@@ -54,10 +54,6 @@
                             </p:tabView>
                         </p:tab>
 
-                        <p:tab id="p5" title="Set Goals">
-                            <ui:include src="/pages/consumer/addon/cGoal.xhtml"/>
-                        </p:tab>
-
                     </p:tabView>
                     <f:facet name="footer">
                         <p:commandButton id="prevBtn" value="Previous" styleClass="Fleft" rendered="#{cepb.enablePrevButton}"
@@ -75,15 +71,15 @@
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px">
                     <div class="Container100 Responsive100">
-                        <div class="Container100 l1">
+                        <p:panel id="grphhdr" style="border: 0px" rendered="#{!cepb.fixedModel}">
                             <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Investment Risk</span>
-                               <span class="Fs24 DispBlock red">
-                                   <h:outputText value="#{cepb.totalRisk}">
-                                       <f:convertNumber pattern="##0.00%"/>
-                                   </h:outputText>
+                                    <span class="Fs24 DispBlock red">
+                                    <h:outputText value="#{cepb.totalRisk}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
                                    </span>
 
                                     <div class="EmptyBox5"></div>
@@ -95,80 +91,55 @@
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Expected Return</span>
-                               <span class="Fs24 DispBlock invessenceblue">
-                                    <h:outputText value="#{cepb.totalExpectedReturns}">
-                                        <f:convertNumber pattern="##0.00%"/>
-                                    </h:outputText>
-                                   </span>
+                                    <span class="Fs24 DispBlock invessenceblue">
+                                      <h:outputText value="#{cepb.totalExpectedReturns}">
+                                          <f:convertNumber pattern="##0.00%"/>
+                                      </h:outputText>
+                                     </span>
 
                                     <div class="EmptyBox5"></div>
                                 </div>
                             </div>
-                        </div>
-
-                        <p:outputPanel id="charts" style="border:0px">
-                            <p:panel style="border: 0px" rendered="#{! cepb.showGoalChart}">
-                                <div class="Container50  Fleft Responsive100"><!-- ROHIT's CHANGE -->
-                                    <div class="Container100">
-                                        <p:chart type="pie" model="#{cepb.charts.pieChart}"
-                                                 rendered="#{cepb.charts.pieChart != null}"
-                                                 responsive="true"/>
-                                    </div>
-                                </div>
-                                <div class="Container50 Fleft Responsive100"><!-- ROHIT's CHANGE -->
-                                    <div class="ContainerIndent">
-                                        <p:dataTable styleClass="invAllocTable"
-                                                     value="#{cepb.editableAsset}"
-                                                     var="assetList">
-
-                                            <p:column style="width: 2%; background-color: #{assetList.color};">
-                                                <h:outputText value=" "/>
-                                            </p:column>
-
-                                            <p:column styleClass="Wid40 TexAlLeft"
-                                                      resizable="true" headerText="Asset"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{assetList.asset}"/>
-                                            </p:column>
-                                            <p:column styleClass="Wid40 num-text-align TexAlRight"
-                                                      resizable="true" headerText="Weight"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{assetList.userEdit}">
-                                                    <f:convertNumber pattern="##0.00%"/>
-                                                </h:outputText>
-                                            </p:column>
-                                        </p:dataTable>
-                                    </div>
-                                </div>
-                            </p:panel>
-                            <p:panel style="border: 0px" rendered="#{cepb.showGoalChart}">
-                                <div class="Container100 Responsive">
-                                    <div class="ContainerIndent">
-                                        <p:outputPanel deferred="true" rendered="#{cepb.goalData.goalDesired != null}" style="border: 0px" styleClass="TexAlCenter">
-                                            <h:outputText value="Great, you'll reach this goal."
-                                                          rendered="#{cepb.goalData.reachable}"
-                                                          style="font-size: 1.2em; color: green">
-                                            </h:outputText>
-                                            <h:outputText value="To reach your goal, see suggested recurring amount!"
-                                                          rendered="#{! cepb.goalData.reachable}"
-                                                          style="font-size: 1.2em; color: red">
-                                            </h:outputText>
-                                        </p:outputPanel>
-                                    </div>
-                                </div>
-                                <div class="Container100  Fleft">
-                                    <div class="Container100">
-                                        <p:chart type="line" model="#{cepb.charts.goalChart}"
-                                                 rendered="#{cepb.charts.goalChart != null}"
-                                                 responsive="true"/>
-                                    </div>
-                                </div>
-                            </p:panel>
-                        </p:outputPanel>
+                        </p:panel>
                     </div>
+
+                    <p:outputPanel id="charts" style="border: 0px">
+                        <div class="Container50  Fleft Responsive100"><!-- ROHIT's CHANGE -->
+                            <div class="Container100">
+                                <p:chart type="pie" model="#{cepb.charts.pieChart}"
+                                         rendered="#{cepb.charts.pieChart != null}"
+                                         responsive="true"/>
+                            </div>
+                        </div>
+                        <div class="Container50 Fleft Responsive100"><!-- ROHIT's CHANGE -->
+                            <div class="ContainerIndent">
+                                <p:dataTable styleClass="invAllocTable"
+                                             value="#{cepb.editableAsset}"
+                                             var="assetList">
+
+                                    <p:column style="width: 2%; background-color: #{assetList.color};">
+                                        <h:outputText value=" "/>
+                                    </p:column>
+
+                                    <p:column styleClass="Wid40 TexAlLeft"
+                                              resizable="true" headerText="Asset"><!-- ROHIT's CHANGE -->
+                                        <h:outputText value="#{assetList.asset}"/>
+                                    </p:column>
+                                    <p:column styleClass="Wid40 num-text-align TexAlRight"
+                                              resizable="true" headerText="Weight"><!-- ROHIT's CHANGE -->
+                                        <h:outputText value="#{assetList.userEdit}">
+                                            <f:convertNumber pattern="##0.00%"/>
+                                        </h:outputText>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </p:outputPanel>
                 </p:panel>
             </div>
         </div>
-
     </div>
+
     <div class="Container100 Responsive50">
         <p style="font-style: italic; font-size: .8em;">
             This portfolio is designed for illustration purposes only. The cumulative value of the portfolio

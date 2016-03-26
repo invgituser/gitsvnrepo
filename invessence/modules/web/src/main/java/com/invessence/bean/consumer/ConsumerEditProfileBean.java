@@ -37,8 +37,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private Boolean formEdit = false;
    private Boolean disablegraphtabs = true
       , disabledetailtabs = true
-      , disablesaveButton = true
-      , showGoalChart = false;
+      , disablesaveButton = true;
    private Boolean prefVisible = true;
    private Integer canOpenAccount;
    private Boolean welcomeDialog = true;
@@ -176,7 +175,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
             disablegraphtabs = true;
             disabledetailtabs = true;
-            showGoalChart = false;
             if (getBeanAcctnum() != null && getBeanAcctnum() > 0L) {
                loadData(getBeanAcctnum());
             }
@@ -242,7 +240,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          setRiskCalcMethod("C");
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
-         setShowGoalChart(true);
          offsetRiskIndex();
          createAssetPortfolio(1);
          //if (getPortfolioData() != null) {
@@ -250,10 +247,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          //}
          saveProfile();
       }
-      else {
-         setShowGoalChart(false);
-      }
-
    }
 
    public void onTaxStrategy() {
@@ -332,12 +325,14 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public void selectFirstBasket() {
+/*
       if (getAccountTaxable()) {
          setTheme(InvConst.DEFAULT_TAXABLE_THEME);
       }
       else {
          setTheme(InvConst.DEFAULT_THEME);
       }
+*/
 
       if (getAdvisorBasket() == null) {
          if (getAccountTaxable()) {
@@ -358,18 +353,17 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private void resetDataForm() {
       disablegraphtabs = true;
       disabledetailtabs = true;
-      showGoalChart = false;
       resetCustomerData();
    }
 
    private void loadBasketInfo() {
       if (getAccountTaxable()) {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
-         selectFirstBasket();
+         // selectFirstBasket(); // DO this only first time.
       }
       else {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
-         selectFirstBasket();
+         // selectFirstBasket();  // DO this only first time.
       }
    }
 
@@ -385,6 +379,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          listDAO.getNewClientProfileData((CustomerData) this.getInstance());
          setDefaults();
          loadBasketInfo();
+         selectFirstBasket();
          createAssetPortfolio(1); // Build default chart for the page...
          // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
       }
@@ -407,7 +402,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
                   setLogonid(uid.getLogonID());
                }
                setAcctnum(acctnum);
-               listDAO.getProfileData((CustomerData) this.getInstance());
+               listDAO.getProfileData(getInstance());
                loadBasketInfo();
             }
          }
@@ -841,7 +836,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          // Since this is used by both try and Actual, we'll handle the add/save in SaveProfile function...
          // getWebutil().validatePriviledge(Const.ROLE_OWNER);
-         showGoalChart = false;
          whichChart = "pie";
          pTab = 0;
          rTab = 0;
@@ -857,7 +851,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       Tab active = event.getTab();
       String pTabID = active.getId().toLowerCase();
 
-      showGoalChart = false;
       if (pTabID.equals("p1"))
          pTab = 0;
       if (pTabID.equals("p2"))
@@ -897,7 +890,11 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public String getEnableNextButton() {
+/*    Removing Goal section page to bottom
       if (pTab == 4)
+         return "false";
+*/
+      if ( pTab >= 3 && rTab >= 6 )
          return "false";
       return "true";
    }
@@ -909,7 +906,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public void gotoPrevTab() {
-      setShowGoalChart(false);
       switch (rTab) {
          case 0:
             switch (pTab) {
@@ -939,7 +935,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
 
    public void gotoNextTab() {
-      showGoalChart = false;
       switch (pTab) {
          case 0:
          case 1:
@@ -952,7 +947,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             if (rTab >= 6) {
                pTab ++;
                rTab=0;
-               setShowGoalChart(true);
+
             }
             else
                rTab++;
@@ -962,26 +957,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       saveProfile();
    }
 
-   public void setShowGoalChart(Boolean showGoalChart)
-   {
-      this.showGoalChart = false;
-      if (showGoalChart != null && getGoalData() != null) {
-              if (getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0) {
-            this.showGoalChart = showGoalChart;
-              }
-
-           }
-         }
-
-   public Boolean getShowGoalChart()
-   {
-      if (showGoalChart == null)
-         return false;
-      return showGoalChart;
-   }
-
    public String getGoalAdjustment() {
-      if (showGoalChart && (! getGoalData().getReachable()))
+      if ((! getGoalData().getReachable()))
          return jutil.displayFormat(getGoalData().getCalcRecurringAmount(),"$###,###,###");
       else return "";
    }
