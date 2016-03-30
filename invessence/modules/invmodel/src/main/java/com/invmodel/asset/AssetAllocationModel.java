@@ -483,7 +483,7 @@ public class AssetAllocationModel
             fixedModelData = fixedOptimizer.getTheme(theme, offset.intValue());
          }
          else {
-            fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getPortfolioIndex());
+            fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getAllocationIndex());
          }
 
          if (fixedModelData != null) {

@@ -84,7 +84,10 @@ public class
    private Portfolio[] portfolioData;   // Although the arrary is not required, we are using to show performace data.
    private PerformanceData[] performanceData;
 
-   private String iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
+   private String iblinkmaster = "https://www.interactivebrokers.com/Universal/servlet/formWelcome?&partnerID=Invessence&invitedBy=dmNtMDMxNzE2";
+   // Invessence version with PartnerID = Invessence and invitedBy=NDE4aW52ZXN0
+   // private String iblinkmaster = "https://www.interactivebrokers.com/Universal/servlet/formWelcome?&partnerID=Invessence&invitedBy=NDE4aW52ZXN0&invitation_id=6596230&token=56551";
+   private String iblink = "https://www.interactivebrokers.com/Universal/servlet/formWelcome?&invitation_id=11204955&token=81843&partnerID=Invessence&invitedBy=dmNtMDMxNzE2";
 
    private Map<String, CustomAllocation> customAllocations = new HashMap<String, CustomAllocation>();
 
@@ -1226,33 +1229,26 @@ public class
    public String getIblink()
    {
       if (iblink == null)
-         return "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
+         return iblinkmaster;
       return iblink;
    }
 
    public void setIblink(String accounttype)
    {
       // First set the default as Individual.
-      this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596230&token=56551&invitedBy=NDE4aW52ZXN0&.";
+      this.iblink = iblinkmaster;
       if (accounttype != null) {
          if (accounttype.toUpperCase().startsWith("NON"))    // General Non-taxable (IRA/SEP/ROTH...)
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6818475&token=91070&invitedBy=NDE4aW52ZXN0&.";
+            this.iblink = iblinkmaster + "&invitation_id=11204963&token=16584";
          if (accounttype.toUpperCase().contains("JOINT"))        // Joint
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596232&token=78468&invitedBy=NDE4aW52ZXN0&.";
+            this.iblink = iblinkmaster + "&invitation_id=11204963&token=16584";
          else if (accounttype.toUpperCase().contains("TRUST"))   // Trust
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596237&token=90513&invitedBy=NDE4aW52ZXN0&.";
+            this.iblink = iblinkmaster + "&invitation_id=11204963&token=16584";
          else if (accounttype.toUpperCase().contains("ORGAN"))   // Organization
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6596233&token=12939&invitedBy=NDE4aW52ZXN0&.";
+            this.iblink = iblinkmaster + "&invitation_id=11204963&token=16584";
          else if (accounttype.toUpperCase().contains("IRA"))    // IRA  (IRA/SEP/ROTH...)
-            this.iblink = "https://www.clientam.com/Universal/servlet/formWelcome?partnerID=Invessence&invitation_id=6818475&token=91070&invitedBy=NDE4aW52ZXN0&.";
+            this.iblink = iblinkmaster + "invitation_id=11204955&token=81843";
       }
-      /*
-      this.iblink = Const.IB_BASEURL +
-         "?" + Const.IB_PARTNERID +
-         "&" + invitation_id +
-         "&" + token +
-         "&" + Const.IB_INVITEDBY;
-      */
    }
 
    public ArrayList<Asset> getEditableAsset()

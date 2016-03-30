@@ -799,7 +799,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
          FacesContext facesContext = FacesContext.getCurrentInstance();
          HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
-         String url=getIblink() + "externalId=" + getAcctnum();
+         setIblink(getAccountType());
+         String url=getIblink() + "&externalId=" + getAcctnum();
          getWebutil().redirect(url, null);
          httpSession.invalidate();
 
