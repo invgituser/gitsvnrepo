@@ -6,258 +6,265 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/invlayout.xhtml">
 
-<f:metadata>
-    <f:viewParam name="acct" value="#{positionBean.acctnum}"/>
-    <f:event type="preRenderView" listener="#{positionBean.preRenderView}"/>
-</f:metadata>
+    <f:metadata>
+        <f:viewParam name="acct" value="#{positionBean.acctnum}"/>
+        <f:event type="preRenderView" listener="#{positionBean.preRenderView}"/>
+    </f:metadata>
 
-<ui:define name="content">
-<h:outputScript name="js/invCharts.js" library="spark-layout"/>
-<h:form>
+    <ui:define name="content">
+        <h:outputScript name="js/invCharts.js" library="spark-layout"/>
+        <h:form>
 
-<div class="layout-portlets-box">
-<div class="Container100 Responsive50">
-<div class="ContainerIndent">
-<div class="DispInlBlock MarTop20">
-    <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
-    <div class="Container80">
-        <div class="Fright">
-            <h2 class="black head FontThemeMedium">#{positionBean.fullName}</h2>
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+                        <div class="DispInlBlock MarTop20">
+                            <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
+                            <div class="Container80">
+                                <div class="Fright">
+                                    <h2 class="black head FontThemeMedium">#{positionBean.fullName}</h2>
                                 <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{positionBean.clientAccountID}
                                 </span>
-        </div>
-    </div>
-</div>
-<p:accordionPanel multiple="true">
-<p:tab title="Summary">
-    <div class="Container100">
-        <div class="Container100 Responsive50"><!-- ROHIT's CHANGE -->
-            <div class="ContainerIndent">
-                <p:panelGrid columns="2" layout="grid" class="FormContent"
-                             style="border:0px !important; background:none;margin-bottom:10px" cellpadding="5">
-                    <p:column styleClass="TexAlLeft Wid100 "><!-- ROHIT's CHANGE -->
-                        <p:dataTable id="editAlloc" styleClass="invAllocTable"
-                                     value="#{positionBean.managedAssetsList}"
-                                     var="assetList" rowKey="#{assetList.asset}"
-                                     reflow="false"><!-- ROHIT's CHANGE -->
+                                </div>
+                            </div>
+                        </div>
+                        <p:accordionPanel multiple="true">
+                            <p:tab title="Summary">
+                                <div class="Container100">
+                                    <div class="Container50 Responsive50"><!-- ROHIT's CHANGE -->
+                                        <div class="ContainerIndent">
 
-                            <p:column style="width:1%;text-align: center;background-color: #{assetList.color};"
-                                      resizable="true">
-                                <h:outputText value=" "/>
-                            </p:column>
+                                            <p:dataTable id="editAlloc" styleClass="invAllocTable"
+                                                         value="#{positionBean.managedAssetsList}"
+                                                         var="assetList" rowKey="#{assetList.asset}"
+                                                         reflow="false"><!-- ROHIT's CHANGE -->
 
-                            <p:column styleClass="TexAlLeft" priority="0"
-                                       headerText="Asset" style="width:34%">
-                                <h:outputText value="#{assetList.asset}"/>
-                            </p:column>
+                                                <p:column style="width:1%;text-align: center;background-color: #{assetList.color};"
+                                                          resizable="true">
+                                                    <h:outputText value=" "/>
+                                                </p:column>
 
-                            <p:column style="text-align: right; width:30%" priority="2"
-                                       headerText="Holding">
-                                <h:outputText value="#{assetList.holdingweight}" styleClass="TexAlRight">
-                                    <f:convertNumber pattern="##0.00%"/>
-                                </h:outputText>
-                            </p:column>
+                                                <p:column styleClass="TexAlLeft Fs14" priority="0"
+                                                          headerText="Asset" style="width:34%">
+                                                    <h:outputText value="#{assetList.asset}" styleClass="Fs14"/>
+                                                </p:column>
 
-                            <p:column style="text-align: right; width:35%"
-                                       headerText="Value" priority="0">
-                                <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight">
-                                    <f:convertNumber type="currency" currencySymbol="$"/>
-                                </h:outputText>
-                            </p:column>
-                            <p:columnGroup type="footer">
-                                <p:row>
-									<p:column priority="2" class="tbl_hide"/>
-                                     <p:column colspan="2" styleClass="Fs16 TexAlLeft FontBold"
-                                          footerText="Total">
-                               		 </p:column>
-                                    <p:column styleClass="Fs16 TexAlRight FontBold"
-                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}">
-                                    </p:column>
-                                </p:row>
-                            </p:columnGroup>
-                        </p:dataTable>
-                    </p:column>
-                    <p:column styleClass="TexAlLeft Wid50">
-                        <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarRight10"><!-- ROHIT's CHANGE -->
-                            <div class="ContainerIndent">
-                                <div class="EmptyBox5"></div>
-                                <span class="Fs14 DispBlock gray">Percent Reached</span>
+                                                <p:column style="text-align: right; width:30%" priority="2"
+                                                          headerText="Holding" styleClass="Fs14">
+                                                    <h:outputText value="#{assetList.holdingweight}" styleClass="TexAlRight Fs14">
+                                                        <f:convertNumber pattern="##0.00%"/>
+                                                    </h:outputText>
+                                                </p:column>
+
+                                                <p:column style="text-align: right; width:35%"
+                                                          headerText="Value" priority="0" styleClass="Fs14">
+                                                    <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs12">
+                                                        <f:convertNumber type="currency" currencySymbol="$"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:columnGroup type="footer">
+                                                    <p:row>
+                                                        <p:column priority="2" class="tbl_hide"/>
+                                                        <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+                                                                  footerText="Total">
+                                                        </p:column>
+                                                        <p:column styleClass="Fs14 TexAlRight FontBold"
+                                                                  footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}">
+                                                        </p:column>
+                                                    </p:row>
+                                                </p:columnGroup>
+                                            </p:dataTable>
+
+                                        </div>
+                                    </div>
+                                    <div class="Container50 Responsive50 tp20"><!-- ROHIT's CHANGE -->
+                                        <div class="ContainerIndent">
+
+
+
+                                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarRight10"><!-- ROHIT's CHANGE -->
+                                                <div class="ContainerIndent">
+                                                    <div class="EmptyBox5"></div>
+                                                    <span class="Fs14 DispBlock gray">Percent Reached</span>
                                <span class="Fs24 DispBlock invessenceblue">
                                     <h:outputText value="#{positionBean.goalReached}">
                                         <f:convertNumber pattern="##0.00%"/>
                                     </h:outputText>
                                    </span>
 
-                                <div class="EmptyBox5"></div>
-                            </div>
-                        </div>
-                        <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarRight10"><!-- ROHIT's CHANGE -->
-                            <div class="ContainerIndent">
-                                <div class="EmptyBox5"></div>
-                                <span class="Fs14 DispBlock gray">Goal Desired</span>
+                                                    <div class="EmptyBox5"></div>
+                                                </div>
+                                            </div>
+                                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarRight10"><!-- ROHIT's CHANGE -->
+                                                <div class="ContainerIndent">
+                                                    <div class="EmptyBox5"></div>
+                                                    <span class="Fs14 DispBlock gray">Goal Desired</span>
                                <span class="Fs24 DispBlock red">
                                    <h:outputText value="#{positionBean.goalDesired}">
                                        <f:convertNumber pattern="$#,###,###"/>
                                    </h:outputText>
                                    </span>
 
-                                <div class="EmptyBox5"></div>
-                            </div>
-                        </div>
-                        <div class="Wrapper">
-                            <div class="Wid90 hide-mobile" style="width:200px; height:200px; margin:20px auto 10px;"><!-- ROHIT's CHANGE -->
-                                <p:chart type="pie" model="#{positionBean.pieModel}"
-                                         styleClass="Wid100 MarTop10" responsive="true"
-                                         rendered="#{positionBean.pieModel == null ? false : true}"  />
+                                                    <div class="EmptyBox5"></div>
+                                                </div>
+                                            </div>
+                                            <div class="Wrapper">
+                                                <div class="Wid90 hide-mobile" style="width:200px; height:200px; margin:20px auto 10px;"><!-- ROHIT's CHANGE -->
+                                                    <p:chart type="pie" model="#{positionBean.pieModel}"
+                                                             styleClass="Wid100 MarTop10" responsive="true"
+                                                             rendered="#{positionBean.pieModel == null ? false : true}"  />
 
-                            </div>
-                        </div>
-                        <div class="Container100 Responsive100"><!-- ROHIT's CHANGE -->
-                            <div class="ContainerIndent">
-                                <p:panelGrid style="margin-top:20px; width:100%;"  rendered="#{positionBean.managed}" ><!-- ROHIT's CHANGE -->
-                                    <f:facet name="header">
-                                        <p:row>
-                                            <p:column  colspan="7"  style="text-align: left">Highlight</p:column>
-                                        </p:row>
-                                    </f:facet>
-                                    <p:row>
-                                        <p:column styleClass="TexAlRight brd" priority="2"> <!-- ROHIT's CHANGE -->
-                                            <h:outputLabel styleClass="invSmallLabel" value="Risk"/><br/>
-                                            <h:outputText styleClass="invDisplayData" value="#{positionBean.totalRisk}">
-                                                <f:convertNumber pattern="##0.00%"/>
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column styleClass="TexAlRight brd" priority="0"><!-- ROHIT's CHANGE -->
-                                            <h:outputLabel styleClass="invSmallLabel" value="Expense Ratio"/><br/>
-                                            <h:outputText styleClass="invDisplayData" value="#{positionBean.totalExpenseRatio}">
-                                                <f:convertNumber pattern="##0.00%"/>
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column styleClass="TexAlRight brd" priority="0"><!-- ROHIT's CHANGE -->
-                                            <h:outputLabel styleClass="invSmallLabel" value="Yield"/><br/>
-                                            <h:outputText styleClass="invDisplayData" value="#{positionBean.totalYield}">
-                                                <f:convertNumber pattern="##0.00%"/>
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column styleClass="invSmallLabel tbl_hide brd" priority="2"><!-- ROHIT's CHANGE -->
-                                            <h:outputLabel styleClass="invSmallLabel" value="YTD Fees"/><br/>
-                                            <h:outputText styleClass="invDisplayData" value="#{positionBean.totalFees}">
-                                                <f:convertNumber type="currency" currencySymbol="$"/>
-                                            </h:outputText>
-                                        </p:column>
-                                        <p:column styleClass="TexAlRight tbl_hide brd" priority="2"><!-- ROHIT's CHANGE -->
-                                            <h:outputLabel styleClass="invSmallLabel" value="Unrealized PnL"/><br/>
-                                            <h:outputText styleClass="invDisplayData" value="#{positionBean.totalpnl}">
-                                                <f:convertNumber type="currency" currencySymbol="$"/>
-                                            </h:outputText>
-                                        </p:column>
-                                    </p:row>
-                                </p:panelGrid>
-                            </div><!-- ROHIT's CHANGE -->
-                        </div>
+                                                </div>
+                                            </div>
+                                            <div class="Container100 Responsive100"><!-- ROHIT's CHANGE -->
+                                                <div class="ContainerIndent">
+                                                    <p:panelGrid style="margin-top:20px; width:100%;"  rendered="#{positionBean.managed}" ><!-- ROHIT's CHANGE -->
+                                                        <f:facet name="header">
+                                                            <p:row>
+                                                                <p:column  colspan="7"  style="text-align: left">Highlight</p:column>
+                                                            </p:row>
+                                                        </f:facet>
+                                                        <p:row>
+                                                            <p:column styleClass="TexAlRight brd" priority="2"> <!-- ROHIT's CHANGE -->
+                                                                <h:outputLabel styleClass="invSmallLabel Fs14" value="Risk"/><br/>
+                                                                <h:outputText styleClass="invDisplayData Fs14" value="#{positionBean.totalRisk}">
+                                                                    <f:convertNumber pattern="##0.00%"/>
+                                                                </h:outputText>
+                                                            </p:column>
+                                                            <p:column styleClass="TexAlRight brd" priority="0"><!-- ROHIT's CHANGE -->
+                                                                <h:outputLabel styleClass="invSmallLabel Fs14" value="Expense Ratio"/><br/>
+                                                                <h:outputText styleClass="invDisplayData Fs14" value="#{positionBean.totalExpenseRatio}">
+                                                                    <f:convertNumber pattern="##0.00%"/>
+                                                                </h:outputText>
+                                                            </p:column>
+                                                            <p:column styleClass="TexAlRight brd" priority="0"><!-- ROHIT's CHANGE -->
+                                                                <h:outputLabel styleClass="invSmallLabel Fs14" value="Yield"/><br/>
+                                                                <h:outputText styleClass="invDisplayData Fs14" value="#{positionBean.totalYield}">
+                                                                    <f:convertNumber pattern="##0.00%"/>
+                                                                </h:outputText>
+                                                            </p:column>
+                                                            <p:column styleClass="invSmallLabel tbl_hide brd" priority="2"><!-- ROHIT's CHANGE -->
+                                                                <h:outputLabel styleClass="invSmallLabel Fs14" value="YTD Fees"/><br/>
+                                                                <h:outputText styleClass="invDisplayData Fs14" value="#{positionBean.totalFees}">
+                                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                                </h:outputText>
+                                                            </p:column>
+                                                            <p:column styleClass="TexAlRight tbl_hide brd Fs14" priority="2"><!-- ROHIT's CHANGE -->
+                                                                <h:outputLabel styleClass="invSmallLabel Fs14" value="Unrealized PnL"/><br/>
+                                                                <h:outputText styleClass="invDisplayData Fs14" value="#{positionBean.totalpnl}">
+                                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                                </h:outputText>
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:panelGrid>
+                                                </div><!-- ROHIT's CHANGE -->
+                                            </div>
 
-                    </p:column>
-                </p:panelGrid>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            </p:tab>
+                            <p:tab title="Detail">
+                                <div class="Container100 Responsive100">
+                                    <div class="ContainerIndent">
+                                        <p:dataTable id="dataTable" var="position" value="#{positionBean.displayPositionList}"
+                                                     styleClass="invDataTable" reflow="false"> <!-- ROHIT's CHANGE reflow="true" for previuos table-->
+
+                                            <p:column priority="0"
+                                                      style="width:1%; text-align: left; background-color: #{position.color}"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value=" "/>
+                                            </p:column>
+
+                                            <p:column headerText="Asset" priority="2"
+                                                      style="text-align: left; width:10%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.assetclass}"/>
+                                            </p:column>
+                                            <p:column headerText="Ticker" priority="0"
+                                                      style="text-align: left" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.ticker}"/>
+                                            </p:column>
+                                            <p:column headerText="Description" priority="2"
+                                                      style="text-align: left; width:20%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.description}"/>
+                                            </p:column>
+                                            <p:column headerText="Shares" priority="2"
+                                                      style="text-align: right;  width:9%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.qty}">
+                                                    <f:convertNumber pattern="###,###,###"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Weight" priority="2"
+                                                      style="text-align: right; width:6%;" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.weight}">
+                                                    <f:convertNumber pattern="##0.00%"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Purchased" priority="2"
+                                                      style="text-align: right" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.costBasisPrice}">
+                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Cost Basis" priority="2"
+                                                      style=" text-align: right; width:10%;" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.costBasisMoney}">
+                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Mark Price" priority="2"
+                                                      style="text-align: right" styleClass="Fs12"
+                                                      resizable="true"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.markPrice}">
+                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Current Value" priority="0"
+                                                      style=" text-align: right;" styleClass="Fs12"
+                                                      resizable="true"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.positionValue}">
+                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                </h:outputText>
+                                            </p:column>
+                                            <p:column headerText="Gain/Loss" priority="0"
+                                                      style="text-align: right" styleClass="Fs12"
+                                                      resizable="true"><!-- ROHIT's CHANGE -->
+                                                <h:outputText value="#{position.fifoPnlUnrealized}">
+                                                    <f:convertNumber type="currency" currencySymbol="$"/>
+                                                </h:outputText>
+                                            </p:column>
+
+                                            <p:columnGroup type="footer">
+                                                <p:row>
+
+                                                    <p:column footerText="" style="text-align:left"/>
+                                                    <p:column priority="0" footerText="Total" style="text-align:left;"/>
+                                                    <p:column styleClass="tbl_hide" colspan="5" footerText="" style="text-align:left"/>
+
+                                                    <p:column priority="2" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalmoney)}"
+                                                              style="text-align:right"/>
+                                                    <p:column priority="2"  footerText="" style="text-align:left"/>
+                                                    <p:column priority="0" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}"
+                                                              style="text-align:right"/>
+                                                    <p:column colspan="" priority="0" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalpnl)}"
+                                                              style="text-align:right"/>
+                                                </p:row>
+                                            </p:columnGroup>
+
+                                        </p:dataTable>
+                                    </div>
+                                </div>
+                            </p:tab>
+                        </p:accordionPanel>
+
+
+                    </div>
+                </div>
             </div>
-        </div>
+        </h:form>
 
-    </div>
-
-
-</p:tab>
-<p:tab title="Detail">
-    <p:dataTable id="dataTable" var="position" value="#{positionBean.displayPositionList}"
-                 styleClass="invDataTable" reflow="false"> <!-- ROHIT's CHANGE reflow="true" for previuos table-->
-
-        <p:column priority="0"
-                  style="width:1%; text-align: left; background-color: #{position.color}"><!-- ROHIT's CHANGE -->
-            <h:outputText value=" "/>
-        </p:column>
-
-        <p:column headerText="Asset" priority="2"
-                  style="text-align: left;"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.assetclass}"/>
-        </p:column>
-        <p:column headerText="Ticker" priority="0"
-                  style="text-align: left"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.ticker}"/>
-        </p:column>
-        <p:column headerText="Description" priority="2"
-                  style="text-align: left; width:20%;"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.description}"/>
-        </p:column>
-        <p:column headerText="Shares" priority="2"
-                  style="text-align: right"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.qty}">
-                <f:convertNumber pattern="###,###,###"/>
-            </h:outputText>
-        </p:column>
-        <p:column headerText="Weight" priority="2"
-                  style="text-align: right" resizable="true"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.weight}">
-                <f:convertNumber pattern="##0.00%"/>
-            </h:outputText>
-        </p:column>
-        <p:column headerText="Purchased" priority="2"
-                  style="text-align: right" resizable="true"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.costBasisPrice}">
-                <f:convertNumber type="currency" currencySymbol="$"/>
-            </h:outputText>
-        </p:column>
-        <p:column headerText="Cost Basis" priority="2"
-                  style=" text-align: right; width:10%;" resizable="true"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.costBasisMoney}">
-                <f:convertNumber type="currency" currencySymbol="$"/>
-            </h:outputText>
-        </p:column>
-        <p:column headerText="Mark Price" priority="2"
-                  style="text-align: right"
-                  resizable="true"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.markPrice}">
-                <f:convertNumber type="currency" currencySymbol="$"/>
-            </h:outputText>
-        </p:column>
-        <p:column headerText="Current Value" priority="0"
-                  style=" text-align: right;"
-                  resizable="true"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.positionValue}">
-                <f:convertNumber type="currency" currencySymbol="$"/>
-            </h:outputText>
-        </p:column>
-        <p:column headerText="Gain/Loss" priority="0"
-                  style="text-align: right"
-                  resizable="true"><!-- ROHIT's CHANGE -->
-            <h:outputText value="#{position.fifoPnlUnrealized}">
-                <f:convertNumber type="currency" currencySymbol="$"/>
-            </h:outputText>
-        </p:column>
-
-        <p:columnGroup type="footer">
-            <p:row>
-                 
-                <p:column footerText="" style="text-align:left"/>
-                <p:column priority="0" footerText="Total" style="text-align:left;"/>
-                 <p:column styleClass="tbl_hide" colspan="5" footerText="" style="text-align:left"/>
-				
-                <p:column priority="2" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalmoney)}"
-                          style="text-align:right"/>
-                <p:column priority="2"  footerText="" style="text-align:left"/>
-                <p:column priority="0" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}"
-                          style="text-align:right"/>
-                <p:column colspan="" priority="0" footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalpnl)}"
-                          style="text-align:right"/>
-            </p:row>
-        </p:columnGroup>
-
-    </p:dataTable>
-</p:tab>
-</p:accordionPanel>
-
-
-</div>
-</div>
-</div>
-</h:form>
-
-</ui:define>
+    </ui:define>
 </ui:composition>
