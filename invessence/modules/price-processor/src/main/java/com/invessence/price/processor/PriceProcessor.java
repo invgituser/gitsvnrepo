@@ -133,14 +133,14 @@ public class PriceProcessor
             System.out.println("MailAlertMsg IS :" + mailAlertMsg);
             EmailMsg md = new EmailMsg();
             md.setMsg(mailAlertMsg);
-            /*try
+            try
             {
 					messageDao.insert(md);
 				}
 				catch (SQLException e)
 				{
 					e.printStackTrace();
-				}*/
+				}
          }
          else
          {
