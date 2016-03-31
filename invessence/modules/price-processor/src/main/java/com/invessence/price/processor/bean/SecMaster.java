@@ -19,8 +19,8 @@ public class SecMaster {
 	private Double taxableReturn;
 	private Double nontaxableReturn;
 	private Date inception;
-	private String issuer;
 	private Double adv3months;
+	private String issuer;
 	private Double aum;
 	private Double beta;
 	private Double securityRiskSTD;

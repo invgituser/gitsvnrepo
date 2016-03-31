@@ -16,7 +16,7 @@ public class IdenfiersDao {
 	 * which fetches idefiers for a input string from db and sets to XigniteArgs
 	 * object
 	 * 
-	 * @param callType
+	 * @param
 	 * @return
 	 */
 	public XigniteArgs fetchApiIdetfiers(String operationName) {

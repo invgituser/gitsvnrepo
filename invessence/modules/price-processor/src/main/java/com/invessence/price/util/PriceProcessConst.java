@@ -5,7 +5,8 @@ package com.invessence.price.util;
  */
 public class PriceProcessConst
 {
-   public static String DAILY="DAILY";
-   public static String MONTHLY="MONTHLY";
-   public static String ONDEMAND="ONDEMAND";
+   public static String DAILY = "DAILY";
+   public static String MONTHLY = "MONTHLY";
+   public static String ONDEMAND = "ONDEMAND";
+   public static String operationName = "DAILY_PRICING";
 }

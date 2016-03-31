@@ -3,21 +3,29 @@ package com.invessence.price.processor;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class Main {
+/*
+   This class is use to call method process() of PriceProcessor.class
+ */
+public class Main
+{
 
-	public static void main(String[] args) {
-		try {
+   public static void main(String[] args)
+   {
+      try
+      {
 
-			ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("priceBeanConf.xml");
-			PriceProcessor pp = context.getBean(PriceProcessor.class);
-			pp.process();
+         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("priceBeanConf.xml");
+         PriceProcessor pp = context.getBean(PriceProcessor.class);
+         pp.process();
 
-			context.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+         context.close();
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
 
-	}
+   }
 
 
 }

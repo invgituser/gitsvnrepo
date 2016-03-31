@@ -10,6 +10,7 @@ public class PriceData {
 	private Double  closePrice ;
 	private Double  highPrice;
 	private Double  lowPrice;
+	private Double  adjustedPrice;
 	private Long  volume;
 	private Date  prevBusinessdate ;
 	private Double  prevClosePrice;
@@ -21,7 +22,7 @@ public class PriceData {
 	private Date updatedOn;
 		
 	public PriceData(String ticker, String businessDate, Double openPrice, Double closePrice,Double highPrice,Double lowPrice, Long volume,
-			Date prevBusinessdate, Double prevClosePrice, Long insertedBy, Date insertedOn) {
+			Date prevBusinessdate, Double adjustedPrice, Long insertedBy, Date insertedOn) {
 		super();
 		this.ticker = ticker;
 		this.businessDate = businessDate;
@@ -31,7 +32,7 @@ public class PriceData {
 		this.lowPrice = lowPrice;
 		this.volume = volume;
 		this.prevBusinessdate = prevBusinessdate;
-		this.prevClosePrice = prevClosePrice;
+		this.adjustedPrice = adjustedPrice;
 		this.insertedBy = insertedBy;
 		this.insertedOn = insertedOn;
 	}
@@ -113,13 +114,38 @@ public class PriceData {
 	public void setUpdatedOn(Date updatedOn) {
 		this.updatedOn = updatedOn;
 	}
+
+	public Double getAdjustedPrice()
+	{
+		return adjustedPrice;
+	}
+
+	public void setAdjustedPrice(Double adjustedPrice)
+	{
+		this.adjustedPrice = adjustedPrice;
+	}
+
 	@Override
-	public String toString() {
-		return "PriceData [ticker=" + ticker + ", businessDate=" + businessDate + ", openPrice=" + openPrice
-				+ ", closePrice=" + closePrice + ", volume=" + volume + ", prevBusinessdate=" + prevBusinessdate
-				+ ", prevClosePrice=" + prevClosePrice + ", dailyReturn=" + dailyReturn + ", monthlyReturn="
-				+ monthlyReturn + ", insertedBy=" + insertedBy + ", insertedOn=" + insertedOn + ", updatedBy="
-				+ updatedBy + ", updatedOn=" + updatedOn + "]";
+	public String toString()
+	{
+		return "PriceData{" +
+			"ticker='" + ticker + '\'' +
+			", businessDate='" + businessDate + '\'' +
+			", openPrice=" + openPrice +
+			", closePrice=" + closePrice +
+			", highPrice=" + highPrice +
+			", lowPrice=" + lowPrice +
+			", adjustedPrice=" + adjustedPrice +
+			", volume=" + volume +
+			", prevBusinessdate=" + prevBusinessdate +
+			", prevClosePrice=" + prevClosePrice +
+			", dailyReturn=" + dailyReturn +
+			", monthlyReturn=" + monthlyReturn +
+			", insertedBy=" + insertedBy +
+			", insertedOn=" + insertedOn +
+			", updatedBy=" + updatedBy +
+			", updatedOn=" + updatedOn +
+			'}';
 	}
 
 	public Double getHighPrice()
