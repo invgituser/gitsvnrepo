@@ -57,4 +57,14 @@
         </property>
      </bean>
 
+    <bean id="msgDAO" class="com.invessence.dao.MsgDAO">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="emailCreator" class="com.invessence.util.EmailCreator">
+        <property name="msgDAO" ref="msgDAO"/>
+        <property name="messageSource" ref="messageSource"/>
+    </bean>
+
+
 </beans>

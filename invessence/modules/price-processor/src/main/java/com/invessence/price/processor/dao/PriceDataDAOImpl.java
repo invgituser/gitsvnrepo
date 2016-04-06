@@ -42,7 +42,7 @@ public class PriceDataDAOImpl implements PriceDataDao
       System.out.println("******************************");
       //jdbcTemplate = new JdbcTemplate(dataSource);
       SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-         .withProcedureName("price_prcessor");
+         .withProcedureName("price_processor");
       Map<String, Object> inParamMap = new HashMap<String, Object>();
       inParamMap.put("p_process", process);
       inParamMap.put("p_businessDate", priceDate);
