@@ -63,7 +63,7 @@ public class AssetAllocationModel
             pdata.setFixedModel(true);
             pdata.setNumOfAllocation(1);
             AssetClass[] assetclass = new AssetClass[pdata.getNumOfAllocation()];
-            pdata.setMaxAssetAllocatonPoints(fixedOptimizer.getThemes(pdata.getTheme()).size());
+            pdata.setMaxAssetAllocatonPoints(fixedOptimizer.getThemes(pdata.getTheme()).size() - 1);
             assetclass[0] = fixedModelAllocation(pdata);
 
             return assetclass;
@@ -488,6 +488,7 @@ public class AssetAllocationModel
 
          if (fixedModelData != null) {
             pdata.setAllocationIndex(fixedModelData.getIndex());
+            pdata.setPortfolioIndex(fixedModelData.getIndex());
             for (FMAsset fiasset : fixedModelData.getAssetsData())
             {
                String assetname = fiasset.getAsset();

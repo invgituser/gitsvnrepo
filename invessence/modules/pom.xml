@@ -25,7 +25,8 @@
       <module>web</module>
       <module>virtual-trades</module>
       <module>emailer</module>
-      <module>brokerservices</module>
+      <!--<module>brokerservices</module>-->
+      <module>broker-services</module>
       <module>ibservice</module>
       <module>reports</module>
       <module>rbsa-preprocessor</module>

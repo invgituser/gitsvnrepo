@@ -73,7 +73,7 @@ public class EmailJob
             data.setReceiver(recipient);
             data.setCc(null);
             data.setBcc(null);
-            data.setSubject("Invessence Emailer Test Email");
+            data.setSubject("Symbil Emailer Test Email");
             data.setMsg("Test Email Body");
             data.setStatus(0);
             data.setCategory(0);

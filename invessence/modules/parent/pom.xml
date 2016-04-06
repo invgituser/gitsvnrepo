@@ -479,10 +479,10 @@
       <profile>
          <id>2B-HOST-INV-UNIX</id>
          <properties>
-            <base.data.dir>/inv/data</base.data.dir>
-            <base.rbsa.dir>/inv/data/</base.rbsa.dir>
-            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
-            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
+            <base.data.dir>/data</base.data.dir>
+            <base.rbsa.dir>/data/</base.rbsa.dir>
+            <base.clientdata.dir>/data/client</base.clientdata.dir>
+            <base.advisor.dir>/data/advisor</base.advisor.dir>
             <base.web.dir>/inv/www/invessence/ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>

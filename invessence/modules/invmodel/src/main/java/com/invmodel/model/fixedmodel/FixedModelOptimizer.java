@@ -158,7 +158,7 @@ public class FixedModelOptimizer
 
             if (fixedThemeMap.containsKey(themeName)) {
                Integer last = fixedThemeMap.get(themeName).size();
-               FMData.setIndex(last+1);
+               FMData.setIndex(last);  // Index is from 0 to x-1
                fixedThemeMap.get(themeName).add(FMData);
             }
             else {

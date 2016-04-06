@@ -32,7 +32,7 @@ public class EmailUtil
       MimeMessage message = mailSender.createMimeMessage();
 
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
-      helper.setFrom(msgData.getSender(), "Invessence");
+      helper.setFrom(msgData.getSender(), "Symbil");
       helper.setSubject(msgData.getSubject());
 
 
@@ -47,7 +47,10 @@ public class EmailUtil
 
       if (cc != null)
       {
-         emailsCc = cc.split(" ");
+         if (! cc.isEmpty() && ! cc.toUpperCase().contains("NULL")) {
+            emailsCc = cc.split(" ");
+         }
+
       }
 
       if ((emailsCc != null) && (emailsCc.length > 0))
@@ -135,6 +138,7 @@ public class EmailUtil
          int msgID = msgData.getMsgID();
          String src = msgData.getSource();
          String groupMail = "";
+         String fromMail = msgData.getSender();
          for (int i=0;i<emails.length;i++) {
             if (i == 0)
                groupMail = emails[i];
@@ -142,13 +146,14 @@ public class EmailUtil
                groupMail = groupMail + ", " + emails[i];
          }
 
-         System.out.println(src + ": Sending email " + msgID + " to:" + groupMail);
+         System.out.println(src + ": Sending email ID(" + msgID + ") to: " + groupMail + ", from: " + fromMail);
          mailSender.send(message);
 
       }
       catch (Exception e)
       {
          e.printStackTrace();
+         System.out.println("MsgID: (" + msgData.getMsgID() +"), Err Msg: " + e.getMessage());
          LOG.error("Error sending email: " + msgData.getMsgID() + ":" + e);
       }
    }

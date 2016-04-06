@@ -132,7 +132,7 @@ public class PortfolioModel
                profileData.setFixedModel(true);
                profileData.setNumOfPortfolio(1);
                Portfolio[] portfolio = new Portfolio[profileData.getNumOfPortfolio()];
-               profileData.setMaxPortfolioAllocationPoints(fixedOptimizer.getThemes(theme).size());
+               profileData.setMaxPortfolioAllocationPoints(fixedOptimizer.getThemes(theme).size() - 1);
                portfolio[0] = createFixedPortfolio(assetData, profileData);
 
                return portfolio;
@@ -716,6 +716,7 @@ public class PortfolioModel
       }
 
       if (fixedModelData != null) {
+         pdata.setAllocationIndex(fixedModelData.getIndex());
          pdata.setPortfolioIndex(fixedModelData.getIndex());
          for (FMPortfolio portfoliodata : fixedModelData.getPortfolioData())
          {

@@ -388,7 +388,7 @@
                                                         update=":ceForm:workArea, :ceForm:graphArea"/>
                                             </pe:inputNumber>
                                             <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
-                                                          rendered="#{cepb.goalAdjustment > 0}"
+                                                          rendered="#{cepb.displayGoalText}"
                                                           value="#{cepb.goalAdjustment}">
                                             </h:outputText>
 
@@ -445,7 +445,7 @@
                                     </div>
                                     <p:panel id="goalgraphArea" style="border: 0px">
                                         <div class="Container100">
-                                            <p:outputPanel id="goalcharts" style="border: 0px" rendered="#{cepb.goalData.goalDesired > 0}">
+                                            <p:outputPanel id="goalcharts" style="border: 0px" rendered="#{cepb.displayGoalGraph}">
                                                 <p:panel style="border: 0px">
                                                     <div class="Container100">
                                                         <div class="ContainerIndent">

@@ -14,9 +14,11 @@ public class MsgDAO extends JdbcDaoSupport
    {
 
       String sql = "select source, messageid, sender, receiver, cc, bcc, subject, msg, status, " +
-         "category, priority, created, lastupdated, sentdate, mimetype, attachments " +
+         "category, priority, DATE_FORMAT(created,'%Y-%m-%d %H:%M') as created, \n" +
+         "DATE_FORMAT(lastupdated,'%Y-%m-%d %H:%M') as lastupdated,\n" +
+         "DATE_FORMAT(sentdate,'%Y-%m-%d %H:%M') as sentdate, mimetype, attachments " +
          "from vw_email_alerts " +
-         "order by created";
+         "order by messageid";
 
 
       ParameterizedRowMapper<MsgData> mapper = new ParameterizedRowMapper<MsgData>()
@@ -46,8 +48,8 @@ public class MsgDAO extends JdbcDaoSupport
       };
 
        //System.out.println(sql);
-
-      return getJdbcTemplate().query(sql, mapper);
+      List<MsgData> theemailList = getJdbcTemplate().query(sql, mapper);
+      return theemailList;
 
    }
 
@@ -57,7 +59,7 @@ public class MsgDAO extends JdbcDaoSupport
       String sql = "select messageid, sender, receiver, cc, bcc, subject, msg, status, " +
          "category, priority, created, lastupdated, " +
          "sentdate, mimetype, attachments from email_messages  " +
-         "order by created limit 0, 10";
+         "order by messageid limit 0, 10";
 
       ParameterizedRowMapper<MsgData> mapper = new ParameterizedRowMapper<MsgData>()
       {
