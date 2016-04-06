@@ -23,7 +23,7 @@ public class PriceServiceImpl implements PriceService
 
    @Override
    //In this  code we are selecting api based on priority to run daily process
-   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String businessDate, List<SecMaster> tickerList) throws IOException
+   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String priceDate, List<SecMaster> tickerList) throws IOException
    {
 
       List<PriceData> priceData = null;
@@ -47,7 +47,7 @@ public class PriceServiceImpl implements PriceService
          try
          {
             //if api does not throw any exception we end the loop
-            priceData = callingService.getDailyPriceData(businessDate, tickerList);
+            priceData = callingService.getDailyPriceData(priceDate, tickerList);
             break;
          }
          catch (Exception e)
@@ -63,7 +63,7 @@ public class PriceServiceImpl implements PriceService
 
    //In this  code we are selecting api based on priority to run monthly process
    @Override
-   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String businessDate, String ticker) throws Exception
+   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String priceDate, String ticker) throws Exception
    {
       List<PriceData> priceData = null;
       Iterator itr = apidetails.iterator();
@@ -85,7 +85,7 @@ public class PriceServiceImpl implements PriceService
          try
          {
             //if api does not throw any exception we end the loop
-            priceData = callingService.getHistoricalPriceData(businessDate, ticker);
+            priceData = callingService.getHistoricalPriceData(priceDate, ticker);
             break;
          }
          catch (Exception e)

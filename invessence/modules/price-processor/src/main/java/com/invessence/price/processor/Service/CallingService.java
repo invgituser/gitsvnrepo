@@ -9,6 +9,6 @@ import com.invessence.price.processor.bean.*;
  */
 public interface CallingService
 {
-   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList)throws Exception;
-   public  List<PriceData> getHistoricalPriceData(String businessDate, String ticker)throws  Exception;
+   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList)throws Exception;
+   public  List<PriceData> getHistoricalPriceData(String priceDate, String ticker)throws  Exception;
 }

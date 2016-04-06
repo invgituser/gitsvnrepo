@@ -1,6 +1,5 @@
 package com.invessence.price.xignite;
 
-import java.io.*;
 import java.util.List;
 
 import com.invessence.price.processor.Service.CallingService;
@@ -12,8 +11,6 @@ import com.invessence.price.xignite.util.*;
 import org.json.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.*;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 
 public class CallingServiceXignite implements CallingService
@@ -43,7 +40,7 @@ public class CallingServiceXignite implements CallingService
    }
 
    @Override
-   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList)
+   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList)
    {
       List<PriceData> pdList = null;
       try
@@ -124,7 +121,7 @@ public class CallingServiceXignite implements CallingService
                endOfDayQuotes = jsonToObject.parseToEndOfDayQuote(jsonArray);
 
 
-               pdList = jsonToObject.objectConversion(endOfDayQuotes, businessDate);
+               pdList = jsonToObject.objectConversion(endOfDayQuotes, priceDate);
 
                System.out.println("securities" + pdList.size());
 
@@ -152,7 +149,7 @@ public class CallingServiceXignite implements CallingService
    }
 
    @Override
-   public List<PriceData> getHistoricalPriceData(String businessDate, String ticker)
+   public List<PriceData> getHistoricalPriceData(String priceDate, String ticker)
    {
       System.out.println("Not Support historical price process for Xignite");
       return null;

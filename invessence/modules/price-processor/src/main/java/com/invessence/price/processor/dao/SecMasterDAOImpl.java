@@ -41,15 +41,11 @@ public class SecMasterDAOImpl implements SecMasterDao
 
 
    //To get api which are active
-   public List<APIDetails> getSwitch(String status, String service_operation) throws SQLException
-
-
+   public List<APIDetails> getSwitch(String companyName, String service_operation) throws SQLException
    {
-
       List<APIDetails> switchTable = null;
-
-
-      String sql = "SELECT service_provider,service_operation  FROM company_service_details WHERE " + status + " AND " + service_operation + " ORDER BY  priority  ASC";
+      String sql = "SELECT service_provider,service_operation  FROM invdb.company_service_details WHERE status='A' " +
+         "and company='"+companyName+"' AND service_operation='" + service_operation + "' ORDER BY  priority  ASC";
       //where ticker='"+ticker+"'";
       System.out.println("***************************" + sql);
       switchTable = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(APIDetails.class));

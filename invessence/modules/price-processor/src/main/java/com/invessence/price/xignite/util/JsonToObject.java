@@ -2,7 +2,6 @@ package com.invessence.price.xignite.util;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.Level;
 
 import com.invessence.price.processor.bean.*;
 import com.invessence.price.xignite.bo.*;
@@ -201,7 +200,7 @@ public class JsonToObject
    }
 
    // converting object to calling program format
-   public List<PriceData> objectConversion(EndOfDayQuotes endOfDayQuotes, String businessDate)
+   public List<PriceData> objectConversion(EndOfDayQuotes endOfDayQuotes, String priceDate)
    {
       List<PriceData> pdList = null;
       pdList = new ArrayList<PriceData>();
@@ -228,7 +227,7 @@ public class JsonToObject
 
             Date date1 = sdf.parse(x.getDate());
 
-            Date buDate = nf.parse(businessDate);
+            Date buDate = nf.parse(priceDate);
             //Date date2 = nf.format(date1);
             //System.out.println("new format of date" +date1);
             // String s = sdf.format(date1);
@@ -253,7 +252,7 @@ public class JsonToObject
             //	}
             //	else
             //	{
-            //	mailAlertMsg.append("Price not available for ticker:" + x.getSecurity().getSymbol() + " for busunessdate :" + businessDate + "\n");
+            //	mailAlertMsg.append("Price not available for ticker:" + x.getSecurity().getSymbol() + " for busunessdate :" + priceDate + "\n");
             //	}
             //System.out.println("*******************"+ x.getSecurity().getSymbol());
             //System.out.println("list" + pd);

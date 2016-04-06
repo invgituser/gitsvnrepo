@@ -11,8 +11,8 @@ import com.invessence.price.processor.bean.*;
 
 public interface PriceService
 {
-   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String businessDate, List<SecMaster> tickerList) throws Exception;
-   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String businessDate, String ticker) throws Exception;
+   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String priceDate, List<SecMaster> tickerList) throws Exception;
+   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String priceDate, String ticker) throws Exception;
 }
 
 

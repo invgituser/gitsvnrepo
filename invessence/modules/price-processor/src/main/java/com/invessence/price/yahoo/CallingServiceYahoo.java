@@ -17,7 +17,7 @@ public class CallingServiceYahoo implements CallingService
 
    //*********************Historical Process*****************
    // To fetch historical prices from Yahoo API
-   public List<PriceData> getHistoricalPriceData(String businessDate, String ticker) throws Exception
+   public List<PriceData> getHistoricalPriceData(String priceDate, String ticker) throws Exception
    {
       List<PriceData> pdList = null;
 
@@ -25,7 +25,7 @@ public class CallingServiceYahoo implements CallingService
       {
          pdList = new ArrayList<PriceData>();
 
-         Date d = sdf.parse(businessDate);
+         Date d = sdf.parse(priceDate);
 //				Calendar from = new GregorianCalendar(2015, 9, 5);// Calendar.getInstance();
 //				Calendar to = new GregorianCalendar(2016, 1, 29);// Calendar.getInstance();//2007-05-30
          Calendar from = Calendar.getInstance();
@@ -35,7 +35,7 @@ public class CallingServiceYahoo implements CallingService
          from.add(Calendar.YEAR, -20); // from 5 years ago
          Stock stk = YahooFinance.get(ticker, from, to, Interval.DAILY);
 
-         System.out.println(businessDate);
+         System.out.println(priceDate);
          System.out.println(stk.getHistory().size() + "Open :" + stk.getQuote().getOpen());
          System.out.println(sdf.format(stk.getQuote().getLastTradeTime().getTime()));
          System.out.println("LastTradePriceOnly   :" + stk.getQuote().getPrice());
@@ -69,7 +69,7 @@ public class CallingServiceYahoo implements CallingService
 
                if (isPriceAvaiForBusiDate == false)
                {
-                  if (sdf.format(historicalQuote.getDate().getTime()).equals(businessDate))
+                  if (sdf.format(historicalQuote.getDate().getTime()).equals(priceDate))
                   {
                      isPriceAvaiForBusiDate = true;
                   }
@@ -84,8 +84,8 @@ public class CallingServiceYahoo implements CallingService
 
             if (isPriceAvaiForBusiDate == false)
             {
-               System.out.println("Price not available for ticker:" + ticker + " for businessdate :" + businessDate + "\n");
-               //mailAlertMsg.append("Price not available for ticker:" + ticker + " for businessdate :" + businessDate + "\n");
+               System.out.println("Price not available for ticker:" + ticker + " for businessdate :" + priceDate + "\n");
+               //mailAlertMsg.append("Price not available for ticker:" + ticker + " for businessdate :" + priceDate + "\n");
 
             }
          }
@@ -99,7 +99,7 @@ public class CallingServiceYahoo implements CallingService
 
    // **********DAILY PROCESS***********************
    // To fetch daily prices from yahoo API
-   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList) throws Exception
+   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList) throws Exception
    {
       List<PriceData> pdList = null;
       PriceData pd = null;
@@ -107,8 +107,8 @@ public class CallingServiceYahoo implements CallingService
       Iterator<SecMaster> sec = tickerList.iterator();
       /*try
       {*/
-      System.out.println("businessDate :" + businessDate);
-      Date d = sdf.parse(businessDate);
+      System.out.println("priceDate :" + priceDate);
+      Date d = sdf.parse(priceDate);
       Calendar from = Calendar.getInstance();
       from.setTime(d);
       System.out.println("from:" + from.getTime() + "    date:" + d);
@@ -134,7 +134,7 @@ public class CallingServiceYahoo implements CallingService
             if (hstLst == null || hstLst.size() == 0 || hstLst.equals(""))
             {
                System.out.println("List is empty:");
-               // mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for busunessdate :" + businessDate + "\n");
+               // mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for busunessdate :" + priceDate + "\n");
             }
             else
             {
@@ -144,7 +144,7 @@ public class CallingServiceYahoo implements CallingService
                System.out.println(sdf.format(stk.getQuote().getLastTradeTime().getTime()));
 
 
-               // if (sdf.format(historicalQuote.getDate().getTime()).equals(businessDate))
+               // if (sdf.format(historicalQuote.getDate().getTime()).equals(priceDate))
                //  {
                // if (Double.valueOf("" + historicalQuote.getClose()).equals(0))
                //  {
@@ -165,7 +165,7 @@ public class CallingServiceYahoo implements CallingService
                //}
                // else
                // {
-               //  mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for busunessdate :" + businessDate + "\n");
+               //  mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for busunessdate :" + priceDate + "\n");
 
                // }
             }

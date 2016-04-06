@@ -8,11 +8,13 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import com.invessence.constant.Const;
 import com.invessence.price.processor.Service.PriceService;
 import com.invessence.price.processor.bean.*;
 import com.invessence.price.util.*;
 import com.invessence.rbsa.RBSA2;
 import com.invessence.rbsa.dao.data.RBSAData;
+import com.invessence.util.EmailCreator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +31,8 @@ public class PriceProcessor
 {
    private static final Logger logger = Logger.getLogger(PriceProcessor.class);
    @Autowired
+   EmailCreator emailCreator;
+   @Autowired
    DBParametersDao dbParametersDao;
    @Autowired
    SecMasterDao secMasterDao;
@@ -44,17 +48,20 @@ public class PriceProcessor
    @Autowired
    PriceService priceService;
 
-   @Autowired
-   DataSource dataSource;
-   private JdbcTemplate jdbcTemplate;
+//   @Autowired
+//   DataSource dataSource;
+//   private JdbcTemplate jdbcTemplate;
+
 
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
+   //EmailCreator emailCreator = new EmailCreator();
 
    //
    public void process() throws SQLException
    {
 
+      System.out.println("COMPANY_NAME:" + Const.COMPANY_NAME);
       StringBuilder mailAlertMsg = null;
 
       try
@@ -75,15 +82,19 @@ public class PriceProcessor
             List<SecMaster> lst = secMasterDao.findByWhere("status = 'A'");
             if (lst != null && lst.size() > 0)
             {
-               String businessDate = sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
-               System.out.println("Business Date :" + businessDate);
+               String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
+               System.out.println("Business Date :" + priceDate);
+
+//               String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
+//               System.out.println("Price Date :" + priceDate);
 
 
                // code to check for dailyProcess or monthlyProcess
-               if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false)
+               if (CommonUtil.dateCompare(dbParamMap.get("PRICE_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false)
                {
-                 List<APIDetails> apidetails = secMasterDao.getSwitch("status = 'A'", "service_operation='DAILY_PRICING'");
-                 if(apidetails ==null || apidetails.size()==0)
+
+                  List<APIDetails> apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, "DAILY_PRICING");
+                  if (apidetails == null || apidetails.size() == 0)
                   {
                      System.out.println("apidetails not available");
                      mailAlertMsg.append("apidetails not available");
@@ -92,15 +103,15 @@ public class PriceProcessor
                   {
                      System.out.println("************Number of serviceProvider available************" + apidetails.size());
                      sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
-                     dailyProcess(apidetails, businessDate, lst, mailAlertMsg);
+                     dailyProcess(apidetails, priceDate, lst, mailAlertMsg);
                   }
                }
 
                // code to check for dailyProcess or monthlyProcess
-               else if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
+               else if (CommonUtil.dateCompare(dbParamMap.get("PRICE_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
                {
-                  List<APIDetails> apidetails = secMasterDao.getSwitch("status = 'A'", "service_operation='MONTHLY_PRICING'");
-                  if(apidetails ==null || apidetails.size()==0)
+                  List<APIDetails> apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, "MONTHLY_PRICING");
+                  if (apidetails == null || apidetails.size() == 0)
                   {
                      System.out.println("apidetails not available");
                      mailAlertMsg.append("apidetails not available");
@@ -108,7 +119,7 @@ public class PriceProcessor
                   else
                   {
                      System.out.println("************Number of serviceProvider available************" + apidetails.size());
-                     monthlyProcess(apidetails, businessDate, lst, mailAlertMsg);
+                     monthlyProcess(apidetails, priceDate, lst, mailAlertMsg);
                   }
                }
             }
@@ -131,7 +142,9 @@ public class PriceProcessor
          if (mailAlertMsg.length() > 0)
          {
             System.out.println("MailAlertMsg IS :" + mailAlertMsg);
-            EmailMsg md = new EmailMsg();
+            emailCreator.sendToSupport("ERR", "EXCEPTION:PRICING MODULE", mailAlertMsg.toString());
+            // EmailProcessor.main();
+           /* EmailMsg md = new EmailMsg();
             md.setMsg(mailAlertMsg);
             try
             {
@@ -140,7 +153,7 @@ public class PriceProcessor
 				catch (SQLException e)
 				{
 					e.printStackTrace();
-				}
+				}*/
          }
          else
          {
@@ -153,7 +166,7 @@ public class PriceProcessor
     * In this method we are performing daily process
     */
 
-   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> tickerList, StringBuilder mailAlertMsg)
+   public void dailyProcess(List<APIDetails> apidetails, String priceDate, List<SecMaster> tickerList, StringBuilder mailAlertMsg)
    {
       Iterator<SecMaster> sec = tickerList.iterator();
       SecMaster secMaster = new SecMaster();
@@ -166,7 +179,7 @@ public class PriceProcessor
          priceDataDao.delete();
 
          //selecting api based on priority
-         pdList = priceService.getPrice(apidetails, PriceProcessConst.DAILY, businessDate, tickerList);
+         pdList = priceService.getPrice(apidetails, PriceProcessConst.DAILY, priceDate, tickerList);
 
          if (pdList == null || pdList.size() == 0 || pdList.equals(""))
          {
@@ -178,14 +191,14 @@ public class PriceProcessor
          {
             for (int i = 0; i < pdList.size(); i++)
             {
-               if (!pdList.get(i).getBusinessDate().equals(businessDate))
+               if (!pdList.get(i).getBusinessDate().equals(priceDate))
                {
                   if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
                   {
                      mailAlertMsg.append("Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
                   }
 
-                  mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for busunessdate :" + businessDate + "\n");
+                  mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for busunessdate :" + priceDate + "\n");
                }
             }
             try
@@ -193,17 +206,18 @@ public class PriceProcessor
                // List is inserted in tmp_rbsa_daily table
                priceDataDao.insertBatch(pdList);
 
+
                if (mailAlertMsg.length() == 0)
                {
                   try
                   {
 
                      // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
-                     priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, "");
+                     priceDataDao.callProcedure(PriceProcessConst.DAILY, priceDate, "");
                      try
                      {
                         //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
-                        priceDataDao.callEodProcedure(PriceProcessConst.DAILY, businessDate);
+                        priceDataDao.callEodProcedure(PriceProcessConst.DAILY, priceDate);
                      }
                      catch (Exception e)
                      {
@@ -232,7 +246,7 @@ public class PriceProcessor
 
    //In this method we are performing monthly process
 
-   public void monthlyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> tickerList, StringBuilder mailAlertMsg)
+   public void monthlyProcess(List<APIDetails> apidetails, String priceDate, List<SecMaster> tickerList, StringBuilder mailAlertMsg)
    {
       System.out.println("PriceProcessor.process() executing Monthly Process");
 
@@ -248,9 +262,9 @@ public class PriceProcessor
          {
             //deleting all rows from tmp_rbsa_daily table
             priceDataDao.delete();
-            pdList = priceService.getPrice(apidetails, PriceProcessConst.MONTHLY, businessDate, secMaster.getTicker());
-            //callingYahoo.getHistoricalPriceData(businessDate, secMaster.getTicker(), mailAlertMsg);
-            if (pdList == null || pdList.size() == 0 )
+            pdList = priceService.getPrice(apidetails, PriceProcessConst.MONTHLY, priceDate, secMaster.getTicker());
+            //callingYahoo.getHistoricalPriceData(priceDate, secMaster.getTicker(), mailAlertMsg);
+            if (pdList == null || pdList.size() == 0)
             {
                mailAlertMsg.append("Historical price data not available for ticker " + secMaster.getTicker() + "\n");
             }
@@ -261,7 +275,7 @@ public class PriceProcessor
                {
                   if (isPriceAvaiForBusiDate == false)
                   {
-                     if (pdList.get(i).getBusinessDate().equals(businessDate))
+                     if (pdList.get(i).getBusinessDate().equals(priceDate))
                      {
                         isPriceAvaiForBusiDate = true;
                         break forloop;
@@ -276,7 +290,7 @@ public class PriceProcessor
                }
                if (isPriceAvaiForBusiDate == false)
                {
-                  mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate + "\n");
+                  mailAlertMsg.append("Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + priceDate + "\n");
 
                }
 
@@ -287,7 +301,7 @@ public class PriceProcessor
                   try
                   {
                      // code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessDate, secMaster.getTicker());
+                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, priceDate, secMaster.getTicker());
                      if (secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
                      {
                         try
@@ -332,7 +346,7 @@ public class PriceProcessor
          {
             //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table,
             // invdb.inv_monthly_date_table and invdb.inv_date_table)
-            priceDataDao.callEodProcedure(PriceProcessConst.MONTHLY, businessDate);
+            priceDataDao.callEodProcedure(PriceProcessConst.MONTHLY, priceDate);
          }
          catch (Exception e)
          {
@@ -352,7 +366,7 @@ public class PriceProcessor
       try
       {
 
-         apidetails = secMasterDao.getSwitch("status = 'A'", "service_operation='ONDEMAND_PRICING'");
+         apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, "ONDEMAND_PRICING");
          if (apidetails == null || apidetails.size() == 0)
          {
             System.out.println("apidetails not available for ONDEMAND PROCESS ");
@@ -363,112 +377,112 @@ public class PriceProcessor
 
             System.out.println("************Number of serviceProvider available************" + apidetails.size());
 
-         List<PriceData> pdList = null;
-         try
-         {
-            //selects the ticker for ondemand process
-            SecMaster secMaster = secMasterDao.findByTicker(ticker);
-            if (secMaster == null)
+            List<PriceData> pdList = null;
+            try
             {
-               //Need to call API for ticker information for stored into DB
-               System.out.println("Ticker " + ticker + " not available in our database");
-            }
-            else
-            {
-
-               try
+               //selects the ticker for ondemand process
+               SecMaster secMaster = secMasterDao.findByTicker(ticker);
+               if (secMaster == null)
                {
-                  // code to get values for businessdate,last businessdate of month,price date from invessence_switch table
-                  Map<String, DBParameters> dbParamMap = dbParametersDao.getDBParametres();
-                  if (dbParamMap == null && dbParamMap.size() == 0)
+                  //Need to call API for ticker information for stored into DB
+                  System.out.println("Ticker " + ticker + " not available in our database");
+               }
+               else
+               {
+
+                  try
                   {
-                     mailAlertMsg.append("DB parameters are not available");
-                     System.out.println("DB parameters are not available");
-                  }
-                  else
-                  {
-                     String businessDate = sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
-                     try
+                     // code to get values for businessdate,last businessdate of month,price date from invessence_switch table
+                     Map<String, DBParameters> dbParamMap = dbParametersDao.getDBParametres();
+                     if (dbParamMap == null && dbParamMap.size() == 0)
                      {
-                        //deleting all rows from tmp_rbsa_daily
-                        priceDataDao.delete();
-                        pdList = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, businessDate, secMaster.getTicker());
-                        if (pdList == null || pdList.size() == 0 || pdList.equals(""))
+                        mailAlertMsg.append("DB parameters are not available");
+                        System.out.println("DB parameters are not available");
+                     }
+                     else
+                     {
+                        String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
+                        try
                         {
-                           mailAlertMsg.append("OnDemand price data not available for ticker " + secMaster.getTicker() + "\n");
-                        }
-                        else
-                        {
-                           for (int i = 0; i < pdList.size(); i++)
+                           //deleting all rows from tmp_rbsa_daily
+                           priceDataDao.delete();
+                           pdList = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker());
+                           if (pdList == null || pdList.size() == 0 || pdList.equals(""))
                            {
-                              if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
-                              {
-                                 mailAlertMsg.append("Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
-                              }
+                              mailAlertMsg.append("OnDemand price data not available for ticker " + secMaster.getTicker() + "\n");
                            }
-                           try
+                           else
                            {
-                              // List is inserted in tmp_rbsa_daily table
-                              priceDataDao.insertBatch(pdList);
+                              for (int i = 0; i < pdList.size(); i++)
+                              {
+                                 if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
+                                 {
+                                    mailAlertMsg.append("Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
+                                 }
+                              }
                               try
                               {
-                                 //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
-                                 priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, businessDate, secMaster.getTicker());
-                                 if (secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
+                                 // List is inserted in tmp_rbsa_daily table
+                                 priceDataDao.insertBatch(pdList);
+                                 try
                                  {
+                                    //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
+                                    priceDataDao.callProcedure(PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker());
+                                    if (secMaster.getRbsaFlag().equalsIgnoreCase("Y"))
+                                    {
+                                       try
+                                       {
+                                          rbsaCall(secMaster.getTicker());
+                                       }
+                                       catch (Exception e)
+                                       {
+                                          mailAlertMsg.append("RBSA process call issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                       }
+                                    }
                                     try
                                     {
-                                       rbsaCall(secMaster.getTicker());
+                                       //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table,
+                                       // invdb.inv_monthly_date_table and invdb.inv_date_table)
+                                       priceDataDao.callEodProcedure(PriceProcessConst.ONDEMAND, priceDate);
                                     }
                                     catch (Exception e)
                                     {
-                                       mailAlertMsg.append("RBSA process call issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                       mailAlertMsg.append("OnDemad price eod process issue  " + e.getMessage());
                                     }
-                                 }
-                                 try
-                                 {
-                                    //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table,
-                                    // invdb.inv_monthly_date_table and invdb.inv_date_table)
-                                    priceDataDao.callEodProcedure(PriceProcessConst.ONDEMAND, businessDate);
+
                                  }
                                  catch (Exception e)
                                  {
-                                    mailAlertMsg.append("OnDemad price eod process issue  " + e.getMessage());
+                                    e.printStackTrace();
+                                    mailAlertMsg.append("OnDemand price data operation issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
                                  }
-
                               }
                               catch (Exception e)
                               {
-                                 e.printStackTrace();
-                                 mailAlertMsg.append("OnDemand price data operation issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                 mailAlertMsg.append("OnDemand price data upload issue " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
                               }
                            }
-                           catch (Exception e)
-                           {
-                              mailAlertMsg.append("OnDemand price data upload issue " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
-                           }
+                        }
+                        catch (Exception e)
+                        {
+                           System.out.println("OnDemand api Exception for ticker" + secMaster.getTicker() + "\n" + e.getMessage());
+                           mailAlertMsg.append("OnDemand api Exception for ticker" + secMaster.getTicker() + "\n");
                         }
                      }
-                     catch (Exception e)
-                     {
-                        System.out.println("OnDemand api Exception for ticker" + secMaster.getTicker() + "\n" + e.getMessage());
-                        mailAlertMsg.append("OnDemand api Exception for ticker" + secMaster.getTicker() + "\n");
-                     }
+                  }
+                  catch (Exception e)
+                  {
+                     System.out.println("Ticker Exception:" + secMaster.getTicker());
+                     mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker() + "\n");
                   }
                }
-               catch (Exception e)
-               {
-                  System.out.println("Ticker Exception:" + secMaster.getTicker());
-                  mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker() + "\n");
-               }
+            }
+            catch (Exception e)
+            {
+               System.out.println(" Exception in getting ticker from secmaster table:" + ticker);
+               mailAlertMsg.append("Exception in getting ticker from secmaster table:" + ticker + "\n");
             }
          }
-         catch (Exception e)
-         {
-            System.out.println(" Exception in getting ticker from secmaster table:" + ticker);
-            mailAlertMsg.append("Exception in getting ticker from secmaster table:" + ticker + "\n");
-         }
-      }
       }
       catch (SQLException e)
       {
@@ -479,6 +493,129 @@ public class PriceProcessor
 
    }
 
+   public void initialProcess(String ticker)
+   {
+      System.out.println("PriceProcessor.process() executing Initial Process");
+      StringBuilder mailAlertMsg = null;
+      List<APIDetails> apidetails = null;
+      try
+      {
+
+         apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, PriceProcessConst.INITIAL_PROCESS);
+         if (apidetails == null || apidetails.size() == 0)
+         {
+
+           mailAlertMsg.append("apidetails not available");
+         }
+         else
+         {
+
+            System.out.println("************Number of serviceProvider available************" + apidetails.size());
+
+            List<PriceData> pdList = null;
+            try
+            {
+               //selects the ticker for ondemand process
+               SecMaster secMaster = secMasterDao.findByTicker(ticker);
+               if (secMaster == null)
+               {
+                  //Need to call API for ticker information for stored into DB
+                  System.out.println("Ticker " + ticker + " not available in our database");
+               }
+               else
+               {
+
+                  try
+                  {
+                     // code to get values for businessdate,last businessdate of month,price date from invessence_switch table
+                     Map<String, DBParameters> dbParamMap = dbParametersDao.getDBParametres();
+                     if (dbParamMap == null && dbParamMap.size() == 0)
+                     {
+                        mailAlertMsg.append("DB parameters are not available");
+                        System.out.println("DB parameters are not available");
+                     }
+                     else
+                     {
+                        String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
+                        try
+                        {
+                           //deleting all rows from tmp_rbsa_dailyBUSINESS
+                           priceDataDao.delete();
+                           pdList = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker());
+                           if (pdList == null || pdList.size() == 0 || pdList.equals(""))
+                           {
+                              mailAlertMsg.append("SPY price data not available  ");
+                           }
+                           else
+                           {
+                              for (int i = 0; i < pdList.size(); i++)
+                              {
+                                 if (pdList.get(i).getClosePrice() == null || pdList.get(i).getClosePrice().equals(0.0) || pdList.get(i).getClosePrice().equals(""))
+                                 {
+                                    mailAlertMsg.append("Price value getting 0 for ticker:" + secMaster.getTicker() + "\n");
+                                 }
+                              }
+                              try
+                              {
+                                 // List is inserted in tmp_rbsa_daily table
+                                 priceDataDao.insertBatch(pdList);
+                                 try
+                                 {
+                                    //code to call monthly_price_processor procedure(in this we are calculating daily return,monthly return and inserting values in rbsa_daily table)
+                                    priceDataDao.callProcedure(PriceProcessConst.INITIAL_PROCESS, priceDate, secMaster.getTicker());
+                                    /*try
+                                    {
+                                       //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table,
+                                       // invdb.inv_monthly_date_table and invdb.inv_date_table)
+                                      // priceDataDao.callEodProcedure(PriceProcessConst.ONDEMAND, priceDate);
+                                    }
+                                    catch (Exception e)
+                                    {
+                                       mailAlertMsg.append("OnDemad price eod process issue  " + e.getMessage());
+                                    }*/
+
+                                 }
+                                 catch (Exception e)
+                                 {
+                                    e.printStackTrace();
+                                    mailAlertMsg.append("Initial process price data operation issue for ticker " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                                 }
+                              }
+                              catch (Exception e)
+                              {
+                                 mailAlertMsg.append("OnDemand price data upload issue " + secMaster.getTicker() + "\n" + e.getMessage() + "\n");
+                              }
+                           }
+                        }
+                        catch (Exception e)
+                        {
+                           System.out.println("Initial process api Exception for ticker" + secMaster.getTicker() + "\n" + e.getMessage());
+                           mailAlertMsg.append("Initial process api Exception for ticker" + secMaster.getTicker() + "\n");
+                        }
+                     }
+                  }
+                  catch (Exception e)
+                  {
+                     System.out.println("Ticker Exception:" + secMaster.getTicker());
+                     mailAlertMsg.append("Ticker Exception:" + secMaster.getTicker() + "\n");
+                  }
+               }
+            }
+            catch (Exception e)
+            {
+               System.out.println(" Exception in getting ticker from secmaster table:" + ticker);
+               mailAlertMsg.append("Exception in getting ticker from secmaster table:" + ticker + "\n");
+            }
+         }
+      }
+      catch (SQLException e)
+      {
+         mailAlertMsg.append("Exception in getting operation name in Initial Process" + e.getMessage());
+         e.printStackTrace();
+
+      }
+
+   }
 
    public void rbsaCall(String ticker) throws Exception
    {

@@ -10,17 +10,17 @@ public class CommonUtil
 
    static SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
-   public static boolean dateCompare(String bDate, String lbDate)
+   public static boolean dateCompare(String pDate, String lbDate)
    {
       try
       {
 
-         Date bdate = sdf.parse(bDate);
+         Date bdate = sdf.parse(pDate);
          Date lbdate = sdf.parse(lbDate);
 
 
-         System.out.println(bDate + " : " + lbDate);
-         if (bdate.after(lbdate) || bDate.equals(lbDate))
+         System.out.println(pDate + " : " + lbDate);
+         if (bdate.after(lbdate) || pDate.equals(lbDate))
          {
             return true;
             // else if(CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(),dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString())==true)

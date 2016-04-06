@@ -187,7 +187,7 @@ public class XigniteUtil
       catch (Exception e)
       {
          e.printStackTrace();
-         jsonArray = xigniteErrorJson(e.getMessage(), operationName);
+         jsonArray = xigniteErrorJson(e.getMessage(),operationName);
          return jsonArray;
       }
       finally

@@ -9,4 +9,5 @@ public class PriceProcessConst
    public static String MONTHLY = "MONTHLY";
    public static String ONDEMAND = "ONDEMAND";
    public static String operationName = "DAILY_PRICING";
+   public static String INITIAL_PROCESS ="INITIAL_PROCESS";
 }

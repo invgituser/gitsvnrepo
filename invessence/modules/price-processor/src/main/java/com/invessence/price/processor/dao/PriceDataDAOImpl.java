@@ -36,16 +36,16 @@ public class PriceDataDAOImpl implements PriceDataDao
       jdbcTemplate.execute(sql);
    }
 
-   public void callProcedure(String process, String businessDate, String ticker) throws SQLException
+   public void callProcedure(String process, String priceDate, String ticker) throws SQLException
    {
 
       System.out.println("******************************");
       //jdbcTemplate = new JdbcTemplate(dataSource);
       SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
-         .withProcedureName("price_processor");
+         .withProcedureName("price_prcessor");
       Map<String, Object> inParamMap = new HashMap<String, Object>();
       inParamMap.put("p_process", process);
-      inParamMap.put("p_businessDate", businessDate);
+      inParamMap.put("p_businessDate", priceDate);
       inParamMap.put("p_ticker", ticker);
       SqlParameterSource in = new MapSqlParameterSource(inParamMap);
       Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
@@ -55,7 +55,7 @@ public class PriceDataDAOImpl implements PriceDataDao
 
    }
 
-   public void callEodProcedure(String process, String businessDate) throws SQLException
+   public void callEodProcedure(String process, String priceDate) throws SQLException
    {
       System.out.println("******************************");
       //jdbcTemplate = new JdbcTemplate(dataSource);
@@ -63,7 +63,7 @@ public class PriceDataDAOImpl implements PriceDataDao
          .withProcedureName("end_of_price_process");
       Map<String, Object> inParamMap = new HashMap<String, Object>();
       inParamMap.put("p_process", process);
-      inParamMap.put("p_businessdate", businessDate);
+      inParamMap.put("p_businessdate", priceDate);
       SqlParameterSource in = new MapSqlParameterSource(inParamMap);
       Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
       System.out.println(simpleJdbcCallResult);
