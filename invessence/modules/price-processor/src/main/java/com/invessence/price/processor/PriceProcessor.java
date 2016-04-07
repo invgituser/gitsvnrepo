@@ -22,7 +22,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import com.invessence.price.processor.dao.DBParametersDao;
-import com.invessence.price.processor.dao.MessageDao;
 import com.invessence.price.processor.dao.PriceDataDao;
 import com.invessence.price.processor.dao.SecMasterDao;
 
@@ -39,12 +38,12 @@ public class PriceProcessor
    @Autowired
    PriceDataDao priceDataDao;
 
-   @Autowired
-   private
-   MessageDao messageDao;
+//   @Autowired
+//   private
+//   MessageDao messageDao;
 
-   @Value(value = "${securities.provider}")
-   String price_provider;
+//   @Value(value = "${securities.provider}")
+//   String price_provider;
    @Autowired
    PriceService priceService;
 
@@ -220,6 +219,7 @@ public class PriceProcessor
                         priceDataDao.callEodProcedure(PriceProcessConst.DAILY, priceDate);
                      }
                      catch (Exception e)
+
                      {
                         mailAlertMsg.append("Daily price eod process issue " + e.getMessage());
                      }
@@ -799,14 +799,14 @@ public class PriceProcessor
       this.dbParametersDao = dbParametersDao;
    }
 
-   public MessageDao getMessageDao()
-   {
-      return messageDao;
-   }
-
-   public void setMessageDao(MessageDao messageDao)
-   {
-      this.messageDao = messageDao;
-   }
+//   public MessageDao getMessageDao()
+//   {
+//      return messageDao;
+//   }
+//
+//   public void setMessageDao(MessageDao messageDao)
+//   {
+//      this.messageDao = messageDao;
+//   }
 
 }

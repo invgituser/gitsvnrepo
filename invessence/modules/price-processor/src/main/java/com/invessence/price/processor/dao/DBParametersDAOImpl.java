@@ -17,7 +17,7 @@ import com.invessence.price.processor.bean.DBParameters;
 public class DBParametersDAOImpl implements DBParametersDao
 {
    @Autowired
-   private JdbcTemplate jdbcTemplate;
+   private JdbcTemplate invJdbcTemplate;
 
    public Map<String, DBParameters> getDBParametres() throws SQLException
    {
@@ -26,9 +26,9 @@ public class DBParametersDAOImpl implements DBParametersDao
       try
       {
          System.out.println("SecMasterDAOImpl.findByWhere()");
-         String sql = "SELECT name, value, format, description FROM invdb.invessence_switch where name in('BUSINESS_DATE','LAST_BDATE_OF_MONTH','PRICE_DATE')";
+         String sql = "SELECT name, value, format, description FROM invessence_switch where name in('BUSINESS_DATE','LAST_BDATE_OF_MONTH','PRICE_DATE')";
          System.out.println(sql);
-         dbParamsLst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
+         dbParamsLst = invJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
          if (dbParamsLst.size() > 0)
          {
             dbParamsMap = new HashMap<String, DBParameters>();

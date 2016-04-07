@@ -99,7 +99,7 @@ public class HistQuotesRequest {
         // Parse CSV
         for (String line = br.readLine(); line != null; line = br.readLine()) {
 
-            YahooFinance.logger.log(Level.INFO, ("Parsing CSV line: " + Utils.unescape(line)));
+            //YahooFinance.logger.log(Level.INFO, ("Parsing CSV line: " + Utils.unescape(line)));
             HistoricalQuote quote = this.parseCSVLine(line);
             result.add(quote);
         }

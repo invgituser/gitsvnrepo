@@ -35,7 +35,7 @@ public class CallingServiceYahoo implements CallingService
          from.add(Calendar.YEAR, -20); // from 5 years ago
          Stock stk = YahooFinance.get(ticker, from, to, Interval.DAILY);
 
-         System.out.println(priceDate);
+        /* System.out.println(priceDate);
          System.out.println(stk.getHistory().size() + "Open :" + stk.getQuote().getOpen());
          System.out.println(sdf.format(stk.getQuote().getLastTradeTime().getTime()));
          System.out.println("LastTradePriceOnly   :" + stk.getQuote().getPrice());
@@ -43,7 +43,7 @@ public class CallingServiceYahoo implements CallingService
          System.out.println("DayHigh   :" + stk.getQuote().getDayHigh());
          System.out.println("DayLow   :" + stk.getQuote().getDayLow());
          System.out.println("PreviousClose   :" + stk.getQuote().getPreviousClose());
-
+*/
          List<HistoricalQuote> hstLst = stk.getHistory();
          if (hstLst == null || hstLst.size() == 0 || hstLst.equals(""))
          {
@@ -122,12 +122,12 @@ public class CallingServiceYahoo implements CallingService
          {
 
             Stock stk = YahooFinance.get(secMaster.getTicker(), from, from, Interval.DAILY);
-            System.out.println(sdf.format(stk.getQuote().getLastTradeTime().getTime()) + "Open   :" + stk.getQuote().getOpen());
+           /* System.out.println(sdf.format(stk.getQuote().getLastTradeTime().getTime()) + "Open   :" + stk.getQuote().getOpen());
             System.out.println("LastTradePriceOnly   :" + stk.getQuote().getPrice());
             System.out.println("Volume   :" + stk.getQuote().getVolume());
             System.out.println("DayHigh   :" + stk.getQuote().getDayHigh());
             System.out.println("DayLow   :" + stk.getQuote().getDayLow());
-            System.out.println("PreviousClose   :" + stk.getQuote().getPreviousClose());
+            System.out.println("PreviousClose   :" + stk.getQuote().getPreviousClose());*/
 
             List<HistoricalQuote> hstLst = stk.getHistory();
 
