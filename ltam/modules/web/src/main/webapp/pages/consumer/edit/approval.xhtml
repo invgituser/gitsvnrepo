@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 TextAlCenter">
+        <div class="TexAlCenter">
+            <h1 class="black Fs24 fnt1">#{ltamprofile.firstname}, based on your answers, your recommended objective is:</h1>
+        </div>
+        
+        <table class="Container100 Responsive100 TextAlCenter">
+            <tr>
+                <td colspan="2" class="TexAlCenter">
+                    <div class="DispInlBlock TexAlLeft tp1">
+                        <div class="Fright">
+                            <h1 class="black Fs24 fnt1">#{ltamprofile.themeData.displayname}</h1>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="TexAlCenter">
+                    <div class="DispInlBlock TexAlLeft tp1">
+                        <div class="Fright">
+                            <h2 class="black f1">#{ltamprofile.themeData.longDescription}</h2>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
+                             rendered="#{ltamprofile.ltamcharts.pieChart != null}"
+                             style="width:100%;height:210px;"
+                             responsive="true">
+                    </p:chart>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+</ui:composition>
