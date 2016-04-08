@@ -1,9 +1,7 @@
 package com.invessence;
 
-import com.invessence.dao.CommonDao;
 import com.invessence.service.*;
-import com.ws.gemini.service.CallingLayerGeminiImpl;
-import com.ws.td.service.ServiceLayerTDImpl;
+import com.invessence.util.SysParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +16,7 @@ public class CallingProgramme
    public void createPendingWebUser(){
       try
       {
-         serviceLayer.createPendingWebUser();
+         serviceLayer.createPendingUser();
       }catch(Exception e){
          e.printStackTrace();
       }
@@ -27,16 +25,21 @@ public class CallingProgramme
    public void call(){
       try
       {
+         System.out.println(SysParameters.geminiEndPointUrl);
          System.out.println("CallingProgramme call");
-         StringBuilder emailAlertMessage;
+         StringBuilder
+            emailAlertMessage;
 
-         //serviceLayer.loginWebUser("310100018");
-         //serviceLayer.createWebUser("310100028","secQuest","secAnsw");
+         //serviceLayer.loginUser("310100018");
+         //serviceLayer.createUser("310100028","secQuest","secAnsw");
 
-         //serviceLayer.createPendingWebUser();
+         //serviceLayer.createPendingUser();
          //serviceLayer.updateEmail("310100018","javyas@gmail.com");
-        serviceLayer.getMailingAddress("310100018");
-         serviceLayer.updateMailingAddress("310100018");
+        //serviceLayer.getMailingAddress("310100016");
+         //serviceLayer.updateMailingAddress("310100016","","","",(short)1,"","","","");
+         //serviceLayer.fundAccount("310100016",900, 1, "6105640720");
+         //serviceLayer.fundTransfer("310100016",900, 903, 1, "6105640720");
+         serviceLayer.getUserBankAcctDetails("310100016");
       }catch(Exception e){
          e.printStackTrace();
       }

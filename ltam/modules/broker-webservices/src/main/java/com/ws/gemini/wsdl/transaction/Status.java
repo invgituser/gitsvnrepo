@@ -149,4 +149,12 @@ public class Status  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "Status{" +
+           "errorCode=" + errorCode +
+           ", errorMessage='" + errorMessage + '\'' +
+           '}';
+    }
 }

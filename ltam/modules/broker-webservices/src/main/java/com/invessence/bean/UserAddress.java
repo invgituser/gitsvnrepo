@@ -7,11 +7,11 @@ import java.io.Serializable;
  */
 public class UserAddress implements Serializable
 {
-   private String mailingAddressId;
+   private int mailingAddressId;
    private String nameLines;
    private String addressLines;
    private String postalZip;
-   private String countryCode;
+   private short countryCode;
    private String voicePhone;
    private String altPhone;
    private String faxPhone;
@@ -20,22 +20,50 @@ public class UserAddress implements Serializable
    private String entityIdentifier;
 
 
-   @Override
-   public String toString()
+   public UserAddress(String nameLines, String addressLines, String postalZip, short countryCode,
+                      String voicePhone,String altPhone, String faxPhone,String emailAddress,int mailingAddressId,String mailingAddressType,String entityIdentifier)
    {
-      return "UserAddress{" +
-         "addressLines='" + addressLines + '\'' +
-         ", mailingAddressId='" + mailingAddressId + '\'' +
-         ", nameLines='" + nameLines + '\'' +
-         ", postalZip='" + postalZip + '\'' +
-         ", countryCode='" + countryCode + '\'' +
-         ", voicePhone='" + voicePhone + '\'' +
-         ", altPhone='" + altPhone + '\'' +
-         ", faxPhone='" + faxPhone + '\'' +
-         ", emailAddress='" + emailAddress + '\'' +
-         ", mailingAddressType='" + mailingAddressType + '\'' +
-         ", entityIdentifier='" + entityIdentifier + '\'' +
-         '}';
+      this.addressLines = addressLines;
+      this.altPhone = altPhone;
+      this.countryCode = countryCode;
+      this.emailAddress = emailAddress;
+      this.faxPhone = faxPhone;
+      this.nameLines = nameLines;
+      this.postalZip = postalZip;
+      this.voicePhone = voicePhone;
+      this.mailingAddressId =mailingAddressId;
+      this.mailingAddressType=mailingAddressType;
+      this.entityIdentifier=entityIdentifier;
+   }
+
+   public String getEntityIdentifier()
+   {
+      return entityIdentifier;
+   }
+
+   public void setEntityIdentifier(String entityIdentifier)
+   {
+      this.entityIdentifier = entityIdentifier;
+   }
+
+   public int getMailingAddressId()
+   {
+      return mailingAddressId;
+   }
+
+   public void setMailingAddressId(int mailingAddressId)
+   {
+      this.mailingAddressId = mailingAddressId;
+   }
+
+   public String getMailingAddressType()
+   {
+      return mailingAddressType;
+   }
+
+   public void setMailingAddressType(String mailingAddressType)
+   {
+      this.mailingAddressType = mailingAddressType;
    }
 
    public String getAddressLines()
@@ -58,12 +86,12 @@ public class UserAddress implements Serializable
       this.altPhone = altPhone;
    }
 
-   public String getCountryCode()
+   public short getCountryCode()
    {
       return countryCode;
    }
 
-   public void setCountryCode(String countryCode)
+   public void setCountryCode(short countryCode)
    {
       this.countryCode = countryCode;
    }
@@ -78,16 +106,6 @@ public class UserAddress implements Serializable
       this.emailAddress = emailAddress;
    }
 
-   public String getEntityIdentifier()
-   {
-      return entityIdentifier;
-   }
-
-   public void setEntityIdentifier(String entityIdentifier)
-   {
-      this.entityIdentifier = entityIdentifier;
-   }
-
    public String getFaxPhone()
    {
       return faxPhone;
@@ -96,26 +114,6 @@ public class UserAddress implements Serializable
    public void setFaxPhone(String faxPhone)
    {
       this.faxPhone = faxPhone;
-   }
-
-   public String getMailingAddressId()
-   {
-      return mailingAddressId;
-   }
-
-   public void setMailingAddressId(String mailingAddressId)
-   {
-      this.mailingAddressId = mailingAddressId;
-   }
-
-   public String getMailingAddressType()
-   {
-      return mailingAddressType;
-   }
-
-   public void setMailingAddressType(String mailingAddressType)
-   {
-      this.mailingAddressType = mailingAddressType;
    }
 
    public String getNameLines()
@@ -148,5 +146,18 @@ public class UserAddress implements Serializable
       this.voicePhone = voicePhone;
    }
 
-
+   @Override
+   public String toString()
+   {
+      return "UserAddress{" +
+         "addressLines='" + addressLines + '\'' +
+         ", nameLines='" + nameLines + '\'' +
+         ", postalZip='" + postalZip + '\'' +
+         ", countryCode='" + countryCode + '\'' +
+         ", voicePhone='" + voicePhone + '\'' +
+         ", altPhone='" + altPhone + '\'' +
+         ", faxPhone='" + faxPhone + '\'' +
+         ", emailAddress='" + emailAddress + '\'' +
+         '}';
+   }
 }

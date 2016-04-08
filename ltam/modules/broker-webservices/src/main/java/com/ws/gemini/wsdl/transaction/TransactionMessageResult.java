@@ -396,4 +396,19 @@ public class TransactionMessageResult  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "TransactionMessageResult{" +
+           "transactionId=" + transactionId +
+           ", fundTransactionLineNo=" + fundTransactionLineNo +
+           ", transactionMessageId=" + transactionMessageId +
+           ", transactionMessage='" + transactionMessage + '\'' +
+           ", selectedMessageType=" + selectedMessageType +
+           ", accountNumber='" + accountNumber + '\'' +
+           ", fundId=" + fundId +
+           ", fundShortName='" + fundShortName + '\'' +
+           ", customTransactionMessageString='" + customTransactionMessageString + '\'' +
+           '}';
+    }
 }

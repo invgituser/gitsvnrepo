@@ -1,5 +1,7 @@
 package com.ws.td.service;
 
+import java.util.List;
+
 import com.invessence.bean.*;
 import com.invessence.service.*;
 import com.invessence.util.NoServiceSupportException;
@@ -16,34 +18,58 @@ public class ServiceLayerTDImpl implements CallingLayer
       // return null;
    }
 
-   public CallStatus updateMailingAddress(UserAcctDetails userAcctDetails) throws Exception
+   @Override
+   public UserAcctExt getAcctExtInfo(UserAcctDetails userAcctDetails) throws Exception
+   {
+      return null;
+   }
+
+   @Override
+   public List<BankAcctDetails> getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception
+   {
+      return null;
+   }
+
+   @Override
+   public CallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String accountNumber) throws Exception
+   {
+      return null;
+   }
+
+   @Override
+   public CallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception
+   {
+      return null;
+   }
+
+   public CallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception
    {
       throw new NoServiceSupportException("updateMailingAddress Service Not Support");
       // return null;
    }
 
-   public CallStatus loginWebUser(UserAcctDetails userAcctDetails) throws Exception
+   public CallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception
    {
-      throw new NoServiceSupportException("loginWebUser Service Not Support");
+      throw new NoServiceSupportException("loginUser Service Not Support");
      // return null;
    }
 
-   public CallStatus createWebUser(UserAcctDetails userAcctDetails) throws Exception
+   public CallStatus createUser(UserAcctDetails userAcctDetails) throws Exception
    {
-      throw new NoServiceSupportException("createWebUser Service Not Support");
+      throw new NoServiceSupportException("createUser Service Not Support");
       //return null;
    }
 
-   public CallStatus isWebUserExist(UserAcctDetails userAcctDetails) throws Exception
+   public CallStatus isUserExist(UserAcctDetails userAcctDetails) throws Exception
    {
-      throw new NoServiceSupportException("isWebUserExist Service Not Support");
+      throw new NoServiceSupportException("isUserExist Service Not Support");
       //return null;
    }
 
-   public CallStatus updateWebUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception
+   public CallStatus updateUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception
    {
 
-      throw new NoServiceSupportException("updateWebUserEmail Service Not Support");
+      throw new NoServiceSupportException("updateUserEmail Service Not Support");
       //return null;
    }
 }

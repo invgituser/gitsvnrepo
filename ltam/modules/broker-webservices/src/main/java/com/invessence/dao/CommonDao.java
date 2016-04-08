@@ -15,6 +15,12 @@ public interface CommonDao
    public List<UserAcctDetails> getPendingUserAccDetails()throws SQLException;
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException;
    public boolean updateUserEmail(UserAcctDetails userAcctDetails, String newEmail)throws SQLException;
+
+   public UserAcctExt getAccountExtInfo(String accountNumber)throws SQLException;
+   public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
+   public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
+
+
    public List<BrokerHostDetails> getBrokerHostDetails()throws SQLException;
    public BrokerHostDetails getBrokerHostDetails(String where)throws SQLException;
    public void insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException;

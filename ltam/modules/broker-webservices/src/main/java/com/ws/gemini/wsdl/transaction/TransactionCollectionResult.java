@@ -7,6 +7,8 @@
 
 package com.ws.gemini.wsdl.transaction;
 
+import java.util.Arrays;
+
 public class TransactionCollectionResult  implements java.io.Serializable {
     private int masterTransactionId;
 
@@ -469,4 +471,21 @@ public class TransactionCollectionResult  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "TransactionCollectionResult{" +
+           "errorStatus=" + errorStatus +
+           ", masterTransactionId=" + masterTransactionId +
+           ", minConfirmationNumber=" + minConfirmationNumber +
+           ", maxConfirmationNumber=" + maxConfirmationNumber +
+           ", noOfInformationLines=" + noOfInformationLines +
+           ", noOfWarnings=" + noOfWarnings +
+           ", noOfOverrides=" + noOfOverrides +
+           ", noOfErrors=" + noOfErrors +
+           ", transaction=" + Arrays.toString(transaction) +
+           ", transactionMessageCollection=" + Arrays.toString(transactionMessageCollection) +
+           ", minConfirmNumberCrDateTime=" + minConfirmNumberCrDateTime +
+           '}';
+    }
 }

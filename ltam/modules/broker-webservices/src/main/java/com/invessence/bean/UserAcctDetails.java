@@ -1,40 +1,40 @@
 package com.invessence.bean;
 
+import java.util.Date;
+
 /**
  * Created by abhangp on 3/11/2016.
  */
 public class UserAcctDetails
 {
-   private String clientAccountID;
+   private String clientAccountID, internalRepID, repNum, repName, email, invite, applicantFName, applicantMName,
+      applicantLName, mailAddrs1, mailAddrs2, mailCity, mailState, mailZipCode, primaryPhoneNbr, initialCusip, ssn;
    private Long acctnum;
-   private String internalRepID;
-   private String repNum;
-   private String repName;
-   private String email;
-   private String invite;
-   private String applicantFName;
-   private String applicantMName;
-   private String applicantLName;
-   private String mailAddrs1;
-   private String mailAddrs2;
-   private String mailCity;
-   private String mailState;
-   private String mailZipCode;
-   private String primaryPhoneNbr;
-   private String initialCusip;
    private Double initialInvestment;
-   private String ssn;
-   private String created;
-   private String lastUpdated;
-
+   private String accountType;
+   private Date dateOfBirth;
    private Long webLogonID;
-   private String userID;
-   private String pwd;
-   private String fundGroupName;
-   private String securityQuestion;
-   private String securityAnswer;
-   private String status;
-   private String remarks;
+   private String userID, pwd, fundGroupName, securityQuestion, securityAnswer, status, remarks;
+
+   public String getAccountType()
+   {
+      return accountType;
+   }
+
+   public void setAccountType(String accountType)
+   {
+      this.accountType = accountType;
+   }
+
+   public Date getDateOfBirth()
+   {
+      return dateOfBirth;
+   }
+
+   public void setDateOfBirth(Date dateOfBirth)
+   {
+      this.dateOfBirth = dateOfBirth;
+   }
 
    public Long getAcctnum()
    {
@@ -86,16 +86,6 @@ public class UserAcctDetails
       this.clientAccountID = clientAccountID;
    }
 
-   public String getCreated()
-   {
-      return created;
-   }
-
-   public void setCreated(String created)
-   {
-      this.created = created;
-   }
-
    public String getEmail()
    {
       return email;
@@ -144,16 +134,6 @@ public class UserAcctDetails
    public void setInvite(String invite)
    {
       this.invite = invite;
-   }
-
-   public String getLastUpdated()
-   {
-      return lastUpdated;
-   }
-
-   public void setLastUpdated(String lastUpdated)
-   {
-      this.lastUpdated = lastUpdated;
    }
 
    public String getMailAddrs1()
@@ -335,14 +315,12 @@ public class UserAcctDetails
          ", applicantLName='" + applicantLName + '\'' +
          ", applicantMName='" + applicantMName + '\'' +
          ", clientAccountID='" + clientAccountID + '\'' +
-         ", created='" + created + '\'' +
          ", email='" + email + '\'' +
          ", fundGroupName='" + fundGroupName + '\'' +
          ", initialCusip='" + initialCusip + '\'' +
          ", initialInvestment=" + initialInvestment +
          ", internalRepID='" + internalRepID + '\'' +
          ", invite='" + invite + '\'' +
-         ", lastUpdated='" + lastUpdated + '\'' +
          ", mailAddrs1='" + mailAddrs1 + '\'' +
          ", mailAddrs2='" + mailAddrs2 + '\'' +
          ", mailCity='" + mailCity + '\'' +

@@ -5,9 +5,11 @@ import java.util.*;
 import java.util.Date;
 
 import com.invessence.bean.*;
+import com.invessence.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.*;
+import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.jdbc.core.simple.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,10 +31,15 @@ public class CommonDaoImpl implements CommonDao
 //         "invite, applicantFName, applicantMName, applicantLName, mailAddrs1, mailAddrs2, mailCity, " +
 //         "mailState, mailZipCode, primaryPhoneNbr, initialCusip, initialInvestment, ssn, created, lastUpdated " +
 //         "from  ltam.ltam_acct_info where clientAccountID="+accountNumber;
-      String sql="select * from ltam_acct_info lai , user_logon_webservice ulw " +
-      "where /*ulw.status='P' and*/ ulw.clientAccountID=lai.clientAccountID " +
-         "and lai.clientAccountID="+accountNumber;;
-      lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
+ //     ExtInfoSP extInfoSP= new ExtInfoSP(jdbcTemplate);
+
+//      DBResponse dbResponse= extInfoSP.execute(new UserAcctExt());
+
+   //   System.out.println("extInfoSP = [" + dbResponse.toString() + "]");
+//      String sql="select * from ltam_acct_info lai , user_logon_webservice ulw " +
+//      "where /*ulw.status='P' and*/ ulw.clientAccountID=lai.clientAccountID " +
+//         "and lai.clientAccountID=?";;
+      lst = jdbcTemplate.query(SysParameters.getUserAccDetailsByAccNumber, new Object[]{accountNumber}, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst==null?null:lst.size()==0?null:lst.get(0);
    }
    public List<UserAcctDetails> getUserAccDetailsByWhereClause(String where)throws SQLException
@@ -50,43 +57,66 @@ public class CommonDaoImpl implements CommonDao
    public List<UserAcctDetails> getPendingUserAccDetails()throws SQLException{
       List<UserAcctDetails> lst = null;
       logger.info("Fetching Pending User Account Details");
-      String sql="select * from ltam_acct_info lai , user_logon_webservice ulw " +
-         "where /*ulw.status='P' and*/ ulw.clientAccountID=lai.clientAccountID";
-      System.out.println("SQL : "+sql);
+//      String sql="select * from ltam_acct_info lai , user_logon_webservice ulw " +
+//         "where ulw.status='P' and ulw.clientAccountID=lai.clientAccountID";
+//      System.out.println("SQL : "+sql);
 //      String sql = "select * from ltam_acct_info lai right join user_logon_webservice ulw " +
 //         "on ulw.status='P' and ulw.clientAccountID=lai.clientAccountID;";
-      lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
+      lst = jdbcTemplate.query(SysParameters.getPendingUserAccDetails, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst;
    }
 
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException{
 
-      String sql = "update user_logon_webservice set userID=?," +
-         "pwd=?," +
-         "fundGroupName=?," +
-         "securityQuestion=?," +
-         "securityAnswer=?," +
-         "status=?," +
-         "remarks=?," +
-         "lastupdated=?" +
-         "where clientAccountID=?";
-         int i= jdbcTemplate.update(sql,userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
-                          userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),
+
+         int i= jdbcTemplate.update(SysParameters.updatePendingUserAccDetails,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
+                          userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
                           userAcctDetails.getStatus(),userAcctDetails.getRemarks(),new Date(),userAcctDetails.getClientAccountID());
-//      if(){
-//
-//      }else if(){
-//
-//      }
-      //System.out.println("Update query result :"+i);
+
       return true;
    }
 
    public boolean updateUserEmail(UserAcctDetails userAcctDetails, String newEmail)throws SQLException{
-      String sql = "update ltam_acct_info set " +
-         "email=?, lastupdated=?" +
+
+      int i= jdbcTemplate.update(SysParameters.updateUserEmail,newEmail ,new Date(),userAcctDetails.getClientAccountID());
+
+      return true;
+   }
+
+   public UserAcctExt getAccountExtInfo(String accountNumber)throws SQLException{
+      List<UserAcctExt> lst = null;
+      logger.info("Fetching UserAccDetails ByAccNumber");
+      lst = jdbcTemplate.query(SysParameters.getAccountExtInfo, new Object[] {accountNumber}, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctExt.class));
+      return lst==null?null:lst.size()==0?null:lst.get(0);
+   }
+
+  //clientAccountID, accountType, dateOfBirth, mailingAddressId, mailingAddressType, created, lastUpdated, clientAccountID, id
+   public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
+   {
+      ExtInfoSP extInfoSP= new ExtInfoSP(jdbcTemplate);
+      userAcctExt.setOpt(Constants.dbUpdateOpt);
+      userAcctExt.setStatus("P");
+      DBResponse dbResponse= extInfoSP.execute(userAcctExt);
+
+      System.out.println("dbResponse = [" + dbResponse.toString() + "]");
+//      String sql = "insert into ltam_acct_info_ext (clientAccountID, accountType, dateOfBirth,mailingAddressId, mailingAddressType, created) " +
+//         "values (?,?,?,?,?,?) ";
+//      int i= jdbcTemplate.update(sql,userAcctExt.getClientAccountID(),userAcctExt.getAccountType(),userAcctExt.getDateOfBirth(),userAcctExt.getMailingAddressId(), userAcctExt.getMailingAddressType(), new Date());
+
+      return true;
+   }
+
+   @Override
+   public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
+   {
+     ExtInfoSP extInfoSP= new ExtInfoSP(jdbcTemplate);
+
+      extInfoSP.execute();
+
+      String sql = "update ltam_acct_info_ext set " +
+         "accountType=?, dateOfBirth=?, lastupdated=?" +
          "where clientAccountID=?";
-      int i= jdbcTemplate.update(sql,newEmail ,new Date(),userAcctDetails.getClientAccountID());
+      int i= jdbcTemplate.update(sql,userAcctExt.getAccountType(), userAcctExt.getDateOfBirth() ,new Date(),userAcctExt.getClientAccountID());
 
       return true;
    }

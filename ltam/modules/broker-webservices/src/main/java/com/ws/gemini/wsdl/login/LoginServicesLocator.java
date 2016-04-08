@@ -7,6 +7,8 @@
 
 package com.ws.gemini.wsdl.login;
 
+import com.invessence.util.SysParameters;
+
 public class LoginServicesLocator extends org.apache.axis.client.Service implements com.ws.gemini.wsdl.login.LoginServices {
 
     public LoginServicesLocator() {
@@ -22,7 +24,7 @@ public class LoginServicesLocator extends org.apache.axis.client.Service impleme
     }
 
     // Use to get a proxy class for LoginServicesSoap
-    private java.lang.String LoginServicesSoap_address = "http://testpawebservices.geminifund.com/LoginServices.asmx";
+    private java.lang.String LoginServicesSoap_address = SysParameters.geminiEndPointUrl+"/LoginServices.asmx";
 
     public java.lang.String getLoginServicesSoapAddress() {
         return LoginServicesSoap_address;

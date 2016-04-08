@@ -7,6 +7,8 @@
 
 package com.ws.gemini.wsdl.account;
 
+import com.invessence.util.SysParameters;
+
 public class AccountServicesLocator extends org.apache.axis.client.Service implements com.ws.gemini.wsdl.account.AccountServices {
 
     public AccountServicesLocator() {
@@ -22,7 +24,7 @@ public class AccountServicesLocator extends org.apache.axis.client.Service imple
     }
 
     // Use to get a proxy class for AccountServicesSoap
-    private java.lang.String AccountServicesSoap_address = "http://testpawebservices.geminifund.com/AccountServices.asmx";
+    private java.lang.String AccountServicesSoap_address = SysParameters.geminiEndPointUrl+"/AccountServices.asmx";
 
     public java.lang.String getAccountServicesSoapAddress() {
         return AccountServicesSoap_address;

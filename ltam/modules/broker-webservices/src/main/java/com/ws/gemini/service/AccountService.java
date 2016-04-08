@@ -1,5 +1,7 @@
 package com.ws.gemini.service;
 
+import java.util.List;
+
 import com.invessence.bean.*;
 
 /**
@@ -7,7 +9,9 @@ import com.invessence.bean.*;
  */
 public interface AccountService
 {
-   public CallStatus updateMailingAddress(UserAcctDetails userAcctDetails) throws Exception;
+   public CallStatus getAccountInfo(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
+   public CallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception;
    public CallStatus addAccountForCommonMailing(UserAcctDetails userAcctDetails) throws Exception;
-   public CallStatus getMailingAddress(UserAcctDetails userAcctDetails) throws Exception;
+   public CallStatus getMailingAddress(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
+   public List<BankAcctDetails> getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception;
 }

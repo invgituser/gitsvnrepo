@@ -1462,4 +1462,49 @@ public class TransactionInfo  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "TransactionInfo{" +
+           "masterTransactionType=" + masterTransactionType +
+           ", accountNumber='" + accountNumber + '\'' +
+           ", moneyTransactionType=" + moneyTransactionType +
+           ", masterTransactionSource=" + masterTransactionSource +
+           ", moneyAmount=" + moneyAmount +
+           ", currencyId=" + currencyId +
+           ", retirementIndicator=" + retirementIndicator +
+           ", dealerTransactionIndicator=" + dealerTransactionIndicator +
+           ", accountPayeeId=" + accountPayeeId +
+           ", assetAllocationTradeIndicator=" + assetAllocationTradeIndicator +
+           ", endResultExchangeInd=" + endResultExchangeInd +
+           ", bankAccountNumber='" + bankAccountNumber + '\'' +
+           ", excludeAccountsList='" + excludeAccountsList + '\'' +
+           ", returnReadBackInfo=" + returnReadBackInfo +
+           ", returnMessagesInfo=" + returnMessagesInfo +
+           ", numberOfMasterTransactionLines=" + numberOfMasterTransactionLines +
+           ", userId=" + userId +
+           ", tradeDate=" + tradeDate +
+           ", addToExcludedAccounts=" + addToExcludedAccounts +
+           ", priceCycleId=" + priceCycleId +
+           ", nameOnAccount='" + nameOnAccount + '\'' +
+           ", bankName='" + bankName + '\'' +
+           ", bankRoutingNumber='" + bankRoutingNumber + '\'' +
+           ", bankAccount='" + bankAccount + '\'' +
+           ", bankAccountType=" + bankAccountType +
+           ", isAmountSpecified=" + isAmountSpecified +
+           ", nameLines='" + nameLines + '\'' +
+           ", addressLines='" + addressLines + '\'' +
+           ", updateAgeBasedModelIdInd=" + updateAgeBasedModelIdInd +
+           ", investmentOption=" + investmentOption +
+           ", ageBasedModelId=" + ageBasedModelId +
+           ", amountTypeIndicator=" + amountTypeIndicator +
+           ", giftReferenceId=" + giftReferenceId +
+           ", autoDetermineFunds=" + autoDetermineFunds +
+           ", webUserId='" + webUserId + '\'' +
+           ", withholdingIndicator=" + withholdingIndicator +
+           ", withholdingPercentOrAmount=" + withholdingPercentOrAmount +
+           ", withholdingAmount=" + withholdingAmount +
+           ", withholdingPercent=" + withholdingPercent +
+           '}';
+    }
 }

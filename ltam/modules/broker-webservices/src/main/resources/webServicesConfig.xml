@@ -55,7 +55,7 @@
 	    <task:scheduled ref="yodleeAPIService" method="refreshUserAccDetailsManager" cron="* 50 10 * * ?"></task:scheduled>
 	</task:scheduled-tasks > -->
 
-   <!--<context:property-placeholder location="parameters.properties" />-->
+   <context:property-placeholder location="classpath:/systemParameters.properties" />
    <!--<bean id="resource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
    <!--<property name="basenames">-->
    <!--<list>-->

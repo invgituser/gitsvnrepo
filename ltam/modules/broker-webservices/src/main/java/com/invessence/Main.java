@@ -13,7 +13,7 @@ public class Main
       try
       {
 
-         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("webServicesConfig.xml");
          CallingProgramme callingProgramme = (CallingProgramme) context.getBean("callingProgramme");
          callingProgramme.call();
          context.close();

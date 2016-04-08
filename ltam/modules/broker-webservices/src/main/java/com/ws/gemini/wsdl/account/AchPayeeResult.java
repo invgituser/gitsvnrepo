@@ -542,4 +542,23 @@ public class AchPayeeResult  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "AchPayeeResult{" +
+           "accountNumber='" + accountNumber + '\'' +
+           ", achPayeeId=" + achPayeeId +
+           ", bankName='" + bankName + '\'' +
+           ", bankRoutingNumber='" + bankRoutingNumber + '\'' +
+           ", bankAccountNumber='" + bankAccountNumber + '\'' +
+           ", nameOnAccount='" + nameOnAccount + '\'' +
+           ", bankAccountType=" + bankAccountType +
+           ", preferredCurrencyId=" + preferredCurrencyId +
+           ", preNotificationDate=" + preNotificationDate +
+           ", accountPayeeId=" + accountPayeeId +
+           ", powerAgentUserId=" + powerAgentUserId +
+           ", isAccountPayeeBeingUsed=" + isAccountPayeeBeingUsed +
+           ", errorStatus=" + errorStatus +
+           '}';
+    }
 }

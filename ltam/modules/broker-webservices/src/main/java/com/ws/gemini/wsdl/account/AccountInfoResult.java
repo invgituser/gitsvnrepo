@@ -943,4 +943,34 @@ public class AccountInfoResult  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "AccountInfoResult{" +
+           "accountNumber='" + accountNumber + '\'' +
+           ", oldAccountNumber='" + oldAccountNumber + '\'' +
+           ", accountType=" + accountType +
+           ", customerName='" + customerName + '\'' +
+           ", accountName='" + accountName + '\'' +
+           ", accounTypeName='" + accounTypeName + '\'' +
+           ", blueskyState=" + blueskyState +
+           ", ssnOrTINIndicator=" + ssnOrTINIndicator +
+           ", ssnOrTIN='" + ssnOrTIN + '\'' +
+           ", dateOfBirth=" + dateOfBirth.getTime() +
+           ", backupWithholdingIndicator=" + backupWithholdingIndicator +
+           ", accountRepId=" + accountRepId +
+           ", shareClassId='" + shareClassId + '\'' +
+           ", accountAdvisorId=" + accountAdvisorId +
+           ", tradingEntity=" + tradingEntity +
+           ", countryOfOriginParm=" + countryOfOriginParm +
+           ", blueskyExemptIndicator=" + blueskyExemptIndicator +
+           ", jointDateOfBirth=" + jointDateOfBirth +
+           ", jointSSNOrTIN='" + jointSSNOrTIN + '\'' +
+           ", networkControlIndicator='" + networkControlIndicator + '\'' +
+           ", dealerAccountNumber='" + dealerAccountNumber + '\'' +
+           ", accountClosingDate=" + accountClosingDate +
+           ", portfolioAllocatorIndicator=" + portfolioAllocatorIndicator +
+           ", errorStatus=" + errorStatus +
+           '}';
+    }
 }
