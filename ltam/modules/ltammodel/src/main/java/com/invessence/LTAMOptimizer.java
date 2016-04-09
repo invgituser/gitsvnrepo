@@ -96,7 +96,7 @@ public class LTAMOptimizer
       return arrayList;
    }
 
-   public LTAMTheme getTheme(Integer riskIndex) {
+   public LTAMTheme getTheme(Double riskIndex) {
       LTAMTheme thisTheme = null;
       if (themesMap != null) {
          for (String theme: themesMap.keySet()) {

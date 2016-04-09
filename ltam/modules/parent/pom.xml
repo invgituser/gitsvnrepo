@@ -899,7 +899,7 @@
             <pdf.localdir>${base.data.dir}\pdf\</pdf.localdir>
             <doc.localdir>${base.data.dir}\doc\</doc.localdir>
             <web_reports_dir>${base.web.dir}\static\reports\</web_reports_dir>
-            <email_templates_dir>C:\Workspace\Source\html\template\html\</email_templates_dir>
+            <email_templates_dir>C:\Source\symbil\modules\web\src\main\webapp\template\html</email_templates_dir>
          </properties>
       </profile>
       <profile>
@@ -944,8 +944,8 @@
             <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+            <jdbc.username>weblocal</jdbc.username>
+            <jdbc.password>Ma5t3r0p7i0n</jdbc.password>
             <apache.url>http://symbil.com</apache.url>
             <tomcat.url>http://symbil.com</tomcat.url>
             <ssl.url>https://symbil.com</ssl.url>
@@ -953,11 +953,11 @@
             <mail.username>noreply@symbil.com</mail.username>
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
-            <base.data.dir>/inv/data</base.data.dir>
-            <base.rbsa.dir>/inv/data</base.rbsa.dir>
-            <base.clientdata.dir>/inv/data/client</base.clientdata.dir>
-            <base.advisor.dir>/inv/data/advisor</base.advisor.dir>
-            <base.web.dir>/inv/www/symbil/ROOT</base.web.dir>
+            <base.data.dir>/data</base.data.dir>
+            <base.rbsa.dir>/data</base.rbsa.dir>
+            <base.clientdata.dir>/data/client</base.clientdata.dir>
+            <base.advisor.dir>/data/advisor</base.advisor.dir>
+            <base.web.dir>/inv/www/invessence/ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>

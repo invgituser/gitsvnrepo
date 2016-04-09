@@ -142,8 +142,8 @@ public class LTAMTheme
       return longDescription;
    }
 
-   public Boolean isThisTheme(Integer riskIndex) {
-      if (riskIndex >= lowRisk  && riskIndex  <= highRisk)
+   public Boolean isThisTheme(Double riskIndex) {
+      if (riskIndex > lowRisk.doubleValue()  && riskIndex  <= highRisk.doubleValue())
          return true;
       else
          return false;

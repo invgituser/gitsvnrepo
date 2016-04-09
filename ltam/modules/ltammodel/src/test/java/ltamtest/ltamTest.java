@@ -23,7 +23,7 @@ public class ltamTest
       LTAMOptimizer ltamoptimzer = LTAMOptimizer.getInstance();
 
       ltamoptimzer.refreshDataFromDB();
-      LTAMTheme theme =  ltamoptimzer.getTheme(51);
+      LTAMTheme theme =  ltamoptimzer.getTheme(51.0);
       if (theme != null)
          System.out.println("Data Loaded: " + theme.getTheme());
       else

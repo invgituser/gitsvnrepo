@@ -34,15 +34,15 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-		<!-- Apache Database Connection Pool -->
-		<dependency>
+       <!-- Apache Database Connection Pool -->
+       <dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.0</version>
 		</dependency>
 
-		<!-- MySQL JDBC Driver -->
-		<dependency>
+       <!-- MySQL JDBC Driver -->
+       <dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.30</version>
@@ -180,8 +180,8 @@
 						</manifestEntries>
 					</archive>
 
-					<!--<finalName>broker-services/broker-services</finalName>-->
-					<finalName>broker-webservices/${artifactId}-${version}</finalName>
+                   <!--<finalName>broker-services/broker-services</finalName>-->
+                   <finalName>broker-webservices/${artifactId}-${version}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

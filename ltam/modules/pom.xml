@@ -19,6 +19,7 @@
    <modules>
       <module>core</module>
       <module>ltammodel</module>
+      <module>broker-webservices</module>
       <module>web</module>
       <module>eod</module>
       <module>emailer</module>
