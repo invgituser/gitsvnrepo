@@ -5,6 +5,7 @@ import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.*;
 
 import com.invessence.LTAMOptimizer;
@@ -246,7 +247,7 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       setDisplayGraphs(false);
       pagemanager.setPage(0);
       welcomeDialog = false;
-      RequestContext.getCurrentInstance().closeDialog("dlgWelcome");
+      // RequestContext.getCurrentInstance().closeDialog("dlgWelcome");
       // webutil.redirect("/index.xhtml", null);
    }
 
@@ -444,10 +445,16 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       }
    }
 
+   public void startOver(ActionEvent actionEvent)
+   {
+      firstPage();
+      webutil.redirect("/pages/try/index.xhtml", null);
+   }
+
    public void startOver()
    {
       firstPage();
-      webutil.redirect("/start.xhtml", null);
+      webutil.redirect("/pages/try/index.xhtml", null);
    }
 
    public void forwardData()

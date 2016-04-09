@@ -71,7 +71,7 @@ public class PositionBean implements Serializable
          {
             if (webutil.validatePriviledge(Const.WEB_USER)) {
                Long logonid = webutil.getLogonid();
-               collectData(logonid, beanacctnum);
+               collectPositionData(logonid, beanacctnum);
             }
          }
       }
@@ -83,7 +83,7 @@ public class PositionBean implements Serializable
       }
    }
 
-   public void collectData(Long logonid, String beanacctnum)
+   public void collectPositionData(Long logonid, String beanacctnum)
    {
       try {
          if (beanacctnum != null && ! beanacctnum.isEmpty()) {

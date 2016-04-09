@@ -9,36 +9,55 @@ package com.invessence.data.ltam;
  */
 public class LTAMRiskData
 {
-   private Integer[] riskValues; // NOTE: Q1 = Position 1.  Zero is of default.
-   private Integer riskIndex;
+   private Double[] riskValues; // NOTE: Q1 = Position 1.  Zero is of default.
+   private Double riskIndex;
+   private Integer ageforRisk;
    private Integer ans1;
    private Integer ans2;
    private Integer ans3;
    private Integer ans4;
    private Integer ans5;
    private Integer ans6;
-   private static Integer riskValueMatrix[][] = {
-      {0, 0, 0, 0, 0, 0,0,0,0},   // Question #0 - Not used
-      {6, 10, 8, 6, 4, 2,0,0,0},   // Question #1 - Based on answers (sorted)
-      {9, 3, 6, 9, 12, 15,0,0,0},  // Q2
-      {6, 2, 4, 6, 8, 10,0,0,0},   // Q3
-      {9, 3, 6, 9, 12, 15,0,0,0},    // Q4
-      {9, 3, 6, 9, 12, 15,0,0,0},    // Q5
-      {12, 4, 8, 12, 16, 20,0,0,0}    // Q6
+   private static Double maxScore = 100.0;
+   private static Double maxAgeRiskWeight = 0.60;
+
+
+   /* Formula to calc the values:
+      Total number if points: eg 100
+      Max risk assigned to age: eg 60 or .6
+      Number of answ for each questions: eg: 5
+      value 1: = 100*(1.0-0.6)/5, eg: 8.0
+      value 2: = 3 * value1/4   , eg: 6.0
+      value 3: = 2 * value1/4   , eg: 4.0
+      value 4: = value1/4       , eg: 2.0
+      value 5: = 0              , eg: 0
+    */
+   private static Double riskValueMatrix[][] = {
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,0.0},   // Question #0 - Not used
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,0.0,0.0},   // Question #1 - is related to age.  We are now calc, ths risk on age.
+      {0.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0,0.0,0.0},       // Q2
+      {0.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0,0.0,0.0,0.0},   // Q3
+      {0.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0,0.0,0.0,0.0},   // Q4
+      {0.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0,0.0,0.0,0.0},   // Q5
+      {0.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0,0.0,0.0,0.0}    // Q6
    };
+
+
 
    public LTAMRiskData()
    {
-      riskValues = new Integer[riskValueMatrix.length];
-      riskIndex = 51;
-      ans1 = 0;
-      ans2 = 0;
-      ans3 = 0;
-      ans4 = 0;
-      ans5 = 0;
-      ans6 = 0;
+      resetAllData();
    }
 
+   public Integer getAgeforRisk()
+   {
+      return ageforRisk;
+   }
+
+   public void setAgeforRisk(Integer ageforRisk)
+   {
+      this.ageforRisk = ageforRisk;
+   }
 
    public Integer getAns1()
    {
@@ -153,54 +172,68 @@ public class LTAMRiskData
          riskValues[ans] = riskValueMatrix[ans][value];
    }
 
-   public Integer[] getRiskValues() {
+   public Double[] getRiskValues() {
       return riskValues;
    }
 
-   public Integer getRiskValue(Integer ans) {
+   public Double getRiskValue(Integer ans) {
       if (ans == null)
-         return 0;
+         return 0.0;
 
       if (riskValueMatrix == null)
-         return 0;
+         return 0.0;
 
       if (ans > riskValueMatrix.length )
-         return 0;
+         return 0.0;
 
       return riskValues[ans];
    }
 
-   public Integer getRiskIndex()
+   public Double getRiskIndex()
    {
       return riskIndex;
    }
 
-   public void setRiskIndex(Integer riskIndex)
+   public void setRiskIndex(Double riskIndex)
    {
       this.riskIndex = riskIndex;
    }
 
-   public Integer calcRiskIndex() {
-      Integer riskValue=0;
+   public Double calcRiskIndex() {
+      Double newRiskValue=0.0;
       try {
+         if (ageforRisk != null && ageforRisk >= 0) {
+            newRiskValue = Math.min((maxScore *
+                                 Math.pow((ageforRisk.doubleValue()/ maxScore),2)),
+                                 (maxScore * maxAgeRiskWeight));
+         }
+
+         // Note:  Although questons are weighted, we have calculated the fix value of each ans. (pre calculated).
          for (int i = 0; i < riskValueMatrix.length; i++) {
             if (riskValues[i] == null) {
-               riskValue += riskValueMatrix[i][0];
+               newRiskValue += 0.0;
             }
             else {
-               riskValue += riskValues[i];
+               newRiskValue += riskValues[i];
             }
          }
       }
       catch (Exception ex) {
-         riskValue = riskIndex;
+         newRiskValue = riskIndex;
       }
-      return riskValue;
+      finally
+      {
+         newRiskValue = ((maxScore - newRiskValue) < 0.0) ? 0.0 : (maxScore - newRiskValue);  // Offset the risk from Max point
+
+         return newRiskValue;
+      }
+
 
    }
 
    public void resetAllData() {
-      riskValues = new Integer[riskValueMatrix.length]; // NOTE: Q1 = Position 1.  Zero is of default.
+      riskValues = new Double[riskValueMatrix.length]; // NOTE: Q1 = Position 1.  Zero is of default.
+      riskIndex = 0.0;
       ans1 = 0;
       ans2 = 0;
       ans3 = 0;

@@ -72,10 +72,39 @@ public class UserData
 
    public void resetData() {
       logonID = null;
-      logonstatus = null;
+      logonstatus = "A";
+
+      securityQuestions = new SecurityQuestions();
+
+      firstName = null;
+      lastName = null;
       email = null;
+
       userID = null;
+      passwordEncrypted = null;
+
+      roleData = new RoleData();
+      roleDataList = new ArrayList<RoleData>();
+      fullName = null;
+
+      q1 = null;
+      q2 = null;
+      q3 = null;
+      ans1 = null;
+      ans2 = null;
+      ans3 = null;
+      ip = null;
       resetID = null;
+      cid = null;
+      leadSource = null;
+      advisor = null;
+      rep = null;
+      access = null;
+
+      emailmsgtype = null;
+      randomQ = null;
+      randomAns = null;
+
    }
 
    public static UserData getInstance()

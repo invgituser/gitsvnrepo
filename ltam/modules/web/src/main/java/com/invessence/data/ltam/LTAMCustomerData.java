@@ -3,6 +3,7 @@ package com.invessence.data.ltam;
 import com.invessence.bean.ltam.LTAMAllocationData;
 import com.invessence.constant.Const;
 import com.invessence.data.LTAMTheme;
+import com.invessence.data.common.AccountData;
 
 /**
  * Created with IntelliJ IDEA.
@@ -203,7 +204,10 @@ public class LTAMCustomerData extends LTAMRiskData
    public void setAge(Integer age)
    {
       this.age = age;
+      setAgeforRisk(age);
       recalcAllocation = true;
+
+/*    Orginal version - Changed on April 6, 2016 Algo. model (Jigar/Prashant)
       if (age <= 30 ) {
          setAns1(1);
          setDefaultAns6(5);
@@ -224,6 +228,7 @@ public class LTAMCustomerData extends LTAMRiskData
          setAns1(5);
          setDefaultAns6(1);
       }
+*/
    }
 
    public String getAccttype()
@@ -350,6 +355,40 @@ public class LTAMCustomerData extends LTAMRiskData
       recalcAllocation = true;
       forwarded = null;
    }
+
+   public void copyData(AccountData accountData) {
+      if (accountData != null) {
+         timeToSaveID = null;
+         logonid = accountData.getLogonid();
+         acctnum = accountData.getAcctnum();
+         geminiAcctNum = accountData.getClientAccountID();
+         advisor = accountData.getAdvisor();
+         rep = null;
+         ipaddress = null;
+         prefix = null;
+         firstname = accountData.getFirstname();
+         lastname = accountData.getLastname();
+         suffix = null;
+         displayFullName = firstname + " " + lastname;
+         age = accountData.getAge();
+         accttype = accountData.getAccttype();
+         theme = accountData.getTheme();
+         horizon = accountData.getHorizon();
+         Investment = accountData.getActualCapital();
+         super.resetAllData();
+         allocationData = new LTAMAllocationData();
+         recalcAllocation = true;
+         forwarded = null;
+
+         setAns2(accountData.getAns2());
+         setAns3(accountData.getAns3());
+         setAns4(accountData.getAns4());
+         setAns5(accountData.getAns5());
+         setAns6(accountData.getAns6());
+         calcRiskIndex();
+      }
+   }
+
 
 
 }

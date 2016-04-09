@@ -15,7 +15,7 @@
 
         <!-- BOX START -->
         <div class="layout-portlets-box">
-            <div class="Container90">
+            <div class="Container100">
                 <div class="ContainerIndent">
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
                         <h:form>
@@ -41,26 +41,32 @@
                                          reflow="true">
 
 
-                                <p:column sortBy="#{managedVar.fullname}"
+                                <p:column sortBy="#{managedVar.fullname}" priority="4"
                                           headerText="Name"
                                           style="text-align: left"
                                           resizable="true">
                                     <h:outputText value="#{managedVar.fullname}"/>
                                 </p:column>
-                                <p:column sortBy="#{managedVar.displayAccount}"
+                                <p:column sortBy="#{managedVar.rep}"
+                                          headerText="Rep"
+                                          style="text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.rep}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.displayAccount}" priority="3"
                                           headerText="Acct#"
                                           style="text-align: left"
                                           resizable="true">
                                     <h:outputText value="#{managedVar.displayAccount}"/>
                                 </p:column>
 
-                                <p:column sortBy="#{managedVar.description}"
+                                <p:column sortBy="#{managedVar.description}" priority="1"
                                           headerText="Security"
                                           style="text-align: left"
                                           resizable="true">
                                     <h:outputText value="#{managedVar.description}"/>
                                 </p:column>
-                                <p:column sortBy="#{managedVar.dateOpened}"
+                                <p:column sortBy="#{managedVar.dateOpened}" priority="2"
                                           headerText="Opened"
                                           style="text-align: left"
                                           resizable="true">

@@ -15,6 +15,8 @@ public class ConsumerData implements Comparable<ConsumerData>
 {
    private Long logonid;
    private Long acctnum;
+   private String advisor;
+   private String rep;
    private String firstName;
    private String lastName;
    private Double investment;
@@ -31,12 +33,15 @@ public class ConsumerData implements Comparable<ConsumerData>
    }
 
    public ConsumerData(Long acctnum,
+                       String advisor, String rep,
                        String firstName, String lastName,
                        Double investment, Double riskIndex, String managed,
                        String dateOpened, String clientAccountID, String description)
    {
       this.acctnum = acctnum;
       this.firstName = firstName;
+      this.advisor = advisor;
+      this.rep = rep;
       this.lastName = lastName;
       this.investment = investment;
       this.riskIndex = riskIndex;
@@ -71,6 +76,26 @@ public class ConsumerData implements Comparable<ConsumerData>
          return ("Pending");
       else
          return jutil.getDisplayHiddenID(clientAccountID);
+   }
+
+   public String getAdvisor()
+   {
+      return advisor;
+   }
+
+   public void setAdvisor(String advisor)
+   {
+      this.advisor = advisor;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
    }
 
    public String getFirstName()

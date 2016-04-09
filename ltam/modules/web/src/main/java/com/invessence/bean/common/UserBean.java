@@ -271,9 +271,14 @@ public class UserBean extends UserData implements Serializable
                if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
                {
                   collectUserLogon(beanUserID, null);
-                  if (!beanResetID.equals(getResetID().toString()))
-                  {
-                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
+                  if (getResetID() != null) {
+                     if (!beanResetID.equals(getResetID().toString()))
+                     {
+                        webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
+                     }
+                  }
+                  else {
+                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset ID.");
                   }
                }
                else {
@@ -393,14 +398,14 @@ public class UserBean extends UserData implements Serializable
       MsgData data = new MsgData();
       //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
-      logger.debug("Trying Registering by: " + beanEmail + ", UserID: " + beanUserID);
-      System.out.println("Trying Registering by: " + beanEmail + ", UserID: " + beanUserID);
+      logger.debug("Attempting to Register: " + beanEmail + ", UserID: " + beanUserID);
+      System.out.println("Attempting to Register: " + beanEmail + ", UserID: " + beanUserID);
       try
       {
          if (messageText == null)
          {
             logger.debug("Email alert system is down!!!!!!");
-            System.out.println("Email alert system is down!!!!!!");
+            System.out.println("Email alertk system is down!!!!!!");
             FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
             return;
          }
@@ -434,6 +439,7 @@ public class UserBean extends UserData implements Serializable
 
          if (loginID < 0L)
          {
+            System.out.println("This userid is already registered, logonID: " + loginID);
             String msg = "This userid is already registered.  Either reset password, via FORGOT Password,or try another ID";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
             return;
@@ -441,7 +447,8 @@ public class UserBean extends UserData implements Serializable
          else
          {
             // Now send email support.
-            logger.debug("Set Activation email " + beanEmail);
+            System.out.println("User save, logonID: " + loginID);
+            System.out.println("Set Activation email " + beanEmail);
             data.setSource("User");  // This is set to User to it insert into appropriate table.
             data.setSender(Const.MAIL_SENDER);
             data.setReceiver(beanEmail);

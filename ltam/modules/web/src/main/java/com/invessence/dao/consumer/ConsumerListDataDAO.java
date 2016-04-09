@@ -6,6 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
+import com.invessence.data.common.AccountData;
 import com.invessence.data.consumer.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -30,6 +31,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                Map rs = (Map) rows.get(i);
                ConsumerData data = new ConsumerData(
                   convert.getLongData(rs.get("acctnum")),
+                  convert.getStrData(rs.get("companyname")),
+                  convert.getStrData(rs.get("repNum")),
                   convert.getStrData(rs.get("firstName")),
                   convert.getStrData(rs.get("lastName")),
                   convert.getDoubleData(rs.get("investment")),
@@ -91,6 +94,52 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          }
       }
       return null;
+   }
+
+   public AccountData getAccountData(Long logonid, Long acctnum) {
+      DataSource ds = getDataSource();
+      AccountData accountdata = null;
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_AccountInfo",2);
+      Map outMap = sp.loadAccountInfo(logonid,acctnum);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         if (rows != null) {
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               accountdata = new AccountData();
+               accountdata.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               accountdata.setFirstname(convert.getStrData(rs.get("firstname")));
+               accountdata.setLastname(convert.getStrData(rs.get("lastname")));
+               accountdata.setInitialInvestment(convert.getDoubleData(rs.get("investment")));
+               accountdata.setAdvisor(convert.getStrData(rs.get("advisor")));
+               accountdata.setTheme(convert.getStrData(rs.get("theme")));
+               accountdata.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
+               accountdata.setAge(convert.getIntData(rs.get("age")));
+               accountdata.setHorizon(convert.getIntData(rs.get("horizon")));
+               accountdata.setAccttype(convert.getStrData(rs.get("acctType")));
+               accountdata.setEmail(convert.getStrData(rs.get("email")));
+               accountdata.setActualCapital(convert.getDoubleData(rs.get("actualInvestment")));
+               accountdata.setAns1(convert.getIntData(rs.get("ans1")));
+               accountdata.setAns2(convert.getIntData(rs.get("ans2")));
+               accountdata.setAns3(convert.getIntData(rs.get("ans3")));
+               accountdata.setAns4(convert.getIntData(rs.get("ans4")));
+               accountdata.setAns5(convert.getIntData(rs.get("ans5")));
+               accountdata.setAns6(convert.getIntData(rs.get("ans6")));
+               accountdata.setAns7(convert.getIntData(rs.get("ans7")));
+               accountdata.setAns8(convert.getIntData(rs.get("ans8")));
+               accountdata.setAns9(convert.getIntData(rs.get("ans9")));
+               accountdata.setAns10(convert.getIntData(rs.get("ans10")));
+               accountdata.setDateOpened(convert.getStrData(rs.get("dateOpened")));
+               accountdata.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+               i++;
+               break;
+            }
+         }
+      }
+      return accountdata;
    }
 
 }

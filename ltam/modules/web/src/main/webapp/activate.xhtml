@@ -9,6 +9,7 @@
         <f:viewParam name="u" value="#{userBean.beanUserID}"/>
         <f:viewParam name="r" value="#{userBean.beanResetID}"/>
         <f:event type="preRenderView" listener="#{userBean.preRenderActivateUser}"/>
+        <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
     </f:metadata>
 
     <ui:define name="content">
