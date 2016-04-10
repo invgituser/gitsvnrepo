@@ -214,7 +214,11 @@ public class UserBean extends UserData implements Serializable
    public void collectClientData()
    {
      logger.debug("Calling userInfoDAO.getUserByEmail(" + beanEmail + ")");
+     System.out.println("Calling userInfoDAO.getUserByEmail(" + beanEmail + ")");
      userInfoDAO.getUserByEmail(beanEmail, getInstance());
+     logger.debug("After collectClientData:" + getUserID() + "," + getEmail() + ")");
+     System.out.println("After collectClientData:" + getUserID() + "," + getEmail() + ")");
+
    }
 
    public void collectUserLogon(String userid, String email)
@@ -222,6 +226,8 @@ public class UserBean extends UserData implements Serializable
       logger.debug("Calling userInfoDAO.selectUserInfo(null," + userid +"," + email + ")");
       System.out.println("Calling userInfoDAO.selectUserInfo(null," + userid +"," + email + ")");
       userInfoDAO.selectUserInfo(null, userid, email, getInstance());
+      logger.debug("After Calling userInfoDAO.selectUserInfo: UID=" + getUserID() + ", Email=" + getEmail() + ",Logon" + getLogonID() );
+      System.out.println("After Calling userInfoDAO.selectUserInfo: UID=" + getUserID() + ", Email=" + getEmail() + ",Logon" + getLogonID() );
    }
 
    public void preRenderResetUser()
@@ -238,7 +244,6 @@ public class UserBean extends UserData implements Serializable
                if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
                {
                   collectUserLogon(beanUserID, null);
-                  logger.debug("After collectUserLogon ResetID " + getResetID().toString());
                   if (!beanResetID.equals(getResetID().toString()))
                   {
                      webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid Reset data.");
@@ -307,14 +312,14 @@ public class UserBean extends UserData implements Serializable
             beanUserID = null;
             beanResetID = null;
             resetBean();
+            if (beanEmail == null || beanEmail.isEmpty()) {
+               webutil.redirecttoMessagePage("WARN", "Cannot Signup", "Attempting to register on site, but valid email address is not provided.");
+            }
             collectClientData();
-            logger.debug("After collectClientData:" + getUserID() + "," + getEmail() + ")");
             if (getUserID() != null && !getUserID().isEmpty())
             {
                webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.");
             }
-            // Commented out to do beta testing of anyone able to sign up..
-            logger.debug("Existing client:" + getEmail());
             if (getEmail() == null || getEmail().isEmpty())  // If no email in the system, then warn
             { // Userid is UserData.
                webutil.redirecttoMessagePage("WARN", "Cannot Signup", "Sorry, you are attempting to activate account, but you have to be invited.  If you received this email, please click on the email invitation link.");
@@ -405,7 +410,7 @@ public class UserBean extends UserData implements Serializable
          if (messageText == null)
          {
             logger.debug("Email alert system is down!!!!!!");
-            System.out.println("Email alertk system is down!!!!!!");
+            System.out.println("Email alert system is down!!!!!!");
             FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
             return;
          }
@@ -439,8 +444,8 @@ public class UserBean extends UserData implements Serializable
 
          if (loginID < 0L)
          {
-            System.out.println("This userid is already registered, logonID: " + loginID);
-            String msg = "This userid is already registered.  Either reset password, via FORGOT Password,or try another ID";
+            System.out.println("Had issue with this userid when attempting to save: " + loginID);
+            String msg = "There was some error when attempting to save this userid.  Please reach out to support desk.";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
             return;
          }
@@ -469,8 +474,8 @@ public class UserBean extends UserData implements Serializable
       catch (Exception ex)
       {
          logger.debug("Exception " + ex.getMessage());
-         webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support. Exception:" + ex.getMessage());
-         webutil.alertSupport("signup", "Signup -" + beanEmail, "Exception: " + ex.getMessage(), null);
+         webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support.");
+         webutil.alertSupport("signup", "Signup -" + beanEmail, "Registration Error", null);
          ex.printStackTrace();
       }
    }

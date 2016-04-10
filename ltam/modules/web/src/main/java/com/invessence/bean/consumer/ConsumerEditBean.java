@@ -5,6 +5,7 @@ import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.LTAMOptimizer;
@@ -36,6 +37,15 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 {
    private String beanacctnum;
    private Boolean demomode;
+   private String beanTimeToSaveID;
+   private String beanAdvisor;
+   private String beanRep;
+   private String beanAmount;
+   private String beanfirstname;
+   private String beanlastname;
+   private Boolean welcomeDialog; // Flag to Display Welcome message if from Advisor Link
+   private Boolean time2SaveWelcome = false; // Defines Is it from TimeToSave or Advisor
+   private Boolean disableWelcomeMode = false; // Defines Is it from TimeToSave or Advisor
    private Boolean disableInvestment;  // Not USED:  Display Investment as editable mode or not?
    private Boolean displayGraphs, reviewPage, displayMeter;
    SQLData converter = new SQLData();
@@ -104,6 +114,93 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       this.beanacctnum = beanacctnum;
    }
 
+   public Boolean getDemomode()
+   {
+      return demomode;
+   }
+
+   public Boolean getTime2SaveWelcome()
+   {
+      return time2SaveWelcome;
+   }
+
+   public String getBeanTimeToSaveID()
+   {
+      return beanTimeToSaveID;
+   }
+
+   public void setBeanTimeToSaveID(String beanTimeToSaveID)
+   {
+      this.beanTimeToSaveID = beanTimeToSaveID;
+      setTimeToSaveID(beanTimeToSaveID);
+      time2SaveWelcome = true;
+   }
+
+   public String getBeanAdvisor()
+   {
+      return beanAdvisor;
+   }
+
+   public void setBeanAdvisor(String beanAdvisor)
+   {
+      this.beanAdvisor = beanAdvisor;
+      setAdvisor(beanAdvisor);
+   }
+
+   public String getBeanRep()
+   {
+      return beanRep;
+   }
+
+   public void setBeanRep(String beanRep)
+   {
+      this.beanRep = beanRep;
+      setRep(beanRep);
+   }
+
+   public String getBeanAmount()
+   {
+      return beanAmount;
+
+   }
+
+   public void setBeanAmount(String beanAmount)
+   {
+      this.beanAmount = beanAmount;
+      try
+      {
+         Double value = converter.getDoubleData(beanAmount);
+         setInvestment(value);
+      }
+      catch (Exception ex)
+      {
+
+      }
+
+   }
+
+   public String getBeanfirstname()
+   {
+      return beanfirstname;
+   }
+
+   public void setBeanfirstname(String beanfirstname)
+   {
+      this.beanfirstname = beanfirstname;
+      setFirstname(beanfirstname);
+   }
+
+   public String getBeanlastname()
+   {
+      return beanlastname;
+   }
+
+   public void setBeanlastname(String beanlastname)
+   {
+      this.beanlastname = beanlastname;
+      setLastname(beanlastname);
+   }
+
    public Boolean getDisableInvestment()
    {
       return disableInvestment;
@@ -112,6 +209,11 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    public PagesImpl getPagemanager()
    {
       return pagemanager;
+   }
+
+   public Boolean getWelcomeDialog()
+   {
+      return welcomeDialog;
    }
 
    public Boolean getDisplayGraphs()
@@ -160,7 +262,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       displayMeter = false;
       setDisplayGraphs(false);
       pagemanager.setPage(0);
-      RequestContext.getCurrentInstance().closeDialog("dlgWelcome");
+      welcomeDialog = false;
+      // RequestContext.getCurrentInstance().closeDialog("dlgWelcome");
       // webutil.redirect("/index.xhtml", null);
    }
 
@@ -188,6 +291,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    public void nextPage()
    {
+      disableWelcomeMode = true;
       if (pagemanager.isFirstPage()) {
          if (getInvestment() < 500.00) {
             FacesMessage message;
@@ -215,29 +319,38 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    public void preRenderView()
    {
-
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.WEB_USER)) {
-               Long logonid = webutil.getLogonid();
-               if (pagemanager == null) {
-                  resetBean();
-               }
+            if (pagemanager == null) {
+               resetBean();
+            }
 
-               collectAccountData(logonid, beanacctnum);
+
+            // If beanacctnum is null or empty, then it must be a visitor
+            if (beanacctnum != null && ! beanacctnum.isEmpty()) {
+               if (webutil.validatePriviledge(Const.WEB_USER)) {
+                  Long logonid = webutil.getLogonid();
+                  collectAccountData(logonid, beanacctnum);
+               }
+            }
+            else {
+               selectedPage4Image = 0;
+               doCharts();
+               saveVisitor();
+
+            }
+
+            if (pagemanager != null && (! pagemanager.isFirstPage())) {
                firstPage();
             }
          }
       }
-      catch (Exception e)
+      catch (Exception ex)
       {
-         webutil.redirecttoMessagePage("Error", "",
-                                       "This session has expired.  Or you do not have access to this account."
-         );
+         ex.printStackTrace();
       }
-
    }
 
    public void collectAccountData(Long logonid, String beanacctnum)
@@ -268,6 +381,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    public void resetBean()
    {
+      time2SaveWelcome = false;
       resetAllData();
       displayGraphs = false;
       reviewPage = false;
@@ -276,6 +390,60 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       pagemanager.setPage(0);
       selectedPage4Image = 0;
 
+      setAdvisor(beanAdvisor);
+
+      setRep(beanRep);
+
+      if (beanTimeToSaveID != null) {
+         setTimeToSaveID(beanTimeToSaveID);
+         setFirstname(beanfirstname);
+         setLastname(beanlastname);
+         Double value = converter.getDoubleData(beanAmount);
+         setInvestment(value);
+         disableInvestment = true;
+         welcomeDialog = false;
+      }
+      else
+      {
+         welcomeDialog = false;
+         disableInvestment = false;
+      }
+
+   }
+
+   private void saveVisitor()
+   {
+
+      try
+      {
+         if (demomode)  {
+            setLogonid(0L);
+            return;
+         }
+
+         setIpaddress(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
+         Long logonid = null;
+         // if (webutil.isWebProdMode())
+         if (getLogonid() == 0L)
+         {
+            if (saveDAO != null) {
+               logonid = saveDAO.saveLTAMVisitor(getInstance());
+            }
+         }
+
+         if (logonid == null)
+         {
+            setLogonid(0L);
+         }
+         else
+         {
+            setLogonid(logonid);
+         }
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
    }
 
    public void saveClientData()
@@ -297,6 +465,40 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          {
             setAcctnum(acctnum);
          }
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   public void startOver(ActionEvent actionEvent)
+   {
+      firstPage();
+      webutil.redirect("/pages/try/index.xhtml", null);
+   }
+
+   public void startOver()
+   {
+      firstPage();
+      webutil.redirect("/pages/try/index.xhtml", null);
+   }
+
+   public void forwardData()
+   {
+
+      try
+      {
+         setForwarded("now");
+         saveClientData();
+         Map<String,String> args = new LinkedHashMap<String, String>();
+         args.put("TimeToSaveUserId", getTimeToSaveID());
+         args.put("InvestorName", getFirstname() + " " + getLastname());
+         args.put("FundSelection", getTheme());
+         args.put("DollarAmount", getInvestment().toString());
+         args.put("UniqueUserIdentifier", getAcctnum().toString());
+         args.put("RepReferralId", getAdvisor());
+         //webutil.redirect(webutil.getUiLayout().getUiprofile().getForwardURL(), args);
       }
       catch (Exception ex)
       {
@@ -339,6 +541,41 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       }
    }
 
+   public void riskChartSelected(ItemSelectEvent event) {
+      if (event != null) {
+         Integer answer;
+         switch (event.getItemIndex()) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+               answer = event.getItemIndex() + 1;
+               setAns5(answer);
+            default:
+
+         }
+      }
+   }
+
+   public String getSelectedPie()
+   {
+      return selectedPie;
+   }
+
+   public void showpieSliceInfo(ItemSelectEvent event) {
+      if (event != null) {
+         System.out.println("Pie Slice Selected");
+         selectedPie = "Selected";
+      }
+   }
+
+   public void hidepieSliceInfo(ItemSelectEvent event) {
+      if (event != null) {
+         System.out.println("Pie Slice De-seletected");
+         selectedPie="";
+      }
+   }
    public void setImage(Integer ans) {
       setAns4(ans);
       selectedPage4Image = 0;

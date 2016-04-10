@@ -17,7 +17,7 @@ import javax.faces.bean.*;
 import com.invessence.constant.*;
 
 @ManagedBean(name = "userInfoDAO")
-@ApplicationScoped
+@SessionScoped
 public class UserInfoDAO extends JdbcDaoSupport
 {
    SQLData convert = new SQLData();
@@ -72,6 +72,7 @@ public class UserInfoDAO extends JdbcDaoSupport
          }
       }
       catch (Exception ex) {
+         System.out.print("Error when attempting to collect data from sel_user_logon: "+ logonID + "," + userid + "," + email);
          ex.printStackTrace();
       }
    }
@@ -230,6 +231,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                      userdata.setAdvisor(null);
                      userdata.setLogonID(0L);
                      userdata.setUserID(null);
+                     userdata.setEmail(null);
 
                   }
 
@@ -237,11 +239,14 @@ public class UserInfoDAO extends JdbcDaoSupport
             }
          }
          catch (Exception ex) {
+            System.out.println("Error, when attempting to fetch from `sel_user_info`: " + email);
+            ex.printStackTrace();
             userdata.setFullName(null);
             userdata.setRep(null);
             userdata.setAdvisor(null);
             userdata.setLogonID(0L);
             userdata.setUserID(null);
+            userdata.setEmail(null);
          }
       }
    }

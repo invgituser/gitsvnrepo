@@ -19,7 +19,7 @@ import org.springframework.context.*;
  * To change this template use File | Settings | File Templates.
  */
 @ManagedBean(name = "emailMessage")
-@ApplicationScoped
+@SessionScoped
 public class EmailMessage implements MessageSourceAware, Serializable
 {
    private static final long serialVersionUID = -1001L;
@@ -91,7 +91,7 @@ public class EmailMessage implements MessageSourceAware, Serializable
 
       }
       catch (Exception ex) {
-         System.out.println("Text: " + inputText + " not found in the message processing file.");
+         // System.out.println("Text: " + inputText + " not found in the message processing file.");
       }
       return inputText;
    }

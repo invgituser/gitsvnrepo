@@ -16,11 +16,11 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public List<ConsumerData> getClientProfileData(Long logonid, String filter) {
+   public List<ConsumerData> getClientProfileData(Long logonid, String filter, Integer days) {
       DataSource ds = getDataSource();
       List<ConsumerData> listProfiles = new ArrayList<ConsumerData>();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData2",0);
-      Map outMap = sp.loadClientProfileData(logonid, filter);
+      Map outMap = sp.loadClientProfileData(logonid, filter, days);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");

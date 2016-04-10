@@ -77,7 +77,7 @@ public class ConsumerDashBean implements Serializable
 
    public void collectData(Long logonid)
    {
-      dashboardList = listDAO.getClientProfileData(logonid, null);
+      dashboardList = listDAO.getClientProfileData(logonid, null, null);
     }
 
 

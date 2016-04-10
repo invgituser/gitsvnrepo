@@ -83,7 +83,7 @@ public class ManageAdvisorBean implements Serializable
    private void loadData() {
       try {
          // consumerData = new ArrayList<ConsumerData>();
-         consumerData = listDAO.getClientProfileData(webutil.getLogonid(), getFilter());
+         consumerData = listDAO.getClientProfileData(webutil.getLogonid(), getFilter(), null);
          sortData();
       }
       catch (Exception ex) {
