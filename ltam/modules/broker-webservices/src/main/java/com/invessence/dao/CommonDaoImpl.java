@@ -9,7 +9,6 @@ import com.invessence.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.*;
-import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.jdbc.core.simple.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +21,7 @@ public class CommonDaoImpl implements CommonDao
 {
    private static final Logger logger = Logger.getLogger(CommonDaoImpl.class);
    @Autowired
-   JdbcTemplate jdbcTemplate;
+   JdbcTemplate webServiceJdbcTemplate;
 
    public UserAcctDetails getUserAccDetailsByAccNumber(String accountNumber)throws SQLException{
       List<UserAcctDetails> lst = null;
@@ -31,7 +30,7 @@ public class CommonDaoImpl implements CommonDao
 //         "invite, applicantFName, applicantMName, applicantLName, mailAddrs1, mailAddrs2, mailCity, " +
 //         "mailState, mailZipCode, primaryPhoneNbr, initialCusip, initialInvestment, ssn, created, lastUpdated " +
 //         "from  ltam.ltam_acct_info where clientAccountID="+accountNumber;
- //     ExtInfoSP extInfoSP= new ExtInfoSP(jdbcTemplate);
+ //     ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
 
 //      DBResponse dbResponse= extInfoSP.execute(new UserAcctExt());
 
@@ -39,7 +38,7 @@ public class CommonDaoImpl implements CommonDao
 //      String sql="select * from ltam_acct_info lai , user_logon_webservice ulw " +
 //      "where /*ulw.status='P' and*/ ulw.clientAccountID=lai.clientAccountID " +
 //         "and lai.clientAccountID=?";;
-      lst = jdbcTemplate.query(SysParameters.getUserAccDetailsByAccNumber, new Object[]{accountNumber}, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
+      lst = webServiceJdbcTemplate.query(SysParameters.getUserAccDetailsByAccNumber, new Object[]{accountNumber}, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst==null?null:lst.size()==0?null:lst.get(0);
    }
    public List<UserAcctDetails> getUserAccDetailsByWhereClause(String where)throws SQLException
@@ -50,7 +49,7 @@ public class CommonDaoImpl implements CommonDao
          "invite, applicantFName, applicantMName, applicantLName, mailAddrs1, mailAddrs2, mailCity, " +
          "mailState, mailZipCode, primaryPhoneNbr, initialCusip, initialInvestment, ssn, created, lastUpdated " +
          "from  ltam.ltam_acct_info "+where;
-      lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
+      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst;
    }
 
@@ -62,14 +61,14 @@ public class CommonDaoImpl implements CommonDao
 //      System.out.println("SQL : "+sql);
 //      String sql = "select * from ltam_acct_info lai right join user_logon_webservice ulw " +
 //         "on ulw.status='P' and ulw.clientAccountID=lai.clientAccountID;";
-      lst = jdbcTemplate.query(SysParameters.getPendingUserAccDetails, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
+      lst = webServiceJdbcTemplate.query(SysParameters.getPendingUserAccDetails, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst;
    }
 
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException{
 
 
-         int i= jdbcTemplate.update(SysParameters.updatePendingUserAccDetails,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
+         int i= webServiceJdbcTemplate.update(SysParameters.updatePendingUserAccDetails,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
                           userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
                           userAcctDetails.getStatus(),userAcctDetails.getRemarks(),new Date(),userAcctDetails.getClientAccountID());
 
@@ -78,7 +77,7 @@ public class CommonDaoImpl implements CommonDao
 
    public boolean updateUserEmail(UserAcctDetails userAcctDetails, String newEmail)throws SQLException{
 
-      int i= jdbcTemplate.update(SysParameters.updateUserEmail,newEmail ,new Date(),userAcctDetails.getClientAccountID());
+      int i= webServiceJdbcTemplate.update(SysParameters.updateUserEmail,newEmail ,new Date(),userAcctDetails.getClientAccountID());
 
       return true;
    }
@@ -86,14 +85,14 @@ public class CommonDaoImpl implements CommonDao
    public UserAcctExt getAccountExtInfo(String accountNumber)throws SQLException{
       List<UserAcctExt> lst = null;
       logger.info("Fetching UserAccDetails ByAccNumber");
-      lst = jdbcTemplate.query(SysParameters.getAccountExtInfo, new Object[] {accountNumber}, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctExt.class));
+      lst = webServiceJdbcTemplate.query(SysParameters.getAccountExtInfo, new Object[] {accountNumber}, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctExt.class));
       return lst==null?null:lst.size()==0?null:lst.get(0);
    }
 
   //clientAccountID, accountType, dateOfBirth, mailingAddressId, mailingAddressType, created, lastUpdated, clientAccountID, id
    public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
    {
-      ExtInfoSP extInfoSP= new ExtInfoSP(jdbcTemplate);
+      ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
       userAcctExt.setOpt(Constants.dbUpdateOpt);
       userAcctExt.setStatus("P");
       DBResponse dbResponse= extInfoSP.execute(userAcctExt);
@@ -101,7 +100,7 @@ public class CommonDaoImpl implements CommonDao
       System.out.println("dbResponse = [" + dbResponse.toString() + "]");
 //      String sql = "insert into ltam_acct_info_ext (clientAccountID, accountType, dateOfBirth,mailingAddressId, mailingAddressType, created) " +
 //         "values (?,?,?,?,?,?) ";
-//      int i= jdbcTemplate.update(sql,userAcctExt.getClientAccountID(),userAcctExt.getAccountType(),userAcctExt.getDateOfBirth(),userAcctExt.getMailingAddressId(), userAcctExt.getMailingAddressType(), new Date());
+//      int i= webServiceJdbcTemplate.update(sql,userAcctExt.getClientAccountID(),userAcctExt.getAccountType(),userAcctExt.getDateOfBirth(),userAcctExt.getMailingAddressId(), userAcctExt.getMailingAddressType(), new Date());
 
       return true;
    }
@@ -109,14 +108,14 @@ public class CommonDaoImpl implements CommonDao
    @Override
    public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
    {
-     ExtInfoSP extInfoSP= new ExtInfoSP(jdbcTemplate);
+     ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
 
       extInfoSP.execute();
 
       String sql = "update ltam_acct_info_ext set " +
          "accountType=?, dateOfBirth=?, lastupdated=?" +
          "where clientAccountID=?";
-      int i= jdbcTemplate.update(sql,userAcctExt.getAccountType(), userAcctExt.getDateOfBirth() ,new Date(),userAcctExt.getClientAccountID());
+      int i= webServiceJdbcTemplate.update(sql,userAcctExt.getAccountType(), userAcctExt.getDateOfBirth() ,new Date(),userAcctExt.getClientAccountID());
 
       return true;
    }
@@ -127,7 +126,7 @@ public class CommonDaoImpl implements CommonDao
       List<BrokerHostDetails> lst = null;
       logger.info("Fetching broker host details");
       String sql = "select vendor, environment, host, username, password, sourcedir, encrDecrKey from host_info ";
-      lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
+      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
       return lst;
    }
 
@@ -136,13 +135,13 @@ public class CommonDaoImpl implements CommonDao
       List<BrokerHostDetails> lst = null;
       logger.info("Fetching broker host details");
       String sql = "select vendor, environment, host, username, password, sourcedir, encrDecrKey from host_info where "+where;
-      lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
+      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
       return lst==null?null:lst.size()==0?null:lst.get(0);
    }
 
    public void truncateTable(String tableName) throws SQLException{
       String sql = "delete from "+tableName;
-      jdbcTemplate.execute(sql);
+      webServiceJdbcTemplate.execute(sql);
    }
 
 
@@ -154,7 +153,7 @@ public class CommonDaoImpl implements CommonDao
          logger.info("Insertion sql is not valid");
       }else
       {
-         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
+         webServiceJdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
          {
             public int getBatchSize()
             {
@@ -179,10 +178,10 @@ public class CommonDaoImpl implements CommonDao
       }else
       {
          logger.info("Calling post process procedure :"+proc);
-         new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
+         new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc).execute();
       }
 
-//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc);
+//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc);
 //      simpleJdbcCall.execute();
 //      Map<String, Object> inParamMap = new HashMap<String, Object>();
 //      inParamMap.put("process", "MONTHLY");
@@ -194,8 +193,8 @@ public class CommonDaoImpl implements CommonDao
 
    }
    public void callEODProcess(String proc) throws SQLException{
-      new SimpleJdbcCall(jdbcTemplate).withProcedureName(proc).execute();
-//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(jdbcTemplate)
+      new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc).execute();
+//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(webServiceJdbcTemplate)
 //         .withProcedureName(proc);
 //
 //      Map<String, Object> inParamMap = new HashMap<String, Object>();

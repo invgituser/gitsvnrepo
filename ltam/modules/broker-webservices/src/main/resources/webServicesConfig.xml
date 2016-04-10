@@ -21,11 +21,11 @@
    <bean id="transactionManager"
 		 class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		 scope="singleton">
-  <property name="dataSource" ref="dataSource" />
+  <property name="dataSource" ref="webServicesDataSource" />
 </bean>
 
-   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-  <property name="dataSource" ref="dataSource"></property>
+   <bean id="webServiceJdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+  <property name="dataSource" ref="webServicesDataSource"></property>
 </bean>
 
    <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
@@ -35,7 +35,7 @@
            <!--<property name="password" value="inv3ss3nc3u530n1y"/>-->
    <!--</bean>-->
 
-     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+     <bean id="webServicesDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driverClassName}"/>
         <property name="url" value="${ltam.url}"/>
         <property name="username" value="${jdbc.username}"/>
