@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 TextAlCenter">
+
+        <div class="TexAlCenter">
+            <h1>
+                My name is
+                <h:outputText styleClass="ShowOnMobile" value="&lt;br/&gt;" escape="false" />
+                <p:inputText styleClass="ltamInputText input_wid1"  value="#{ceb.firstname}"
+                             size="10"/>
+                
+                <p:spacer width="5px"/>
+                <p:inputText styleClass="ltamInputText input_wid1" value="#{ceb.lastname}"
+                        size="10"/>.
+            </h1>
+        </div>
+        <br/>
+
+        <div class="EmptyBox30"></div>
+
+        <div class="TexAlCenter">
+            <h1>
+                I am <pe:inputNumber styleClass="ltamInputText input_wid1" style="width: 60px;" value="#{ceb.age}"
+                                     decimalPlaces="0" minValue="0" maxValue="110"
+                    required="true" requiredMessage="Age is required!"
+                    validatorMessage="Age should be between 18 and 100."/> years old.
+            </h1>
+        </div>
+
+        <div class="EmptyBox40"></div>
+
+        <div class="TexAlCenter">
+            <h1>
+            I plan on investing
+            <pe:inputNumber styleClass="ltamInputText input_wid1"
+                          value="#{ceb.investment}"
+                          maxlength="11" decimalPlaces="0" symbol="$"
+                    required="true" requiredMessage="Investment is required!"
+                    validatorMessage="Min. of $500 investment is required!">
+            </pe:inputNumber>
+
+            </h1>
+            
+            
+                     
+        </div>
+        
+         <div class="TexAlCenter MarTop20">
+         
+         		<p:commandButton value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
+                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      actionListener="#{ceb.nextPage}"/>
+         
+         </div>
+    
+    </div>
+
+</ui:composition>
