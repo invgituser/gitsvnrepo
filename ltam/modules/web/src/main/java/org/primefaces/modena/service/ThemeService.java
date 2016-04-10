@@ -19,13 +19,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.faces.bean.*;
 
 import org.primefaces.modena.domain.Theme;
 
 @ManagedBean(name="themeService", eager = true)
-@ApplicationScoped
+@SessionScoped
 public class ThemeService {
     
     private List<Theme> themes;
