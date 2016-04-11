@@ -36,7 +36,7 @@ import org.primefaces.event.*;
 public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 {
    private String beanacctnum;
-   private Boolean demomode;
+   private String formmode;
    private String beanTimeToSaveID;
    private String beanAdvisor;
    private String beanRep;
@@ -104,6 +104,11 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    }
 */
 
+   public String getFormmode()
+   {
+      return formmode;
+   }
+
    public String getBeanacctnum()
    {
       return beanacctnum;
@@ -112,11 +117,6 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    public void setBeanacctnum(String beanacctnum)
    {
       this.beanacctnum = beanacctnum;
-   }
-
-   public Boolean getDemomode()
-   {
-      return demomode;
    }
 
    public Boolean getTime2SaveWelcome()
@@ -256,18 +256,6 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    }
 
 
-   public void startPage()
-   {
-      reviewPage = false;
-      displayMeter = false;
-      setDisplayGraphs(false);
-      pagemanager.setPage(0);
-      welcomeDialog = false;
-      // RequestContext.getCurrentInstance().closeDialog("dlgWelcome");
-      // webutil.redirect("/index.xhtml", null);
-   }
-
-
    public void firstPage()
    {
       reviewPage = false;
@@ -309,11 +297,21 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       saveClientData();
       pagemanager.nextPage();
       if (pagemanager.isLastPage()) {
-         System.out.print("Forward to Gemini: Acct="
-                             + getAcctnum().toString()
-                             + ", advisor=" + getAdvisor()
-                             + ", theme=" + getTheme());
-         webutil.redirect("/pages/try/review.xhtml", null);
+         if (formmode != null && formmode.equalsIgnoreCase("editor")) {
+            System.out.print("Forward to Gemini: Acct="
+                                + getAcctnum().toString()
+                                + ", advisor=" + getAdvisor()
+                                + ", theme=" + getTheme());
+            webutil.redirect("/pages/edit/confirm.xhtml", null);
+         }
+         else {
+            System.out.print("Forward to Gemini: Acct="
+                                + getAcctnum().toString()
+                                + ", advisor=" + getAdvisor()
+                                + ", theme=" + getTheme());
+            webutil.redirect("/pages/edit/review.xhtml", null);
+
+         }
       }
    }
 
@@ -331,11 +329,13 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             // If beanacctnum is null or empty, then it must be a visitor
             if (beanacctnum != null && ! beanacctnum.isEmpty()) {
                if (webutil.validatePriviledge(Const.WEB_USER)) {
+                  formmode="Edit";
                   Long logonid = webutil.getLogonid();
                   collectAccountData(logonid, beanacctnum);
                }
             }
             else {
+               formmode="Visitor";
                selectedPage4Image = 0;
                doCharts();
                saveVisitor();
@@ -416,7 +416,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (demomode)  {
+         if (! webutil.isWebProdMode())  {
             setLogonid(0L);
             return;
          }
@@ -451,7 +451,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (demomode)
+         if (! webutil.isWebProdMode())
             return;
 
          Long acctnum = null;
@@ -474,14 +474,20 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    public void startOver(ActionEvent actionEvent)
    {
-      firstPage();
-      webutil.redirect("/pages/try/index.xhtml", null);
+      startOver();
    }
 
    public void startOver()
    {
-      firstPage();
-      webutil.redirect("/pages/try/index.xhtml", null);
+      reviewPage = false;
+      displayMeter = false;
+      setDisplayGraphs(false);
+      pagemanager.setPage(0);
+      welcomeDialog = false;
+      if (formmode != null && formmode.equalsIgnoreCase("editor")) {
+         // RequestContext.getCurrentInstance().closeDialog("dlgWelcome");
+         webutil.redirect("/index.xhtml", null);
+      }
    }
 
    public void forwardData()
@@ -612,5 +618,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       setAns5(which);
    }
+
+
+
 }
 

@@ -244,6 +244,7 @@ public class UserBean extends UserData implements Serializable
                if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
                {
                   collectUserLogon(beanUserID, null);
+                  System.out.println("Password Reset ID: " + getEmail() + ", WebResetID=" + beanResetID + ", DBResetID=" + getResetID() );
                   if (!beanResetID.equals(getResetID().toString()))
                   {
                      webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid Reset data.");
@@ -269,34 +270,38 @@ public class UserBean extends UserData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            if (beanUserID == null || beanUserID.isEmpty()) {
+               webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
+               return;
+            }
             resetBean();
             logger.debug("Calling preRenderActivateUser, UserID = " + beanUserID + ", Reset " + beanResetID);
-            if (beanUserID != null && beanResetID != null)
+            collectUserLogon(beanUserID, null);
+            // Due to multiple access, it seems that ResetID is blank
+            System.out.println("Activate User: " + getEmail() + ", WebResetID=" + beanResetID + ", DBResetID=" + getResetID() );
+            if (getUserID() != null && ! getUserID().isEmpty()) // Found the user
             {
-               if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
-               {
-                  collectUserLogon(beanUserID, null);
+               if (beanResetID != null && ! beanResetID.isEmpty()) {
                   if (getResetID() != null) {
                      if (!beanResetID.equals(getResetID().toString()))
                      {
                         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
                      }
                   }
-                  else {
-                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset ID.");
-                  }
-               }
-               else {
-                  webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid user data.");
                }
             }
+            else {
+               webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid user data.");
+            }
+            userInfoDAO.updLogonStatus(beanUserID);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, 0);
          }
-         userInfoDAO.updLogonStatus(beanUserID);
-         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, 0);
       }
       catch (Exception ex)
       {
-         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data. Exception raised:" + ex.getMessage());
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data. Call Support:");
+         System.out.println("ERROR: Exception raised when attempting to activate account");
+         ex.printStackTrace();
       }
    }
 
@@ -328,7 +333,9 @@ public class UserBean extends UserData implements Serializable
       }
       catch (Exception ex)
       {
-         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data. Exception raised:" + ex.getMessage());
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support" );
+         System.out.println("LOG: Signup Issue for: " + beanEmail);
+         ex.printStackTrace();
       }
    }
 
@@ -353,6 +360,8 @@ public class UserBean extends UserData implements Serializable
       }
       catch (Exception ex) {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID issue", "Contact Support"));
+         System.out.println("LOG: Signup Issue for Page 2: " + beanEmail);
+         ex.printStackTrace();
       }
    }
 
@@ -404,13 +413,13 @@ public class UserBean extends UserData implements Serializable
       //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
       logger.debug("Attempting to Register: " + beanEmail + ", UserID: " + beanUserID);
-      System.out.println("Attempting to Register: " + beanEmail + ", UserID: " + beanUserID);
+      System.out.println("LOG: Attempting to Register: " + beanEmail + ", UserID: " + beanUserID);
       try
       {
          if (messageText == null)
          {
             logger.debug("Email alert system is down!!!!!!");
-            System.out.println("Email alert system is down!!!!!!");
+            System.out.println("LOG: Email alert system is down!!!!!!");
             FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
             return;
          }
@@ -444,7 +453,7 @@ public class UserBean extends UserData implements Serializable
 
          if (loginID < 0L)
          {
-            System.out.println("Had issue with this userid when attempting to save: " + loginID);
+            System.out.println("ERROR: Had issue with this userid when attempting to save: " + loginID);
             String msg = "There was some error when attempting to save this userid.  Please reach out to support desk.";
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
             return;
@@ -452,8 +461,8 @@ public class UserBean extends UserData implements Serializable
          else
          {
             // Now send email support.
-            System.out.println("User save, logonID: " + loginID);
-            System.out.println("Set Activation email " + beanEmail);
+            System.out.println("LOG: User save, logonID: " + loginID);
+            System.out.println("LOG: Set Activation email " + beanEmail);
             data.setSource("User");  // This is set to User to it insert into appropriate table.
             data.setSender(Const.MAIL_SENDER);
             data.setReceiver(beanEmail);
@@ -461,7 +470,6 @@ public class UserBean extends UserData implements Serializable
             String secureUrl = uiLayout.getUiprofile().getSecurehomepage();
             String name = getFullName();
 
-            // System.out.println("MIME Type :" + getEmailmsgtype());
             String msg = messageText.buildMessage(emailMsgType, "html.activate.email", "txt.activate.email", new Object[]{secureUrl, beanUserID, myResetID.toString()});
             data.setMsg(msg);
 
@@ -476,6 +484,7 @@ public class UserBean extends UserData implements Serializable
          logger.debug("Exception " + ex.getMessage());
          webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support.");
          webutil.alertSupport("signup", "Signup -" + beanEmail, "Registration Error", null);
+         System.out.println("Error: Attempting to save UserID, for: " + beanEmail);
          ex.printStackTrace();
       }
    }
@@ -520,13 +529,13 @@ public class UserBean extends UserData implements Serializable
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email is required", "Email is required"));
       }
       collectUserLogon(null, beanEmail);
-      System.out.println("After call collectUserLogon: " + getLogonID().toString());
+      System.out.println("LOG: After call collectUserLogon: " + getLogonID().toString());
 
 
       if (getLogonID() != null && getLogonID() > 0L) {
          // Now send email support.
 
-         System.out.println("Sending reset instructions:");
+         System.out.println("LOG: Sending reset instructions:");
          Integer myResetID = webutil.randomGenerator(0, 347896);
          userInfoDAO.updResetID(getUserID(), myResetID.toString());
 
@@ -547,10 +556,11 @@ public class UserBean extends UserData implements Serializable
 
          String displayMessage = messageText.buildInternalMessage("txt.reset.info",null);
          webutil.redirecttoMessagePage("INFO", "Reset Instructions sent", displayMessage);
-         System.out.println("Sent, succcesfully");
+         System.out.println("LOG: Email Sent, succcesfully: " + beanEmail);
       }
       else {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This email is not valid. Not a registered user", "This email is not valid. Not a registered user"));
+         System.out.println("ERROR: Attempting to reset, but valid email: " + beanEmail);
       }
    }
 
