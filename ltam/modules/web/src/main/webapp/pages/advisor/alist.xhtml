@@ -40,6 +40,19 @@
                                          value="#{manageAdvisorBean.consumerData}"
                                          reflow="true">
 
+                            <f:facet name="header" style="text-align: right;">
+                                Export Data
+                                <h:commandLink>
+                                    <p:graphicImage value="/images/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="managedDataList" fileName="Salesxls"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage value="/images/csv.png" width="24"/>
+                                    <p:dataExporter type="csv" target="managedDataList" fileName="Salescsv"/>
+                                </h:commandLink>
+                            </f:facet>
+
 
                                 <p:column sortBy="#{managedVar.fullname}" priority="4"
                                           headerText="Name"
@@ -49,9 +62,15 @@
                                 </p:column>
                                 <p:column sortBy="#{managedVar.rep}"
                                           headerText="Rep"
-                                          style="text-align: left"
+                                          style="text-align: left; width: 60px"
                                           resizable="true">
                                     <h:outputText value="#{managedVar.rep}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.advisor}"  priority="4"
+                                          headerText="Advisor"
+                                          style="text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.advisor}"/>
                                 </p:column>
                                 <p:column sortBy="#{managedVar.displayAccount}" priority="3"
                                           headerText="Acct#"

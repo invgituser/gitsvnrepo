@@ -11,11 +11,11 @@
             <h1>
                 My name is
                 <h:outputText styleClass="ShowOnMobile" value="&lt;br/&gt;" escape="false" />
-                <p:inputText styleClass="ltamInputText input_wid1"  value="#{ltamprofile.firstname}"
+                <p:inputText styleClass="ltamInputText input_wid1"  value="#{ceb.firstname}"
                              size="10"/>
                 
                 <p:spacer width="5px"/>
-                <p:inputText styleClass="ltamInputText input_wid1" value="#{ltamprofile.lastname}"
+                <p:inputText styleClass="ltamInputText input_wid1" value="#{ceb.lastname}"
                         size="10"/>.
             </h1>
         </div>
@@ -25,7 +25,7 @@
 
         <div class="TexAlCenter">
             <h1>
-                I am <pe:inputNumber styleClass="ltamInputText input_wid1" style="width: 60px;" value="#{ltamprofile.age}"
+                I am <pe:inputNumber styleClass="ltamInputText input_wid1" style="width: 60px;" value="#{ceb.age}"
                                      decimalPlaces="0" minValue="0" maxValue="110"
                     required="true" requiredMessage="Age is required!"
                     validatorMessage="Age should be between 18 and 100."/> years old.
@@ -38,7 +38,7 @@
             <h1>
             I plan on investing
             <pe:inputNumber styleClass="ltamInputText input_wid1"
-                          value="#{ltamprofile.investment}"
+                          value="#{ceb.investment}"
                           maxlength="11" decimalPlaces="0" symbol="$"
                     required="true" requiredMessage="Investment is required!"
                     validatorMessage="Min. of $500 investment is required!">
@@ -52,9 +52,9 @@
         
          <div class="TexAlCenter MarTop20">
          
-         		<p:commandButton value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+         		<p:commandButton value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.nextPage}"/>
+                                      actionListener="#{ceb.nextPage}"/>
          
          </div>
     

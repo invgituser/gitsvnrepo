@@ -46,22 +46,25 @@
         <div class="Container50 Responsive100">
             <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
                 <ui:fragment rendered="#{ceb.pagemanager.page == 0}">
-                     <ui:include src="/pages/consumer/porfolio/page1.xhtml"/>
+                     <ui:include src="/pages/consumer/edit/page1.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{ceb.pagemanager.page == 1}">
-                    <ui:include src="/pages/consumer/porfolio/page2.xhtml"/>
+                    <ui:include src="/pages/consumer/edit/page2.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{ceb.pagemanager.page == 2}">
-                    <ui:include src="/pages/consumer/porfolio/page3.xhtml"/>
+                    <ui:include src="/pages/consumer/edit/page3.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{ceb.pagemanager.page == 3}">
-                    <ui:include src="/pages/consumer/porfolio/page5.xhtml"/>
+                    <ui:include src="/pages/consumer/edit/page5.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{ceb.pagemanager.page == 4}">
-                    <ui:include src="/pages/consumer/porfolio/page4.xhtml"/>
+                    <ui:include src="/pages/consumer/edit/page4.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{ceb.pagemanager.page == 5}">
-                    <ui:include src="/pages/consumer/porfolio/page6.xhtml"/>
+                    <ui:include src="/pages/consumer/edit/page6.xhtml"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{ceb.pagemanager.page == 6}">
+                    <ui:include src="/pages/consumer/edit/confirm.xhtml"/>
                 </ui:fragment>
             </p:panel>
         </div>

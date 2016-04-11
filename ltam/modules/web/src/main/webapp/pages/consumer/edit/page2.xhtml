@@ -9,7 +9,7 @@
             <h1>Which of the following best reflects your expectations for this investment?</h1>
 
             <h2>
-                <p:selectOneRadio layout="pageDirection" value="#{ltamprofile.ans2}"
+                <p:selectOneRadio layout="pageDirection" value="#{ceb.ans2}"
                         required="true" requiredMessage="Please choose one of these choices">
                     <f:selectItem itemLabel="Maximize current income." itemValue="1"/>
                     <f:selectItem itemLabel="Emphasizing income with some potential for growth." itemValue="2"/>
@@ -19,12 +19,12 @@
                 </p:selectOneRadio>
             </h2>
             <div class="EmptyBox10"></div>
-            <p:commandButton styleClass="prev" value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+            <p:commandButton styleClass="prev" value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.prevPage}"/>
-                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      actionListener="#{ceb.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.nextPage}"/>
+                                      actionListener="#{ceb.nextPage}"/>
     </div>
 
 </ui:composition>

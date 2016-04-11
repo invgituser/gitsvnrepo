@@ -8,7 +8,7 @@
     <div class="Container100 TextAlCenter">
         <h1>
             Tolerating losses in some years is part of investing.
-            Based on your initial investment of #{dataDisplayConverter.displayAsMoney(ltamprofile.investment)},
+            Based on your initial investment of #{dataDisplayConverter.displayAsMoney(ceb.investment)},
             what is the largest loss you would comfortably tolerate during a 1-year-time-frame?
         </h1>
 
@@ -16,7 +16,7 @@
         <p:panel id="page4table" styleClass="Container100" style="border: 0px">
             <div class="EmptyBox20"/>
 
-            <p:selectOneRadio id="customRadio" value="#{ltamprofile.ans4}" layout="custom"
+            <p:selectOneRadio id="customRadio" value="#{ceb.ans4}" layout="custom"
                     required="true" requiredMessage="Please choose one of these choices"
                     update=":ltamForm:page4table">
                 <f:selectItem itemLabel="(0%)" itemValue="1"/>
@@ -28,61 +28,61 @@
 
             <h:panelGrid styleClass="page4table" columns="4" cellpadding="0">
                 <p:radioButton id="opt1" for="customRadio" itemIndex="0"/>
-                <h:outputLabel for="opt1" value="Less than #{dataDisplayConverter.displayAsMoney(ltamprofile.investment * 0.049)}"/>
+                <h:outputLabel for="opt1" value="Less than #{dataDisplayConverter.displayAsMoney(ceb.investment * 0.049)}"/>
                 <p:commandLink id="img1" update=":ltamForm:page4table"
                                ajax="true" 
-                               actionListener="#{ltamprofile.image(1)}"
-                               onfocus="ltamprofile.hoverImage(1)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1"  rendered="#{ltamprofile.isImageSelected(1)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(1)}">
+                               actionListener="#{ceb.image(1)}"
+                               onfocus="ceb.hoverImage(1)">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1"  rendered="#{ceb.isImageSelected(1)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ceb.isImageSelected(1)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt1" value="(less than 5%)"/>
 
                 <p:radioButton id="opt2" for="customRadio" itemIndex="1"/>
-                <h:outputLabel for="opt2" value="-#{dataDisplayConverter.displayAsMoney(ltamprofile.investment * 0.05)}"/>
+                <h:outputLabel for="opt2" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.05)}"/>
                 <p:commandLink id="img2" update=":ltamForm:page4table"
                                ajax="true" immediate="true"
-                               actionListener="#{ltamprofile.image(2)}"
-                               onfocus="ltamprofile.hoverImage(2)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(2)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(2)}">
+                               actionListener="#{ceb.image(2)}"
+                               onfocus="ceb.hoverImage(2)">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ceb.isImageSelected(2)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ceb.isImageSelected(2)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt2" value="( - 5%)"/>
 
                 <p:radioButton id="opt3" for="customRadio" itemIndex="2"/>
-                <h:outputLabel for="opt3" value="-#{dataDisplayConverter.displayAsMoney(ltamprofile.investment * 0.10)}"/>
+                <h:outputLabel for="opt3" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.10)}"/>
                 <p:commandLink id="img3" update=":ltamForm:page4table"
                                ajax="true" immediate="true"
-                               actionListener="#{ltamprofile.image(3)}"
-                               onfocus="ltamprofile.hoverImage(3)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(3)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(3)}">
+                               actionListener="#{ceb.image(3)}"
+                               onfocus="ceb.hoverImage(3)">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ceb.isImageSelected(3)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ceb.isImageSelected(3)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt3" value="( - 10%)"/>
 
                 <p:radioButton id="opt4" for="customRadio" itemIndex="3"/>
-                <h:outputLabel for="opt4" value="-#{dataDisplayConverter.displayAsMoney(ltamprofile.investment * 0.15)}"/>
+                <h:outputLabel for="opt4" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.15)}"/>
                 <p:commandLink id="img4" update=":ltamForm:page4table"
                                ajax="true" immediate="true"
-                               actionListener="#{ltamprofile.image(4)}"
-                               onfocus="ltamprofile.hoverImage(4)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(4)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(4)}">
+                               actionListener="#{ceb.image(4)}"
+                               onfocus="ceb.hoverImage(4)">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ceb.isImageSelected(4)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ceb.isImageSelected(4)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt4" value="( - 15%)"/>
 
                 <p:radioButton id="opt5" for="customRadio" itemIndex="4"/>
-                <h:outputLabel for="opt5" value="-#{dataDisplayConverter.displayAsMoney(ltamprofile.investment * 0.25)}"/>
+                <h:outputLabel for="opt5" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.25)}"/>
                 <p:commandLink id="img5" update=":ltamForm:page4table"
                                ajax="true" immediate="true"
-                               actionListener="#{ltamprofile.image(5)}"
-                               onfocus="ltamprofile.hoverImage(5)">
-                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ltamprofile.isImageSelected(5)}"/>
-                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ltamprofile.isImageSelected(5)}">
+                               actionListener="#{ceb.image(5)}"
+                               onfocus="ceb.hoverImage(5)">
+                    <p:graphicImage name="images/arrowtickS.svg" library="ltam" styleClass="pg5_h1" rendered="#{ceb.isImageSelected(5)}"/>
+                    <p:graphicImage name="images/arrowtick.svg" library="ltam" styleClass="pg5_h1" rendered="#{! ceb.isImageSelected(5)}">
                     </p:graphicImage>
                 </p:commandLink>
                 <p:outputLabel for="opt5" value="( - 25%)"/>
@@ -98,12 +98,12 @@
             
         </p:panel>
         <div class="tp2"></div>
-        <p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+        <p:commandButton value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.prevPage}"/>
-                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      actionListener="#{ceb.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.nextPage}"/>
+                                      actionListener="#{ceb.nextPage}"/>
     </div>
 
 </ui:composition>

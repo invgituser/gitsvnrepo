@@ -10,7 +10,7 @@
 
         <div class="EmptyBox50"></div>
         <div class="Container100 TexAlCenter">
-            <h2><h:outputText id="displayHorizon" value="#{ltamprofile.horizon} Years"/></h2>
+            <h2><h:outputText id="displayHorizon" value="#{ceb.horizon} Years"/></h2>
         </div>
         <table class="Container100" style="border: 0px">
             <tr>
@@ -21,7 +21,7 @@
                     <p:slider for="horizon" display="displayHorizon"
                               displayTemplate="{value} Years"
                             minValue="1" maxValue="15"/>
-                    <h:inputHidden id="horizon" value="#{ltamprofile.horizon}"/>
+                    <h:inputHidden id="horizon" value="#{ceb.horizon}"/>
                 </td>
                 <td style="width: 15%; text-align: left; vertical-align: middle">
                     <h:outputText value="15+ Years"/>
@@ -41,12 +41,12 @@
         </table>
         <div class="EmptyBox20"></div>
 
-	<p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+	<p:commandButton value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.prevPage}"/>
-                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      actionListener="#{ceb.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.nextPage}"/>
+                                      actionListener="#{ceb.nextPage}"/>
     </div>
 
 </ui:composition>

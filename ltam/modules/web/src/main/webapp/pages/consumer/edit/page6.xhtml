@@ -15,9 +15,9 @@
         <div class="EmptyBox50"></div>
         <div class="Container100 TexAlCenter">
             <h2>
-                <h:outputText id="displayAns6" value="#{ltamprofile.textAns6}"/>
+                <h:outputText id="displayAns6" value="#{ceb.textAns6}"/>
             </h2>
-            <h:inputHidden id="ans6" value="#{ltamprofile.ans6}"
+            <h:inputHidden id="ans6" value="#{ceb.ans6}"
                            required="true" requiredMessage="Please use the slider below to select appropriate risk tolerance"/>
         </div>
         <div class="EmptyBox30"></div>
@@ -28,7 +28,7 @@
                 </td>
                 <td style="width: 65%; text-align: center">
                     <p:slider for="ans6" minValue="1" maxValue="5" step="1">
-                        <p:ajax event="slideEnd" listener="#{ltamprofile.onSlideEnd}" update="displayAns6" />
+                        <p:ajax event="slideEnd" listener="#{ceb.onSlideEnd}" update="displayAns6" />
                     </p:slider>
                 </td>
                 <td style="width: 17%; text-align: left; vertical-align: middle; padding-left: 10px">
@@ -51,12 +51,12 @@
 
         </table>
         <div class="EmptyBox20"></div>
-        <p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
+        <p:commandButton value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.prevPage}"/>
-                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
+                                      actionListener="#{ceb.prevPage}"/>
+                     <p:commandButton styleClass="Fright" value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
-                                      actionListener="#{ltamprofile.nextPage}"/>
+                                      actionListener="#{ceb.nextPage}"/>
     </div>
 
 </ui:composition>
