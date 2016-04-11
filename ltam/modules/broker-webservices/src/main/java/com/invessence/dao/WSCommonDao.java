@@ -8,7 +8,7 @@ import com.invessence.bean.*;
 /**
  * Created by abhangp on 1/19/2016.
  */
-public interface CommonDao
+public interface WSCommonDao
 {
    public UserAcctDetails getUserAccDetailsByAccNumber(String accountNumber)throws SQLException;
    public List<UserAcctDetails> getUserAccDetailsByWhereClause(String where)throws SQLException;

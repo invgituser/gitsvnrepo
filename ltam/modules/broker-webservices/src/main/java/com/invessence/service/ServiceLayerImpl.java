@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 import java.util.*;
 
 import com.invessence.bean.*;
-import com.invessence.dao.CommonDao;
+import com.invessence.dao.WSCommonDao;
 import com.invessence.util.SysParameters;
 import com.ws.td.service.ServiceLayerTDImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class ServiceLayerImpl implements ServiceLayer
 {
    CallingLayer callingLayer;
    @Autowired
-   CommonDao commonDao;
+   WSCommonDao commonDao;
    String encryDecryKey="aRXDugfr4WQpVrxu";
 
 

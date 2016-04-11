@@ -17,9 +17,9 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by abhangp on 1/19/2016.
  */
 @Repository
-public class CommonDaoImpl implements CommonDao
+public class WSCommonDaoImpl implements WSCommonDao
 {
-   private static final Logger logger = Logger.getLogger(CommonDaoImpl.class);
+   private static final Logger logger = Logger.getLogger(WSCommonDaoImpl.class);
    @Autowired
    JdbcTemplate webServiceJdbcTemplate;
 
