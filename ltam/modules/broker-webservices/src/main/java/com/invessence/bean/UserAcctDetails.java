@@ -15,6 +15,17 @@ public class UserAcctDetails
    private Date dateOfBirth;
    private Long webLogonID;
    private String userID, pwd, fundGroupName, securityQuestion, securityAnswer, status, remarks;
+   private String opt;
+
+   public String getOpt()
+   {
+      return opt;
+   }
+
+   public void setOpt(String opt)
+   {
+      this.opt = opt;
+   }
 
    public String getAccountType()
    {

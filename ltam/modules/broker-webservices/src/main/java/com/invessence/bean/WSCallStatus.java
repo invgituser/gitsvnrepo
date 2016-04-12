@@ -3,7 +3,7 @@ package com.invessence.bean;
 /**
  * Created by abhangp on 3/22/2016.
  */
-public class CallStatus implements java.io.Serializable {
+public class WSCallStatus implements java.io.Serializable {
    private int errorCode;
 
    private String errorMessage;
@@ -11,7 +11,7 @@ public class CallStatus implements java.io.Serializable {
    @Override
    public String toString()
    {
-      return "CallStatus{" +
+      return "WSCallStatus{" +
          "errorCode=" + errorCode +
          ", errorMessage='" + errorMessage + '\'' +
          '}';
@@ -37,11 +37,11 @@ public class CallStatus implements java.io.Serializable {
       this.errorMessage = errorMessage;
    }
 
-   public CallStatus() {
+   public WSCallStatus() {
 
    }
 
-   public CallStatus(
+   public WSCallStatus(
       int errorCode,
       String errorMessage) {
       this.errorCode = errorCode;

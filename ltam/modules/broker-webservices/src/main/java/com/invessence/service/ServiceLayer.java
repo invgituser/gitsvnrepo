@@ -10,21 +10,23 @@ import com.invessence.bean.*;
 public interface ServiceLayer
 {
    public void createPendingUser();
-   public CallStatus updateEmail(String clientAccountID, String newEmail);
-   public CallStatus updateMailingAddress(String clientAccountID,
-                                          String nameLines, String addressLines, String postalZip, short countryCode,
-                                          String voicePhone,String altPhone, String faxPhone,String emailAddress);
+   public WSCallStatus updateEmail(String clientAccountID, String newEmail);
+   public WSCallStatus updateMailingAddress(String clientAccountID,
+                                            String firstName,String middleName,String lastName,
+                                            String addressLine1, String addressLine2,String addressLine3,
+                                            String postalZip, short countryCode,
+                                            String voicePhone, String altPhone, String faxPhone, String emailAddress);
 
-   public List<BankAcctDetails> getUserBankAcctDetails(String clientAccountID);
+   public WSCallResult getUserBankAcctDetails(String clientAccountID);
 
-   public CallStatus fundAccount(String clientAccountID, int fundID, double amount, String accountNumber);
-   public CallStatus fundTransfer(String clientAccountID, int fromFundID, int toFundID, double amount, String accountNumber);
+   public WSCallStatus fundAccount(String clientAccountID, int fundID, double amount, String accountNumber);
+   public WSCallStatus fundTransfer(String clientAccountID, int fromFundID, int toFundID, double amount, String accountNumber);
 
    //Future required functions
 
-   //public CallStatus loginUser(String clientAccountID);
-   //public CallStatus createUser(String clientAccountID, String securityQuestion, String securityAnswer);
-   //public CallStatus isUserExist(String userId);
-   //public CallStatus getMailingAddress(String clientAccountID);
+   //public WSCallStatus loginUser(String clientAccountID);
+   //public WSCallStatus createUser(String clientAccountID, String securityQuestion, String securityAnswer);
+   //public WSCallStatus isUserExist(String userId);
+   //public WSCallStatus getMailingAddress(String clientAccountID);
 
 }

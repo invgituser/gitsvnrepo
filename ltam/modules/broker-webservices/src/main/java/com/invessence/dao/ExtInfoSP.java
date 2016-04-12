@@ -17,7 +17,7 @@ public class ExtInfoSP extends StoredProcedure
       super(datasource, SPROC_NAME );
       declareParameter(new SqlParameter("p_clientAccountID", Types.VARCHAR));
       declareParameter(new SqlParameter("p_accountType", Types.VARCHAR));
-      declareParameter(new SqlParameter("p_dateOfBirth date",Types.DATE));
+      declareParameter(new SqlParameter("p_dateOfBirth",Types.DATE));
       declareParameter(new SqlParameter("p_mailingAddressId", Types.VARCHAR));
       declareParameter(new SqlParameter("p_mailingAddressType", Types.VARCHAR));
       declareParameter(new SqlParameter("p_status", Types.VARCHAR));
@@ -37,7 +37,7 @@ public class ExtInfoSP extends StoredProcedure
          inputs.put("p_mailingAddressType", userAcctExt.getMailingAddressType());
          inputs.put("p_status", userAcctExt.getStatus());
          inputs.put("p_remarks", userAcctExt.getRemarks());
-         inputs.put("opt", userAcctExt.getOpt());
+         inputs.put("p_opt", userAcctExt.getOpt());
 
          Map<String,Object> results = super.execute(inputs);
          DBResponse dbRes= new DBResponse((int)results.get("op_msgCode"),results.get("op_msg").toString());

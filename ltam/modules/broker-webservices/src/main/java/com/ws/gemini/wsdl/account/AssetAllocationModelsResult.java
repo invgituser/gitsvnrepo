@@ -558,7 +558,7 @@ public class AssetAllocationModelsResult  implements java.io.Serializable {
         typeDesc.addFieldDesc(elemField);
         elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("status");
-        elemField.setXmlName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        elemField.setXmlName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         elemField.setXmlType(new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "unsignedByte"));
         elemField.setNillable(false);
         typeDesc.addFieldDesc(elemField);

@@ -9,17 +9,29 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SysParameters
 {
+
+   public static String webServiceAPI;
    public static String geminiEndPointUrl;
    public static String tdEndPointUrl;
 
+
    public static String fundGroupName="landenburgfund";
+   public static int wsResIssueCode=501;
+   public static String wsResIssueMsg="WebService response issue";
 
 
    public static String getUserAccDetailsByAccNumber;
    public static String getPendingUserAccDetails;
-   public static String updatePendingUserAccDetails;
+   public static String updatePendingUserAccDetailsOnSuccess;
+   public static String updatePendingUserAccDetailsOnFailure;
    public static String updateUserEmail;
    public static String getAccountExtInfo;
+
+   @Autowired
+   public void setWebServiceAPI(@Value("${webServiceAPI}") String webServiceAPI)
+   {
+      SysParameters.webServiceAPI = webServiceAPI;
+   }
 
    @Autowired
    public void setGetAccountExtInfo(@Value("${getAccountExtInfo}")String getAccountExtInfo)
@@ -37,10 +49,20 @@ public class SysParameters
       SysParameters.getUserAccDetailsByAccNumber = getUserAccDetailsByAccNumber;
    }
    @Autowired
-   public void setUpdatePendingUserAccDetails(@Value("${updatePendingUserAccDetails}")String updatePendingUserAccDetails)
+   public void setUpdatePendingUserAccDetailsOnSuccess(@Value("${updatePendingUserAccDetailsOnSuccess}")String updatePendingUserAccDetailsOnSuccess)
    {
-      SysParameters.updatePendingUserAccDetails = updatePendingUserAccDetails;
+      SysParameters.updatePendingUserAccDetailsOnSuccess = updatePendingUserAccDetailsOnSuccess;
    }
+
+
+   @Autowired
+   public void setUpdatePendingUserAccDetailsOnFailure(@Value("${updatePendingUserAccDetailsOnFailure}")String updatePendingUserAccDetailsOnFailure)
+   {
+      SysParameters.updatePendingUserAccDetailsOnFailure = updatePendingUserAccDetailsOnFailure;
+   }
+
+
+
    @Autowired
    public void setUpdateUserEmail(@Value("${updateUserEmail}")String updateUserEmail)
    {

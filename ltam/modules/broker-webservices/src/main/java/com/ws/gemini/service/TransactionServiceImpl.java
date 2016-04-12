@@ -4,31 +4,35 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import com.invessence.bean.*;
+import com.invessence.util.SysParameters;
 import com.ws.gemini.wsdl.account.AchPayeeResult;
 import com.ws.gemini.wsdl.transaction.*;
 import org.apache.axis.types.UnsignedByte;
+import org.apache.log4j.Logger;
 
 /**
  * Created by abhangp on 3/28/2016.
  */
 public class TransactionServiceImpl implements TransactionService
 {
+   private static final Logger logger = Logger.getLogger(TransactionServiceImpl.class);
    TransactionServicesLocator servicesLocator = new TransactionServicesLocator();
    TransactionServicesSoap_PortType servicesSoap = null;
 
    String encryDecryKey="aRXDugfr4WQpVrxu";
 
    @Override
-   public CallStatus fundAccount(UserAcctDetails userAcctDetails,int fundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String accountNumber) throws Exception
    {
-
+      System.out.println("TransactionServiceImpl.fundAccount");
       AchPayeeResult achPayeeResult=new AccountServiceImpl().getAchPayeeCollection(userAcctDetails, accountNumber);
       System.out.println("achPayeeResult = " + achPayeeResult.toString());
       if(achPayeeResult==null){
-         return  null;
+         return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
       }else
       {
          servicesSoap = servicesLocator.getTransactionServicesSoap();
+
          List<FundInformation> lstFundIfo = new ArrayList<>();
          FundInformation fi1 = new FundInformation();
          fi1.setFundId((short) fundID);
@@ -71,25 +75,24 @@ public class TransactionServiceImpl implements TransactionService
 
          FundInformation[] fundInfo = lstFundIfo.toArray(new FundInformation[lstFundIfo.size()]);
          System.out.println("AuthenticateLogin:[UserId:" + userAcctDetails.getUserID() + ", Password:" + userAcctDetails.getPwd() + ", FundGroupName:" + userAcctDetails.getFundGroupName() + ", AllowableShareClassList:00]");
-      TransactionCollectionResult transactionCollectionResult= servicesSoap.createTransaction(
+         TransactionCollectionResult transactionCollectionResult= servicesSoap.createTransaction(
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          tranInfo,fundInfo);
 
-      System.out.println(transactionCollectionResult.toString());
-      if (transactionCollectionResult==null)
-      {
-         return null;
+         System.out.println("transactionCollectionResult = " + transactionCollectionResult);
+         if (transactionCollectionResult==null)
+         {
+            return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
+         }
+         else
+         {
+            return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage());
+         }
       }
-      else
-      {
-         return new CallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(),transactionCollectionResult.getErrorStatus().getErrorMessage());
-      }
-      }
-      //return null;
    }
 
    @Override
-   public CallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception
    {
       AchPayeeResult achPayeeResult=new AccountServiceImpl().getAchPayeeCollection(userAcctDetails, accountNumber);
       System.out.println("achPayeeResult = " + achPayeeResult.toString());
@@ -188,11 +191,11 @@ public class TransactionServiceImpl implements TransactionService
          System.out.println(transactionCollectionResult.toString());
          if (transactionCollectionResult==null)
          {
-            return null;
+            return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
          }
          else
          {
-            return new CallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(),transactionCollectionResult.getErrorStatus().getErrorMessage());
+            return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage());
          }
       }
 

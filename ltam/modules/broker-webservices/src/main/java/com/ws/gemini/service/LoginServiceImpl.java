@@ -3,85 +3,84 @@ package com.ws.gemini.service;
 import java.math.BigDecimal;
 
 import com.invessence.bean.*;
-import com.invessence.util.EncryDecryAES;
+import com.invessence.util.*;
 import com.ws.gemini.wsdl.login.*;
 import org.apache.axis.types.UnsignedByte;
+import org.apache.log4j.Logger;
 
 /**
  * Created by abhangp on 3/28/2016.
  */
 public class LoginServiceImpl implements LoginService
 {
+   private static final Logger logger = Logger.getLogger(LoginServiceImpl.class);
    LoginServicesLocator loginServicesLocator = new LoginServicesLocator();
    LoginServicesSoap_PortType loginServicesSoap = null;
 
    String encryDecryKey="aRXDugfr4WQpVrxu";
    //String encryDecryKey="GEMINI-KEY";
 
-   public CallStatus loginWebUser(UserAcctDetails userAcctDetails) throws Exception{
+   public WSCallStatus loginWebUser(UserAcctDetails userAcctDetails) throws Exception{
+      System.out.println("LoginServiceImpl.loginWebUser");
       loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
 
       System.out.println("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]");
 
       WebUserResult webUserResult = loginServicesSoap.shareholderLogin(new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"), new BigDecimal("1"));
-      System.out.println(webUserResult.toString());
-      if (webUserResult.getErrorStatus()==null)
+      System.out.println("webUserResult = " + webUserResult.toString());
+      if (webUserResult==null || webUserResult.getErrorStatus()==null)
       {
-         return null;
+         return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
       }
       else
       {
-         return new CallStatus(webUserResult.getErrorStatus().getErrorCode(),webUserResult.getErrorStatus().getErrorMessage());
+         return new WSCallStatus(webUserResult.getErrorStatus().getErrorCode(), webUserResult.getErrorStatus().getErrorMessage());
       }
    }
 
-   public CallStatus createWebUser(UserAcctDetails userAcctDetails)throws Exception
+   public WSCallStatus createWebUser(UserAcctDetails userAcctDetails)throws Exception
    {
-      System.out.println("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]" +
-                            "accountNumber:"+userAcctDetails.getClientAccountID()+", ssnorTin:"+ EncryDecryAES.decrypt(userAcctDetails.getSsn(), encryDecryKey)+
-                            ",zipCode:"+userAcctDetails.getMailZipCode()+", emailAddress:"+userAcctDetails.getEmail()+", securityQuestion:"+userAcctDetails.getSecurityQuestion()+", " +
-                            "securityAnswer:"+userAcctDetails.getSecurityAnswer()+", accessLinkedAccounts:"+new UnsignedByte("1"));
-      AuthenticateLogin authenticateLogin=new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00");
-      String userId;
+      System.out.println("LoginServiceImpl.createWebUser");
+      System.out.println("userAcctDetails = [" + userAcctDetails + "]");
       loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
+
       WebUserResult webUserResult = loginServicesSoap.createShareholderWebUser
-         (authenticateLogin,
+         (new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          userAcctDetails.getClientAccountID(), EncryDecryAES.decrypt(userAcctDetails.getSsn(), encryDecryKey),
          userAcctDetails.getMailZipCode(), userAcctDetails.getEmail(), userAcctDetails.getSecurityQuestion(),
          userAcctDetails.getSecurityAnswer(), new UnsignedByte("1"));
-         System.out.println(webUserResult.toString());
-      if (webUserResult.getErrorStatus()==null)
+      System.out.println("webUserResult = " + webUserResult.toString());
+      if (webUserResult ==null || webUserResult.getErrorStatus()==null)
       {
-         return null;
+         return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
       }
       else
       {
-         return new CallStatus(webUserResult.getErrorStatus().getErrorCode(),webUserResult.getErrorStatus().getErrorMessage());
+         return new WSCallStatus(webUserResult.getErrorStatus().getErrorCode(), webUserResult.getErrorStatus().getErrorMessage());
       }
    }
 
-   public CallStatus isWebUserExist(UserAcctDetails userAcctDetails)throws Exception
+   public WSCallStatus isWebUserExist(UserAcctDetails userAcctDetails)throws Exception
    {
 
       return null;
    }
 
-   public CallStatus updateWebUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception{
-
-      System.out.println("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]" +
-         "WebUserRequest [EMailAddress:"+newEmail+"]");
+   public WSCallStatus updateWebUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception{
+      System.out.println("LoginServiceImpl.updateWebUserEmail");
+      System.out.println("userAcctDetails = [" + userAcctDetails + "], newEmail = [" + newEmail + "]");
       loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
       Status status = loginServicesSoap.updateWebUser(
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          new WebUserRequest(newEmail));
-      System.out.println(status.toString());
+      System.out.println("status = " + status);
       if (status==null)
       {
-         return null;
+         return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
       }
       else
       {
-         return new CallStatus(status.getErrorCode(),status.getErrorMessage());
+         return new WSCallStatus(status.getErrorCode(), status.getErrorMessage());
       }
    }
 }

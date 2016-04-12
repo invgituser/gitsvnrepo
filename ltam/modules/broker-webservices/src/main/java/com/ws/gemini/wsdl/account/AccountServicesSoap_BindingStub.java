@@ -308,7 +308,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "achPayee"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AchPayeeRequest"), com.ws.gemini.wsdl.account.AchPayeeRequest.class, false, false);
         param.setOmittable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "addAchPayeeResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -327,7 +327,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "achpayeeId"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "deleteAchPayeeResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -375,7 +375,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "achPayeeInfo"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AchPayeeRequest"), com.ws.gemini.wsdl.account.AchPayeeRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "addAutomaticInvestmentPlanResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -393,7 +393,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "achPayeeInfo"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AchPayeeRequest"), com.ws.gemini.wsdl.account.AchPayeeRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "modifyAutomaticInvestmentPlanResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -412,7 +412,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         oper.addParameter(param);
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "automaticInvestmentID"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://www.w3.org/2001/XMLSchema", "int"), int.class, false, false);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "deleteAutomaticInvestmentPlanResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -427,7 +427,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "accountLinkages"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AccountLinkagesRequest"), com.ws.gemini.wsdl.account.AccountLinkagesRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "addAccountForCommonMailingResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -492,7 +492,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "mailingAddresses"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "MailingAddressesRequest"), com.ws.gemini.wsdl.account.MailingAddressesRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateMailingAddressesResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -507,7 +507,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "successorBeneficiary"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "SuccessorBeneficiaryRequest"), com.ws.gemini.wsdl.account.SuccessorBeneficiaryRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateSuccessorBeneficiariesResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -522,7 +522,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "successorBeneficiary"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "SuccessorBeneficiaryRequest"), com.ws.gemini.wsdl.account.SuccessorBeneficiaryRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "addSuccessorBeneficiariesResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -537,7 +537,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "beneficiary529"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "Beneficiary529Request"), com.ws.gemini.wsdl.account.Beneficiary529Request.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateBeneficiary529Result"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -552,7 +552,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "accountMessage"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AccountMessageRequest"), com.ws.gemini.wsdl.account.AccountMessageRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "addAccountMessagesResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -572,7 +572,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "accountCustomField"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AccountCustomFieldRequest"), com.ws.gemini.wsdl.account.AccountCustomFieldRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "addAccountCustomFieldResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -602,7 +602,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "assetAllocationModel"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AssetAllocationModelsRequest"), com.ws.gemini.wsdl.account.AssetAllocationModelsRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateAssetAllocationModelResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -662,7 +662,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "edocDeliveryModeRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "EdocsDeliveryModeRequest"), com.ws.gemini.wsdl.account.EdocsDeliveryModeRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateDeliveryModeForEdocsResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -742,7 +742,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateFavoriteInstitutionsRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "UpdateFavoriteInstitutionsRequest"), com.ws.gemini.wsdl.account.UpdateFavoriteInstitutionsRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateFavouriteInstitutionsForBeneficiaryResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -772,7 +772,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateCustomFieldsRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "UpdateCustomFieldsRequest"), com.ws.gemini.wsdl.account.UpdateCustomFieldsRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateAccountCustomFieldsResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -817,7 +817,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         param = new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://enfs.com/webservices/", "accountDividendSetupRequest"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://enfs.com/webservices/", "AccountDividendSetupRequest"), com.ws.gemini.wsdl.account.AccountDividendSetupRequest.class, false, false);
         param.setNillable(true);
         oper.addParameter(param);
-        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        oper.setReturnType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         oper.setReturnClass(com.ws.gemini.wsdl.account.Status.class);
         oper.setReturnQName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "updateAccountDividendSetupResult"));
         oper.setStyle(org.apache.axis.constants.Style.WRAPPED);
@@ -1733,7 +1733,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
             cachedSerFactories.add(beansf);
             cachedDeserFactories.add(beandf);
 
-            qName = new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus");
+            qName = new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus");
             cachedSerQNames.add(qName);
             cls = com.ws.gemini.wsdl.account.Status.class;
             cachedSerClasses.add(cls);

@@ -12,7 +12,7 @@ import com.invessence.util.NoServiceSupportException;
 
 public class ServiceLayerTDImpl implements CallingLayer
 {
-   public CallStatus getMailingAddress(UserAcctDetails userAcctDetails) throws Exception
+   public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails) throws Exception
    {
       throw new NoServiceSupportException("getMailingAddress Service Not Support");
       // return null;
@@ -25,48 +25,48 @@ public class ServiceLayerTDImpl implements CallingLayer
    }
 
    @Override
-   public List<BankAcctDetails> getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception
+   public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception
    {
       return null;
    }
 
    @Override
-   public CallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String accountNumber) throws Exception
    {
       return null;
    }
 
    @Override
-   public CallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception
    {
       return null;
    }
 
-   public CallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception
+   public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception
    {
       throw new NoServiceSupportException("updateMailingAddress Service Not Support");
       // return null;
    }
 
-   public CallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception
+   public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception
    {
       throw new NoServiceSupportException("loginUser Service Not Support");
      // return null;
    }
 
-   public CallStatus createUser(UserAcctDetails userAcctDetails) throws Exception
+   public WSCallStatus createUser(UserAcctDetails userAcctDetails) throws Exception
    {
       throw new NoServiceSupportException("createUser Service Not Support");
       //return null;
    }
 
-   public CallStatus isUserExist(UserAcctDetails userAcctDetails) throws Exception
+   public WSCallStatus isUserExist(UserAcctDetails userAcctDetails) throws Exception
    {
       throw new NoServiceSupportException("isUserExist Service Not Support");
       //return null;
    }
 
-   public CallStatus updateUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception
+   public WSCallStatus updateUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception
    {
 
       throw new NoServiceSupportException("updateUserEmail Service Not Support");

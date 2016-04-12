@@ -20,7 +20,6 @@ public interface WSCommonDao
    public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
    public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
 
-
    public List<BrokerHostDetails> getBrokerHostDetails()throws SQLException;
    public BrokerHostDetails getBrokerHostDetails(String where)throws SQLException;
    public void insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException;

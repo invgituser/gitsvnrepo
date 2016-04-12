@@ -5,8 +5,11 @@ package com.invessence.util;
  */
 public class Constants
 {
-   public final static String dbSaveOpt="SAVE";
+   public final static String dbInsertOpt ="INSERT";
    public final static String dbUpdateOpt="UPDATE";
    public final static String dbDeleteOpt="DELETE";
+
+   public final static String succesResult="SUCCESS";
+   public final static String failureResult="FAILURE";
 
 }

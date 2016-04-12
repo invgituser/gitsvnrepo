@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.Date;
 
 import com.invessence.bean.*;
+import com.invessence.constant.Const;
 import com.invessence.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class WSCommonDaoImpl implements WSCommonDao
    JdbcTemplate webServiceJdbcTemplate;
 
    public UserAcctDetails getUserAccDetailsByAccNumber(String accountNumber)throws SQLException{
+      System.out.println("WSCommonDaoImpl.getUserAccDetailsByAccNumber");
       List<UserAcctDetails> lst = null;
-      logger.info("Fetching UserAccDetails ByAccNumber");
 //      String sql = "select clientAccountID, acctnum, internalRepID, repNum, repName, email, " +
 //         "invite, applicantFName, applicantMName, applicantLName, mailAddrs1, mailAddrs2, mailCity, " +
 //         "mailState, mailZipCode, primaryPhoneNbr, initialCusip, initialInvestment, ssn, created, lastUpdated " +
@@ -67,10 +68,19 @@ public class WSCommonDaoImpl implements WSCommonDao
 
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException{
 
-
-         int i= webServiceJdbcTemplate.update(SysParameters.updatePendingUserAccDetails,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
+      System.out.println(userAcctDetails.getOpt()+"userAcctDetails.getOpt()");
+      if(userAcctDetails.getOpt().equals(Constants.succesResult))
+      {
+         webServiceJdbcTemplate.update(SysParameters.updatePendingUserAccDetailsOnSuccess,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
                           userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
-                          userAcctDetails.getStatus(),userAcctDetails.getRemarks(),new Date(),userAcctDetails.getClientAccountID());
+                                       userAcctDetails.getPwd(), userAcctDetails.getStatus(), userAcctDetails.getRemarks(), new Date(), userAcctDetails.getClientAccountID());
+      }else if(userAcctDetails.getOpt().equals(Constants.failureResult))
+      {
+         webServiceJdbcTemplate.update(SysParameters.updatePendingUserAccDetailsOnFailure,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
+                          userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
+                                       userAcctDetails.getStatus(), userAcctDetails.getRemarks(), new Date(), userAcctDetails.getClientAccountID());
+      }
+
 
       return true;
    }
@@ -93,8 +103,8 @@ public class WSCommonDaoImpl implements WSCommonDao
    public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
    {
       ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
-      userAcctExt.setOpt(Constants.dbUpdateOpt);
-      userAcctExt.setStatus("P");
+      userAcctExt.setOpt(Constants.dbInsertOpt+"_"+userAcctExt.getOpt());
+      System.out.println(userAcctExt.getOpt()+"userAcctExt.setOpt");
       DBResponse dbResponse= extInfoSP.execute(userAcctExt);
 
       System.out.println("dbResponse = [" + dbResponse.toString() + "]");

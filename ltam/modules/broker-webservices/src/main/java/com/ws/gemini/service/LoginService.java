@@ -7,8 +7,8 @@ import com.invessence.bean.*;
  */
 public interface LoginService
 {
-   public CallStatus loginWebUser(UserAcctDetails userAcctDetails) throws Exception;
-   public CallStatus createWebUser(UserAcctDetails userAcctDetails) throws Exception;
-   public CallStatus isWebUserExist(UserAcctDetails userAcctDetails) throws Exception;
-   public CallStatus updateWebUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception;
+   public WSCallStatus loginWebUser(UserAcctDetails userAcctDetails) throws Exception;
+   public WSCallStatus createWebUser(UserAcctDetails userAcctDetails) throws Exception;
+   public WSCallStatus isWebUserExist(UserAcctDetails userAcctDetails) throws Exception;
+   public WSCallStatus updateWebUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception;
 }

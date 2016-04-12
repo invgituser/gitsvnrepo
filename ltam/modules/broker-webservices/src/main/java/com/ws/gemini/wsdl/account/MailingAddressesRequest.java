@@ -476,4 +476,21 @@ public class MailingAddressesRequest  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "MailingAddressesRequest{" +
+           "entityIdentifier='" + entityIdentifier + '\'' +
+           ", mailingAddressId=" + mailingAddressId +
+           ", nameLines='" + nameLines + '\'' +
+           ", addressLines='" + addressLines + '\'' +
+           ", postalZip='" + postalZip + '\'' +
+           ", countryCode=" + countryCode +
+           ", voicePhone='" + voicePhone + '\'' +
+           ", altPhone='" + altPhone + '\'' +
+           ", faxPhone='" + faxPhone + '\'' +
+           ", emailAddress='" + emailAddress + '\'' +
+           ", mailingAddressType=" + mailingAddressType +
+           '}';
+    }
 }

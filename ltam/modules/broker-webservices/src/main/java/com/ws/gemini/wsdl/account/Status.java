@@ -1,5 +1,5 @@
 /**
- * CallStatus.java
+ * WSCallStatus.java
  *
  * This file was auto-generated from WSDL
  * by the Apache Axis 1.4 Apr 22, 2006 (06:55:48 PDT) WSDL2Java emitter.
@@ -24,7 +24,7 @@ public class Status  implements java.io.Serializable {
 
 
     /**
-     * Gets the errorCode value for this CallStatus.
+     * Gets the errorCode value for this WSCallStatus.
      * 
      * @return errorCode
      */
@@ -34,7 +34,7 @@ public class Status  implements java.io.Serializable {
 
 
     /**
-     * Sets the errorCode value for this CallStatus.
+     * Sets the errorCode value for this WSCallStatus.
      * 
      * @param errorCode
      */
@@ -44,7 +44,7 @@ public class Status  implements java.io.Serializable {
 
 
     /**
-     * Gets the errorMessage value for this CallStatus.
+     * Gets the errorMessage value for this WSCallStatus.
      * 
      * @return errorMessage
      */
@@ -54,7 +54,7 @@ public class Status  implements java.io.Serializable {
 
 
     /**
-     * Sets the errorMessage value for this CallStatus.
+     * Sets the errorMessage value for this WSCallStatus.
      * 
      * @param errorMessage
      */
@@ -102,7 +102,7 @@ public class Status  implements java.io.Serializable {
         new org.apache.axis.description.TypeDesc(Status.class, true);
 
     static {
-        typeDesc.setXmlType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "CallStatus"));
+        typeDesc.setXmlType(new javax.xml.namespace.QName("http://enfs.com/webservices/", "WSCallStatus"));
         org.apache.axis.description.ElementDesc elemField = new org.apache.axis.description.ElementDesc();
         elemField.setFieldName("errorCode");
         elemField.setXmlName(new javax.xml.namespace.QName("http://enfs.com/webservices/", "ErrorCode"));

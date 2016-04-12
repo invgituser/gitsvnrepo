@@ -8,8 +8,10 @@ import java.io.Serializable;
 public class UserAddress implements Serializable
 {
    private int mailingAddressId;
-   private String nameLines;
-   private String addressLines;
+   private String firstName, middleName, lastName;
+   private String addressLine1, addressLine2, addressLine3;
+//   private String nameLines;
+//   private String addressLines;
    private String postalZip;
    private short countryCode;
    private String voicePhone;
@@ -19,21 +21,85 @@ public class UserAddress implements Serializable
    private String mailingAddressType;
    private String entityIdentifier;
 
-
-   public UserAddress(String nameLines, String addressLines, String postalZip, short countryCode,
-                      String voicePhone,String altPhone, String faxPhone,String emailAddress,int mailingAddressId,String mailingAddressType,String entityIdentifier)
+    public UserAddress(String firstName, String middleName, String lastName,
+                      String addressLine1, String addressLine2, String addressLine3, String postalZip, short countryCode,
+                      String voicePhone, String altPhone, String faxPhone, String emailAddress, int mailingAddressId, String mailingAddressType, String entityIdentifier)
    {
-      this.addressLines = addressLines;
+      this.firstName = firstName;
+      this.middleName = middleName;
+      this.lastName = lastName;
+      this.addressLine1 = addressLine1;
+      this.addressLine2 = addressLine2;
+      this.addressLine3 = addressLine3;
       this.altPhone = altPhone;
       this.countryCode = countryCode;
       this.emailAddress = emailAddress;
       this.faxPhone = faxPhone;
-      this.nameLines = nameLines;
       this.postalZip = postalZip;
       this.voicePhone = voicePhone;
       this.mailingAddressId =mailingAddressId;
       this.mailingAddressType=mailingAddressType;
       this.entityIdentifier=entityIdentifier;
+   }
+
+   public String getFirstName()
+   {
+      return firstName;
+   }
+
+   public void setFirstName(String firstName)
+   {
+      this.firstName = firstName;
+   }
+
+   public String getMiddleName()
+   {
+      return middleName;
+   }
+
+   public void setMiddleName(String middleName)
+   {
+      this.middleName = middleName;
+   }
+
+   public String getLastName()
+   {
+      return lastName;
+   }
+
+   public void setLastName(String lastName)
+   {
+      this.lastName = lastName;
+   }
+
+   public String getAddressLine1()
+   {
+      return addressLine1;
+   }
+
+   public void setAddressLine1(String addressLine1)
+   {
+      this.addressLine1 = addressLine1;
+   }
+
+   public String getAddressLine2()
+   {
+      return addressLine2;
+   }
+
+   public void setAddressLine2(String addressLine2)
+   {
+      this.addressLine2 = addressLine2;
+   }
+
+   public String getAddressLine3()
+   {
+      return addressLine3;
+   }
+
+   public void setAddressLine3(String addressLine3)
+   {
+      this.addressLine3 = addressLine3;
    }
 
    public String getEntityIdentifier()
@@ -66,15 +132,15 @@ public class UserAddress implements Serializable
       this.mailingAddressType = mailingAddressType;
    }
 
-   public String getAddressLines()
-   {
-      return addressLines;
-   }
-
-   public void setAddressLines(String addressLines)
-   {
-      this.addressLines = addressLines;
-   }
+//   public String getAddressLines()
+//   {
+//      return addressLines;
+//   }
+//
+//   public void setAddressLines(String addressLines)
+//   {
+//      this.addressLines = addressLines;
+//   }
 
    public String getAltPhone()
    {
@@ -116,15 +182,15 @@ public class UserAddress implements Serializable
       this.faxPhone = faxPhone;
    }
 
-   public String getNameLines()
-   {
-      return nameLines;
-   }
-
-   public void setNameLines(String nameLines)
-   {
-      this.nameLines = nameLines;
-   }
+//   public String getNameLines()
+//   {
+//      return nameLines;
+//   }
+//
+//   public void setNameLines(String nameLines)
+//   {
+//      this.nameLines = nameLines;
+//   }
 
    public String getPostalZip()
    {
@@ -146,18 +212,5 @@ public class UserAddress implements Serializable
       this.voicePhone = voicePhone;
    }
 
-   @Override
-   public String toString()
-   {
-      return "UserAddress{" +
-         "addressLines='" + addressLines + '\'' +
-         ", nameLines='" + nameLines + '\'' +
-         ", postalZip='" + postalZip + '\'' +
-         ", countryCode='" + countryCode + '\'' +
-         ", voicePhone='" + voicePhone + '\'' +
-         ", altPhone='" + altPhone + '\'' +
-         ", faxPhone='" + faxPhone + '\'' +
-         ", emailAddress='" + emailAddress + '\'' +
-         '}';
-   }
+
 }

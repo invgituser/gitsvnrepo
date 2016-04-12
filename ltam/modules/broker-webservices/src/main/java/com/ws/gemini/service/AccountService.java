@@ -9,9 +9,9 @@ import com.invessence.bean.*;
  */
 public interface AccountService
 {
-   public CallStatus getAccountInfo(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
-   public CallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception;
-   public CallStatus addAccountForCommonMailing(UserAcctDetails userAcctDetails) throws Exception;
-   public CallStatus getMailingAddress(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
-   public List<BankAcctDetails> getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception;
+   public WSCallStatus getAccountInfo(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
+   public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception;
+   public WSCallStatus addAccountForCommonMailing(UserAcctDetails userAcctDetails) throws Exception;
+   public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
+   public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception;
 }

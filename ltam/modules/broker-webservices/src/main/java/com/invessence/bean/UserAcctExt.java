@@ -10,7 +10,7 @@ public class UserAcctExt implements Serializable
 {
    private String clientAccountID, accountType, status, remarks;
    private Date dateOfBirth, created, lastUpdated;
-   private CallStatus callStatus;
+   private WSCallStatus WSCallStatus;
 
    private int mailingAddressId;
    private String mailingAddressType;
@@ -67,14 +67,14 @@ public class UserAcctExt implements Serializable
       this.mailingAddressType = mailingAddressType;
    }
 
-   public CallStatus getCallStatus()
+   public WSCallStatus getWSCallStatus()
    {
-      return callStatus;
+      return WSCallStatus;
    }
 
-   public void setCallStatus(CallStatus callStatus)
+   public void setWSCallStatus(WSCallStatus WSCallStatus)
    {
-      this.callStatus = callStatus;
+      this.WSCallStatus = WSCallStatus;
    }
 
    public String getAccountType()
@@ -136,7 +136,7 @@ public class UserAcctExt implements Serializable
          ", dateOfBirth=" + dateOfBirth +
          ", created=" + created +
          ", lastUpdated=" + lastUpdated +
-         ", callStatus=" + callStatus +
+         ", WSCallStatus=" + WSCallStatus +
          ", mailingAddressId=" + mailingAddressId +
          ", mailingAddressType='" + mailingAddressType + '\'' +
          '}';
