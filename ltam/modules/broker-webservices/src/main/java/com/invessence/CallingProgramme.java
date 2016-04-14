@@ -33,12 +33,12 @@ public class CallingProgramme
          //serviceLayer.loginUser("310100018");
          //serviceLayer.createUser("310100028","secQuest","secAnsw");
 
-        // serviceLayer.createPendingUser();
+        //serviceLayer.createPendingUser();
          //serviceLayer.updateEmail("310100018","javyas@gmail.com");
         //serviceLayer.getMailingAddress("310100016");
-        // serviceLayer.updateMailingAddress("310100016","JAIME", "L", "DESMOND","415 WEST 57TH STREET", "APT 1B NEW YORK, NY 10019","","10019",(short)0,"2012142104","2124062680","","scott.spratlen@thegeminicompanies.com");
+         //serviceLayer.updateMailingAddress("310100016","JAIME", "L", "DESMOND","415 WEST 57TH STREET", "APT 1B NEW YORK, NY 10019","","10019",(short)0,"2012142104","2124062680","","scott.spratlen@thegeminicompanies.com");
          //serviceLayer.fundAccount("310100016",900, 1, "6105640720");
-         serviceLayer.fundTransfer("310100016",903, 900, 1, "6105640720");
+         //serviceLayer.fundTransfer("310100016",903, 900, 1, "6105640720");
          //serviceLayer.getUserBankAcctDetails("310100016");
       }catch(Exception e){
          e.printStackTrace();

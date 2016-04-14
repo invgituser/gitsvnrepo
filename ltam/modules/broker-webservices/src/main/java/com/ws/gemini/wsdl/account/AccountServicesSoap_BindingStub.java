@@ -2314,11 +2314,13 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         setRequestHeaders(_call);
         setAttachments(_call);
  try {        java.lang.Object _resp = _call.invoke(new java.lang.Object[] {userLogin, accountNumber});
-
         if (_resp instanceof java.rmi.RemoteException) {
             throw (java.rmi.RemoteException)_resp;
         }
         else {
+            System.out.println("Soap Request :"+_call.getMessageContext().getRequestMessage().getSOAPPartAsString());
+            System.out.println("Soap Response :"+_call.getMessageContext().getResponseMessage().getSOAPPartAsString());
+
             extractAttachments(_call);
             try {
                 return (com.ws.gemini.wsdl.account.AchPayeeCollectionResult) _resp;

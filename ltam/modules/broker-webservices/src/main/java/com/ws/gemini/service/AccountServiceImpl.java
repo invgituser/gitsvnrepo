@@ -105,7 +105,8 @@ public class AccountServiceImpl implements AccountService
       servicesSoap = servicesLocator.getAccountServicesSoap();
       AchPayeeCollectionResult achPayeeCollectionResult= servicesSoap.getAchPayeeCollection(new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
                                                                                             userAcctDetails.getClientAccountID());
-
+      System.out.println("SOAP"+servicesSoap.toString());
+      //_call.getMessageContext().getRequestMessage().getSOAPPartAsString();
       System.out.println("achPayeeCollectionResult = " + achPayeeCollectionResult.toString());
       if(achPayeeCollectionResult==null || achPayeeCollectionResult.getAchPayee()==null){
          return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg),bankAcctDetailsList);
