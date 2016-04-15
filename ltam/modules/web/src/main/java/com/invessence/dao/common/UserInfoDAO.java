@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import com.invessence.converter.SQLData;
-import com.invessence.data.common.UserData;
+import com.invessence.data.common.*;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -249,6 +249,83 @@ public class UserInfoDAO extends JdbcDaoSupport
             userdata.setEmail(null);
          }
       }
+   }
+
+
+   public List<AccountData> getListofAccount(Long logonid, Long acctnum) throws DataAccessException
+   {
+
+         UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_active_accountInfo_list",6);
+         List<AccountData> accountDataList = null;
+         Map outMap = sp.getListofAccount(logonid, acctnum);
+         try {
+            if (outMap != null)
+            {
+               ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+               accountDataList = new ArrayList<AccountData>();
+               if (rows != null) {
+                  int i = 0;
+                  for (Map<String, Object> map : rows)
+                  {
+                     Map rs = (Map) rows.get(i);
+                     AccountData data = new AccountData();
+
+                     data.setLogonid(convert.getLongData(rs.get("logonid")));
+                     data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+                     data.setFirstname(convert.getStrData(rs.get("firstname")));
+                     data.setMiddle(convert.getStrData(rs.get("middle")));
+                     data.setLastname(convert.getStrData(rs.get("lastname")));
+                     data.setInitialInvestment(convert.getDoubleData(rs.get("investment")));
+                     data.setAdvisor(convert.getStrData(rs.get("advisor")));
+                     data.setTheme(convert.getStrData(rs.get("cusip")));
+                     data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
+                     data.setAge(convert.getIntData(rs.get("age")));
+                     data.setHorizon(convert.getIntData(rs.get("horizon")));
+                     data.setAccttype(convert.getStrData(rs.get("acctType")));
+                     data.setEmail(convert.getStrData(rs.get("email")));
+                     data.setActualCapital(convert.getDoubleData(rs.get("actualInvestment")));
+                     data.setAns1(convert.getIntData(rs.get("ans1")));
+                     data.setAns2(convert.getIntData(rs.get("ans2")));
+                     data.setAns3(convert.getIntData(rs.get("ans3")));
+                     data.setAns4(convert.getIntData(rs.get("ans4")));
+                     data.setAns5(convert.getIntData(rs.get("ans5")));
+                     data.setAns6(convert.getIntData(rs.get("ans6")));
+                     data.setAns7(convert.getIntData(rs.get("ans7")));
+                     data.setAns8(convert.getIntData(rs.get("ans8")));
+                     data.setAns9(convert.getIntData(rs.get("ans9")));
+                     data.setAns10(convert.getIntData(rs.get("ans10")));
+                     data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
+
+                     data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+                     data.setRole(convert.getStrData(rs.get("role")));
+                     data.setPrivileges(convert.getStrData(rs.get("privileges")));
+                     data.setEmail(convert.getStrData(rs.get("email")));
+                     data.setUserid(convert.getStrData(rs.get("userid")));
+                     data.setMailAddrs1(convert.getStrData(rs.get("mailAddrs1")));
+                     data.setMailAddrs2(convert.getStrData(rs.get("mailAddrs2")));
+                     data.setMailAddrs3(convert.getStrData(rs.get("mailAddrs3")));
+                     data.setMailCity(convert.getStrData(rs.get("mailCity")));
+                     data.setMailState(convert.getStrData(rs.get("mailState")));
+                     data.setMailZipCode(convert.getStrData(rs.get("mailZipCode")));
+                     data.setMailCountry(convert.getStrData(rs.get("mailCountry")));
+                     data.setPrimaryPhoneNbr(convert.getStrData(rs.get("primaryPhoneNbr")));
+                     data.setSecondayPhoneNbr(convert.getStrData(rs.get("secondayPhoneNbr")));
+                     data.setWorkPhoneNbr(convert.getStrData(rs.get("workPhoneNbr")));
+                     data.setFaxNbr(convert.getStrData(rs.get("faxNbr")));
+
+                     // We only need the first data.
+                     accountDataList.add(data);
+                     i++;
+                     break;
+                  }
+               }
+            }
+            return accountDataList;
+         }
+         catch (Exception ex) {
+            System.out.println("Error, when attempting to fetch from `sel_active_accountInfo_list`: " + logonid.toString());
+         }
+         return null;
    }
 
    public String checkMimeType(String userID)

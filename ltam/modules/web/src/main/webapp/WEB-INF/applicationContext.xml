@@ -39,4 +39,5 @@
    <!-- LTAM DAO-->
    <import resource="LTAMDAO.xml"/>
    <import resource="validator.xml"/>
+
 </beans>

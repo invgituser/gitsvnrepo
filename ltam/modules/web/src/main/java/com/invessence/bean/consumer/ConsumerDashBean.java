@@ -2,6 +2,7 @@ package com.invessence.bean.consumer;
 
 import java.io.Serializable;
 import java.util.*;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -121,4 +122,38 @@ public class ConsumerDashBean implements Serializable
       return ("success");
    }
 
+   public void doAction(String action)
+   {
+      String whichXML;
+      FacesMessage  message;
+      Map<String,String> obj = new HashMap<String, String>();
+      try
+      {
+         if (action != null) {
+            obj.put("acctnum", selectedAccount.getAcctnum().toString());
+            whichXML = "/pages/consumer/overview.xhtml?";
+
+            if (action.equalsIgnoreCase("E")) {
+               whichXML = "/pages/consumer/cedit.xhtml";
+            }
+
+            if (action.equalsIgnoreCase("A")) {
+               whichXML = "/pages/consumer/fund.xhtml";
+            }
+
+            webutil.redirect(whichXML, obj);
+         }
+         else {
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Invalid Action.", "Invalid Action.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+
+         }
+      }
+      catch (Exception ex)
+      {
+         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exception raised, contact support.", "Exception raised, contact support.");
+         FacesContext.getCurrentInstance().addMessage(null, message);
+      }
+
+   }
 }

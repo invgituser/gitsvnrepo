@@ -76,6 +76,10 @@ public class UserInfoSP extends StoredProcedure
          case 5:
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             break;
+         case 6:
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          default:
             break;
       }
@@ -163,6 +167,14 @@ public class UserInfoSP extends StoredProcedure
    {
       Map inputMap = new HashMap();
       inputMap.put("p_email", email);
+      return super.execute(inputMap);
+   }
+
+   public Map getListofAccount(Long logonid, Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_acctnum", acctnum);
       return super.execute(inputMap);
    }
 }

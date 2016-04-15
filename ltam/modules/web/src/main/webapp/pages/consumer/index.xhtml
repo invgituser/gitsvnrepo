@@ -43,6 +43,7 @@
                                         </h4>
                                     </div>
                                     <div class="Container100">
+                                        <p:growl showDetail="false" escape="true" closable="true"/>
                                         <p:separator style="background-color: blue; height:5px"/>
 
                                         <div class="Container100">
@@ -57,15 +58,51 @@
                                                                 <strong>
                                                                     <h:outputText value="#{acct.investment}">
                                                                         <f:convertNumber currencySymbol="$" type="currency"/>
-                                                                     </h:outputText>
+                                                                    </h:outputText>
                                                                 </strong></td>
                                                         </tr>
                                                         <tr style="font-size: 13px;">
                                                             <td colspan="2" style="width: 100%; margin-left: 5px">
+                                                                <div class="EmptyBox5"></div>
                                                                 <ui:fragment rendered="#{acct.managed == 'Y'}">
-                                                                    <p:link outcome="/pages/consumer/overview.xhtml" value="Review">
-                                                                        <f:param name="acctnum" value="#{acct.acctnum}" />
-                                                                    </p:link>
+                                                                    <table class="invNBgrid" style="width: 30%;">
+                                                                        <tr>
+                                                                            <td style="width: 10%; text-align: center;">
+                                                                                <p:commandButton id="reviewBtn"
+                                                                                                 styleClass="Fs14 BlueButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-search-plus Fs14 white"
+                                                                                                 action="#{cdash.doAction('R')}">
+                                                                                    <p:tooltip for="reviewBtn" value="Overview"/>
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </td>
+                                                                            <td style="width: 10%; text-align: center;">
+                                                                                <p:commandButton id="fundBtn"
+                                                                                                 styleClass="Fs14 GreenButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-dollar Fs14 white"
+                                                                                                 action="#{cdash.doAction('A')}">
+                                                                                    <p:tooltip for="fundBtn" value="Fund Account"/>
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </td>
+                                                                            <td style="width: 10%; text-align: center;">
+                                                                                <p:commandButton id="editBtn"
+                                                                                                 styleClass="Fs14 GrayButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-edit Fs14 red"
+                                                                                                 action="#{cdash.doAction('E')}">
+                                                                                    <p:tooltip for="editBtn" value="Edit Account"/>
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </td>
+                                                                        </tr>
+
+                                                                    </table>
                                                                 </ui:fragment>
                                                                 <ui:fragment rendered="#{acct.managed != 'Y'}">
                                                                     <p:outputLabel class="SoftRed">Pending</p:outputLabel>

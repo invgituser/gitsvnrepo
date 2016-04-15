@@ -17,6 +17,7 @@ public class AccountData
    private	String	theme	;
    private	String	lastname	;
    private	String	firstname	;
+   private  String   middle;
    private	String	state	;
    private	String	clientAccountID	;
    private	String	acctStatus	;
@@ -57,6 +58,20 @@ public class AccountData
    private	Integer	ans14	;
    private	Integer	ans15	;
    private	String	created	;
+   private  String   role;
+   private  String   privileges;
+   private  String   mailAddrs1;
+   private  String   mailAddrs2;
+   private  String   mailAddrs3;
+   private  String   mailCity;
+   private  String   mailState;
+   private  String   mailZipCode;
+   private  String   mailCountry;
+
+   private  String   primaryPhoneNbr;
+   private  String   secondayPhoneNbr;
+   private  String   workPhoneNbr;
+   private  String   faxNbr;
 
    public AccountData()
    {
@@ -587,6 +602,146 @@ public class AccountData
    public void setCreated(String created)
    {
       this.created = created;
+   }
+
+   public String getMiddle()
+   {
+      return middle;
+   }
+
+   public void setMiddle(String middle)
+   {
+      this.middle = middle;
+   }
+
+   public String getRole()
+   {
+      return role;
+   }
+
+   public void setRole(String role)
+   {
+      this.role = role;
+   }
+
+   public String getPrivileges()
+   {
+      return privileges;
+   }
+
+   public void setPrivileges(String privileges)
+   {
+      this.privileges = privileges;
+   }
+
+   public String getMailAddrs1()
+   {
+      return mailAddrs1;
+   }
+
+   public void setMailAddrs1(String mailAddrs1)
+   {
+      this.mailAddrs1 = mailAddrs1;
+   }
+
+   public String getMailAddrs2()
+   {
+      return mailAddrs2;
+   }
+
+   public void setMailAddrs2(String mailAddrs2)
+   {
+      this.mailAddrs2 = mailAddrs2;
+   }
+
+   public String getMailAddrs3()
+   {
+      return mailAddrs3;
+   }
+
+   public void setMailAddrs3(String mailAddrs3)
+   {
+      this.mailAddrs3 = mailAddrs3;
+   }
+
+   public String getMailCity()
+   {
+      return mailCity;
+   }
+
+   public void setMailCity(String mailCity)
+   {
+      this.mailCity = mailCity;
+   }
+
+   public String getMailState()
+   {
+      return mailState;
+   }
+
+   public void setMailState(String mailState)
+   {
+      this.mailState = mailState;
+   }
+
+   public String getMailZipCode()
+   {
+      return mailZipCode;
+   }
+
+   public void setMailZipCode(String mailZipCode)
+   {
+      this.mailZipCode = mailZipCode;
+   }
+
+   public String getMailCountry()
+   {
+      return mailCountry;
+   }
+
+   public void setMailCountry(String mailCountry)
+   {
+      this.mailCountry = mailCountry;
+   }
+
+   public String getPrimaryPhoneNbr()
+   {
+      return primaryPhoneNbr;
+   }
+
+   public void setPrimaryPhoneNbr(String primaryPhoneNbr)
+   {
+      this.primaryPhoneNbr = primaryPhoneNbr;
+   }
+
+   public String getSecondayPhoneNbr()
+   {
+      return secondayPhoneNbr;
+   }
+
+   public void setSecondayPhoneNbr(String secondayPhoneNbr)
+   {
+      this.secondayPhoneNbr = secondayPhoneNbr;
+   }
+
+   public String getWorkPhoneNbr()
+   {
+      return workPhoneNbr;
+   }
+
+   public void setWorkPhoneNbr(String workPhoneNbr)
+   {
+      this.workPhoneNbr = workPhoneNbr;
+   }
+
+   public String getFaxNbr()
+   {
+      return faxNbr;
+   }
+
+   public void setFaxNbr(String faxNbr)
+   {
+      this.faxNbr = faxNbr;
    }
 
    public void resetData() {

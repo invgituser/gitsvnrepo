@@ -8,6 +8,9 @@
    		<property name="dataSource" ref="dataSource"/>
    	</bean>
 
+    <bean id="consumerSaveDAO" class="com.invessence.dao.consumer.ConsumerSaveDAO" >
+   		<property name="dataSource" ref="dataSource"/>
+   	</bean>
 <!--
     <bean id="manageAccountDAO" class="com.invessence.dao.ManageAccountDAO">
    		<property name="dataSource" ref="dataSource"/>

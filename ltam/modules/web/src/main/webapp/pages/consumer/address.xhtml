@@ -3,78 +3,91 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
 
-    <!--
-        <f:metadata>
-            <f:viewParam name="acctnum" value="#{ceb.beanacctnum}"/>
-            <f:event type="preRenderView" listener="#{cdash.preRenderView}"/>
-        </f:metadata>
-    -->
+    <f:metadata>
+        <f:viewParam name="acctnum" value="#{ctob.beanacctnum}"/>
+        <f:event type="preRenderView" listener="#{ctob.preRenderView}"/>
+    </f:metadata>
 
     <ui:define name="content">
 
         <div class="layout-portlets-box">
             <h:form id="addressForm">
 
-            <div class="Container100 Responsive100">
-                <div class="ContainerIndent Responsive100">
-                    <p:messages showDetail="false" escape="true" closable="true"/>
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent Responsive100">
+                        <p:messages showDetail="false" escape="true" closable="true"/>
+                    </div>
                 </div>
-            </div>
 
-        <div class="Container100">
-                <div class="ContainerIndent">
-                    <p:panel id="addressPanel" style="border: 0px; background: transparent" styleClass="FormContent">
-                        <div class="Container50 Responsive100">
-                            <div class="Container100 MarTop5">
-                                <div class="Container100 MarTop10">
-                                    <h4>Account Holder</h4>
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <p:panel id="addressPanel" style="border: 0px; background: transparent" styleClass="FormContent">
+                            <div class="Container50 Responsive100">
+                                <div class="Container100 MarTop5">
+                                    <div class="Container100 MarTop10">
+                                        <h4>Account Holder</h4>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="Container100 MarTop5">
-                                <p:panelGrid columns="3" layout="grid" styleClass="FormContent">
-                                    <p:inputText styleClass="Wid90" placeholder="First Name">
-                                    </p:inputText>
-                                    <p:inputText styleClass="Wid90" placeholder="Middle">
-                                    </p:inputText>
-                                    <p:inputText styleClass="Wid90" placeholder="Last Name">
-                                    </p:inputText>
-                                </p:panelGrid>
-                            </div>
+                                <div class="Container100 MarTop5">
+                                    <p:panelGrid columns="3" layout="grid" styleClass="FormContent">
+                                        <p:inputText styleClass="Wid90" placeholder="First Name"
+                                                     value="#{ctob.accountdata.firstname}">
+                                        </p:inputText>
+                                        <p:inputText styleClass="Wid90" placeholder="Middle"
+                                                     value="#{ctob.accountdata.middle}">
+                                        </p:inputText>
+                                        <p:inputText styleClass="Wid90" placeholder="Last Name"
+                                                     value="#{ctob.accountdata.lastname}">
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                </div>
 
-                            <div class="Container100">
-                                <h4>Legal Address</h4>
-                            </div>
-                            <div class="Container100 MarTop5">
-                                <p:inputText styleClass="Wid90" placeholder="Address1">
-                                </p:inputText>
-                            </div>
-                            <div class="Container100 MarTop5">
-                                <p:inputText styleClass="Wid90" placeholder="Address2">
-                                </p:inputText>
-                            </div>
-                            <div class="Container100 MarTop5">
-                                <p:panelGrid columns="3" layout="grid">
-                                    <p:inputText styleClass="Wid40" placeholder="City">
-                                    </p:inputText>
-                                    <p:inputText styleClass="Wid20" placeholder="State">
-                                    </p:inputText>
-                                    <p:inputText styleClass="Wid30" placeholder="Zip">
-                                    </p:inputText>
-                                </p:panelGrid>
-                            </div>
-                            <div class="Container100 MarTop5">
-                                <div class="Container50">
-                                    <p:inputText styleClass="Wid90" placeholder="Country">
+                                <div class="Container100">
+                                    <h4>Mailing Address</h4>
+                                </div>
+                                <div class="Container100 MarTop5">
+                                    <p:inputText styleClass="Wid90" placeholder="Address1"
+                                                 value="#{ctob.accountdata.mailAddrs1}">
                                     </p:inputText>
                                 </div>
+                                <div class="Container100 MarTop5">
+                                    <p:inputText styleClass="Wid90" placeholder="Address2"
+                                                 value="#{ctob.accountdata.mailAddrs2}">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container100 MarTop5">
+                                    <p:inputText styleClass="Wid90" placeholder="Address3"
+                                                 value="#{ctob.accountdata.mailAddrs3}">
+                                    </p:inputText>
+                                </div>
+                                <div class="Container100 MarTop5">
+                                    <p:panelGrid columns="3" layout="grid">
+                                        <p:inputText styleClass="Wid40" placeholder="City"
+                                                     value="#{ctob.accountdata.mailCity}">
+                                        </p:inputText>
+                                        <p:inputText styleClass="Wid20" placeholder="State"
+                                                     value="#{ctob.accountdata.mailState}">
+                                        </p:inputText>
+                                        <p:inputText styleClass="Wid30" placeholder="Zip"
+                                                     value="#{ctob.accountdata.mailZipCode}">
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                </div>
+                                <div class="Container100 MarTop5">
+                                    <div class="Container50">
+                                        <p:inputText styleClass="Wid90" placeholder="Country"
+                                                     value="#{ctob.accountdata.mailCountry}">
+                                        </p:inputText>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                    </p:panel>
+                        </p:panel>
+                    </div>
                 </div>
-            </div>
             </h:form>
         </div>
 

@@ -12,6 +12,7 @@ import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.data.common.UserData;
 import com.invessence.util.*;
 import org.primefaces.event.TabChangeEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @ManagedBean(name = "profileBean")
 @SessionScoped
@@ -150,7 +151,7 @@ public class ProfileBean implements Serializable
                if (msg.toUpperCase().equals("SUCCESS")) {
                   String passwordEncrypted = MsgDigester.getMessageDigest(password);
                   userData.setPasswordEncrypted(passwordEncrypted);
-                  userInfoDAO.resetPassword(userData.getUserID(), passwordEncrypted);
+                  userInfoDAO.updateUserProfile(userData);
                   FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, 0);
                }
                else {

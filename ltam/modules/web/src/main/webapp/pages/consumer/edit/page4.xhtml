@@ -18,7 +18,7 @@
 
             <p:selectOneRadio id="customRadio" value="#{ceb.ans4}" layout="custom"
                     required="true" requiredMessage="Please choose one of these choices"
-                    update=":ltamForm:page4table">
+                    update=":ceForm:page4table">
                 <f:selectItem itemLabel="(0%)" itemValue="1"/>
                 <f:selectItem itemLabel="(-5% )" itemValue="2"/>
                 <f:selectItem itemLabel="(-10% )" itemValue="3"/>
@@ -29,7 +29,7 @@
             <h:panelGrid styleClass="page4table" columns="4" cellpadding="0">
                 <p:radioButton id="opt1" for="customRadio" itemIndex="0"/>
                 <h:outputLabel for="opt1" value="Less than #{dataDisplayConverter.displayAsMoney(ceb.investment * 0.049)}"/>
-                <p:commandLink id="img1" update=":ltamForm:page4table"
+                <p:commandLink id="img1" update=":ceForm:page4table"
                                ajax="true" 
                                actionListener="#{ceb.image(1)}"
                                onfocus="ceb.hoverImage(1)">
@@ -41,7 +41,7 @@
 
                 <p:radioButton id="opt2" for="customRadio" itemIndex="1"/>
                 <h:outputLabel for="opt2" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.05)}"/>
-                <p:commandLink id="img2" update=":ltamForm:page4table"
+                <p:commandLink id="img2" update=":ceForm:page4table"
                                ajax="true" immediate="true"
                                actionListener="#{ceb.image(2)}"
                                onfocus="ceb.hoverImage(2)">
@@ -53,7 +53,7 @@
 
                 <p:radioButton id="opt3" for="customRadio" itemIndex="2"/>
                 <h:outputLabel for="opt3" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.10)}"/>
-                <p:commandLink id="img3" update=":ltamForm:page4table"
+                <p:commandLink id="img3" update=":ceForm:page4table"
                                ajax="true" immediate="true"
                                actionListener="#{ceb.image(3)}"
                                onfocus="ceb.hoverImage(3)">
@@ -65,7 +65,7 @@
 
                 <p:radioButton id="opt4" for="customRadio" itemIndex="3"/>
                 <h:outputLabel for="opt4" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.15)}"/>
-                <p:commandLink id="img4" update=":ltamForm:page4table"
+                <p:commandLink id="img4" update=":ceForm:page4table"
                                ajax="true" immediate="true"
                                actionListener="#{ceb.image(4)}"
                                onfocus="ceb.hoverImage(4)">
@@ -77,7 +77,7 @@
 
                 <p:radioButton id="opt5" for="customRadio" itemIndex="4"/>
                 <h:outputLabel for="opt5" value="-#{dataDisplayConverter.displayAsMoney(ceb.investment * 0.25)}"/>
-                <p:commandLink id="img5" update=":ltamForm:page4table"
+                <p:commandLink id="img5" update=":ceForm:page4table"
                                ajax="true" immediate="true"
                                actionListener="#{ceb.image(5)}"
                                onfocus="ceb.hoverImage(5)">
@@ -99,10 +99,10 @@
         </p:panel>
         <div class="tp2"></div>
         <p:commandButton value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
-                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      update=":ceForm:contentpanel,:ceForm:disclaimer"
                                       actionListener="#{ceb.prevPage}"/>
                      <p:commandButton styleClass="Fright" value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
-                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      update=":ceForm:contentpanel,:ceForm:disclaimer"
                                       actionListener="#{ceb.nextPage}"/>
     </div>
 

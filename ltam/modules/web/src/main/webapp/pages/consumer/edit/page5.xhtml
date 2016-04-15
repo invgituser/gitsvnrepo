@@ -19,7 +19,7 @@
                      rendered="#{ceb.ltamcharts.riskbarChart != null}"
                      responsive="true"
                      extender="ltam_riskq5">
-                <p:ajax event="itemSelect" listener="#{ceb.riskChartSelected}" update=":ltamForm:page5id"/>
+                <p:ajax event="itemSelect" listener="#{ceb.riskChartSelected}" update=":ceForm:page5id"/>
             </p:chart>
 
             <div class="EmptyBox40"></div>
@@ -37,10 +37,10 @@
         </p:panel>
         <div class="EmptyBox20"></div>
         <p:commandButton value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
-                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      update=":ceForm:contentpanel,:ceForm:disclaimer"
                                       actionListener="#{ceb.prevPage}"/>
                      <p:commandButton styleClass="Fright" value="Next"  rendered="#{ceb.pagemanager.nextButtonStat}"
-                                      update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      update=":ceForm:contentpanel,:ceForm:disclaimer"
                                       actionListener="#{ceb.nextPage}"/>
     </div>
 

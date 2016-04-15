@@ -8,8 +8,8 @@
 		<property name="basenames">
 			<list>
 				<value>company</value>
-				<value>messages</value>
-				<value>error_messages</value>
+				<value>webmessages</value>
+				<value>weberror</value>
 			</list>
 		</property>
 

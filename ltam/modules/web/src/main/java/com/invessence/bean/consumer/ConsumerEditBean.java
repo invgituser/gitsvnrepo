@@ -451,7 +451,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (! webutil.isWebProdMode())
+         if (webutil != null && ! webutil.isWebProdMode())
             return;
 
          Long acctnum = null;
