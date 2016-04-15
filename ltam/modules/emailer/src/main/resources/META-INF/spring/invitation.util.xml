@@ -8,7 +8,8 @@
      <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">
             <list>
-                <value>messages</value>
+                <value>emailmessages</value>
+                <value>emailerror</value>
             </list>
         </property>
      </bean>

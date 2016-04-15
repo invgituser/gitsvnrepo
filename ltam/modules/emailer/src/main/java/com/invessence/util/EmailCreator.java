@@ -204,7 +204,7 @@ public class EmailCreator implements MessageSourceAware, Serializable
                // msgData.setCc();
                msgData.setSender("noreply@symbil.com");
                msgData.setMsg(message);
-               writeMessage("Internal", msgData);
+               // writeMessage("Internal", msgData);
                msgDAO.saveMsg(msgData);
       }
       catch (Exception ex) {

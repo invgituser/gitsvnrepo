@@ -15,7 +15,7 @@
 
     <bean id="emailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
         <property name="jobDetail" ref="emailJobDetail"/>
-        <property name="cronExpression" value="0 0/1 * * * ?"/>
+        <property name="cronExpression" value="0/10 * * * * ?"/>
     </bean>
 
     <bean id="emailJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">

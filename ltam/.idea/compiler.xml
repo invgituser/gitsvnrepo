@@ -26,6 +26,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="broker-services" />
+        <module name="broker-webservices" />
         <module name="brokerservice" />
         <module name="brokerservices" />
         <module name="core" />
@@ -39,6 +41,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="broker-services" target="1.7" />
+      <module name="broker-webservices" target="1.7" />
       <module name="brokerservice" target="1.6" />
       <module name="brokerservices" target="1.6" />
       <module name="emailer" target="1.6" />

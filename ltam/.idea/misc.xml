@@ -4,6 +4,7 @@
     <entry_points version="2.0" />
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/db/sql/routine/sp_sourceoffund_sel.sql" />
     <file type="web" url="file://$PROJECT_DIR$/modules/iAdvice" />
     <file type="web" url="file://$PROJECT_DIR$/modules/showcase" />
     <file type="web" url="file://$PROJECT_DIR$/modules/web" />
@@ -13,6 +14,7 @@
     <file type="web" url="file://$PROJECT_DIR$/modules/yodlee/yodlee-jsf" />
     <file type="web" url="file://$PROJECT_DIR$/modules/yodlee/yodlee-poc" />
     <file type="web" url="file://$PROJECT_DIR$/web-internal" />
+    <type id="jsf" />
   </component>
   <component name="IdProvider" IDEtalkID="D526D9B67D834AC489F3E91AF93F84D0" />
   <component name="JsfProjectComponent">
