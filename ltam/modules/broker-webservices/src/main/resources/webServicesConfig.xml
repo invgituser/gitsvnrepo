@@ -14,10 +14,12 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!--<context:component-scan base-package="com.invessence" />-->
+
+  <!-- <context:property-placeholder location="classpath:systemParameters.properties" />-->
+	<context:component-scan base-package="com.invessence.ws" />
 
     <tx:annotation-driven transaction-manager="transactionManager" />
-	<context:component-scan base-package="com.invessence" />
-
    <bean id="transactionManager"
 		 class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		 scope="singleton">
@@ -42,6 +44,7 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
+   <bean id="serviceLayer" class="com.invessence.ws.service.ServiceLayerImpl" />
 
 
 <!-- <task:annotation-driven />
@@ -50,12 +53,18 @@
 	<task:scheduled-tasks>
 	    <task:scheduled ref="yodleeAPIService" method="coBrandSessionManager" cron="0 15 */1 * * ?"></task:scheduled>
 	</task:scheduled-tasks >
-	
 	<task:scheduled-tasks>
 	    <task:scheduled ref="yodleeAPIService" method="refreshUserAccDetailsManager" cron="* 50 10 * * ?"></task:scheduled>
 	</task:scheduled-tasks > -->
-
-   <context:property-placeholder location="classpath:/systemParameters.properties" />
+   <bean id="wsPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+      <property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:systemParameters.properties</value>
+				<!--<value>classpath:ltam.properties</value>-->
+			</list>
+		</property>
+	</bean>
    <!--<bean id="resource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
    <!--<property name="basenames">-->
    <!--<list>-->
@@ -70,6 +79,6 @@
            <property name="username" value="webuser"/>
            <property name="password" value="inv3ss3nc3u530n1y"/>
        </bean>-->
-	 <import resource="classpath*:META-INF/spring/invitation.util.xml"/>
+	<import resource="classpath*:META-INF/spring/invitation.util.xml"/>
   
 </beans>
