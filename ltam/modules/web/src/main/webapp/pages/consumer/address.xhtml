@@ -16,8 +16,8 @@
         <div class="layout-portlets-box">
             <h:form id="addressForm">
 
-                <div class="Container100 Responsive100">
-                    <div class="ContainerIndent Responsive100">
+                <div class="Container100">
+                    <div class="ContainerIndent">
                         <p:messages showDetail="false" escape="true" closable="true"/>
                     </div>
                 </div>
@@ -25,26 +25,24 @@
                 <div class="Container100">
                     <div class="ContainerIndent">
                         <p:panel id="addressPanel" style="border: 0px; background: transparent" styleClass="FormContent">
-                            <div class="Container50 Responsive100">
+                            <div class="Container80">
                                 <div class="Container100 MarTop5">
                                     <div class="Container100 MarTop10">
-                                        <h4>Account Holder</h4>
+                                        <h2>Account Holder</h2>
                                     </div>
                                 </div>
-                                <div class="Container100 MarTop5">
-                                    <p:panelGrid columns="3" layout="grid" styleClass="FormContent">
-                                        <p:inputText styleClass="Wid90" placeholder="First Name"
+                                <div class="Container100 Responsive MarTop5">
+                                       <p:inputText styleClass="Wid40" placeholder="First Name"
                                                      value="#{ctob.accountdata.firstname}">
                                         </p:inputText>
-                                        <p:inputText styleClass="Wid90" placeholder="Middle"
+                                        <p:inputText styleClass="Wid20" placeholder="Middle"
                                                      value="#{ctob.accountdata.middle}">
                                         </p:inputText>
-                                        <p:inputText styleClass="Wid90" placeholder="Last Name"
+                                        <p:inputText styleClass="Wid40" placeholder="Last Name"
                                                      value="#{ctob.accountdata.lastname}">
                                         </p:inputText>
-                                    </p:panelGrid>
                                 </div>
-
+                                <div class="EmptyBox10"></div>
                                 <div class="Container100">
                                     <h4>Mailing Address</h4>
                                 </div>
@@ -64,8 +62,7 @@
                                     </p:inputText>
                                 </div>
                                 <div class="Container100 MarTop5">
-                                    <p:panelGrid columns="3" layout="grid">
-                                        <p:inputText styleClass="Wid40" placeholder="City"
+                                        <p:inputText styleClass="Wid50" placeholder="City"
                                                      value="#{ctob.accountdata.mailCity}">
                                         </p:inputText>
                                         <p:inputText styleClass="Wid20" placeholder="State"
@@ -74,10 +71,9 @@
                                         <p:inputText styleClass="Wid30" placeholder="Zip"
                                                      value="#{ctob.accountdata.mailZipCode}">
                                         </p:inputText>
-                                    </p:panelGrid>
                                 </div>
                                 <div class="Container100 MarTop5">
-                                    <div class="Container50">
+                                    <div class="Container40">
                                         <p:inputText styleClass="Wid90" placeholder="Country"
                                                      value="#{ctob.accountdata.mailCountry}">
                                         </p:inputText>
