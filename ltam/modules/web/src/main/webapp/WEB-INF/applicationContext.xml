@@ -21,7 +21,10 @@
 	<import resource="dataSource.xml"/>
     <import resource="dataLoadingSingletons.xml"/>
 
-   <import resource="classpath*:/webServicesConfig.xml"/>
+    <import resource="classpath*:webServicesConfig.xml"/>
+<!--
+    <import resource="emailer.xml"/>
+-->
 <!--
     <import resource="classpath*:/yodleeBeanConf.xml"/>
 -->
