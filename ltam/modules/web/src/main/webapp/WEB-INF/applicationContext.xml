@@ -20,6 +20,8 @@
 	<import resource="messageSource.xml"/>
 	<import resource="dataSource.xml"/>
     <import resource="dataLoadingSingletons.xml"/>
+
+   <import resource="classpath*:/webServicesConfig.xml"/>
 <!--
     <import resource="classpath*:/yodleeBeanConf.xml"/>
 -->

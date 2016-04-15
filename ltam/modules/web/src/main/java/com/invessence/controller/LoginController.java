@@ -11,6 +11,7 @@ import com.invessence.constant.Const;
 import com.invessence.data.*;
 import com.invessence.data.common.UserInfoData;
 import com.invessence.util.*;
+import com.invessence.ws.service.ServiceLayer;
 import org.apache.commons.logging.*;
 import org.springframework.security.authentication.*;
 import org.springframework.security.web.WebAttributes;
@@ -36,6 +37,13 @@ public class LoginController implements PhaseListener
       this.uiLayout = uiLayout;
    }
 
+   @ManagedProperty("#{serviceLayer}")
+   private ServiceLayer serviceLayer;
+
+   public void setServiceLayer(ServiceLayer serviceLayer)
+   {
+      this.serviceLayer = serviceLayer;
+   }
 /*
    @ManagedProperty("#{emailMessage}")
    private EmailMessage emailMessage;
@@ -56,6 +64,7 @@ public class LoginController implements PhaseListener
 
    public void doLogin() throws ServletException, IOException
    {
+      serviceLayer.getUserBankAcctDetails("310100016");
       ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 
       if (answer != null && !answer.isEmpty())

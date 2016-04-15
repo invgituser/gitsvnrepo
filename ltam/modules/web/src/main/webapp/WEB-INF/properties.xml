@@ -7,7 +7,8 @@
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>/WEB-INF/classes/ltam.properties</value>
+				<value>classpath:ltam.properties</value>
+				<value>classpath:systemParameters.properties</value>
 			</list>
 		</property>
 	</bean>
