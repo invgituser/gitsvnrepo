@@ -103,27 +103,19 @@
                                                      style="border:0px !important; padding: 5px !important; background:none;"
                                                      class="FormContent">
                                             <h:outputText value="User ID" styleClass="Wid90"/>
-                                            <p:inputText value="#{profileBean.userData.userID}" styleClass="Wid90"
-                                                    required="true" requiredMessage="UserID must be defined."/>
+                                            <h:outputText value="#{profileBean.userData.userID}" styleClass="Wid90 Fs16"/>
+                                            <p:spacer width="1"/>
 
                                             <h:outputText value="Email" styleClass="Wid90"/>
                                             <p:inputText value="#{profileBean.userData.email}" styleClass="Wid90"
                                                          required="true" requiredMessage="Email must be defined."/>
+                                            <p:spacer width="1"/>
 
                                             <h:outputText value="Password" styleClass="Wid90"/>
                                             <p:password id="pwd1" value="#{profileBean.password}"
                                                         styleClass="Wid90" placeholder="New Password"
                                                         match="pwd2" label="Password">
                                             </p:password>
-
-                                            <h:outputText value="Confirm Password" styleClass="Wid90"/>
-                                            <p:password id="pwd2" value="#{profileBean.confirmPassword}" styleClass="Wid90"
-                                                        placeholder="Confirm Password"/>
-                                        </p:panelGrid>
-                                    </div>
-                                    <div class="Container40 Responsive50">
-                                        <div class="Wid90">
-                                            <div class="EmptyBox50"></div>
                                             <p:commandButton id="pwdHelp"
                                                              icon="fa fa-question-circle white"
                                                              value="Help" process="@none"/>
@@ -139,7 +131,11 @@
                                                 </ul>
                                             </p:overlayPanel>
 
-                                        </div>
+                                            <h:outputText value="Confirm Password" styleClass="Wid90"/>
+                                            <p:password id="pwd2" value="#{profileBean.confirmPassword}" styleClass="Wid90"
+                                                        placeholder="Confirm Password"/>
+                                            <p:spacer width="1"/>
+                                        </p:panelGrid>
                                     </div>
                                     <div class="EmptyBox50"/>
                                     <f:facet name="footer">
