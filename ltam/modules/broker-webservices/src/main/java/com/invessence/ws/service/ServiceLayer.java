@@ -17,8 +17,8 @@ public interface ServiceLayer
 
    public WSCallResult getUserBankAcctDetails(String clientAccountID);
 
-   public WSCallStatus fundAccount(String clientAccountID, int fundID, double amount, String accountNumber);
-   public WSCallStatus fundTransfer(String clientAccountID, int fromFundID, int toFundID, double amount, String accountNumber);
+   public WSCallStatus fundAccount(String clientAccountID, int fundID, double amount, String bankAccountNumber);
+   public WSCallStatus fullFundTransfer(String clientAccountID, int fromFundID, int toFundID, String bankAccountNumber);
 
    //Future required functions
 

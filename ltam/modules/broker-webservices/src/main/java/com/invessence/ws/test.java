@@ -1,4 +1,4 @@
-package com.invessence.ws.provider;
+package com.invessence.ws;
 
 /**
  * Created by abhangp on 4/15/2016.

@@ -29,15 +29,17 @@ public class ServiceLayerTDImpl implements CallingLayer
    }
 
    @Override
-   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
    {
-      return null;
+      throw new NoServiceSupportException("fundAccount Service Not Support");
+      //return null;
    }
 
    @Override
-   public WSCallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String accountNumber) throws Exception
    {
-      return null;
+      throw new NoServiceSupportException("fullFundTransfer Service Not Support");
+      //return null;
    }
 
    public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception

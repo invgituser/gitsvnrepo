@@ -19,8 +19,9 @@ public interface CallingLayer
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails)throws Exception;
 
    //TransactionServices
-   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String accountNumber) throws Exception;
-   public WSCallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception;
+   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception;
+   public WSCallStatus fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception;
+
 
 
 //   public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception;

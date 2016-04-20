@@ -55,20 +55,15 @@ public class WSCommonDaoImpl implements WSCommonDao
    }
 
    public List<UserAcctDetails> getPendingUserAccDetails()throws SQLException{
+      System.out.println("WSCommonDaoImpl.getPendingUserAccDetails");
       List<UserAcctDetails> lst = null;
-      logger.info("Fetching Pending User Account Details");
-//      String sql="select * from ltam_acct_info lai , user_logon_webservice ulw " +
-//         "where ulw.status='P' and ulw.clientAccountID=lai.clientAccountID";
-//      System.out.println("SQL : "+sql);
-//      String sql = "select * from ltam_acct_info lai right join user_logon_webservice ulw " +
-//         "on ulw.status='P' and ulw.clientAccountID=lai.clientAccountID;";
       lst = webServiceJdbcTemplate.query(SysParameters.getPendingUserAccDetails, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst;
    }
 
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException{
-
-      System.out.println(userAcctDetails.getOpt()+"userAcctDetails.getOpt()");
+      System.out.println("WSCommonDaoImpl.updatePendingUserAccDetails");
+      System.out.println("userAcctDetails = [" + userAcctDetails + "]");
       if(userAcctDetails.getOpt().equals(Constants.succesResult))
       {
          webServiceJdbcTemplate.update(SysParameters.updatePendingUserAccDetailsOnSuccess,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
@@ -85,14 +80,17 @@ public class WSCommonDaoImpl implements WSCommonDao
       return true;
    }
 
-   public boolean updateUserEmail(UserAcctDetails userAcctDetails, String newEmail)throws SQLException{
-
-      int i= webServiceJdbcTemplate.update(SysParameters.updateUserEmail,newEmail ,new Date(),userAcctDetails.getClientAccountID());
-
-      return true;
-   }
+//   public boolean updateUserEmail(UserAcctDetails userAcctDetails, String newEmail)throws SQLException{
+//      System.out.println("WSCommonDaoImpl.updateUserEmail");
+//      System.out.println("userAcctDetails = [" + userAcctDetails + "], newEmail = [" + newEmail + "]");
+//      int i= webServiceJdbcTemplate.update(SysParameters.updateUserEmail,newEmail ,new Date(),userAcctDetails.getClientAccountID());
+//
+//      return true;
+//   }
 
    public UserAcctExt getAccountExtInfo(String accountNumber)throws SQLException{
+      System.out.println("WSCommonDaoImpl.getAccountExtInfo");
+      System.out.println("accountNumber = [" + accountNumber + "]");
       List<UserAcctExt> lst = null;
       logger.info("Fetching UserAccDetails ByAccNumber");
       lst = webServiceJdbcTemplate.query(SysParameters.getAccountExtInfo, new Object[] {accountNumber}, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctExt.class));
@@ -102,6 +100,9 @@ public class WSCommonDaoImpl implements WSCommonDao
   //clientAccountID, accountType, dateOfBirth, mailingAddressId, mailingAddressType, created, lastUpdated, clientAccountID, id
    public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
    {
+      System.out.println("WSCommonDaoImpl.insertAccountExtInfo");
+      System.out.println("userAcctExt = " + userAcctExt);
+
       ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
       userAcctExt.setOpt(Constants.dbInsertOpt+"_"+userAcctExt.getOpt());
       System.out.println(userAcctExt.getOpt()+"userAcctExt.setOpt");
@@ -118,6 +119,8 @@ public class WSCommonDaoImpl implements WSCommonDao
    @Override
    public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
    {
+      System.out.println("WSCommonDaoImpl.updateAccountExtInfo");
+      System.out.println("userAcctExt = " + userAcctExt);
      ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
 
       extInfoSP.execute();
@@ -131,90 +134,90 @@ public class WSCommonDaoImpl implements WSCommonDao
    }
 
 
-   public List<BrokerHostDetails> getBrokerHostDetails()throws SQLException
-   {
-      List<BrokerHostDetails> lst = null;
-      logger.info("Fetching broker host details");
-      String sql = "select vendor, environment, host, username, password, sourcedir, encrDecrKey from host_info ";
-      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
-      return lst;
-   }
-
-   public BrokerHostDetails getBrokerHostDetails(String where)throws SQLException
-   {
-      List<BrokerHostDetails> lst = null;
-      logger.info("Fetching broker host details");
-      String sql = "select vendor, environment, host, username, password, sourcedir, encrDecrKey from host_info where "+where;
-      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
-      return lst==null?null:lst.size()==0?null:lst.get(0);
-   }
-
-   public void truncateTable(String tableName) throws SQLException{
-      String sql = "delete from "+tableName;
-      webServiceJdbcTemplate.execute(sql);
-   }
-
-
-   @Transactional
-   public void insertBatch(final List<String[]> dataArrLst, String sql, String proc)throws SQLException{
-      logger.info("Processing batch insertion");
-      if(sql==null || sql.equals("")){
-         System.out.println("Insertion sql is not valid");
-         logger.info("Insertion sql is not valid");
-      }else
-      {
-         webServiceJdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
-         {
-            public int getBatchSize()
-            {
-               return dataArrLst.size();
-            }
-
-            public void setValues(PreparedStatement ps, int i) throws SQLException
-            {
-               String[] inData = dataArrLst.get(i);
-               for (int ip = 1; ip <= inData.length; ip++)
-               {
-                  //System.out.print((inData[ip - 1].trim().replaceAll("\"", "")) + ",");
-                  ps.setString(ip, inData[ip - 1].trim().replaceAll("\"", ""));
-               }
-               //System.out.println("");
-            }
-         });
-      }
-//      System.out.println("******************************");
-      if(proc==null || proc.equals("")){
-         logger.info("Procedure name is not valid");
-      }else
-      {
-         logger.info("Calling post process procedure :"+proc);
-         new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc).execute();
-      }
-
-//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc);
-//      simpleJdbcCall.execute();
-//      Map<String, Object> inParamMap = new HashMap<String, Object>();
-//      inParamMap.put("process", "MONTHLY");
-//      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
-//      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
-//      System.out.println(simpleJdbcCallResult);
-//      System.out.println("******************************");
-
-
-   }
-   public void callEODProcess(String proc) throws SQLException{
-      new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc).execute();
-//      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(webServiceJdbcTemplate)
-//         .withProcedureName(proc);
+//   public List<BrokerHostDetails> getBrokerHostDetails()throws SQLException
+//   {
+//      List<BrokerHostDetails> lst = null;
+//      logger.info("Fetching broker host details");
+//      String sql = "select vendor, environment, host, username, password, sourcedir, encrDecrKey from host_info ";
+//      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
+//      return lst;
+//   }
 //
-//      Map<String, Object> inParamMap = new HashMap<String, Object>();
-//      inParamMap.put("firstName", "Smita");
-//      inParamMap.put("lastName", "Chaudhari");
-//      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+//   public BrokerHostDetails getBrokerHostDetails(String where)throws SQLException
+//   {
+//      List<BrokerHostDetails> lst = null;
+//      logger.info("Fetching broker host details");
+//      String sql = "select vendor, environment, host, username, password, sourcedir, encrDecrKey from host_info where "+where;
+//      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
+//      return lst==null?null:lst.size()==0?null:lst.get(0);
+//   }
+//
+//   public void truncateTable(String tableName) throws SQLException{
+//      String sql = "delete from "+tableName;
+//      webServiceJdbcTemplate.execute(sql);
+//   }
 //
 //
-//      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
-//      System.out.println(simpleJdbcCallResult);
-   }
+//   @Transactional
+//   public void insertBatch(final List<String[]> dataArrLst, String sql, String proc)throws SQLException{
+//      logger.info("Processing batch insertion");
+//      if(sql==null || sql.equals("")){
+//         System.out.println("Insertion sql is not valid");
+//         logger.info("Insertion sql is not valid");
+//      }else
+//      {
+//         webServiceJdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter()
+//         {
+//            public int getBatchSize()
+//            {
+//               return dataArrLst.size();
+//            }
+//
+//            public void setValues(PreparedStatement ps, int i) throws SQLException
+//            {
+//               String[] inData = dataArrLst.get(i);
+//               for (int ip = 1; ip <= inData.length; ip++)
+//               {
+//                  //System.out.print((inData[ip - 1].trim().replaceAll("\"", "")) + ",");
+//                  ps.setString(ip, inData[ip - 1].trim().replaceAll("\"", ""));
+//               }
+//               //System.out.println("");
+//            }
+//         });
+//      }
+////      System.out.println("******************************");
+//      if(proc==null || proc.equals("")){
+//         logger.info("Procedure name is not valid");
+//      }else
+//      {
+//         logger.info("Calling post process procedure :"+proc);
+//         new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc).execute();
+//      }
+//
+////      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc);
+////      simpleJdbcCall.execute();
+////      Map<String, Object> inParamMap = new HashMap<String, Object>();
+////      inParamMap.put("process", "MONTHLY");
+////      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+////      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+////      System.out.println(simpleJdbcCallResult);
+////      System.out.println("******************************");
+//
+//
+//   }
+//   public void callEODProcess(String proc) throws SQLException{
+//      new SimpleJdbcCall(webServiceJdbcTemplate).withProcedureName(proc).execute();
+////      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(webServiceJdbcTemplate)
+////         .withProcedureName(proc);
+////
+////      Map<String, Object> inParamMap = new HashMap<String, Object>();
+////      inParamMap.put("firstName", "Smita");
+////      inParamMap.put("lastName", "Chaudhari");
+////      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+////
+////
+////      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+////      System.out.println(simpleJdbcCallResult);
+//   }
 
 }

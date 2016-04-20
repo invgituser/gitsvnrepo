@@ -75,19 +75,19 @@ public class CallingLayerGeminiImpl implements CallingLayer
    }
 
    @Override
-   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
    {
       userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
       transactionService=new TransactionServiceImpl();
-      return transactionService.fundAccount(userAcctDetails, fundID, amount, accountNumber);
+      return transactionService.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber);
    }
 
    @Override
-   public WSCallStatus fundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, double amount, String accountNumber) throws Exception
+   public WSCallStatus fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
    {
       userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
       transactionService=new TransactionServiceImpl();
-      return transactionService.fundTransfer(userAcctDetails, fromFundID, toFundID, amount, accountNumber);
+      return transactionService.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber);
    }
 
 

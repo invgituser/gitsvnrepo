@@ -18,9 +18,6 @@ public class LoginServiceImpl implements LoginService
    LoginServicesLocator loginServicesLocator = new LoginServicesLocator();
    LoginServicesSoap_PortType loginServicesSoap = null;
 
-   String encryDecryKey="aRXDugfr4WQpVrxu";
-   //String encryDecryKey="GEMINI-KEY";
-
    public WSCallStatus loginWebUser(UserAcctDetails userAcctDetails) throws Exception{
       System.out.println("LoginServiceImpl.loginWebUser");
       loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
@@ -47,7 +44,7 @@ public class LoginServiceImpl implements LoginService
 
       WebUserResult webUserResult = loginServicesSoap.createShareholderWebUser
          (new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
-         userAcctDetails.getClientAccountID(), EncryDecryAES.decrypt(userAcctDetails.getSsn(), encryDecryKey),
+         userAcctDetails.getClientAccountID(), EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.encryDecryKey),
          userAcctDetails.getMailZipCode(), userAcctDetails.getEmail(), userAcctDetails.getSecurityQuestion(),
          userAcctDetails.getSecurityAnswer(), new UnsignedByte("1"));
       System.out.println("webUserResult = " + webUserResult.toString());

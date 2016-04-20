@@ -22,6 +22,8 @@ public class SysParameters
    public static String tdEndPointUrl;
 
 
+   public static final String encryDecryKey="aRXDugfr4WQpVrxu";
+   //String encryDecryKey="GEMINI-KEY";
    public static String fundGroupName="landenburgfund";
    public static int wsResIssueCode=501;
    public static String wsResIssueMsg="WebService response issue";

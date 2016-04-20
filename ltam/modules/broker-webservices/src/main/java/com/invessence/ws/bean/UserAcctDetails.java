@@ -321,27 +321,12 @@ public class UserAcctDetails
    public String toString()
    {
       return "UserAcctDetails{" +
-         "acctnum=" + acctnum +
-         ", applicantFName='" + applicantFName + '\'' +
-         ", applicantLName='" + applicantLName + '\'' +
-         ", applicantMName='" + applicantMName + '\'' +
-         ", clientAccountID='" + clientAccountID + '\'' +
+         "clientAccountID='" + clientAccountID + '\'' +
          ", email='" + email + '\'' +
          ", fundGroupName='" + fundGroupName + '\'' +
-         ", initialCusip='" + initialCusip + '\'' +
-         ", initialInvestment=" + initialInvestment +
-         ", internalRepID='" + internalRepID + '\'' +
-         ", invite='" + invite + '\'' +
-         ", mailAddrs1='" + mailAddrs1 + '\'' +
-         ", mailAddrs2='" + mailAddrs2 + '\'' +
-         ", mailCity='" + mailCity + '\'' +
-         ", mailState='" + mailState + '\'' +
          ", mailZipCode='" + mailZipCode + '\'' +
          ", primaryPhoneNbr='" + primaryPhoneNbr + '\'' +
          ", pwd='" + pwd + '\'' +
-         ", remarks='" + remarks + '\'' +
-         ", repName='" + repName + '\'' +
-         ", repNum='" + repNum + '\'' +
          ", securityAnswer='" + securityAnswer + '\'' +
          ", securityQuestion='" + securityQuestion + '\'' +
          ", ssn='" + ssn + '\'' +

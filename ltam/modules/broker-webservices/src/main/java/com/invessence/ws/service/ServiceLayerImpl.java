@@ -3,7 +3,7 @@ package com.invessence.ws.service;
 import java.net.UnknownHostException;
 import java.util.*;
 
-import com.invessence.util.RandomPwdCreator;
+import com.invessence.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
 import com.invessence.ws.provider.td.service.ServiceLayerTDImpl;
@@ -20,23 +20,23 @@ import org.springframework.stereotype.Service;
 public class ServiceLayerImpl implements ServiceLayer
 {
    private static final Logger logger = Logger.getLogger(ServiceLayerImpl.class);
-   CallingLayer callingLayer;
    @Autowired
    WSCommonDao commonDao;
-   String encryDecryKey="aRXDugfr4WQpVrxu";
+   @Autowired
+   EmailCreator emailCreator;
 
-
+   CallingLayer callingLayer;
 
    public void createPendingUser()
    {
-      System.out.println("ServiceLayerImpl.createPendingUser");
+      logger.info("ServiceLayerImpl.createPendingUser");
       StringBuilder emailAlertMessage=new StringBuilder();
       try
       {
          List<UserAcctDetails> uadLst = commonDao.getPendingUserAccDetails();//getUserAccDetailsByWhereClause(""/*"where email='"+emailAddress+"'"*/);
          if(uadLst==null || uadLst.size()==0){
-            System.out.println("User details not available for Pending accounts creation = " + uadLst.size());
-            emailAlertMessage.append("User details not available for Pending accounts creation.\n");
+            logger.info("User details not available for accounts creation = " + uadLst.size());
+            emailAlertMessage.append("User details not available for accounts creation.\n");
          }else
          {
 //            int i = 1;
@@ -125,41 +125,31 @@ public class ServiceLayerImpl implements ServiceLayer
                   {
                      emailAlertMessage.append("Service is not accessible UnknownHostException \n");
                      break;
-                     //System.out.println("ervice is not accessible UnknownHostException" + e.getMessage());
                   }
-                  //e.printStackTrace();
                }
 
-
-//               if (i <= 20)
-//               {
-////               WebUserResult webUserResult = servicesSoap.createShareholderWebUser(
-////                  new AuthenticateLogin(userId,"test01",fundGroupName,"00"),
-////                  uad.getClientAccountID(), EncryptionDecryptionAES.decrypt(uad.getSsn(),encryDecryKey), uad.getMailZipCode(), uad.getEmail(),
-////                  securityQuestion, securityAnswer, new UnsignedByte("1"));
-////               System.out.println(webUserResult.toString());
-//               }
-
-//            if(i==1){
-//               if(existResult.isIsExist()==false){
-//                  WebUserResult webUserResult = servicesSoap.createShareholderWebUser(new AuthenticateLogin(userId,"test01","landenburgfund","00"), uad.getClientAccountID(), EncryptionDecryptionAES.decrypt(uad.getSsn(),encryDecryKey), uad.getMailZipCode(), emailAddress, securityQuestion, securityAnswer, new UnsignedByte("1"));
-//                  System.out.println(webUserResult.toString());
-//               }else if(existResult.isIsExist()==true){
-//
-//               }
-//            }
-//               i++;
-            }
+     }
          }
-         //new AuthenticateLogin("test.larie", "test01", "landenburgfund", "00");
-      }
+       }
       catch (Exception e)
       {
          emailAlertMessage.append(e.getMessage()+"\n");
 //         e.printStackTrace();
       }finally
       {
-         System.out.println("emailAlertMessage :"+emailAlertMessage);
+         logger.info("emailAlertMessage :"+emailAlertMessage);
+         if(emailAlertMessage.length()>0){
+            try
+            {
+               logger.info("Sending email to support team");
+               //emailCreator.sendToSupport("ERR", "Pending User's Account Creation Process", emailAlertMessage.toString());
+            }catch (Exception e)
+            {
+               logger.error("Issue while sending an email \n"+e.getMessage());
+               //logger.error(e.getStackTrace());
+            }
+         }
+
       }
    }
 
@@ -179,21 +169,22 @@ public class ServiceLayerImpl implements ServiceLayer
             if (WSCallStatus == null)
             {
 
-            }else{
-               if(WSCallStatus.getErrorCode()==0){
-                  try
-                  {
-                     commonDao.updateUserEmail(userAcctDetails,newEmail);
-                  }
-                  catch (Exception e)
-                  {
-                     e.printStackTrace();
-                  }
-
-               }else{
-                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
-               }
             }
+//            else{
+//               if(WSCallStatus.getErrorCode()==0){
+//                  try
+//                  {
+//                     commonDao.updateUserEmail(userAcctDetails,newEmail);
+//                  }
+//                  catch (Exception e)
+//                  {
+//                     e.printStackTrace();
+//                  }
+//
+//               }else{
+//                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
+//               }
+//            }
 
             return WSCallStatus;
          }
@@ -298,7 +289,7 @@ public class ServiceLayerImpl implements ServiceLayer
    }
 
    @Override
-   public WSCallStatus fundAccount(String clientAccountID, int fundID, double amount, String accountNumber)
+   public WSCallStatus fundAccount(String clientAccountID, int fundID, double amount, String bankAccountNumber)
    {
       try
       {
@@ -310,7 +301,7 @@ public class ServiceLayerImpl implements ServiceLayer
             System.out.println("User Account Details not available in DB");
          }else{
 
-            WSCallStatus WSCallStatus = callingLayer.fundAccount(userAcctDetails, fundID, amount, accountNumber);
+            WSCallStatus WSCallStatus = callingLayer.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber);
             if (WSCallStatus == null)
             {
 
@@ -334,7 +325,7 @@ public class ServiceLayerImpl implements ServiceLayer
    }
 
    @Override
-   public WSCallStatus fundTransfer(String clientAccountID, int fromFundID, int toFundID, double amount, String accountNumber)
+   public WSCallStatus fullFundTransfer(String clientAccountID, int fromFundID, int toFundID, String bankAccountNumber)
    {
       try
       {
@@ -346,7 +337,7 @@ public class ServiceLayerImpl implements ServiceLayer
             System.out.println("User Account Details not available in DB");
          }else{
 
-            WSCallStatus WSCallStatus = callingLayer.fundTransfer(userAcctDetails, fromFundID, toFundID, amount, accountNumber);
+            WSCallStatus WSCallStatus = callingLayer.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber);
             if (WSCallStatus == null)
             {
 

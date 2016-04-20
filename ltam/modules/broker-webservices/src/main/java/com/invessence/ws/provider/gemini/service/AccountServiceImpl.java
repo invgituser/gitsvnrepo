@@ -39,24 +39,24 @@ public class AccountServiceImpl implements AccountService
    }
 
    public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception{
-      System.out.println("AccountServiceImpl.updateMailingAddress");
+      logger.info("AccountServiceImpl.updateMailingAddress");
       servicesSoap = servicesLocator.getAccountServicesSoap();
 
-      System.out.println("Before "+getMailingAddress(userAcctDetails,new UserAcctExt()));
-      System.out.println("AuthenticateLogin:[UserId:" + userAcctDetails.getUserID() + ", Password:" + userAcctDetails.getPwd() + ", FundGroupName:" + userAcctDetails.getFundGroupName() + ", AllowableShareClassList:00]");
+      logger.info("Before "+getMailingAddress(userAcctDetails,new UserAcctExt()));
+      logger.info("AuthenticateLogin:[UserId:" + userAcctDetails.getUserID() + ", Password:" + userAcctDetails.getPwd() + ", FundGroupName:" + userAcctDetails.getFundGroupName() + ", AllowableShareClassList:00]");
 
       MailingAddressesRequest mailingAddressesRequest = new MailingAddressesRequest(mailingAddress.getMailingAddressId(), mailingAddress.getFirstName()+" "+mailingAddress.getMiddleName()+" "+mailingAddress.getLastName(),
                                                                                     mailingAddress.getAddressLine1()+" "+mailingAddress.getAddressLine2()+" "+mailingAddress.getAddressLine3(),
                                                                                        mailingAddress.getPostalZip(), mailingAddress.getCountryCode(), mailingAddress.getVoicePhone(),
                                                                                        mailingAddress.getAltPhone(), mailingAddress.getFaxPhone(), mailingAddress.getEmailAddress(),
                                                                                        new UnsignedByte(mailingAddress.getMailingAddressType()), userAcctDetails.getClientAccountID());
-      System.out.println("mailingAddressesRequest = " + mailingAddressesRequest.toString());
+      logger.info("mailingAddressesRequest = " + mailingAddressesRequest.toString());
       Status status = servicesSoap.updateMailingAddresses(
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          userAcctDetails.getClientAccountID(),
          mailingAddressesRequest);
-      System.out.println("After "+getMailingAddress(userAcctDetails,new UserAcctExt()));
-      System.out.println(status.toString());
+      logger.info("After "+getMailingAddress(userAcctDetails,new UserAcctExt()));
+      logger.info(status.toString());
       if (status == null)
       {
          return new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg);
@@ -74,16 +74,16 @@ public class AccountServiceImpl implements AccountService
 
    public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception
    {
-      System.out.println("AccountServiceImpl.getMailingAddress");
+      logger.info("AccountServiceImpl.getMailingAddress");
       servicesSoap = servicesLocator.getAccountServicesSoap();
 
-      System.out.println("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]");
+      logger.info("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]");
 
       MailingAddressesResult mailingAddressesResult= servicesSoap.getMailingAddress(
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          userAcctDetails.getClientAccountID(),
          new UnsignedByte(1),new UnsignedByte(1),true);
-      System.out.println("mailingAddressesResult = " + mailingAddressesResult.toString());
+      logger.info("mailingAddressesResult = " + mailingAddressesResult.toString());
       if (mailingAddressesResult == null)
       {
          return new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg);
@@ -99,15 +99,15 @@ public class AccountServiceImpl implements AccountService
    @Override
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails)throws Exception
    {
-      System.out.println("AccountServiceImpl.getUserBankAcctDetails");
+      logger.info("AccountServiceImpl.getUserBankAcctDetails");
       List<BankAcctDetails> bankAcctDetailsList=null;
       AchPayeeResult arrAchPayeeResult[]=null;
       servicesSoap = servicesLocator.getAccountServicesSoap();
       AchPayeeCollectionResult achPayeeCollectionResult= servicesSoap.getAchPayeeCollection(new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
                                                                                             userAcctDetails.getClientAccountID());
-      System.out.println("SOAP"+servicesSoap.toString());
+      logger.info("SOAP"+servicesSoap.toString());
       //_call.getMessageContext().getRequestMessage().getSOAPPartAsString();
-      System.out.println("achPayeeCollectionResult = " + achPayeeCollectionResult.toString());
+      logger.info("achPayeeCollectionResult = " + achPayeeCollectionResult);
       if(achPayeeCollectionResult==null || achPayeeCollectionResult.getAchPayee()==null){
          return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg),bankAcctDetailsList);
       }else if(achPayeeCollectionResult.getAchPayee()==null || achPayeeCollectionResult.getAchPayee().length==0){
@@ -123,7 +123,7 @@ public class AccountServiceImpl implements AccountService
 
             bankAcctDetailsList.add(bankAcctDetails);
          }
-         System.out.println("achPayeeResults = " + arrAchPayeeResult.toString());
+         logger.info("achPayeeResults = " + arrAchPayeeResult.toString());
          return new WSCallResult(new WSCallStatus(achPayeeCollectionResult.getErrorStatus().getErrorCode(),achPayeeCollectionResult.getErrorStatus().getErrorMessage()),bankAcctDetailsList);
 
       }
@@ -131,23 +131,23 @@ public class AccountServiceImpl implements AccountService
 
    }
 
-   public AchPayeeResult getAchPayeeCollection(UserAcctDetails userAcctDetails, String accountNumber) throws Exception
+   public AchPayeeResult getAchPayeeCollection(UserAcctDetails userAcctDetails, String bankAccountNumber) throws Exception
    {
-      System.out.println("AccountServiceImpl.getAchPayeeCollection");
+      logger.info("AccountServiceImpl.getAchPayeeCollection");
       servicesSoap = servicesLocator.getAccountServicesSoap();
       AchPayeeResult achPayeeResult=null;
 
       AchPayeeCollectionResult achPayeeCollectionResult= servicesSoap.getAchPayeeCollection(new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
                                    userAcctDetails.getClientAccountID());
-      System.out.println("achPayeeCollectionResult = " + achPayeeCollectionResult.toString());
+      logger.info("achPayeeCollectionResult = " + achPayeeCollectionResult.toString());
       if(achPayeeCollectionResult==null || achPayeeCollectionResult.getAchPayee()==null){
          return  null;
       }else if(achPayeeCollectionResult.getAchPayee().length>0){
          for (int i=0; i<achPayeeCollectionResult.getAchPayee().length; i++)
          {
-            achPayeeResult = achPayeeCollectionResult.getAchPayee()[i];
-            if(achPayeeResult.getAccountNumber().trim().equals(accountNumber.trim())){
-               return achPayeeResult;
+            AchPayeeResult achPayee = achPayeeCollectionResult.getAchPayee()[i];
+            if(achPayee.getBankAccountNumber().trim().equals(bankAccountNumber.trim())){
+               return achPayee;
             }
          }
       }

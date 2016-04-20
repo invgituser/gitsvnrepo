@@ -7,6 +7,8 @@
 
 package com.invessence.ws.provider.gemini.wsdl.account;
 
+import java.util.Arrays;
+
 public class AchPayeeCollectionResult  implements java.io.Serializable {
     private com.invessence.ws.provider.gemini.wsdl.account.AchPayeeResult[] achPayee;
 
@@ -163,4 +165,12 @@ public class AchPayeeCollectionResult  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "AchPayeeCollectionResult{" +
+           "achPayee=" + Arrays.toString(achPayee) +
+           ", errorStatus=" + errorStatus +
+           '}';
+    }
 }
