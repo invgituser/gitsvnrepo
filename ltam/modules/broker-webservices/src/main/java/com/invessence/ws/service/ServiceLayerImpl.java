@@ -678,7 +678,9 @@ public class ServiceLayerImpl implements ServiceLayer
 //
 //      System.out.println("*****************************");
 //      System.out.println(SysParameters.serviceDetailsMap.containsKey(Const.Services.PRICING.toString()));
-      if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
+      if(SysParameters.serviceDetailsMap==null){
+         return false;
+      }else if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
          //System.out.println(getServiceProvider());
             return true;
       }
