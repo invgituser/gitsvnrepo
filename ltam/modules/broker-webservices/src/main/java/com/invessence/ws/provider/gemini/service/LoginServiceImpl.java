@@ -19,13 +19,13 @@ public class LoginServiceImpl implements LoginService
    LoginServicesSoap_PortType loginServicesSoap = null;
 
    public WSCallStatus loginWebUser(UserAcctDetails userAcctDetails) throws Exception{
-      System.out.println("LoginServiceImpl.loginWebUser");
+      logger.info("LoginServiceImpl.loginWebUser");
+      logger.debug("userAcctDetails = [" + userAcctDetails + "]");
       loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
 
-      System.out.println("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]");
 
       WebUserResult webUserResult = loginServicesSoap.shareholderLogin(new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"), new BigDecimal("1"));
-      System.out.println("webUserResult = " + webUserResult.toString());
+      logger.debug("webUserResult = " + webUserResult);
       if (webUserResult==null || webUserResult.getErrorStatus()==null)
       {
          return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
@@ -38,8 +38,8 @@ public class LoginServiceImpl implements LoginService
 
    public WSCallStatus createWebUser(UserAcctDetails userAcctDetails)throws Exception
    {
-      System.out.println("LoginServiceImpl.createWebUser");
-      System.out.println("userAcctDetails = [" + userAcctDetails + "]");
+      logger.info("LoginServiceImpl.createWebUser");
+      logger.debug("userAcctDetails = [" + userAcctDetails + "]");
       loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
 
       WebUserResult webUserResult = loginServicesSoap.createShareholderWebUser
@@ -47,7 +47,7 @@ public class LoginServiceImpl implements LoginService
          userAcctDetails.getClientAccountID(), EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.encryDecryKey),
          userAcctDetails.getMailZipCode(), userAcctDetails.getEmail(), userAcctDetails.getSecurityQuestion(),
          userAcctDetails.getSecurityAnswer(), new UnsignedByte("1"));
-      System.out.println("webUserResult = " + webUserResult.toString());
+      logger.debug("webUserResult = " + webUserResult);
       if (webUserResult ==null || webUserResult.getErrorStatus()==null)
       {
          return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
@@ -65,13 +65,13 @@ public class LoginServiceImpl implements LoginService
    }
 
    public WSCallStatus updateWebUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception{
-      System.out.println("LoginServiceImpl.updateWebUserEmail");
-      System.out.println("userAcctDetails = [" + userAcctDetails + "], newEmail = [" + newEmail + "]");
+      logger.info("LoginServiceImpl.updateWebUserEmail");
+      logger.debug("userAcctDetails = [" + userAcctDetails + "], newEmail = [" + newEmail + "]");
       loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
       Status status = loginServicesSoap.updateWebUser(
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          new WebUserRequest(newEmail));
-      System.out.println("status = " + status);
+      logger.debug("status = " + status);
       if (status==null)
       {
          return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);

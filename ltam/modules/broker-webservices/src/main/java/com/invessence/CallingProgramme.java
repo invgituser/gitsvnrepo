@@ -24,13 +24,15 @@ public class CallingProgramme
          //serviceLayer.createUser("310100028","secQuest","secAnsw");
 
          //serviceLayer.createPendingUser();
-         //wsCallStatus=serviceLayer.updateEmail("310100018","javyas@gmail.com");
+         //wsCallStatus=serviceLayer.updateEmail("310100016","jaimedesmond5@hotmail.com1");
          //wsCallStatus=serviceLayer.getMailingAddress("310100016");
          //wsCallStatus=serviceLayer.updateMailingAddress("310100016","JAIME", "L", "DESMOND","415 WEST 57TH STREET", "APT 1B NEW YORK, NY 10019","","10019",(short)0,"2012142104","2124062680","","scott.spratlen@thegeminicompanies.com");
          //wsCallStatus=serviceLayer.fundAccount("310100016",900, 1, "6105640720");
-         wsCallStatus=serviceLayer.fullFundTransfer("310100016", 900, 903, "6105640720");
-         //wsCallStatus=serviceLayer.getUserBankAcctDetails("310100016");
+         wsCallStatus=serviceLayer.fullFundTransfer("310100016", 903, 900, "6105640720");
+         //serviceLayer.getUserBankAcctDetails("310100016");
+         System.out.println("-------------------------------------------------------------------");
          System.out.println("wsCalltatus = " + wsCallStatus);
+         System.out.println("isServiceActive"+serviceLayer.isServiceActive());
          context.close();
       }
       catch (Exception e)

@@ -28,7 +28,7 @@ public class AccountServiceImpl implements AccountService
       AccountInfoResult accountInfoResult= servicesSoap.getAccountInfo(
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          userAcctDetails.getClientAccountID(),true);
-      logger.debug("accountInfoResult = " + accountInfoResult.toString());
+      logger.debug("accountInfoResult = " + accountInfoResult);
       if(accountInfoResult==null || accountInfoResult.getErrorStatus()==null){
          return new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg);
       }else{
@@ -50,13 +50,13 @@ public class AccountServiceImpl implements AccountService
                                                                                        mailingAddress.getPostalZip(), mailingAddress.getCountryCode(), mailingAddress.getVoicePhone(),
                                                                                        mailingAddress.getAltPhone(), mailingAddress.getFaxPhone(), mailingAddress.getEmailAddress(),
                                                                                        new UnsignedByte(mailingAddress.getMailingAddressType()), userAcctDetails.getClientAccountID());
-      logger.info("mailingAddressesRequest = " + mailingAddressesRequest.toString());
+      logger.info("mailingAddressesRequest = " + mailingAddressesRequest);
       Status status = servicesSoap.updateMailingAddresses(
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          userAcctDetails.getClientAccountID(),
          mailingAddressesRequest);
       logger.info("After "+getMailingAddress(userAcctDetails,new UserAcctExt()));
-      logger.info(status.toString());
+      logger.info(status);
       if (status == null)
       {
          return new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg);
@@ -83,7 +83,7 @@ public class AccountServiceImpl implements AccountService
          new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
          userAcctDetails.getClientAccountID(),
          new UnsignedByte(1),new UnsignedByte(1),true);
-      logger.info("mailingAddressesResult = " + mailingAddressesResult.toString());
+      logger.info("mailingAddressesResult = " + mailingAddressesResult);
       if (mailingAddressesResult == null)
       {
          return new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg);
@@ -105,7 +105,7 @@ public class AccountServiceImpl implements AccountService
       servicesSoap = servicesLocator.getAccountServicesSoap();
       AchPayeeCollectionResult achPayeeCollectionResult= servicesSoap.getAchPayeeCollection(new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
                                                                                             userAcctDetails.getClientAccountID());
-      logger.info("SOAP"+servicesSoap.toString());
+      logger.info("SOAP"+servicesSoap);
       //_call.getMessageContext().getRequestMessage().getSOAPPartAsString();
       logger.info("achPayeeCollectionResult = " + achPayeeCollectionResult);
       if(achPayeeCollectionResult==null || achPayeeCollectionResult.getAchPayee()==null){
@@ -123,7 +123,7 @@ public class AccountServiceImpl implements AccountService
 
             bankAcctDetailsList.add(bankAcctDetails);
          }
-         logger.info("achPayeeResults = " + arrAchPayeeResult.toString());
+         logger.info("achPayeeResults = " + arrAchPayeeResult);
          return new WSCallResult(new WSCallStatus(achPayeeCollectionResult.getErrorStatus().getErrorCode(),achPayeeCollectionResult.getErrorStatus().getErrorMessage()),bankAcctDetailsList);
 
       }
@@ -139,7 +139,7 @@ public class AccountServiceImpl implements AccountService
 
       AchPayeeCollectionResult achPayeeCollectionResult= servicesSoap.getAchPayeeCollection(new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
                                    userAcctDetails.getClientAccountID());
-      logger.info("achPayeeCollectionResult = " + achPayeeCollectionResult.toString());
+      logger.info("achPayeeCollectionResult = " + achPayeeCollectionResult);
       if(achPayeeCollectionResult==null || achPayeeCollectionResult.getAchPayee()==null){
          return  null;
       }else if(achPayeeCollectionResult.getAchPayee().length>0){

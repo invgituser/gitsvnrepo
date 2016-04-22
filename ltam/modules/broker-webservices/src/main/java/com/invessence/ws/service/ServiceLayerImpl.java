@@ -3,6 +3,7 @@ package com.invessence.ws.service;
 import java.net.UnknownHostException;
 import java.util.*;
 
+import com.invessence.constant.Const;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
@@ -64,7 +65,7 @@ public class ServiceLayerImpl implements ServiceLayer
                      if (WSCallStatus.getErrorCode() == 0)
                      //if (0 == 0)
                      {
-                        userAcctDetails.setOpt(Constants.succesResult);
+                        userAcctDetails.setOpt(WSConstants.succesResult);
                         userAcctDetails.setStatus("A");
                         userAcctDetails.setRemarks(WSCallStatus.getErrorMessage());
                         try
@@ -104,7 +105,7 @@ public class ServiceLayerImpl implements ServiceLayer
                      }
                      else
                      {
-                        userAcctDetails.setOpt(Constants.failureResult);
+                        userAcctDetails.setOpt(WSConstants.failureResult);
                         userAcctDetails.setStatus("E");
                         userAcctDetails.setRemarks(WSCallStatus.getErrorMessage());
                         emailAlertMessage.append(userAcctDetails.getClientAccountID() + ":" + userAcctDetails.getRemarks() + "\n");
@@ -149,51 +150,74 @@ public class ServiceLayerImpl implements ServiceLayer
                //logger.error(e.getStackTrace());
             }
          }
-
       }
    }
 
    public WSCallStatus updateEmail(String clientAccountID, String newEmail)
    {
+      logger.info("ServiceLayerImpl.updateEmail");
+      logger.info("clientAccountID = [" + clientAccountID + "], newEmail = [" + newEmail + "]");
       try
       {
-         StringBuilder emailAlertMessage=new StringBuilder();
-         callingLayer=getCallingLayer();
-
-         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-         if(userAcctDetails==null){
-            System.out.println("User Account Details not available in DB");
-         }else{
-
-            WSCallStatus WSCallStatus = callingLayer.updateUserEmail(userAcctDetails, newEmail);
-            if (WSCallStatus == null)
+         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.EMAIL_UPDATE)){
+            callingLayer = getCallingLayer();
+            if(callingLayer==null){
+               logger.warn("Calling Service object creation issue");
+               return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
+            }else
             {
-
+               try
+               {
+                  UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+                  if (userAcctDetails == null)
+                  {
+                     logger.warn("User details not available in DB");
+                     return new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg);
+                  }
+                  else
+                  {
+                     logger.debug("userAcctDetails = " + userAcctDetails);
+                     if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
+                     {
+                        try
+                        {
+                           WSCallStatus WSCallStatus = callingLayer.updateUserEmail(userAcctDetails, newEmail);
+                           if (WSCallStatus == null)
+                           {
+                              logger.warn(SysParameters.wsResIssueMsg);
+                              return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
+                           }
+                           return WSCallStatus;
+                        }
+                        catch (Exception e)
+                        {
+                           logger.error(e.getMessage());
+                           return new WSCallStatus(SysParameters.wsEGenErrCode, SysParameters.wsEGenErrMsg);
+                        }
+                     }
+                     else
+                     {
+                        logger.warn(SysParameters.wsUserRegIssueMsg);
+                        return new WSCallStatus(SysParameters.wsUserRegIssueCode, SysParameters.wsUserRegIssueMsg);
+                     }
+                  }
+               }
+               catch (Exception e)
+               {
+                  logger.error(e.getMessage());
+                  return new WSCallStatus(SysParameters.wsDBErrCode, SysParameters.wsDBErrMsg);
+               }
             }
-//            else{
-//               if(WSCallStatus.getErrorCode()==0){
-//                  try
-//                  {
-//                     commonDao.updateUserEmail(userAcctDetails,newEmail);
-//                  }
-//                  catch (Exception e)
-//                  {
-//                     e.printStackTrace();
-//                  }
-//
-//               }else{
-//                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
-//               }
-//            }
-
-            return WSCallStatus;
+         }else{
+            logger.warn(SysParameters.wsOperationNAMsg);
+            return new WSCallStatus(SysParameters.wsOperationNACode,SysParameters.wsOperationNAMsg);
          }
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         logger.error(e.getMessage());
+         return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
       }
-      return null;
    }
 
    public WSCallStatus updateMailingAddress(String clientAccountID,
@@ -202,172 +226,510 @@ public class ServiceLayerImpl implements ServiceLayer
                                             String postalZip, short countryCode,
                                             String voicePhone, String altPhone, String faxPhone, String emailAddress)
    {
+
+      logger.info("ServiceLayerImpl.updateMailingAddress");
+      logger.info("clientAccountID = [" + clientAccountID + "], firstName = [" + firstName + "], middleName = [" + middleName + "], lastName = [" + lastName + "], addressLine1 = [" + addressLine1 + "], addressLine2 = [" + addressLine2 + "], addressLine3 = [" + addressLine3 + "], postalZip = [" + postalZip + "], countryCode = [" + countryCode + "], voicePhone = [" + voicePhone + "], altPhone = [" + altPhone + "], faxPhone = [" + faxPhone + "], emailAddress = [" + emailAddress + "]");
       try
       {
-         StringBuilder emailAlertMessage=new StringBuilder();
-         callingLayer=getCallingLayer();
-
-         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-         if(userAcctDetails==null){
-            System.out.println("User Account Details not available in DB");
-         }else{
-            UserAcctExt userAcctExt=commonDao.getAccountExtInfo(clientAccountID);
-            System.out.println("userAcctExt.toString() = " + userAcctExt.toString());
-
-            UserAddress mailingAddress= new UserAddress(firstName,middleName,lastName,
-                                                        addressLine1, addressLine2,addressLine3, postalZip, countryCode,
-                                                        voicePhone,altPhone, faxPhone,emailAddress,userAcctExt.getMailingAddressId(),userAcctExt.getMailingAddressType(),clientAccountID);
-            System.out.println("mailingAddress = " + mailingAddress.toString());
-            WSCallStatus WSCallStatus = callingLayer.updateMailingAddress(userAcctDetails, mailingAddress);
-            if (WSCallStatus == null)
+         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.MAILING_ADDRESS_UPDATE)){
+            callingLayer = getCallingLayer();
+            if(callingLayer==null){
+               logger.warn("Calling Service object creation issue");
+               return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
+            }else
             {
-
-            }else{
-               if(WSCallStatus.getErrorCode()==0){
-
-               }else{
-                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
+               try
+               {
+                  UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+                  if (userAcctDetails == null)
+                  {
+                     logger.warn("User details not available in DB");
+                     return new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg);
+                  }
+                  else
+                  {
+                     logger.debug("userAcctDetails = " + userAcctDetails);
+                     if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
+                     {
+                        try
+                        {
+                           UserAcctExt userAcctExt=commonDao.getAccountExtInfo(clientAccountID);
+                           if (userAcctExt == null ||  userAcctExt.getMailingAddressType()==null)
+                           {
+                              logger.warn("User extention details not available in DB");
+                              return new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg);
+                           }
+                           else
+                           {
+                              logger.debug("userAcctExt = " + userAcctExt);
+                              try
+                              {
+                                 UserAddress mailingAddress = new UserAddress(firstName, middleName, lastName,
+                                                                              addressLine1, addressLine2, addressLine3, postalZip, countryCode,
+                                                                              voicePhone, altPhone, faxPhone, emailAddress, userAcctExt.getMailingAddressId(), userAcctExt.getMailingAddressType(), clientAccountID);
+                                 WSCallStatus WSCallStatus = callingLayer.updateMailingAddress(userAcctDetails, mailingAddress);
+                                 if (WSCallStatus == null)
+                                 {
+                                    logger.warn(SysParameters.wsResIssueMsg);
+                                    return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
+                                 }
+                                 return WSCallStatus;
+                              }
+                              catch (Exception e)
+                              {
+                                 logger.error(e.getMessage());
+                                 return new WSCallStatus(SysParameters.wsEGenErrCode, SysParameters.wsEGenErrMsg);
+                              }
+                           }
+                     }
+                     catch (Exception e)
+                     {
+                        logger.error(e.getMessage());
+                        return new WSCallStatus(SysParameters.wsDBErrCode, SysParameters.wsDBErrMsg);
+                     }
+                     }
+                     else
+                     {
+                        logger.warn(SysParameters.wsUserRegIssueMsg);
+                        return new WSCallStatus(SysParameters.wsUserRegIssueCode, SysParameters.wsUserRegIssueMsg);
+                     }
+                  }
+               }
+               catch (Exception e)
+               {
+                  logger.error(e.getMessage());
+                  return new WSCallStatus(SysParameters.wsDBErrCode, SysParameters.wsDBErrMsg);
                }
             }
-
-            return WSCallStatus;
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return null;
-   }
-
-   @Override
-   public WSCallResult getUserBankAcctDetails(String clientAccountID)
-   {
-      logger.info("ServiceLayerImpl.getUserBankAcctDetails");
-      try
-      {
-         logger.debug("clientAccountID = [" + clientAccountID + "]");
-         StringBuilder emailAlertMessage=new StringBuilder();
-         callingLayer=getCallingLayer();
-
-         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-         if(userAcctDetails==null){
-            logger.info("User Account Details not available in DB");
          }else{
-            try
-            {
-               WSCallResult wsCallResult = callingLayer.getUserBankAcctDetails(userAcctDetails);
-               System.out.println("wsCallResult = [" + wsCallResult.toString() + "]");
-               return wsCallResult;
-//               if (wsCallResult.getGenericObject() == null)
-//               {
-//                  return null;
-//               }
-//               else
-//               {
-//
-//                  Iterator<BankAcctDetails> itr = ((List<BankAcctDetails>)wsCallResult.getGenericObject()).iterator();
-//                  while (itr.hasNext())
-//                  {
-//                     BankAcctDetails bd = (BankAcctDetails) itr.next();
-//                     System.out.println("bd.toString() = " + bd.toString());
-//                  }
-//                  return wsCallResult;
-//               }
-            }catch (Exception e){
-               logger.error(e.getMessage());
-               e.printStackTrace();
-            }
+            logger.warn(SysParameters.wsOperationNAMsg);
+            return new WSCallStatus(SysParameters.wsOperationNACode,SysParameters.wsOperationNAMsg);
          }
       }
       catch (Exception e)
       {
          logger.error(e.getMessage());
-         e.printStackTrace();
+         return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
       }
-      return null;
+//      try
+//      {
+//         StringBuilder emailAlertMessage=new StringBuilder();
+//         callingLayer=getCallingLayer();
+//
+//         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+//         if(userAcctDetails==null){
+//            logger.info("User Account Details not available in DB");
+//         }else{
+//            UserAcctExt userAcctExt=commonDao.getAccountExtInfo(clientAccountID);
+//            logger.info("userAcctExt.toString() = " + userAcctExt.toString());
+//
+//            UserAddress mailingAddress= new UserAddress(firstName,middleName,lastName,
+//                                                        addressLine1, addressLine2,addressLine3, postalZip, countryCode,
+//                                                        voicePhone,altPhone, faxPhone,emailAddress,userAcctExt.getMailingAddressId(),userAcctExt.getMailingAddressType(),clientAccountID);
+//            logger.info("mailingAddress = " + mailingAddress.toString());
+//            WSCallStatus WSCallStatus = callingLayer.updateMailingAddress(userAcctDetails, mailingAddress);
+//            if (WSCallStatus == null)
+//            {
+//
+//            }else{
+//               if(WSCallStatus.getErrorCode()==0){
+//
+//               }else{
+//                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
+//               }
+//            }
+//
+//            return WSCallStatus;
+//         }
+//      }
+//      catch (Exception e)
+//      {
+//         e.printStackTrace();
+//      }
+//      return null;
+   }
+
+   @Override
+   public WSCallResult getUserBankAcctDetails(String clientAccountID)
+   {
+
+      logger.info("ServiceLayerImpl.getUserBankAcctDetails");
+      logger.info("clientAccountID = [" + clientAccountID + "]");
+      try
+      {
+         // if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.EMAIL_UPDATE)){
+            callingLayer = getCallingLayer();
+            if(callingLayer==null){
+               logger.warn("Calling Service object creation issue");
+               return new WSCallResult(new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg),null);
+            }else
+            {
+               try
+               {
+                  UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+                  if (userAcctDetails == null)
+                  {
+                     logger.warn("User details not available in DB");
+                     return new WSCallResult(new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg),null);
+                  }
+                  else
+                  {
+                     logger.debug("userAcctDetails = " + userAcctDetails);
+                     if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
+                     {
+                        try
+                        {
+                           WSCallResult wsCallResult = callingLayer.getUserBankAcctDetails(userAcctDetails);
+                           if (wsCallResult == null)
+                           {
+                              logger.warn(SysParameters.wsResIssueMsg);
+                              return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
+                           }
+                           return wsCallResult;
+                        }
+                        catch (Exception e)
+                        {
+                           logger.error(e.getMessage());
+                           return new WSCallResult(new WSCallStatus(SysParameters.wsEGenErrCode, SysParameters.wsEGenErrMsg),null);
+                        }
+                     }
+                     else
+                     {
+                        logger.warn(SysParameters.wsUserRegIssueMsg);
+                        return new WSCallResult(new WSCallStatus(SysParameters.wsUserRegIssueCode, SysParameters.wsUserRegIssueMsg),null);
+                     }
+                  }
+               }
+               catch (Exception e)
+               {
+                  logger.error(e.getMessage());
+                  return new WSCallResult(new WSCallStatus(SysParameters.wsDBErrCode, SysParameters.wsDBErrMsg),null);
+               }
+            }
+//         }else{
+//            logger.warn(SysParameters.wsOperationNAMsg);
+//            return new WSCallResult(new WSCallStatus(SysParameters.wsOperationNACode,SysParameters.wsOperationNAMsg),null);
+//         }
+      }
+      catch (Exception e)
+      {
+         logger.error(e.getMessage());
+         return new WSCallResult(new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg),null);
+      }
+//      logger.info("ServiceLayerImpl.getUserBankAcctDetails");
+//      try
+//      {
+//         logger.debug("clientAccountID = [" + clientAccountID + "]");
+//         StringBuilder emailAlertMessage=new StringBuilder();
+//         callingLayer=getCallingLayer();
+//
+//         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+//         if(userAcctDetails==null){
+//            logger.info("User Account Details not available in DB");
+//         }else{
+//            try
+//            {
+//               WSCallResult wsCallResult = callingLayer.getUserBankAcctDetails(userAcctDetails);
+//               System.out.println("wsCallResult = [" + wsCallResult.toString() + "]");
+//               return wsCallResult;
+////               if (wsCallResult.getGenericObject() == null)
+////               {
+////                  return null;
+////               }
+////               else
+////               {
+////
+////                  Iterator<BankAcctDetails> itr = ((List<BankAcctDetails>)wsCallResult.getGenericObject()).iterator();
+////                  while (itr.hasNext())
+////                  {
+////                     BankAcctDetails bd = (BankAcctDetails) itr.next();
+////                     System.out.println("bd.toString() = " + bd.toString());
+////                  }
+////                  return wsCallResult;
+////               }
+//            }catch (Exception e){
+//               logger.error(e.getMessage());
+//               e.printStackTrace();
+//            }
+//         }
+//      }
+//      catch (Exception e)
+//      {
+//         logger.error(e.getMessage());
+//         e.printStackTrace();
+//      }
+//      return null;
    }
 
    @Override
    public WSCallStatus fundAccount(String clientAccountID, int fundID, double amount, String bankAccountNumber)
    {
+
+      logger.info("ServiceLayerImpl.fundAccount");
+      logger.info("clientAccountID = [" + clientAccountID + "], fundID = [" + fundID + "], amount = [" + amount + "], bankAccountNumber = [" + bankAccountNumber + "]");
       try
       {
-         StringBuilder emailAlertMessage=new StringBuilder();
-         callingLayer=getCallingLayer();
-
-         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-         if(userAcctDetails==null){
-            System.out.println("User Account Details not available in DB");
-         }else{
-
-            WSCallStatus WSCallStatus = callingLayer.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber);
-            if (WSCallStatus == null)
+         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT)){
+            callingLayer = getCallingLayer();
+            if(callingLayer==null){
+               logger.warn("Calling Service object creation issue");
+               return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
+            }else
             {
-
-            }else{
-               if(WSCallStatus.getErrorCode()==0){
-
-               }else{
-                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
+               try
+               {
+                  UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+                  if (userAcctDetails == null)
+                  {
+                     logger.warn("User details not available in DB");
+                     return new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg);
+                  }
+                  else
+                  {
+                     logger.debug("userAcctDetails = " + userAcctDetails);
+                     if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
+                     {
+                        try
+                        {
+                           WSCallStatus WSCallStatus = callingLayer.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber);
+                           if (WSCallStatus == null)
+                           {
+                              logger.warn(SysParameters.wsResIssueMsg);
+                              return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
+                           }
+                           return WSCallStatus;
+                        }
+                        catch (Exception e)
+                        {
+                           logger.error(e.getMessage());
+                           return new WSCallStatus(SysParameters.wsEGenErrCode, SysParameters.wsEGenErrMsg);
+                        }
+                     }
+                     else
+                     {
+                        logger.warn(SysParameters.wsUserRegIssueMsg);
+                        return new WSCallStatus(SysParameters.wsUserRegIssueCode, SysParameters.wsUserRegIssueMsg);
+                     }
+                  }
+               }
+               catch (Exception e)
+               {
+                  logger.error(e.getMessage());
+                  return new WSCallStatus(SysParameters.wsDBErrCode, SysParameters.wsDBErrMsg);
                }
             }
-
-            return WSCallStatus;
+         }else{
+            logger.warn(SysParameters.wsOperationNAMsg);
+            return new WSCallStatus(SysParameters.wsOperationNACode,SysParameters.wsOperationNAMsg);
          }
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         logger.error(e.getMessage());
+         return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
       }
-      return null;
+
+//
+//      try
+//      {
+//         StringBuilder emailAlertMessage=new StringBuilder();
+//         callingLayer=getCallingLayer();
+//
+//         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+//         if(userAcctDetails==null){
+//            System.out.println("User Account Details not available in DB");
+//         }else{
+//
+//            WSCallStatus WSCallStatus = callingLayer.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber);
+//            if (WSCallStatus == null)
+//            {
+//
+//            }else{
+//               if(WSCallStatus.getErrorCode()==0){
+//
+//               }else{
+//                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
+//               }
+//            }
+//
+//            return WSCallStatus;
+//         }
+//      }
+//      catch (Exception e)
+//      {
+//         e.printStackTrace();
+//      }
+//      return null;
 
    }
 
    @Override
    public WSCallStatus fullFundTransfer(String clientAccountID, int fromFundID, int toFundID, String bankAccountNumber)
    {
+      logger.info("ServiceLayerImpl.fullFundTransfer");
+      logger.info("clientAccountID = [" + clientAccountID + "], fromFundID = [" + fromFundID + "], toFundID = [" + toFundID + "], bankAccountNumber = [" + bankAccountNumber + "]");
       try
       {
-         StringBuilder emailAlertMessage=new StringBuilder();
-         callingLayer=getCallingLayer();
-
-         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-         if(userAcctDetails==null){
-            System.out.println("User Account Details not available in DB");
-         }else{
-
-            WSCallStatus WSCallStatus = callingLayer.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber);
-            if (WSCallStatus == null)
+         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.FUND_TRANSFER)){
+            callingLayer = getCallingLayer();
+            if(callingLayer==null){
+               logger.warn("Calling Service object creation issue");
+               return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
+            }else
             {
-
-            }else{
-               if(WSCallStatus.getErrorCode()==0){
-
-               }else{
-                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
+               try
+               {
+                  UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+                  if (userAcctDetails == null)
+                  {
+                     logger.warn("User details not available in DB");
+                     return new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg);
+                  }
+                  else
+                  {
+                     logger.debug("userAcctDetails = " + userAcctDetails);
+                     if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
+                     {
+                        try
+                        {
+                           WSCallStatus WSCallStatus = callingLayer.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber);
+                           if (WSCallStatus == null)
+                           {
+                              logger.warn(SysParameters.wsResIssueMsg);
+                              return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
+                           }
+                           return WSCallStatus;
+                        }
+                        catch (Exception e)
+                        {
+                           logger.error(e.getMessage());
+                           return new WSCallStatus(SysParameters.wsEGenErrCode, SysParameters.wsEGenErrMsg);
+                        }
+                     }
+                     else
+                     {
+                        logger.warn(SysParameters.wsUserRegIssueMsg);
+                        return new WSCallStatus(SysParameters.wsUserRegIssueCode, SysParameters.wsUserRegIssueMsg);
+                     }
+                  }
+               }
+               catch (Exception e)
+               {
+                  logger.error(e.getMessage());
+                  return new WSCallStatus(SysParameters.wsDBErrCode, SysParameters.wsDBErrMsg);
                }
             }
-
-            return WSCallStatus;
+         }else{
+            logger.warn(SysParameters.wsOperationNAMsg);
+            return new WSCallStatus(SysParameters.wsOperationNACode,SysParameters.wsOperationNAMsg);
          }
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         logger.error(e.getMessage());
+         return new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg);
       }
-      return null;
+//      try
+//      {
+//         StringBuilder emailAlertMessage=new StringBuilder();
+//         callingLayer=getCallingLayer();
+//
+//         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+//         if(userAcctDetails==null){
+//            System.out.println("User Account Details not available in DB");
+//         }else{
+//
+//            WSCallStatus WSCallStatus = callingLayer.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber);
+//            if (WSCallStatus == null)
+//            {
+//
+//            }else{
+//               if(WSCallStatus.getErrorCode()==0){
+//
+//               }else{
+//                  emailAlertMessage.append(userAcctDetails.getClientAccountID()+":"+userAcctDetails.getRemarks()+"\n");
+//               }
+//            }
+//
+//            return WSCallStatus;
+//         }
+//      }
+//      catch (Exception e)
+//      {
+//         e.printStackTrace();
+//      }
+//      return null;
 
    }
 
+   @Override
+   public boolean isServiceActive()
+   {
+//      System.out.println("Const.Services.BROKER_WEBSERVICES: "+Const.Services.BROKER_WEBSERVICES.toString());
+//      System.out.println("Const.Services.BROKER_WEBSERVICES: "+Const.Services.BROKER_WEBSERVICES);
+//      System.out.println("*****************************");
+//      System.out.println("Size of Map"+SysParameters.serviceDetailsMap.size());
+//
+//      Iterator<Map.Entry<String, Map<String, List<ServiceDetails>>>> entries = SysParameters.serviceDetailsMap.entrySet().iterator();
+//      while (entries.hasNext()) {
+//         Map.Entry<String, Map<String, List<ServiceDetails>>> entry = entries.next();
+//         System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+//      }
+//
+//      System.out.println("*****************************");
+//      System.out.println(SysParameters.serviceDetailsMap.containsKey(Const.Services.PRICING.toString()));
+      if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
+         //System.out.println(getServiceProvider());
+            return true;
+      }
+      return false;
+   }
+
+   public boolean isServiceOprationActive(WSConstants.BrokerWebServiceOperations operation)
+   {
+      boolean result=false;
+      if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
+        List<ServiceDetails>sd= SysParameters.serviceDetailsMap.get(Const.Services.BROKER_WEBSERVICES.toString()).get(SysParameters.webServiceAPI);
+         Iterator<ServiceDetails> itr=sd.iterator();
+         while(itr.hasNext()){
+            ServiceDetails sdi=itr.next();
+            if(sdi.getOperation().equalsIgnoreCase(operation.toString())){
+               result =true;
+               break;
+            }
+         }
+      }
+      return result;
+   }
+
+//   public String getServiceProvider()
+//   {
+//      System.out.println("ServiceLayerImpl.getServiceProvider");
+//      if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
+//         Map<String, List<ServiceDetails>>sd= SysParameters.serviceDetailsMap.get(Const.Services.BROKER_WEBSERVICES.toString());
+//         if(sd==null || sd.size()==0){
+//            System.out.println("Expecting single API provider for "+Const.Services.BROKER_WEBSERVICES.toString()+" service but it gets none");
+//         }else if(sd.size()>1){
+//            System.out.println("Expecting single API provider for "+Const.Services.BROKER_WEBSERVICES.toString()+" service but it gets more the one");
+//            return sd.keySet().toArray()[0].toString();
+//         }else if(sd.size()==1){
+//            return sd.keySet().toArray()[0].toString();
+//         }
+//      }
+//      return  null;
+//   }
+
    private CallingLayer getCallingLayer(){
-      if(SysParameters.webServiceAPI.equals("GEMINI"))
-      {
+      //SysParameters.webServiceAPI
+      String webServiceAPI=SysParameters.webServiceAPI;//getServiceProvider();
+      if(webServiceAPI==null){
+         logger.error(Const.Services.BROKER_WEBSERVICES.toString()+" API is not available");
+      }else if(webServiceAPI.equals("GEMINI")){
          callingLayer = new CallingLayerGeminiImpl();
-      }else  if(SysParameters.webServiceAPI.equals("TD")){
+      }else if(webServiceAPI.equals("TD")){
          callingLayer = new ServiceLayerTDImpl();
       }else{
-         logger.error(SysParameters.webServiceAPI+" API service is not available");
+         logger.error(webServiceAPI+" API is not available");
       }
       return callingLayer;
    }

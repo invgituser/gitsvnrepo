@@ -19,11 +19,11 @@ public interface ServiceLayer
 
    public WSCallStatus fundAccount(String clientAccountID, int fundID, double amount, String bankAccountNumber);
    public WSCallStatus fullFundTransfer(String clientAccountID, int fromFundID, int toFundID, String bankAccountNumber);
-
+   public boolean isServiceActive();
    //Future required functions
 
    //public WSCallStatus loginUser(String clientAccountID);
-   //public WSCallStatus createUser(String clientAccountID, String securityQuestion, String securityAnswer);
+   //public WSCallStatso createUser(String clientAccountID, String securityQuestion, String securityAnswer);
    //public WSCallStatus isUserExist(String userId);
    //public WSCallStatus getMailingAddress(String clientAccountID);
 

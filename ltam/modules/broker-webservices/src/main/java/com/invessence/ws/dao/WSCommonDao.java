@@ -16,6 +16,7 @@ public interface WSCommonDao
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException;
    //public boolean updateUserEmail(UserAcctDetails userAcctDetails, String newEmail)throws SQLException;
 
+   public List<ServiceDetails> getServiceDetails(String company)throws SQLException;
    public UserAcctExt getAccountExtInfo(String accountNumber)throws SQLException;
    public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
    public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
