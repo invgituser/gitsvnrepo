@@ -12,7 +12,7 @@ public interface ServiceLayer
    public WSCallStatus updateMailingAddress(String clientAccountID,
                                             String firstName,String middleName,String lastName,
                                             String addressLine1, String addressLine2,String addressLine3,
-                                            String postalZip, short countryCode,
+                                            String city, String  state,String postalZip, short countryCode,
                                             String voicePhone, String altPhone, String faxPhone, String emailAddress);
 
    public WSCallResult getUserBankAcctDetails(String clientAccountID);

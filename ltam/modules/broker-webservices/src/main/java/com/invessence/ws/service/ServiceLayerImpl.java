@@ -223,7 +223,7 @@ public class ServiceLayerImpl implements ServiceLayer
    public WSCallStatus updateMailingAddress(String clientAccountID,
                                             String firstName,String middleName,String lastName,
                                             String addressLine1, String addressLine2,String addressLine3,
-                                            String postalZip, short countryCode,
+                                            String city, String  state,String postalZip, short countryCode,
                                             String voicePhone, String altPhone, String faxPhone, String emailAddress)
    {
 
@@ -265,7 +265,7 @@ public class ServiceLayerImpl implements ServiceLayer
                               try
                               {
                                  UserAddress mailingAddress = new UserAddress(firstName, middleName, lastName,
-                                                                              addressLine1, addressLine2, addressLine3, postalZip, countryCode,
+                                                                              addressLine1, addressLine2, addressLine3, city, state, postalZip, countryCode,
                                                                               voicePhone, altPhone, faxPhone, emailAddress, userAcctExt.getMailingAddressId(), userAcctExt.getMailingAddressType(), clientAccountID);
                                  WSCallStatus WSCallStatus = callingLayer.updateMailingAddress(userAcctDetails, mailingAddress);
                                  if (WSCallStatus == null)

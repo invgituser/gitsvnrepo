@@ -10,6 +10,7 @@ public class UserAddress implements Serializable
    private int mailingAddressId;
    private String firstName, middleName, lastName;
    private String addressLine1, addressLine2, addressLine3;
+   private String city, state;
 //   private String nameLines;
 //   private String addressLines;
    private String postalZip;
@@ -21,10 +22,32 @@ public class UserAddress implements Serializable
    private String mailingAddressType;
    private String entityIdentifier;
 
-    public UserAddress(String firstName, String middleName, String lastName,
-                      String addressLine1, String addressLine2, String addressLine3, String postalZip, short countryCode,
+   public String getCity()
+   {
+      return city;
+   }
+
+   public void setCity(String city)
+   {
+      this.city = city;
+   }
+
+   public String getState()
+   {
+      return state;
+   }
+
+   public void setState(String state)
+   {
+      this.state = state;
+   }
+
+   public UserAddress(String firstName, String middleName, String lastName,
+                      String addressLine1, String addressLine2, String addressLine3, String city, String  state, String postalZip, short countryCode,
                       String voicePhone, String altPhone, String faxPhone, String emailAddress, int mailingAddressId, String mailingAddressType, String entityIdentifier)
    {
+      this.city = city;
+      this.state = state;
       this.firstName = firstName;
       this.middleName = middleName;
       this.lastName = lastName;
