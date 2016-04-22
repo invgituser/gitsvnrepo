@@ -41,4 +41,23 @@ public class Const
 
    public final static String WEB_MODE = "PROD";
 
+
+   public enum Services {
+      PRICING("PRICING"),BROKER_WEBSERVICES("BROKER-WEBSERVICES");
+      private String value;
+
+      private Services(String value) {
+         this.value = value;
+      }
+      private String getValue() {
+         return value;
+      }
+
+      @Override
+      public String toString() {
+         return this.getValue();
+      }
+   }
+
+
 }
