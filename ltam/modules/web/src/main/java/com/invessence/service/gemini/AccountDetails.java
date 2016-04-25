@@ -1,5 +1,9 @@
 package com.invessence.service.gemini;
 
+import javax.faces.bean.ManagedProperty;
+
+import com.invessence.ws.service.ServiceLayer;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Prashant
@@ -9,4 +13,14 @@ package com.invessence.service.gemini;
  */
 public class AccountDetails
 {
+
+   @ManagedProperty("#{serviceLayer}")
+   private ServiceLayer serviceLayer;
+   public void setServiceLayer(ServiceLayer serviceLayer)
+   {
+      this.serviceLayer = serviceLayer;
+   }
+
+
+
 }

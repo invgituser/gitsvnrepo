@@ -4,6 +4,7 @@ import com.invessence.bean.ltam.LTAMAllocationData;
 import com.invessence.constant.Const;
 import com.invessence.data.LTAMTheme;
 import com.invessence.data.common.AccountData;
+import org.primefaces.model.chart.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,10 +34,13 @@ public class LTAMCustomerData extends LTAMRiskData
    private Integer horizon;
    private Double Investment;
    private String forwarded;
+   private String portfoliotype;
    private String acknowledged;
    private LTAMTheme themeData;
    private Boolean recalcAllocation;
    private LTAMAllocationData allocationData;
+   private PieChartModel pieChart;
+
 
    public LTAMCustomerData()
    {
@@ -294,6 +298,16 @@ public class LTAMCustomerData extends LTAMRiskData
       this.forwarded = forwarded;
    }
 
+   public String getPortfoliotype()
+   {
+      return portfoliotype;
+   }
+
+   public void setPortfoliotype(String portfoliotype)
+   {
+      this.portfoliotype = portfoliotype;
+   }
+
    public String getAcknowledged()
    {
       return acknowledged;
@@ -332,6 +346,16 @@ public class LTAMCustomerData extends LTAMRiskData
       this.allocationData = allocationData;
    }
 
+   public PieChartModel getPieChart()
+   {
+      return pieChart;
+   }
+
+   public void setPieChart(PieChartModel pieChart)
+   {
+      this.pieChart = pieChart;
+   }
+
    public void resetAllData() {
       timeToSaveID = null;
       logonid = null;
@@ -350,10 +374,12 @@ public class LTAMCustomerData extends LTAMRiskData
       theme = "66538B164";
       horizon = 5;
       Investment = null;
+      portfoliotype="Q";
       super.resetAllData();
       allocationData = new LTAMAllocationData();
       recalcAllocation = true;
       forwarded = null;
+      pieChart = null;
    }
 
    public void copyData(AccountData accountData) {

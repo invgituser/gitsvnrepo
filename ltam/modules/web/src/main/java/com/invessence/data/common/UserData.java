@@ -19,6 +19,7 @@ public class UserData
    private String firstName = null;
    private String lastName = null;
    private String email = null;
+   private String newemail = null;
 
    private String userID = null;
    private String passwordEncrypted = null;
@@ -141,6 +142,26 @@ public class UserData
    public void setEmail(String email)
    {
       this.email = email;
+   }
+
+   public String getNewemail()
+   {
+      if (newemail == null) {
+         return email;
+      }
+      else {
+         return newemail;
+      }
+   }
+
+   public String getEnteredNewemail()
+   {
+      return newemail;
+   }
+
+   public void setNewemail(String newemail)
+   {
+      this.newemail = newemail;
    }
 
    public String getUserID()

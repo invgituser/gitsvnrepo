@@ -13,6 +13,7 @@ public class USMaps {
 
     private static USMaps mapsInstance = null;
     private static Map<String, String> states = new LinkedHashMap<String, String>();
+    private static Map<String, String> country = new LinkedHashMap<String, String>();
 
     static {
        states.put("AL","Alabama");
@@ -67,6 +68,10 @@ public class USMaps {
        states.put("WY","Wyoming");
     }
 
+   static {
+      country.put("1", "United States");
+   }
+
    public static synchronized USMaps getInstance(){
        if (mapsInstance == null) {
          mapsInstance = new USMaps();
@@ -83,7 +88,11 @@ public class USMaps {
       return states;
    }
 
-   /*
+   public static Map<String, String> getCountry()
+   {
+      return country;
+   }
+/*
     public void initCountry () {
         String[] tCountry = new String [] {"USA"};
         try {

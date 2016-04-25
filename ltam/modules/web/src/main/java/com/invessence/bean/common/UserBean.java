@@ -214,10 +214,8 @@ public class UserBean extends UserData implements Serializable
    public void collectClientData()
    {
      logger.debug("Calling userInfoDAO.getUserByEmail(" + beanEmail + ")");
-     System.out.println("Calling userInfoDAO.getUserByEmail(" + beanEmail + ")");
+     System.out.println("Info: Calling userInfoDAO.getUserByEmail(" + beanEmail + ")");
      userInfoDAO.getUserByEmail(beanEmail, getInstance());
-     logger.debug("After collectClientData:" + getUserID() + "," + getEmail() + ")");
-     System.out.println("After collectClientData:" + getUserID() + "," + getEmail() + ")");
 
    }
 
@@ -271,27 +269,26 @@ public class UserBean extends UserData implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             if (beanUserID == null || beanUserID.isEmpty()) {
+               System.out.println("LOG: During activation section: " + beanUserID + " is missing!");
                webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
                return;
             }
             resetBean();
-            logger.debug("Calling preRenderActivateUser, UserID = " + beanUserID + ", Reset " + beanResetID);
+            logger.debug("LOG: fetch data for, UserID = " + beanUserID + ", Reset " + beanResetID);
             collectUserLogon(beanUserID, null);
             // Due to multiple access, it seems that ResetID is blank
-            System.out.println("Activate User: " + getEmail() + ", WebResetID=" + beanResetID + ", DBResetID=" + getResetID() );
+            System.out.println("LOG: Activate User: " + getEmail() + ", WebResetID = " + beanResetID + ", DBResetID=" + getResetID() );
             if (getUserID() != null && ! getUserID().isEmpty()) // Found the user
             {
                if (beanResetID != null && ! beanResetID.isEmpty()) {
                   if (getResetID() != null) {
                      if (!beanResetID.equals(getResetID().toString()))
                      {
+                        System.out.println("LOG: Show Invalid Data: " + beanUserID + ", WebResetID = " + beanResetID + ", DBResetID=" + getResetID() );
                         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
                      }
                   }
                }
-            }
-            else {
-               webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid user data.");
             }
             userInfoDAO.updLogonStatus(beanUserID);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, 0);
@@ -323,12 +320,15 @@ public class UserBean extends UserData implements Serializable
             collectClientData();
             if (getUserID() != null && !getUserID().isEmpty())
             {
+               System.out.println("Info: UserID is already registered: " + getUserID() );
                webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.");
             }
             if (getEmail() == null || getEmail().isEmpty())  // If no email in the system, then warn
             { // Userid is UserData.
+               System.out.println("Info: Email is not found as valid registered: " + getEmail() );
                webutil.redirecttoMessagePage("WARN", "Cannot Signup", "Sorry, you are attempting to activate account, but you have to be invited.  If you received this email, please click on the email invitation link.");
             }
+            System.out.println("Info: Start registration process for: " + getEmail() );
          }
       }
       catch (Exception ex)
@@ -344,6 +344,7 @@ public class UserBean extends UserData implements Serializable
       try {
          Integer status = userInfoDAO.validateUserID(beanUserID);
          if (status != 0) {
+            System.out.println("LOG: Validate UserID failed: " + beanUserID + " with status = " + status.toString());
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID taken", "Try different UserID, this one is taken."));
          }
          else {
@@ -351,9 +352,11 @@ public class UserBean extends UserData implements Serializable
             String msg = webutil.validateNewPass(pwd1, pwd2);
             if (!msg.toUpperCase().equals("SUCCESS"))
             {
+               System.out.println("LOG: Validate Password failed: " + beanUserID + " with status = " + msg);
                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
                return;
             }
+            System.out.println("LOG: UserID and password test successful: " + beanUserID + " email = " + beanEmail);
             webutil.redirect("/signup2.xhtml", null);
          }
 
@@ -413,7 +416,7 @@ public class UserBean extends UserData implements Serializable
       //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
 
       logger.debug("Attempting to Register: " + beanEmail + ", UserID: " + beanUserID);
-      System.out.println("LOG: Attempting to Register: " + beanEmail + ", UserID: " + beanUserID);
+      System.out.println("LOG: Saving data for registeration: " + beanEmail + ", UserID: " + beanUserID);
       try
       {
          if (messageText == null)
@@ -462,7 +465,7 @@ public class UserBean extends UserData implements Serializable
          {
             // Now send email support.
             System.out.println("LOG: User save, logonID: " + loginID);
-            System.out.println("LOG: Set Activation email " + beanEmail);
+            System.out.println("LOG: Sending Activation email to: " + beanEmail);
             data.setSource("User");  // This is set to User to it insert into appropriate table.
             data.setSender(Const.MAIL_SENDER);
             data.setReceiver(beanEmail);

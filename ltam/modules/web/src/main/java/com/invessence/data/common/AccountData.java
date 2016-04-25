@@ -73,6 +73,10 @@ public class AccountData
    private  String   workPhoneNbr;
    private  String   faxNbr;
 
+   private  String    cusip;
+   private  String   securityName;
+   private  Integer   fundID;
+
    public AccountData()
    {
    }
@@ -744,6 +748,36 @@ public class AccountData
       this.faxNbr = faxNbr;
    }
 
+   public String getCusip()
+   {
+      return cusip;
+   }
+
+   public void setCusip(String cusip)
+   {
+      this.cusip = cusip;
+   }
+
+   public String getSecurityName()
+   {
+      return securityName;
+   }
+
+   public void setSecurityName(String securityName)
+   {
+      this.securityName = securityName;
+   }
+
+   public Integer getFundID()
+   {
+      return fundID;
+   }
+
+   public void setFundID(Integer fundID)
+   {
+      this.fundID = fundID;
+   }
+
    public void resetData() {
       logonid	=	null	;
       acctnum	=	null	;
@@ -793,5 +827,24 @@ public class AccountData
       ans14	=	null	;
       ans15	=	null	;
       created	=	null	;
+
+      role = null;
+      privileges = null;
+      mailAddrs1 = null;
+      mailAddrs2 = null;
+      mailAddrs3 = null;
+      mailCity = null;
+      mailState = null;
+      mailZipCode = null;
+      mailCountry = null;
+
+      primaryPhoneNbr = null;
+      secondayPhoneNbr = null;
+      workPhoneNbr = null;
+      faxNbr = null;
+
+      cusip = null;
+      securityName = null;
+      fundID = null;
    }
 }

@@ -57,7 +57,8 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlOutParameter("message", Types.VARCHAR));
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_email", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_origemail", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_newemail", Types.VARCHAR));
             declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));
             break;
          case 3:
@@ -137,7 +138,8 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("message", "");
       inputMap.put("p_logonid", data.getLogonID());
       inputMap.put("p_userid", data.getUserID());
-      inputMap.put("p_email", data.getEmail());
+      inputMap.put("p_origemail", data.getEmail());
+      inputMap.put("p_newemail", data.getEnteredNewemail());
       inputMap.put("p_pwd", data.getPasswordEncrypted());
       return super.execute(inputMap);
    }
