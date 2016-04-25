@@ -46,7 +46,7 @@ public class LTAMCharts implements Serializable
       return riskbarChart;
    }
 
-   public void createPieModel(Map assetdata)
+   public PieChartModel createPieModel(Map assetdata)
    {
       String color;
       pieChart = new PieChartModel();
@@ -54,7 +54,7 @@ public class LTAMCharts implements Serializable
       {
          if (assetdata == null)
          {
-            return;
+            return null;
          }
 
          if (assetdata != null && assetdata.size() >= 0)
@@ -90,6 +90,7 @@ public class LTAMCharts implements Serializable
             pieChart.setShadow(false);
             pieChart.setSeriesColors(pieseriesColors);
             pieChart.setExtender("ltam_pie");
+            return pieChart;
          }
 
       }
@@ -97,6 +98,7 @@ public class LTAMCharts implements Serializable
       {
          ex.printStackTrace();
       }
+      return null;
    }
 
 
