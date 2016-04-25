@@ -7,7 +7,8 @@
 
     <div class="Container100 TextAlCenter">
         <div class="TexAlCenter">
-            <h1 class="black Fs24 fnt1">#{ltamprofile.firstname}, based on your answers, your recommended objective is:</h1>
+            <h1 class="black Fs24 fnt1">#{ltamprofile.firstname}, based on your answers,
+                your recommended objective is:</h1>
         </div>
         
         <table class="Container100 Responsive100 TextAlCenter">
@@ -15,7 +16,7 @@
                 <td colspan="2" class="TexAlCenter">
                     <div class="DispInlBlock TexAlLeft tp1">
                         <div class="Fright">
-                            <h1 class="black Fs24 fnt1">#{ltamprofile.themeData.displayname}</h1>
+                            <h1 class="black Fs24 fnt1">#{ceb.themeData.displayname}</h1>
                         </div>
                     </div>
                 </td>
@@ -24,15 +25,15 @@
                 <td colspan="2" class="TexAlCenter">
                     <div class="DispInlBlock TexAlLeft tp1">
                         <div class="Fright">
-                            <h2 class="black f1">#{ltamprofile.themeData.longDescription}</h2>
+                            <h2 class="black f1">#{ceb.themeData.longDescription}</h2>
                         </div>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
-                             rendered="#{ltamprofile.ltamcharts.pieChart != null}"
+                    <p:chart type="pie" model="#{ceb.ltamcharts.pieChart}"
+                             rendered="#{ceb.ltamcharts.pieChart != null}"
                              style="width:100%;height:210px;"
                              responsive="true">
                     </p:chart>
