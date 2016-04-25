@@ -33,6 +33,7 @@ public class FundAccountBean implements Serializable
    private JavaUtil jutil = new JavaUtil();
 
    private String beanacctnum;
+   private String bankAccountNum;
 
    private AccountData selectedAccount;
 
@@ -70,6 +71,10 @@ public class FundAccountBean implements Serializable
       this.listDAO = listDAO;
    }
 
+   public void setBankAccountNum(String bankAccountNum)
+   {
+      this.bankAccountNum = bankAccountNum;
+   }
 
    public String getBeanacctnum()
    {
@@ -266,6 +271,7 @@ public class FundAccountBean implements Serializable
 
    public void saveFund()
    {
+      System.out.println("FundAccountBean.saveFund");
       FacesMessage message;
       try {
          WSCallStatus wscallStatus;
@@ -276,6 +282,7 @@ public class FundAccountBean implements Serializable
          }
 
          if (bankacctnum != null && ! bankacctnum.isEmpty())  {
+            System.out.println("bankacctnum = " + bankacctnum);
             wscallStatus = serviceLayer.fundAccount(bankInfoMap.get(bankacctnum).getBankAccountNumber(),
                                      getFundID(),
                                      investment,
