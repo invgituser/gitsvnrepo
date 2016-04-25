@@ -19,6 +19,9 @@ public class LTAMTheme
    private Integer lowRisk;
    private Integer highRisk;
    private String longDescription;
+   private String cusip;
+   private String securityname;
+   private String fundID;
    ArrayList<String> assetList;
    Map<String, LTAMAsset> asset;
    Map<String,String> indexMap;
@@ -38,7 +41,9 @@ public class LTAMTheme
                     Integer sortorder,
                     Double gain, Double loss,
                     Integer lowRisk, Integer highRisk,
-                    String longDescription)
+                    String longDescription,
+                    String cusip, String securityname,
+                    String fundID)
    {
       this.theme = theme;
       this.displayname = displayname;
@@ -48,6 +53,9 @@ public class LTAMTheme
       this.lowRisk = lowRisk;
       this.highRisk = highRisk;
       this.longDescription = longDescription;
+      this.cusip = cusip;
+      this.securityname = securityname;
+      this.fundID = fundID;
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
@@ -140,6 +148,41 @@ public class LTAMTheme
    public String getLongDescription()
    {
       return longDescription;
+   }
+
+   public void setLongDescription(String longDescription)
+   {
+      this.longDescription = longDescription;
+   }
+
+   public String getCusip()
+   {
+      return cusip;
+   }
+
+   public void setCusip(String cusip)
+   {
+      this.cusip = cusip;
+   }
+
+   public String getSecurityname()
+   {
+      return securityname;
+   }
+
+   public void setSecurityname(String securityname)
+   {
+      this.securityname = securityname;
+   }
+
+   public String getFundID()
+   {
+      return fundID;
+   }
+
+   public void setFundID(String fundID)
+   {
+      this.fundID = fundID;
    }
 
    public Boolean isThisTheme(Double riskIndex) {

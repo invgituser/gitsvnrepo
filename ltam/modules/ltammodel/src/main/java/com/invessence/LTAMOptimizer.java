@@ -86,6 +86,16 @@ public class LTAMOptimizer
 
    }
 
+   public Map<String, String> getDisplayThemes() {
+      Map<String, String> map = new HashMap<String, String>();
+      if (themesMap != null) {
+         for (String theme: themesMap.keySet()) {
+            map.put(theme, themesMap.get(theme).getDisplayname());
+         }
+      }
+      return map;
+   }
+
    public ArrayList<LTAMTheme> getThemes() {
       ArrayList<LTAMTheme> arrayList = new ArrayList<LTAMTheme>();
       if (themesMap != null) {
@@ -109,4 +119,14 @@ public class LTAMOptimizer
       return thisTheme;
    }
 
+   public LTAMTheme getTheme(String themename) {
+      LTAMTheme thisTheme = null;
+      if (themesMap != null) {
+         if (themesMap.containsKey(themename)) {
+            thisTheme =  themesMap.get(themename);
+         }
+
+      }
+      return thisTheme;
+   }
 }
