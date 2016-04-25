@@ -37,12 +37,25 @@
                         <div class="ContainerIndent">
                             <div class="Container100">
                                 <div class="Container100">
-                                    <div class="Fleft">
-                                        <h4 class="black Fs24 FontThemeMedium">
-                                            Account
-                                        </h4>
+                                    <div class="Container25">
+                                        <div class="Fleft">
+                                            <h4 class="black Fs24 FontThemeMedium">
+                                                Account
+                                            </h4>
+                                        </div>
+                                        <div class="Container10" style="margin-left: 10px">
+                                            <p:commandButton id="addBtn"
+                                                             styleClass="Fs14 BlueButton"
+                                                             process="@this" immediate="true"
+                                                             icon="fa fa-plus Fs14 white"
+                                                             action="#{cdash.doAction('N')}">
+                                                <p:tooltip for="addBtn" value="Add New Account"/>
+                                            </p:commandButton>
+
+                                        </div>
+
                                     </div>
-                                    <div class="Container100">
+                                   <div class="Container100">
                                         <p:growl showDetail="false" escape="true" closable="true"/>
                                         <p:separator style="background-color: blue; height:5px"/>
 
@@ -67,7 +80,7 @@
                                                                 <ui:fragment rendered="#{acct.managed == 'Y'}">
                                                                     <table class="invNBgrid" style="width: 30%;">
                                                                         <tr>
-                                                                            <td style="width: 10%; text-align: center;">
+                                                                            <td style="width: 7%; text-align: center;">
                                                                                 <p:commandButton id="reviewBtn"
                                                                                                  styleClass="Fs14 BlueButton"
                                                                                                  process="@this" immediate="true"
@@ -78,7 +91,7 @@
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </td>
-                                                                            <td style="width: 10%; text-align: center;">
+                                                                            <td style="width: 7%; text-align: center;">
                                                                                 <p:commandButton id="fundBtn"
                                                                                                  styleClass="Fs14 GreenButton"
                                                                                                  process="@this" immediate="true"
@@ -89,13 +102,24 @@
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </td>
-                                                                            <td style="width: 10%; text-align: center;">
+                                                                            <td style="width: 7%; text-align: center;">
                                                                                 <p:commandButton id="editBtn"
-                                                                                                 styleClass="Fs14 GrayButton"
+                                                                                                 styleClass="Fs14 CyanButton"
                                                                                                  process="@this" immediate="true"
-                                                                                                 icon="fa fa-edit Fs14 red"
+                                                                                                 icon="fa fa-edit Fs14 white"
                                                                                                  action="#{cdash.doAction('E')}">
-                                                                                    <p:tooltip for="editBtn" value="Edit Account"/>
+                                                                                    <p:tooltip for="editBtn" value="Transfer Fund"/>
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </td>
+                                                                            <td style="width: 7%; text-align: center;">
+                                                                                <p:commandButton id="acctBtn"
+                                                                                                 styleClass="Fs14 OrangeButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-envelope Fs14 black"
+                                                                                                 action="#{cdash.doAction('C')}">
+                                                                                    <p:tooltip for="acctBtn" value="Edit Account"/>
                                                                                     <f:setPropertyActionListener value="#{acct}"
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>

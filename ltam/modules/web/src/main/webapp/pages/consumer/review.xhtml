@@ -17,7 +17,7 @@
     <div class="Container100 Responsive100">
        
             <div class="ContainerIndent Responsive100 tab_main">
-                <p:steps id="ltamprogressbar" activeIndex="#{ltamprofile.ltammenu}">
+                <p:steps id="ltamprogressbar" activeIndex="#{ceb.ltammenu}">
                     <p:menuitem value="Start"/>
                     <p:menuitem value="Goal"/>
                     <p:menuitem value="Horizon"/>
@@ -42,13 +42,13 @@
                 <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
                     <ui:include src="/pages/try/addon/final.xhtml"/>
                     
-                    <input type="hidden" name="TimeToSaveUserId" value="#{ltamprofile.timeToSaveID}"/>
-                    <input type="hidden" name="InvestorFirstName" value="#{ltamprofile.firstname}"/>
-                    <input type="hidden" name="InvestorLastName" value="#{ltamprofile.lastname}"/>
-                    <input type="hidden" name="FundSelection" value="#{ltamprofile.theme}"/>
-                    <input type="hidden" name="DollarAmount" value="#{ltamprofile.investment}"/>
-                    <input type="hidden" name="UniqueUserIdentifier" value="#{ltamprofile.acctnum}"/>
-                    <input type="hidden" name="RepReferralId" value="#{ltamprofile.advisor}"/>
+                    <input type="hidden" name="TimeToSaveUserId" value="#{ceb.timeToSaveID}"/>
+                    <input type="hidden" name="InvestorFirstName" value="#{ceb.firstname}"/>
+                    <input type="hidden" name="InvestorLastName" value="#{ceb.lastname}"/>
+                    <input type="hidden" name="FundSelection" value="#{ceb.theme}"/>
+                    <input type="hidden" name="DollarAmount" value="#{ceb.investment}"/>
+                    <input type="hidden" name="UniqueUserIdentifier" value="#{ceb.acctnum}"/>
+                    <input type="hidden" name="RepReferralId" value="#{ceb.advisor}"/>
 
                     <f:facet name="footer">
                         <h:button styleClass="Fleft btn_left startover"
@@ -61,11 +61,11 @@
         <div class="Container40 Responsive100">
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px; background: transparent"
-                         rendered="#{ltamprofile.displayGraphs}">
+                         rendered="#{ceb.displayGraphs}">
                     <div class="EmptyBox5"></div>
                     <div class="Container100 Responsive100">
                         <p:panel style="border: 0px; background: transparent"
-                                 rendered="#{ltamprofile.displayMeter}">
+                                 rendered="#{ceb.displayMeter}">
                             <div class="EmptyBox5"></div>
                             <div class="Container100 Responsive100">
                                 <table style="width: 100%">
@@ -84,13 +84,13 @@
                                     <tr>
                                         <td style="width: 5%; text-align: right; vertical-align: middle">Low</td>
                                         <td style="width: 90%; text-align: center; vertical-align: middle">
-                                            <ui:repeat var="tlist" value="#{ltamprofile.themeList}">
+                                            <ui:repeat var="tlist" value="#{ceb.themeList}">
                                                 <h:graphicImage name="images/riskMeter.svg" library="ltam"
-                                                                rendered="#{ltamprofile.themeData.sortorder != tlist.sortorder}"
+                                                                rendered="#{ceb.themeData.sortorder != tlist.sortorder}"
                                                                 style="width: 20%; background: transparent"
                                                                 styleClass="Fleft"/>
                                                 <h:graphicImage name="images/SriskMeter.svg" library="ltam"
-                                                                rendered="#{ltamprofile.themeData.sortorder == tlist.sortorder}"
+                                                                rendered="#{ceb.themeData.sortorder == tlist.sortorder}"
                                                                 style="width: 20%; background: transparent"
                                                                 styleClass="Fleft"/>
                                             </ui:repeat>
@@ -107,12 +107,12 @@
                         <div class="Container100 Responsive100">
                             <p:outputPanel id="charts" style="border: 0px; background: transparent">
                                 <p:panel style="border: 0px; background: transparent"
-                                         rendered="#{ltamprofile.reviewPage ? 'false' : 'true'}">
+                                         rendered="#{ceb.reviewPage ? 'false' : 'true'}">
                                     <div class="Container100  Fleft">
                                         <div class="ContainerIndent">
                                             <p:outputPanel deferred="true">
-                                                <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
-                                                         rendered="#{ltamprofile.ltamcharts.pieChart != null}"
+                                                <p:chart type="pie" model="#{ceb.ltamcharts.pieChart}"
+                                                         rendered="#{ceb.ltamcharts.pieChart != null}"
                                                          style="width:100%;height:210px;"
                                                          responsive="true">
                                                 </p:chart>
@@ -121,11 +121,11 @@
                                     </div>
                                 </p:panel>
                                 <h:panelGroup layout="block" style="border: 0px; background: transparent"
-                                         rendered="#{ltamprofile.reviewPage}">
+                                         rendered="#{ceb.reviewPage}">
                                     <div class="Container100 Fleft">
                                         <div class="ContainerIndent">
                                             <p:dataTable styleClass="invAllocTable"
-                                                         value="#{ltamprofile.allocationData.ltamAllocatedAssetList}"
+                                                         value="#{ceb.allocationData.ltamAllocatedAssetList}"
                                                          var="allocatedList">
 
                                                 <p:column style="width: 2%; background-color: #{allocatedList.color};" priority="0">
@@ -164,12 +164,12 @@
 </div>
 
 <p:outputPanel id="dataarea" style="border: 0px"
-               rendered="#{ltamprofile.reviewPage}">
+               rendered="#{ceb.reviewPage}">
 
     <p:fieldset legend="Proposed Allocation" styleClass="layout-portlets-box" toggleable="true" toggleSpeed="500">
         <div class="Container100 Responsive100">
             <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.allocationData.ltamAllocatedSubAssetList}"
+                         value="#{ceb.allocationData.ltamAllocatedSubAssetList}"
                          var="suballocatedList">
                 <p:column style="width: 2%; background-color: #{suballocatedList.color};" priority="0">
                     <h:outputText value=" "/>
@@ -205,9 +205,9 @@
                 rendered="false" >
         <div class="Container100 Responsive100">
             <p:dataTable styleClass="invAllocTable"
-                         value="#{ltamprofile.themeData.printPerfData}"
+                         value="#{ceb.themeData.printPerfData}"
                          var="pdata" reflow="true">
-                <p:columns  value="#{ltamprofile.themeData.printProperty}" var="col">
+                <p:columns  value="#{ceb.themeData.printProperty}" var="col">
                     <f:facet name="header">
                         <h:outputText value="#{col.header}" />
                     </f:facet>
@@ -226,22 +226,22 @@
         </div>
         <div class="EmptyBox30"></div>
         <div class="Container100 Responsive100 ShowOnDesktop">
-            <p:chart type="bar" model="#{ltamprofile.ltamcharts.barPerformanceChart}" style="height:300px"
-                     rendered="#{ltamprofile.ltamcharts.barPerformanceChart != null}"
+            <p:chart type="bar" model="#{ceb.ltamcharts.barPerformanceChart}" style="height:300px"
+                     rendered="#{ceb.ltamcharts.barPerformanceChart != null}"
                      responsive="true"/>
         </div>
     </p:fieldset>
 </p:outputPanel>
 
 <p:outputPanel id="disclaimer" style="border: 0px"
-               rendered="#{! ltamprofile.demomode}">
+               rendered="#{webutil.webProdMode}">
     <div class="layout-portlets-box">
         <div class="Container100 Responsive100">
             <div class="Container100 Responsive100">
                 <div class="ContainerIndent Responsive100">
                     <div class="Fs12 TexAlCenter">
-                        <ui:fragment rendered="#{ltamprofile.reviewPage}">
-                            <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                        <ui:fragment rendered="#{ceb.reviewPage}">
+                            <h:outputText value="#{uiLayout.getPageInfo(ceb.pagemanager.page)}" escape="false"/>
                         </ui:fragment>
                         <div class="EmptyBox10"></div>
                         <h:outputText value="#{uiLayout.disclaimer}" escape="false"/>

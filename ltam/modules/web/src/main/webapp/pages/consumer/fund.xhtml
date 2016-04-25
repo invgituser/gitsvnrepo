@@ -6,10 +6,15 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/template.xhtml">
 
+    <f:metadata>
+        <f:viewParam name="acctnum" value="#{fundbean.beanacctnum}"/>
+        <f:event type="preRenderView" listener="#{fundbean.preRenderView}"/>
+    </f:metadata>
+
     <ui:define name="content">
 
         <div class="layout-portlets-box">
-            <h:form id="addressForm">
+            <h:form id="fundForm">
 
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent Responsive100">
@@ -18,46 +23,69 @@
                 </div>
 
                 <div class="Container100">
-                    <div class="Container70 ">
+                    <div class="Container50 ">
                         <div class="ContainerIndent">
-                            <p:panelGrid columns="4" layout="grid" styleClass="Container100"
-                                         style="border:0px !important; background:none;" class="FormContent">
-                                <div class="Wid90">Name of Bank</div>
-                                <p:inputText styleClass="Wid90" placeholder="Name of Bank">
-                                </p:inputText>
+                            <p:panel id="fundPanel" style="border: 0px; background: transparent">
 
-                                <div class="Wid90">Type of Account</div>
-                                <p:selectOneMenu>
-                                    <f:selectItem itemLabel="Choose One" itemValue=""/>
-                                    <f:selectItem itemLabel="Checking" itemValue="Checking"/>
-                                    <f:selectItem itemLabel="Savings" itemValue="Savings"/>
-                                    <f:selectItem itemLabel="Money Market" itemValue="MM"/>
-                                </p:selectOneMenu>
+                                <p:panelGrid columns="2" layout="grid" styleClass="Container100"
+                                             style="border:0px !important; background:none;" class="FormContent">
+                                 Choose Bank:
+                                 <p:selectOneMenu id="bankinfo" styleClass="Wid90"
+                                                  value="#{fundbean.bankAccountNum}" >
+                                     <p:ajax update=":fundForm:workArea"/>
+                                     <f:selectItems value="#{fundbean.bankNames.entrySet()}"
+                                                    var="bank" itemLabel="#{bank.key}" itemValue="#{bank.value}"/>
+                                 </p:selectOneMenu>
+                                </p:panelGrid>
 
-                                <div class="Wid90">Routing#</div>
-                                <p:inputText styleClass="Wid90" placeholder="Routing Number" maxlength="9">
-                                </p:inputText>
+                                <p:panelGrid id="workArea" columns="2" layout="grid" styleClass="Container100"
+                                             style="border:0px !important; background:none;" class="FormContent"
+                                        rendered = "#{fundbean.bankNames != null}">
 
-                                <div class="Wid90">Account#</div>
-                                <p:inputText styleClass="Wid90" placeholder="Bank Account" maxlength="15">
-                                </p:inputText>
+                                    <div class="Wid90">Name</div>
+                                    <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
+                                            value="#{fundbean.accountHolder}">
+                                    </h:outputText>
 
-                                <div class="Wid90">Initial Amount</div>
-                                <p:inputText styleClass="Wid90" placeholder="Fund Amount" maxlength="9">
-                                </p:inputText>
 
-                            </p:panelGrid>
-                            <p:outputPanel rendered="false">
-                                <div class="Container100">
-                                    <p:separator/>
+                                    <div class="Wid90">Routing#</div>
+                                    <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
+                                                  value="#{fundbean.displayRoutingNum}">
+                                    </h:outputText>
 
-                                    <div class="EmptyBox30"></div>
-                                </div>
+                                    <div class="Wid90">Account#</div>
+                                    <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
+                                                  value="#{fundbean.hiddenBankAccountNum}">
+                                    </h:outputText>
 
-                                <div class="Container100">
-                                    <p:graphicImage value="/images/check_image.gif"/>
-                                </div>
-                            </p:outputPanel>
+                                    <div class="Wid90">Fund Amount</div>
+                                    <pe:inputNumber styleClass="ltamInputText input_wid1"
+                                                    value="#{fundbean.investment}"
+                                                    maxlength="11" decimalPlaces="0" symbol="$"
+                                                    required="true" requiredMessage="Fund amount is required!"
+                                                    validatorMessage="Min. of $1 investment is required!">
+                                    </pe:inputNumber>
+                                </p:panelGrid>
+                                <p:outputPanel rendered="false">
+                                    <div class="Container100">
+                                        <p:separator/>
+
+                                        <div class="EmptyBox30"></div>
+                                    </div>
+
+                                    <div class="Container100">
+                                        <p:graphicImage value="/images/check_image.gif"/>
+                                    </div>
+                                </p:outputPanel>
+
+                                <f:facet name="footer">
+                                    <p:commandButton value="Save" styleClass="Fright"
+                                                     update="@form"
+                                                     actionListener="#{fundbean.saveFund}"/>
+                                </f:facet>
+
+
+                            </p:panel>
 
                         </div>
                     </div>
