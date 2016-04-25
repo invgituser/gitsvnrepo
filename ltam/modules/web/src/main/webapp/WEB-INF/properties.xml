@@ -8,7 +8,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:ltam.properties</value>
-				<value>classpath:systemParameters.properties</value>
+				<value>classpath:webServicesParameters.properties</value>
 			</list>
 		</property>
 	</bean>
