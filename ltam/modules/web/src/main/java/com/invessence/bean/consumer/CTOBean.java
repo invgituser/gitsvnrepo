@@ -18,8 +18,10 @@ import com.invessence.dao.ltam.*;
 import com.invessence.data.LTAMTheme;
 import com.invessence.data.common.AccountData;
 import com.invessence.data.ltam.LTAMCustomerData;
+import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
-import com.invessence.util.WebUtil;
+import com.invessence.ws.bean.WSCallStatus;
+import com.invessence.ws.service.ServiceLayer;
 import org.primefaces.event.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -36,19 +38,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 @SessionScoped
 public class CTOBean implements Serializable
 {
-
    private Long beanacctnum;
    private Long beanlogonid;
    private List<AccountData> accountDataList = null;
    private AccountData accountdata = new AccountData();
 
-   @Autowired
+   @ManagedProperty("#{userInfoDAO}")
    UserInfoDAO userInfoDAO;
-   @Autowired
-   ConsumerSaveDAO consumerSaveDAO;
+   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
+   {
+      this.userInfoDAO = userInfoDAO;
+   }
 
-   @Autowired
+   @ManagedProperty("#{consumerSaveDAO}")
+   ConsumerSaveDAO consumerSaveDAO;
+   public void setConsumerSaveDAO(ConsumerSaveDAO consumerSaveDAO)
+   {
+      this.consumerSaveDAO = consumerSaveDAO;
+   }
+
+   @ManagedProperty("#{webutil}")
    WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
+   @ManagedProperty("#{serviceLayer}")
+   private ServiceLayer serviceLayer;
+   public void setServiceLayer(ServiceLayer serviceLayer)
+   {
+      this.serviceLayer = serviceLayer;
+   }
+
 
    public Long getBeanacctnum()
    {
@@ -112,6 +134,54 @@ public class CTOBean implements Serializable
                                        "There is no data associated with this account number. <br/>" +
                                           "Please contact support."
          );
+      }
+   }
+
+   public void saveAddress()
+   {
+      try {
+         if (accountDataList == null) {
+            webutil.redirecttoMessagePage("Warning", "",
+                                          "No data was updated.  Invalid account number. <br/>" +
+                                             "Please contact support.");
+            return;
+         }
+
+         Integer numofacct = accountDataList.size();
+         Integer counter = 0;
+         for (AccountData data: accountDataList) {
+            if (serviceLayer != null && serviceLayer.isServiceActive()) {
+               WSCallStatus callStatus = serviceLayer.updateMailingAddress(data.getClientAccountID(),
+                                             data.getFirstname(), data.getMiddle(), data.getLastname(),
+                                             data.getMailAddrs1(), data.getMailAddrs2(), data.getMailAddrs3(),
+                                             data.getMailCity(), data.getState(),
+                                             data.getMailZipCode(), (short) 1, /* data.getMailCountry(), */
+                                             data.getPrimaryPhoneNbr(), data.getWorkPhoneNbr(),
+                                             data.getFaxNbr(), data.getEmail());
+               if (callStatus.getErrorCode() != 0) {
+                  if (numofacct > 0 ) {
+                     webutil.redirecttoMessagePage("Warning", "",
+                                                   "There is no data associated with this account number. <br/>" +
+                                                      "Please contact support." );
+                  }
+                  else {
+                     webutil.redirecttoMessagePage("Warning", "",
+                                                   "There is no data associated with this account number. <br/>" +
+                                                      "Please contact support." );
+                  }
+                  return;
+               }
+               counter ++;
+            }
+            consumerSaveDAO.saveAddress(accountdata);
+            FacesMessage message;
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saved.", "Customer Account Information saved.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+         }
+
+
+      }
+      catch (Exception ex) {
       }
    }
 

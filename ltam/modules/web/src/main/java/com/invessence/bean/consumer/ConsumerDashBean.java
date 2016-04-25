@@ -130,17 +130,28 @@ public class ConsumerDashBean implements Serializable
       try
       {
          if (action != null) {
-            obj.put("acctnum", selectedAccount.getAcctnum().toString());
-            whichXML = "/pages/consumer/overview.xhtml?";
-
-            if (action.equalsIgnoreCase("E")) {
+            if (action.equalsIgnoreCase("N")) {
+               obj.put("act", "N");
                whichXML = "/pages/consumer/cedit.xhtml";
             }
+            else {
+               obj.put("acctnum", selectedAccount.getAcctnum().toString());
+               whichXML = "/pages/consumer/overview.xhtml?";
 
-            if (action.equalsIgnoreCase("A")) {
-               whichXML = "/pages/consumer/fund.xhtml";
+               if (action.equalsIgnoreCase("E")) {
+                  obj.put("act", "E");
+                  whichXML = "/pages/consumer/cedit.xhtml";
+               }
+
+               if (action.equalsIgnoreCase("A")) {
+                  whichXML = "/pages/consumer/fund.xhtml";
+               }
+
+               if (action.equalsIgnoreCase("C")) {
+                  whichXML = "/pages/consumer/address.xhtml";
+               }
+
             }
-
             webutil.redirect(whichXML, obj);
          }
          else {
