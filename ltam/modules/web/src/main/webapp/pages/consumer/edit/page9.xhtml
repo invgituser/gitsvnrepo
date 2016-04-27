@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 ">
+        <div class="ContainerIndent">
+	    <div class="Fs24">
+            You are about to make an exchange from #{ceb.origCustomerData.themeData.displayname} in the
+            amount of
+            <h:outputText value="#{ceb.investment}">
+               <f:convertNumber currencySymbol="$" type="currency"/>
+            </h:outputText>
+            to the #{ceb.themeData.displayname} indicated below
+            for the corresponding account
+	    </div>
+            <div class="EmptyBox40"></div>
+            <table class="Container100 Responsive100">
+                <tr style="background: blue; color: #ffffff; font-weight: bold">
+                    <td class="TexAlCenter" style="width: 75%;">Fund</td>
+                    <td class="TexAlRight" style="width: 25%">Amount</td>
+                </tr>
+                <tr>
+                    <td class="TexAlLeft" style="width: 75%">#{ceb.securityname}</td>
+                    <td class="TexAlRight" style="width: 25%">
+                        <h:outputText value="#{ceb.investment}">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </td>
+                </tr>
+                <tr style="background: #f5f5f5">
+                    <td class="TexAlRight" style="width: 75%">Total</td>
+                    <td class="TexAlRight" style="width: 25%">
+                        <h:outputText value="#{ceb.investment}">
+                            <f:convertNumber currencySymbol="$" type="currency"/>
+                        </h:outputText>
+                    </td>
+                </tr>
+            </table>
+            <div class="EmptyBox20"></div>
+            <p:commandButton value="Cancel" rendered="#{ceb.pagemanager.prevButtonStat}"
+                             update=":ceForm:contentpanel,:ceForm:disclaimer"
+                             actionListener="#{ceb.exitPage}"/>
+            <p:commandButton styleClass="Fright" value="Accept"
+                             update=":ceForm:contentpanel,:ceForm:disclaimer"
+                             actionListener="#{ceb.processTransfer}"/>
+
+        </div>
+    </div>
+
+</ui:composition>
