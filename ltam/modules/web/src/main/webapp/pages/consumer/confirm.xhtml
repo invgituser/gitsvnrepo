@@ -13,254 +13,46 @@
         <h:form id="ceForm">
             <p:panel id="contentpanel" style="border: 0px; background: transparent">
 
-                <div class="layout-portlets-box">
-                    <div class="Container100">
-                        <p:panel id="confirmArea" style="border: 0px; background: transparent; height: 270px">
-                            <div class="Container100 TextAlCenter">
-                                <div class="TexAlCenter">
-                                    <h1 class="black Fs24 fnt1">Transferring fund</h1>
-                                </div>
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent tab_main">
 
-                                <p:panel style="height: 30%; width: 100%; background: #f5f5f5;">
-                                    <h2 class="black Fs20 fnt1">Current Fund</h2>
-                                    <table class="Container100 Responsive100 TextAlCenter">
-                                        <tr>
-                                            <td colspan="2" class="TexAlCenter">
-                                                <div class="DispInlBlock TexAlLeft tp1">
-                                                    <div class="Fright">
-                                                        <h1 class="black Fs24 fnt1">
-                                                            #{ceb.themeData.displayname}
-                                                        </h1>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="TexAlCenter">
-                                                <div class="DispInlBlock TexAlLeft tp1">
-                                                    <div class="Fright">
-                                                        <h2 class="black f1">#{ceb.themeData.longDescription}</h2>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </p:panel>
-                                <div class="EmptyBox20"></div>
-
-                                <p:panel style="height: 30%; width: 100%; background: #f5f5f5;">
-                                    <h2 class="black Fs20 fnt1">Revised Fund</h2>
-                                    <table class="Container100 Responsive100 TextAlCenter">
-                                        <tr>
-                                            <td colspan="2" class="TexAlCenter">
-                                                <div class="DispInlBlock TexAlLeft tp1">
-                                                    <div class="Fright">
-                                                        <h1 class="black Fs24 fnt1">
-                                                            <p:selectOneMenu styleClass="Wid90"
-                                                                             value="#{ceb.theme}" >
-                                                                <p:ajax listener="#{ceb.selectedTheme}"
-                                                                        update=":ceForm:contentpanel,:ceForm:disclaimer"/>
-                                                                <f:selectItems value="#{ceb.displaythememap.entrySet()}"
-                                                                               var="themelist" itemLabel="#{themelist.value}"
-                                                                               itemValue="#{themelist.key}"/>
-                                                            </p:selectOneMenu>
-                                                            #{ceb.themeData.displayname}
-                                                        </h1>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2" class="TexAlCenter">
-                                                <div class="DispInlBlock TexAlLeft tp1">
-                                                    <div class="Fright">
-                                                        <h2 class="black f1">#{ceb.themeData.longDescription}</h2>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3">
-                                                <div class="TexAlCenter title1">
-                                                    Your revised risk level is
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="3">
-                                                <div class="EmptyBox5"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td style="width: 10%; text-align: right; vertical-align: middle">Low</td>
-                                            <td style="width: 80%; text-align: center; vertical-align: middle">
-                                                <ui:repeat var="tlist" value="#{ceb.themeList}">
-                                                    <h:graphicImage name="images/riskMeter.svg" library="ltam"
-                                                                    rendered="#{ceb.themeData.sortorder != tlist.sortorder}"
-                                                                    style="width: 20%; background: transparent"
-                                                                    styleClass="Fleft"/>
-                                                    <h:graphicImage name="images/SriskMeter.svg" library="ltam"
-                                                                    rendered="#{ceb.themeData.sortorder == tlist.sortorder}"
-                                                                    style="width: 20%; background: transparent"
-                                                                    styleClass="Fleft"/>
-                                                </ui:repeat>
-                                            </td>
-                                            <td style="width: 5%; text-align: left; vertical-align: middle">High</td>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: center">
-                                                <p:chart type="pie" model="#{ceb.ltamcharts.pieChart}"
-                                                         rendered="#{ceb.ltamcharts.pieChart != null}"
-                                                         style="width:100%;height:210px;"
-                                                         responsive="true">
-                                                </p:chart>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </p:panel>
-
-                                <table class="Container100 Responsive100 TextAlCenter">
-                                    <tr>
-                                        <td colspan="2" class="TexAlCenter">
-                                            <div class="DispInlBlock TexAlLeft tp1">
-                                                <div class="Fright">
-                                                    <h1 class="black Fs24 fnt1">
-                                                        #{ceb.themeData.displayname}
-                                                    </h1>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="TexAlCenter">
-                                            <div class="DispInlBlock TexAlLeft tp1">
-                                                <div class="Fright">
-                                                    <h2 class="black f1">#{ceb.themeData.longDescription}</h2>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="TexAlCenter title1">
-                                                Your revised risk level is
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="EmptyBox5"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 10%; text-align: right; vertical-align: middle">Low</td>
-                                        <td style="width: 80%; text-align: center; vertical-align: middle">
-                                            <ui:repeat var="tlist" value="#{ceb.themeList}">
-                                                <h:graphicImage name="images/riskMeter.svg" library="ltam"
-                                                                rendered="#{ceb.themeData.sortorder != tlist.sortorder}"
-                                                                style="width: 20%; background: transparent"
-                                                                styleClass="Fleft"/>
-                                                <h:graphicImage name="images/SriskMeter.svg" library="ltam"
-                                                                rendered="#{ceb.themeData.sortorder == tlist.sortorder}"
-                                                                style="width: 20%; background: transparent"
-                                                                styleClass="Fleft"/>
-                                            </ui:repeat>
-                                        </td>
-                                        <td style="width: 5%; text-align: left; vertical-align: middle">High</td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center">
-                                            <p:chart type="pie" model="#{ceb.ltamcharts.pieChart}"
-                                                     rendered="#{ceb.ltamcharts.pieChart != null}"
-                                                     style="width:100%;height:210px;"
-                                                     responsive="true">
-                                            </p:chart>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                            <f:facet name="footer">
-                                <p:commandButton styleClass="Fleft" value="Start Over"
-                                                 update=":ceForm:contentpanel,:ceForm:disclaimer"
-                                                 actionListener="#{ceb.startOver}"/>
-                                <p:commandButton styleClass="Fright" value="Continue"
-                                                 update=":ceForm:contentpanel,:ceForm:disclaimer"
-                                                 actionListener="#{ceb.transact}"/>
-                            </f:facet>
-                        </p:panel>
+                        <p:steps id="ltamprogressbar"  rendered="#{ceb.isEditMode}"
+                                 activeIndex="#{ceb.ltammenu}">
+                            <p:menuitem value="Start"/>
+                            <p:menuitem value="Goal"/>
+                            <p:menuitem value="Horizon"/>
+                            <p:menuitem value="Risk"/>
+                            <p:menuitem value="Risk"/>
+                            <p:menuitem value="Risk"/>
+                            <p:menuitem value="Review"/>
+                            <p:menuitem value="Terms"/>
+                            <p:menuitem value="Confirmation"/>
+                        </p:steps>
 
                     </div>
-
-                    <div class="Container50">
-                        <p:panel style="border: 0px; background: transparent;">
-                            <div class="Container100 TextAlCenter">
-                                <div class="TexAlCenter">
-                                    <h1 class="black Fs24 fnt1">#{ceb.firstname}, your current portfolio is:</h1>
-                                </div>
-
-                                <table class="Container100  TextAlCenter">
-                                    <tr>
-                                        <td colspan="2" class="TexAlCenter">
-                                            <div class="DispInlBlock TexAlLeft tp1">
-                                                <div class="Fright">
-                                                    <h1 class="black Fs24 fnt1">#{ceb.themeData.displayname}</h1>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2" class="TexAlCenter">
-                                            <div class="DispInlBlock TexAlLeft tp1">
-                                                <div class="Fright">
-                                                    <h2 class="black f1">#{ceb.themeData.longDescription}</h2>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="TexAlCenter title1">
-                                                Your current risk level is
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <div class="EmptyBox5"></div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="width: 10%; text-align: right; vertical-align: middle">Low</td>
-                                        <td style="width: 80%; text-align: center; vertical-align: middle">
-                                            <ui:repeat var="tlist" value="#{ceb.themeList}">
-                                                <h:graphicImage name="images/riskMeter.svg" library="ltam"
-                                                                rendered="#{ceb.themeData.sortorder != tlist.sortorder}"
-                                                                style="width: 20%; background: transparent"
-                                                                styleClass="Fleft"/>
-                                                <h:graphicImage name="images/SriskMeter.svg" library="ltam"
-                                                                rendered="#{ceb.themeData.sortorder == tlist.sortorder}"
-                                                                style="width: 20%; background: transparent"
-                                                                styleClass="Fleft"/>
-                                            </ui:repeat>
-                                        </td>
-                                        <td style="width: 5%; text-align: left; vertical-align: middle">High</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p:chart type="pie" model="#{ceb.ltamcharts.pieChart}"
-                                                     rendered="#{ceb.ltamcharts.pieChart != null}"
-                                                     style="width:100%;height:210px;"
-                                                     responsive="true">
-                                            </p:chart>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-
-                        </p:panel>
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent Responsive100">
+                            <p:messages showDetail="false" escape="true" closable="true"/>
+                        </div>
                     </div>
                 </div>
+
+                <div class="Container100">
+                    <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
+                        <ui:fragment rendered="#{ceb.pagemanager.page == 6}">
+                            <ui:include src="/pages/consumer/edit/page7.xhtml"/>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{ceb.pagemanager.page == 7}">
+                            <ui:include src="/pages/consumer/edit/page8.xhtml"/>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{ceb.pagemanager.page == 8}">
+                            <ui:include src="/pages/consumer/edit/page9.xhtml"/>
+                        </ui:fragment>
+                    </p:panel>
+                </div>
+
+            </div>
 
             </p:panel>
 
@@ -295,7 +87,6 @@
                     </div>
                 </div>
             </p:outputPanel>
-
 
         </h:form>
 
