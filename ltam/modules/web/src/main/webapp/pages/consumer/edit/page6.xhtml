@@ -19,8 +19,6 @@
                         <h2>
                             <h:outputText id="displayAns6" value="#{ceb.textAns6}"/>
                         </h2>
-                        <h:inputHidden id="ans6" value="#{ceb.ans6}"
-                                       required="true" requiredMessage="Please use the slider below to select appropriate risk tolerance"/>
                     </div>
                     <div class="EmptyBox30"></div>
                     <table class="Container100 Responsive100" style="border: 0px">
@@ -32,6 +30,9 @@
                                 <p:slider for="ans6" minValue="1" maxValue="5" step="1">
                                     <p:ajax event="slideEnd" listener="#{ceb.onSlideEnd}" update="displayAns6"/>
                                 </p:slider>
+                                <h:inputHidden id="ans6" value="#{ceb.ans6}"
+                                               required="true"
+                                               requiredMessage="Please use the slider below to select appropriate risk tolerance"/>
                             </td>
                             <td style="width: 17%; text-align: left; vertical-align: middle; padding-left: 10px">
                                 <h:outputText value="Highest"/>

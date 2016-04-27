@@ -5,41 +5,40 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <div class="Container100 TextAlCenter">
-        <div class="TexAlCenter">
-            <h1 class="black Fs24 fnt1">#{ltamprofile.firstname}, based on your answers, your recommended objective is:</h1>
-        </div>
-        
-        <table class="Container100 Responsive100 TextAlCenter">
-            <tr>
-                <td colspan="2" class="TexAlCenter">
-                    <div class="DispInlBlock TexAlLeft tp1">
-                        <div class="Fright">
-                            <h1 class="black Fs24 fnt1">#{ltamprofile.themeData.displayname}</h1>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" class="TexAlCenter">
-                    <div class="DispInlBlock TexAlLeft tp1">
-                        <div class="Fright">
-                            <h2 class="black f1">#{ltamprofile.themeData.longDescription}</h2>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
-                             rendered="#{ltamprofile.ltamcharts.pieChart != null}"
-                             style="width:100%;height:210px;"
-                             responsive="true">
-                    </p:chart>
-                </td>
-            </tr>
-        </table>
+    <ui:define name="content">
 
-    </div>
+        <!-- BOX START -->
+        <h:form id="ceForm">
+            <div class="layout-portlets-box">
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        <div class="DispInlBlock">
+                            <div class="Container100">
+                                <div class="Fleft">
+                                    <h3 class="black Fs24 FontThemeMedium">
+                                        Confirm Transaction
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Container100">
+                    <div class="ContainerIndent">
+                        “To sign up for online transactions, you must review the following Agreement, and click on the button
+                        below indicating that you understand and agree to the terms and conditions contained in this Agreement
+                        for effecting online transactions. If you do not agree to be bound by this Agreement, you will not be
+                        able to access the online transaction services offered by the Fund. Please read the Agreement
+                        carefully before continuing. You should print and retain a copy of this Agreement for your records.”
+                        <div class="EmptyBox20"></div>
+
+                    </div>
+                </div>
+
+            </div>
+        </h:form>
+    </ui:define>
+
 
 </ui:composition>
