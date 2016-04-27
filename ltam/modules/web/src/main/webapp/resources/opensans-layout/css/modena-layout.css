@@ -579,9 +579,9 @@ a {
 img {
   outline: none;
 }
-li {
-  list-style: none;
-}
+/*
+li {list-style: none;}
+*/
 /* seperator line */
 .Separator {
   border-bottom: solid 1px #E0E0E0;
