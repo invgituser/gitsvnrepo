@@ -51,7 +51,7 @@
 
    <dependencyManagement>
       <dependencies>
-         <dependency>
+            <dependency>
             <groupId>com.invessence</groupId>
             <artifactId>core</artifactId>
             <version>${invessence.version}</version>
@@ -467,7 +467,7 @@
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}\\download\\</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}\\ftp\\</ftp.localdir>
+            <ftp.localdir>${base.data.dir}\\eodfiles\\</ftp.localdir>
             <rsba.localdir>${base.rbsa.dir}\\RBSA\\</rsba.localdir>
             <report.localdir>${base.data.dir}\\rpt\\</report.localdir>
             <pdf.localdir>${base.data.dir}\\pdf\\</pdf.localdir>
@@ -487,7 +487,7 @@
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
+            <ftp.localdir>${base.data.dir}/eodfiles</ftp.localdir>
             <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
             <report.localdir>${base.data.dir}/rpt/</report.localdir>
             <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
@@ -507,7 +507,7 @@
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
+            <ftp.localdir>${base.data.dir}/eodfiles</ftp.localdir>
             <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
             <report.localdir>${base.data.dir}/rpt/</report.localdir>
             <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
@@ -527,7 +527,7 @@
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}/ftp</ftp.localdir>
+            <ftp.localdir>${base.data.dir}/eodfiles</ftp.localdir>
             <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
             <report.localdir>${base.data.dir}/rpt/</report.localdir>
             <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
@@ -553,9 +553,9 @@
          <id>3B-DB-DEVEL</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://dev.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://dev.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <ltam.url>jdbc:mysql://dev.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.url>jdbc:mysql://uat.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://uat.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <ltam.url>jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -650,6 +650,14 @@
          </properties>
       </profile>
       <profile>
+         <id>5D2-WEB-UOB</id>
+         <properties>
+            <apache.url>http://uob.invessence.com:8080</apache.url>
+            <tomcat.url>https://uob.invessence:8080</tomcat.url>
+            <ssl.url>https://uob.invessence:8080</ssl.url>
+         </properties>
+      </profile>
+      <profile>
          <id>5E-WEB-DEMO</id>
          <properties>
             <apache.url>http://demo.invessence.com:8080</apache.url>
@@ -676,9 +684,9 @@
       <profile>
          <id>5P2-WEB-SYMBIL</id>
          <properties>
-            <apache.url>http://symbil.com:8080</apache.url>
-            <tomcat.url>https://symbil.com:8080</tomcat.url>
-            <ssl.url>https://symbil.com:8080</ssl.url>
+            <apache.url>http://symbil.com</apache.url>
+            <tomcat.url>https://symbil.com</tomcat.url>
+            <ssl.url>https://symbil.com</ssl.url>
          </properties>
       </profile>
       <profile>
