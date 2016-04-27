@@ -57,6 +57,7 @@ public class AccountData
    private	Integer	ans13	;
    private	Integer	ans14	;
    private	Integer	ans15	;
+   private  String   formula;
    private	String	created	;
    private  String   role;
    private  String   privileges;
@@ -596,6 +597,16 @@ public class AccountData
    public void setAns15(Integer ans15)
    {
       this.ans15 = ans15;
+   }
+
+   public String getFormula()
+   {
+      return formula;
+   }
+
+   public void setFormula(String formula)
+   {
+      this.formula = formula;
    }
 
    public String getCreated()

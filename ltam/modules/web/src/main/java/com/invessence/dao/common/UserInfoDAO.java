@@ -294,6 +294,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                      data.setAns8(convert.getIntData(rs.get("ans8")));
                      data.setAns9(convert.getIntData(rs.get("ans9")));
                      data.setAns10(convert.getIntData(rs.get("ans10")));
+                     data.setFormula(convert.getStrData(rs.get("formula")));
                      data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
 
                      data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));

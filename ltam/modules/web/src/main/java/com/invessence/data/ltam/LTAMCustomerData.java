@@ -34,12 +34,15 @@ public class LTAMCustomerData extends LTAMRiskData
    private Integer horizon;
    private Double Investment;
    private String forwarded;
-   private String portfoliotype;
+   private String formula;
    private String acknowledged;
    private LTAMTheme themeData;
    private Boolean recalcAllocation;
    private LTAMAllocationData allocationData;
    private PieChartModel pieChart;
+   private String cusip;
+   private String securityname;
+   private Integer fundID;
 
 
    public LTAMCustomerData()
@@ -298,14 +301,14 @@ public class LTAMCustomerData extends LTAMRiskData
       this.forwarded = forwarded;
    }
 
-   public String getPortfoliotype()
+   public String getFormula()
    {
-      return portfoliotype;
+      return formula;
    }
 
-   public void setPortfoliotype(String portfoliotype)
+   public void setFormula(String formula)
    {
-      this.portfoliotype = portfoliotype;
+      this.formula = formula;
    }
 
    public String getAcknowledged()
@@ -356,6 +359,36 @@ public class LTAMCustomerData extends LTAMRiskData
       this.pieChart = pieChart;
    }
 
+   public String getCusip()
+   {
+      return cusip;
+   }
+
+   public void setCusip(String cusip)
+   {
+      this.cusip = cusip;
+   }
+
+   public String getSecurityname()
+   {
+      return securityname;
+   }
+
+   public void setSecurityname(String securityname)
+   {
+      this.securityname = securityname;
+   }
+
+   public Integer getFundID()
+   {
+      return fundID;
+   }
+
+   public void setFundID(Integer fundID)
+   {
+      this.fundID = fundID;
+   }
+
    public void resetAllData() {
       timeToSaveID = null;
       logonid = null;
@@ -374,12 +407,15 @@ public class LTAMCustomerData extends LTAMRiskData
       theme = "66538B164";
       horizon = 5;
       Investment = null;
-      portfoliotype="Q";
+      formula="Q";
       super.resetAllData();
       allocationData = new LTAMAllocationData();
       recalcAllocation = true;
       forwarded = null;
       pieChart = null;
+      cusip = null;
+      securityname = null;
+      fundID = null;
    }
 
    public void copyData(AccountData accountData) {
@@ -389,7 +425,7 @@ public class LTAMCustomerData extends LTAMRiskData
          acctnum = accountData.getAcctnum();
          geminiAcctNum = accountData.getClientAccountID();
          advisor = accountData.getAdvisor();
-         rep = null;
+         rep = accountData.getAdvisor();
          ipaddress = null;
          prefix = null;
          firstname = accountData.getFirstname();
@@ -401,10 +437,14 @@ public class LTAMCustomerData extends LTAMRiskData
          theme = accountData.getTheme();
          horizon = accountData.getHorizon();
          Investment = accountData.getActualCapital();
+         formula = accountData.getFormula();
          super.resetAllData();
          allocationData = new LTAMAllocationData();
          recalcAllocation = true;
          forwarded = null;
+         cusip = accountData.getCusip();
+         securityname = accountData.getSecurityName();
+         fundID = accountData.getFundID();
 
          setAns2(accountData.getAns2());
          setAns3(accountData.getAns3());

@@ -40,7 +40,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                   convert.getStrData(rs.get("managed")),
                   convert.getStrData(rs.get("dateOpened")),
                   convert.getStrData(rs.get("clientAccountID")),
-                  convert.getStrData(rs.get("description"))
+                  convert.getStrData(rs.get("description")
+                  )
                );
 
                listProfiles.add(i, data);
@@ -132,6 +133,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                accountdata.setAns8(convert.getIntData(rs.get("ans8")));
                accountdata.setAns9(convert.getIntData(rs.get("ans9")));
                accountdata.setAns10(convert.getIntData(rs.get("ans10")));
+               accountdata.setFormula(convert.getStrData(rs.get("formula")));
                accountdata.setDateOpened(convert.getStrData(rs.get("dateOpened")));
                accountdata.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
                accountdata.setCusip(convert.getStrData(rs.get("cusip")));

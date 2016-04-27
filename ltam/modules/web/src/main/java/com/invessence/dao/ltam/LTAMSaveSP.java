@@ -17,7 +17,7 @@ public class LTAMSaveSP extends StoredProcedure
    {
       super(datasource, sp_name);
       switch (mode) {
-         case 0:  // save_user_trade_profile
+         case 0:  // ltam.save_visitor
             declareParameter(new SqlInOutParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_timeToSaveID", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
@@ -26,7 +26,7 @@ public class LTAMSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_source", Types.VARCHAR));
             declareParameter(new SqlParameter("p_data", Types.VARCHAR));
             break;
-         case 1:  // save_user_financial_data
+         case 1:  // save_acct_info
             declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_timeToSaveID", Types.VARCHAR));
@@ -56,8 +56,9 @@ public class LTAMSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_risk6", Types.INTEGER));
             declareParameter(new SqlParameter("p_ans7", Types.INTEGER));
             declareParameter(new SqlParameter("p_risk7", Types.INTEGER));
+            declareParameter(new SqlParameter("p_formula", Types.VARCHAR));
             break;
-         case 2: // updt_user_risk_index
+         case 2: // save_acct_info_ack
             declareParameter(new SqlParameter("p_acctnum", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_ext_acctnum", Types.VARCHAR));
@@ -137,6 +138,7 @@ public class LTAMSaveSP extends StoredProcedure
       inputMap.put("p_risk6",data.getRiskValue(6));
       inputMap.put("p_ans7",0);
       inputMap.put("p_risk7",0);
+      inputMap.put("p_formula",data.getFormula());
       return super.execute(inputMap);
    }
 

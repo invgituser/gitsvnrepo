@@ -49,7 +49,7 @@ public class LTAMSaveDataDAO extends JdbcDaoSupport implements Serializable
    public Long saveLTAMVisitor(LTAMCustomerData data)
    {
       DataSource ds = getDS();
-      LTAMSaveSP sp = new LTAMSaveSP(ds, "ltam.save_visitor",0);
+      LTAMSaveSP sp = new LTAMSaveSP(ds, "save_visitor",0);
       Long logonid = 0L;
       Map outMap = sp.saveLTAMVisitor(data);
       if (outMap != null) {
@@ -62,7 +62,7 @@ public class LTAMSaveDataDAO extends JdbcDaoSupport implements Serializable
    public Long saveLTAMUserData(LTAMCustomerData data)
    {
       DataSource ds = getDS();
-      LTAMSaveSP sp = new LTAMSaveSP(ds, "ltam.save_acct_info",1);
+      LTAMSaveSP sp = new LTAMSaveSP(ds, "save_acct_info",1);
       Long acctnum = 0L;
       Map outMap = sp.saveLTAMUserData(data);
       acctnum = ((Long) outMap.get("p_acctnum")).longValue();
@@ -72,7 +72,7 @@ public class LTAMSaveDataDAO extends JdbcDaoSupport implements Serializable
    public String savePostBack(String myacctnum, String advisor, String ext_acctnum)
    {
       DataSource ds = getDS();
-      LTAMSaveSP sp = new LTAMSaveSP(ds, "ltam.save_acct_info_ack",2);
+      LTAMSaveSP sp = new LTAMSaveSP(ds, "save_acct_info_ack",2);
       Map outMap = sp.savePostBack(myacctnum, advisor, ext_acctnum);
       String msg = ((String) outMap.get("p_msg"));
       return (msg);

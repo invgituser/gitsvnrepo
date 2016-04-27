@@ -211,7 +211,7 @@ public class LTAMRiskData
          // Note:  Although questons are weighted, we have calculated the fix value of each ans. (pre calculated).
          for (int i = 0; i < riskValueMatrix.length; i++) {
             if (riskValues[i] == null) {
-               newRiskValue += 0.0;
+               newRiskValue += riskValues[1]; // Pick the 1st risk value.
             }
             else {
                newRiskValue += riskValues[i];
@@ -232,13 +232,13 @@ public class LTAMRiskData
    }
 
    public void resetAllData() {
-      riskValues = new Double[riskValueMatrix.length]; // NOTE: Q1 = Position 1.  Zero is of default.
+      riskValues = new Double[riskValueMatrix.length]; // NOTE: Q1 = Position 1.  null is of default.
       riskIndex = 0.0;
-      ans1 = 0;
-      ans2 = 0;
-      ans3 = 0;
-      ans4 = 0;
-      ans5 = 0;
-      ans6 = 0;
+      ans1 = null;
+      ans2 = null;
+      ans3 = null;
+      ans4 = null;
+      ans5 = null;
+      ans6 = null; // Default: it because of slider
    }
 }

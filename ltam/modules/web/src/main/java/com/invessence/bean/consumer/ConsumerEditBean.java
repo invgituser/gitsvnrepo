@@ -330,9 +330,11 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    {
       if (pagemanager.isFirstPage()) {
          if (getIsEditMode()) {
-           if (getPortfoliotype() != null && getPortfoliotype().equalsIgnoreCase("D")) {
+           if (getFormula() != null && getFormula().equalsIgnoreCase("D")) {
+              pagemanager.setPage(6);
+              doCharts();
               webutil.redirect("/pages/consumer/confirm.xhtml", null);
-              // pagemanager.setPage(6);
+              return;
            }
          }
          else {
@@ -352,23 +354,23 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       doCharts();
       saveClientData();
       pagemanager.nextPage();
-      if (pagemanager.isLastPage()) {
-         if (getIsEditMode()) {
-            System.out.print("Forward to Gemini: Acct="
+      if (getIsEditMode() && pagemanager.getPage() >= 6) {
+            System.out.print("Exchange Fund: Acct="
                                 + getAcctnum().toString()
                                 + ", advisor=" + getAdvisor()
                                 + ", theme=" + getTheme());
              webutil.redirect("/pages/consumer/confirm.xhtml", null);
+             return;
             // pagemanager.setPage(6);
          }
-         else {
+         if (pagemanager.isLastPage()) {
             System.out.print("Forward to Gemini: Acct="
                                 + getAcctnum().toString()
                                 + ", advisor=" + getAdvisor()
                                 + ", theme=" + getTheme());
             webutil.redirect("/pages/consumer/review.xhtml", null);
+            return;
          }
-      }
    }
 
    public void preRenderView()
@@ -381,17 +383,24 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                resetBean();
             }
 
+            if (beanaction != null) {
+               if (beanaction.equalsIgnoreCase("N")) {
+                  beanacctnum = null;  // Reset the Account Number (Due to Session cache)
+               }
+            }
 
             // If beanacctnum is null or empty, then it must be a visitor
             if (beanacctnum != null && ! beanacctnum.isEmpty()) {
                if (webutil.validatePriviledge(Const.WEB_USER)) {
                   formmode="Edit";
+                  pagemanager = new PagesImpl(9);
                   displayMeter = true;
                   Long logonid = webutil.getLogonid();
                   collectAccountData(logonid, beanacctnum);
                }
             }
             else {
+               pagemanager = new PagesImpl(6);
                if (beanaction != null) {
                   formmode = "New";
                   if (webutil.validatePriviledge(Const.WEB_USER)) {
@@ -461,8 +470,6 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       displayGraphs = false;
       reviewPage = false;
       displayMeter = false;
-      pagemanager = new PagesImpl(6);
-      pagemanager.setPage(0);
       selectedPage4Image = 0;
 
       setAdvisor(beanAdvisor);
@@ -532,10 +539,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (webutil != null && ! webutil.isWebProdMode())
-            return;
-
-         if (getIsEditMode() && !reviewPage) {
+         if (getIsEditMode()) {
             return;
          }
          Long acctnum = null;
@@ -567,10 +571,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       displayMeter = false;
       setDisplayGraphs(false);
       pagemanager.setPage(0);
-      if (formmode != null && formmode.equalsIgnoreCase("editor")) {
-         // RequestContext.getCurrentInstance().closeDialog("dlgWelcome");
-         webutil.redirect("/index.xhtml", null);
-      }
+      webutil.redirect("/pages/consumer/cedit.xhtml", null);
    }
 
    public void forwardData()
@@ -742,6 +743,12 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          return;
 
       setAns5(which);
+   }
+
+   public void processTransfer() {
+      FacesMessage message;
+      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Transaction", "Transaction Processed.");
+      FacesContext.getCurrentInstance().addMessage(null, message);
    }
 
 
