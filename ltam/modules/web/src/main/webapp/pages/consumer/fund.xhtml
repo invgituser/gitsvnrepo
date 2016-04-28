@@ -13,86 +13,46 @@
 
     <ui:define name="content">
 
-        <div class="layout-portlets-box">
-            <h:form id="fundForm">
+        <h:form id="fundForm">
+            <p:panel id="contentpanel" style="border: 0px; background: transparent">
+                <div class="layout-portlets-box">
 
-                <div class="Container100 Responsive100">
-                    <div class="ContainerIndent Responsive100">
-                        <p:messages showDetail="false" escape="true" closable="true"/>
-                    </div>
-                </div>
-
-                <div class="Container100">
-                    <div class="Container50 ">
+                    <div class="Container100 Responsive100">
                         <div class="ContainerIndent">
-                            <p:panel id="fundPanel" style="border: 0px; background: transparent">
+                            <div class="tab_main">
+                                <p:steps activeIndex="#{fundbean.pagemanager.page}">
+                                    <p:menuitem value="Fund"/>
+                                    <p:menuitem value="Term"/>
+                                    <p:menuitem value="Confirm"/>
+                                </p:steps>
+                            </div>
+                        </div>
+                    </div>
 
-                                <p:panelGrid columns="2" layout="grid" styleClass="Container100"
-                                             style="border:0px !important; background:none;" class="FormContent">
-                                 Choose Bank:
-                                 <p:selectOneMenu id="bankinfo" styleClass="Wid90"
-                                                  value="#{fundbean.bankAccountNum}" >
-                                     <p:ajax update=":fundForm:workArea"/>
-                                     <f:selectItems value="#{fundbean.bankNames.entrySet()}"
-                                                    var="bank" itemLabel="#{bank.key}" itemValue="#{bank.value}"/>
-                                 </p:selectOneMenu>
-                                </p:panelGrid>
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent Responsive100">
+                            <p:messages showDetail="false" escape="true" closable="true"/>
+                        </div>
+                    </div>
 
-                                <p:panelGrid id="workArea" columns="2" layout="grid" styleClass="Container100"
-                                             style="border:0px !important; background:none;" class="FormContent"
-                                        rendered = "#{fundbean.bankNames != null}">
-
-                                    <div class="Wid90">Name</div>
-                                    <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
-                                            value="#{fundbean.accountHolder}">
-                                    </h:outputText>
-
-
-                                    <div class="Wid90">Routing#</div>
-                                    <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
-                                                  value="#{fundbean.displayRoutingNum}">
-                                    </h:outputText>
-
-                                    <div class="Wid90">Account#</div>
-                                    <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
-                                                  value="#{fundbean.hiddenBankAccountNum}">
-                                    </h:outputText>
-
-                                    <div class="Wid90">Fund Amount</div>
-                                    <pe:inputNumber styleClass="ltamInputText input_wid1"
-                                                    value="#{fundbean.investment}"
-                                                    maxlength="11" decimalPlaces="0" symbol="$"
-                                                    required="true" requiredMessage="Fund amount is required!"
-                                                    validatorMessage="Min. of $1 investment is required!">
-                                    </pe:inputNumber>
-                                </p:panelGrid>
-                                <p:outputPanel rendered="false">
-                                    <div class="Container100">
-                                        <p:separator/>
-
-                                        <div class="EmptyBox30"></div>
-                                    </div>
-
-                                    <div class="Container100">
-                                        <p:graphicImage value="/images/check_image.gif"/>
-                                    </div>
-                                </p:outputPanel>
-
-                                <f:facet name="footer">
-                                    <p:commandButton value="Save" styleClass="Fright"
-                                                     update="@form"
-                                                     actionListener="#{fundbean.saveFund}"/>
-                                </f:facet>
-
-
+                    <div class="Container100">
+                        <div class="ContainerIndent">
+                            <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
+                                <ui:fragment rendered="#{fundbean.pagemanager.page == 0}">
+                                    <ui:include src="/pages/consumer/edit/fund1.xhtml"/>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{fundbean.pagemanager.page == 1}">
+                                    <ui:include src="/pages/consumer/edit/fund2.xhtml"/>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{fundbean.pagemanager.page == 2}">
+                                    <ui:include src="/pages/consumer/edit/fund3.xhtml"/>
+                                </ui:fragment>
                             </p:panel>
-
                         </div>
                     </div>
                 </div>
-
-            </h:form>
-        </div>
+            </p:panel>
+        </h:form>
 
     </ui:define>
 
