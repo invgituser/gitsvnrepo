@@ -87,7 +87,7 @@ public class LTAMOptimizer
    }
 
    public Map<String, String> getDisplayThemes() {
-      Map<String, String> map = new HashMap<String, String>();
+      Map<String, String> map = new LinkedHashMap<String, String>();   // Order is important
       if (themesMap != null) {
          for (String theme: themesMap.keySet()) {
             map.put(theme, themesMap.get(theme).getDisplayname());
