@@ -211,7 +211,7 @@ public class LTAMRiskData
          // Note:  Although questons are weighted, we have calculated the fix value of each ans. (pre calculated).
          for (int i = 0; i < riskValueMatrix.length; i++) {
             if (riskValues[i] == null) {
-               newRiskValue += riskValues[1]; // Pick the 1st risk value.
+               newRiskValue += 0.0; // If not entered, then assume highest risk
             }
             else {
                newRiskValue += riskValues[i];

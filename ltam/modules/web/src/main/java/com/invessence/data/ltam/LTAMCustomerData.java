@@ -50,7 +50,7 @@ public class LTAMCustomerData extends LTAMRiskData
       super();
       allocationData = new LTAMAllocationData();
       recalcAllocation = true;
-      horizon = 5;
+      horizon = null;
    }
 
    public LTAMCustomerData getInstance() {
@@ -266,6 +266,9 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setHorizon(Integer horizon)
    {
+      if (horizon == null)
+         return;
+
       this.horizon = horizon;
       recalcAllocation = true;
       if (horizon <= 3 )
@@ -405,7 +408,7 @@ public class LTAMCustomerData extends LTAMRiskData
       age = null;
       accttype = null;
       theme = "66538B164";
-      horizon = 5;
+      horizon = null;
       Investment = null;
       formula="Q";
       super.resetAllData();

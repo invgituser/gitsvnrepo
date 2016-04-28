@@ -19,6 +19,8 @@ import com.invessence.data.common.AccountData;
 import com.invessence.data.ltam.LTAMCustomerData;
 import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
+import com.invessence.ws.bean.*;
+import com.invessence.ws.service.ServiceLayer;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
@@ -51,6 +53,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    private Integer ltammenu;
    private LTAMCharts ltamcharts;
    private LTAMTheme theme;
+   private String selectedThemeName;
    private Map<String,String> displaythememap;
    private ArrayList<LTAMTheme> themeList;
    private String selectedPie;
@@ -101,6 +104,13 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    public void setUiLayout(UILayout uiLayout)
    {
       this.uiLayout = uiLayout;
+   }
+
+   @ManagedProperty("#{serviceLayer}")
+   private ServiceLayer serviceLayer;
+   public void setServiceLayer(ServiceLayer serviceLayer)
+   {
+      this.serviceLayer = serviceLayer;
    }
 
    /*
@@ -276,6 +286,16 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       return ltamcharts;
    }
 
+   public String getSelectedThemeName()
+   {
+      return selectedThemeName;
+   }
+
+   public void setSelectedThemeName(String selectedThemeName)
+   {
+      this.selectedThemeName = selectedThemeName;
+   }
+
    public ArrayList<LTAMTheme> getThemeList()
    {
       return themeList;
@@ -379,9 +399,6 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (pagemanager == null) {
-               resetBean();
-            }
 
             if (beanaction != null) {
                if (beanaction.equalsIgnoreCase("N")) {
@@ -389,9 +406,17 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                }
             }
 
+            /* if in either New or edit mode, it is from session, therefore check if session is still valid. */
+            if (beanaction != null) {
+               if (webutil.validatePriviledge(Const.WEB_USER)) {
+                  setLogonid(webutil.getLogonid());
+               }
+            }
+
             // If beanacctnum is null or empty, then it must be a visitor
             if (beanacctnum != null && ! beanacctnum.isEmpty()) {
                if (webutil.validatePriviledge(Const.WEB_USER)) {
+                  resetBean();
                   formmode="Edit";
                   pagemanager = new PagesImpl(9);
                   displayMeter = true;
@@ -402,21 +427,19 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             else {
                pagemanager = new PagesImpl(6);
                if (beanaction != null) {
+                  resetBean();
                   formmode = "New";
-                  if (webutil.validatePriviledge(Const.WEB_USER)) {
-                     Long logonid = webutil.getLogonid();
-                     setLogonid(logonid);
-                  }
+                  saveVisitor();
                }
-               else {
+               else {  // This is from visitor site or just in try mode.
                   if (beanTimeToSaveID != null && (! beanTimeToSaveID.isEmpty()))
                      formmode = "TimeToSave";
                   else
                      formmode="Visitor";
-                  setLogonid(null);
                   resetBean();
+                  setLogonid(null);
                   selectedPage4Image = 0;
-                  saveVisitor();
+                  saveVisitor();  // Only create visitor if in try mode
                }
                doCharts();
             }
@@ -500,11 +523,6 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (! webutil.isWebProdMode())  {
-            setLogonid(0L);
-            return;
-         }
-
          setIpaddress(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
          if (getIsEditMode() || getFormmode().equalsIgnoreCase("new")) {
             setLogonid(webutil.getLogonid());
@@ -615,6 +633,27 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    {
       try
       {
+            if (selectedThemeName == null) {
+               return;
+            }
+
+            if (selectedThemeName.isEmpty()) {
+               selectedThemeName = null;
+               FacesMessage message;
+               message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Please choose one of the fund.", "Error");
+               FacesContext.getCurrentInstance().addMessage(null, message);
+               return;
+            }
+
+            if (selectedThemeName.equalsIgnoreCase(origCustomerData.getTheme())) {
+               selectedThemeName = null;
+               FacesMessage message;
+               message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Current and revised fund cannot be same.", "Error");
+               FacesContext.getCurrentInstance().addMessage(null, message);
+               return;
+            }
+
+            theme = ltamoptimizer.getTheme(selectedThemeName);
             setThemeData(theme);
             if (ltamcharts == null)
             {
@@ -747,8 +786,81 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    public void processTransfer() {
       FacesMessage message;
-      message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Transaction", "Transaction Processed.");
-      FacesContext.getCurrentInstance().addMessage(null, message);
+      try {
+          if (serviceLayer == null) {
+             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Web-service is down!", "Web-service");
+             FacesContext.getCurrentInstance().addMessage(null, message);
+             return;
+          }
+
+         Long acctnum = saveDAO.saveLTAMUserData(getInstance());
+
+         if (acctnum == null)
+         {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unable to save to Database!", "Database");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         if (! serviceLayer.isServiceActive()) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Web-service is NOT active!", "Web-service");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         WSCallResult serviceStatus;
+         serviceStatus = serviceLayer.getUserBankAcctDetails(getGeminiAcctNum());
+
+         if (serviceStatus == null) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Web-service is NOT active!", "Web-service");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         if (serviceStatus.getWSCallStatus().getErrorCode() != 0) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, serviceStatus.getWSCallStatus().getErrorMessage(), "Web-service");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         /* Note: Check service status non zero, print error message to the user */
+
+         List<BankAcctDetails> bankaccountlist = null;
+         bankaccountlist = (List<BankAcctDetails>) serviceStatus.getGenericObject();
+
+         if (bankaccountlist == null) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unable to get account info from web-services, to complete the call.", "Web-service");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+
+         }
+
+         String bankacct = bankaccountlist.get(0).getBankAccountNumber();
+
+         WSCallStatus callstatus;
+         callstatus = serviceLayer.fullFundTransfer(getGeminiAcctNum(), origCustomerData.getFundID(), getFundID(), bankacct);
+         if (callstatus.getErrorCode() != 0) {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, serviceStatus.getWSCallStatus().getErrorMessage(), "Web-service");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         Map <String, String> obj = new HashMap<String, String>();
+         obj.put("type","Info");
+         obj.put("title","Thank you");
+         obj.put("message","Trasanction was processed." +
+            "<br/> Your account " + getGeminiAcctNum() +
+            "<br> New Fund " + getSecurityname());
+
+         String url="/message.xhtml";
+         webutil.redirect(url, obj);
+
+      }
+      catch (Exception ex) {
+         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Transaction exception was raised! Call support.", "Error");
+         FacesContext.getCurrentInstance().addMessage(null, message);
+         ex.printStackTrace();
+      }
    }
 
 

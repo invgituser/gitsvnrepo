@@ -12,7 +12,8 @@ import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.AccountData;
 import com.invessence.data.consumer.ConsumerData;
-import com.invessence.util.WebUtil;
+import com.invessence.util.*;
+import com.invessence.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.service.ServiceLayer;
 
@@ -43,6 +44,9 @@ public class FundAccountBean implements Serializable
 
    private String bankacctnum;
    private Double investment;
+   private PagesImpl pagemanager;
+   private String accept;
+
    @ManagedProperty("#{serviceLayer}")
    private ServiceLayer serviceLayer;
    public void setServiceLayer(ServiceLayer serviceLayer)
@@ -62,6 +66,13 @@ public class FundAccountBean implements Serializable
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
+   }
+
+   @ManagedProperty("#{uiLayout}")
+   UILayout uiLayout;
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
    }
 
    @ManagedProperty("#{consumerListDataDAO}")
@@ -84,6 +95,21 @@ public class FundAccountBean implements Serializable
    public void setBeanacctnum(String beanacctnum)
    {
       this.beanacctnum = beanacctnum;
+   }
+
+   public AccountData getSelectedAccount()
+   {
+      return selectedAccount;
+   }
+
+   public String getAccept()
+   {
+      return accept;
+   }
+
+   public void setAccept(String accept)
+   {
+      this.accept = accept;
    }
 
    public List<BankAcctDetails> getBankaccountlist()
@@ -135,6 +161,7 @@ public class FundAccountBean implements Serializable
             // If beanacctnum is null or empty, then it must be a visitor
                if (webutil.validatePriviledge(Const.WEB_USER)) {
                   Long logonid = webutil.getLogonid();
+                  pagemanager = new PagesImpl(2);
                   collectAccountData(logonid, beanacctnum);
                }
          }
@@ -143,6 +170,38 @@ public class FundAccountBean implements Serializable
       {
          ex.printStackTrace();
       }
+   }
+
+   public void nextPage()
+   {
+      FacesMessage message;
+      if (pagemanager.isFirstPage()) {
+         if (investment == null || investment <= 0.0)  {
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Min Investment of $1 is required.", "Investment");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         if (bankacctnum == null || beanacctnum.isEmpty()) {
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Bank Account Number is required!", "Investment");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+      }
+      if (pagemanager.isNextToLastPage()) {
+         if (accept != null) {
+           if (accept.equalsIgnoreCase("N")) {
+              uiLayout.goToStartPage();
+           }
+         }
+         else {
+            message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Choose one of the options.", "Terms");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+      }
+      pagemanager.nextPage();
    }
 
    public void collectAccountData(Long logonid, String beanacctnum)
@@ -223,6 +282,11 @@ public class FundAccountBean implements Serializable
       return bankInfoMap.get(bankacctnum).getBankName();
    }
 
+   public PagesImpl getPagemanager()
+   {
+      return pagemanager;
+   }
+
    public String getAccountHolder() {
       if (bankacctnum == null)
          return null;
@@ -259,7 +323,7 @@ public class FundAccountBean implements Serializable
    }
 
    public Integer getFundID() {
-      if (bankacctnum == null)
+      if (beanacctnum == null)
          return 0;
 
       if (selectedAccount == null)
@@ -267,6 +331,18 @@ public class FundAccountBean implements Serializable
 
       Integer fundID = selectedAccount.getFundID();
       return fundID;
+   }
+
+   public String getClientAccountID() {
+      if (beanacctnum == null)
+         return null;
+
+      if (selectedAccount == null)
+         return null;
+
+      String clientAccountID = selectedAccount.getClientAccountID();
+      return clientAccountID;
+
    }
 
    public void saveFund()
@@ -281,23 +357,32 @@ public class FundAccountBean implements Serializable
             return;
          }
 
-         if (bankacctnum != null && ! bankacctnum.isEmpty())  {
-            System.out.println("bankacctnum = " + bankacctnum);
-            wscallStatus = serviceLayer.fundAccount(bankInfoMap.get(bankacctnum).getBankAccountNumber(),
+         if (beanacctnum != null && ! beanacctnum.isEmpty())  {
+            System.out.println("Funding: Acct# = " + getClientAccountID() +
+                                  ", FundID:" + selectedAccount.getSecurityName() + "(" + getFundID() + ") " +
+                                  ", Investment: " + investment +
+                                  ", Bank Acct#: " + getBankAccountNum());
+            wscallStatus = serviceLayer.fundAccount(getClientAccountID(),
                                      getFundID(),
                                      investment,
-                                     bankacctnum) ;
+                                     getBankAccountNum()) ;
             if (wscallStatus.getErrorCode() != 0) {
-               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unable to Fund", wscallStatus.getErrorMessage());
+               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, wscallStatus.getErrorMessage(), "Web-service Failure");
                FacesContext.getCurrentInstance().addMessage(null, message);
                return;
             }
-            else {
-               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Successful", "Amount posted, starting bank transfer.  It may take up to 3 days to post.");
-               FacesContext.getCurrentInstance().addMessage(null, message);
-               return;
+            Map <String, String> obj = new HashMap<String, String>();
+            obj.put("type","Info");
+            obj.put("title","Thank you");
+            obj.put("message","Account has been funded." +
+               "<br/> Your account " + getClientAccountID() +
+               "<br> New Fund " + selectedAccount.getSecurityName() +
+               "<br> Investment " + investment.intValue() +
+               "<br> Bank Account " + getHiddenBankAccountNum())
+            ;
 
-            }
+            String url="/message.xhtml";
+            webutil.redirect(url,obj);
          }
 
       }
