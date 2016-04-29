@@ -31,6 +31,8 @@ public class CallingProgramme
 //         System.out.println("wsCallResult = " + wsCallResult);
          //wsCallStatus=serviceLayer.fullFundTransfer("310100016", 903, 900, "6105640720");
          //serviceLayer.getUserBankAcctDetails("310100016");
+         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100018", 900, 909, "4302705871");
+         System.out.println("wsCallResult = " + wsCallResult);
          System.out.println("-------------------------------------------------------------------");
          System.out.println("wsCalltatus = " + wsCallStatus);
          System.out.println("isServiceActive"+serviceLayer.isServiceActive());
