@@ -95,6 +95,47 @@ public class AccountServiceImpl implements AccountService
          return new WSCallStatus(mailingAddressesResult.getErrorStatus().getErrorCode(), mailingAddressesResult.getErrorStatus().getErrorMessage());
       }
    }
+   public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception{
+      logger.info("AccountServiceImpl.getMailingAddress");
+      servicesSoap = servicesLocator.getAccountServicesSoap();
+
+      logger.info("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]");
+
+      MailingAddressesResult mailingAddressesResult= servicesSoap.getMailingAddress(
+         new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
+         userAcctDetails.getClientAccountID(),
+         new UnsignedByte(1),new UnsignedByte(1),true);
+      logger.info("mailingAddressesResult = " + mailingAddressesResult);
+      if (mailingAddressesResult == null)
+      {
+         return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg),null);
+      }
+      else
+      {
+         UserAcctExt userAcctExt=new UserAcctExt();
+         userAcctExt.setMailingAddressId(mailingAddressesResult.getMailingAddressId());
+         userAcctExt.setMailingAddressType(""+mailingAddressesResult.getMailingAddressType());
+         return new WSCallResult(new WSCallStatus(mailingAddressesResult.getErrorStatus().getErrorCode(), mailingAddressesResult.getErrorStatus().getErrorMessage()),null);
+      }
+   }
+   public WSCallResult getAccountInfo(UserAcctDetails userAcctDetails) throws Exception{
+      logger.info("AccountServiceImpl.getAccountInfo");
+      servicesSoap = servicesLocator.getAccountServicesSoap();
+      logger.debug("AuthenticateLogin:[UserId:"+userAcctDetails.getUserID()+", Password:"+userAcctDetails.getPwd()+", FundGroupName:"+userAcctDetails.getFundGroupName()+", AllowableShareClassList:00]");
+
+      AccountInfoResult accountInfoResult= servicesSoap.getAccountInfo(
+         new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
+         userAcctDetails.getClientAccountID(),true);
+      logger.debug("accountInfoResult = " + accountInfoResult);
+      if(accountInfoResult==null || accountInfoResult.getErrorStatus()==null){
+         return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg),null);
+      }else{
+         UserAcctExt userAcctExt=new UserAcctExt();
+         userAcctExt.setDateOfBirth(accountInfoResult.getDateOfBirth().getTime());
+         userAcctExt.setAccountType(""+accountInfoResult.getAccountType());
+         return new WSCallResult(new WSCallStatus(accountInfoResult.getErrorStatus().getErrorCode(), accountInfoResult.getErrorStatus().getErrorMessage()),userAcctExt);
+      }
+   }
 
    @Override
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails)throws Exception

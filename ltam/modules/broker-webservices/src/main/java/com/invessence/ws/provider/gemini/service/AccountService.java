@@ -12,4 +12,7 @@ public interface AccountService
    public WSCallStatus addAccountForCommonMailing(UserAcctDetails userAcctDetails) throws Exception;
    public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception;
+
+   public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception;
+   public WSCallResult getAccountInfo(UserAcctDetails userAcctDetails) throws Exception;
 }

@@ -8,6 +8,7 @@ import com.invessence.ws.bean.*;
 import com.invessence.ws.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.core.simple.*;
 import org.springframework.stereotype.*;
@@ -25,9 +26,9 @@ public class WSCommonDaoImpl implements WSCommonDao
    private final String getSverviceDetails="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, provider";
    private final String getUserAccDetailsByAccNumber="select * from ws_web_user_details where clientAccountID=?";
    private final String getPendingUserAccDetails="select * from ws_web_user_details where status='P' ";
-   private final String updatePendingUserAccDetailsOnSuccess="update user_logon_webservice set pwd=?, status=?,remarks=?,lastupdated=? where clientAccountID=?";
-   private final String updatePendingUserAccDetailsOnFailure="update user_logon_webservice set status=?,remarks=?,lastupdated=? where clientAccountID=?";
-   private final String updateUserEmail="update ext_acct_info set email=?, lastupdated=? where clientAccountID=?";
+//   private final String updatePendingUserAccDetailsOnSuccess="update user_logon_webservice set pwd=?, status=?,remarks=?,lastupdated=? where clientAccountID=?";
+//   private final String updatePendingUserAccDetailsOnFailure="update user_logon_webservice set status=?,remarks=?,lastupdated=? where clientAccountID=?";
+//   //private final String updateUserEmail="update ext_acct_info set email=?, lastupdated=? where clientAccountID=?";
    //private String #getAccountExtInfo="select * from ext_acct_info_extension where  clientAccountID=?";
    private final String getAccountExtInfo="select * from ws_web_user_ext_details where  clientAccountID=?";
 
@@ -67,18 +68,30 @@ public class WSCommonDaoImpl implements WSCommonDao
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException{
       logger.info("WSCommonDaoImpl.updatePendingUserAccDetails");
       logger.debug("userAcctDetails = [" + userAcctDetails + "]");
+
+
       if(userAcctDetails.getOpt().equals(WSConstants.succesResult))
       {
-         logger.debug("updatePendingUserAccDetailsOnSuccess = "+updatePendingUserAccDetailsOnSuccess);
-         webServiceJdbcTemplate.update(updatePendingUserAccDetailsOnSuccess,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
-                          userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
-                                       userAcctDetails.getPwd(), userAcctDetails.getStatus(), userAcctDetails.getRemarks(), new Date(), userAcctDetails.getClientAccountID());
+//         logger.debug("updatePendingUserAccDetailsOnSuccess = "+updatePendingUserAccDetailsOnSuccess);
+//         webServiceJdbcTemplate.update(updatePendingUserAccDetailsOnSuccess,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
+//                          userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
+//                                       userAcctDetails.getPwd(), userAcctDetails.getStatus(), userAcctDetails.getRemarks(), new Date(), userAcctDetails.getClientAccountID());
+         SPAccountDetails spAccountDetails= new SPAccountDetails(webServiceJdbcTemplate);
+         userAcctDetails.setOpt(WSConstants.dbUpdateOpt+"_"+userAcctDetails.getOpt());
+         logger.debug("wsRequest.setOpt = " + userAcctDetails.getOpt());
+         DBResponse dbResponse= spAccountDetails.execute(userAcctDetails);
+         logger.debug("dbResponse = [" + dbResponse.toString() + "]");
       }else if(userAcctDetails.getOpt().equals(WSConstants.failureResult))
       {
-         logger.debug("updatePendingUserAccDetailsOnFailure = "+updatePendingUserAccDetailsOnFailure);
-         webServiceJdbcTemplate.update(updatePendingUserAccDetailsOnFailure,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
-                          userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
-                                       userAcctDetails.getStatus(), userAcctDetails.getRemarks(), new Date(), userAcctDetails.getClientAccountID());
+//         logger.debug("updatePendingUserAccDetailsOnFailure = "+updatePendingUserAccDetailsOnFailure);
+//         webServiceJdbcTemplate.update(updatePendingUserAccDetailsOnFailure,/*userAcctDetails.getUserID(),userAcctDetails.getPwd(),userAcctDetails.getFundGroupName(),
+//                          userAcctDetails.getSecurityQuestion(),userAcctDetails.getSecurityAnswer(),*/
+//                                       userAcctDetails.getStatus(), userAcctDetails.getRemarks(), new Date(), userAcctDetails.getClientAccountID());
+         SPAccountDetails extInfoSP= new SPAccountDetails(webServiceJdbcTemplate);
+         userAcctDetails.setOpt(WSConstants.dbUpdateOpt+"_"+userAcctDetails.getOpt());
+         logger.debug("wsRequest.setOpt = " + userAcctDetails.getOpt());
+         DBResponse dbResponse= extInfoSP.execute(userAcctDetails);
+         logger.debug("dbResponse = [" + dbResponse.toString() + "]");
       }
       return true;
    }
@@ -114,14 +127,34 @@ public class WSCommonDaoImpl implements WSCommonDao
    public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
    {
       logger.info("WSCommonDaoImpl.insertAccountExtInfo");
-      logger.debug("userAcctExt = " + userAcctExt);
+      logger.debug("wsRequest = " + userAcctExt);
 
-      ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
+      SPExtInfo extInfoSP= new SPExtInfo(webServiceJdbcTemplate);
       userAcctExt.setOpt(WSConstants.dbInsertOpt+"_"+userAcctExt.getOpt());
-      logger.debug("userAcctExt.setOpt = "+userAcctExt.getOpt());
+      logger.debug("wsRequest.setOpt = "+userAcctExt.getOpt());
       DBResponse dbResponse= extInfoSP.execute(userAcctExt);
       logger.debug("dbResponse = [" + dbResponse.toString() + "]");
 
+      return true;
+   }
+
+   public boolean insertWSRequest(WSRequest wsRequest)
+   {
+      try
+      {
+         logger.info("WSCommonDaoImpl.insertWSRequest");
+         logger.debug("wsRequest = " + wsRequest);
+
+         SPRequestAuditrial requestAuditrialSP = new SPRequestAuditrial(webServiceJdbcTemplate);
+         wsRequest.setResTime(new Date());
+         wsRequest.setOpt(WSConstants.dbInsertOpt);
+         logger.debug("wsRequest.setOpt = " + wsRequest.getOpt());
+         DBResponse dbResponse = requestAuditrialSP.execute(wsRequest);
+         logger.debug("dbResponse = [" + dbResponse.toString() + "]");
+      }catch (Exception e){
+         logger.error("Issue while storing web request in DB :"+e.getMessage());
+
+      }
       return true;
    }
 
@@ -129,8 +162,8 @@ public class WSCommonDaoImpl implements WSCommonDao
    public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
    {
       logger.info("WSCommonDaoImpl.updateAccountExtInfo");
-      logger.debug("userAcctExt = " + userAcctExt);
-      ExtInfoSP extInfoSP= new ExtInfoSP(webServiceJdbcTemplate);
+      logger.debug("wsRequest = " + userAcctExt);
+      SPExtInfo extInfoSP= new SPExtInfo(webServiceJdbcTemplate);
       extInfoSP.execute();
 
       String sql = "update ltam_acct_info_ext set " +

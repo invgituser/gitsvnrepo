@@ -2318,6 +2318,7 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
             throw (java.rmi.RemoteException)_resp;
         }
         else {
+
             System.out.println("Soap Request :"+_call.getMessageContext().getRequestMessage().getSOAPPartAsString());
             System.out.println("Soap Response :"+_call.getMessageContext().getResponseMessage().getSOAPPartAsString());
 

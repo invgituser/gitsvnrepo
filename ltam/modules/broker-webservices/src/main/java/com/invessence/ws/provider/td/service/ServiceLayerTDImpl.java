@@ -10,10 +10,16 @@ import com.invessence.ws.util.NoServiceSupportException;
 
 public class ServiceLayerTDImpl implements CallingLayer
 {
-   public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails) throws Exception
+   public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception
    {
       throw new NoServiceSupportException("getMailingAddress Service Not Support");
       // return null;
+   }
+
+   @Override
+   public WSCallResult getAccountInfo(UserAcctDetails userAcctDetails) throws Exception
+   {
+      return null;
    }
 
    @Override
@@ -29,14 +35,14 @@ public class ServiceLayerTDImpl implements CallingLayer
    }
 
    @Override
-   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
+   public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
    {
       throw new NoServiceSupportException("fundAccount Service Not Support");
       //return null;
    }
 
    @Override
-   public WSCallStatus fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String accountNumber) throws Exception
+   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String accountNumber) throws Exception
    {
       throw new NoServiceSupportException("fullFundTransfer Service Not Support");
       //return null;

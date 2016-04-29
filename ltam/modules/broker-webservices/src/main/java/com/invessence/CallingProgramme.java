@@ -1,6 +1,6 @@
 package com.invessence;
 
-import com.invessence.ws.bean.WSCallStatus;
+import com.invessence.ws.bean.*;
 import com.invessence.ws.service.*;
 import com.invessence.ws.util.SysParameters;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -23,11 +23,12 @@ public class CallingProgramme
          //serviceLayer.loginUser("310100018");
          //serviceLayer.createUser("310100028","secQuest","secAnsw");
 
-         //serviceLayer.createPendingUser();
-         //wsCallStatus=serviceLayer.updateEmail("310100016","jaimedesmond5@hotmail.com1");
-         //wsCallStatus=serviceLayer.getMailingAddress("310100016");
-         wsCallStatus=serviceLayer.updateMailingAddress("310100016","JAIME", "L", "DESMOND","415 WEST 57TH STREET", "APT 1B NEW YORK, NY 10019","","Man Haten","NY","10019",(short)0,"2012142104","2124062680","","scott.spratlen@thegeminicompanies.com");
-         //wsCallStatus=serviceLayer.fundAccount("310100016",900, 1, "6105640720");
+       //  serviceLayer.createPendingUser();
+//         wsCallStatus=serviceLayer.updateEmail("310100016","jaimedesmond5@hotmail.com1");
+//         //wsCallStatus=serviceLayer.getMailingAddress("310100016");
+//         wsCallStatus=serviceLayer.updateMailingAddress("310100016","JAIME", "L", "DESMOND","415 WEST 57TH STREET", "APT 1B NEW YORK, NY 10019","","Man Haten","NY","10019",(short)0,"2012142104","2124062680","","scott.spratlen@thegeminicompanies.com");
+//         WSCallResult wsCallResult=serviceLayer.fundAccount("310100016",900, 1, "6105640720");
+//         System.out.println("wsCallResult = " + wsCallResult);
          //wsCallStatus=serviceLayer.fullFundTransfer("310100016", 903, 900, "6105640720");
          //serviceLayer.getUserBankAcctDetails("310100016");
          System.out.println("-------------------------------------------------------------------");

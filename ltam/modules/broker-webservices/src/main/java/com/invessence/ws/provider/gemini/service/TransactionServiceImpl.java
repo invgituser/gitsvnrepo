@@ -22,14 +22,14 @@ public class TransactionServiceImpl implements TransactionService
    String encryDecryKey="aRXDugfr4WQpVrxu";
 
    @Override
-   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
+   public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
    {
       logger.info("TransactionServiceImpl.fundAccount");
       logger.debug("userAcctDetails = [" + userAcctDetails + "], fundID = [" + fundID + "], amount = [" + amount + "], bankAccountNumber = [" + bankAccountNumber + "]");
       AchPayeeResult achPayeeResult=new AccountServiceImpl().getAchPayeeCollection(userAcctDetails, bankAccountNumber);
       logger.debug("achPayeeResult = " + achPayeeResult);
       if(achPayeeResult==null){
-         return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
+         return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
       }else
       {
          servicesSoap = servicesLocator.getTransactionServicesSoap();
@@ -80,26 +80,29 @@ public class TransactionServiceImpl implements TransactionService
          tranInfo,fundInfo);
 
          logger.debug("transactionCollectionResult = " + transactionCollectionResult);
-         if (transactionCollectionResult==null)
+         if (transactionCollectionResult==null || transactionCollectionResult.getErrorStatus()==null)
          {
-            return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
-         }
-         else
+            return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
+         }else if(transactionCollectionResult.getErrorStatus().getErrorCode()==0)
          {
-            return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage());
+            TransactionDetails transactionDetails=new TransactionDetails(""+transactionCollectionResult.getMasterTransactionId());
+            return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),transactionDetails);
+         }else
+         {
+            return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),null);
          }
       }
    }
 
    @Override
-   public WSCallStatus fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
+   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
    {
       logger.info("TransactionServiceImpl.fullFundTransfer");
       logger.debug("userAcctDetails = [" + userAcctDetails + "], fromFundID = [" + fromFundID + "], toFundID = [" + toFundID + "], bankAccountNumber = [" + bankAccountNumber + "]");
       AchPayeeResult achPayeeResult=new AccountServiceImpl().getAchPayeeCollection(userAcctDetails, bankAccountNumber);
       logger.debug("achPayeeResult = " + achPayeeResult);
       if(achPayeeResult==null){
-         return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
+         return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
       }else
       {
          servicesSoap = servicesLocator.getTransactionServicesSoap();
@@ -161,17 +164,20 @@ public class TransactionServiceImpl implements TransactionService
             tranInfo,fundInfo);
          logger.debug("transactionCollectionResult = " + transactionCollectionResult);
 
-         if (transactionCollectionResult==null)
+         if (transactionCollectionResult==null|| transactionCollectionResult.getErrorStatus()==null)
          {
-            return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
-         }
-         else
+            return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
+         }else if(transactionCollectionResult.getErrorStatus().getErrorCode()==0)
+         {
+            TransactionDetails transactionDetails=new TransactionDetails(""+transactionCollectionResult.getMasterTransactionId());
+            return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),transactionDetails);
+         }else
          {
             if(transactionCollectionResult.getNoOfErrors()>0 || transactionCollectionResult.getErrorStatus().getErrorCode()!=0){
                StringBuilder errMsg=new StringBuilder();
                TransactionMessageResult []transactionMessageResults=transactionCollectionResult.getTransactionMessageCollection();
                if(transactionMessageResults.length>0){
-                  return new WSCallStatus(transactionMessageResults[0].getTransactionMessageId(), transactionMessageResults[0].getTransactionMessage());
+                  return new WSCallResult( new WSCallStatus(transactionMessageResults[0].getTransactionMessageId(), transactionMessageResults[0].getTransactionMessage()),null);
                }
 //               for(TransactionMessageResult transactionMessage: transactionMessageResults){
 //
@@ -182,10 +188,10 @@ public class TransactionServiceImpl implements TransactionService
 //                  logger.info("transactionMessage = " + transactionMessage);
 //                  //return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), errMsg.toString());
 //               }
-               return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage());
+               return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),null);
             }else
             {
-               return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage());
+               return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),null);
             }
          }
       }

@@ -10,10 +10,10 @@ import org.springframework.jdbc.object.StoredProcedure;
 /**
  * Created by abhangp on 4/7/2016.
  */
-public class ExtInfoSP extends StoredProcedure
+public class SPExtInfo extends StoredProcedure
 {
    private static final String SPROC_NAME = "ws_ext_info";
-   public ExtInfoSP(JdbcTemplate datasource ){
+   public SPExtInfo(JdbcTemplate datasource){
       super(datasource, SPROC_NAME );
       declareParameter(new SqlParameter("p_clientAccountID", Types.VARCHAR));
       declareParameter(new SqlParameter("p_accountType", Types.VARCHAR));

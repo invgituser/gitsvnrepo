@@ -3,7 +3,7 @@ package com.invessence.ws.util;
 import java.util.*;
 
 import com.invessence.constant.Const;
-import com.invessence.ws.bean.ServiceDetails;
+import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.*;
@@ -61,7 +61,14 @@ public class SysParameters
    private WSCommonDao wsCommonDao;
 
    public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
-
+//   public void saveWSRequest(String status, String clientAccountID, String opt, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String reuestType){
+//      try{
+//         wsCommonDao.insertWSRequest(new WSRequest(status, clientAccountID, opt, remarks, reqTime, reqXml, resTime, resXml, reuestType));}
+//      catch(Exception e){
+//         e.printStackTrace();
+//         logger.error(e.getMessage());
+//      }
+//   }
    @Autowired
    public void setServiceDetails() {
       try{

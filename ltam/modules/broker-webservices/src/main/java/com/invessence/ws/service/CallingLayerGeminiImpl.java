@@ -33,6 +33,16 @@ public class CallingLayerGeminiImpl implements CallingLayer
       return loginService.updateWebUserEmail(userAcctDetails,newEmail);
    }
 
+   public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception{
+      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      accountService = new AccountServiceImpl();
+      return accountService.getMailingAddress(userAcctDetails);
+   }
+   public WSCallResult getAccountInfo(UserAcctDetails userAcctDetails) throws Exception{
+      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      accountService = new AccountServiceImpl();
+      return accountService.getAccountInfo(userAcctDetails);
+   }
    public UserAcctExt getAcctExtInfo(UserAcctDetails userAcctDetails)throws Exception
    {
       userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
@@ -75,7 +85,7 @@ public class CallingLayerGeminiImpl implements CallingLayer
    }
 
    @Override
-   public WSCallStatus fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
+   public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
    {
       userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
       transactionService=new TransactionServiceImpl();
@@ -83,7 +93,7 @@ public class CallingLayerGeminiImpl implements CallingLayer
    }
 
    @Override
-   public WSCallStatus fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
+   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
    {
       userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
       transactionService=new TransactionServiceImpl();
