@@ -35,8 +35,6 @@ public class SPRequestAuditrial extends StoredProcedure
       }
       public DBResponse execute(WSRequest webRequest){
          Map inputs = new HashMap();
-         System.out.println(" ASSAS"+webRequest.getReqTime().getTime());
-         System.out.println("new Timestamp"+new Timestamp(webRequest.getReqTime().getTime()));
 
          inputs.put("p_id", webRequest.getId());
          inputs.put("p_clientAccountID", webRequest.getClientAccountID());

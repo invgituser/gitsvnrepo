@@ -24,13 +24,13 @@ public class WSCommonDaoImpl implements WSCommonDao
    JdbcTemplate webServiceJdbcTemplate;
 
    private final String getSverviceDetails="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, provider";
-   private final String getUserAccDetailsByAccNumber="select * from ws_web_user_details where clientAccountID=?";
-   private final String getPendingUserAccDetails="select * from ws_web_user_details where status='P' ";
+   private final String getUserAccDetailsByAccNumber="select * from vw_ws_web_user_details where clientAccountID=?";
+   private final String getPendingUserAccDetails="select * from vw_ws_web_user_details where status='P' ";
 //   private final String updatePendingUserAccDetailsOnSuccess="update user_logon_webservice set pwd=?, status=?,remarks=?,lastupdated=? where clientAccountID=?";
 //   private final String updatePendingUserAccDetailsOnFailure="update user_logon_webservice set status=?,remarks=?,lastupdated=? where clientAccountID=?";
 //   //private final String updateUserEmail="update ext_acct_info set email=?, lastupdated=? where clientAccountID=?";
    //private String #getAccountExtInfo="select * from ext_acct_info_extension where  clientAccountID=?";
-   private final String getAccountExtInfo="select * from ws_web_user_ext_details where  clientAccountID=?";
+   private final String getAccountExtInfo="select * from vw_ws_web_user_ext_details where  clientAccountID=?";
 
    public UserAcctDetails getUserAccDetailsByAccNumber(String accountNumber)throws SQLException{
       logger.info("WSCommonDaoImpl.getUserAccDetailsByAccNumber");
