@@ -64,24 +64,6 @@ public class LTAMSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_ext_acctnum", Types.VARCHAR));
             declareParameter(new SqlOutParameter("p_msg", Types.VARCHAR));
             break;
-         case 3:   // Not used (Open)
-            break;
-         case 4:   // del_asset_alloc
-            break;
-         case 5:  // sp_asset_alloc_add_mod
-            break;
-         case 6:  // del_virtual_portfolio
-            break;
-         case 7:  // sp_virtual_portfolio_add_mod
-            break;
-         case 8: // sp_clientinfo_add_mod
-            break;
-         case 9:   // sp_clientinfo_mod
-            break;
-         case 10: // sp_createTrades
-            break;
-         case 11: // sp_clientinfo_add_mod
-            break;
          default:
       }
       compile();

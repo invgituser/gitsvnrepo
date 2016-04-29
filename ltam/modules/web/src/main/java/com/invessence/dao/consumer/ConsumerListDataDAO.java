@@ -6,8 +6,10 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
+import com.invessence.dao.ltam.LTAMListSP;
 import com.invessence.data.common.AccountData;
 import com.invessence.data.consumer.*;
+import com.invessence.data.ltam.LTAMCustomerData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerListDataDAO")
@@ -16,10 +18,57 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
+   public List<LTAMCustomerData> getClientProfileData(Long logonid, Long acctnum) {
+      DataSource ds = getDataSource();
+      LTAMListSP sp = new LTAMListSP(ds, "sel_ltam_ClientProfileData",0);
+      List<LTAMCustomerData> listProfiles = new ArrayList<LTAMCustomerData>();
+      Map outMap = sp.loadClientProfileData(logonid, acctnum);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            LTAMCustomerData data = new LTAMCustomerData();
+
+            listProfiles.add(i, data);
+            i++;
+         }
+         return listProfiles;
+      }
+      return null;
+   }
+
+   public void getProfileData(LTAMCustomerData data) {
+      DataSource ds = getDataSource();
+      LTAMListSP sp = new LTAMListSP(ds, "sel_ltam_AccountProfile",1);
+      Map outMap = sp.loadClientProfileData(data);
+      String action;
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               i++;
+               break;  // Only load the first account info.
+            }
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
    public List<ConsumerData> getClientProfileData(Long logonid, String filter, Integer days) {
       DataSource ds = getDataSource();
       List<ConsumerData> listProfiles = new ArrayList<ConsumerData>();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData2",0);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData2",2);
       Map outMap = sp.loadClientProfileData(logonid, filter, days);
       if (outMap != null)
       {
@@ -54,7 +103,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
    public PositionSummaryData getPositionData(Long logonid, Long acctnum ) {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_position",1);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_position",3);
       Map outMap = sp.getPositionData(logonid, acctnum);
       if (outMap != null)
       {
@@ -100,7 +149,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
    public AccountData getAccountData(Long logonid, Long acctnum) {
       DataSource ds = getDataSource();
       AccountData accountdata = null;
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_AccountInfo",2);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_AccountInfo",4);
       Map outMap = sp.loadAccountInfo(logonid,acctnum);
       if (outMap != null)
       {

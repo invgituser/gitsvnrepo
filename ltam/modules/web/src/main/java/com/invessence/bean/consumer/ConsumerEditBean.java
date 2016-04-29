@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import com.invessence.LTAMOptimizer;
 import com.invessence.bean.ltam.LTAMCharts;
 import com.invessence.constant.Const;
-import com.invessence.converter.SQLData;
-import com.invessence.dao.consumer.ConsumerListDataDAO;
+import com.invessence.converter.*;
+import com.invessence.dao.consumer.*;
 import com.invessence.dao.ltam.*;
 import com.invessence.data.LTAMTheme;
 import com.invessence.data.common.AccountData;
+import com.invessence.data.consumer.TradeData;
 import com.invessence.data.ltam.LTAMCustomerData;
 import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
@@ -69,18 +70,10 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       this.ltamoptimizer = ltamoptimizer;
    }
 
-   @ManagedProperty("#{ltamListDataDAO}")
-   private LTAMListDataDAO listDAO;
+   @ManagedProperty("#{consumerSaveDAO}")
+   private ConsumerSaveDAO saveDAO;
 
-   public void setListDAO(LTAMListDataDAO listDAO)
-   {
-      this.listDAO = listDAO;
-   }
-
-   @ManagedProperty("#{ltamSaveDataDAO}")
-   private LTAMSaveDataDAO saveDAO;
-
-   public void setSaveDAO(LTAMSaveDataDAO saveDAO)
+   public void setSaveDAO(ConsumerSaveDAO saveDAO)
    {
       this.saveDAO = saveDAO;
    }
@@ -397,12 +390,13 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    {
       try
       {
-         if (!FacesContext.getCurrentInstance().isPostback())
-         {
-
+         if (!FacesContext.getCurrentInstance().isPostback()) {
             if (beanaction != null) {
                if (beanaction.equalsIgnoreCase("N")) {
                   beanacctnum = null;  // Reset the Account Number (Due to Session cache)
+               }
+               if (beanaction.equalsIgnoreCase("S")) {
+                  return;
                }
             }
 
@@ -533,7 +527,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          if (getLogonid() == null || getLogonid() == 0L)
          {
             if (saveDAO != null) {
-               logonid = saveDAO.saveLTAMVisitor(getInstance());
+               logonid = saveDAO.saveVisitor(getInstance());
             }
          }
 
@@ -562,7 +556,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          }
          Long acctnum = null;
          // if (webutil.isWebProdMode())
-         acctnum = saveDAO.saveLTAMUserData(getInstance());
+         acctnum = saveDAO.saveUserData(getInstance());
          if (acctnum == null)
          {
             setLogonid(0L);
@@ -589,7 +583,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       displayMeter = false;
       setDisplayGraphs(false);
       pagemanager.setPage(0);
-      webutil.redirect("/pages/consumer/cedit.xhtml", null);
+      webutil.redirect("/pages/consumer/cedit.xhtml?act=S", null);
    }
 
    public void forwardData()
@@ -793,15 +787,6 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
              return;
           }
 
-         Long acctnum = saveDAO.saveLTAMUserData(getInstance());
-
-         if (acctnum == null)
-         {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unable to save to Database!", "Database");
-            FacesContext.getCurrentInstance().addMessage(null, message);
-            return;
-         }
-
          if (! serviceLayer.isServiceActive()) {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Web-service is NOT active!", "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -836,6 +821,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          }
 
          String bankacct = bankaccountlist.get(0).getBankAccountNumber();
+         String bankname = bankaccountlist.get(0).getBankName();
 
          WSCallStatus callstatus;
          callstatus = serviceLayer.fullFundTransfer(getGeminiAcctNum(), origCustomerData.getFundID(), getFundID(), bankacct);
@@ -844,6 +830,24 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
+
+         Long acctnum = saveDAO.saveUserData(getInstance());
+
+         if (acctnum == null)
+         {
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unable to save to Database!", "Database");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         JavaUtil jutil = new JavaUtil();
+         String hiddenbankacct = jutil.getDisplayHiddenID(bankacct);
+         TradeData tradedata = new TradeData(null, getAcctnum(), getGeminiAcctNum(),
+                                             "Exchange", null, getCusip(),
+                                             getInvestment(), bankname, hiddenbankacct,
+                                             origCustomerData.getCusip(), null, null);
+
+         Long transactionnum = saveDAO.saveTradeInfo(tradedata);
 
          Map <String, String> obj = new HashMap<String, String>();
          obj.put("type","Info");
@@ -862,7 +866,6 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          ex.printStackTrace();
       }
    }
-
 
 
 }

@@ -11,7 +11,7 @@ import com.invessence.converter.JavaUtil;
 import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.AccountData;
-import com.invessence.data.consumer.ConsumerData;
+import com.invessence.data.consumer.*;
 import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
@@ -371,10 +371,18 @@ public class FundAccountBean implements Serializable
                FacesContext.getCurrentInstance().addMessage(null, message);
                return;
             }
+
+            TradeData tradedata = new TradeData(null, selectedAccount.getAcctnum(), selectedAccount.getClientAccountID(),
+                                                "Fund", null, selectedAccount.getCusip(),
+                                                getInvestment(), getBankname(), getHiddenBankAccountNum(),
+                                                getDisplayRoutingNum(), null, null);
+
+            Long transactionnum = consumerSaveDAO.saveTradeInfo(tradedata);
+
             Map <String, String> obj = new HashMap<String, String>();
             obj.put("type","Info");
             obj.put("title","Thank you");
-            obj.put("message","Account has been funded." +
+            obj.put("message", "Account has been funded." +
                "<br/> Your account " + getClientAccountID() +
                "<br> New Fund " + selectedAccount.getSecurityName() +
                "<br> Investment " + investment.intValue() +
@@ -387,8 +395,9 @@ public class FundAccountBean implements Serializable
 
       }
       catch (Exception ex) {
-         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "System Error", "System Error:" + ex.getMessage());
+         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "System Error:" + ex.getMessage(), "System Error");
          FacesContext.getCurrentInstance().addMessage(null, message);
+         ex.printStackTrace();
          return;
       }
    }
