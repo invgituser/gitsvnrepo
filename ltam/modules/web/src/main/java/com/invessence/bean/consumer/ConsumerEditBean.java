@@ -368,19 +368,19 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       saveClientData();
       pagemanager.nextPage();
       if (getIsEditMode() && pagemanager.getPage() >= 6) {
-            System.out.print("Exchange Fund: Acct="
-                                + getAcctnum().toString()
-                                + ", advisor=" + getAdvisor()
-                                + ", theme=" + getTheme());
+            System.out.println("Exchange Fund: Acct=" + getAcctnum().toString()
+                                  + ", Ext Acct#=" + getGeminiAcctNum()
+                                  + ", advisor=" + getAdvisor()
+                                  + ", theme=" + getTheme());
              webutil.redirect("/pages/consumer/confirm.xhtml", null);
              return;
             // pagemanager.setPage(6);
          }
          if (pagemanager.isLastPage()) {
-            System.out.print("Forward to Gemini: Acct="
-                                + getAcctnum().toString()
-                                + ", advisor=" + getAdvisor()
-                                + ", theme=" + getTheme());
+            System.out.println("Forward to Gemini: Acct="
+                                  + getAcctnum().toString()
+                                  + ", advisor=" + getAdvisor()
+                                  + ", theme=" + getTheme());
             webutil.redirect("/pages/consumer/review.xhtml", null);
             return;
          }
@@ -648,6 +648,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             }
 
             theme = ltamoptimizer.getTheme(selectedThemeName);
+            setTheme(theme.getTheme());
             setThemeData(theme);
             if (ltamcharts == null)
             {
@@ -659,6 +660,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                if (ltamcharts.getRiskbarChart() == null)
                   ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
             }
+/*
             if (reviewPage)
             {
                // ltamcharts.setMeterGuage(getRiskIndex());
@@ -666,6 +668,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                ltamcharts.createBarPerformance(theme.getPerformanceData());
                // ArrayList<ArrayList<LTAMPerformancePrintData>> myMap = theme.getPrintedPerformanceData();
             }
+*/
       }
       catch (Exception ex)
       {
@@ -678,6 +681,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       {
          setRiskIndex(calcRiskIndex());
          theme = ltamoptimizer.getTheme(getRiskIndex());
+         selectedThemeName = theme.getTheme();
          if (theme != null)
          {
             setTheme(theme.getTheme());
@@ -782,13 +786,13 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       FacesMessage message;
       try {
           if (serviceLayer == null) {
-             message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Web-service is down!", "Web-service");
+             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Web-service is down!", "Web-service");
              FacesContext.getCurrentInstance().addMessage(null, message);
              return;
           }
 
          if (! serviceLayer.isServiceActive()) {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Web-service is NOT active!", "Web-service");
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Web-service is NOT active!", "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
@@ -797,13 +801,13 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          serviceStatus = serviceLayer.getUserBankAcctDetails(getGeminiAcctNum());
 
          if (serviceStatus == null) {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Web-service is NOT active!", "Web-service");
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Web-service is NOT active!", "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
 
          if (serviceStatus.getWSCallStatus().getErrorCode() != 0) {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, serviceStatus.getWSCallStatus().getErrorMessage(), "Web-service");
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, serviceStatus.getWSCallStatus().getErrorMessage(), "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
@@ -814,7 +818,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          bankaccountlist = (List<BankAcctDetails>) serviceStatus.getGenericObject();
 
          if (bankaccountlist == null) {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unable to get account info from web-services, to complete the call.", "Web-service");
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unable to get account info from web-services, to complete the call.", "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
 
@@ -823,12 +827,20 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          String bankacct = bankaccountlist.get(0).getBankAccountNumber();
          String bankname = bankaccountlist.get(0).getBankName();
 
-         WSCallStatus callstatus;
-         callstatus = serviceLayer.fullFundTransfer(getGeminiAcctNum(), origCustomerData.getFundID(), getFundID(), bankacct);
-         if (callstatus.getErrorCode() != 0) {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, serviceStatus.getWSCallStatus().getErrorMessage(), "Web-service");
+         WSCallResult wsCallResult;
+         System.out.println("WebService Call:= ("+ getGeminiAcctNum() +"," + origCustomerData.getFundID() +
+            "," + getFundID() + "," + bankacct + ")");
+
+         wsCallResult = serviceLayer.fullFundTransfer(getGeminiAcctNum(), origCustomerData.getFundID(), getFundID(), bankacct);
+         if (wsCallResult.getWSCallStatus().getErrorCode() != 0) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, wsCallResult.getWSCallStatus().getErrorMessage(), "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
+         }
+
+         String wstrasactionnumber = null;
+         if (wsCallResult.getGenericObject() != null) {
+            wstrasactionnumber = ((TransactionDetails) wsCallResult.getGenericObject()).getTransactionId();
          }
 
          Long acctnum = saveDAO.saveUserData(getInstance());
@@ -843,25 +855,32 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          JavaUtil jutil = new JavaUtil();
          String hiddenbankacct = jutil.getDisplayHiddenID(bankacct);
          TradeData tradedata = new TradeData(null, getAcctnum(), getGeminiAcctNum(),
-                                             "Exchange", null, getCusip(),
+                                             "Exchange", wstrasactionnumber, getCusip(),
                                              getInvestment(), bankname, hiddenbankacct,
-                                             origCustomerData.getCusip(), null, null);
+                                             origCustomerData.getCusip(), null, null,
+                                             getSecurityname());
 
          Long transactionnum = saveDAO.saveTradeInfo(tradedata);
+         tradedata.setTransactionnum(transactionnum);
 
-         Map <String, String> obj = new HashMap<String, String>();
-         obj.put("type","Info");
-         obj.put("title","Thank you");
-         obj.put("message","Trasanction was processed." +
+/*
+         Map<String, String> obj = new HashMap<String, String>();
+         obj.put("type", "Info");
+         obj.put("title", "Thank you");
+         obj.put("message", "Trasanction was processed." +
+            "<br/> TransactionID " + wstrasactionnumber +
             "<br/> Your account " + getGeminiAcctNum() +
             "<br> New Fund " + getSecurityname());
 
-         String url="/message.xhtml";
+         String url = "/message.xhtml";
          webutil.redirect(url, obj);
+*/
+         TradeInfoBean tib = new TradeInfoBean();
+         tib.initTradeData(tradedata);
 
       }
       catch (Exception ex) {
-         message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Transaction exception was raised! Call support.", "Error");
+         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Transaction exception was raised! Call support.", "Error");
          FacesContext.getCurrentInstance().addMessage(null, message);
          ex.printStackTrace();
       }

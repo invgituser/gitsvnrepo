@@ -25,7 +25,20 @@
                             <div class="EmptyBox20"></div>
 
                             <div class="Container90 TexAlLeft">
-                                <h:outputText value="#{trde.message}" escape="false"/>
+                                <p:panelGrid columns="2" layout="grid">
+                                    <h:outputText value="Transaction ID" />
+                                    <h:outputText value="#{tradeinfobean.tradeData.webservicenum}"/>
+
+                                    <h:outputText value="Type" />
+                                    <h:outputText value="#{tradeinfobean.tradeData.tradetype}"/>
+
+                                    <h:outputText value="Fund" />
+                                    <h:outputText value="#{tradeinfobean.tradeData.securityname}"/>
+
+                                    <h:outputText value="Amount" />
+                                    <h:outputText value="#{tradeinfobean.tradeData.investment}"/>
+
+                                </p:panelGrid>
                             </div>
                             <div class="EmptyBox20"></div>
                         </div>

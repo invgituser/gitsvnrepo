@@ -139,11 +139,12 @@ public class CTOBean implements Serializable
 
    public void saveAddress()
    {
+      FacesMessage message;
       try {
          if (accountDataList == null) {
-            webutil.redirecttoMessagePage("Warning", "",
-                                          "No data was updated.  Invalid account number. <br/>" +
-                                             "Please contact support.");
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                       "Invalid function:  Cannot save, not valid account number", "Invalid Account");
+            FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
 
@@ -159,27 +160,16 @@ public class CTOBean implements Serializable
                                              data.getPrimaryPhoneNbr(), data.getWorkPhoneNbr(),
                                              data.getFaxNbr(), data.getEmail());
                if (callStatus.getErrorCode() != 0) {
-                  if (numofacct > 0 ) {
-                     webutil.redirecttoMessagePage("Warning", "",
-                                                   "There is no data associated with this account number. <br/>" +
-                                                      "Please contact support." );
-                  }
-                  else {
-                     webutil.redirecttoMessagePage("Warning", "",
-                                                   "There is no data associated with this account number. <br/>" +
-                                                      "Please contact support." );
-                  }
+                  message = new FacesMessage(FacesMessage.SEVERITY_ERROR, callStatus.getErrorMessage(), "Web-service");
+                  FacesContext.getCurrentInstance().addMessage(null, message);
                   return;
                }
                counter ++;
             }
             consumerSaveDAO.saveAddress(accountdata);
-            FacesMessage message;
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Saved.", "Customer Account Information saved.");
+            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Account Information saved, Successfully", "Saved.");
             FacesContext.getCurrentInstance().addMessage(null, message);
          }
-
-
       }
       catch (Exception ex) {
       }

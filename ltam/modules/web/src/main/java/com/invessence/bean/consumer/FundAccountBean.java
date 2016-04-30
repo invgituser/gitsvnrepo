@@ -214,25 +214,33 @@ public class FundAccountBean implements Serializable
          }
          selectedAccount = listDAO.getAccountData(logonid, acctnum);
          if (selectedAccount == null) {
-            webutil.redirect("/access-denied.xhtml", null);
+            webutil.redirecttoMessagePage("Error", "",
+                                          "There is no data associated with this account number. <br/>" +
+                                          "Please contact support." );
             return;
          }
 
 
          if (serviceLayer == null) {
-            webutil.redirect("/access-denied.xhtml", null);
+            webutil.redirecttoMessagePage("Error", "",
+                                          "Web-service is down. <br/>" +
+                                          "Please contact support." );
             return;
          }
 
          if (! serviceLayer.isServiceActive()) {
-            webutil.redirect("/access-denied.xhtml", null);
+            webutil.redirecttoMessagePage("Error", "",
+                                          "Web-service is not active. <br/>" +
+                                          "Please contact support." );
             return;
          }
 
          serviceStatus = serviceLayer.getUserBankAcctDetails(selectedAccount.getClientAccountID());
 
          if (serviceStatus == null) {
-            webutil.redirect("/access-denied.xhtml", null);
+            webutil.redirecttoMessagePage("Error", "",
+                                          "Unable to get Bank ACH Info. <br/>" +
+                                          "Please contact support." );
             return;
          }
 
@@ -245,8 +253,8 @@ public class FundAccountBean implements Serializable
       catch (Exception ex) {
          webutil.redirecttoMessagePage("Warning", "",
                                        "There is no data associated with this account number. <br/>" +
-                                          "Please contact support."
-         );
+                                       "Please contact support.");
+         ex.printStackTrace();
       }
    }
 
@@ -271,12 +279,15 @@ public class FundAccountBean implements Serializable
 
       }
       catch (Exception ex) {
-
+        ex.printStackTrace();
       }
    }
 
    public String getBankname() {
       if (bankacctnum == null)
+         return null;
+
+      if (bankInfoMap == null)
          return null;
 
       return bankInfoMap.get(bankacctnum).getBankName();
@@ -311,11 +322,17 @@ public class FundAccountBean implements Serializable
       if (bankacctnum == null)
          return null;
 
+      if (bankInfoMap == null)
+         return null;
+
       return bankInfoMap.get(bankacctnum).getBankAccountNumber();
    }
 
    public String getHiddenBankAccountNum() {
       if (bankacctnum == null)
+         return null;
+
+      if (bankInfoMap == null)
          return null;
 
       String acctnum = jutil.getDisplayHiddenID(bankInfoMap.get(bankacctnum).getBankAccountNumber());
@@ -350,7 +367,7 @@ public class FundAccountBean implements Serializable
       System.out.println("FundAccountBean.saveFund");
       FacesMessage message;
       try {
-         WSCallStatus wscallStatus;
+         WSCallResult wsCallResult;
          if (serviceLayer == null || ! serviceLayer.isServiceActive()) {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Service Down.", "Access to Web-Service is down.");
             FacesContext.getCurrentInstance().addMessage(null, message);
@@ -362,27 +379,38 @@ public class FundAccountBean implements Serializable
                                   ", FundID:" + selectedAccount.getSecurityName() + "(" + getFundID() + ") " +
                                   ", Investment: " + investment +
                                   ", Bank Acct#: " + getBankAccountNum());
-            wscallStatus = serviceLayer.fundAccount(getClientAccountID(),
+            wsCallResult = serviceLayer.fundAccount(getClientAccountID(),
                                      getFundID(),
                                      investment,
                                      getBankAccountNum()) ;
-            if (wscallStatus.getErrorCode() != 0) {
-               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, wscallStatus.getErrorMessage(), "Web-service Failure");
+            if (wsCallResult.getWSCallStatus().getErrorCode() != 0) {
+               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, wsCallResult.getWSCallStatus().getErrorMessage(), "Web-service Failure");
                FacesContext.getCurrentInstance().addMessage(null, message);
                return;
             }
 
+            String wstrasactionnumber = null;
+            if (wsCallResult.getGenericObject() != null) {
+               wstrasactionnumber = ((TransactionDetails) wsCallResult.getGenericObject()).getTransactionId();
+            }
             TradeData tradedata = new TradeData(null, selectedAccount.getAcctnum(), selectedAccount.getClientAccountID(),
-                                                "Fund", null, selectedAccount.getCusip(),
+                                                "Fund", wstrasactionnumber, selectedAccount.getCusip(),
                                                 getInvestment(), getBankname(), getHiddenBankAccountNum(),
-                                                getDisplayRoutingNum(), null, null);
+                                                getDisplayRoutingNum(), null, null,
+                                                selectedAccount.getSecurityName());
 
             Long transactionnum = consumerSaveDAO.saveTradeInfo(tradedata);
+            tradedata.setTransactionnum(transactionnum);
 
+            TradeInfoBean tib = new TradeInfoBean();
+            tib.initTradeData(tradedata);
+
+/*
             Map <String, String> obj = new HashMap<String, String>();
             obj.put("type","Info");
             obj.put("title","Thank you");
             obj.put("message", "Account has been funded." +
+               "<br/> TransactionID: " + wstrasactionnumber +
                "<br/> Your account " + getClientAccountID() +
                "<br> New Fund " + selectedAccount.getSecurityName() +
                "<br> Investment " + investment.intValue() +
@@ -391,12 +419,14 @@ public class FundAccountBean implements Serializable
 
             String url="/message.xhtml";
             webutil.redirect(url,obj);
+*/
          }
 
       }
       catch (Exception ex) {
          message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "System Error:" + ex.getMessage(), "System Error");
          FacesContext.getCurrentInstance().addMessage(null, message);
+         System.out.println("Error during save.");
          ex.printStackTrace();
          return;
       }

@@ -23,6 +23,7 @@ public class TradeData implements Serializable
    private String  info1;
    private String  info2;
    private String  info3;
+   private String  securityname;
 
    public TradeData()
    {
@@ -31,7 +32,7 @@ public class TradeData implements Serializable
    public TradeData(Long transactionnum, Long acctnum, String clientAccountID,
                     String tradetype, String webservicenum, String cusip,
                     Double investment, String bankname, String bankinfo,
-                    String info1, String info2, String info3)
+                    String info1, String info2, String info3, String securityname)
    {
       this.transactionnum = transactionnum;
       this.acctnum = acctnum;
@@ -165,5 +166,15 @@ public class TradeData implements Serializable
    public void setInfo3(String info3)
    {
       this.info3 = info3;
+   }
+
+   public String getSecurityname()
+   {
+      return securityname;
+   }
+
+   public void setSecurityname(String securityname)
+   {
+      this.securityname = securityname;
    }
 }

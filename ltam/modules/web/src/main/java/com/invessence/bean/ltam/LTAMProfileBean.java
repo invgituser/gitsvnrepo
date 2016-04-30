@@ -10,6 +10,7 @@ import javax.servlet.http.*;
 
 import com.invessence.LTAMOptimizer;
 import com.invessence.converter.SQLData;
+import com.invessence.dao.consumer.*;
 import com.invessence.dao.ltam.*;
 import com.invessence.data.LTAMTheme;
 import com.invessence.data.ltam.LTAMCustomerData;
@@ -61,18 +62,10 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
       this.ltamoptimizer = ltamoptimizer;
    }
 
-   @ManagedProperty("#{ltamListDataDAO}")
-   private LTAMListDataDAO listDAO;
+   @ManagedProperty("#{consumerSaveDAO}")
+   private ConsumerSaveDAO saveDAO;
 
-   public void setListDAO(LTAMListDataDAO listDAO)
-   {
-      this.listDAO = listDAO;
-   }
-
-   @ManagedProperty("#{ltamSaveDataDAO}")
-   private LTAMSaveDataDAO saveDAO;
-
-   public void setSaveDAO(LTAMSaveDataDAO saveDAO)
+   public void setSaveDAO(ConsumerSaveDAO saveDAO)
    {
       this.saveDAO = saveDAO;
    }
@@ -389,18 +382,13 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (demomode)  {
-            setLogonid(0L);
-            return;
-         }
-
          setIpaddress(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
          Long logonid = null;
          // if (webutil.isWebProdMode())
          if (getLogonid() == 0L)
          {
             if (saveDAO != null) {
-               logonid = saveDAO.saveLTAMVisitor(getInstance());
+               logonid = saveDAO.saveVisitor(getInstance());
             }
          }
 
@@ -424,12 +412,9 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (demomode)
-            return;
-
          Long acctnum = null;
          // if (webutil.isWebProdMode())
-         acctnum = saveDAO.saveLTAMUserData(getInstance());
+         acctnum = saveDAO.saveUserData(getInstance());
          if (acctnum == null)
          {
             setLogonid(0L);

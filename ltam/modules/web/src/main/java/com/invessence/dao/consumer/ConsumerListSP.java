@@ -16,24 +16,16 @@ public class ConsumerListSP extends StoredProcedure
    {
       super(datasource, sp_name);
       switch (mode) {
-         case 0:   // SP: sel_ltam_ClientProfileData
-            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
-            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
-            break;
-         case 1:   // SP: sel_ltam_AccountProfile
-            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
-            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
-            break;
-         case 2:   // SP: sel_ClientProfileData2
+         case 0:   // SP: sel_ClientProfileData2
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             declareParameter(new SqlParameter("p_days", Types.INTEGER));
             break;
-         case 3:   // SP: sel_position
+         case 1:   // SP: sel_position
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
-         case 4:   // SP: sel_AccountInfo
+         case 2:   // SP: sel_AccountInfo
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;

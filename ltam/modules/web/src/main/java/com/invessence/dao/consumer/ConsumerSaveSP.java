@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.invessence.data.common.AccountData;
 import com.invessence.data.consumer.TradeData;
+import com.invessence.data.ltam.LTAMCustomerData;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -98,6 +99,73 @@ public class ConsumerSaveSP extends StoredProcedure
          default:
       }
       compile();
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map saveVisitor(LTAMCustomerData data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid",0L);
+      inputMap.put("p_timeToSaveID",data.getTimeToSaveID());
+      inputMap.put("p_advisor",data.getAdvisor());
+      inputMap.put("p_rep",data.getRep());
+      inputMap.put("p_ip",data.getIpaddress());
+      inputMap.put("p_source",data.getSource());
+      inputMap.put("p_data",data.getInvestment());
+
+      return super.execute(inputMap);
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map saveUserData(LTAMCustomerData data)
+   {
+      if (data == null) {
+         return null;
+      }
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum",data.getAcctnum());
+      inputMap.put("p_logonid",data.getLogonid());
+      inputMap.put("p_timeToSaveID",data.getTimeToSaveID());
+      inputMap.put("p_advisor",data.getAdvisor());
+      inputMap.put("p_rep",data.getRep());
+      inputMap.put("p_email","");
+      inputMap.put("p_firstName",data.getFirstname());
+      inputMap.put("p_lastName",data.getLastname());
+      inputMap.put("p_acctType",data.getAccttype());
+      inputMap.put("p_theme",data.getTheme());
+      inputMap.put("p_investment",data.getInvestment());
+      inputMap.put("p_age",data.getAge());
+      inputMap.put("p_horizon",data.getHorizon());
+      inputMap.put("p_riskIndex",data.getRiskIndex());
+      inputMap.put("p_dateSent",data.getForwarded());
+      inputMap.put("p_ans1",data.getAns1());
+      inputMap.put("p_risk1",data.getRiskValue(1));
+      inputMap.put("p_ans2",data.getAns2());
+      inputMap.put("p_risk2",data.getRiskValue(2));
+      inputMap.put("p_ans3",data.getAns3());
+      inputMap.put("p_risk3",data.getRiskValue(3));
+      inputMap.put("p_ans4",data.getAns4());
+      inputMap.put("p_risk4",data.getRiskValue(4));
+      inputMap.put("p_ans5",data.getAns5());
+      inputMap.put("p_risk5",data.getRiskValue(5));
+      inputMap.put("p_ans6",data.getAns6());
+      inputMap.put("p_risk6",data.getRiskValue(6));
+      inputMap.put("p_ans7",0);
+      inputMap.put("p_risk7",0);
+      inputMap.put("p_formula",data.getFormula());
+      return super.execute(inputMap);
+   }
+
+   public Map savePostBack(String myacctnum, String advisor, String ext_acctnum)
+   {
+      if (myacctnum == null) {
+         return null;
+      }
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", myacctnum);
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_ext_acctnum", ext_acctnum);
+      return super.execute(inputMap);
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})

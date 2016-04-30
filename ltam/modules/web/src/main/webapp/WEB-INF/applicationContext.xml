@@ -42,7 +42,7 @@
    <import resource="AdvisorBean.xml"/>
 
    <!-- LTAM DAO-->
-   <import resource="LTAMDAO.xml"/>
+   <!--<import resource="LTAMDAO.xml"/>-->
    <import resource="validator.xml"/>
 
 </beans>

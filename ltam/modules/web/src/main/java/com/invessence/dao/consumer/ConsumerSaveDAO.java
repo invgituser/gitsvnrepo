@@ -21,9 +21,9 @@ public class ConsumerSaveDAO extends JdbcDaoSupport implements Serializable
    public Long saveVisitor(LTAMCustomerData data)
    {
       DataSource ds = getDataSource();
-      LTAMSaveSP sp = new LTAMSaveSP(ds, "save_visitor",0);
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_visitor",0);
       Long logonid = 0L;
-      Map outMap = sp.saveLTAMVisitor(data);
+      Map outMap = sp.saveVisitor(data);
       if (outMap != null) {
          logonid = ((Long) outMap.get("p_logonid")).longValue();
          // data.setLogonid(logonid);
@@ -34,9 +34,9 @@ public class ConsumerSaveDAO extends JdbcDaoSupport implements Serializable
    public Long saveUserData(LTAMCustomerData data)
    {
       DataSource ds = getDataSource();
-      LTAMSaveSP sp = new LTAMSaveSP(ds, "save_acct_info",1);
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_acct_info",1);
       Long acctnum = 0L;
-      Map outMap = sp.saveLTAMUserData(data);
+      Map outMap = sp.saveUserData(data);
       acctnum = ((Long) outMap.get("p_acctnum")).longValue();
       return (acctnum);
    }
@@ -44,7 +44,7 @@ public class ConsumerSaveDAO extends JdbcDaoSupport implements Serializable
    public String savePostBack(String myacctnum, String advisor, String ext_acctnum)
    {
       DataSource ds = getDataSource();
-      LTAMSaveSP sp = new LTAMSaveSP(ds, "save_acct_info_ack",2);
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_acct_info_ack",2);
       Map outMap = sp.savePostBack(myacctnum, advisor, ext_acctnum);
       String msg = ((String) outMap.get("p_msg"));
       return (msg);
