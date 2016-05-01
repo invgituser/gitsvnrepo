@@ -12,11 +12,13 @@
                 My name is
                 <h:outputText styleClass="ShowOnMobile" value="&lt;br/&gt;" escape="false" />
                 <p:inputText styleClass="ltamInputText input_wid1"  value="#{ltamprofile.firstname}"
+                             required="true" requiredMessage="Firstname is required!"
                              size="10"/>
                 
                 <p:spacer width="5px"/>
                 <p:inputText styleClass="ltamInputText input_wid1" value="#{ltamprofile.lastname}"
-                        size="10"/>.
+                             required="true" requiredMessage="Lastname is required!"
+                             size="10"/>.
             </h1>
         </div>
         <br/>
