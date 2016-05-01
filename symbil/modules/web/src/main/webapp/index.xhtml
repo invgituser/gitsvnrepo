@@ -1,0 +1,243 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="advisor" value="#{ltamprofile.beanAdvisor}"/>
+        <f:viewParam name="rep" value="#{ltamprofile.beanRep}"/>
+        <f:viewParam name="TimeToSaveID" value="#{ltamprofile.beanTimeToSaveID}"/>
+        <f:viewParam name="amount" value="#{ltamprofile.beanAmount}"/>
+        <f:viewParam name="first" value="#{ltamprofile.beanfirstname}"/>
+        <f:viewParam name="last" value="#{ltamprofile.beanlastname}"/>
+        <f:event type="preRenderView" listener="#{ltamprofile.preRenderView}"/>
+        <f:viewParam name="cid" value="#{uiLayout.cid}"/>
+        <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
+    </f:metadata>
+
+<ui:define name="content">
+<h:outputScript name="/js/ltamCharts.js" library="ltam"/>
+
+<!-- BOX START -->
+<h:form id="ltamForm">
+<p:panel id="contentpanel" style="border: 0px; background: transparent">
+
+<div class="layout-portlets-box">
+
+   
+        <div class="Container100 Responsive100 ">
+            <div class="ContainerIndent Responsive100 tab_main">
+            		
+                            <p:steps id="ltamprogressbar" activeIndex="#{ltamprofile.ltammenu}">
+                                <p:menuitem value="Start"/>
+                                <p:menuitem value="Goal" />
+                                <p:menuitem value="Horizon"/>
+                                <p:menuitem value="Risk"/>
+                                <p:menuitem value="Risk"/>
+                                <p:menuitem value="Risk"/>
+                                <p:menuitem value="Review"/>
+                            </p:steps>
+                          
+           </div>
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent Responsive100">
+                  <p:messages showDetail="false" escape="true" closable="true"/>
+                </div>
+             </div>
+        </div>
+
+    <div class="Container100 Responsive100">
+        
+            <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
+                <ui:fragment rendered="#{ltamprofile.pagemanager.page == 0}">
+                    <ui:fragment rendered="#{! ltamprofile.time2SaveWelcome}">
+                         <div class="Containe50 Responsive100">
+                        <ui:include src="/pages/try/addon/page1.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.time2SaveWelcome}">
+                         <div class="Container50 Responsive100">
+                        <ui:include src="/pages/try/addon/page1A.xhtml"/>
+                        </div>
+                    </ui:fragment>
+                </ui:fragment>
+                <ui:fragment rendered="#{ltamprofile.pagemanager.page == 1}">
+                    <div class="Container50 Responsive100">
+                    <ui:include src="/pages/try/addon/page2.xhtml"/>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{ltamprofile.pagemanager.page == 2}">
+                    <div class="Container50 Responsive100">
+                    <ui:include src="/pages/try/addon/page3.xhtml"/>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{ltamprofile.pagemanager.page == 3}">
+                    <div class="Container50 Responsive100">
+                    <ui:include src="/pages/try/addon/page5.xhtml"/>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{ltamprofile.pagemanager.page == 4}">
+                    <div class="Container50 Responsive100">
+                    <ui:include src="/pages/try/addon/page4.xhtml"/>
+                    </div>
+                </ui:fragment>
+                <ui:fragment rendered="#{ltamprofile.pagemanager.page == 5}">
+                     <div class="Container50 Responsive100">
+                    <ui:include src="/pages/try/addon/page6.xhtml"/>
+                    </div>
+                </ui:fragment>
+
+              
+            </p:panel>
+            
+        
+        <div class="Container50 Responsive100 top_desk">
+            <div class="ContainerIndent">
+                <p:panel id="graphArea" style="border: 0px; background: transparent"
+                         rendered="#{ltamprofile.displayGraphs}">
+                        <div class="EmptyBox5"></div>
+                        <div class="Container100 Responsive100">
+                            <p:panel style="border: 0px; background: transparent"
+                                     rendered="#{ltamprofile.displayMeter}">
+                              <div class="EmptyBox5"></div>
+                                <div class="Container100 Responsive100">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="TexAlCenter title1">
+                                                    Your current risk level is
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <div class="EmptyBox5"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 10%; text-align: right; vertical-align: middle">Low</td>
+                                            <td style="width: 80%; text-align: center; vertical-align: middle">
+                                                <ui:repeat var="tlist" value="#{ltamprofile.themeList}">
+                                                    <h:graphicImage name="images/riskMeter.svg" library="ltam"
+                                                                    rendered="#{ltamprofile.themeData.sortorder != tlist.sortorder}"
+                                                                    style="width: 20%; background: transparent"
+                                                                    styleClass="Fleft"/>
+                                                    <h:graphicImage name="images/SriskMeter.svg" library="ltam"
+                                                                    rendered="#{ltamprofile.themeData.sortorder == tlist.sortorder}"
+                                                                    style="width: 20%; background: transparent"
+                                                                    styleClass="Fleft"/>
+                                                </ui:repeat>
+                                            </td>
+                                            <td style="width: 5%; text-align: left; vertical-align: middle">High </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </p:panel>
+
+                    </div>
+                    <div class="Container100 Responsive100">
+                        <div class="EmptyBox10"></div>
+                        <div class="Container100 Responsive100">
+                            <p:outputPanel id="charts" style="border: 0px; background: transparent">
+                                <p:panel style="border: 0px; background: transparent"
+                                         rendered="#{ltamprofile.reviewPage ? 'false' : 'true'}">
+                                    <div class="Container100  Fleft">
+                                        <div class="ContainerIndent">
+                                            <p:outputPanel deferred="true">
+                                                <p:chart type="pie" model="#{ltamprofile.ltamcharts.pieChart}"
+                                                         rendered="#{ltamprofile.ltamcharts.pieChart != null}"
+                                                         style="width:100%;height:210px;"
+                                                         extender="ltam_pie"
+                                                         responsive="true">
+                                                </p:chart>
+                                            </p:outputPanel>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                                <p:panel style="border: 0px; background: transparent"
+                                         rendered="#{ltamprofile.reviewPage}">
+                                    <div class="Container100 Fleft">
+                                        <div class="ContainerIndent">
+                                            <p:dataTable styleClass="invAllocTable"
+                                                         value="#{ltamprofile.allocationData.ltamAllocatedAssetList}"
+                                                         var="allocatedList" reflow="true">
+
+                                                <p:column style="width: 2%; background-color: #{allocatedList.color};">
+                                                    <h:outputText value=" "/>
+                                                </p:column>
+
+                                                <p:column styleClass="Wid40 TexAlLeft"
+                                                          resizable="true" headerText="Asset">
+                                                    <h:outputText value="#{allocatedList.displayname}"/>
+                                                </p:column>
+                                                <p:column styleClass="Wid20 TexAlRight"
+                                                          resizable="true" headerText="Weight">
+                                                    <h:outputText value="#{allocatedList.weightAsPercent}">
+                                                        <f:convertNumber pattern="##0%"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column styleClass="Wid30 TexAlRight"
+                                                          resizable="true" headerText="Value">
+                                                    <h:outputText value="#{allocatedList.money}">
+                                                        <f:convertNumber currencySymbol="$" type="currency"/>
+                                                    </h:outputText>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                            </p:outputPanel>
+                        </div>
+                    </div>
+                </p:panel>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p:outputPanel id="dataarea" style="border: 0px"
+               rendered="#{ltamprofile.reviewPage}">
+</p:outputPanel>
+
+<p:outputPanel id="disclaimer" style="border: 0px"
+               rendered="#{! ltamprofile.demomode}">
+<div class="layout-portlets-box">
+    <div class="Container100 Responsive100">
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent Responsive100">
+                <div class="Fs12 TexAlCenter">
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 1}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 2}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 3}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 4}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                    <ui:fragment rendered="#{ltamprofile.pagemanager.page == 5}">
+                        <h:outputText value="#{uiLayout.getPageInfo(ltamprofile.pagemanager.page)}" escape="false"/>
+                    </ui:fragment>
+                <div class="EmptyBox10"></div>
+                    <h:outputText value="#{uiLayout.disclaimer}" escape="false"/>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+</p:outputPanel>
+
+</p:panel>
+
+</h:form>
+
+
+</ui:define>
+
+</ui:composition>

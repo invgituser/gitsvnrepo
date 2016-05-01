@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="filter" value="#{manageAdvisorBean.filter}"/>
+        <f:viewParam name="sort" value="#{manageAdvisorBean.sort}"/>
+        <f:event type="preRenderView" listener="#{manageAdvisorBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box">
+            <div class="Container100">
+                <div class="ContainerIndent">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
+                        <h:form>
+                            <p:commandButton value="Yes" type="button"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button"
+                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </h:form>
+                    </p:confirmDialog>
+
+                    <h:form id="form">
+                        <div class="Container100">
+                            <div class="Wid50 Responsive50 Fleft">
+                                <h3 class="BigTopic">
+                                    List of Accounts
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="Container100">
+                            <p:dataTable id="managedDataList" var="managedVar" widgetVar="managedTable"
+                                         value="#{manageAdvisorBean.consumerData}"
+                                         reflow="true">
+
+                            <f:facet name="header" style="text-align: right;">
+                                Export Data
+                                <h:commandLink>
+                                    <p:graphicImage value="/images/excel.png" width="24"/>
+                                    <p:dataExporter type="xls" target="managedDataList" fileName="Salesxls"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <p:graphicImage value="/images/csv.png" width="24"/>
+                                    <p:dataExporter type="csv" target="managedDataList" fileName="Salescsv"/>
+                                </h:commandLink>
+                            </f:facet>
+
+
+                                <p:column sortBy="#{managedVar.fullname}" priority="4"
+                                          headerText="Name"
+                                          style="text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.fullname}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.rep}"
+                                          headerText="Rep"
+                                          style="text-align: left; width: 60px"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.rep}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.advisor}"  priority="4"
+                                          headerText="Advisor"
+                                          style="text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.advisor}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.displayAccount}" priority="3"
+                                          headerText="Acct#"
+                                          style="text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.displayAccount}"/>
+                                </p:column>
+
+                                <p:column sortBy="#{managedVar.description}" priority="1"
+                                          headerText="Security"
+                                          style="text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.description}"/>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.dateOpened}" priority="2"
+                                          headerText="Opened"
+                                          style="text-align: left"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.dateOpened}">
+                                    </h:outputText>
+                                </p:column>
+                                <p:column sortBy="#{managedVar.investment}"
+                                          headerText="Amount"
+                                          styleClass="dataTableRight"
+                                          resizable="true">
+                                    <h:outputText value="#{managedVar.investment}">
+                                        <f:convertNumber currencySymbol="$" type="currency"/>
+                                    </h:outputText>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>

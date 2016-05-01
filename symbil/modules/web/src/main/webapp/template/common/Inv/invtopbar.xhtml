@@ -1,0 +1,57 @@
+<ui:composition
+
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+    <div id="layout-topbar" class="ShadowGray">
+        <div id="layout-topbar-indent">
+            <a href="#{uiportal.defaultHome}">
+                <h:graphicImage name="#{uiportal.logo}" alt="#{uiportal.logoAlt}"
+                                styleClass="Fleft" library="invessence" id="logo" class="Fleft"/>
+            </a>
+
+            <ui:fragment rendered="#{uiportal.isUserLoggedInMenu}">
+                <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>
+                <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Top Menu</a>
+
+                <ul id="layout-topbar-menu">
+                    <li>
+                        <a href="j_spring_security_logout" class="Animated05"><i class="fa fa-sign-out"></i> Logout</a>
+                    </li>
+                    <li class="fa fa-ellipsis-v menu-separator"></li>
+                    <li>
+                        <ui:fragment rendered="#{uiportal.hasAccessMenu('ADVISOR')}">
+                            <a class="Animated05 CursPointer"><i class="fa fa-user"></i> #{uiportal.welcome} <i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i></a>
+                            <ul style="width:175px; margin-left:-10px;" class="Animated03 submenu">
+                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiportal.username}</span></a></li>
+                                <li><a href="/pages/common/myprofile.xhtml" class="Animated05"><i class="fa fa-dashboard"></i> My Profile</a></li>
+                            </ul>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{! uiportal.hasAccessMenu('ADVISOR')}">
+                            <a class="Animated05 CursPointer"><i class="fa fa-user"></i> #{uiportal.welcome} <i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i></a>
+                            <ul style="width:175px; margin-left:-10px;" class="Animated03 submenu">
+                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiportal.username}</span></a></li>
+                                <li><a href="/pages/common/myprofile.xhtml" class="Animated05"><i class="fa fa-dashboard"></i> My Profile</a></li>
+                            </ul>
+                        </ui:fragment>
+                    </li>
+
+                    <ui:fragment rendered="#{! uiportal.hasAccessMenu('ADVISOR')}">
+                    <li class="fa fa-ellipsis-v menu-separator"></li>
+                    <li>
+                            <a class="Animated05 CursPointer" href="http://www.teamviewer.com/link/?url=505374&amp;id=35279493">
+                                <i class="fa fa-question-circle"></i> Help Desk<i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i>
+                            </a>
+                    </li>
+                    </ui:fragment>
+
+                </ul>
+            </ui:fragment>
+
+        </div>
+    </div>
+
+</ui:composition>

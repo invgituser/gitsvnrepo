@@ -1,0 +1,235 @@
+/* Table of Contents
+==================================================
+    #Base 960 Grid
+    #Tablet (Portrait)
+    #Mobile (Portrait)
+    #Mobile (Landscape)
+    #Clearing */
+
+	@viewport{ 
+    width: device-width; 
+    zoom: 1; 
+}
+
+
+/* #Base 960 Grid
+================================================== */
+
+    body{overflow-x:hidden;}
+	.container { position: relative; width: 100%; margin: 0 auto; padding: 0; }
+	.container .content{width:1000px; margin:0 auto;}
+
+
+/* #Huge screen (1920)
+================================================== */
+
+	@media only screen and (min-width: 1600px) {
+
+
+
+	}
+	
+/* #Tablet (Portrait)
+================================================== */
+
+    /* Note: Design for a width of 768px */
+
+    @media only screen and (min-width: 768px) and (max-width: 959px) {
+        
+		.container  { 
+			width: 100%; 
+		}
+
+        .container .content{
+        	width:768px; 
+        	margin:0 auto;
+        }
+
+		.cover {
+			background-position:center 0px;
+			width:100%;
+			margin-left:0px;
+		}
+
+		.key_features li.col {
+		    margin: 0px 45px 0px 0px;
+		}
+
+		.key_features h2 {
+		    font-size: 21px;
+		}
+
+		.portfolio .columns,
+		.security .columns,
+		.expert .columns {
+		    position: relative;
+		    width: 100%;
+		}
+
+		.expert .columns.right-col{
+			margin-top:60px;
+		}
+
+		
+    }
+
+/* #Mobile (Landscape)
+================================================== */
+
+    /* Note: Design for a width of 480px */
+
+    /*@media only screen and (min-width: 480px) and (max-width: 767px) {*/
+	@media only screen and (max-width: 765px) {
+	
+		.container  { width: 100%; }
+        .container .content{width: 480px; margin:0 auto;}
+		#popup {width: 400px;margin-left:-200px}
+		
+		header img.logo{width:105px;}
+		nav ul li a.hire_me{padding: 12px 20px;font-size: 14px; margin: 10px 0px;}
+
+
+		.desktop {display:none;}
+		.mobile {display:block;}
+		
+		.cover {width:100%;margin-left:0px;}
+
+		.cover .caption{
+		    top: 25px;
+		}
+
+		.cover .caption.home {
+			    top: 0px;
+			}
+
+		.cover.faq .caption {
+		    top: 40px; 
+		}
+		
+		.cover h1 {width: 420px;margin-left: -210px;font-size: 30px;line-height: 40px;}
+		.cover br#slogan{display: none;}
+
+		br.br-buttons{
+		display: inline;
+		}
+
+		.portfolio .columns,
+		.security .columns,
+		.expert .columns {
+		    position: relative;
+		    width: 100%;
+		}
+
+		.expert .columns.right-col{
+			margin-top:60px;
+		}
+
+		.key_features li.col {
+		    width: 100%;
+		    margin: 60px 10px 0px 10px;
+		}
+
+		.key_features .content{
+			padding:60px 0px 120px
+		}
+
+		
+    }	
+
+/*  #Mobile (Portrait)
+================================================== */
+
+    /* Note: Design for a width of 320px */
+
+    /*@media only screen and (min-width: 300px) and (max-width: 480px) {*/
+	@media only screen and (max-width: 480px) {
+		.container  { width: 100%; }
+        .container .content{width: 300px; margin:0 auto;}
+		#popup {width: 280px;margin-left:-140px}
+		
+		header img.logo{width:105px;}
+		nav ul li a.hire_me{padding: 12px 20px;  font-size: 14px; margin: 10px 0px;}
+		
+		.cover {width:100%;margin-left:0px;}
+		
+		.cover h1 {
+			width: 300px;
+			margin-left: -150px;
+			font-size: 32px;
+			line-height: 50px;
+		}
+
+		.cover .arrow {
+		    top: 580px;
+		}
+
+		.cover .caption{
+		    top: 0px;
+		}
+
+		.portfolio .columns,
+		.security .columns,
+		.expert .columns {
+		    position: relative;
+		    width: 100%;
+		}
+
+		.portfolio img.visual,
+		.expert img.visual,
+		.security img.visual {
+		    width: 300px;
+		}
+		
+		.expert .columns.right-col{
+			margin-top:60px;
+		}
+		
+
+		
+   }
+
+
+
+
+/*  #less than 320px 
+================================================== */
+
+    /* Note: Design for a width of 320px */
+
+    @media only screen and (min-width: 1px) and (max-width: 299px) {
+		body{display:none;}
+	}
+/* #Clearing
+================================================== */
+
+    /* Self Clearing Goodness */
+    .container:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
+
+    /* Use clearfix class on parent to clear nested columns,
+    or wrap each row of columns in a <div class="row"> */
+    .clearfix:before,
+    .clearfix:after,
+    .row:before,
+    .row:after {
+      content: '\0020';
+      display: block;
+      overflow: hidden;
+      visibility: hidden;
+      width: 0;
+      height: 0; }
+    .row:after,
+    .clearfix:after {
+      clear: both; }
+    .row,
+    .clearfix {
+      zoom: 1; }
+
+    /* You can also use a <br class="clear" /> to clear columns */
+    .clear {
+      clear: both;
+      display: block;
+      overflow: hidden;
+      visibility: hidden;
+      width: 0;
+      height: 0;
+    }

@@ -1,0 +1,59 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="acctnum" value="#{fundbean.beanacctnum}"/>
+        <f:event type="preRenderView" listener="#{fundbean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="fundForm">
+            <p:panel id="contentpanel" style="border: 0px; background: transparent">
+                <div class="layout-portlets-box">
+
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <div class="tab_main">
+                                <p:steps activeIndex="#{fundbean.pagemanager.page}">
+                                    <p:menuitem value="Fund"/>
+                                    <p:menuitem value="Term"/>
+                                    <p:menuitem value="Confirm"/>
+                                </p:steps>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent Responsive100">
+                            <p:messages showDetail="false" escape="true" closable="true"/>
+                        </div>
+                    </div>
+
+                    <div class="Container100">
+                        <div class="ContainerIndent">
+                            <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
+                                <ui:fragment rendered="#{fundbean.pagemanager.page == 0}">
+                                    <ui:include src="/pages/consumer/edit/fund1.xhtml"/>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{fundbean.pagemanager.page == 1}">
+                                    <ui:include src="/pages/consumer/edit/fund2.xhtml"/>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{fundbean.pagemanager.page == 2}">
+                                    <ui:include src="/pages/consumer/edit/fund3.xhtml"/>
+                                </ui:fragment>
+                            </p:panel>
+                        </div>
+                    </div>
+                </div>
+            </p:panel>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

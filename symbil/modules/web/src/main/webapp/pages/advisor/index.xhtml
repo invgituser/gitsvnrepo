@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{adashbean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <div class="layout-portlets-box">
+            <!-- Messages/Alets -->
+            <div class="Container50 Responsive">
+                <div class="ContainerIndent">
+                    <div class="Container100">
+                        <div class="DispInlBlock MarTop20">
+                            <div class="Container20"><i class="fa fa-user Fs50 SymbilGreen Fleft MarRight10"></i></div>
+                            <div class="Container80">
+                                <div class="Fright">
+                                    <h2 class="black Fs24 FontThemeMedium">#{webutil.userInfoData.fullName}</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container100">
+                        <div class="Separator"></div>
+                    </div>
+                    <div class="Container100 MarTop10">
+                        <a href="/pages/common/notification.xhtml?Type=M">
+                            <div class="Wid30 Responsive BorderedBox Fleft TexAlCenter HoverEffect">
+                                <div class="ContainerIndent">
+                                    <div class="EmptyBox10"></div>
+                                    <i class="fa fa-bell Fs24 animated swing infinite SymbilRed"></i>
+                                    <span class="Fs10 DispBlock BoldGray">Messages</span>
+                                    <span class="Fs24 DispBlock SymbilRed">#{adashbean.advisorDashData.message}</span>
+
+                                    <div class="EmptyBox10"></div>
+                                </div>
+                            </div>
+                        </a>
+                   </div>
+                </div>
+            </div>
+
+            <!-- Visitors/Stat -->
+            <div class="Container50 Responsive">
+                <div class="ContainerIndent">
+                    <div class="Container100">
+                        <div class="DispInlBlock TexAlLeft MarTop20">
+                            <div class="Container25"><i class="fa fa-line-chart Fs50 Orange Fleft MarRight10"></i></div>
+                            <div class="Container75">
+                                <div class="Fright">
+                                    <h2 class="black Fs24 FontThemeMedium">Visitors Stats</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container100">
+                        <div class="Separator"></div>
+                    </div>
+                    <div class="Container100">
+                        <a href="/pages/advisor/alist.xhtml?filter=A&amp;sort=0"
+                           class="Wid45 BorderedBox Fleft TexAlCenter HoverEffect">
+                            <div class="ContainerIndent">
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs24 BoldGray FontThemeRegular">Active</div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs30 SymbilBlue FontThemeLight">
+                                    <h:outputText value="#{adashbean.advisorDashData.getStats('ACTIVE')}">
+                                        <f:convertNumber pattern="#,###,##0"/>
+                                    </h:outputText>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                            </div>
+                        </a>
+                        <a href="/pages/advisor/alist.xhtml?filter=A&amp;sort=2"
+                           class="Wid45 BorderedBox Fright TexAlCenter HoverEffect">
+                            <div class="ContainerIndent">
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs24 BoldGray FontThemeRegular">AUM</div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs30 SymbilBlue FontThemeLight">
+                                    <h:outputText value="#{adashbean.advisorDashData.getStats('AUM')}">
+                                        <f:convertNumber pattern="$###,###,##0"/>
+                                    </h:outputText>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="Container100">
+                        <a href="/pages/advisor/alist.xhtml?filter=P&amp;sort=0"
+                           class="Wid45 BorderedBox Fleft TexAlCenter HoverEffect">
+                            <div class="ContainerIndent">
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs24 BoldGray FontThemeRegular">Visitors</div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs30 SymbilRed FontThemeLight">
+                                    <h:outputText value="#{adashbean.advisorDashData.getStats('PENDING')}">
+                                        <f:convertNumber pattern="#,###,##0"/>
+                                    </h:outputText>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                            </div>
+                        </a>
+                        <a href="/pages/advisor/alist.xhtml?filter=T&amp;sort=0"
+                           class="Wid45 BorderedBox Fright TexAlCenter HoverEffect">
+                            <div class="ContainerIndent">
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs24 BoldGray FontThemeRegular">Today</div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Fs30 SoftRed FontThemeLight">
+                                    <h:outputText value="#{adashbean.advisorDashData.getStats('TODAY')}">
+                                        <f:convertNumber pattern="#,###,##0"/>
+                                    </h:outputText>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                            </div>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- BOX END -->
+    </ui:define>
+
+</ui:composition>

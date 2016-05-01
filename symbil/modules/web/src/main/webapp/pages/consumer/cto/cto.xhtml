@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/invlayout.xhtml">
+
+    <f:metadata>
+            <f:viewParam name="acct" value="#{ctobean.beanAcctnum}"/>
+            <f:event type="preRenderView" listener="#{ctobean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <h:form id="ctoForm">
+
+            <div class="layout-portlets-box">
+
+                <div class="Container100 Responsive100">
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent Responsive100">
+                            <p:steps id="ctoprogressbar" activeIndex="#{ctobean.pagemanager.page}">
+                                <p:menuitem value="Start"/>
+                                <p:menuitem value="Address"/>
+                                <p:menuitem value="Personal"/>
+                                <p:menuitem value="Beneficiary"/>
+                                <p:menuitem value="Funding"/>
+                                <p:menuitem value="Disclosure"/>
+                            </p:steps>
+                        </div>
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent Responsive100">
+                                <p:messages showDetail="false" escape="true" closable="true"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Container100 Responsive50">
+                    <div class="Container100 Responsive50">
+                        <p:panel id="inputArea" style="border: 0px; background: transparent;">
+                            <ui:fragment rendered="#{ctobean.pagemanager.page == 0}">
+                                <ui:include src="/pages/consumer/cto/page_acct.xhtml"/>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{ctobean.pagemanager.page == 1}">
+                                <ui:include src="/pages/consumer/cto/page_address.xhtml"/>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{ctobean.pagemanager.page == 2}">
+                                <ui:include src="/pages/consumer/cto/page_personal.xhtml"/>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{ctobean.pagemanager.page == 3}">
+                                <ui:include src="/pages/consumer/cto/page_beneficiary.xhtml"/>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{ctobean.pagemanager.page == 4}">
+                                <ui:include src="/pages/consumer/cto/page_bank.xhtml"/>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{ctobean.pagemanager.page == 5}">
+                                <ui:include src="/pages/consumer/cto/page_disclosure.xhtml"/>
+                            </ui:fragment>
+
+                            <div class="EmptyBox10"/>
+                            <f:facet name="footer">
+                                <p:commandButton value="Previous" styleClass="Fleft" rendered="#{ctobean.pagemanager.prevButtonStat}"
+                                                 update="@form"
+                                                 actionListener="#{ctobean.prevPage}"/>
+                                <p:commandButton value="Next" styleClass="Fright" rendered="#{ctobean.pagemanager.nextButtonStat}"
+                                                 update="@form"
+                                                 actionListener="#{ctobean.nextPage}"/>
+                            </f:facet>
+                        </p:panel>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOX END -->
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>
