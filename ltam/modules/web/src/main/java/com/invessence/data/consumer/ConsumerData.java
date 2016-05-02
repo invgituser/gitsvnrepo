@@ -32,7 +32,7 @@ public class ConsumerData implements Comparable<ConsumerData>
    {
    }
 
-   public ConsumerData(Long acctnum,
+   public ConsumerData(Long logonid, Long acctnum,
                        String advisor, String rep,
                        String firstName, String lastName,
                        Double investment, Double riskIndex, String managed,

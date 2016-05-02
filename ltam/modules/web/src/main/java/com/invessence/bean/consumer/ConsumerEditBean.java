@@ -634,7 +634,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             if (selectedThemeName.isEmpty()) {
                selectedThemeName = null;
                FacesMessage message;
-               message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Please choose one of the fund.", "Error");
+               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please choose one of the fund.", "Error");
                FacesContext.getCurrentInstance().addMessage(null, message);
                return;
             }
@@ -642,7 +642,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             if (selectedThemeName.equalsIgnoreCase(origCustomerData.getTheme())) {
                selectedThemeName = null;
                FacesMessage message;
-               message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Current and revised fund cannot be same.", "Error");
+               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Current and revised fund cannot be same.", "Error");
                FacesContext.getCurrentInstance().addMessage(null, message);
                return;
             }
@@ -681,7 +681,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       {
          setRiskIndex(calcRiskIndex());
          theme = ltamoptimizer.getTheme(getRiskIndex());
-         selectedThemeName = theme.getTheme();
+         setSelectedThemeName(theme.getTheme());
          if (theme != null)
          {
             setTheme(theme.getTheme());
@@ -828,6 +828,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          String bankname = bankaccountlist.get(0).getBankName();
 
          WSCallResult wsCallResult;
+         WSCallStatus wsCallStatus;
+         String wstrasactionnumber = null;
          System.out.println("WebService Call:= ("+ getGeminiAcctNum() +"," + origCustomerData.getFundID() +
             "," + getFundID() + "," + bankacct + ")");
 
@@ -838,16 +840,23 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             return;
          }
 
-         String wstrasactionnumber = null;
          if (wsCallResult.getGenericObject() != null) {
             wstrasactionnumber = ((TransactionDetails) wsCallResult.getGenericObject()).getTransactionId();
          }
+/*
+         wsCallStatus = serviceLayer.fullFundTransfer(getGeminiAcctNum(), origCustomerData.getFundID(), getFundID(), bankacct);
+         if (wsCallStatus.getErrorCode() != 0) {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, wsCallStatus.getErrorMessage(), "Web-service");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+*/
 
          Long acctnum = saveDAO.saveUserData(getInstance());
 
          if (acctnum == null)
          {
-            message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Unable to save to Database!", "Database");
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unable to save to Database!", "Database");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }

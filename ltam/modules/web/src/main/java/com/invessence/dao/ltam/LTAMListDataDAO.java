@@ -18,7 +18,6 @@ public class LTAMListDataDAO extends JdbcDaoSupport implements Serializable
    SQLData convert;
    DataSource localds;
 
-/*
    public static synchronized LTAMListDataDAO getInstance()
    {
       if (instance == null)
@@ -93,6 +92,5 @@ public class LTAMListDataDAO extends JdbcDaoSupport implements Serializable
          ex.printStackTrace();
       }
    }
-*/
 
 }

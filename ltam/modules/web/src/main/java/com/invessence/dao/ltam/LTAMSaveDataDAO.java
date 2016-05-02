@@ -18,7 +18,6 @@ public class LTAMSaveDataDAO extends JdbcDaoSupport implements Serializable
    SQLData convert;
    DataSource localds;
 
-/*
    public static synchronized LTAMSaveDataDAO getInstance()
    {
       if (instance == null)
@@ -78,6 +77,5 @@ public class LTAMSaveDataDAO extends JdbcDaoSupport implements Serializable
       String msg = ((String) outMap.get("p_msg"));
       return (msg);
    }
-*/
 
 }

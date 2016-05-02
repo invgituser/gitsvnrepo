@@ -375,6 +375,7 @@ public class FundAccountBean implements Serializable
          }
 
          if (beanacctnum != null && ! beanacctnum.isEmpty())  {
+            String wstrasactionnumber = null;
             System.out.println("Funding: Acct# = " + getClientAccountID() +
                                   ", FundID:" + selectedAccount.getSecurityName() + "(" + getFundID() + ") " +
                                   ", Investment: " + investment +
@@ -389,7 +390,6 @@ public class FundAccountBean implements Serializable
                return;
             }
 
-            String wstrasactionnumber = null;
             if (wsCallResult.getGenericObject() != null) {
                wstrasactionnumber = ((TransactionDetails) wsCallResult.getGenericObject()).getTransactionId();
             }

@@ -336,7 +336,8 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
             // if (webutil.isWebProdMode())
             selectedPage4Image = 0;
             doCharts();
-            saveVisitor();
+            setLogonid(null);
+            setAcctnum(null);
          }
       }
       catch (Exception ex)
@@ -385,11 +386,8 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
          setIpaddress(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
          Long logonid = null;
          // if (webutil.isWebProdMode())
-         if (getLogonid() == 0L)
-         {
-            if (saveDAO != null) {
-               logonid = saveDAO.saveVisitor(getInstance());
-            }
+         if (saveDAO != null) {
+            logonid = saveDAO.saveVisitor(getInstance());
          }
 
          if (logonid == null)
@@ -412,6 +410,10 @@ public class LTAMProfileBean extends LTAMCustomerData implements Serializable
 
       try
       {
+         if ((getLogonid() == null) || (getLogonid() == 0L)) {
+            setLogonid(0L);
+            saveVisitor();
+         }
          Long acctnum = null;
          // if (webutil.isWebProdMode())
          acctnum = saveDAO.saveUserData(getInstance());

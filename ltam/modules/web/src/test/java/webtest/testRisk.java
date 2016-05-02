@@ -2,6 +2,12 @@ package webtest;
 
 import java.util.*;
 
+import javax.faces.bean.ManagedProperty;
+
+import com.invessence.LTAMOptimizer;
+import com.invessence.dao.consumer.ConsumerListDataDAO;
+import com.invessence.data.common.AccountData;
+import com.invessence.data.consumer.ConsumerData;
 import com.invessence.data.ltam.LTAMRiskData;
 import com.invessence.util.WebUtil;
 
@@ -14,9 +20,43 @@ import com.invessence.util.WebUtil;
  */
 public class testRisk
 {
+   @ManagedProperty("#{consumerListDataDAO}")
+   static private ConsumerListDataDAO listDAO;
+   public void setListDAO(ConsumerListDataDAO consumerListDataDAO)
+   {
+      this.listDAO = consumerListDataDAO;
+   }
+
+
    public static void main(String[] args) throws Exception
    {
-      testRedirect(args);
+      testRiskofUsers(args);
+   }
+
+   public static void testRiskofUsers(String[] args) {
+      List<ConsumerData> consumerList;
+      LTAMRiskData riskData = new LTAMRiskData();
+      consumerList = listDAO.getClientProfileData(10L, "A", null);
+      System.out.println("Account#" + "," +
+                            "Age" + "," + "Ans2" + "," + "Ans3" + "," +
+                            "Ans4" + "," + "Ans5" + "," + "Ans6" + "," +
+                            "OrigRisk" + "," + "NewRisk");
+      for (ConsumerData cd : consumerList) {
+         AccountData  ad= listDAO.getAccountData(cd.getLogonid(), cd.getAcctnum());
+         riskData.setAgeforRisk(ad.getAge());  // This is same as ans1
+         riskData.setAns2(ad.getAns2());
+         riskData.setAns3(ad.getAns3());
+         riskData.setAns4(ad.getAns4());
+         riskData.setAns5(ad.getAns5());
+         riskData.setAns6(ad.getAns6());
+         Double riskIndex = riskData.calcRiskIndex();
+         System.out.println(ad.getAcctnum() + "," +
+                               ad.getAge() + "," + ad.getAns2() + "," + ad.getAns3() + "," +
+                               ad.getAns4() + "," + ad.getAns5() + "," + ad.getAns5() + "," +
+                               ad.getRiskIndex() + "," + riskIndex);
+
+      }
+
    }
 
    public static void testRedirect(String[] args) {

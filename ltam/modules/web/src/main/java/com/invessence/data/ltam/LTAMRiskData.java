@@ -61,11 +61,13 @@ public class LTAMRiskData
 
    public Integer getAns1()
    {
+      // This is related to age.  We are not using this code.
       return ans1;
    }
 
    public void setAns1(Integer ans)
    {
+      // This is related to age.  We are not using this code.
       this.ans1 = ans;
       setRiskValues(1,ans);
    }
@@ -160,6 +162,14 @@ public class LTAMRiskData
    }
 
    public void setRiskValues(Integer ans, Integer value) {
+      if (ans == null) {
+         return;
+      }
+
+      if (value == null) {
+         riskValues[ans] = null;
+      }
+
       if (ans > riskValues.length)
          return;
 
@@ -208,8 +218,9 @@ public class LTAMRiskData
                                  (maxScore * maxAgeRiskWeight));
          }
 
-         // Note:  Although questons are weighted, we have calculated the fix value of each ans. (pre calculated).
-         for (int i = 0; i < riskValueMatrix.length; i++) {
+         // Note:  Although questions are weighted, we have calculated the fix value of each ans. (pre calculated).
+         // Our risk questions start with position #2
+         for (int i = 2; i < riskValueMatrix.length; i++) {
             if (riskValues[i] == null) {
                newRiskValue += 0.0; // If not entered, then assume highest risk
             }

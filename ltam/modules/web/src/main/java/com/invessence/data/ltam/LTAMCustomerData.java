@@ -423,31 +423,31 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void copyData(AccountData accountData) {
       if (accountData != null) {
-         timeToSaveID = null;
-         logonid = accountData.getLogonid();
-         acctnum = accountData.getAcctnum();
-         geminiAcctNum = accountData.getClientAccountID();
-         advisor = accountData.getAdvisor();
-         rep = accountData.getAdvisor();
-         ipaddress = null;
-         prefix = null;
-         firstname = accountData.getFirstname();
-         lastname = accountData.getLastname();
-         suffix = null;
-         displayFullName = firstname + " " + lastname;
-         age = accountData.getAge();
-         accttype = accountData.getAccttype();
-         theme = accountData.getTheme();
-         horizon = accountData.getHorizon();
-         Investment = accountData.getActualCapital();
-         formula = accountData.getFormula();
+         setTimeToSaveID(null);
+         setLogonid(accountData.getLogonid());
+         setAcctnum(accountData.getAcctnum());
+         setGeminiAcctNum(accountData.getClientAccountID());
+         setAdvisor(accountData.getAdvisor());
+         setRep(accountData.getAdvisor());
+         setIpaddress(null);
+         setPrefix(null);
+         setFirstname(accountData.getFirstname());
+         setLastname(accountData.getLastname());
+         setSuffix(null);
+         setDisplayFullName(getFirstname() + " " + getLastname());
+         setAge(accountData.getAge());
+         setAccttype(accountData.getAccttype());
+         setTheme(accountData.getTheme());
+         setHorizon(accountData.getHorizon());
+         setInvestment(accountData.getActualCapital());
+         setFormula(accountData.getFormula());
          super.resetAllData();
-         allocationData = new LTAMAllocationData();
+         setAllocationData(new LTAMAllocationData());
          recalcAllocation = true;
-         forwarded = null;
-         cusip = accountData.getCusip();
-         securityname = accountData.getSecurityName();
-         fundID = accountData.getFundID();
+         setForwarded(null);
+         setCusip(accountData.getCusip());
+         setSecurityname(accountData.getSecurityName());
+         setFundID(accountData.getFundID());
 
          setAns2(accountData.getAns2());
          setAns3(accountData.getAns3());

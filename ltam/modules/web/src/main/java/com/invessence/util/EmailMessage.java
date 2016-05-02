@@ -67,9 +67,7 @@ public class EmailMessage implements MessageSourceAware, Serializable
 
       }
       catch (Exception ex) {
-         msgText = text;
-         System.out.println("Error: could not parse > " + text);
-         // ex.printStackTrace();
+         ex.printStackTrace();
       }
       return msgText;
    }
