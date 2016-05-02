@@ -106,15 +106,17 @@ public class AccountServiceImpl implements AccountService
          userAcctDetails.getClientAccountID(),
          new UnsignedByte(1),new UnsignedByte(1),true);
       logger.info("mailingAddressesResult = " + mailingAddressesResult);
-      if (mailingAddressesResult == null)
+      if (mailingAddressesResult == null || mailingAddressesResult.getErrorStatus()==null)
       {
          return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg),null);
-      }
-      else
-      {
+      }else if(mailingAddressesResult.getErrorStatus().getErrorCode()==0){
          UserAcctExt userAcctExt=new UserAcctExt();
          userAcctExt.setMailingAddressId(mailingAddressesResult.getMailingAddressId());
          userAcctExt.setMailingAddressType(""+mailingAddressesResult.getMailingAddressType());
+         return new WSCallResult(new WSCallStatus(mailingAddressesResult.getErrorStatus().getErrorCode(), mailingAddressesResult.getErrorStatus().getErrorMessage()),userAcctExt);
+      }
+      else
+      {
          return new WSCallResult(new WSCallStatus(mailingAddressesResult.getErrorStatus().getErrorCode(), mailingAddressesResult.getErrorStatus().getErrorMessage()),null);
       }
    }
@@ -129,11 +131,13 @@ public class AccountServiceImpl implements AccountService
       logger.debug("accountInfoResult = " + accountInfoResult);
       if(accountInfoResult==null || accountInfoResult.getErrorStatus()==null){
          return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode,SysParameters.wsResIssueMsg),null);
-      }else{
+      }else if(accountInfoResult.getErrorStatus().getErrorCode()==0){
          UserAcctExt userAcctExt=new UserAcctExt();
          userAcctExt.setDateOfBirth(accountInfoResult.getDateOfBirth().getTime());
          userAcctExt.setAccountType(""+accountInfoResult.getAccountType());
          return new WSCallResult(new WSCallStatus(accountInfoResult.getErrorStatus().getErrorCode(), accountInfoResult.getErrorStatus().getErrorMessage()),userAcctExt);
+      }else{
+         return new WSCallResult(new WSCallStatus(accountInfoResult.getErrorStatus().getErrorCode(), accountInfoResult.getErrorStatus().getErrorMessage()),null);
       }
    }
 

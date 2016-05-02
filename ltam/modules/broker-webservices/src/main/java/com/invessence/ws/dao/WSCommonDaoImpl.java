@@ -26,6 +26,8 @@ public class WSCommonDaoImpl implements WSCommonDao
    private final String getSverviceDetails="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, provider";
    private final String getUserAccDetailsByAccNumber="select * from vw_ws_web_user_details where clientAccountID=?";
    private final String getPendingUserAccDetails="select * from vw_ws_web_user_details where status='P' ";
+   private final String getPendingUserExtAccDetails="select det.* from vw_ws_web_user_details det, vw_ws_web_user_ext_details ext where det.clientAccountId=ext.clientAccountId and det.status ='A' and ext.status='P'";
+
 //   private final String updatePendingUserAccDetailsOnSuccess="update user_logon_webservice set pwd=?, status=?,remarks=?,lastupdated=? where clientAccountID=?";
 //   private final String updatePendingUserAccDetailsOnFailure="update user_logon_webservice set status=?,remarks=?,lastupdated=? where clientAccountID=?";
 //   //private final String updateUserEmail="update ext_acct_info set email=?, lastupdated=? where clientAccountID=?";
@@ -63,6 +65,14 @@ public class WSCommonDaoImpl implements WSCommonDao
       logger.debug("getPendingUserAccDetails = "+getPendingUserAccDetails);
       lst = webServiceJdbcTemplate.query(getPendingUserAccDetails, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst;
+   }
+
+   public List<UserAcctDetails> getPendingUserExtAccDetails()throws SQLException{logger.info("WSCommonDaoImpl.getPendingUserAccDetails");
+      List<UserAcctDetails> lst = null;
+      logger.debug("getPendingUserExtAccDetails = "+getPendingUserExtAccDetails);
+      lst = webServiceJdbcTemplate.query(getPendingUserExtAccDetails, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
+      return lst;
+
    }
 
    public boolean updatePendingUserAccDetails(UserAcctDetails userAcctDetails)throws SQLException{
@@ -158,21 +168,21 @@ public class WSCommonDaoImpl implements WSCommonDao
       return true;
    }
 
-   @Override
-   public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
-   {
-      logger.info("WSCommonDaoImpl.updateAccountExtInfo");
-      logger.debug("wsRequest = " + userAcctExt);
-      SPExtInfo extInfoSP= new SPExtInfo(webServiceJdbcTemplate);
-      extInfoSP.execute();
-
-      String sql = "update ltam_acct_info_ext set " +
-         "accountType=?, dateOfBirth=?, lastupdated=?" +
-         "where clientAccountID=?";
-      int i= webServiceJdbcTemplate.update(sql,userAcctExt.getAccountType(), userAcctExt.getDateOfBirth() ,new Date(),userAcctExt.getClientAccountID());
-
-      return true;
-   }
+//   @Override
+//   public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException
+//   {
+//      logger.info("WSCommonDaoImpl.updateAccountExtInfo");
+//      logger.debug("wsRequest = " + userAcctExt);
+//      SPExtInfo extInfoSP= new SPExtInfo(webServiceJdbcTemplate);
+//      extInfoSP.execute();
+//
+//      String sql = "update ltam_acct_info_ext set " +
+//         "accountType=?, dateOfBirth=?, lastupdated=?" +
+//         "where clientAccountID=?";
+//      int i= webServiceJdbcTemplate.update(sql,userAcctExt.getAccountType(), userAcctExt.getDateOfBirth() ,new Date(),userAcctExt.getClientAccountID());
+//
+//      return true;
+//   }
 
 
 //   public List<BrokerHostDetails> getBrokerHostDetails()throws SQLException

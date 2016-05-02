@@ -40,7 +40,6 @@ public class ServiceLayerImpl implements ServiceLayer
             emailAlertMessage.append("User details not available for accounts creation.\n");
          }else
          {
-//            int i = 1;
             String password = null;
             callingLayer = getCallingLayer();
             Iterator<UserAcctDetails> itr = uadLst.iterator();
@@ -49,10 +48,12 @@ public class ServiceLayerImpl implements ServiceLayer
                UserAcctDetails userAcctDetails = (UserAcctDetails) itr.next();
 
                password = RandomPwdCreator.passGenerator();
+               //randomPWD = EncryDecryAES.encrypt(RandomPwdCreator.passGenerator(),SysParameters.encryDecryKey);
+
                //userId = "inv_" + userAcctDetails.getClientAccountID();
                userAcctDetails.setPwd(password);
                userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
-
+               System.out.println("userAcctDetails = " + userAcctDetails);
                try
                {
                   WSCallStatus WSCallStatus = callingLayer.createUser(userAcctDetails);
@@ -63,92 +64,21 @@ public class ServiceLayerImpl implements ServiceLayer
                   else
                   {
                      if (WSCallStatus.getErrorCode() == 0)
-                     //if (0 == 0)
                      {
                         userAcctDetails.setOpt(WSConstants.succesResult);
                         userAcctDetails.setStatus("A");
                         userAcctDetails.setRemarks(WSCallStatus.getErrorMessage());
-                        UserAcctExt userAcctExt =new UserAcctExt();
-                        boolean userAcctExtInfoFlag=false;
-                        try{
-                           //UserAcctExt userAcctExt =null;
-
-                           WSCallResult maillingAddress=getMailingAddress(userAcctDetails.getClientAccountID());
-
-                           if(maillingAddress==null || maillingAddress.getGenericObject()==null){
-                              userAcctExt=null;
-                              logger.warn(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getMailingAddress API");
-                              emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getMailingAddress API \n");
-                           }else{
-                              UserAcctExt maillingAddressUserAcctExt=(UserAcctExt)maillingAddress.getGenericObject();
-                              userAcctExt.setMailingAddressId(maillingAddressUserAcctExt.getMailingAddressId());
-                              userAcctExt.setMailingAddressType(maillingAddressUserAcctExt.getMailingAddressType());
-                              try{
-
-                                 WSCallResult accountInfo=getMailingAddress(userAcctDetails.getClientAccountID());
-
-                                 if(accountInfo==null || accountInfo.getGenericObject()==null){
-                                    userAcctExt=null;
-                                    logger.warn(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getAccountInfo API");
-                                    emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getAccountInfo API \n");
-
-                                 }else{
-                                    UserAcctExt accountInfoUserAcctExt=(UserAcctExt)accountInfo.getGenericObject();
-                                    userAcctExt.setDateOfBirth(accountInfoUserAcctExt.getDateOfBirth());
-                                    userAcctExt.setAccountType(accountInfoUserAcctExt.getAccountType());
-                                    userAcctExtInfoFlag=true;
-                                 }
-                              }catch(Exception e){
-                                 logger.error(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from API\n"+e.getMessage()+"\n");
-                                 emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from getMailingAddress API\n"+e.getMessage()+"\n");
-                                 e.printStackTrace();
-                              }
-                           }
-                        }catch(Exception e){
-                           logger.error(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from API\n"+e.getMessage()+"\n");
-                           emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from getAccountInfo API\n"+e.getMessage()+"\n");
-                           e.printStackTrace();
+                        try
+                        {
+                           commonDao.updatePendingUserAccDetails(userAcctDetails);
+                           getExternalInfo(userAcctDetails, emailAlertMessage, callingLayer);
                         }
-
-                        if(userAcctExtInfoFlag==true){
-                           try
-                           {
-                              commonDao.insertAccountExtInfo(userAcctExt);
-                           }
-                           catch (Exception e)
-                           {
-                              logger.error(userAcctDetails.getClientAccountID() + ": Issue while storing extra user account information in DB\n");
-                              emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while storing extra user account information in DB\n");
-                              e.printStackTrace();
-                           }
+                        catch (Exception e)
+                        {
+                           logger.error(userAcctDetails.getClientAccountID() + ": Issue while updating user account information in DB\n" +e.getMessage()+"\n");
+                           emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while updating user account information in DB\n" +e.getMessage()+"\n");
+                           //e.printStackTrace();
                         }
-
-//                        try
-//                        {
-//
-//                           UserAcctExt userAcctExt = callingLayer.getAcctExtInfo(userAcctDetails);
-//                           if (userAcctExt == null)
-//                           {
-//                              userAcctExt=new UserAcctExt();
-//                              userAcctExt.setClientAccountID(userAcctDetails.getClientAccountID());
-//                              userAcctExt.setStatus("E");
-//                              userAcctExt.setOpt("FAILURE");
-//                              logger.info(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information info from API\n");
-//                              emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information info from API\n");
-//                           }
-//                           else
-//                           {
-//                              userAcctExt.setStatus("A");
-//                              userAcctExt.setOpt("SUCCESS");
-//                           }
-//
-//                        }
-//                        catch (Exception e)
-//                        {
-//                           logger.error(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from API\n"+e.getMessage()+"\n");
-//                           emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from API\n"+e.getMessage()+"\n");
-//                           e.printStackTrace();
-//                        }
                      }
                      else
                      {
@@ -156,16 +86,16 @@ public class ServiceLayerImpl implements ServiceLayer
                         userAcctDetails.setStatus("E");
                         userAcctDetails.setRemarks(WSCallStatus.getErrorMessage());
                         emailAlertMessage.append(userAcctDetails.getClientAccountID() + ":" + userAcctDetails.getRemarks() + "\n");
-                     }
-                     try
-                     {
-                        commonDao.updatePendingUserAccDetails(userAcctDetails);
-                     }
-                     catch (Exception e)
-                     {
-                        logger.error(userAcctDetails.getClientAccountID() + ": Issue while updating user account information in DB\n" +e.getMessage()+"\n");
-                        emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while updating user account information in DB\n" +e.getMessage()+"\n");
-                        //e.printStackTrace();
+                        try
+                        {
+                           commonDao.updatePendingUserAccDetails(userAcctDetails);
+                        }
+                        catch (Exception e)
+                        {
+                           logger.error(userAcctDetails.getClientAccountID() + ": Issue while updating user account information in DB\n" +e.getMessage()+"\n");
+                           emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while updating user account information in DB\n" +e.getMessage()+"\n");
+                           //e.printStackTrace();
+                        }
                      }
                   }
                }catch(Exception e){
@@ -175,9 +105,10 @@ public class ServiceLayerImpl implements ServiceLayer
                      break;
                   }
                }
-
-     }
+            }
          }
+         callingLayer = getCallingLayer();
+         loadExternalInfoProcess(emailAlertMessage, callingLayer);
        }
       catch (Exception e)
       {
@@ -198,6 +129,98 @@ public class ServiceLayerImpl implements ServiceLayer
             }
          }
       }
+   }
+   public void loadExternalInfoProcess(StringBuilder emailAlertMessage, CallingLayer callingLayer)
+   {
+      logger.info("ServiceLayerImpl.loadExternalInfoProcess");
+      try
+      {
+         List<UserAcctDetails> uadLst = commonDao.getPendingUserExtAccDetails();//getUserAccDetailsByWhereClause(""/*"where email='"+emailAddress+"'"*/);
+         if(uadLst==null || uadLst.size()==0){
+            logger.info("User details not available for loading external information = " + uadLst.size());
+            emailAlertMessage.append("User details not available for loading external information.\n");
+         }else
+         {
+            //callingLayer = getCallingLayer();
+            Iterator<UserAcctDetails> itr = uadLst.iterator();
+            while (itr.hasNext())
+            {
+               UserAcctDetails userAcctDetails = (UserAcctDetails) itr.next();
+               userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+               System.out.println("userAcctDetails = " + userAcctDetails);
+
+               UserAcctExt extInfo= getExternalInfo(userAcctDetails, emailAlertMessage, callingLayer);
+
+               System.out.println("extInfo = " + extInfo);
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         emailAlertMessage.append(e.getMessage()+"\n");
+      }
+   }
+   private UserAcctExt getExternalInfo(UserAcctDetails userAcctDetails, StringBuilder emailAlertMessage, CallingLayer callingLayer){
+      System.out.println("ServiceLayerImpl.getExternalInfo");
+      UserAcctExt userAcctExt =new UserAcctExt();
+      userAcctDetails.setOpt(WSConstants.failureResult);
+      userAcctExt.setStatus("P");
+      boolean userAcctExtInfoFlag=false;
+      try{
+         //UserAcctExt userAcctExt =null;
+
+         WSCallResult maillingAddress=callingLayer.getMailingAddress(userAcctDetails);//getMailingAddress(clientAccountID);
+         userAcctExt.setClientAccountID(userAcctDetails.getClientAccountID());
+         if(maillingAddress==null || maillingAddress.getGenericObject()==null){
+            userAcctExt=null;
+            logger.warn(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getMailingAddress API");
+            emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getMailingAddress API \n");
+         }else{
+            UserAcctExt maillingAddressUserAcctExt=(UserAcctExt)maillingAddress.getGenericObject();
+            userAcctExt.setMailingAddressId(maillingAddressUserAcctExt.getMailingAddressId());
+            userAcctExt.setMailingAddressType(maillingAddressUserAcctExt.getMailingAddressType());
+            try{
+
+               WSCallResult accountInfo=callingLayer.getAccountInfo(userAcctDetails);//getAccountInfo(clientAccountID);
+
+               if(accountInfo==null || accountInfo.getGenericObject()==null){
+                  userAcctExt=null;
+                  logger.warn(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getAccountInfo API");
+                  emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Not Found extra user account information from getAccountInfo API \n");
+               }else{
+                  UserAcctExt accountInfoUserAcctExt=(UserAcctExt)accountInfo.getGenericObject();
+                  userAcctExt.setDateOfBirth(accountInfoUserAcctExt.getDateOfBirth());
+                  userAcctExt.setAccountType(accountInfoUserAcctExt.getAccountType());
+                  userAcctExtInfoFlag=true;
+               }
+            }catch(Exception e){
+               logger.error(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from API\n"+e.getMessage()+"\n");
+               emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from getMailingAddress API\n"+e.getMessage()+"\n");
+               e.printStackTrace();
+            }
+         }
+      }catch(Exception e){
+         logger.error(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from API\n"+e.getMessage()+"\n");
+         emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while fetching extra user account information from getAccountInfo API\n"+e.getMessage()+"\n");
+         e.printStackTrace();
+      }
+
+      if(userAcctExtInfoFlag==true)
+      {
+         userAcctExt.setOpt(WSConstants.succesResult);
+         userAcctExt.setStatus("A");
+      }
+         try
+         {
+            commonDao.insertAccountExtInfo(userAcctExt);
+         }
+         catch (Exception e)
+         {
+            logger.error(userAcctDetails.getClientAccountID() + ": Issue while storing extra user account information in DB\n");
+            emailAlertMessage.append(userAcctDetails.getClientAccountID() + ": Issue while storing extra user account information in DB\n");
+            e.printStackTrace();
+         }
+      return userAcctExt;
    }
 
    private WSCallResult getMailingAddress(String clientAccountID)
@@ -1045,31 +1068,31 @@ public class ServiceLayerImpl implements ServiceLayer
    }
 
 
-//   public WSCallStatus loginUser(String clientAccountID){
-//      try
-//      {
-//         String userId;
-//         StringBuilder emailAlertMessage=new StringBuilder();
-//         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-//         if(userAcctDetails==null){
-//            System.out.println("User Account Details not available in DB");
-//         }else{
-//            userAcctDetails.setFundGroupName("landenburgfund");
-//            userAcctDetails.setPwd("test01");
-//            WSCallStatus callStatus= callingLayer.loginUser(userAcctDetails);
-//            if(callStatus==null){
-//               return new WSCallStatus(222,"Somthing wrong at service API site");
-//            }else{
-//
-//            }
-//         }
-//      }
-//      catch (Exception e)
-//      {
-//         e.printStackTrace();
-//      }
-//      return null;
-//   }
+   public WSCallStatus loginUser(String clientAccountID){
+      try
+      {
+         String userId;
+         StringBuilder emailAlertMessage=new StringBuilder();
+         UserAcctDetails userAcctDetails=commonDao.getUserAccDetailsByAccNumber(clientAccountID);
+         if(userAcctDetails==null){
+            System.out.println("User Account Details not available in DB");
+         }else{
+            userAcctDetails.setFundGroupName("landenburgfund");
+            userAcctDetails.setPwd("test01");
+            WSCallStatus callStatus= getCallingLayer().loginUser(userAcctDetails);
+            if(callStatus==null){
+               return new WSCallStatus(222,"Somthing wrong at service API site");
+            }else{
+
+            }
+         }
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+      return null;
+   }
 
 //   public WSCallStatus createUser(String clientAccountID, String securityQuestion, String securityAnswer)
 //   {

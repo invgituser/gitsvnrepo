@@ -26,7 +26,7 @@ public interface CallingLayer
    public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception;
    public WSCallResult getAccountInfo(UserAcctDetails userAcctDetails) throws Exception;
 
-//   public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception;
+   public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception;
 //   public WSCallStatus isUserExist(UserAcctDetails userAcctDetails) throws Exception;
 //   public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails) throws Exception;
 

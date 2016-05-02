@@ -12,12 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CallingLayerGeminiImpl implements CallingLayer
 {
-
    LoginService loginService;
    AccountService accountService;
    TransactionService transactionService;
-   String encryDecryKey="aRXDugfr4WQpVrxu";
-
 
    public WSCallStatus createUser(UserAcctDetails userAcctDetails)throws Exception
    {
@@ -101,13 +98,13 @@ public class CallingLayerGeminiImpl implements CallingLayer
    }
 
 
-//
-//   public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception{
-//      String userId;
-//      loginService=new LoginServiceImpl();
-//      return loginService.loginWebUser(userAcctDetails);
-//
-//   }
+
+   public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception{
+      String userId;
+      loginService=new LoginServiceImpl();
+      return loginService.loginWebUser(userAcctDetails);
+
+   }
 //
 //   public WSCallStatus isUserExist(UserAcctDetails userAcctDetails)throws Exception
 //   {

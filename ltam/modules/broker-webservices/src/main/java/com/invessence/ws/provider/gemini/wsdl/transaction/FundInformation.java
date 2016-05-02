@@ -330,4 +330,14 @@ public class FundInformation  implements java.io.Serializable {
             _javaType, _xmlType, typeDesc);
     }
 
+    @Override
+    public String toString()
+    {
+        return "FundInformation{" +
+           "amount=" + amount +
+           ", amountType=" + amountType +
+           ", fromToLineIndicator=" + fromToLineIndicator +
+           ", fundId=" + fundId +
+           '}';
+    }
 }
