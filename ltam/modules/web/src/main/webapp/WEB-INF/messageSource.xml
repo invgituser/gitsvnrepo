@@ -10,6 +10,7 @@
 				<value>company</value>
 				<value>webmessages</value>
 				<value>weberror</value>
+			    <value>emailmessages</value>
 			</list>
 		</property>
 
