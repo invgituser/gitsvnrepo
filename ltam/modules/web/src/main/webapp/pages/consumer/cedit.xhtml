@@ -52,57 +52,62 @@
                                     </p:steps>
                                 </div>
                             </ui:fragment>
-                       </div>
+                        </div>
                     </div>
 
                     <div class="Container100 Responsive100">
                         <div class="ContainerIndent Responsive100">
-                            <p:messages showDetail="false" escape="true" closable="true"/>
+                            <p:growl showDetail="false" escape="true" closable="true"/>
                         </div>
                     </div>
                     <div class="Container100">
-                        <div class="Container50">
-                            <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
-                                <ui:fragment rendered="#{ceb.pagemanager.page == 0}">
-                                    <ui:fragment rendered="#{ceb.isEditMode}">
-                                        <ui:include src="/pages/consumer/edit/page1B.xhtml"/>
+                        <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
+
+                            <p:outputPanel style="border: 0px"
+                                           rendered="#{ceb.pagemanager.page == 0}">
+                                <div class="Container100">
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 0}">
+                                        <ui:fragment rendered="#{ceb.isEditMode}">
+                                            <ui:include src="/pages/consumer/edit/page1B.xhtml"/>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{ceb.isTimeToSaveMode}">
+                                            <ui:include src="/pages/consumer/edit/page1A.xhtml"/>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{ceb.isVisitorMode}">
+                                            <ui:include src="/pages/consumer/edit/page1.xhtml"/>
+                                        </ui:fragment>
                                     </ui:fragment>
-                                    <ui:fragment rendered="#{ceb.isTimeToSaveMode}">
-                                        <ui:include src="/pages/consumer/edit/page1A.xhtml"/>
+                                </div>
+                            </p:outputPanel>
+                            <p:outputPanel style="border: 0px"
+                                           rendered="#{ceb.pagemanager.page != 0}">
+                                <div class="Container50">
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 1}">
+                                        <ui:include src="/pages/consumer/edit/page2.xhtml"/>
                                     </ui:fragment>
-                                    <ui:fragment rendered="#{ceb.isVisitorMode}">
-                                        <ui:include src="/pages/consumer/edit/page1.xhtml"/>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 2}">
+                                        <ui:include src="/pages/consumer/edit/page3.xhtml"/>
                                     </ui:fragment>
-                                </ui:fragment>
-                                <ui:fragment rendered="#{ceb.pagemanager.page == 1}">
-                                    <ui:include src="/pages/consumer/edit/page2.xhtml"/>
-                                </ui:fragment>
-                                <ui:fragment rendered="#{ceb.pagemanager.page == 2}">
-                                    <ui:include src="/pages/consumer/edit/page3.xhtml"/>
-                                </ui:fragment>
-                                <ui:fragment rendered="#{ceb.pagemanager.page == 3}">
-                                    <ui:include src="/pages/consumer/edit/page5.xhtml"/>
-                                </ui:fragment>
-                                <ui:fragment rendered="#{ceb.pagemanager.page == 4}">
-                                    <ui:include src="/pages/consumer/edit/page4.xhtml"/>
-                                </ui:fragment>
-                                <ui:fragment rendered="#{ceb.pagemanager.page == 5}">
-                                    <ui:include src="/pages/consumer/edit/page6.xhtml"/>
-                                </ui:fragment>
-                            </p:panel>
-                        </div>
-                        <div class="Container50">
-                            <ui:include src="/pages/consumer/edit/rightpanel.xhtml"/>
-                        </div>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 3}">
+                                        <ui:include src="/pages/consumer/edit/page5.xhtml"/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 4}">
+                                        <ui:include src="/pages/consumer/edit/page4.xhtml"/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 5}">
+                                        <ui:include src="/pages/consumer/edit/page6.xhtml"/>
+                                    </ui:fragment>
+                                </div>
+                                <div class="Container50">
+                                    <ui:include src="/pages/consumer/edit/rightpanel.xhtml"/>
+                                </div>
+                            </p:outputPanel>
+                        </p:panel>
                     </div>
 
                 </div>
-
-                <p:outputPanel id="dataarea" style="border: 0px"
-                               rendered="#{ceb.reviewPage}">
-                </p:outputPanel>
-
             </p:panel>
+
 
             <p:outputPanel id="disclaimer" style="border: 0px"
                            rendered="#{uiLayout.prodMode}">

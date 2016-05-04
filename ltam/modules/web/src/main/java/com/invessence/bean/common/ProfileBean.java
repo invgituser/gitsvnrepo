@@ -207,7 +207,8 @@ public class ProfileBean implements Serializable
                   /* If either userid or password is changed, then update database */
                   userInfoDAO.updateUserProfile(userData);
                   FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, 0);
-                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Success", "Success"));
+                  FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Updated Successfully", "Success"));
+                  return "Success";
                }
             }
          }

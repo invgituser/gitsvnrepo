@@ -55,7 +55,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    private LTAMCharts ltamcharts;
    private LTAMTheme theme;
    private String selectedThemeName;
-   private Map<String,String> displaythememap;
+   private Map<String, String> displaythememap;
    private ArrayList<LTAMTheme> themeList;
    private String selectedPie;
    private Integer selectedPage4Image;
@@ -80,6 +80,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO consumerListDataDAO;
+
    public void setConsumerListDataDAO(ConsumerListDataDAO consumerListDataDAO)
    {
       this.consumerListDataDAO = consumerListDataDAO;
@@ -87,6 +88,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    @ManagedProperty("#{webutil}")
    WebUtil webutil;
+
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -94,6 +96,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    @ManagedProperty("#{uiLayout}")
    UILayout uiLayout;
+
    public void setUiLayout(UILayout uiLayout)
    {
       this.uiLayout = uiLayout;
@@ -101,6 +104,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    @ManagedProperty("#{serviceLayer}")
    private ServiceLayer serviceLayer;
+
    public void setServiceLayer(ServiceLayer serviceLayer)
    {
       this.serviceLayer = serviceLayer;
@@ -119,27 +123,44 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       return origCustomerData;
    }
 
-   public Boolean getIsEditMode() {
+   public Boolean getIsEditMode()
+   {
       if (formmode != null && formmode.equalsIgnoreCase("Edit"))
-          return true;
-      else
-          return false;
-   }
-
-   public Boolean getIsVisitorMode() {
-      if (formmode == null )
-      return true;
-      if (formmode.equalsIgnoreCase("Edit") ||  formmode.equalsIgnoreCase("TimeToSave"))
-         return false;
-      else
+      {
          return true;
+      }
+      else
+      {
+         return false;
+      }
    }
 
-   public Boolean getIsTimeToSaveMode() {
+   public Boolean getIsVisitorMode()
+   {
+      if (formmode == null)
+      {
+         return true;
+      }
+      if (formmode.equalsIgnoreCase("Edit") || formmode.equalsIgnoreCase("TimeToSave"))
+      {
+         return false;
+      }
+      else
+      {
+         return true;
+      }
+   }
+
+   public Boolean getIsTimeToSaveMode()
+   {
       if (formmode != null && formmode.equalsIgnoreCase("TimeToSave"))
+      {
          return true;
+      }
       else
+      {
          return false;
+      }
    }
 
    public String getFormmode()
@@ -302,9 +323,13 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    public Integer getLtammenu()
    {
       if (pagemanager == null)
+      {
          return 0;
+      }
       else
+      {
          return pagemanager.getPage();
+      }
 
    }
 
@@ -341,17 +366,22 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    public void nextPage()
    {
-      if (pagemanager.isFirstPage()) {
-         if (getIsEditMode()) {
-           if (getFormula() != null && getFormula().equalsIgnoreCase("D")) {
-              pagemanager.setPage(6);
-              doCharts();
-              webutil.redirect("/pages/consumer/confirm.xhtml", null);
-              return;
-           }
+      if (pagemanager.isFirstPage())
+      {
+         if (getIsEditMode())
+         {
+            if (getFormula() != null && getFormula().equalsIgnoreCase("D"))
+            {
+               pagemanager.setPage(6);
+               doCharts();
+               webutil.redirect("/pages/consumer/confirm.xhtml", null);
+               return;
+            }
          }
-         else {
-            if (getInvestment() < 500.00) {
+         else
+         {
+            if (getInvestment() < 500.00)
+            {
                FacesMessage message;
                message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Min Investment of $500.00", "Min Investment of $500.00");
                FacesContext.getCurrentInstance().addMessage(null, message);
@@ -361,75 +391,89 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       }
       setDisplayGraphs(true);
       displayMeter = true;
-      if (pagemanager.isNextToLastPage()) {
+      if (pagemanager.isNextToLastPage())
+      {
          reviewPage = true;
       }
       doCharts();
       saveClientData();
       pagemanager.nextPage();
-      if (getIsEditMode() && pagemanager.getPage() >= 6) {
-            System.out.println("Exchange Fund: Acct=" + getAcctnum().toString()
-                                  + ", Ext Acct#=" + getGeminiAcctNum()
-                                  + ", advisor=" + getAdvisor()
-                                  + ", theme=" + getTheme());
-             webutil.redirect("/pages/consumer/confirm.xhtml", null);
-             return;
-            // pagemanager.setPage(6);
-         }
-         if (pagemanager.isLastPage()) {
-            System.out.println("Forward to Gemini: Acct="
-                                  + getAcctnum().toString()
-                                  + ", advisor=" + getAdvisor()
-                                  + ", theme=" + getTheme());
-            webutil.redirect("/pages/consumer/review.xhtml", null);
-            return;
-         }
+      if (getIsEditMode() && pagemanager.getPage() >= 6)
+      {
+         System.out.println("Exchange Fund: Acct=" + getAcctnum().toString()
+                               + ", Ext Acct#=" + getGeminiAcctNum()
+                               + ", advisor=" + getAdvisor()
+                               + ", theme=" + getTheme());
+         webutil.redirect("/pages/consumer/confirm.xhtml", null);
+         return;
+         // pagemanager.setPage(6);
+      }
+      if (pagemanager.isLastPage())
+      {
+         System.out.println("Forward to Gemini: Acct="
+                               + getAcctnum().toString()
+                               + ", advisor=" + getAdvisor()
+                               + ", theme=" + getTheme());
+         webutil.redirect("/pages/consumer/review.xhtml", null);
+         return;
+      }
    }
 
    public void preRenderView()
    {
       try
       {
-         if (!FacesContext.getCurrentInstance().isPostback()) {
-            if (beanaction != null) {
-               if (beanaction.equalsIgnoreCase("N")) {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            if (beanaction != null)
+            {
+               if (beanaction.equalsIgnoreCase("N"))
+               {
                   beanacctnum = null;  // Reset the Account Number (Due to Session cache)
-               }
-               if (beanaction.equalsIgnoreCase("S")) {
-                  return;
                }
             }
 
             /* if in either New or edit mode, it is from session, therefore check if session is still valid. */
-            if (beanaction != null) {
-               if (webutil.validatePriviledge(Const.WEB_USER)) {
+            if (beanaction != null)
+            {
+               if (webutil.validatePriviledge(Const.WEB_USER))
+               {
                   setLogonid(webutil.getLogonid());
                }
             }
 
             // If beanacctnum is null or empty, then it must be a visitor
-            if (beanacctnum != null && ! beanacctnum.isEmpty()) {
-               if (webutil.validatePriviledge(Const.WEB_USER)) {
+            if (beanacctnum != null && !beanacctnum.isEmpty())
+            {
+               if (webutil.validatePriviledge(Const.WEB_USER))
+               {
                   resetBean();
-                  formmode="Edit";
+                  formmode = "Edit";
                   pagemanager = new PagesImpl(9);
                   displayMeter = true;
                   Long logonid = webutil.getLogonid();
                   collectAccountData(logonid, beanacctnum);
                }
             }
-            else {
-               pagemanager = new PagesImpl(6);
-               if (beanaction != null) {
+            else
+            {
+               if (beanaction != null  && beanaction.equalsIgnoreCase("N"))
+               {
+                  pagemanager = new PagesImpl(6);
                   resetBean();
                   formmode = "New";
                   saveVisitor();
                }
-               else {  // This is from visitor site or just in try mode.
-                  if (beanTimeToSaveID != null && (! beanTimeToSaveID.isEmpty()))
+               else
+               {  // This is from visitor site or just in try mode.
+                  if (beanTimeToSaveID != null && (!beanTimeToSaveID.isEmpty()))
+                  {
                      formmode = "TimeToSave";
+                  }
                   else
-                     formmode="Visitor";
+                  {
+                     formmode = "Visitor";
+                  }
                   resetBean();
                   setLogonid(null);
                   selectedPage4Image = 0;
@@ -438,7 +482,9 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                doCharts();
             }
 
-            if (pagemanager != null && (! pagemanager.isFirstPage())) {
+
+            if (pagemanager != null && (!pagemanager.isFirstPage()))
+            {
                firstPage();
             }
          }
@@ -451,20 +497,26 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
    public void collectAccountData(Long logonid, String beanacctnum)
    {
-      try {
-         if (beanacctnum != null && ! beanacctnum.isEmpty()) {
+      try
+      {
+         if (beanacctnum != null && !beanacctnum.isEmpty())
+         {
             Long acctnum = converter.getLongData(beanacctnum);
-            if (acctnum != null && acctnum > 0) {
+            if (acctnum != null && acctnum > 0)
+            {
                resetBean();
                accountData = consumerListDataDAO.getAccountData(logonid, acctnum);
-               if (accountData == null) {
+               if (accountData == null)
+               {
                   webutil.redirect("/access-denied.xhtml", null);
                }
-               else {
+               else
+               {
                   // Keep the original copy
                   origCustomerData = new LTAMCustomerData();
                   origCustomerData.copyData(accountData);
-                  if (origCustomerData != null) {
+                  if (origCustomerData != null)
+                  {
                      origCustomerData.setThemeData(ltamoptimizer.getTheme(origCustomerData.getTheme()));
                   }
                   copyData(accountData);
@@ -473,7 +525,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             }
          }
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          webutil.redirecttoMessagePage("Warning", "",
                                        "There is no data associated with this account number. <br/>" +
                                           "Please contact support."
@@ -493,7 +546,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       setRep(beanRep);
 
-      if (beanTimeToSaveID != null) {
+      if (beanTimeToSaveID != null)
+      {
          setTimeToSaveID(beanTimeToSaveID);
          setFirstname(beanfirstname);
          setLastname(beanlastname);
@@ -505,7 +559,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       {
          disableInvestment = false;
       }
-      if (ltamoptimizer != null) {
+      if (ltamoptimizer != null)
+      {
          themeList = ltamoptimizer.getThemes();
          displaythememap = ltamoptimizer.getDisplayThemes();
       }
@@ -518,7 +573,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       try
       {
          setIpaddress(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
-         if (getIsEditMode() || getFormmode().equalsIgnoreCase("new")) {
+         if (getIsEditMode() || getFormmode().equalsIgnoreCase("new"))
+         {
             setLogonid(webutil.getLogonid());
             return;
          }
@@ -526,7 +582,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          Long logonid = null;
          if (getLogonid() == null || getLogonid() == 0L)
          {
-            if (saveDAO != null) {
+            if (saveDAO != null)
+            {
                logonid = saveDAO.saveVisitor(getInstance());
             }
          }
@@ -551,7 +608,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
       try
       {
-         if (getIsEditMode()) {
+         if (getIsEditMode())
+         {
             return;
          }
          Long acctnum = null;
@@ -593,7 +651,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       {
          setForwarded("now");
          saveClientData();
-         Map<String,String> args = new LinkedHashMap<String, String>();
+         Map<String, String> args = new LinkedHashMap<String, String>();
          args.put("TimeToSaveUserId", getTimeToSaveID());
          args.put("InvestorName", getFirstname() + " " + getLastname());
          args.put("FundSelection", getTheme());
@@ -627,39 +685,45 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    {
       try
       {
-            if (selectedThemeName == null) {
-               return;
-            }
+         if (selectedThemeName == null)
+         {
+            return;
+         }
 
-            if (selectedThemeName.isEmpty()) {
-               selectedThemeName = null;
-               FacesMessage message;
-               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please choose one of the fund.", "Error");
-               FacesContext.getCurrentInstance().addMessage(null, message);
-               return;
-            }
+         if (selectedThemeName.isEmpty())
+         {
+            selectedThemeName = null;
+            FacesMessage message;
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please choose one of the fund.", "Error");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
 
-            if (selectedThemeName.equalsIgnoreCase(origCustomerData.getTheme())) {
-               selectedThemeName = null;
-               FacesMessage message;
-               message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Current and revised fund cannot be same.", "Error");
-               FacesContext.getCurrentInstance().addMessage(null, message);
-               return;
-            }
+         if (selectedThemeName.equalsIgnoreCase(origCustomerData.getTheme()))
+         {
+            selectedThemeName = null;
+            FacesMessage message;
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Current and revised fund cannot be same.", "Error");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
 
-            theme = ltamoptimizer.getTheme(selectedThemeName);
-            setTheme(theme.getTheme());
-            setThemeData(theme);
-            if (ltamcharts == null)
+         theme = ltamoptimizer.getTheme(selectedThemeName);
+         setTheme(theme.getTheme());
+         setThemeData(theme);
+         if (ltamcharts == null)
+         {
+            ltamcharts = new LTAMCharts();
+         }
+
+         setPieChart(ltamcharts.createPieModel(getThemeData().getAsset()));
+         if (displayGraphs)
+         {
+            if (ltamcharts.getRiskbarChart() == null)
             {
-               ltamcharts = new LTAMCharts();
+               ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
             }
-
-            setPieChart(ltamcharts.createPieModel(getThemeData().getAsset()));
-            if (displayGraphs) {
-               if (ltamcharts.getRiskbarChart() == null)
-                  ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
-            }
+         }
 /*
             if (reviewPage)
             {
@@ -681,7 +745,24 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       {
          setRiskIndex(calcRiskIndex());
          theme = ltamoptimizer.getTheme(getRiskIndex());
-         setSelectedThemeName(theme.getTheme());
+         if (getIsEditMode())
+         {
+            if (origCustomerData != null)
+            {
+               if (origCustomerData.getTheme().equalsIgnoreCase(theme.getTheme()))
+               {
+                  setSelectedThemeName(null);
+               }
+               else
+               {
+                  setSelectedThemeName(theme.getTheme());
+               }
+            }
+            else
+            {
+               setSelectedThemeName(theme.getTheme());
+            }
+         }
          if (theme != null)
          {
             setTheme(theme.getTheme());
@@ -692,9 +773,12 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
             }
 
             setPieChart(ltamcharts.createPieModel(getThemeData().getAsset()));
-            if (displayGraphs) {
+            if (displayGraphs)
+            {
                if (ltamcharts.getRiskbarChart() == null)
+               {
                   ltamcharts.createRiskBarChart(ltamoptimizer.getThemes());
+               }
             }
             if (reviewPage)
             {
@@ -710,10 +794,13 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       }
    }
 
-   public void riskChartSelected(ItemSelectEvent event) {
-      if (event != null) {
+   public void riskChartSelected(ItemSelectEvent event)
+   {
+      if (event != null)
+      {
          Integer answer;
-         switch (event.getItemIndex()) {
+         switch (event.getItemIndex())
+         {
             case 0:
             case 1:
             case 2:
@@ -732,66 +819,92 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       return selectedPie;
    }
 
-   public void showpieSliceInfo(ItemSelectEvent event) {
-      if (event != null) {
+   public void showpieSliceInfo(ItemSelectEvent event)
+   {
+      if (event != null)
+      {
          System.out.println("Pie Slice Selected");
          selectedPie = "Selected";
       }
    }
 
-   public void hidepieSliceInfo(ItemSelectEvent event) {
-      if (event != null) {
+   public void hidepieSliceInfo(ItemSelectEvent event)
+   {
+      if (event != null)
+      {
          System.out.println("Pie Slice De-seletected");
-         selectedPie="";
+         selectedPie = "";
       }
    }
-   public void setImage(Integer ans) {
+
+   public void setImage(Integer ans)
+   {
       setAns4(ans);
       selectedPage4Image = 0;
    }
 
-   public void setHoverImage(Integer ans) {
+   public void setHoverImage(Integer ans)
+   {
       selectedPage4Image = ans;
    }
 
-   public Boolean isImageSelected(Integer which) {
+   public Boolean isImageSelected(Integer which)
+   {
       if (getAns4() == null)
+      {
          return false;
+      }
 
-      if (selectedPage4Image != null && selectedPage4Image != 0) {
+      if (selectedPage4Image != null && selectedPage4Image != 0)
+      {
          if (selectedPage4Image.equals(which))
+         {
             return true;
+         }
       }
 
       if (getAns4().equals(which))
+      {
          return true;
+      }
       else
+      {
          return false;
+      }
    }
 
-   public void onSlideEnd(SlideEndEvent event) {
-      if (event != null) {
+   public void onSlideEnd(SlideEndEvent event)
+   {
+      if (event != null)
+      {
          setAns6(event.getValue());
       }
    }
 
-   public void setRiskQ5Image(Integer which) {
+   public void setRiskQ5Image(Integer which)
+   {
       if (getAns5() == null)
+      {
          return;
+      }
 
       setAns5(which);
    }
 
-   public void processTransfer() {
+   public void processTransfer()
+   {
       FacesMessage message;
-      try {
-          if (serviceLayer == null) {
-             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Web-service is down!", "Web-service");
-             FacesContext.getCurrentInstance().addMessage(null, message);
-             return;
-          }
+      try
+      {
+         if (serviceLayer == null)
+         {
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Web-service is down!", "Web-service");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
 
-         if (! serviceLayer.isServiceActive()) {
+         if (!serviceLayer.isServiceActive())
+         {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Web-service is NOT active!", "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
@@ -800,13 +913,15 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          WSCallResult serviceStatus;
          serviceStatus = serviceLayer.getUserBankAcctDetails(getGeminiAcctNum());
 
-         if (serviceStatus == null) {
+         if (serviceStatus == null)
+         {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Web-service is NOT active!", "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
 
-         if (serviceStatus.getWSCallStatus().getErrorCode() != 0) {
+         if (serviceStatus.getWSCallStatus().getErrorCode() != 0)
+         {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, serviceStatus.getWSCallStatus().getErrorMessage(), "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
@@ -817,7 +932,8 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          List<BankAcctDetails> bankaccountlist = null;
          bankaccountlist = (List<BankAcctDetails>) serviceStatus.getGenericObject();
 
-         if (bankaccountlist == null) {
+         if (bankaccountlist == null)
+         {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Unable to get account info from web-services, to complete the call.", "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
@@ -830,17 +946,19 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          WSCallResult wsCallResult;
          WSCallStatus wsCallStatus;
          String wstrasactionnumber = null;
-         System.out.println("WebService Call:= ("+ getGeminiAcctNum() +"," + origCustomerData.getFundID() +
-            "," + getFundID() + "," + bankacct + ")");
+         System.out.println("WebService Call:= (" + getGeminiAcctNum() + "," + origCustomerData.getFundID() +
+                               "," + getFundID() + "," + bankacct + ")");
 
          wsCallResult = serviceLayer.fullFundTransfer(getGeminiAcctNum(), origCustomerData.getFundID(), getFundID(), bankacct);
-         if (wsCallResult.getWSCallStatus().getErrorCode() != 0) {
+         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+         {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, wsCallResult.getWSCallStatus().getErrorMessage(), "Web-service");
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
 
-         if (wsCallResult.getGenericObject() != null) {
+         if (wsCallResult.getGenericObject() != null)
+         {
             wstrasactionnumber = ((TransactionDetails) wsCallResult.getGenericObject()).getTransactionId();
          }
 /*
@@ -884,15 +1002,37 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          String url = "/message.xhtml";
          webutil.redirect(url, obj);
 */
-         TradeInfoBean tib = new TradeInfoBean();
-         tib.initTradeData(tradedata);
+         //TradeInfoBean tib = new TradeInfoBean();
+         //tib.initTradeData(tradedata);
+         Map<String, String> obj = new HashMap<String, String>();
+         obj.put("acct", getGeminiAcctNum());
+         obj.put("tran", wstrasactionnumber);
+         obj.put("type", "Exchange");
+         obj.put("fund", getSecurityname());
+         obj.put("beanamt", jutil.displayFormat(getInvestment(), "$#,###,###.00"));
+         webutil.redirect("/pages/consumer/tradeinfo.xhtml", obj);
+
 
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Transaction exception was raised! Call support.", "Error");
          FacesContext.getCurrentInstance().addMessage(null, message);
          ex.printStackTrace();
       }
+   }
+
+   public void agreeTerms()
+   {
+      FacesMessage message;
+      if (getAcceptterms().equalsIgnoreCase("N"))
+      {
+         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot continue.  Either accept the term, or go back to dashboard.", "Error");
+         FacesContext.getCurrentInstance().addMessage(null, message);
+
+         return;
+      }
+      nextPage();
    }
 
 

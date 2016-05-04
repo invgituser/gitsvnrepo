@@ -126,7 +126,7 @@
         </div>
         <div class="EmptyBox20"></div>
         <div class="Container100 Fs18">
-            <p:selectOneRadio
+            <p:selectOneRadio value="#{ceb.acceptterms}"
                  layout="pageDirection"
                  required="true" requiredMessage="Must choose one of the terms!">
                 <f:selectItem
@@ -143,8 +143,9 @@
         <div class="Container100 TexAlCenter">
             <p:commandButton styleClass="Fright" value="Next"
                              update=":ceForm:contentpanel,:ceForm:disclaimer"
-                             actionListener="#{ceb.nextPage}"/>
-
+                             process="@this" immediate="true"
+                             actionListener="#{ceb.agreeTerms}">
+            </p:commandButton>
         </div>
 
     </div>

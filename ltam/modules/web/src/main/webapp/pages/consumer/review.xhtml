@@ -51,8 +51,11 @@
                     <input type="hidden" name="RepReferralId" value="#{ceb.advisor}"/>
 
                     <f:facet name="footer">
-                        <h:button styleClass="Fleft btn_left startover"
-                                         actionListener="#{ceb.startOver}"/>
+                        <div class="Fleft btn_left">
+                            <a href="/pages/consumer/cedit.xhtml">
+                                <img class="startover"/>
+                            </a>
+                        </div>
                         <h:commandButton type="submit" styleClass="investnow btn_rite"/>
                     </f:facet>
                 </p:panel>

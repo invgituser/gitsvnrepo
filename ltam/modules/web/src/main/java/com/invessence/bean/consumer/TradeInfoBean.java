@@ -1,19 +1,9 @@
 package com.invessence.bean.consumer;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
-import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
-import com.invessence.dao.common.UserInfoDAO;
-import com.invessence.dao.consumer.ConsumerSaveDAO;
-import com.invessence.data.common.AccountData;
 import com.invessence.data.consumer.TradeData;
-import com.invessence.util.WebUtil;
-import com.invessence.ws.bean.WSCallStatus;
-import com.invessence.ws.service.ServiceLayer;
 
 
 /**
@@ -29,17 +19,66 @@ import com.invessence.ws.service.ServiceLayer;
 public class TradeInfoBean implements Serializable
 {
    TradeData tradeData = new TradeData();
+   private String beanacctnum;
+   private String beantranno;
+   private String beantype;
+   private String beanfund;
+   private String beanamt;
 
-   @ManagedProperty("#{webutil}")
-   WebUtil webutil;
-   public void setWebutil(WebUtil webutil)
-   {
-      this.webutil = webutil;
-   }
 
    public TradeData getTradeData()
    {
       return tradeData;
+   }
+
+   public String getBeanacctnum()
+   {
+      return beanacctnum;
+   }
+
+   public void setBeanacctnum(String beanacctnum)
+   {
+      this.beanacctnum = beanacctnum;
+   }
+
+   public String getBeantranno()
+   {
+      return beantranno;
+   }
+
+   public void setBeantranno(String beantranno)
+   {
+      this.beantranno = beantranno;
+   }
+
+   public String getBeanamt()
+   {
+      return beanamt;
+   }
+
+   public void setBeanamt(String beanamt)
+   {
+      this.beanamt = beanamt;
+   }
+
+   public String getBeantype()
+   {
+      return beantype;
+   }
+
+   public void setBeantype(String beantype)
+   {
+      this.beantype = beantype;
+   }
+
+   public String getBeanfund()
+   {
+      return beanfund;
+   }
+
+   public void setBeanfund(String beanfund)
+   {
+      this.beanfund = beanfund;
    }
 
    public void setTradeData(TradeData tradeData)
@@ -50,7 +89,7 @@ public class TradeInfoBean implements Serializable
    public void initTradeData(TradeData tradeData) {
       if (tradeData != null) {
          this.tradeData = tradeData;
-         webutil.redirect("/pages/consumer/tradeinfo.xhtml", null);
+
       }
    }
 

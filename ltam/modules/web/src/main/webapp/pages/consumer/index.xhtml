@@ -97,27 +97,27 @@
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-dollar Fs14 white"
                                                                                                  action="#{cdash.doAction('A')}">
-                                                                                    <p:tooltip for="fundBtn" value="Fund Account"/>
+                                                                                    <p:tooltip for="fundBtn" value="Add Funds"/>
                                                                                     <f:setPropertyActionListener value="#{acct}"
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </td>
                                                                             <td style="width: 7%; text-align: center;">
                                                                                 <p:commandButton id="editBtn"
-                                                                                                 styleClass="Fs14 CyanButton"
+                                                                                                 styleClass="Fs14 OrangeButton"
                                                                                                  process="@this" immediate="true"
-                                                                                                 icon="fa fa-edit Fs14 white"
+                                                                                                 icon="fa fa-exchange Fs14 white"
                                                                                                  action="#{cdash.doAction('E')}">
-                                                                                    <p:tooltip for="editBtn" value="Transfer Fund"/>
+                                                                                    <p:tooltip for="editBtn" value="Exchange fund"/>
                                                                                     <f:setPropertyActionListener value="#{acct}"
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </td>
                                                                             <td style="width: 7%; text-align: center;">
                                                                                 <p:commandButton id="acctBtn"
-                                                                                                 styleClass="Fs14 OrangeButton"
+                                                                                                 styleClass="Fs14 CyanButton"
                                                                                                  process="@this" immediate="true"
-                                                                                                 icon="fa fa-envelope Fs14 black"
+                                                                                                 icon="fa fa-edit Fs14 black"
                                                                                                  action="#{cdash.doAction('C')}">
                                                                                     <p:tooltip for="acctBtn" value="Edit Account"/>
                                                                                     <f:setPropertyActionListener value="#{acct}"

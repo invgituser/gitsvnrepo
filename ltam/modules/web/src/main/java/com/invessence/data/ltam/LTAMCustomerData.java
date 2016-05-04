@@ -43,6 +43,7 @@ public class LTAMCustomerData extends LTAMRiskData
    private String cusip;
    private String securityname;
    private Integer fundID;
+   private String acceptterms;
 
 
    public LTAMCustomerData()
@@ -390,6 +391,16 @@ public class LTAMCustomerData extends LTAMRiskData
    public void setFundID(Integer fundID)
    {
       this.fundID = fundID;
+   }
+
+   public String getAcceptterms()
+   {
+      return acceptterms;
+   }
+
+   public void setAcceptterms(String acceptterms)
+   {
+      this.acceptterms = acceptterms;
    }
 
    public void resetAllData() {

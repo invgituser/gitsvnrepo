@@ -6,6 +6,14 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/template.xhtml">
 
+    <f:metadata>
+        <f:viewParam name="acct" value="#{tradeinfobean.beanacctnum}"/>
+        <f:viewParam name="tran" value="#{tradeinfobean.beantranno}"/>
+        <f:viewParam name="type" value="#{tradeinfobean.beantype}"/>
+        <f:viewParam name="fund" value="#{tradeinfobean.beanfund}"/>
+        <f:viewParam name="beanamt" value="#{tradeinfobean.beanamt}"/>
+    </f:metadata>
+
     <ui:define name="content">
 
         <h:form>
@@ -24,19 +32,19 @@
                             </div>
                             <div class="EmptyBox20"></div>
 
-                            <div class="Container90 TexAlLeft">
+                            <div class="Container90 TexAlLeft MarLeft10">
                                 <p:panelGrid columns="2" layout="grid">
                                     <h:outputText value="Transaction ID" />
-                                    <h:outputText value="#{tradeinfobean.tradeData.webservicenum}"/>
+                                    <h:outputText value="#{tradeinfobean.beanacctnum}"/>
 
                                     <h:outputText value="Type" />
-                                    <h:outputText value="#{tradeinfobean.tradeData.tradetype}"/>
+                                    <h:outputText value="#{tradeinfobean.beantype}"/>
 
                                     <h:outputText value="Fund" />
-                                    <h:outputText value="#{tradeinfobean.tradeData.securityname}"/>
+                                    <h:outputText value="#{tradeinfobean.beanfund}"/>
 
                                     <h:outputText value="Amount" />
-                                    <h:outputText value="#{tradeinfobean.tradeData.investment}"/>
+                                    <h:outputText value="#{tradeinfobean.beanamt}"/>
 
                                 </p:panelGrid>
                             </div>

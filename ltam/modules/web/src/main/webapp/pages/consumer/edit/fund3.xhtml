@@ -13,7 +13,7 @@
             <h:outputText value="#{fundbean.investment}">
                <f:convertNumber currencySymbol="$" type="currency"/>
             </h:outputText>
-            from #{fundbean.bankNames} from account #{fundbean.hiddenBankAccountNum} indicated below
+            from #{fundbean.bankname} from account #{fundbean.hiddenBankAccountNum} indicated below
             for the corresponding account
 	    </div>
             <div class="EmptyBox40"></div>
@@ -23,7 +23,7 @@
                     <td class="TexAlRight" style="width: 25%">Amount</td>
                 </tr>
                 <tr>
-                    <td class="TexAlLeft" style="width: 75%">#{ceb.securityname}</td>
+                    <td class="TexAlLeft" style="width: 75%">#{fundbean.selectedAccount.securityName}</td>
                     <td class="TexAlRight" style="width: 25%">
                         <h:outputText value="#{fundbean.selectedAccount.invested}">
                             <f:convertNumber currencySymbol="$" type="currency"/>

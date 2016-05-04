@@ -393,6 +393,7 @@ public class FundAccountBean implements Serializable
             if (wsCallResult.getGenericObject() != null) {
                wstrasactionnumber = ((TransactionDetails) wsCallResult.getGenericObject()).getTransactionId();
             }
+/*
             TradeData tradedata = new TradeData(null, selectedAccount.getAcctnum(), selectedAccount.getClientAccountID(),
                                                 "Fund", wstrasactionnumber, selectedAccount.getCusip(),
                                                 getInvestment(), getBankname(), getHiddenBankAccountNum(),
@@ -404,6 +405,15 @@ public class FundAccountBean implements Serializable
 
             TradeInfoBean tib = new TradeInfoBean();
             tib.initTradeData(tradedata);
+*/
+            JavaUtil jutil = new JavaUtil();
+            Map <String, String> obj = new HashMap<String, String>();
+            obj.put("acct", selectedAccount.getClientAccountID());
+            obj.put("tran", wstrasactionnumber);
+            obj.put("type", "Fund");
+            obj.put("fund", selectedAccount.getSecurityName());
+            obj.put("beanamt", jutil.displayFormat(getInvestment(),"$#,###,###.00"));
+            webutil.redirect("/pages/consumer/tradeinfo.xhtml", obj);
 
 /*
             Map <String, String> obj = new HashMap<String, String>();
