@@ -87,7 +87,7 @@
 .SymbilBG.Geometry {
     background-image: url("#{resource['ltam:images/train.jpg']}");
     background-attachment: fixed;
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 

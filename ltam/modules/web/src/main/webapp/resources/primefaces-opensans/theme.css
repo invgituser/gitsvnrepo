@@ -3754,7 +3754,7 @@ hr.ui-widget-header {
 }
 .ui-messages ul {
   margin-left: 45px !important;
-  margin-top: 9px !important;
+  margin-top: 0px !important;
 }
 /*Style For UI Panel ------------------------------------------------------------------------------------- */
 .ui-panel {
@@ -5218,7 +5218,7 @@ hr.ui-widget-header {
 }
 .ui-steps .ui-steps-item .ui-menuitem-link {
   height: 10px;
-  padding: 0px 10px !important;
+  padding: 0px 0px !important;
 }
 .ui-steps .ui-steps-item .ui-steps-number {
   display: inline-block;

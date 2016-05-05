@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="Container100">
-                        <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
+                        <p:panel id="inputArea" style="border: 0px!important;">
 
                             <p:outputPanel style="border: 0px"
                                            rendered="#{ceb.pagemanager.page == 0}">
@@ -81,7 +81,7 @@
                             </p:outputPanel>
                             <p:outputPanel style="border: 0px"
                                            rendered="#{ceb.pagemanager.page != 0}">
-                                <div class="Container50">
+                                <div class="Container50 Responsive100">
                                     <ui:fragment rendered="#{ceb.pagemanager.page == 1}">
                                         <ui:include src="/pages/consumer/edit/page2.xhtml"/>
                                     </ui:fragment>
@@ -98,7 +98,7 @@
                                         <ui:include src="/pages/consumer/edit/page6.xhtml"/>
                                     </ui:fragment>
                                 </div>
-                                <div class="Container50">
+                                <div class="Container50 Responsive100">
                                     <ui:include src="/pages/consumer/edit/rightpanel.xhtml"/>
                                 </div>
                             </p:outputPanel>

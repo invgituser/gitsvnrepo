@@ -7,7 +7,7 @@
 
     <div class="Container100 ">
         <div class="ContainerIndent">
-	    <div class="Fs24">
+	    <div class="Fs16 textAlign">
             You are about to make an exchange from #{ceb.origCustomerData.themeData.displayname} in the
             amount of
             <h:outputText value="#{ceb.investment}">
@@ -16,12 +16,15 @@
             to the #{ceb.themeData.displayname} indicated below
             for the corresponding account
 	    </div>
-            <div class="EmptyBox40"></div>
+            <div class="EmptyBox20"></div>
             <table class="Container100 Responsive100">
-                <tr style="background: blue; color: #ffffff; font-weight: bold">
-                    <td class="TexAlCenter" style="width: 75%;">Fund</td>
-                    <td class="TexAlRight" style="width: 25%">Amount</td>
+                <thead>
+                <tr style="background: #7B7DB3; color: #ffffff; font-weight: bold;padding: 0; height: 29px;">
+                    <th class="TexAlCenter" style="width: 75%;">Fund</th>
+                    <th class="TexAlRight" style="width: 25%; padding-right: 15px;">Amount</th>
                 </tr>
+                </thead>
+                <tbody>
                 <tr>
                     <td class="TexAlLeft" style="width: 75%">#{ceb.themeData.securityname}</td>
                     <td class="TexAlRight" style="width: 25%">
@@ -38,6 +41,7 @@
                         </h:outputText>
                     </td>
                 </tr>
+                </tbody>
             </table>
             <div class="EmptyBox20"></div>
             <p:commandButton value="Cancel" rendered="#{ceb.pagemanager.prevButtonStat}"

@@ -322,6 +322,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	/* responsive support */
 	.Responsive{width:33.3%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive50{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
+.Responsive50P{width:50%;}
 	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
     
     /* make auto of element width attribute on mobile devices with media queries */
@@ -329,7 +330,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
     .HeiAutoOnMobile{height:auto !important; min-height:50px !important;}
     
      /*vivek CSS */
-	.tab_main {padding:0 50px; padding-top:20px;}
+	.tab_main {padding:0 15px; padding-top:20px;}
 	.input_wid1 {width:140px;}
 	.title1 {font-size:1.5em;}
 	.top_desk {margin-top:10px; float: none;}
@@ -347,6 +348,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	/* responsive support */
 	.Responsive{width:50%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+	.Responsive50P{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	
 	.ContainerIndent{padding:5px;}
@@ -399,6 +401,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	/* responsive support */
 	.Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+	.Responsive50P{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	
 	.ContainerIndent{padding:5px;}
@@ -471,6 +474,7 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	/* responsive support */
 	.Responsive{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive50{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
+	.Responsive50P{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	.Responsive100{width:100%; float:left; margin-left:0px !important; margin-right:0px !important;}
 	
 	.ContainerIndent{padding:5px;}
@@ -518,11 +522,245 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 					
 }
 
+/********************Prakash Lal***********************/
+.textAlign {
+text-align: center;	
+}
 
+.termsNCondition li {
+	font-size: 15px;
+	margin:5px 0;
+}
+
+.ui-messages-error-icon {
+	top: -9px;
+}
+
+.ui-messages .ui-messages-close {
+	margin-top: 4px;
+}
+
+.ui-messages-info-icon {
+    top: -8px;
+}
+
+.layout-portlets-box > .Container100 > .ContainerIndent {
+	width: 100%;
+}
+
+.InputBlockMargin {
+	margin: 0 5px;
+}
+
+.inputPaddingP > input {
+	padding:0!important;
+}
+
+.DashboardIconBlock > div
+{
+	text-align: center;
+}
+.Mobilelabel {
+	display: none;
+}
+.Wid90P {}
+/**/
+@media (min-width: 781px) and (max-width: 3000px) {
+.IconWidthP {
+	width:25%!important;
+}
+}
+
+@media (max-width:780px){
+	.DashboardIconBlock > div {
+	//text-align: left!important;
+	//width:100%!important;
+	margin: 5px 0;
+	}
+.AccountDashboardAlignRes {
+	margin-top:15px;
+}
+.Mobilelabel {
+	display:block;
+	    padding: 10px 0;
+	    text-align:left;
+}
+}
+
+@media (max-width: 650px)  {
+	.CenterfaSpacing {
+	width: 0%!important;
+	height: 0px;
+	text-align: center;
+}
+.ResponsivePFA {
+width: 100%!important;	
+text-align: center;
+}
+.CBAlign, .SaveAlignFA {
+text-align: center;	
+}
+.CBResWidth {
+	width:80%!important;
+}
+.ResPInputWidth {
+	width:100%!important;
+	    margin-top:10px;
+}
+
+.ResPInputWidth > .ui-inputtext {
+	width:90%!important;
+}
+.ui-panelgrid .ui-panelgrid-cell {
+	padding:4px 0!important;
+}
+.ui-panelgrid-footer {
+    text-align: center!important;
+}
+}
+@media (min-width:801px) and (max-width: 1200px)  {
+	.ui-panelgrid-footer {
+    text-align: center!important;
+    width:86%;
+}
+	.CenterfaSpacing {
+	width: 15%!important;
+	height: 1px;
+}
+.ResponsivePFA {
+width: 80%!important;	
+}
+}
+@media (min-width:1401px) and (max-width: 4000px)  {
+	.ui-panelgrid-footer {
+    text-align: center!important;
+    width:78%;
+}
+	.CenterfaSpacing {
+	width: 30%!important;
+	height: 1px;
+}
+}
+@media (min-width:1201px) and (max-width: 1400px)  {
+	.ui-panelgrid-footer {
+    text-align: center!important;
+}
+	.CenterfaSpacing {
+	width: 28%!important;
+	height: 1px;
+}
+}
+@media (min-width:651px) and (max-width: 800px)  {
+.ui-panelgrid-footer {
+    text-align: center!important;
+    width:91%;
+}
+	.CenterfaSpacing {
+	width: 8%!important;
+	height: 1px;
+}
+.ResponsivePFA {
+width: 90%!important;	
+}
+}
+
+@media (min-width:1201px) and (max-width: 1320px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	width: 855px;
+}
+}
+@media (min-width:1000px) and (max-width: 1200px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	width: 805px;
+}
+.ui-steps .ui-steps-title {
+    margin-left: -4px;
+}
+}
+@media (min-width:800px) and (max-width: 960px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	    width: 720px!important;
+    font-size: 12px!important;
+}
+}
+
+@media (min-width:730px) and (max-width: 800px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	    
+    font-size: 12px!important;
+}
+}
+
+@media (min-width:641px) and (max-width: 729px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	    width: 540px;
+    font-size: 12px!important;
+}
+}
+
+@media (min-width:561px) and (max-width: 639px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	    width: 490px;
+    font-size: 12px!important;
+}
+}
+
+@media (min-width:481px) and (max-width: 560px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	    width: 360px;
+}
+.InputWidthP
+{
+	width: 100%!important;
+	    margin: 5px 0;
+}
+
+.CenterAlignP, .AddressBlockAlign  {
+	text-align:center!important;
+	    float: none;
+}
+}
+
+@media (min-width:361px) and (max-width: 480px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	    width: 310px;
+}
+}
+
+@media (min-width:200px) and (max-width: 360px)  {
+	.layout-portlets-box > .Container100 > .ContainerIndent {
+	   width: 260px;
+}
+.ui-steps .ui-steps-item {
+	background: none;
+	width: 22px;
+}
+.InputWidthP
+{
+	width: 100%!important;
+	    margin: 5px 0;
+}
+
+.CenterAlignP, .AddressBlockAlign  {
+	text-align:center!important;
+    float: none;
+}
+}
 
 @media (min-width:360px) and (max-width: 480px) {
+.InputWidthP
+{
+	width: 100%!important;
+	    margin: 5px 0;
+}
+.CenterAlignP, .AddressBlockAlign {
+	text-align:center!important;
+	    float: none;
+}
 	/*vivek CSS */
-	.tab_main {padding:0 30px; padding-top:15px;}
+	.tab_main {
+	    /*margin: 0 34px;*/
+	 padding-top:15px;}
 	.ui-steps .ui-steps-item .ui-steps-number {font-size:16px;}
 	h1 {font-size:1em;}
 	h1 > input {font-size:1.5em;}
@@ -562,6 +800,17 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 
 
 }	
+@media (min-width: 1000px) and (max-width: 1320px) {
+	.ui-steps.ui-steps-readonly .ui-steps-item .ui-menuitem-link {
+    width: 85px;
+}
+}
+
+@media (min-width: 730px) and (max-width: 770px) {
+	.ui-steps.ui-steps-readonly .ui-steps-item .ui-menuitem-link {
+    width: 65px;
+}
+}
 
 @media (min-width:320px) and (max-width: 360px) {
 	/*vivek CSS */
