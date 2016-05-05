@@ -61,9 +61,9 @@ public class SysParameters
    private WSCommonDao wsCommonDao;
 
    public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
-//   public void saveWSRequest(String status, String clientAccountID, String opt, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String reuestType){
+//   public void saveWSRequest(String status, String clientAccountID, String opt, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String requestType){
 //      try{
-//         wsCommonDao.insertWSRequest(new WSRequest(status, clientAccountID, opt, remarks, reqTime, reqXml, resTime, resXml, reuestType));}
+//         wsCommonDao.insertWSRequest(new WSRequest(status, clientAccountID, opt, remarks, reqTime, reqXml, resTime, resXml, requestType));}
 //      catch(Exception e){
 //         e.printStackTrace();
 //         logger.error(e.getMessage());

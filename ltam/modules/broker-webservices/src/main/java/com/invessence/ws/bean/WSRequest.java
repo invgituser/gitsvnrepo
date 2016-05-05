@@ -8,7 +8,7 @@ import java.util.Date;
 public class WSRequest
 {
    private Long id;
-   private String clientAccountID,  reuestType, status, reqXml, resXml, remarks, opt;
+   private String clientAccountID, requestType, status, reqXml, resXml, remarks, opt;
    private Date reqTime, resTime;
 
    public Long getId()
@@ -21,7 +21,7 @@ public class WSRequest
       this.id = id;
    }
 
-//   public WSRequest(String status, String clientAccountID, String opt, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String reuestType)
+//   public WSRequest(String status, String clientAccountID, String opt, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String requestType)
 //   {
 //      this.status = status;
 //      this.clientAccountID = clientAccountID;
@@ -31,23 +31,33 @@ public class WSRequest
 //      this.reqXml = reqXml;
 //      this.resTime = resTime;
 //      this.resXml = resXml;
-//      this.reuestType = reuestType;
+//      this.requestType = requestType;
 //   }
 
-   public WSRequest(String status, String clientAccountID, String reuestType)
+   public WSRequest(String status, String clientAccountID, String requestType)
    {
       this.status = status;
       this.clientAccountID = clientAccountID;
       this.reqTime=new Date();
-      this.reuestType = reuestType;
+      this.requestType = requestType;
    }
+
+   public WSRequest(String status, String clientAccountID, String requestType,Date reqTime, String remarks)
+   {
+      this.status = status;
+      this.clientAccountID = clientAccountID;
+      this.reqTime=reqTime;
+      this.requestType = requestType;
+      this.remarks = remarks;
+   }
+
 
    @Override
    public String toString()
    {
       return "WSRequest{" +
          "clientAccountID='" + clientAccountID + '\'' +
-         ", reuestType='" + reuestType + '\'' +
+         ", requestType='" + requestType + '\'' +
          ", status='" + status + '\'' +
          ", reqXml='" + reqXml + '\'' +
          ", resXml='" + resXml + '\'' +
@@ -128,14 +138,14 @@ public class WSRequest
       this.resXml = resXml;
    }
 
-   public String getReuestType()
+   public String getRequestType()
    {
-      return reuestType;
+      return requestType;
    }
 
-   public void setReuestType(String reuestType)
+   public void setRequestType(String requestType)
    {
-      this.reuestType = reuestType;
+      this.requestType = requestType;
    }
 
    public String getStatus()

@@ -21,7 +21,7 @@ public interface WSCommonDao
    public UserAcctExt getAccountExtInfo(String accountNumber)throws SQLException;
    public boolean insertAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
    //public boolean updateAccountExtInfo(UserAcctExt userAcctExt)throws SQLException;
-public boolean insertWSRequest(WSRequest wsRequest);
+   public boolean insertWSRequest(WSRequest wsRequest);
 
 /*   public List<BrokerHostDetails> getBrokerHostDetails()throws SQLException;
    public BrokerHostDetails getBrokerHostDetails(String where)throws SQLException;

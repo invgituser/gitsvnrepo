@@ -20,11 +20,16 @@ public interface ServiceLayer
    public WSCallResult fundAccount(String clientAccountID, int fundID, double amount, String bankAccountNumber);
    public WSCallResult fullFundTransfer(String clientAccountID, int fromFundID, int toFundID, String bankAccountNumber);
    public boolean isServiceActive();
+
+   public WSCallStatus resetPassword(String clientAccountID);
+
+//   public void resetPassword();
+//   public void toTestAPI();
    //Future required functions
 
    //public WSCallStatus loginUser(String clientAccountID);
    //public WSCallStatso createUser(String clientAccountID, String securityQuestion, String securityAnswer);
    //public WSCallStatus isUserExist(String userId);
-   //public WSCallStatus getMailingAddress(String clientAccountID);
+   public WSCallResult getMailingAddress(String clientAccountID);
 
 }

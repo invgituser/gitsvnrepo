@@ -2319,8 +2319,8 @@ public class AccountServicesSoap_BindingStub extends org.apache.axis.client.Stub
         }
         else {
 
-            System.out.println("Soap Request :"+_call.getMessageContext().getRequestMessage().getSOAPPartAsString());
-            System.out.println("Soap Response :"+_call.getMessageContext().getResponseMessage().getSOAPPartAsString());
+//            System.out.println("BANK Details Request :"+_call.getMessageContext().getRequestMessage().getSOAPPartAsString());
+//            System.out.println("BANK Details Response :"+_call.getMessageContext().getResponseMessage().getSOAPPartAsString());
 
             extractAttachments(_call);
             try {

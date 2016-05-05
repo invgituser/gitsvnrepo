@@ -27,6 +27,7 @@ public class WSCommonDaoImpl implements WSCommonDao
    private final String getUserAccDetailsByAccNumber="select * from vw_ws_web_user_details where clientAccountID=?";
    private final String getPendingUserAccDetails="select * from vw_ws_web_user_details where status='P' ";
    private final String getPendingUserExtAccDetails="select det.* from vw_ws_web_user_details det, vw_ws_web_user_ext_details ext where det.clientAccountId=ext.clientAccountId and det.status ='A' and ext.status='P'";
+   private final String getUserAccDetailsByWhereClause="select * from vw_ws_web_user_details ";
 
 //   private final String updatePendingUserAccDetailsOnSuccess="update user_logon_webservice set pwd=?, status=?,remarks=?,lastupdated=? where clientAccountID=?";
 //   private final String updatePendingUserAccDetailsOnFailure="update user_logon_webservice set status=?,remarks=?,lastupdated=? where clientAccountID=?";
@@ -50,12 +51,12 @@ public class WSCommonDaoImpl implements WSCommonDao
    {
       logger.info("WSCommonDaoImpl.getUserAccDetailsByWhereClause");
       List<UserAcctDetails> lst = null;
-      String sql = "select clientAccountID, acctnum, internalRepID, repNum, repName, email, " +
-         "invite, applicantFName, applicantMName, applicantLName, mailAddrs1, mailAddrs2, mailCity, " +
-         "mailState, mailZipCode, primaryPhoneNbr, initialCusip, initialInvestment, ssn, created, lastUpdated " +
-         "from  ltam.ltam_acct_info "+where;
-      logger.debug("getUserAccDetailsByWhereClause = "+sql);
-      lst = webServiceJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
+//      String sql = "select clientAccountID, acctnum, internalRepID, repNum, repName, email, " +
+//         "invite, applicantFName, applicantMName, applicantLName, mailAddrs1, mailAddrs2, mailCity, " +
+//         "mailState, mailZipCode, primaryPhoneNbr, initialCusip, initialInvestment, ssn, created, lastUpdated " +
+//         "from  ltam.ltam_acct_info "+where;
+      logger.debug("getUserAccDetailsByWhereClause = "+getUserAccDetailsByWhereClause+where);
+      lst = webServiceJdbcTemplate.query(getUserAccDetailsByWhereClause+where, ParameterizedBeanPropertyRowMapper.newInstance(UserAcctDetails.class));
       return lst;
    }
 

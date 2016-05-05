@@ -273,6 +273,9 @@ public class TransactionServicesSoap_BindingStub extends org.apache.axis.client.
             throw (java.rmi.RemoteException)_resp;
         }
         else {
+            System.out.println("Transaction Request :"+_call.getMessageContext().getRequestMessage().getSOAPPartAsString());
+            System.out.println("Transaction Response :"+_call.getMessageContext().getResponseMessage().getSOAPPartAsString());
+
             extractAttachments(_call);
             try {
                 return (com.invessence.ws.provider.gemini.wsdl.transaction.TransactionCollectionResult) _resp;

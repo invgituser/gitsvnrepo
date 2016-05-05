@@ -22,11 +22,11 @@ public class ServiceLayerTDImpl implements CallingLayer
       return null;
    }
 
-   @Override
-   public UserAcctExt getAcctExtInfo(UserAcctDetails userAcctDetails) throws Exception
-   {
-      return null;
-   }
+//   @Override
+//   public UserAcctExt getAcctExtInfo(UserAcctDetails userAcctDetails) throws Exception
+//   {
+//      return null;
+//   }
 
    @Override
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception
@@ -77,5 +77,11 @@ public class ServiceLayerTDImpl implements CallingLayer
 
       throw new NoServiceSupportException("updateUserEmail Service Not Support");
       //return null;
+   }
+
+   @Override
+   public WSCallStatus resetPassword(UserAcctDetails userAcctDetails, String newPwd) throws Exception
+   {
+      return null;
    }
 }

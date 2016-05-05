@@ -1,7 +1,6 @@
 package com.invessence.ws.dao;
 
 import java.sql.*;
-import java.sql.Date;
 import java.util.*;
 
 import com.invessence.ws.bean.*;
@@ -35,15 +34,14 @@ public class SPRequestAuditrial extends StoredProcedure
       }
       public DBResponse execute(WSRequest webRequest){
          Map inputs = new HashMap();
-
          inputs.put("p_id", webRequest.getId());
          inputs.put("p_clientAccountID", webRequest.getClientAccountID());
-         inputs.put("p_reuestType", webRequest.getReuestType());
+         inputs.put("p_reuestType", webRequest.getRequestType());
          inputs.put("p_status", webRequest.getStatus());
          inputs.put("p_reqXml", webRequest.getReqXml());
          inputs.put("p_resXml", webRequest.getResXml());
          inputs.put("p_reqTime", webRequest.getReqTime()==null?null: new Timestamp(webRequest.getReqTime().getTime()));
-         inputs.put("p_resTime",  webRequest.getReqTime()==null?null: new Timestamp(webRequest.getResTime().getTime()));
+         inputs.put("p_resTime",  webRequest.getResTime()==null?null: new Timestamp(webRequest.getResTime().getTime()));
          inputs.put("p_remarks", webRequest.getRemarks());
          inputs.put("p_opt", webRequest.getOpt());
 

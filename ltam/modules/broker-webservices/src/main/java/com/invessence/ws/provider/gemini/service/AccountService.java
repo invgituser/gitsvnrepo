@@ -7,10 +7,10 @@ import com.invessence.ws.bean.*;
  */
 public interface AccountService
 {
-   public WSCallStatus getAccountInfo(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
+//   public WSCallStatus getAccountInfo(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
    public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception;
    public WSCallStatus addAccountForCommonMailing(UserAcctDetails userAcctDetails) throws Exception;
-   public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
+//   public WSCallStatus getMailingAddress(UserAcctDetails userAcctDetails, UserAcctExt userAcctExt) throws Exception;
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails) throws Exception;
 
    public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception;

@@ -1,5 +1,7 @@
 package com.invessence;
 
+import com.invessence.util.EncryDecryAES;
+import com.invessence.ws.util.SysParameters;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,10 +15,7 @@ public class Main
       try
       {
 
-         ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("webServicesConfig.xml");
-         CallingProgramme callingProgramme = (CallingProgramme) context.getBean("callingProgramme");
-         callingProgramme.call();
-         context.close();
+         System.out.println(EncryDecryAES.decrypt("h6ynsRLMxU9XKV2qCp/mvA==", SysParameters.encryDecryKey));
       }
       catch (Exception e)
       {

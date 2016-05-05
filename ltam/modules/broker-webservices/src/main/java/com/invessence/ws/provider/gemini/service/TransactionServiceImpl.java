@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import com.invessence.ws.bean.*;
-import com.invessence.ws.util.SysParameters;
+import com.invessence.ws.dao.WSCommonDao;
+import com.invessence.ws.util.*;
 import com.invessence.ws.provider.gemini.wsdl.account.AchPayeeResult;
 import com.invessence.ws.provider.gemini.wsdl.transaction.*;
 import org.apache.axis.types.UnsignedByte;
@@ -19,14 +20,21 @@ public class TransactionServiceImpl implements TransactionService
    TransactionServicesLocator servicesLocator = new TransactionServicesLocator();
    TransactionServicesSoap_PortType servicesSoap = null;
 
-   String encryDecryKey="aRXDugfr4WQpVrxu";
+   //Date reqTime=null;
+   private WSCommonDao wsCommonDao;
+   public TransactionServiceImpl(WSCommonDao wsCommonDao){
+      this.wsCommonDao=wsCommonDao;
+   }
 
    @Override
    public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
    {
       logger.info("TransactionServiceImpl.fundAccount");
       logger.debug("userAcctDetails = [" + userAcctDetails + "], fundID = [" + fundID + "], amount = [" + amount + "], bankAccountNumber = [" + bankAccountNumber + "]");
-      AchPayeeResult achPayeeResult=new AccountServiceImpl().getAchPayeeCollection(userAcctDetails, bankAccountNumber);
+      Date reqTime=new Date();
+      try{
+
+      AchPayeeResult achPayeeResult=new AccountServiceImpl(wsCommonDao).getAchPayeeCollection(userAcctDetails, bankAccountNumber);
       logger.debug("achPayeeResult = " + achPayeeResult);
       if(achPayeeResult==null){
          return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
@@ -82,102 +90,26 @@ public class TransactionServiceImpl implements TransactionService
          logger.debug("transactionCollectionResult = " + transactionCollectionResult);
          if (transactionCollectionResult==null || transactionCollectionResult.getErrorStatus()==null)
          {
+            WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT.toString(),reqTime, SysParameters.wsResIssueMsg);
+            wsCommonDao.insertWSRequest(wsRequest);
             return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
          }else if(transactionCollectionResult.getErrorStatus().getErrorCode()==0)
          {
             TransactionDetails transactionDetails=new TransactionDetails(""+transactionCollectionResult.getMasterTransactionId());
+            WSRequest wsRequest = new WSRequest("S", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT.toString(),reqTime, transactionCollectionResult.getErrorStatus().getErrorMessage());
+            wsCommonDao.insertWSRequest(wsRequest);
             return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),transactionDetails);
          }else
          {
-            return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),null);
-         }
-      }
-   }
-
-   @Override
-   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
-   {
-      logger.info("TransactionServiceImpl.fullFundTransfer");
-      logger.debug("userAcctDetails = [" + userAcctDetails + "], fromFundID = [" + fromFundID + "], toFundID = [" + toFundID + "], bankAccountNumber = [" + bankAccountNumber + "]");
-      AchPayeeResult achPayeeResult=new AccountServiceImpl().getAchPayeeCollection(userAcctDetails, bankAccountNumber);
-      logger.debug("achPayeeResult = " + achPayeeResult);
-      if(achPayeeResult==null){
-         return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
-      }else
-      {
-         servicesSoap = servicesLocator.getTransactionServicesSoap();
-         List<FundInformation> lstFundIfo = new ArrayList<>();
-         BigDecimal tranTotalAmount;
-
-         FundInformation fromFund = new FundInformation();
-         fromFund.setFundId((short) fromFundID);         // Fund to trade FROM
-         fromFund.setAmountType(new UnsignedByte(7));    // 7 - full redemption / close account
-         fromFund.setAmount(new BigDecimal(100));        // 100%
-         fromFund.setFromToLineIndicator(new UnsignedByte(1));
-         lstFundIfo.add(fromFund);
-         logger.debug("fromFund = " + fromFund);
-
-         FundInformation toFund = new FundInformation();
-         toFund.setFundId((short) toFundID);             // Fund to trade TO
-         toFund.setAmountType(new UnsignedByte(4));      // 4 - full redemption
-         toFund.setAmount(new BigDecimal(100));          // 100%
-         toFund.setFromToLineIndicator(new UnsignedByte(0));
-         lstFundIfo.add(toFund);
-         logger.debug("toFund = " + toFund);
-
-         tranTotalAmount=fromFund.getAmount().add(toFund.getAmount());
-
-         TransactionInfo tranInfo = new TransactionInfo();
-         tranInfo.setBankName(achPayeeResult.getBankName().trim());
-         //tranInfo.setBankRoutingNumber(achPayeeResult.getBankRoutingNumber().trim());
-         tranInfo.setBankAccountNumber(achPayeeResult.getBankAccountNumber().trim());
-         tranInfo.setBankAccountType(achPayeeResult.getBankAccountType());
-         tranInfo.setMasterTransactionType(new UnsignedByte(3)); // exchange
-         tranInfo.setAccountNumber(userAcctDetails.getClientAccountID().trim());
-         tranInfo.setMoneyTransactionType(new UnsignedByte(3));
-         tranInfo.setMasterTransactionSource(new UnsignedByte(9));
-         tranInfo.setCurrencyId(new UnsignedByte(1));
-//tranInfo.setDealerTransactionIndicator(0);
-         tranInfo.setAccountPayeeId(1);
-//tranInfo.setAs//tranInfo.setAllocationTradeIndicator(0);
-//tranInfo.setEndResultExchangeInd(0);
-//tranInfo.setExcludeAccountsList(string.Empty);
-         tranInfo.setReturnReadBackInfo(new UnsignedByte(2));
-         tranInfo.setReturnMessagesInfo(new UnsignedByte(1));
-         tranInfo.setNumberOfMasterTransactionLines(new UnsignedByte(lstFundIfo.size()));
-         tranInfo.setPriceCycleId(new UnsignedByte(200));
-         tranInfo.setUserId((short) 96);
-//tranInfo.setAgeBasedModelId(0);
-//tranInfo.setAutoDetermineFunds(0);
-//tranInfo.setAmountTypeIndicator(0);
-//tranInfo.setWebUserId("INV_310100016");
-         tranInfo.setRetirementIndicator(new UnsignedByte(0));
-         tranInfo.setMoneyAmount(tranTotalAmount);
-         Calendar calendar = Calendar.getInstance();
-         calendar.setTime(new Date());
-         tranInfo.setTradeDate(calendar);
-         logger.debug("tranInfo = " + tranInfo);
-
-         FundInformation[] fundInfo = lstFundIfo.toArray(new FundInformation[lstFundIfo.size()]);
-         TransactionCollectionResult transactionCollectionResult= servicesSoap.createTransaction(
-            new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
-            tranInfo,fundInfo);
-         logger.debug("transactionCollectionResult = " + transactionCollectionResult);
-
-         if (transactionCollectionResult==null|| transactionCollectionResult.getErrorStatus()==null)
-         {
-            return new WSCallResult( new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg),null);
-         }else if(transactionCollectionResult.getErrorStatus().getErrorCode()==0)
-         {
-            TransactionDetails transactionDetails=new TransactionDetails(""+transactionCollectionResult.getMasterTransactionId());
-            return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),transactionDetails);
-         }else
-         {
-            if(transactionCollectionResult.getNoOfErrors()>0 || transactionCollectionResult.getErrorStatus().getErrorCode()!=0){
-               StringBuilder errMsg=new StringBuilder();
-               TransactionMessageResult []transactionMessageResults=transactionCollectionResult.getTransactionMessageCollection();
-               if(transactionMessageResults.length>0){
-                  return new WSCallResult( new WSCallStatus(transactionMessageResults[0].getTransactionMessageId(), transactionMessageResults[0].getTransactionMessage()),null);
+            if (transactionCollectionResult.getNoOfErrors() > 0 || transactionCollectionResult.getErrorStatus().getErrorCode() != 0)
+            {
+               StringBuilder errMsg = new StringBuilder();
+               TransactionMessageResult[] transactionMessageResults = transactionCollectionResult.getTransactionMessageCollection();
+               if (transactionMessageResults.length > 0)
+               {
+                  WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT.toString(), reqTime, transactionMessageResults[0].getTransactionMessage());
+                  wsCommonDao.insertWSRequest(wsRequest);
+                  return new WSCallResult(new WSCallStatus(transactionMessageResults[0].getTransactionMessageId(), transactionMessageResults[0].getTransactionMessage()), null);
                }
 //               for(TransactionMessageResult transactionMessage: transactionMessageResults){
 //
@@ -188,14 +120,155 @@ public class TransactionServiceImpl implements TransactionService
 //                  logger.info("transactionMessage = " + transactionMessage);
 //                  //return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), errMsg.toString());
 //               }
-               return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),null);
-            }else
+               WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT.toString(), reqTime, transactionCollectionResult.getErrorStatus().getErrorMessage());
+               wsCommonDao.insertWSRequest(wsRequest);
+               return new WSCallResult(new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()), null);
+            }
+            else
             {
-               return new WSCallResult( new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()),null);
+               WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT.toString(), reqTime, transactionCollectionResult.getErrorStatus().getErrorMessage());
+               wsCommonDao.insertWSRequest(wsRequest);
+               return new WSCallResult(new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()), null);
             }
          }
+      } }
+      catch (Exception e)
+      {
+         WSRequest wsRequest = new WSRequest("E", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT.toString(),reqTime, e.getMessage());
+         wsCommonDao.insertWSRequest(wsRequest);
+         throw e;
       }
+   }
 
+   @Override
+   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
+   {
+      logger.info("TransactionServiceImpl.fullFundTransfer");
+      logger.debug("userAcctDetails = [" + userAcctDetails + "], fromFundID = [" + fromFundID + "], toFundID = [" + toFundID + "], bankAccountNumber = [" + bankAccountNumber + "]");
+      Date reqTime=new Date();
+      try
+      {
+         AchPayeeResult achPayeeResult = new AccountServiceImpl(wsCommonDao).getAchPayeeCollection(userAcctDetails, bankAccountNumber);
+         logger.debug("achPayeeResult = " + achPayeeResult);
+         if (achPayeeResult == null)
+         {
+            return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg), null);
+         }
+         else
+         {
+            servicesSoap = servicesLocator.getTransactionServicesSoap();
+            List<FundInformation> lstFundIfo = new ArrayList<>();
+            BigDecimal tranTotalAmount;
+
+            FundInformation fromFund = new FundInformation();
+            fromFund.setFundId((short) fromFundID);         // Fund to trade FROM
+            fromFund.setAmountType(new UnsignedByte(7));    // 7 - full redemption / close account
+            fromFund.setAmount(new BigDecimal(100));        // 100%
+            fromFund.setFromToLineIndicator(new UnsignedByte(1));
+            lstFundIfo.add(fromFund);
+            logger.debug("fromFund = " + fromFund);
+
+            FundInformation toFund = new FundInformation();
+            toFund.setFundId((short) toFundID);             // Fund to trade TO
+            toFund.setAmountType(new UnsignedByte(4));      // 4 - full redemption
+            toFund.setAmount(new BigDecimal(100));          // 100%
+            toFund.setFromToLineIndicator(new UnsignedByte(0));
+            lstFundIfo.add(toFund);
+            logger.debug("toFund = " + toFund);
+
+            tranTotalAmount = fromFund.getAmount().add(toFund.getAmount());
+
+            TransactionInfo tranInfo = new TransactionInfo();
+            tranInfo.setBankName(achPayeeResult.getBankName().trim());
+            //tranInfo.setBankRoutingNumber(achPayeeResult.getBankRoutingNumber().trim());
+            tranInfo.setBankAccountNumber(achPayeeResult.getBankAccountNumber().trim());
+            tranInfo.setBankAccountType(achPayeeResult.getBankAccountType());
+            tranInfo.setMasterTransactionType(new UnsignedByte(3)); // exchange
+            tranInfo.setAccountNumber(userAcctDetails.getClientAccountID().trim());
+            tranInfo.setMoneyTransactionType(new UnsignedByte(3));
+            tranInfo.setMasterTransactionSource(new UnsignedByte(9));
+            tranInfo.setCurrencyId(new UnsignedByte(1));
+//tranInfo.setDealerTransactionIndicator(0);
+            tranInfo.setAccountPayeeId(1);
+//tranInfo.setAs//tranInfo.setAllocationTradeIndicator(0);
+//tranInfo.setEndResultExchangeInd(0);
+//tranInfo.setExcludeAccountsList(string.Empty);
+            tranInfo.setReturnReadBackInfo(new UnsignedByte(2));
+            tranInfo.setReturnMessagesInfo(new UnsignedByte(1));
+            tranInfo.setNumberOfMasterTransactionLines(new UnsignedByte(lstFundIfo.size()));
+            tranInfo.setPriceCycleId(new UnsignedByte(200));
+            tranInfo.setUserId((short) 96);
+//tranInfo.setAgeBasedModelId(0);
+//tranInfo.setAutoDetermineFunds(0);
+//tranInfo.setAmountTypeIndicator(0);
+//tranInfo.setWebUserId("INV_310100016");
+            tranInfo.setRetirementIndicator(new UnsignedByte(0));
+            tranInfo.setMoneyAmount(tranTotalAmount);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            tranInfo.setTradeDate(calendar);
+            logger.debug("tranInfo = " + tranInfo);
+
+            FundInformation[] fundInfo = lstFundIfo.toArray(new FundInformation[lstFundIfo.size()]);
+            TransactionCollectionResult transactionCollectionResult = servicesSoap.createTransaction(
+               new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
+               tranInfo, fundInfo);
+            logger.debug("transactionCollectionResult = " + transactionCollectionResult);
+
+            if (transactionCollectionResult == null || transactionCollectionResult.getErrorStatus() == null)
+            {
+               WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER.toString(), reqTime, SysParameters.wsResIssueMsg);
+               wsCommonDao.insertWSRequest(wsRequest);
+               return new WSCallResult(new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg), null);
+            }
+            else if (transactionCollectionResult.getErrorStatus().getErrorCode() == 0)
+            {
+               WSRequest wsRequest = new WSRequest("S", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER.toString(), reqTime, transactionCollectionResult.getErrorStatus().getErrorMessage());
+               wsCommonDao.insertWSRequest(wsRequest);
+               TransactionDetails transactionDetails = new TransactionDetails("" + transactionCollectionResult.getMasterTransactionId());
+               return new WSCallResult(new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()), transactionDetails);
+            }
+            else
+            {
+               if (transactionCollectionResult.getNoOfErrors() > 0 || transactionCollectionResult.getErrorStatus().getErrorCode() != 0)
+               {
+                  StringBuilder errMsg = new StringBuilder();
+                  TransactionMessageResult[] transactionMessageResults = transactionCollectionResult.getTransactionMessageCollection();
+                  if (transactionMessageResults.length > 0)
+                  {
+                     WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER.toString(), reqTime, transactionMessageResults[0].getTransactionMessage());
+                     wsCommonDao.insertWSRequest(wsRequest);
+                     return new WSCallResult(new WSCallStatus(transactionMessageResults[0].getTransactionMessageId(), transactionMessageResults[0].getTransactionMessage()), null);
+                  }
+//               for(TransactionMessageResult transactionMessage: transactionMessageResults){
+//
+//                  errMsg.append("Account Number:"+ transactionMessage.getAccountNumber());
+//                  errMsg.append("Fund Id:"+ transactionMessage.getFundId());
+//                  errMsg.append("Fund Name:"+ transactionMessage.getFundShortName());
+//                  errMsg.append("Error Message:"+ transactionMessage.getTransactionMessage()+"\n");
+//                  logger.info("transactionMessage = " + transactionMessage);
+//                  //return new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), errMsg.toString());
+//               }
+                  WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER.toString(), reqTime, transactionCollectionResult.getErrorStatus().getErrorMessage());
+                  wsCommonDao.insertWSRequest(wsRequest);
+                  return new WSCallResult(new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()), null);
+               }
+               else
+               {
+                  WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER.toString(), reqTime, transactionCollectionResult.getErrorStatus().getErrorMessage());
+                  wsCommonDao.insertWSRequest(wsRequest);
+                  return new WSCallResult(new WSCallStatus(transactionCollectionResult.getErrorStatus().getErrorCode(), transactionCollectionResult.getErrorStatus().getErrorMessage()), null);
+               }
+            }
+         }
+
+      }
+      catch (Exception e)
+      {
+         WSRequest wsRequest = new WSRequest("E", userAcctDetails.getClientAccountID(), WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER.toString(), reqTime, e.getMessage());
+         wsCommonDao.insertWSRequest(wsRequest);
+         throw e;
+      }
    }
 }
 

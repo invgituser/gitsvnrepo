@@ -11,4 +11,6 @@ public interface LoginService
    public WSCallStatus createWebUser(UserAcctDetails userAcctDetails) throws Exception;
    public WSCallStatus isWebUserExist(UserAcctDetails userAcctDetails) throws Exception;
    public WSCallStatus updateWebUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception;
+
+   public WSCallStatus updatePasswordWithNoAuthentication(UserAcctDetails userAcctDetails, String newPwd) throws Exception;
 }

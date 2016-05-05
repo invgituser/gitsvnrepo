@@ -10,11 +10,12 @@ public interface CallingLayer
    //LoginServices
    public WSCallStatus createUser(UserAcctDetails userAcctDetails) throws Exception;
    public WSCallStatus updateUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception;
+   public WSCallStatus resetPassword(UserAcctDetails userAcctDetails, String newPwd) throws Exception;
 
 
    //AccountServices
    public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception;
-   public UserAcctExt getAcctExtInfo(UserAcctDetails userAcctDetails)throws Exception;
+   //public UserAcctExt getAcctExtInfo(UserAcctDetails userAcctDetails)throws Exception;
 
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails)throws Exception;
 
@@ -25,6 +26,7 @@ public interface CallingLayer
 
    public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception;
    public WSCallResult getAccountInfo(UserAcctDetails userAcctDetails) throws Exception;
+
 
    public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception;
 //   public WSCallStatus isUserExist(UserAcctDetails userAcctDetails) throws Exception;
