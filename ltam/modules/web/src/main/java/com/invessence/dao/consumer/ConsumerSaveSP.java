@@ -78,9 +78,10 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_state", Types.VARCHAR));
             declareParameter(new SqlParameter("p_zip", Types.VARCHAR));
             declareParameter(new SqlParameter("p_country", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             declareParameter(new SqlParameter("p_primaryphone", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_secondaryphone", Types.VARCHAR));
             declareParameter(new SqlParameter("p_workphone", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_fax", Types.VARCHAR));
             break;
          case 4:   // SP: save_TradeInfo
             declareParameter(new SqlOutParameter("p_transactionnum", Types.BIGINT));
@@ -183,9 +184,10 @@ public class ConsumerSaveSP extends StoredProcedure
       inputMap.put("p_state", data.getMailState());
       inputMap.put("p_zip", data.getMailZipCode());
       inputMap.put("p_country", data.getMailCountry());
+      inputMap.put("p_email", data.getEmail());
       inputMap.put("p_primaryphone", data.getPrimaryPhoneNbr());
-      inputMap.put("p_secondaryphone", data.getSecondayPhoneNbr());
       inputMap.put("p_workphone", data.getWorkPhoneNbr());
+      inputMap.put("p_fax", data.getFaxNbr());
       return super.execute(inputMap);
    }
 

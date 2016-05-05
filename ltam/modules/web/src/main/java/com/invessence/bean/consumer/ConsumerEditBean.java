@@ -450,21 +450,33 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                   resetBean();
                   formmode = "Edit";
                   pagemanager = new PagesImpl(9);
-                  displayMeter = true;
                   Long logonid = webutil.getLogonid();
                   collectAccountData(logonid, beanacctnum);
                }
             }
             else
             {
-               if (beanaction != null  && beanaction.equalsIgnoreCase("N"))
-               {
-                  pagemanager = new PagesImpl(6);
-                  resetBean();
-                  formmode = "New";
-                  saveVisitor();
+               if (beanaction != null) {
+                  if (beanaction != null && beanaction.equalsIgnoreCase("N"))
+                  {
+                     pagemanager = new PagesImpl(6);
+                     resetBean();
+                     formmode = "New";
+                     beanaction = null; // This is only needed one time.
+                  }
+                  if (beanaction != null && beanaction.equalsIgnoreCase("E"))
+                  {
+                     resetBean();
+                     formmode = "Edit";
+                     displayMeter = true;
+                     setLogonid(webutil.getLogonid());
+                  }
+                  if (beanaction != null && beanaction.equalsIgnoreCase("S"))
+                  {
+                     beanaction = null; // Reset the Re-Start Mode
+                  }
                }
-               else
+               else if (beanaction == null)
                {  // This is from visitor site or just in try mode.
                   if (beanTimeToSaveID != null && (!beanTimeToSaveID.isEmpty()))
                   {
@@ -476,11 +488,11 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                   }
                   resetBean();
                   setLogonid(null);
-                  selectedPage4Image = 0;
                   saveVisitor();  // Only create visitor if in try mode
                }
                doCharts();
             }
+            selectedPage4Image = 0;
 
 
             if (pagemanager != null && (!pagemanager.isFirstPage()))
@@ -1022,17 +1034,25 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       }
    }
 
+   public void onTermChange()
+   {
+      //  Dummy function for now.  Later we can introduce popup of Not agreeing to the terms.
+   }
+
    public void agreeTerms()
    {
       FacesMessage message;
-      if (getAcceptterms().equalsIgnoreCase("N"))
+      if (getAcceptterms() != null && getAcceptterms().equalsIgnoreCase("Y"))
+      {
+         nextPage();
+         return;
+      }
+      else
       {
          message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot continue.  Either accept the term, or go back to dashboard.", "Error");
          FacesContext.getCurrentInstance().addMessage(null, message);
-
          return;
       }
-      nextPage();
    }
 
 

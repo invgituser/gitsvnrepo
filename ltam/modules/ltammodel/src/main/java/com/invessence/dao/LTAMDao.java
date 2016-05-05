@@ -41,7 +41,7 @@ public class LTAMDao  extends JdbcDaoSupport
    public Map<String, LTAMTheme> loadLTAMThemes()
       {
          // DataSource ds = getDs();
-         String storedProcName = "ltam.sel_themes";
+         String storedProcName = "sel_themes";
          LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
          Map<String, LTAMTheme> themes = new LinkedHashMap<String, LTAMTheme>();
 
@@ -83,7 +83,7 @@ public class LTAMDao  extends JdbcDaoSupport
       if (themeMap == null)
          return;
 
-      String storedProcName = "ltam.sel_assets";
+      String storedProcName = "sel_assets";
       LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
       Map outMap = sp.loadLTAMAsset();
 
@@ -120,7 +120,7 @@ public class LTAMDao  extends JdbcDaoSupport
          return;
 
       // DataSource ds = getDs();
-      String storedProcName = "ltam.sel_subassets";
+      String storedProcName = "sel_subassets";
       LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
 
       Map outMap = sp.loadLTAMPortfolio();
@@ -163,7 +163,7 @@ public class LTAMDao  extends JdbcDaoSupport
          return;
 
       // DataSource ds = getDs();
-      String storedProcName = "ltam.sel_performance";
+      String storedProcName = "sel_performance";
       LTAMSP sp = new LTAMSP(ds, storedProcName, 1, 0);
 
       Map outMap = sp.loadLTAMPerformance();

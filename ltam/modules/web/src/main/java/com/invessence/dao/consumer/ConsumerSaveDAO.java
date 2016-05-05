@@ -54,7 +54,7 @@ public class ConsumerSaveDAO extends JdbcDaoSupport implements Serializable
    public void saveAddress(AccountData data) {
       try {
          DataSource ds = getDataSource();
-         ConsumerSaveSP sp = new ConsumerSaveSP(ds, "sp_update_addressInfo",3);
+         ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_addressInfo",3);
          Map outMap = sp.saveAddress(data);
       }
       catch (Exception ex) {

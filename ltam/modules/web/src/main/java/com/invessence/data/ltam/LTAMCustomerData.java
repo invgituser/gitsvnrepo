@@ -37,7 +37,6 @@ public class LTAMCustomerData extends LTAMRiskData
    private String formula;
    private String acknowledged;
    private LTAMTheme themeData;
-   private Boolean recalcAllocation;
    private LTAMAllocationData allocationData;
    private PieChartModel pieChart;
    private String cusip;
@@ -50,7 +49,6 @@ public class LTAMCustomerData extends LTAMRiskData
    {
       super();
       allocationData = new LTAMAllocationData();
-      recalcAllocation = true;
       horizon = null;
    }
 
@@ -213,7 +211,6 @@ public class LTAMCustomerData extends LTAMRiskData
    {
       this.age = age;
       setAgeforRisk(age);
-      recalcAllocation = true;
 
 /*    Orginal version - Changed on April 6, 2016 Algo. model (Jigar/Prashant)
       if (age <= 30 ) {
@@ -256,7 +253,6 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setTheme(String theme)
    {
-      recalcAllocation = true;
       this.theme = theme;
    }
 
@@ -271,7 +267,6 @@ public class LTAMCustomerData extends LTAMRiskData
          return;
 
       this.horizon = horizon;
-      recalcAllocation = true;
       if (horizon <= 3 )
          setAns3(1);
       else if (horizon <= 6)
@@ -291,7 +286,6 @@ public class LTAMCustomerData extends LTAMRiskData
 
    public void setInvestment(Double investment)
    {
-      recalcAllocation = true;
       Investment = investment;
    }
 
@@ -335,11 +329,17 @@ public class LTAMCustomerData extends LTAMRiskData
       if (themeData == null)
          return;
 
-      if (recalcAllocation) {
+      try {
          this.themeData = themeData;
          allocationData.copyAssetAllocation(themeData.getAssetsData(),getInvestment());
          allocationData.copyAssetSubAllocation(themeData.getPortfolioData(),getInvestment());
-         recalcAllocation = false;
+         setCusip(themeData.getCusip());
+         setSecurityname(themeData.getSecurityname());
+         Integer fundID = Integer.valueOf(themeData.getFundID());
+         setFundID(fundID);
+      }
+      catch (Exception ex) {
+
       }
    }
 
@@ -424,7 +424,6 @@ public class LTAMCustomerData extends LTAMRiskData
       formula="Q";
       super.resetAllData();
       allocationData = new LTAMAllocationData();
-      recalcAllocation = true;
       forwarded = null;
       pieChart = null;
       cusip = null;
@@ -454,7 +453,6 @@ public class LTAMCustomerData extends LTAMRiskData
          setFormula(accountData.getFormula());
          super.resetAllData();
          setAllocationData(new LTAMAllocationData());
-         recalcAllocation = true;
          setForwarded(null);
          setCusip(accountData.getCusip());
          setSecurityname(accountData.getSecurityName());

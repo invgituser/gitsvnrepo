@@ -8,10 +8,8 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.constant.Const;
 import com.invessence.converter.JavaUtil;
-import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.AccountData;
-import com.invessence.data.consumer.*;
 import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
@@ -45,7 +43,7 @@ public class FundAccountBean implements Serializable
    private String bankacctnum;
    private Double investment;
    private PagesImpl pagemanager;
-   private String accept;
+   private String acceptterms;
 
    @ManagedProperty("#{serviceLayer}")
    private ServiceLayer serviceLayer;
@@ -102,14 +100,14 @@ public class FundAccountBean implements Serializable
       return selectedAccount;
    }
 
-   public String getAccept()
+   public String getAcceptterms()
    {
-      return accept;
+      return acceptterms;
    }
 
-   public void setAccept(String accept)
+   public void setAcceptterms(String acceptterms)
    {
-      this.accept = accept;
+      this.acceptterms = acceptterms;
    }
 
    public List<BankAcctDetails> getBankaccountlist()
@@ -172,6 +170,11 @@ public class FundAccountBean implements Serializable
       }
    }
 
+   public void prevPage()
+   {
+      pagemanager.prevPage();
+   }
+
    public void nextPage()
    {
       FacesMessage message;
@@ -189,8 +192,8 @@ public class FundAccountBean implements Serializable
          }
       }
       if (pagemanager.isNextToLastPage()) {
-         if (accept != null) {
-           if (accept.equalsIgnoreCase("N")) {
+         if (acceptterms != null) {
+           if (acceptterms.equalsIgnoreCase("N")) {
               uiLayout.goToStartPage();
            }
          }
@@ -412,7 +415,7 @@ public class FundAccountBean implements Serializable
             obj.put("tran", wstrasactionnumber);
             obj.put("type", "Fund");
             obj.put("fund", selectedAccount.getSecurityName());
-            obj.put("beanamt", jutil.displayFormat(getInvestment(),"$#,###,###.00"));
+            obj.put("beanamt", jutil.displayFormat(getInvestment(), "$#,###,###.00"));
             webutil.redirect("/pages/consumer/tradeinfo.xhtml", obj);
 
 /*
@@ -441,6 +444,27 @@ public class FundAccountBean implements Serializable
          return;
       }
    }
+
+   public void onTermChange()
+   {
+      //  Dummy function for now.  Later we can introduce popup of Not agreeing to the terms.
+   }
+
+   public void agreeTerms()
+   {
+      FacesMessage message;
+      if (getAcceptterms() != null && getAcceptterms().equalsIgnoreCase("Y"))
+      {
+         nextPage();
+         return;
+      } else {
+         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot continue.  Either accept the term, or go back to dashboard.", "Error");
+         FacesContext.getCurrentInstance().addMessage(null, message);
+         return;
+      }
+   }
+
+
 
 }
 

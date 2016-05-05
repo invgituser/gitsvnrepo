@@ -126,9 +126,12 @@
         </div>
         <div class="EmptyBox20"></div>
         <div class="Container100 Fs18">
-            <p:selectOneRadio value="#{fundbean.accept}"
+            <p:selectOneRadio value="#{fundbean.acceptterms}"
                  layout="pageDirection"
-                 required="true" requiredMessage="Must choose one of the terms!">
+                 required="true" requiredMessage="Must choose one of the terms!"
+                 >
+                <p:ajax listener="#{fundbean.onTermChange}"
+                        update=":fundForm:contentpanel"/>
                 <f:selectItem
                         itemLabel="I have read, reviewed and understand the applicable prospectus of the Fund(s) and accept the terms and conditions described above."
                         itemValue="Y"/>
@@ -141,9 +144,12 @@
         <div class="EmptyBox20"></div>
 
         <div class="Container100 TexAlCenter">
-            <p:commandButton value="Next" styleClass="Fright"
+            <p:commandButton value="Previous" styleClass="Fleft" rendered="#{fundbean.pagemanager.prevButtonStat}"
                              update=":fundForm:contentpanel"
-                             actionListener="#{fundbean.nextPage}"/>
+                             actionListener="#{fundbean.prevPage}"/>
+            <p:commandButton value="Next" styleClass="Fright" disabled="#{fundbean.acceptterms != 'Y'}"
+                             update=":fundForm:contentpanel"
+                             actionListener="#{fundbean.agreeTerms}"/>
         </div>
 
     </div>

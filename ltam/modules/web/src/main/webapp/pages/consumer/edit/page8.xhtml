@@ -128,7 +128,10 @@
         <div class="Container100 Fs18">
             <p:selectOneRadio value="#{ceb.acceptterms}"
                  layout="pageDirection"
-                 required="true" requiredMessage="Must choose one of the terms!">
+                 required="true" requiredMessage="Must choose one of the terms!"
+                 >
+                <p:ajax listener="#{ceb.onTermChange}"
+                        update=":ceForm:contentpanel"/>
                 <f:selectItem
                         itemLabel="I have read, reviewed and understand the applicable prospectus of the Fund(s) and accept the terms and conditions described above."
                         itemValue="Y"/>
@@ -141,7 +144,10 @@
         <div class="EmptyBox20"></div>
 
         <div class="Container100 TexAlCenter">
-            <p:commandButton styleClass="Fright" value="Next"
+            <p:commandButton styleClass="Fleft" value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
+                             update=":ceForm:contentpanel,:ceForm:disclaimer"
+                             actionListener="#{ceb.prevPage}"/>
+            <p:commandButton styleClass="Fright" value="Next" disabled="#{ceb.acceptterms != 'Y'}"
                              update=":ceForm:contentpanel,:ceForm:disclaimer"
                              process="@this" immediate="true"
                              actionListener="#{ceb.agreeTerms}">

@@ -23,7 +23,10 @@
                                 <p:slider for="horizon" display="displayHorizon"
                                           displayTemplate="{value} Years"
                                           minValue="1" maxValue="15"/>
-                                <h:inputHidden id="horizon" value="#{ceb.horizon}"/>
+                                <h:inputHidden id="horizon" value="#{ceb.horizon}"
+                                               required="true"
+                                               requiredMessage="Please use the slider below to select appropriate horizon"/>
+                                />
                             </td>
                             <td style="width: 15%; text-align: left; vertical-align: middle">
                                 <h:outputText value="15+ Years"/>
