@@ -41,9 +41,10 @@
                                       value="#{fundbean.hiddenBankAccountNum}">
                         </h:outputText>
 
-                        <div class="Wid90">Fund Amount</div>
+                        <div class="Wid90">Amount to Add</div>
                         <pe:inputNumber styleClass="ltamInputText input_wid1"
-                                        value="#{fundbean.investment}"
+                                        placeholder="Enter $ amount"
+                                        value="$#{fundbean.investment}"
                                         maxlength="11" decimalPlaces="0" symbol="$"
                                         required="true" requiredMessage="Fund amount is required!"
                                         validatorMessage="Min. of $1 investment is required!">

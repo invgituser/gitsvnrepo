@@ -9,9 +9,16 @@
             <div class="ContainerIndent">
                 <div class="TextAlCenter">
                     <h2>
-                        Tolerating losses in some years is part of investing.
-                        Based on your initial investment of #{dataDisplayConverter.displayAsMoney(ceb.investment)},
-                        what is the largest loss you would comfortably tolerate during a 1-year-time-frame?
+                        <ui:fragment rendered="#{ceb.isEditMode}">
+                            Tolerating losses in some years is part of investing.
+                            Based on your Current investment of #{dataDisplayConverter.displayAsMoney(ceb.investment)},
+                            what is the largest loss you would comfortably tolerate during a 1-year-time-frame?
+                        </ui:fragment>
+                        <ui:fragment rendered="#{! ceb.isEditMode}">
+                            Tolerating losses in some years is part of investing.
+                            Based on your initial investment of #{dataDisplayConverter.displayAsMoney(ceb.investment)},
+                            what is the largest loss you would comfortably tolerate during a 1-year-time-frame?
+                        </ui:fragment>
                     </h2>
 
                     <!--ltamDownArrow-->

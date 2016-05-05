@@ -14,39 +14,58 @@
             <div class="EmptyBox20"></div>
 
             <div class="Container100 Responsive100">
-            <div class="Container25" style="height:1px;"></div>
+                <div class="Container25" style="height:1px;"></div>
                 <div class="Container50 Responsive100">
-                <div class="Container100 Responsive100">
-                    <div class="ContainerIndent">
- 			<p:panel style="height: 60%; width: 100%; background: #ffffff;">
-                            <div class="EmptyBox5"></div>
-                            <h2 class="black Fs20 fnt1 textAlign">Current Portfolio: #{ceb.origCustomerData.themeData.displayname}</h2>
-                            <br/>
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent">
+                            <p:panel style="height: 60%; width: 100%; background: #ffffff;">
+                                <div class="EmptyBox5"></div>
+                                <h2 class="black Fs20 fnt1 textAlign">Current Portfolio:
+                                    <span style="text-decoration: underline;">#{ceb.origCustomerData.themeData.displayname}</span>
+                                </h2>
+                                <br/>
 
-                            <h3 class="black f1 textAlign">#{ceb.origCustomerData.themeData.longDescription}</h3>
-                            <div class="EmptyBox5"></div>
-                        </p:panel>
+                                <h3 class="black f1 textAlign">#{ceb.origCustomerData.themeData.longDescription}</h3>
+
+                                <div class="EmptyBox5"></div>
+                            </p:panel>
+                        </div>
                     </div>
-                </div>
                     <div class="ContainerIndent">
                         <p:panel id="reviewPanel" style="height: 60%; width: 100%; background: #f5f5f5;">
                             <div class="EmptyBox10"></div>
-                            <h3 class="black f1 textAlign">#{ceb.origCustomerData.themeData.longDescription}</h3>
+                            <h3 class="black f1 textAlign">
+                                <ui:fragment rendered="#{ceb.formula == 'Q'}">
+                                    <h3 class="black f1 textAlign">
+                                        After reviewing your risk though the $ymbil
+                                        questionnaire, your new portfolio recommendation is: #{ceb.themeData.displayname}
+                                    </h3>
+                                </ui:fragment>
+                                <ui:fragment rendered="#{ceb.formula != 'Q'}">
+                                    <h2 class="black f1 TexAlLeft">
+                                        By selecting one of the five portfolios below, you consent to
+                                        transferring your assets into a new portfolio that was not
+                                        recommended to you through the $ymbil questionnaire.
+                                    </h2>
+                                </ui:fragment>
+                            </h3>
                             <p:panelGrid columns="2" styleClass="Container100"
                                          style="border:0px !important; background:none;" class="FormContent">
 
-                            <h:panelGroup layout="block" styleClass="selection" id="abc">
-                            <p:selectOneRadio value="#{ceb.ans5}" layout="pageDirection"
-                                              required="true" requiredMessage="Please choose one of these choices">
-                                <f:selectItem style="font-size:14px;" itemLabel="Income" itemValue="1"/>
-                                <f:selectItem itemLabel="Income and Growth" itemValue="2"/>
-                                <f:selectItem itemLabel="Growth and Income" itemValue="3"/>
-                                <f:selectItem itemLabel="Growth" itemValue="4"/>
-                                <f:selectItem itemLabel="Aggressive Growth" itemValue="5"/>
-                            </p:selectOneRadio>
-                        </h:panelGroup>
+                                <h:panelGroup layout="block" styleClass="selection" id="abc">
+                                    <p:selectOneRadio value="#{ceb.selectedThemeName}" layout="pageDirection"
+                                                      required="true" requiredMessage="Please choose one of these choices">
+                                        <p:ajax listener="#{ceb.selectedTheme}"
+                                                update=":ceForm:contentpanel"/>
+                                        <f:selectItem style="font-size:14px;" itemLabel="Income" itemValue="66538B263"/>
+                                        <f:selectItem itemLabel="Income and Growth" itemValue="66538B230"/>
+                                        <f:selectItem itemLabel="Growth and Income" itemValue="66538B198"/>
+                                        <f:selectItem itemLabel="Growth" itemValue="66538B164"/>
+                                        <f:selectItem itemLabel="Aggressive Growth" itemValue="66538B131"/>
+                                    </p:selectOneRadio>
+                                </h:panelGroup>
                             </p:panelGrid>
-                            
+
                             <table class="Container100 Responsive100 TextAlCenter">
                                 <tr>
                                     <td colspan="2" class="TexAlCenter">
@@ -109,7 +128,7 @@
                     </div>
 
                 </div>
-              
+
             </div>
         </div>
 
