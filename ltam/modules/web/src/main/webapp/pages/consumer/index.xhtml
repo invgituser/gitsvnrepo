@@ -20,7 +20,7 @@
                 <div class="layout-portlets-box">
 
                     <div class="Container100">
-                        <div class="ContainerIndent">
+                        <div class="ContainerIndent" style="width:100%!important;">
                             <div class="DispInlBlock">
                                 <div class="Container100">
                                     <div class="Fleft">
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="Container100">
-                        <div class="ContainerIndent">
+                        <div class="ContainerIndent" style="width:100%!important;">
                             <div class="Container100">
                                 <div class="Container100">
                                     <div class="Container100">
@@ -86,7 +86,7 @@
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-search-plus Fs14 white"
                                                                                                  action="#{cdash.doAction('R')}">
-                                                                                    <p:tooltip for="reviewBtn" value="Overview"/>
+                                                                                    <!--  <p:tooltip for="reviewBtn" value="Overview"/>-->
                                                                                     <f:setPropertyActionListener value="#{acct}"
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>
@@ -98,7 +98,7 @@
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-dollar Fs14 white"
                                                                                                  action="#{cdash.doAction('A')}">
-                                                                                    <p:tooltip for="fundBtn" value="Add Funds"/>
+                                                                                  <!-- <p:tooltip for="fundBtn" value="Add Funds"/> -->  
                                                                                     <f:setPropertyActionListener value="#{acct}"
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>
@@ -109,7 +109,7 @@
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-exchange Fs14 white"
                                                                                                  action="#{cdash.doAction('E')}">
-                                                                                    <p:tooltip for="editBtn" value="Exchange fund"/>
+                                                                                   <!--   <p:tooltip for="editBtn" value="Exchange fund"/>-->
                                                                                     <f:setPropertyActionListener value="#{acct}"
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>
@@ -120,7 +120,7 @@
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-edit Fs14 black"
                                                                                                  action="#{cdash.doAction('C')}">
-                                                                                    <p:tooltip for="acctBtn" value="Edit Account"/>
+                                                                                   <!--   <p:tooltip for="acctBtn" value="Edit Account"/>-->
                                                                                     <f:setPropertyActionListener value="#{acct}"
                                                                                                                  target="#{cdash.selectedAccount}"/>
                                                                                 </p:commandButton>

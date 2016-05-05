@@ -19,8 +19,8 @@
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
  			<p:panel style="height: 60%; width: 100%; background: #ffffff;">
-                            <div class="EmptyBox10"></div>
-                            <h2 class="black Fs20 fnt1 textAlign">Current Fund: #{ceb.origCustomerData.themeData.displayname}</h2>
+                            <div class="EmptyBox5"></div>
+                            <h2 class="black Fs20 fnt1 textAlign">Current Portfolio: #{ceb.origCustomerData.themeData.displayname}</h2>
                             <br/>
 
                             <h3 class="black f1 textAlign">#{ceb.origCustomerData.themeData.longDescription}</h3>
@@ -30,20 +30,21 @@
                 </div>
                     <div class="ContainerIndent">
                         <p:panel id="reviewPanel" style="height: 60%; width: 100%; background: #f5f5f5;">
-                            <div class="EmptyBox5"></div>
+                            <div class="EmptyBox10"></div>
+                            <h3 class="black f1 textAlign">#{ceb.origCustomerData.themeData.longDescription}</h3>
                             <p:panelGrid columns="2" styleClass="Container100"
                                          style="border:0px !important; background:none;" class="FormContent">
 
-                                <p:outputLabel> Revised Fund: </p:outputLabel>
-                                <p:selectOneMenu styleClass="Wid90"
-                                                 value="#{ceb.selectedThemeName}">
-                                    <p:ajax listener="#{ceb.selectedTheme}"
-                                            update=":ceForm:contentpanel, :ceForm:reviewPanel"/>
-                                    <f:selectItem itemLabel="Select One" itemValue="" />
-                                    <f:selectItems value="#{ceb.displaythememap.entrySet()}"
-                                                   var="themelist" itemLabel="#{themelist.value}"
-                                                   itemValue="#{themelist.key}"/>
-                                </p:selectOneMenu>
+                            <h:panelGroup layout="block" styleClass="selection" id="abc">
+                            <p:selectOneRadio value="#{ceb.ans5}" layout="pageDirection"
+                                              required="true" requiredMessage="Please choose one of these choices">
+                                <f:selectItem style="font-size:14px;" itemLabel="Income" itemValue="1"/>
+                                <f:selectItem itemLabel="Income and Growth" itemValue="2"/>
+                                <f:selectItem itemLabel="Growth and Income" itemValue="3"/>
+                                <f:selectItem itemLabel="Growth" itemValue="4"/>
+                                <f:selectItem itemLabel="Aggressive Growth" itemValue="5"/>
+                            </p:selectOneRadio>
+                        </h:panelGroup>
                             </p:panelGrid>
                             
                             <table class="Container100 Responsive100 TextAlCenter">

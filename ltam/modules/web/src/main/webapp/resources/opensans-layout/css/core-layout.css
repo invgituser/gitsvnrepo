@@ -546,7 +546,7 @@ text-align: center;
 }
 
 .layout-portlets-box > .Container100 > .ContainerIndent {
-	width: 100%;
+	width: 1190px;
 }
 
 .InputBlockMargin {
@@ -562,17 +562,24 @@ text-align: center;
 	text-align: center;
 }
 .Mobilelabel {
-	display: none;
+//	display: none;
 }
 .Wid90P {}
 /**/
-@media (min-width: 781px) and (max-width: 3000px) {
+@media (min-width: 836px) and (max-width: 3000px) {
 .IconWidthP {
-	width:25%!important;
+	width:5%!important;
+padding: 0 5px;
+}
+
+.Mobilelabel {
+    text-align: left!important;
+    padding: 10px 0;
+    width: 15%;
 }
 }
 
-@media (max-width:780px){
+@media (max-width:835px){
 	.DashboardIconBlock > div {
 	//text-align: left!important;
 	//width:100%!important;
@@ -813,7 +820,7 @@ width: 90%!important;
 }
 }
 
-@media (min-width:320px) and (max-width: 360px) {
+@media (min-width:300px) and (max-width: 360px) {
 	/*vivek CSS */
 	.tab_main {padding:0 20px; padding-top:15px;}
 	.ui-steps .ui-steps-item .ui-steps-number {font-size:13px;}
