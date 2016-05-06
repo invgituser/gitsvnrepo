@@ -19,31 +19,31 @@
         <h:form>
 
             <div id="layout-portlets-cover">
-                <div class="other-pages-box Container40 MarAuto Fnone TexAlCenter ShadowGray">
+                <div class="other-pages-box ThankyBlockMain Container40 MarAuto Fnone TexAlCenter ShadowGray ThankyouBG">
                     <div class="ContainerIndent">
                         <div class="Container100 Fnone MarAuto TexAlCenter">
                             <div class="EmptyBox20"></div>
-                            <div class="Container90">
+                            <div class="Container100">
                                 <h1>
-                                  <span style="color: blue">
+                                  <span style="color: #2E7D32; font-size: 30px;">
                                   Thank you
                                   </span>
                                 </h1>
                             </div>
                             <div class="EmptyBox20"></div>
 
-                            <div class="Container90 TexAlLeft MarLeft10">
+                            <div class="Container100 TexAlLeft MarLeft10 PaddingblocktradeP">
                                 <p:panelGrid columns="2" layout="grid">
-                                    <h:outputText value="Transaction ID" />
+                                    <h:outputText value="Transaction ID" class="textBold"/>
                                     <h:outputText value="#{tradeinfobean.beanacctnum}"/>
 
-                                    <h:outputText value="Type" />
+                                    <h:outputText value="Type" class="textBold"/>
                                     <h:outputText value="#{tradeinfobean.beantype}"/>
 
-                                    <h:outputText value="Fund" />
+                                    <h:outputText value="Fund" class="textBold"/>
                                     <h:outputText value="#{tradeinfobean.beanfund}"/>
 
-                                    <h:outputText value="Amount" />
+                                    <h:outputText value="Amount" class="textBold"/>
                                     <h:outputText value="#{tradeinfobean.beanamt}"/>
 
                                 </p:panelGrid>

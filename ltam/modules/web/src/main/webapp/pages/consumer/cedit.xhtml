@@ -22,9 +22,11 @@
                 <div class="layout-portlets-box">
 
                     <div class="Container100 Responsive100">
-                        <div class="ContainerIndent">
+					                        
                             <ui:fragment rendered="#{! ceb.isEditMode}">
-                                <div class="tab_main">
+                            <div class="UIstepsSevenP">
+                            <div class="ContainerIndent">
+                                
                                     <p:steps activeIndex="#{ceb.ltammenu}">
                                         <p:menuitem value="Start"/>
                                         <p:menuitem value="Goal"/>
@@ -34,10 +36,13 @@
                                         <p:menuitem value="Risk"/>
                                         <p:menuitem value="Review"/>
                                     </p:steps>
+                                
+                                </div>
                                 </div>
                             </ui:fragment>
 
                             <ui:fragment rendered="#{ceb.isEditMode}">
+                                <div class="ContainerIndent">
                                 <div class="tab_main">
                                     <p:steps activeIndex="#{ceb.ltammenu}">
                                         <p:menuitem value="Start"/>
@@ -51,8 +56,9 @@
                                         <p:menuitem value="Confirmation "/>
                                     </p:steps>
                                 </div>
+                       		</div>
                             </ui:fragment>
-                        </div>
+                       
                     </div>
 
                     <div class="Container100 Responsive100">
