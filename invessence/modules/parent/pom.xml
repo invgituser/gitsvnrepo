@@ -649,15 +649,7 @@
             <ssl.url>http://prerel.invessence.com:8080</ssl.url>
          </properties>
       </profile>
-      <profile>
-         <id>5D2-WEB-UOB</id>
-         <properties>
-            <apache.url>http://uob.invessence.com:8080</apache.url>
-            <tomcat.url>https://uob.invessence:8080</tomcat.url>
-            <ssl.url>https://uob.invessence:8080</ssl.url>
-         </properties>
-      </profile>
-      <profile>
+       <profile>
          <id>5E-WEB-DEMO</id>
          <properties>
             <apache.url>http://demo.invessence.com:8080</apache.url>
@@ -693,10 +685,19 @@
          <id>5P3-WEB-VCM</id>
          <properties>
             <apache.url>http://versatilecapdigital.com</apache.url>
-            <tomcat.url>https://versatilecapdigital.com:</tomcat.url>
+            <tomcat.url>https://versatilecapdigital.com</tomcat.url>
             <ssl.url>https://versatilecapdigital.com</ssl.url>
          </properties>
       </profile>
+            <profile>
+         <id>5P3-WEB-UOB</id>
+         <properties>
+            <apache.url>http://uob.invesence.com:8080</apache.url>
+            <tomcat.url>http://uob.invesence.com:8080</tomcat.url>
+            <ssl.url>http://uob.invesence.com:8080</ssl.url>
+         </properties>
+      </profile>
+
             <profile>
          <id>6-PROD</id>
          <properties>
