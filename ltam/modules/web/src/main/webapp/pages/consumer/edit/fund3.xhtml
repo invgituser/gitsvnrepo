@@ -7,15 +7,15 @@
 
     <div class="Container100 ">
         <div class="ContainerIndent">
-	    <div class="Fs24">
-            You are about to add additional fund #{fundbean.selectedAccount.securityName} in the
-            amount of
-            <h:outputText value="#{fundbean.investment}">
-               <f:convertNumber currencySymbol="$" type="currency"/>
-            </h:outputText>
-            from #{fundbean.bankname} from account #{fundbean.hiddenBankAccountNum} indicated below
-            for the corresponding account
-	    </div>
+            <div class="Fs24">
+                You are about to add money to the  #{fundbean.selectedAccount.securityName} portfolio in the
+                amount of
+                <h:outputText value="#{fundbean.investment}">
+                    <f:convertNumber currencySymbol="$" type="currency"/>
+                </h:outputText>
+                from #{fundbean.bankname} account #{fundbean.hiddenBankAccountNum} indicated below
+                for the corresponding
+            </div>
             <div class="EmptyBox40"></div>
             <table class="Container100 Responsive100">
                 <tr style="background: blue; color: #ffffff; font-weight: bold">
