@@ -935,7 +935,7 @@ public class ServiceLayerImpl implements ServiceLayer
                {
                   UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
                   String password = RandomPwdCreator.passGenerator();
-                  String randomPWD = EncryDecryAES.encrypt(password,SysParameters.encryDecryKey);
+//                  String randomPWD = EncryDecryAES.encrypt(password,SysParameters.encryDecryKey);
                   userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
                   if (userAcctDetails == null)
                   {
@@ -948,7 +948,7 @@ public class ServiceLayerImpl implements ServiceLayer
                      if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
                      {
 
-                        WSCallStatus wsCallStatus = callingLayer.resetPassword(userAcctDetails, randomPWD);
+                        WSCallStatus wsCallStatus = callingLayer.resetPassword(userAcctDetails, password);
                         if (wsCallStatus == null)
                         {
                            logger.warn(SysParameters.wsResIssueMsg);

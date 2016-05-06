@@ -1,5 +1,7 @@
 package com.invessence;
 
+import java.util.*;
+
 import com.invessence.util.EncryDecryAES;
 import com.invessence.ws.util.SysParameters;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -14,7 +16,8 @@ public class Main
    {
       try
       {
-
+List<String> lst=new ArrayList<>();
+         System.out.println("lst.size() = " + lst.size());
          System.out.println(EncryDecryAES.decrypt("h6ynsRLMxU9XKV2qCp/mvA==", SysParameters.encryDecryKey));
       }
       catch (Exception e)

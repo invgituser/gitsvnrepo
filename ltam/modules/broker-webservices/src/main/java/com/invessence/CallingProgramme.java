@@ -39,12 +39,12 @@ public class CallingProgramme
 //         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100016", 903, 900, "6105640720");
 //         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100018", 900, 909, "4302705871");
 //         System.out.println("wsCallResult = " + wsCallResult);
-     //    serviceLayer.getUserBankAcctDetails("310100045");
-         WSCallResult wsCallResult=serviceLayer.fundAccount("310100045",906, 1, "564803");
+//         serviceLayer.getUserBankAcctDetails("310100045");
+//           WSCallResult wsCallResult=serviceLayer.fundAccount("310100045",906, 1, "564803");
 //         WSCallResult wsCallResult=serviceLayer.fundAccount("310100043",906, 1, "2427206518");
 
 //         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100043", 906, 903, "2427206518");
-         //serviceLayer.resetPassword("310100043");
+         serviceLayer.resetPassword("310100043");
          //serviceLayer.loginUser("310100043");
 //         serviceLayer.getUserBankAcctDetails("310100043");
 //         WSCallResult wsCallResult=serviceLayer.fullFundTransfer ("310100020",900,903,"000214128918");//("310100018", 900, 909, "4302705871");

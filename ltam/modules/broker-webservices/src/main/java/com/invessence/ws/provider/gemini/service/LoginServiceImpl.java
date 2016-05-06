@@ -141,7 +141,12 @@ catch (Exception e)
          WebUserResult webUserResult = loginServicesSoap.updatePasswordWithNoAuthentication(
             new AuthenticateLogin(userAcctDetails.getUserID(), "", userAcctDetails.getFundGroupName(), "00"),
             EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.encryDecryKey), userAcctDetails.getSecurityQuestion(), userAcctDetails.getSecurityAnswer(),
-            EncryDecryAES.decrypt(newPwd, SysParameters.encryDecryKey), EncryDecryAES.decrypt(newPwd, SysParameters.encryDecryKey));
+            newPwd, newPwd);
+
+//         WebUserResult webUserResult = loginServicesSoap.updatePasswordWithNoAuthentication(
+//            new AuthenticateLogin(userAcctDetails.getUserID(), "", userAcctDetails.getFundGroupName(), "00"),
+//            EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.encryDecryKey), userAcctDetails.getSecurityQuestion(), userAcctDetails.getSecurityAnswer(),
+//            EncryDecryAES.decrypt(newPwd, SysParameters.encryDecryKey), EncryDecryAES.decrypt(newPwd, SysParameters.encryDecryKey));
          logger.debug("status = " + webUserResult);
          if (webUserResult == null || webUserResult.getErrorStatus()==null)
          {
