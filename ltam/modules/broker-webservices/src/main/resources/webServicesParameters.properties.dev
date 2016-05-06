@@ -1,0 +1,54 @@
+webServiceAPI=GEMINI
+# webServiceAPI GEMINI, TD
+
+geminiEndPointUrl=http://testpawebservices.geminifund.com
+tdEndPointUrl=
+
+
+#API generic messages
+#In case of response not get from Services
+wsResIssueMsg=WebService response issue
+wsResIssueCode=501
+
+#In case of any  at Webservic side (External)
+wsEGenErrMsg=WebService connection issue
+wsEGenErrCode=502
+
+#In case of any  at Webservic side (External)
+wsIGenErrMsg=WebService connection issue
+wsIGenErrCode=502
+
+#In case of service operation not allowed
+wsOperationNAMsg=WebService operation not allowed
+wsOperationNACode=503
+
+#In case of any User registration issue
+wsUserRegIssueMsg=User has technically difficulties while registration
+wsUserRegIssueCode=504
+
+#In case of any User registration issue
+wsDBErrMsg=Database Issue
+wsDBErrCode=505
+
+#SQL
+
+#getUserAccDetailsByAccNumber=select * from ext_acct_info lai , user_logon_webservice ulw where /*ulw.status='P' and*/ ulw.clientAccountID=lai.clientAccountID and lai.clientAccountID=?
+#getPendingUserAccDetails=select * from ext_acct_info lai , user_logon_webservice ulw where /*ulw.status='P' and*/ ulw.clientAccountID=lai.clientAccountID
+#
+#getUserAccDetailsByAccNumber=select * from ws_web_user_details where clientAccountID=?
+#getPendingUserAccDetails=select * from ws_web_user_details where status='P'
+#
+#updatePendingUserAccDetailsOnSuccess=update user_logon_webservice set pwd=?, status=?,remarks=?,lastupdated=? where clientAccountID=?
+#updatePendingUserAccDetailsOnFailure=update user_logon_webservice set status=?,remarks=?,lastupdated=? where clientAccountID=?
+#updateUserEmail=update ext_acct_info set email=?, lastupdated=? where clientAccountID=?
+##getAccountExtInfo=select * from ext_acct_info_extension where  clientAccountID=?
+#getAccountExtInfo=select * from ws_web_user_ext_details where  clientAccountID=?
+
+
+userDetailsSelectSql=
+
+userExtInfoInsertSql=
+userExtInfoUpdateSql=
+
+
+
