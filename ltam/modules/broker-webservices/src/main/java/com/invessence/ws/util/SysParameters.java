@@ -29,7 +29,7 @@ public class SysParameters
 
    public static final String encryDecryKey="aRXDugfr4WQpVrxu";
    //String encryDecryKey="GEMINI-KEY";
-   public static String fundGroupName="landenburgfund";
+   public static String fundGroupName;
 
    public static int wsResIssueCode;
    public static String wsResIssueMsg;
@@ -159,6 +159,13 @@ public class SysParameters
       //SysParameters.webServiceAPI = webServiceAPI;
       System.out.println("webServiceAPI = " + webServiceAPI);
    }
+
+   @Autowired
+   public void setFundGroupName(@Value("${fundGroupName}")String fundGroupName)
+   {
+      SysParameters.fundGroupName = fundGroupName;
+   }
+
    @Autowired
    public void setWsOperationNAMsgCode(@Value("${wsOperationNACode}")int wsOperationNACode)
    {

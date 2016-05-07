@@ -164,7 +164,7 @@ public class TransactionServiceImpl implements TransactionService
             fromFund.setFundId((short) fromFundID);         // Fund to trade FROM
             fromFund.setAmountType(new UnsignedByte(7));    // 7 - full redemption / close account
             fromFund.setAmount(new BigDecimal(100));        // 100%
-            fromFund.setFromToLineIndicator(new UnsignedByte(1));
+            fromFund.setFromToLineIndicator(new UnsignedByte(1)); //1 //2
             lstFundIfo.add(fromFund);
             logger.debug("fromFund = " + fromFund);
 
@@ -172,11 +172,11 @@ public class TransactionServiceImpl implements TransactionService
             toFund.setFundId((short) toFundID);             // Fund to trade TO
             toFund.setAmountType(new UnsignedByte(4));      // 4 - full redemption
             toFund.setAmount(new BigDecimal(100));          // 100%
-            toFund.setFromToLineIndicator(new UnsignedByte(0));
+            toFund.setFromToLineIndicator(new UnsignedByte(0)); //0 //1
             lstFundIfo.add(toFund);
             logger.debug("toFund = " + toFund);
 
-            tranTotalAmount = fromFund.getAmount().add(toFund.getAmount());
+            tranTotalAmount =  fromFund.getAmount().add(toFund.getAmount()); //
 
             TransactionInfo tranInfo = new TransactionInfo();
             tranInfo.setBankName(achPayeeResult.getBankName().trim());
