@@ -141,10 +141,10 @@ public class TransactionServiceImpl implements TransactionService
    }
 
    @Override
-   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
+   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber,UserAcctExt userAcctExt) throws Exception
    {
       logger.info("TransactionServiceImpl.fullFundTransfer");
-      logger.debug("userAcctDetails = [" + userAcctDetails + "], fromFundID = [" + fromFundID + "], toFundID = [" + toFundID + "], bankAccountNumber = [" + bankAccountNumber + "]");
+      logger.info("userAcctDetails = [" + userAcctDetails + "], fromFundID = [" + fromFundID + "], toFundID = [" + toFundID + "], bankAccountNumber = [" + bankAccountNumber + "], userAcctExt = [" + userAcctExt + "]");
       Date reqTime=new Date();
       try
       {
@@ -202,7 +202,12 @@ public class TransactionServiceImpl implements TransactionService
 //tranInfo.setAutoDetermineFunds(0);
 //tranInfo.setAmountTypeIndicator(0);
 //tranInfo.setWebUserId("INV_310100016");
-            tranInfo.setRetirementIndicator(new UnsignedByte(0));
+            if(userAcctExt.getAccountType().equalsIgnoreCase("32")){
+               tranInfo.setRetirementIndicator(new UnsignedByte(51));
+            }else{
+               tranInfo.setRetirementIndicator(new UnsignedByte(0));
+            }
+            tranInfo.setRetirementIndicator(new UnsignedByte(0)); // 0
             tranInfo.setMoneyAmount(tranTotalAmount);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());

@@ -8,7 +8,7 @@ import com.invessence.ws.util.NoServiceSupportException;
  * Created by abhangp on 3/11/2016.
  */
 
-public class ServiceLayerTDImpl implements CallingLayer
+public class CallingLayerTDImpl implements CallingLayer
 {
    public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception
    {
@@ -42,11 +42,12 @@ public class ServiceLayerTDImpl implements CallingLayer
    }
 
    @Override
-   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String accountNumber) throws Exception
+   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber, UserAcctExt userAcctExt) throws Exception
    {
       throw new NoServiceSupportException("fullFundTransfer Service Not Support");
       //return null;
    }
+
 
    public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception
    {

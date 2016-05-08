@@ -7,7 +7,7 @@ import com.invessence.constant.Const;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
-import com.invessence.ws.provider.td.service.ServiceLayerTDImpl;
+import com.invessence.ws.provider.td.service.CallingLayerTDImpl;
 import com.invessence.ws.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -805,7 +805,8 @@ public class ServiceLayerImpl implements ServiceLayer
                try
                {
                   UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-                  if (userAcctDetails == null)
+                  UserAcctExt userAcctExt = commonDao.getAccountExtInfo(clientAccountID);
+                  if (userAcctDetails == null || userAcctExt==null)
                   {
                      logger.warn("User details not available in DB");
                      return new WSCallResult( new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg),null);
@@ -813,11 +814,12 @@ public class ServiceLayerImpl implements ServiceLayer
                   else
                   {
                      logger.debug("userAcctDetails = " + userAcctDetails);
-                     if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
+                     logger.debug("userAcctExt = " + userAcctExt);
+                     if (userAcctDetails.getStatus().equalsIgnoreCase("A") && userAcctExt.getStatus().equalsIgnoreCase("A"))
                      {
                         try
                         {
-                           WSCallResult wsCallResult = callingLayer.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber);
+                           WSCallResult wsCallResult = callingLayer.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber,userAcctExt);
                            if (wsCallResult == null || wsCallResult.getWSCallStatus()==null)
                            {
                               logger.warn(SysParameters.wsResIssueMsg);
@@ -1206,7 +1208,7 @@ public class ServiceLayerImpl implements ServiceLayer
       }else if(webServiceAPI.equals("GEMINI")){
          callingLayer = new CallingLayerGeminiImpl(commonDao);
       }else if(webServiceAPI.equals("TD")){
-         callingLayer = new ServiceLayerTDImpl();
+         callingLayer = new CallingLayerTDImpl();
       }else{
          logger.error(webServiceAPI+" API is not available");
       }

@@ -61,8 +61,10 @@ public class CallingProgramme
          //WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100017", 912, 900, "6105640720");
 
 
-         serviceLayer.getUserBankAcctDetails("310100019");
-         //WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100019", 912, 900, "6105640720");
+         //serviceLayer.getUserBankAcctDetails("310100041");
+//         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100041", 900, 903, "003811916157");
+//         serviceLayer.getUserBankAcctDetails("310100016");
+//         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100016", 900, 903, "6105640720");
 
          System.out.println("-------------------------------------------------------------------");
          System.out.println("wsCalltatus = " + wsCallStatus);

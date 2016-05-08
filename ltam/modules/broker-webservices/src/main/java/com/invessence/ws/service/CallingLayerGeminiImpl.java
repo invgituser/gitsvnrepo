@@ -102,11 +102,11 @@ public class CallingLayerGeminiImpl implements CallingLayer
    }
 
    @Override
-   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber) throws Exception
+   public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber, UserAcctExt userAcctExt) throws Exception
    {
       userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
       transactionService=new TransactionServiceImpl(wsCommonDao);
-      return transactionService.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber);
+      return transactionService.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber, userAcctExt);
    }
 
 
