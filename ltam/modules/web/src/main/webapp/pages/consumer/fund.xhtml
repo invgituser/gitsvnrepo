@@ -52,6 +52,22 @@
                     </div>
                 </div>
             </p:panel>
+
+            <p:outputPanel id="disclaimer" style="border: 0px"
+                           rendered="#{uiLayout.prodMode}">
+                <div class="layout-portlets-box">
+                    <div class="Container100 Responsive100">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent Responsive100">
+                                <div class="Fs12 TexAlCenter">
+                                    <h:outputText value="#{uiLayout.disclaimer}" escape="false"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p:outputPanel>
+
         </h:form>
 
     </ui:define>

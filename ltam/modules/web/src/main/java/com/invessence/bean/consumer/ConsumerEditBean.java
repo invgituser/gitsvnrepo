@@ -398,7 +398,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       doCharts();
       saveClientData();
       pagemanager.nextPage();
-      if (getIsEditMode() && pagemanager.getPage() >= 6)
+      if (getIsEditMode() && pagemanager.isLastPage())
       {
          System.out.println("Exchange Fund: Acct=" + getAcctnum().toString()
                                + ", Ext Acct#=" + getGeminiAcctNum()
@@ -462,7 +462,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
                      pagemanager = new PagesImpl(6);
                      resetBean();
                      formmode = "New";
-                     beanaction = null; // This is only needed one time.
+                     setBeanaction(null); // This is only needed one time.
                   }
                   if (beanaction != null && beanaction.equalsIgnoreCase("E"))
                   {
@@ -653,7 +653,9 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       displayMeter = false;
       setDisplayGraphs(false);
       pagemanager.setPage(0);
-      webutil.redirect("/pages/consumer/cedit.xhtml?act=S", null);
+      Map <String, String> obj = new HashMap<String, String>();
+      obj.put("act", "S");
+      webutil.redirect("/pages/consumer/cedit.xhtml", obj);
    }
 
    public void forwardData()
@@ -755,6 +757,9 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
    {
       try
       {
+         if (getFormula() != null && getFormula().equalsIgnoreCase("D"))
+            return;
+
          setRiskIndex(calcRiskIndex());
          theme = ltamoptimizer.getTheme(getRiskIndex());
          if (getIsEditMode())
@@ -1014,8 +1019,10 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          String url = "/message.xhtml";
          webutil.redirect(url, obj);
 */
-         //TradeInfoBean tib = new TradeInfoBean();
-         //tib.initTradeData(tradedata);
+
+         TradeInfoBean tib = new TradeInfoBean();
+         tib.initTradeData(tradedata);
+
          Map<String, String> obj = new HashMap<String, String>();
          obj.put("acct", getGeminiAcctNum());
          obj.put("tran", wstrasactionnumber);

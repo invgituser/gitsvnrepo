@@ -24,7 +24,6 @@
                     <h:inputHidden id="horizon" value="#{ltamprofile.horizon}"
                                    required="true"
                                    requiredMessage="Please use the slider below to select horizon"/>
-                    />
                 </td>
                 <td style="width: 15%; text-align: left; vertical-align: middle">
                     <h:outputText value="15+ Years"/>
@@ -46,6 +45,7 @@
 
 	<p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      immediate="true"
                                       actionListener="#{ltamprofile.prevPage}"/>
                      <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"

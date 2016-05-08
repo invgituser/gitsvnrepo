@@ -113,6 +113,7 @@
                         <div class="EmptyBox20"></div>
                         <p:commandButton styleClass="Fleft" value="Start Over"
                                          update=":ceForm:contentpanel,:ceForm:disclaimer"
+                                         immediate="true"
                                          actionListener="#{ceb.startOver}"/>
                         <p:commandButton styleClass="Fright" value="Next" rendered="#{ceb.pagemanager.nextButtonStat}"
                                          update=":ceForm:contentpanel,:ceForm:disclaimer"

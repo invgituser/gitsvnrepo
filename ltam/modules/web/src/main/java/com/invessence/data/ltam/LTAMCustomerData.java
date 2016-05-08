@@ -68,6 +68,11 @@ public class LTAMCustomerData extends LTAMRiskData
       this.logonid = logonid;
    }
 
+   public Long getActualAcctnum()
+   {
+      return acctnum;
+   }
+
    public Long getAcctnum()
    {
       if (acctnum == null)

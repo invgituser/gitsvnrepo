@@ -8,13 +8,15 @@
     <div class="Container100 ">
         <div class="ContainerIndent">
 	    <div class="Fs16 textAlign">
-            You are about to make an exchange from #{ceb.origCustomerData.themeData.displayname} in the
-            amount of
+            You are about to make an exchange from
+            <span style="text-decoration: underline;">#{ceb.origCustomerData.themeData.displayname}</span>
+            in the amount of
             <h:outputText value="#{ceb.investment}">
                <f:convertNumber currencySymbol="$" type="currency"/>
             </h:outputText>
-            to the #{ceb.themeData.displayname} indicated below
-            for the corresponding account
+            to the
+            <span style="text-decoration: underline;">#{ceb.themeData.displayname}</span>
+            indicated below for the corresponding account
 	    </div>
             <div class="EmptyBox20"></div>
             <table class="Container100 Responsive100">
@@ -46,6 +48,7 @@
             <div class="EmptyBox20"></div>
             <p:commandButton value="Cancel" rendered="#{ceb.pagemanager.prevButtonStat}"
                              update=":ceForm:contentpanel,:ceForm:disclaimer"
+                             immediate="true"
                              actionListener="#{ceb.exitPage}"/>
             <p:commandButton styleClass="Fright" value="Accept"
                              update=":ceForm:contentpanel,:ceForm:disclaimer"

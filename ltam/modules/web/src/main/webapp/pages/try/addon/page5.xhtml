@@ -49,6 +49,7 @@
         <div class="EmptyBox20"></div>
         <p:commandButton value="Previous" rendered="#{ltamprofile.pagemanager.prevButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"
+                                      immediate="true"
                                       actionListener="#{ltamprofile.prevPage}"/>
                      <p:commandButton styleClass="Fright" value="Next"  rendered="#{ltamprofile.pagemanager.nextButtonStat}"
                                       update=":ltamForm:contentpanel,:ltamForm:disclaimer"

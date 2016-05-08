@@ -10,6 +10,7 @@ import com.invessence.constant.Const;
 import com.invessence.converter.JavaUtil;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.AccountData;
+import com.invessence.data.consumer.TradeData;
 import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
@@ -396,7 +397,7 @@ public class FundAccountBean implements Serializable
             if (wsCallResult.getGenericObject() != null) {
                wstrasactionnumber = ((TransactionDetails) wsCallResult.getGenericObject()).getTransactionId();
             }
-/*
+
             TradeData tradedata = new TradeData(null, selectedAccount.getAcctnum(), selectedAccount.getClientAccountID(),
                                                 "Fund", wstrasactionnumber, selectedAccount.getCusip(),
                                                 getInvestment(), getBankname(), getHiddenBankAccountNum(),
@@ -408,7 +409,7 @@ public class FundAccountBean implements Serializable
 
             TradeInfoBean tib = new TradeInfoBean();
             tib.initTradeData(tradedata);
-*/
+
             JavaUtil jutil = new JavaUtil();
             Map <String, String> obj = new HashMap<String, String>();
             obj.put("acct", selectedAccount.getClientAccountID());

@@ -146,6 +146,7 @@
         <div class="Container100 TexAlCenter">
             <p:commandButton value="Previous" styleClass="Fleft" rendered="#{fundbean.pagemanager.prevButtonStat}"
                              update=":fundForm:contentpanel"
+                             immediate="true"
                              actionListener="#{fundbean.prevPage}"/>
             <p:commandButton value="Next" styleClass="Fright" disabled="#{fundbean.acceptterms != 'Y'}"
                              update=":fundForm:contentpanel"

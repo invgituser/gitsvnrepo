@@ -146,6 +146,7 @@
         <div class="Container100 TexAlCenter">
             <p:commandButton styleClass="Fleft" value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
                              update=":ceForm:contentpanel,:ceForm:disclaimer"
+                             immediate="true"
                              actionListener="#{ceb.prevPage}"/>
             <p:commandButton styleClass="Fright" value="Next" disabled="#{ceb.acceptterms != 'Y'}"
                              update=":ceForm:contentpanel,:ceForm:disclaimer"

@@ -56,6 +56,7 @@
                     <div class="EmptyBox20"></div>
                     <p:commandButton value="Previous" rendered="#{ceb.pagemanager.prevButtonStat}"
                                      update=":ceForm:contentpanel,:ceForm:disclaimer"
+                                     immediate="true"
                                      actionListener="#{ceb.prevPage}"/>
                     <p:commandButton styleClass="Fright" value="Next" rendered="#{ceb.pagemanager.nextButtonStat}"
                                      update=":ceForm:contentpanel,:ceForm:disclaimer"
