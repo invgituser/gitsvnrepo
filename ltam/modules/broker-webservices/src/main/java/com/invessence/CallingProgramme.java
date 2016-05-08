@@ -50,11 +50,20 @@ public class CallingProgramme
 //         WSCallResult wsCallResult=serviceLayer.fullFundTransfer ("310100020",900,903,"000214128918");//("310100018", 900, 909, "4302705871");
 //         System.out.println("wsCallResult = " + wsCallResult);
 
-                  serviceLayer.getUserBankAcctDetails("310100046");
+//                  serviceLayer.getUserBankAcctDetails("310100046");
 //           WSCallResult wsCallResult=serviceLayer.fundAccount("310100046",903, 1, "358233");
        //  WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100046", 906, 903, "358233");
 
-//         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100020", 903, 900, "000214128918");
+//         serviceLayer.getUserBankAcctDetails("310100020");
+        //WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100020", 900, 903, "000214128918");
+
+         //serviceLayer.getUserBankAcctDetails("310100017");
+         //WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100017", 912, 900, "6105640720");
+
+
+         serviceLayer.getUserBankAcctDetails("310100019");
+         //WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100019", 912, 900, "6105640720");
+
          System.out.println("-------------------------------------------------------------------");
          System.out.println("wsCalltatus = " + wsCallStatus);
          System.out.println("isServiceActive"+serviceLayer.isServiceActive());

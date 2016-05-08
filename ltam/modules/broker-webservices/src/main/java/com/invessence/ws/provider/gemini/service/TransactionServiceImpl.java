@@ -164,15 +164,15 @@ public class TransactionServiceImpl implements TransactionService
             fromFund.setFundId((short) fromFundID);         // Fund to trade FROM
             fromFund.setAmountType(new UnsignedByte(7));    // 7 - full redemption / close account
             fromFund.setAmount(new BigDecimal(100));        // 100%
-            fromFund.setFromToLineIndicator(new UnsignedByte(1)); //1 //2
+            fromFund.setFromToLineIndicator(new UnsignedByte(0)); //1 intial //2
             lstFundIfo.add(fromFund);
             logger.debug("fromFund = " + fromFund);
 
             FundInformation toFund = new FundInformation();
             toFund.setFundId((short) toFundID);             // Fund to trade TO
-            toFund.setAmountType(new UnsignedByte(4));      // 4 - full redemption
+            toFund.setAmountType(new UnsignedByte(5));      // 4 - full redemption // 5 - Suggested by envision
             toFund.setAmount(new BigDecimal(100));          // 100%
-            toFund.setFromToLineIndicator(new UnsignedByte(0)); //0 //1
+            toFund.setFromToLineIndicator(new UnsignedByte(1)); //0 //1
             lstFundIfo.add(toFund);
             logger.debug("toFund = " + toFund);
 
