@@ -697,6 +697,14 @@
             <ssl.url>http://uob.invesence.com:8080</ssl.url>
          </properties>
       </profile>
+      <profile>
+      <id>5P3-WEB-TCM</id>
+         <properties>
+            <apache.url>http://tcm.invesence.com:8080</apache.url>
+            <tomcat.url>http://tcm.invesence.com:8080</tomcat.url>
+            <ssl.url>http://tcm.invesence.com:8080</ssl.url>
+      </properties>
+      </profile>
 
             <profile>
          <id>6-PROD</id>
