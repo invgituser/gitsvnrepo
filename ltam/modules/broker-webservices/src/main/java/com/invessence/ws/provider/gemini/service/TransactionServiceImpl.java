@@ -27,10 +27,10 @@ public class TransactionServiceImpl implements TransactionService
    }
 
    @Override
-   public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
+   public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber, UserAcctExt userAcctExt) throws Exception
    {
       logger.info("TransactionServiceImpl.fundAccount");
-      logger.debug("userAcctDetails = [" + userAcctDetails + "], fundID = [" + fundID + "], amount = [" + amount + "], bankAccountNumber = [" + bankAccountNumber + "]");
+      logger.info("userAcctDetails = [" + userAcctDetails + "], fundID = [" + fundID + "], amount = [" + amount + "], bankAccountNumber = [" + bankAccountNumber + "], userAcctExt = [" + userAcctExt + "]");
       Date reqTime=new Date();
       try{
 
@@ -75,7 +75,13 @@ public class TransactionServiceImpl implements TransactionService
 //tranInfo.setAutoDetermineFunds(0);
 //tranInfo.setAmountTypeIndicator(0);
 //tranInfo.setWebUserId("INV_310100016");
-         tranInfo.setRetirementIndicator(new UnsignedByte(0));
+         if(userAcctExt.getAccountType().equalsIgnoreCase("32")){
+            tranInfo.setRetirementIndicator(new UnsignedByte(51)); // If account type is Retirement account // 52 we have to use for prior year
+         }else{
+            tranInfo.setRetirementIndicator(new UnsignedByte(0)); // for all other types of accounts
+         }
+         //tranInfo.setRetirementIndicator(new UnsignedByte(51)); //
+
          tranInfo.setMoneyAmount(new BigDecimal(1));
          Calendar calendar = Calendar.getInstance();
          calendar.setTime(new Date());
@@ -202,11 +208,11 @@ public class TransactionServiceImpl implements TransactionService
 //tranInfo.setAutoDetermineFunds(0);
 //tranInfo.setAmountTypeIndicator(0);
 //tranInfo.setWebUserId("INV_310100016");
-            if(userAcctExt.getAccountType().equalsIgnoreCase("32")){
-               tranInfo.setRetirementIndicator(new UnsignedByte(51));
-            }else{
-               tranInfo.setRetirementIndicator(new UnsignedByte(0));
-            }
+//            if(userAcctExt.getAccountType().equalsIgnoreCase("32")){
+//               tranInfo.setRetirementIndicator(new UnsignedByte(51));
+//            }else{
+//               tranInfo.setRetirementIndicator(new UnsignedByte(0));
+//            }
             tranInfo.setRetirementIndicator(new UnsignedByte(0)); // 0
             tranInfo.setMoneyAmount(tranTotalAmount);
             Calendar calendar = Calendar.getInstance();

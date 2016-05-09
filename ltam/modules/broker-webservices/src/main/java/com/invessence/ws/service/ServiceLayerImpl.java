@@ -699,7 +699,8 @@ public class ServiceLayerImpl implements ServiceLayer
                try
                {
                   UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
-                  if (userAcctDetails == null)
+                  UserAcctExt userAcctExt = commonDao.getAccountExtInfo(clientAccountID);
+                  if (userAcctDetails == null && userAcctExt==null)
                   {
                      logger.warn("User details not available in DB");
                      return new WSCallResult( new WSCallStatus(SysParameters.wsIGenErrCode, SysParameters.wsIGenErrMsg),null);
@@ -707,11 +708,11 @@ public class ServiceLayerImpl implements ServiceLayer
                   else
                   {
                      logger.debug("userAcctDetails = " + userAcctDetails);
-                     if (userAcctDetails.getStatus().equalsIgnoreCase("A"))
+                     if (userAcctDetails.getStatus().equalsIgnoreCase("A") && userAcctExt.getStatus().equalsIgnoreCase("A"))
                      {
                         try
                         {
-                           WSCallResult wsCallResult = callingLayer.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber);
+                           WSCallResult wsCallResult = callingLayer.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber, userAcctExt);
                            if (wsCallResult == null || wsCallResult.getWSCallStatus()==null)
                            {
                               logger.warn(SysParameters.wsResIssueMsg);

@@ -35,7 +35,7 @@ public class CallingLayerTDImpl implements CallingLayer
    }
 
    @Override
-   public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber) throws Exception
+   public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber, UserAcctExt userAcctExt) throws Exception
    {
       throw new NoServiceSupportException("fundAccount Service Not Support");
       //return null;

@@ -51,20 +51,21 @@ public class CallingProgramme
 //         System.out.println("wsCallResult = " + wsCallResult);
 
 //                  serviceLayer.getUserBankAcctDetails("310100046");
-//           WSCallResult wsCallResult=serviceLayer.fundAccount("310100046",903, 1, "358233");
+
        //  WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100046", 906, 903, "358233");
 
 //         serviceLayer.getUserBankAcctDetails("310100020");
         //WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100020", 900, 903, "000214128918");
 
-         //serviceLayer.getUserBankAcctDetails("310100017");
+//         serviceLayer.getUserBankAcctDetails("310100017");
          //WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100017", 912, 900, "6105640720");
+//         serviceLayer.getUserBankAcctDetails("310100028");
 
-
-         //serviceLayer.getUserBankAcctDetails("310100041");
+//         serviceLayer.getUserBankAcctDetails("310100041");
 //         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100041", 900, 903, "003811916157");
-//         serviceLayer.getUserBankAcctDetails("310100016");
-//         WSCallResult wsCallResult=serviceLayer.fullFundTransfer("310100016", 900, 903, "6105640720");
+         WSCallResult wsCallResult=serviceLayer.fundAccount("310100041",903, 1, "003811916157");
+//         WSCallResult wsCallResult=serviceLayer.fundAccount("310100028",903, 1, "6105640720");
+//         WSCallResult wsCallResult=serviceLayer.fundAccount("310100046",903, 1, "358233");
 
          System.out.println("-------------------------------------------------------------------");
          System.out.println("wsCalltatus = " + wsCallStatus);
@@ -76,20 +77,5 @@ public class CallingProgramme
          e.printStackTrace();
       }
 
-   }
-
-
-   public void call(){
-      try
-      {
-         System.out.println(SysParameters.geminiEndPointUrl);
-         System.out.println("CallingProgramme call");
-         StringBuilder
-            emailAlertMessage;
-
-
-      }catch(Exception e){
-         e.printStackTrace();
-      }
    }
 }
