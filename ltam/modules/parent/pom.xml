@@ -958,7 +958,7 @@
             <base.clientdata.dir>/inv/client</base.clientdata.dir>
             <base.advisor.dir>/data/advisor</base.advisor.dir>
             <catalina.base>/inv/www/</catalina.base>
-            <base.web.dir>/inv/www/symbil/ROOT</base.web.dir>
+            <base.web.dir>/inv/www/invessence/ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
             <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
