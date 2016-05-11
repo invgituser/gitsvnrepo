@@ -525,6 +525,30 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 
 /********************Prakash Lal***********************/
 
+.MarginNoneP {
+	margin:0!important;
+}
+
+.fundAccountContenttable {
+	width:100%;
+}
+
+.fundAccountContenttable > tbody > tr > td {
+	width:50%;
+}
+
+.fundpageonepanel {
+	float: none;
+    height: 265px;
+    margin: 0 auto;
+    width: 465px;
+    box-shadow: 1px 1px 5px #524E4E;
+}
+
+.ui-panelgrid-footer {
+	width: 95%;
+}
+
 .textAlign {
 text-align: center;	
 }
@@ -579,8 +603,37 @@ text-align: center;
 background:rgba(178, 235, 242, 0.58)!important;
 }
 
-.Mobilelabel {
-//	display: none;
+
+@media (max-width: 560px) {
+	.fundpageonepanel {
+	float: none;
+    height: auto;
+    margin: 0 auto;
+    width: 100%;
+    box-shadow: none;
+    text-align: center;
+}
+
+.titleFA {
+	text-align: center;
+	width: 100%;
+	font-weight: bold!important;
+}
+
+.MarginNoneP > input {
+	    width: 100%!important;
+    padding: 8px 0!important;
+    text-align: center;
+}
+
+.ResponsivewidthP > label {
+	width:80%!important;
+}
+
+.ResponsivewidthP {
+	width:100%!important;
+	padding: 0!important;
+}
 }
 
 @media (max-width:920px) {
@@ -659,15 +712,10 @@ text-align: center;
 .ui-panelgrid .ui-panelgrid-cell {
 	padding:4px 0!important;
 }
-.ui-panelgrid-footer {
-    text-align: center!important;
-}
+
 }
 @media (min-width:801px) and (max-width: 1200px)  {
-	.ui-panelgrid-footer {
-    text-align: center!important;
-    width:86%;
-}
+	
 	.CenterfaSpacing {
 	width: 15%!important;
 	height: 1px;
@@ -677,10 +725,7 @@ width: 80%!important;
 }
 }
 @media (min-width:1401px) and (max-width: 4000px)  {
-	.ui-panelgrid-footer {
-    text-align: center!important;
-    width:78%;
-}
+	
 	.CenterfaSpacing {
 	width: 30%!important;
 	height: 1px;
@@ -697,19 +742,14 @@ width: 80%!important;
 	margin-left:-8px!important;
 }
 
-	.ui-panelgrid-footer {
-    text-align: center!important;
-}
+	
 	.CenterfaSpacing {
 	width: 28%!important;
 	height: 1px;
 }
 }
 @media (min-width:651px) and (max-width: 800px)  {
-.ui-panelgrid-footer {
-    text-align: center!important;
-    width:91%;
-}
+
 	.CenterfaSpacing {
 	width: 8%!important;
 	height: 1px;
@@ -830,11 +870,13 @@ width: 90%!important;
 .layout-portlets-box > .Container100 > .UIstepsSevenP  > .ContainerIndent {
 	width: 847px;
 }
-
-/***7-Steps****/
+.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	width: 443px;
+}
+/***3-Steps****/
 @media (min-width:1321px) and (max-width: 1400px)  {
-.layout-portlets-box > .Container100 > .UIstepsSevenP > .ContainerIndent {
-	width: 990px;
+.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	width: 443px;
 }
 	}
 
@@ -843,19 +885,135 @@ width: 90%!important;
 	margin-left:-8px!important;
 }
 
-	.ui-panelgrid-footer {
-    text-align: center!important;
 }
+
+
+@media (min-width:1201px) and (max-width:1320px)  {
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	width: 338px;
+}
+}
+@media (min-width:1000px) and (max-width:1110px) {
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	width: 288px;
+}
+
+.ui-steps .ui-steps-title {
+    margin-left: 8px;
+}	
+}
+
+@media (min-width:1111px) and (max-width: 1200px)  {
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	width: 288px;
+}
+.ui-steps .ui-steps-title {
+    margin-left: -7px;
+}
+}
+
+@media (min-width:961px) and (max-width: 999px)  {
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	    width: 303px;
+	}
+}
+
+@media (min-width:800px) and (max-width: 960px)  {
+	.ui-steps-title {
+	visibility: hidden;
+	}
+	
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	    width: 293px!important;
+    font-size: 12px!important;
+}
+}
+
+@media (min-width:730px) and (max-width: 800px)  {
+	.ui-steps-title {
+	visibility: hidden;
+	}
+	
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+    font-size: 12px!important;
+    width:293px!important;
+}
+}
+
+@media (min-width:641px) and (max-width: 729px)  {
+	.ui-steps-title {
+	visibility: hidden;
+	}
+	
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	  width: 233px;
+    font-size: 12px!important;
+}
+}
+
+@media (min-width:561px) and (max-width: 639px)  {
+	.ui-steps-title {
+	visibility: hidden;
+	}
+	
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	    width: 243px;
+    font-size: 12px!important;
+}
+}
+
+@media (min-width:481px) and (max-width: 560px)  {
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	    width: 200px;
+}
+.InputWidthP
+{
+	width: 100%!important;
+	    margin: 5px 0;
+}
+
+.CenterAlignP, .AddressBlockAlign  {
+	text-align:center!important;
+	    float: none;
+}
+}
+
+@media (min-width:361px) and (max-width: 480px)  {
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	    width: 163px;
+}
+}
+
+@media (min-width:200px) and (max-width: 360px)  {
+	.layout-portlets-box > .Container100 > .fundAccountSteps > .ContainerIndent {
+	   width: 109px;
+}
+.ui-steps .ui-steps-item {
+	background: none;
+	width: 22px;
+}
+
+}
+/**/
+/***7-Steps****/
+@media (min-width:1321px) and (max-width: 1400px)  {
+.layout-portlets-box > .Container100 > .UIstepsSevenP > .ContainerIndent {
+	width: 847px;
+}
+	}
+
+@media (min-width:1201px) and (max-width: 1320px)  {
+.ui-steps .ui-steps-title {
+	margin-left:-8px!important;
+}
+
 	.CenterfaSpacing {
 	width: 28%!important;
 	height: 1px;
 }
 }
 @media (min-width:651px) and (max-width: 800px)  {
-.ui-panelgrid-footer {
-    text-align: center!important;
-    width:91%;
-}
+
 	.CenterfaSpacing {
 	width: 8%!important;
 	height: 1px;
