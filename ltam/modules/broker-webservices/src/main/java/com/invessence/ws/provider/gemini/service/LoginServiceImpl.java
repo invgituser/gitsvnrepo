@@ -41,13 +41,13 @@ public class LoginServiceImpl implements LoginService
          if (webUserResult == null || webUserResult.getErrorStatus() == null)
          {
             WSRequest wsRequest = new WSRequest("F", userAcctDetails.getClientAccountID(), "LOGIN_USER",reqTime, SysParameters.wsResIssueMsg);
-            wsCommonDao.insertWSRequest(wsRequest);
+            //wsCommonDao.insertWSRequest(wsRequest);
             return new WSCallStatus(SysParameters.wsResIssueCode, SysParameters.wsResIssueMsg);
          }
          else
          {
             WSRequest wsRequest = new WSRequest("S", userAcctDetails.getClientAccountID(), "LOGIN_USER", reqTime, webUserResult.getErrorStatus().getErrorMessage());
-            wsCommonDao.insertWSRequest(wsRequest);
+            //wsCommonDao.insertWSRequest(wsRequest);
             return new WSCallStatus(webUserResult.getErrorStatus().getErrorCode(), webUserResult.getErrorStatus().getErrorMessage());
          }
       }
@@ -55,7 +55,7 @@ public class LoginServiceImpl implements LoginService
       {
          WSRequest wsRequest = new WSRequest("E", userAcctDetails.getClientAccountID(), "LOGIN_USER",reqTime, e.getMessage());
          logger.debug("wsRequest = " + wsRequest);
-         wsCommonDao.insertWSRequest(wsRequest);
+         //wsCommonDao.insertWSRequest(wsRequest);
          throw e;
       }
    }

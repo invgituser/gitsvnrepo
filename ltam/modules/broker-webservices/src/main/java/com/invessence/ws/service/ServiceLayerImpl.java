@@ -1226,7 +1226,7 @@ public class ServiceLayerImpl implements ServiceLayer
          if(userAcctDetails==null){
             System.out.println("User Account Details not available in DB");
          }else{
-            userAcctDetails.setFundGroupName("landenburgfund");
+            userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
             //userAcctDetails.setPwd("test01");
             WSCallStatus callStatus= getCallingLayer().loginUser(userAcctDetails);
             if(callStatus==null){
