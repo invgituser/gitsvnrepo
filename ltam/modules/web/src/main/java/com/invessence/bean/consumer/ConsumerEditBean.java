@@ -398,7 +398,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       doCharts();
       saveClientData();
       pagemanager.nextPage();
-      if (getIsEditMode() && pagemanager.isLastPage())
+      if (getIsEditMode() && pagemanager.getPage() == 6)
       {
          System.out.println("Exchange Fund: Acct=" + getAcctnum().toString()
                                + ", Ext Acct#=" + getGeminiAcctNum()
@@ -408,15 +408,16 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
          return;
          // pagemanager.setPage(6);
       }
-      if (pagemanager.isLastPage())
-      {
-         System.out.println("Forward to Gemini: Acct="
-                               + getAcctnum().toString()
-                               + ", advisor=" + getAdvisor()
-                               + ", theme=" + getTheme());
-         webutil.redirect("/pages/consumer/review.xhtml", null);
-         return;
-      }
+      else
+         if (pagemanager.isLastPage())
+         {
+            System.out.println("Forward to Gemini: Acct="
+                                  + getAcctnum().toString()
+                                  + ", advisor=" + getAdvisor()
+                                  + ", theme=" + getTheme());
+            webutil.redirect("/pages/consumer/review.xhtml", null);
+            return;
+         }
    }
 
    public void preRenderView()
@@ -962,11 +963,23 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 
          WSCallResult wsCallResult;
          WSCallStatus wsCallStatus;
+         Integer fromFund, toFund;
          String wstrasactionnumber = null;
-         System.out.println("WebService Call:= (" + getGeminiAcctNum() + "," + origCustomerData.getFundID() +
-                               "," + getFundID() + "," + bankacct + ")");
+         if (webutil.isWebProdMode()) {
+            // Due to Production Code on Gemini, we are sending the fundOrder in reverse mode.
+            fromFund = getFundID();
+            toFund =   origCustomerData.getFundID();
+            System.out.println("WebService TEST Call:= (" + getGeminiAcctNum() + "," + fromFund +
+                                  "," + toFund + "," + bankacct + ")");
+         }
+         else {
+            fromFund = origCustomerData.getFundID();
+            toFund = getFundID();
+            System.out.println("WebService TEST Call:= (" + getGeminiAcctNum() + "," + origCustomerData.getFundID() +
+                                  "," + getFundID() + "," + bankacct + ")");
+         }
 
-         wsCallResult = serviceLayer.fullFundTransfer(getGeminiAcctNum(), origCustomerData.getFundID(), getFundID(), bankacct);
+         wsCallResult = serviceLayer.fullFundTransfer(getGeminiAcctNum(), fromFund, toFund, bankacct);
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, wsCallResult.getWSCallStatus().getErrorMessage(), "Web-service");
