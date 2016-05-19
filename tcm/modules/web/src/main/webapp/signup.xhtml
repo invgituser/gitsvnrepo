@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/invsimplelayout.xhtml">
+
+    <ui:define name="content">
+        <div id="layout-portlets-cover">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                 style="margin-top:5%;">
+                <div class="Container90 Fnone MarAuto TexAlLeft">
+                    <div class="EmptyBox20"></div>
+                    <h:form>
+                        <h:graphicImage id="logo" name="#{uiportal.logo}" styleClass="Fleft" library="invessence"
+                                        class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
+
+                        <div class="EmptyBox10"></div>
+                        <div class="Container90">
+                            <p:growl id="sgrowl"/>
+                        </div>
+                        <div class="EmptyBox5"></div>
+                        <p:panel id="signup" styleClass="Container100" style="border:0px">
+
+                            <p:panel id="p1" styleClass="Container100 Responsive50" style="border: 0px">
+                                <div class="ContainerIndent">
+                                    <div class="Container50">
+                                        <p:inputText id="firstName" styleClass="Container95 Fleft MarAuto Fs18"
+                                                     value="#{userBean.firstName}" placeholder="FirstName"
+                                                     required="true" requiredMessage="Please enter First Name.">
+                                        </p:inputText>
+                                    </div>
+                                    <div class="Container50">
+                                        <p:inputText id="lastName" styleClass="Container95 Fs18" style="margin-left: 2px"
+                                                     value="#{userBean.lastName}" placeholder="Last Name"
+                                                     required="true" requiredMessage="Please enter Last Name.">
+                                            <p:watermark for="lastName" value="Last Name"/>
+                                        </p:inputText>
+                                    </div>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Container100">
+                                    <div class="ContainerIndent">
+                                        <p:inputText id="email" styleClass="Container80 Fleft MarAuto Fs18"
+                                                     value="#{userBean.userID}" placeholder="Email"
+                                                     required="true" requiredMessage="Please enter Email."
+                                                     validatorMessage="Email format is not correct.">
+                                            <p:watermark for="email" value="Email Address"/>
+                                        </p:inputText>
+
+                                    </div>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                            </p:panel>
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Register" type="submit" styleClass="Fright"
+                                                 update="@form"
+                                                 actionListener="#{userBean.signUp}"/>
+                            </f:facet>
+
+                        </p:panel>
+
+                        <div class="EmptyBox20"></div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>

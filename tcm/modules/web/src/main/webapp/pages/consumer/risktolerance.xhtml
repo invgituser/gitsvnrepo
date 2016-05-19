@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+</h:head>
+<h:body>
+
+    <p:panel id="riskpanel">
+        <p:panelGrid cellpadding="10" id="risktolerancegrid" styleClass="invNBgrid">
+            <p:row>
+                <p:column>
+                    <p:messages id="messages3" autoUpdate="true" closable="true"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column styleClass="invRiskQuestion">
+                    <p:outputLabel value="1. #{cBean.riskdata.getQuestion(0)}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+            <p:column>
+                <p:message for="selectedchoice1" display="icon"/>
+            </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:selectOneRadio id="selectedchoice1" value="#{cBean.selectedchoice1}"
+                                      layout="pageDirection" required="true"
+                                      requiredMessage="Select one of the option for Question 1."
+                                      valueChangeListener="#{cBean.changeEvent}">
+                        <f:selectItems value="#{cBean.riskdata.getChoices(0).entrySet()}"
+                                       var="entry1" itemValue="#{entry1.key}" itemLabel="#{entry1.value}"/>
+                    </p:selectOneRadio>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column styleClass="invRiskQuestion">
+                    <p:outputLabel value="2. #{cBean.riskdata.getQuestion(1)}"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:message for="selectedchoice2" display="icon"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <p:selectOneRadio id="selectedchoice2" value="#{cBean.selectedchoice2}"
+                                      layout="pageDirection" required="true"
+                                      requiredMessage="Select one of the option for Question 2."
+                                      valueChangeListener="#{cBean.changeEvent}">
+                        <f:selectItems value="#{cBean.riskdata.getChoices(1).entrySet()}"
+                                       var="entry2" itemValue="#{entry2.key}" itemLabel="#{entry2.value}"/>
+                    </p:selectOneRadio>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column styleClass="invRiskQuestion">
+                    <p:outputLabel value="3. #{cBean.riskdata.getQuestion(2)}"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <p:message for="selectedchoice3" display="icon"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:selectOneRadio id="selectedchoice3" value="#{cBean.selectedchoice3}"
+                                      layout="pageDirection" required="true"
+                                      requiredMessage="Select one of the option for Question 3."
+                                      valueChangeListener="#{cBean.changeEvent}">
+                        <f:selectItems value="#{cBean.riskdata.getChoices(2).entrySet()}"
+                                       var="entry3" itemValue="#{entry3.key}" itemLabel="#{entry3.value}"/>
+                    </p:selectOneRadio>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column styleClass="invRiskQuestion">
+                    <p:outputLabel value="4. #{cBean.riskdata.getQuestion(3)}"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <p:message for="selectedchoice4" display="icon"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:selectOneRadio id="selectedchoice4" value="#{cBean.selectedchoice4}"
+                                      layout="pageDirection" required="true"
+                                      requiredMessage="Select one of the option for Question 4."
+                                      valueChangeListener="#{cBean.changeEvent}">
+                        <f:selectItems value="#{cBean.riskdata.getChoices(3).entrySet()}"
+                                       var="entry4" itemValue="#{entry4.key}" itemLabel="#{entry4.value}"/>
+                    </p:selectOneRadio>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column styleClass="invRiskQuestion">
+                    <p:outputLabel value="5. #{cBean.riskdata.getQuestion(4)}"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <p:message for="selectedchoice5" display="icon"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:selectOneRadio id="selectedchoice5" value="#{cBean.selectedchoice5}"
+                                      layout="pageDirection" required="true"
+                                      requiredMessage="Select one of the option for Question 5."
+                                      valueChangeListener="#{cBean.changeEvent}">
+                        <f:selectItems value="#{cBean.riskdata.getChoices(4).entrySet()}"
+                                       var="entry5" itemValue="#{entry5.key}" itemLabel="#{entry5.value}"/>
+                    </p:selectOneRadio>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column styleClass="invRiskQuestion">
+                    <p:outputLabel value="6. #{cBean.riskdata.getQuestion(5)}"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <p:message for="selectedchoice6" display="icon"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:selectOneRadio id="selectedchoice6" value="#{cBean.selectedchoice6}"
+                                      layout="pageDirection" required="true"
+                                      requiredMessage="Select one of the option for Question 6."
+                                      valueChangeListener="#{cBean.changeEvent}">
+                        <f:selectItems value="#{cBean.riskdata.getChoices(5).entrySet()}"
+                                       var="entry6" itemValue="#{entry6.key}" itemLabel="#{entry6.value}"/>
+                    </p:selectOneRadio>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column styleClass="invRiskQuestion">
+                    <p:outputLabel value="7. #{cBean.riskdata.getQuestion(6)}"/>
+                </p:column>
+            </p:row>
+
+            <p:row>
+                <p:column>
+                    <p:message for="selectedchoice7" display="icon"/>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column>
+                    <p:selectOneRadio id="selectedchoice7" value="#{cBean.selectedchoice7}"
+                                      layout="pageDirection" required="true"
+                                      requiredMessage="Select one of the option for Question 7."
+                                      valueChangeListener="#{cBean.changeEvent}">
+                        <f:selectItems value="#{cBean.riskdata.getChoices(6).entrySet()}"
+                                       var="entry7" itemValue="#{entry7.key}" itemLabel="#{entry7.value}"/>
+                    </p:selectOneRadio>
+                </p:column>
+            </p:row>
+
+        </p:panelGrid>
+    </p:panel>
+
+</h:body>
+</html>

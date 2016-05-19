@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+        >
+
+
+<h:head>
+    <style type="text/css">
+        .ui-panelgrid td, .ui-panelgrid tr
+        {
+            border-style: none !important
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/common/commonSecuredLayout.xhtml">
+        <ui:define name="content">
+            <h:form id="accounttabform">
+
+                <p:tabView id="createaccount" widgetVar="AccountTabView" dynamic="true" cache="false">
+                    <p:ajax event="tabChange" listener="#{accounttype.onTabChange}" immediate="true" process="@none"/>
+                    <p:tab id="accounttypetab" title="Account Type">
+                        <p:panel id="accountpanel">
+                        <p:messages/>
+                        <h:outputText value="Select the Type of account you want to create."/>
+                        <p:panelGrid styleClass="invNBgrid">
+                            <f:facet name="header">
+                                <p:row>
+                                    <p:column colspan="2">Regular Investment and Individual Retirement Account
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <h:selectOneRadio id="type" layout="pageDirection" value="#{accounttype.type}"
+                                                      required="true" requiredMessage="Please select Account type."
+                                                      validatorMessage="Please select Account type.">
+                                        <f:selectItem itemLabel="Individual" itemValue="1"/>
+                                        <f:selectItem itemLabel="Joint Account" itemValue="2"/>
+                                        <f:selectItem itemLabel="UGMA" itemValue="3"/>
+                                        <f:selectItem itemLabel="UTMA" itemValue="4"/>
+                                        <f:selectItem itemLabel="Traditional IRA" itemValue="5"/>
+                                        <f:selectItem itemLabel="Roth IRA" itemValue="6"/>
+                                        <f:selectItem itemLabel="SEP IRA" itemValue="7"/>
+                                        <f:selectItem itemLabel="Rollover IRA" itemValue="8"/>
+                                    </h:selectOneRadio>
+                                </p:column>
+                            </p:row>
+                            <f:facet name="footer">
+                                <p:row>
+                                    <p:column colspan="4">
+                                        <p:commandButton value="Next" ajax="true"
+                                                         actionListener="#{accounttype.saveAccountType}"
+                                                         icon="ui-icon-check" update="accountpanel"
+                                                         oncomplete="if (!args.validationFailed){AccountTabView.select(1);}"/>
+                                    </p:column>
+                                </p:row>
+                            </f:facet>
+                        </p:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                    <p:tab id="accountholdertab" title="Account Holder">
+                        <ui:include src="../accountholder.xhtml"/>
+                    </p:tab>
+                    <p:tab id="contactinformationtab" title="Contact Information">
+                        <ui:include src="contactinformation.xhtml"/>
+                    </p:tab>
+                    <p:tab id="financialprofiletab" title="Financial Profile">
+                        <ui:include src="financialprofile.xhtml"/>
+                    </p:tab>
+                    <p:tab id="employmentprofiletab" title="Employment Profile">
+                        <ui:include src="employmentprofile.xhtml"/>
+                    </p:tab>
+                    <p:tab id="sourceoffundstab" title="Source of Funds">
+                        <ui:include src="sourceoffunds.xhtml"/>
+                    </p:tab>
+                </p:tabView>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

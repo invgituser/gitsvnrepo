@@ -1,0 +1,3 @@
+NOTE: ExpectedReturns for securities - If Expected returns are exactly same for all securities when running
+      calculateEfficientFrontier than, MinRisk Algorithm dump will occur. Since Risk Vs. Return, you are only optimizing Risk.
+

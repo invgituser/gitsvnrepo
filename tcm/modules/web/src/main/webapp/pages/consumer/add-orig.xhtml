@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head></h:head>
+<f:metadata>
+    <f:viewParam name="acct" value="#{cBean.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{cBean.preRenderView}"/>
+</f:metadata>
+
+<h:body>
+    <ui:composition template="/template/common/backup/layout.xhtml/common/layout.xhtml">
+        <ui:define name="content">
+
+            <div id="main-content" class="content_section" style="background-color: #fff; padding: 10px;">
+                <div id="wrapper" class="container">
+                    <p:messages/>
+
+                    <h:form id="profile">
+                        <p:wizard id="manageaccount" flowListener="#{cBean.onFlowProcess}" update="@form">
+                            <p:tab id="tab1" title="Goals">
+                                <ui:include src="/pages/consumer/goals.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab2" title="Financials">
+                                <ui:include src="/pages/consumer/debtandliabilities.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab3" title="Risk Tolerance" >
+                                <ui:include src="/pages/consumer/risktolerance.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab4" title="Asset Allocation" >
+                                <ui:include src="/pages/consumer/alloc.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab5" title="Portfolio" >
+                                <ui:include src="/pages/consumer/tradeReview.xhtml"/>
+                            </p:tab>
+
+                            <p:tab id="tab6" title="Funding">
+                                <ui:include src="/pages/consumer/funding.xhtml"/>
+                            </p:tab>
+                        </p:wizard>
+                    </h:form>
+                </div>
+            </div>
+
+         </ui:define>
+    </ui:composition>
+</h:body>
+</html>

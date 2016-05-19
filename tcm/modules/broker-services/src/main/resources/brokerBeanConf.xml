@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"	
+	xmlns:task="http://www.springframework.org/schema/task" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+	<context:component-scan base-package="com.invessence.broker" />
+
+   <bean id="brokerFileProcessor" class="com.invessence.broker.BrokerFileProcessor">
+	  <constructor-arg name="_baseDirectory" index="0" value="${base.data.dir}/eodfiles" /> <!--/home/abhangp/broker/ D:/Project/Abhang/temp-->
+	   <constructor-arg name="_eodProcedure" index="1" value="sp_invessence_switch_eod_process" />
+   </bean>
+
+   <bean id="gpgUtil" class="com.invessence.broker.util.GPGUtil">
+	  <constructor-arg name="_privateKey" index="0" value="${base.data.dir}/gnupg/secring.gpg" /> <!--/home/abhangp/broker/ D:/Project/Abhang/temp-->
+      <constructor-arg name="_publicKey" index="1" value="${base.data.dir}/gnupg/pubring.gpg" />
+      <constructor-arg name="_password" index="2" value="Inv3ss3nc3" />
+   </bean>
+
+   <bean id="transactionManager"
+		 class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		 scope="singleton">
+  <property name="dataSource" ref="dataSource" />
+</bean>
+
+   <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+  <property name="dataSource" ref="dataSource"></property>
+</bean>
+
+   <!--<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">-->
+           <!--<property name="driverClassName" value="com.mysql.jdbc.Driver"/>-->
+           <!--<property name="url" value="jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true"/>-->
+           <!--<property name="username" value="webuser"/>-->
+           <!--<property name="password" value="inv3ss3nc3u530n1y"/>-->
+   <!--</bean>-->
+
+     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+
+
+<!-- <task:annotation-driven />
+
+
+	<task:scheduled-tasks>
+	    <task:scheduled ref="yodleeAPIService" method="coBrandSessionManager" cron="0 15 */1 * * ?"></task:scheduled>
+	</task:scheduled-tasks >
+	
+	<task:scheduled-tasks>
+	    <task:scheduled ref="yodleeAPIService" method="refreshUserAccDetailsManager" cron="* 50 10 * * ?"></task:scheduled>
+	</task:scheduled-tasks > -->
+
+   <!--<context:property-placeholder location="parameters.properties" />-->
+   <!--<bean id="resource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
+   <!--<property name="basenames">-->
+   <!--<list>-->
+   <!--<value>parameters</value>-->
+   <!--</list>-->
+   <!--</property>-->
+   <!--</bean>-->
+
+   <!--   <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+           <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+           <property name="url" value="jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true"/>
+           <property name="username" value="webuser"/>
+           <property name="password" value="inv3ss3nc3u530n1y"/>
+       </bean>-->
+	 <import resource="classpath*:META-INF/spring/invitation.util.xml"/>
+  
+</beans>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/dao/CustomJdbcDaoImpl.java" />
+      <file url="file://$PROJECT_DIR$/modules/web/src/main/java/com/invessence/dao/SignupFunctionSP.java" />
+    </excludeFromCompile>
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="broker-services" />
+        <module name="brokerservice" />
+        <module name="brokerservices" />
+        <module name="core" />
+        <module name="docusign" />
+        <module name="emailer" />
+        <module name="eod" />
+        <module name="ibservice" />
+        <module name="invmodel" />
+        <module name="price-processor" />
+        <module name="rbsa-preprocessor" />
+        <module name="reports" />
+        <module name="showcase" />
+        <module name="virtual-trades" />
+        <module name="web" />
+        <module name="web-internal" />
+        <module name="web2" />
+        <module name="yodlee-services" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="broker-services" target="1.7" />
+      <module name="brokerservice" target="1.6" />
+      <module name="brokerservices" target="1.6" />
+      <module name="emailer" target="1.6" />
+      <module name="eod" target="1.6" />
+      <module name="ibservice" target="1.6" />
+      <module name="invmodel" target="1.6" />
+      <module name="price-processor" target="1.7" />
+      <module name="rbsa-preprocessor" target="1.6" />
+      <module name="reports" target="1.6" />
+      <module name="service-locator" target="1.6" />
+      <module name="services" target="1.6" />
+      <module name="showcase" target="1.6" />
+      <module name="trade" target="1.6" />
+      <module name="virtual-trades" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
+

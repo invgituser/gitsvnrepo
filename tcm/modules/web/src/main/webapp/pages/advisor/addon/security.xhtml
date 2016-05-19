@@ -1,0 +1,82 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+    <p:dataTable id="securityDataList" var="securityVar" widgetVar="securityDataVar"
+                 value="#{advisorAssetBean.filteredsecurityData}">
+
+        <p:ajax event="rowEdit" update=":assetform:msgs" />
+        <p:ajax event="rowEditCancel" update=":assetform:msgs" />
+
+        <f:facet name="header" style="text-align:right">
+            <p:outputPanel style="text-align:right">
+                <p:commandButton value="Add" disabled="true">
+                </p:commandButton>
+            </p:outputPanel>
+        </f:facet>
+
+        <p:column style="width:5%">
+            <p:commandButton id="editSecurity"
+                             styleClass="Fs16 BlueButton"
+                             icon="fa fa-pencil Fs14 white"
+                             oncomplete="PF('editSecurityDialog').show()"
+                             update="assetform:assetID:securityPanel">
+                <p:tooltip for="editSecurity" value="Edit" />
+                <f:setPropertyActionListener value="#{securityVar}"
+                                             target="#{advisorAssetBean.selectedSecurityData}"/>
+            </p:commandButton>
+        </p:column>
+        <p:column style="width:5%">
+            <p:commandButton id="menuDelete" rendered="#{securityVar.active == 'A'}"
+                             styleClass="Fs16 RedButton"
+                             process="@this" immediate="true"
+                             icon="fa fa-trash Fs14 white"
+                             update="primeassetDataList">
+                <p:confirm header="Delete This Asset Class" message="Are you sure?" icon="ui-icon-alert"/>
+            </p:commandButton>
+        </p:column>
+        <p:column sortBy="#{securityVar.assetclass}"
+                  headerText="AssetClass"
+                  style="width:10%; text-align: left"
+                  resizable="true">
+            <h:outputText value="#{securityVar.assetclass}"/>
+        </p:column>
+
+    </p:dataTable>
+
+    <p:dialog header="Prime Assets" widgetVar="editPrimeAssetDialog"
+              modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+        <p:outputPanel id="primeAssetPanel" style="text-align:center;">
+            <p:panelGrid  columns="2"
+                          columnClasses="label,value">
+
+                <h:outputText value="Theme:" />
+                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.theme}" />
+
+                <h:outputText value="Asset:" />
+                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.assetclass}" />
+
+                <h:outputText value="Prime Asset:" />
+                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.primeassetclass}" />
+
+                <h:outputText value="Ticker:" />
+                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.ticker}" />
+
+                <h:outputText value="Sort Order:" />
+                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.sortorder}" />
+
+                <h:outputText value="Lower Bound:" />
+                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.lowerbound}" />
+
+                <h:outputText value="Upper Bound:" />
+                <p:inputText value="#{advisorAssetBean.selectedPrimeAssetData.upperbound}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+
+
+</ui:composition>

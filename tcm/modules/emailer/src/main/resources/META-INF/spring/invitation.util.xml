@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<import resource="dataSource.xml"/>
+
+     <bean id="emailmessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>emailmessages</value>
+            </list>
+        </property>
+     </bean>
+
+    <bean id="msgDAO" class="com.invessence.dao.MsgDAO">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="inviteDAO" class="com.invessence.dao.InviteDAO">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="weburl" value="${ssl.url}"/>
+    </bean>
+
+    <bean id="emailCreator" class="com.invessence.util.EmailCreator">
+        <property name="msgDAO" ref="msgDAO"/>
+        <property name="messageSource" ref="emailmessageSource"/>
+    </bean>
+
+
+</beans>
