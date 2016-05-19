@@ -45,18 +45,18 @@ public class ConsumerBean extends CustomerData implements Serializable
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageText;
 
    private Charts charts = new Charts();
 
 
-   public EmailMessage getMessageText()
+   public WebMessage getMessageText()
    {
       return messageText;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }

@@ -16,7 +16,7 @@
             <p:submenu label="Account" icon="fa fa-file-text-o">
                 <p:menuitem value="New" icon="fa fa-plus-square"
                             actionListener="#{uiportal.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
-                <p:menuitem value="Management" icon="fa fa-institution"
+                <p:menuitem value="Management" icon="fa fa-institution" rendered="false"
                             actionListener="#{uiportal.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
                 <p:menuitem value="Account Aggregation" icon="fa fa-plus-square"
                             rendered="#{uiportal.hasAccessMenu('DEMO')}"

@@ -75,7 +75,7 @@
       <intercept-url pattern="/pages/common/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
-      <logout logout-success-url="${apache.url}"/>
+      <logout logout-success-url="${ssl.url}/login.xhtml"/>
 
       <intercept-url pattern="/**" access="ROLE_USER"/>
       <session-management invalid-session-url="${ssl.url}/pages/common/view-expired.xhtml"/>

@@ -20,47 +20,4 @@
       <view-handler>org.primefaces.application.DialogViewHandler</view-handler>
     </application>
 
-   <!-- Basic Info -->
-
-   <managed-bean>
-        <managed-bean-name>userBean</managed-bean-name>
-        <managed-bean-class>com.invessence.bean.common.UserBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>userInfoDAO</property-name>
-            <value>#{userInfoDAO}</value>
-        </managed-property>
-        <managed-property>
-            <property-name>messageText</property-name>
-            <property-class>com.invessence.util.EmailMessage</property-class>
-            <value>#{emailMessage}</value>
-        </managed-property>
-   </managed-bean>
-
-   <managed-bean>
-        <managed-bean-name>resetPasswordData</managed-bean-name>
-        <managed-bean-class>com.invessence.data.common.ResetPasswordData</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-        <managed-property>
-            <property-name>userInfoDAO</property-name>
-            <value>#{userInfoDAO}</value>
-        </managed-property>
-   </managed-bean>
-
-   <!-- Client Take On Process-->
-   <navigation-rule>
-        <from-view-id>/signup.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{userBean.signUp2}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>/signupApproval.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-action>#{userBean.signUp2}</from-action>
-            <from-outcome>error</from-outcome>
-            <to-view-id>/backup/error.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-
 </faces-config>

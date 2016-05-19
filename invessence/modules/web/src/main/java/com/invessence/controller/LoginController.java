@@ -29,17 +29,17 @@ public class LoginController implements PhaseListener
    private Boolean needAdditionalInfo = false;
    private UserInfoData uid;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage emailMessage;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage webMessage;
 
    @ManagedProperty("#{uiportal}")
    private UIPortal uiPortal;
 
    private MsgData data = new MsgData();
 
-   public void setEmailMessage(EmailMessage emailMessage)
+   public void setWebMessage(WebMessage webMessage)
    {
-      this.emailMessage = emailMessage;
+      this.webMessage = webMessage;
    }
 
    public void setUiPortal(UIPortal uiPortal)
@@ -79,24 +79,24 @@ public class LoginController implements PhaseListener
          if (e instanceof LockedException) {
             uid = (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
             if (uid != null) {
-               String secureUrl = emailMessage.buildInternalMessage("secure.url", new Object[]{});
+               String secureUrl = webMessage.buildInternalMessage("secure.url", new Object[]{});
 
                // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
-               String msg = emailMessage.buildMessage(uid.getEmailmsgtype(),"accountlocked.email.template", "accountlocked.email", new Object[]{secureUrl, uid.getEmail(), uid.getResetID()} );
+               String msg = webMessage.buildMessage(uid.getEmailmsgtype(),"accountlocked.email.template", "accountlocked.email", new Object[]{secureUrl, uid.getEmail(), uid.getResetID()} );
                data.setSource("User");  // This is set to User to it insert into appropriate table.
                data.setSender(Const.MAIL_SENDER);
                data.setReceiver(uid.getEmail());
                data.setSubject(Const.COMPANY_NAME + " - Account Locked");
                data.setMsg(msg);
                data.setMimeType(uid.getEmailmsgtype());
-               emailMessage.writeMessage("user", data);
+               webMessage.writeMessage("user", data);
                data.setSubject("Locked:" + uid.getUserID());
                // If user is locked, send message to support desk...
                String lockedinfo = "Locked:" + uid.getUserID() + "," + uid.getAttempts().toString() + "," + uid.getResetID() ;
                System.out.println(lockedinfo);
                data.setMsg(lockedinfo);
                data.setReceiver(null);
-               emailMessage.writeMessage("WARN", data);
+               webMessage.writeMessage("WARN", data);
             }
             String lockedMsg = "&message=mbal";
             String type="&type=E";

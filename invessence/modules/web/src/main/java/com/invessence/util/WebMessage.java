@@ -18,9 +18,9 @@ import org.springframework.context.*;
  * Time: 12:13 PM
  * To change this template use File | Settings | File Templates.
  */
-@ManagedBean(name = "emailMessage")
+@ManagedBean(name = "webMessage")
 @ApplicationScoped
-public class EmailMessage implements MessageSourceAware, Serializable
+public class WebMessage implements MessageSourceAware, Serializable
 {
    private static final long serialVersionUID = -1001L;
    private MessageSource messageSource;
@@ -43,7 +43,8 @@ public class EmailMessage implements MessageSourceAware, Serializable
 
    public void setMessageSource(MessageSource messageSource)
    {
-      this.messageSource = messageSource;
+      if (this.messageSource == null)
+         this.messageSource = messageSource;
    }
 
    public String buildMessage(String msgType, String html_version, String text_version, Object [] obj) {

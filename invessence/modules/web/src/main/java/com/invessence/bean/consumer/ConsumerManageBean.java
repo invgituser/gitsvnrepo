@@ -54,8 +54,8 @@ public class ConsumerManageBean implements Serializable
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO manageAccountDAO;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageSource;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageSource;
 
    static Map<String, String> pendingActions = new LinkedHashMap<String, String>();
 
@@ -86,12 +86,12 @@ public class ConsumerManageBean implements Serializable
       this.anyPending = anyPending;
    }
 
-   public EmailMessage getMessageSource()
+   public WebMessage getMessageSource()
    {
       return messageSource;
    }
 
-   public void setMessageSource(EmailMessage messageSource)
+   public void setMessageSource(WebMessage messageSource)
    {
       this.messageSource = messageSource;
    }

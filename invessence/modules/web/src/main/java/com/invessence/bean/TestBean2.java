@@ -3,9 +3,6 @@ package com.invessence.bean;
 import java.util.*;
 import javax.faces.bean.*;
 
-import com.invessence.constant.Const;
-import com.invessence.data.MsgData;
-import com.invessence.util.EmailMessage;
 import org.primefaces.model.chart.*;
 
 /**

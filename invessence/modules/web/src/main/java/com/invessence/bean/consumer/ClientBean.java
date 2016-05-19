@@ -32,8 +32,8 @@ public class ClientBean extends ClientData implements Serializable
    @ManagedProperty("#{consumerSaveDataDAO}")
    private ConsumerSaveDataDAO saveDAO;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageText;
 
    public Long getBeanAcctnum()
    {
@@ -56,7 +56,7 @@ public class ClientBean extends ClientData implements Serializable
       this.saveDAO = saveDAO;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }

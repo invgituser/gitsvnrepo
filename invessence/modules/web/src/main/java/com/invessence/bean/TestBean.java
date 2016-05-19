@@ -1,13 +1,8 @@
 package com.invessence.bean;
 
-import java.util.*;
-import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-
 import com.invessence.constant.Const;
 import com.invessence.data.MsgData;
-import com.invessence.util.EmailMessage;
+import com.invessence.util.WebMessage;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +13,7 @@ import com.invessence.util.EmailMessage;
  */
 public class TestBean {
 
-   private EmailMessage messageText;
+   private WebMessage messageText;
    private static TestBean instance = null;
 
    private String message;
@@ -38,12 +33,12 @@ public class TestBean {
    }
 */
 
-   public EmailMessage getMessageText()
+   public WebMessage getMessageText()
    {
       return messageText;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }

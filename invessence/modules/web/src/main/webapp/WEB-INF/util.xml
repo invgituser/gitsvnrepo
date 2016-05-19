@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-     <bean id="emailMessage" class="com.invessence.util.EmailMessage">
+     <bean id="webMessage" class="com.invessence.util.WebMessage">
      </bean>
 
 </beans>

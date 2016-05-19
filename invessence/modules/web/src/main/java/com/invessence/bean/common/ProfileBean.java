@@ -22,8 +22,8 @@ public class ProfileBean
    @ManagedProperty("#{userInfoDAO}")
    private UserInfoDAO userInfoDAO;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageText;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -37,7 +37,7 @@ public class ProfileBean
       this.userInfoDAO = userInfoDAO;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }

@@ -15,7 +15,6 @@ import com.invessence.dao.consumer.*;
 import com.invessence.data.common.*;
 import com.invessence.util.*;
 import com.invmodel.Const.InvConst;
-import com.invmodel.performance.data.PerformanceData;
 import org.primefaces.component.tabview.Tab;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
@@ -57,8 +56,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    @ManagedProperty("#{consumerSaveDataDAO}")
    private ConsumerSaveDataDAO saveDAO;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageText;
 
    public Long getBeanAcctnum()
    {
@@ -81,7 +80,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       this.saveDAO = saveDAO;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }
@@ -523,7 +522,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       //setDefaultRiskIndex(event.getValue());
       setRiskCalcMethod("A");
       setPortfolioIndex(event.getValue());
-      createPortfolio(1);
+      createAssetPortfolio(1);
+      // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
       formEdit = true;
    }
 

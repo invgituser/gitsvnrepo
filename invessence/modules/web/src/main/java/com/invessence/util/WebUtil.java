@@ -9,7 +9,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.constant.Const;
-import com.invessence.data.MsgData;
 import com.invessence.data.common.UserInfoData;
 import org.primefaces.context.RequestContext;
 import org.springframework.security.core.*;
@@ -24,13 +23,13 @@ public class WebUtil implements Serializable
 {
 
    @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
-   public void setMessageText(EmailMessage messageText)
+   private WebMessage messageText;
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }
 
-   public EmailMessage getMessageText()
+   public WebMessage getMessageText()
    {
       return messageText;
    }

@@ -2,14 +2,11 @@ package com.invessence.bean.consumer;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.USMaps;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.consumer.*;
-import com.invessence.data.common.CustomerData;
 import com.invessence.data.consumer.CTO.InvestorData;
 import com.invessence.util.*;
 import com.invessence.util.Impl.PagesImpl;
@@ -48,9 +45,9 @@ public class CTOBean extends InvestorData implements Serializable
       this.saveDAO = saveDAO;
    }
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
-   public void setMessageText(EmailMessage messageText)
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageText;
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }

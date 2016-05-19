@@ -41,12 +41,12 @@ public class MarketingBean implements Serializable
    private CommonDAO cldDAO;
 
    @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
+   private WebMessage messageText;
 
    public MarketingBean() {
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }

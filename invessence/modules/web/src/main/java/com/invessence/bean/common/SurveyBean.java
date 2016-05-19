@@ -27,8 +27,8 @@ public class SurveyBean extends SurveyData implements Serializable
    @ManagedProperty("#{surveyDAO}")
    private SurveyDAO surveyDAO;
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage emailMessage;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage webMessage;
 
    private WebUtil webutil = new WebUtil();
    private Map<Integer, String> passwrdMap = null;
@@ -38,9 +38,9 @@ public class SurveyBean extends SurveyData implements Serializable
       this.surveyDAO = surveyDAO;
    }
 
-   public void setEmailMessage(EmailMessage emailMessage)
+   public void setWebMessage(WebMessage webMessage)
    {
-      this.emailMessage = emailMessage;
+      this.webMessage = webMessage;
    }
 
    @PostConstruct
@@ -133,7 +133,7 @@ public class SurveyBean extends SurveyData implements Serializable
             setFollowup("Y");
             spMsg = surveyDAO.saveData(getInstance());
             if (spMsg.equalsIgnoreCase("success")) {
-               String msg = emailMessage.buildMessage("HTML", "survey.email.template", null, new Object[]{getEmail(),getPasswrd(),getFirstname(),getLastname()});
+               String msg = webMessage.buildMessage("HTML", "survey.email.template", null, new Object[]{getEmail(),getPasswrd(),getFirstname(),getLastname()});
                data.setSource("User");  // This is set to User to it insert into appropriate table.
                data.setSender(Const.MAIL_SENDER);
                data.setReceiver(getEmail());
@@ -141,7 +141,7 @@ public class SurveyBean extends SurveyData implements Serializable
                data.setMsg(msg);
                data.setMimeType(getEmailMimeType());
                if (msg.length() > 0)
-                  emailMessage.writeMessage("user", data);
+                  webMessage.writeMessage("user", data);
                webutil.redirecttoMessagePage("N","mtp","mbp");
             }
             else {
@@ -154,7 +154,7 @@ public class SurveyBean extends SurveyData implements Serializable
                data.setSubject("Survey Problem");
                data.setMsg(msg);
                data.setMimeType("TEXT");
-               emailMessage.writeMessage("Internal", data);
+               webMessage.writeMessage("Internal", data);
                webutil.redirecttoMessagePage("Error","mtse","mbse");
             }
          }

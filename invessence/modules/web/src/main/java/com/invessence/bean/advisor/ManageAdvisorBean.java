@@ -2,12 +2,10 @@ package com.invessence.bean.advisor;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.bean.*;
 import com.invessence.constant.Const;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.common.AccountData;
@@ -49,15 +47,15 @@ public class ManageAdvisorBean implements Serializable
    private AccountData selectedAccount;
 
    @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageSource;
+   private WebMessage messageSource;
 
 
-   public EmailMessage getMessageSource()
+   public WebMessage getMessageSource()
    {
       return messageSource;
    }
 
-   public void setMessageSource(EmailMessage messageSource)
+   public void setMessageSource(WebMessage messageSource)
    {
       this.messageSource = messageSource;
    }

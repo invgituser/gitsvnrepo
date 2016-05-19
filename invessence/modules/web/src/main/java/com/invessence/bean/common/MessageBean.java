@@ -16,8 +16,8 @@ public class MessageBean implements Serializable {
    private String title = "";
 
 
-   @ManagedProperty("#{emailMessage}")
-   private EmailMessage messageText;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageText;
    private String message = null;
 
    @ManagedProperty("#{webutil}")
@@ -57,7 +57,7 @@ public class MessageBean implements Serializable {
       }
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }

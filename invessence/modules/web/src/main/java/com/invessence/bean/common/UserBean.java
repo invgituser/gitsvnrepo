@@ -1,20 +1,16 @@
 package com.invessence.bean.common;
 
 import java.util.*;
-import java.util.regex.Pattern;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.constant.*;
-import com.invessence.converter.SQLData;
 import com.invessence.dao.common.UserInfoDAO;
 import com.invessence.data.*;
 import com.invessence.data.common.UserData;
 import com.invessence.util.*;
-import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
@@ -29,7 +25,11 @@ public class UserBean extends UserData
    private USMaps usstates = USMaps.getInstance();
    private String[] uscountry;
 
-   private EmailMessage messageText;
+   @ManagedProperty("#{webMessage}")
+   private WebMessage messageText;
+
+
+   @ManagedProperty("#{userInfoDAO}")
    private UserInfoDAO userInfoDAO;
 
    public String getBeanUserID()
@@ -52,12 +52,12 @@ public class UserBean extends UserData
       this.beanResetID = beanResetID;
    }
 
-   public EmailMessage getMessageText()
+   public WebMessage getMessageText()
    {
       return messageText;
    }
 
-   public void setMessageText(EmailMessage messageText)
+   public void setMessageText(WebMessage messageText)
    {
       this.messageText = messageText;
    }
