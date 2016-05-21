@@ -1,6 +1,6 @@
 package com.invessence.data.common;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +17,7 @@ public class UIProfile
    String homepage;
    String securehomepage;
    String logo;
+   String logosize;
    String logolib;
    String mainemail;
    String supportemail;
@@ -34,7 +35,7 @@ public class UIProfile
 
    public UIProfile(String cid, String advisor, String companyname,
                     String homepage, String securehomepage,
-                    String logo, String logolib,
+                    String logo, String logosize, String logolib,
                     String mainemail, String supportemail,
                     String mainphone, String supportphone,
                     String copyright, String forwardURL)
@@ -45,6 +46,7 @@ public class UIProfile
       this.homepage = homepage;
       this.securehomepage = securehomepage;
       this.logo = logo;
+      this.logosize = logosize;
       this.logolib = logolib;
       this.mainemail = mainemail;
       this.supportemail = supportemail;
@@ -95,10 +97,10 @@ public class UIProfile
    public String getLogo()
    {
       if (logo == null)
-         return Const.DEFAULT_LOGO;
+         return WebConst.DEFAULT_LOGO;
 
       if (logo.length() == 0)
-         return Const.DEFAULT_LOGO;
+         return WebConst.DEFAULT_LOGO;
 
       return logo;
    }
@@ -108,33 +110,23 @@ public class UIProfile
       this.logo = logo;
    }
 
-   public String getHomepage()
+   public String getLogosize()
    {
-      return homepage;
+      return logosize;
    }
 
-   public void setHomepage(String homepage)
+   public void setLogosize(String logosize)
    {
-      this.homepage = homepage;
-   }
-
-   public String getSecurehomepage()
-   {
-      return securehomepage;
-   }
-
-   public void setSecurehomepage(String securehomepage)
-   {
-      this.securehomepage = securehomepage;
+      this.logosize = logosize;
    }
 
    public String getLogolib()
    {
       if (logolib == null)
-         return Const.DEFAULT_LOGOLIB;
+         return WebConst.DEFAULT_LOGOLIB;
 
       if (logolib.length() == 0)
-         return Const.DEFAULT_LOGOLIB;
+         return WebConst.DEFAULT_LOGOLIB;
 
       return logolib;
    }
@@ -207,10 +199,10 @@ public class UIProfile
    public String getTheme()
    {
       if (theme == null)
-         return Const.DEFAULT_THEME;
+         return WebConst.DEFAULT_THEME;
 
       if (theme.length() == 0)
-         return Const.DEFAULT_THEME;
+         return WebConst.DEFAULT_THEME;
 
       return theme;
    }
@@ -238,7 +230,7 @@ public class UIProfile
 
    public void resetAllInfo(String cid, String advisor, String companyname,
                             String homepage, String securehomepage,
-                            String logo, String logolib,
+                            String logo, String logosize, String logolib,
                             String mainemail, String supportemail,
                             String mainphone, String supportphone,
                             String copyright, String forwardURL)
@@ -249,6 +241,7 @@ public class UIProfile
       this.homepage = homepage;
       this.securehomepage = securehomepage;
       this.logo = logo;
+      this.logosize = logosize;
       this.logolib = logolib;
       this.mainemail = mainemail;
       this.supportemail = supportemail;
@@ -268,7 +261,7 @@ public class UIProfile
       else {
 
          if (this.theme == null)
-            this.theme = Const.DEFAULT_THEME;
+            this.theme = WebConst.DEFAULT_THEME;
 
          if (themelib == null)
             themelib = this.theme + "-layout";
@@ -288,7 +281,7 @@ public class UIProfile
       }
       else {
          if (this.theme == null)
-            this.theme = Const.DEFAULT_THEME;
+            this.theme = WebConst.DEFAULT_THEME;
 
          if (themelib == null)
             themelib = this.theme + "-layout";
@@ -296,5 +289,23 @@ public class UIProfile
 
    }
 
+   public String getHomepage()
+   {
+      return homepage;
+   }
 
+   public void setHomepage(String homepage)
+   {
+      this.homepage = homepage;
+   }
+
+   public String getSecurehomepage()
+   {
+      return securehomepage;
+   }
+
+   public void setSecurehomepage(String securehomepage)
+   {
+      this.securehomepage = securehomepage;
+   }
 }

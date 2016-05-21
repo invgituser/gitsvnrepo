@@ -10,6 +10,7 @@ import com.invessence.constant.Const;
 import com.invessence.dao.MsgDAO;
 import com.invessence.data.MsgData;
 import org.springframework.context.*;
+import org.springframework.stereotype.Component;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,8 +19,7 @@ import org.springframework.context.*;
  * Time: 12:13 PM
  * To change this template use File | Settings | File Templates.
  */
-@ManagedBean(name = "webMessage")
-@ApplicationScoped
+
 public class WebMessage implements MessageSourceAware, Serializable
 {
    private static final long serialVersionUID = -1001L;

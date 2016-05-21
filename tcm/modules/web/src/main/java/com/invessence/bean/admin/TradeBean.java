@@ -19,6 +19,7 @@ import com.invmodel.rebalance.RebalanceProcess;
 import com.invmodel.rebalance.data.*;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.*;
+import org.springframework.beans.factory.annotation.Autowire;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
@@ -37,9 +38,6 @@ public class TradeBean extends TradeClientData implements Serializable
    private Map<String, TradeSummary> tradeDetailsData = null;
    private TradeClientData selectedClient;
    private TradeSummary selectedTradeSummary;
-
-
-   UIPortal menu = new UIPortal();
 
    @ManagedProperty("#{tradeDAO}")
    private TradeDAO tradeDAO;
@@ -302,7 +300,7 @@ public class TradeBean extends TradeClientData implements Serializable
          if (getSelectedClient() == null)
             return "failed";
          else
-            menu.doMenuAction("/consumer/cadd.xhtml?acct="+getSelectedClient().getAcctnum().toString());
+            webutil.redirect("/consumer/cadd.xhtml?acct="+getSelectedClient().getAcctnum().toString(),null);
       }
       catch (Exception ex)
       {

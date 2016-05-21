@@ -8,31 +8,33 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
+import com.invessence.data.MsgData;
 import com.invessence.data.common.UserInfoData;
 import org.primefaces.context.RequestContext;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.context.*;
+import org.springframework.stereotype.Component;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
-
-@ManagedBean(name = "webutil")
-@SessionScoped
+@Component("webutil")
 public class WebUtil implements Serializable
 {
 
-   @ManagedProperty("#{emailMessage}")
+   @Autowired
    private WebMessage messageText;
-   public void setMessageText(WebMessage messageText)
-   {
-      this.messageText = messageText;
-   }
 
    public WebMessage getMessageText()
    {
       return messageText;
    }
+
+   public WebUtil()
+   {
+   }
+
 
    public boolean isWebProdMode() {
       if (messageText == null)
@@ -277,6 +279,20 @@ public class WebUtil implements Serializable
          return username + ", Welcome";
    }
 
+   public String getFullname() {
+      String username = null;
+      if (isUserLoggedIn()) {
+         UserInfoData uid = getUserInfoData();
+         if (uid != null)
+            username = uid.getFullName();
+      }
+
+      if (username == null)
+         return "";
+      else
+         return username;
+   }
+
    public String getLastFirstName() {
       String username = null;
       if (isUserLoggedIn()) {
@@ -315,7 +331,7 @@ public class WebUtil implements Serializable
 
    }
 
-   public Boolean validatePriviledge(String role)
+   public Boolean validatePriviledge(String access)
    {
       try {
          if (! isUserLoggedIn())
@@ -324,8 +340,12 @@ public class WebUtil implements Serializable
             return false;
          }
          else
-            if (role != null) {
-               if (! hasRole(role)) {
+            if (access == null)
+               return true;
+            else {
+               if (hasAccess(access))
+                  return true;
+               else {
                   redirect("/access-denied.xhtml", null);
                   return false;
                }
@@ -336,7 +356,6 @@ public class WebUtil implements Serializable
          redirect(url,null);
          return false;
       }
-      return true;
    }
 
    public boolean hasRole(String role) {
@@ -353,14 +372,14 @@ public class WebUtil implements Serializable
                         return true;
                      // Sales and Support are part of Admin functions.  So, Admin will have same access.
                      // However, Sales and Support will not have ADMIN functions.
-                     if (auth.getAuthority().equalsIgnoreCase(Const.ROLE_ADMIN))
-                        if (role.contains(Const.ROLE_SALES) || role.contains(Const.ROLE_SUPPORT))
+                     if (auth.getAuthority().equalsIgnoreCase(WebConst.ROLE_ADMIN))
+                        if (role.contains(WebConst.ROLE_SALES) || role.contains(WebConst.ROLE_SUPPORT))
                            return true;
                   }
                }
-               // If roles table is blank, then they must be USER or OWNER of account.
-               if (role.equalsIgnoreCase(Const.ROLE_USER) || role.equalsIgnoreCase(Const.ROLE_OWNER))
-                  return true;
+               // Changed Roles and Access are two different functions....
+               // if (role.equalsIgnoreCase(Const.ROLE_USER) || role.equalsIgnoreCase(Const.ROLE_OWNER))
+               //   return true;
             }
       }
       catch (Exception ex) {
@@ -373,7 +392,9 @@ public class WebUtil implements Serializable
 
       String access = getAccess();
       if (access != null) {
-         if (access.equalsIgnoreCase("ADMIN"))
+         if (role.equalsIgnoreCase(WebConst.WEB_ALL))
+            return true;
+         else if (access.equalsIgnoreCase(WebConst.WEB_ADMIN))
             return true;
          else if (access.equalsIgnoreCase(role))
             return true;
@@ -403,7 +424,7 @@ public class WebUtil implements Serializable
    public Long getAcctnum() {
 
       try {
-         Long acctnum = (Long) getCurrentInstance().getExternalContext().getSessionMap().get(Const.ACCTNO_PARAM);
+         Long acctnum = (Long) getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.ACCTNO_PARAM);
 
          return acctnum;
       }
@@ -418,7 +439,7 @@ public class WebUtil implements Serializable
    public void setAcctnum(Long acctnum) {
 
       try {
-         getCurrentInstance().getExternalContext().getSessionMap().put(Const.ACCTNO_PARAM, acctnum);
+         getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.ACCTNO_PARAM, acctnum);
 
       }
       catch (Exception ex) {
@@ -485,8 +506,7 @@ public class WebUtil implements Serializable
 
    public void alertSupport(String module, String subject,
                             String message_line, String stacktrace) {
-
-      messageText.alertSupport(module, subject, message_line, stacktrace, getUserInfoData().getUserID());
+      //messageText.alertSupport(module, subject, message_line, stacktrace, getUserInfoData().getUserID());
    }
 
    public void seriousError(String module, String subject,
@@ -517,33 +537,29 @@ public class WebUtil implements Serializable
          boolean noSpecialChar = pass1.matches("[a-zA-Z0-9 ]*");
 
          if (pass1.length() < 8) {
-            retVal.append("Password is too short. Needs to have 8 characters <br>");
+            return("Password is too short. Must have minimum of 8 characters");
          }
 
          if (!hasUppercase) {
-            retVal.append("Password needs an upper case <br>");
+            return("Password must contain at least one upper case");
          }
 
          if (!hasLowercase) {
-            retVal.append("Password needs a lowercase <br>");
+            return("Password must have at least one lowercase character");
          }
 
          if (!hasNumber) {
-            retVal.append("Password needs a number <br>");
+            return("Password must contain at least one numeric value");
          }
 
          if(noSpecialChar){
-            retVal.append("Password needs a special character i.e. !,@,#, etc.  <br>");
+            return("Password must contain at lease one special character i.e. !,@,#, etc.");
          }
       }else{
-         retVal.append("Passwords don't match<br>");
+         return("Two passwords don't match");
       }
 
-      if(retVal.length() == 0){
-         retVal.append("Success");
-      }
-
-      return retVal.toString();
+      return("Success");
 
    }
 

@@ -8,12 +8,12 @@
 
     <div id="layout-topbar" class="ShadowGray">
         <div id="layout-topbar-indent">
-            <a href="#{uiportal.defaultHome}">
-                <h:graphicImage name="#{uiportal.logo}" alt="#{uiportal.logoAlt}"
+            <a href="#{uiLayout.defaultHome}">
+                <h:graphicImage name="#{uiLayout.logo}" alt="#{uiLayout.logoAlt}"
                                 styleClass="Fleft" library="invessence" id="logo" class="Fleft"/>
             </a>
 
-            <ui:fragment rendered="#{uiportal.isUserLoggedInMenu}">
+            <ui:fragment rendered="#{uiLayout.isUserLoggedInMenu}">
                 <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>
                 <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Top Menu</a>
 
@@ -23,23 +23,23 @@
                     </li>
                     <li class="fa fa-ellipsis-v menu-separator"></li>
                     <li>
-                        <ui:fragment rendered="#{uiportal.hasAccessMenu('ADVISOR')}">
+                        <ui:fragment rendered="#{uiLayout.hasAccessMenu('ADVISOR')}">
                             <a class="Animated05 CursPointer"><i class="fa fa-cog"></i> Setting</a>
                             <ul style="width:175px; margin-left:-10px;" class="Animated03 submenu">
-                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiportal.username}</span></a></li>
+                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiLayout.username}</span></a></li>
                                 <li><a href="/pages/common/myprofile.xhtml" class="Animated05"><i class="fa fa-dashboard"></i> My Profile</a></li>
                             </ul>
                         </ui:fragment>
-                        <ui:fragment rendered="#{! uiportal.hasAccessMenu('ADVISOR')}">
+                        <ui:fragment rendered="#{! uiLayout.hasAccessMenu('ADVISOR')}">
                             <a class="Animated05 CursPointer"><i class="fa fa-cog"></i> Setting</a>
                             <ul style="width:175px; margin-left:-10px;" class="Animated03 submenu">
-                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiportal.username}</span></a></li>
+                                <li><a class="Animated05"><i class="fa fa-user Fs30 Fleft"></i> <span class="Fright Fs20 TexAlRight">#{uiLayout.username}</span></a></li>
                                 <li><a href="/pages/common/myprofile.xhtml" class="Animated05"><i class="fa fa-dashboard"></i> My Profile</a></li>
                             </ul>
                         </ui:fragment>
                     </li>
 
-                    <ui:fragment rendered="#{! uiportal.hasAccessMenu('ADVISOR')}">
+                    <ui:fragment rendered="#{! uiLayout.hasAccessMenu('ADVISOR')}">
                     <li class="fa fa-ellipsis-v menu-separator"></li>
                     <li>
                             <a class="Animated05 CursPointer" href="http://www.teamviewer.com/link/?url=505374&amp;id=35279493">

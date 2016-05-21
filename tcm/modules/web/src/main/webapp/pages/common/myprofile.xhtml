@@ -4,7 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
-                template="/template/common/invlayout.xhtml">
+                template="/template/common/template.xhtml">
 
     <f:metadata>
         <f:event type="preRenderView" listener="#{profileBean.preRenderView}"/>
@@ -22,7 +22,7 @@
                                 <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
                                 <div class="Container80">
                                     <div class="Fright">
-                                        <h2 class="black Fs24 FontThemeMedium">#{uiportal.webutil.lastFirstName}</h2>
+                                        <h2 class="black Fs24 FontThemeMedium">#{webutil.lastFirstName}</h2>
                                         <!--
                                                                         <span class="Fleft Fs12 softgray">Your last login - 18.08.2015  16:30</span>
                                         -->

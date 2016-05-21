@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.dao.consumer.ConsumerListDataDAO;
 import com.invessence.data.common.CustomerData;
 import com.invessence.util.*;
@@ -32,11 +32,11 @@ public class ConsumerManageBean implements Serializable
       this.webutil = webutil;
    }
 
-   @ManagedProperty("#{uiportal}")
-   private UIPortal uiPortal;
-   public void setUiPortal(UIPortal uiPortal)
+   @ManagedProperty("#{uiLayout}")
+   private UILayout uiLayout;
+   public void setUiLayout(UILayout uiLayout)
    {
-      this.uiPortal = uiPortal;
+      this.uiLayout = uiLayout;
    }
 
    private List<CustomerData> manageAccountList;
@@ -102,7 +102,7 @@ public class ConsumerManageBean implements Serializable
       try {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.ROLE_USER)) {
+            if (webutil.validatePriviledge(WebConst.ROLE_USER)) {
                logonid = webutil.getLogonid();
 
                if (logonid != null) {
@@ -124,7 +124,7 @@ public class ConsumerManageBean implements Serializable
       String fetchStatus;
       try
       {
-         if (webutil.validatePriviledge(Const.ROLE_USER)) {
+         if (webutil.validatePriviledge(WebConst.ROLE_USER)) {
             logonid = webutil.getLogonid();
          }
       }
@@ -236,8 +236,8 @@ public class ConsumerManageBean implements Serializable
                }
 
                val = val + delimiter +
-                  Const.LOGONID_PARAM + "=" + logonid + "&" +
-                  Const.ACCTNO_PARAM + "=" + acctnum;
+                  WebConst.LOGONID_PARAM + "=" + logonid + "&" +
+                  WebConst.ACCTNO_PARAM + "=" + acctnum;
             }
             else
             {
@@ -365,7 +365,7 @@ public class ConsumerManageBean implements Serializable
          }
 
 
-         uiPortal.doMenuAction(whichXML);
+         webutil.redirect(whichXML, null);
       }
       catch (Exception ex)
       {

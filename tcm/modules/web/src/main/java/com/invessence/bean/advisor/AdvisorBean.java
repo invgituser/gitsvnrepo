@@ -10,7 +10,7 @@ import javax.faces.event.*;
 import javax.servlet.http.*;
 
 import com.invessence.bean.consumer.Charts;
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.*;
@@ -126,7 +126,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
    {
       try
       {
-         webutil.validatePriviledge(Const.ROLE_ADVISOR);
+         webutil.validatePriviledge(WebConst.ROLE_ADVISOR);
       }
       catch (Exception e)
       {
@@ -192,9 +192,9 @@ public class AdvisorBean extends AdvisorData implements Serializable
 
       }
       try {
-         UserInfoData uid = (UserInfoData)  getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
+         UserInfoData uid = (UserInfoData)  getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
          setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-         Long logonid = (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.LOGONID_PARAM);
+         Long logonid = (Long) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.LOGONID_PARAM);
          // due to reset call, make sure to reset the logonid.
          setLogonid(logonid);
          if (formDirty) {

@@ -5,7 +5,7 @@ import java.util.*;
 
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import org.springframework.security.core.*;
 
 
@@ -17,7 +17,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    private String lastname, firstname;
    private String ip, resetID;
    private String cid, advisor;
-   private Long rep;
+   private String rep;
    private String emailmsgtype;
    private String stateRegistered;
    private Map questAns;
@@ -36,7 +36,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
                        boolean accountNonLocked, Collection<GrantedAuthority> authorities,
                        String lastname, String firstname,
                        String ip, String resetID,
-                       String cid, String advisor, Long rep,  String stateRegistered,
+                       String cid, String advisor, String rep,  String stateRegistered,
                        Map questAns, Integer attempts, String access, String logonStatus, Integer randomQuestion, String emailmsgtype)
    {
       super(username, password, enabled
@@ -63,7 +63,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       setEmailmsgtype(emailmsgtype);
       setStateRegistered(stateRegistered);
 
-      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, logonID);
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.LOGONID_PARAM, logonID);
    }
 
    public Long getLogonID()
@@ -127,13 +127,23 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    }
 
    public String getFullName() {
+      if (firstname == null && lastname == null)
+         return "";
+      if (firstname == null)
+         return lastname;
+      if (lastname == null)
+         return firstname;
       return firstname + " " + lastname;
    }
 
    public String getLastFirstName() {
+      if (firstname == null && lastname == null)
+         return "";
+
       if (lastname == null)
          return firstname;
-      else
+      if (firstname == null)
+         return lastname;
       return lastname + ", " + firstname;
    }
 
@@ -177,12 +187,12 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       this.advisor = advisor;
    }
 
-   public Long getRep()
+   public String getRep()
    {
       return rep;
    }
 
-   public void setRep(Long rep)
+   public void setRep(String rep)
    {
       this.rep = rep;
    }

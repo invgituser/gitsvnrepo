@@ -4,7 +4,7 @@ import java.io.Serializable;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.data.common.UserInfoData;
 import com.invessence.util.*;
 
@@ -62,11 +62,11 @@ public class InstitutionGenericBean implements Serializable
       String accttype;
       UserInfoData uid;
       try {
-         if (getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE) != null)
+         if (getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USERLOGON_ACCTTYPE) != null)
          {
-            accttype = getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ACCTTYPE).toString();
-            if (accttype.equalsIgnoreCase(Const.ROLE_ADVISOR)) {
-               uid =  (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
+            accttype = getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USERLOGON_ACCTTYPE).toString();
+            if (accttype.equalsIgnoreCase(WebConst.ROLE_ADVISOR)) {
+               uid =  (UserInfoData) getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
                institutionImage= "/images/InvessenceLogo.jpg";
                //institutionImage = uid.getLogo();
                if (institutionImage == null)

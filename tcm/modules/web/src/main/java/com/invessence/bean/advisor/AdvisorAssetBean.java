@@ -6,7 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.advisor.*;
 import com.invessence.data.common.AccountData;
@@ -112,7 +112,7 @@ public class AdvisorAssetBean implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.ROLE_ADVISOR))
+            if (webutil.validatePriviledge(WebConst.ROLE_ADVISOR))
             {
                Long logonid;
                logonid = webutil.getLogonid();

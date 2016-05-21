@@ -1,7 +1,7 @@
 package com.invessence.dao.common;
 
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 
 
 import javax.sql.DataSource;
@@ -26,7 +26,7 @@ public class UserInfoSP extends StoredProcedure
       switch (mode) {
          case 0:
             declareParameter(new SqlParameter("p_addmod", Types.VARCHAR));
-            declareParameter(new SqlOutParameter(Const.LOGONID_PARAM, Types.BIGINT));
+            declareParameter(new SqlOutParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));

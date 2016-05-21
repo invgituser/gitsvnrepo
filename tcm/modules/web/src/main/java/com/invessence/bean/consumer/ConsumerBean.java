@@ -8,7 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.converter.*;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.*;
@@ -122,7 +122,7 @@ public class ConsumerBean extends CustomerData implements Serializable
    {
       try
       {
-         getWebutil().validatePriviledge(Const.ROLE_OWNER);
+         getWebutil().validatePriviledge(WebConst.ROLE_OWNER);
       }
       catch (Exception e)
       {

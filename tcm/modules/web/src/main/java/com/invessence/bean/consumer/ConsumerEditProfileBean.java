@@ -461,9 +461,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          if (getWebutil().isUserLoggedIn())
          {
-            if (getWebutil().hasRole(Const.ROLE_OWNER) ||
-               getWebutil().hasRole(Const.ROLE_ADVISOR) ||
-               getWebutil().hasRole(Const.ROLE_ADMIN))
+            if (getWebutil().hasRole(WebConst.ROLE_OWNER) ||
+               getWebutil().hasRole(WebConst.ROLE_ADVISOR) ||
+               getWebutil().hasRole(WebConst.ROLE_ADMIN))
             {
                UserInfoData uid = getWebutil().getUserInfoData();
                if (uid != null)

@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/common/invsimplelayout.xhtml">
+                template="/template/common/simple.xhtml">
 
     <f:metadata>
         <f:viewParam name="email" value="#{userBean.email}"/>
@@ -16,7 +16,7 @@
                 <div class="Container90 Fnone MarAuto TexAlCenter">
                     <div class="EmptyBox20"></div>
                     <h:form>
-                        <h:graphicImage id="logo" name="#{uiportal.logo}" styleClass="Fleft" library="invessence"
+                        <h:graphicImage id="logo" name="#{uiLayout.logo}" styleClass="Fleft" library="invessence"
                                         class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
                         <div class="EmptyBox15"></div>
                         <p:panel id="forgotID" styleClass="Container100" style="border:0px">

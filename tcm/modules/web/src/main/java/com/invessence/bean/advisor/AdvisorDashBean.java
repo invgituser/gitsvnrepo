@@ -10,7 +10,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
 
 import com.invessence.bean.consumer.Charts;
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.converter.SQLData;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.MsgData;
@@ -50,7 +50,7 @@ public class AdvisorDashBean extends AdvisorDashData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.ROLE_ADVISOR)) {
+            if (webutil.validatePriviledge(WebConst.ROLE_ADVISOR)) {
                setLogonid(webutil.getLogonid());
                setAdvisorname(webutil.getUserInfoData().getFullName());
                reloadData();

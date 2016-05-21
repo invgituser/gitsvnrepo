@@ -5,10 +5,11 @@ import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.dao.consumer.*;
 import com.invessence.data.common.CustomerData;
 import com.invessence.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,30 +25,16 @@ public class ConsumerDashBean implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
-   @ManagedProperty("#{uiportal}")
-   private UIPortal menu;
-   public void setMenu(UIPortal menu)
-   {
-      this.menu = menu;
-   }
-
-   @ManagedProperty("#{webutil}")
+   @Autowired
    private WebUtil webutil;
-   public void setWebutil(WebUtil webutil)
-   {
-      this.webutil = webutil;
-   }
+   @Autowired
+   private ConsumerListDataDAO listDAO;
 
    private List<CustomerData> manageAccountList;
 
    private CustomerData selectedAccount;
 
-   @ManagedProperty("#{consumerListDataDAO}")
-   private ConsumerListDataDAO listDAO;
-   public void setListDAO(ConsumerListDataDAO listDAO)
-   {
-      this.listDAO = listDAO;
-   }
+
    public void preRenderView()
    {
 
@@ -57,7 +44,7 @@ public class ConsumerDashBean implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.ROLE_USER)) {
+            if (webutil.validatePriviledge(WebConst.ROLE_USER)) {
                logonid = webutil.getLogonid();
 
                if (logonid != null)
@@ -130,7 +117,7 @@ public class ConsumerDashBean implements Serializable
          else {
             whichXML = "/consumer/cadd.xhtml?acct="+selectedAccount.getAcctnum().toString();
          }
-         menu.doMenuAction(whichXML);
+         webutil.redirect(whichXML, null);
       }
       catch (Exception ex)
       {

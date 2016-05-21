@@ -6,7 +6,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.dao.advisor.*;
 import com.invessence.data.common.AccountData;
 import com.invessence.util.*;
@@ -23,7 +23,7 @@ public class ManageAdvisorBean implements Serializable
       this.webutil = webutil;
    }
 
-   UIPortal menu = new UIPortal();
+   UILayout menu = new UILayout();
 
 /*
    @ManagedProperty("#{advisorBean}")
@@ -67,7 +67,7 @@ public class ManageAdvisorBean implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (webutil.validatePriviledge(Const.ROLE_ADVISOR)) {
+            if (webutil.validatePriviledge(WebConst.ROLE_ADVISOR)) {
                Long logonid;
                logonid = webutil.getLogonid();
 
@@ -215,12 +215,12 @@ public class ManageAdvisorBean implements Serializable
          if (getSelectedAccount().getAcctStatus().equals("Active"))
          {
             //positionBean.findPosition(getSelectedAccount().getLogonid(), getSelectedAccount().getAcctnum());
-            menu.doMenuAction("/common/overview.xhtml?acct="+getSelectedAccount().getAcctnum().toString());
+            webutil.redirect("/common/overview.xhtml?acct="+getSelectedAccount().getAcctnum().toString(),null);
          }
          else
          {
             //abean.loadData(getSelectedAccount().getAcctnum());
-            menu.doMenuAction("/consumer/cadd.xhtml?acct="+getSelectedAccount().getAcctnum().toString());
+            webutil.redirect("/consumer/cadd.xhtml?acct="+getSelectedAccount().getAcctnum().toString(),null);
             //advisorBean.findGoals(getLogonid(), getAcctnum());
          }
       }

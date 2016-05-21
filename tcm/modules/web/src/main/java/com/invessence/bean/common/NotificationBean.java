@@ -6,7 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.constant.Const;
+import com.invessence.constant.*;
 import com.invessence.dao.common.CommonDAO;
 import com.invessence.data.common.NotificationData;
 import com.invessence.util.*;
@@ -121,7 +121,7 @@ public class NotificationBean implements Serializable
 
    public Boolean getAddAllowed() {
       if (notificationType != null && notificationType.toUpperCase().startsWith("T")) {
-         if (webutil.hasRole(Const.ROLE_ADVISOR))
+         if (webutil.hasRole(WebConst.ROLE_ADVISOR))
             return true;
       }
       return false;

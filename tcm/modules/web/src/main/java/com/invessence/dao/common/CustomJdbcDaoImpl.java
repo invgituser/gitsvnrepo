@@ -1,5 +1,6 @@
 package com.invessence.dao.common;
 
+import com.invessence.data.MsgData;
 import com.invessence.data.common.UserInfoData;
 import com.invessence.util.*;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -15,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +26,21 @@ import com.invessence.constant.*;
 
 public class CustomJdbcDaoImpl extends JdbcDaoImpl
 {
+   @ManagedProperty("#{webMessage}")
+   private WebMessage emailMessage;
+   public void setEmailMessage(WebMessage emailMessage)
+   {
+      this.emailMessage = emailMessage;
+   }
+
+   @ManagedProperty("#{uiLayout}")
+   private UILayout uiLayout;
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
+   }
+
+   private MsgData data = new MsgData();
 
    private String lockUserSql = null;
    private String listofQAQuery = null;
@@ -79,9 +96,9 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String savedpassword = null;
       String logonStatus = null;
       Integer attempts = 0;
-      String cid=null;
+      String cid = null;
       String advisor = null;
-      Long rep = null;
+      String rep = null;
       Collection<GrantedAuthority> authorities;
       String firstname, lastname;
       String ip, resetID;
@@ -94,156 +111,213 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String emailmsgtype = null;
       String access = "User";
 
+      String exception = null;
+
       String myIP = webutl.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
       System.out.println("Attempting Logon >> " + username + " from: " + myIP);
-      userInfo =  (UserInfoData) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.USER_INFO);
+      userInfo = (UserInfoData) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
 
       if (userInfo != null)
+      {
          if (username.equalsIgnoreCase(userInfo.getUserID()))
-            attempts =  (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(Const.USERLOGON_ATTEMPTS);
+         {
+            attempts = (Integer) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USERLOGON_ATTEMPTS);
+         }
          else
+         {
             attempts = 0;
-      else
-         attempts = 0;
-
-
-         // We need to fetch data all the time (for username and password)...
-         // Don't use the buffered session data.
-         sql = getUsersByUsernameQuery();
-         SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
-
-            if ((rs != null) && (rs.next()))
-            {
-
-               logonID = rs.getLong("logonid");
-               userid = rs.getString("userid");
-               logonStatus = rs.getString("logonstatus");
-               savedemail = rs.getString("email");
-               savedpassword = rs.getString("pwd");
-               // attempts = rs.getInt("attempts");
-               ip = rs.getString("ip");
-               firstname = rs.getString("firstname");
-               lastname = rs.getString("lastname");
-               stateRegistered = rs.getString("stateRegistered");
-               resetID = rs.getString("resetID");
-               cid=rs.getString("cid");
-               advisor = rs.getString("advisor");
-               rep =  rs.getLong("rep");
-               emailmsgtype = rs.getString("emailmsgtype");
-               access = rs.getString("access");
-               // get List of questions...
-               qa = getQA(username);
-               authorities = getAuthorities(username);
-               // Note: it is either set with number of attempts or it was set in past attempt.
-               randomQuestion = webutl.randomGenerator(0,2);
-               enabled=true;
-            }
-         else {
-               logonStatus = "X";
-               savedemail = "";
-               savedpassword = "";
-               // attempts = rs.getInt("attempts");
-               firstname = "";
-               lastname = "";
-               ip = "";
-               resetID = "";
-               cid="";
-               advisor="";
-               rep=null;
-               stateRegistered="";
-               emailmsgtype="";
-               access = "User";
-               qa=null;
-               authorities = null;
-               // Note: it is either set with number of attempts or it was set in past attempt.
-               randomQuestion = 0;
-               enabled=false;
-               throw new BadCredentialsException("Username is not valid!");
-            }
-
-      if (attempts == null)
-         attempts = 0;
-
-     accountNonLocked=true;
-      if ((logonStatus != null) && (logonStatus.equalsIgnoreCase("L"))) {
-         accountNonLocked = false;
-      }
-      else if (logonStatus != null) {
-         // If userStatus is empty and it is not locked then add attempts made.
-         attempts = attempts + 1;
-         if (attempts > Const.MAX_ATTEMPTS) {
-            // if more then MAX_ATTEMPTS are made, then get a resetID and lock the user.
-            logonStatus = "L";
-            // Create new ResetID
-
-            rnumber = webutl.randomGenerator(0,578965);
-            resetID=rnumber.toString();
-            sql = getLockUserSql();
-            getJdbcTemplate().update(sql,new Object[]{logonStatus, rnumber, username});
          }
       }
+      else
+      {
+         attempts = 0;
+      }
 
+
+      // We need to fetch data all the time (for username and password)...
+      // Don't use the buffered session data.
+      sql = getUsersByUsernameQuery();
+      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
+
+      if ((rs != null) && (rs.next()))
+      {
+
+         logonID = rs.getLong("logonid");
+         userid = rs.getString("userid");
+         logonStatus = rs.getString("logonstatus");
+         savedemail = rs.getString("email");
+         savedpassword = rs.getString("pwd");
+         // attempts = rs.getInt("attempts");
+         ip = rs.getString("ip");
+         firstname = rs.getString("firstname");
+         lastname = rs.getString("lastname");
+         stateRegistered = ""; // rs.getString("stateRegistered");
+         resetID = rs.getString("resetID");
+         cid = rs.getString("cid");
+         advisor = rs.getString("advisor");
+         rep = rs.getString("rep");
+         emailmsgtype = rs.getString("emailmsgtype");
+         access = rs.getString("access");
+         // get List of questions...
+         qa = getQA(username);
+         authorities = getAuthorities(username);
+         // Note: it is either set with number of attempts or it was set in past attempt.
+         randomQuestion = webutl.randomGenerator(0, 2);
+         if (logonStatus != null && logonStatus.equalsIgnoreCase("A"))
+         {
+            enabled = true;
+         }
+         else if (logonStatus != null)
+         {
+            enabled = false;
+            exception="This account is in locked mode.";
+            if (logonStatus.equalsIgnoreCase("I"))
+            {
+               exception = "Username is disabled!";
+            }
+            else if (logonStatus.equalsIgnoreCase("T"))
+            {
+               exception = "Username is not active, please activate account!";
+            }
+         }
+      }
+      else
+      {
+         logonStatus = "X";
+         savedemail = "";
+         savedpassword = "";
+         // attempts = rs.getInt("attempts");
+         firstname = "";
+         lastname = "";
+         ip = "";
+         resetID = "";
+         cid = "";
+         advisor = "";
+         rep = null;
+         stateRegistered = "";
+         emailmsgtype = "";
+         access = "User";
+         qa = null;
+         authorities = null;
+         // Note: it is either set with number of attempts or it was set in past attempt.
+         randomQuestion = 0;
+         enabled = false;
+         throw new BadCredentialsException("Username is not valid!");
+      }
+
+      accountNonLocked = true;
+      if (enabled)
+      {
+         if (attempts == null)
+         {
+            attempts = 0;
+         }
+
+         if ((logonStatus != null) && (logonStatus.equalsIgnoreCase("L")))
+         {
+            accountNonLocked = false;
+         }
+         else if (logonStatus != null)
+         {
+            // If userStatus is empty and it is not locked then add attempts made.
+            attempts = attempts + 1;
+            if (attempts > WebConst.MAX_ATTEMPTS)
+            {
+               // if more then MAX_ATTEMPTS are made, then get a resetID and lock the user.
+               logonStatus = "L";
+               // Create new ResetID
+
+               rnumber = webutl.randomGenerator(0, 578965);
+               resetID = rnumber.toString();
+               sql = getLockUserSql();
+               getJdbcTemplate().update(sql, new Object[]{logonStatus, rnumber, username});
+               String secureUrl = uiLayout.getUiprofile().getSecurehomepage();
+
+               // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
+               String msg = emailMessage.buildMessage(emailmsgtype,"html.accountlocked.email", "txt.accountlocked.email", new Object[]{secureUrl, userid, rnumber.toString()} );
+               data.setSource("User");  // This is set to User to it insert into appropriate table.
+               data.setSender(Const.MAIL_SENDER);
+               data.setReceiver(savedemail);
+               data.setSubject(Const.COMPANY_NAME + " - Account Locked");
+               data.setMsg(msg);
+               data.setMimeType(emailmsgtype);
+               emailMessage.writeMessage("user", data);
+               throw new BadCredentialsException("Too many attemps.  Account Locked!");
+            }
+         }
+      }
+      else {
+         if (exception != null)
+            attempts = 0;
+            throw new BadCredentialsException(exception);
+      }
 
       // Note:  We are always re-createating userINFO
       credentialsNonExpired = true; // Reset for now.  We need logic to redirect.
-      accountNonExpired=true;
+      accountNonExpired = true;
       userInfo = new UserInfoData(logonID, userid, username, savedemail, savedpassword,
-                                  enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,authorities,
+                                  enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities,
                                   lastname, firstname,
                                   ip, resetID,
                                   cid, advisor, rep, stateRegistered,
-                                  qa, attempts, access, logonStatus, randomQuestion,emailmsgtype);
+                                  qa, attempts, access, logonStatus, randomQuestion, emailmsgtype);
 
 
-      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(Const.USER_INFO);
-      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USER_INFO, userInfo);
-      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.USERLOGON_ATTEMPTS, attempts);
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USER_INFO, userInfo);
+      FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USERLOGON_ATTEMPTS, attempts);
 
       return userInfo;
    }
 
    private Map getQA(String username)
    {
-      Map<Integer,String[]> qa = new HashMap<Integer,String[]>();
-      String[]questAns=new String[2];
+      Map<Integer, String[]> qa = new HashMap<Integer, String[]>();
+      String[] questAns = new String[2];
       String sql = getListofQAQuery();
       String question, answer;
       SqlRowSet rs2 = getJdbcTemplate().queryForRowSet(sql, new Object[]{username});
       if ((rs2 != null) && (rs2.next()))
       {
-         question =  rs2.getString("question1");
-         answer =    rs2.getString("answer1");
+         question = rs2.getString("question1");
+         answer = rs2.getString("answer1");
 
-         if (question == null || question.isEmpty()) {
+         if (question == null || question.isEmpty())
+         {
             this.credentialsNonExpired = false;
          }
-         if (answer == null || answer.isEmpty()) {
+         if (answer == null || answer.isEmpty())
+         {
             this.credentialsNonExpired = false;
          }
          questAns[0] = question;
          questAns[1] = answer;
          qa.put(0, questAns);
 
-         question =  rs2.getString("question2");
-         answer =    rs2.getString("answer2");
+         question = rs2.getString("question2");
+         answer = rs2.getString("answer2");
 
-         if (question == null || question.isEmpty()) {
+         if (question == null || question.isEmpty())
+         {
             this.credentialsNonExpired = false;
          }
-         if (answer == null || answer.isEmpty()) {
+         if (answer == null || answer.isEmpty())
+         {
             this.credentialsNonExpired = false;
          }
          questAns[0] = question;
          questAns[1] = answer;
          qa.put(1, questAns);
 
-         question =  rs2.getString("question3");
-         answer =    rs2.getString("answer3");
+         question = rs2.getString("question3");
+         answer = rs2.getString("answer3");
 
-         if (question == null || question.isEmpty()) {
+         if (question == null || question.isEmpty())
+         {
             this.credentialsNonExpired = false;
          }
-         if (answer == null || answer.isEmpty()) {
+         if (answer == null || answer.isEmpty())
+         {
             this.credentialsNonExpired = false;
          }
          questAns[0] = question;
@@ -262,7 +336,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
 
       if (rs == null)
       {
-         list.add(new SimpleGrantedAuthority(Const.ROLE_USER));
+         list.add(new SimpleGrantedAuthority(WebConst.WEB_USER));
          return list;
       }
 

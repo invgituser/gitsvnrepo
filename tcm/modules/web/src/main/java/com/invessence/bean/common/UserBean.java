@@ -218,7 +218,7 @@ public class UserBean extends UserData
 
             messageText.writeMessage("signup", data);
 
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.LOGONID_PARAM, loginID);
             FacesContext.getCurrentInstance().getExternalContext().redirect("/signupApproval.xhtml");
             return "success";
          }
@@ -321,7 +321,7 @@ public class UserBean extends UserData
          {
             if (loginID > 0)
             {
-               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(Const.LOGONID_PARAM, loginID);
+               FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.LOGONID_PARAM, loginID);
             }
             FacesContext.getCurrentInstance().getExternalContext().redirect(redirectTo);
             return "success";

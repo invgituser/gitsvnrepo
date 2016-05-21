@@ -3,11 +3,11 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/common/invsimplelayout.xhtml">
+                template="/template/common/simple.xhtml">
 
     <f:metadata>
-        <f:viewParam name="cid" value="#{uiportal.cid}"/>
-        <f:event type="preRenderView" listener="#{uiportal.preRenderView}"/>
+        <f:viewParam name="cid" value="#{uiLayout.cid}"/>
+        <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -18,7 +18,7 @@
                 <div class="Container90 Fnone MarAuto TexAlCenter">
                     <h:form id="logonForm" prependId="false">
                         <div class="EmptyBox50"></div>
-                        <h:graphicImage id="logo" name="#{uiportal.uiprofile.logo}" styleClass="Fleft" library="invessence"
+                        <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}" styleClass="Fleft" library="invessence"
                                         class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
                         <div class="EmptyBox20"></div>
                         <p:messages id="messages" autoUpdate="true"/>

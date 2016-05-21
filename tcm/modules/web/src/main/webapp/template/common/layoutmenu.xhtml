@@ -1,0 +1,75 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ps="http://primefaces.org/spark"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="menutopbar">
+        <ps:menu>
+            <f:facet name="options">
+                <p:commandButton value="Dashboard" icon="fa fa-home" styleClass="Fs14 BlueButton"
+                                 actionListener="#{uiLayout.redirectStartPage}"/>
+            </f:facet>
+
+            <p:submenu label="Account" icon="fa fa-file-text-o">
+                <p:menuitem value="New" icon="fa fa-plus-square"
+                            actionListener="#{uiLayout.doMenuAction('/consumer/cadd.xhtml?acct=0')}"/>
+                <p:menuitem value="Management" icon="fa fa-institution" rendered="false"
+                            actionListener="#{uiLayout.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
+                <p:menuitem value="Account Aggregation" icon="fa fa-plus-square"
+                            rendered="#{uiLayout.hasAccessMenu('DEMO')}"
+                            actionListener="#{yodleeBean.startup}"/>
+                <p:menuitem value="Change Account Info"
+                            rendered="#{uiLayout.hasAccessMenu('DEMO')}"
+                            outcome="/pages/consumer/cto/acctchange.xhtml"/>
+            </p:submenu>
+
+            <p:separator rendered="#{uiLayout.hasAccessMenu('DEMO')}"/>
+
+            <p:menuitem value="Reports" icon="fa fa-picture-o" rendered="#{uiLayout.hasAccessMenu('DEMO')}"
+                        actionListener="#{uiLayout.doMenuAction('/consumer/creports.xhtml')}"/>
+
+            <p:separator rendered="#{uiLayout.hasAccessMenu('ADVISOR')}"/>
+
+            <p:menuitem value="Sales Rep" icon="fa fa-user-md"
+                        rendered="#{uiLayout.hasAccessMenu('ADVISOR')}"
+                        actionListener="#{uiLayout.doMenuAction('/advisor/alist.xhtml')}"/>
+
+
+            <p:separator rendered="#{uiLayout.enableMenu('SALES')}"/>
+
+            <p:menuitem value="Marketing" icon="fa fa-wifi" rendered="#{uiLayout.enableMenu('SALES')}"
+                        actionListener="#{uiLayout.doMenuAction('/advisor/marketing.xhtml')}"/>
+
+            <p:separator rendered="#{uiLayout.enableMenu('ADMIN')}"/>
+
+            <p:menuitem value="Operations" icon="fa fa-briefcase" rendered="#{uiLayout.enableMenu('ADMIN')}"
+                        actionListener="#{uiLayout.doMenuAction('/admin/trade.xhtml')}"/>
+
+            <p:separator rendered="#{uiLayout.enableMenu('ADVISOR')}"/>
+
+            <p:menuitem value="Investments" icon="fa fa-th-list" outcome="/pages/advisor/assets.xhtml"
+                        rendered="#{uiLayout.enableMenu('ADVISOR')}"/>
+
+            <p:separator rendered="#{uiLayout.enableMenu('DEMO')}"/>
+
+            <p:submenu label="Demo" icon="fa fa-file-text-o"
+                       rendered="#{uiLayout.enableMenu('DEMO')}">
+                <p:menuitem value="Compliance"
+                            actionListener="#{uiLayout.doMenuAction('/consumer/custReview.xhtml')}"/>
+            </p:submenu>
+
+            <p:separator rendered="#{uiLayout.enableMenu('DEVELOPER')}"/>
+
+            <p:submenu label="Developer" icon="fa fa-asterisk"
+                       rendered="#{uiLayout.enableMenu('DEVELOPER')}">
+                <p:menuitem value="Standard Dashboard" outcome="/spark/dashboard.xhtml"/>
+                <p:menuitem value="Font Icons" icon="fa fa-paint-brush" outcome="/spark/font-icons.xhtml"/>
+            </p:submenu>
+
+        </ps:menu>
+    </h:form>
+
+</ui:composition>

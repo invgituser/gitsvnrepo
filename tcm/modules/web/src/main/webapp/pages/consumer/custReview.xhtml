@@ -4,7 +4,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
-                template="/template/common/invlayout.xhtml">
+                template="/template/common/template.xhtml">
 
     <f:metadata>
         <f:viewParam name="acct" value="#{ctobean.beanAcctnum}"/>
@@ -47,11 +47,11 @@
                         <h1 class="BigTopic">Questions?</h1>
                         <br/>
                         <img src="/images/telephone_call_contact.png" alt="Phone" style="height: 18px;"/>
-                        Phone: #{uiportal.phone}
+                        Phone: #{uiLayout.phone}
                         <br/>
                         <a href="mailto:info@invessence.com">
                             <img src="/images/email_envelope.png" alt="Email" style="height: 18px;"/>
-                            Email: #{uiportal.email}
+                            Email: #{uiLayout.email}
                         </a>
 
                     </div>
