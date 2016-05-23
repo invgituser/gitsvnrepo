@@ -7,6 +7,7 @@ import java.util.*;
 import com.invessence.broker.bean.*;
 import com.invessence.broker.dao.*;
 import com.invessence.broker.util.*;
+import com.invessence.service.util.*;
 import com.invessence.util.*;
 import com.jcraft.jsch.*;
 import org.apache.log4j.Logger;
@@ -63,130 +64,155 @@ public class BrokerFileProcessor
             mailAlertMsg.append("Required DB parameters not available");
             logger.info("Required DB parameters not available");
          }else {
-            List<BrokerHostDetails> hostLst = commonDao.getBrokerHostDetails("");
-            if (hostLst == null && hostLst.size() == 0)
+//            List<BrokerHostDetails> hostLst = commonDao.getBrokerHostDetails("");
+//            if (hostLst == null && hostLst.size() == 0)
+            if (! ServiceValidator.validateBrokerService(ServiceParameters.BROKER_WEBSERVICE_API))
             {
                mailAlertMsg.append("Required Host details are not available");
                logger.info("Required Host details are not available");
             }else{
-               Iterator<BrokerHostDetails> hostDetailsItr = hostLst.iterator();
-               while (hostDetailsItr.hasNext())
+//               Iterator<BrokerHostDetails> hostDetailsItr = hostLst.iterator();
+//               while (hostDetailsItr.hasNext())
+//               {
+//                  BrokerHostDetails hostDetails = (BrokerHostDetails) hostDetailsItr.next();
+//               String encryDecryKey="aRXDugfr4WQpVrxu";
+//               logger.info("Host Details :"+hostDetails.toString());
+               List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + ServiceParameters.BROKER_SERVICE_API + "'");
+               if(downloadFilesLst == null && downloadFilesLst.size() == 0)
                {
-                  BrokerHostDetails hostDetails = (BrokerHostDetails) hostDetailsItr.next();
-                  String encryDecryKey="aRXDugfr4WQpVrxu";
-                  logger.info("Host Details :"+hostDetails.toString());
-                  List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + hostDetails.getVendor() + "'");
-                  if(downloadFilesLst == null && downloadFilesLst.size() == 0)
+                  mailAlertMsg.append("Download files details are not available for broker :"+ServiceParameters.BROKER_SERVICE_API);
+                  logger.info("Download files details are not available for broker :" + ServiceParameters.BROKER_SERVICE_API);
+               }else{
+                  try
                   {
-                     mailAlertMsg.append("Download files details are not available for broker :"+hostDetails.getVendor());
-                     logger.info("Download files details are not available for broker :" + hostDetails.getVendor());
-                  }else{
-                     try
-                     {
-                        JSch jsch = new JSch();
-                        Session session = null;
-                        session = jsch.getSession(hostDetails.getUsername(), hostDetails.getHost(), 22);
-                        session.setPassword(hostDetails.getPassword());
-                        session.setConfig("StrictHostKeyChecking", "no");
-                        session.connect();
+                     //
+                     JSch jsch = new JSch();
+                     Session session = null;
+                     session = jsch.getSession(ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_USERNAME, ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_HOST, 22);
+                     session.setPassword(ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_PASSWORD);
+                     session.setConfig("StrictHostKeyChecking", "no");
+                     session.connect();
 
-                        logger.info("Established the connection with host server");
+                     logger.info("Established the connection with host server");
 
-                        ChannelSftp channel = null;
-                        channel = (ChannelSftp) session.openChannel("sftp");
-                        channel.connect();
-                        try{
-                           channel.cd(hostDetails.getSourcedir());
-                           Iterator<DownloadFileDetails> downloadFilesItr = downloadFilesLst.iterator();
-                           while (downloadFilesItr.hasNext()) {
+                     ChannelSftp channel = null;
+                     channel = (ChannelSftp) session.openChannel("sftp");
+                     channel.connect();
+                     try{
+                        channel.cd(ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY);
+                        Iterator<DownloadFileDetails> downloadFilesItr = downloadFilesLst.iterator();
+                        while (downloadFilesItr.hasNext()) {
 
-                              DownloadFileDetails downloadFileDetails = (DownloadFileDetails) downloadFilesItr.next();
-                              logger.info(downloadFileDetails.toString());
-                              boolean mayDownloadFile=false;
-                              if(Constants.FILE_PROCESS_DAILY.equalsIgnoreCase(downloadFileDetails.getAvailable())){
+                           DownloadFileDetails downloadFileDetails = (DownloadFileDetails) downloadFilesItr.next();
+                           logger.info(downloadFileDetails.toString());
+                           boolean mayDownloadFile=false;
+                           if(Constants.FILE_PROCESS_DAILY.equalsIgnoreCase(downloadFileDetails.getAvailable())){
+                              mayDownloadFile=true;
+                           }else  if(Constants.FILE_PROCESS_MONTHLY.equalsIgnoreCase(downloadFileDetails.getAvailable())){
+                              if (CommonUtil.todaysDateCompare(dbParamMap.get("1ST_BDATE_THIS_MONTH").getValue().toString())==true) {
                                  mayDownloadFile=true;
-                              }else  if(Constants.FILE_PROCESS_MONTHLY.equalsIgnoreCase(downloadFileDetails.getAvailable())){
-                                 if (CommonUtil.todaysDateCompare(dbParamMap.get("1ST_BDATE_THIS_MONTH").getValue().toString())==true) {
-                                    mayDownloadFile=true;
-                                 }else{
-                                    mailAlertMsg.append("To process MONTHLY files today is not First Business day");
-                                    logger.info("To process MONTHLY files today is not First Business day");
-                                 }
+                              }else{
+                                 mailAlertMsg.append("To process MONTHLY files today is not First Business day");
+                                 logger.info("To process MONTHLY files today is not First Business day");
                               }
-                              if(mayDownloadFile)
+                           }
+                           if(mayDownloadFile)
+                           {
+                              List<String> fileNameLst = new ArrayList<String>();
+                              Vector v = channel.ls(downloadFileDetails.getFileName() +"*"+downloadFileDetails.getFileExtension());
+                              logger.info("Fetching list of " + downloadFileDetails.getFileName() +"*"+downloadFileDetails.getFileExtension() + " files from server"+v.size());
+                              ChannelSftp.LsEntry entry = null;
+                              for (int i = 0; i < v.size(); i++)
                               {
-                                 List<String> fileNameLst = new ArrayList<String>();
-                                 Vector v = channel.ls(downloadFileDetails.getFileName() +"*"+downloadFileDetails.getFileExtension());
-                                 logger.info("Fetching list of " + downloadFileDetails.getFileName() +"*"+downloadFileDetails.getFileExtension() + " files from server"+v.size());
-                                 ChannelSftp.LsEntry entry = null;
-                                 for (int i = 0; i < v.size(); i++)
+                                 entry = (ChannelSftp.LsEntry) v.get(i);
+                                 fileNameLst.add(entry.getFilename());
+                              }
+                              logger.info("Fetching list of " + downloadFileDetails.getFileName() + " files from server"+v.size());
+                              if (fileNameLst == null || fileNameLst.size() == 0)
+                              {
+                                 mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server for download.\n");
+                                 logger.info(downloadFileDetails.getFileName() + " files are not available on server for download.");
+                              }
+                              else
+                              {
+                                 Collections.sort(fileNameLst);
+                                 List<String> filesToLoad = getFilesToLoad(fileNameLst, sdfFileParsing.parse("" + dbParamMap.get("BUSINESS_DATE").getValue()), downloadFileDetails.getFileName());
+                                 if (filesToLoad == null || filesToLoad.size() == 0)
                                  {
-                                    entry = (ChannelSftp.LsEntry) v.get(i);
-                                    fileNameLst.add(entry.getFilename());
-                                 }
-                                 logger.info("Fetching list of " + downloadFileDetails.getFileName() + " files from server"+v.size());
-                                 if (fileNameLst == null || fileNameLst.size() == 0)
-                                 {
-                                    mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server for download.\n");
-                                    logger.info(downloadFileDetails.getFileName() + " files are not available on server for download.");
+                                    mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server to load.\n");
+                                    logger.info(downloadFileDetails.getFileName() + " files are not available on server to load.");
                                  }
                                  else
                                  {
-                                    Collections.sort(fileNameLst);
-                                    List<String> filesToLoad = getFilesToLoad(fileNameLst, sdfFileParsing.parse("" + dbParamMap.get("BUSINESS_DATE").getValue()), downloadFileDetails.getFileName());
-                                    if (filesToLoad == null || filesToLoad.size() == 0)
+                                    Iterator<String> itr = filesToLoad.iterator();
+                                    while (itr.hasNext())
                                     {
-                                       mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server to load.\n");
-                                       logger.info(downloadFileDetails.getFileName() + " files are not available on server to load.");
-                                    }
-                                    else
-                                    {
-                                       Iterator<String> itr = filesToLoad.iterator();
-                                       while (itr.hasNext())
+                                       String fileToDownload = (String) itr.next();
+                                       try
                                        {
-                                          String fileToDownload = (String) itr.next();
-                                          try
+                                          logger.info("Downloading :" + fileToDownload + " file.");
+                                          InputStream in = channel.get(fileToDownload);
+                                          // setting local file
+                                          localDirectory = new File(baseDirectory + "/" + downloadFileDetails.getDownloadDir() + "/");
+                                          logger.info("Local directory path to stored the files :" + localDirectory);
+                                          // if the directory does not exist, create it
+                                          if (!localDirectory.exists())
                                           {
-                                             logger.info("Downloading :" + fileToDownload + " file.");
-                                             InputStream in = channel.get(fileToDownload);
-                                             // setting local file
-                                             localDirectory = new File(baseDirectory + "/" + downloadFileDetails.getDownloadDir() + "/");
-                                             logger.info("Local directory path to stored the files :" + localDirectory);
-                                             // if the directory does not exist, create it
-                                             if (!localDirectory.exists())
-                                             {
-                                                try
-                                                {
-                                                   logger.info("Creating local directory :" + localDirectory);
-                                                   localDirectory.mkdirs();
-                                                }
-                                                catch (Exception e)
-                                                {
-                                                   logger.error("Creating local directory :" + localDirectory +" \n"+e.getMessage());
-                                                }
-                                             }
-                                             String localFileName = localDirectory + "/" + fileToDownload;
-
                                              try
                                              {
-                                                FileOutputStream tergetFile = new FileOutputStream(localFileName);
-                                                logger.info("Reading contents of remote file to local");
-                                                int c;
-                                                while ((c = in.read()) != -1)
-                                                {
-                                                   tergetFile.write(c);
-                                                }
+                                                logger.info("Creating local directory :" + localDirectory);
+                                                localDirectory.mkdirs();
+                                             }
+                                             catch (Exception e)
+                                             {
+                                                logger.error("Creating local directory :" + localDirectory +" \n"+e.getMessage());
+                                             }
+                                          }
+                                          String localFileName = localDirectory + "/" + fileToDownload;
 
-                                                in.close();
-                                                tergetFile.close();
-                                                tergetFile.flush();
-                                                if (downloadFileDetails.getEncryptionMethod() == null || downloadFileDetails.getEncryptionMethod().equals(""))
+                                          try
+                                          {
+                                             FileOutputStream tergetFile = new FileOutputStream(localFileName);
+                                             logger.info("Reading contents of remote file to local");
+                                             int c;
+                                             while ((c = in.read()) != -1)
+                                             {
+                                                tergetFile.write(c);
+                                             }
+
+                                             in.close();
+                                             tergetFile.close();
+                                             tergetFile.flush();
+                                             if (downloadFileDetails.getEncryptionMethod() == null || downloadFileDetails.getEncryptionMethod().equals(""))
+                                             {
+                                                if (downloadFileDetails.getLoadFormat().equalsIgnoreCase("csv"))
                                                 {
+                                                   try
+                                                   {
+                                                      processCsvFile(mailAlertMsg, localFileName, downloadFileDetails, ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);//hostDetails.getEncrDecrKey()
+                                                   }
+                                                   catch (Exception e)
+                                                   {
+                                                      logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
+                                                      //exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
+                                                      mailAlertMsg.append("Issue " + fileToDownload + " csv file processing \n");
+                                                   }
+                                                }
+                                             } else
+
+                                             {
+
+                                                //(InputStream in, OutputStream out, InputStream secKeyIn, InputStream pubKeyIn, char[] pass)
+                                                String decryptedFileName = localDirectory + "/" + fileToDownload.replace(downloadFileDetails.getFileExtension(),downloadFileDetails.getLoadFormat());
+                                                try
+                                                {
+                                                   gpgUtil.decryptFile(new FileInputStream(localFileName), new FileOutputStream(decryptedFileName));
                                                    if (downloadFileDetails.getLoadFormat().equalsIgnoreCase("csv"))
                                                    {
                                                       try
                                                       {
-                                                         processCsvFile(mailAlertMsg, localFileName, downloadFileDetails, encryDecryKey);//hostDetails.getEncrDecrKey()
+                                                         processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails, ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);//hostDetails.getEncrDecrKey()
+                                                         deleteDecryptedFile(decryptedFileName);
                                                       }
                                                       catch (Exception e)
                                                       {
@@ -195,103 +221,80 @@ public class BrokerFileProcessor
                                                          mailAlertMsg.append("Issue " + fileToDownload + " csv file processing \n");
                                                       }
                                                    }
-                                                } else
-
+                                                }catch(Exception e){
+                                                   e.printStackTrace();
+                                                }finally
                                                 {
-
-                                                   //(InputStream in, OutputStream out, InputStream secKeyIn, InputStream pubKeyIn, char[] pass)
-                                                   String decryptedFileName = localDirectory + "/" + fileToDownload.replace(downloadFileDetails.getFileExtension(),downloadFileDetails.getLoadFormat());
-                                                   try
-                                                   {
-                                                      gpgUtil.decryptFile(new FileInputStream(localFileName), new FileOutputStream(decryptedFileName));
-                                                      if (downloadFileDetails.getLoadFormat().equalsIgnoreCase("csv"))
-                                                      {
-                                                         try
-                                                         {
-                                                            processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails, encryDecryKey);//hostDetails.getEncrDecrKey()
-                                                            deleteDecryptedFile(decryptedFileName);
-                                                         }
-                                                         catch (Exception e)
-                                                         {
-                                                            logger.error("While " + fileToDownload + " csv file processing \n" + e.getMessage());
-                                                            //exceptionHandler(e, mailAlertMsg, "Issue " + fileToDownload + " csv file processing");
-                                                            mailAlertMsg.append("Issue " + fileToDownload + " csv file processing \n");
-                                                         }
-                                                      }
-                                                   }catch(Exception e){
-                                                      e.printStackTrace();
-                                                   }finally
-                                                   {
-                                                      deleteDecryptedFile(decryptedFileName);
-                                                   }
-
+                                                   deleteDecryptedFile(decryptedFileName);
                                                 }
-                                             }catch (Exception e)
-                                             {
-                                                logger.error("While " + fileToDownload + " file reading into local directory \n"+e.getMessage());
-                                                mailAlertMsg.append("While " + fileToDownload + " file reading into local directory \n"+e.getMessage());
-                                                //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping into local directory");
+
                                              }
-
-                                          }
-                                          catch (Exception e)
+                                          }catch (Exception e)
                                           {
-                                             logger.error("While " + fileToDownload + " file coping from server \n"+e.getMessage());
-                                             mailAlertMsg.append("While " + fileToDownload + " file coping from server \n"+e.getMessage());
-                                             //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping from server");
+                                             logger.error("While " + fileToDownload + " file reading into local directory \n"+e.getMessage());
+                                             mailAlertMsg.append("While " + fileToDownload + " file reading into local directory \n"+e.getMessage());
+                                             //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping into local directory");
                                           }
+
                                        }
-
-                                    }
-                                 }
-
-                                 if (fileNameLst == null || fileNameLst.size() == 0){
-                                    logger.info(downloadFileDetails.getFileName() + " files are not available on server to delete.");
-                                 }
-                                 else
-                                 {
-                                    try
-                                    {
-                                       Calendar calendar = Calendar.getInstance();
-                                       calendar.setTime(sdfFileParsing.parse("" + dbParamMap.get("BUSINESS_DATE").getValue()));
-                                       calendar.add(Calendar.DATE, -30);
-                                       Date lastDate = calendar.getTime();
-                                       List<String> filesToDelete = getFilesToDelete(fileNameLst, lastDate, downloadFileDetails.getFileName());
-                                       if (filesToDelete == null || filesToDelete.size() == 0){
-
-                                          logger.info(downloadFileDetails.getFileName() + " files are not available on server to delete.");
-                                       }else
+                                       catch (Exception e)
                                        {
-                                          Iterator<String> itr = filesToDelete.iterator();
-                                          while (itr.hasNext())
-                                          {
-                                             String fileToDelete = (String) itr.next();
-                                             logger.info("Deleting file :" + fileToDelete);
-                                             channel.rm(fileToDelete);
-                                          }
+                                          logger.error("While " + fileToDownload + " file coping from server \n"+e.getMessage());
+                                          mailAlertMsg.append("While " + fileToDownload + " file coping from server \n"+e.getMessage());
+                                          //exceptionHandler(e, mailAlertMsg, "While " + fileToDownload + " file coping from server");
                                        }
                                     }
-                                    catch (Exception e)
+
+                                 }
+                              }
+
+                              if (fileNameLst == null || fileNameLst.size() == 0){
+                                 logger.info(downloadFileDetails.getFileName() + " files are not available on server to delete.");
+                              }
+                              else
+                              {
+                                 try
+                                 {
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTime(sdfFileParsing.parse("" + dbParamMap.get("BUSINESS_DATE").getValue()));
+                                    calendar.add(Calendar.DATE, -30);
+                                    Date lastDate = calendar.getTime();
+                                    List<String> filesToDelete = getFilesToDelete(fileNameLst, lastDate, downloadFileDetails.getFileName());
+                                    if (filesToDelete == null || filesToDelete.size() == 0){
+
+                                       logger.info(downloadFileDetails.getFileName() + " files are not available on server to delete.");
+                                    }else
                                     {
-                                       e.printStackTrace();
+                                       Iterator<String> itr = filesToDelete.iterator();
+                                       while (itr.hasNext())
+                                       {
+                                          String fileToDelete = (String) itr.next();
+                                          logger.info("Deleting file :" + fileToDelete);
+                                          channel.rm(fileToDelete);
+                                       }
                                     }
+                                 }
+                                 catch (Exception e)
+                                 {
+                                    e.printStackTrace();
                                  }
                               }
                            }
-                           channel.disconnect();
-                           session.disconnect();
-
-                        }catch (Exception e){
-                           logger.error("Source directory not available on Server \n"+e.getMessage());
-                           logger.error(e.getStackTrace());
                         }
+                        channel.disconnect();
+                        session.disconnect();
 
                      }catch (Exception e){
-                        logger.error("While connecting to host server \n"+e.getMessage());
+                        logger.error("Source directory not available on Server \n"+e.getMessage());
                         logger.error(e.getStackTrace());
                      }
+
+                  }catch (Exception e){
+                     logger.error("While connecting to host server \n"+e.getMessage());
+                     logger.error(e.getStackTrace());
                   }
                }
+               //}
             }
          }
       } catch (Exception e) {
@@ -300,7 +303,7 @@ public class BrokerFileProcessor
       }finally
       {
          logger.info("MailAlertMsg :"+ mailAlertMsg);
-         if( mailAlertMsg.length() > 0)
+         if( mailAlertMsg.length() > 0 || mailAlertMsg.length() <= 0)
          {
             try
             {
@@ -315,15 +318,12 @@ public class BrokerFileProcessor
          {
             try
             {
-               logger.info("Calling EOD process");
+               logger.info("Calling EOD process \n");
                commonDao.callEODProcess(eodProcedure);
             }
             catch (Exception e)
             {
-               //exceptionHandler(e, mailAlertMsg, "While calling EOD process");
-               //mailAlertMsg.append("While calling EOD process \n"+e.getMessage());
-               logger.error("Calling EOD process \n"+e.getMessage());
-               logger.error(e.getStackTrace());
+               logger.error(e.getMessage());
             }
          }
       }
@@ -493,10 +493,10 @@ public class BrokerFileProcessor
                   {
                      mailAlertMsg.append(csvFile + " file is empty \n");
                   }
-   //            logger.info(fileDetails.getFileName()+" file is empty");
-   //            if(fileDetails.getContainsheader().equalsIgnoreCase("N")) {
-   //               throw new FileEmptyException(fileDetails.getFileName() + " file is empty");
-   //            }
+                  //            logger.info(fileDetails.getFileName()+" file is empty");
+                  //            if(fileDetails.getContainsheader().equalsIgnoreCase("N")) {
+                  //               throw new FileEmptyException(fileDetails.getFileName() + " file is empty");
+                  //            }
                }
             }
             catch (FileNotFoundException e)
@@ -535,7 +535,7 @@ public class BrokerFileProcessor
 //   }
 
 
-//   public void exceptionHandler(Exception ex, StringBuilder mailAlertMsg, String process){
+   //   public void exceptionHandler(Exception ex, StringBuilder mailAlertMsg, String process){
 //      Map<String, Object> errorDetails=new HashMap<String, Object>();
 //      try
 //      {

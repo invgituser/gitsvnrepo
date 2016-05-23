@@ -17,7 +17,7 @@ public class Main {
 
          context.close();
       } catch (Exception e) {
-         //e.printStackTrace();
+         e.printStackTrace();
       }
 
    }

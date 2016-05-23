@@ -15,8 +15,9 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
-	<context:component-scan base-package="com.invessence.broker" />
+    <context:component-scan base-package="com.invessence.broker" />
+
+   <import resource="classpath*:serviceConfig.xml"/>
 
    <bean id="brokerFileProcessor" class="com.invessence.broker.BrokerFileProcessor">
 	  <constructor-arg name="_baseDirectory" index="0" value="${base.data.dir}/eodfiles" /> <!--/home/abhangp/broker/ D:/Project/Abhang/temp-->
@@ -28,6 +29,8 @@
       <constructor-arg name="_publicKey" index="1" value="${base.data.dir}/gnupg/pubring.gpg" />
       <constructor-arg name="_password" index="2" value="Inv3ss3nc3" />
    </bean>
+
+   <tx:annotation-driven transaction-manager="transactionManager" />
 
    <bean id="transactionManager"
 		 class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
