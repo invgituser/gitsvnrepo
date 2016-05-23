@@ -68,9 +68,9 @@ public class AuthenticateSystemUserLogin  implements java.io.Serializable {
 
 
     /**
-     * Gets the fundGroupName value for this AuthenticateSystemUserLogin.
+     * Gets the BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME value for this AuthenticateSystemUserLogin.
      * 
-     * @return fundGroupName
+     * @return BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME
      */
     public java.lang.String getFundGroupName() {
         return fundGroupName;
@@ -78,7 +78,7 @@ public class AuthenticateSystemUserLogin  implements java.io.Serializable {
 
 
     /**
-     * Sets the fundGroupName value for this AuthenticateSystemUserLogin.
+     * Sets the BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME value for this AuthenticateSystemUserLogin.
      * 
      * @param fundGroupName
      */

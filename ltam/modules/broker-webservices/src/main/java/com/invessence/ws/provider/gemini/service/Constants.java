@@ -5,6 +5,6 @@ package com.invessence.ws.provider.gemini.service;
  */
 public class Constants
 {
-//   public final static String fundGroupName="landenburgfund";
+//   public final static String BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME="landenburgfund";
 //   public final static String allowableShareClassList="00";
 }

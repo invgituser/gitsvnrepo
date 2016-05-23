@@ -3,7 +3,8 @@ package com.invessence.ws.service;
 import java.net.UnknownHostException;
 import java.util.*;
 
-import com.invessence.constant.Const;
+import com.invessence.service.bean.ServiceDetails;
+import com.invessence.service.util.*;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
@@ -48,11 +49,11 @@ public class ServiceLayerImpl implements ServiceLayer
                UserAcctDetails userAcctDetails = (UserAcctDetails) itr.next();
 
                password = RandomPwdCreator.passGenerator();
-               //randomPWD = EncryDecryAES.encrypt(RandomPwdCreator.passGenerator(),SysParameters.encryDecryKey);
+               //randomPWD = EncryDecryAES.encrypt(RandomPwdCreator.passGenerator(),SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);
 
                //userId = "inv_" + userAcctDetails.getClientAccountID();
                userAcctDetails.setPwd(password);
-               userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//               userAcctDetails.setFundGroupName(SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
                System.out.println("userAcctDetails = " + userAcctDetails);
                try
                {
@@ -146,7 +147,7 @@ public class ServiceLayerImpl implements ServiceLayer
             while (itr.hasNext())
             {
                UserAcctDetails userAcctDetails = (UserAcctDetails) itr.next();
-               userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//               userAcctDetails.setFundGroupName(SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
                System.out.println("userAcctDetails = " + userAcctDetails);
 
                UserAcctExt extInfo= getExternalInfo(userAcctDetails, emailAlertMessage, callingLayer);
@@ -632,7 +633,7 @@ public class ServiceLayerImpl implements ServiceLayer
          }
       }
       catch (Exception e)
-      {
+      {e.printStackTrace();
          logger.error(e.getMessage());
          return new WSCallResult(new WSCallStatus(SysParameters.wsIGenErrCode,SysParameters.wsIGenErrMsg),null);
       }
@@ -898,8 +899,8 @@ public class ServiceLayerImpl implements ServiceLayer
    @Override
    public boolean isServiceActive()
    {
-//      System.out.println("Const.Services.BROKER_WEBSERVICES: "+Const.Services.BROKER_WEBSERVICES.toString());
-//      System.out.println("Const.Services.BROKER_WEBSERVICES: "+Const.Services.BROKER_WEBSERVICES);
+//      System.out.println("Const.SERVICES.BROKER_WEBSERVICES: "+Const.SERVICES.BROKER_WEBSERVICES.toString());
+//      System.out.println("Const.SERVICES.BROKER_WEBSERVICES: "+Const.SERVICES.BROKER_WEBSERVICES);
 //      System.out.println("*****************************");
 //      System.out.println("Size of Map"+SysParameters.serviceDetailsMap.size());
 //
@@ -910,10 +911,10 @@ public class ServiceLayerImpl implements ServiceLayer
 //      }
 //
 //      System.out.println("*****************************");
-//      System.out.println(SysParameters.serviceDetailsMap.containsKey(Const.Services.PRICING.toString()));
-      if(SysParameters.serviceDetailsMap==null){
+//      System.out.println(SysParameters.serviceDetailsMap.containsKey(Const.SERVICES.PRICING.toString()));
+      if(ServiceParameters.serviceDetailsMap==null){
          return false;
-      }else if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
+      }else if(ServiceParameters.serviceDetailsMap.containsKey(Constant.SERVICES.BROKER_WEBSERVICES.toString())){
          //System.out.println(getServiceProvider());
             return true;
       }
@@ -938,8 +939,8 @@ public class ServiceLayerImpl implements ServiceLayer
                {
                   UserAcctDetails userAcctDetails = commonDao.getUserAccDetailsByAccNumber(clientAccountID);
                   String password = RandomPwdCreator.passGenerator();
-//                  String randomPWD = EncryDecryAES.encrypt(password,SysParameters.encryDecryKey);
-                  userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//                  String randomPWD = EncryDecryAES.encrypt(password,SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);
+//                  userAcctDetails.setFundGroupName(SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
                   if (userAcctDetails == null)
                   {
                      logger.warn("User details not available in DB");
@@ -1016,19 +1017,19 @@ public class ServiceLayerImpl implements ServiceLayer
          }else
          {
             String password = null;
-            String randomPWD=null;
+//            String randomPWD=null;
             callingLayer = getCallingLayer();
             Iterator<UserAcctDetails> itr = uadLst.iterator();
             while (itr.hasNext())
             {
                UserAcctDetails userAcctDetails = (UserAcctDetails) itr.next();
                password = RandomPwdCreator.passGenerator();
-               randomPWD = EncryDecryAES.encrypt(password,SysParameters.encryDecryKey);
-               userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//               randomPWD = EncryDecryAES.encrypt(password,SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);
+//               userAcctDetails.setFundGroupName(SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
                System.out.println("userAcctDetails = " + userAcctDetails);
                try
                {
-                  WSCallStatus WSCallStatus = callingLayer.resetPassword(userAcctDetails, randomPWD);
+                  WSCallStatus WSCallStatus = callingLayer.resetPassword(userAcctDetails, password);
                   if (WSCallStatus == null)
                   {
                      emailAlertMessage.append("Service calling issue.\n");
@@ -1112,9 +1113,9 @@ public class ServiceLayerImpl implements ServiceLayer
             while (itr.hasNext())
             {
                UserAcctDetails userAcctDetails = (UserAcctDetails) itr.next();
-               //randomPWD = EncryDecryAES.encrypt(RandomPwdCreator.passGenerator(),SysParameters.encryDecryKey);
+               //randomPWD = EncryDecryAES.encrypt(RandomPwdCreator.passGenerator(),SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);
 
-               userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//               userAcctDetails.setFundGroupName(SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
                System.out.println("userAcctDetails = " + userAcctDetails);
                try
                {
@@ -1170,8 +1171,13 @@ public class ServiceLayerImpl implements ServiceLayer
    public boolean isServiceOprationActive(WSConstants.BrokerWebServiceOperations operation)
    {
       boolean result=false;
-      if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
-        List<ServiceDetails>sd= SysParameters.serviceDetailsMap.get(Const.Services.BROKER_WEBSERVICES.toString()).get(SysParameters.webServiceAPI);
+
+      if(ServiceParameters.serviceDetailsMap ==null){
+         logger.error("Service Operation details are not available in context.");
+      }else if(ServiceParameters.serviceDetailsMap.containsKey(Constant.SERVICES.BROKER_WEBSERVICES.toString())){
+         System.out.println(ServiceParameters.BROKER_WEBSERVICE_API);
+        List<ServiceDetails>sd= ServiceParameters.serviceDetailsMap.get(Constant.SERVICES.BROKER_WEBSERVICES.toString()).get(ServiceParameters.BROKER_WEBSERVICE_API);
+
          Iterator<ServiceDetails> itr=sd.iterator();
          while(itr.hasNext()){
             ServiceDetails sdi=itr.next();
@@ -1187,12 +1193,12 @@ public class ServiceLayerImpl implements ServiceLayer
 //   public String getServiceProvider()
 //   {
 //      System.out.println("ServiceLayerImpl.getServiceProvider");
-//      if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
-//         Map<String, List<ServiceDetails>>sd= SysParameters.serviceDetailsMap.get(Const.Services.BROKER_WEBSERVICES.toString());
+//      if(SysParameters.serviceDetailsMap.containsKey(Const.SERVICES.BROKER_WEBSERVICES.toString())){
+//         Map<String, List<ServiceDetails>>sd= SysParameters.serviceDetailsMap.get(Const.SERVICES.BROKER_WEBSERVICES.toString());
 //         if(sd==null || sd.size()==0){
-//            System.out.println("Expecting single API provider for "+Const.Services.BROKER_WEBSERVICES.toString()+" service but it gets none");
+//            System.out.println("Expecting single API provider for "+Const.SERVICES.BROKER_WEBSERVICES.toString()+" service but it gets none");
 //         }else if(sd.size()>1){
-//            System.out.println("Expecting single API provider for "+Const.Services.BROKER_WEBSERVICES.toString()+" service but it gets more the one");
+//            System.out.println("Expecting single API provider for "+Const.SERVICES.BROKER_WEBSERVICES.toString()+" service but it gets more the one");
 //            return sd.keySet().toArray()[0].toString();
 //         }else if(sd.size()==1){
 //            return sd.keySet().toArray()[0].toString();
@@ -1202,10 +1208,10 @@ public class ServiceLayerImpl implements ServiceLayer
 //   }
 
    private CallingLayer getCallingLayer(){
-      //SysParameters.webServiceAPI
-      String webServiceAPI=SysParameters.webServiceAPI;//getServiceProvider();
+      //SysParameters.BROKER_WEBSERVICE_API
+      String webServiceAPI=ServiceParameters.BROKER_WEBSERVICE_API;//getServiceProvider();
       if(webServiceAPI==null){
-         logger.error(Const.Services.BROKER_WEBSERVICES.toString()+" API is not available");
+         logger.error(Constant.SERVICES.BROKER_WEBSERVICES.toString()+" API is not available");
       }else if(webServiceAPI.equals("GEMINI")){
          callingLayer = new CallingLayerGeminiImpl(commonDao);
       }else if(webServiceAPI.equals("TD")){
@@ -1226,7 +1232,7 @@ public class ServiceLayerImpl implements ServiceLayer
          if(userAcctDetails==null){
             System.out.println("User Account Details not available in DB");
          }else{
-            userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//            userAcctDetails.setFundGroupName(SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
             //userAcctDetails.setPwd("test01");
             WSCallStatus callStatus= getCallingLayer().loginUser(userAcctDetails);
             if(callStatus==null){
@@ -1266,7 +1272,7 @@ public class ServiceLayerImpl implements ServiceLayer
 //                  userAcctDetails.setPwd(password);
 //                  userAcctDetails.setSecurityQuestion(securityQuestion);
 //                  userAcctDetails.setSecurityAnswer(securityAnswer);
-//                  userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//                  userAcctDetails.setFundGroupName(SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
 //                  userAcctDetails.setStatus("S");
 //                  userAcctDetails.setRemarks(callStatus.getErrorMessage());
 //               }else{

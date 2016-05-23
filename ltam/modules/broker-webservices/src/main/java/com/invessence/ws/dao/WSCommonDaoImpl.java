@@ -107,15 +107,15 @@ public class WSCommonDaoImpl implements WSCommonDao
       return true;
    }
 
-   @Override
-   public List<ServiceDetails> getServiceDetails(String company) throws SQLException
-   {
-      logger.info("WSCommonDaoImpl.getServiceDetails");
-      List<ServiceDetails> lst = null;
-      logger.debug("getServiceDetails = "+getSverviceDetails);
-      lst = webServiceJdbcTemplate.query(getSverviceDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceDetails.class));
-      return lst;
-   }
+//   @Override
+//   public List<ServiceDetails> getServiceOperationDetails(String company) throws SQLException
+//   {
+//      logger.info("WSCommonDaoImpl.getServiceOperationDetails");
+//      List<ServiceDetails> lst = null;
+//      logger.debug("getServiceOperationDetails = "+getSverviceDetails);
+//      lst = webServiceJdbcTemplate.query(getSverviceDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceDetails.class));
+//      return lst;
+//   }
 
 //   public boolean updateUserEmail(UserAcctDetails userAcctDetails, String newEmail)throws SQLException{
 //      logger.info("WSCommonDaoImpl.updateUserEmail");

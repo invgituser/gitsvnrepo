@@ -323,7 +323,7 @@ public class UserAcctDetails
       return "UserAcctDetails{" +
          "clientAccountID='" + clientAccountID + '\'' +
          ", email='" + email + '\'' +
-         ", fundGroupName='" + fundGroupName + '\'' +
+         ", BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME='" + fundGroupName + '\'' +
          ", mailZipCode='" + mailZipCode + '\'' +
          ", primaryPhoneNbr='" + primaryPhoneNbr + '\'' +
          ", pwd='" + pwd + '\'' +

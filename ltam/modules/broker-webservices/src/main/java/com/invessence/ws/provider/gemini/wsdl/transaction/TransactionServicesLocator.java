@@ -7,7 +7,7 @@
 
 package com.invessence.ws.provider.gemini.wsdl.transaction;
 
-import com.invessence.ws.util.SysParameters;
+import com.invessence.service.util.ServiceParameters;
 
 public class TransactionServicesLocator extends org.apache.axis.client.Service implements com.invessence.ws.provider.gemini.wsdl.transaction.TransactionServices {
 
@@ -24,7 +24,7 @@ public class TransactionServicesLocator extends org.apache.axis.client.Service i
     }
 
     // Use to get a proxy class for TransactionServicesSoap
-    private java.lang.String TransactionServicesSoap_address = SysParameters.geminiEndPointUrl+"/TransactionServices.asmx";
+    private java.lang.String TransactionServicesSoap_address = ServiceParameters.BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL +"/TransactionServices.asmx";
 
     public java.lang.String getTransactionServicesSoapAddress() {
         return TransactionServicesSoap_address;

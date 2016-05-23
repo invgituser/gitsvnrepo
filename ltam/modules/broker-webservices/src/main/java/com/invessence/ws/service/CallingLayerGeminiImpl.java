@@ -1,10 +1,9 @@
 package com.invessence.ws.service;
 
+import com.invessence.service.util.ServiceParameters;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
-import com.invessence.ws.util.SysParameters;
 import com.invessence.ws.provider.gemini.service.*;
-import org.springframework.stereotype.Service;
 
 /**
  * Created by abhangp on 3/11/2016.
@@ -23,38 +22,38 @@ public class CallingLayerGeminiImpl implements CallingLayer
 
    public WSCallStatus createUser(UserAcctDetails userAcctDetails)throws Exception
    {
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       loginService=new LoginServiceImpl(wsCommonDao);
       return loginService.createWebUser(userAcctDetails);
    }
 
    public WSCallStatus updateUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception
    {
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       loginService=new LoginServiceImpl(wsCommonDao);
       return loginService.updateWebUserEmail(userAcctDetails,newEmail);
    }
 
    public WSCallStatus resetPassword(UserAcctDetails userAcctDetails, String newPwd) throws Exception{
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       loginService = new LoginServiceImpl(wsCommonDao);
       return loginService.updatePasswordWithNoAuthentication(userAcctDetails, newPwd);
    }
 
    public WSCallResult getMailingAddress(UserAcctDetails userAcctDetails) throws Exception{
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       accountService = new AccountServiceImpl(wsCommonDao);
       return accountService.getMailingAddress(userAcctDetails);
    }
    public WSCallResult getAccountInfo(UserAcctDetails userAcctDetails) throws Exception{
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       accountService = new AccountServiceImpl(wsCommonDao);
       return accountService.getAccountInfo(userAcctDetails);
    }
 
 //   public UserAcctExt getAcctExtInfo(UserAcctDetails userAcctDetails)throws Exception
 //   {
-//      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+//      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
 //      accountService = new AccountServiceImpl(wsCommonDao);
 //      WSCallStatus WSCallStatus = null;
 //      UserAcctExt userAcctExt = new UserAcctExt();
@@ -81,14 +80,14 @@ public class CallingLayerGeminiImpl implements CallingLayer
    @Override
    public WSCallResult getUserBankAcctDetails(UserAcctDetails userAcctDetails)throws Exception
    {
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       accountService = new AccountServiceImpl(wsCommonDao);
       return accountService.getUserBankAcctDetails(userAcctDetails);
    }
 
    public WSCallStatus updateMailingAddress(UserAcctDetails userAcctDetails, UserAddress mailingAddress) throws Exception
    {
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       accountService=new AccountServiceImpl(wsCommonDao);
       return accountService.updateMailingAddress(userAcctDetails,mailingAddress);
    }
@@ -96,7 +95,7 @@ public class CallingLayerGeminiImpl implements CallingLayer
    @Override
    public WSCallResult fundAccount(UserAcctDetails userAcctDetails, int fundID, double amount, String bankAccountNumber, UserAcctExt userAcctExt) throws Exception
    {
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       transactionService=new TransactionServiceImpl(wsCommonDao);
       return transactionService.fundAccount(userAcctDetails, fundID, amount, bankAccountNumber,userAcctExt);
    }
@@ -104,7 +103,7 @@ public class CallingLayerGeminiImpl implements CallingLayer
    @Override
    public WSCallResult fullFundTransfer(UserAcctDetails userAcctDetails, int fromFundID, int toFundID, String bankAccountNumber, UserAcctExt userAcctExt) throws Exception
    {
-      userAcctDetails.setFundGroupName(SysParameters.fundGroupName);
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       transactionService=new TransactionServiceImpl(wsCommonDao);
       return transactionService.fullFundTransfer(userAcctDetails, fromFundID, toFundID, bankAccountNumber, userAcctExt);
    }
@@ -112,7 +111,7 @@ public class CallingLayerGeminiImpl implements CallingLayer
 
 
    public WSCallStatus loginUser(UserAcctDetails userAcctDetails) throws Exception{
-      String userId;
+      userAcctDetails.setFundGroupName(ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME);
       loginService=new LoginServiceImpl(wsCommonDao);
       return loginService.loginWebUser(userAcctDetails);
 

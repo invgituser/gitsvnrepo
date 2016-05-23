@@ -22,14 +22,14 @@ public class SysParameters
 //      return new PropertySourcesPlaceholderConfigurer();
 //   }
 
-   public static String webServiceAPI;
-   public static String geminiEndPointUrl;
-   public static String tdEndPointUrl;
+  // public static String BROKER_WEBSERVICE_API;
+//   public static String BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL;
+//   public static String tdEndPointUrl;
 
 
-   public static final String encryDecryKey="aRXDugfr4WQpVrxu";
-   //String encryDecryKey="GEMINI-KEY";
-   public static String fundGroupName;
+   //public static final String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY="aRXDugfr4WQpVrxu";
+   //String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY="GEMINI-KEY";
+//   public static String BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME;
 
    public static int wsResIssueCode;
    public static String wsResIssueMsg;
@@ -57,10 +57,10 @@ public class SysParameters
 //   public static String updateUserEmail;
 //   public static String getAccountExtInfo;
 
-   @Autowired
-   private WSCommonDao wsCommonDao;
+//   @Autowired
+//   private WSCommonDao wsCommonDao;
 
-   public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
+//   public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
 //   public void saveWSRequest(String status, String clientAccountID, String opt, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String requestType){
 //      try{
 //         wsCommonDao.insertWSRequest(new WSRequest(status, clientAccountID, opt, remarks, reqTime, reqXml, resTime, resXml, requestType));}
@@ -69,102 +69,102 @@ public class SysParameters
 //         logger.error(e.getMessage());
 //      }
 //   }
-   @Autowired
-   public void setServiceDetails() {
-      try{
-         List<ServiceDetails> serviceDetailsList=wsCommonDao.getServiceDetails(Const.COMPANY_NAME);
-         Iterator<ServiceDetails>itr=serviceDetailsList.iterator();
-         Map<String, Map<String, List<ServiceDetails>>> serviceDetails=new LinkedHashMap<String, Map<String, List<ServiceDetails>>>();
-         Map<String, List<ServiceDetails>> apiDetails=null;
-         List<ServiceDetails> listOfOperation=null;
-         String serviceKey=null, apiKey=null;
-         ServiceDetails servDetails=null;
-         while (itr.hasNext()) {
-             servDetails = (ServiceDetails) itr.next();
-
-            if(serviceKey==null){
-               serviceKey=servDetails.getService();
-               apiKey=servDetails.getProvider();
-               apiDetails=new LinkedHashMap<>();
-
-               listOfOperation=new ArrayList<>();
-               listOfOperation.add(servDetails);
-
-            }else if(servDetails.getService().equalsIgnoreCase(serviceKey)){
-               if(servDetails.getProvider().equalsIgnoreCase(apiKey)){
-                  listOfOperation.add(servDetails);
-               }else if(!servDetails.getProvider().equalsIgnoreCase(apiKey)){
-                  apiDetails.put(apiKey,listOfOperation);
-
-                  apiKey=servDetails.getProvider();
-                  listOfOperation=new ArrayList<>();
-                  listOfOperation.add(servDetails);
-               }
-
-            }else if(! servDetails.getService().equalsIgnoreCase(serviceKey)){
+//   @Autowired
+//   public void setServiceDetails() {
+//      try{
+//         List<ServiceDetails> serviceDetailsList=wsCommonDao.getServiceOperationDetails(Const.COMPANY_NAME);
+//         Iterator<ServiceDetails>itr=serviceDetailsList.iterator();
+//         Map<String, Map<String, List<ServiceDetails>>> serviceDetails=new LinkedHashMap<String, Map<String, List<ServiceDetails>>>();
+//         Map<String, List<ServiceDetails>> apiDetails=null;
+//         List<ServiceDetails> listOfOperation=null;
+//         String serviceKey=null, apiKey=null;
+//         ServiceDetails servDetails=null;
+//         while (itr.hasNext()) {
+//             servDetails = (ServiceDetails) itr.next();
+//
+//            if(serviceKey==null){
+//               serviceKey=servDetails.getService();
+//               apiKey=servDetails.getVendor();
 //               apiDetails=new LinkedHashMap<>();
-               apiDetails.put(apiKey,listOfOperation);
-               serviceDetails.put(serviceKey, apiDetails);
-
-               serviceKey=servDetails.getService();
-//               apiDetails=new HashMap<>();
+//
+//               listOfOperation=new ArrayList<>();
+//               listOfOperation.add(servDetails);
+//
+//            }else if(servDetails.getService().equalsIgnoreCase(serviceKey)){
+//               if(servDetails.getVendor().equalsIgnoreCase(apiKey)){
+//                  listOfOperation.add(servDetails);
+//               }else if(!servDetails.getVendor().equalsIgnoreCase(apiKey)){
+//                  apiDetails.put(apiKey,listOfOperation);
+//
+//                  apiKey=servDetails.getVendor();
+//                  listOfOperation=new ArrayList<>();
+//                  listOfOperation.add(servDetails);
+//               }
+//
+//            }else if(! servDetails.getService().equalsIgnoreCase(serviceKey)){
+////               apiDetails=new LinkedHashMap<>();
 //               apiDetails.put(apiKey,listOfOperation);
+//               serviceDetails.put(serviceKey, apiDetails);
+//
+//               serviceKey=servDetails.getService();
+////               apiDetails=new HashMap<>();
+////               apiDetails.put(apiKey,listOfOperation);
+//
+//               apiKey=servDetails.getVendor();
+//               apiDetails=new LinkedHashMap<>();
+//               listOfOperation=new ArrayList<>();
+//               listOfOperation.add(servDetails);
+//
+//            }
+//            //System.out.println("servDetails = " + servDetails);
+//
+//         }
+//         apiDetails.put(apiKey,listOfOperation);
+//         serviceDetails.put(serviceKey, apiDetails);
+//
+//         System.out.println("*****************************");
+//         System.out.println("Size of ServiceDetails Map = "+serviceDetails.size());
+//
+//         Iterator<Map.Entry<String, Map<String, List<ServiceDetails>>>> entries = serviceDetails.entrySet().iterator();
+//         while (entries.hasNext()) {
+//            Map.Entry<String, Map<String, List<ServiceDetails>>> entry = entries.next();
+//            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+//         }
+//
+//         System.out.println("*****************************");
+//         SysParameters.serviceDetailsMap =serviceDetails;
+//
+//         setWebServiceAPI(); // setting  broker-webservice vendor
+//      }catch(Exception e){
+//         logger.error("Exception while loading service details");
+//         logger.error(e.getMessage());
+//      }
+//
+//   }
+//
+//   public void setWebServiceAPI()
+//   {
+//      System.out.println("SysParameters.setWebServiceAPI");
+//      if(SysParameters.serviceDetailsMap.containsKey(Const.SERVICES.BROKER_WEBSERVICES.toString())){
+//         Map<String, List<ServiceDetails>>sd= SysParameters.serviceDetailsMap.get(Const.SERVICES.BROKER_WEBSERVICES.toString());
+//         if(sd==null || sd.size()==0){
+//            System.out.println("Expecting single API vendor for "+Const.SERVICES.BROKER_WEBSERVICES.toString()+" service but it gets none");
+//         }else if(sd.size()>1){
+//            System.out.println("Expecting single API vendor for "+Const.SERVICES.BROKER_WEBSERVICES.toString()+" service but it gets more the one");
+//            SysParameters.BROKER_WEBSERVICE_API =sd.keySet().toArray()[0].toString();
+//         }else if(sd.size()==1){
+//            SysParameters.BROKER_WEBSERVICE_API =sd.keySet().toArray()[0].toString();
+//         }
+//      }
+//      //SysParameters.BROKER_WEBSERVICE_API = BROKER_WEBSERVICE_API;
+//      System.out.println("BROKER_WEBSERVICE_API = " + BROKER_WEBSERVICE_API);
+//   }
 
-               apiKey=servDetails.getProvider();
-               apiDetails=new LinkedHashMap<>();
-               listOfOperation=new ArrayList<>();
-               listOfOperation.add(servDetails);
-
-            }
-            //System.out.println("servDetails = " + servDetails);
-
-         }
-         apiDetails.put(apiKey,listOfOperation);
-         serviceDetails.put(serviceKey, apiDetails);
-
-         System.out.println("*****************************");
-         System.out.println("Size of ServiceDetails Map = "+serviceDetails.size());
-
-         Iterator<Map.Entry<String, Map<String, List<ServiceDetails>>>> entries = serviceDetails.entrySet().iterator();
-         while (entries.hasNext()) {
-            Map.Entry<String, Map<String, List<ServiceDetails>>> entry = entries.next();
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-         }
-
-         System.out.println("*****************************");
-         SysParameters.serviceDetailsMap =serviceDetails;
-
-         setWebServiceAPI(); // setting  broker-webservice provider
-      }catch(Exception e){
-         logger.error("Exception while loading service details");
-         logger.error(e.getMessage());
-      }
-
-   }
-
-   public void setWebServiceAPI()
-   {
-      System.out.println("SysParameters.setWebServiceAPI");
-      if(SysParameters.serviceDetailsMap.containsKey(Const.Services.BROKER_WEBSERVICES.toString())){
-         Map<String, List<ServiceDetails>>sd= SysParameters.serviceDetailsMap.get(Const.Services.BROKER_WEBSERVICES.toString());
-         if(sd==null || sd.size()==0){
-            System.out.println("Expecting single API provider for "+Const.Services.BROKER_WEBSERVICES.toString()+" service but it gets none");
-         }else if(sd.size()>1){
-            System.out.println("Expecting single API provider for "+Const.Services.BROKER_WEBSERVICES.toString()+" service but it gets more the one");
-            SysParameters.webServiceAPI =sd.keySet().toArray()[0].toString();
-         }else if(sd.size()==1){
-            SysParameters.webServiceAPI =sd.keySet().toArray()[0].toString();
-         }
-      }
-      //SysParameters.webServiceAPI = webServiceAPI;
-      System.out.println("webServiceAPI = " + webServiceAPI);
-   }
-
-   @Autowired
-   public void setFundGroupName(@Value("${fundGroupName}")String fundGroupName)
-   {
-      SysParameters.fundGroupName = fundGroupName;
-   }
+//   @Autowired
+//   public void setFundGroupName(@Value("${BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME}")String BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME)
+//   {
+//      SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME = BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME;
+//   }
 
    @Autowired
    public void setWsOperationNAMsgCode(@Value("${wsOperationNACode}")int wsOperationNACode)
@@ -268,17 +268,17 @@ public class SysParameters
 //      SysParameters.updateUserEmail = updateUserEmail;
 //   }
 
-   @Autowired
-   public void setGeminiEndPointUrl(@Value("${geminiEndPointUrl}")String geminiEndPointUrl)
-   {
-      SysParameters.geminiEndPointUrl = geminiEndPointUrl;
-   }
-
-   @Autowired
-   public void setTdEndPointUrl(@Value("${tdEndPointUrl}")String tdEndPointUrl)
-   {
-      SysParameters.tdEndPointUrl = tdEndPointUrl;
-   }
-
+//   @Autowired
+//   public void setGeminiEndPointUrl(@Value("${BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL}")String BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL)
+//   {
+//      SysParameters.BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL = BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL;
+//   }
+//
+//   @Autowired
+//   public void setTdEndPointUrl(@Value("${tdEndPointUrl}")String tdEndPointUrl)
+//   {
+//      SysParameters.tdEndPointUrl = tdEndPointUrl;
+//   }
+//
 
 }

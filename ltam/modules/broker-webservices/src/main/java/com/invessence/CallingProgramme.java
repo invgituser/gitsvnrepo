@@ -24,7 +24,7 @@ public class CallingProgramme
 //         serviceLayer.toTestAPI();
          //serviceLayer.loginUser("310100020");
          //serviceLayer.createUser("310100028","secQuest","secAnsw");
-         //System.out.println("PWD: "+EncryDecryAES.encrypt("test01",SysParameters.encryDecryKey));
+         //System.out.println("PWD: "+EncryDecryAES.encrypt("test01",SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY));
 //        serviceLayer.createPendingUser();
   //          wsCallStatus=serviceLayer.updateEmail("310100016","jaimedesmond5@hotmail.com");
 //         WSCallResult wsCallResult=serviceLayer.getMailingAddress("310100043");
@@ -67,9 +67,11 @@ public class CallingProgramme
 //         WSCallResult wsCallResult=serviceLayer.fundAccount("310100028",903, 1, "6105640720");
 //         WSCallResult wsCallResult=serviceLayer.fundAccount("310100046",903, 1, "358233");
 //
-//serviceLayer.getUserBankAcctDetails("310100033");
-         serviceLayer.loginUser("310100033");
-         System.out.println("-------------------------------------------------------------------");
+         serviceLayer.getUserBankAcctDetails("310100028");
+//         serviceLayer.loginUser("310100033");
+         //serviceLayer.resetPassword("310100046");
+//         serviceLayer.loginUser("310100046");
+//         System.out.println("-------------------------------------------------------------------");
          System.out.println("wsCalltatus = " + wsCallStatus);
          System.out.println("isServiceActive"+serviceLayer.isServiceActive());
          context.close();

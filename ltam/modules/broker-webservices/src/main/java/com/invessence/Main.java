@@ -2,10 +2,8 @@ package com.invessence;
 
 import java.util.*;
 
+import com.invessence.service.util.ServiceParameters;
 import com.invessence.util.EncryDecryAES;
-import com.invessence.ws.util.SysParameters;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Created by abhangp on 3/11/2016.
@@ -18,7 +16,7 @@ public class Main
       {
 List<String> lst=new ArrayList<>();
          System.out.println("lst.size() = " + lst.size());
-         System.out.println(EncryDecryAES.decrypt("h6ynsRLMxU9XKV2qCp/mvA==", SysParameters.encryDecryKey));
+         System.out.println(EncryDecryAES.decrypt("h6ynsRLMxU9XKV2qCp/mvA==", ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY));
       }
       catch (Exception e)
       {

@@ -3,6 +3,7 @@ package com.invessence.ws.provider.gemini.service;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.invessence.service.util.ServiceParameters;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.*;
@@ -69,7 +70,7 @@ try{
    reqTime=new Date();
       WebUserResult webUserResult = loginServicesSoap.createShareholderWebUser
          (new AuthenticateLogin(userAcctDetails.getUserID(), userAcctDetails.getPwd(), userAcctDetails.getFundGroupName(), "00"),
-         userAcctDetails.getClientAccountID(), EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.encryDecryKey),
+         userAcctDetails.getClientAccountID(), EncryDecryAES.decrypt(userAcctDetails.getSsn(), ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY),
          userAcctDetails.getMailZipCode(), userAcctDetails.getEmail(), userAcctDetails.getSecurityQuestion(),
          userAcctDetails.getSecurityAnswer(), new UnsignedByte("1"));
       logger.debug("webUserResult = " + webUserResult);
@@ -140,13 +141,13 @@ catch (Exception e)
          loginServicesSoap = loginServicesLocator.getLoginServicesSoap();
          WebUserResult webUserResult = loginServicesSoap.updatePasswordWithNoAuthentication(
             new AuthenticateLogin(userAcctDetails.getUserID(), "", userAcctDetails.getFundGroupName(), "00"),
-            EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.encryDecryKey), userAcctDetails.getSecurityQuestion(), userAcctDetails.getSecurityAnswer(),
+            EncryDecryAES.decrypt(userAcctDetails.getSsn(), ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY), userAcctDetails.getSecurityQuestion(), userAcctDetails.getSecurityAnswer(),
             newPwd, newPwd);
 
 //         WebUserResult webUserResult = loginServicesSoap.updatePasswordWithNoAuthentication(
 //            new AuthenticateLogin(userAcctDetails.getUserID(), "", userAcctDetails.getFundGroupName(), "00"),
-//            EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.encryDecryKey), userAcctDetails.getSecurityQuestion(), userAcctDetails.getSecurityAnswer(),
-//            EncryDecryAES.decrypt(newPwd, SysParameters.encryDecryKey), EncryDecryAES.decrypt(newPwd, SysParameters.encryDecryKey));
+//            EncryDecryAES.decrypt(userAcctDetails.getSsn(), SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY), userAcctDetails.getSecurityQuestion(), userAcctDetails.getSecurityAnswer(),
+//            EncryDecryAES.decrypt(newPwd, SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY), EncryDecryAES.decrypt(newPwd, SysParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY));
          logger.debug("status = " + webUserResult);
          if (webUserResult == null || webUserResult.getErrorStatus()==null)
          {
