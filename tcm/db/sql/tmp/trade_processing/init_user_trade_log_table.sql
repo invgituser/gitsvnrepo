@@ -1,0 +1,42 @@
+INSERT INTO `user_trade_log`
+(`acctnum`,
+`clientAccountID`,
+`tradeStatus`,
+`tradedate`,
+`ticker`,
+`action`,
+`sectype`,
+`exchange`,
+`currency`,
+`timeinforce`,
+`qty`,
+`tradeprice`,
+`investmentamount`,
+`tradeID`,
+`ordertype`,
+`confirmationID`,
+`created`,
+`lastupdated`)
+SELECT `ib`.`acctnum`,
+	`ib`.IB_acctnum,
+    'T' as tradeStatus,
+    STR_TO_DATE(`trades`.`reportDate`,'%Y%m%d'),
+    `trades`.`symbol`,
+	CASE WHEN (`trades`.`quantity` < 0) THEN 'SELL'
+	else 'BUY'
+	end,
+    `trades`.`assetClass`,
+	'ANY',
+    `trades`.`currencyPrimary`,
+	'DAY',
+    ABS(`trades`.`quantity`),
+    `trades`.`tradeprice`,
+    ABS(`trades`.`proceed`),
+    `trades`.`tradeID`,
+	'LMT',
+   `trades`.`tradeID`,
+    STR_TO_DATE(`trades`.`reportDate`,'%Y%m%d'),
+    null
+FROM `trades`,
+`IB_Accounts` ib
+where trades.clientAccountID = ib.IB_acctnum

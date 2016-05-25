@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+<h:head>
+    <script type="text/javascript">
+        function start() {
+            statusDialog.show();
+        }
+
+        function stop() {
+            statusDialog.hide();
+        }
+    </script>
+
+</h:head>
+<h:body>
+    <p:dialog header="#{cepb.accountType}" widgetVar="dlgIB" closable="true" appendTo="@(body)"
+              style="background-color:#ffffff">
+
+        <p:panelGrid cellpadding="5" styleClass="invNBgrid">
+            <p:row>
+                <p:column colspan="2" style="text-align:left; color: #CC0000">
+                    <h3>You opening <strong>#{cepb.accountType}</strong> type of account.</h3>
+                </p:column>
+            </p:row>
+            <p:row>
+                <p:column colspan="2" style="text-align:left">
+                    <br/>
+                    <strong>Please have the following information readily available:</strong>
+                    <br/>
+                    <br/>
+                    <i>Personal Information</i>
+                    <ul>
+                        <li>Social Security Number</li>
+                        <li>Driver's License</li>
+                    </ul>
+                    <i>For an IRA you also need</i>
+                    <ul>
+                        <li>Beneficiary Information</li>
+                        <li>Beneficiary Social Security Number</li>
+                    </ul>
+                    <i>Funding</i>
+                    <ul>
+                        <li>Bank Information</li>
+                        <li>Brokerage Information</li>
+                    </ul>
+
+                    <p>
+                        You will now be redirected to Interactive Brokers.</p>
+                    <p>You will also be <u>logged out of Invessence</u>!</p>
+                </p:column>
+            </p:row>
+
+            <f:facet name="footer">
+                <p:row>
+                    <p:column style="text-align: left">
+                    <p:commandButton value="Yes"
+                                     oncomplete="PF('dlgIB').hide();"/>
+                    </p:column>
+                    <p:column style="text-align: right">
+                    <p:commandButton value="Cancel"
+                                     oncomplete="PF('dlgIB').hide();" />
+
+                    </p:column>
+                </p:row>
+            </f:facet>
+        </p:panelGrid>
+
+    </p:dialog>
+</h:body>
+</html>

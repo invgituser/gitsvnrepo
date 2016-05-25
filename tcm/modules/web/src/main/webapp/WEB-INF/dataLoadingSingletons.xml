@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+       xmlns:task="http://www.springframework.org/schema/task">
+
+   <!--<bean id="dailyReturns" class="com.invmodel.dao.DailyReturns" factory-method="getInstance"/>-->
+   <!--<bean id="assetDB" class="com.invmodel.dao.AssetDBCollection" factory-method="getInstance"/>-->
+   <!--<bean id="historicalReturns" class="com.invmodel.dao.HistoricalReturns" factory-method="getInstance"/>-->
+   <bean id="portfolioOptimizer" class="com.invmodel.model.dynamic.PortfolioOptimizer" factory-method="getInstance"/>
+   <bean id="fixedOptimizer" class="com.invmodel.model.fixedmodel.FixedModelOptimizer" factory-method="getInstance"/>
+   <bean id="secDao" class="com.invmodel.dao.invdb.SecurityCollection"/>
+   <bean id="tlhSecurityCollection" class="com.invmodel.rebalance.TLHSecurityCollection" factory-method="getInstance"/>
+
+   <bean id="refreshDelay" class="java.lang.Long">
+      <constructor-arg value="36000000"/>
+   </bean>
+
+   <task:scheduled-tasks>
+      <!--<task:scheduled ref="assetDB" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
+      <!--<task:scheduled ref="dailyReturns" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
+      <!--<task:scheduled ref="historicalReturns" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
+      <!--<task:scheduled ref="secDao" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>-->
+      <task:scheduled ref="fixedOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
+      <task:scheduled ref="portfolioOptimizer" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
+      <task:scheduled ref="tlhSecurityCollection" method="refreshDataFromDB" fixed-delay="#{refreshDelay}"/>
+    </task:scheduled-tasks>
+
+   <bean id="assetAllocationModel" class="com.invmodel.asset.AssetAllocationModel" factory-method="getInstance">
+      <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      <property name="fixedOptimizer" ref="fixedOptimizer"/>
+      <!--<property name="assetdao" ref="assetDB"/>-->
+      <!--<property name="hr" ref="historicalReturns"/>-->
+   </bean>
+
+<!--
+   <bean id="portfolioModel" class="com.invmodel.portfolio.PortfolioModel" factory-method="getInstance">
+      <property name="monthlyDao" ref="dailyReturns"/>
+      <property name="securityDao" ref="securityDB"/>
+   </bean>
+-->
+
+   <!--  This is no longer an Instance, instead, it is get Portfolio object -->
+   <bean id="portfolioModel" class="com.invmodel.portfolio.PortfolioModel">
+      <property name="securityDao" ref="secDao"/>
+      <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      <property name="fixedOptimizer" ref="fixedOptimizer"/>
+   </bean>
+
+
+
+   <bean id="rebalanceProcess" class="com.invmodel.rebalance.RebalanceProcess" factory-method="getInstance">
+      <property name="tlhSecurityCollection" ref="tlhSecurityCollection"/>
+      <!--<property name="assetDAO" ref="assetDB"/>-->
+      <!--<property name="dailyReturnsDAO" ref="dailyReturns"/>-->
+      <property name="securityDAO" ref="secDao"/>
+      <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
+      <property name="fixedOptimizer" ref="fixedOptimizer"/>
+   </bean>
+
+   <bean id="portfolioPerformance" class="com.invmodel.performance.PortfolioPerformance" factory-method="getInstance">
+   </bean>
+
+</beans>

@@ -1,0 +1,33 @@
+INSERT INTO `invdb`.`user_trade_profile`
+(`acctnum`,
+`goal`,
+`acctType`,
+`age`,
+`horizon`,
+`initialInvestment`,
+`recurringInvestment`,
+`experience`,
+`longTermGoal`,
+`stayInvested`,
+`charitablegoals`,
+`dependent`,
+`riskIndex`,
+`created`,
+`lastUpdated`)
+select 
+`acctnum`,
+null,
+`profileName`,
+`age`,
+`horizon`,
+`initialInvestment`,
+`recurringInvestment`,
+`experience`,
+`objective`,
+`investmentplan`,
+`charitablegoals`,
+`dependent`,
+`riskIndex`,
+`created`,
+`lastUpdated`
+from `save_user_trade_profile`

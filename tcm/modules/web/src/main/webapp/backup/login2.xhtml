@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+</h:head>
+
+<h:body>
+
+    <ui:composition template="/template/common/commonLayout.xhtml">
+
+
+        <ui:define name="content">
+
+
+            <center>
+                <p:panel header="Login" style="width:700px; height:350px; border=1px solid black; position:relative;">
+                    <h:form>
+                        <h:panelGrid columns="2" cellpadding="2">
+                            <h:outputLabel for="#{userData.userID}" value="User Name"/>
+                            <h:inputText value="#{userData.userID}" label="User Name"></h:inputText>
+
+                            <h:outputLabel for="#{userData.password}" value="Password"/>
+                            <h:inputSecret value="#{userData.password}"></h:inputSecret>
+                            <h:commandButton type="submit" value="Login"
+                                             action="#{userManagedBean.login}"></h:commandButton>
+                        </h:panelGrid>
+                    </h:form>
+                </p:panel>
+                <div>
+                    <h:messages></h:messages>
+                </div>
+            </center>
+
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+
+</html>

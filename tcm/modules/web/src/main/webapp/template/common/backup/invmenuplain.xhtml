@@ -1,0 +1,32 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ps="http://primefaces.org/spark"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="menutopbar">
+    <ps:menu>
+        <f:facet name="options">
+            <p:commandButton value="Signup" icon="fa fa-sign-in" styleClass="Fs18 BlueButton"
+                             href="/signup.xhtml"/>
+        </f:facet>
+
+        <p:menuitem value="Why Us"
+                    url="${apache.url}/why-invessence/"/>
+        <p:menuitem value="How it Works"
+                    url="${apache.url}/howitworks/"/>
+        <p:menuitem value="Pricing"
+                    url="${apache.url}/pricing/"/>
+        <p:menuitem value="About Us"
+                    url="${apache.url}/about-us/"/>
+        <p:menuitem value="Blog"
+                    url="${apache.url}/blog/"/>
+        <p:menuitem value="FAQ"
+                    url="${apache.url}/faq/"/>
+
+    </ps:menu>
+    </h:form>
+
+</ui:composition>

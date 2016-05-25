@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:body>
+   <ui:composition template="/template/common/backup/responsivelayout.xhtml/common/responsivelayout.xhtml">
+      <ui:define name="content">
+         <div id="et-main-area">
+            <div id="main-content">
+                <div class="entry-content">
+                    <div class="et_pb_section et_section_regular">
+                        <div class="et_pb_row">
+                            <div class="et_pb_column et_pb_column_4_4">
+                                <div class="et_pb_text et_pb_bg_layout_light et_pb_text_align_left">
+                                    <h:form id="mainform" class="a_1232 nform no_submit_hidden no_save_form placeholder  ltr none spin check_conflict allow_multi three  no_block_label star_ horizontal fc-common" ng-style="{background: con[0].bg_image, width: con[0].fw, borderRadius: con[0].fr+&quot;px&quot;, MozBorderRadius: con[0].fr+&quot;px&quot;, WebkitBorderRadius: con[0].fr+&quot;px&quot;, fontFamily: con[0].formfamily}" style="width: 750px; font-family: 'Helvetica Neue', Arial;">
+                                        <p:panel id="mainPanel" header="Personal Profile" style="text-align: left; position:relative;">
+                                            <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:outputLabel value="Date of Birth"/>
+                                                    </div>
+                                                </li>
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:calendar id="dateOfBirth" value="#{clientBean.dateOfBirth}" navigator="true" display="inline" label="Date of Birth" readonly="false" yearRange="c-100:c+10" pattern="MM/dd/yyyy"><f:convertDateTime pattern="MM/dd/yyyy" /></p:calendar>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:outputLabel value="Status"/>
+                                                    </div>
+                                                </li>
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:selectOneMenu id="maritalStatus" value="#{clientBean.maritalStatus}">
+                                                            <f:selectItem itemLabel="-- Select Status --" itemValue="0"/>
+                                                            <f:selectItem itemLabel="Divorced" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Married" itemValue="2"/>
+                                                            <f:selectItem itemLabel="Single" itemValue="3"/>
+                                                            <f:selectItem itemLabel="Widowed" itemValue="4"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:outputLabel value="Number of Dependents"/>
+                                                    </div>
+                                                </li>
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:selectOneMenu id="dependents" value="#{clientBean.dependents}">
+                                                            <f:selectItem itemLabel="-- Select Dependents --" itemValue="0"/>
+                                                            <f:selectItem itemLabel="1" itemValue="1"/>
+                                                            <f:selectItem itemLabel="2" itemValue="2"/>
+                                                            <f:selectItem itemLabel="3" itemValue="3"/>
+                                                            <f:selectItem itemLabel="4" itemValue="4"/>
+                                                            <f:selectItem itemLabel="5" itemValue="5"/>
+                                                            <f:selectItem itemLabel="6" itemValue="6"/>
+                                                            <f:selectItem itemLabel="7" itemValue="7"/>
+                                                            <f:selectItem itemLabel="8" itemValue="8"/>
+                                                            <f:selectItem itemLabel="9" itemValue="9"/>
+                                                            <f:selectItem itemLabel="10" itemValue="10"/>
+                                                            <f:selectItem itemLabel="11" itemValue="11"/>
+                                                            <f:selectItem itemLabel="12" itemValue="12"/>
+                                                            <f:selectItem itemLabel="13" itemValue="13"/>
+                                                            <f:selectItem itemLabel="14" itemValue="14"/>
+                                                            <f:selectItem itemLabel="15" itemValue="15"/>
+                                                            <f:selectItem itemLabel="16" itemValue="16"/>
+                                                            <f:selectItem itemLabel="17" itemValue="17"/>
+                                                            <f:selectItem itemLabel="18" itemValue="18"/>
+                                                            <f:selectItem itemLabel="19" itemValue="19"/>
+                                                            <f:selectItem itemLabel="20" itemValue="20"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:outputLabel value="Gender"/>
+                                                    </div>
+                                                </li>
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:selectOneMenu id="gender" value="#{clientBean.gender}">
+                                                            <f:selectItem itemLabel="-- Select Gender --" itemValue="0"/>
+                                                            <f:selectItem itemLabel="Female" itemValue="1"/>
+                                                            <f:selectItem itemLabel="Male" itemValue="2"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:outputLabel value="Country of Citizenship"/>
+                                                    </div>
+                                                </li>
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:selectOneMenu value="#{clientBean.countryOfCitizenship}" id="countries">
+                                                            <f:selectItem itemLabel="-- Select a Country -- " itemValue="0"/>
+                                                            <f:selectItems value="#{clientBean.countries}" var="country"
+                                                                           itemValue="#{country.id}" itemLabel="#{country.name}"/>
+                                                        </p:selectOneMenu>
+                                                    </div>
+                                                </li>
+
+                                            </ul>
+                                            <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1231" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:outputLabel value="Social Security Number"/>
+                                                    </div>
+                                                </li>
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_0_1232" class="nform_li ng-scope inline2 left fe_0 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px;">
+                                                    <div>
+                                                        <p:inputMask id="socialSecurity" value="#{clientBean.socialSecurity}" required="true" requiredMessage="Please enter Social Security Number." validatorMessage="Please enter Social Security Number." maxlength="15" mask="999-99-9999">  <pe:keyFilter regEx="/[\d]/"/></p:inputMask>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                            <ul class="form_ul none" id="form_ul" style="height: auto; opacity: 1;"><!-- ngRepeat: el in build -->
+                                                <li ng-repeat="el in build" ng-style="{paddingBottom: con[0].space+&quot;px&quot;, paddingTop: con[0].space+&quot;px&quot;}" id="fe_2_1232" class="nform_li ng-scope inline1 left fe_2 required-0" ng-class="[el.default, el.inline, con[0].field_align, el.li_class, &quot;fe_&quot;+$index, &quot;required-&quot;+el.req]" scale="" style="padding-bottom: 8px; padding-top: 8px; position: relative;">
+                                                    <div>
+                                                        <f:facet name="footer">
+                                                            <p:commandButton value="Next" ajax="true" actionListener="#{clientBean.saveClientInfo2}" icon="ui-icon-check" />
+                                                        </f:facet>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </p:panel>
+                                    </h:form>
+                                </div> <!-- .et_pb_text -->
+                            </div> <!-- .et_pb_column -->
+                        </div> <!-- .et_pb_row -->
+                    </div> <!-- .et_pb_section -->
+                </div> <!-- .entry-content -->
+            </div> <!-- #main-content -->
+         </div>
+         </ui:define>
+      </ui:composition>
+</h:body>
+</html>

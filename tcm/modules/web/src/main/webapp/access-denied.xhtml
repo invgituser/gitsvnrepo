@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/simple.xhtml">
+
+    <ui:define name="content">
+        <h:form>
+
+            <div id="layout-portlets-cover">
+                <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                     style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
+                    <div class="Container90 Fnone MarAuto TexAlCenter">
+                        <div class="EmptyBox50"></div>
+                        <h:form>
+                            <h:graphicImage name="images/locked.png" library="spark-layout" class="MarAuto MarTop20 Wid30"/>
+                            <span class="Fs40 Wid100 DispBlock red">Access Denied</span>
+                            <span class="Wid100 DispBlock Fs30 red">Please Check Your Permissions !</span><br/>
+                    <span class="Wid100 DispBlock Fs18 red">Sorry, but you have no access to this page.<br/>
+                    </span>
+                            <div class="EmptyBox30"></div>
+                            <h:commandButton styleClass="Fs16 RedButton"
+                                             type="submit" value="OK"
+                                             action="#{menu.redirectStartPage}"/>
+                        </h:form>
+                        <div class="EmptyBox50"></div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>
