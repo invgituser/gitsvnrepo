@@ -23,6 +23,7 @@
       <module>web</module>
       <module>eod</module>
       <module>emailer</module>
-      <module>broker-services</module>
+      <module>download-services</module>
+      <module>service</module>
    </modules>
 </project>
