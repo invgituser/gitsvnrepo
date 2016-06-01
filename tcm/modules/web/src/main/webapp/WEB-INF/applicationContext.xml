@@ -21,7 +21,7 @@
 
    <!--import resource for general business-->
 
-   <import resource="util.xml"/>
+    <import resource="util.xml"/>
     <import resource="properties.xml"/>
 	<import resource="dataSource.xml"/>
     <import resource="dataLoadingSingletons.xml"/>

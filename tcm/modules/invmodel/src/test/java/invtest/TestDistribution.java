@@ -72,7 +72,7 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.VCM");
+      profileData.setTheme("0.CORE");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);

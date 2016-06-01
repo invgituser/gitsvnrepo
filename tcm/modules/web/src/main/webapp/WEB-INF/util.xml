@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-   <bean id="uiLayout" class="com.invessence.web.util.UILayout">
+   <bean id="uiLayout" class="com.invessence.web.util.UILayout"/>
 
-   </bean>
+   <bean id="webutil" class="com.invessence.web.util.WebUtil"/>
 
 </beans>
 

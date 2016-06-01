@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.net.*;
 import java.util.*;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,8 @@ import org.springframework.stereotype.Component;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
-@Component
+@ManagedBean(name = "webutil")
+@SessionScoped
 public class WebUtil implements Serializable
 {
 

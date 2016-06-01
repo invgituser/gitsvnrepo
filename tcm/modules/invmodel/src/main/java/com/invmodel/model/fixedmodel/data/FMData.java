@@ -15,9 +15,12 @@ public class FMData
    private String level;
    private Integer index;
    private String displayname;
+   private String description;
    private Integer sortorder;
-   private Integer lowRisk;
-   private Integer highRisk;
+   private Double lowRisk;
+   private Double highRisk;
+   private Double expectedreturn;
+   private Double expectedrisk;
    ArrayList<String> assetList;
    Map<String, FMAsset> asset;
    Map<String,String> indexMap;
@@ -35,7 +38,9 @@ public class FMData
 
    public FMData(String theme, String level, Integer index,
                  String displayname, Integer sortorder,
-                 Integer lowRisk, Integer highRisk)
+                 Double lowRisk, Double highRisk,
+                 Double expectedreturn, Double expectedrisk,
+                 String description)
    {
       this.theme = theme;
       this.level = level;
@@ -44,6 +49,9 @@ public class FMData
       this.sortorder = sortorder;
       this.lowRisk = lowRisk;
       this.highRisk = highRisk;
+      this.expectedreturn = expectedreturn;
+      this.expectedrisk = expectedrisk;
+      this.description = description;
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
@@ -105,24 +113,54 @@ public class FMData
       this.sortorder = sortorder;
    }
 
-   public Integer getLowRisk()
+   public Double getLowRisk()
    {
       return lowRisk;
    }
 
-   public void setLowRisk(Integer lowRisk)
+   public void setLowRisk(Double lowRisk)
    {
       this.lowRisk = lowRisk;
    }
 
-   public Integer getHighRisk()
+   public Double getHighRisk()
    {
       return highRisk;
    }
 
-   public void setHighRisk(Integer highRisk)
+   public void setHighRisk(Double highRisk)
    {
       this.highRisk = highRisk;
+   }
+
+   public String getDescription()
+   {
+      return description;
+   }
+
+   public void setDescription(String description)
+   {
+      this.description = description;
+   }
+
+   public Double getExpectedreturn()
+   {
+      return expectedreturn;
+   }
+
+   public void setExpectedreturn(Double expectedreturn)
+   {
+      this.expectedreturn = expectedreturn;
+   }
+
+   public Double getExpectedrisk()
+   {
+      return expectedrisk;
+   }
+
+   public void setExpectedrisk(Double expectedrisk)
+   {
+      this.expectedrisk = expectedrisk;
    }
 
    public Boolean isItThisTheme(Integer riskIndex) {

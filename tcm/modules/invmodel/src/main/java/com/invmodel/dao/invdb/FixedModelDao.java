@@ -40,7 +40,7 @@ public class FixedModelDao extends JdbcDaoSupport
       ds = dbconnection.getMySQLDataSource();
    }
 
-   public void load_fixedmodule(FixedModelOptimizer fimodel)
+   public void load_fixedmodule(FixedModelOptimizer fmmodel)
       {
          // DataSource ds = getDs();
          String storedProcName = "sel_sec_fixedmodel";
@@ -62,10 +62,13 @@ public class FixedModelDao extends JdbcDaoSupport
                      0, // During adding in buffer, we are calculalating the actual value
                      convert.getStrData(rs.get("displayname")),
                      convert.getIntData(rs.get("sortorder")),
-                     convert.getIntData(rs.get("lowRisk")),
-                     convert.getIntData(rs.get("highRisk"))
+                     convert.getDoubleData(rs.get("lowRisk")),
+                     convert.getDoubleData(rs.get("highRisk")),
+                     convert.getDoubleData(rs.get("expectedreturn")),
+                     convert.getDoubleData(rs.get("expectedrisk")),
+                     convert.getStrData(rs.get("description"))
                   );
-                  fimodel.addTheme(themeData);
+                  fmmodel.addTheme(themeData);
                   i++;
                }
             }
@@ -91,12 +94,12 @@ public class FixedModelDao extends JdbcDaoSupport
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
                String level = convert.getStrData(rs.get("level"));
-               String key =  theme + "." + level;
+               String key =  theme.toUpperCase() + "." + level;
                FMAsset asset = new FMAsset(
                   theme,
                   level,
                   convert.getStrData(rs.get("asset")),
-                  convert.getStrData(rs.get("displayname")),
+                  convert.getStrData(rs.get("assetname")),
                   convert.getDoubleData(rs.get("allocation")),
                   convert.getStrData(rs.get("color")),
                   convert.getIntData(rs.get("sortorder"))
@@ -132,7 +135,7 @@ public class FixedModelDao extends JdbcDaoSupport
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
                String level = convert.getStrData(rs.get("level"));
-               String key =  theme + "." + level;
+               String key =  theme.toUpperCase() + "." + level;
                String asset = convert.getStrData(rs.get("asset"));
                FMPortfolio portfolio = new FMPortfolio(
                   theme,
@@ -142,8 +145,8 @@ public class FixedModelDao extends JdbcDaoSupport
                   convert.getStrData(rs.get("asset")),
                   convert.getStrData(rs.get("ticker")),
                   convert.getStrData(rs.get("name")),
-                  convert.getStrData(rs.get("subclass")),
-                  convert.getStrData(rs.get("displayName")),
+                  convert.getStrData(rs.get("keyname")),        // same as ticker/subassset
+                  convert.getStrData(rs.get("keydescription")), // displayname
                   convert.getStrData(rs.get("color")),
                   convert.getDoubleData(rs.get("allocation")),
                   convert.getIntData(rs.get("sortorder"))
@@ -179,6 +182,7 @@ public class FixedModelDao extends JdbcDaoSupport
             for (Map<String, Object> map : rows) {
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
+               theme = theme.toUpperCase();
                FMPerformance performance = new FMPerformance(
                   theme,
                   convert.getStrData(rs.get("index")),

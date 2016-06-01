@@ -733,28 +733,15 @@ public class PortfolioModel
             {
                wght = 0.0;
             }
-            SecurityData sd = secCollection.getSecurity(ticker);
-            if (sd != null) {
-               price = sd.getDailyprice();
-               type = sd.getType();
-               style = sd.getStyle();
-               subclass = sd.getPrimeassetclass();
-               assetname = sd.getAssetclass();
-               color = sd.getAssetcolor();
-               sortorder = sd.getSortorder();
-               sec_name = sd.getName();
-            }
-            else {
-               price = 100.00;
-               type = portfoliodata.getAsset();
-               style = portfoliodata.getSubasset();
-               subclass =  portfoliodata.getSubasset();
-               assetname = portfoliodata.getAsset();
-               color = portfoliodata.getColor();
-               sortorder =  portfoliodata.getSortorder();
-               sec_name = portfoliodata.getSec_name();
+            price = 100.00;
+            type = portfoliodata.getAsset();
+            style = portfoliodata.getDisplayname();
+            subclass =  portfoliodata.getDisplayname();
+            assetname = portfoliodata.getAsset();
+            color = portfoliodata.getColor();
+            sortorder =  portfoliodata.getSortorder();
+            sec_name = portfoliodata.getSec_name();
 
-            }
 
             if (ticker.equalsIgnoreCase("Cash"))
             {

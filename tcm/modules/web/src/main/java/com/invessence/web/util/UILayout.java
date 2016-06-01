@@ -200,7 +200,12 @@ public class UILayout implements Serializable
    {
       if (webutil.isUserLoggedIn()) {
          if (defaultHome == null)
-            return "#";
+            if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
+               return("/pages/advisor/index.xhtml");
+            }
+            else {
+               return("/pages/consumer/index.xhtml");
+            }
          else
             return defaultHome;
       }
@@ -210,8 +215,18 @@ public class UILayout implements Serializable
 
    public void setDefaultHome(String defaultHome)
    {
-      this.defaultHome = defaultHome;
-   }
+      if (defaultHome == null) {
+         if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
+            defaultHome = "/pages/advisor/index.xhtml";
+         }
+         else {
+            defaultHome = "/pages/consumer/index.xhtml";
+         }
+      }
+      else {
+         this.defaultHome = defaultHome;
+      }
+    }
 /*
    public String getDefaultHome()
    {

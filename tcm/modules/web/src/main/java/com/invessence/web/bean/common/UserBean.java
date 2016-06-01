@@ -12,6 +12,7 @@ import com.invessence.web.dao.common.UserInfoDAO;
 import com.invessence.web.data.*;
 import com.invessence.web.data.common.UserData;
 import com.invessence.web.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
@@ -19,7 +20,8 @@ public class UserBean extends UserData
 {
    private String beanUserID, beanResetID, beanEmail;
 
-   private WebUtil webutil = new WebUtil();
+   @Autowired
+   private WebUtil webutil;
 
    private Integer sTab = 0;
 

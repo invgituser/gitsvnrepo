@@ -13,6 +13,7 @@ import com.invessence.web.dao.SurveyDAO;
 import com.invessence.web.data.*;
 import com.invessence.web.util.*;
 import com.invessence.web.validator.EmailValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,7 +32,8 @@ public class SurveyBean extends SurveyData implements Serializable
    @ManagedProperty("#{webMessage}")
    private WebMessage webMessage;
 
-   private WebUtil webutil = new WebUtil();
+   @Autowired
+   private WebUtil webutil;
    private Map<Integer, String> passwrdMap = null;
 
    public void setSurveyDAO(SurveyDAO surveyDAO)

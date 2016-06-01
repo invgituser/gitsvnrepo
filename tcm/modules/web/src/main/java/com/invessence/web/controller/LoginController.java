@@ -23,10 +23,18 @@ public class LoginController implements PhaseListener
 
    protected final Log logger = LogFactory.getLog(getClass());
    private Long logonid;
-   private WebUtil webutil = new WebUtil();
+
    private String userID, password, question, answer, savedAnswer;
    private Boolean needAdditionalInfo = false;
    private UserInfoData uid;
+
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
    @ManagedProperty("#{uiLayout}")
    private UILayout uiLayout;
 
@@ -164,6 +172,7 @@ public class LoginController implements PhaseListener
    public String getRedirect()
    {
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USERLOGON_ATTEMPTS, 0);
+      uiLayout.setDefaultHome(null);
       uiLayout.goToStartPage();
       return "success";
    }

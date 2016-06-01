@@ -3,6 +3,7 @@ package com.invessence.web.dao.common;
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.data.common.UserInfoData;
 import com.invessence.web.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
@@ -44,7 +45,9 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
 
    private String lockUserSql = null;
    private String listofQAQuery = null;
-   private WebUtil webutl = new WebUtil();
+
+   @Autowired
+   private WebUtil webutl;
    boolean enabled = true;
    boolean accountNonLocked = true;
    boolean accountNonExpired = true;

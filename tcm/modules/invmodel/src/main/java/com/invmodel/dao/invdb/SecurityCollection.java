@@ -175,7 +175,7 @@ public class SecurityCollection
                "    primeassetcolor," +
                "    secAssetClass," +
                "    secSubAssetClass" +
-               "   FROM invdb.vw_securities_by_theme " +
+               "   FROM vw_securities_by_theme " +
                "   WHERE theme = '" + theme +" '" +
                "   AND advisor = '" + advisor +" '" +
                "   ORDER BY sortorder"

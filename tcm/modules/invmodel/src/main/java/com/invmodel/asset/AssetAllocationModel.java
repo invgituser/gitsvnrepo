@@ -500,18 +500,18 @@ public class AssetAllocationModel
 
                wght = fiasset.getWeight();
 
-               if (wght >= 1.0)
-               {
-                  wght = wght / 100.0;
-               }
-
-               if (wght < 0.0001)
-               {
-                  continue;
-               }
-
                if (!assetname.equalsIgnoreCase("Cash"))
                {
+
+                  if (wght >= 1.0)
+                  {
+                     wght = wght / 100.0;
+                  }
+
+                  if (wght < 0.0001)
+                  {
+                     continue;
+                  }
 
                   Double risk_adjustment = 0.0;
 
@@ -530,6 +530,8 @@ public class AssetAllocationModel
                }
                else
                {
+
+
                   if (totalWeight < 0.0)
                   {
                      totalWeight = 0.0;

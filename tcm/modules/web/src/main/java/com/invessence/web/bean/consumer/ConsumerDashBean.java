@@ -25,8 +25,12 @@ public class ConsumerDashBean implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
-   @Autowired
+   @ManagedProperty("#{webutil}")
    private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -117,10 +121,10 @@ public class ConsumerDashBean implements Serializable
       {
          if (getSelectedAccount().getManaged())
          {
-            whichXML = "/common/overview.xhtml?acct="+selectedAccount.getAcctnum().toString();
+            whichXML = "/pages/common/overview.xhtml?acct="+selectedAccount.getAcctnum().toString();
          }
          else {
-            whichXML = "/consumer/cadd.xhtml?acct="+selectedAccount.getAcctnum().toString();
+            whichXML = "/pages/consumer/cadd.xhtml?acct="+selectedAccount.getAcctnum().toString();
          }
          webutil.redirect(whichXML, null);
       }

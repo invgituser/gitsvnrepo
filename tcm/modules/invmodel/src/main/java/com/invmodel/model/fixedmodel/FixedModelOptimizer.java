@@ -106,7 +106,7 @@ public class FixedModelOptimizer
          return false;
       if (theme == null)
          return false;
-      if (fixedThemeMap.containsKey(theme))
+      if (fixedThemeMap.containsKey(theme.toUpperCase()))
          return true;
       else
          return false;
@@ -114,9 +114,12 @@ public class FixedModelOptimizer
 
    public ArrayList<FMData> getThemes(String theme) {
       ArrayList<FMData> arrayList = new ArrayList<FMData>();
-      if (isThisFixedTheme(theme)) {
-         for (FMData data: fixedThemeMap.get(theme)) {
-            arrayList.add(data);
+      if (theme != null) {
+         String localTheme = theme.toUpperCase();
+         if (isThisFixedTheme(localTheme)) {
+            for (FMData data: fixedThemeMap.get(localTheme)) {
+               arrayList.add(data);
+            }
          }
       }
       return arrayList;
@@ -124,11 +127,14 @@ public class FixedModelOptimizer
 
    public FMData getTheme(String theme, Integer riskIndex) {
       FMData thisTheme = null;
-      if (fixedThemeMap != null) {
-         for (FMData data: fixedThemeMap.get(theme)) {
-            if (data.isItThisTheme(riskIndex)) {
-               thisTheme = data;
-               break;
+      if (theme != null) {
+         String localTheme = theme.toUpperCase();
+         if (fixedThemeMap != null) {
+            for (FMData data: fixedThemeMap.get(localTheme)) {
+               if (data.isItThisTheme(riskIndex)) {
+                  thisTheme = data;
+                  break;
+               }
             }
          }
       }
@@ -137,12 +143,15 @@ public class FixedModelOptimizer
 
    public FMData getThemeByIndex(String theme, Integer pos) {
       FMData thisTheme = null;
-      if (fixedThemeMap != null) {
-         if (pos > getThemes(theme).size()) {
-            thisTheme = getThemes(theme).get(0);
-         }
-         else {
-            thisTheme = getThemes(theme).get(pos);
+      if (theme != null) {
+         String localTheme = theme.toUpperCase();
+         if (fixedThemeMap != null) {
+            if (pos > getThemes(localTheme).size()) {
+               thisTheme = getThemes(localTheme).get(0);
+            }
+            else {
+               thisTheme = getThemes(localTheme).get(pos);
+            }
          }
       }
       return thisTheme;
@@ -151,8 +160,8 @@ public class FixedModelOptimizer
    public void addTheme(FMData FMData) {
       try {
          if (FMData != null) {
-            String themeName = FMData.getTheme();
-            String themeLevel = FMData.getLevel();
+            String themeName = FMData.getTheme().toUpperCase();
+            String themeLevel = FMData.getLevel().toUpperCase();
 
             allocateTheme();
 

@@ -31,7 +31,7 @@
                             <ui:include src="/pages/consumer/consumerProfilePanel.xhtml"/>
                         </p:panel>
 
-                        <p:panel id="dpanel2" styleClass="dpanel2" style="border: 0px" rendered="#{menu.hasAccessMenu('ADVISOR')}">
+                        <p:panel id="dpanel2" styleClass="dpanel2" style="border: 0px" rendered="#{webutil.hasAccess('ADVISOR')}">
                             <ui:include src="/pages/consumer/advisorProfilePanel.xhtml"/>
                         </p:panel>
 
