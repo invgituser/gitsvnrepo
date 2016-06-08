@@ -13,4 +13,5 @@ public interface ServiceDao
    public Map<String, SwitchDetails> getSwitchDetails();
    public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company)throws SQLException;
    public List<ServiceDetails> getServiceOperationDetails(String serviceMode, String company)throws SQLException;
+   public List<WebConfigDetails> getWebServiceDetails(String serviceMode, String company) throws SQLException;
 }
