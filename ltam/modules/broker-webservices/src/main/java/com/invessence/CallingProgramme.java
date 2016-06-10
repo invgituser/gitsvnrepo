@@ -67,7 +67,9 @@ public class CallingProgramme
 //         WSCallResult wsCallResult=serviceLayer.fundAccount("310100028",903, 1, "6105640720");
 //         WSCallResult wsCallResult=serviceLayer.fundAccount("310100046",903, 1, "358233");
 //
-         serviceLayer.getUserBankAcctDetails("310100028");
+//         serviceLayer.getMailingAddress("310100018");
+//         serviceLayer.getUserBankAcctDetails("310100018");
+         wsCallStatus=serviceLayer.updateMailingAddress("310100018","Jigar","Help","Vyas","693 River Road", "693 River Road","","Chathamrrr","NJ","07928",(short)0,"(973) 970-4649","","","javyas@gmail.com");
 //         serviceLayer.loginUser("310100033");
          //serviceLayer.resetPassword("310100046");
 //         serviceLayer.loginUser("310100046");
