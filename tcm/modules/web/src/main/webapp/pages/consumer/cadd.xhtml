@@ -12,7 +12,7 @@
     </f:metadata>
 
     <ui:define name="content">
-        <h:outputScript name="js/invCharts.js" library="spark-layout"/>
+        <h:outputScript name="js/invCharts.js" library="#{uiLayout.cssDIR}"/>
 
         <!-- BOX START -->
         <h:form id="ceForm">
@@ -59,7 +59,7 @@
                         <div class="Wid50"></div>
                         <div class="ContainerIndent">
                             <div class="DispBlock">
-                                <p:splitButton value="Fund Account" actionListener="#{cepb.fundAccount}" rendered="#{cepb.canOpenAccount != -1}"
+                                <p:splitButton value="Fund Account" actionListener="#{cepb.fundAccount}"
                                                icon="fa fa-dollar Fs14 white">
                                     <p:menuitem value="Start Over" resetValues="true" update="@form"
                                                 actionListener="#{cepb.resetForm}"
@@ -67,8 +67,6 @@
                                     <p:menuitem value="Save" actionListener="#{cepb.saveProfile}"
                                                 update="caddgrowl" icon="fa fa-save Fs14 blue"/>
                                 </p:splitButton>
-                                <p:commandButton value="Register" styleClass="Fs18 RedButton" rendered="#{cepb.canOpenAccount == -1}"
-                                                 href="/signup.xhtml"></p:commandButton>
                             </div>
                         </div>
                     </div>
@@ -215,7 +213,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="Container100">
+                    <p:outputPanel style="border: 0px; background: transparent" rendered="#{! cepb.fixedModel}">
+                      <div class="Container100">
                         <div class="ContainerIndent">
                             <div class="Container50 Responsive50 TexAlCenter Fs16">
                                 <div class="ContainerIndent">
@@ -261,6 +260,8 @@
 
                         </div>
                     </div>
+                    </p:outputPanel>
+
                     <div class="Container100">
                         <div class="ContainerIndent">
                             <p:dataTable var="ticker" value="#{cepb.displayPortfolioList}"

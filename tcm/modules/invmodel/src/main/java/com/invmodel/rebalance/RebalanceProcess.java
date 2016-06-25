@@ -321,7 +321,7 @@ public class RebalanceProcess
             Map<String, Asset> asset = loadCurrentAssetAllocation(pdata.getAcctnum());
             /*
             Questions2: loadPortfolio recreates the Asset allocation and portfolio.  Should we get only one year or two years?
-            Currently this process get it for size as defined in horizon (Performance issue).
+            Currently this process get it for size as defined in horizon (Projection issue).
             Question3: Also, the loadPortfolio saves the allocation and portfolio on pdata class.
             Info: So,newHoldings is just getting that data.
              */

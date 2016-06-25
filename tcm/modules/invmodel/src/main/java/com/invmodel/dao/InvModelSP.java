@@ -75,7 +75,7 @@ public class InvModelSP extends StoredProcedure
              break;
          case 4: // Monthly Historical Data (FROM rbsa)
             break;
-         case 5: // Performance Module
+         case 5: // Projection Module
             break;
          default: // All others with no args.
       }

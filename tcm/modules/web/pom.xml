@@ -64,6 +64,13 @@
          <artifactId>core</artifactId>
          <version>${invessence.version}</version>
       </dependency>
+
+        <dependency>
+         <groupId>com.invessence</groupId>
+         <artifactId>broker-webservices</artifactId>
+         <version>${invessence.version}</version>
+      </dependency>
+
       <dependency>
          <groupId>com.invessence</groupId>
          <artifactId>emailer</artifactId>
@@ -280,13 +287,6 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
         </dependency>
-
-      <!-- New spark interface -->
-      <dependency>
-            <groupId>themes</groupId>
-            <artifactId>spark</artifactId>
-            <version>1.0</version>
-         </dependency>
 
       <!-- Primefaces dependecies -->
       <dependency>

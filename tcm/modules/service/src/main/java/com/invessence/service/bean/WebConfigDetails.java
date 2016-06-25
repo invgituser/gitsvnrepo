@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class WebConfigDetails implements Serializable
 {
-   private String mode, company, vendor, service, name, value, encrFlag;
+   private String mode, company, vendor, service, name, status, value, encrFlag;
    private Date created, updated;
 
    @Override
@@ -19,6 +19,7 @@ public class WebConfigDetails implements Serializable
          ", SERVICE_MODE='" + mode + '\'' +
          ", vendor='" + vendor + '\'' +
          ", name='" + name + '\'' +
+         ", status='" + status + '\'' +
          ", value='" + value + '\'' +
          ", encrFlag='" + encrFlag + '\'' +
          ", created=" + created +
@@ -54,6 +55,16 @@ public class WebConfigDetails implements Serializable
    public void setCreated(Date created)
    {
       this.created = created;
+   }
+
+   public String getStatus()
+   {
+      return status;
+   }
+
+   public void setStatus(String status)
+   {
+      this.status = status;
    }
 
    public String getEncrFlag()

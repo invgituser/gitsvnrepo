@@ -74,7 +74,8 @@ public class ServiceParameters
    private Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetailsMap;
    public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
 
-   private Map<String, Map<String, WebConfigDetails>> webSiteConfigDetailsMap;
+   public static Map<String, Map<String, WebConfigDetails>> webSiteConfigDetailsMap;
+
 
    private void loadPrimaryData(){
 

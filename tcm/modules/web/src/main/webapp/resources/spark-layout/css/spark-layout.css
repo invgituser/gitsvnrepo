@@ -1,98 +1,56 @@
 /*
-* SENTINEL LAYOUT & THEME
+* SENTINEL LAYOUT & THEME used in Modena Theme
 * Designed by Cem ALTUN - jamaltun@gmail.com
 * Supported Browsers > Google Chrome 3+ , Mozilla Firefox 3+ , Safari 3+ , Opera 3+ , Yandex Browser , Inernet Explorer 9+
 * Copyright 2014 - PrimeFaces Theme Market - PrimeTek */
 
 /* FONT-FACE*/
 @font-face {
-    font-family: 'ralewaybold';
-    src: url("#{resource['spark-layout:fonts/Raleway-Bold-webfont.eot']}");
-    src: url("#{resource['spark-layout:fonts/Raleway-Bold-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['spark-layout:fonts/Raleway-Bold-webfont.woff2']}") format('woff2'),
-         url("#{resource['spark-layout:fonts/Raleway-Bold-webfont.woff']}") format('woff'),
-         url("#{resource['spark-layout:fonts/Raleway-Bold-webfont.ttf']}") format('truetype'),
-         url("#{resource['spark-layout:fonts/Raleway-Bold-webfont.svg']}#ralewaybold") format('svg');
+    font-family: 'robotolight';
+    src: url("#{resource['primefaces-modena:fonts/roboto-light-webfont.eot']}");
+    src: url("#{resource['primefaces-modena:fonts/roboto-light-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.woff']}") format('woff'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-modena:fonts/roboto-light-webfont.svg']}#robotolight") format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
-    font-family: 'ralewaysemibold';
-    src: url("#{resource['spark-layout:fonts/Raleway-SemiBold-webfont.eot']}");
-    src: url("#{resource['spark-layout:fonts/Raleway-SemiBold-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['spark-layout:fonts/Raleway-SemiBold-webfont.woff2']}") format('woff2'),
-         url("#{resource['spark-layout:fonts/Raleway-SemiBold-webfont.woff']}") format('woff'),
-         url("#{resource['spark-layout:fonts/Raleway-SemiBold-webfont.ttf']}") format('truetype'),
-         url("#{resource['spark-layout:fonts/Raleway-SemiBold-webfont.svg']}#ralewaysemibold") format('svg');
+    font-family: 'robotoregular';
+    src: url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.eot']}");
+    src: url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.woff']}") format('woff'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-modena:fonts/roboto-regular-webfont.svg']}#robotoregular") format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
 @font-face {
-    font-family: 'ralewaylight';
-    src: url("#{resource['spark-layout:fonts/Raleway-Light-webfont.eot']}");
-    src: url("#{resource['spark-layout:fonts/Raleway-Light-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['spark-layout:fonts/Raleway-Light-webfont.woff2']}") format('woff2'),
-         url("#{resource['spark-layout:fonts/Raleway-Light-webfont.woff']}") format('woff'),
-         url("#{resource['spark-layout:fonts/Raleway-Light-webfont.ttf']}") format('truetype'),
-         url("#{resource['spark-layout:fonts/Raleway-Light-webfont.svg']}#ralewaylight") format('svg');
+    font-family: 'robotomedium';
+    src: url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.eot']}");
+    src: url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.eot']}#iefix") format('embedded-opentype'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.woff2']}") format('woff2'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.woff']}") format('woff'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.ttf']}") format('truetype'), url("#{resource['primefaces-modena:fonts/roboto-medium-webfont.svg']}#robotomedium") format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
-@font-face {
-    font-family: 'ralewaymedium';
-    src: url("#{resource['spark-layout:fonts/Raleway-Medium-webfont.eot']}");
-    src: url("#{resource['spark-layout:fonts/Raleway-Medium-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['spark-layout:fonts/Raleway-Medium-webfont.woff2']}") format('woff2'),
-         url("#{resource['spark-layout:fonts/Raleway-Medium-webfont.woff']}") format('woff'),
-         url("#{resource['spark-layout:fonts/Raleway-Medium-webfont.ttf']}") format('truetype'),
-         url("#{resource['spark-layout:fonts/Raleway-Medium-webfont.svg']}#ralewaymedium") format('svg');
-    font-weight: normal;
-    font-style: normal;
+.FontRobotoLight {
+    font-family: 'robotolight';
+}
+.FontRobotoRegular {
+    font-family: 'robotoregular';
+}
+.FontRobotoMedium {
+    font-family: 'robotomedium';
 }
 
-@font-face {
-    font-family: 'ralewayregular';
-    src: url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.eot']}");
-    src: url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.woff2']}") format('woff2'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.woff']}") format('woff'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.ttf']}") format('truetype'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.svg']}#ralewayregular") format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
+.FontRalewayBold{font-family: 'robotoregular'; font-weight: bold;}
+.FontRalewaySemiBold{font-family: 'robotoregular'; font-weight: bold;}
+.FontRalewayMedium{font-family: 'robotomedium';}
+.FontRalewayRegular{font-family: 'robotoregular';}
+.FontRalewayLight{font-family: 'robotolight';}
 
-@font-face {
-    font-family: 'ralewayregular';
-    src: url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.eot']}");
-    src: url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.eot']}#iefix") format('embedded-opentype'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.woff2']}") format('woff2'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.woff']}") format('woff'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.ttf']}") format('truetype'),
-         url("#{resource['spark-layout:fonts/Raleway-Regular-webfont.svg']}#ralewayregular") format('svg');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-.FontRalewayBold{font-family: 'ralewaybold';}
-.FontRalewaySemiBold{font-family: 'ralewaysemibold';}
-.FontRalewayMedium{font-family: 'ralewaymedium';}
-.FontRalewayRegular{font-family: 'ralewayregular';}
-.FontRalewayLight{font-family: 'ralewaylight';}
-
-.FontThemeBold{font-family: 'ralewaybold';}
-.FontThemeSemiBold{font-family: 'ralewaysemibold';}
-.FontThemeMedium{font-family: 'ralewaymedium';}
-.FontThemeRegular{font-family: 'ralewayregular';}
-.FontThemeLight{font-family: 'ralewaylight';}
+.FontThemeBold{font-family: 'robotoregular'; font-weight: bold;}
+.FontThemeSemiBold{font-family: 'robotoregular'; font-weight: bold;}
+.FontThemeMedium{font-family: 'robotomedium';}
+.FontThemeRegular{font-family: 'robotoregular';}
+.FontThemeLight{font-family: 'robotolight';}
 
 /*BODY*/
 body{margin:0px; background-image:url("#{resource['spark-layout:images/background.png']}"); background-repeat:repeat; background-position:center; background-color:#C3CCD5; 
-     background-attachment:fixed; font-family: 'ralewaymedium';}
+     background-attachment:fixed; font-family: 'roboto';}
 
 /* menu mask*/
 #menu-mask{position:fixed; z-index:999998; background-color:#647984; opacity:0;
@@ -102,7 +60,6 @@ body{margin:0px; background-image:url("#{resource['spark-layout:images/backgroun
 /* Layout Top Bar*/
 #layout-topbar{min-height:112px; width:100%; border-top:solid 6px #009ABB; background-color:#F6FAFC/*#F1F6F9*/; display:table;}
 	#layout-topbar-indent{width:92%; margin:0px auto;}
-		#logo{height:50px; margin-top:26px;}
 		#mobile-menu-button{padding:10px 15px; background-color:#5fcf80; float:right; margin-top:20px; font-size:14px; position:relative; z-index:999999;}
 		#mobile-menu-button:hover{color:#cfd449;}
 		#mobile-menu-button-gray{background-color:#778D9B; padding:8px 13px; float:right; margin-top:20px; font-size:14px; margin-right:10px; position:relative; z-index:999999;}
@@ -111,7 +68,7 @@ body{margin:0px; background-image:url("#{resource['spark-layout:images/backgroun
 			#layout-topbar-menu>li{float:right; text-align:center; padding-bottom:10px;}
 				#layout-topbar-menu>li a{padding:10px 0px;}
 				#layout-topbar-menu a{font-size:14px; line-height:16px; color:#778D9B; display:inline-block;}
-				/*#layout-topbar-menu li:hover>a{color:#009ABB;}*/
+				#layout-topbar-menu li:hover>a{color:#009ABB;}
 					#layout-topbar-menu i{font-size:18px;}
 			#layout-topbar-menu .menu-separator{float:right; margin:0px 20px; font-size:14px; line-height:20px; color:#778D9B; margin-top:10px;}
 			#layout-topbar-menu .notification-bubble{background-color:#d1626c; font-size:12px; padding:3px; color:#F1F6F9; line-height:12px; display:inline-block; margin-top:-5px;}
@@ -136,11 +93,11 @@ body{margin:0px; background-image:url("#{resource['spark-layout:images/backgroun
 			#layout-menu .notification-bubble{background-color:#d1626c; font-size:12px; padding:3px; color:#F1F6F9; line-height:12px; display:inline-block; margin-top:-5px;}
 				/* submenus */
 				#layout-menu li ul{padding:0px; width:auto; height:auto; background-color:#F1F6F9; overflow:hidden;
-				height:0px; opacity:0; font-family: 'ralewayregular';}
+				height:0px; opacity:0; font-family: 'robotoregular';}
                     #layout-menu li ul li{height:0px; overflow:hidden;}
 				#layout-menu>li>ul{position:absolute; z-index:999999; padding:0px; width:auto; height:auto; background-color:#F1F6F9; overflow:hidden; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;
 				-webkit-box-shadow: 0px 0px 2px 0px rgba(159,172,183,0.7); -moz-box-shadow: 0px 0px 2px 0px rgba(159,172,183,0.7); box-shadow: 0px 0px 2px 0px rgba(159,172,183,0.7);
-				height:0px; margin-top:-5px; opacity:0; font-family: 'ralewayregular';}
+				height:0px; margin-top:-5px; opacity:0; font-family: 'robotoregular';}
 					#layout-menu li ul li a{padding:10px 15px; font-size:14px; display:block; border-bottom:dashed 1px #D9E3E8; text-align:left; overflow:hidden; color:#778D9B;}
 						#layout-menu li ul li a .notification-bubble{margin-top:0px;}
 					#layout-menu li ul li:hover>a{background-color:#778D9B; color:#F1F6F9;}
@@ -178,6 +135,52 @@ body{margin:0px; background-image:url("#{resource['spark-layout:images/backgroun
     
 .other-pages-box{overflow: hidden; background-color:#F6FAFC; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
 
+.Card {
+    padding: 20px;
+    display: block;
+    background-color: #ffffff;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    font-family: 'robotoregular';
+    color: #546e7a;
+}
+.CardTopic {
+    font-size: 20px;
+    font-family: 'robotolight';
+    font-weight: lighter;
+    color: #546e7a;
+    padding: 0px 0px 10px 0px;
+}
+.CardFooter {
+    border-top: solid 1px #e0e0e0;
+    margin: 10px -10px -12px;
+    padding: 10px;
+    overflow: hidden;
+    display: block;
+}
+.CardFooterBtn {
+    padding: 10px;
+    margin: -10px 0px;
+    display: inline-block;
+    font-size: 24px;
+}
+.CardFooterBtn:hover {
+    background-color: #f5f5f5;
+}
+.CartText {
+    font-size: 12px;
+    color: #ffffff;
+    font-family: 'robotoregular';
+    background-color: #e53935;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    padding: 2px 4px 3px;
+    position: absolute;
+    margin-left: -10px;
+    margin-top: -5px;
+}
 
 /* LAYOUT STANDART STYLES -----------------------------------------------------------------*/
 
@@ -203,7 +206,7 @@ li{list-style:none;}
 
 
 /* big topic */
-.BigTopic{font-size:24px; color:#3B3D3F; font-family: 'ralewaymedium'; display:block; width:100%; border-bottom:solid 1px #C3CCD5; padding:10px 0px; margin-bottom:10px !important; overflow: hidden; font-weight:bold;}
+.BigTopic{font-size:24px; color:#3B3D3F; font-family: 'robotomedium'; display:block; width:100%; border-bottom:solid 1px #C3CCD5; padding:10px 0px; margin-bottom:10px !important; overflow: hidden; font-weight:bold;}
 
 /* shadows for gray and green boxes*/
 .ShadowGray{-webkit-box-shadow: 0px 1px 0px 0px rgba(159,172,183,0.7);
@@ -234,7 +237,6 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 /* Large desktop */
 @media (min-width: 960px){
 	#layout-topbar{min-height:100px;}
-		#logo{height:40px;}
 		#layout-topbar-menu{margin-top:22px; display:block !important;}
 		#layout-menu{display:block !important;}
 		#menu-mask, .menu-mask-open{display:none !important;}
@@ -251,7 +253,6 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 	.BigTopic{font-size:22px !important;}
 	
 	#layout-topbar{min-height:66px; margin-bottom:8px;}
-		#logo{height:40px; margin-top:16px;}
 		#mobile-menu-button, #mobile-menu-button-gray{padding: 8px 12px; font-size:14px; margin-top:17px;}
 		
 		/* topbar menu*/
@@ -309,7 +310,6 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 	.BigTopic{font-size:21px !important;} 
 	
 	#layout-topbar{min-height:60px; margin-bottom:5px;}
-		#logo{height:35px; margin-top:16px;}
 		#mobile-menu-button, #mobile-menu-button-gray{padding: 8px 12px; font-size:14px; margin-top:14px;}
 								  
 	/* topbar menu*/
@@ -367,7 +367,6 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 	.BigTopic{font-size:20px !important;} 
 	
 	#layout-topbar{min-height:50px; margin-bottom:5px;}
-		#logo{height:25px; margin-top:15px;}
 		#mobile-menu-button, #mobile-menu-button-gray{padding: 6px 9px; font-size:12px; margin-top:11px;}
 	
     /* topbar menu*/
@@ -419,3 +418,17 @@ box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
 
 
 }
+
+#layout-portlets-cover:before,
+#layout-portlets-cover:after,
+.Card:before,
+.Card:after {
+    content: "";
+    display: table;
+    border-collapse: collapse;
+}
+#layout-portlets-cover:after,
+.Card:after {
+    clear: both;
+}
+

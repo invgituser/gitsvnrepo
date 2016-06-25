@@ -10,8 +10,7 @@ import com.invmodel.dao.invdb.SecurityCollection;
 import com.invmodel.inputData.*;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
-import com.invmodel.performance.PortfolioPerformance;
-import com.invmodel.performance.data.PerformanceData;
+import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
 
@@ -80,7 +79,7 @@ public class FixedDistribution
       duration = profileData.getHorizon();
 
       // profileData.setAccountTaxable(false);
-      profileData.setRiskIndex(0);
+      profileData.setRiskIndex(0.0);
 
       //1 = preservation 2 = Accumulation
       profileData.setObjective(2);
@@ -136,8 +135,8 @@ public class FixedDistribution
 /*
       tax = "No";
 
-      PortfolioPerformance portPerf = PortfolioPerformance.getInstance();
-      PerformanceData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
+      ProjectionReport portPerf = ProjectionReport.getInstance();
+      ProjectionData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
       portPerf.calcGrowthInfo(perfData, perfData.length, profileData);
 
       //Create a assetPerformanceFile
@@ -443,7 +442,7 @@ public class FixedDistribution
       writer.close();
    }
 
-   public static void createPerformanceDataFile(PerformanceData[] pdata, GoalsData goalsData) throws Exception
+   public static void createPerformanceDataFile(ProjectionData[] pdata, GoalsData goalsData) throws Exception
    {
 
       String fileName;

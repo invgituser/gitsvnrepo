@@ -116,7 +116,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setAccountType(convert.getStrData(rs.get("accttype")));
                data.setAge(convert.getIntData(rs.get("age")));
                data.setHorizon(convert.getIntData(rs.get("horizon")));
-               data.setConvertRiskIndex(convert.getIntData(rs.get("riskIndex")));
+               data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
                data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
                data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
                data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));

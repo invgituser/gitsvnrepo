@@ -1,0 +1,376 @@
+/*
+* Custom Layout by Clients
+* Designed by Prashant
+* Supported Browsers > Google Chrome 3+ , Mozilla Firefox 3+ , Safari 3+ , Opera 3+ , Yandex Browser , Inernet Explorer 9+
+* Copyright 2016 - Invessence */
+
+/* Logo*/
+#logo{height:70px; margin-top:16px;}
+
+/* Gray Theme*/
+.layoutBG.Geometry {
+    background-image: url("#{resource['tcm:images/triangle-gray.svg']}");
+    background-attachment: fixed;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.layoutBG {
+    background-image: none;
+}
+.layoutBG #layout-topbar {
+    background-color: #37474F;
+}
+
+.invInputText {
+    background-color: transparent;
+    border: 0px none;
+    border-bottom: solid 1px #465b65;
+    font-size: 24px;
+    text-align: center;
+}
+
+.invInputText input {
+    background-color: transparent;
+    border: 0px none;
+    /*border-bottom: solid 1px #465b65;*/
+    font-size: 24px;
+    text-align: center;
+}
+
+/*
+.ui-widget input {
+    background-color: transparent !important;
+    border: 0px none !important;
+    border-bottom: solid 1px #465b65 !important;
+    font-size: 24px !important;
+    text-align: center !important;
+}
+*/
+
+.page5table {
+    border-spacing: 0px;
+}
+
+.page5table tr {
+    border-spacing: 0px;
+}
+
+.page5table td {
+    border-spacing: 0px;
+}
+
+.topLayer {
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 1px;
+    border-top-left-radius: 1px;
+    background-color: #eceff1;
+    border-bottom: solid 2px #e0e0e0;
+}
+
+.ui-steps .ui-state-highlight .ui-steps-number {
+    background-color: #00006A !important;
+}
+
+.ui-steps .ui-steps-title {
+    width: 100px !important
+}
+
+.ui-steps .ui-state-disabled .ui-steps-number {
+    background-color: #00D404 !important;
+}
+
+/*vivek CSS */
+
+.tab_main {padding:0 100px; padding-top:20px;}
+.top_desk {
+    margin-top:-290px;
+    float: right;
+}
+.tp1 {margin-top:20px;}
+.pg5_h1 {height: 40px;}
+.page4_left {margin-left:40px; border: 0px;}
+.selection tr {
+    float: left;
+    width: 20%;
+}
+.f1 {font-size:18px;}
+
+
+/* MEDIA QUERIES **************************************************************************************************************** */
+/* Huge desktop */
+
+/*vivek CSS */
+/* Large desktop */
+@media (min-width: 960px) and (max-width: 1300px) {
+    #logo{height:70px;}
+    .ui-steps .ui-steps-title {
+        width: 70px !important
+    }
+    /*vivek CSS */
+    .tab_main {padding:0 15px; padding-top:20px;}
+    .input_namewid1 {width:140px;}
+    .input_agewid1 {width:60px;}
+    .input_investwid1 {width:100px;}
+    .title1 {font-size:1.5em;}
+    .top_desk {margin-top:10px; float: none;}
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 730px) and (max-width: 960px) {
+    #logo{height:70px; margin-top:6px;}
+    /*vivek CSS */
+    .tab_main {padding:0 40px; padding-top:20px;}
+    .input_namewid1 {width:140px;}
+    .input_agewid1 {width:60px;}
+    .input_investwid1 {width:100px;}
+    .title1 {font-size:1.5em;}
+    .ui-steps .ui-steps-title {
+        width: 50px !important
+    }
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 640px) and (max-width: 730px) {
+    #logo{height:70px; margin-top:6px;}
+    .ui-steps .ui-steps-title {
+        width: 30px !important
+    }
+    /*vivek CSS */
+    .tab_main {padding:0 40px; padding-top:20px;}
+    .input_namewid1 {width:100px;}
+    .input_agewid1 {width:60px;}
+    .input_investwid1 {width:100px;}
+    .title1 {font-size:1.5em;}
+    .top_desk {margin-top:10px;  float: none;}
+    .page4_left {margin-left:10px; border: 0px;}
+}
+
+/* Landscape phone to portrait tablet */
+@media (min-width: 480px) and (max-width: 640px) {
+    #logo{height:40px; margin-top:6px;}
+    .ui-steps .ui-steps-title {
+        width: 20px !important
+    }
+    /*vivek CSS */        /*vivek CSS */
+    .tab_main {padding:0 45px; padding-top:20px;}
+    h1 {font-size:1em;}
+    h1 > input {font-size:1em;}
+    .input_namewid1 {width:90px;}
+    .input_agewid1 {width:60px;}
+    .input_investwid1 {width:100px;}
+    .title1 {font-size:1.2em;}
+    .top_desk {margin-top:10px;  float: none;}
+
+    .ui-outputlabel {font-size:12px;}
+    .jqplot-xaxis-tick {-ms-transform: rotate(-30deg); /* IE 9 */
+        -webkit-transform: rotate(-30deg); /* Chrome, Safari, Opera */
+        transform:rotate(-30deg);
+        font-size:12px;
+        margin-left:0px;
+
+        margin-top:15px;
+    }
+    .tp1 {margin-top:15px;}
+    .selection {margin-left:0px;}
+    .selection tr {
+        float: left;
+        width: 50%;
+    }
+}
+
+/* Portrait phones and down */
+@media (min-width: 220px) and (max-width: 480px) {
+    #logo{height:40px; margin-top:6px;}
+    .ui-steps .ui-steps-title {
+        display: none;
+
+    }
+    .invInputText {
+        background-color: transparent;
+        border: 0px none;
+        border-bottom: solid 1px #465b65;
+        font-size: 14px;
+        text-align: center;}
+
+
+    .invInputText input {font-size: 14px;}
+
+}
+
+@media (max-width:920px) {
+    .PaddingblocktradeP > div > div > div {
+        padding:0 10px;
+    }
+
+    .ThankyBlockMain {
+        width:100%!important;
+    }
+}
+
+@media (min-width:200px) and (max-width: 360px)  {
+    .InputWidthP
+    {
+        width: 100%!important;
+        margin: 5px 0;
+    }
+
+    .CenterAlignP, .AddressBlockAlign  {
+        text-align:center!important;
+        float: none;
+    }
+}
+
+
+@media (min-width:360px) and (max-width: 480px) {
+    .InputWidthP
+    {
+        width: 100%!important;
+        margin: 5px 0;
+    }
+    .CenterAlignP, .AddressBlockAlign {
+        text-align:center!important;
+        float: none;
+    }
+
+    /*vivek CSS */
+    .tab_main {
+        /*margin: 0 34px;*/
+        padding-top:15px;}
+    .ui-steps .ui-steps-item .ui-steps-number {font-size:16px;}
+    h1 {font-size:1em;}
+    h1 > input {font-size:1.5em;}
+    .input_namewid1 {width:100px;}
+    .input_agewid1 {width:60px;}
+    .input_investwid1 {width:100px;}
+    .ShowOnMobile { height:5px; }
+    .title1 {font-size:1.2em;}
+    .top_desk {margin-top:10px;  float: none;}
+    .ui-panel .ui-panel-content {margin-top:-15px;}
+    .ui-messages-error, .ui-message-error {font-size:13px;}
+    .ui-messages-info, .ui-messages-warn, .ui-messages-error, .ui-messages-fatal {margin-top:5px; margin-bottom:0px;}
+    .jqplot-xaxis-tick {-ms-transform: rotate(-40deg); /* IE 9 */
+        -webkit-transform: rotate(-40deg); /* Chrome, Safari, Opera */
+        transform:rotate(-40deg);
+        font-size:11px;
+        margin-left:-20px;
+
+        margin-top:18px;
+    }
+    .Fs24 {font-size:16px !important;}
+    .tp1 {margin-top:10px;}
+    .startover {width:145px;}
+    .investnow {width:145px;}
+    .btn_left {margin-left:-20px;}
+    .btn_rite {margin-right:-20px;}
+    .ui-outputlabel {font-size:12px;}
+    .pg5_h1 {height:30px;}
+    .tp2 {margin-top:5px;}
+    .label {font-size:12px;}
+    .selection {margin-left:0px;}
+    .selection tr {
+        float: left;
+        width: 50%;
+
+    }
+    .ui-selectoneradio label {font-size:13px;}
+    .f1 {font-size:16px;}
+
+
+}
+@media (min-width: 1000px) and (max-width: 1320px) {
+    .ui-steps.ui-steps-readonly .ui-steps-item .ui-menuitem-link {
+        width: 85px;
+    }
+}
+
+@media (min-width: 730px) and (max-width: 770px) {
+    .ui-steps.ui-steps-readonly .ui-steps-item .ui-menuitem-link {
+        width: 65px;
+    }
+}
+
+@media (min-width:300px) and (max-width: 360px) {
+    /*vivek CSS */
+    .tab_main {padding:0 20px; padding-top:15px;}
+    .ui-steps .ui-steps-item .ui-steps-number {font-size:13px;}
+    .ui-steps .ui-steps-item .ui-menuitem-link {
+        height: 8px;
+        padding: 0px 8px !important;}
+    .input_namewid1 {width:100px;}
+    .input_agewid1 {width:60px;}
+    .input_investwid1 {width:100px;}
+    .ltamInputText {font-size:12px;}
+    .ShowOnMobile { height:5px; }
+    .ui-selectoneradio label {font-size:0.6em;}
+    h1 {font-size:1em;}
+    h1 > input {font-size:1.5em;}
+    .title1 {font-size:1.2em;}
+    .EmptyBox_v {height:10px;}
+    .ui-panel .ui-panel-content {margin-top:-15px;}
+    .ui-messages-error, .ui-message-error {font-size:12px;}
+    .top_desk {margin-top:10px;  float: none;}
+    .jqplot-xaxis-tick {-ms-transform: rotate(-40deg); /* IE 9 */
+        -webkit-transform: rotate(-40deg); /* Chrome, Safari, Opera */
+        transform:rotate(-40deg);
+        font-size:11px;
+        margin-left:-30px;
+
+        margin-top:18px;
+    }
+    .tp1 {margin-top:10px;}
+    .Fs24 {font-size:16px !important;}
+    .btn_left {margin-left:-25px;}
+    .btn_rite {margin-right:-25px;}
+    .startover {width:30px;}
+    .investnow {width:100px;}
+    .ui-outputlabel {font-size:12px;}
+    .pg5_h1 {height: 30px;}
+    .tp2 {margin-top:5px;}
+    label {font-size:12px;}
+    .selection {margin-left:0px;}
+    .selection tr {
+        float: left;
+        width: 100%;
+
+    }
+    .ui-selectoneradio label {font-size:13px;}
+    .f1 {font-size:13px;}
+    .investnow {width:140px;}
+
+
+
+
+}
+
+
+@media (min-width:200px) and (max-width: 320px) {
+    /*vivek CSS */
+    .tab_main {padding:0 15px; padding-top:15px;}
+    .ui-steps .ui-steps-item .ui-steps-number {font-size:11px;}
+    h1 {font-size:1em;}
+    .input_namewid1 {width:100px; height:20px;}
+    .input_agewid1 {width:60px;}
+    .input_investwid1 {width:100px;}
+    .ltamInputText {font-size:14px;}
+    .EmptyBox30 {height:15px;}
+    .ShowOnMobile { height:5px; }
+    .title1 {font-size:1.2em;}
+    .EmptyBox_v {height:10px;}
+    .ui-panel .ui-panel-content {margin-top:-15px;}
+    .ui-messages-error, .ui-message-error {font-size:12px;}
+    .top_desk {margin-top:10px;  float: none;}
+    .tp1 {margin-top:10px;}
+    .Fs24 {font-size:16px !important;}
+    .btn_left {margin-left:-30px;}
+    .btn_rite {margin-right:-30px;}
+    .startover {width:75px;}
+    .investnow {width:75px;}
+    .tp2 {margin-top:5px;}
+    label {font-size:12px;}
+    .f1 {font-size:14px;}
+    .investnow {width:140px;}
+    .tbl1 {font-size:12px;}
+
+
+}

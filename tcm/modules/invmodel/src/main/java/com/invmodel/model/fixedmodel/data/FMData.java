@@ -22,18 +22,18 @@ public class FMData
    private Double expectedreturn;
    private Double expectedrisk;
    ArrayList<String> assetList;
-   Map<String, FMAsset> asset;
+   Map<String, FMAssetData> asset;
    Map<String,String> indexMap;
    Map<String,String> performanceHeaderMap;
-   Map<String, FMPerformance> performance;
+   Map<String, FMPerformanceData> performance;
 
    public FMData()
    {
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
-      asset = new LinkedHashMap<String, FMAsset>();
-      performance = new LinkedHashMap<String, FMPerformance>();
+      asset = new LinkedHashMap<String, FMAssetData>();
+      performance = new LinkedHashMap<String, FMPerformanceData>();
    }
 
    public FMData(String theme, String level, Integer index,
@@ -55,8 +55,8 @@ public class FMData
       assetList = new ArrayList<String>();
       performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
-      asset = new LinkedHashMap<String, FMAsset>();
-      performance = new LinkedHashMap<String, FMPerformance>();
+      asset = new LinkedHashMap<String, FMAssetData>();
+      performance = new LinkedHashMap<String, FMPerformanceData>();
    }
 
    public String getPerformanceKey(String index, String header) {
@@ -163,29 +163,29 @@ public class FMData
       this.expectedrisk = expectedrisk;
    }
 
-   public Boolean isItThisTheme(Integer riskIndex) {
+   public Boolean isItThisTheme(Double riskIndex) {
       if (riskIndex >= lowRisk  && riskIndex  <= highRisk)
          return true;
       else
          return false;
    }
 
-   public Map<String, FMAsset> getAsset()
+   public Map<String, FMAssetData> getAsset()
    {
       return asset;
    }
 
-   public void setAsset(Map<String, FMAsset> asset)
+   public void setAsset(Map<String, FMAssetData> asset)
    {
       this.asset = asset;
    }
 
-   public Map<String, FMPerformance> getPerformance()
+   public Map<String, FMPerformanceData> getPerformance()
    {
       return performance;
    }
 
-   public void setPerformance(Map<String, FMPerformance> performance)
+   public void setPerformance(Map<String, FMPerformanceData> performance)
    {
       this.performance = performance;
    }
@@ -220,7 +220,7 @@ public class FMData
       this.performanceHeaderMap = performanceHeaderMap;
    }
 
-   public void addAsset(FMAsset assetdata) {
+   public void addAsset(FMAssetData assetdata) {
       try {
          if (assetdata != null) {
             if (assetdata.getTheme().toUpperCase().equals(theme.toUpperCase())) {
@@ -237,10 +237,10 @@ public class FMData
       }
    }
 
-   public void addAsset(Map<String,FMAsset> assetMap) {
+   public void addAsset(Map<String,FMAssetData> assetMap) {
       try {
          if (assetMap != null) {
-            for (FMAsset asset : assetMap.values()) {
+            for (FMAssetData asset : assetMap.values()) {
                   addAsset(asset);
             }
          }
@@ -251,7 +251,7 @@ public class FMData
    }
 
 
-   public void addPerformance(FMPerformance performancedata) {
+   public void addPerformance(FMPerformanceData performancedata) {
       try {
          if (performancedata != null) {
             if (performancedata.getTheme().toUpperCase().equals(theme.toUpperCase())) {
@@ -273,10 +273,10 @@ public class FMData
       }
    }
 
-   public void addPerformance(Map<String, FMPerformance> performanceMap) {
+   public void addPerformance(Map<String, FMPerformanceData> performanceMap) {
       try {
          if (performanceMap != null) {
-            for (FMPerformance performance: performanceMap.values()) {
+            for (FMPerformanceData performance: performanceMap.values()) {
                   addPerformance(performance);
             }
          }
@@ -286,8 +286,8 @@ public class FMData
       }
    }
 
-   public ArrayList<FMAsset> getAssetsData() {
-      ArrayList<FMAsset> arrayList = new ArrayList<FMAsset>();
+   public ArrayList<FMAssetData> getAssetsData() {
+      ArrayList<FMAssetData> arrayList = new ArrayList<FMAssetData>();
       if (getAsset() != null) {
          for (String asset: getAsset().keySet()) {
             arrayList.add(getAsset().get(asset));
@@ -296,8 +296,8 @@ public class FMData
       return arrayList;
    }
 
-   public ArrayList<FMPortfolio> getPortfolioData() {
-      ArrayList<FMPortfolio> arrayList = new ArrayList<FMPortfolio>();
+   public ArrayList<FMPortfolioData> getPortfolioData() {
+      ArrayList<FMPortfolioData> arrayList = new ArrayList<FMPortfolioData>();
       if (getAsset() != null) {
          for (String asset: getAsset().keySet()) {
             if (getAsset().get(asset).getPortfolio() != null) {
@@ -310,14 +310,14 @@ public class FMData
       return arrayList;
    }
 
-   public Map<String,ArrayList<FMPerformance>> getPerformanceData() {
-      Map<String, ArrayList<FMPerformance>> arrayMap = new HashMap<String, ArrayList<FMPerformance>>();
+   public Map<String,ArrayList<FMPerformanceData>> getPerformanceData() {
+      Map<String, ArrayList<FMPerformanceData>> arrayMap = new HashMap<String, ArrayList<FMPerformanceData>>();
       if (getPerformance() != null) {
          for (String index : getPerformanceIndex()) {
-            ArrayList<FMPerformance> performanceList = new ArrayList<FMPerformance>();
+            ArrayList<FMPerformanceData> performanceList = new ArrayList<FMPerformanceData>();
             for (String header: getPerformanceHeader()) {
                String key = getPerformanceKey(index, header);
-               FMPerformance perfdata = performance.get(key);
+               FMPerformanceData perfdata = performance.get(key);
                performanceList.add(perfdata);
             }
             if (performanceList.size() > 0) {
@@ -386,6 +386,7 @@ public class FMData
    }
 */
 
+/*
    public ArrayList<ArrayList<FMPerformancePrintData>> getPrintedPerformanceData() {
       ArrayList<ArrayList<FMPerformancePrintData>> arrayLists = new ArrayList<ArrayList<FMPerformancePrintData>>();
       ArrayList<FMPerformancePrintData> performanceList;
@@ -436,4 +437,5 @@ public class FMData
       }
       return arrayLists;
    }
+*/
 }

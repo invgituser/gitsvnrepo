@@ -7,14 +7,14 @@ import javax.faces.bean.ManagedProperty;
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.data.*;
-import com.invessence.web.util.*;
 import com.invessence.web.util.WebUtil;
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
 import com.invmodel.inputData.ProfileData;
-import com.invmodel.performance.PortfolioPerformance;
-import com.invmodel.performance.data.PerformanceData;
+import com.invmodel.model.ModelUtil;
+import com.invmodel.performance.ProjectionReport;
+import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +31,6 @@ public class CustomerData extends ProfileData
    private JavaUtil javautil = new JavaUtil();
    private CustomerData manageGoalinstance = null;
 
-   @ManagedProperty("#{assetAllocationModel}")
-   private AssetAllocationModel allocModel;
-   private Boolean managed;
-
-   @ManagedProperty("#{portfolioModel}")
-   private PortfolioModel portfolioModel;
-
-   @ManagedProperty("#{portfolioPerformance}")
-   private PortfolioPerformance portfolioPerformance;
 
    private String userid;
    private String addmodflag;
@@ -66,21 +57,21 @@ public class CustomerData extends ProfileData
    private Double  accrual;
 
 
-   private String selectedchoice1;
-   private String selectedchoice2;
-   private String selectedchoice3;
-   private String selectedchoice4;
-   private String selectedchoice5;
-   private String selectedchoice6;
-   private String selectedchoice7;
-   private String selectedchoice8;
-   private String selectedchoice9;
-   private String selectedchoice10;
-   private String selectedchoice11;
-   private String selectedchoice12;
-   private String selectedchoice13;
-   private String selectedchoice14;
-   private String selectedchoice15;
+   public String selectedchoice1;
+   public String selectedchoice2;
+   public String selectedchoice3;
+   public String selectedchoice4;
+   public String selectedchoice5;
+   public String selectedchoice6;
+   public String selectedchoice7;
+   public String selectedchoice8;
+   public String selectedchoice9;
+   public String selectedchoice10;
+   public String selectedchoice11;
+   public String selectedchoice12;
+   public String selectedchoice13;
+   public String selectedchoice14;
+   public String selectedchoice15;
 
    private String model      = "D";
    private Integer assetyear = 0;
@@ -90,12 +81,12 @@ public class CustomerData extends ProfileData
    private String portfolioName;
 
    private String email, firstname, lastname;
-   private List<DataPortfolio> displayPortfolioList = new ArrayList<DataPortfolio>();
-   private DataPortfolio selectedPortfolio;
-   private List<DataPortfolio> selectedPortfolioList = null;
-   private Double assetAllocationTotal = 0.0;
-   private Double totalSharesAllocated = 0.0;
-   private Double totalMoneyAllocated = 0.0;
+   public List<DataPortfolio> displayPortfolioList = new ArrayList<DataPortfolio>();
+   public DataPortfolio selectedPortfolio;
+   public List<DataPortfolio> selectedPortfolioList = null;
+   public Double assetAllocationTotal = 0.0;
+   public Double totalSharesAllocated = 0.0;
+   public Double totalMoneyAllocated = 0.0;
 
    private Double  managedassetAllocationTotal = 0.0;
    private Double managedtotalMoney = 0.0;
@@ -105,15 +96,33 @@ public class CustomerData extends ProfileData
 
    //private TreeNode subclassDisplayNode;
    //private TreeNode[] subclassFilterNode;
-   Map<String, ManagedSubclassData> subassetList = new HashMap<String, ManagedSubclassData>();
-   ArrayList<ManagedSubclassData> orderedSubclass;
-   private List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
+   public Map<String, ManagedSubclassData> subassetList = new HashMap<String, ManagedSubclassData>();
+   public ArrayList<ManagedSubclassData> orderedSubclass;
+   public List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
 
-   private Map<String, String> advisorBasket;
-
+   public Map<String, String> advisorBasket;
+   private Boolean managed;
 
    @Autowired
    private WebUtil webutil;
+
+   @ManagedProperty("#{invmodelutil}")
+   public ModelUtil invmodel;
+   public void setInvmodel(ModelUtil invmodel)
+   {
+      this.invmodel = invmodel;
+   }
+
+   /*
+   @ManagedProperty("#{assetAllocationModel}")
+   public AssetAllocationModel allocModel;
+
+   @ManagedProperty("#{portfolioModel}")
+   public PortfolioModel portfolioModel;
+
+   @ManagedProperty("#{projectionReport}")
+   public ProjectionReport projectionReport;
+*/
 
    public CustomerData()
    {
@@ -125,6 +134,12 @@ public class CustomerData extends ProfileData
    {
       return manageGoalinstance;
    }
+
+   public ModelUtil getInvmodel()
+   {
+      return invmodel;
+   }
+
    public Boolean getManaged()
    {
       return managed;
@@ -135,6 +150,7 @@ public class CustomerData extends ProfileData
       this.managed = managed;
    }
 
+/*
    public AssetAllocationModel getAllocModel()
    {
       return allocModel;
@@ -155,15 +171,16 @@ public class CustomerData extends ProfileData
       this.portfolioModel = portfolioModel;
    }
 
-   public PortfolioPerformance getPortfolioPerformance()
+   public ProjectionReport getProjectionReport()
    {
-      return portfolioPerformance;
+      return projectionReport;
    }
 
-   public void setPortfolioPerformance(PortfolioPerformance portfolioPerformance)
+   public void setProjectionReport(ProjectionReport projectionReport)
    {
-      this.portfolioPerformance = portfolioPerformance;
+      this.projectionReport = projectionReport;
    }
+*/
 
    public Double getTotalRisk() {
       Double value = 0.0;
@@ -190,16 +207,11 @@ public class CustomerData extends ProfileData
    public Double getEstimatedGoal() {
       Double value = getInvestment().doubleValue();
       Integer finalyear;
-      if (getPerformanceData() != null) {
-         finalyear = getPerformanceData().length;
-         value = getPerformanceData()[finalyear-1].getTotalCapitalWithGains();
+      if (getProjectionData() != null) {
+         finalyear = getProjectionData().length;
+         value = getProjectionData()[finalyear-1].getTotalCapitalWithGains();
       }
       return value;
-   }
-
-   public ProfileData getSubInstance()
-   {
-      return manageGoalinstance;
    }
 
    public String getUserid()
@@ -1006,19 +1018,21 @@ public class CustomerData extends ProfileData
       this.selectedPortfolio = selectedPortfolio;
    }
 
+/*
    public void resetAllocationIndex() {
-      setAllocationIndex(allocModel.getAllocationIndex((ProfileData) this.getInstance()));;
+      setAllocationIndex(allocModel.getAllocationIndex(getProfileInstance());;
    }
 
    public void resetPortfolioIndex() {
-      setPortfolioIndex(portfolioModel.getPortfolioIndex((ProfileData) this.getInstance()));
+      setPortfolioIndex(portfolioModel.getPortfolioIndex(getProfileInstance()));
    }
+*/
 
    public void buildAssetClass() {
       AssetClass[] aamc;
       try {
          setAssetData(null);
-         aamc = allocModel.buildAllocation((ProfileData) this.getInstance());
+         aamc = invmodel.buildAllocation(getProfileInstance());
          if (aamc != null)  {
             setAssetData(aamc);
          }
@@ -1038,19 +1052,24 @@ public class CustomerData extends ProfileData
          aamc = getAssetData();
          if (aamc != null)
          {
-            pfclass = portfolioModel.buildPortfolio(aamc,
-                                      (ProfileData) getInstance());
+            pfclass = invmodel.buildPortfolio(aamc,
+                                      getProfileInstance());
             if (pfclass != null)
             {
                setPortfolioData(pfclass);
 
                // Now refresh the Display List
+               rollupAssetClass(pfclass[0]);
                loadPortfolioList(displayYear);
             }
 
-            if (getUserAssetOverride())
+/*
+            if (getUserAssetOverride()) {
                getAllocModel().overrideAssetWeight(aamc[displayYear], this.getEditableAsset());
-            totalAssetClassWeights(aamc[displayYear].getAssetclass(), displayYear);
+            }
+*/
+
+            // totalAssetClassWeights(aamc[displayYear].getAssetclass(), displayYear);
 
          }
 
@@ -1061,7 +1080,7 @@ public class CustomerData extends ProfileData
       }
    }
 
-   public void buildPerformanceData() {
+   public void buildGoalsData() {
 
       Integer numOfYears = 20;
       if (getGoalData() != null && getGoalData().getTerm() != null) {
@@ -1080,9 +1099,9 @@ public class CustomerData extends ProfileData
       }
 
 
-      PerformanceData[] perfData = portfolioPerformance.getPortfolioPerformance(getPortfolioData(), numOfYears+1,0);
-      portfolioPerformance.calcGrowthInfo(perfData, numOfYears+1, getSubInstance());
-      setPerformanceData(perfData);
+      ArrayList<ProjectionData[]> perfData = invmodel.buildProjectionData(getProfileInstance());
+      setProjectionData(perfData.get(0));
+      invmodel.goalTracking(getProfileInstance());
 
    }
 
@@ -1264,6 +1283,40 @@ public class CustomerData extends ProfileData
          if (this.advisorBasket.containsKey(value)) {
             setBasket(value, this.advisorBasket.get(value));
             setTheme(value);
+         }
+      }
+   }
+
+   public void rollupAssetClass(Portfolio pfclass) {
+      Map<String, Asset> tallyAssetclass = new LinkedHashMap<String, Asset>();
+      if (pfclass != null) {
+         for (PortfolioSecurityData seclist: pfclass.getPortfolio()) {
+            String assetname = seclist.getAssetclass();
+            Double wght = seclist.getWeight();
+            Double money = seclist.getMoney();
+
+            if (! tallyAssetclass.containsKey(assetname)) {
+               Asset asset = new Asset();
+               asset.setAsset(assetname);
+               asset.setActualweight(wght);
+               asset.setAllocweight(wght);
+               asset.setValue(money);
+            }
+            else {
+               Asset asset = tallyAssetclass.get(assetname);
+               Double newwght =  wght + asset.getActualweight();
+               asset.setActualweight(newwght);
+               asset.setAllocweight(newwght);
+               asset.setAllocweight(wght);
+               asset.setValue(money + asset.getValue());
+            }
+         }
+
+         if (tallyAssetclass.size() > 0) {
+            recreateEditableAsset();
+            for (Asset asset : tallyAssetclass.values()) {
+               setEditableAsset(asset);
+            }
          }
       }
    }

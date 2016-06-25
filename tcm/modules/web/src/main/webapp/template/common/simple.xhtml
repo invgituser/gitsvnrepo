@@ -13,33 +13,15 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
     </f:facet>
     <title>Invessence</title>
-    <h:outputScript name="js/layout.js" library="modena-layout" />
+    <h:outputScript name="js/ripple-effect.js" library="#{uiLayout.themeLib}"/>
+    <h:outputScript name="js/perfect-scrollbar.js" library="#{uiLayout.themeLib}"/>
+    <h:outputScript name="js/layout.js" library="#{uiLayout.themeLib}"/>
 
     <ui:insert name="head" />
 </h:head>
 
 <h:body>
-        <ui:insert name="content">
-            Template
-        </ui:insert>
-
-    <p:ajaxStatus style="width:128px;height:128px;position:fixed;right:5px;bottom:5px">
-        <f:facet name="start">
-            <p:graphicImage name="images/preloader.gif" library="spark_layout"/>
-        </f:facet>
-
-        <f:facet name="complete">
-            <h:outputText value="" />
-        </f:facet>
-    </p:ajaxStatus>
-
-    <h:outputStylesheet name="css/core-layout.css" library="modena-layout" />
-    <h:outputStylesheet name="css/font-awesome.css" library="modena-layout" />
-    <h:outputStylesheet name="css/animate.css" library="modena-layout" />
-    <h:outputStylesheet name="css/spark-layout.css" library="modena-layout" />
-    <h:outputStylesheet name="css/animate.css" library="modena-layout" />
-    <h:outputStylesheet name="css/font-modena.css" library="modena-layout" />
-    <h:outputStylesheet name="css/invessence.css" library="invessence" />
+    <ui:include src="#{uiLayout.templateDIR}/nolayout.xhtml"/>
 </h:body>
 
 </html>

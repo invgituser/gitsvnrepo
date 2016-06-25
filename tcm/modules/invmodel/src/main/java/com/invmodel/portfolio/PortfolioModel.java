@@ -12,17 +12,27 @@ import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
 import com.invmodel.model.fixedmodel.data.*;
 import com.invmodel.portfolio.data.Portfolio;
-import org.springframework.context.annotation.Profile;
 
 public class PortfolioModel
 {
 
    //private SecurityDBCollection securityDao;
+   private static  PortfolioModel instance;
    private SecurityCollection secCollection;
    private PortfolioOptimizer portfolioOptimizer;
    private FixedModelOptimizer fixedOptimizer;
 
-   public PortfolioModel()
+   public static synchronized PortfolioModel getInstance()
+   {
+      if (instance == null)
+      {
+         instance = new PortfolioModel();
+      }
+
+      return instance;
+   }
+
+   private PortfolioModel()
    {
    }
 
@@ -153,12 +163,12 @@ public class PortfolioModel
          profileData.setMaxPortfolioAllocationPoints(InvConst.PORTFOLIO_INTERPOLATION - 1);
          if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith("C"))
          {
-            return getConsumerPortfolio(assetData, profileData,
-                                        advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
+            return getPortfolioByRisk(assetData, profileData,
+                                      advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
          }
          else
          {
-            return getAdvisorPortfolio(assetData, profileData,
+            return getPortfolioByIndex(assetData, profileData,
                                        advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
          }
 
@@ -197,7 +207,7 @@ public class PortfolioModel
       return offset;
    }
 
-   private Portfolio[] getAdvisorPortfolio(AssetClass[] assetData, ProfileData profileData,
+   private Portfolio[] getPortfolioByIndex(AssetClass[] assetData, ProfileData profileData,
                                            String advisor, String theme, Double invCapital, Double investment,
                                            Double reinvestment, Double keepLiquidCash, Integer duration, Double riskOffset)
    {
@@ -231,11 +241,11 @@ public class PortfolioModel
             createPortfolio(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
                             investment, investmentYear, profileData, offset);
 
-            // Total Money = Investment + Performance
+            // Total Money = Investment + Projection
             portfolioclass[investmentYear].setTotalMoney(investment);
             actualInvestment += reinvestment;
 
-            // Total Money = Investment + Performance
+            // Total Money = Investment + Projection
             if (investmentYear == 0)
             {
                portfolioclass[investmentYear].setTotalMoney(investment + keepLiquidCash);
@@ -274,9 +284,9 @@ public class PortfolioModel
 
    }
 
-   private Portfolio[] getConsumerPortfolio(AssetClass[] assetData, ProfileData profileData,
-                                            String advisor, String theme, Double invCapital, Double investment,
-                                            Double reinvestment, Double keepLiquidCash, Integer duration, Double riskOffset)
+   private Portfolio[] getPortfolioByRisk(AssetClass[] assetData, ProfileData profileData,
+                                          String advisor, String theme, Double invCapital, Double investment,
+                                          Double reinvestment, Double keepLiquidCash, Integer duration, Double riskOffset)
    {
       String assetName;
 
@@ -319,7 +329,7 @@ public class PortfolioModel
             createPortfolio(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
                             investment, investmentYear, profileData, offset);
 
-            // Total Money = Investment + Performance
+            // Total Money = Investment + Projection
             if (investmentYear == 0)
             {
                portfolioclass[investmentYear].setTotalMoney(investment + keepLiquidCash);
@@ -520,15 +530,18 @@ public class PortfolioModel
 
          Map<String, Integer> tickerMap = new LinkedHashMap<String, Integer>();
          ArrayList<String> tickerList = new ArrayList<String>();
-         Map<String,Double> primeWeights = new LinkedHashMap<String,Double>();
+         Map<String, Double> primeWeights = new LinkedHashMap<String, Double>();
          Integer sizeofTickerList = 0;
          String addTicker = "";
 
-         for (SecurityData sd: secCollection.getOrderedSecurityList()) {
+         for (SecurityData sd : secCollection.getOrderedSecurityList())
+         {
             addTicker = sd.getTicker();
-            if (!addTicker.toUpperCase().equals("CASH")) {
-               if (! tickerMap.containsKey(addTicker)) {
-                  tickerMap.put(addTicker,sizeofTickerList);
+            if (!addTicker.toUpperCase().equals("CASH"))
+            {
+               if (!tickerMap.containsKey(addTicker))
+               {
+                  tickerMap.put(addTicker, sizeofTickerList);
                   tickerList.add(addTicker);
                   sizeofTickerList++;
                }
@@ -568,10 +581,12 @@ public class PortfolioModel
          // Since PrimeAssetList order is different then Security List, we are putting the data in order of the security list.
          Integer sizeofPrimeTickerList = primeWeights.size();
          double[][] tmpPrimeWeights = new double[sizeofPrimeTickerList][1];
-         for (String ticker: primeWeights.keySet())
+         for (String ticker : primeWeights.keySet())
          {
-            if (tickerMap.containsKey(ticker)) {
-               if (tickerMap.get(ticker) <= sizeofPrimeTickerList) {
+            if (tickerMap.containsKey(ticker))
+            {
+               if (tickerMap.get(ticker) <= sizeofPrimeTickerList)
+               {
                   j = tickerMap.get(ticker);
                   tmpPrimeWeights[j][0] = primeWeights.get(ticker);
                }
@@ -601,7 +616,9 @@ public class PortfolioModel
             {
                sd = secCollection.getSecurity(advisor, pacd.getPrimeAssetName(), ticker);
                if (sd == null)
+               {
                   sd = secCollection.getSecurity(ticker);
+               }
 
                if (!sd.getTicker().toUpperCase().equals("CASH"))
                {
@@ -612,7 +629,8 @@ public class PortfolioModel
                   {
                      shares = Math.round(((investment * rbsa_weight) / price) - 0.5);
                      money = shares * price;
-                     if (shares > 0 && money > 0.0) {
+                     if (shares > 0 && money > 0.0)
+                     {
                         String assetname = pacd.getAssetclass();
                         AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
                         if (!assetClass.getAssetclass().containsKey(assetname))
@@ -708,26 +726,44 @@ public class PortfolioModel
       portfolio.setTheme(pdata.getTheme());
       portfolio.setCashMoney(investment);
       FMData fixedModelData;
-      if (pdata.getRiskCalcMethod().equalsIgnoreCase("C")) {
-         fixedModelData = fixedOptimizer.getTheme(theme, assetData[0].getRiskOffset().intValue());
+      if (pdata.getRiskCalcMethod().equalsIgnoreCase("C"))
+      {
+         fixedModelData = fixedOptimizer.getTheme(theme, assetData[0].getRiskOffset());
       }
-      else {
+      else
+      {
          fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getPortfolioIndex());
       }
 
-      if (fixedModelData != null) {
+      if (fixedModelData != null)
+      {
+         if (fixedModelData.getExpectedreturn() != null && fixedModelData.getExpectedreturn() != 0.0)
+         {
+            pdata.setHasReturn(true);
+            portfolio.setExpReturns(fixedModelData.getExpectedreturn());
+         }
+         else
+         {
+            pdata.setHasReturn(false);
+         }
+
+         if (fixedModelData.getExpectedrisk() != null && fixedModelData.getExpectedrisk() != 0.0)
+         {
+            pdata.setHasRisk(true);
+            portfolio.setTotalRisk(fixedModelData.getExpectedrisk());
+         }
+         else
+         {
+            pdata.setHasRisk(false);
+         }
+
          pdata.setAllocationIndex(fixedModelData.getIndex());
          pdata.setPortfolioIndex(fixedModelData.getIndex());
-         for (FMPortfolio portfoliodata : fixedModelData.getPortfolioData())
+         for (FMPortfolioData portfoliodata : fixedModelData.getPortfolioData())
          {
             Double wght = portfoliodata.getWeight();
             String ticker = portfoliodata.getTicker();
             double shares = 0.0;
-
-            if (wght >= 1.0)
-            {
-               wght = wght / 100.0;
-            }
 
             if (wght < 0)
             {
@@ -736,10 +772,10 @@ public class PortfolioModel
             price = 100.00;
             type = portfoliodata.getAsset();
             style = portfoliodata.getDisplayname();
-            subclass =  portfoliodata.getDisplayname();
+            subclass = portfoliodata.getDisplayname();
             assetname = portfoliodata.getAsset();
             color = portfoliodata.getColor();
-            sortorder =  portfoliodata.getSortorder();
+            sortorder = portfoliodata.getSortorder();
             sec_name = portfoliodata.getSec_name();
 
 
@@ -755,10 +791,12 @@ public class PortfolioModel
                }
             }
             totalWeight -= wght;
-            if (price == null || price == 0.0) {
+            if (price == null || price == 0.0)
+            {
                shares = 1.0;
             }
-            else {
+            else
+            {
                shares = Math.round(((investment * wght) / price) - 0.5);
             }
 
@@ -788,8 +826,8 @@ public class PortfolioModel
                                      totalWeight, money, true);
 
          }
-         portfolio.setExpReturns(0.0);
-         portfolio.setTotalRisk(0.0);
+         portfolio.setExpReturns(fixedModelData.getExpectedreturn());
+         portfolio.setTotalRisk(fixedModelData.getExpectedrisk());
          portfolio.setTotalCapitalGrowth(0.0);
          portfolio.setAvgExpense(0.0);
 

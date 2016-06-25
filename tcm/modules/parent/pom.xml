@@ -417,23 +417,35 @@
    <profiles>
       <!-- Mode -->
       <profile>
-         <id>0A-MODE-DEV</id>
-         <properties>
-            <web.mode>DEV</web.mode>
-         </properties>
-      </profile>
-      <profile>
-         <id>0B-MODE-UAT</id>
-         <properties>
-            <web.mode>UAT</web.mode>
-         </properties>
-      </profile>
-      <profile>
-         <id>0C-MODE-PROD</id>
+         <id>0A-MODE-PROD</id>
          <properties>
             <web.mode>PROD</web.mode>
              <service.mode>PROD</service.mode>
          </properties>
+      </profile>
+      <profile>
+         <id>0B-MODE-DEV</id>
+         <properties>
+            <web.mode>DEV</web.mode>
+             <service.mode>DEV</service.mode>
+         </properties>
+      </profile>
+      <profile>
+         <id>0C-MODE-UAT</id>
+         <properties>
+            <web.mode>UAT</web.mode>
+             <service.mode>UAT</service.mode>
+         </properties>
+      </profile>
+      <profile>
+         <id>0D-MODE-DEMO</id>
+         <properties>
+            <web.mode>DEMO</web.mode>
+             <service.mode>DEMO</service.mode>
+         </properties>
+      </profile>
+      <profile>
+         <id>0Z---------------0Z</id>
       </profile>
 
       <!-- Mail -->
@@ -454,6 +466,9 @@
             <mail.password>G3n3r@l89</mail.password>
             <mail.port>587</mail.port>
          </properties>
+      </profile>
+      <profile>
+         <id>1Z---------------1Z</id>
       </profile>
 
       <!-- Host -->
@@ -541,6 +556,9 @@
             <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
          </properties>
       </profile>
+      <profile>
+         <id>2Z---------------2Z</id>
+      </profile>
 
       <!-- DB -->
       <profile>
@@ -571,10 +589,10 @@
          <id>3C-DB-PRE-RELEASE</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://prerelease.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://prerelease.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://prerelease.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://prerelease.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.url>jdbc:mysql://demo.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://demo.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <service.url>jdbc:mysql://demo.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
+            <ltam.url>jdbc:mysql://demo.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -633,11 +651,14 @@
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://tcm.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://tcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://192.168.100.95:3306/service?noAccessToProcedureBodies=true</service.url>
+            <service.url>jdbc:mysql://tcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
             <ltam.url>jdbc:mysql://tcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
+      </profile>
+      <profile>
+         <id>3Z---------------3Z</id>
       </profile>
 
       <!-- Web -->
@@ -714,24 +735,27 @@
          </properties>
       </profile>
             <profile>
-         <id>5P3-WEB-UOB</id>
+         <id>6P3-WEB-UOB</id>
          <properties>
-            <apache.url>http://uob.invesence.com:8080</apache.url>
-            <tomcat.url>http://uob.invesence.com:8080</tomcat.url>
-            <ssl.url>http://uob.invesence.com:8080</ssl.url>
+            <apache.url>http://uob.invessence.com:8080</apache.url>
+            <tomcat.url>http://uob.invessence.com:8080</tomcat.url>
+            <ssl.url>http://uob.invessence.com:8080</ssl.url>
          </properties>
       </profile>
       <profile>
       <id>5P3-WEB-TCM</id>
          <properties>
-            <apache.url>http://tcm.invesence.com:8080</apache.url>
-            <tomcat.url>http://tcm.invesence.com:8080</tomcat.url>
-            <ssl.url>http://tcm.invesence.com:8080</ssl.url>
+            <apache.url>http://tcm.invessence.com:8080</apache.url>
+            <tomcat.url>http://tcm.invessence.com:8080</tomcat.url>
+            <ssl.url>http://tcm.invessence.com:8080</ssl.url>
       </properties>
+      </profile>
+      <profile>
+         <id>5Z---------------5Z</id>
       </profile>
 
             <profile>
-         <id>6-PROD</id>
+         <id>Z-INVESSENCE-PROD</id>
          <properties>
             <web.mode>PROD</web.mode>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>

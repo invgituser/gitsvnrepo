@@ -62,7 +62,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                data.setAccountType(convert.getStrData(rs.get("accttype")));
                data.setAge(convert.getIntData(rs.get("age")));
                data.setHorizon(convert.getIntData(rs.get("horizon")));
-               data.setRiskIndex(convert.getIntData(rs.get("riskIndex")));
+               data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
                data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
                data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
@@ -152,7 +152,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                data.setAccountType(convert.getStrData(rs.get("accttype")));
                data.setAge(convert.getIntData(rs.get("age")));
                data.setHorizon(convert.getIntData(rs.get("horizon")));
-               data.setRiskIndex(convert.getIntData(rs.get("riskIndex")));
+               data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
                data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
                data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
                data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));

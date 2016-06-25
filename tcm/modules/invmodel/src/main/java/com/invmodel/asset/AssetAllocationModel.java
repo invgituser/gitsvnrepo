@@ -20,7 +20,7 @@ import webcab.lib.finance.portfolio.*;
 
 public class AssetAllocationModel
 {
-   private static AssetAllocationModel instance = null;
+   private static AssetAllocationModel instance;
    private AssetParameters assetParameters = new AssetParameters();
    private PortfolioOptimizer portfolioOptimizer;
    private FixedModelOptimizer fixedOptimizer;
@@ -63,9 +63,9 @@ public class AssetAllocationModel
             pdata.setFixedModel(true);
             pdata.setNumOfAllocation(1);
             AssetClass[] assetclass = new AssetClass[pdata.getNumOfAllocation()];
+            //rc.client.getRisk(...);
             pdata.setMaxAssetAllocatonPoints(fixedOptimizer.getThemes(pdata.getTheme()).size() - 1);
             assetclass[0] = fixedModelAllocation(pdata);
-
             return assetclass;
          }
       }
@@ -76,36 +76,21 @@ public class AssetAllocationModel
       }
 
       pdata.setMaxAssetAllocatonPoints(portfolioOptimizer.getAssetAllocationPoints());
+      pdata.setFixedModel(false);
+      pdata.setHasReturn(true);
+      pdata.setHasRisk(true);
       if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
       {
-         return getConsumerAssetInfo(pdata);
+         return getAssetInfoByRisk(pdata);
       }
       else
       {
-         return getAdvisorAssetsInfo(pdata);
+         return getAssetsInfoByIndex(pdata);
       }
    }
 
-   public Integer getAllocationIndex(ProfileData pdata)
-   {
 
-      if (pdata == null)
-      {
-         return InvConst.ASSET_DEFAULT_POINT;
-      }
-
-      Integer age = pdata.getDefaultAge();
-      Integer duration = pdata.getDefaultHorizon();
-      Integer riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
-      Double adj_riskOffet = calc_riskOffset(age, duration, riskIndex);
-
-      //Age based offset
-      int offset = (int) (100 - ((age < 21) ? 21 : ((age > 100) ? 100 : age)));
-      offset = (int) (offset * adj_riskOffet);
-      return offset;
-   }
-
-   private AssetClass[] getAdvisorAssetsInfo(ProfileData pdata)
+   public AssetClass[] getAssetsInfoByIndex(ProfileData pdata)
    {
       AssetClass[] assetclass;
       String theme;
@@ -133,8 +118,8 @@ public class AssetAllocationModel
             // offset = InvConst.ASSET_INTERPOLATION - offset;
             offset = (offset > InvConst.ASSET_INTERPOLATION - 1) ? InvConst.ASSET_INTERPOLATION - 1 : offset;
             offset = (offset < 0) ? 0 : offset;
-            assetclass[counter] = noAdjustDurationRisk(theme, offset, duration,
-                                                       age, stayInvested);
+            assetclass[counter] = createAssetsByIndex(theme, offset, duration,
+                                                      age, stayInvested);
             age++;
             duration--;
             numofAllocation--;
@@ -150,8 +135,8 @@ public class AssetAllocationModel
       return null;
    }
 
-   private AssetClass noAdjustDurationRisk(String theme, int offset, int duration,
-                                           int age, Integer stayInvested)
+   private AssetClass createAssetsByIndex(String theme, int offset, int duration,
+                                          int age, Integer stayInvested)
    {
 
       AssetClass assetclass = new AssetClass();
@@ -246,7 +231,7 @@ public class AssetAllocationModel
 
    }
 
-   private AssetClass[] getConsumerAssetInfo(ProfileData pdata)
+   public AssetClass[] getAssetInfoByRisk(ProfileData pdata)
    {
       AssetClass[] assetclass;
       Double adj_riskOffet;
@@ -255,11 +240,10 @@ public class AssetAllocationModel
       {
          Integer age = pdata.getDefaultAge();
          Integer duration = pdata.getDefaultHorizon();
-         Integer riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
+         Double riskIndex = (pdata.getRiskIndex() == null) ? 0 : pdata.getRiskIndex();
          Integer stayInvested = pdata.getStayInvested();
          Integer objective = pdata.getObjective();
-         adj_riskOffet = calc_riskOffset(age, duration, riskIndex);
-
+         adj_riskOffet = riskIndex;
          pdata.taxRate();
 
          theme = pdata.getTheme();
@@ -282,7 +266,7 @@ public class AssetAllocationModel
                pdata.setAllocationIndex(offset);
             }
 
-            assetclass[counter] = adjustDurationRisk(theme, offset, duration,
+            assetclass[counter] = createAssetsByRisk(theme, offset, duration,
                                                      age, stayInvested);
             duration--;
             numofAllocation--;
@@ -300,7 +284,7 @@ public class AssetAllocationModel
 
 
 
-   private AssetClass adjustDurationRisk(String theme, int offset, int duration,
+   private AssetClass createAssetsByRisk(String theme, int offset, int duration,
                                          int age, Integer stayInvested)
    {
 
@@ -394,42 +378,6 @@ public class AssetAllocationModel
 
    }
 
-   private Double calc_riskOffset(Integer age, Integer horizon, Integer riskIndex)
-   {
-      Double adj_riskpoint;
-      double baseNum = 1.0 + ((double) horizon / (double) age);
-      double powerNum = -1.0 * ((double) horizon - 1.0);
-      try
-      {
-
-         //pdata.offsetRiskIndex();
-         Integer riskOffset;
-         if (riskIndex == null)
-         {
-            riskOffset = 0;
-         }
-         else
-         {
-            riskOffset = riskIndex;
-         }
-
-
-         adj_riskpoint = ((InvConst.MAX_RISK_OFFSET.doubleValue() - riskOffset.doubleValue()) / InvConst.MAX_RISK_OFFSET);
-
-         //This creates a very conservative portfolio
-         //double adj = adj_riskpoint *(1 - Math.pow(baseNum, powerNum));
-         adj_riskpoint = adj_riskpoint * (1.0 - Math.pow(baseNum, powerNum));
-
-
-         return adj_riskpoint;
-      }
-
-      catch (Exception ex)
-      {
-         System.out.println("Exception on RiskOffer" + ex.getMessage());
-      }
-      return (0.0);
-   }
 
    public void overrideAssetWeight(AssetClass aac, List<Asset> userAsset)
    {
@@ -458,7 +406,7 @@ public class AssetAllocationModel
       }
    }
 
-   private AssetClass fixedModelAllocation(ProfileData pdata)
+   public AssetClass fixedModelAllocation(ProfileData pdata)
    {
 
       AssetClass assetclass = new AssetClass();
@@ -471,16 +419,13 @@ public class AssetAllocationModel
          Double investment = pdata.getActualInvestment();
          String theme =  pdata.getTheme();
 
-         Double adj_riskOffet = calc_riskOffset(age, pdata.getDefaultHorizon(), pdata.getRiskIndex());
+         Double adjRiskOffet = pdata.getRiskIndex();
          //Age based offset
-         Integer offset = (int) (100 - ((age < 21) ? 21 : ((age > 100) ? 100 : age)));
-         //JAV 8/28/2013
-         offset = (int) (offset * adj_riskOffet);
-         assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), offset.doubleValue(),
+         assetclass.initAssetClass(pdata.getAge(), pdata.getDefaultHorizon(), adjRiskOffet,
                                    pdata.getStayInvested(), theme);
 
          if (pdata.getRiskCalcMethod().equalsIgnoreCase("C")) {
-            fixedModelData = fixedOptimizer.getTheme(theme, offset.intValue());
+            fixedModelData = fixedOptimizer.getTheme(theme, adjRiskOffet);
          }
          else {
             fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getAllocationIndex());
@@ -489,7 +434,7 @@ public class AssetAllocationModel
          if (fixedModelData != null) {
             pdata.setAllocationIndex(fixedModelData.getIndex());
             pdata.setPortfolioIndex(fixedModelData.getIndex());
-            for (FMAsset fiasset : fixedModelData.getAssetsData())
+            for (FMAssetData fiasset : fixedModelData.getAssetsData())
             {
                String assetname = fiasset.getAsset();
                String displayName = fiasset.getDisplayname();
@@ -502,12 +447,6 @@ public class AssetAllocationModel
 
                if (!assetname.equalsIgnoreCase("Cash"))
                {
-
-                  if (wght >= 1.0)
-                  {
-                     wght = wght / 100.0;
-                  }
-
                   if (wght < 0.0001)
                   {
                      continue;

@@ -1,0 +1,75 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Fleft Responsive100">
+        <div class="ContainerIndent">
+                <div class="Container100 Responsive100">
+                        <div class="Wid35 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
+                            <div class="ContainerIndent">
+                                <div class="EmptyBox5"></div>
+                                <span class="Fs14 DispBlock gray">Investment Risk</span>
+                                    <span class="Fs24 DispBlock red">
+                                    <h:outputText value="#{tcmpb.totalRisk}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                   </span>
+
+                                <div class="EmptyBox5"></div>
+                            </div>
+                        </div>
+
+                        <div class="Wid35 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
+                            <div class="ContainerIndent">
+                                <div class="EmptyBox5"></div>
+                                <span class="Fs14 DispBlock gray">Expected Return</span>
+                                    <span class="Fs24 DispBlock invessenceblue">
+                                      <h:outputText value="#{tcmpb.totalExpectedReturns}">
+                                          <f:convertNumber pattern="##0.00%"/>
+                                      </h:outputText>
+                                     </span>
+
+                                <div class="EmptyBox5"></div>
+                            </div>
+                        </div>
+                </div>
+
+                <div class="Container100 Responsive100">
+                        <div class="Container50  Fleft Responsive100"><!-- ROHIT's CHANGE -->
+                            <div class="Container100">
+                                <p:chart type="pie" model="#{tcmpb.charts.pieChart}"
+                                         rendered="#{tcmpb.charts.pieChart != null}"
+                                         responsive="true"/>
+                            </div>
+                        </div>
+                        <div class="Container50 Fleft Responsive100"><!-- ROHIT's CHANGE -->
+                            <div class="ContainerIndent">
+                                <p:dataTable styleClass="invAllocTable"
+                                             value="#{tcmpb.editableAsset}"
+                                             var="assetList">
+
+                                    <p:column style="width: 2%; background-color: #{assetList.color};">
+                                        <h:outputText value=" "/>
+                                    </p:column>
+
+                                    <p:column styleClass="Wid40 TexAlLeft"
+                                              resizable="true" headerText="Asset"><!-- ROHIT's CHANGE -->
+                                        <h:outputText value="#{assetList.asset}"/>
+                                    </p:column>
+                                    <p:column styleClass="Wid40 num-text-align TexAlRight"
+                                              resizable="true" headerText="Weight"><!-- ROHIT's CHANGE -->
+                                        <h:outputText value="#{assetList.userEdit}">
+                                            <f:convertNumber pattern="##0.00%"/>
+                                        </h:outputText>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                </div>
+        </div>
+    </div>
+
+</ui:composition>

@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 TextAlCenter">
+        <h3>
+            Assuming you invest for at least 10 years, in the course of any given year,
+            which of the following range of returns would be most acceptable to you?
+        </h3>
+
+        <p:outputPanel id="goalPanel" deferred="true" style="background: transparent; border: 0px">
+            <table class="Container100" style="border: 0px">
+                <tr>
+                    <td>
+                        <p:chart type="line" model="#{tcmpb.charts.goalChart}"
+                                 rendered="#{tcmpb.charts.goalChart != null}"
+                                 responsive="true"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="EmptyBox5"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100%; text-align: center">
+                        <p:slider for="projection"
+                                  minValue="1" maxValue="5">
+                            <p:ajax event="slideEnd" listener="#{tcmpb.doProjectionChart}"
+                                    update=":ceForm:goalPanel" />
+                        </p:slider>
+                        <h:inputHidden id="projection" value="#{tcmpb.selectedchoice4}"
+                                       required="true"
+                                       requiredMessage="Please use the slider below to select appropriate investment"/>
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <div class="EmptyBox5"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="Fs8 TexAlCenter">
+                            Please slide the dot to the select appropriate investment.
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </p:outputPanel>
+
+        <div class="EmptyBox20"></div>
+        <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+                         update=":ceForm:inputArea"
+                         immediate="true"
+                         actionListener="#{tcmpb.prevPage}"/>
+        <p:commandButton styleClass="Fright" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         update=":ceForm:inputArea"
+                         actionListener="#{tcmpb.nextPage}"/>
+    </div>
+
+</ui:composition>

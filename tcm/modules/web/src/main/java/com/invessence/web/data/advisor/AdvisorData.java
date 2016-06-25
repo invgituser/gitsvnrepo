@@ -92,22 +92,6 @@ public class AdvisorData extends CustomerData
       return advisorRiskIndex;
    }
 
-   public void setConvertRiskIndex(Integer riskIndex)
-   {
-      Integer weightedRisk;
-      weightedRisk = convertRiskWeight2Index(riskIndex.doubleValue());
-      this.advisorRiskIndex = weightedRisk;
-      setRiskIndex(riskIndex);
-   }
-
-   public void setAdvisorRiskIndex(Integer advisorRiskIndex)
-   {
-      Double weightedRisk;
-      this.advisorRiskIndex = advisorRiskIndex;
-      weightedRisk = convertIndex2RiskWeight(advisorRiskIndex);
-      setRiskIndex(weightedRisk.intValue());
-   }
-
    public List<String> getFilteredOption()
    {
       return filteredOption;

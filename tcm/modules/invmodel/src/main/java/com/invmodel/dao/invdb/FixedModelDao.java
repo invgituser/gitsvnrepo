@@ -95,7 +95,7 @@ public class FixedModelDao extends JdbcDaoSupport
                String theme = convert.getStrData(rs.get("theme"));
                String level = convert.getStrData(rs.get("level"));
                String key =  theme.toUpperCase() + "." + level;
-               FMAsset asset = new FMAsset(
+               FMAssetData asset = new FMAssetData(
                   theme,
                   level,
                   convert.getStrData(rs.get("asset")),
@@ -137,7 +137,7 @@ public class FixedModelDao extends JdbcDaoSupport
                String level = convert.getStrData(rs.get("level"));
                String key =  theme.toUpperCase() + "." + level;
                String asset = convert.getStrData(rs.get("asset"));
-               FMPortfolio portfolio = new FMPortfolio(
+               FMPortfolioData portfolio = new FMPortfolioData(
                   theme,
                   level,
                   theme,
@@ -183,7 +183,7 @@ public class FixedModelDao extends JdbcDaoSupport
                Map rs = (Map) rows.get(i);
                String theme = convert.getStrData(rs.get("theme"));
                theme = theme.toUpperCase();
-               FMPerformance performance = new FMPerformance(
+               FMPerformanceData performance = new FMPerformanceData(
                   theme,
                   convert.getStrData(rs.get("index")),
                   convert.getStrData(rs.get("indexname")),

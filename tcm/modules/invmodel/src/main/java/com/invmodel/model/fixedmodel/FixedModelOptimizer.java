@@ -4,11 +4,9 @@ import java.util.*;
 import java.util.concurrent.locks.*;
 import java.util.logging.Logger;
 
-import com.invmodel.asset.data.AssetClass;
 import com.invmodel.dao.invdb.FixedModelDao;
-import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.fixedmodel.data.*;
-import com.invmodel.portfolio.data.*;
+import com.invmodel.performance.FMProjectionReport;
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,6 +23,8 @@ public class FixedModelOptimizer
    private Map<String, ArrayList<FMData>> fixedThemeMap;
    private Map<String, FMData> themesMap;
    private FixedModelDao fixedModelDao;
+   private FMProjectionReport projectionReport;
+   private Map<String, Boolean> canCreateProjection;
 
    private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
    private final Lock read = readWriteLock.readLock();
@@ -45,6 +45,7 @@ public class FixedModelOptimizer
    {
       super();
       fixedModelDao = FixedModelDao.getInstance();
+      projectionReport = new FMProjectionReport();
    }
 
    private void allocateTheme() {
@@ -77,6 +78,25 @@ public class FixedModelOptimizer
       return (getAssetKey(theme, asset) + "." + subasset.toUpperCase());
    }
 
+   public FMProjectionReport getProjectionReport()
+   {
+      return projectionReport;
+   }
+
+   public Boolean canCreateProjection(String theme)
+   {
+      if (canCreateProjection == null)
+         return false;
+
+      if (theme == null)
+         return false;
+
+      if (canCreateProjection.containsKey(theme.toUpperCase()))
+         return true;
+
+      return false;
+   }
+
    public void refreshDataFromDB() {
       write.lock();
       try {
@@ -88,8 +108,11 @@ public class FixedModelOptimizer
          fixedModelDao.load_fixedmodule_assets(themesMap);
          logger.info("Load Fixed Module SubAsset");
          fixedModelDao.load_fixedmodule_subassets(themesMap);
-         // logger.info("Load Fixed Module Performance Data");
+         // logger.info("Load Fixed Module Projection Data");
          // fixedModelDao.load_fixedmodule_performance(themesMap);
+         canDoProjection();
+
+
       }
       catch (Exception ex) {
          ex.printStackTrace();
@@ -101,6 +124,27 @@ public class FixedModelOptimizer
 
    }
 
+   private void canDoProjection()
+   {
+      canCreateProjection = new HashMap<String, Boolean>();
+         for (String theme : getListOfThemes())
+         {
+            Boolean cando = true;
+            for (FMData data : getThemes(theme))
+            {
+               if (data.getExpectedreturn() == null || data.getExpectedrisk() == null)
+               {
+                  cando = false;
+               }
+               else if (data.getExpectedreturn() == 0.0 || data.getExpectedrisk() == 0.0)
+               {
+                  cando = false;
+               }
+            }
+            canCreateProjection.put(theme, cando);
+         }
+   }
+
    public Boolean isThisFixedTheme(String theme) {
       if (fixedThemeMap == null)
          return false;
@@ -110,6 +154,26 @@ public class FixedModelOptimizer
          return true;
       else
          return false;
+   }
+
+   public ArrayList<String> getListOfThemes() {
+      ArrayList<String> arrayList = new ArrayList<String>();
+      if (fixedThemeMap != null) {
+         for (String themename: fixedThemeMap.keySet()) {
+            arrayList.add(themename);
+         }
+      }
+      return arrayList;
+   }
+
+   public ArrayList<FMData> getAllThemes() {
+      ArrayList<FMData> arrayList = new ArrayList<FMData>();
+      if (themesMap != null) {
+         for (FMData data: themesMap.values()) {
+               arrayList.add(data);
+         }
+      }
+      return arrayList;
    }
 
    public ArrayList<FMData> getThemes(String theme) {
@@ -125,7 +189,7 @@ public class FixedModelOptimizer
       return arrayList;
    }
 
-   public FMData getTheme(String theme, Integer riskIndex) {
+   public FMData getTheme(String theme, Double riskIndex) {
       FMData thisTheme = null;
       if (theme != null) {
          String localTheme = theme.toUpperCase();

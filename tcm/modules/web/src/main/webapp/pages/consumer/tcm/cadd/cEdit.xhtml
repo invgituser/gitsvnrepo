@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:panel id="inputArea" style="border: 0px; background: transparent; height: auto">
+        <div class="Container100">
+            <div class="ContainerIndent Responsive100 tab_main">
+
+                <p:steps id="progressbar" activeIndex="#{tcmpb.pagemanager.page}">
+                    <p:menuitem value="Start"/>
+                    <p:menuitem value="Horizon"/>
+                    <p:menuitem value="Expectations"/>
+                    <p:menuitem value="Portfolios"/>
+                    <p:menuitem value="Returns"/>
+                    <p:menuitem value="Review"/>
+                </p:steps>
+
+            </div>
+        </div>
+
+        <div class="Container100">
+            <div class="ContainerIndent">
+                <p:messages showDetail="true" sticky="true" escape="true"/>
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 0}">
+                    <ui:include src="/pages/consumer/tcm/cadd/p1.xhtml"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 1}">
+                    <ui:include src="/pages/consumer/tcm/cadd/p2.xhtml"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 2}">
+                    <ui:include src="/pages/consumer/tcm/cadd/p3.xhtml"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 3}">
+                    <ui:include src="/pages/consumer/tcm/cadd/p4.xhtml"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 4}">
+                    <ui:include src="/pages/consumer/tcm/cadd/p5.xhtml"/>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 5}">
+                    <ui:include src="/pages/consumer/tcm/cadd/final.xhtml"/>
+                </ui:fragment>
+            </div>
+        </div>
+
+        <div class="Container100">
+            <p style="font-style: italic; font-size: .8em; text-align:justify">
+                This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
+                (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
+                It does not take in affect any tax withholdings or distributions.
+                Past performance is no guarantee of future results. Any historical returns,
+                expected returns, or probability projections may not reflect actual future
+                performance. All securities involve risk and may result in loss. Not an offer,
+                solicitation of an offer, or advice to buy or sell securities in jurisdictions
+                where Invessence is not registered
+            </p>
+        </div>
+    </p:panel>
+
+
+</ui:composition>

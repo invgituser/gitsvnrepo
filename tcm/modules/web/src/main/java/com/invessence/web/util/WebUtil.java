@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.web.constant.WebConst;
-import com.invessence.web.data.common.UserInfoData;
+import com.invessence.web.data.common.*;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
@@ -24,6 +24,8 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class WebUtil implements Serializable
 {
 
+   public UIProfile uiprofile = new UIProfile();
+
    @Autowired
    private WebMessage messageText;
 
@@ -36,12 +38,16 @@ public class WebUtil implements Serializable
    {
    }
 
+   public UIProfile getUiprofile()
+   {
+      return uiprofile;
+   }
 
    public boolean isWebProdMode() {
-      if (messageText == null)
+      if (uiprofile == null)
          return false;
 
-      String mode = messageText.buildInternalMessage("web.mode",null);
+      String mode = uiprofile.getWebmode();
       if (mode == null)
          return false;
       else

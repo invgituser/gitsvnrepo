@@ -6,11 +6,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
+import com.invessence.service.bean.WebConfigDetails;
+import com.invessence.service.util.ServiceParameters;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.common.UIProfile;
 import org.primefaces.component.tabview.TabView;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.TabChangeEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -27,7 +27,6 @@ public class UILayout implements Serializable
 {
    private static final long serialVersionUID = -1992L;
 
-   private UIProfile uiprofile = new UIProfile();
    private String cid;
    private String rep;
    private Integer tabMenu = 0;
@@ -41,68 +40,103 @@ public class UILayout implements Serializable
       return webutil;
    }
 
-   public UIProfile getUiprofile()
-   {
-      return uiprofile;
+   public UIProfile getUiprofile() {
+      return webutil.getUiprofile();
    }
 
-   public String getLogo()
-   {
-      if (uiprofile == null)
-         return WebConst.DEFAULT_LOGO;
-
-      return uiprofile.getLogo();
+   private String webserviceDB(Map<String,WebConfigDetails> webDB, String name)   {
+      String value = null;
+      if (webDB != null) {
+         if (webDB.containsKey(name)) {
+            value = webDB.get(name).getValue();
+         }
+      }
+      return value;
    }
-
-   public String getTheme()
-   {
-      if (uiprofile == null)
-         return WebConst.DEFAULT_THEME;
-
-      return uiprofile.getTheme();
-   }
-
 
    public void resetCIDProfile(String cid)
    {
       if (cid != null)
       {
-         if (uiprofile == null) {
-            uiprofile = new UIProfile();
-         }
-
-         if (!cid.equals(uiprofile.getCid()))
+         if (!cid.equals(webutil.getUiprofile().getCid()))
          {
-            String companyname;
-            String homeurl, securehomeurl;
-            String logo, logosize, logolib;
-            String mainemail, supportemail;
-            String mainphone, supportphone;
-            String copyright, forwardURL;
-            String theme, themelib;
+            String companyname= null;
+            String websiteurl = null, secureurl = null;
+            String logo = null, logosize = null, logolib = null;
+            String mainemail = null, supportemail = null;
+            String mainphone = null, supportphone = null;
+            String copyright = null;
+            String forwardservice = null, custodyURL = null, accountOpeningURL = null;
+            String theme = null, themelib = null;
+            String customdir = null;
+            String templatedir = null, cssdir = null, customcss = null;
+            String webmode = null;
 
-            companyname = webutil.getMessageText().lookupMessage("companyname." + cid, null);
-            homeurl = webutil.getMessageText().lookupMessage("website.url." + cid, null);
-            securehomeurl = webutil.getMessageText().lookupMessage("secure.url." + cid, null);
-            logo = webutil.getMessageText().lookupMessage("logo." + cid, null);
-            logosize = webutil.getMessageText().lookupMessage("logosize." + cid, null);
-            logolib = webutil.getMessageText().lookupMessage("logolib." + cid, null);
-            mainemail = webutil.getMessageText().lookupMessage("mainemail." + cid, null);
-            supportemail = webutil.getMessageText().lookupMessage("supportemail." + cid, null);
-            mainphone = webutil.getMessageText().lookupMessage("mainphone." + cid, null);
-            supportphone = webutil.getMessageText().lookupMessage("supportphone." + cid, null);
-            copyright = webutil.getMessageText().lookupMessage("copyright." + cid, null);
-            forwardURL = webutil.getMessageText().lookupMessage("forwardURL." + cid, null);
-            theme = webutil.getMessageText().lookupMessage("theme." + cid, null);
-            themelib = webutil.getMessageText().lookupMessage("themelib." + cid, null);
+            if (ServiceParameters.webSiteConfigDetailsMap != null) {
+               Map<String,WebConfigDetails> webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get("0");
 
-            uiprofile.resetAllInfo(cid, rep, companyname,
-                                   homeurl, securehomeurl,
-                                   logo, logosize, logolib,
-                                   mainemail, supportemail,
-                                   mainphone, supportphone,
-                                   copyright, forwardURL);
-            uiprofile.resetTheme(theme, themelib);
+               if (webSiteConfigDetails != null) {
+                  companyname = webserviceDB(webSiteConfigDetails,"COMPANYNAME");
+                  websiteurl = webserviceDB(webSiteConfigDetails,"WEBSITE.URL");
+                  secureurl = webserviceDB(webSiteConfigDetails,"SECURE.URL");
+                  logo = webserviceDB(webSiteConfigDetails,"LOGO");
+                  logosize = webserviceDB(webSiteConfigDetails,"LOGO.SIZE");
+                  logolib = webserviceDB(webSiteConfigDetails,"LOGO.LIB");
+                  mainemail = webserviceDB(webSiteConfigDetails,"MAIN.EMAIL");
+                  supportemail = webserviceDB(webSiteConfigDetails,"SUPPORT.EMAIL");
+                  mainphone = webserviceDB(webSiteConfigDetails,"MAIN.PHONE");
+                  supportphone = webserviceDB(webSiteConfigDetails,"SUPPORT.PHONE");
+                  copyright = webserviceDB(webSiteConfigDetails,"COPYRIGHT");
+                  forwardservice = webserviceDB(webSiteConfigDetails,"FORWARD.SERVICE");
+                  custodyURL = webserviceDB(webSiteConfigDetails,"CUSTODY.URL");
+                  accountOpeningURL = webserviceDB(webSiteConfigDetails,"ACCOUNTOPENING.URL");
+                  theme = webserviceDB(webSiteConfigDetails,"THEME");
+                  themelib = webserviceDB(webSiteConfigDetails,"THEME.LIB");
+                  templatedir = webserviceDB(webSiteConfigDetails,"TEMPLATE.DIR");
+                  customdir = webserviceDB(webSiteConfigDetails,"CUSTOM.DIR");
+                  cssdir = webserviceDB(webSiteConfigDetails,"CSS.DIR");
+                  customcss = webserviceDB(webSiteConfigDetails,"CUSTOM.CSS");
+                  webmode = webserviceDB(webSiteConfigDetails,"WEB.MODE");
+               }
+            }
+
+            /* In case we cannot load from service, then default to default company.properties file as backup */
+            if (companyname == null) {
+
+               companyname = webutil.getMessageText().lookupMessage("COMPANYNAME." + cid, null);
+               websiteurl = webutil.getMessageText().lookupMessage("WEBSITE.URL." + cid, null);
+               secureurl = webutil.getMessageText().lookupMessage("SECURE.URL." + cid, null);
+               logo = webutil.getMessageText().lookupMessage("LOGO." + cid, null);
+               logosize = webutil.getMessageText().lookupMessage("LOGO.SIZE." + cid, null);
+               logolib = webutil.getMessageText().lookupMessage("LOGO.LIB." + cid, null);
+               mainemail = webutil.getMessageText().lookupMessage("MAIN.EMAIL." + cid, null);
+               supportemail = webutil.getMessageText().lookupMessage("SUPPORT.EMAIL." + cid, null);
+               mainphone = webutil.getMessageText().lookupMessage("MAIN.PHONE." + cid, null);
+               supportphone = webutil.getMessageText().lookupMessage("SUPPORT.PHONE." + cid, null);
+               copyright = webutil.getMessageText().lookupMessage("COPYRIGHT." + cid, null);
+               forwardservice = webutil.getMessageText().lookupMessage("FORWARD.SERVICE." + cid, null);
+               custodyURL = webutil.getMessageText().lookupMessage("CUSTODY.URL." + cid, null);
+               accountOpeningURL = webutil.getMessageText().lookupMessage("ACCOUNTOPENING.URL." + cid, null);
+               theme = webutil.getMessageText().lookupMessage("THEME." + cid, null);
+               themelib = webutil.getMessageText().lookupMessage("THEME.LIB." + cid, null);
+               templatedir = webutil.getMessageText().lookupMessage("TEMPLATE.DIR." + cid, null);
+               customdir = webutil.getMessageText().lookupMessage("CUSTOM.DIR." + cid, null);
+               cssdir = webutil.getMessageText().lookupMessage("CSS.DIR." + cid, null);
+               customcss = webutil.getMessageText().lookupMessage("CUSTOM.CSS." + cid, null);
+               webmode = webutil.getMessageText().lookupMessage("WEB.MODE" + cid, null);
+            }
+
+
+            webutil.getUiprofile().resetAllInfo(cid,
+                         companyname, websiteurl, secureurl,
+                         logo, logosize, logolib,
+                         mainemail, supportemail, mainphone, supportphone,
+                         copyright,
+                         forwardservice, custodyURL, accountOpeningURL,
+                         theme, themelib,
+                         templatedir,
+                         customdir, cssdir, customcss,
+                         webmode);
 
          }
       }
@@ -147,8 +181,6 @@ public class UILayout implements Serializable
       }
    }
 
-
-
    public static long getSerialVersionUID()
    {
       return serialVersionUID;
@@ -192,91 +224,72 @@ public class UILayout implements Serializable
       this.rep = rep;
    }
 
-   public String defaultHome() {
-      return getDefaultHome();
+   /* This is a method to go home, used as callback */
+   public void defaultHome()
+   {
+     forwardURL(getDefaultHome());
    }
 
    public String getDefaultHome()
    {
-      if (webutil.isUserLoggedIn()) {
-         if (defaultHome == null)
-            if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
-               return("/pages/advisor/index.xhtml");
-            }
-            else {
-               return("/pages/consumer/index.xhtml");
-            }
-         else
+         if (defaultHome == null) {
+            return getDefaultDashBoard();
+         }
+         else {
             return defaultHome;
-      }
-      else
-         return "/index.xhtml";
+         }
    }
 
    public void setDefaultHome(String defaultHome)
    {
-      if (defaultHome == null) {
-         if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
-            defaultHome = "/pages/advisor/index.xhtml";
-         }
-         else {
-            defaultHome = "/pages/consumer/index.xhtml";
-         }
+      if (this.defaultHome == null) {
+            this.defaultHome = getDefaultDashBoard();
       }
       else {
          this.defaultHome = defaultHome;
       }
     }
-/*
-   public String getDefaultHome()
-   {
-      try {
-         if (webutil.isUserLoggedIn()) {
-            if (defaultHome == null)
-               return "#";
-            else
-               return defaultHome;
-         }
-      }
-      catch (Exception ex) {
-         return "#";
-      }
-      return defaultHome;
-   }
-
-
-   public void setDefaultHome(String default_page)
-   {
-      this.defaultHome = default_page;
-   }
-*/
 
    public void goToStartPage() {
      if ((defaultHome != null) && (! defaultHome.isEmpty())) {
          webutil.redirect(defaultHome, null);
      }
      else {
-        if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
-           webutil.redirect("/pages/advisor/index.xhtml", null);
-        }
-        else {
-         webutil.redirect("/pages/consumer/index.xhtml", null);
-        }
+       webutil.redirect(getDefaultDashBoard(), null);
      }
    }
 
-   public void onTabChange(TabChangeEvent event) {
-      TabView tabView = (TabView) event.getComponent();
-      Integer fromTab = null, toTab = null;
+   public String getDefaultDashBoard() {
+      String dashboard;
 
-      int activeIndex = tabView.getChildren().indexOf(event.getTab());
-      fromTab = toTab;  // prior tab
-      toTab = activeIndex; // new tab.
+      if (webutil.isUserLoggedIn()) {
+         if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
+/*
+            if (webutil.getUiprofile().getCustomdir() != null) {
+               dashboard = "/pages/advisor/" + webutil.getUiprofile().getCustomdir() +"/index.xhtml";
+            }
+            else {
+*/
+               dashboard = "/pages/advisor/index.xhtml";
+/*
+            }
+*/
+         }
+         else {
+            if (webutil.getUiprofile().getCustomdir() != null) {
+               dashboard = "/pages/consumer/"+webutil.getUiprofile().getCustomdir().trim()+"/index.xhtml";
+            }
+            else {
+               dashboard = "/pages/consumer/index.xhtml";
+            }
+         }
+      }
+      else {
+         dashboard = "/index.xhtml";
+      }
+      return dashboard;
 
-      this.menuTab.setActiveIndex(activeIndex);
-      this.setTabMenu(activeIndex);
    }
-
 
    public void forwardURL(String menuItem){
       webutil.redirect(menuItem,null);
@@ -294,17 +307,6 @@ public class UILayout implements Serializable
       webutil.redirect("/j_spring_security_logout",null);
    }
 
-   public void faqURL() {
-      Map<String,Object> options = new HashMap<String, Object>();
-      options.put("modal", true);
-      options.put("draggable", false);
-      options.put("resizable", false);
-      options.put("contentHeight", 520);
-
-      RequestContext.getCurrentInstance().openDialog("faqURL", options, null);
-
-   }
-
    public void doMenuAction(String menuItem){
       String URL;
 
@@ -317,52 +319,37 @@ public class UILayout implements Serializable
                forwardURL(menuItem);
             }
 
-            if (menuItem.startsWith("/")) {
-               URL = "/pages" + menuItem;
-
-               if (menuItem.contains("add.xht"))  {
-                  URL = "/pages" + menuItem + "?acct=0";
-               }
-               else if (menuItem.contains("setting.xht")) {
-                        URL = "/pages" + menuItem + "?id=" + webutil.getLogonid().toString();
-               }
+            if ((menuItem.startsWith("/"))) {
+               forwardURL(menuItem);
             }
             else {
-               if (webutil.hasAccess("Advisor"))
-                  URL = "/pages/advisor/" + menuItem;
-               else
-                  URL = "/pages/consumer/" + menuItem;
+               forwardURL("/pages/" + menuItem);
             }
          }
-         webutil.redirect(URL, null);
-         // If We get invalid, URL, we may want to redirect to Under Construction ...
       }
       catch (Exception ex) {
          webutil.redirect("/pages/common/invalid.xhtml",null);
       }
    }
 
-   public String getPageInfo(Integer pageno)
-   {
-      String txt = null;
-      String msg;
-      if (webutil != null)
-      {
-         if (pageno != null)
-         {
-            if (pageno >= 0) {
-               msg = "p" + pageno.toString() + "info." + cid;
+   public void doMenuAction(String location, String menuItem){
+      String URL;
+
+      try {
+         if (location == null || location.trim().length() == 0)
+            doMenuAction(menuItem);
+         else {
+            if (getCustomDIR() == null || getCustomDIR().trim().length() == 0) {
+               forwardURL("/pages/" + location.toLowerCase() + "/" + menuItem);
             }
             else {
-               msg = "pinfo." + cid;
+               forwardURL("/pages/" + location.toLowerCase() + "/" + getCustomDIR() + "/" + menuItem);
             }
-            txt = webutil.getMessageText().lookupMessage(msg, null);
          }
       }
-      if (txt != null && txt.length() > 0)
-         return txt;
-      else
-         return null;
+      catch (Exception ex) {
+         webutil.redirect("/pages/common/invalid.xhtml",null);
+      }
    }
 
    public String getDisclaimer() {
@@ -377,8 +364,72 @@ public class UILayout implements Serializable
 
    }
 
-   public Boolean getProdMode() {
-      return webutil.isWebProdMode();
+   public String getTemplateDIR() {
+      String templateDIR = "/template/common/spark";
+      if (webutil.getUiprofile() != null) {
+         if (webutil.getUiprofile().getTemplatedir() == null || webutil.getUiprofile().getTemplatedir().trim().length() == 0)
+            return (templateDIR);
+         else
+            return (webutil.getUiprofile().getTemplatedir());
+      }
+      return templateDIR;
    }
 
+   public String getThemeLib() {
+      String themeLib = WebConst.DEFAULT_THEME + "-layout";
+      if (webutil.getUiprofile() == null)
+         return (themeLib);
+      else
+      if (webutil.getUiprofile().getThemelib() == null || webutil.getUiprofile().getThemelib().trim().length() == 0)
+         return (themeLib);
+      else
+         return (webutil.getUiprofile().getThemelib());
+   }
+
+   public String getTheme() {
+      String theme = WebConst.DEFAULT_THEME;
+      if (webutil.getUiprofile() == null)
+         return (theme);
+      else
+      if (webutil.getUiprofile().getTheme() == null || webutil.getUiprofile().getTheme().trim().length() == 0)
+         return (theme);
+      else
+         return (webutil.getUiprofile().getTheme());
+   }
+
+   public String getLogo()
+   {
+      String logo = WebConst.DEFAULT_LOGO;
+      if (webutil.getUiprofile() == null)
+         return (logo);
+      else
+      if (webutil.getUiprofile().getLogo() == null || webutil.getUiprofile().getLogo().trim().length() == 0)
+         return (logo);
+      else
+         return (webutil.getUiprofile().getLogo());
+   }
+
+   public String getCssDIR()
+   {
+      if (webutil.getUiprofile() == null)
+         return (null);
+      else
+         return (webutil.getUiprofile().getCssdir());
+   }
+
+   public String getCustomCSS()
+   {
+      if (webutil.getUiprofile() == null)
+         return (null);
+      else
+         return (webutil.getUiprofile().getCustomcss());
+   }
+
+   public String getCustomDIR()
+   {
+      if (webutil.getUiprofile() == null)
+         return (null);
+      else
+         return (webutil.getUiprofile().getCustomdir());
+   }
 }

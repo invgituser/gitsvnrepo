@@ -24,6 +24,10 @@ public interface Pages
 
    public void prevPage();
 
+   public Boolean isFirstPage();
+   public Boolean isNextToLastPage();
+   public Boolean isLastPage();
+
    public Boolean getPrevButtonStat();
 
    public Boolean getNextButtonStat();

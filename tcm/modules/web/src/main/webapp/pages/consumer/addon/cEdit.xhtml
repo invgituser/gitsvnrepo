@@ -71,8 +71,8 @@
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px">
                     <div class="Container100 Responsive100">
-                        <p:panel id="grphhdr" style="border: 0px" rendered="#{!cepb.fixedModel}">
-                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
+                        <p:panel id="grphhdr" style="border: 0px; background: transparent" rendered="#{cepb.hasReturn}">
+                            <div class="Wid25 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Investment Risk</span>
@@ -86,8 +86,7 @@
                                 </div>
                             </div>
 
-
-                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
+                            <div class="Wid25 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Expected Return</span>
@@ -103,7 +102,8 @@
                         </p:panel>
                     </div>
 
-                    <p:outputPanel id="charts" style="border: 0px">
+                    <div class="Container100 Responsive100">
+                       <p:outputPanel id="charts" style="border: 0px">
                         <div class="Container50  Fleft Responsive100"><!-- ROHIT's CHANGE -->
                             <div class="Container100">
                                 <p:chart type="pie" model="#{cepb.charts.pieChart}"
@@ -135,6 +135,7 @@
                             </div>
                         </div>
                     </p:outputPanel>
+                    </div>
                 </p:panel>
             </div>
         </div>

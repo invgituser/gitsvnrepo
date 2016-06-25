@@ -11,19 +11,35 @@ function ltam_pie()
     this.cfg.grid = {
         backgroundColor: 'transparent',
         drawBorder: false,
-        shadow: false,
-        legend: false
-    }
+        shadow: false
+    };
+
+    this.cfg.legend = {
+	show:true, 
+	rendererOptions: {numberRows: 1}, 
+	location: 's', 
+	placement: 'outsideGrid'
+    };
 
     this.cfg.highlighter = {
-        show: true
+        show: false
     };
 }
 
-function ltam_meter()
+function ltam_pos_pie()
 {
     this.cfg.grid = {
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        drawBorder: false,
+        shadow: false
+    };
+
+    this.cfg.legend = {
+        show:false
+    };
+
+    this.cfg.highlighter = {
+        show: false
     };
 }
 
@@ -49,8 +65,7 @@ function ltam_perf()
     };
 }
 
-
-function ltam_bar()
+function ltam_riskq5()
 {
     this.cfg.grid = {
         backgroundColor: 'transparent',
@@ -59,25 +74,22 @@ function ltam_bar()
     };
 
     this.cfg.axesDefaults = {
-        show: false,
-        showTicks: false,
-        showTickMarks: false,
-        tickOptions: {
-            showGridline: false
-        }
+        axes: {
+            xaxis: {
+                renderer: {
+                    tickOptions: {
+                        labelPosition: 'middle'
+                    }
+                }
+            }
+         }
     };
 
+    /*
+     this.cfg.seriesDefaults = {
+     show: true,     // whether to render the series.
+     showMarker: true
+     }
+     */
 }
-
-function ltam_line()
-{
-    this.cfg.grid = {
-        backgroundColor: 'transparent',
-        drawBorder: false,
-        shadow: false
-    };
-
-}
-
-
 

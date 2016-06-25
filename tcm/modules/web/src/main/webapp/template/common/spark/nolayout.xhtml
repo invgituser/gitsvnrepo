@@ -1,0 +1,33 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+    <ui:insert name="content">
+        Template
+    </ui:insert>
+
+    <p:ajaxStatus style="width:128px;height:128px;position:fixed;right:5px;bottom:5px">
+        <f:facet name="start">
+            <p:graphicImage name="images/preloader.gif" library="spark_layout"/>
+        </f:facet>
+
+        <f:facet name="complete">
+            <h:outputText value=""/>
+        </f:facet>
+    </p:ajaxStatus>
+
+    <h:outputStylesheet name="css/core-layout.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/font-awesome.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/spark-layout.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/font-modena.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/invessence.css" library="invessence"/>
+    <ui:fragment rendered="#{uiLayout.customCSS != null}">
+        <h:outputStylesheet name="#{uiLayout.customCSS}" library="#{uiLayout.cssDIR}"/>
+    </ui:fragment>
+
+</ui:composition>

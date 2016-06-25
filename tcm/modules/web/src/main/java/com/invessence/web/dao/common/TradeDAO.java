@@ -399,7 +399,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             data.setAge(convert.getIntData(rs.get("age")));
             data.setHorizon(convert.getIntData(rs.get("horizon")));
             data.setCalendarYear(convert.getIntData(rs.get("yearnum")));
-            data.setRiskIndex(convert.getIntData(rs.get("riskIndex")));
+            data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
             data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
             data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
             data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));

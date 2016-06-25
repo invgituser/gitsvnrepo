@@ -5,57 +5,24 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-       <h:head>
-           <f:facet name="first">
-               <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-               <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-               <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-               <meta name="apple-mobile-web-app-capable" content="yes" />
-           </f:facet>
-           <title>Invessence</title>
-           <h:outputScript name="js/layout.js" library="spark-layout" />
+<h:head>
+    <f:facet name="first">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+    </f:facet>
+    <title>#{uiLayout.uiprofile.companyname}</title>
+    <h:outputScript name="js/ripple-effect.js" library="#{uiLayout.themeLib}"/>
+    <h:outputScript name="js/perfect-scrollbar.js" library="#{uiLayout.themeLib}"/>
+    <h:outputScript name="js/layout.js" library="#{uiLayout.themeLib}"/>
 
-           <ui:insert name="head" />
-       </h:head>
+    <ui:insert name="head" />
 
-       <h:body>
-           <div id="menu-mask"></div>
+</h:head>
 
-           <ui:include src="/template/common/topbar.xhtml" />
-
-           <ui:include src="/template/common/layoutmenu.xhtml" />
-
-           <div id="layout-portlets-cover">
-               <ui:insert name="content">
-                   Template
-               </ui:insert>
-
-               <div class="layout-portlets-box TexAlCenter">
-                   <span class="Fs14 gray FontThemeRegular">Invessence  |   All rights reserved.</span>
-               </div>
-           </div>
-
-           <p:ajaxStatus style="width:128px;height:128px;position:fixed;right:5px;bottom:5px">
-               <f:facet name="start">
-                   <p:graphicImage name="demo/images/preloader.gif" />
-               </f:facet>
-
-               <f:facet name="complete">
-                   <h:outputText value="" />
-               </f:facet>
-           </p:ajaxStatus>
-
-           <!--
-                   <script type="text/javascript" src="https://integratedchat.teamviewer.com/widget"></script>
-           -->
-
-           <h:outputStylesheet name="css/core-layout.css" library="modena-layout" />
-           <h:outputStylesheet name="css/font-awesome.css" library="modena-layout" />
-           <h:outputStylesheet name="css/animate.css" library="modena-layout" />
-           <h:outputStylesheet name="css/spark-layout.css" library="modena-layout" />
-           <h:outputStylesheet name="css/animate.css" library="modena-layout" />
-           <h:outputStylesheet name="css/font-modena.css" library="modena-layout" />
-           <h:outputStylesheet name="css/invessence.css" library="invessence" />
-       </h:body>
+<h:body>
+      <ui:include src="#{uiLayout.templateDIR}/layout.xhtml"/>
+</h:body>
 
 </html>

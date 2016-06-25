@@ -45,7 +45,7 @@
 
    <http auto-config="true" access-denied-page="/access-denied.xhtml">
       <custom-filter ref="sessionManagementFilter" before="SESSION_MANAGEMENT_FILTER" />
-      <form-login login-page="/login.xhtml" default-target-url="${ssl.url}/loginRedirection.xhtml"
+      <form-login login-page="/login.xhtml" default-target-url="/loginRedirection.xhtml"
                   always-use-default-target="true"/>
 
       <!--  Active pages -->
@@ -67,11 +67,10 @@
       <intercept-url pattern="/pages/common/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
-      <logout logout-success-url="${ssl.url}/login.xhtml"/>
+      <logout logout-success-url="/login.xhtml"/>
 
       <intercept-url pattern="/**" access="ROLE_USER"/>
-      <session-management invalid-session-url="${ssl.url}/pages/common/view-expired.xhtml"/>
-      <remember-me key="${ssl.url}"/>
+      <session-management invalid-session-url="/viewExpired.xhtml"/>
    </http>
 
 

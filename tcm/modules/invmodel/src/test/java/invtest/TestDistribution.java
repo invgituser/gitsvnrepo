@@ -7,7 +7,7 @@ import com.invmodel.inputData.*;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
 import com.invmodel.performance.*;
-import com.invmodel.performance.data.PerformanceData;
+import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.*;
 import com.invmodel.portfolio.data.*;
 
@@ -82,7 +82,7 @@ public class TestDistribution
       duration = profileData.getHorizon();
 
       // profileData.setAccountTaxable(false);
-      profileData.setRiskIndex(0);
+      profileData.setRiskIndex(0.0);
 
       //1 = preservation 2 = Accumulation
       profileData.setObjective(2);
@@ -143,15 +143,22 @@ public class TestDistribution
 
       tax = "No";
 
-      PortfolioPerformance portPerf = PortfolioPerformance.getInstance();
-      PerformanceData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
-      portPerf.calcGrowthInfo(perfData, perfData.length, profileData);
+      if (profileData.getFixedModel()) {
+         Map<String, ProjectionData[]> prjctdata = fixoptimizer.getProjectionReport().calcuatePerformance(profileData.getAge(), profileData.getHorizon(), profileData.getInitialInvestment().doubleValue());
+         System.out.println("Fixed Model Performace Calculated.");
 
-      //Create a assetPerformanceFile
-      createAssetPerformanceFile(tax, pfclass, aamc, age);
+      }
+      else {
+         ProjectionReport portPerf = ProjectionReport.getInstance();
+         ProjectionData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
+         portPerf.calcGrowthInfo(perfData, perfData.length, profileData);
+         //Create a assetPerformanceFile
+         createAssetPerformanceFile(tax, pfclass, aamc, age);
 
-      createHoldingsFile(pfclass, tax, aamc, profileData);
-      //createPerformanceDataFile(perfData, profileData.getGoalData());
+         createHoldingsFile(pfclass, tax, aamc, profileData);
+         //createPerformanceDataFile(perfData, profileData.getGoalData());
+      }
+
    }
 
    public static void createRandomNumbers()
@@ -449,7 +456,7 @@ public class TestDistribution
       writer.close();
    }
 
-   public static void createPerformanceDataFile(PerformanceData[] pdata, GoalsData goalsData) throws Exception
+   public static void createPerformanceDataFile(ProjectionData[] pdata, GoalsData goalsData) throws Exception
    {
 
       String fileName;

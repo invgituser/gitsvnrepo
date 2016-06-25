@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 TextAlCenter">
+
+        <div class="TexAlLeft">
+            <h3>
+                My name is
+                <h:outputText styleClass="ShowOnMobile" value="&lt;br/&gt;" escape="false" />
+                <p:inputText styleClass="invInputText input_namewid1"  value="#{tcmpb.firstname}"
+                             required="true" requiredMessage="Firstname is required!"
+                             size="8"/>
+                
+                <p:spacer width="5px"/>
+                <p:inputText styleClass="invInputText input_namewid1" value="#{tcmpb.lastname}"
+                             required="true" requiredMessage="Lastname is required!"
+                             size="8"/>.
+            </h3>
+        </div>
+        <div class="EmptyBox20"></div>
+
+        <div class="TexAlLeft">
+            <h3>
+                I am <pe:inputNumber styleClass="invInputText input_agewid1"
+                                     style="padding:0px!"
+                                     value="#{tcmpb.age}"
+                                     decimalPlaces="0" minValue="0" maxValue="110" size="9"
+                    required="true" requiredMessage="Age is required!"
+                    validatorMessage="Age should be between 18 and 100."/> years old.
+            </h3>
+        </div>
+
+        <div class="EmptyBox20"></div>
+
+        <div class="TexAlLeft">
+            <h3>
+            I plan on investing
+            <pe:inputNumber styleClass="invInputText input_investwid1" style="padding:0px!important;"
+                          value="#{tcmpb.investment}"
+                          maxlength="11" decimalPlaces="0" symbol="$"
+                    required="true" requiredMessage="Investment is required!"
+                    validatorMessage="Min. of $500 investment is required!">
+            </pe:inputNumber> for
+                <p:spacer width="2" height="1"/>
+                <p:selectOneMenu id="q3" value="#{tcmpb.goal}"
+                                 required="true" requiredMessage="Please choose investment strategy">
+                    <p:ajax listener="#{tcmpb.onGoalChangeValue}"/>
+                    <f:selectItem itemLabel="Choose One" itemValue=""/>
+                    <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
+                    <f:selectItem itemLabel="College" itemValue="College"/>
+                    <f:selectItem itemLabel="Building Wealth" itemValue="Building Wealth"/>
+                    <f:selectItem itemLabel="Other" itemValue="Other"/>
+                </p:selectOneMenu>
+            </h3>
+        </div>
+
+        <div class="EmptyBox10"></div>
+         <div class="TexAlCenter MarTop20">
+         
+         		<p:commandButton value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                                      update=":ceForm:inputArea"
+                                      actionListener="#{tcmpb.nextPage}"/>
+         
+         </div>
+    
+    </div>
+
+</ui:composition>

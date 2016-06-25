@@ -23,7 +23,7 @@ public class ServiceDaoImpl implements ServiceDao
    private final String getSwitchDetails = "SELECT name, value, format, description FROM vw_invessence_switch where name in('COMPANY_NAME')";
    private final String getServiceConfigDetails ="select * from vw_service_config_details where mode =? and company=? order by company, mode, service, vendor";
    private final String getServiceDetails ="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, vendor";
-   private final String getWebConfigDetails ="select * from web_site_info where mode =? and company=? order by service, vendor, name";
+   private final String getWebConfigDetails ="select * from web_site_info where status = 'A' and mode =? and company=? order by service, vendor, name";
 
    public Map<String, SwitchDetails> getSwitchDetails() {
       logger.info("ServiceDaoImpl.getSwitchDetails");

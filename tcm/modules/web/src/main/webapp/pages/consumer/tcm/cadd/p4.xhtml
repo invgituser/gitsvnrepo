@@ -1,0 +1,60 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 TextAlCenter">
+        <div class="Container50 Fleft">
+            <h3>
+                The chart below shows the potential one-year loss or gain for five hypothetical portfolios.
+                Select the option that matches your comfort zone to continue.
+            </h3>
+
+            <div class="EmptyBox20"></div>
+            <div class="Container100 TexAlCenter">
+
+                <a href="#">
+                    <img src="/images/riskMeter.svg"
+                         onmouseover="this.src='/images/SriskMeter.svg'"
+                         onmouseout="this.src='/images/riskMeter.svg'" />
+                </a>
+                <a href="#">
+                    <img src="/images/riskMeter.svg"
+                         onmouseover="this.src='/images/SriskMeter.svg'"
+                         onmouseout="this.src='/images/riskMeter.svg'" />
+                </a>
+                <a href="#">
+                    <img src="/images/riskMeter.svg"
+                         onmouseover="this.src='/images/SriskMeter.svg'"
+                         onmouseout="this.src='/images/riskMeter.svg'" />
+                </a>
+                <a href="#">
+                    <img src="/images/riskMeter.svg"
+                         onmouseover="this.src='/images/SriskMeter.svg'"
+                         onmouseout="this.src='/images/riskMeter.svg'" />
+                </a>
+                <a href="#">
+                    <img src="/images/riskMeter.svg"
+                         onmouseover="this.src='/images/SriskMeter.svg'"
+                         onmouseout="this.src='/images/riskMeter.svg'" />
+                </a>
+
+            </div>
+
+            <div class="EmptyBox20"></div>
+            <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+                             update=":ceForm:inputArea"
+                             immediate="true"
+                             actionListener="#{tcmpb.prevPage}"/>
+            <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                             update=":ceForm:inputArea"
+                             actionListener="#{tcmpb.nextPage}"/>
+        </div>
+        <div class="Container100 Fleft">
+            <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
+        </div>
+    </div>
+
+</ui:composition>

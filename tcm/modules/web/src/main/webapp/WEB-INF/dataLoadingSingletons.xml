@@ -59,7 +59,14 @@
       <property name="fixedOptimizer" ref="fixedOptimizer"/>
    </bean>
 
-   <bean id="portfolioPerformance" class="com.invmodel.performance.PortfolioPerformance" factory-method="getInstance">
+   <bean id="forwardProjection" class="com.invmodel.performance.ForwardProjection" factory-method="getInstance">
+      <property name="fixedOptimizer" ref="fixedOptimizer"/>
+      <property name="portfolioOptimizer" ref="portfolioOptimizer"/>
    </bean>
 
+   <bean id="invmodelutil" class="com.invmodel.model.ModelUtil" factory-method="getInstance">
+      <property name="assetmodel" ref="assetAllocationModel"/>
+      <property name="portfolioModel" ref="portfolioModel"/>
+      <property name="projectiondata" ref="forwardProjection"/>
+   </bean>
 </beans>

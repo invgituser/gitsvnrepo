@@ -24,6 +24,7 @@ public class GoalsData
    private ArrayList<Double> estimatedGrowth;
    private ArrayList<Double> upperGrowth;
    private ArrayList<Double> lowerGrowth;
+   private Double probability;
 
    public GoalsData()
    {
@@ -160,6 +161,16 @@ public class GoalsData
    public ArrayList<Double> getUpperGrowth()
    {
       return upperGrowth;
+   }
+
+   public Double getProbability()
+   {
+      return probability;
+   }
+
+   public void setProbability(Double probability)
+   {
+      this.probability = probability;
    }
 
    public void clearGrowthData() {
