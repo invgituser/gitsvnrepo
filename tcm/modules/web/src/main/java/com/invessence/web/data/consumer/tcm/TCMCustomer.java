@@ -49,7 +49,6 @@ public class TCMCustomer extends CustomerData
    {
       riskCalculator.setRiskAge(age);
       this.age = age;
-      calcProjectionChart();
    }
 
    @Override
@@ -63,7 +62,6 @@ public class TCMCustomer extends CustomerData
    {
       riskCalculator.setRiskHorizon(horizon);
       this.horizon = horizon;
-      calcProjectionChart();
    }
 
 
@@ -71,7 +69,6 @@ public class TCMCustomer extends CustomerData
    public void setInitialInvestment(Integer initialInvestment)
    {
       this.initialInvestment = initialInvestment;
-      calcProjectionChart();
    }
 
    public TCMRiskCalculator getRiskCalculator()
@@ -439,11 +436,13 @@ public class TCMCustomer extends CustomerData
    }
 
    public void calcProjectionChart() {
-      if (getInvmodel() != null) {
-         projectionDatas = getInvmodel().buildProjectionData(getProfileInstance());
+      if (getModelUtil() != null) {
+         projectionDatas = getModelUtil().buildProjectionData(getProfileInstance());
       }
 
    }
+
+
 
 
 

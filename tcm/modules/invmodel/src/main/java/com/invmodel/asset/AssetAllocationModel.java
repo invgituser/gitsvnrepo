@@ -37,6 +37,8 @@ public class AssetAllocationModel
 
    private AssetAllocationModel()
    {
+      portfolioOptimizer = PortfolioOptimizer.getInstance();
+      fixedOptimizer = FixedModelOptimizer.getInstance();
    }
 
    public void setPortfolioOptimizer(PortfolioOptimizer portfolioOptimizer)

@@ -314,6 +314,7 @@ public class TCMCharts implements Serializable
          Integer lowervalue =  (int) ((double) projectionData[0].getLowerBand2() * .10);
          minGrowth = ((int) projectionData[0].getLowerBand2() - lowervalue < 0) ? 0 : (int) projectionData[0].getLowerBand2() - lowervalue;
          maxGrowth = 0;
+         Double tmpvalue;
          while (y <= totalYlabels)
          {
             year = calendarYear + y;
@@ -322,13 +323,18 @@ public class TCMCharts implements Serializable
             // System.out.println("Year:" + year.toString() + ", Value=" + yearlyGrowthData[y][2]);
             maxGrowth = (maxGrowth > money.intValue()) ? maxGrowth : money.intValue();
             // growth.set(year, portfolio[y].getTotalCapitalGrowth());
-            totalGrowth.set(year.toString(), projectionData[y].getTotalCapitalWithGains()/dividingFactor);
+            tmpvalue = (Math.round((projectionData[y].getTotalCapitalWithGains()/dividingFactor) * 100.0))/100.0;
+            totalGrowth.set(year.toString(), tmpvalue);
             // totalInvested.set(year.toString(), moneyInvested);
             // Double lowerMoney = (portfolio[y].getLowerTotalMoney() < moneyInvested) ? moneyInvested : portfolio[y].getLowerTotalMoney();
-            lower1.set(year.toString(),projectionData[y].getLowerBand1()/dividingFactor);
-            lower2.set(year.toString(), projectionData[y].getLowerBand2()/dividingFactor);
-            upper1.set(year.toString(),projectionData[y].getUpperBand1()/dividingFactor);
-            upper2.set(year.toString(), projectionData[y].getUpperBand2()/dividingFactor);
+            tmpvalue = (Math.round((projectionData[y].getLowerBand1()/dividingFactor) * 100.0))/100.0;
+            lower1.set(year.toString(),tmpvalue);
+            tmpvalue = (Math.round((projectionData[y].getLowerBand2()/dividingFactor) * 100.0))/100.0;
+            lower2.set(year.toString(), tmpvalue);
+            tmpvalue = (Math.round((projectionData[y].getUpperBand1()/dividingFactor) * 100.0))/100.0;
+            upper1.set(year.toString(), tmpvalue);
+            tmpvalue = (Math.round((projectionData[y].getUpperBand2()/dividingFactor) * 100.0))/100.0;
+            upper2.set(year.toString(), tmpvalue);
             // If incrementing anything other then 1, then make sure that last year is displayed.
             if (y == totalYlabels)
             {
@@ -344,12 +350,12 @@ public class TCMCharts implements Serializable
          Double scale = Math.pow(10, digits - 1);
 
          maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
-         // lineModel.addSeries(growth);
-         lineChart.addSeries(totalGrowth);
-         // lineChart.addSeries(totalInvested);
+         // goalChart.addSeries(growth);
+         goalChart.addSeries(totalGrowth);
+         // goalChart.addSeries(totalInvested);
          goalChart.addSeries(lower2);
-         lineChart.addSeries(lower1);
-         lineChart.addSeries(upper1);
+         goalChart.addSeries(lower1);
+         goalChart.addSeries(upper1);
          goalChart.addSeries(upper2);
          goalChart.setSeriesColors("00FF00,7C8686,009ABB,009ABB,7C8686");
          //goalChart.setSeriesColors("009ABB,009ABB");

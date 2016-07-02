@@ -3,13 +3,12 @@ package com.invmodel.rebalance;
 import java.util.*;
 
 import com.invmodel.Const.InvConst;
-import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.model.ModelUtil;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
-import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
 import com.invmodel.rebalance.data.*;
 
@@ -29,9 +28,7 @@ public class RebalanceProcess
    private Map<String, SecurityTLHData> tlhSecMap = null;
    private Map<String, SecurityTLHData> tlhReverseSecMap = null;
    private TLHSecurityCollection tlhSecurityCollection = null;
-   private SecurityCollection secCollection = null;
-   private PortfolioOptimizer portfolioOptimizer = null;
-   private FixedModelOptimizer fixedOptimizer = null;
+   private ModelUtil modelUtil = null;
 
    Map<String, HoldingData> holdingMasterDataMap = new HashMap<String, HoldingData>();
    ArrayList<RebalanceTradeData> rebalanceTradeDataList;
@@ -41,6 +38,7 @@ public class RebalanceProcess
    private RebalanceProcess()
    {
       super();
+      tlhSecurityCollection = TLHSecurityCollection.getInstance();
    }
 
    public static synchronized RebalanceProcess getInstance()
@@ -58,19 +56,9 @@ public class RebalanceProcess
       this.tlhSecurityCollection = tlhSecurityCollection;
    }
 
-   public void setPortfolioOptimizer(PortfolioOptimizer portfolioOptimizer)
+   public void setModelUtil(ModelUtil modelUtil)
    {
-      this.portfolioOptimizer = portfolioOptimizer;
-   }
-
-   public void setFixedOptimizer(FixedModelOptimizer fixedOptimizer)
-   {
-      this.fixedOptimizer = fixedOptimizer;
-   }
-
-   public void setSecurityDAO(SecurityCollection secCollection)
-   {
-      this.secCollection = secCollection;
+      this.modelUtil = modelUtil;
    }
 
    public List<ProfileData> loadCustomerProfile(Long logonid, Long acctnum, String filter) {
@@ -152,14 +140,11 @@ public class RebalanceProcess
    public void loadAssetClass(ProfileData pdata, Integer years) {
       try {
          if (pdata.getAssetData() == null) {
-            AssetAllocationModel assetAllocationModel = AssetAllocationModel.getInstance();
-            assetAllocationModel.setPortfolioOptimizer(portfolioOptimizer);
-            assetAllocationModel.setFixedOptimizer(fixedOptimizer);
             AssetClass[] aamc;
             if (years == null)
                years = pdata.getHorizon();
             pdata.setNumOfAllocation(years);
-            aamc = assetAllocationModel.buildAllocation(pdata);
+            aamc = modelUtil.buildAllocation(pdata);
             if (aamc != null)  {
                pdata.setAssetData(aamc);
             }
@@ -177,16 +162,12 @@ public class RebalanceProcess
       {
          if (pdata.getPortfolioData() == null) {
             loadAssetClass(pdata, years);
-            PortfolioModel portfolioModel = new PortfolioModel();
-            portfolioModel.setPortfolioOptimizer(portfolioOptimizer);
-            portfolioModel.setFixedOptimizer(fixedOptimizer);
-            portfolioModel.setSecurityDao(secCollection);
             pdata.setNumOfPortfolio(years);
             Integer displayYear = 0;
             aamc = pdata.getAssetData();
             if (aamc != null)
             {
-               pfclass = portfolioModel.buildPortfolio(aamc, pdata);
+               pfclass = modelUtil.buildPortfolio(aamc, pdata);
                if (pfclass != null)
                {
                   pdata.setPortfolioData(pfclass);
@@ -294,13 +275,7 @@ public class RebalanceProcess
       Integer currentYear;
 
       try {
-         if (tlhSecurityCollection == null)
-            return null;
-
-         if (secCollection == null)
-            return null;
-
-         if (portfolioOptimizer == null)
+         if (modelUtil == null)
             return null;
 
          rebalanceTradeDataList = new ArrayList<RebalanceTradeData>();

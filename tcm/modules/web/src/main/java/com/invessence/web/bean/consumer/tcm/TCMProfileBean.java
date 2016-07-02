@@ -553,6 +553,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             setTheme(InvConst.DEFAULT_THEME);
          }
 
+         setRiskIndex(riskCalculator.getRiskOffset().doubleValue());
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
@@ -705,7 +706,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public void saveProfile()
-   {      long acctnum;
+   {
+      long acctnum;
       Boolean validate = false;
       try
       {
@@ -910,9 +912,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void nextPage()
    {
-      if (pagemanager.getPage() == 4) {
+      if (pagemanager.getPage() == 3) {
          doProjectionChart(null);
       }
+      saveProfile();
+      createAssetPortfolio(1);
       pagemanager.nextPage();
    }
 
@@ -921,6 +925,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       if (event != null) {
          whichslide = event.getValue();
          setSelectedchoice4(whichslide.toString());
+      }
+
+      if (getProjectionDatas() == null) {
+         calcProjectionChart();
       }
       charts.createProjectionChart(getProjectionDatas().get(whichslide));
    }

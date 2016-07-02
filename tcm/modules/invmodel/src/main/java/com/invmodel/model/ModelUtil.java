@@ -13,6 +13,7 @@ import com.invmodel.performance.ForwardProjection;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.Portfolio;
+import com.invmodel.rebalance.TLHSecurityCollection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,10 +24,15 @@ import com.invmodel.portfolio.data.Portfolio;
  */
 public class ModelUtil
 {
-   AssetAllocationModel assetmodel;
-   PortfolioModel portfolioModel;
-   ForwardProjection projectiondata;
+   private AssetAllocationModel assetmodel;
+   private PortfolioModel portfolioModel;
+   private ForwardProjection projectiondata;
    private static ModelUtil instance;
+   private PortfolioOptimizer poptimizer = null;
+   private FixedModelOptimizer fixoptimizer = null;
+   private TLHSecurityCollection tlhSecurityCollection = null;
+
+
 
    public static synchronized ModelUtil getInstance()
    {
@@ -41,6 +47,12 @@ public class ModelUtil
    public ModelUtil()
    {
       super();
+      portfolioModel = PortfolioModel.getInstance();
+      projectiondata = ForwardProjection.getInstance();
+      assetmodel = AssetAllocationModel.getInstance();
+      poptimizer = PortfolioOptimizer.getInstance();
+      fixoptimizer = FixedModelOptimizer.getInstance();
+      tlhSecurityCollection = TLHSecurityCollection.getInstance();
    }
 
    public void setAssetmodel(AssetAllocationModel assetmodel)
@@ -69,7 +81,11 @@ public class ModelUtil
 
    }
 
-
+   public void refreshData() {
+       poptimizer.refreshDataFromDB();
+      fixoptimizer.refreshDataFromDB();
+      tlhSecurityCollection.refreshDataFromDB();
+   }
 
    public Portfolio[] buildPortfolio(AssetClass[] assetData, ProfileData profileData)
    {

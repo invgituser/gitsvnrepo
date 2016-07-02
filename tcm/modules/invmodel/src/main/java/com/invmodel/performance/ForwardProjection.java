@@ -36,6 +36,9 @@ public class ForwardProjection
 
    private ForwardProjection()
    {
+      this.portfolioOptimizer = PortfolioOptimizer.getInstance();
+      this.fixedOptimizer = FixedModelOptimizer.getInstance();
+
    }
 
    public void setPortfolioOptimizer(PortfolioOptimizer portfolioOptimizer)

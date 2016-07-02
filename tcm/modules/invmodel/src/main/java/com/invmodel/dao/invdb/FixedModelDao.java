@@ -142,15 +142,16 @@ public class FixedModelDao extends JdbcDaoSupport
                   level,
                   theme,
                   asset,
-                  convert.getStrData(rs.get("asset")),
-                  convert.getStrData(rs.get("ticker")),
-                  convert.getStrData(rs.get("name")),
-                  convert.getStrData(rs.get("keyname")),        // same as ticker/subassset
+                  convert.getStrData(rs.get("asset")),  // assetname
+                  convert.getStrData(rs.get("ticker")), // ticker
+                  convert.getStrData(rs.get("name")),   // name
+                  convert.getStrData(rs.get("keydescription")),  // subasset
                   convert.getStrData(rs.get("keydescription")), // displayname
                   convert.getStrData(rs.get("color")),
                   convert.getDoubleData(rs.get("allocation")),
                   convert.getIntData(rs.get("sortorder"))
                );
+
                if (themeMap.containsKey(key)) {
                   if (themeMap.get(key).getAsset().containsKey(asset)) {
                      themeMap.get(key).getAsset().get(asset).addPortfolio(portfolio);

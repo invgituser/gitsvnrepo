@@ -106,14 +106,13 @@ public class CustomerData extends ProfileData
    @Autowired
    private WebUtil webutil;
 
-   @ManagedProperty("#{invmodelutil}")
-   public ModelUtil invmodel;
-   public void setInvmodel(ModelUtil invmodel)
+   @ManagedProperty("#{modelUtil}")
+   public ModelUtil modelUtil;
+   public void setModelUtil(ModelUtil modelUtil)
    {
-      this.invmodel = invmodel;
+      this.modelUtil = modelUtil;
    }
-
-   /*
+/*
    @ManagedProperty("#{assetAllocationModel}")
    public AssetAllocationModel allocModel;
 
@@ -135,9 +134,9 @@ public class CustomerData extends ProfileData
       return manageGoalinstance;
    }
 
-   public ModelUtil getInvmodel()
+   public ModelUtil getModelUtil()
    {
-      return invmodel;
+      return modelUtil;
    }
 
    public Boolean getManaged()
@@ -1032,7 +1031,7 @@ public class CustomerData extends ProfileData
       AssetClass[] aamc;
       try {
          setAssetData(null);
-         aamc = invmodel.buildAllocation(getProfileInstance());
+         aamc = modelUtil.buildAllocation(getProfileInstance());
          if (aamc != null)  {
             setAssetData(aamc);
          }
@@ -1052,25 +1051,15 @@ public class CustomerData extends ProfileData
          aamc = getAssetData();
          if (aamc != null)
          {
-            pfclass = invmodel.buildPortfolio(aamc,
+            pfclass = modelUtil.buildPortfolio(aamc,
                                       getProfileInstance());
             if (pfclass != null)
             {
                setPortfolioData(pfclass);
-
                // Now refresh the Display List
-               rollupAssetClass(pfclass[0]);
                loadPortfolioList(displayYear);
             }
-
-/*
-            if (getUserAssetOverride()) {
-               getAllocModel().overrideAssetWeight(aamc[displayYear], this.getEditableAsset());
-            }
-*/
-
-            // totalAssetClassWeights(aamc[displayYear].getAssetclass(), displayYear);
-
+            rollupAssetClass(pfclass[0]);
          }
 
       }
@@ -1099,9 +1088,9 @@ public class CustomerData extends ProfileData
       }
 
 
-      ArrayList<ProjectionData[]> perfData = invmodel.buildProjectionData(getProfileInstance());
+      ArrayList<ProjectionData[]> perfData = modelUtil.buildProjectionData(getProfileInstance());
       setProjectionData(perfData.get(0));
-      invmodel.goalTracking(getProfileInstance());
+      modelUtil.goalTracking(getProfileInstance());
 
    }
 
@@ -1294,21 +1283,24 @@ public class CustomerData extends ProfileData
             String assetname = seclist.getAssetclass();
             Double wght = seclist.getWeight();
             Double money = seclist.getMoney();
+            String color = seclist.getColor();
 
             if (! tallyAssetclass.containsKey(assetname)) {
                Asset asset = new Asset();
                asset.setAsset(assetname);
+               asset.setColor(color);
                asset.setActualweight(wght);
                asset.setAllocweight(wght);
                asset.setValue(money);
+               tallyAssetclass.put(assetname,asset);
             }
             else {
                Asset asset = tallyAssetclass.get(assetname);
                Double newwght =  wght + asset.getActualweight();
                asset.setActualweight(newwght);
                asset.setAllocweight(newwght);
-               asset.setAllocweight(wght);
                asset.setValue(money + asset.getValue());
+               tallyAssetclass.put(assetname,asset);
             }
          }
 

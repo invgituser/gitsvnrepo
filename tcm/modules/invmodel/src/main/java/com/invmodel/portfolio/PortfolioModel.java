@@ -32,8 +32,11 @@ public class PortfolioModel
       return instance;
    }
 
-   private PortfolioModel()
+   public PortfolioModel()
    {
+      portfolioOptimizer = PortfolioOptimizer.getInstance();
+      fixedOptimizer = FixedModelOptimizer.getInstance();
+      secCollection = new SecurityCollection();
    }
 
    public void setPortfolioOptimizer(PortfolioOptimizer portfolioOptimizer)

@@ -34,8 +34,6 @@ public class NewRebal
 
       SecurityCollection secCollection = new SecurityCollection();
       secCollection.loadDataFromDB(InvConst.INVESSENCE_ADVISOR, InvConst.DEFAULT_THEME);
-      rbal.setPortfolioOptimizer(portfolioOptimizer);
-      rbal.setSecurityDAO(secCollection);
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
       // Now we can do rebalaning on account(s).

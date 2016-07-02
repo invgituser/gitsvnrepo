@@ -4,6 +4,7 @@ import com.invmodel.asset.*;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.invdb.*;
 import com.invmodel.inputData.*;
+import com.invmodel.model.ModelUtil;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
 import com.invmodel.performance.*;
@@ -58,6 +59,9 @@ public class TestDistribution
 
       // doMatrixMultiplication();
 
+      ModelUtil modelUtil = ModelUtil.getInstance();
+      modelUtil.refreshData();
+
       int age, duration;
       String risk, tax;
 
@@ -104,54 +108,24 @@ public class TestDistribution
       profileData.setPortfolioIndex(80);
       //profileData.offsetRiskIndex();
 
-      //createRandomNumbers();
-
-      PortfolioOptimizer poptimizer = PortfolioOptimizer.getInstance();
-      poptimizer.refreshDataFromDB();
-      FixedModelOptimizer fixoptimizer = FixedModelOptimizer.getInstance();
-      fixoptimizer.refreshDataFromDB();
-
-
-      Random randomGenerator = new Random();
-
-      //int randomAge = randomGenerator.nextInt(100);
-
-      //profileData.setAge(randomAge);
-      //age = profileData.getAge();
       profileData.setNumOfAllocation(1);
-      AssetAllocationModel assetAllocationModel = AssetAllocationModel.getInstance();
-      assetAllocationModel.setPortfolioOptimizer(poptimizer);
-      assetAllocationModel.setFixedOptimizer(fixoptimizer);
-
-      // assetAllocationModel.setHr(HistoricalReturns.getInstance());
-      AssetClass[] aamc = assetAllocationModel.buildAllocation(profileData);
+      AssetClass[] aamc = modelUtil.buildAllocation(profileData);
       profileData.setAssetData(aamc);
 
-      // LinearOptimizer lpProc = LinearOptimizer.getInstance();
-      // lpProc.process(1000L,profileData.getAdvisor(),profileData.getTheme(), profileData, aamc[0]);
-
-      PortfolioModel portfolioModel = new PortfolioModel();
-      portfolioModel.setPortfolioOptimizer(poptimizer);
-      portfolioModel.setFixedOptimizer(fixoptimizer);
-      SecurityCollection secDao = new SecurityCollection();
-      portfolioModel.setSecurityDao(secDao);
-      // portfolioModel.setMonthlyDao(DailyReturns.getInstance());
-      //profileData.setNumOfPortfolio(profileData.getHorizon());
-
       profileData.setNumOfPortfolio(1);
-      Portfolio[] pfclass = portfolioModel.buildPortfolio(aamc, profileData);
+      Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
       tax = "No";
 
       if (profileData.getFixedModel()) {
-         Map<String, ProjectionData[]> prjctdata = fixoptimizer.getProjectionReport().calcuatePerformance(profileData.getAge(), profileData.getHorizon(), profileData.getInitialInvestment().doubleValue());
+         ArrayList<ProjectionData[]> prjctdata = modelUtil.buildProjectionData(profileData);
          System.out.println("Fixed Model Performace Calculated.");
 
       }
       else {
-         ProjectionReport portPerf = ProjectionReport.getInstance();
-         ProjectionData[] perfData = portPerf.getPortfolioPerformance(pfclass, 20,0);
-         portPerf.calcGrowthInfo(perfData, perfData.length, profileData);
+         ArrayList<ProjectionData[]> prjdata = modelUtil.buildProjectionData(profileData);
+         ProjectionData[] perfData = prjdata.get(0);
+         // calcGrowthInfo(perfData, perfData.length, profileData);
          //Create a assetPerformanceFile
          createAssetPerformanceFile(tax, pfclass, aamc, age);
 
