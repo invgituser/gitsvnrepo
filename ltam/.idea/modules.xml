@@ -2,15 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/modules/broker-services/broker-services.iml" filepath="$PROJECT_DIR$/modules/broker-services/broker-services.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/broker-webservices/broker-webservices.iml" filepath="$PROJECT_DIR$/modules/broker-webservices/broker-webservices.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/core/core.iml" filepath="$PROJECT_DIR$/modules/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/download-services/download-services.iml" filepath="$PROJECT_DIR$/modules/download-services/download-services.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/emailer/emailer.iml" filepath="$PROJECT_DIR$/modules/emailer/emailer.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/eod/eod.iml" filepath="$PROJECT_DIR$/modules/eod/eod.iml" />
       <module fileurl="file://$PROJECT_DIR$/ltam.iml" filepath="$PROJECT_DIR$/ltam.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/ltammodel/ltammodel.iml" filepath="$PROJECT_DIR$/modules/ltammodel/ltammodel.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/modules.iml" filepath="$PROJECT_DIR$/modules/modules.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/parent.iml" filepath="$PROJECT_DIR$/modules/parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/modules/service/service.iml" filepath="$PROJECT_DIR$/modules/service/service.iml" />
       <module fileurl="file://$PROJECT_DIR$/modules/web/web.iml" filepath="$PROJECT_DIR$/modules/web/web.iml" />
     </modules>
   </component>

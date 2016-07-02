@@ -26,6 +26,7 @@
    <http pattern="/signup.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/signup2.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/signup3.xhtml" security="none" create-session="never" use-expressions="true"/>
+   <http pattern="/signup4.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/forgot.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/activate.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/reset.xhtml" security="none" create-session="never" use-expressions="true"/>

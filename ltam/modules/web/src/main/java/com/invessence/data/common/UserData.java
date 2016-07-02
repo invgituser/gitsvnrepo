@@ -12,7 +12,7 @@ public class UserData
 {
    private SecurityQuestions securityQuestions = new SecurityQuestions();
 
-   private static UserData instance = null;
+   private UserData instance = null;
    private Long logonID = null;
    private String logonstatus = "A";
 
@@ -108,7 +108,7 @@ public class UserData
 
    }
 
-   public static UserData getInstance()
+   public UserData getInstance()
    {
       return instance;
    }

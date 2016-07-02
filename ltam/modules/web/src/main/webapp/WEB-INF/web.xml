@@ -120,7 +120,7 @@
 
    <session-config>
       <!-- Session idle timeout in seconds. -->
-	  <session-timeout>300</session-timeout>
+	  <session-timeout>600</session-timeout>
 	</session-config>
 
    <error-page>

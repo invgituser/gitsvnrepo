@@ -16,7 +16,6 @@
         <!-- BOX START -->
         <div class="layout-portlets-box">
             <div class="Container100">
-                <div class="ContainerIndent">
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
                         <h:form>
                             <p:commandButton value="Yes" type="button"
@@ -62,7 +61,7 @@
                                 </p:column>
                                 <p:column sortBy="#{managedVar.rep}"
                                           headerText="Rep"
-                                          style="text-align: left; width: 60px"
+                                          style="text-align: left;"
                                           resizable="true">
                                     <h:outputText value="#{managedVar.rep}"/>
                                 </p:column>
@@ -104,7 +103,6 @@
                         </div>
 
                     </h:form>
-                </div>
             </div>
         </div>
         <!-- BOX END -->

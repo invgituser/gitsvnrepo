@@ -34,6 +34,7 @@ public class UserInfoDAO extends JdbcDaoSupport
    // Called By profileBean;
    public void selectUserInfo(Long logonID, String userid, String email, UserData data)
    {
+      logger.debug("LOG: Calling userInfoDAO.selectUserInfo(" + logonID + ", " + userid + ", " + email + "), SP: sel_user_logon");
       UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1);
       Map outMap = sp.selectUserProfile(logonID, userid, email);
       try {
@@ -46,6 +47,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                {
                   Map rs = (Map) rows.get(i);
 
+                  logger.debug("LOG: selectUserInfo: Data was fetched, now setting to data object.");
                   data.setLogonID(convert.getLongData(rs.get("logonid")));
                   data.setUserID(convert.getStrData(rs.get("userid")));
                   data.setEmail(convert.getStrData(rs.get("email")));
@@ -72,8 +74,8 @@ public class UserInfoDAO extends JdbcDaoSupport
          }
       }
       catch (Exception ex) {
-         System.out.print("Error when attempting to collect data from sel_user_logon: "+ logonID + "," + userid + "," + email);
-         ex.printStackTrace();
+         logger.debug("LOG: selectUserInfo: Exception." + ex.getMessage());
+         logger.debug("Message", ex);
       }
    }
 
@@ -195,7 +197,7 @@ public class UserInfoDAO extends JdbcDaoSupport
    public void getUserByEmail(String email, UserData userdata) throws DataAccessException
    {
 
-      if (userdata != null) {
+         logger.debug("LOG: userInfoDAO.getUserByEmail(" + email + ") , SP = sel_user_info");
          UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_info",5);
          userdata.resetData();
          Map outMap = sp.getUserByEmail(email);
@@ -207,6 +209,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                   int i = 0;
                   for (Map<String, Object> map : rows)
                   {
+                     logger.debug("LOG: getUserByEmail: data fetched and setting it to data object");
                      Map rs = (Map) rows.get(i);
                      userdata.setEmail(convert.getStrData(rs.get("email")));
                      userdata.setFullName(convert.getStrData(rs.get("name")));
@@ -223,32 +226,17 @@ public class UserInfoDAO extends JdbcDaoSupport
                   }
 
                   if (i == 0){
-                     userdata.setFullName(null);
-                     userdata.setFirstName(null);
-                     userdata.setLastName(null);
-                     userdata.setAccess(null);
-                     userdata.setRep(null);
-                     userdata.setAdvisor(null);
-                     userdata.setLogonID(0L);
-                     userdata.setUserID(null);
-                     userdata.setEmail(null);
-
+                     logger.debug("LOG: userInfoDAO.getUserByEmail: NO DATA found, resetting the object.");
+                     userdata.resetData();
                   }
 
                }
             }
          }
          catch (Exception ex) {
-            System.out.println("Error, when attempting to fetch from `sel_user_info`: " + email);
-            ex.printStackTrace();
-            userdata.setFullName(null);
-            userdata.setRep(null);
-            userdata.setAdvisor(null);
-            userdata.setLogonID(0L);
-            userdata.setUserID(null);
-            userdata.setEmail(null);
+            logger.debug("ERROR: userInfoDAO.getUserByEmail: Exception" + ex.getMessage());
+            logger.debug("Message", ex);
          }
-      }
    }
 
 
