@@ -22,7 +22,7 @@
                             </div>
                         </div>
 
-                        <div class="Wid35 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
+                        <div class="Wid30 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
                             <div class="ContainerIndent">
                                 <div class="EmptyBox5"></div>
                                 <span class="Fs14 DispBlock gray">Expected Return</span>
@@ -46,7 +46,6 @@
                             </div>
                         </div>
                         <div class="Container50 Fleft Responsive100"><!-- ROHIT's CHANGE -->
-                            <div class="ContainerIndent">
                                 <p:dataTable styleClass="invAllocTable"
                                              value="#{tcmpb.editableAsset}"
                                              var="assetList">
@@ -55,18 +54,17 @@
                                         <h:outputText value=" "/>
                                     </p:column>
 
-                                    <p:column styleClass="Wid40 TexAlLeft"
+                                    <p:column styleClass="Wid60 TexAlLeft"
                                               resizable="true" headerText="Asset"><!-- ROHIT's CHANGE -->
                                         <h:outputText value="#{assetList.asset}"/>
                                     </p:column>
-                                    <p:column styleClass="Wid40 num-text-align TexAlRight"
+                                    <p:column styleClass="Wid35 num-text-align TexAlRight"
                                               resizable="true" headerText="Weight"><!-- ROHIT's CHANGE -->
                                         <h:outputText value="#{assetList.userEdit}">
                                             <f:convertNumber pattern="##0.00%"/>
                                         </h:outputText>
                                     </p:column>
                                 </p:dataTable>
-                            </div>
                         </div>
                 </div>
         </div>

@@ -136,7 +136,7 @@ public class TCMDashBean implements Serializable
             uiLayout.doMenuAction("/pages/consumer/overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
          }
          else {
-            uiLayout.doMenuAction("consumer", "cadd.xhtml?acct" + selectedAccount.getAcctnum().toString());
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());
          }
       }
       catch (Exception ex)

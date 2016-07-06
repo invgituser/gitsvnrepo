@@ -282,10 +282,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          getGoalData().setTerm(getHorizon().doubleValue());
          setRiskIndex(riskCalculator.offsetRiskIndex(getInstance()));
          createAssetPortfolio(1);
-         //if (getPortfolioData() != null) {
-         //charts.createGoalChart(getProjectionData(), getGoalData());
-         //}
-         saveProfile();
       }
    }
 
@@ -711,18 +707,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
-         if (formEdit == null)
-         {
-            validate = validateProfile(); // Redirect to logon window.
-         }
-         else
-         {
             if (formEdit)
             {
-               validate = validateProfile(); // Check if session is still valid.  If not, redirect to logon
-
-               if (validate)
-               {
                   // setDefaults();
                   acctnum = saveDAO.saveProfileData(getInstance());
                   if (acctnum > 0)
@@ -735,8 +721,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                   }
                   // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
                   formEdit = false;
-               }
-            }
          }
       }
       catch (Exception ex)
@@ -754,12 +738,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
-         validate = validateProfile();
-
-         if (validate)
-         {
             saveProfile();
-         }
          // if (canOpenAccount == 0) {
          webutil.redirect("/pages/consumer/funding.xhtml?acct=" + getAcctnum(), null);
          //getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
@@ -927,10 +906,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          setSelectedchoice4(whichslide.toString());
       }
 
-      if (getProjectionDatas() == null) {
-         calcProjectionChart();
-      }
-      charts.createProjectionChart(getProjectionDatas().get(whichslide));
+      calcProjectionChart();
+      charts.createProjectionChart(getProjectionDatas().get(whichslide), getHorizon());
    }
 }
 

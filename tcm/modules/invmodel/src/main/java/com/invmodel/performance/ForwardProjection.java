@@ -146,7 +146,7 @@ public class ForwardProjection
 
       try
       {
-         Integer numOfYears = (horizon <= 0) ? 1 : horizon;
+         Integer numOfYears = (horizon <= 0) ? 20 : horizon;
          ProjectionData[] array = new ProjectionData[numOfYears];
          Double totalCost = 0.0;
          double portGrowth = invested;

@@ -103,8 +103,8 @@ function goals_extensions()
     };
 
     this.cfg.fillBetween = {
-        series1: 0,
-        series2: 1,
+        series1: 2,
+        series2: 3,
         color: "#00FF00",
         baseSeries: 0,
         fill: true

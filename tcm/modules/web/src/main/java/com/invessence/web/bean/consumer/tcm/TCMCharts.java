@@ -251,18 +251,18 @@ public class TCMCharts implements Serializable
       }
    }
 
-   public void createProjectionChart(ProjectionData[] projectionData)
+   public void createProjectionChart(ProjectionData[] projectionData, Integer horizon)
    {
       Integer year;
       Integer noOfYlabels = 0;
       Integer totalYlabels = 0;
       Integer yIncrement = 1;
-      Integer MAXPOINTONGRAPH = 30;
+      Integer MAXPOINTONGRAPH = 20;
       Long moneyInvested;
       Long money;
       Double dividingFactor = 1.0;
 
-      goalChart = new LineChartModel();
+      goalChart = null;
       try
       {
          if (projectionData == null)
@@ -272,6 +272,7 @@ public class TCMCharts implements Serializable
             return;
 
 
+         goalChart = new LineChartModel();
          LineChartSeries totalGrowth = new LineChartSeries();
          // LineChartSeries totalInvested = new LineChartSeries();
          LineChartSeries lower1 = new LineChartSeries();
@@ -287,9 +288,10 @@ public class TCMCharts implements Serializable
          upper1.setLabel("Upper1");
          upper2.setLabel("Upper2");
 
-         yIncrement = (int) (((double) projectionData.length) / ((double) MAXPOINTONGRAPH));
+         totalYlabels = (horizon < 10) ? 10 : ((horizon > MAXPOINTONGRAPH) ? MAXPOINTONGRAPH : horizon);
+         yIncrement = (int) ((totalYlabels) / ((double) horizon));
          yIncrement = yIncrement + 1;  // offset by 1
-         noOfYlabels = (int) (((double) projectionData.length) / ((double) yIncrement)) % MAXPOINTONGRAPH;
+         noOfYlabels = (int) (totalYlabels / ((double) yIncrement) % horizon);
          // Mod returns 0 at its interval.  So on 30, we want to rotate it 90.
          noOfYlabels = (noOfYlabels == 0) ? projectionData.length : noOfYlabels;
          if (noOfYlabels <= 10)
@@ -306,7 +308,6 @@ public class TCMCharts implements Serializable
          }
 
          int y = 0;
-         totalYlabels = projectionData.length - 1;
          Calendar cal = Calendar.getInstance();
          calendarYear = cal.get(cal.YEAR);
          minYearPoint = calendarYear;
