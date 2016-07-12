@@ -7,46 +7,44 @@
 
     <div class="Container100 TextAlCenter">
 
-        <div class="TexAlLeft">
+        <div class="TexAlCenter">
             <h3>
-                My name is
-                <h:outputText styleClass="ShowOnMobile" value="&lt;br/&gt;" escape="false" />
-                <p:inputText styleClass="invInputText input_namewid1"  value="#{tcmpb.firstname}"
+                <div class="mobileFullWidth">My name is</div>
+                <p:inputText styleClass="invInputText input_namewid1 mobileFullWidthinput"  value="#{tcmpb.firstname}"
                              required="true" requiredMessage="Firstname is required!"
                              size="8"/>
                 
                 <p:spacer width="5px"/>
-                <p:inputText styleClass="invInputText input_namewid1" value="#{tcmpb.lastname}"
+                <p:inputText styleClass="invInputText input_namewid1 mobileFullWidthinput" value="#{tcmpb.lastname}"
                              required="true" requiredMessage="Lastname is required!"
-                             size="8"/>.
+                             size="8"/>
             </h3>
         </div>
         <div class="EmptyBox20"></div>
 
-        <div class="TexAlLeft">
+        <div class="TexAlCenter">
             <h3>
-                I am <pe:inputNumber styleClass="invInputText input_agewid1"
-                                     style="padding:0px!"
+               <div class="mobileFullWidth"> I am </div><pe:inputNumber styleClass="invInputText input_agewid1 mobileFullWidthinput"
                                      value="#{tcmpb.age}"
                                      decimalPlaces="0" minValue="0" maxValue="110" size="9"
                     required="true" requiredMessage="Age is required!"
-                    validatorMessage="Age should be between 18 and 100."/> years old.
+                    validatorMessage="Age should be between 18 and 100."/> <div class="mobileFullWidth">years old.</div>
             </h3>
         </div>
 
         <div class="EmptyBox20"></div>
 
-        <div class="TexAlLeft">
+        <div class="TexAlCenter">
             <h3>
-            I plan on investing
-            <pe:inputNumber styleClass="invInputText input_investwid1" style="padding:0px!important;"
+            <div class="mobileFullWidth">I plan on investing</div>
+            <pe:inputNumber styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput" 
                           value="#{tcmpb.initialInvestment}"
                           maxlength="11" decimalPlaces="0" symbol="$"
                     required="true" requiredMessage="Investment is required!"
                     validatorMessage="Min. of $500 investment is required!">
-            </pe:inputNumber> for
-                <p:spacer width="2" height="1"/>
-                <p:selectOneMenu id="q3" value="#{tcmpb.goal}"
+            </pe:inputNumber> 
+            <div class="mobileFullWidth">for</div>
+                <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="dropdownInputFullWidth"
                                  required="true" requiredMessage="Please choose investment strategy">
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"/>
                     <f:selectItem itemLabel="Choose One" itemValue=""/>
