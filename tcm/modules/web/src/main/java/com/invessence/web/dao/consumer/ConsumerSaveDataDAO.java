@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import com.invessence.converter.SQLData;
 import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.data.consumer.CTO.ClientData;
+import com.invessence.web.data.consumer.RiskCalculator;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "consumerSaveDataDAO")
@@ -34,11 +35,11 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       sp.saveFinancials(mgoal);
    }
 
-   public void saveRiskProfile(CustomerData mgoal )
+   public void saveRiskProfile(Long acctnum, RiskCalculator data)
    {
       DataSource ds = getDataSource();
-      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "updt_user_risk_index",2);
-      sp.saveRiskProfile(mgoal);
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "sav_user_risk_questions",2);
+      sp.saveRiskProfile(acctnum, data);
    }
 
    public void saveAllocation(CustomerData mgoal )

@@ -11,15 +11,15 @@
             <h3>
                 3. What is your financial situation, including expenses, loans, savings for retirement and emergencies?
             </h3>
-            <p:selectOneRadio value="#{cepb.selectedchoice3}"
+            <p:selectOneRadio value="#{cepb.riskCalculator.ans3}"
                               layout="pageDirection">
                 <p:ajax listener="#{cepb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="I feel very secure about all my financial needs." itemValue="0" />
-                <f:selectItem itemLabel="I feel fairly secure." itemValue="1" />
-                <f:selectItem itemLabel="I feel secure for the next 12 months." itemValue="2" />
-                <f:selectItem itemLabel="I don’t feel very secure." itemValue="3" />
-                <f:selectItem itemLabel="I don’t feel at all secure." itemValue="4" />
+                <f:selectItem itemLabel="I feel very secure about all my financial needs." itemValue="1" />
+                <f:selectItem itemLabel="I feel fairly secure." itemValue="2" />
+                <f:selectItem itemLabel="I feel secure for the next 12 months." itemValue="3" />
+                <f:selectItem itemLabel="I don’t feel very secure." itemValue="4" />
+                <f:selectItem itemLabel="I don’t feel at all secure." itemValue="5" />
             </p:selectOneRadio>
         </div>
     </div>

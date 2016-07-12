@@ -9,7 +9,7 @@ import com.invessence.web.bean.consumer.ClientBean;
 import com.invessence.converter.SQLData;
 import com.invessence.web.dao.advisor.AdvisorListSP;
 import com.invessence.web.data.common.CustomerData;
-import com.invessence.web.data.consumer.ReportData;
+import com.invessence.web.data.consumer.*;
 import com.invmodel.inputData.GoalsData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -19,10 +19,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public List<CustomerData> getClientProfileData(Long logonid, Long acctnum) {
+   public ArrayList<CustomerData> getClientProfileData(Long logonid, Long acctnum) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData2",0);
-      List<CustomerData> listProfiles = new ArrayList<CustomerData>();
+      ArrayList<CustomerData> listProfiles = new ArrayList<CustomerData>();
       Map outMap = sp.loadClientProfileData(logonid, acctnum);
       if (outMap != null)
       {
@@ -92,22 +92,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
             //data.setNetWorth(convert.getIntData(rs.get("networth")));
 
-            data.setSelectedchoice1(convert.getStrData(rs.get("ans1")));
-            data.setSelectedchoice2(convert.getStrData(rs.get("ans2")));
-            data.setSelectedchoice3(convert.getStrData(rs.get("ans3")));
-            data.setSelectedchoice4(convert.getStrData(rs.get("ans4")));
-            data.setSelectedchoice5(convert.getStrData(rs.get("ans5")));
-            data.setSelectedchoice6(convert.getStrData(rs.get("ans6")));
-            data.setSelectedchoice7(convert.getStrData(rs.get("ans7")));
-            data.setSelectedchoice8(convert.getStrData(rs.get("ans8")));
-            data.setSelectedchoice9(convert.getStrData(rs.get("ans9")));
-            data.setSelectedchoice10(convert.getStrData(rs.get("ans10")));
-            data.setSelectedchoice11(convert.getStrData(rs.get("ans11")));
-            data.setSelectedchoice12(convert.getStrData(rs.get("ans12")));
-            data.setSelectedchoice13(convert.getStrData(rs.get("ans13")));
-            data.setSelectedchoice14(convert.getStrData(rs.get("ans14")));
-            data.setSelectedchoice15(convert.getStrData(rs.get("ans15")));
-            if (data.getGoalData() == null )
+         if (data.getGoalData() == null )
                data.setGoalData(new GoalsData());
 
             data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
@@ -224,22 +209,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
                //data.setNetWorth(convert.getIntData(rs.get("networth")));
 
-               data.setSelectedchoice1(convert.getStrData(rs.get("ans1")));
-               data.setSelectedchoice2(convert.getStrData(rs.get("ans2")));
-               data.setSelectedchoice3(convert.getStrData(rs.get("ans3")));
-               data.setSelectedchoice4(convert.getStrData(rs.get("ans4")));
-               data.setSelectedchoice5(convert.getStrData(rs.get("ans5")));
-               data.setSelectedchoice6(convert.getStrData(rs.get("ans6")));
-               data.setSelectedchoice7(convert.getStrData(rs.get("ans7")));
-               data.setSelectedchoice8(convert.getStrData(rs.get("ans8")));
-               data.setSelectedchoice9(convert.getStrData(rs.get("ans9")));
-               data.setSelectedchoice10(convert.getStrData(rs.get("ans10")));
-               data.setSelectedchoice11(convert.getStrData(rs.get("ans11")));
-               data.setSelectedchoice12(convert.getStrData(rs.get("ans12")));
-               data.setSelectedchoice13(convert.getStrData(rs.get("ans13")));
-               data.setSelectedchoice14(convert.getStrData(rs.get("ans14")));
-               data.setSelectedchoice15(convert.getStrData(rs.get("ans15")));
-               if (data.getGoalData() == null )
+              if (data.getGoalData() == null )
                   data.setGoalData(new GoalsData());
 
                data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
@@ -379,7 +349,6 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
    }
 
-
    public ArrayList<ReportData> loadReports(Long logonid, String fromDate, String toDate) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_reports",4);
@@ -417,5 +386,46 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       return reports;
    }
 
+   public void getRiskProfileData(Long acctnum, RiskCalculator data) {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_risk_questions",5);
+      Map outMap = sp.loadRiskProfileData(acctnum);
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
 
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(0);
+               data.setRiskFormula(convert.getStrData(rs.get("riskFormula")));
+               data.setRiskAge(convert.getIntData(rs.get("age")));
+               data.setRetireAge(convert.getIntData(rs.get("retireage")));
+               data.setRiskHorizon(convert.getIntData(rs.get("horizon")));
+               data.setAnswer(1, convert.getStrData(rs.get("ans1")));
+               data.setAnswer(2, convert.getStrData(rs.get("ans2")));
+               data.setAnswer(3, convert.getStrData(rs.get("ans3")));
+               data.setAnswer(4, convert.getStrData(rs.get("ans4")));
+               data.setAnswer(5, convert.getStrData(rs.get("ans5")));
+               data.setAnswer(6, convert.getStrData(rs.get("ans6")));
+               data.setAnswer(7, convert.getStrData(rs.get("ans7")));
+               data.setAnswer(8, convert.getStrData(rs.get("ans8")));
+               data.setAnswer(9, convert.getStrData(rs.get("ans9")));
+               data.setAnswer(10, convert.getStrData(rs.get("ans10")));
+               data.setAnswer(11, convert.getStrData(rs.get("ans11")));
+               data.setAnswer(12, convert.getStrData(rs.get("ans12")));
+               data.setAnswer(13, convert.getStrData(rs.get("ans13")));
+               data.setAnswer(14, convert.getStrData(rs.get("ans14")));
+               data.setAnswer(15, convert.getStrData(rs.get("ans15")));
+               data.setTotalRisk(convert.getDoubleData(rs.get("totalrisk")));
+               break;  // Only load the first account info.
+            }
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
 }

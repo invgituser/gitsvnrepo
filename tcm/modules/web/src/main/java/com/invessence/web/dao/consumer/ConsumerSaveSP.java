@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.data.consumer.CTO.ClientData;
+import com.invessence.web.data.consumer.RiskCalculator;
 import com.invmodel.asset.data.AssetClass;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.*;
@@ -22,10 +23,10 @@ public class ConsumerSaveSP extends StoredProcedure
       switch (mode) {
          case 0:  // save_user_trade_profile
             declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
-            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
-            declareParameter(new SqlParameter("p_advisorlogon", Types.BIGINT));
             declareParameter(new SqlParameter("p_portfolioName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_firstname", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_lastname", Types.VARCHAR));
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_goal", Types.VARCHAR));
             declareParameter(new SqlParameter("p_acctType", Types.VARCHAR));
@@ -65,8 +66,10 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_otherDebt", Types.BIGINT));
             break;
          case 2: // updt_user_risk_index
-            declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_age", Types.TINYINT));
+            declareParameter(new SqlParameter("p_retireage", Types.TINYINT));
+            declareParameter(new SqlParameter("p_horizon", Types.TINYINT));
             declareParameter(new SqlParameter("p_ans1", Types.TINYINT));
             declareParameter(new SqlParameter("p_ans2", Types.TINYINT));
             declareParameter(new SqlParameter("p_ans3", Types.TINYINT));
@@ -82,6 +85,23 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_ans13", Types.TINYINT));
             declareParameter(new SqlParameter("p_ans14", Types.TINYINT));
             declareParameter(new SqlParameter("p_ans15", Types.TINYINT));
+            declareParameter(new SqlParameter("p_formula", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_r1", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r2", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r3", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r4", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r5", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r6", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r7", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r8", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r9", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r10", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r11", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r12", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r13", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r14", Types.TINYINT));
+            declareParameter(new SqlParameter("p_r15", Types.TINYINT));
+            declareParameter(new SqlParameter("p_totalRisk", Types.TINYINT));
             break;
          case 3:   // Not used (Open)
             break;
@@ -188,25 +208,16 @@ public class ConsumerSaveSP extends StoredProcedure
    public Map saveProfileData(CustomerData data)
    {
 
-      String addmodflag = "";
-      int rowExists = 0;
       Double goalDesired = 0.0;
       Map inputMap = new HashMap();
 
       try
       {
-         if (data.getAcctnum() == null || data.getAcctnum() == 0L)
-            inputMap.put("p_acctnum", -1);
-         else
-            inputMap.put("p_acctnum", data.getAcctnum());
-
-         inputMap.put("p_logonid", data.getLogonid());
-
-         inputMap.put("p_advisorlogon", data.getAdvisorlogonid());
-
-
+         inputMap.put("p_acctnum", data.getAcctnum());
          inputMap.put("p_portfolioName", data.getPortfolioName());
          inputMap.put("p_advisor", data.getAdvisor());
+         inputMap.put("p_firstname", data.getFirstname());
+         inputMap.put("p_lastname", data.getLastname());
          inputMap.put("p_theme", data.getTheme());
          inputMap.put("p_goal", data.getGoal());
 
@@ -285,38 +296,47 @@ public class ConsumerSaveSP extends StoredProcedure
 
    }
 
-   public void saveRiskProfile(CustomerData data)
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public void saveRiskProfile(Long acctnum, RiskCalculator data)
    {
 
-      String addmodflag;
-      int rowExists = checkProfileData(data.getAcctnum());
-      if (rowExists != 0)
-      {
-         addmodflag = "M";
-      }
-      else
-      {
-         addmodflag = "A";
-      }
       Map inputMap = new HashMap();
-      inputMap.put("p_addmodflag", addmodflag);
-      inputMap.put("p_acctnum", data.getAcctnum());
-      Integer[] riskAnswers = data.getRiskAnswers();
-      inputMap.put("p_ans1", setDefaultRisk(riskAnswers[0]));
-      inputMap.put("p_ans2", setDefaultRisk(riskAnswers[1]));
-      inputMap.put("p_ans3", setDefaultRisk(riskAnswers[2]));
-      inputMap.put("p_ans4", setDefaultRisk(riskAnswers[3]));
-      inputMap.put("p_ans5", setDefaultRisk(riskAnswers[4]));
-      inputMap.put("p_ans6", setDefaultRisk(riskAnswers[5]));
-      inputMap.put("p_ans7", setDefaultRisk(riskAnswers[6]));
-      inputMap.put("p_ans8", setDefaultRisk(riskAnswers[7]));
-      inputMap.put("p_ans9", setDefaultRisk(riskAnswers[8]));
-      inputMap.put("p_ans10", setDefaultRisk(riskAnswers[9]));
-      inputMap.put("p_ans11", setDefaultRisk(riskAnswers[10]));
-      inputMap.put("p_ans12", setDefaultRisk(riskAnswers[11]));
-      inputMap.put("p_ans13", setDefaultRisk(riskAnswers[12]));
-      inputMap.put("p_ans14", setDefaultRisk(riskAnswers[13]));
-      inputMap.put("p_ans15", setDefaultRisk(riskAnswers[14]));
+      inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_age", setDefaultRisk(data.getRiskAge()));
+      inputMap.put("p_retireage", setDefaultRisk(data.getRetireAge()));
+      inputMap.put("p_horizon", setDefaultRisk(data.getRiskHorizon()));
+      inputMap.put("p_ans1", setDefaultRisk(data.getAnswerValue(1)));
+      inputMap.put("p_ans2", setDefaultRisk(data.getAnswerValue(2)));
+      inputMap.put("p_ans3", setDefaultRisk(data.getAnswerValue(3)));
+      inputMap.put("p_ans4", setDefaultRisk(data.getAnswerValue(4)));
+      inputMap.put("p_ans5", setDefaultRisk(data.getAnswerValue(5)));
+      inputMap.put("p_ans6", setDefaultRisk(data.getAnswerValue(6)));
+      inputMap.put("p_ans7", setDefaultRisk(data.getAnswerValue(7)));
+      inputMap.put("p_ans8", setDefaultRisk(data.getAnswerValue(8)));
+      inputMap.put("p_ans9", setDefaultRisk(data.getAnswerValue(9)));
+      inputMap.put("p_ans10", setDefaultRisk(data.getAnswerValue(10)));
+      inputMap.put("p_ans11", setDefaultRisk(data.getAnswerValue(11)));
+      inputMap.put("p_ans12", setDefaultRisk(data.getAnswerValue(12)));
+      inputMap.put("p_ans13", setDefaultRisk(data.getAnswerValue(13)));
+      inputMap.put("p_ans14", setDefaultRisk(data.getAnswerValue(14)));
+      inputMap.put("p_ans15", setDefaultRisk(data.getAnswerValue(15)));
+      inputMap.put("p_formula", data.getRiskFormula());
+      inputMap.put("p_r1", setDefaultRisk(data.getRiskValue(1)));
+      inputMap.put("p_r2", setDefaultRisk(data.getRiskValue(2)));
+      inputMap.put("p_r3", setDefaultRisk(data.getRiskValue(3)));
+      inputMap.put("p_r4", setDefaultRisk(data.getRiskValue(4)));
+      inputMap.put("p_r5", setDefaultRisk(data.getRiskValue(5)));
+      inputMap.put("p_r6", setDefaultRisk(data.getRiskValue(6)));
+      inputMap.put("p_r7", setDefaultRisk(data.getRiskValue(7)));
+      inputMap.put("p_r8", setDefaultRisk(data.getRiskValue(8)));
+      inputMap.put("p_r9", setDefaultRisk(data.getRiskValue(9)));
+      inputMap.put("p_r10", setDefaultRisk(data.getRiskValue(10)));
+      inputMap.put("p_r11", setDefaultRisk(data.getRiskValue(11)));
+      inputMap.put("p_r12", setDefaultRisk(data.getRiskValue(12)));
+      inputMap.put("p_r13", setDefaultRisk(data.getRiskValue(13)));
+      inputMap.put("p_r14", setDefaultRisk(data.getRiskValue(14)));
+      inputMap.put("p_r15", setDefaultRisk(data.getRiskValue(15)));
+      inputMap.put("p_totalRisk", setDefaultRisk(data.getTotalRisk().intValue()));
 
       super.execute(inputMap);
 

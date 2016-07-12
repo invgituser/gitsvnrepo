@@ -109,6 +109,35 @@ function goals_extensions()
         baseSeries: 0,
         fill: true
     };
+}
+
+function riskq()
+{
+    this.cfg.grid = {
+        backgroundColor: 'transparent',
+        drawBorder: false,
+        shadow: false
+    };
+
+    this.cfg.axesDefaults = {
+        axes: {
+            xaxis: {
+                renderer: {
+                    tickOptions: {
+                        labelPosition: 'middle'
+                    }
+                }
+            }
+        }
+    };
+
+    /*
+     this.cfg.seriesDefaults = {
+     show: true,     // whether to render the series.
+     showMarker: true
+     }
+     */
+
 
 }
 

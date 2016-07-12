@@ -173,6 +173,11 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       return welcomeDialog;
    }
 
+   public INVRiskCalculator getRiskCalculator()
+   {
+      return riskCalculator;
+   }
+
    public void preRenderView()
    {
 
@@ -252,15 +257,15 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    public void onChange()
    {
-      setRiskCalcMethod("C");
+      riskCalculator.setRiskFormula("C");
       formEdit = true;
    }
 
    public void onChangeValue()
    {
-      setRiskCalcMethod("C");
       formEdit = true;
-      setRiskIndex(riskCalculator.offsetRiskIndex(getInstance()));
+      riskCalculator.setRiskFormula("C");
+      setRiskIndex(riskCalculator.calculateRisk());
       createAssetPortfolio(1);
    }
 
@@ -274,10 +279,10 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    {
       if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
       {
-         setRiskCalcMethod("C");
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
-         setRiskIndex(riskCalculator.offsetRiskIndex(getInstance()));
+         riskCalculator.setRiskFormula("C");
+         setRiskIndex(riskCalculator.calculateRisk());
          createAssetPortfolio(1);
          //if (getPortfolioData() != null) {
          //charts.createGoalChart(getProjectionData(), getGoalData());
@@ -290,8 +295,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    {
       formEdit = true;
       setAccountType();
-      setRiskCalcMethod("C");
-      setRiskIndex(riskCalculator.offsetRiskIndex(getInstance()));
+      riskCalculator.setRiskFormula("C");
+      setRiskIndex(riskCalculator.calculateRisk());
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -836,7 +841,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
                   {
                      setAcctnum(acctnum);
                      saveDAO.saveFinancials(getInstance());
-                     saveDAO.saveRiskProfile(getInstance());
+                     saveDAO.saveRiskProfile(acctnum, riskCalculator);
                      saveDAO.saveAllocation(getInstance());
                      saveDAO.savePortfolio(getInstance());
                   }

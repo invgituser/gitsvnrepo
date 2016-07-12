@@ -18,13 +18,13 @@ public class INVRiskCalculator implements RiskCalculator
 {
    private static Double riskValueMatrix[][] = {
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
-      {0.0, 1.0, 2.0, 3.0, 14.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
-      {0.0, 4.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
-      {0.0, 1.0, 2.0, 3.0, 14.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
-      {0.0, 7.0, 14.0, 21.0, 28.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
-      {0.0, 7.0, 14.0, 25.0, 28.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q5
-      {0.0, 14.0, 21.0, 28.0, 28.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q6
-      {0.0, 7.0, 14.0, 25.0, 28.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q7
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
+      {0.0, 0.0, 1.0, 2.0, 3.0, 14.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
+      {0.0, 0.0, 7.0, 14.0, 21.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q4
+      {0.0, 0.0, 7.0, 14.0, 25.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q5
+      {0.0, 0.0, 14.0, 21.0, 28.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q6
+      {0.0, 0.0, 7.0, 14.0, 25.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q7
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q8
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q9
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q10
@@ -32,23 +32,17 @@ public class INVRiskCalculator implements RiskCalculator
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q12
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q13
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q14
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q15
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q16
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q17
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q18
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q19
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q20
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q21
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q15
    };
    private Integer numberofQuestions;
+   private String riskFormula;
    private Double[] riskValues;     // NOTE: Q1 = Position 1.  Zero is of default.
    private String[] answers;
    private Integer riskAge;
+   private Integer retireAge;
    private Integer riskHorizon;
-   private Integer finaRiskOffet;
+   private Double totalRisk;
    SQLData converter = new SQLData();
-
-
 
    public INVRiskCalculator()
    {
@@ -58,8 +52,46 @@ public class INVRiskCalculator implements RiskCalculator
 
    public INVRiskCalculator(Integer numberofQuestions)
    {
-      this.numberofQuestions =  numberofQuestions;
+      this.numberofQuestions = numberofQuestions;
       resetAllData();
+   }
+
+   public Double calculateRisk()
+   {
+      Double riskIndex = 0.0;
+      try
+      {
+         if (riskFormula != null && riskFormula.equalsIgnoreCase("C"))
+         {
+            if (numberofQuestions == null)
+            {
+               setTotalRisk(0.0);
+               return 0.0;
+            }
+            for (int loop = 0; loop < numberofQuestions; loop++)
+            {
+               if (answers[loop] != null)
+               {
+                  String ansstr = answers[loop];
+                  Integer ansvalue = converter.getIntData(ansstr);
+                  Double value = riskValueMatrix[loop][ansvalue];
+                  riskValues[loop] = value;
+                  riskIndex += value;
+               }
+            }
+            setTotalRisk(riskIndex);
+            return riskIndex;
+         }
+         else
+         {
+            return totalRisk;
+         }
+      }
+      catch (Exception ex)
+      {
+         setTotalRisk(0.0);
+         return 0.0;
+      }
    }
 
    public Integer getNumberofQuestions()
@@ -86,252 +118,352 @@ public class INVRiskCalculator implements RiskCalculator
    {
       return answers;
    }
+
    public void setAnswers(String[] answers)
    {
       this.answers = answers;
    }
 
+   public Integer getHorizon2Index(Integer value)
+   {
+      if (value == null)
+      {
+         return 0;
+      }
+
+      if (value < 3)
+      {
+         return 1;
+      }
+
+      if (value < 5)
+      {
+         return 2;
+      }
+
+      if (value < 10)
+      {
+         return 3;
+      }
+
+      if (value < 15)
+      {
+         return 4;
+      }
+
+      return 5;
+   }
+
+   public String getAns1()
+   {
+      return getAnswers()[1];
+   }
+
+   public void setAns1(String value)
+   {
+      setAnswer(1, value);
+   }
+
+   public String getAns2()
+   {
+      return getAnswers()[2];
+   }
+
+   public void setAns2(String value)
+   {
+      setAnswer(2, value);
+   }
+
+   public String getAns3()
+   {
+      return getAnswers()[3];
+   }
+
+   public void setAns3(String value)
+   {
+      setAnswer(3, value);
+   }
+
+   public String getAns4()
+   {
+      return getAnswers()[4];
+   }
+
+   public void setAns4(String value)
+   {
+      setAnswer(4, value);
+   }
+
+   public String getAns5()
+   {
+      return getAnswers()[5];
+   }
+
+   public void setAns5(String value)
+   {
+      setAnswer(5, value);
+   }
+
+   public String getAns6()
+   {
+      return getAnswers()[6];
+   }
+
+   public void setAns6(String value)
+   {
+      setAnswer(6, value);
+   }
+
+   public String getAns7()
+   {
+      return getAnswers()[7];
+   }
+
+   public void setAns7(String value)
+   {
+      setAnswer(7, value);
+   }
+
+   public String getAns8()
+   {
+      return getAnswers()[8];
+   }
+
+   public void setAns8(String value)
+   {
+      setAnswer(8, value);
+   }
+
+   public String getAns9()
+   {
+      return getAnswers()[9];
+   }
+
+   public void setAns9(String value)
+   {
+      setAnswer(9, value);
+   }
+
+   public String getAns10()
+   {
+      return getAnswers()[10];
+   }
+
+   public void setAns10(String value)
+   {
+      setAnswer(10, value);
+   }
+
+   public String getAns111()
+   {
+      return getAnswers()[11];
+   }
+
+   public void setAns11(String value)
+   {
+      setAnswer(11, value);
+   }
+
+   public String getAns12()
+   {
+      return getAnswers()[12];
+   }
+
+   public void setAns12(String value)
+   {
+      setAnswer(12, value);
+   }
+
+   public String getAns13()
+   {
+      return getAnswers()[13];
+   }
+
+   public void setAns13(String value)
+   {
+      setAnswer(13, value);
+   }
+
+   public String getAns14()
+   {
+      return getAnswers()[14];
+   }
+
+   public void setAns14(String value)
+   {
+      setAnswer(14, value);
+   }
+
+   public String getAns15()
+   {
+      return getAnswers()[15];
+   }
+
+   public void setAns15(String value)
+   {
+      setAnswer(15, value);
+   }
+
+   @Override
+   public String getRiskFormula()
+   {
+      return riskFormula;
+   }
+
+   @Override
+   public void setRiskFormula(String value)
+   {
+      this.riskFormula = value;
+   }
+
+   @Override
    public Integer getRiskAge()
    {
       return riskAge;
    }
 
-   public void setRiskAge(Integer riskAge)
+   @Override
+   public void setRiskAge(Integer value)
    {
-      this.riskAge = riskAge;
+      this.riskAge = value;
    }
 
+   @Override
+   public Integer getRetireAge()
+   {
+      return retireAge;
+   }
+
+   @Override
+   public void setRetireAge(Integer value)
+   {
+      this.retireAge = value;
+   }
+
+   @Override
    public Integer getRiskHorizon()
    {
       return riskHorizon;
    }
 
-   public void setRiskHorizon(Integer riskHorizon)
+   @Override
+   public void setRiskHorizon(Integer value)
    {
-      this.riskHorizon = riskHorizon;
-   }
-
-   public Integer getFinaRiskOffet()
-   {
-      return finaRiskOffet;
-   }
-
-   public void setFinaRiskOffet(Integer finaRiskOffet)
-   {
-      this.finaRiskOffet = finaRiskOffet;
-   }
-
-   public void resetAllData() {
-      riskValues = new Double[riskValueMatrix.length];
-      answers = new String[riskValueMatrix.length];
+      this.riskHorizon = value;
    }
 
    @Override
-   public void setAnswer(Integer index, String value) {
+   public Double getTotalRisk()
+   {
+      return totalRisk;
+   }
+
+   @Override
+   public void setTotalRisk(Double value)
+   {
+      totalRisk = value;
+   }
+
+   @Override
+   public Integer getRiskValue(Integer index)
+   {
       if (index < 1)
-         return;
+      {
+         return 0;
+      }
 
       if (index > riskValueMatrix.length)
+      {
+         return 0;
+      }
+
+      if (riskValues[index] == null)
+      {
+         return 0;
+      }
+
+      return riskValues[index].intValue();
+   }
+
+   @Override
+   public Integer getAnswerValue(Integer index)
+   {
+      if (index < 1)
+      {
+         return 0;
+      }
+
+      if (index > riskValueMatrix.length)
+      {
+         return 0;
+      }
+
+      if (answers[index] == null)
+      {
+         return 0;
+      }
+
+      return converter.getIntData(answers[index]);
+   }
+
+   @Override
+   public void setAnswer(Integer index, String value)
+   {
+      if (index < 1)
+      {
          return;
+      }
+
+      if (index > riskValueMatrix.length)
+      {
+         return;
+      }
 
       answers[index] = value;
    }
 
-   @Override
-   public Integer getRiskOffset()
-   {
-      Double riskIndex = 0.0;
-      try
-      {
-         if (numberofQuestions == null) {
-            setFinaRiskOffet(0);
-            return 0;
-         }
 
-         for (int loop = 0; loop < numberofQuestions; loop++)
-         {
-            if (answers[loop] != null)
-            {
-               String ansstr = answers[loop];
-               Integer ansvalue = converter.getIntData(ansstr);
-               Double value = riskValueMatrix[loop][ansvalue];
-               riskValues[loop] = value;
-               riskIndex = (riskIndex > value) ? riskIndex : value;
-            }
-         }
-         setFinaRiskOffet(riskIndex.intValue());
-         return riskIndex.intValue();
-      }
-      catch (Exception ex) {
-         setFinaRiskOffet(0);
-         return 0;
-      }
+   @Override
+   public void resetAllData()
+   {
+      riskValues = new Double[riskValueMatrix.length];
+      answers = new String[riskValueMatrix.length];
+      riskAge = 30;
+      riskHorizon = 10;
+      totalRisk = 0.0;
+      riskFormula = "C";
    }
 
-   // Deprecated: 2016-06-14
    @Override
    public Integer convertRiskWeight2Index(Double weight)
    {
-      // Risk Weight is from 0 to 28, where  28 = low risk, 0 = high risk.
-      // Return Index range is from 0 to 10. NOTE: 0 = low risk, and 10 = high risk.
-      Integer value = 0;
+      Integer value;
       try
       {
-         value = (int) (10.0 - (Math.round(weight / 2.9)));
+         Double dvalue = weight / 100.0;
+         value = dvalue.intValue();
+         return value;
+
       }
       catch (Exception ex)
       {
-         value = 0;
-      }
-      return (value);
-   }
-
-   @Override
-   public Integer getRiskOffset(Integer[] choices)
-   {
-      Double riskIndex = 0.0;
-      try
-      {
-         if (numberofQuestions == null) {
-            setFinaRiskOffet(0);
-            return 0;
-         }
-
-         for (int loop = 0; loop < numberofQuestions; loop++)
-         {
-            if (answers[loop] != null)
-            {
-               String ansstr = answers[loop];
-               Integer ansvalue = converter.getIntData(ansstr);
-               Double value = riskValueMatrix[loop][ansvalue];
-               riskValues[loop] = value;
-               riskIndex = (riskIndex > value) ? riskIndex : value;
-            }
-         }
-         setFinaRiskOffet(riskIndex.intValue());
-         return riskIndex.intValue();
-      }
-      catch (Exception ex) {
-         setFinaRiskOffet(0);
          return 0;
       }
    }
 
-
-   // Deprecated: 2016-06-14
    @Override
    public Double convertIndex2RiskWeight(Double index)
    {
-      // Index range is from 0 to 10. NOTE: 0 = low risk, and 10 = high risk.
-      // Returns Risk Weight from 0 to 28.  28 = low risk, 0 = high risk.
       Double value;
-      value = 28 - ((2.0 * index) + Math.round(index / 1.2));
-      return value;
-   }
-
-   // Deprecated: 2016-06-14
-   @Override
-   public Double offsetRiskIndex(CustomerData cdata)
-   {
-      Double riskOffset = 0.0;
-      Double currentAssets;
-      Double currentLiabilities;
-      double dToEqtRatio;
-
-/*    Prashant 5/8/2015 - We are using portfolio to determin if it is income or growth.
-      // If objective is income preservation of asset, set the riskIndex to less half if smaller than half
-      if (getObjective() == 1)
-      {
-         if (riskIndex < InvConst.MAX_RISK_OFFSET / 2)
-         {
-            riskIndex = InvConst.MAX_RISK_OFFSET / 2;
-            setRiskIndex(riskIndex);
-         }
-      }
-*/
-
-      //12 months of liquid cash to meet expenses
-      currentAssets = ((double) cdata.getTotalIncome() * 0.7 + cdata.getLiquidAsset());
-
-      // 12 months of total liabilities expenses
-      currentLiabilities = (double) cdata.getDependent() * cdata.getYearly() * InvConst.MONTHLY_CHILD_COST + cdata.getTotalExpense();
-
-
-      dToEqtRatio = 0;
-      riskOffset = 1.0 * getRiskOffset(cdata.getRiskAnswers());
-
-      if (currentAssets > 0)
-      {
-         dToEqtRatio = currentLiabilities / currentAssets;
-      }
-
-      Integer dToEqtRatioReliable = 1;
-
-      if (currentAssets < InvConst.MIN_CURRENT_ASSET)
-      {
-         dToEqtRatioReliable = 0;
-      }
-
-      if (dToEqtRatioReliable >= 1)
-      {
-         if (dToEqtRatio > 1.5)
-         {
-            riskOffset = InvConst.MAX_RISK_OFFSET.doubleValue();
-         }
-         else if (dToEqtRatio > 0.5)
-         {
-            riskOffset = riskOffset + (dToEqtRatio - 0.5) * (InvConst.MAX_RISK_OFFSET - riskOffset);
-         }
-      }
-
-      if (riskOffset > InvConst.MAX_RISK_OFFSET)
-      {
-         return (InvConst.MAX_RISK_OFFSET).doubleValue();
-      }
-      else
-      {
-         return (riskOffset);
-      }
-   }
-
-   // Deprecated: 2016-06-14
-   @Override
-   public Double calcRiskOffset(Integer age, Integer horizon, Double riskIndex)
-   {
-      Double adjRiskpoint;
-      double baseNum = 1.0 + ((double) horizon / (double) age);
-      double powerNum = -1.0 * ((double) horizon - 1.0);
       try
       {
-
-         //pdata.offsetRiskIndex();
-         Double riskOffset;
-         if (riskIndex == null)
-         {
-            riskOffset = 0.0;
-         }
-         else
-         {
-            riskOffset = riskIndex;
-         }
-
-
-         adjRiskpoint = ((InvConst.MAX_RISK_OFFSET.doubleValue() - riskOffset) / InvConst.MAX_RISK_OFFSET);
-
-         //This creates a very conservative portfolio
-         //double adj = adj_riskpoint *(1 - Math.pow(baseNum, powerNum));
-         adjRiskpoint = adjRiskpoint * (1.0 - Math.pow(baseNum, powerNum));
-
-         return adjRiskpoint;
+         value = index * 100.0;
+         return value;
       }
-
       catch (Exception ex)
       {
-         System.out.println("Exception on RiskOffer" + ex.getMessage());
-         ex.printStackTrace();
+         return 0.0;
       }
-      return (0.0);
+
    }
-
-
 }

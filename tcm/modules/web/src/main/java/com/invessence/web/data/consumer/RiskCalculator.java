@@ -14,13 +14,20 @@ import com.invmodel.Const.InvConst;
 public interface RiskCalculator
 {
 
+   public Integer getRiskAge();
+   public Integer getRiskHorizon();
+   public Integer getRetireAge();
+   public void setRiskAge(Integer age);
+   public void setRiskHorizon(Integer horizon);
+   public void setRetireAge(Integer value);
+   public String getRiskFormula();
+   public void setRiskFormula(String value);
+   public Integer getAnswerValue(Integer index);
    public void setAnswer(Integer index, String value);
-   public Integer getRiskOffset();
+   public Integer getRiskValue(Integer index);
+   public Double getTotalRisk();
+   public void setTotalRisk(Double value);
+   public void resetAllData();
    public Integer convertRiskWeight2Index(Double weight);
    public Double convertIndex2RiskWeight(Double index);
-
-   // Deprecating: 2016-06-14 Prashant
-   public Integer getRiskOffset(Integer[] choice);
-   public Double offsetRiskIndex(CustomerData cdata);
-   public Double calcRiskOffset(Integer age, Integer horizon, Double riskIndex);
 }

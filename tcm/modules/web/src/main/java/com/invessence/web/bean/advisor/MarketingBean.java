@@ -8,6 +8,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.web.dao.common.CommonDAO;
+import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.util.*;
 
@@ -37,8 +38,8 @@ public class MarketingBean implements Serializable
    }
 
 
-   @ManagedProperty("#{commonDAO}")
-   private CommonDAO cldDAO;
+   @ManagedProperty("#{consumerListDataDAO}")
+   private ConsumerListDataDAO cldDAO;
 
    @ManagedProperty("#{emailMessage}")
    private WebMessage messageText;
@@ -51,7 +52,7 @@ public class MarketingBean implements Serializable
       this.messageText = messageText;
    }
 
-   public void setCldDAO(CommonDAO cldDAO)
+   public void setCldDAO(ConsumerListDataDAO cldDAO)
    {
       this.cldDAO = cldDAO;
    }
@@ -96,7 +97,7 @@ public class MarketingBean implements Serializable
             if (fetchedDataList == null)
                fetchedDataList = new ArrayList<CustomerData>();
             fetchedDataList.clear();
-            fetchedDataList = cldDAO.getListOfAccounts(webutil.getLogonid(), null);
+            fetchedDataList = cldDAO.getClientProfileData(webutil.getLogonid(), null);
 /*
             for (int i=0; i < accountDataList.size() ; i++)
                  setAcctStatus(accountDataList.get(i).getAcctStatus());

@@ -11,12 +11,12 @@
             <h3>
                 2. Do you have any other sources of income?
             </h3>
-            <p:selectOneRadio value="#{cepb.selectedchoice2}"
+            <p:selectOneRadio value="#{cepb.riskCalculator.ans2}"
                               layout="pageDirection">
                 <p:ajax listener="#{cepb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="Yes" itemValue="0" />
-                <f:selectItem itemLabel="No" itemValue="1" />
+                <f:selectItem itemLabel="Yes" itemValue="1" />
+                <f:selectItem itemLabel="No" itemValue="2" />
             </p:selectOneRadio>
         </div>
     </div>

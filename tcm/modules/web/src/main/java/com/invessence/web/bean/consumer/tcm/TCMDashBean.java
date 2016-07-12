@@ -1,7 +1,7 @@
 package com.invessence.web.bean.consumer.tcm;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -51,7 +51,7 @@ public class TCMDashBean implements Serializable
       this.listDAO = listDAO;
    }
 
-   private List<CustomerData> manageAccountList;
+   private ArrayList<CustomerData> manageAccountList;
 
    private CustomerData selectedAccount;
 

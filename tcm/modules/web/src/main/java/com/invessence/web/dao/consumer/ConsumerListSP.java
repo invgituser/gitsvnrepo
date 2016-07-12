@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 
 import com.invessence.web.bean.consumer.ClientBean;
 import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.data.consumer.RiskCalculator;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
@@ -37,6 +38,9 @@ public class ConsumerListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_fromdate", Types.VARCHAR));
             declareParameter(new SqlParameter("p_todate", Types.VARCHAR));
+            break;
+         case 5:   // SP: sel_risk_questions
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
          default:
       }
@@ -85,6 +89,12 @@ public class ConsumerListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map loadRiskProfileData(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
 
 
 }

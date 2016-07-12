@@ -45,7 +45,7 @@ public class ConsumerDashBean implements Serializable
       this.listDAO = listDAO;
    }
 
-   private List<CustomerData> manageAccountList;
+   private ArrayList<CustomerData> manageAccountList;
 
    private CustomerData selectedAccount;
 

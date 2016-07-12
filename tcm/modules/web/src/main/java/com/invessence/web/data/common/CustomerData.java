@@ -56,23 +56,6 @@ public class CustomerData extends ProfileData
    private Double  bond;
    private Double  accrual;
 
-
-   public String selectedchoice1;
-   public String selectedchoice2;
-   public String selectedchoice3;
-   public String selectedchoice4;
-   public String selectedchoice5;
-   public String selectedchoice6;
-   public String selectedchoice7;
-   public String selectedchoice8;
-   public String selectedchoice9;
-   public String selectedchoice10;
-   public String selectedchoice11;
-   public String selectedchoice12;
-   public String selectedchoice13;
-   public String selectedchoice14;
-   public String selectedchoice15;
-
    private String model      = "D";
    private Integer assetyear = 0;
    private String registeredState;
@@ -455,172 +438,6 @@ public class CustomerData extends ProfileData
                             convertNumber(getMedical()) + convertNumber(getOtherDebt()));
    }
 
-   public String getSelectedchoice1()
-   {
-      return selectedchoice1;
-   }
-
-   public void setSelectedchoice1(String selectedchoice)
-   {
-      this.selectedchoice1 = selectedchoice;
-      setRiskAnswers(0,selectedchoice);
-   }
-
-   public String getSelectedchoice2()
-   {
-      return selectedchoice2;
-   }
-
-   public void setSelectedchoice2(String selectedchoice)
-   {
-      this.selectedchoice2 = selectedchoice;
-      setRiskAnswers(1,selectedchoice);
-   }
-
-   public String getSelectedchoice3()
-   {
-      return selectedchoice3;
-   }
-
-   public void setSelectedchoice3(String selectedchoice)
-   {
-      this.selectedchoice3 = selectedchoice;
-      setRiskAnswers(2,selectedchoice);
-   }
-
-   public String getSelectedchoice4()
-   {
-      return selectedchoice4;
-   }
-
-   public void setSelectedchoice4(String selectedchoice)
-   {
-      this.selectedchoice4 = selectedchoice;
-      setRiskAnswers(3,selectedchoice);
-   }
-
-   public String getSelectedchoice5()
-   {
-      return selectedchoice5;
-   }
-
-   public void setSelectedchoice5(String selectedchoice)
-   {
-      this.selectedchoice5 = selectedchoice;
-      setRiskAnswers(4,selectedchoice);
-   }
-
-   public String getSelectedchoice6()
-   {
-      return selectedchoice6;
-   }
-
-   public void setSelectedchoice6(String selectedchoice)
-   {
-      this.selectedchoice6 = selectedchoice;
-      setRiskAnswers(5,selectedchoice);
-   }
-
-   public String getSelectedchoice7()
-   {
-      return selectedchoice7;
-   }
-
-   public void setSelectedchoice7(String selectedchoice)
-   {
-      this.selectedchoice7 = selectedchoice;
-      setRiskAnswers(6,selectedchoice);
-   }
-
-
-   public String getSelectedchoice8()
-   {
-      return selectedchoice8;
-   }
-
-   public void setSelectedchoice8(String selectedchoice)
-   {
-      this.selectedchoice8 = selectedchoice;
-      setRiskAnswers(7,selectedchoice);
-   }
-
-   public String getSelectedchoice9()
-   {
-      return selectedchoice9;
-   }
-
-   public void setSelectedchoice9(String selectedchoice)
-   {
-      this.selectedchoice9 = selectedchoice;
-      setRiskAnswers(8,selectedchoice);
-   }
-
-   public String getSelectedchoice10()
-   {
-      return selectedchoice10;
-   }
-
-   public void setSelectedchoice10(String selectedchoice)
-   {
-      this.selectedchoice10 = selectedchoice;
-      setRiskAnswers(9,selectedchoice);
-   }
-
-   public String getSelectedchoice11()
-   {
-      return selectedchoice11;
-   }
-
-   public void setSelectedchoice11(String selectedchoice)
-   {
-      this.selectedchoice11 = selectedchoice;
-      setRiskAnswers(10,selectedchoice);
-   }
-
-   public String getSelectedchoice12()
-   {
-      return selectedchoice12;
-   }
-
-   public void setSelectedchoice12(String selectedchoice)
-   {
-      this.selectedchoice12 = selectedchoice;
-      setRiskAnswers(11,selectedchoice);
-   }
-
-   public String getSelectedchoice13()
-   {
-      return selectedchoice13;
-   }
-
-   public void setSelectedchoice13(String selectedchoice)
-   {
-      this.selectedchoice13 = selectedchoice;
-      setRiskAnswers(12,selectedchoice);
-   }
-
-   public String getSelectedchoice14()
-   {
-      return selectedchoice14;
-   }
-
-   public void setSelectedchoice14(String selectedchoice)
-   {
-      this.selectedchoice14 = selectedchoice;
-      setRiskAnswers(13,selectedchoice);
-   }
-
-   public String getSelectedchoice15()
-   {
-      return selectedchoice15;
-   }
-
-   public void setSelectedchoice15(String selectedchoice)
-   {
-      this.selectedchoice15 = selectedchoice;
-      setRiskAnswers(14,selectedchoice);
-   }
-
    public String getModel()
    {
       return model;
@@ -730,22 +547,6 @@ public class CustomerData extends ProfileData
       setBond(null);
       setAccrual(null);
 
-      setSelectedchoice1	(null);
-      setSelectedchoice2	(null);
-      setSelectedchoice3	(null);
-      setSelectedchoice4	(null);
-      setSelectedchoice5	(null);
-      setSelectedchoice6	(null);
-      setSelectedchoice7	(null);
-      setSelectedchoice8	(null);
-      setSelectedchoice9	(null);
-      setSelectedchoice10	(null);
-      setSelectedchoice11	(null);
-      setSelectedchoice12	(null);
-      setSelectedchoice13	(null);
-      setSelectedchoice14	(null);
-      setSelectedchoice15	(null);
-
       setModel("D");
       setAssetyear(0);
 
@@ -824,21 +625,6 @@ public class CustomerData extends ProfileData
       setMortgageLoan(newgoals.getMortgageLoan());
       setOtherSavings(newgoals.getOtherSavings());
       setOtherDebt(newgoals.getOtherDebt());
-      setSelectedchoice1(newgoals.getSelectedchoice1());
-      setSelectedchoice2(newgoals.getSelectedchoice2());
-      setSelectedchoice3(newgoals.getSelectedchoice3());
-      setSelectedchoice4(newgoals.getSelectedchoice4());
-      setSelectedchoice5(newgoals.getSelectedchoice5());
-      setSelectedchoice6(newgoals.getSelectedchoice6());
-      setSelectedchoice7(newgoals.getSelectedchoice7());
-      setSelectedchoice8(newgoals.getSelectedchoice8());
-      setSelectedchoice9(newgoals.getSelectedchoice9());
-      setSelectedchoice10(newgoals.getSelectedchoice10());
-      setSelectedchoice11(newgoals.getSelectedchoice11());
-      setSelectedchoice12(newgoals.getSelectedchoice12());
-      setSelectedchoice13(newgoals.getSelectedchoice13());
-      setSelectedchoice14(newgoals.getSelectedchoice14());
-      setSelectedchoice15(newgoals.getSelectedchoice15());
       setAssetData	(	newgoals.getAssetData	());
       setPortfolioData	(	newgoals.getPortfolioData	());
       setFirstname(newgoals.getFirstname());
@@ -846,58 +632,6 @@ public class CustomerData extends ProfileData
       setRegisteredState(newgoals.getRegisteredState());
       setUserAssetOverride(false);
       setName(newgoals.getFirstname() + " " + newgoals.getLastname());
-   }
-
-   public Integer[] selectedChoices()
-   {
-         Integer no_of_questions = 7;
-         Integer[] selectedChoices = new Integer[]{null, null, null, null, null, null, null};
-         Integer riskIndex = 0;
-
-         if (getSelectedchoice1() != null)
-         {
-            String choice = getSelectedchoice1();
-            selectedChoices[0] = Integer.parseInt(getSelectedchoice1());
-         }
-
-         if (getSelectedchoice2() != null)
-         {
-            String choice = getSelectedchoice2();
-            selectedChoices[1] = Integer.parseInt(getSelectedchoice2());
-
-         }
-
-         if (getSelectedchoice3() != null)
-         {
-            String choice = getSelectedchoice3();
-            selectedChoices[2] = Integer.parseInt(getSelectedchoice3());
-         }
-
-         if (getSelectedchoice4() != null)
-         {
-            String choice = getSelectedchoice4();
-            selectedChoices[3] = Integer.parseInt(getSelectedchoice4());
-         }
-
-         if (getSelectedchoice5() != null)
-         {
-            String choice = getSelectedchoice5();
-            selectedChoices[4] = Integer.parseInt(getSelectedchoice5());
-         }
-
-         if (getSelectedchoice6() != null)
-         {
-            String choice = getSelectedchoice6();
-            selectedChoices[5] = Integer.parseInt(getSelectedchoice6());
-         }
-
-         if (getSelectedchoice7() != null)
-         {
-            String choice = getSelectedchoice7();
-            selectedChoices[6] = Integer.parseInt(getSelectedchoice7());
-         }
-
-         return selectedChoices;
    }
 
    public String getHorizonQuestion()

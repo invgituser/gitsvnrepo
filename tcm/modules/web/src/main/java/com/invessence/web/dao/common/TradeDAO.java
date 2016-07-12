@@ -415,22 +415,6 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
             // data.setNetWorth(convert.getIntData(rs.get("networth")));
 
-            data.setSelectedchoice1(convert.getStrData(rs.get("ans1")));
-            data.setSelectedchoice2(convert.getStrData(rs.get("ans2")));
-            data.setSelectedchoice3(convert.getStrData(rs.get("ans3")));
-            data.setSelectedchoice4(convert.getStrData(rs.get("ans4")));
-            data.setSelectedchoice5(convert.getStrData(rs.get("ans5")));
-            data.setSelectedchoice6(convert.getStrData(rs.get("ans6")));
-            data.setSelectedchoice7(convert.getStrData(rs.get("ans7")));
-            data.setSelectedchoice8(convert.getStrData(rs.get("ans8")));
-            data.setSelectedchoice9(convert.getStrData(rs.get("ans9")));
-            data.setSelectedchoice10(convert.getStrData(rs.get("ans10")));
-            data.setSelectedchoice11(convert.getStrData(rs.get("ans11")));
-            data.setSelectedchoice12(convert.getStrData(rs.get("ans12")));
-            data.setSelectedchoice13(convert.getStrData(rs.get("ans13")));
-            data.setSelectedchoice14(convert.getStrData(rs.get("ans14")));
-            data.setSelectedchoice15(convert.getStrData(rs.get("ans15")));
-
             data.setProcessStatus(convert.getStrData(rs.get("processStatus")));
             data.setLastTraded(convert.getStrData(rs.get("lastTraded")));
             data.setReason(convert.getStrData(rs.get("reason")));

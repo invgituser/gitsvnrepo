@@ -28,6 +28,8 @@ public class TCMCharts implements Serializable
    private MeterGaugeChartModel meterGuage;
    private BarChartModel barChart;
    private LineChartModel goalChart;
+   private BarChartModel riskbarChart;
+
 
    public TCMCharts()
    {
@@ -102,6 +104,11 @@ public class TCMCharts implements Serializable
    public void setGoalChart(LineChartModel goalChart)
    {
       this.goalChart = goalChart;
+   }
+
+   public BarChartModel getRiskbarChart()
+   {
+      return riskbarChart;
    }
 
    public void setMeterGuage(Integer pointer)
@@ -490,6 +497,88 @@ public class TCMCharts implements Serializable
          ex.printStackTrace();
       }
    }
+
+   public void createRiskBarChart(Integer selected)
+   {
+      String color;
+      try
+      {
+            riskbarChart = new BarChartModel();
+            BarChartSeries gain = new BarChartSeries();
+            BarChartSeries loss = new BarChartSeries();
+            BarChartSeries sgain = new BarChartSeries();
+            BarChartSeries sloss = new BarChartSeries();
+            String label;
+            Integer gainval, lossval;
+            for (int i=1; i < 6; i++)
+            {
+               label = null;
+               gainval = null;
+               lossval = null;
+               switch (i) {
+                  case 1:
+                     label = "Conservative";
+                     gainval = 14;
+                     lossval = -4;
+                     break;
+                  case 2:
+                     label = "Moderately Conservative";
+                     gainval = 22;
+                     lossval = -10;
+                     gain.set(label, 22);
+                     loss.set(label,-10);
+                     break;
+                  case 3:
+                     label = "Moderate";
+                     gainval = 29;
+                     lossval = -16;
+                     break;
+                  case 4:
+                     label = "Moderately Aggressive";
+                     gainval = 35;
+                     lossval = -23;
+                     break;
+                  case 5:
+                     label = "Aggressive";
+                     gainval = 45;
+                     lossval = -34;
+                     break;
+               }
+
+               // Selected start from 1 to 5 (i loop is also from 1 to 5
+               if (selected == i) {
+                  sgain.set(label, gainval);
+                  sloss.set(label, lossval);
+               }
+               else {
+                  gain.set(label, gainval);
+                  loss.set(label, lossval);
+
+               }
+
+            }
+            riskbarChart.addSeries(gain);
+            riskbarChart.addSeries(loss);
+            riskbarChart.addSeries(sgain);
+            riskbarChart.addSeries(sloss);
+            riskbarChart.setShowPointLabels(true);
+            riskbarChart.setStacked(true);
+            riskbarChart.setMouseoverHighlight(false);
+            riskbarChart.setShowDatatip(false);
+            riskbarChart.setSeriesColors("00D404,00D404,0000FF,0000FF");
+            riskbarChart.setNegativeSeriesColors("00D404,D40000,FF0000,FF0000");
+            Axis yAxis = riskbarChart.getAxis(AxisType.Y);
+            yAxis.setTickFormat("%#.0f%%");
+
+            // riskbarChart.setExtender("riskq");
+
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
 
    public void resetCharts() {
       pieChart = null;

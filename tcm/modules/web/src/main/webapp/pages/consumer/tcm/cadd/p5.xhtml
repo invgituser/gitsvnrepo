@@ -32,7 +32,7 @@
                             <p:ajax event="slideEnd" listener="#{tcmpb.doProjectionChart}"
                                     update=":ceForm:goalPanel" />
                         </p:slider>
-                        <h:inputHidden id="projection" value="#{tcmpb.selectedchoice4}"
+                        <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}"
                                        required="true"
                                        requiredMessage="Please use the slider below to select appropriate investment"/>
 

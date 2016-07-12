@@ -11,15 +11,15 @@
         <h3>
             1. What is your employment situation?
         </h3>
-        <p:selectOneRadio value="#{cepb.selectedchoice1}"
+        <p:selectOneRadio value="#{cepb.riskCalculator.ans1}"
                           layout="pageDirection">
             <p:ajax listener="#{cepb.onChangeValue}"
                     update=":ceForm:workArea, :ceForm:graphArea"/>
-            <f:selectItem itemLabel="My job is very secure." itemValue="0" />
-            <f:selectItem itemLabel="My job security could change quickly." itemValue="1" />
-            <f:selectItem itemLabel="I am not working or retired but have secure income." itemValue="2" />
-            <f:selectItem itemLabel="I feel my job is not secure." itemValue="3" />
-            <f:selectItem itemLabel="I am currently unemployed or retired." itemValue="4" />
+            <f:selectItem itemLabel="My job is very secure." itemValue="1" />
+            <f:selectItem itemLabel="My job security could change quickly." itemValue="2" />
+            <f:selectItem itemLabel="I am not working or retired but have secure income." itemValue="3" />
+            <f:selectItem itemLabel="I feel my job is not secure." itemValue="4" />
+            <f:selectItem itemLabel="I am currently unemployed or retired." itemValue="5" />
         </p:selectOneRadio>
     </div>
     </div>

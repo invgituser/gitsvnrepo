@@ -11,15 +11,15 @@
             <h3>
                 5. What best describes your investment approach?
             </h3>
-            <p:selectOneRadio value="#{cepb.selectedchoice5}"
+            <p:selectOneRadio value="#{cepb.riskCalculator.ans5}"
                               layout="pageDirection">
                 <p:ajax listener="#{cepb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="Aggressive – long-term growth." itemValue="0" />
-                <f:selectItem itemLabel="Moderately aggressive – long-term growth." itemValue="1" />
-                <f:selectItem itemLabel="Conservative – preserve capital more than growth." itemValue="2" />
-                <f:selectItem itemLabel="Ultra conservative – safe with very low risk." itemValue="3" />
-                <f:selectItem itemLabel="No risk – all cash." itemValue="4" />
+                <f:selectItem itemLabel="Aggressive – long-term growth." itemValue="1" />
+                <f:selectItem itemLabel="Moderately aggressive – long-term growth." itemValue="2" />
+                <f:selectItem itemLabel="Conservative – preserve capital more than growth." itemValue="3" />
+                <f:selectItem itemLabel="Ultra conservative – safe with very low risk." itemValue="4" />
+                <f:selectItem itemLabel="No risk – all cash." itemValue="5" />
             </p:selectOneRadio>
 
         </div>

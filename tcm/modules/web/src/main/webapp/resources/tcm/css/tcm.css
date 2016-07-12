@@ -7,6 +7,17 @@
 /* Logo*/
 #logo{height:70px; margin-top:16px;}
 
+img.riskImage {
+    opacity: 0.5;
+    filter: alpha(opacity=50); /* For IE8 and earlier */
+}
+
+
+img.riskImage:hover {
+    opacity: 1.0;
+    filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
 /* Gray Theme*/
 .layoutBG.Geometry {
     background-image: url("#{resource['tcm:images/triangle-gray.svg']}");

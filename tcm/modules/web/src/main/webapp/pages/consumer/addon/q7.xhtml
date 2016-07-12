@@ -12,15 +12,15 @@
             <h3>
                 7. What is your long-term investment intention?
             </h3>
-            <p:selectOneRadio value="#{cepb.selectedchoice7}"
+            <p:selectOneRadio value="#{cepb.riskCalculator.ans7}"
                               layout="pageDirection">
                 <p:ajax listener="#{cepb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="Majority of my assets at higher risk, for greater returns." itemValue="0" />
-                <f:selectItem itemLabel="More than half my assets at higher risk, for greater returns." itemValue="1" />
-                <f:selectItem itemLabel="Up to half my assets at higher risk, to balance stability with greater returns." itemValue="2" />
-                <f:selectItem itemLabel="Less than a quarter of my assets at higher risk, to keep up with inflation." itemValue="3" />
-                <f:selectItem itemLabel="None of my assets at high risk, to preserve capital." itemValue="4" />
+                <f:selectItem itemLabel="Majority of my assets at higher risk, for greater returns." itemValue="1" />
+                <f:selectItem itemLabel="More than half my assets at higher risk, for greater returns." itemValue="2" />
+                <f:selectItem itemLabel="Up to half my assets at higher risk, to balance stability with greater returns." itemValue="3" />
+                <f:selectItem itemLabel="Less than a quarter of my assets at higher risk, to keep up with inflation." itemValue="4" />
+                <f:selectItem itemLabel="None of my assets at high risk, to preserve capital." itemValue="5" />
             </p:selectOneRadio>
         </div>
     </div>
