@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <h3>
+        <h3 class="TexAlCenter StepsQuestionsFS">
             Assuming you invest for at least 10 years, in the course of any given year,
             which of the following range of returns would be most acceptable to you?
         </h3>
@@ -46,7 +46,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div class="Fs8 TexAlCenter">
+                        <div class="TexAlCenter StepsQuestionsFS">
                             Please slide the dot to the select appropriate investment.
                         </div>
                     </td>
@@ -55,7 +55,7 @@
 
         </p:outputPanel>
 
-        <div class="EmptyBox20"></div>
+        <div class="EmptyBox5"></div>
         <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"

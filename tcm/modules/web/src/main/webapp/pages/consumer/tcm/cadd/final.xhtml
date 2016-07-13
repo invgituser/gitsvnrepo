@@ -6,11 +6,11 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
 <!-- BOX START -->
-<p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget">
+<p:outputPanel id="workArea">
 <p:fieldset legend="Summary" toggleable="true" toggleSpeed="500">
-    <div class="Container100 Responsive50">
+    <div class="Container100 Responsive100">
         <div class="ContainerIndent">
-            <div class="Wid50 Responsive50 Fleft">
+            <div class="Wid100 Responsive100 Fleft">
                 <h3 class="BigTopic">
                     Asset Allocation
                 </h3>
@@ -18,21 +18,16 @@
         </div>
     </div>
     <div class="Container100 Responsive100">
-        <div class="ContainerIndent">
             <div class="Container50 Responsive50 Fleft">
-                <div class="ContainerIndent">
-                    <div class="Container100 Fleft">
+               <div class="Container100">
                         <p:outputPanel deferred="true">
-                            <p:chart type="pie" model="#{tcmpb.charts.pieChart}"
+                            <p:chart type="pie" model="#{tcmpb.charts.pieChart}" style="height: 200px; width: 100%;"
                                      rendered="#{tcmpb.charts.pieChart != null}"
                                      responsive="true"/>
                         </p:outputPanel>
                     </div>
-                </div>
             </div>
-            <div class="Container50 Responsive50 Fleft">
-                <div class="EmptyBox30"></div>
-                <div class="ContainerIndent">
+            <div class="Container50 Responsive50 Fleft assetAllocationTableMobView">
                     <p:dataTable styleClass="invAllocTable"
                                  value="#{tcmpb.editableAsset}"
                                  var="assetList">
@@ -41,7 +36,7 @@
                             <h:outputText value=" "/>
                         </p:column>
 
-                        <p:column styleClass="Wid40 Fs14 TexAlLeft"
+                        <p:column styleClass="Wid30 Fs14 TexAlLeft"
                                   headerText="Asset">
                             <h:outputText value="#{assetList.asset}"/>
                         </p:column>
@@ -62,23 +57,20 @@
                                 <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
                                           footerText="Total">
                                 </p:column>
-                                <p:column styleClass="Fs14 TexAlRight FontBold"
+                                <p:column styleClass="Fs14 TexAlRight FontBold" 
                                           footerText="#{dataDisplayConverter.displayAsMoney(tcmpb.totalMoneyAllocated)}">
                                 </p:column>
                             </p:row>
                         </p:columnGroup>
                     </p:dataTable>
-                </div>
-
             </div>
-        </div>
     </div>
 </p:fieldset>
-
+<div class="EmptyBox10"></div>
 <p:fieldset legend="Detail" toggleable="true" toggleSpeed="500">
-    <div class="Container100 Responsive50">
+    <div class="Container100 Responsive100">
         <div class="ContainerIndent">
-            <div class="Wid50 Responsive50 Fleft">
+            <div class="Wid100 Responsive100 Fleft">
                 <h3 class="BigTopic">
                     Portfolio Details
                 </h3>
@@ -144,7 +136,6 @@
     </p:outputPanel>
 
     <div class="Container100">
-        <div class="ContainerIndent">
             <p:dataTable var="ticker" value="#{tcmpb.displayPortfolioList}">
 
                 <p:column style="width:1%; background-color: #{ticker.color}">
@@ -165,7 +156,7 @@
                     <h:outputText value="#{ticker.subclass}"/>
                 </p:column>
 
-                <p:column style="width:10%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+                <p:column style="width:15%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
                     <f:facet name="header">
                         <h:outputText value="Allocated"/>
                     </f:facet>
@@ -213,16 +204,16 @@
                 </p:columnGroup>
             </p:dataTable>
 
-        </div>
     </div>
 </p:fieldset>
+
 <p:fieldset legend="Goal Planning" rendered="#{!tcmpb.fixedModel}"
             collapsed="true"
             toggleable="true" toggleSpeed="500">
 
-    <div class="Container100 Responsive50">
+    <div class="Container100 Responsive100">
         <div class="ContainerIndent">
-            <div class="Wid50 Responsive50 Fleft">
+            <div class="Wid100 Responsive100 Fleft">
                 <h3 class="BigTopic">
                     Setting Goals
                 </h3>
@@ -367,12 +358,11 @@
 </p:outputPanel>
 <!-- BOX END -->
 
-<div class="layout-portlets-box">
-    <div class="Container100 Responsive100">
-        <div class="ContainerIndent">
-            <p:outputPanel style="background: #ffffff">
-                <p style="font-style: italic; font-size: .8em;">
-                    <br/>
+
+    <!-- <div class="Container100 Responsive100">
+            <p:outputPanel>
+                <p style="font-style: italic; font-size: .8em; text-align:justify">
+                  
                     This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
                     (net of fees) is based on the historical performance of the underlying securities and adjusted for changes in the asset allocation over time.
                     It does not take in affect any tax withholdings or distributions.
@@ -381,12 +371,8 @@
                     performance. All securities involve risk and may result in loss. Not an offer,
                     solicitation of an offer, or advice to buy or sell securities in jurisdictions
                     where Invessence is not registered
-                    <br/>
-                    <br/>
+                   
                 </p>
             </p:outputPanel>
-        </div>
-    </div>
-</div>
-
+       </div> -->
 </ui:composition>

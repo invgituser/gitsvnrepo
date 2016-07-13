@@ -6,11 +6,11 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <div class="Container50 Fleft">
+        <div class="Container100 Responsive100">
             <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
-                <div class="EmptyBox50"></div>
-                <h3>I would like to retire when I am
-                    <pe:inputNumber styleClass="invInputText input_wid1" style="padding:0px!important; width: 60px;"
+               
+                <h3 class="TexAlCenter StepsQuestionsFS">I would like to retire when I am
+                    <pe:inputNumber styleClass="invInputText input_wid1" style="width: 60px;"
                                     value="#{tcmpb.retireAge}"
                                     decimalPlaces="0"
                                     size="3"
@@ -18,26 +18,25 @@
                     years old.
                 </h3>
 
-                <div class="EmptyBox50"></div>
+                <div class="EmptyBox30"></div>
             </ui:fragment>
             <ui:fragment rendered="#{tcmpb.goal == 'College'}">
-                <div class="EmptyBox50"></div>
-                <h3>The child I am saving for is expected to start college in
-                    <pe:inputNumber styleClass="invInputText input_wid1" style="padding:0px!important; width: 60px;"
+               
+                <h3 class="TexAlCenter StepsQuestionsFS">The child I am saving for is expected to start college in
+                    <pe:inputNumber styleClass="invInputText input_wid1" style="width: 60px;"
                                     value="#{tcmpb.horizon}"
                                     decimalPlaces="0"
                                     size="3"
                                     required="true" requiredMessage="When does your child plan to attend college?"/>
                     years.
                 </h3>
-
-                <div class="EmptyBox50"></div>
-            </ui:fragment>
+<div class="EmptyBox30"></div>
+           </ui:fragment>
             <ui:fragment rendered="#{tcmpb.goal == 'Building Wealth' || tcmpb.goal == 'Other'}">
-                <div class="EmptyBox50"></div>
-                <h3>I plan on utilize the funds for this goal in
+           
+                <h3 class="TexAlCenter StepsQuestionsFS">I plan on utilize the funds for this goal in
                     <pe:inputNumber styleClass="invInputText input_agewid1"
-                                    style="padding:0px!important;"
+                                    style=""
                                     value="#{tcmpb.horizon}"
                                     decimalPlaces="0"
                                     size="3"
@@ -45,22 +44,25 @@
                     years.
                 </h3>
 
-                <div class="EmptyBox50"></div>
-
+<div class="EmptyBox30"></div>
             </ui:fragment>
 
-            <div class="EmptyBox40"></div>
-            <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+           
+            
+        </div>
+        <div class="EmptyBox5"></div>
+        <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                              update=":ceForm:inputArea"
                              immediate="true"
                              actionListener="#{tcmpb.prevPage}"/>
             <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
                              update=":ceForm:inputArea"
                              actionListener="#{tcmpb.nextPage}"/>
-        </div>
-        <div class="Container50 Fleft">
+                             <div class="EmptyBox10"></div>
+        <div class="Container100 Responsive100 Fleft">
             <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
         </div>
+        
     </div>
 
 </ui:composition>

@@ -7,34 +7,37 @@
 
 
     <div class="Container100 TextAlCenter">
-        <div class="Container50 Fleft">
-            <h3>
+        <div class="Container100 Responsive100 Fleft">
+            <h3 class="TexAlCenter StepsQuestionsFS">
                 Which of the following best reflects your expectations for this investment?
             </h3>
-            <p:selectOneRadio value="#{tcmpb.riskCalculator.ans3}"
-                              layout="pageDirection"
-                              required="true" requiredMessage="Please choose one of these choices">
-                <f:selectItem itemLabel="Maximize Current Income" itemValue="1" />
-                <f:selectItem itemLabel="Emphasizing income with some potential for growth" itemValue="2" />
-                <f:selectItem itemLabel="Emphasizing growth with some potential for income" itemValue="3" />
-                <f:selectItem itemLabel="Growth" itemValue="4" />
-                <f:selectItem itemLabel="Maximizing Growth" itemValue="5" />
-            </p:selectOneRadio>
-
-            <div class="EmptyBox20"></div>
-            <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
-                             update=":ceForm:inputArea"
-                             immediate="true"
-                             actionListener="#{tcmpb.prevPage}"/>
-            <p:commandButton styleClass="Fright" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
-                             update=":ceForm:inputArea"
-                             actionListener="#{tcmpb.nextPage}"/>
-
+            <div class="Container100">
+                <div class="Container25 Responsive0" style="height:1px;"></div>
+                <div class="Container50 Responsive100">
+                    <p:selectOneRadio value="#{tcmpb.riskCalculator.ans3}"
+                                      layout="pageDirection"
+                                      required="true" requiredMessage="Please choose one of these choices">
+                        <f:selectItem itemLabel="Maximize Current Income" itemValue="1" />
+                        <f:selectItem itemLabel="Emphasizing income with some potential for growth" itemValue="2" />
+                        <f:selectItem itemLabel="Emphasizing growth with some potential for income" itemValue="3" />
+                        <f:selectItem itemLabel="Growth" itemValue="4" />
+                        <f:selectItem itemLabel="Maximizing Growth" itemValue="5" />
+                    </p:selectOneRadio>
+                </div>
+            </div>
         </div>
-
-       <div class="Container50 Fleft">
-           <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
-       </div>
+        <div class="EmptyBox5"></div>
+        <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+                         update=":ceForm:inputArea"
+                         immediate="true"
+                         actionListener="#{tcmpb.prevPage}"/>
+        <p:commandButton styleClass="Fright" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         update=":ceForm:inputArea"
+                         actionListener="#{tcmpb.nextPage}"/>
+        <div class="EmptyBox10"></div>
+        <div class="Container100 Responsive100 Fleft">
+            <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
+        </div>
 
     </div>
 

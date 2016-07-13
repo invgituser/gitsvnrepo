@@ -296,9 +296,10 @@ public class Utils
   {
     StringBuilder buffer = new StringBuilder(data.length());
     for (int i = 0; i < data.length(); i++) {
-    if (data.charAt(i) > 'Ā') {
-        buffer.append("\\u").append(Integer.toHexString(data.charAt(i)));
-      } else if (data.charAt(i) == '\n') {
+//    if (data.charAt(i) > 'Ā') {
+//        buffer.append("\\u").append(Integer.toHexString(data.charAt(i)));
+//      } else
+    if (data.charAt(i) == '\n') {
         buffer.append("\\n");
       } else if (data.charAt(i) == '\t') {
         buffer.append("\\t");

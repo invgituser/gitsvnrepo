@@ -199,4 +199,254 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     width: 80px !important;
 }
 
+/*Prakash*/
+.ui-selectonemenu-label {
+	font-size: 17px!important;
+}
 
+.ui-selectonemenu {
+    margin-left: 10px;
+}
+
+.Wid32 {
+	width: 32%;
+}
+
+.mobileFullWidth {
+    display: inline-block;
+}
+
+.MarginBottom {
+	margin-bottom: 15px;
+}
+
+.UsernameDashboard {
+	padding: 9px 0;
+}
+
+@media (max-width: 960px) and (min-width: 640px) {
+	.mobileFullWidth {
+    display: inline;
+}
+	
+	.UsernameDashboard {
+	padding: 4px 0;
+	}
+	
+	.UsernameDashboard > .Fright > h2 {
+	font-size: 20px;
+	}
+	
+	.ui-selectonemenu {
+    margin-left: 10px;
+}
+}
+
+@media (max-width: 640px) and (min-width: 480px) {
+	
+	.StepsQuestionsFS {
+	font-size: 15px!important;
+	}
+	
+.ui-inputNum {
+	padding: 7px 0px!important;
+}
+
+.ui-selectonemenu {
+    margin-left: 0px;
+}
+	.mobileFullWidth {
+	width:100%;
+	    margin: 5px 0;
+	}
+	
+.UsernameDashboard {
+	padding: 5px 0;
+	}
+	
+	.UsernameDashboard > .Fright > h2 {
+	font-size: 16px;
+	}
+}
+
+@media (max-width: 480px) and (min-width: 320px){
+	.StepsQuestionsFS {
+	font-size: 15px!important;
+	}
+	
+	.ui-selectonemenu {
+    margin-left: 0px;
+}
+	
+	.dropdownInputFullWidth {
+    width: 100%!important;
+    padding: 0px 0!important;
+}
+	
+	.mobileFullWidthinput {
+	    width: 100%!important;
+    padding: 10px 0!important;
+	}
+	
+	.mobileFullWidthinput > input{
+	    width: 100%!important;
+    padding: 9px 0!important;
+	}
+	
+.ui-inputNum {
+	padding: 10px 0px!important;
+}
+	.mobileFullWidth {
+	width:100%;
+	    margin: 5px 0;
+	}
+	
+.UsernameDashboard {
+	padding: 5px 0;
+	}
+	
+	.UsernameDashboard > .Fright > h2 {
+	font-size: 16px;
+	}	
+}
+
+@media (max-width: 35em) {
+	.dashboardUsrColumnFloatRight {
+	float: right;
+}
+}
+
+@media (min-width:320px) and (max-width:500px) {
+	.responsiveFullwidth {
+	width: 100%!important;
+	}
+}
+
+/*Fieldset DataTable Responsiveness*/
+@media (min-width:320px) and (max-width:450px) {
+	.ui-fieldset {
+	padding: 0.6em 5px!important;
+	}
+}
+
+/*Steps-tab-center-alligned*/
+@media (max-width: 361px) and (min-width: 320px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 228px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	
+	a.ui-menuitem-link.ui-corner-all {
+    background: #F6FAFC;
+}
+}
+
+@media (max-width: 481px) and (min-width: 361px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 262px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+a.ui-menuitem-link.ui-corner-all {
+    background: #F6FAFC;
+}
+}
+
+@media (max-width: 561px) and (min-width: 481px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 274px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+}
+
+@media (max-width: 640px) and (min-width: 561px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 366px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	
+	span.ui-steps-title {
+    visibility: hidden;
+}
+}
+
+@media (max-width: 729px) and (min-width: 641px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 426px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	
+	.ui-steps-title {
+    visibility: hidden;
+}
+}
+
+@media (max-width: 770px) and (min-width: 730px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 516px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	.ui-steps-title {
+    font-size: 12px!important;
+}
+}
+
+@media (max-width: 960px) and (min-width: 771px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 546px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+}
+
+@media (max-width: 999px) and (min-width: 961px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 666px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+}
+
+@media (max-width: 1320px) and (min-width: 1000px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 636px;
+	}
+}
+
+@media (min-width: 1321px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 846px;
+	}
+}
+/**/

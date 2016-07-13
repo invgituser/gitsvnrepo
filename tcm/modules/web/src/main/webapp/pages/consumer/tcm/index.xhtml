@@ -20,7 +20,7 @@
 
                             <div class="DispInlBlock MarTop20">
                                 <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
-                                <div class="Container80">
+                                <div class="Container80 UsernameDashboard">
                                     <div class="Fright">
                                         <h2 class="black head FontThemeMedium">#{webutil.lastFirstName}</h2>
                                     </div>
@@ -30,21 +30,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="Container50 Responsive100">
-                    <div class="ContainerIndent">
-                        <div class="Container100">
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
-                        <div class="Container100 tp1">
+                        <div class="Container100 MarginBottom">
 
                             <p:dataTable id="singleDT" var="investment" value="#{tcmdash.manageAccountList}"
-                                         emptyMessage="No account were created.  Use new application to add account."
+                                         emptyMessage="No account were created. Use new application to add account."
                                          reflow="true">
 
-                                <p:column styleClass="Wid10 TextAlLeft">
+                                <p:column styleClass="Wid25 TexAlCenter">
                                     <p:commandButton id="activeButton" rendered="#{investment.managed}"
                                                      styleClass="Fs14 GreenButton"
                                                      process="@this" immediate="true"
@@ -64,34 +59,33 @@
                                                                      target="#{tcmdash.selectedAccount}"/>
                                     </p:commandButton>
                                 </p:column>
-                                <p:column styleClass="Wid20 TextAlLeft"
+                                <p:column styleClass="Wid25 TextAlLeft"
                                           sortBy="#{investment.portfolioName}" headerText="Portfolio" priority="2"
                                           resizable="true">
-                                    <h:outputText value="#{investment.portfolioName}"/>
+                                    <span class="dashboardUsrColumnFloatRight"><h:outputText value="#{investment.portfolioName}"/></span>
                                 </p:column>
 
                                 <p:column styleClass="Wid25 TexAlLeft"
                                           sortBy="#{investment.goal}" headerText="Type" priority="3"
                                           resizable="true">
-                                    <h:outputText value="#{investment.goal}"/>
+                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.goal}"/></span>
                                 </p:column>
 
-                                <p:column styleClass="Wid20 TexAlLeft"
+                                <p:column styleClass="Wid25 TexAlLeft"
                                           sortBy="#{investment.displayActiveAcctNum}" headerText="Account#"
                                           resizable="true">
-                                    <h:outputText value="#{investment.displayActiveAcctNum}"/>
+                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.displayActiveAcctNum}"/></span>
                                 </p:column>
 
                                 <p:column styleClass="Wid25 num-text-align invest"
                                           headerText="Invested"
                                           resizable="true"><!-- ROHIT's CHANGE -->
-                                    <h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">
+                                    <span class="dashboardUsrColumnFloatRight"><h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">
                                         <f:convertNumber currencySymbol="$" type="currency"/>
-                                    </h:outputText>
-                                    <h:outputText value="#{investment.initialInvestment}" rendered="#{! investment.managed}">
+                                    </h:outputText></span>
+                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.initialInvestment}" rendered="#{! investment.managed}">
                                         <f:convertNumber currencySymbol="$" type="currency"/>
-                                    </h:outputText>
-
+                                    </h:outputText></span>
                                 </p:column>
 
                             </p:dataTable>

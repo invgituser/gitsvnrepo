@@ -6,66 +6,68 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <div class="Container50 Fleft">
-            <h3>
-                The chart below shows the potential one-year loss or gain for five hypothetical portfolios.
-                Select the option that matches your comfort zone to continue.
-            </h3>
+    <div class="Container100 Responsive100 Fleft">
+        <h3 class="TexAlCenter StepsQuestionsFS">
+            The chart below shows the potential one-year loss or gain for five hypothetical portfolios.
+            Select the option that matches your comfort zone to continue.
+        </h3>
 
-            <h:inputHidden value="#{tcmpb.riskCalculator.ans4}"
-                           required="true"
-                           requiredMessage="Please click on one of the images below to select appropriate risk."/>
+        <h:inputHidden value="#{tcmpb.riskCalculator.ans4}"
+                       required="true"
+                       requiredMessage="Please click on one of the images below to select appropriate risk."/>
 
-            <div class="EmptyBox20"></div>
-            <div class="Container100 TexAlCenter">
+        <div class="EmptyBox20"></div>
+        <div class="Container100 TexAlCenter">
 
-                <p:panel id="riskimgpanel" styleClass="Container100"
-                         style="border: 0px; background: transparent;">
-                    <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,1)}"
-                            update=":ceForm:riskimgpanel">
-                        <img src="#{tcmpb.getRiskGraphic(1)}"
-                             class="riskImage"/>
-                    </p:commandLink>
+            <p:panel id="riskimgpanel" styleClass="Container100"
+                     style="border: 0px; background: transparent;">
+                <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,1)}"
+                               update=":ceForm:riskimgpanel">
+                    <img src="#{tcmpb.getRiskGraphic(1)}"
+                         class="riskImage"/>
+                </p:commandLink>
 
-                    <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,2)}"
-                                   update=":ceForm:riskimgpanel">
-                        <img src="#{tcmpb.getRiskGraphic(2)}"
-                             class="riskImage"/>
-                    </p:commandLink>
+                <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,2)}"
+                               update=":ceForm:riskimgpanel">
+                    <img src="#{tcmpb.getRiskGraphic(2)}"
+                         class="riskImage"/>
+                </p:commandLink>
 
-                    <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,3)}"
-                                   update=":ceForm:riskimgpanel">
-                        <img src="#{tcmpb.getRiskGraphic(3)}"
-                             class="riskImage"/>
-                    </p:commandLink>
+                <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,3)}"
+                               update=":ceForm:riskimgpanel">
+                    <img src="#{tcmpb.getRiskGraphic(3)}"
+                         class="riskImage"/>
+                </p:commandLink>
 
-                    <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,4)}"
-                                   update=":ceForm:riskimgpanel">
-                        <img src="#{tcmpb.getRiskGraphic(4)}"
-                             class="riskImage"/>
-                    </p:commandLink>
+                <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,4)}"
+                               update=":ceForm:riskimgpanel">
+                    <img src="#{tcmpb.getRiskGraphic(4)}"
+                         class="riskImage"/>
+                </p:commandLink>
 
-                    <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,5)}"
-                                   update=":ceForm:riskimgpanel">
-                        <img src="#{tcmpb.getRiskGraphic(5)}"
-                             class="riskImage"/>
-                    </p:commandLink>
-                </p:panel>
-
-            </div>
-
-            <div class="EmptyBox20"></div>
-            <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
-                             update=":ceForm:inputArea"
-                             immediate="true"
-                             actionListener="#{tcmpb.prevPage}"/>
-            <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
-                             update=":ceForm:inputArea"
-                             actionListener="#{tcmpb.nextPage}"/>
+                <p:commandLink actionListener="#{tcmpb.riskCalculator.setAnswer(4,5)}"
+                               update=":ceForm:riskimgpanel">
+                    <img src="#{tcmpb.getRiskGraphic(5)}"
+                         class="riskImage"/>
+                </p:commandLink>
+            </p:panel>
+</div>
         </div>
-        <div class="Container50 Fleft">
+
+        <div class="EmptyBox5"></div>
+        <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+                         update=":ceForm:inputArea"
+                         immediate="true"
+                         actionListener="#{tcmpb.prevPage}"/>
+        <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         update=":ceForm:inputArea"
+                         actionListener="#{tcmpb.nextPage}"/>
+        <div class="EmptyBox10"></div>
+        <div class="Container100 Responsive100 Fleft">
             <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
         </div>
+
+
     </div>
 
 </ui:composition>

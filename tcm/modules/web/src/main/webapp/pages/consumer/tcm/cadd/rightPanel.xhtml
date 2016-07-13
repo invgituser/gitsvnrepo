@@ -7,8 +7,9 @@
 
     <div class="Container100 Fleft Responsive100">
         <div class="ContainerIndent">
-                <div class="Container100 Responsive100">
-                        <div class="Wid35 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
+        <div class="Container10 Responsive0" style="height:1px;"></div>
+                <div class="Container80 Responsive100">
+                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth">
                             <div class="ContainerIndent">
                                 <div class="EmptyBox5"></div>
                                 <span class="Fs14 DispBlock gray">Investment Risk</span>
@@ -21,8 +22,8 @@
                                 <div class="EmptyBox5"></div>
                             </div>
                         </div>
-
-                        <div class="Wid30 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
+<div class="Wid10 Fright" style="height:1px;"></div>
+                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth">
                             <div class="ContainerIndent">
                                 <div class="EmptyBox5"></div>
                                 <span class="Fs14 DispBlock gray">Expected Return</span>
@@ -38,14 +39,10 @@
                 </div>
 
                 <div class="Container100 Responsive100">
-                        <div class="Container50  Fleft Responsive100"><!-- ROHIT's CHANGE -->
-                            <div class="Container100">
-                                <p:chart type="pie" model="#{tcmpb.charts.pieChart}"
-                                         rendered="#{tcmpb.charts.pieChart != null}"
-                                         responsive="true"/>
-                            </div>
-                        </div>
-                        <div class="Container50 Fleft Responsive100"><!-- ROHIT's CHANGE -->
+                <div class="Container10 Responsive0" style="height:1px;"></div>
+                <div class="Container80 Responsive100">
+                        
+                        <div class="Container50 Fleft Responsive50">
                                 <p:dataTable styleClass="invAllocTable"
                                              value="#{tcmpb.editableAsset}"
                                              var="assetList">
@@ -65,6 +62,15 @@
                                         </h:outputText>
                                     </p:column>
                                 </p:dataTable>
+                    </div>
+                    <div class="Container50  Fleft Responsive50">
+                            <div class="Container100">
+                                <p:chart type="pie" model="#{tcmpb.charts.pieChart}" style="height:200px; width: 100%;"
+                                         rendered="#{tcmpb.charts.pieChart != null}"
+                                         responsive="true"/>
+                            </div>
+                        </div>
+                    
                         </div>
                 </div>
         </div>

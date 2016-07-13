@@ -649,9 +649,9 @@
          <id>3P3-DB-TCM-PROD</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://tcm.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <jdbc.url>jdbc:mysql://192.168.100.95:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://tcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://tcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
+            <service.url>jdbc:mysql://192.168.100.95:3306/service?noAccessToProcedureBodies=true</service.url>
             <ltam.url>jdbc:mysql://tcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
@@ -665,9 +665,9 @@
       <profile>
          <id>5A-WEB-LOCAL</id>
          <properties>
-            <apache.url>http://localhost:8080</apache.url>
-            <tomcat.url>http://localhost:8080</tomcat.url>
-            <ssl.url>http://localhost:8080</ssl.url>
+            <apache.url>http://localhost:9090</apache.url>
+            <tomcat.url>http://localhost:9090</tomcat.url>
+            <ssl.url>http://localhost:9090</ssl.url>
          </properties>
       </profile>
       <profile>
