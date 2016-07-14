@@ -1,23 +1,18 @@
 package com.invessence.web.bean.consumer.tcm;
 
 import java.io.Serializable;
-import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.faces.event.*;
 
 import com.invessence.converter.*;
-import com.invessence.web.bean.consumer.invessence.InvessenceCharts;
-import com.invessence.web.constant.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.tcm.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
-import com.invmodel.performance.data.ProjectionData;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
 
@@ -227,7 +222,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
             disablegraphtabs = true;
             disabledetailtabs = true;
-            resetForm();
+            fetchClientData();
             canOpenAccount = initCanOpenAccount();
             welcomeDialog = false;
          }
@@ -360,7 +355,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private void loadNewClientData()
    {
 
-      resetDataForm();
       try
       {
          UserInfoData uid = webutil.getUserInfoData();
@@ -373,8 +367,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          setDefaults();
          loadBasketInfo();
          selectFirstBasket();
-         createAssetPortfolio(1); // Build default chart for the page...
-         // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
       }
       catch (Exception ex)
       {
@@ -385,7 +377,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private void loadData(Long acctnum)
    {
 
-      resetDataForm();
       try
       {
          if (webutil.isUserLoggedIn())
@@ -400,7 +391,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                listDAO.getProfileData(getInstance());
                loadBasketInfo();
          }
-         createAssetPortfolio(1);
          formEdit = false;
       }
       catch (Exception ex)
@@ -684,7 +674,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
             saveProfile();
          // if (canOpenAccount == 0) {
-         webutil.redirect("/pages/consumer/funding.xhtml?acct=" + getAcctnum(), null);
+         webutil.redirect("/pages/consumer/fund/td/cto.xhtml?acct=" + getAcctnum(), null);
          //getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
          // }
 
@@ -699,19 +689,23 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    }
 
-   public void resetForm()
+   public void fetchClientData()
    {
       try
       {
+         resetDataForm();
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
             loadData(getBeanAcctnum());
             loadRiskData(getBeanAcctnum());
+
          }
          else
          {
             loadNewClientData();
+
          }
+         createAssetPortfolio(1);
       }
       catch (Exception ex)
       {

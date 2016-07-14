@@ -29,7 +29,7 @@ public class TCMRiskCalculator implements RiskCalculator
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q13
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q14
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q15
-    };
+   };
    private Integer numberofQuestions;
    private String riskFormula;
    private Double[] riskValues;     // NOTE: Q1 = Position 1.  Zero is of default.
@@ -41,7 +41,6 @@ public class TCMRiskCalculator implements RiskCalculator
    SQLData converter = new SQLData();
 
 
-
    public TCMRiskCalculator()
    {
       this.numberofQuestions = 1;
@@ -50,7 +49,7 @@ public class TCMRiskCalculator implements RiskCalculator
 
    public TCMRiskCalculator(Integer numberofQuestions)
    {
-      this.numberofQuestions =  numberofQuestions;
+      this.numberofQuestions = numberofQuestions;
       resetAllData();
    }
 
@@ -87,128 +86,181 @@ public class TCMRiskCalculator implements RiskCalculator
    public Integer getHorizon2Index(Integer value)
    {
       if (value == null)
+      {
          return 0;
+      }
 
       if (value < 3)
+      {
          return 1;
+      }
 
       if (value < 5)
+      {
          return 2;
+      }
 
       if (value < 10)
+      {
          return 3;
+      }
 
       if (value < 15)
+      {
          return 4;
+      }
 
       return 5;
    }
 
-   public String getAns1() {
+   public String getAns1()
+   {
       return getAnswers()[1];
    }
 
-   public void setAns1(String value) {
-      setAnswer(1,value);
+   public void setAns1(String value)
+   {
+      setAnswer(1, value);
    }
 
-   public String getAns2() {
+   public String getAns2()
+   {
       return getAnswers()[2];
    }
 
-   public void setAns2(String value) {
-      setAnswer(2,value);
+   public void setAns2(String value)
+   {
+      setAnswer(2, value);
    }
-   public String getAns3() {
+
+   public String getAns3()
+   {
       return getAnswers()[3];
    }
 
-   public void setAns3(String value) {
-      setAnswer(3,value);
+   public void setAns3(String value)
+   {
+      setAnswer(3, value);
    }
-   public String getAns4() {
+
+   public String getAns4()
+   {
       return getAnswers()[4];
    }
 
-   public void setAns4(String value) {
-      setAnswer(4,value);
+   public void setAns4(String value)
+   {
+      setAnswer(4, value);
    }
-   public String getAns5() {
+
+   public String getAns5()
+   {
       return getAnswers()[5];
    }
 
-   public void setAns5(String value) {
-      setAnswer(5,value);
+   public void setAns5(String value)
+   {
+      setAnswer(5, value);
    }
-   public String getAns6() {
+
+   public String getAns6()
+   {
       return getAnswers()[6];
    }
 
-   public void setAns6(String value) {
-      setAnswer(6,value);
+   public void setAns6(String value)
+   {
+      setAnswer(6, value);
    }
-   public String getAns7() {
+
+   public String getAns7()
+   {
       return getAnswers()[7];
    }
 
-   public void setAns7(String value) {
-      setAnswer(7,value);
+   public void setAns7(String value)
+   {
+      setAnswer(7, value);
    }
-   public String getAns8() {
+
+   public String getAns8()
+   {
       return getAnswers()[8];
    }
 
-   public void setAns8(String value) {
-      setAnswer(8,value);
+   public void setAns8(String value)
+   {
+      setAnswer(8, value);
    }
-   public String getAns9() {
+
+   public String getAns9()
+   {
       return getAnswers()[9];
    }
 
-   public void setAns9(String value) {
-      setAnswer(9,value);
+   public void setAns9(String value)
+   {
+      setAnswer(9, value);
    }
-   public String getAns10() {
+
+   public String getAns10()
+   {
       return getAnswers()[10];
    }
 
-   public void setAns10(String value) {
-      setAnswer(10,value);
+   public void setAns10(String value)
+   {
+      setAnswer(10, value);
    }
-   public String getAns111() {
+
+   public String getAns111()
+   {
       return getAnswers()[11];
    }
 
-   public void setAns11(String value) {
-      setAnswer(11,value);
+   public void setAns11(String value)
+   {
+      setAnswer(11, value);
    }
-   public String getAns12() {
+
+   public String getAns12()
+   {
       return getAnswers()[12];
    }
 
-   public void setAns12(String value) {
-      setAnswer(12,value);
+   public void setAns12(String value)
+   {
+      setAnswer(12, value);
    }
-   public String getAns13() {
+
+   public String getAns13()
+   {
       return getAnswers()[13];
    }
 
-   public void setAns13(String value) {
-      setAnswer(13,value);
+   public void setAns13(String value)
+   {
+      setAnswer(13, value);
    }
-   public String getAns14() {
+
+   public String getAns14()
+   {
       return getAnswers()[14];
    }
 
-   public void setAns14(String value) {
-      setAnswer(14,value);
+   public void setAns14(String value)
+   {
+      setAnswer(14, value);
    }
-   public String getAns15() {
+
+   public String getAns15()
+   {
       return getAnswers()[15];
    }
 
-   public void setAns15(String value) {
-      setAnswer(15,value);
+   public void setAns15(String value)
+   {
+      setAnswer(15, value);
    }
 
 
@@ -221,6 +273,10 @@ public class TCMRiskCalculator implements RiskCalculator
    @Override
    public void setRiskFormula(String value)
    {
+      if (value == null)
+      {
+         this.riskFormula = "C";
+      }
       this.riskFormula = value;
    }
 
@@ -234,7 +290,8 @@ public class TCMRiskCalculator implements RiskCalculator
    public void setRiskAge(Integer value)
    {
       this.riskAge = value;
-      if (value != null) {
+      if (value != null)
+      {
          answers[1] = value.toString();
       }
    }
@@ -261,7 +318,8 @@ public class TCMRiskCalculator implements RiskCalculator
    public void setRiskHorizon(Integer value)
    {
       this.riskHorizon = value;
-      if (value != null) {
+      if (value != null)
+      {
          answers[2] = value.toString();
       }
    }
@@ -270,35 +328,45 @@ public class TCMRiskCalculator implements RiskCalculator
    {
       Double calcRisk = 0.0;
       Double adjustRisk = 0.0;
-      Integer maxScore = 100;
+      Integer scoreMeasurement = 100;
       Double agePowerValue = 1.9;
       Double ageWeight = 1.0;
       try
       {
-         if (riskFormula != null && riskFormula.equalsIgnoreCase("C")) {
-            if (numberofQuestions == null) {
+         if (riskFormula == null)
+         {
+            riskFormula = "C";
+         }
+         if (riskFormula.equalsIgnoreCase("C"))
+         {
+            if (numberofQuestions == null)
+            {
                setTotalRisk(0.0);
                return 0.0;
             }
 
+
             Integer ageValue = (getRiskAge() == null) ? 30 : getRiskAge();
-            Double agePowerFunction = Math.pow((ageValue.doubleValue()/maxScore),agePowerValue);
+            Double agePowerFunction = Math.pow((ageValue.doubleValue() / scoreMeasurement), agePowerValue);
 
             Double value;
             for (int loop = 1; loop < numberofQuestions + 1; loop++)
             {
                value = 0.0;
-               switch (loop) {
+               switch (loop)
+               {
                   case 1:
-                     value = Math.min(maxScore * agePowerFunction, ageWeight * maxScore );
+                     value = Math.min(scoreMeasurement * agePowerFunction, ageWeight * scoreMeasurement);
                      break;
                   case 2:
                      value = riskValueMatrix[loop][getHorizon2Index(getRiskHorizon())];
                      break;
                   default:
-                     if (answers[loop] != null) {
+                     if (answers[loop] != null)
+                     {
                         Integer ansvalue = converter.getIntData(answers[loop]);
-                        if (ansvalue > 0 && ansvalue < riskValueMatrix[loop].length) {
+                        if (ansvalue > 0 && ansvalue < riskValueMatrix[loop].length)
+                        {
                            value = riskValueMatrix[loop][ansvalue];
                         }
                      }
@@ -308,17 +376,19 @@ public class TCMRiskCalculator implements RiskCalculator
                calcRisk += value;
             }
 
-            if (goal.equalsIgnoreCase("Retirement")) {
-               calcRisk = calcRisk/maxScore;
-               calcRisk = (calcRisk > maxScore) ? maxScore : calcRisk;
-               calcRisk = (maxScore - calcRisk < 0.0) ? 0.0 : maxScore - calcRisk + 20;
+            if (goal.equalsIgnoreCase("Retirement"))
+            {
+               calcRisk = calcRisk / scoreMeasurement;
+               calcRisk = (calcRisk > scoreMeasurement) ? scoreMeasurement : calcRisk;
+               calcRisk = (scoreMeasurement - calcRisk < 0.0) ? 0.0 : scoreMeasurement - calcRisk + 20;
                adjustRisk = 0.0;
                for (int loop = 1; loop < numberofQuestions + 1; loop++)
                {
                   value = 0.0;
-                  switch (loop) {
+                  switch (loop)
+                  {
                      case 1:
-                        value = (maxScore - calcRisk < 0.0) ? 0.0 : maxScore - calcRisk + 20;
+                        value = calcRisk;
                         adjustRisk = value;
                         break;
                      default:
@@ -329,11 +399,13 @@ public class TCMRiskCalculator implements RiskCalculator
                }
 
             }
-            else {
+            else
+            {
                for (int loop = 1; loop < numberofQuestions + 1; loop++)
                {
                   value = 0.0;
-                  switch (loop) {
+                  switch (loop)
+                  {
                      case 1:
                         adjustRisk = 120.0;
                         break;
@@ -341,17 +413,21 @@ public class TCMRiskCalculator implements RiskCalculator
                         adjustRisk -= riskValues[loop];
                   }
                }
-               adjustRisk  = adjustRisk / 100.0;
+               adjustRisk = adjustRisk / 100.0;
 
             }
+            adjustRisk = (adjustRisk < 0.0) ? 0.0 : adjustRisk;
             setTotalRisk(adjustRisk);
             return adjustRisk;
          }
-         else {
+         else
+         {
             return totalRisk;
          }
+
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          setTotalRisk(0.0);
          return 0.0;
       }
@@ -370,77 +446,103 @@ public class TCMRiskCalculator implements RiskCalculator
    }
 
    @Override
-   public Integer getRiskValue(Integer index) {
+   public Integer getRiskValue(Integer index)
+   {
       if (index < 1)
+      {
          return 0;
+      }
 
       if (index > riskValueMatrix.length)
+      {
          return 0;
+      }
 
       if (riskValues[index] == null)
+      {
          return 0;
+      }
 
       return riskValues[index].intValue();
    }
 
    @Override
-   public Integer getAnswerValue(Integer index) {
+   public Integer getAnswerValue(Integer index)
+   {
       if (index < 1)
+      {
          return 0;
+      }
 
       if (index > riskValueMatrix.length)
+      {
          return 0;
+      }
 
       if (answers[index] == null)
+      {
          return 0;
+      }
 
       return converter.getIntData(answers[index]);
    }
 
    @Override
-   public void setAnswer(Integer index, String value) {
+   public void setAnswer(Integer index, String value)
+   {
       if (index < 1)
+      {
          return;
+      }
 
       if (index > riskValueMatrix.length)
+      {
          return;
+      }
 
       answers[index] = value;
    }
 
 
    @Override
-   public void resetAllData() {
+   public void resetAllData()
+   {
       riskValues = new Double[riskValueMatrix.length];
       answers = new String[riskValueMatrix.length];
       riskAge = 30;
       riskHorizon = 10;
       totalRisk = 0.0;
-      riskFormula="C";
+      riskFormula = "C";
    }
 
    @Override
-   public Integer convertRiskWeight2Index(Double weight) {
+   public Integer convertRiskWeight2Index(Double weight)
+   {
       Integer value;
-      try {
-         Double dvalue = weight/100.0;
+      try
+      {
+         Double dvalue = weight / 100.0;
          value = dvalue.intValue();
          return value;
 
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          return 0;
       }
    }
 
    @Override
-   public Double convertIndex2RiskWeight(Double index) {
+   public Double convertIndex2RiskWeight(Double index)
+   {
       Double value;
-      try {
-         value = index*100.0;
+      try
+      {
+         value = index * 100.0;
          return value;
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          return 0.0;
       }
 

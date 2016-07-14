@@ -64,6 +64,15 @@
                         </p:columnGroup>
                     </p:dataTable>
             </div>
+        <div class="EmptyBox20"></div>
+        <p:commandButton styleClass="prev" value="Start Over"
+                         update=":ceForm:inputArea"
+                         immediate="true"
+                         actionListener="#{tcmpb.startover}"/>
+        <p:commandButton styleClass="Fright" value="Fund Account"
+                         update=":ceForm:inputArea"
+                         actionListener="#{tcmpb.fundAccount}"/>
+
     </div>
 </p:fieldset>
 <div class="EmptyBox10"></div>

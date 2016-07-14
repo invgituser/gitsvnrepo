@@ -400,10 +400,10 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(0);
-               data.setRiskFormula(convert.getStrData(rs.get("riskFormula")));
                data.setRiskAge(convert.getIntData(rs.get("age")));
                data.setRetireAge(convert.getIntData(rs.get("retireage")));
                data.setRiskHorizon(convert.getIntData(rs.get("horizon")));
+               data.setRiskFormula(convert.getStrData(rs.get("formula")));
                data.setAnswer(1, convert.getStrData(rs.get("ans1")));
                data.setAnswer(2, convert.getStrData(rs.get("ans2")));
                data.setAnswer(3, convert.getStrData(rs.get("ans3")));
