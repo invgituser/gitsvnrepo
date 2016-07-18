@@ -30,6 +30,9 @@ public class TCMCharts implements Serializable
    private LineChartModel goalChart;
    private BarChartModel riskbarChart;
 
+   private Integer avgPerformance = 0;
+   private Integer poorPerformance = 0;
+
 
    public TCMCharts()
    {
@@ -116,6 +119,16 @@ public class TCMCharts implements Serializable
       if (meterGuage == null)
          createDefaultMeterGuage();
       this.meterGuage.setValue(pointer);
+   }
+
+   public Integer getAvgPerformance()
+   {
+      return avgPerformance;
+   }
+
+   public Integer getPoorPerformance()
+   {
+      return poorPerformance;
    }
 
    public void createDefaultMeterGuage() {
@@ -296,8 +309,8 @@ public class TCMCharts implements Serializable
          upper2.setLabel("Upper2");
 
          totalYlabels = (horizon < 10) ? 10 : ((horizon > MAXPOINTONGRAPH) ? MAXPOINTONGRAPH : horizon);
-         yIncrement = (int) ((totalYlabels) / ((double) horizon));
-         yIncrement = yIncrement + 1;  // offset by 1
+         // yIncrement = (int) ((totalYlabels) / ((double) horizon));
+         yIncrement = 1;  // offset by 1
          noOfYlabels = (int) (totalYlabels / ((double) yIncrement) % horizon);
          // Mod returns 0 at its interval.  So on 30, we want to rotate it 90.
          noOfYlabels = (noOfYlabels == 0) ? projectionData.length : noOfYlabels;
@@ -323,7 +336,7 @@ public class TCMCharts implements Serializable
          minGrowth = ((int) projectionData[0].getLowerBand2() - lowervalue < 0) ? 0 : (int) projectionData[0].getLowerBand2() - lowervalue;
          maxGrowth = 0;
          Double tmpvalue;
-         while (y <= totalYlabels)
+         while (y < totalYlabels)
          {
             year = calendarYear + y;
             // moneyInvested = Math.round(projectionData[y].getInvestedCapital() / dividingFactor);
@@ -344,14 +357,13 @@ public class TCMCharts implements Serializable
             tmpvalue = (Math.round((projectionData[y].getUpperBand2()/dividingFactor) * 100.0))/100.0;
             upper2.set(year.toString(), tmpvalue);
             // If incrementing anything other then 1, then make sure that last year is displayed.
-            if (y == totalYlabels)
+            if (y+1 >= totalYlabels) // If last point is plotted, then quit.
             {
-               y++;  // If last point is plotted, then quit.
+               Integer lastpoint = totalYlabels - 1;
+               avgPerformance = (int) ((Math.round((projectionData[lastpoint].getTotalCapitalWithGains()/dividingFactor) * 100.0))/100.0);
+               poorPerformance = (int) ((Math.round((projectionData[lastpoint].getLowerBand2()/dividingFactor) * 100.0))/100.0);
             }
-            else
-            {
-               y = ((y + yIncrement) > totalYlabels) ? y = totalYlabels : y + yIncrement;
-            }
+            y += yIncrement;
          }
 
          Integer digits = maxGrowth.toString().length();

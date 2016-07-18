@@ -25,6 +25,7 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_portfolioName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             declareParameter(new SqlParameter("p_firstname", Types.VARCHAR));
             declareParameter(new SqlParameter("p_lastname", Types.VARCHAR));
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
@@ -213,9 +214,16 @@ public class ConsumerSaveSP extends StoredProcedure
 
       try
       {
-         inputMap.put("p_acctnum", data.getAcctnum());
+         if (data.getAcctnum() == null) {
+            inputMap.put("p_acctnum", 0L);
+         }
+         else{
+            inputMap.put("p_acctnum", data.getAcctnum());
+         }
+
          inputMap.put("p_portfolioName", data.getPortfolioName());
          inputMap.put("p_advisor", data.getAdvisor());
+         inputMap.put("p_rep", data.getRep());
          inputMap.put("p_firstname", data.getFirstname());
          inputMap.put("p_lastname", data.getLastname());
          inputMap.put("p_theme", data.getTheme());

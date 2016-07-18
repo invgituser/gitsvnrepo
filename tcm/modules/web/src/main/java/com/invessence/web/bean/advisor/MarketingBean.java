@@ -97,7 +97,7 @@ public class MarketingBean implements Serializable
             if (fetchedDataList == null)
                fetchedDataList = new ArrayList<CustomerData>();
             fetchedDataList.clear();
-            fetchedDataList = cldDAO.getClientProfileData(webutil.getLogonid(), null);
+            fetchedDataList = cldDAO.getClientProfileData(webutil.getLogonid(), null, null);
 /*
             for (int i=0; i < accountDataList.size() ; i++)
                  setAcctStatus(accountDataList.get(i).getAcctStatus());

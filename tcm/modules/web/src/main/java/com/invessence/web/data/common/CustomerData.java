@@ -31,7 +31,7 @@ public class CustomerData extends ProfileData
    private JavaUtil javautil = new JavaUtil();
    private CustomerData manageGoalinstance = null;
 
-
+   private String advisorDisplayName;
    private String userid;
    private String addmodflag;
    private String dateOpened;
@@ -194,6 +194,16 @@ public class CustomerData extends ProfileData
          value = getProjectionData()[finalyear-1].getTotalCapitalWithGains();
       }
       return value;
+   }
+
+   public String getAdvisorDisplayName()
+   {
+      return advisorDisplayName;
+   }
+
+   public void setAdvisorDisplayName(String advisorDisplayName)
+   {
+      this.advisorDisplayName = advisorDisplayName;
    }
 
    public String getUserid()

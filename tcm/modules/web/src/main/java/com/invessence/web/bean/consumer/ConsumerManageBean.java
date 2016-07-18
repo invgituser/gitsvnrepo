@@ -152,7 +152,7 @@ public class ConsumerManageBean implements Serializable
    {
       try
       {
-            manageAccountList = manageAccountDAO.getClientProfileData(logonid, null);
+            manageAccountList = manageAccountDAO.getClientProfileData(logonid, null, null);
             for (int i = 0; i < manageAccountList.size(); i++)
             {
                dataCollected = true;

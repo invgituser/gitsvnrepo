@@ -16,56 +16,6 @@
             <p:submenu label="Account" icon="fa fa-file-text-o">
                 <p:menuitem value="New" icon="fa fa-plus-square"
                             actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?acct=0')}"/>
-                <p:menuitem value="Management" icon="fa fa-institution" rendered="false"
-                            actionListener="#{uiLayout.doMenuAction('https://www.clientam.com/Universal/servlet/AccountAccess.Login?partnerID=Invessence')}"/>
-                <p:menuitem value="Account Aggregation" icon="fa fa-plus-square"
-                            rendered="#{webutil.hasAccess('DEMO')}"
-                            actionListener="#{yodleeBean.startup}"/>
-                <p:menuitem value="Change Account Info"
-                            rendered="#{webutil.hasAccess('DEMO')}"
-                            outcome="/pages/consumer/cto/acctchange.xhtml"/>
-            </p:submenu>
-
-            <p:separator rendered="#{webutil.hasAccess('DEMO')}"/>
-
-            <p:menuitem value="Reports" icon="fa fa-picture-o" rendered="#{webutil.hasAccess('DEMO')}"
-                        actionListener="#{uiLayout.doMenuAction('consumer', 'creports.xhtml')}"/>
-
-            <p:separator rendered="#{webutil.hasAccess('ADVISOR')}"/>
-
-            <p:menuitem value="Sales Rep" icon="fa fa-user-md"
-                        rendered="#{webutil.hasAccess('ADVISOR')}"
-                        actionListener="#{uiLayout.doMenuAction('advisor/alist.xhtml')}"/>
-
-
-            <p:separator rendered="#{webutil.hasAccess('SALES')}"/>
-
-            <p:menuitem value="Marketing" icon="fa fa-wifi" rendered="#{webutil.hasAccess('SALES')}"
-                        actionListener="#{uiLayout.doMenuAction('advisor/marketing.xhtml')}"/>
-
-            <p:separator rendered="#{webutil.hasAccess('ADMIN')}"/>
-
-            <p:menuitem value="Operations" icon="fa fa-briefcase" rendered="#{webutil.hasAccess('ADMIN')}"
-                        actionListener="#{uiLayout.doMenuAction('admin/trade.xhtml')}"/>
-
-            <p:separator rendered="#{webutil.hasAccess('ADVISOR')}"/>
-
-            <p:menuitem value="Investments" icon="fa fa-th-list" outcome="/pages/advisor/assets.xhtml"
-                        rendered="#{webutil.hasAccess('ADVISOR')}"/>
-
-            <p:separator rendered="#{webutil.hasAccess('DEMO')}"/>
-
-            <p:submenu label="Demo" icon="fa fa-file-text-o"
-                       rendered="#{webutil.hasAccess('DEMO')}">
-                <p:menuitem value="Compliance"
-                            actionListener="#{uiLayout.doMenuAction('consumer/custReview.xhtml')}"/>
-            </p:submenu>
-
-            <p:separator rendered="#{webutil.hasAccess('DEVELOPER')}"/>
-
-            <p:submenu label="Developer" icon="fa fa-asterisk"
-                       rendered="#{webutil.hasAccess('DEVELOPER')}">
-                <p:menuitem value="Font Icons" icon="fa fa-paint-brush" outcome="/spark/font-icons.xhtml"/>
             </p:submenu>
 
         </ps:menu>

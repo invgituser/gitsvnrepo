@@ -189,8 +189,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          context.addMessage(null, new FacesMessage("Error", "Incomplete Form " + "Retirement Age is less then current age."));
       }
       else {
+         Integer riskHorizon = retireAge - getAge();
          riskCalculator.setRetireAge(retireAge);
-         setHorizon(retireAge - getAge());
+         setHorizon(riskHorizon);
+
       }
    }
 
@@ -201,10 +203,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (!webutil.isUserLoggedIn())
-            {
-               webutil.redirect("/login.xhtml", null);
-            }
             pagemanager = new PagesImpl(5);
             pagemanager.setPage(0);
             riskCalculator.setNumberofQuestions(5);
@@ -674,7 +672,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
             saveProfile();
          // if (canOpenAccount == 0) {
-         webutil.redirect("/pages/consumer/fund/td/cto.xhtml?acct=" + getAcctnum(), null);
+         webutil.redirect("/pages/fund/td/cto.xhtml?acct=" + getAcctnum(), null);
          //getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
          // }
 

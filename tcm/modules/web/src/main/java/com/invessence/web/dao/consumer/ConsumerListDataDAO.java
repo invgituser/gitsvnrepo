@@ -19,11 +19,11 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public ArrayList<CustomerData> getClientProfileData(Long logonid, Long acctnum) {
+   public ArrayList<CustomerData> getClientProfileData(Long logonid, Long acctnum, Integer days) {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData2",0);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
       ArrayList<CustomerData> listProfiles = new ArrayList<CustomerData>();
-      Map outMap = sp.loadClientProfileData(logonid, acctnum);
+      Map outMap = sp.loadClientProfileData(logonid, acctnum, days);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -39,6 +39,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setEmail(convert.getStrData(rs.get("email")));
             data.setUserid(convert.getStrData(rs.get("userid")));
             data.setAdvisor(convert.getStrData(rs.get("advisor")));
+            data.setRep(convert.getStrData(rs.get("rep")));
             data.setBasket(convert.getStrData(rs.get("theme")));
             data.setTheme(convert.getStrData(rs.get("theme")));
             data.setLastname(convert.getStrData(rs.get("lastname")));
@@ -107,8 +108,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
    public void getNewClientProfileData(CustomerData data) {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_AccountProfile",1);
-      Map outMap = sp.loadClientProfileData(data.getLogonid(), 0L);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_NewAccountProfile",1);
+      Map outMap = sp.getNewClientProfileData(data);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -118,13 +119,9 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             {
                Map rs = (Map) rows.get(i);
 
-               data.setLogonid(convert.getLongData(rs.get("logonid")));
-               data.setEmail(convert.getStrData(rs.get("email")));
-               data.setUserid(convert.getStrData(rs.get("userid")));
-               data.setLastname(convert.getStrData(rs.get("lastname")));
-               data.setFirstname(convert.getStrData(rs.get("firstname")));
-               data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
-               data.setRegisteredState(convert.getStrData(rs.get("state")));
+               data.setAdvisor(convert.getStrData(rs.get("advisor")));
+               data.setRep(convert.getStrData(rs.get("rep")));
+               data.setAdvisorDisplayName(convert.getStrData(rs.get("displayName")));
                break;
             }
          }
@@ -133,7 +130,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
    public void getProfileData(CustomerData data) {
       DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_AccountProfile",1);
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",1);
       Map outMap = sp.loadClientProfileData(data);
       String action;
       try {
@@ -258,6 +255,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
    public void getClientData(ClientBean data) {
       DataSource ds = getDataSource();
+/*
       ConsumerListSP sp = new ConsumerListSP(ds, "sp_clientinfo_sel",2);
       Map outMap = sp.loadClientProfileData(data);
       if (outMap != null)
@@ -297,10 +295,12 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             break;
          }
       }
+*/
    }
 
    public void getClientEmpData(ClientBean data) {
       DataSource ds = getDataSource();
+/*
       ConsumerListSP sp = new ConsumerListSP(ds, "sp_client_empinfo_sel",2);
       Map outMap = sp.loadClientProfileData(data);
       if (outMap != null)
@@ -326,6 +326,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             break;
          }
       }
+*/
    }
 
    public String validateState(Long logonid, String state) {

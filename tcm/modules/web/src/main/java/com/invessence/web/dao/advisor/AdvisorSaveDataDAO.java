@@ -6,6 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.web.data.advisor.*;
+import com.invessence.web.data.common.NotificationData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "advisorSaveDataDAO")
@@ -73,5 +74,12 @@ public class AdvisorSaveDataDAO extends JdbcDaoSupport implements Serializable
       sp.savePrimeAssetData(data);
       return true;
    }
+
+   public void saveAdvisorNotice(NotificationData data) {
+      DataSource ds = getDataSource();
+      AdvisorSaveSP sp = new AdvisorSaveSP(ds, "sav_notification_advisor",10);
+      sp.saveAdvisorNotice(data);
+   }
+
 }
 

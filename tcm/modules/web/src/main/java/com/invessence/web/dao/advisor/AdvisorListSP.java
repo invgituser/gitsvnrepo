@@ -42,7 +42,14 @@ public class AdvisorListSP extends StoredProcedure
          case 7: // advisor_sel_primeassetclass
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
+         case 8: // sel_notification_advisor
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_archive", Types.VARCHAR));
+            break;
          default:
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            break;
       }
       compile();
    }
@@ -99,7 +106,24 @@ public class AdvisorListSP extends StoredProcedure
       inputMap.put("p_logonid", logonid);
       return super.execute(inputMap);
    }
+
    public Map collectPrimeAssetClass(Long logonid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      return super.execute(inputMap);
+   }
+
+   public Map getAdvisorNotification(Long logonid, String messageType, String status)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_messagetype", messageType);
+      inputMap.put("p_archive", status);
+      return super.execute(inputMap);
+   }
+
+   public Map getAdvisorNotificationInfo(Long logonid)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);

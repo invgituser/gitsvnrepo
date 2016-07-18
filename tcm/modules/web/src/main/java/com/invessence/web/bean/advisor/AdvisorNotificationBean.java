@@ -1,19 +1,20 @@
-package com.invessence.web.bean.common;
+package com.invessence.web.bean.advisor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.web.constant.*;
+import com.invessence.web.constant.WebConst;
+import com.invessence.web.dao.advisor.*;
 import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.data.common.NotificationData;
-import com.invessence.web.util.*;
+import com.invessence.web.util.WebUtil;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "notificationBean")
 @RequestScoped
-public class NotificationBean implements Serializable
+public class AdvisorNotificationBean implements Serializable
 {
    private ArrayList<NotificationData> notificationDataList = null;
    private NotificationData notificationData = new NotificationData();
@@ -28,12 +29,18 @@ public class NotificationBean implements Serializable
       this.webutil = webutil;
    }
 
-   @ManagedProperty("#{commonDAO}")
-   private CommonDAO commonDao;
-
-   public void setCommonDao(CommonDAO commonDao)
+   @ManagedProperty("#{advisorListDataDAO}")
+   private AdvisorListDataDAO advisorListDao;
+   public void setAdvisorListDao(AdvisorListDataDAO advisorListDao)
    {
-      this.commonDao = commonDao;
+      this.advisorListDao = advisorListDao;
+   }
+
+   @ManagedProperty("#{advisorSaveDataDAO}")
+   private AdvisorSaveDataDAO advisorSaveDao;
+   public void setAdvisorSaveDao(AdvisorSaveDataDAO advisorSaveDao)
+   {
+      this.advisorSaveDao = advisorSaveDao;
    }
 
    public ArrayList<NotificationData> getNotificationDataList()
@@ -105,7 +112,7 @@ public class NotificationBean implements Serializable
          logonid = webutil.getLogonid();
          if (notificationType == null || notificationType.isEmpty())
             notificationType = "M";
-         notificationDataList = commonDao.getUserNotification(logonid, notificationType, filterNotice);
+         notificationDataList = advisorListDao.getAdvisorNotification(logonid, notificationType, filterNotice);
       }
    }
 
@@ -138,7 +145,7 @@ public class NotificationBean implements Serializable
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("A");
-         commonDao.saveUserNotice(data);
+         advisorSaveDao.saveAdvisorNotice(data);
          webutil.redirect("/pages/common/notification.xhtml", null);
 /*
          selectedMessage = null;
@@ -155,7 +162,7 @@ public class NotificationBean implements Serializable
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("N");
-         commonDao.saveUserNotice(data);
+         advisorSaveDao.saveAdvisorNotice(data);
          webutil.redirect("/pages/common/notification.xhtml", null);
 /*
          selectedMessage = null;
@@ -174,7 +181,7 @@ public class NotificationBean implements Serializable
          notificationData.setTagid("T");
          notificationData.setAdvisorlogonid(webutil.getLogonid());
          notificationData.setNoticetype(notificationData.getNoticetype().substring(1,1));
-         commonDao.saveUserNotice(notificationData);
+         advisorSaveDao.saveAdvisorNotice(notificationData);
          collectNotification();
          // RequestContext.getCurrentInstance().closeDialog("addNotification");
       }

@@ -40,7 +40,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
 
    }
 
-   public ArrayList<NotificationData> getNotification(Long logonid, String messageType, String status)
+   public ArrayList<NotificationData> getUserNotification(Long logonid, String messageType, String status)
    {
       DataSource ds = getDataSource();
 
@@ -81,18 +81,18 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
 
    }
 
-   public void saveNotice(NotificationData data) {
+   public void saveUserNotice(NotificationData data) {
       DataSource ds = getDataSource();
-      CommonSP sp = new CommonSP(ds, "sp_advisor_notification",3);
+      CommonSP sp = new CommonSP(ds, "sav_notification_user",3);
       sp.saveNotice(data);
    }
 
-   public Map<String, Integer> getNotificationInfo(Long logonid) {
+   public Map<String, Integer> getUserNotificationInfo(Long logonid) {
       if (logonid == null)
          return null;
 
       DataSource ds = getDataSource();
-      CommonSP sp = new CommonSP(ds, "sel_notificationInfo",99);
+      CommonSP sp = new CommonSP(ds, "sel_notificationInfo_user",99);
       Map outMap = sp.getNotificationInfo(logonid);
       Map<String, Integer> statInfo = new HashMap<String, Integer>();
       try {

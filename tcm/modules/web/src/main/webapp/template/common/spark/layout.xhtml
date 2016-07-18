@@ -9,7 +9,9 @@
 
         <ui:include src="/template/common/spark/topbar.xhtml"/>
 
-        <ui:include src="/template/common/spark/layoutmenu.xhtml"/>
+        <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
+           <ui:include src="/template/common/spark/layoutmenu.xhtml"/>
+        </ui:fragment>
 
         <div id="layout-portlets-cover">
             <ui:insert name="content">

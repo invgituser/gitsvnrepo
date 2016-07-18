@@ -1,15 +1,12 @@
 package com.invessence.web.util;
 
 import java.io.*;
-import java.util.*;
 import javax.faces.bean.*;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import com.lowagie.text.*;
 import org.apache.poi.hssf.usermodel.*;
-import com.invessence.web.bean.advisor.InstitutionGenericBean;
 import org.apache.poi.hssf.util.HSSFColor;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
@@ -45,8 +42,8 @@ public class CustomExporter
 
    public void preProcessPDF(Object document) throws IOException, BadElementException, DocumentException
    {
-      InstitutionGenericBean ibean = new InstitutionGenericBean();
-      String imagelogo = ibean.getLogo();
+      //InstitutionGenericBean ibean = new InstitutionGenericBean();
+      String imagelogo = "";  //ibean.getLogo();
       Document pdf = (Document) document;
       pdf.open();
       pdf.setPageSize(PageSize.LEGAL);

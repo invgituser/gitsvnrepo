@@ -6,6 +6,7 @@ import java.util.*;
 import javax.sql.DataSource;
 
 import com.invessence.web.data.advisor.*;
+import com.invessence.web.data.common.NotificationData;
 import com.invmodel.asset.data.Asset;
 import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.*;
@@ -76,7 +77,7 @@ public class AdvisorSaveSP extends StoredProcedure
          case 7:  // Delete User Account
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
-         case 8:  // saveAssetData sp_save_sec_assetclass_group
+         case 8:  // saveAssetData
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_status", Types.VARCHAR));
             declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
@@ -90,7 +91,7 @@ public class AdvisorSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_riskAdjustment", Types.FLOAT));
             declareParameter(new SqlParameter("p_endAllocation", Types.FLOAT));
             break;
-         case 9:  // savePrimeAssetData sp_save_sec_assetclass_group
+         case 9:  // savePrimeAssetData
             declareParameter(new SqlParameter("p_theme", Types.VARCHAR));
             declareParameter(new SqlParameter("p_assetclass", Types.VARCHAR));
             declareParameter(new SqlParameter("p_primeassetclass", Types.VARCHAR));
@@ -102,6 +103,16 @@ public class AdvisorSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_upper_bound", Types.FLOAT));
             declareParameter(new SqlParameter("p_expectedReturn", Types.FLOAT));
             break;
+         case 10:  // sav_notification_advisor
+            declareParameter(new SqlParameter("p_messageid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_status", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisorlogonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_noticetype", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_tagid", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_alertdatetime", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_message", Types.VARCHAR));
          default:
       }
       compile();
@@ -279,5 +290,21 @@ public class AdvisorSaveSP extends StoredProcedure
       inputMap.put("p_expectedReturn", data.getExpectedReturn());
       super.execute(inputMap);
    }
+
+   public void saveAdvisorNotice(NotificationData data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_messageid", data.getMessageid());
+      inputMap.put("p_status", data.getStatus());
+      inputMap.put("p_advisorlogonid", data.getAdvisorlogonid());
+      inputMap.put("p_advisor", data.getAdvisor());
+      inputMap.put("p_acctnum", data.getAcctnum());
+      inputMap.put("p_noticetype", data.getNoticetype());
+      inputMap.put("p_tagid", data.getTagid());
+      inputMap.put("p_alertdatetime", data.getBusinessdate());
+      inputMap.put("p_message", data.getMessage());
+      super.execute(inputMap);
+   }
+
 
 }

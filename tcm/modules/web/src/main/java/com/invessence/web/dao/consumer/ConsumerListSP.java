@@ -22,10 +22,12 @@ public class ConsumerListSP extends StoredProcedure
          case 0:   // SP: sel_ClientProfileData2
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_days", Types.INTEGER));
             break;
-         case 1:   // SP: sel_newClient
+         case 1:   // SP: sel_NewAccountProfile
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
-            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
          case 2:   // SP: sel_newClient
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
@@ -48,11 +50,12 @@ public class ConsumerListSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map loadClientProfileData(Long logonid, Long acctnum)
+   public Map loadClientProfileData(Long logonid, Long acctnum, Integer days)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
       inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_days", days);
       return super.execute(inputMap);
    }
 
@@ -61,16 +64,20 @@ public class ConsumerListSP extends StoredProcedure
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", data.getLogonid());
       inputMap.put("p_acctnum", data.getAcctnum());
+      inputMap.put("p_days", null);
       return super.execute(inputMap);
    }
 
-   public Map loadClientProfileData(ClientBean data)
+
+   public Map getNewClientProfileData(CustomerData data)
    {
       Map inputMap = new HashMap();
+      inputMap.put("p_advisor", data.getAdvisor());
+      inputMap.put("p_rep", data.getRep());
       inputMap.put("p_logonid", data.getLogonid());
-      //inputMap.put("p_acctnum", data.getAcctnum());
       return super.execute(inputMap);
    }
+
 
    public Map validateState(Long logonid, String state)
    {

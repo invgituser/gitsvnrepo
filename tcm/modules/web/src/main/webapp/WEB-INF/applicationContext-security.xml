@@ -9,6 +9,7 @@
            http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
 
+   <http pattern="/index.xhtml" security="none"/>
    <http pattern="/login.xhtml" security="none" create-session="never" use-expressions="true"/>
    <http pattern="/signup.xhtml" security="none"/>
    <http pattern="/register.xhtml" security="none"/>
@@ -50,14 +51,6 @@
 
       <!--  Active pages -->
       <intercept-url pattern="/loginRedirection.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/createInvestment.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/manage.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/managegoals.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/manageallocation.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/managePortfolio.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/debtandliabilities.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/risktolerance.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/position.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
       <!--  Admin pages  -->
       <intercept-url pattern="/pages/admin/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
@@ -65,9 +58,10 @@
       <intercept-url pattern="/pages/advisor/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/pages/consumer/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/pages/common/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/pages/fund/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
-      <logout logout-success-url="/login.xhtml"/>
+      <logout logout-success-url="/index.xhtml"/>
 
       <intercept-url pattern="/**" access="ROLE_USER"/>
       <session-management invalid-session-url="/viewExpired.xhtml"/>

@@ -23,7 +23,12 @@ public class ManageAdvisorBean implements Serializable
       this.webutil = webutil;
    }
 
-   UILayout menu = new UILayout();
+   @ManagedProperty("#{uiLayout}")
+   private UILayout uiLayout;
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
+   }
 
 /*
    @ManagedProperty("#{advisorBean}")
@@ -214,14 +219,10 @@ public class ManageAdvisorBean implements Serializable
 
          if (getSelectedAccount().getAcctStatus().equals("Active"))
          {
-            //positionBean.findPosition(getSelectedAccount().getLogonid(), getSelectedAccount().getAcctnum());
-            webutil.redirect("/common/overview.xhtml?acct="+getSelectedAccount().getAcctnum().toString(),null);
+            uiLayout.doMenuAction("/pages/consumer/overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
          }
-         else
-         {
-            //abean.loadData(getSelectedAccount().getAcctnum());
-            webutil.redirect("/consumer/cadd.xhtml?acct="+getSelectedAccount().getAcctnum().toString(),null);
-            //advisorBean.findGoals(getLogonid(), getAcctnum());
+         else {
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());
          }
       }
       catch (Exception ex)

@@ -1,64 +1,19 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/template/common/simple.xhtml">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
 
-    <f:metadata>
-        <f:viewParam name="cid" value="#{uiLayout.cid}"/>
-        <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
-    </f:metadata>
+<h:head>
+</h:head>
+<f:metadata>
+</f:metadata>
 
-    <ui:define name="content">
+<h:body>
+    <h:outputText value="#{sessionControl.redirect}" style="display: none;"/>
+</h:body>
 
-        <div id="layout-portlets-cover">
-            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-                 style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
-                <div class="Container90 Fnone MarAuto TexAlCenter">
-                    <h:form id="logonForm" prependId="false">
-                        <div class="EmptyBox50"></div>
-                        <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}" styleClass="Fleft" library="invessence"
-                                        class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
-                        <div class="EmptyBox20"></div>
-                        <p:messages id="messages" autoUpdate="true"/>
-                        <f:event listener="#{loginController.updateMessages}" type="preRenderView"/>
-                        <p:inputText id="j_username" placeholder="Username" styleClass="Container80 Fnone MarAuto Fs18"
-                                     required="true"
-                                     requiredMessage="Please enter UserID."
-                                     value="#{loginController.userID}">
-                        </p:inputText>
-                        <div class="EmptyBox10"></div>
-                        <p:password id="j_password"  placeholder="Password" styleClass="Container80 Fnone MarAuto Fs18"
-                                    feedback="false" value="#{loginController.password}"
-                                    requiredMessage="Please enter Password."/>
-                        <div class="EmptyBox5"></div>
-                        <h:outputLabel styleClass="Container80 Fnone MarAuto Fs18"
-                                       id="question"
-                                       value="#{loginController.question}"
-                                       rendered="#{loginController.needAdditionalInfo}">
-                        </h:outputLabel>
-                        <div class="EmptyBox10"></div>
-                        <h:inputText styleClass="Container80 Fnone MarAuto Fs18"
-                                     id="ans" placeholder="Answer" required="true"
-                                     value="#{loginController.answer}"
-                                     rendered="#{loginController.needAdditionalInfo}">
-                        </h:inputText>
-                        <div class="EmptyBox20"></div>
-                        <h:commandButton styleClass="Fs16"
-                                         type="submit" id="login" image="images/login.png"
-                                         action="#{loginController.doLogin}"/>
-                        <div class="EmptyBox10"></div>
-                        <div class="Seperator"></div>
-                        <div class="EmptyBox10"></div>
-                        <p:button  value="Forgot Password ?" styleClass="Fs16 RedButton" href="/forgot.xhtml"></p:button>
-                        <p:button  value="Register" styleClass="Fs16 OrangeButton" href="/signup.xhtml"></p:button>
-                        <div class="EmptyBox50"></div>
-                    </h:form>
-                </div>
-            </div>
-        </div>
-
-    </ui:define>
-
-</ui:composition>
+</html>

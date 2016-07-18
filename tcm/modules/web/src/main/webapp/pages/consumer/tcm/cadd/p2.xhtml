@@ -10,7 +10,8 @@
             <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
                
                 <h3 class="TexAlCenter StepsQuestionsFS">I would like to retire when I am
-                    <pe:inputNumber styleClass="invInputText input_wid1" style="width: 60px;"
+                    <pe:inputNumber id="retireageID"
+                                    styleClass="invInputText input_wid1" style="width: 60px;"
                                     value="#{tcmpb.retireAge}"
                                     decimalPlaces="0"
                                     size="3"

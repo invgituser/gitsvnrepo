@@ -107,7 +107,7 @@ public class TCMDashBean implements Serializable
 
    public void collectData(Long logonid)
    {
-       manageAccountList = listDAO.getClientProfileData(logonid,null);
+       manageAccountList = listDAO.getClientProfileData(logonid,null, null);
     }
 
 
