@@ -106,27 +106,10 @@ public class AdvisorDashData
       this.salesInfo = salesInfo;
    }
 
-   public void preRenderView()
-   {
-
-      try
-      {
-         if (!FacesContext.getCurrentInstance().isPostback())
-         {
-            reloadData();
-         }
-      }
-      catch (Exception e)
-      {
-      }
-   }
-
    public void reloadData() {
       if (listDAO != null) {
          listDAO.reloadAdvisorDashBoard(this);
-      }
-      if (commonDAO != null) {
-         statInfo = commonDAO.getNotificationInfo(logonid);
+         statInfo = listDAO.getAdvisorNotificationInfo(logonid);
       }
    }
 
