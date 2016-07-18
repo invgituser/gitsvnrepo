@@ -65,7 +65,7 @@ public class RebalanceProcess
       List<ProfileData> data = null;
       try
       {
-         data = invModelDAO.getListOfAccounts(logonid, acctnum, filter);
+         data = invModelDAO.loadCustomerData4Rebal(logonid, acctnum, filter);
          return data;
       }
       catch (Exception e)

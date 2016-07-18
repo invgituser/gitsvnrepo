@@ -41,6 +41,7 @@ public class
    private Integer experience = 2; // 1 = Experienced, 2 = inExperienced (See method strExpeience)
    private Integer objective = 2; // 1 = Preservation, 2 = Accumulation; (See method strObjective)
    private String advisor;
+   private String rep;
    private String theme;
    private String basket;
    private Integer numOfQuestions = 15;
@@ -645,6 +646,16 @@ public class
    public void setAdvisor(String advisor)
    {
       this.advisor = advisor;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
    }
 
    public Integer getStayInvested()
@@ -1317,6 +1328,7 @@ public class
       setObjective(2);    // 1 = Preservation, 2 = Accumulation; (See method strObjective)
 
       setAdvisor(InvConst.INVESSENCE_ADVISOR);
+      setRep(null);
       setTheme(InvConst.DEFAULT_THEME);
       setBasket(InvConst.DEFAULT_BASKET);
       setRiskAnswers(null);

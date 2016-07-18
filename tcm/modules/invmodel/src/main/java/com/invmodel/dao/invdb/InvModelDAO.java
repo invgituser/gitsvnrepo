@@ -106,7 +106,7 @@ public class InvModelDAO extends JdbcDaoSupport
 
    }
 
-   public List<ProfileData> getListOfAccounts(Long logonid, Long acctnum, String filter) {
+   public List<ProfileData> loadCustomerData4Rebal(Long logonid, Long acctnum, String filter) {
       // DataSource ds = getDs();
       InvModelSP sp = new InvModelSP(ds, "sel_ClientProfileData2",1, 1);
       List<ProfileData> profileList = new ArrayList<ProfileData>();

@@ -95,7 +95,7 @@ public class TestDistribution
 
       profileData.setInitialInvestment(100000);
       invCapital = profileData.getInitialInvestment();
-      profileData.setRecurringInvestment(5000);
+      // profileData.setRecurringInvestment(5000);
 
       profileData.setDependent(0);
       profileData.setTotalIncome(120000);
@@ -117,21 +117,23 @@ public class TestDistribution
 
       tax = "No";
 
+      ArrayList<ProjectionData[]> prjctdata = null;
       if (profileData.getFixedModel()) {
-         ArrayList<ProjectionData[]> prjctdata = modelUtil.buildProjectionData(profileData);
-         System.out.println("Fixed Model Performace Calculated.");
+         prjctdata = modelUtil.buildProjectionData(profileData);
 
       }
       else {
-         ArrayList<ProjectionData[]> prjdata = modelUtil.buildProjectionData(profileData);
-         ProjectionData[] perfData = prjdata.get(0);
+         prjctdata = modelUtil.buildProjectionData(profileData);
+
+         ProjectionData[] perfData = prjctdata.get(0);
          // calcGrowthInfo(perfData, perfData.length, profileData);
-         //Create a assetPerformanceFile
+         // Create a assetPerformanceFile
          createAssetPerformanceFile(tax, pfclass, aamc, age);
 
          createHoldingsFile(pfclass, tax, aamc, profileData);
          //createPerformanceDataFile(perfData, profileData.getGoalData());
       }
+      writeForwardPerformanceFile("FowardPerformance",prjctdata);
 
    }
 
@@ -233,6 +235,65 @@ public class TestDistribution
 
       writer.close();
    }*/
+
+   public static void writeForwardPerformanceFile(String filename, ArrayList<ProjectionData[]> projarray) {
+
+      PrintWriter writer = null;
+      if (filename == null)
+         return;
+
+      if (projarray == null)
+         return;
+
+      // Print Header Info
+
+      for (Integer i = 0; i < projarray.size(); i++) {
+         // Print Header Info
+         writer = TestDistribution.getInstance().getFileHandle("No", filename + i.toString() + ".csv");
+         writer.println("Year" +
+                           "," + "Theme" +
+                           "," + "Return" +
+                           "," + "Risk" +
+                           "," + "Investment" +
+                           "," + "Recurring" +
+                           "," + "Capital" +
+                           "," + "Upper1" +
+                           "," + "Lower1" +
+                           "," + "Upper2" +
+                           "," + "Lower2");
+         for (Integer j=0; j < projarray.get(i).length ; j++) {
+            ProjectionData projdata = projarray.get(i)[j];
+            writer.println(projdata.getYear().toString() +
+                              "," + projdata.getTheme() +
+                              "," + projdata.getInvestmentReturns() +
+                              "," + projdata.getInvestmentRisk() +
+                              "," + projdata.getInvestedCapital() +
+                              "," + projdata.getRecurInvestments() +
+                              "," + projdata.getTotalCapitalWithGains() +
+                              "," + projdata.getUpperBand1() +
+                              "," + projdata.getLowerBand1() +
+                              "," + projdata.getUpperBand2() +
+                              "," + projdata.getLowerBand2());
+
+         }
+         // Print Footer Info
+         writer.println("Footer" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "" +
+                           "," + "");
+         writer.close();
+
+
+
+      }
+   }
 
    public static void createHoldingsFile(Portfolio[] pfclass, String tax, AssetClass[] aamc, ProfileData profileData) throws Exception
    {
@@ -367,6 +428,7 @@ public class TestDistribution
       {
          fileName = "taxablePortRisk.csv";
       }
+
 
       writer = TestDistribution.getInstance().getFileHandle(tax, fileName);
 

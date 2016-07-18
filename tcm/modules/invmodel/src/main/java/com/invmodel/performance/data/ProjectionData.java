@@ -9,6 +9,8 @@ package com.invmodel.performance.data;
  */
 public class ProjectionData
 {
+   Integer year;
+   String theme;
    double investmentRisk;
    double investmentReturns;
    double totalCost;
@@ -25,6 +27,26 @@ public class ProjectionData
 
 
    public ProjectionData() {
+   }
+
+   public Integer getYear()
+   {
+      return year;
+   }
+
+   public void setYear(Integer year)
+   {
+      this.year = year;
+   }
+
+   public String getTheme()
+   {
+      return theme;
+   }
+
+   public void setTheme(String theme)
+   {
+      this.theme = theme;
    }
 
    public double getInvestmentYield()

@@ -78,6 +78,7 @@ public class ForwardProjection
             ProjectionData[] array = goalsProjection(investment,
                                                      recurring,
                                                      horizon,
+                                                     pdata.getTheme(),
                                                      pdata.getPortfolioData()[0].getExpReturns(),
                                                      pdata.getPortfolioData()[0].getTotalRisk(),
                                                      pdata.getPortfolioData()[0].getTotalCost());
@@ -124,6 +125,7 @@ public class ForwardProjection
                ProjectionData[] array = goalsProjection(investment,
                                                         recurring.doubleValue(),
                                                         horizon,
+                                                        theme,
                                                         expectedReturns,
                                                         expectedRisk,
                                                         cost);
@@ -140,7 +142,7 @@ public class ForwardProjection
    }
 
    private ProjectionData[] goalsProjection(Double invested, Double recurring,
-                                            Integer horizon,
+                                            Integer horizon, String theme,
                                             Double investmentReturn, Double investmentRisk, Double cost)
    {
 
@@ -157,6 +159,7 @@ public class ForwardProjection
          double lower1 = invested;
          double lower2 = invested;
 
+         Calendar cal = Calendar.getInstance();
          for (Integer year = 0; year < numOfYears; year++)
          {
             // Safety, that we don't over-run
@@ -166,6 +169,8 @@ public class ForwardProjection
             }
 
             ProjectionData perf = new ProjectionData();
+            perf.setYear((cal.YEAR + year));
+            perf.setTheme(theme);
             perf.setTotalCapitalWithGains(totalcapitalgain);
             perf.setTotalCost(totalCost);
             perf.setInvestmentReturns(investmentReturn);
