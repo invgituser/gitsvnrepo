@@ -183,17 +183,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void setRetireAge(Integer retireAge)
    {
-      if (getAge() > retireAge) {
-         FacesContext context = FacesContext.getCurrentInstance();
-
-         context.addMessage(null, new FacesMessage("Error", "Incomplete Form " + "Retirement Age is less then current age."));
-      }
-      else {
-         Integer riskHorizon = retireAge - getAge();
+      Integer riskHorizon = retireAge - getAge();
+      if (riskHorizon > 0) {
          riskCalculator.setRetireAge(retireAge);
          setHorizon(riskHorizon);
-
       }
+
    }
 
    public void preRenderView()
@@ -826,12 +821,45 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void nextPage()
    {
-      if (pagemanager.getPage() == 3) {
-         doProjectionChart(null);
+      Boolean cangoToNext = true;
+      FacesContext context = FacesContext.getCurrentInstance();
+      String msg = "", header = "";
+
+      switch (pagemanager.getPage()) {
+         case 0:
+            if ((getAge() < 18) || (getAge() > 100)) {
+               msg = "Age must between 18 - 100";
+               cangoToNext = false;
+            }
+            if (getInitialInvestment() < 50000) {
+               msg += "<br/>Min $50,000 investment required.";
+               cangoToNext = false;
+            }
+            break;
+         case 1:
+            if (getGoal().equalsIgnoreCase("retirement")) {
+               if (riskCalculator.getRetireAge() <= getAge()) {
+                  msg = "Retirement age must greater than current age.";
+                  cangoToNext = false;
+               }
+            }
+            break;
+         case 2:
+            break;
+         case 3:
+            doProjectionChart(null);
+            break;
+         case 4:
+
       }
-      saveProfile();
-      createAssetPortfolio(1);
-      pagemanager.nextPage();
+      if (cangoToNext) {
+         saveProfile();
+         createAssetPortfolio(1);
+         pagemanager.nextPage();
+      }
+      else {
+         context.addMessage(null, new FacesMessage("Warning", msg));
+      }
    }
 
    public void riskSelected(Integer value) {
@@ -839,9 +867,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
    public String getRiskGraphic(Integer value) {
-      String defaultImage = "/javax.faces.resource/images/gainloss";
-      String selectedImage = "/javax.faces.resource/images/mogainloss";
-      // String mouseoverImage = "/javax.faces.resource/images/mogainloss";
+      String defaultImage = "/javax.faces.resource/images/gl";
+      String selectedImage = "/javax.faces.resource/images/sgl";
       String extension = ".png.xhtml?ln=tcm";
 
       if (riskCalculator.getAnswers()[4] == null) {

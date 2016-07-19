@@ -7,8 +7,8 @@
 
     <div class="Container100 TextAlCenter">
         <h3 class="TexAlCenter StepsQuestionsFS">
-            Assuming you invest for at least 10 years, in the course of any given year,
-            which of the following range of returns would be most acceptable to you?
+            Assuming you invest for at least #{tcmpb.horizon} years, in the course of any given year,
+            which of the below range of returns would be most acceptable to you?
         </h3>
         <p:messages showDetail="false" sticky="true" escape="true" closable="true"/>
 
@@ -20,7 +20,7 @@
                     <div class="ContainerIndent">
                         <div class="EmptyBox5"></div>
                         <span class="Fs14 DispBlock gray">Average Market Performance</span>
-                                    <span class="Fs24 DispBlock red">
+                                    <span class="Fs24 DispBlock green">
                                     <h:outputText value="#{tcmpb.charts.avgPerformance}">
                                         <f:convertNumber pattern="$#,###,###,##0"/>
                                     </h:outputText>
@@ -34,7 +34,7 @@
                     <div class="ContainerIndent">
                         <div class="EmptyBox5"></div>
                         <span class="Fs14 DispBlock gray">Poor Market Performance</span>
-                                    <span class="Fs24 DispBlock invessenceblue">
+                                    <span class="Fs24 DispBlock red">
                                       <h:outputText value="#{tcmpb.charts.poorPerformance}">
                                           <f:convertNumber pattern="$#,###,###,##0"/>
                                       </h:outputText>
