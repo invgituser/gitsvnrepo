@@ -6,10 +6,11 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <div class="Container100 Responsive100">
+        <div class="Container50 Responsive100">
+        <div class="EmptyBox20"></div>
             <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
                
-                <h3 class="TexAlCenter StepsQuestionsFS">
+                <h3 class="TexAlCenter StepsQuestionsFS StepsQuestionsFSpg2">
                     I would like to retire when I am
                     <pe:inputNumber id="retireageID"
                                     styleClass="invInputText input_wid1" style="width: 60px;"
@@ -57,8 +58,7 @@
             </ui:fragment>
 
            
-            
-        </div>
+
         <div class="EmptyBox5"></div>
         <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                              update=":ceForm:inputArea"
@@ -67,8 +67,8 @@
             <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
                              update=":ceForm:inputArea"
                              actionListener="#{tcmpb.nextPage}"/>
-                             <div class="EmptyBox10"></div>
-        <div class="Container100 Responsive100 Fleft">
+                             </div>
+           <div class="Container50 Responsive100">
             <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
         </div>
         

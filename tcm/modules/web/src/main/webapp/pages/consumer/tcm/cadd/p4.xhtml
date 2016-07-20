@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <div class="Container100 Responsive100 Fleft">
+        <div class="Container50 Responsive100 Fleft">
             <h3 class="TexAlCenter StepsQuestionsFS">
                 The chart below shows the potential one-year loss or gain for five hypothetical portfolios.
                 Select the option that best matches your comfort zone to continue.
@@ -61,24 +61,19 @@ may not impact your initial target portfolio.">
 
                 </h:outputText>
             </div>
-
-        </div>
-
-
         <div class="EmptyBox5"></div>
         <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"
                          actionListener="#{tcmpb.prevPage}"/>
-        <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
+        <p:commandButton styleClass="Fright UI-tcmButton" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
                          update=":ceForm:inputArea"
                          actionListener="#{tcmpb.nextPage}"/>
 
-        <div class="EmptyBox10"></div>
-        <div class="Container100 Responsive100 Fleft">
+        </div>
+        <div class="Container50 Responsive100 Fleft">
             <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
         </div>
-
 
     </div>
 

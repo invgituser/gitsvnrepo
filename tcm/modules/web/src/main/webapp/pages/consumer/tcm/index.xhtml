@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="Seperator"></div>
+                            <div class="Seperator HideMobileMode"></div>
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                                          emptyMessage="No account were created. Use new application to add account."
                                          reflow="true">
 
-                                <p:column styleClass="Wid25 TexAlCenter">
+                                <p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
                                     <p:commandButton id="activeButton" rendered="#{investment.managed}"
                                                      styleClass="Fs14 GreenButton"
                                                      process="@this" immediate="true"
@@ -59,12 +59,13 @@
                                                                      target="#{tcmdash.selectedAccount}"/>
                                     </p:commandButton>
                                 </p:column>
+                                <!--
                                 <p:column styleClass="Wid25 TextAlLeft"
                                           sortBy="#{investment.portfolioName}" headerText="Portfolio" priority="2"
                                           resizable="true">
                                     <span class="dashboardUsrColumnFloatRight"><h:outputText value="#{investment.portfolioName}"/></span>
                                 </p:column>
-
+								 -->
                                 <p:column styleClass="Wid25 TexAlLeft"
                                           sortBy="#{investment.goal}" headerText="Type" priority="3"
                                           resizable="true">
@@ -79,7 +80,7 @@
 
                                 <p:column styleClass="Wid25 num-text-align invest"
                                           headerText="Invested"
-                                          resizable="true"><!-- ROHIT's CHANGE -->
+                                          resizable="true">
                                     <span class="dashboardUsrColumnFloatRight"><h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">
                                         <f:convertNumber currencySymbol="$" type="currency"/>
                                     </h:outputText></span>

@@ -7,13 +7,13 @@
 
 
     <div class="Container100 TextAlCenter">
-        <div class="Container100 Responsive100 Fleft">
-            <h3 class="TexAlCenter StepsQuestionsFS">
+        <div class="Container50 Responsive100 Fleft">
+            <h3 class="TexAlCenter StepsQuestionsFS StepsQuestionsFSpg3">
                 Which of the following best reflects your objectives for this investment?
             </h3>
             <div class="Container100">
                 <div class="Container25 Responsive0" style="height:1px;"></div>
-                <div class="Container50 Responsive100 MarLeft20">
+                <div class="Container100 Responsive100">
                     <p:selectOneRadio id="p3id" value="#{tcmpb.riskCalculator.ans3}"
                                       layout="pageDirection"
                                       required="true" requiredMessage="Please choose one of these choices">
@@ -26,17 +26,17 @@
                 </div>
                 <p:message for="p3id" display="text"/>
             </div>
-        </div>
+
         <div class="EmptyBox5"></div>
         <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"
                          actionListener="#{tcmpb.prevPage}"/>
-        <p:commandButton styleClass="Fright" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
+        <p:commandButton styleClass="Fright UI-tcmButton" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
                          update=":ceForm:inputArea"
                          actionListener="#{tcmpb.nextPage}"/>
-        <div class="EmptyBox10"></div>
-        <div class="Container100 Responsive100 Fleft">
+                         </div>
+        <div class="Container50 Responsive100">
             <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
         </div>
 

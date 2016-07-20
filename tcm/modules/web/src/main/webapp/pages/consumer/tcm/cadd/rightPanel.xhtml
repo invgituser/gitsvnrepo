@@ -5,11 +5,11 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <div class="Container100 Fleft Responsive100">
-        <div class="ContainerIndent">
+    <div class="Container100 Fleft Responsive100 MarginTopRes">
+    <div class="ContainerIndent">
         <div class="Container10 Responsive0" style="height:1px;"></div>
                 <div class="Container80 Responsive100">
-                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth">
+                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
                             <div class="ContainerIndent">
                                 <div class="EmptyBox5"></div>
                                 <span class="Fs14 DispBlock gray">Investment Risk</span>
@@ -23,7 +23,7 @@
                             </div>
                         </div>
 <div class="Wid10 Fright" style="height:1px;"></div>
-                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth">
+                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
                             <div class="ContainerIndent">
                                 <div class="EmptyBox5"></div>
                                 <span class="Fs14 DispBlock gray">Expected Return</span>
@@ -41,7 +41,13 @@
                 <div class="Container100 Responsive100">
                 <div class="Container10 Responsive0" style="height:1px;"></div>
                 <div class="Container80 Responsive100">
-                        
+                        <div class="Container50  Fleft Responsive50">
+                            <div class="Container100">
+                                <p:chart type="pie" model="#{tcmpb.charts.pieChart}" styleClass="PieGraphPosition" style="height:200px; width: 100%;"
+                                         rendered="#{tcmpb.charts.pieChart != null}"
+                                         responsive="true"/>
+                            </div>
+                        </div>
                         <div class="Container50 Fleft Responsive50">
                                 <p:dataTable styleClass="invAllocTable"
                                              value="#{tcmpb.editableAsset}"
@@ -63,17 +69,11 @@
                                     </p:column>
                                 </p:dataTable>
                     </div>
-                    <div class="Container50  Fleft Responsive50">
-                            <div class="Container100">
-                                <p:chart type="pie" model="#{tcmpb.charts.pieChart}" style="height:200px; width: 100%;"
-                                         rendered="#{tcmpb.charts.pieChart != null}"
-                                         responsive="true"/>
-                            </div>
-                        </div>
                     
+
                         </div>
                 </div>
-        </div>
+                </div>
     </div>
 
 </ui:composition>

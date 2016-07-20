@@ -15,8 +15,8 @@
         <div class="EmptyBox10"></div>
 
         <p:outputPanel id="goalPanel" deferred="true" style="background: transparent; border: 0px">
-            <div class="Container40">
-                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth">
+            <div class="Container100">
+                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
                     <div class="ContainerIndent">
                         <div class="EmptyBox5"></div>
                         <span class="Fs14 DispBlock gray">Average Market Performance</span>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="Wid10 Fright" style="height:1px;"></div>
-                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth">
+                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
                     <div class="ContainerIndent">
                         <div class="EmptyBox5"></div>
                         <span class="Fs14 DispBlock gray">Poor Market Performance</span>
@@ -95,7 +95,7 @@
                          update=":ceForm:inputArea"
                          immediate="true"
                          actionListener="#{tcmpb.prevPage}"/>
-        <p:commandButton styleClass="Fright" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
+        <p:commandButton styleClass="Fright UI-tcmButton" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
                          update=":ceForm:inputArea"
                          actionListener="#{tcmpb.nextPage}"/>
     </div>

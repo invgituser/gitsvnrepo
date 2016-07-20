@@ -8,12 +8,12 @@
 #logo{height:70px; margin-top:4px;}
 
 @media (min-width: 960px) {
-    #logo{margin-bottom: 25px;}
+    #logo{//margin-bottom: 25px;}
 }
 
-
 img.riskImage {
-    opacity: 0.5;
+   height: 190px;
+	opacity: 0.5;
     filter: alpha(opacity=50); /* For IE8 and earlier */
 }
 
@@ -96,9 +96,227 @@ img.riskImage:hover {
     background-color: #00D404 !important;
 }
 /*Prakash*/
+body {
+	background-image: none!important;
+	background: #00796b!important;	
+}
+
+.ui-message-error {
+	margin: 0!important;
+}
+
+.ui-message-error-detail {
+	font-size: 12px!important;
+}
+
+.ui-selectoneradio label {
+	font-size: 15px!important;
+}
+
+.UI-tcmButton > .ui-button-text {
+padding: 8px 33px!important;
+}
+#layout-topbar {
+    min-height: auto!important;
+}
+
+.UI-tcm {
+	background: white!important;
+    border: none!important;
+    border-radius: 45px!important;
+    box-shadow: 0px 0px 6px rgba(82, 80, 80, 0.15)!important;	
+}
+
+.ui-selectonemenu-label {
+	background: #ffffff!important;
+}
+
+.BackgroundWhite {
+    background: white;
+    padding-bottom: 15px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
+   // padding: 15px;
+}
+
+a.ui-menuitem-link.ui-corner-all {
+    background: transparent!important;
+}
+
+span.ui-steps-title {
+    padding-top: 12px;
+    font-size: 13px;
+}
+
+.ui-steps .ui-steps-item {
+    background-color: #bdc93a!important;
+    }
+
+span.ui-steps-number {
+    display: none!important;
+    visibility: hidden;
+}
+
+.formFS {
+	font-size: 16px!important;
+}
+
 * {
     font-family: 'ralewayregular';
 }
+
+h3 {
+	font-weight: normal;
+}
+
+.ResponsiveMarginTop {
+	margin-top: 10px;
+}
+
+@media (max-width: 480px) {
+	.ResponsiveMarginTop {
+	margin-top: 35px;
+	}
+}
+
+@media (max-width: 1200px) {
+	.MarginTopRes {
+	margin-top: 10px;
+}
+}
+
+/*Steps-tab-center-alligned*/
+@media (max-width: 361px) and (min-width: 320px) {
+	.ui-steps .ui-steps-item {
+    padding: 0 10px!important;
+	}
+	
+	.tab_main > div {
+	margin: 0 auto;
+    width: 189px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	
+	a.ui-menuitem-link.ui-corner-all {
+    background: #F6FAFC;
+}
+}
+
+@media (max-width: 481px) and (min-width: 361px) {
+	.ui-steps .ui-steps-item {
+    padding: 0 11px!important;
+	}
+	
+	.tab_main > div {
+	margin: 0 auto;
+    width: 217px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+a.ui-menuitem-link.ui-corner-all {
+    background: #F6FAFC;
+}
+}
+
+@media (max-width: 560px) and (min-width: 481px) {
+	.ui-steps .ui-steps-item {
+    padding: 0 12px;
+}
+	
+	.tab_main > div {
+	margin: 0 auto;
+    width: 227px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+}
+
+@media (max-width: 640px) and (min-width: 561px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 305px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	
+	span.ui-steps-title {
+    visibility: hidden;
+}
+}
+
+@media (max-width: 729px) and (min-width: 641px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 355px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	
+	.ui-steps-title {
+    visibility: hidden;
+}
+}
+
+@media (max-width: 770px) and (min-width: 730px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 430px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+	.ui-steps-title {
+    font-size: 12px!important;
+}
+}
+
+@media (max-width: 960px) and (min-width: 771px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 455px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+}
+
+@media (max-width: 999px) and (min-width: 961px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 555px;
+	}
+	
+	.tab_main {
+	padding: 20px 0px 0px 0px!important;
+	}
+}
+
+@media (max-width: 1320px) and (min-width: 1000px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 530px;
+	}
+}
+
+@media (min-width: 1321px) {
+	.tab_main > div {
+	margin: 0 auto;
+    width: 705px;
+	}
+}
+/**/
 /**/
 
 /*vivek CSS */
@@ -125,7 +343,7 @@ img.riskImage:hover {
 /* Large desktop */
 @media (min-width: 960px) and (max-width: 1300px) {
     #logo{height:70px;
-        margin-top: 4px;/**/
+        //margin-top: 4px;/**/
     }
     .ui-steps .ui-steps-title {
         width: 70px !important
@@ -141,7 +359,7 @@ img.riskImage:hover {
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 730px) and (max-width: 960px) {
-    #logo{height:70px; margin-top:6px;}
+    #logo{height:70px; //margin-top:6px;}
     /*vivek CSS */
     .tab_main {padding:0 40px; padding-top:20px;}
     .input_namewid1 {width:140px;}
@@ -156,7 +374,7 @@ img.riskImage:hover {
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 640px) and (max-width: 730px) {
     #logo{height:70px;
-        margin-top:4px;/**/
+       // margin-top:4px;/**/
     }
     .ui-steps .ui-steps-title {
         width: 30px !important
@@ -173,7 +391,7 @@ img.riskImage:hover {
 
 /* Landscape phone to portrait tablet */
 @media (min-width: 480px) and (max-width: 640px) {
-    #logo{height:40px; margin-top:11px;} /**/
+    #logo{height:40px; //margin-top:11px;} /**/
     .ui-steps .ui-steps-title {
         width: 20px !important
     }
@@ -206,7 +424,7 @@ img.riskImage:hover {
 
 /* Portrait phones and down */
 @media (min-width: 220px) and (max-width: 480px) {
-    #logo{height:40px; margin-top:6px;}
+    #logo{height:40px; //margin-top:6px;}
     .ui-steps .ui-steps-title {
         display: none;
 
@@ -248,6 +466,12 @@ img.riskImage:hover {
 
 
 @media (min-width:360px) and (max-width: 480px) {
+		.mobileFullWidth {
+	width:100%;
+	    margin: 5px 0;
+	}
+	
+	
     .InputWidthP
     {
         width: 100%!important;
