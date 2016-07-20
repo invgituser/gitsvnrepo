@@ -198,7 +198,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            pagemanager = new PagesImpl(5);
+            pagemanager = new PagesImpl(4);
             pagemanager.setPage(0);
             riskCalculator.setNumberofQuestions(5);
             loadBasketInfo();
@@ -262,8 +262,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void onGoalChangeValue()
    {
-      this.horizon = null;
-      // calculateGoal();
+      if (getGoal() == null || getGoal().isEmpty()) {
+         displayGoalText = false;
+      }
+      else {
+         displayGoalText = true;
+      }
+      setHorizon(null);
    }
 
    public void calculateGoal()
@@ -832,11 +837,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                cangoToNext = false;
             }
             if (getInitialInvestment() < 50000) {
-               msg += "<br/>Min $50,000 investment required.";
+               msg += "Min $50,000 investment required.";
                cangoToNext = false;
             }
-            break;
-         case 1:
             if (getGoal().equalsIgnoreCase("retirement")) {
                if (riskCalculator.getRetireAge() <= getAge()) {
                   msg = "Retirement age must greater than current age.";
@@ -844,10 +847,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                }
             }
             break;
+         case 1:
+            break;
          case 2:
+            doProjectionChart(null);
             break;
          case 3:
-            doProjectionChart(null);
             break;
          case 4:
 

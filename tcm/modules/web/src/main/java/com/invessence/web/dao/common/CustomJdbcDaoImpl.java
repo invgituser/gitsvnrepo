@@ -113,6 +113,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       Boolean fetchData;
       String emailmsgtype = null;
       String access = "User";
+      String atstart = "dash";
 
       String exception = null;
 
@@ -161,6 +162,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          rep = rs.getString("rep");
          emailmsgtype = rs.getString("emailmsgtype");
          access = rs.getString("access");
+         access = rs.getString("atstart");
          // get List of questions...
          qa = getQA(username);
          authorities = getAuthorities(username);
@@ -200,6 +202,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          stateRegistered = "";
          emailmsgtype = "";
          access = "User";
+         atstart = "dash";
          qa = null;
          authorities = null;
          // Note: it is either set with number of attempts or it was set in past attempt.
@@ -263,7 +266,8 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                                   lastname, firstname,
                                   ip, resetID,
                                   cid, advisor, rep, stateRegistered,
-                                  qa, attempts, access, logonStatus, randomQuestion, emailmsgtype);
+                                  qa, attempts, atstart,
+                                  access, logonStatus, randomQuestion, emailmsgtype);
 
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);

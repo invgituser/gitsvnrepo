@@ -9,29 +9,16 @@
 
         <div class="TexAlCenter">
             <h3>
-                <div class="mobileFullWidth">My name is</div>
-                <p:inputText styleClass="invInputText input_namewid1 mobileFullWidthinput"  value="#{tcmpb.firstname}"
-                             required="true" requiredMessage="Firstname is required!"
-                             size="8"/>
-                
-                <p:spacer width="5px"/>
-                <p:inputText styleClass="invInputText input_namewid1 mobileFullWidthinput" value="#{tcmpb.lastname}"
-                             required="true" requiredMessage="Lastname is required!"
-                             size="8"/>
-            </h3>
-        </div>
-        <div class="EmptyBox20"></div>
-
-        <div class="TexAlCenter">
-            <h3>
                <div class="mobileFullWidth"> I am </div>
-                <pe:inputNumber styleClass="invInputText input_agewid1 mobileFullWidthinput"
-                                     value="#{tcmpb.age}"
-                                     decimalPlaces="0" minValue="0" maxValue="110" size="9"
+                <pe:inputNumber id="ageid"
+                                styleClass="invInputText input_agewid1 mobileFullWidthinput"
+                                value="#{tcmpb.age}"
+                                decimalPlaces="0" size="9"
                     required="true" requiredMessage="Age is required!"
                     validatorMessage="Age should be between 18 and 100."/>
                 <div class="mobileFullWidth">years old.</div>
             </h3>
+            <p:message for="ageid" display="tooltip"/>
         </div>
 
         <div class="EmptyBox20"></div>
@@ -39,16 +26,20 @@
         <div class="TexAlCenter">
             <h3>
             <div class="mobileFullWidth">I plan on investing</div>
-            <pe:inputNumber styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput" 
+            <pe:inputNumber id="initialIid"
+                            styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
                           value="#{tcmpb.initialInvestment}"
-                          maxlength="11" decimalPlaces="0" symbol="$"
-                    required="true" requiredMessage="Investment is required!"
-                    validatorMessage="Min. of $500 investment is required!">
-            </pe:inputNumber> 
+                          maxlength="11" symbol="$"
+                          decimalPlaces="0"
+                    required="true" requiredMessage="Min. of $50,000 investment is required!"
+                    validatorMessage="Min. of $50,000 investment is required!">
+            </pe:inputNumber>
+            <p:message for="initialIid" display="tooltip"/>
             <div class="mobileFullWidth">for</div>
                 <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="dropdownInputFullWidth"
                                  required="true" requiredMessage="Please choose investment strategy">
-                    <p:ajax listener="#{tcmpb.onGoalChangeValue}"/>
+                    <p:ajax listener="#{tcmpb.onGoalChangeValue}"
+                            update=":ceForm:p1hrznpanel, :ceForm:inputArea"/>
                     <f:selectItem itemLabel="Choose One" itemValue=""/>
                     <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
                     <f:selectItem itemLabel="College" itemValue="College"/>
@@ -59,6 +50,65 @@
         </div>
 
         <div class="EmptyBox10"></div>
+
+        <p:panel id="p1hrznpanel" style="background: transparent; border: 0px"
+                rendered="#{tcmpb.displayGoalText}">
+            <div class="Container100">
+                <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
+                    <h3 class="TexAlCenter StepsQuestionsFS">
+                        I would like to retire when I am
+                        <pe:inputNumber id="retireageID"
+                                        styleClass="invInputText input_wid1" style="width: 60px;"
+                                        value="#{tcmpb.retireAge}"
+                                        decimalPlaces="0"
+                                        size="3"
+                                        required="true" requiredMessage="When do you plan to retire?">
+
+                         </pe:inputNumber>
+                        years old.
+                    </h3>
+                    <p:message for="retireageID" display="text"/>
+
+                    <div class="EmptyBox30"></div>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.goal == 'College'}">
+
+                    <h3 class="TexAlCenter StepsQuestionsFS">
+                        The child I am saving for is expected to start college in
+                        <pe:inputNumber id="collegeid"
+                                        styleClass="invInputText input_wid1" style="width: 60px;"
+                                        value="#{tcmpb.horizon}"
+                                        decimalPlaces="0"
+                                        size="3"
+                                        required="true" requiredMessage="When does your child plan to attend college?"/>
+                        years.
+                    </h3>
+                    <p:message for="collegeid" display="text"/>
+                    <div class="EmptyBox30"></div>
+                </ui:fragment>
+                <ui:fragment rendered="#{tcmpb.goal == 'Building Wealth' || tcmpb.goal == 'Other'}">
+
+                    <h3 class="TexAlCenter StepsQuestionsFS">
+                        I plan on utilize the funds for this goal in
+                        <pe:inputNumber id="otherid"
+                                        styleClass="invInputText input_agewid1"
+                                        style=""
+                                        value="#{tcmpb.horizon}"
+                                        decimalPlaces="0"
+                                        size="3"
+                                        required="true" requiredMessage="When do you plan to use these funds?"/>
+                        years.
+                    </h3>
+                    <p:message for="otherid" display="text"/>
+
+                    <div class="EmptyBox30"></div>
+                </ui:fragment>
+
+
+
+            </div>
+
+        </p:panel>
          <div class="TexAlCenter MarTop20">
          
          		<p:commandButton value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"

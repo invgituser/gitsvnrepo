@@ -52,6 +52,7 @@ public class UserData
    private String advisor;
    private Long rep;
    private String access;
+   private String atstart;
 
    private String emailmsgtype = null;
 
@@ -479,5 +480,15 @@ public class UserData
    public void setAccess(String access)
    {
       this.access = access;
+   }
+
+   public String getAtstart()
+   {
+      return atstart;
+   }
+
+   public void setAtstart(String atstart)
+   {
+      this.atstart = atstart;
    }
 }

@@ -43,10 +43,37 @@ public class SessionController
       this.uiLayout = uiLayout;
    }
 
-   public String getRedirect()
+   public String getAtStart()
+   {
+      String atstart = null;
+      if (webutil != null) {
+         if (webutil.isUserLoggedIn() == null) {
+            if (webutil.getUserInfoData() != null) {
+               if (webutil.getUserInfoData().getAtstart() != null) {
+                  uiLayout.whichPage(webutil.getUserInfoData().getAccess(), webutil.getUserInfoData().getAtstart());
+                  return "success";
+               }
+            }
+            else {
+               goToDash();
+               return "success";
+            }
+         }
+      }
+      tryOut();
+      return "success";
+   }
+
+   public void goToDash()
+   {
+      uiLayout.doMenuAction("consumer", "index.xhtml");
+      // return "success";
+   }
+
+   public void tryOut()
    {
       uiLayout.doMenuAction("consumer", "cadd.xhtml");
-      return "success";
+      // return "success";
    }
 
 }

@@ -352,6 +352,42 @@ public class UILayout implements Serializable
       }
    }
 
+   public void whichPage(String access, String pageinfo)
+   {
+      if (access == null)
+         access = "user";
+
+      if (pageinfo == null)
+         pageinfo = "index.xhtml";
+
+      if (pageinfo.contains(".xhtml")) {
+         doMenuAction(pageinfo);
+         return;
+      }
+
+      if (pageinfo.equalsIgnoreCase("settings") || pageinfo.equalsIgnoreCase("security")) {
+         doMenuAction("common", "setting.xhtml");
+         return;
+      }
+
+      if (access.equalsIgnoreCase("user")) {
+         doMenuAction("consumer", pageinfo);
+         return;
+      }
+
+      if (access.equalsIgnoreCase("advisor")) {
+         doMenuAction("advisor", pageinfo);
+         return;
+      }
+
+      if (access.equalsIgnoreCase("admin")) {
+         doMenuAction("admin", pageinfo);
+         return;
+      }
+
+      doMenuAction("consumer", "index.xhtml");
+   }
+
    public String getDisclaimer() {
       String txt = null;
       if (webutil != null) {

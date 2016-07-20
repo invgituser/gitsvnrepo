@@ -27,6 +27,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    private String logonStatus;
    private Integer attempts;
    private String access;
+   private String atstart;
    private Boolean user_enabled,user_acctexpired, user_crediatialexpired,user_locked;
 
    private List<String> authList = new ArrayList<String>();
@@ -37,7 +38,9 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
                        String lastname, String firstname,
                        String ip, String resetID,
                        String cid, String advisor, String rep,  String stateRegistered,
-                       Map questAns, Integer attempts, String access, String logonStatus, Integer randomQuestion, String emailmsgtype)
+                       Map questAns, Integer attempts, String access, String atstart,
+                       String logonStatus, Integer randomQuestion,
+                       String emailmsgtype)
    {
       super(username, password, enabled
          , accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
@@ -58,6 +61,7 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
       setQuestAns(questAns);
       setAttempts(attempts);
       setAccess(access);
+      setAtstart(atstart);
       setLogonStatus(logonStatus);
       setRandomQuestion(randomQuestion);
       setEmailmsgtype(emailmsgtype);
@@ -281,6 +285,16 @@ public class UserInfoData extends org.springframework.security.core.userdetails.
    public void setAccess(String access)
    {
       this.access = access;
+   }
+
+   public String getAtstart()
+   {
+      return atstart;
+   }
+
+   public void setAtstart(String atstart)
+   {
+      this.atstart = atstart;
    }
 
    public String getLogonStatus()

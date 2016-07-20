@@ -14,7 +14,7 @@
             <div class="Container100">
                 <div class="Container25 Responsive0" style="height:1px;"></div>
                 <div class="Container50 Responsive100 MarLeft20">
-                    <p:selectOneRadio value="#{tcmpb.riskCalculator.ans3}"
+                    <p:selectOneRadio id="p3id" value="#{tcmpb.riskCalculator.ans3}"
                                       layout="pageDirection"
                                       required="true" requiredMessage="Please choose one of these choices">
                         <f:selectItem itemLabel="Maximize Current Income" itemValue="1" />
@@ -24,6 +24,7 @@
                         <f:selectItem itemLabel="Maximizing Growth" itemValue="5" />
                     </p:selectOneRadio>
                 </div>
+                <p:message for="p3id" display="text"/>
             </div>
         </div>
         <div class="EmptyBox5"></div>

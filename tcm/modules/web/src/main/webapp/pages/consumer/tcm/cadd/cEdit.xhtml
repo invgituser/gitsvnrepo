@@ -11,7 +11,6 @@
 
                 <p:steps id="progressbar" activeIndex="#{tcmpb.pagemanager.page}">
                     <p:menuitem value="Start"/>
-                    <p:menuitem value="Horizon"/>
                     <p:menuitem value="Objective"/>
                     <p:menuitem value="Risk"/>
                     <p:menuitem value="Projection"/>
@@ -27,24 +26,20 @@
                     <ui:include src="/pages/consumer/tcm/cadd/p1.xhtml"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{tcmpb.pagemanager.page == 1}">
-                    <ui:include src="/pages/consumer/tcm/cadd/p2.xhtml"/>
-                </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 2}">
                     <ui:include src="/pages/consumer/tcm/cadd/p3.xhtml"/>
                 </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 3}">
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 2}">
                     <ui:include src="/pages/consumer/tcm/cadd/p4.xhtml"/>
                 </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 4}">
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 3}">
                     <ui:include src="/pages/consumer/tcm/cadd/p5.xhtml"/>
                 </ui:fragment>
-                
-            </div>
-        </div>
-<ui:fragment rendered="#{tcmpb.pagemanager.page == 5}">
+                <ui:fragment rendered="#{tcmpb.pagemanager.page == 4}">
                     <ui:include src="/pages/consumer/tcm/cadd/final.xhtml"/>
                 </ui:fragment>
-                
+            </div>
+        </div>
+
         <div class="Container100">
             <p style="font-style: italic; font-size: .8em; text-align:justify">
                 This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
