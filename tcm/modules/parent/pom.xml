@@ -658,6 +658,18 @@
          </properties>
       </profile>
       <profile>
+         <id>3P3-EXT-TCM-PROD</id>
+         <properties>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://tcm.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://tcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <service.url>jdbc:mysql://tcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
+            <ltam.url>jdbc:mysql://tcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+         </properties>
+      </profile>
+      <profile>
          <id>3Z---------------3Z</id>
       </profile>
 

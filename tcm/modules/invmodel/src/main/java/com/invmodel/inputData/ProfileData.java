@@ -4,6 +4,7 @@ import java.util.*;
 
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.*;
+import com.invmodel.model.fixedmodel.data.FMData;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.data.Portfolio;
 
@@ -79,6 +80,7 @@ public class
    private Integer maxAssetAllocatonPoints;
    private Integer maxPortfolioAllocationPoints;
    private Boolean fixedModel = false;
+   private FMData  fixedFMModel = null;
    private Boolean hasReturn = false;
    private Boolean hasRisk = false;
    private AssetClass[] assetData;
@@ -1050,6 +1052,34 @@ public class
    public void setFixedModel(Boolean fixedModel)
    {
       this.fixedModel = fixedModel;
+   }
+
+   public FMData getFixedFMModel()
+   {
+      return fixedFMModel;
+   }
+
+   public String getFixedModelName()
+   {
+      String value = "";
+      if (getFixedFMModel() != null) {
+         value = getFixedFMModel().getDisplayname();
+      }
+      return value;
+   }
+
+   public String getFixedModelDescription()
+   {
+      String  value = "";
+      if (getFixedFMModel() != null) {
+         value = getFixedFMModel().getDescription();
+      }
+      return value;
+   }
+
+   public void setFixedFMModel(FMData fixedFMModel)
+   {
+      this.fixedFMModel = fixedFMModel;
    }
 
    public Boolean getHasReturn()

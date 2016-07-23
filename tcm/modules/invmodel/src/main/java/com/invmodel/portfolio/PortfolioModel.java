@@ -738,6 +738,7 @@ public class PortfolioModel
          fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getPortfolioIndex());
       }
 
+      pdata.setFixedFMModel(fixedModelData);
       if (fixedModelData != null)
       {
          if (fixedModelData.getExpectedreturn() != null && fixedModelData.getExpectedreturn() != 0.0)

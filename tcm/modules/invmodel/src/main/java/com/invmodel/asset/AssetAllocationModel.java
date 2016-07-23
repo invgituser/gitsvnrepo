@@ -433,6 +433,7 @@ public class AssetAllocationModel
             fixedModelData = fixedOptimizer.getThemeByIndex(theme, pdata.getAllocationIndex());
          }
 
+         pdata.setFixedFMModel(fixedModelData);
          if (fixedModelData != null) {
             pdata.setAllocationIndex(fixedModelData.getIndex());
             pdata.setPortfolioIndex(fixedModelData.getIndex());
