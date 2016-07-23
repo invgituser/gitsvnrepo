@@ -162,7 +162,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          rep = rs.getString("rep");
          emailmsgtype = rs.getString("emailmsgtype");
          access = rs.getString("access");
-         access = rs.getString("atstart");
+         atstart = rs.getString("atstart");
          // get List of questions...
          qa = getQA(username);
          authorities = getAuthorities(username);
@@ -261,13 +261,16 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       // Note:  We are always re-createating userINFO
       credentialsNonExpired = true; // Reset for now.  We need logic to redirect.
       accountNonExpired = true;
+      access = (access == null) ? "USER" : access;
+      atstart = (atstart == null) ? "dash" : atstart;
       userInfo = new UserInfoData(logonID, userid, username, savedemail, savedpassword,
-                                  enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities,
+                                  enabled, accountNonExpired, credentialsNonExpired,
+                                  accountNonLocked, authorities,
                                   lastname, firstname,
                                   ip, resetID,
                                   cid, advisor, rep, stateRegistered,
-                                  qa, attempts, atstart,
-                                  access, logonStatus, randomQuestion, emailmsgtype);
+                                  qa, attempts, access, atstart,
+                                  logonStatus, randomQuestion, emailmsgtype);
 
 
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove(WebConst.USER_INFO);

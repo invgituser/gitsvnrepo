@@ -54,6 +54,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    @ManagedProperty("#{webMessage}")
    private WebMessage messageText;
+
    public void setMessageText(WebMessage msg)
    {
       this.messageText = msg;
@@ -61,6 +62,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
+
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -68,6 +70,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    @ManagedProperty("#{uiLayout}")
    UILayout uiLayout;
+
    public void setUiLayout(UILayout uiLayout)
    {
       this.uiLayout = uiLayout;
@@ -177,14 +180,17 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public Integer getRetireAge()
    {
       if (riskCalculator == null)
+      {
          return null;
+      }
       return riskCalculator.getRetireAge();
    }
 
    public void setRetireAge(Integer retireAge)
    {
       Integer riskHorizon = retireAge - getAge();
-      if (riskHorizon > 0) {
+      if (riskHorizon > 0)
+      {
          riskCalculator.setRetireAge(retireAge);
          setHorizon(riskHorizon);
       }
@@ -204,15 +210,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             loadBasketInfo();
             whichChart = "pie";
             setPrefView(0);
-            if (webutil.hasAccess("Advisor") || webutil.hasAccess("Admin"))
-            {
-               setRiskCalcMethod("A");
-            }
-            else
-            {
-               setRiskCalcMethod("C");
-            }
-
+            setRiskCalcMethod("C");
             disablegraphtabs = true;
             disabledetailtabs = true;
             fetchClientData();
@@ -262,10 +260,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void onGoalChangeValue()
    {
-      if (getGoal() == null || getGoal().isEmpty()) {
+      if (getGoal() == null || getGoal().isEmpty())
+      {
          displayGoalText = false;
       }
-      else {
+      else
+      {
          displayGoalText = true;
       }
       setHorizon(null);
@@ -379,15 +379,15 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if (webutil.isUserLoggedIn())
          {
-               UserInfoData uid = webutil.getUserInfoData();
-               if (uid != null)
-               {
-                  setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-                  setLogonid(uid.getLogonID());
-               }
-               setAcctnum(acctnum);
-               listDAO.getProfileData(getInstance());
-               loadBasketInfo();
+            UserInfoData uid = webutil.getUserInfoData();
+            if (uid != null)
+            {
+               setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+               setLogonid(uid.getLogonID());
+            }
+            setAcctnum(acctnum);
+            listDAO.getProfileData(getInstance());
+            loadBasketInfo();
          }
          formEdit = false;
       }
@@ -402,13 +402,14 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
       try
       {
-        listDAO.getRiskProfileData(acctnum, riskCalculator);
+         listDAO.getRiskProfileData(acctnum, riskCalculator);
       }
       catch (Exception ex)
       {
          ex.printStackTrace();
       }
    }
+
    public void onAllocSlider(SlideEndEvent event)
    {
       // setAge(event.getValue());
@@ -639,20 +640,20 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
-            if (formEdit)
+         if (formEdit)
+         {
+            // setDefaults();
+            acctnum = saveDAO.saveProfileData(getInstance());
+            if (acctnum > 0)
             {
-                  // setDefaults();
-                  acctnum = saveDAO.saveProfileData(getInstance());
-                  if (acctnum > 0)
-                  {
-                     setAcctnum(acctnum);
-                     saveDAO.saveFinancials(getInstance());
-                     saveDAO.saveRiskProfile(acctnum, getRiskCalculator());
-                     saveDAO.saveAllocation(getInstance());
-                     saveDAO.savePortfolio(getInstance());
-                  }
-                  // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
-                  formEdit = false;
+               setAcctnum(acctnum);
+               saveDAO.saveFinancials(getInstance());
+               saveDAO.saveRiskProfile(acctnum, getRiskCalculator());
+               saveDAO.saveAllocation(getInstance());
+               saveDAO.savePortfolio(getInstance());
+            }
+            // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+            formEdit = false;
          }
       }
       catch (Exception ex)
@@ -670,7 +671,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
-            saveProfile();
+         saveProfile();
          // if (canOpenAccount == 0) {
          webutil.redirect("/pages/fund/td/cto.xhtml?acct=" + getAcctnum(), null);
          //getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
@@ -830,18 +831,27 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       FacesContext context = FacesContext.getCurrentInstance();
       String msg = "", header = "";
 
-      switch (pagemanager.getPage()) {
+      switch (pagemanager.getPage())
+      {
          case 0:
-            if ((getAge() < 18) || (getAge() > 100)) {
+            if (getGoal() == null || getAge() == null || getInitialInvestment() == null)
+            {
+               break;   // If null, then this method should not have been called.
+            }
+            if ((getAge() < 18) || (getAge() > 100))
+            {
                msg = "Age must between 18 - 100";
                cangoToNext = false;
             }
-            if (getInitialInvestment() < 50000) {
+            if (getInitialInvestment() < 50000)
+            {
                msg += "Min $50,000 investment required.";
                cangoToNext = false;
             }
-            if (getGoal().equalsIgnoreCase("retirement")) {
-               if (riskCalculator.getRetireAge() <= getAge()) {
+            if (getGoal().equalsIgnoreCase("retirement"))
+            {
+               if (riskCalculator.getRetireAge() <= getAge())
+               {
                   msg = "Retirement age must greater than current age.";
                   cangoToNext = false;
                }
@@ -857,33 +867,41 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          case 4:
 
       }
-      if (cangoToNext) {
+      if (cangoToNext)
+      {
          saveProfile();
          createAssetPortfolio(1);
          pagemanager.nextPage();
       }
-      else {
+      else
+      {
          context.addMessage(null, new FacesMessage("Warning", msg));
       }
    }
 
-   public void riskSelected(Integer value) {
-       riskCalculator.setAns4(value.toString());
+   public void riskSelected(Integer value)
+   {
+      riskCalculator.setAns4(value.toString());
    }
 
-   public String getRiskGraphic(Integer value) {
+   public String getRiskGraphic(Integer value)
+   {
       String defaultImage = "/javax.faces.resource/images/gl";
       String selectedImage = "/javax.faces.resource/images/sgl";
       String extension = ".png.xhtml?ln=tcm";
 
-      if (riskCalculator.getAnswers()[4] == null) {
+      if (riskCalculator.getAnswers()[4] == null)
+      {
          return defaultImage + value.toString() + extension;
       }
-      else {
-         if (riskCalculator.getAnswers()[4].equalsIgnoreCase(value.toString())) {
+      else
+      {
+         if (riskCalculator.getAnswers()[4].equalsIgnoreCase(value.toString()))
+         {
             return selectedImage + value.toString() + extension;
          }
-         else {
+         else
+         {
             return defaultImage + value.toString() + extension;
          }
       }
@@ -891,9 +909,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    }
 
 
-   public void doProjectionChart(SlideEndEvent event) {
+   public void doProjectionChart(SlideEndEvent event)
+   {
       Integer whichslide = 0;
-      if (event != null) {
+      if (event != null)
+      {
          whichslide = event.getValue();
          riskCalculator.setAns5(whichslide.toString());
       }
@@ -901,5 +921,55 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       calcProjectionChart();
       charts.createProjectionChart(getProjectionDatas().get(whichslide), getHorizon());
    }
+
+   public void testRiskModel()
+   {
+      String goal = "";
+
+      for (Integer g = 0; g < 2; g++)
+      {
+         switch (g)
+         {
+            case 0:
+               goal = "Retirement";
+               break;
+            default:
+               goal = "Other";
+         }
+         for (Integer age = 20; age < 100; age += 5)
+         {
+            riskCalculator.setRiskAge(age);
+            for (Integer horizon = 1; horizon < 31; horizon += 3)
+            {
+               riskCalculator.setRiskHorizon(horizon);
+               for (Integer ans3 = 1; ans3 < 6; ans3++)
+               {
+                  for (Integer ans4 = 1; ans4 < 6; ans4++)
+                  {
+                     for (Integer ans5 = 1; ans5 < 6; ans5++)
+                     {
+                        riskCalculator.setAns3(ans3.toString());
+                        riskCalculator.setAns4(ans4.toString());
+                        riskCalculator.setAns5(ans5.toString());
+                        System.out.println("Value =" +
+                                              age.toString() + "," +
+                                              horizon.toString() + "," +
+                                              ans3.toString() + "," +
+                                              ans4.toString() + "," +
+                                              ans5.toString()
+                        );
+                        Double riskIdex = riskCalculator.calculateRisk(goal);
+                        System.out.println("Answer =" + riskIdex.toString()
+                        );
+                     }
+
+                  }
+
+               }
+            }
+         }
+      }
+   }
+
 }
 

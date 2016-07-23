@@ -376,11 +376,12 @@ public class TCMRiskCalculator implements RiskCalculator
                calcRisk += value;
             }
 
+            // System.out.print("Sum of the Risk:" + calcRisk.toString() + " ");
             if (goal.equalsIgnoreCase("Retirement"))
             {
-               calcRisk = calcRisk / scoreMeasurement;
-               calcRisk = (calcRisk > scoreMeasurement) ? scoreMeasurement : calcRisk;
-               calcRisk = (scoreMeasurement - calcRisk < 0.0) ? 0.0 : scoreMeasurement - calcRisk + 20;
+               calcRisk = riskValues[1] / scoreMeasurement; // Divide Age Risk / 100
+               calcRisk = (calcRisk > 1) ? 1 : calcRisk;
+               calcRisk = (1 - calcRisk < 0.0) ? 0.0 : 1 - calcRisk;
                adjustRisk = 0.0;
                for (int loop = 1; loop < numberofQuestions + 1; loop++)
                {
@@ -388,7 +389,7 @@ public class TCMRiskCalculator implements RiskCalculator
                   switch (loop)
                   {
                      case 1:
-                        value = calcRisk;
+                        value = calcRisk + .20;
                         adjustRisk = value;
                         break;
                      default:
@@ -397,6 +398,7 @@ public class TCMRiskCalculator implements RiskCalculator
                   }
                   riskValues[loop] = value;
                }
+               adjustRisk *= 100;
 
             }
             else
@@ -413,11 +415,12 @@ public class TCMRiskCalculator implements RiskCalculator
                         adjustRisk -= riskValues[loop];
                   }
                }
-               adjustRisk = adjustRisk / 100.0;
+               adjustRisk = adjustRisk;
 
             }
             adjustRisk = (adjustRisk < 0.0) ? 0.0 : adjustRisk;
             setTotalRisk(adjustRisk);
+            // System.out.println("Adjusted Risk (" + goal + "):" + calcRisk.toString() + " ");
             return adjustRisk;
          }
          else

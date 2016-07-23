@@ -79,7 +79,7 @@
         <beans:property name="uiLayout" ref="uiLayout"/>
         <beans:property name="emailMessage" ref="webMessage"/>
         <beans:property name="usersByUsernameQuery"
-                        value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access from vw_user_logon where userid=?"/>
+                        value="select logonid, userid, email, pwd, logonstatus, firstname, lastname, ip, stateRegistered, resetID, cid, advisor, rep, emailmsgtype, access, atstart from vw_user_logon where userid=?"/>
         <beans:property name="listofQAQuery"
                         value="select question1, answer1, question2, answer2, question3, answer3 from user_logon where userid=?"/>
         <beans:property name="authoritiesByUsernameQuery"

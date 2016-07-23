@@ -401,6 +401,7 @@ public class TCMCharts implements Serializable
       catch (Exception ex)
       {
          ex.printStackTrace();
+         goalChart = null;
       }
    }
 
@@ -444,6 +445,7 @@ public class TCMCharts implements Serializable
       }
       catch (Exception ex) {
          ex.printStackTrace();
+         pieChart = null;
       }
    }
 
@@ -507,6 +509,7 @@ public class TCMCharts implements Serializable
       }
       catch (Exception ex) {
          ex.printStackTrace();
+         barChart = null;
       }
    }
 
