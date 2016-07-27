@@ -277,7 +277,7 @@ public class TCMCharts implements Serializable
       Integer noOfYlabels = 0;
       Integer totalYlabels = 0;
       Integer yIncrement = 1;
-      Integer MAXPOINTONGRAPH = 20;
+      Integer MAXPOINTONGRAPH = 35;
       Long moneyInvested;
       Long money;
       Double dividingFactor = 1.0;

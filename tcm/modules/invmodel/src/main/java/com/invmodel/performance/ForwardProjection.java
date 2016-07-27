@@ -74,7 +74,8 @@ public class ForwardProjection
          {
             Double investment = (pdata.getActualInvestment() != null) ? pdata.getActualInvestment() : 100000;
             Double recurring = (pdata.getRecurringInvestment() != null) ? pdata.getRecurringInvestment() : 0.0;
-            Integer horizon = (pdata.getHorizon() != null) ? pdata.getHorizon() : 20;
+            Integer horizon = (pdata.getHorizon() != null) ? pdata.getHorizon() : 35;
+            horizon = (horizon < 20) ? 20 : horizon;
             ProjectionData[] array = goalsProjection(investment,
                                                      recurring,
                                                      horizon,
@@ -148,7 +149,8 @@ public class ForwardProjection
 
       try
       {
-         Integer numOfYears = (horizon <= 0) ? 20 : horizon;
+         // Integer numOfYears = (horizon <= 0) ? 35 : horizon;
+         Integer numOfYears = 35;  // Hard Coding to 35 years
          ProjectionData[] array = new ProjectionData[numOfYears];
          Double totalCost = 0.0;
          double portGrowth = invested;

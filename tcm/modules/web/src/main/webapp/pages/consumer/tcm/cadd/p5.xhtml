@@ -65,7 +65,7 @@
                         <p:slider for="projection"
                                   minValue="1" maxValue="5">
                             <p:ajax event="slideEnd" listener="#{tcmpb.doProjectionChart}"
-                                    update=":ceForm:goalPanel" />
+                                    update=":ceForm:inputArea, :ceForm:goalPanel" />
                         </p:slider>
                         <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}"
                                        required="true"

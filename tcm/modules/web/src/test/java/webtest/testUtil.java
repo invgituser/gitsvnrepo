@@ -56,30 +56,39 @@ public class testUtil
             default:
                goal = "Other";
          }
-         for (Integer age=20; age < 100; age += 5) {
+         for (Integer age=20; age < 100; age += 15) {
             custdata.riskCalculator.setRiskAge(age);
-            for (Integer horizon=1; horizon < 31; horizon += 3) {
-               custdata.riskCalculator.setRiskHorizon(horizon);
-               for (Integer ans3=1; ans3 < 6; ans3++) {
-                  for (Integer ans4=1; ans4 < 6; ans4++) {
-                     for (Integer ans5=1; ans5 < 6; ans5++) {
-                        custdata.riskCalculator.setAns3(ans3.toString());
-                        custdata.riskCalculator.setAns4(ans4.toString());
-                        custdata.riskCalculator.setAns5(ans5.toString());
-                        Double riskIdex = custdata.riskCalculator.calculateRisk(goal);
-                        System.out.println("Value =" +
-                                              age.toString() + "," +
-                                              horizon.toString() + "," +
-                                              ans3.toString() + "," +
-                                              ans4.toString() + "," +
-                                              ans5.toString() + "---->" +
-                                              "Answer: " + riskIdex.toString()
-                        );
-                     }
-
-                  }
-
+            for (Integer tc=0; tc < 3; tc++) {
+               Integer horizon = 1;
+               String ans = "1";
+               switch (tc) {
+                  case 0:
+                     horizon = 1;
+                     ans = "1";
+                     break;
+                  case 1:
+                     horizon = 7;
+                     ans = "3";
+                     break;
+                  case 2:
+                     horizon = 20;
+                     ans = "5";
+                     break;
                }
+               custdata.setHorizon(horizon);
+               custdata.riskCalculator.setAns3(ans);
+               custdata.riskCalculator.setAns4(ans);
+               custdata.riskCalculator.setAns5(ans);
+               Double riskIdex = custdata.riskCalculator.calculateRisk(goal);
+               System.out.println("Catagory =" + goal +
+                                  " values > " +
+                                     age.toString() + "," +
+                                     horizon.toString() + "," +
+                                     ans + "," +
+                                     ans + "," +
+                                     ans + "---->" +
+                                     "Answer: " + riskIdex.toString()
+               );
             }
          }
       }

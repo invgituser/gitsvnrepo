@@ -12,15 +12,15 @@ import com.invessence.web.data.consumer.RiskCalculator;
  */
 public class TCMRiskCalculator implements RiskCalculator
 {
-   private static Double riskValueMatrix[][] = {
+   private static Double retirementRiskMatrix[][] = {
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
-      {0.0, 30.00, 24.00, 12.00, 6.00, 0.00, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
-      {0.0, 5.0, 4.0, 2.5, 1.25, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
-      {0.0, 5.0, 4.0, 2.5, 1.25, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
-      {0.0, 5.0, 4.0, 3.0, 2.00, 1.0, 0.0, 0.0, 0.0, 0.0}, // Q5
-      {0.0, 14.0, 21.0, 28.0, 28.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q6
-      {0.0, 7.0, 14.0, 25.0, 28.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q7
+      {0.0, 5.0, 4.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
+      {0.0, 5.0, 3.75, 2.5, 1.25, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
+      {0.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
+      {0.0, 5.0, 4.0, 3.0, 2.0, 1.0, 0.0, 0.0, 0.0, 0.0}, // Q5
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q6
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q7
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q8
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q9
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q10
@@ -30,6 +30,26 @@ public class TCMRiskCalculator implements RiskCalculator
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q14
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q15
    };
+
+   private static Double otherRiskMatrix[][] = {
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
+      {0.0, 80.0, 64.0, 32.0, 16.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
+      {0.0, 20.0, 15.0, 10.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
+      {0.0, 10.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
+      {0.0, 10.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0, 0.0, 0.0}, // Q5
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q6
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q7
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q8
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q9
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q10
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q11
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q12
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q13
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q14
+      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q15
+   };
+
    private Integer numberofQuestions;
    private String riskFormula;
    private Double[] riskValues;     // NOTE: Q1 = Position 1.  Zero is of default.
@@ -317,10 +337,16 @@ public class TCMRiskCalculator implements RiskCalculator
    @Override
    public void setRiskHorizon(Integer value)
    {
-      this.riskHorizon = value;
       if (value != null)
       {
-         answers[2] = value.toString();
+         if (value < 0)  {
+            answers[2] = "1";
+            riskHorizon = 1;
+         }
+         else {
+            riskHorizon = value;
+            answers[2] = value.toString();
+         }
       }
    }
 
@@ -337,6 +363,11 @@ public class TCMRiskCalculator implements RiskCalculator
          {
             riskFormula = "C";
          }
+
+         if (goal == null) {
+            goal = "other";
+         }
+
          if (riskFormula.equalsIgnoreCase("C"))
          {
             if (numberofQuestions == null)
@@ -346,78 +377,49 @@ public class TCMRiskCalculator implements RiskCalculator
             }
 
 
-            Integer ageValue = (getRiskAge() == null) ? 30 : getRiskAge();
-            Double agePowerFunction = Math.pow((ageValue.doubleValue() / scoreMeasurement), agePowerValue);
-
             Double value;
+            adjustRisk = 0.0;
             for (int loop = 1; loop < numberofQuestions + 1; loop++)
             {
                value = 0.0;
                switch (loop)
                {
                   case 1:
-                     value = Math.min(scoreMeasurement * agePowerFunction, ageWeight * scoreMeasurement);
-                     break;
-                  case 2:
-                     value = riskValueMatrix[loop][getHorizon2Index(getRiskHorizon())];
+                     if (goal.equalsIgnoreCase("retirement")) {
+                        Integer ageValue = (getRiskAge() == null) ? 30 : getRiskAge();
+                        calcRisk = Math.pow((ageValue.doubleValue() / scoreMeasurement), agePowerValue);
+                        calcRisk = Math.min(scoreMeasurement * calcRisk, ageWeight * scoreMeasurement);
+                        calcRisk = calcRisk / scoreMeasurement; // Divide Age Risk / 100
+                        calcRisk = (calcRisk > 1) ? 1 : calcRisk;
+                        calcRisk = (1 - calcRisk < 0.0) ? 0.0 : 1 - calcRisk;
+                        value = (calcRisk + .20) * 100.0;
+                     }
+                     else {
+                        value = 120.0;
+                     }
+                     adjustRisk = value;
+                     riskValues[loop] = value; // Adjust the RiskValue or Retirement
                      break;
                   default:
-                     if (answers[loop] != null)
-                     {
-                        Integer ansvalue = converter.getIntData(answers[loop]);
-                        if (ansvalue > 0 && ansvalue < riskValueMatrix[loop].length)
+                     Integer lookupindex = (loop == 2) ? getHorizon2Index(getRiskHorizon()) : converter.getIntData(answers[loop]);
+                     if (goal.equalsIgnoreCase("retirement")) {
+                        if (lookupindex > 0 && lookupindex < retirementRiskMatrix[loop].length)
                         {
-                           value = riskValueMatrix[loop][ansvalue];
+                           value = retirementRiskMatrix[loop][lookupindex];
                         }
                      }
+                     else {
+                        if (lookupindex > 0 && lookupindex < retirementRiskMatrix[loop].length)
+                        {
+                           value = otherRiskMatrix[loop][lookupindex];
+                        }
+                     }
+                     adjustRisk -= value;
+                     riskValues[loop] = value; // Adjust the RiskValue or Retirement
                      break;
                }
-               riskValues[loop] = value;
-               calcRisk += value;
             }
 
-            // System.out.print("Sum of the Risk:" + calcRisk.toString() + " ");
-            if (goal.equalsIgnoreCase("Retirement"))
-            {
-               calcRisk = riskValues[1] / scoreMeasurement; // Divide Age Risk / 100
-               calcRisk = (calcRisk > 1) ? 1 : calcRisk;
-               calcRisk = (1 - calcRisk < 0.0) ? 0.0 : 1 - calcRisk;
-               adjustRisk = 0.0;
-               for (int loop = 1; loop < numberofQuestions + 1; loop++)
-               {
-                  value = 0.0;
-                  switch (loop)
-                  {
-                     case 1:
-                        value = calcRisk + .20;
-                        adjustRisk = value;
-                        break;
-                     default:
-                        value = riskValues[loop] / 100.0;
-                        adjustRisk -= value;
-                  }
-                  riskValues[loop] = value;
-               }
-               adjustRisk *= 100;
-
-            }
-            else
-            {
-               for (int loop = 1; loop < numberofQuestions + 1; loop++)
-               {
-                  value = 0.0;
-                  switch (loop)
-                  {
-                     case 1:
-                        adjustRisk = 120.0;
-                        break;
-                     default:
-                        adjustRisk -= riskValues[loop];
-                  }
-               }
-               adjustRisk = adjustRisk;
-
-            }
             adjustRisk = (adjustRisk < 0.0) ? 0.0 : adjustRisk;
             setTotalRisk(adjustRisk);
             // System.out.println("Adjusted Risk (" + goal + "):" + calcRisk.toString() + " ");
@@ -427,7 +429,6 @@ public class TCMRiskCalculator implements RiskCalculator
          {
             return totalRisk;
          }
-
       }
       catch (Exception ex)
       {
@@ -456,7 +457,7 @@ public class TCMRiskCalculator implements RiskCalculator
          return 0;
       }
 
-      if (index > riskValueMatrix.length)
+      if (index > retirementRiskMatrix.length)
       {
          return 0;
       }
@@ -477,7 +478,7 @@ public class TCMRiskCalculator implements RiskCalculator
          return 0;
       }
 
-      if (index > riskValueMatrix.length)
+      if (index > retirementRiskMatrix.length)
       {
          return 0;
       }
@@ -498,7 +499,7 @@ public class TCMRiskCalculator implements RiskCalculator
          return;
       }
 
-      if (index > riskValueMatrix.length)
+      if (index > retirementRiskMatrix.length)
       {
          return;
       }
@@ -510,10 +511,10 @@ public class TCMRiskCalculator implements RiskCalculator
    @Override
    public void resetAllData()
    {
-      riskValues = new Double[riskValueMatrix.length];
-      answers = new String[riskValueMatrix.length];
+      riskValues = new Double[retirementRiskMatrix.length];
+      answers = new String[retirementRiskMatrix.length];
       riskAge = 30;
-      riskHorizon = 10;
+      riskHorizon = 20;
       totalRisk = 0.0;
       riskFormula = "C";
    }

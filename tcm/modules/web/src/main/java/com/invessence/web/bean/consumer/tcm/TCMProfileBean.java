@@ -44,7 +44,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
    private TCMCharts charts = new TCMCharts();
-   private TCMRiskCalculator riskCalculator = new TCMRiskCalculator();
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -192,7 +191,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       if (riskHorizon > 0)
       {
          riskCalculator.setRetireAge(retireAge);
-         setHorizon(riskHorizon);
+         riskCalculator.setRiskHorizon(riskHorizon);  // New riskHorizon
+         setHorizon(riskHorizon);                     // In Profile Class (Original)
       }
 
    }
@@ -254,7 +254,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       setRiskCalcMethod("C");
       formEdit = true;
-      setRiskIndex(riskCalculator.calculateRisk(getGoal()));
       createAssetPortfolio(1);
    }
 
@@ -278,7 +277,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          riskCalculator.setRiskFormula("C");
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
-         setRiskIndex(riskCalculator.calculateRisk(getGoal()));
          createAssetPortfolio(1);
       }
    }
@@ -288,7 +286,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       formEdit = true;
       setAccountType();
       riskCalculator.setRiskFormula("C");
-      setRiskIndex(riskCalculator.calculateRisk(getGoal()));
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -860,6 +857,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          case 1:
             break;
          case 2:
+            calcProjectionChart();
             doProjectionChart(null);
             break;
          case 3:
@@ -875,13 +873,17 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       else
       {
-         context.addMessage(null, new FacesMessage("Warning", msg));
+         context.addMessage(null, new FacesMessage(msg,msg));
       }
    }
 
    public void riskSelected(Integer value)
    {
       riskCalculator.setAns4(value.toString());
+      setRiskCalcMethod("C");
+      formEdit = true;
+      setRiskIndex(riskCalculator.calculateRisk(getGoal()));
+      createAssetPortfolio(1);
    }
 
    public String getRiskGraphic(Integer value)
@@ -918,54 +920,59 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          riskCalculator.setAns5(whichslide.toString());
       }
 
-      calcProjectionChart();
       charts.createProjectionChart(getProjectionDatas().get(whichslide), getHorizon());
+      setRiskCalcMethod("C");
+      formEdit = true;
+      setRiskIndex(riskCalculator.calculateRisk(getGoal()));
+      createAssetPortfolio(1);
    }
 
    public void testRiskModel()
    {
       String goal = "";
 
-      for (Integer g = 0; g < 2; g++)
-      {
-         switch (g)
-         {
+      for (Integer g=0; g < 2; g++) {
+         switch (g) {
             case 0:
                goal = "Retirement";
                break;
             default:
                goal = "Other";
+               break;
          }
-         for (Integer age = 20; age < 100; age += 5)
-         {
+         Integer horizon = 1;
+         String ans = "1";
+         for (Integer age=20; age < 100; age += 15) {
             riskCalculator.setRiskAge(age);
-            for (Integer horizon = 1; horizon < 31; horizon += 3)
-            {
-               riskCalculator.setRiskHorizon(horizon);
-               for (Integer ans3 = 1; ans3 < 6; ans3++)
-               {
-                  for (Integer ans4 = 1; ans4 < 6; ans4++)
-                  {
-                     for (Integer ans5 = 1; ans5 < 6; ans5++)
-                     {
-                        riskCalculator.setAns3(ans3.toString());
-                        riskCalculator.setAns4(ans4.toString());
-                        riskCalculator.setAns5(ans5.toString());
-                        System.out.println("Value =" +
-                                              age.toString() + "," +
-                                              horizon.toString() + "," +
-                                              ans3.toString() + "," +
-                                              ans4.toString() + "," +
-                                              ans5.toString()
-                        );
-                        Double riskIdex = riskCalculator.calculateRisk(goal);
-                        System.out.println("Answer =" + riskIdex.toString()
-                        );
-                     }
-
-                  }
-
+            for (Integer tc=0; tc < 3; tc++) {
+               switch (tc) {
+                  case 0:
+                     horizon = 1;
+                     ans = "1";
+                     break;
+                  case 1:
+                     horizon = 7;
+                     ans = "3";
+                     break;
+                  case 2:
+                     horizon = 20;
+                     ans = "5";
+                     break;
                }
+               riskCalculator.setRiskHorizon(horizon);
+               riskCalculator.setAns3(ans);
+               riskCalculator.setAns4(ans);
+               riskCalculator.setAns5(ans);
+               Double riskIdex = riskCalculator.calculateRisk(goal);
+               System.out.println("Catagory =" + goal +
+                                     " values > " +
+                                     age.toString() + "," +
+                                     horizon.toString() + "," +
+                                     ans + "," +
+                                     ans + "," +
+                                     ans + "---->" +
+                                     "Answer: " + riskIdex.toString()
+               );
             }
          }
       }
