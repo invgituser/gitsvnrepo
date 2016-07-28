@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="acct" value="#{tcmpb.beanAcctnum}"/>
+        <f:event type="preRenderView" listener="#{tcmpb.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+    <h:outputScript name="js/invCharts.js" library="#{uiLayout.cssDIR}"/>
+
+        <!-- BOX START -->
+        <h:form id="ceForm">
+
+            <div class="layout-portlets-box">
+                <p:panel id="dPanel1" style="background: transparent; height:0px; border: 0px">
+                </p:panel>
+
+                <div class="Container100 Responsive100 t1">
+                    <div class="ContainerIndent">
+                        <p:commandButton value="Try"
+                                         actionListener="#{tcmpb.testRiskModel}"/>
+                    </div>
+                </div>
+
+            </div>
+            <!-- BOX END -->
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

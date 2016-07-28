@@ -27,22 +27,22 @@
                     <h:form id="advisorEditForm">
                         <p:growl id="advisorEditgrowl" showDetail="true" sticky="true" escape="true"/>
 
-                        <p:panel styleClass="dpanel1">
-                            <ui:include src="/pages/consumer/consumerProfilePanel.xhtml"/>
+                        <p:panel id="dpanel1" styleClass="dpanel1">
+                            <ui:include src="/pages/consumer/saved/consumerProfilePanel.xhtml"/>
                         </p:panel>
 
-                        <p:panel styleClass="dpanel2" style="border: 0px" rendered="#{webutil.hasAccess('ADVISOR')}">
-                            <ui:include src="/pages/consumer/advisorProfilePanel.xhtml"/>
+                        <p:panel id="dpanel2" styleClass="dpanel2" style="border: 0px" rendered="#{webutil.hasAccess('ADVISOR')}">
+                            <ui:include src="/pages/consumer/saved/advisorProfilePanel.xhtml"/>
                         </p:panel>
 
                         <div class="dDataArea">
                             <p:outputPanel id="workArea" styleClass="dDataArea">
                                 <div class="dGraphArea">
-                                    <ui:include src="/pages/consumer/graphs.xhtml"/>
+                                    <ui:include src="/pages/consumer/saved/graphs.xhtml"/>
                                 </div>
 
                                 <div class="dDetailArea">
-                                    <ui:include src="/pages/consumer/details.xhtml"/>
+                                    <ui:include src="/pages/consumer/saved/details.xhtml"/>
                                 </div>
                             </p:outputPanel>
 
@@ -53,8 +53,8 @@
                 </div>
             </div>
 
-            <ui:include src="/pages/consumer/custDialog.xhtml"/>
-            <ui:include src="/pages/consumer/advisorDialog.xhtml"/>
+            <ui:include src="/pages/consumer/saved/custDialog.xhtml"/>
+            <ui:include src="/pages/consumer/saved/advisorDialog.xhtml"/>
 
         </ui:define>
     </ui:composition>

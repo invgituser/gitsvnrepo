@@ -1,4 +1,4 @@
-package com.invessence.web.bean.consumer.invessence;
+package com.invessence.web.bean.consumer.uob;
 
 import java.io.Serializable;
 import java.util.*;
@@ -19,18 +19,18 @@ import org.springframework.beans.factory.annotation.Autowired;
  * To change this template use File | Settings | File Templates.
  */
 
-@ManagedBean(name = "cdash")
+@ManagedBean(name = "uobdash")
 @SessionScoped
 public class ConsumerDashBean implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
-/*
-   @Autowired
-   private WebUtil webutil;
-   @Autowired
-   private ConsumerListDataDAO listDAO;
-*/
+   /*
+      @Autowired
+      private WebUtil webutil;
+      @Autowired
+      private ConsumerListDataDAO listDAO;
+   */
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
    public void setWebutil(WebUtil webutil)
@@ -108,8 +108,8 @@ public class ConsumerDashBean implements Serializable
 
    public void collectData(Long logonid)
    {
-       manageAccountList = listDAO.getClientProfileData(logonid, null, null);
-    }
+      manageAccountList = listDAO.getClientProfileData(logonid, null, null);
+   }
 
 
    public List<CustomerData> getManageAccountList()

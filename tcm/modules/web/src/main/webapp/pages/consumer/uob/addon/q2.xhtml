@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:panel style="border: 0px">
+    <div class="Container100 Responsive50">
+        <div class="ContainerIndent">
+            <h3>
+                2. Do you have any other sources of income?
+            </h3>
+            <p:selectOneRadio value="#{uobpb.riskCalculator.ans2}"
+                              layout="pageDirection">
+                <p:ajax listener="#{uobpb.onChangeValue}"
+                        update=":ceForm:workArea, :ceForm:graphArea"/>
+                <f:selectItem itemLabel="Yes" itemValue="1" />
+                <f:selectItem itemLabel="No" itemValue="2" />
+            </p:selectOneRadio>
+        </div>
+    </div>
+    </p:panel>
+
+
+</ui:composition>

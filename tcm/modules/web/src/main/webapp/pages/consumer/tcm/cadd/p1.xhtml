@@ -7,25 +7,12 @@
 
     <div class="Container100 TextAlCenter">
 
-        <div class="TexAlCenter">
-            <div>
-               <div class="mobileFullWidth"><h3 class="formFS"> I am </h3></div>
-                <pe:inputNumber id="ageid"
-                                styleClass="invInputText input_agewid1 mobileFullWidthinput"
-                                value="#{tcmpb.age}"
-                                decimalPlaces="0" size="9"
-                    required="true" requiredMessage="Age is required!"
-                    validatorMessage="Age should be between 18 and 100."/>
-                <div class="mobileFullWidth"><h3 class="formFS" >years old.</h3></div>
-            </div>
-            <p:message for="ageid" display="tooltip"/>
-        </div>
 
         <div class="EmptyBox20"></div>
 
         <div class="TexAlCenter">
             <div>
-            <div class="mobileFullWidth"><h3 class="formFS" >I plan on investing</h3></div>
+            <div class="mobileFullWidth"><h3 class="formFS" > I plan on investing </h3></div>
             <pe:inputNumber id="initialIid"
                             styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
                           value="#{tcmpb.initialInvestment}"
@@ -35,7 +22,7 @@
                     validatorMessage="Min. of $50,000 investment is required!">
             </pe:inputNumber>
             <p:message for="initialIid" display="tooltip"/>
-            <div class="mobileFullWidth"><h3 class="formFS" >for</h3></div>
+            <div class="mobileFullWidth"><h3 class="formFS" > for </h3></div>
                 <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="dropdownInputFullWidth"
                                  required="true" requiredMessage="Please choose investment strategy">
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
@@ -43,7 +30,7 @@
                     <f:selectItem itemLabel="Choose One" itemValue=""/>
                     <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
                     <f:selectItem itemLabel="College" itemValue="College"/>
-                    <f:selectItem itemLabel="Building Wealth" itemValue="Building Wealth"/>
+                    <f:selectItem itemLabel="Building Wealth" itemValue="Wealth"/>
                     <f:selectItem itemLabel="Other" itemValue="Other"/>
                 </p:selectOneMenu>
             </div>
@@ -55,19 +42,34 @@
                 rendered="#{tcmpb.displayGoalText}">
             <div class="Container100 ResponsiveMarginTop">
                 <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
-                    <h3 class="formFS TexAlCenter">
-                        I would like to retire when I am
-                        <pe:inputNumber id="retireageID"
-                                        styleClass="invInputText input_wid1 amountBRmobileSupport mobileFullWidthinput" style="width: 60px;"
-                                        value="#{tcmpb.retireAge}"
-                                        decimalPlaces="0"
-                                        size="3"
-                                        required="true" requiredMessage="When do you plan to retire?">
+                    <div class="TexAlCenter">
+                        <div>
+                            <div class="mobileFullWidth"><h3 class="formFS"> I am </h3></div>
+                            <pe:inputNumber id="ageid"
+                                            styleClass="invInputText input_agewid1 mobileFullWidthinput"
+                                            value="#{tcmpb.age}"
+                                            decimalPlaces="0" size="9"
+                                            required="true" requiredMessage="Age is required!"
+                                            validatorMessage="Age should be between 18 and 100."/>
+                            <div class="mobileFullWidth"><h3 class="formFS" > years old.</h3></div>
+                        </div>
+                    </div>
 
-                         </pe:inputNumber>
-                        years old.
-                    </h3>
-                    <p:message for="retireageID" display="text"/>
+                    <div class="TexAlCenter">
+                        <div>
+                            <div class="mobileFullWidth"><h3 class="formFS"> I would like to retire when I am </h3></div>
+                            <pe:inputNumber id="retireageID"
+                                            styleClass="invInputText input_wid1 amountBRmobileSupport mobileFullWidthinput"
+                                            style="width: 60px;"
+                                            value="#{tcmpb.retireAge}"
+                                            decimalPlaces="0"
+                                            size="3"
+                                            required="true" requiredMessage="When do you plan to retire?">
+
+                            </pe:inputNumber>
+                            <div class="mobileFullWidth"><h3 class="formFS" > years old.</h3></div>
+                        </div>
+                    </div>
 
                     <div class="EmptyBox30"></div>
                 </ui:fragment>

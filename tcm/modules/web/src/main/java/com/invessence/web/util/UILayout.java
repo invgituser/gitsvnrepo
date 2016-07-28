@@ -68,7 +68,7 @@ public class UILayout implements Serializable
             String copyright = null;
             String forwardservice = null, custodyURL = null, accountOpeningURL = null;
             String theme = null, themelib = null;
-            String customdir = null;
+            String consumerdir = null;
             String templatedir = null, cssdir = null, customcss = null;
             String webmode = null;
 
@@ -93,7 +93,7 @@ public class UILayout implements Serializable
                   theme = webserviceDB(webSiteConfigDetails,"THEME");
                   themelib = webserviceDB(webSiteConfigDetails,"THEME.LIB");
                   templatedir = webserviceDB(webSiteConfigDetails,"TEMPLATE.DIR");
-                  customdir = webserviceDB(webSiteConfigDetails,"CUSTOM.DIR");
+                  consumerdir = webserviceDB(webSiteConfigDetails,"CONSUMER.DIR");
                   cssdir = webserviceDB(webSiteConfigDetails,"CSS.DIR");
                   customcss = webserviceDB(webSiteConfigDetails,"CUSTOM.CSS");
                   webmode = webserviceDB(webSiteConfigDetails,"WEB.MODE");
@@ -120,7 +120,7 @@ public class UILayout implements Serializable
                theme = webutil.getMessageText().lookupMessage("THEME." + cid, null);
                themelib = webutil.getMessageText().lookupMessage("THEME.LIB." + cid, null);
                templatedir = webutil.getMessageText().lookupMessage("TEMPLATE.DIR." + cid, null);
-               customdir = webutil.getMessageText().lookupMessage("CUSTOM.DIR." + cid, null);
+               consumerdir = webutil.getMessageText().lookupMessage("CUSTOM.DIR." + cid, null);
                cssdir = webutil.getMessageText().lookupMessage("CSS.DIR." + cid, null);
                customcss = webutil.getMessageText().lookupMessage("CUSTOM.CSS." + cid, null);
                webmode = webutil.getMessageText().lookupMessage("WEB.MODE" + cid, null);
@@ -135,7 +135,7 @@ public class UILayout implements Serializable
                          forwardservice, custodyURL, accountOpeningURL,
                          theme, themelib,
                          templatedir,
-                         customdir, cssdir, customcss,
+                         consumerdir, cssdir, customcss,
                          webmode);
 
          }
@@ -265,8 +265,8 @@ public class UILayout implements Serializable
       if (webutil.isUserLoggedIn()) {
          if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
 /*
-            if (webutil.getUiprofile().getCustomdir() != null) {
-               dashboard = "/pages/advisor/" + webutil.getUiprofile().getCustomdir() +"/index.xhtml";
+            if (webutil.getUiprofile().getConsumerdir() != null) {
+               dashboard = "/pages/advisor/" + webutil.getUiprofile().getConsumerdir() +"/index.xhtml";
             }
             else {
 */
@@ -276,8 +276,8 @@ public class UILayout implements Serializable
 */
          }
          else {
-            if (webutil.getUiprofile().getCustomdir() != null) {
-               dashboard = "/pages/consumer/"+webutil.getUiprofile().getCustomdir().trim()+"/index.xhtml";
+            if (webutil.getUiprofile().getConsumerdir() != null) {
+               dashboard = "/pages/consumer/"+webutil.getUiprofile().getConsumerdir().trim()+"/index.xhtml";
             }
             else {
                dashboard = "/pages/consumer/index.xhtml";
@@ -339,11 +339,11 @@ public class UILayout implements Serializable
          if (location == null || location.trim().length() == 0)
             doMenuAction(menuItem);
          else {
-            if (getCustomDIR() == null || getCustomDIR().trim().length() == 0) {
+            if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0) {
                forwardURL("/pages/" + location.toLowerCase() + "/" + menuItem);
             }
             else {
-               forwardURL("/pages/" + location.toLowerCase() + "/" + getCustomDIR() + "/" + menuItem);
+               forwardURL("/pages/" + location.toLowerCase() + "/" + getConsumerDIR() + "/" + menuItem);
             }
          }
       }
@@ -461,11 +461,11 @@ public class UILayout implements Serializable
          return (webutil.getUiprofile().getCustomcss());
    }
 
-   public String getCustomDIR()
+   public String getConsumerDIR()
    {
       if (webutil.getUiprofile() == null)
          return (null);
       else
-         return (webutil.getUiprofile().getCustomdir());
+         return (webutil.getUiprofile().getConsumerdir());
    }
 }

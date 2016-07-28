@@ -6,19 +6,78 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/template.xhtml">
 
+    <f:metadata>
+        <f:viewParam name="acct" value="#{uobpb.beanAcctnum}"/>
+        <f:event type="preRenderView" listener="#{uobpb.preRenderView}"/>
+    </f:metadata>
+
     <ui:define name="content">
-    <h:outputScript name="js/invCharts.js" library="#{uiLayout.cssDIR}"/>
+        <h:outputScript name="js/invCharts.js" library="#{uiLayout.cssDIR}"/>
 
         <!-- BOX START -->
         <h:form id="ceForm">
+            <p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
 
             <div class="layout-portlets-box">
-                <p:panel id="dPanel1" style="background: transparent; height:0px; border: 0px">
+                <p:panel id="dPanel1" style="height:85px">
+
+                    <div class="Container30 hide-mobile" style="margin-top: -5px">
+                        <div class="ContainerIndent">
+                            <div class="DispInlBlock">
+                                <div class="Container100">
+                                    <i class="fa fa-user Fs50 red Fleft MarRight10"></i>
+                                    <p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
+                                        <h3 class="black Fs15 FontThemeMedium">#{uobpb.fullName}</h3>
+                                        <span class="Fs15 gray FontThemeRegular DispBlock">#{cepb.portfolioName}</span>
+                            	<span class="Fs15 gray FontThemeRegular DispBlock">
+                               	<p:outputLabel value="Taxable" rendered="#{uobpb.accountTaxable}"/>
+                               	<p:outputLabel value="Non-Taxable" rendered="#{! uobpb.accountTaxable}"/>
+                            	</span>
+                                    </p:panel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Container30 hide-mobile"><!-- ROHIT's CHANGE -->
+                        <div class="ContainerIndent">
+                            <div class="DispBlock">
+                                <div class="Fleft TexAlCenter">
+                                    <div class="ContainerIndent">
+                                        <h3 class="black Fs15 FontThemeMedium">Investment</h3>
+                            <span class="Fs18 gray FontThemeRegular DispBlock">
+                                <h:outputText id="displayInvestment" value="#{uobpb.initialInvestment}">
+                                    <f:convertNumber pattern="$###,###,###"/>
+                                </h:outputText>
+			    </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container40 mb_contain"><!-- ROHIT's CHANGE -->
+                        <div class="Wid50"></div>
+                        <div class="ContainerIndent">
+                            <div class="DispBlock">
+                                <p:splitButton value="Fund Account" actionListener="#{uobpb.fundAccount}"
+                                               icon="fa fa-dollar Fs14 white">
+                                    <p:menuitem value="Start Over" resetValues="true" update="@form"
+                                                actionListener="#{uobpb.resetForm}"
+                                                icon="fa fa-repeat Fs14 red"/>
+                                    <p:menuitem value="Save" actionListener="#{uobpb.saveProfile}"
+                                                update="caddgrowl" icon="fa fa-save Fs14 blue"/>
+                                </p:splitButton>
+                            </div>
+                        </div>
+                    </div>
+
                 </p:panel>
 
                 <div class="Container100 Responsive100 t1">
                     <div class="ContainerIndent">
-                         <ui:include src="/pages/consumer/tcm/cadd/final.xhtml"/>
+                        <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
+                            <ui:include src="/pages/consumer/invessence/addon/cEdit.xhtml"/>
+                        </p:fieldset>
                     </div>
                 </div>
 
@@ -61,11 +120,11 @@
                                             Conservative
                                         </div>
                                         <div class="Container50 TexAlCenter Fs20">
-                                            <h:inputHidden id="allocValue" value="#{tcmpb.allocationIndex}"/>
-                                            <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
+                                            <h:inputHidden id="allocValue" value="#{uobpb.allocationIndex}"/>
+                                            <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="#{cepb.maxAssetAllocatonPoints}" step="1">
                                                 <p:ajax event="slideEnd"
                                                         update=":ceForm:workArea, :ceForm:graphArea"
-                                                        listener="#{tcmpb.onAllocSlider}"/>
+                                                        listener="#{uobpb.onAllocSlider}"/>
                                             </p:slider>
                                         </div>
                                         <div class="Container25 TexAlCenter Fs16">
@@ -77,7 +136,7 @@
                                         <div class="ContainerIndent">
                                             <p:commandButton id="allocSliderResetButton" value="Recommended"
                                                              update=":ceForm:workArea, :ceForm:graphArea"
-                                                             actionListener="#{tcmpb.doAllocReset}">
+                                                             actionListener="#{uobpb.doAllocReset}">
                                             </p:commandButton>
                                         </div>
                                     </div>
@@ -93,7 +152,7 @@
                                 <div class="ContainerIndent">
                                     <div class="Container100 Fleft">
                                         <p:outputPanel deferred="true">
-                                            <p:chart type="bar" model="#{tcmpb.charts.barChart}" rendered="#{tcmpb.charts.barChart != null}"
+                                            <p:chart type="bar" model="#{uobpb.charts.barChart}" rendered="#{cepb.charts.barChart != null}"
                                                      responsive="true"/>
                                         </p:outputPanel>
                                     </div>
@@ -103,7 +162,7 @@
                                 <div class="EmptyBox30"></div>
                                 <div class="ContainerIndent">
                                     <p:dataTable styleClass="invAllocTable"
-                                                 value="#{tcmpb.editableAsset}"
+                                                 value="#{uobpb.editableAsset}"
                                                  var="assetList">
 
                                         <p:column style="width: 1%; background-color: #{assetList.color};">
@@ -132,7 +191,7 @@
                                                           footerText="Total">
                                                 </p:column>
                                                 <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                          footerText="#{dataDisplayConverter.displayAsMoney(tcmpb.totalMoneyAllocated)}">
+                                                          footerText="#{dataDisplayConverter.displayAsMoney(cepb.totalMoneyAllocated)}">
                                                 </p:column>
                                             </p:row>
                                         </p:columnGroup>
@@ -154,8 +213,8 @@
                             </div>
                         </div>
                     </div>
-                    <p:outputPanel style="border: 0px; background: transparent" rendered="#{! tcmpb.fixedModel}">
-                       <div class="Container100">
+                    <p:outputPanel style="border: 0px; background: transparent" rendered="#{! cepb.fixedModel}">
+                      <div class="Container100">
                         <div class="ContainerIndent">
                             <div class="Container50 Responsive50 TexAlCenter Fs16">
                                 <div class="ContainerIndent">
@@ -175,11 +234,11 @@
                                             Conservative
                                         </div>
                                         <div class="Container50 TexAlCenter Fs20">
-                                            <h:inputHidden id="portfolioValue" value="#{tcmpb.portfolioIndex}"/>
-                                            <p:slider id="portfolioSlider" for="portfolioValue" minValue="0" maxValue="#{tcmpb.maxPortfolioAllocationPoints}" step="1">
+                                            <h:inputHidden id="portfolioValue" value="#{uobpb.portfolioIndex}"/>
+                                            <p:slider id="portfolioSlider" for="portfolioValue" minValue="0" maxValue="#{cepb.maxPortfolioAllocationPoints}" step="1">
                                                 <p:ajax event="slideEnd"
                                                         update=":ceForm:workArea, :ceForm:graphArea"
-                                                        listener="#{tcmpb.onPortfolioSlider}"/>
+                                                        listener="#{uobpb.onPortfolioSlider}"/>
                                             </p:slider>
                                         </div>
                                         <div class="Container25 TexAlCenter Fs16">
@@ -192,7 +251,7 @@
                                             <p:commandButton id="portSliderResetButton"
                                                              value="Recommended"
                                                              update=":ceForm:workArea, :ceForm:graphArea"
-                                                             actionListener="#{tcmpb.doPortfolioReset}"/>
+                                                             actionListener="#{uobpb.doPortfolioReset}"/>
                                         </div>
                                     </div>
                                     <div class="EmptyBox10"></div>
@@ -202,9 +261,11 @@
                         </div>
                     </div>
                     </p:outputPanel>
+
                     <div class="Container100">
                         <div class="ContainerIndent">
-                            <p:dataTable var="ticker" value="#{tcmpb.displayPortfolioList}">
+                            <p:dataTable var="ticker" value="#{uobpb.displayPortfolioList}"
+                                    >
 
                                 <p:column style="width:1%; background-color: #{ticker.color}">
                                     <h:outputText value=" "/>
@@ -266,7 +327,7 @@
                                         <p:column priority="3"/>
 
                                         <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                  footerText="#{dataDisplayConverter.displayAsMoney(tcmpb.totalMoneyAllocated)}">
+                                                  footerText="#{dataDisplayConverter.displayAsMoney(cepb.totalMoneyAllocated)}">
                                         </p:column>
                                     </p:row>
                                 </p:columnGroup>
@@ -275,7 +336,7 @@
                         </div>
                     </div>
                 </p:fieldset>
-                <p:fieldset legend="Goal Planning" rendered="#{!tcmpb.fixedModel}"
+                <p:fieldset legend="Goal Planning" rendered="#{!uobpb.fixedModel}"
                             collapsed="true"
                             toggleable="true" toggleSpeed="500">
 
@@ -303,39 +364,39 @@
                                                      class="FormContent">
                                             <div class="Wid90">Desired Goal</div>
                                             <pe:inputNumber style="width: 80px"
-                                                            value="#{tcmpb.goalData.goalDesired}"
+                                                            value="#{uobpb.goalData.goalDesired}"
                                                             maxlength="11" decimalPlaces="0" symbol="$">
                                             </pe:inputNumber>
 
 
                                             <div class="Wid90">Number of years when needed</div>
-                                            <p:spinner value="#{tcmpb.horizon}" styleClass="Fix80Spinner"
+                                            <p:spinner value="#{uobpb.horizon}" styleClass="Fix80Spinner"
                                                        min="1" max="40" stepFactor="1">
                                             </p:spinner>
 
 
                                             <div class="Wid90">Initial investment</div>
-                                            <h:outputText value="#{tcmpb.initialInvestment}">
+                                            <h:outputText value="#{uobpb.initialInvestment}">
                                                 <f:convertNumber currencySymbol="$" type="currency"/>
                                             </h:outputText>
 
 
                                             <div class="Wid90">Recurring investment</div>
                                             <pe:inputNumber style="width: 80px"
-                                                            value="#{tcmpb.recurringInvestment}"
+                                                            value="#{uobpb.recurringInvestment}"
                                                             maxlength="11" decimalPlaces="0" symbol="$">
-                                                <p:ajax event="blur" listener="#{tcmpb.onChange}"
+                                                <p:ajax event="blur" listener="#{uobpb.onChange}"
                                                         update=":ceForm:workArea, :ceForm:graphArea"/>
                                             </pe:inputNumber>
                                             <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
-                                                          rendered="#{tcmpb.displayGoalText}"
-                                                          value="#{tcmpb.goalAdjustment}">
+                                                          rendered="#{uobpb.displayGoalText}"
+                                                          value="#{uobpb.goalAdjustment}">
                                             </h:outputText>
 
                                             <p:spacer width="1"/>
 
                                             <div class="Wid90"></div>
-                                            <p:commandButton id="calcButton" value="Calculate" actionListener="#{tcmpb.calculateGoal}"
+                                            <p:commandButton id="calcButton" value="Calculate" actionListener="#{cepb.calculateGoal}"
                                                              update="ceForm:goalEntryArea, :ceForm:goalgraphArea"/>
                                             <p:spacer width="1"/>
 
@@ -356,7 +417,7 @@
                                                     <div class="EmptyBox5"></div>
                                                     <span class="Fs14 DispBlock gray">Investment Risk</span>
                                <span class="Fs24 DispBlock red">
-                                   <h:outputText value="#{tcmpb.totalRisk}">
+                                   <h:outputText value="#{uobpb.totalRisk}">
                                        <f:convertNumber pattern="##0.00%"/>
                                    </h:outputText>
                                    </span>
@@ -370,7 +431,7 @@
                                                     <div class="EmptyBox5"></div>
                                                     <span class="Fs14 DispBlock gray">Expected Return</span>
                                <span class="Fs24 DispBlock invessenceblue">
-                                    <h:outputText value="#{tcmpb.totalExpectedReturns}">
+                                    <h:outputText value="#{uobpb.totalExpectedReturns}">
                                         <f:convertNumber pattern="##0.00%"/>
                                     </h:outputText>
                                    </span>
@@ -385,17 +446,17 @@
                                     </div>
                                     <p:panel id="goalgraphArea" style="border: 0px">
                                         <div class="Container100">
-                                            <p:outputPanel id="goalcharts" style="border: 0px" rendered="#{tcmpb.displayGoalGraph}">
+                                            <p:outputPanel id="goalcharts" style="border: 0px" rendered="#{cepb.displayGoalGraph}">
                                                 <p:panel style="border: 0px">
                                                     <div class="Container100">
                                                         <div class="ContainerIndent">
                                                             <p:outputPanel deferred="true" style="border: 0px" styleClass="TexAlCenter">
                                                                 <h:outputText value="Great, you'll reach this goal."
-                                                                              rendered="#{tcmpb.goalData.reachable}"
+                                                                              rendered="#{uobpb.goalData.reachable}"
                                                                               style="font-size: 1.2em; color: green">
                                                                 </h:outputText>
                                                                 <h:outputText value="To reach your goal, increase recurring amount as shown."
-                                                                              rendered="#{! tcmpb.goalData.reachable}"
+                                                                              rendered="#{! uobpb.goalData.reachable}"
                                                                               style="font-size: 1.2em; color: red">
                                                                 </h:outputText>
                                                             </p:outputPanel>
@@ -403,8 +464,8 @@
                                                     </div>
                                                     <div class="Container100  Fleft">
                                                         <div class="Container100">
-                                                            <p:chart type="line" model="#{tcmpb.charts.goalChart}"
-                                                                     rendered="#{tcmpb.charts.goalChart != null}"
+                                                            <p:chart type="line" model="#{uobpb.charts.goalChart}"
+                                                                     rendered="#{uobpb.charts.goalChart != null}"
                                                                      responsive="true"/>
                                                         </div>
                                                     </div>
@@ -465,7 +526,7 @@
                     <p:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid">
                         <p:row>
                             <p:column colspan="2">
-                                <h:outputText value="#{tcmpb.forwardInstructions}" escape="true"/>
+                                <h:outputText value="#{cepb.forwardInstructions}" escape="true"/>
                             </p:column>
                         </p:row>
 

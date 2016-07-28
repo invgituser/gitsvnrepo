@@ -29,7 +29,7 @@ public class UIProfile
    String theme;
    String themelib;
    String templatedir;
-   String customdir;
+   String consumerdir;
    String cssdir;
    String customcss;
    String webmode;
@@ -47,7 +47,7 @@ public class UIProfile
                     String forwardservice, String custodyURL, String accountOpeningURL,
                     String theme, String themelib,
                     String templatedir,
-                    String customdir, String cssdir, String customcss, String webmode)
+                    String consumerdir, String cssdir, String customcss, String webmode)
    {
       resetAllInfo(cid,
                    companyname, homepage, securehomepage,
@@ -57,7 +57,7 @@ public class UIProfile
                    forwardservice, custodyURL, accountOpeningURL,
                    theme, themelib,
                    templatedir,
-                   customdir, cssdir, customcss, webmode);
+                   consumerdir, cssdir, customcss, webmode);
    }
 
    public String getCid()
@@ -120,9 +120,9 @@ public class UIProfile
       return accountOpeningURL;
    }
 
-   public String getCustomdir()
+   public String getConsumerdir()
    {
-      return customdir;
+      return consumerdir;
    }
 
    public String getTemplatedir()
@@ -229,7 +229,7 @@ public class UIProfile
                             String forwardservice, String custodyURL, String accountOpeningURL,
                             String theme, String themelib,
                             String templatedir,
-                            String customdir, String cssdir, String customcss,
+                            String consumerdir, String cssdir, String customcss,
                             String webmode)
    {
       this.cid = cid;
@@ -247,7 +247,7 @@ public class UIProfile
       this.forwardservice = forwardservice;
       this.custodyURL = custodyURL;
       this.accountOpeningURL = accountOpeningURL;
-      setCustomdir(customdir);
+      setConsumerdir(consumerdir);
       resetTheme(theme, themelib, templatedir, cssdir, customcss);
       this.webmode = webmode;
    }
@@ -277,9 +277,9 @@ public class UIProfile
 
    }
 
-   private void setCustomdir(String customdir)
+   private void setConsumerdir(String consumerdir)
    {
-      this.customdir = customdir;
+      this.consumerdir = consumerdir;
    }
 
    public void resetTheme(String theme, String library, String defaulttemplate, String cssdir, String customcss)
