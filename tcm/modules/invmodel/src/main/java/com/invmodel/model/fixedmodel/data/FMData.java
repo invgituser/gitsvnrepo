@@ -164,7 +164,7 @@ public class FMData
    }
 
    public Boolean isItThisTheme(Double riskIndex) {
-      if (riskIndex >= lowRisk  && riskIndex  <= highRisk)
+      if (riskIndex > lowRisk  && riskIndex  <= highRisk)
          return true;
       else
          return false;
