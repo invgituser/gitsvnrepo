@@ -5,45 +5,48 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <div class="Container80">
+    <div class="Container100">
         <div class="ContainerIndent">
             <div class="Container100">
                 <div class="Container50">
-                    <h3>
-                        <h:outputText style="padding-right: 3px" value="Taxable "/>
-                        <p:selectBooleanButton value="#{ctobean.taxable}" onLabel="Yes" offLabel="No">
-                            <p:ajax update=":ctoForm:accttype"/>
-                        </p:selectBooleanButton>
-                    </h3>
+
+                     <h:outputText style="padding-right: 3px" value="Objective "/>
+                    <p:selectOneButton>
+                        <f:selectItem itemLabel="Retirement" itemValue="Retirement" />
+                        <f:selectItem itemLabel="College" itemValue="College" />
+                        <f:selectItem itemLabel="Build Wealth" itemValue="Wealth" />
+                        <f:selectItem itemLabel="Other" itemValue="Other" />
+                    </p:selectOneButton>
+                    <p:outputPanel id="retireP1">
+                        <p:selectOneButton>
+                            <f:selectItem itemLabel="Taxable" itemValue="Taxable" />
+                            <f:selectItem itemLabel="IRA" itemValue="IRA" />
+                            <f:selectItem itemLabel="ROTH" itemValue="ROTH" />
+                            <f:selectItem itemLabel="SEP" itemValue="SEP" />
+                            <f:selectItem itemLabel="Simple" itemValue="Simple" />
+                        </p:selectOneButton>
+                    </p:outputPanel>
+                    <p:outputPanel id="retireP2">
+                        <p:selectOneButton>
+                            <f:selectItem itemLabel="Individual" itemValue="Taxable" />
+                            <f:selectItem itemLabel="Joint" itemValue="IRA" />
+                            <f:selectItem itemLabel="Trust" itemValue="ROTH" />
+                        </p:selectOneButton>
+                    </p:outputPanel>
+                    <p:outputPanel id="retireP3">
+                        <p:selectOneButton>
+                            <f:selectItem itemLabel="Individual" itemValue="Taxable" />
+                            <f:selectItem itemLabel="Joint" itemValue="IRA" />
+                        </p:selectOneButton>
+                    </p:outputPanel>
+                    <p:outputPanel id="retireP3">
+                        <p:selectOneButton>
+                            <f:selectItem itemLabel="Individual" itemValue="Taxable" />
+                            <f:selectItem itemLabel="Joint" itemValue="IRA" />
+                        </p:selectOneButton>
+                    </p:outputPanel>
 
                 </div>
-                <div class="Container50">
-                    <h3>
-                        <p:panelGrid id="accttype" columns="2" layout="grid" styleClass="Container100 Responsive50"
-                                     style="border:0px !important; background:none;" class="FormContent">
-
-                            <h:outputText styleClass="Wid50" value="Investment Type "/>
-                            <p:selectOneMenu rendered="#{ctobean.taxable}"
-                                             value="#{ctobean.accounttype}"
-                                             required="true" requiredMessage="Select one investment type.">
-                                <f:selectItem itemLabel="Choose" itemValue=""/>
-                                <f:selectItem itemLabel="IRA" itemValue="IRA"/>
-                                <f:selectItem itemLabel="SEP" itemValue="SEP"/>
-                                <f:selectItem itemLabel="ROTH" itemValue="ROTH"/>
-                            </p:selectOneMenu>
-                            <p:selectOneMenu rendered="#{! ctobean.taxable}"
-                                             value="#{ctobean.accounttype}"
-                                             required="true" requiredMessage="Select one investment type.">
-                                <f:selectItem itemLabel="Choose" itemValue=""/>
-                                <f:selectItem itemLabel="Individual" itemValue="Individual"/>
-                                <f:selectItem itemLabel="Joint" itemValue="Joint"/>
-                                <f:selectItem itemLabel="Trust" itemValue="Trust"/>
-                            </p:selectOneMenu>
-                        </p:panelGrid>
-                    </h3>
-
-                </div>
-
             </div>
             <div class="EmptyBox10"></div>
             <div class="Container100 MarTop5">
@@ -52,23 +55,15 @@
                 </div>
             </div>
             <div class="Container100 MarTop5">
-                <div class="Container50 Responsive50">
-                    <div class="Container30">
-                        <p:selectOneMenu style="width: 60px">
-                            <f:selectItem itemLabel="Choose" itemValue=""/>
-                            <f:selectItem itemLabel="Dr." itemValue="Dr"/>
-                            <f:selectItem itemLabel="Mr." itemValue="Mr"/>
-                            <f:selectItem itemLabel="Mrs." itemValue="Mrs"/>
-                            <f:selectItem itemLabel="Miss" itemValue="Miss"/>
-                        </p:selectOneMenu>
-                    </div>
-                    <div class="Container60 Fright">
-                        <p:inputText styleClass="Wid90" placeholder="First Name">
-                        </p:inputText>
-                    </div>
-                </div>
-                <div class="Container50">
-                    <p:inputText styleClass="Wid90" placeholder="Last Name">
+                <div class="Container100">
+                    <p:inputText placeholder="First Name"
+                            style="width: 150px">
+                    </p:inputText>
+                     <p:inputText placeholder="Middle"
+                                  style="width: 15px">
+                     </p:inputText>
+                    <p:inputText placeholder="Last Name"
+                                 style="width: 150px">
                     </p:inputText>
                 </div>
             </div>
@@ -114,21 +109,6 @@
                             </div>
                         </div>
                         <div class="EmptyBox30"/>
-                        <div class="Container100">
-                            <div class="Container50">
-                                <div class="Wid30">Dependent</div>
-                                <div class="Wid60">
-                                    <p:selectOneRadio styleClass="Wid90">
-                                        <f:selectItem itemLabel="0" itemValue="0"/>
-                                        <f:selectItem itemLabel="1" itemValue="1"/>
-                                        <f:selectItem itemLabel="2" itemValue="2"/>
-                                        <f:selectItem itemLabel="3" itemValue="3"/>
-                                        <f:selectItem itemLabel="4" itemValue="4"/>
-                                        <f:selectItem itemLabel="5+" itemValue="5"/>
-                                    </p:selectOneRadio>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                 </div>
