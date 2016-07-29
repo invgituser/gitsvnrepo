@@ -23,12 +23,12 @@
             </pe:inputNumber>
             <p:message for="initialIid" display="tooltip"/>
             <div class="mobileFullWidth"><h3 class="formFS" > for </h3></div>
-                <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="dropdownInputFullWidth"
+                <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="TCM-UI-Dropdown dropdownInputFullWidth"
                                  required="true" requiredMessage="Please choose investment strategy">
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
-                            update=":ceForm:p1hrznpanel, :ceForm:inputArea"/>
+                            update=":ceForm:p1hrznpanel, :ceForm:inputArea" />
                     <f:selectItem itemLabel="Choose One" itemValue=""/>
-                    <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
+                    <f:selectItem itemLabel="Retirement" itemValue="Retirement" styleClass="abcSelected"/>
                     <f:selectItem itemLabel="College" itemValue="College"/>
                     <f:selectItem itemLabel="Building Wealth" itemValue="Wealth"/>
                     <f:selectItem itemLabel="Other" itemValue="Other"/>
@@ -40,7 +40,7 @@
 
         <p:panel id="p1hrznpanel" style="background: transparent; border: 0px"
                 rendered="#{tcmpb.displayGoalText}">
-            <div class="Container100 ResponsiveMarginTop">
+            <div class="Container100 ResponsiveMarginTop BlockErrorIncluded">
                 <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
                     <div class="TexAlCenter">
                         <div>
@@ -54,7 +54,7 @@
                             <div class="mobileFullWidth"><h3 class="formFS" > years old.</h3></div>
                         </div>
                     </div>
-
+<div class="EmptyBox20"></div>
                     <div class="TexAlCenter">
                         <div>
                             <div class="mobileFullWidth"><h3 class="formFS"> I would like to retire when I am </h3></div>
@@ -71,7 +71,6 @@
                         </div>
                     </div>
 
-                    <div class="EmptyBox30"></div>
                 </ui:fragment>
                 <ui:fragment rendered="#{tcmpb.goal == 'College'}">
 
@@ -86,7 +85,7 @@
                         years.
                     </h3>
                     <p:message for="collegeid" display="text"/>
-                    <div class="EmptyBox30"></div>
+
                 </ui:fragment>
                 <ui:fragment rendered="#{tcmpb.goal == 'Building Wealth' || tcmpb.goal == 'Other'}">
 
@@ -103,21 +102,17 @@
                     </h3>
                     <p:message for="otherid" display="text"/>
 
-                    <div class="EmptyBox30"></div>
                 </ui:fragment>
-
-
-
             </div>
 
         </p:panel>
-         <div class="TexAlCenter MarTop20">
-         
-         		<p:commandButton value="Next" styleClass="UI-tcmButton" rendered="#{tcmpb.pagemanager.nextButtonStat}"
-                                      update=":ceForm:inputArea"
-                                      actionListener="#{tcmpb.nextPage}"/>
-         
-         </div>
+<div class="TexAlCenter">
+         <p:commandLink styleClass="UI-nextButtonPg1 UI-tcmButton"   rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         update=":ceForm:inputArea"
+                         actionListener="#{tcmpb.nextPage}">
+                         <h:outputText value="Next" />
+                         </p:commandLink>
+         </div>         
     
     </div>
 

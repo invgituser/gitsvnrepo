@@ -200,7 +200,9 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 }
 
 /*Prakash*/
-
+.StepsQuestionsFS {
+	font-size: 16px!important;
+	}
 
 .selectOptionAlign {
 	margin: 5px auto;
@@ -211,7 +213,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 }
 
 .ui-selectonemenu-label {
-	font-size: 17px!important;
+	font-size: 15px!important;
 }
 
 .ui-selectonemenu {
@@ -290,6 +292,8 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	.StepsQuestionsFS {
 	font-size: 15px!important;
 	}
+	
+	
 	
 .ui-inputNum {
 	padding: 7px 0px!important;

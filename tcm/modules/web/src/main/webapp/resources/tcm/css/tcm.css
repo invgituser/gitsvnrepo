@@ -83,11 +83,10 @@ img.riskImage:hover {
     background-color: #eceff1;
     border-bottom: solid 2px #e0e0e0;
 }
-
+/**removeFaccount**/
 .ui-steps .ui-state-highlight .ui-steps-number {
     background-color: #00006A !important;
 }
-
 .ui-steps .ui-steps-title {
     width: 100px !important
 }
@@ -95,10 +94,331 @@ img.riskImage:hover {
 .ui-steps .ui-state-disabled .ui-steps-number {
     background-color: #00D404 !important;
 }
+
+/*Prakash - Advisor Page*/
+.AdvUserName, .AdvVisitorStat {
+	//font-size: 18px;
+	margin: 8px 0!important;
+}
+
+.PaddingTopBottomNone {
+	padding-top:0!important;
+	padding-top:0!important;
+}
+
+.MarginLeftRight {
+	    margin: 0px 10px;
+}
+
+.MarAuto {
+	margin: 0 auto;
+}
+
+.Seperator {
+	margin: 10px 0px!important;
+} 
+
+.Marbottom {
+	margin-bottom: 22px;
+}
+
+.MarginBottomStats {
+margin-bottom: 10px;	
+}
+
+/**/
+
 /*Prakash*/
+.tcm-graphType {
+    font-size: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
+    border-radius: 20px 0 0 20px;
+    padding: 5px 0px;
+    position: relative;
+    right: 8px;
+    top: 5px;
+}
+
+@media (max-width: 960px) {
+    .tcm-graphType {
+        font-size: 16px;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
+        border-radius: 20px 20px 20px 20px;
+        padding: 5px 0px;
+        position: relative;
+        top: 5px;
+    }
+}
+
+/*DropDown For Portfolio creation*/
+.ui-selectonemenu-trigger, .TCM-UI-Dropdown {
+	background: transparent!important;
+}
+
+.ui-selectonemenu-panel {
+	border-top: solid 3px #005A37!important;
+    border-bottom: solid 3px #005A37!important;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-list-item {
+    border: 0px none!important;
+    background: white;
+    text-align: left;
+    color: rgba(0, 90, 55, 0.84);
+}
+
+.ui-selectonemenu-items > .ui-state-hover {
+	    background: #56E0AC!important;
+    color: white;
+}
+
+.ui-selectonemenu-trigger > .ui-icon-triangle-1-s{
+background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm")!important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%!important;
+}
+/**/
+/* Fund Account changes
+.FundAccountStepsPanel {
+    width: 846px;
+    padding-top: 20px;
+    margin: 0px auto;
+}
+
+.FundAccountStepsPanel > ul >.ui-state-default {
+	background-color: #A6A6A6!important;
+}
+
+.FundAccountStepsPanel > ul >.ui-state-default > a > .ui-steps-number
+{
+	background-color: #A6A6A6!important;
+}
+.ui-state-highlight {
+	position: relative;
+    top: -2px;
+      background: #EDD9C0!important;
+    border-radius: 0px!important;
+}
+
+.ui-state-highlight > a {
+margin: -1px;
+    position: relative;
+    top: -3px;
+    }
+
+.ui-menuitem-link  {
+	margin-top: -6px;
+}
+
+.ui-steps-number {
+	border-radius: 20px!important;
+    width: 20px!important;
+        background: #EDD9C0!important;
+}
+
+.ui-steps .ui-state-highlight .ui-steps-number {
+    background-color: #EDD9C0 !important;
+}
+
+.ui-steps-title {
+	    font-size: 13px;
+}
+
+.UI-nextButtonFA {
+    height: 40px;
+    width: 90px;
+    background: url("/javax.faces.resource/images/nextbtn.png.xhtml?ln=tcm");
+    background-size: 45% 100%;
+    background-repeat: no-repeat;
+    background-position-x: 30px;
+    cursor: pointer;	
+    color: #5FCF80!important;
+    line-height: 39px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition:0.2s linear;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+	}
+	
+	.UI-prevButtonFA {
+    height: 40px;
+    width: 32px;
+    background: url("/javax.faces.resource/images/prevbtn.png.xhtml?ln=tcm");
+    background-size: 70% 100%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    color: #5FCF80!important;
+    line-height: 39px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    padding-left: 27px;
+	}
+.ui-icon-triangle-1-e {
+	background: url("/javax.faces.resource/images/downaccordion.png.xhtml?ln=tcm")!important;
+	background-size: 100%!important;
+}
+
+.ui-icon-triangle-1-s {
+	background: url("/javax.faces.resource/images/upaccordion.png.xhtml?ln=tcm")!important;
+	background-size: 110%!important;
+}
+
+.ui-accordion-header {
+	margin-top: 20px!important;
+}
+
+.accordionTabText {
+text-transform: 
+uppercase;position: 
+relative;top: -7px;
+left: 10px;
+}
+
+.ui-accordion-header > img {
+    height: 35px!important;
+  
+}
+
+.ui-accordion-header {
+    background-color: #a6a6a6!important;
+    text-transform: uppercase!important;
+}
+
+.ui-accordion .ui-state-hover, .ui-accordion .ui-state-active {
+    background-color: #edd9c0!important;
+    color: #FFFFFF!important;
+}
+
+.ui-tabs-top .ui-tabs-nav {
+	background: #d9d9d9!important;
+}
+
+.ui-accordion .ui-accordion-header .ui-icon {
+right:0.5em!important;
+left: initial;
+}
+
+.ui-accordion-content {
+	    margin-bottom: 15px!important;
+    //border-bottom: 1px solid #49B669!important;
+}
+
+.MarCenter {
+	margin: 0 auto;
+	float: none;
+}
+
+.Mar5 {
+	margin-left: 0!important;
+	margin: 0 15px;
+}
+
+.InputMergeRight {
+	    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-right: 0px solid transparent;
+}
+
+.InputMergeLeft {
+	    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    border-left: 1px solid #D9E19B;
+}
+
+.FS14 {
+	font-size: 14px!important;
+}
+
+.ui-tabs  {
+	border: 0!important;
+}
+
+.tcmAccordionPanel-UI {
+	border: 1px!important;
+	background: transparent!important;
+}
+
+.ui-accordion-header {
+    padding: 10px 15px!important;
+    font-size: 20px!important;	
+}
+*/
+/*****************************************/
+.MarginSpaceP3 {
+	margin: 20px 0;
+}
+
+.BlockErrorIncluded > .ui-message-error {
+	width: 30%;
+	margin: 10px auto!important;
+	text-align: center;
+}
+
+.UI-nextButton {
+    height: 40px;
+    width: 60px;
+    background: url("/javax.faces.resource/images/tcmnext.png.xhtml?ln=tcm");
+    background-size: 60% 100%;
+    background-repeat: no-repeat;
+    background-position-x: 30px;
+    background-position: right;
+    cursor: pointer;	
+    color: #5FCF80!important;
+    line-height: 39px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition:0.2s linear;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+	}
+		
+	.UI-nextButtonPg1	{
+		    /* float: right; */
+		        height: 40px;
+    width: 60px;
+    background: url("/javax.faces.resource/images/tcmnext.png.xhtml?ln=tcm");
+    background-repeat: no-repeat;
+    cursor: pointer;	
+    color: #5FCF80!important;
+    line-height: 39px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition:0.2s linear;
+    -webkit-transition: 0.2s linear;
+    -moz-transition: 0.2s linear;
+    padding: 6px 15px;
+    background-position-x: 45px;
+        background-position: right;
+    background-size: 40% 100%;
+    margin: 0 auto!important;
+		
+		}
+		
+	.UI-prevButton {
+    height: 40px;
+    width: 60px;
+    background: url("/javax.faces.resource/images/tcmprev.png.xhtml?ln=tcm");
+    background-size: 43% 100%;
+    background-repeat: no-repeat;
+    /* background-position-x: 30px; */
+    cursor: pointer;
+    color: #5FCF80!important;
+    line-height: 39px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    padding-left: 27px;
+	}
+
 body {
 	background-image: none!important;
-	background: #00796b!important;	
+    height: 100vh;
+	background: linear-gradient(141deg, rgba(0, 93, 56, 0.78) 0%, rgba(0, 89, 55, 0.87) 51%, rgba(0, 66, 40, 0.95) 75%)!important;	
 }
 
 .ui-message-error {
@@ -110,7 +430,7 @@ body {
 }
 
 .ui-selectoneradio label {
-	font-size: 15px!important;
+	font-size: 14px!important;
 }
 
 .UI-tcmButton > .ui-button-text {
@@ -137,7 +457,7 @@ padding: 8px 33px!important;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
    // padding: 15px;
 }
-
+/*fundAccountRemove*/
 a.ui-menuitem-link.ui-corner-all {
     background: transparent!important;
 }
@@ -148,14 +468,14 @@ span.ui-steps-title {
 }
 
 .ui-steps .ui-steps-item {
-    background-color: #bdc93a!important;
+    background-color: #0BA769!important;
     }
 
 span.ui-steps-number {
     display: none!important;
     visibility: hidden;
 }
-
+/*******fa-remove***/
 .formFS {
 	font-size: 16px!important;
 }
@@ -170,6 +490,30 @@ h3 {
 
 .ResponsiveMarginTop {
 	margin-top: 10px;
+}
+
+@media (max-width: 360px) and (min-width: 320px) {
+	img.riskImage {
+	height: 114px!important;
+	}
+}
+
+@media (max-width: 470px) and (min-width: 361px) {
+	img.riskImage {
+	height: 137px!important;
+	}
+}
+
+@media (max-width: 630px) and (min-width: 471px) {
+	img.riskImage {
+	height: 199px!important;
+	} 
+}
+
+@media (min-width: 631px) {
+	img.riskImage {
+	height: 275px!important;
+	}
 }
 
 @media (max-width: 480px) {

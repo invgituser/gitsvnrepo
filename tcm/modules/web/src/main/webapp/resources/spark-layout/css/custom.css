@@ -43,13 +43,13 @@
 
 @media (max-width: 640px) and (min-width: 480px) {
 	#mobile-menu-button, #mobile-menu-button-gray {
-	margin-top: 14px!important;
+	margin-top: 6px!important;
 }
 	}
 	
 @media (max-width: 480px) and (min-width: 320px){
 #mobile-menu-button, #mobile-menu-button-gray {
-    margin-top: 11px!important;
+    margin-top: 7px!important;
     height: auto!important;
 	padding: 6px 8px!important;
 }

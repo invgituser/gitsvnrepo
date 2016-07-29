@@ -62,13 +62,17 @@ may not impact your initial target portfolio.">
                 </h:outputText>
             </div>
         <div class="EmptyBox5"></div>
-        <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+        <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"
-                         actionListener="#{tcmpb.prevPage}"/>
-        <p:commandButton styleClass="Fright UI-tcmButton" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         actionListener="#{tcmpb.prevPage}">
+                         <h:outputText value="Previous" />
+                         </p:commandLink>
+        <p:commandLink styleClass="UI-nextButton Fright UI-tcmButton" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
                          update=":ceForm:inputArea"
-                         actionListener="#{tcmpb.nextPage}"/>
+                         actionListener="#{tcmpb.nextPage}">
+                         <h:outputText value="Next" />
+                         </p:commandLink>
 
         </div>
         <div class="Container50 Responsive100 Fleft">
