@@ -34,6 +34,12 @@ public class UIProfile
    String customcss;
    String webmode;
 
+   //  These properties are based on the visitor or person logged on.
+   //  These will be created after the visitor opens a landing page.
+   String advisor;
+   String rep;
+   String allocationmodel;
+
 
    public UIProfile()
    {
@@ -221,6 +227,59 @@ public class UIProfile
       return webmode;
    }
 
+   public void setCid(String cid)
+   {
+      this.cid = cid;
+   }
+
+   public String getAdvisor()
+   {
+      return advisor;
+   }
+
+   public void setAdvisor(String advisor)
+   {
+      if (advisor == null) {
+         if (this.advisor == null)
+            this.advisor = Const.INVESSENCE_ADVISOR;
+      }
+      else {
+         this.advisor = advisor;
+      }
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      if (rep == null) {
+         if (this.rep == null)
+            this.rep = Const.INVESSENCE_REP;
+      }
+      else {
+         this.rep = rep;
+      }
+   }
+
+   public String getAllocationmodel()
+   {
+      return allocationmodel;
+   }
+
+   public void setAllocationmodel(String allocationmodel)
+   {
+      if (allocationmodel == null) {
+         if (this.allocationmodel == null)
+            this.rep = WebConst.DEFAULT_THEME;
+      }
+      else {
+         this.allocationmodel = allocationmodel;
+      }
+   }
+
    public void resetAllInfo(String cid,
                             String companyname, String homepage, String securehomepage,
                             String logo, String logosize, String logolib,
@@ -250,6 +309,9 @@ public class UIProfile
       setConsumerdir(consumerdir);
       resetTheme(theme, themelib, templatedir, cssdir, customcss);
       this.webmode = webmode;
+      setAdvisor(null);
+      setRep(null);
+      setAllocationmodel(null);
    }
 
 

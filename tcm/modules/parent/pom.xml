@@ -450,7 +450,7 @@
 
       <!-- Mail -->
       <profile>
-         <id>1A-GMAIL</id>
+         <id>1A-Invessence-Gmail</id>
          <properties>
             <mail.host>smtp.gmail.com</mail.host>
             <mail.username>no-reply@invessence.com</mail.username>
@@ -459,11 +459,20 @@
          </properties>
       </profile>
       <profile>
-         <id>1B-MAILGUN</id>
+         <id>1B-Symbil-MAILGUN</id>
+         <properties>
+            <mail.host>smtp.mailgun.org</mail.host>
+            <mail.username>noreply@symbil.com</mail.username>
+            <mail.password>G3n3r@l89</mail.password>
+            <mail.port>587</mail.port>
+         </properties>
+      </profile>
+      <profile>
+         <id>1C-BuldingBenjamins-GMAIL</id>
          <properties>
             <mail.host>smtp.gmail.com</mail.host>
-            <mail.username>no-reply@invessence.com</mail.username>
-            <mail.password>G3n3r@l89</mail.password>
+            <mail.username>no-reply@buildingbenjamins.com</mail.username>
+            <mail.password>BBInvessence598!!</mail.password>
             <mail.port>587</mail.port>
          </properties>
       </profile>
@@ -665,6 +674,18 @@
             <rbsa.url>jdbc:mysql://tcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://tcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
             <ltam.url>jdbc:mysql://tcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+         </properties>
+      </profile>
+      <profile>
+         <id>3P3-EXT-UOB-PROD</id>
+         <properties>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://uob.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://uob.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <service.url>jdbc:mysql://uob.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
+            <ltam.url>jdbc:mysql://uob.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>

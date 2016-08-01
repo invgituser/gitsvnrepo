@@ -58,7 +58,7 @@
       <intercept-url pattern="/pages/advisor/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/pages/consumer/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
       <intercept-url pattern="/pages/common/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
-      <intercept-url pattern="/pages/fund/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+      <intercept-url pattern="/pages/custody/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
 
 
       <logout logout-success-url="/index.xhtml"/>

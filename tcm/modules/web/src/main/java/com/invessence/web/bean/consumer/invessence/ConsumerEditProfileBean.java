@@ -13,7 +13,7 @@ import com.invessence.web.constant.*;
 import com.invessence.converter.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
-import com.invessence.web.data.consumer.inv.INVRiskCalculator;
+import com.invessence.web.data.consumer.inv.*;
 import com.invessence.web.util.*;
 import com.invmodel.Const.InvConst;
 import org.primefaces.component.tabview.Tab;
@@ -31,7 +31,7 @@ import org.primefaces.event.*;
 
 @ManagedBean(name = "cepb")
 @SessionScoped
-public class ConsumerEditProfileBean extends CustomerData implements Serializable
+public class ConsumerEditProfileBean extends INVCustomer implements Serializable
 {
    private Long beanAcctnum;
    private Boolean formEdit = false;
@@ -171,11 +171,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    public Boolean getWelcomeDialog()
    {
       return welcomeDialog;
-   }
-
-   public INVRiskCalculator getRiskCalculator()
-   {
-      return riskCalculator;
    }
 
    public void preRenderView()

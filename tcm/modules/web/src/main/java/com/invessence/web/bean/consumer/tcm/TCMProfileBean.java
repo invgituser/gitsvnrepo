@@ -303,23 +303,18 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void selectFirstBasket()
    {
-      if (getAdvisorBasket() == null)
+      if (getTheme() == null)
       {
          if (getAccountTaxable())
          {
-            setGoal(InvConst.DEFAULT_TAXABLE_BASKET);
+            // setGoal(InvConst.DEFAULT_TAXABLE_BASKET);
             setBasket(InvConst.DEFAULT_TAXABLE_THEME);
          }
          else
          {
-            setGoal(InvConst.DEFAULT_BASKET);
+            // setGoal(InvConst.DEFAULT_BASKET);
             setBasket(InvConst.DEFAULT_THEME);
          }
-      }
-      else
-      {
-         setGoal(getAdvisorBasket().get(getTheme()));
-         setBasket(getTheme());
       }
    }
 
@@ -356,10 +351,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if (uid != null)
          {
             setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+            setRep(uid.getRep());
             setLogonid(uid.getLogonID());
          }
-         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
          setDefaults();
+         listDAO.getNewClientProfileData((CustomerData) this.getInstance());
          loadBasketInfo();
          selectFirstBasket();
       }

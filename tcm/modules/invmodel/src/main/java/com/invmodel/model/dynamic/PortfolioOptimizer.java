@@ -407,7 +407,7 @@ public class PortfolioOptimizer
                            "    sortorder\n" +
                            "FROM vw_primeassets \n" +
                            where_clause +
-                           "\t order by sortorder \n"
+                           "\t order by theme, sortorder \n"
          );
 
          // Make sure to keep track of this position.
