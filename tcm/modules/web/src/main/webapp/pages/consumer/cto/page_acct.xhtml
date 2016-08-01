@@ -1,27 +1,13 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
-
-    <div class="Container80">
-        <div class="ContainerIndent">
-            <div class="Container100">
-                <div class="Container50">
-                    <h3>
-                        <h:outputText style="padding-right: 3px" value="Taxable "/>
-                        <p:selectBooleanButton value="#{ctobean.taxable}" onLabel="Yes" offLabel="No">
-                            <p:ajax update=":ctoForm:accttype"/>
-                        </p:selectBooleanButton>
-                    </h3>
-
-                </div>
-                <div class="Container50">
-                    <h3>
-                        <p:panelGrid id="accttype" columns="2" layout="grid" styleClass="Container100 Responsive50"
-                                     style="border:0px !important; background:none;" class="FormContent">
-
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	<p:panelGrid id="accttype" columns="2" layout="grid"
+		styleClass="Container100 Responsive50"
+		style="border:0px !important; background:none;" class="FormContent">
+		<!-- 
                             <h:outputText styleClass="Wid50" value="Investment Type "/>
                             <p:selectOneMenu rendered="#{ctobean.taxable}"
                                              value="#{ctobean.accounttype}"
@@ -38,61 +24,340 @@
                                 <f:selectItem itemLabel="Individual" itemValue="Individual"/>
                                 <f:selectItem itemLabel="Joint" itemValue="Joint"/>
                                 <f:selectItem itemLabel="Trust" itemValue="Trust"/>
-                            </p:selectOneMenu>
-                        </p:panelGrid>
-                    </h3>
+                            </p:selectOneMenu>      -->
+	</p:panelGrid>
+	<div class="Container80" style="margin: 0 auto; float: none;">
+		<h:form id="form">
+			<p:growl id="msgs" showDetail="true" />
 
-                </div>
+			<p:accordionPanel styleClass="tcmAccordionPanel-UI">
 
-            </div>
-            <div class="EmptyBox10"></div>
-            <div class="Container100 MarTop5">
-                <div class="Container100 MarTop10">
-                    <h4>Account Holder</h4>
-                </div>
-            </div>
-            <div class="Container100 MarTop5">
-                <div class="Container50 Responsive50">
-                    <div class="Container30">
-                        <p:selectOneMenu style="width: 60px">
-                            <f:selectItem itemLabel="Choose" itemValue=""/>
-                            <f:selectItem itemLabel="Dr." itemValue="Dr"/>
-                            <f:selectItem itemLabel="Mr." itemValue="Mr"/>
-                            <f:selectItem itemLabel="Mrs." itemValue="Mrs"/>
-                            <f:selectItem itemLabel="Miss" itemValue="Miss"/>
-                        </p:selectOneMenu>
-                    </div>
-                    <div class="Container60 Fright">
-                        <p:inputText styleClass="Wid90" placeholder="First Name">
-                        </p:inputText>
-                    </div>
-                </div>
-                <div class="Container50">
-                    <p:inputText styleClass="Wid90" placeholder="Last Name">
-                    </p:inputText>
-                </div>
-            </div>
-            <div class="Container100 MarTop5">
-                <div class="Container50 Responsive50">
-                    <p:inputText styleClass="Wid90" placeholder="Primary Phone#">
-                    </p:inputText>
-                </div>
-                <div class="Container50 Responsive50">
-                    <p:inputText styleClass="Wid90" placeholder="Secondary Phone#">
-                    </p:inputText>
-                </div>
-            </div>
-            <div class="Container100 MarTop5">
-                <div class="Container50 Responsive50">
-                    <p:inputText styleClass="Wid90" placeholder="Primary Email">
-                    </p:inputText>
-                </div>
-                <div class="Container50 Responsive50">
-                    <p:inputText styleClass="Wid90" placeholder="Secondary Email">
-                    </p:inputText>
-                </div>
-            </div>
-        </div>
-    </div>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm" />
+						<h:outputText value="Account Type" styleClass="accordionTabText" />
+					</f:facet>
+					<div class="Conatainer100 ui-color paddingFA">
+						<div class="EmptyBox10"></div>
+						<h3 class="">What type of account would you like to
+							open?</h3>
+						<div class="EmptyBox10"></div>
+						
+						<div class="Container45 Fleft ">
+						<p:panel styleClass="Wid100 Fleft MarCenter tcmPanel-UI">
+							<div class="Container60">
+								<h4>Individual</h4>
+								<div class="EmptyBox5"></div>
+								<h6 class="FontNormal">(Description)</h6>
+							</div>
+							<div class="Container40 textAlign">
+								<p:selectOneRadio styleClass="textAlign">
+									<f:selectItem itemValue="1"/>
+								</p:selectOneRadio>
+							</div>
+						</p:panel>
+						</div>
+						<div class="Container45 Fright Marleft">
+						<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+							<div class="Container60">
+								<h4>Joint</h4>
+								<div class="EmptyBox5"></div>
+								<h6 class="FontNormal">(Description)</h6>
+							</div>
+							<div class="Container40 textAlign">
+								<p:selectOneRadio required="true" styleClass="textAlign">
+									<f:selectItem itemValue="1" />
+								</p:selectOneRadio>
+							</div>
+						</p:panel>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Container45 Fleft ">
+						<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+							<div class="Container60">
+								<h4>Roth IRA</h4>
+								<div class="EmptyBox5"></div>
+								<h6 class="FontNormal">(Description)</h6>
+							</div>
+							<div class="Container40 textAlign">
+								<p:selectOneRadio required="true" styleClass="textAlign">
+									<f:selectItem itemValue="1" />
+								</p:selectOneRadio>
+							</div>
+						</p:panel>
+						</div>
+						<div class="Container45 Fright">
+						<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+							<div class="Container60">
+								<h4>UTMA / UGMA</h4>
+								<div class="EmptyBox5"></div>
+								<h6 class="FontNormal">(Description)</h6>
+							</div>
+							<div class="Container40 textAlign">
+								<p:selectOneRadio required="true" styleClass="textAlign">
+									<f:selectItem itemValue="1" />
+								</p:selectOneRadio>
+							</div>
+						</p:panel>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Container45 Fleft ">
+						<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+							<div class="Container60">
+								<h4>Traditional</h4>
+								<div class="EmptyBox5"></div>
+								<h6 class="FontNormal">(Description)</h6>
+							</div>
+							<div class="Container40 textAlign">
+								<p:selectOneRadio required="true" styleClass="textAlign">
+									<f:selectItem itemValue="1" />
+								</p:selectOneRadio>
+							</div>
+						</p:panel>
+						</div>
+						<div class="Container45 Fright">
+						<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+							<div class="Container60">
+								<h4>IRA / Rollover IRA</h4>
+								<div class="EmptyBox5"></div>
+								<h6 class="FontNormal">(Description)</h6>
+							</div>
+							<div class="Container40 textAlign">
+								<p:selectOneRadio required="true" styleClass="textAlign">
+									<f:selectItem itemValue="1" />
+								</p:selectOneRadio>
+							</div>
+						</p:panel>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Container45 Fleft ">
+						<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+							<div class="Container60">
+								<h4>Beneficiary IRA</h4>
+								<div class="EmptyBox5"></div>
+								<h6 class="FontNormal">(Description)</h6>
+							</div>
+							<div class="Container40 textAlign">
+								<p:selectOneRadio required="true" styleClass="textAlign">
+									<f:selectItem itemValue="1" />
+								</p:selectOneRadio>
+							</div>
+						</p:panel>
+						</div>
+						<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+						<div class="EmptyBox10"></div>
+					</div>
+				</p:tab>
+
+				<p:tab styleClass="tcmAccordion-UI">
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm" />
+						<h:outputText value="Account Holder" styleClass="accordionTabText" />
+					</f:facet>
+					<h:form id="form">
+
+						<p:growl id="msgs" showDetail="true" />
+						<p:tabView>
+
+							<p:tab title="Account Holder">
+								<div class="Container80 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Name</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid30 FS14 InputMergeRight"
+											placeholder="First Name">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid30 FS14 InputMergeLeft InputMergeRight"
+											placeholder="Middle Name">
+										</p:inputText>
+										<p:inputText styleClass="Wid30 FS14 InputMergeLeft"
+											placeholder="Last Name">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container50 MarTop5">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="DD">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="MM">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="YY">
+										</p:inputText>
+									</div>
+
+									<div class="Container50 MarTop5">
+										<label Class="Container100"
+											style="text-align: left !important; font-weight: bold !important;">Social
+											Security Number</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="">
+										</p:inputText>
+									</div>
+									<div class="EmptyBox20"></div>
+
+									<div class="Container100 MarTop5">
+										<div class="EmptyBox5"></div>
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Phone
+											Number</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid45 FS14 Mar5"
+											placeholder="Primary Phone#">
+										</p:inputText>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+							<p:tab title="Joint Account Holder">
+								<div class="Container80 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Name</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid30 FS14 InputMergeRight"
+											placeholder="First Name">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid30 FS14 InputMergeLeft InputMergeRight"
+											placeholder="Middle Initial">
+										</p:inputText>
+										<p:inputText styleClass="Wid30 FS14 InputMergeLeft"
+											placeholder="Last Name">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container50 MarTop5">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="DD">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="MM">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="YY">
+										</p:inputText>
+									</div>
+
+									<div class="Container50 MarTop5">
+										<label Class="Container100"
+											style="text-align: left !important; font-weight: bold !important;">Social
+											Security Number</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="">
+										</p:inputText>
+									</div>
+									<div class="EmptyBox20"></div>
+
+									<div class="Container100 MarTop5">
+										<div class="EmptyBox5"></div>
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Phone
+											Number</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid45 FS14 Mar5"
+											placeholder="Primary Phone#">
+										</p:inputText>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+
+						</p:tabView>
+					</h:form>
+
+
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/address.png.xhtml?ln=tcm" />
+						<h:outputText value="Address" styleClass="accordionTabText" />
+					</f:facet>
+					<h:panelGrid columns="2" cellpadding="10">
+
+					</h:panelGrid>
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm" />
+						<h:outputText value="Citizenship" styleClass="accordionTabText" />
+					</f:facet>
+					<h:panelGrid columns="2" cellpadding="10">
+
+					</h:panelGrid>
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/employment.png.xhtml?ln=tcm" />
+						<h:outputText value="Employment" styleClass="accordionTabText" />
+					</f:facet>
+					<h:panelGrid columns="2" cellpadding="10">
+
+					</h:panelGrid>
+				</p:tab>
+				<div class="EmptyBox10"></div>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/money.png.xhtml?ln=tcm" />
+						<h:outputText value="Funding" styleClass="accordionTabText" />
+					</f:facet>
+					<h:panelGrid columns="2" cellpadding="10">
+
+					</h:panelGrid>
+				</p:tab>
+			</p:accordionPanel>
+		</h:form>
+	</div>
 
 </ui:composition>
