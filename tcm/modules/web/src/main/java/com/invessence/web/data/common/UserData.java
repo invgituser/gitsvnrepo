@@ -10,6 +10,7 @@ public class UserData
 {
    private SecurityQuestions securityQuestions = new SecurityQuestions();
 
+   private UserData instance = null;
    private long logonID = 0;
    private String logonstatus = "A";
 
@@ -59,6 +60,18 @@ public class UserData
    public UserData()
    {
       super();
+      instance = this;
+   }
+
+   public UserData getInstance()
+   {
+/*
+      if (instance == null) {
+         instance = new UserData();
+      }
+*/
+
+      return instance;
    }
 
    public long getLogonID()
