@@ -5,6 +5,158 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
+
+    <script type="text/javascript">
+        //<!--HighChart JS Started  -->
+        $(function(){
+
+            var chartValue = document.getElementById('ceForm:beanValueChart').value;
+            //Fetched java beanValueChart in java script
+            var maxGraghPlot = parseInt($.parseJSON(chartValue).maxGraghPlot);
+            var maxGraghPlot1 = maxGraghPlot + 10000;
+            var minGrowth = parseInt($.parseJSON(chartValue).minGrowth);
+
+            var xCategories = $.parseJSON(chartValue).goalYearValue;
+
+            $('#progressChart').highcharts({
+
+                                               title: {text: ''},
+                                               xAxis: {
+
+                                                   // tickInterval: 'auto',
+                                                   labels: {
+                                                       formatter: function() {
+                                                           return xCategories[this.value];
+                                                       },
+                                                       pointStart: -1,
+                                                       startOnTick: false,
+                                                       endOnTick: false,
+                                                       minPadding: 0,
+                                                       maxPadding: 0,
+                                                       rotation: 0,
+                                                       align: 'center',
+                                                       style: {
+                                                           fontSize: '10px',
+                                                           fontFamily: 'Verdana, sans-serif',
+                                                           fontWeight: 'bold',
+                                                           color: '#808080'
+
+                                                       }
+                                                   },
+                                               },
+                                               yAxis: {
+                                                   //tickInterval: 'auto',//20000,
+                                                   //minorTickInterval: 'auto',
+                                                   min: minGrowth,
+                                                   max: maxGraghPlot1,
+                                                   lineWidth: 1,
+                                                   //tickWidth: 1,
+                                                   opposite: true,
+                                                   title: {
+                                                       text: '',
+                                                       style: {
+                                                           fontSize: '10px',
+                                                           fontFamily: 'Verdana, sans-serif',
+                                                           fontWeight: 'bold',
+                                                           backgroundColor:  '#808080'
+                                                       }
+                                                   },
+                                                   labels: {
+                                                       opposite: true,
+                                                       formatter: function(){
+                                                           if(this.value > maxGraghPlot1)
+                                                           {
+                                                               this.value=""
+                                                           }else{
+                                                               return '$'+this.value;
+                                                           }
+                                                       },
+                                                       style: {
+                                                           fontSize: '10px',
+                                                           fontFamily: 'Verdana, sans-serif',
+                                                           fontWeight: 'bold',
+                                                           color:  '#808080'
+
+                                                       }
+                                                   }
+                                               },
+                                               legend: {
+
+                                                   floating: false,
+                                                   shadow: true,
+                                                   enabled: true,
+                                               },
+                                               plotOptions: {
+                                                   series: {
+                                                       events: {
+                                                           legendItemClick: function() {
+                                                               return false;
+                                                           }
+                                                       }
+                                                   }
+                                               },
+                                               credits: {
+                                                   enabled: true
+                                               },
+                                               tooltip: {
+                                                   style: {
+                                                       fontSize: '10pt',
+                                                       fontFamily: 'Verdana',
+                                                   },
+                                                   formatter: function() {
+
+                                                       var point = this.point,
+
+                                                               s = 'Year : '+'<b>'+xCategories[this.x]+'</b>'+'<br/>' +' Average Performance : '+'<b>'+'$'+ this.y+'</b>';
+
+                                                       return s;
+                                                   },
+                                                   crosshairs: true,
+                                                   //shared: true,
+                                               },
+                                               exporting: {
+                                                   enabled: false
+                                               },
+                                               series: [{
+                                                   marker: {
+                                                       enabled: true
+                                                   },
+                                                   name: 'Average market performance',
+                                                   fontWeight: 'normal',
+                                                   lineColor: '#4d0000',
+                                                   color: '#4d0000',
+                                                   type: 'spline',
+                                                   data: $.parseJSON(chartValue).goalAvgValue,
+                                                   //Directly plot data series values
+
+                                               }, {
+                                                   name: 'Poor market performance',
+                                                   fontWeight: 'normal',
+                                                   data:$.parseJSON(chartValue).goalLowerValue,
+                                                   type: 'areasplinerange',
+                                                   lineWidth: 0,
+                                                   color: '#5F5AE7', //Highcharts.getOptions().colors[0]'', //#3498DB
+                                                   fillOpacity: 0.2,
+                                                   border:0,
+                                                   zIndex: 1,
+                                               }, {
+                                                   name: 'Auto deposit and onetime deposit',
+                                                   fontWeight: 'normal',
+                                                   data: $.parseJSON(chartValue).goalUpperValue,
+                                                   type: 'areasplinerange',
+                                                   lineWidth: 0,
+                                                   color: '#20F661', //Highcharts.getOptions().colors[0],  //#ABEBC6
+                                                   fillOpacity: 0.2,
+                                                   border:0,
+                                                   zIndex: 1,
+                                               },]
+                                           });
+
+        });
+
+        //<!--HighChart JS End  -->
+    </script>
+
     <div class="Container100 TextAlCenter">
         <h3 class="TexAlCenter StepsQuestionsFS">
             Assuming you invest for at least #{tcmpb.horizon} years, in the course of any given year,
@@ -45,27 +197,13 @@
                 </div>
             </div>
 
-            <div class="EmptyBox5"></div>
-
             <table class="Container100" style="border: 0px">
-                <tr>
-                    <td>
-                        <p:chart type="line" model="#{tcmpb.charts.goalChart}"
-                                 rendered="#{tcmpb.charts.goalChart != null}"
-                                 responsive="true"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div class="EmptyBox5"></div>
-                    </td>
-                </tr>
                 <tr>
                     <td style="width: 100%; text-align: center">
                         <p:slider for="projection"
                                   minValue="1" maxValue="5">
                             <p:ajax event="slideEnd" listener="#{tcmpb.doProjectionChart}"
-                                    update=":ceForm:inputArea, :ceForm:goalPanel" />
+                                    update=":ceForm:goalPanel" />
                         </p:slider>
                         <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}"
                                        required="true"
@@ -74,11 +212,7 @@
                     </td>
 
                 </tr>
-                <tr>
-                    <td>
-                        <div class="EmptyBox5"></div>
-                    </td>
-                </tr>
+
                 <tr>
                     <td>
                         <div class="TexAlCenter StepsQuestionsFS">
@@ -87,21 +221,23 @@
                     </td>
                 </tr>
             </table>
-
         </p:outputPanel>
 
+        <!-- Projection HighChart start  -->
+        <p:panel update="beanValueChart" action="#{tcmpb.doProjectionChart}" />
+        <h:inputHidden value="#{tcmpb.charts.resultChart}" id="beanValueChart"  />
+
+        <div id="progressChart" style="width: 100%; height: 500px"></div>
+        <!-- Projection HighChart end  -->
+
         <div class="EmptyBox5"></div>
-        <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+        <div class="EmptyBox5"></div>
+        <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"
-                         actionListener="#{tcmpb.prevPage}">
-                         <h:outputText value="Previous" />
-                         </p:commandLink>
-        <p:commandLink styleClass="UI-nextButton Fright UI-tcmButton" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         actionListener="#{tcmpb.prevPage}"/>
+        <p:commandButton styleClass="Fright UI-tcmButton" value="Next"  rendered="#{tcmpb.pagemanager.nextButtonStat}"
                          update=":ceForm:inputArea"
-                         actionListener="#{tcmpb.nextPage}">
-                         <h:outputText value="Next" />
-                         </p:commandLink>
+                         actionListener="#{tcmpb.nextPage}"/>
     </div>
-
 </ui:composition>

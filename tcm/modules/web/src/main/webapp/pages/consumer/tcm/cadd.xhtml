@@ -11,8 +11,15 @@
         <f:event type="preRenderView" listener="#{tcmpb.preRenderView}"/>
     </f:metadata>
 
-    <ui:define name="content">
-    <h:outputScript name="js/invCharts.js" library="#{uiLayout.cssDIR}"/>
+        <ui:define name="content">
+        <h:outputScript name="js/invCharts.js" library="#{uiLayout.cssDIR}"/>
+
+        <!-- HighChart .js plugin Start -->
+        <h:outputScript name="js/highcharts.js" library="#{uiLayout.cssDIR}"/>
+        <h:outputScript name="js/highcharts-3d.js" library="#{uiLayout.cssDIR}"/>
+        <h:outputScript name="js/highcharts-more.js" library="#{uiLayout.cssDIR}"/>
+        <h:outputScript name="js/exporting.js" library="#{uiLayout.cssDIR}"/>
+        <!-- HighChart .js plugin End -->
 
         <!-- BOX START -->
         <h:form id="ceForm">

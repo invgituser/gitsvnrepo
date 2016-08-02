@@ -921,6 +921,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       formEdit = true;
       setRiskIndex(riskCalculator.calculateRisk(getGoal()));
       createAssetPortfolio(1);
+
+      //  Calls for Projection creation chart by using HighChart
+      charts.createProjectionHighChart(getProjectionDatas().get(whichslide), getHorizon(),getAge(),riskCalculator.getRetireAge());
+
    }
 
    public void testRiskModel()
