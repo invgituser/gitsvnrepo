@@ -25,6 +25,7 @@ public class FixedModelOptimizer
    private FixedModelDao fixedModelDao;
    private FMProjectionReport projectionReport;
    private Map<String, Boolean> canCreateProjection;
+   private Map<Integer,ArrayList<FMProjectionData>> fmprojectiondata;
 
    private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
    private final Lock read = readWriteLock.readLock();
@@ -46,6 +47,7 @@ public class FixedModelOptimizer
       super();
       fixedModelDao = FixedModelDao.getInstance();
       projectionReport = new FMProjectionReport();
+      fmprojectiondata = null;
    }
 
    private void allocateTheme() {
@@ -108,6 +110,7 @@ public class FixedModelOptimizer
          fixedModelDao.load_fixedmodule_assets(themesMap);
          logger.info("Load Fixed Module SubAsset");
          fixedModelDao.load_fixedmodule_subassets(themesMap);
+         fmprojectiondata = fixedModelDao.load_fixedmodule_projectionChart();
          // logger.info("Load Fixed Module Projection Data");
          // fixedModelDao.load_fixedmodule_performance(themesMap);
          canDoProjection();
@@ -249,4 +252,8 @@ public class FixedModelOptimizer
       }
    }
 
+   public Map<Integer, ArrayList<FMProjectionData>> getFmprojectiondata()
+   {
+      return fmprojectiondata;
+   }
 }

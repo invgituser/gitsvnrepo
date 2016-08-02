@@ -201,4 +201,49 @@ public class FixedModelDao extends JdbcDaoSupport
          }
       }
    }
+
+   public Map<Integer, ArrayList<FMProjectionData>> load_fixedmodule_projectionChart()
+   {
+
+      // DataSource ds = getDs();
+      String storedProcName = "sel_sec_fixed_performancechart";
+      FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
+
+      Map outMap = sp.loadFixedProjectionChart();
+      Map<Integer, ArrayList<FMProjectionData>> fmprojectiondata = new LinkedHashMap<Integer, ArrayList<FMProjectionData>>();
+
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         if (rows != null) {
+            for (Map<String, Object> map : rows) {
+               Map rs = (Map) rows.get(i);
+               Integer model = convert.getIntData(rs.get("model"));
+               if (model == null)
+                  continue;
+
+               ArrayList projectiondata;
+               if (fmprojectiondata.containsKey(model)) {
+                  projectiondata = fmprojectiondata.get(model);
+               }
+               else {
+                  projectiondata = new ArrayList<FMPerformanceData>();
+               }
+               FMProjectionData data = new FMProjectionData();
+               data.setModel(model);
+               data.setYear(convert.getIntData(rs.get("year")));
+               data.setLower1(convert.getDoubleData(rs.get("lower1")));
+               data.setLower2(convert.getDoubleData(rs.get("lower2")));
+               data.setMid(convert.getDoubleData(rs.get("mid")));
+               data.setUpper1(convert.getDoubleData(rs.get("upper1")));
+               data.setUpper2(convert.getDoubleData(rs.get("upper2")));
+               projectiondata.add(data);
+               fmprojectiondata.put(model, projectiondata);
+               i++;
+            }
+         }
+      }
+      return fmprojectiondata;
+   }
 }

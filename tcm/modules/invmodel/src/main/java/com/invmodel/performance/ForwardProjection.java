@@ -6,7 +6,7 @@ import com.invmodel.Const.InvConst;
 import com.invmodel.asset.data.AssetClass;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
-import com.invmodel.model.fixedmodel.data.FMData;
+import com.invmodel.model.fixedmodel.data.*;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.portfolio.data.Portfolio;
@@ -61,32 +61,44 @@ public class ForwardProjection
          return null;
       }
 
+      ProjectionData[] array;
       if (fixedOptimizer != null)
       {
-         if (fixedOptimizer.isThisFixedTheme(pdata.getTheme()))
-         {
-            perfdata = showGoalsByTheme(pdata);
+         Double investment = (pdata.getActualInvestment() != null) ? pdata.getActualInvestment() : 100000;
+         Double recurring = (pdata.getRecurringInvestment() != null) ? pdata.getRecurringInvestment() : 0.0;
+         Integer horizon = (pdata.getHorizon() != null) ? pdata.getHorizon() : 35;
+         horizon = (horizon < 20) ? 20 : horizon;
+         if (fixedOptimizer.getFmprojectiondata() != null) {
+            perfdata = new ArrayList<ProjectionData[]>();
+            for (Integer model : fixedOptimizer.getFmprojectiondata().keySet()) {
+               array =  goalsProjection(investment,
+                                        recurring,
+                                        model,
+                                        fixedOptimizer.getFmprojectiondata().get(model));
+
+               if (array != null)
+               {
+                  perfdata.add(array);
+               }
+            }
          }
-      }
-      else
-      {
-         if (pdata.getPortfolioData() != null)
-         {
-            Double investment = (pdata.getActualInvestment() != null) ? pdata.getActualInvestment() : 100000;
-            Double recurring = (pdata.getRecurringInvestment() != null) ? pdata.getRecurringInvestment() : 0.0;
-            Integer horizon = (pdata.getHorizon() != null) ? pdata.getHorizon() : 35;
-            horizon = (horizon < 20) ? 20 : horizon;
-            ProjectionData[] array = goalsProjection(investment,
-                                                     recurring,
-                                                     horizon,
-                                                     pdata.getTheme(),
-                                                     pdata.getPortfolioData()[0].getExpReturns(),
-                                                     pdata.getPortfolioData()[0].getTotalRisk(),
-                                                     pdata.getPortfolioData()[0].getTotalCost());
-            if (array != null)
+         else {
+            if (fixedOptimizer.isThisFixedTheme(pdata.getTheme()))
             {
                perfdata = new ArrayList<ProjectionData[]>();
-               perfdata.add(array);
+               for (FMData data : fixedOptimizer.getThemes(pdata.getTheme())) {
+                  array = goalsProjection(investment,
+                                          recurring,
+                                          horizon,
+                                          pdata.getTheme(),
+                                          pdata.getPortfolioData()[0].getExpReturns(),
+                                          pdata.getPortfolioData()[0].getTotalRisk(),
+                                          pdata.getPortfolioData()[0].getTotalCost());
+                  if (array != null)
+                  {
+                     perfdata.add(array);
+                  }
+               }
             }
          }
       }
@@ -207,6 +219,82 @@ public class ForwardProjection
             upper2 = (2 * investmentRisk * totalcapitalgain) + totalcapitalgain;
             lower1 = (-1 * investmentRisk * totalcapitalgain) + totalcapitalgain;
             lower2 = (-2 * investmentRisk * totalcapitalgain) + totalcapitalgain;
+         }
+         return array;
+      }
+      catch (Exception e)
+      {
+      }
+      return null;
+   }
+
+   private ProjectionData[] goalsProjection(Double invested, Double recurring,
+                                            Integer model,
+                                            ArrayList<FMProjectionData> projectionchart)
+   {
+
+      try
+      {
+         // Integer numOfYears = (horizon <= 0) ? 35 : horizon;
+         Integer numOfYears = 35;  // Hard Coding to 35 years
+
+         if (projectionchart == null) {
+            return null;
+         }
+
+         Integer smallest = projectionchart.size();
+
+         ProjectionData[] array = new ProjectionData[smallest];
+         Double totalCost = 0.0;
+         double portGrowth = invested;
+         double totalRecurring = 0.0;
+
+         Double datalower2, datalower1, datamid, dataupper1, dataupper2;
+
+         Calendar cal = Calendar.getInstance();
+         for (Integer year = 0; year < numOfYears; year++)
+         {
+            // Safety, that we don't over-run
+            if (year > numOfYears)
+            {
+               break;
+            }
+
+            ProjectionData perf = new ProjectionData();
+            perf.setTheme(model.toString());
+            perf.setYear((cal.YEAR + year));
+
+            datalower2 = projectionchart.get(year).getLower2();
+            datalower1 = datalower2 + projectionchart.get(year).getLower1();
+            datamid =  projectionchart.get(year).getMid();
+            dataupper1 = datalower1 + projectionchart.get(year).getUpper1();
+            dataupper2 = dataupper1 + projectionchart.get(year).getUpper2();
+
+            if (datalower1 < 0.0)
+            {
+               datalower1 = 0.0;
+            }
+
+            if (datalower2 < 0.0)
+            {
+               datalower2 = 0.0;
+            }
+
+            array[year] = perf;
+
+            perf.setTotalCapitalWithGains(portGrowth * datamid);
+            perf.setTotalCost(0);
+            perf.setInvestmentReturns(portGrowth * datamid);
+            perf.setInvestmentRisk(0);
+            perf.setUpperBand1(portGrowth * dataupper1);
+            perf.setUpperBand2(portGrowth * dataupper2);
+            perf.setLowerBand1(portGrowth * datalower1);
+            perf.setLowerBand2(portGrowth * datalower2);
+            perf.setInvestedCapital(invested + recurring);
+            perf.setRecurInvestments(totalRecurring);
+            portGrowth = portGrowth + recurring;
+            totalRecurring = totalRecurring + recurring;
+
          }
          return array;
       }

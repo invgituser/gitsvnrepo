@@ -46,4 +46,11 @@ public class FixedModelSP extends StoredProcedure
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map loadFixedProjectionChart()
+   {
+      Map inputMap = new HashMap();
+      return super.execute(inputMap);
+   }
 }
