@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedProperty;
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.data.*;
-import com.invessence.web.util.WebUtil;
+import com.invessence.web.util.*;
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.AssetAllocationModel;
 import com.invmodel.asset.data.*;
@@ -86,8 +86,22 @@ public class CustomerData extends ProfileData
    public Map<String, String> advisorBasket;
    private Boolean managed;
 
-   @Autowired
-   private WebUtil webutil;
+
+   @ManagedProperty("#{webutil}")
+   public WebUtil webutil;
+
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
+   @ManagedProperty("#{uiLayout}")
+   public UILayout uiLayout;
+
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
+   }
 
    @ManagedProperty("#{modelUtil}")
    public ModelUtil modelUtil;
@@ -589,8 +603,29 @@ public class CustomerData extends ProfileData
       if (orderedSubclass != null)
          orderedSubclass.clear();
 
-      advisorBasket.clear();
+      if (advisorBasket == null) {
+         advisorBasket = new HashMap<String,String>();
+      }
+      else {
+         advisorBasket.clear();
+      }
+      resetAdvisor();  // Reset Advisor
+   }
 
+   public void resetAdvisor() {
+
+      if (webutil != null) {
+         if (webutil.isUserLoggedIn()) {
+            setAdvisor(webutil.getUserInfoData().getAdvisor());
+            setRep(webutil.getUserInfoData().getRep());
+         }
+         else {
+            if (webutil.getUiprofile() != null) {
+               setAdvisor(webutil.getUiprofile().getAdvisor());
+               setRep(webutil.getUiprofile().getRep());
+            }
+         }
+      }
    }
 
    public void copyData(CustomerData newgoals) {
@@ -770,6 +805,33 @@ public class CustomerData extends ProfileData
       setPortfolioIndex(portfolioModel.getPortfolioIndex(getProfileInstance()));
    }
 */
+   public void selectFirstBasket()
+   {
+      if (getTheme() == null) {
+         if (getAdvisorBasket() != null) {
+            for (String theme : getAdvisorBasket().keySet()) {
+               setTheme(theme);  // Set the first one...
+               setBasket(getAdvisorBasket().get(getTheme()));
+               break;
+            }
+         }
+      }
+
+      // If it is still null, then set it to default
+      if (getTheme() == null)
+      {
+         if (getAccountTaxable())
+         {
+            setTheme(InvConst.DEFAULT_TAXABLE_THEME);
+            setBasket(InvConst.DEFAULT_TAXABLE_BASKET);
+         }
+         else
+         {
+            setTheme(InvConst.DEFAULT_THEME);
+            setBasket(InvConst.DEFAULT_BASKET);
+         }
+      }
+   }
 
    public void buildAssetClass() {
       AssetClass[] aamc;

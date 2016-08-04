@@ -5,9 +5,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.web.bean.consumer.ClientBean;
 import com.invessence.web.data.common.CustomerData;
-import com.invessence.web.data.consumer.RiskCalculator;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 

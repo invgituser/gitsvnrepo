@@ -28,7 +28,7 @@
                                     <i class="fa fa-user Fs50 red Fleft MarRight10"></i>
                                     <p:panel id="displayInfo" styleClass="Fright" style="border: 0px">
                                         <h3 class="black Fs15 FontThemeMedium">#{uobpb.fullName}</h3>
-                                        <span class="Fs15 gray FontThemeRegular DispBlock">#{cepb.portfolioName}</span>
+                                        <span class="Fs15 gray FontThemeRegular DispBlock">#{uobpb.portfolioName}</span>
                             	<span class="Fs15 gray FontThemeRegular DispBlock">
                                	<p:outputLabel value="Taxable" rendered="#{uobpb.accountTaxable}"/>
                                	<p:outputLabel value="Non-Taxable" rendered="#{! uobpb.accountTaxable}"/>
@@ -76,7 +76,7 @@
                 <div class="Container100 Responsive100 t1">
                     <div class="ContainerIndent">
                         <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
-                            <ui:include src="/pages/consumer/invessence/addon/cEdit.xhtml"/>
+                            <ui:include src="/pages/consumer/uob/addon/cEdit.xhtml"/>
                         </p:fieldset>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                                         </div>
                                         <div class="Container50 TexAlCenter Fs20">
                                             <h:inputHidden id="allocValue" value="#{uobpb.allocationIndex}"/>
-                                            <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="#{cepb.maxAssetAllocatonPoints}" step="1">
+                                            <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="#{uobpb.maxAssetAllocatonPoints}" step="1">
                                                 <p:ajax event="slideEnd"
                                                         update=":ceForm:workArea, :ceForm:graphArea"
                                                         listener="#{uobpb.onAllocSlider}"/>
@@ -152,7 +152,7 @@
                                 <div class="ContainerIndent">
                                     <div class="Container100 Fleft">
                                         <p:outputPanel deferred="true">
-                                            <p:chart type="bar" model="#{uobpb.charts.barChart}" rendered="#{cepb.charts.barChart != null}"
+                                            <p:chart type="bar" model="#{uobpb.charts.barChart}" rendered="#{uobpb.charts.barChart != null}"
                                                      responsive="true"/>
                                         </p:outputPanel>
                                     </div>
@@ -191,7 +191,7 @@
                                                           footerText="Total">
                                                 </p:column>
                                                 <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                          footerText="#{dataDisplayConverter.displayAsMoney(cepb.totalMoneyAllocated)}">
+                                                          footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
                                                 </p:column>
                                             </p:row>
                                         </p:columnGroup>
@@ -213,7 +213,7 @@
                             </div>
                         </div>
                     </div>
-                    <p:outputPanel style="border: 0px; background: transparent" rendered="#{! cepb.fixedModel}">
+                    <p:outputPanel style="border: 0px; background: transparent" rendered="#{! uobpb.fixedModel}">
                       <div class="Container100">
                         <div class="ContainerIndent">
                             <div class="Container50 Responsive50 TexAlCenter Fs16">
@@ -235,7 +235,7 @@
                                         </div>
                                         <div class="Container50 TexAlCenter Fs20">
                                             <h:inputHidden id="portfolioValue" value="#{uobpb.portfolioIndex}"/>
-                                            <p:slider id="portfolioSlider" for="portfolioValue" minValue="0" maxValue="#{cepb.maxPortfolioAllocationPoints}" step="1">
+                                            <p:slider id="portfolioSlider" for="portfolioValue" minValue="0" maxValue="#{uobpb.maxPortfolioAllocationPoints}" step="1">
                                                 <p:ajax event="slideEnd"
                                                         update=":ceForm:workArea, :ceForm:graphArea"
                                                         listener="#{uobpb.onPortfolioSlider}"/>
@@ -327,7 +327,7 @@
                                         <p:column priority="3"/>
 
                                         <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                  footerText="#{dataDisplayConverter.displayAsMoney(cepb.totalMoneyAllocated)}">
+                                                  footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
                                         </p:column>
                                     </p:row>
                                 </p:columnGroup>
@@ -396,7 +396,7 @@
                                             <p:spacer width="1"/>
 
                                             <div class="Wid90"></div>
-                                            <p:commandButton id="calcButton" value="Calculate" actionListener="#{cepb.calculateGoal}"
+                                            <p:commandButton id="calcButton" value="Calculate" actionListener="#{uobpb.calculateGoal}"
                                                              update="ceForm:goalEntryArea, :ceForm:goalgraphArea"/>
                                             <p:spacer width="1"/>
 
@@ -446,7 +446,7 @@
                                     </div>
                                     <p:panel id="goalgraphArea" style="border: 0px">
                                         <div class="Container100">
-                                            <p:outputPanel id="goalcharts" style="border: 0px" rendered="#{cepb.displayGoalGraph}">
+                                            <p:outputPanel id="goalcharts" style="border: 0px" rendered="#{uobpb.displayGoalGraph}">
                                                 <p:panel style="border: 0px">
                                                     <div class="Container100">
                                                         <div class="ContainerIndent">
@@ -526,7 +526,7 @@
                     <p:panelGrid columns="2" cellpadding="5" styleClass="invNBgrid">
                         <p:row>
                             <p:column colspan="2">
-                                <h:outputText value="#{cepb.forwardInstructions}" escape="true"/>
+                                <h:outputText value="#{uobpb.forwardInstructions}" escape="true"/>
                             </p:column>
                         </p:row>
 

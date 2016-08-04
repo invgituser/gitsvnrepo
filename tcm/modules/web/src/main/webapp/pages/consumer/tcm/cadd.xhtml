@@ -7,6 +7,8 @@
                 template="/template/common/template.xhtml">
 
     <f:metadata>
+        <f:viewParam name="advisor" value="#{webutil.uiprofile.advisor}"/>
+        <f:viewParam name="rep" value="#{webutil.uiprofile.rep}"/>
         <f:viewParam name="acct" value="#{tcmpb.beanAcctnum}"/>
         <f:event type="preRenderView" listener="#{tcmpb.preRenderView}"/>
     </f:metadata>

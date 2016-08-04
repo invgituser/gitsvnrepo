@@ -564,11 +564,6 @@ public class
 
    public String getTheme()
    {
-      // Either it is null or it is "" (Empty), then assume default
-      if (theme == null || theme.length() == 0)
-      {
-         return InvConst.DEFAULT_THEME;
-      }
       return theme;
    }
 
@@ -579,11 +574,6 @@ public class
 
    public String getBasket()
    {
-      // Either it is null or it is "" (Empty), then assume default
-      if (basket == null || basket.length() == 0)
-      {
-         return InvConst.DEFAULT_BASKET;
-      }
       return basket;
    }
 
@@ -1357,10 +1347,10 @@ public class
       setExperience(2);   // 1 = Experienced, 2 = inExperienced (See method strExpeience)
       setObjective(2);    // 1 = Preservation, 2 = Accumulation; (See method strObjective)
 
-      setAdvisor(InvConst.INVESSENCE_ADVISOR);
+      setAdvisor(null);
       setRep(null);
-      setTheme(InvConst.DEFAULT_THEME);
-      setBasket(InvConst.DEFAULT_BASKET);
+      setTheme(null);
+      setBasket(null);
       setRiskAnswers(null);
       setFixedModel(false);
       goalData = new GoalsData();

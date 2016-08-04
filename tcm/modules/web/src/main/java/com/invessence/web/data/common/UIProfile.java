@@ -38,7 +38,6 @@ public class UIProfile
    //  These will be created after the visitor opens a landing page.
    String advisor;
    String rep;
-   String allocationmodel;
 
 
    public UIProfile()
@@ -239,13 +238,7 @@ public class UIProfile
 
    public void setAdvisor(String advisor)
    {
-      if (advisor == null) {
-         if (this.advisor == null)
-            this.advisor = Const.INVESSENCE_ADVISOR;
-      }
-      else {
-         this.advisor = advisor;
-      }
+      this.advisor = advisor;
    }
 
    public String getRep()
@@ -255,29 +248,7 @@ public class UIProfile
 
    public void setRep(String rep)
    {
-      if (rep == null) {
-         if (this.rep == null)
-            this.rep = Const.INVESSENCE_REP;
-      }
-      else {
          this.rep = rep;
-      }
-   }
-
-   public String getAllocationmodel()
-   {
-      return allocationmodel;
-   }
-
-   public void setAllocationmodel(String allocationmodel)
-   {
-      if (allocationmodel == null) {
-         if (this.allocationmodel == null)
-            this.rep = WebConst.DEFAULT_THEME;
-      }
-      else {
-         this.allocationmodel = allocationmodel;
-      }
    }
 
    public void resetAllInfo(String cid,
@@ -311,7 +282,6 @@ public class UIProfile
       this.webmode = webmode;
       setAdvisor(null);
       setRep(null);
-      setAllocationmodel(null);
    }
 
 

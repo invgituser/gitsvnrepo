@@ -5,7 +5,7 @@ import java.util.*;
 import javax.faces.bean.*;
 import javax.sql.DataSource;
 
-import com.invessence.web.bean.consumer.ClientBean;
+import com.invessence.web.bean.custody.ClientBean;
 import com.invessence.converter.SQLData;
 import com.invessence.web.dao.advisor.AdvisorListSP;
 import com.invessence.web.data.common.CustomerData;
@@ -248,10 +248,6 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          ex.printStackTrace();
       }
       return null;
-   }
-
-   public void getNewClientProfileData(ClientBean data) {
-
    }
 
    public void getClientData(ClientBean data) {

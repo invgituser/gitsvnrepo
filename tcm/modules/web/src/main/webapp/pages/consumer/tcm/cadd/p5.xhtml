@@ -130,7 +130,7 @@
                                                    //Directly plot data series values
 
                                                }, {
-                                                   name: 'Poor market performance',
+                                                   name: '50% probability range',
                                                    fontWeight: 'normal',
                                                    data:$.parseJSON(chartValue).goalLowerValue,
                                                    type: 'areasplinerange',
@@ -140,7 +140,7 @@
                                                    border:0,
                                                    zIndex: 1,
                                                }, {
-                                                   name: 'Auto deposit and onetime deposit',
+                                                   name: '95% probability range',
                                                    fontWeight: 'normal',
                                                    data: $.parseJSON(chartValue).goalUpperValue,
                                                    type: 'areasplinerange',
@@ -203,7 +203,7 @@
                         <p:slider for="projection"
                                   minValue="1" maxValue="5">
                             <p:ajax event="slideEnd" listener="#{tcmpb.doProjectionChart}"
-                                    update=":ceForm:goalPanel" />
+                                    update=":ceForm:goalPanel, :ceForm:beanValueChart" />
                         </p:slider>
                         <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}"
                                        required="true"
@@ -230,8 +230,7 @@
         <div id="progressChart" style="width: 100%; height: 500px"></div>
         <!-- Projection HighChart end  -->
 
-        <div class="EmptyBox5"></div>
-        <div class="EmptyBox5"></div>
+        <div class="EmptyBox10"></div>
         <p:commandButton styleClass="prev" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"

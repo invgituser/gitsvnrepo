@@ -8,10 +8,18 @@
 
     <div id="layout-topbar" class="ShadowGray">
         <div id="layout-topbar-indent">
-            <a href="#{uiLayout.defaultHome}">
-                <h:graphicImage name="#{uiLayout.logo}"
-                                styleClass="Fleft" library="invessence" id="logo" class="Fleft"/>
-            </a>
+            <ui:fragment rendered="#{! webutil.isUserLoggedIn()}">
+                <a href="#{uiLayout.defaultHome}">
+                    <h:graphicImage name="#{uiLayout.logo}"
+                                    styleClass="Fleft" library="invessence" id="logo" class="Fleft"/>
+                </a>
+            </ui:fragment>
+            <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
+               <a href="#{uiLayout.defaultHome}">
+                   <h:graphicImage name="#{uiLayout.logo}"
+                                   styleClass="Fleft" library="invessence" id="logo2" class="Fleft"/>
+               </a>
+            </ui:fragment>
 
             <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
                 <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>

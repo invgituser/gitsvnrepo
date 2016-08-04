@@ -59,22 +59,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       this.messageText = msg;
    }
 
-   @ManagedProperty("#{webutil}")
-   private WebUtil webutil;
-
-   public void setWebutil(WebUtil webutil)
-   {
-      this.webutil = webutil;
-   }
-
-   @ManagedProperty("#{uiLayout}")
-   UILayout uiLayout;
-
-   public void setUiLayout(UILayout uiLayout)
-   {
-      this.uiLayout = uiLayout;
-   }
-
    public PagesImpl getPagemanager()
    {
       return pagemanager;
@@ -204,16 +188,20 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            // Page management
             pagemanager = new PagesImpl(4);
             pagemanager.setPage(0);
-            riskCalculator.setNumberofQuestions(5);
-            loadBasketInfo();
-            whichChart = "pie";
             setPrefView(0);
-            setRiskCalcMethod("C");
+
+            // set dafaults
+            riskCalculator.setNumberofQuestions(5);
+            whichChart = "pie";
             disablegraphtabs = true;
             disabledetailtabs = true;
+
+            // Client related data.
             fetchClientData();
+            setRiskCalcMethod("C");
             canOpenAccount = initCanOpenAccount();
             welcomeDialog = false;
          }
@@ -301,22 +289,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       createAssetPortfolio(1);
    }
 
-   public void selectFirstBasket()
-   {
-      if (getTheme() == null)
-      {
-         if (getAccountTaxable())
-         {
-            // setGoal(InvConst.DEFAULT_TAXABLE_BASKET);
-            setBasket(InvConst.DEFAULT_TAXABLE_THEME);
-         }
-         else
-         {
-            // setGoal(InvConst.DEFAULT_BASKET);
-            setBasket(InvConst.DEFAULT_THEME);
-         }
-      }
-   }
 
    private void resetDataForm()
    {
@@ -330,15 +302,16 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    private void loadBasketInfo()
    {
+      resetAdvisor();
       if (getAccountTaxable())
       {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
-         // selectFirstBasket(); // DO this only first time.
-      }
+         selectFirstBasket(); // DO this select first Theme and Basket
+     }
       else
       {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
-         // selectFirstBasket();  // DO this only first time.
+         selectFirstBasket();  // DO this select first Theme and Basket
       }
    }
 
@@ -350,14 +323,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          UserInfoData uid = webutil.getUserInfoData();
          if (uid != null)
          {
-            setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-            setRep(uid.getRep());
             setLogonid(uid.getLogonID());
          }
          setDefaults();
          listDAO.getNewClientProfileData((CustomerData) this.getInstance());
-         loadBasketInfo();
-         selectFirstBasket();
       }
       catch (Exception ex)
       {
@@ -376,11 +345,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             if (uid != null)
             {
                setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+               setRep(uid.getRep()); // Portfolio solves the null issue, or blank issue.
                setLogonid(uid.getLogonID());
             }
             setAcctnum(acctnum);
             listDAO.getProfileData(getInstance());
-            loadBasketInfo();
          }
          formEdit = false;
       }
@@ -450,10 +419,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
       try
       {
+/*
          if (getTheme() == null || getTheme().isEmpty())
          {
             setTheme(InvConst.DEFAULT_THEME);
          }
+*/
 
          setRiskIndex(riskCalculator.calculateRisk(getGoal()));
          setNumOfAllocation(noOfYears);
@@ -697,6 +668,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             loadNewClientData();
 
          }
+
+         loadBasketInfo(); // Once we know about advisor, then use that info
          createAssetPortfolio(1);
       }
       catch (Exception ex)

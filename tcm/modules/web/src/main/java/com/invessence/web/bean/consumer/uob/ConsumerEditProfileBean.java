@@ -189,7 +189,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             {
                webutil.redirect("/login.xhtml", null);
             }
-            loadBasketInfo();
+            riskCalculator.setNumberofQuestions(7);
             whichChart = "pie";
             setPrefView(0);
             if (webutil.hasAccess("Advisor") || webutil.hasAccess("Admin"))
@@ -206,9 +206,11 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
             {
                loadData(getBeanAcctnum());
+               loadRiskData(getBeanAcctnum());
             }
             else
             {
+               loadBasketInfo();
                loadNewClientData();
             }
 
@@ -433,11 +435,13 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       if (getAccountTaxable())
       {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
+         setBasket(getAdvisorBasket().get(getTheme()));
          // selectFirstBasket(); // DO this only first time.
       }
       else
       {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
+         setBasket(getAdvisorBasket().get(getTheme()));
          // selectFirstBasket();  // DO this only first time.
       }
    }
@@ -452,6 +456,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          if (uid != null)
          {
             setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+            setRep(uid.getRep()); // Portfolio solves the null issue, or blank issue.
             setLogonid(uid.getLogonID());
          }
          listDAO.getNewClientProfileData((CustomerData) this.getInstance());
@@ -475,10 +480,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          if (webutil.isUserLoggedIn())
          {
-            if (webutil.hasRole(WebConst.ROLE_OWNER) ||
-               webutil.hasRole(WebConst.ROLE_ADVISOR) ||
-               webutil.hasRole(WebConst.ROLE_ADMIN))
-            {
                UserInfoData uid = webutil.getUserInfoData();
                if (uid != null)
                {
@@ -488,7 +489,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
                setAcctnum(acctnum);
                listDAO.getProfileData(getInstance());
                loadBasketInfo();
-            }
          }
          createAssetPortfolio(1);
          formEdit = false;
@@ -498,6 +498,20 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          ex.printStackTrace();
       }
    }
+
+   private void loadRiskData(Long acctnum)
+   {
+
+      try
+      {
+         listDAO.getRiskProfileData(acctnum, riskCalculator);
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
 
 /*
    public void onAllocSlider(ValueChangeEvent event) {
@@ -596,7 +610,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
                setTheme(tTheme.substring(2));
             }
          }
-
+         riskCalculator.calculateRisk();
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
          buildAssetClass();

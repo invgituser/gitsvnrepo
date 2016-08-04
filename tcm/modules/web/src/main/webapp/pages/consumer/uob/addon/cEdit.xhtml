@@ -17,13 +17,13 @@
                                 update=":ceForm:inputArea, :ceForm:graphArea"
                                 listener="#{uobpb.onPTabChange}"/>
                         <p:tab id="p1" title="Overview">
-                            <ui:include src="/pages/consumer/invessence/addon/core0.xhtml"/>
+                            <ui:include src="/pages/consumer/uob/addon/core0.xhtml"/>
                         </p:tab>
                         <p:tab id="p2" title="Asset">
-                            <ui:include src="/pages/consumer/invessence/addon/income.xhtml"/>
+                            <ui:include src="/pages/consumer/uob/addon/income.xhtml"/>
                         </p:tab>
                         <p:tab id="p3" title="Liability">
-                            <ui:include src="/pages/consumer/invessence/addon/debt.xhtml"/>
+                            <ui:include src="/pages/consumer/uob/addon/debt.xhtml"/>
                         </p:tab>
                         <p:tab id="p4" title="Risk">
                             <p:tabView id="rTabView" orientation="top" activeIndex="#{uobpb.rTab}"
@@ -31,35 +31,35 @@
                                        cache="false" dynamic="false">
                                 <p:ajax event="tabChange" listener="#{uobpb.onRTabChange}"/>
                                 <p:tab id="q1" title="1">
-                                    <ui:include src="/pages/consumer/invessence/addon/q1.xhtml"/>
+                                    <ui:include src="/pages/consumer/uob/addon/q1.xhtml"/>
                                 </p:tab>
                                 <p:tab id="q2" title="2">
-                                    <ui:include src="/pages/consumer/invessence/addon/q2.xhtml"/>
+                                    <ui:include src="/pages/consumer/uob/addon/q2.xhtml"/>
                                 </p:tab>
                                 <p:tab id="q3" title="3">
-                                    <ui:include src="/pages/consumer/invessence/addon/q3.xhtml"/>
+                                    <ui:include src="/pages/consumer/uob/addon/q3.xhtml"/>
                                 </p:tab>
                                 <p:tab id="q4" title="4">
-                                    <ui:include src="/pages/consumer/invessence/addon/q4.xhtml"/>
+                                    <ui:include src="/pages/consumer/uob/addon/q4.xhtml"/>
                                 </p:tab>
                                 <p:tab id="q5" title="5">
-                                    <ui:include src="/pages/consumer/invessence/addon/q5.xhtml"/>
+                                    <ui:include src="/pages/consumer/uob/addon/q5.xhtml"/>
                                 </p:tab>
                                 <p:tab id="q6" title="6">
-                                    <ui:include src="/pages/consumer/invessence/addon/q6.xhtml"/>
+                                    <ui:include src="/pages/consumer/uob/addon/q6.xhtml"/>
                                 </p:tab>
                                 <p:tab id="q7" title="7">
-                                    <ui:include src="/pages/consumer/invessence/addon/q7.xhtml"/>
+                                    <ui:include src="/pages/consumer/uob/addon/q7.xhtml"/>
                                 </p:tab>
                             </p:tabView>
                         </p:tab>
 
                     </p:tabView>
                     <f:facet name="footer">
-                        <p:commandButton id="prevBtn" value="Previous" styleClass="Fleft" rendered="#{cepb.enablePrevButton}"
+                        <p:commandButton id="prevBtn" value="Previous" styleClass="Fleft" rendered="#{uobpb.enablePrevButton}"
                                          update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
                                          actionListener="#{uobpb.gotoPrevTab}"/>
-                        <p:commandButton id="nextBtn" value="Next" styleClass="Fright" rendered="#{cepb.enableNextButton}"
+                        <p:commandButton id="nextBtn" value="Next" styleClass="Fright" rendered="#{uobpb.enableNextButton}"
                                          type="submit"
                                          update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
                                          actionListener="#{uobpb.gotoNextTab}"/>
@@ -71,7 +71,7 @@
             <div class="ContainerIndent">
                 <p:panel id="graphArea" style="border: 0px">
                     <div class="Container100 Responsive100">
-                        <p:panel id="grphhdr" style="border: 0px; background: transparent" rendered="#{cepb.hasReturn}">
+                        <p:panel id="grphhdr" style="border: 0px; background: transparent" rendered="#{uobpb.hasReturn}">
                             <div class="Wid25 BorderedBox Fright TexAlCenter Mar10 MarLeft5"><!-- ROHIT's CHANGE -->
                                 <div class="ContainerIndent">
                                     <div class="EmptyBox5"></div>

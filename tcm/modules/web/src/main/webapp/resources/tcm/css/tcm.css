@@ -5,6 +5,7 @@
 * Copyright 2016 - Invessence */
 
 /* Logo*/
+#logo2{height:50px; margin-top:4px;}
 #logo{height:70px; margin-top:4px;}
 
 @media (min-width: 960px) {

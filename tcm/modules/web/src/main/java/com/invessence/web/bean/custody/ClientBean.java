@@ -1,4 +1,4 @@
-package com.invessence.web.bean.consumer;
+package com.invessence.web.bean.custody;
 
 import java.io.Serializable;
 import javax.faces.bean.*;
@@ -97,7 +97,7 @@ public class ClientBean extends ClientData implements Serializable
          if (uid != null) {
             setLogonid(uid.getLogonID());
          }
-         listDAO.getNewClientProfileData((ClientBean) this.getInstance());
+         // listDAO.getNewClientProfileData((ClientBean) this.getInstance());
          formEdit = false;
       }
       catch (Exception ex) {

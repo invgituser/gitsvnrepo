@@ -591,7 +591,7 @@ public class TCMCharts implements Serializable
          chartMap.put("goalAgeSeries", goalAgeSeries);
 
          resultChart = new Gson().toJson(chartMap);
-         System.out.println("resultChart = " + resultChart);
+         // System.out.println("resultChart = " + resultChart);
 /*
          // goalChart.addSeries(growth);
          goalChart.addSeries(totalGrowth);
