@@ -16,6 +16,9 @@
             <p:submenu label="Account" icon="fa fa-file-text-o">
                 <p:menuitem value="New" icon="fa fa-plus-square"
                             actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?acct=0')}"/>
+                <p:menuitem value="Account Aggregation" icon="fa fa-plus-square"
+                            rendered="#{webutil.hasAccess('USER')}"
+                            actionListener="#{yodleeBean.startup}"/>
             </p:submenu>
 
         </ps:menu>
