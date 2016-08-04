@@ -415,7 +415,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 				}
 			}
 
-			jo=yodleeAPIRepo.getToken(cobrandSessionToken, loggedInUsers.get(invUserId).getUserSessionToken(), Parameters.BRIDGE_APP_ID+1);
+			jo=yodleeAPIRepo.getToken(cobrandSessionToken, loggedInUsers.get(invUserId).getUserSessionToken(), Parameters.BRIDGE_APP_ID);
 
 			//{"errorOccurred":"true","exceptionType":"com.yodlee.core.oauth.exceptions.InvalidApplicationIdentifierException","referenceCode":"_de4e8b2e-29cb-41aa-b8ef-4ade467546d2","message":"100032001"}
 			//{"errorCode":"415","errorDetail":"Token authentication failed for cobrand/user Invalid conversation credentials"}

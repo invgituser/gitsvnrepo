@@ -61,7 +61,8 @@
     <property name="staticMethod" value="com.invessence.yodlee.util.YodleeAPIRepository.setHOST_URI"/>
     <property name="arguments">
         <list>
-            <value>https://yisandbox.yodleeinteractive.com/services/srest/private-sandbox124/</value>
+            <value>https://rest.developer.yodlee.com/services/srest/restserver/</value>
+            <!--<value>https://yisandbox.yodleeinteractive.com/services/srest/private-sandbox124/</value>-->
         </list>
    </property>
 </bean>

@@ -136,6 +136,7 @@ public class YodleeBean implements Serializable {
     public void yodleeNavigation(String pageId) {
         System.out.println("yodleeNavigation");
         Map<String, Object> result = null;
+        System.out.println("We are here");
         try {
             if (pageId.equalsIgnoreCase("dash")) {
                 displayDash();
