@@ -5,7 +5,6 @@
 * Copyright 2016 - Invessence */
 
 /* Logo*/
-#logo2{height:50px; margin-top:4px;}
 #logo{height:70px; margin-top:4px;}
 
 @media (min-width: 960px) {
@@ -129,7 +128,117 @@ margin-bottom: 10px;
 
 /**/
 
+/*Prakash: Fund Account - Component responsive*/
+@media (max-width: 750px) and (min-width: 635px) {
+.CustomWidthFA {
+	width: 29%!important;
+}
+}
+
+@media (max-width: 634px) {
+	.CustomWidthFA {
+    width: 100%!important;
+    margin: 5px 0;
+	border-radius: 3px!important;
+    border: solid 1px #C6D6DF!important;
+}
+
+
+.CustomWidthFA2 {
+	width: 100%;
+}
+
+.CustomWidthAccountypePanel {
+	width: 100%!important;
+	margin: 5px 0;
+}
+}
+
+@media (min-width:367px) and (max-width: 600px) {
+	.ui-tabs-top .ui-tabs-nav li a {
+	font-size: 12px;
+	}
+	
+	.accordionTabText {
+	font-size: 15px;
+	}
+	
+	.ui-tabs .ui-tabs-panel {
+    padding-left:0px;
+    padding-right: 20px;
+	}
+	
+	.FSResponsiveFA {
+	font-size: 13px;
+	}
+}
+
+@media (min-width:320px) and (max-width: 366px) {
+	.ui-tabs-top .ui-tabs-nav li a {
+	font-size: 10px;
+	}
+	
+	.FSResponsiveFA {
+	font-size: 13px;
+	}
+	.accordionTabText {
+	font-size: 13px;
+	}
+	.ui-tabs .ui-tabs-panel {
+    padding-left:0px;
+    padding-right: 20px;
+	}
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+.tcmPanel-UI > .ui-panel-content {
+    margin-top: 0px!important;
+}
+}
+/**/
+
 /*Prakash*/
+.ResponsiveWid-tcmUI {
+	width: 100%;
+}
+
+.poorImage, .averageImage {
+	height: 40px;
+}
+
+.PerformanceMeterBlock {
+	margin: 35px 0px;
+}
+
+.GraphPanel {
+	background: transparent;
+    border: 0;
+}
+
+.InlineCitizenRadioBtn {
+display: -webkit-inline-box;
+display: -moz-inline-box;
+}
+
+.Margin-FAAddress {
+	margin: 0 35px;
+}
+
+.Fright-FAAddress {
+float: right!important;
+	}
+
+.CustomWidthAddressFA {
+	width: 40%;
+}
+
+.ui-accordion-content {
+	overflow: hidden!important;
+}
+
+.CustomWidthFA {
+	width: 30%;
+}
 
 .Container45 {
 	width: 45%;
@@ -151,7 +260,7 @@ Panel-UI > div {
 .tcm-graphType {
     font-size: 16px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
-    border-radius: 20px 0 0 20px;
+    //border-radius: 20px 0 0 20px;
     padding: 5px 0px;
     position: relative;
     right: 8px;
@@ -162,10 +271,11 @@ Panel-UI > div {
     .tcm-graphType {
         font-size: 16px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
-        border-radius: 20px 20px 20px 20px;
+       // border-radius: 20px 20px 20px 20px;
         padding: 5px 0px;
         position: relative;
         top: 5px;
+        left:0px;
     }
 }
 
@@ -415,7 +525,7 @@ left: initial;
     background-position-x: 30px;
     background-position: right;
     cursor: pointer;	
-    color: #5FCF80!important;
+    color: #0BA769!important;
     line-height: 39px;
     font-size: 14px;
     letter-spacing: 1px;
@@ -432,7 +542,7 @@ left: initial;
     background: url("/javax.faces.resource/images/tcmnext.png.xhtml?ln=tcm");
     background-repeat: no-repeat;
     cursor: pointer;	
-    color: #5FCF80!important;
+    color: #0BA769!important;
     line-height: 39px;
     font-size: 14px;
     letter-spacing: 1px;
@@ -456,7 +566,7 @@ left: initial;
     background-repeat: no-repeat;
     /* background-position-x: 30px; */
     cursor: pointer;
-    color: #5FCF80!important;
+    color: #0BA769!important;
     line-height: 39px;
     font-size: 14px;
     letter-spacing: 1px;
@@ -539,6 +649,34 @@ h3 {
 
 .ResponsiveMarginTop {
 	margin-top: 10px;
+}
+
+
+
+@media (min-width: 320px) and (max-width: 950px) {
+	.Responsive100-tcmUI {
+	width: 100%!important;
+	}
+	
+	.ResponsiveWid-tcmUI {
+	width:50%!important;
+	}
+
+    .Fright-MP {
+        float: right;
+    }
+
+    .Fleft-MP {
+        float: left;
+    }
+	
+	.PerformanceVerticalSpacing {
+	display: none;
+	}
+	
+	.PerformanceMeterBlock {
+	margin: 5px 0px;
+}
 }
 
 @media (max-width: 360px) and (min-width: 320px) {
@@ -841,7 +979,7 @@ h3 {
 @media (max-width: 770px) and (min-width: 730px) {
 	.FundAccountTab > div {
 	margin: 0 auto;
-    width: 430px;
+    width: 516px;
 	}
 	
 	.FundAccountTab {

@@ -16,18 +16,18 @@
         <!-- BOX START -->
         <h:form id="ctoForm">
 
-            <div class="layout-portlets-box">
+            <div class="layout-portlets-box" style="background: #FBFCFD;">
 
                 <div class="Container100 Responsive100">
                     <div class="Container100 Responsive100">
-                        <div class="ContainerIndent Responsive100">
-                            <p:steps id="ctoprogressbar" activeIndex="#{ctobean.pagemanager.page}">
+                        <div class="ContainerIndent Responsive100 FundAccountTab">
+                            <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{ctobean.pagemanager.page}">
+                                <p:menuitem value="Account Type"/>
                                 <p:menuitem value="Personal"/>
                                 <p:menuitem value="Address"/>
                                 <p:menuitem value="Employment"/>
                                 <p:menuitem value="Beneficiary"/>
                                 <p:menuitem value="Funding"/>
-                                <p:menuitem value="Disclosure"/>
                             </p:steps>
                         </div>
                         <div class="Container100 Responsive100">
@@ -37,8 +37,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="Container100 Responsive50">
-                    <div class="Container100 Responsive50">
+                <div class="Container100 Responsive100">
+                    <div class="Container100 Responsive100">
                         <p:panel id="inputArea" style="border: 0px; background: transparent;">
                             <ui:fragment rendered="#{ctobean.pagemanager.page == 0}">
                                 <ui:include src="/pages/consumer/cto/page_acct.xhtml"/>

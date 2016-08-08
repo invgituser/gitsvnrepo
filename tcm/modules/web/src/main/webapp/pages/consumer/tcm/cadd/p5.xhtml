@@ -157,7 +157,8 @@
         //<!--HighChart JS End  -->
     </script>
 
-    <div class="Container100 TextAlCenter">
+    <div class="Container100 TextAlCenter ProjectionBlock">
+
         <h3 class="TexAlCenter StepsQuestionsFS">
             Assuming you invest for at least #{tcmpb.horizon} years, in the course of any given year,
             which of the below range of returns would be most acceptable to you?
@@ -166,68 +167,73 @@
 
         <div class="EmptyBox10"></div>
 
-        <p:outputPanel id="goalPanel" deferred="true" style="background: transparent; border: 0px">
-            <div class="Container100">
-                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
-                    <div class="ContainerIndent">
-                        <div class="EmptyBox5"></div>
-                        <span class="Fs14 DispBlock gray">Average Market Performance</span>
-                                    <span class="Fs24 DispBlock green">
-                                    <h:outputText value="#{tcmpb.charts.avgPerformance}">
-                                        <f:convertNumber pattern="$#,###,###,##0"/>
-                                    </h:outputText>
-                                   </span>
 
-                        <div class="EmptyBox5"></div>
-                    </div>
-                </div>
-                <div class="Wid10 Fright" style="height:1px;"></div>
-                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
-                    <div class="ContainerIndent">
-                        <div class="EmptyBox5"></div>
-                        <span class="Fs14 DispBlock gray">Poor Market Performance</span>
-                                    <span class="Fs24 DispBlock red">
-                                      <h:outputText value="#{tcmpb.charts.poorPerformance}">
-                                          <f:convertNumber pattern="$#,###,###,##0"/>
-                                      </h:outputText>
-                                     </span>
-
-                        <div class="EmptyBox5"></div>
-                    </div>
-                </div>
-            </div>
-
-            <table class="Container100" style="border: 0px">
-                <tr>
-                    <td style="width: 100%; text-align: center">
-                        <p:slider for="projection"
+        <div class="Container100">
+                          <p:slider for="projection"
                                   minValue="1" maxValue="5">
                             <p:ajax event="slideEnd" listener="#{tcmpb.doProjectionChart}"
-                                    update=":ceForm:goalPanel, :ceForm:beanValueChart" />
+                                    update=":ceForm:goalPanel" />
                         </p:slider>
                         <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}"
                                        required="true"
                                        requiredMessage="Please use the slider below to select appropriate investment"/>
 
-                    </td>
-
-                </tr>
-
-                <tr>
-                    <td>
-                        <div class="TexAlCenter StepsQuestionsFS">
+                        <div class="TexAlCenter FS14">
                             Please slide the dot to the select appropriate investment.
                         </div>
-                    </td>
-                </tr>
-            </table>
-        </p:outputPanel>
+
+            </div>
 
         <!-- Projection HighChart start  -->
-        <p:panel update="beanValueChart" action="#{tcmpb.doProjectionChart}" />
+       <div class="Container80 Responsive100-tcmUI">
+        <p:panel styleClass="GraphPanel" update="beanValueChart" action="#{tcmpb.doProjectionChart}" />
         <h:inputHidden value="#{tcmpb.charts.resultChart}" id="beanValueChart"  />
 
-        <div id="progressChart" style="width: 100%; height: 500px"></div>
+        <div id="progressChart" class="Conatiner100 ProjectionGraph"></div>
+        </div>
+        <div class="Container20 Responsive100-tcmUI">
+        <p:outputPanel id="goalPanel" deferred="true" style="background: transparent; border: 0px">
+            <div class="Container100 PerformanceMeterBlock">
+                <div class="ResponsiveWid-tcmUI Fleft-MP TexAlCenter responsiveFullwidth ">
+                    <div class="ContainerIndent">
+                        <div class="EmptyBox5"></div>
+                        <span class="Fs14 DispBlock gray">Average Market Performance</span>
+                        <div class="EmptyBox5"></div>
+                                    <span class="Fs17 DispBlock green">
+                                    <h:outputText value="#{tcmpb.charts.avgPerformance}">
+                                        <f:convertNumber pattern="$#,###,###,##0"/>
+                                    </h:outputText>
+
+                                   </span>
+                                   <div class="EmptyBox10"></div>
+ <img src="/javax.faces.resource/images/poor.png.xhtml?ln=tcm"
+                             class="poorImage"/>
+                        <div class="EmptyBox5"></div>
+                    </div>
+                </div>
+                <div class="EmptyBox50 PerformanceVerticalSpacing"></div>
+                <div class="ResponsiveWid-tcmUI Fright-MP TexAlCenter responsiveFullwidth">
+                    <div class="ContainerIndent">
+                        <div class="EmptyBox5"></div>
+                        <span class="Fs14 DispBlock gray">Poor Market Performance</span>
+                        <div class="EmptyBox5"></div>
+                                    <span class="Fs17 DispBlock red">
+                                      <h:outputText value="#{tcmpb.charts.poorPerformance}">
+                                          <f:convertNumber pattern="$#,###,###,##0"/>
+                                      </h:outputText>
+
+                                     </span>
+                                     <div class="EmptyBox10"></div>
+<img src="/javax.faces.resource/images/average.png.xhtml?ln=tcm"
+                             class="averageImage"/>
+                        <div class="EmptyBox5"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </p:outputPanel>
+        </div>
         <!-- Projection HighChart end  -->
 
         <div class="EmptyBox10"></div>
