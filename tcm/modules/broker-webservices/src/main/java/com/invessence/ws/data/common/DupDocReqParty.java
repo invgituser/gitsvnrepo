@@ -3,8 +3,8 @@ package com.invessence.ws.data.common;
 import java.util.Date;
 
 public class DupDocReqParty {
-	private long id;
-	private long acctnum;
+	private Integer partyId;
+	private Long acctnum;
 	private String dupAddressName;
 	private String dupCompany;
 	private String dupAddressStreet;
@@ -15,79 +15,124 @@ public class DupDocReqParty {
 	private String createdBy;
 	private Date updated;
 	private String updatedBy;
-	public long getId() {
-		return id;
+
+	public Integer getPartyId()
+	{
+		return partyId;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public void setPartyId(Integer partyId)
+	{
+		this.partyId = partyId;
 	}
-	public long getAcctnum() {
+
+	public Long getAcctnum()
+	{
 		return acctnum;
 	}
-	public void setAcctnum(long acctnum) {
+
+	public void setAcctnum(Long acctnum)
+	{
 		this.acctnum = acctnum;
 	}
-	public String getDupAddressName() {
+
+	public String getDupAddressName()
+	{
 		return dupAddressName;
 	}
-	public void setDupAddressName(String dupAddressName) {
+
+	public void setDupAddressName(String dupAddressName)
+	{
 		this.dupAddressName = dupAddressName;
 	}
-	public String getDupCompany() {
+
+	public String getDupCompany()
+	{
 		return dupCompany;
 	}
-	public void setDupCompany(String dupCompany) {
+
+	public void setDupCompany(String dupCompany)
+	{
 		this.dupCompany = dupCompany;
 	}
-	public String getDupAddressStreet() {
+
+	public String getDupAddressStreet()
+	{
 		return dupAddressStreet;
 	}
-	public void setDupAddressStreet(String dupAddressStreet) {
+
+	public void setDupAddressStreet(String dupAddressStreet)
+	{
 		this.dupAddressStreet = dupAddressStreet;
 	}
-	public String getDupAddressCity() {
+
+	public String getDupAddressCity()
+	{
 		return dupAddressCity;
 	}
-	public void setDupAddressCity(String dupAddressCity) {
+
+	public void setDupAddressCity(String dupAddressCity)
+	{
 		this.dupAddressCity = dupAddressCity;
 	}
-	public String getDupAddressState() {
+
+	public String getDupAddressState()
+	{
 		return dupAddressState;
 	}
-	public void setDupAddressState(String dupAddressState) {
+
+	public void setDupAddressState(String dupAddressState)
+	{
 		this.dupAddressState = dupAddressState;
 	}
-	public String getDupAddressZipCode() {
+
+	public String getDupAddressZipCode()
+	{
 		return dupAddressZipCode;
 	}
-	public void setDupAddressZipCode(String dupAddressZipCode) {
+
+	public void setDupAddressZipCode(String dupAddressZipCode)
+	{
 		this.dupAddressZipCode = dupAddressZipCode;
 	}
-	public Date getCreated() {
+
+	public Date getCreated()
+	{
 		return created;
 	}
-	public void setCreated(Date created) {
+
+	public void setCreated(Date created)
+	{
 		this.created = created;
 	}
-	public String getCreatedBy() {
+
+	public String getCreatedBy()
+	{
 		return createdBy;
 	}
-	public void setCreatedBy(String createdBy) {
+
+	public void setCreatedBy(String createdBy)
+	{
 		this.createdBy = createdBy;
 	}
-	public Date getUpdated() {
+
+	public Date getUpdated()
+	{
 		return updated;
 	}
-	public void setUpdated(Date updated) {
+
+	public void setUpdated(Date updated)
+	{
 		this.updated = updated;
 	}
-	public String getUpdatedBy() {
+
+	public String getUpdatedBy()
+	{
 		return updatedBy;
 	}
-	public void setUpdatedBy(String updatedBy) {
+
+	public void setUpdatedBy(String updatedBy)
+	{
 		this.updatedBy = updatedBy;
 	}
-	
-	
-
 }

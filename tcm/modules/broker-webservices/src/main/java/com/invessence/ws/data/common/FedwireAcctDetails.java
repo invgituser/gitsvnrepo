@@ -4,8 +4,8 @@ import java.util.Date;
 
 public class FedwireAcctDetails {
 
-	private long id;
-	private long moveMoneyPayMethodID;
+	private Integer fedwireId;
+	private Long moveMoneyPayMethodID;
 	private String wireBankName;
 	private String wireBankCityState;
 	private String wireBankPhoneNumber;
@@ -28,149 +28,244 @@ public class FedwireAcctDetails {
 	private String createdBy;
 	private Date updated;
 	private String updatedBy;
-	public long getId() {
-		return id;
+
+	public Integer getFedwireId()
+	{
+		return fedwireId;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public void setFedwireId(Integer fedwireId)
+	{
+		this.fedwireId = fedwireId;
 	}
-	public long getMoveMoneyPayMethodID() {
+
+	public Long getMoveMoneyPayMethodID()
+	{
 		return moveMoneyPayMethodID;
 	}
-	public void setMoveMoneyPayMethodID(long moveMoneyPayMethodID) {
+
+	public void setMoveMoneyPayMethodID(Long moveMoneyPayMethodID)
+	{
 		this.moveMoneyPayMethodID = moveMoneyPayMethodID;
 	}
-	public String getWireBankName() {
+
+	public String getWireBankName()
+	{
 		return wireBankName;
 	}
-	public void setWireBankName(String wireBankName) {
+
+	public void setWireBankName(String wireBankName)
+	{
 		this.wireBankName = wireBankName;
 	}
-	public String getWireBankCityState() {
+
+	public String getWireBankCityState()
+	{
 		return wireBankCityState;
 	}
-	public void setWireBankCityState(String wireBankCityState) {
+
+	public void setWireBankCityState(String wireBankCityState)
+	{
 		this.wireBankCityState = wireBankCityState;
 	}
-	public String getWireBankPhoneNumber() {
+
+	public String getWireBankPhoneNumber()
+	{
 		return wireBankPhoneNumber;
 	}
-	public void setWireBankPhoneNumber(String wireBankPhoneNumber) {
+
+	public void setWireBankPhoneNumber(String wireBankPhoneNumber)
+	{
 		this.wireBankPhoneNumber = wireBankPhoneNumber;
 	}
-	public String getWireABARouting() {
+
+	public String getWireABARouting()
+	{
 		return wireABARouting;
 	}
-	public void setWireABARouting(String wireABARouting) {
+
+	public void setWireABARouting(String wireABARouting)
+	{
 		this.wireABARouting = wireABARouting;
 	}
-	public String getWireBankAccountNumber() {
+
+	public String getWireBankAccountNumber()
+	{
 		return wireBankAccountNumber;
 	}
-	public void setWireBankAccountNumber(String wireBankAccountNumber) {
+
+	public void setWireBankAccountNumber(String wireBankAccountNumber)
+	{
 		this.wireBankAccountNumber = wireBankAccountNumber;
 	}
-	public String getWireBankAcctName() {
+
+	public String getWireBankAcctName()
+	{
 		return wireBankAcctName;
 	}
-	public void setWireBankAcctName(String wireBankAcctName) {
+
+	public void setWireBankAcctName(String wireBankAcctName)
+	{
 		this.wireBankAcctName = wireBankAcctName;
 	}
-	public String getWireFurtherCreditName() {
+
+	public String getWireFurtherCreditName()
+	{
 		return wireFurtherCreditName;
 	}
-	public void setWireFurtherCreditName(String wireFurtherCreditName) {
+
+	public void setWireFurtherCreditName(String wireFurtherCreditName)
+	{
 		this.wireFurtherCreditName = wireFurtherCreditName;
 	}
-	public String getFurtherCreditAcctType() {
+
+	public String getFurtherCreditAcctType()
+	{
 		return furtherCreditAcctType;
 	}
-	public void setFurtherCreditAcctType(String furtherCreditAcctType) {
+
+	public void setFurtherCreditAcctType(String furtherCreditAcctType)
+	{
 		this.furtherCreditAcctType = furtherCreditAcctType;
 	}
-	public String getInternatBankName() {
+
+	public String getInternatBankName()
+	{
 		return internatBankName;
 	}
-	public void setInternatBankName(String internatBankName) {
+
+	public void setInternatBankName(String internatBankName)
+	{
 		this.internatBankName = internatBankName;
 	}
-	public String getInternatBankStreetAddress() {
+
+	public String getInternatBankStreetAddress()
+	{
 		return internatBankStreetAddress;
 	}
-	public void setInternatBankStreetAddress(String internatBankStreetAddress) {
+
+	public void setInternatBankStreetAddress(String internatBankStreetAddress)
+	{
 		this.internatBankStreetAddress = internatBankStreetAddress;
 	}
-	public String getInternatBankCityCountry() {
+
+	public String getInternatBankCityCountry()
+	{
 		return internatBankCityCountry;
 	}
-	public void setInternatBankCityCountry(String internatBankCityCountry) {
+
+	public void setInternatBankCityCountry(String internatBankCityCountry)
+	{
 		this.internatBankCityCountry = internatBankCityCountry;
 	}
-	public String getInternatBankPhoneNumber() {
+
+	public String getInternatBankPhoneNumber()
+	{
 		return internatBankPhoneNumber;
 	}
-	public void setInternatBankPhoneNumber(String internatBankPhoneNumber) {
+
+	public void setInternatBankPhoneNumber(String internatBankPhoneNumber)
+	{
 		this.internatBankPhoneNumber = internatBankPhoneNumber;
 	}
-	public String getInternatSWIFTCode() {
+
+	public String getInternatSWIFTCode()
+	{
 		return internatSWIFTCode;
 	}
-	public void setInternatSWIFTCode(String internatSWIFTCode) {
+
+	public void setInternatSWIFTCode(String internatSWIFTCode)
+	{
 		this.internatSWIFTCode = internatSWIFTCode;
 	}
-	public String getInternatAddBankRouting() {
+
+	public String getInternatAddBankRouting()
+	{
 		return internatAddBankRouting;
 	}
-	public void setInternatAddBankRouting(String internatAddBankRouting) {
+
+	public void setInternatAddBankRouting(String internatAddBankRouting)
+	{
 		this.internatAddBankRouting = internatAddBankRouting;
 	}
-	public String getInternatBankAcctName() {
+
+	public String getInternatBankAcctName()
+	{
 		return internatBankAcctName;
 	}
-	public void setInternatBankAcctName(String internatBankAcctName) {
+
+	public void setInternatBankAcctName(String internatBankAcctName)
+	{
 		this.internatBankAcctName = internatBankAcctName;
 	}
-	public String getInternatBankAcctNumber() {
+
+	public String getInternatBankAcctNumber()
+	{
 		return internatBankAcctNumber;
 	}
-	public void setInternatBankAcctNumber(String internatBankAcctNumber) {
+
+	public void setInternatBankAcctNumber(String internatBankAcctNumber)
+	{
 		this.internatBankAcctNumber = internatBankAcctNumber;
 	}
-	public String getInternatFurtherCreditInfo() {
+
+	public String getInternatFurtherCreditInfo()
+	{
 		return internatFurtherCreditInfo;
 	}
-	public void setInternatFurtherCreditInfo(String internatFurtherCreditInfo) {
+
+	public void setInternatFurtherCreditInfo(String internatFurtherCreditInfo)
+	{
 		this.internatFurtherCreditInfo = internatFurtherCreditInfo;
 	}
-	public String getInternatPurpose() {
+
+	public String getInternatPurpose()
+	{
 		return internatPurpose;
 	}
-	public void setInternatPurpose(String internatPurpose) {
+
+	public void setInternatPurpose(String internatPurpose)
+	{
 		this.internatPurpose = internatPurpose;
 	}
-	public Date getCreated() {
+
+	public Date getCreated()
+	{
 		return created;
 	}
-	public void setCreated(Date created) {
+
+	public void setCreated(Date created)
+	{
 		this.created = created;
 	}
-	public String getCreatedBy() {
+
+	public String getCreatedBy()
+	{
 		return createdBy;
 	}
-	public void setCreatedBy(String createdBy) {
+
+	public void setCreatedBy(String createdBy)
+	{
 		this.createdBy = createdBy;
 	}
-	public Date getUpdated() {
+
+	public Date getUpdated()
+	{
 		return updated;
 	}
-	public void setUpdated(Date updated) {
+
+	public void setUpdated(Date updated)
+	{
 		this.updated = updated;
 	}
-	public String getUpdatedBy() {
+
+	public String getUpdatedBy()
+	{
 		return updatedBy;
 	}
-	public void setUpdatedBy(String updatedBy) {
+
+	public void setUpdatedBy(String updatedBy)
+	{
 		this.updatedBy = updatedBy;
 	}
-	
 }

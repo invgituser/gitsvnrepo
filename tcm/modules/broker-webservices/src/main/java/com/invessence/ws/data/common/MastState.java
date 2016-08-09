@@ -2,54 +2,69 @@ package com.invessence.ws.data.common;
 
 import java.util.Date;
 
-public class InternalTransferDetails {
-   private Integer intTranId;
-   private Long moveMoneyPayMethodID;
-   private String destAccountNumber;
-   private String destAccountTitle;
+/**
+ * Created by abhangp on 8/9/2016.
+ */
+public class MastState
+{
+   private Integer id;
+   private String name;
+   private String value;
+   private Integer countryCode;
+   private String status;
    private Date created;
    private String createdBy;
    private Date updated;
    private String updatedBy;
 
-   public Integer getIntTranId()
+   public Integer getId()
    {
-      return intTranId;
+      return id;
    }
 
-   public void setIntTranId(Integer intTranId)
+   public void setId(Integer id)
    {
-      this.intTranId = intTranId;
+      this.id = id;
    }
 
-   public Long getMoveMoneyPayMethodID()
+   public String getName()
    {
-      return moveMoneyPayMethodID;
+      return name;
    }
 
-   public void setMoveMoneyPayMethodID(Long moveMoneyPayMethodID)
+   public void setName(String name)
    {
-      this.moveMoneyPayMethodID = moveMoneyPayMethodID;
+      this.name = name;
    }
 
-   public String getDestAccountNumber()
+   public String getValue()
    {
-      return destAccountNumber;
+      return value;
    }
 
-   public void setDestAccountNumber(String destAccountNumber)
+   public void setValue(String value)
    {
-      this.destAccountNumber = destAccountNumber;
+      this.value = value;
    }
 
-   public String getDestAccountTitle()
+   public Integer getCountryCode()
    {
-      return destAccountTitle;
+      return countryCode;
    }
 
-   public void setDestAccountTitle(String destAccountTitle)
+   public void setCountryCode(Integer countryCode)
    {
-      this.destAccountTitle = destAccountTitle;
+      this.countryCode = countryCode;
+   }
+
+   public String getStatus()
+   {
+      return status;
+   }
+
+   public void setStatus(String status)
+   {
+      this.status = status;
    }
 
    public Date getCreated()

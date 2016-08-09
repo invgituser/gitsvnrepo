@@ -4,8 +4,9 @@ import java.util.Date;
 
 public class EmploymentDetails {
 
-	private long id;
-	private long acctOwnerId;
+	private Integer emplId;
+	private Integer acctOwnerId;
+	private Long acctnum;
 	private String employerName;
 	private String occupation;
 	private String typeOfBusiness;
@@ -19,96 +20,164 @@ public class EmploymentDetails {
 	private String createdBy;
 	private Date updated;
 	private String updatedBy;
-	public long getId() {
-		return id;
+
+	public Integer getEmplId()
+	{
+		return emplId;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public void setEmplId(Integer emplId)
+	{
+		this.emplId = emplId;
 	}
-	public long getAcctOwnerId() {
+
+	public Integer getAcctOwnerId()
+	{
 		return acctOwnerId;
 	}
-	public void setAcctOwnerId(long acctOwnerId) {
+
+	public void setAcctOwnerId(Integer acctOwnerId)
+	{
 		this.acctOwnerId = acctOwnerId;
 	}
-	public String getEmployerName() {
+
+	public Long getAcctnum()
+	{
+		return acctnum;
+	}
+
+	public void setAcctnum(Long acctnum)
+	{
+		this.acctnum = acctnum;
+	}
+
+	public String getEmployerName()
+	{
 		return employerName;
 	}
-	public void setEmployerName(String employerName) {
+
+	public void setEmployerName(String employerName)
+	{
 		this.employerName = employerName;
 	}
-	public String getOccupation() {
+
+	public String getOccupation()
+	{
 		return occupation;
 	}
-	public void setOccupation(String occupation) {
+
+	public void setOccupation(String occupation)
+	{
 		this.occupation = occupation;
 	}
-	public String getTypeOfBusiness() {
+
+	public String getTypeOfBusiness()
+	{
 		return typeOfBusiness;
 	}
-	public void setTypeOfBusiness(String typeOfBusiness) {
+
+	public void setTypeOfBusiness(String typeOfBusiness)
+	{
 		this.typeOfBusiness = typeOfBusiness;
 	}
-	public String getEmployerStreetAddress() {
+
+	public String getEmployerStreetAddress()
+	{
 		return employerStreetAddress;
 	}
-	public void setEmployerStreetAddress(String employerStreetAddress) {
+
+	public void setEmployerStreetAddress(String employerStreetAddress)
+	{
 		this.employerStreetAddress = employerStreetAddress;
 	}
-	public String getEmployerCity() {
+
+	public String getEmployerCity()
+	{
 		return employerCity;
 	}
-	public void setEmployerCity(String employerCity) {
+
+	public void setEmployerCity(String employerCity)
+	{
 		this.employerCity = employerCity;
 	}
-	public String getEmployerState() {
+
+	public String getEmployerState()
+	{
 		return employerState;
 	}
-	public void setEmployerState(String employerState) {
+
+	public void setEmployerState(String employerState)
+	{
 		this.employerState = employerState;
 	}
-	public String getEmployerZipCode() {
+
+	public String getEmployerZipCode()
+	{
 		return employerZipCode;
 	}
-	public void setEmployerZipCode(String employerZipCode) {
+
+	public void setEmployerZipCode(String employerZipCode)
+	{
 		this.employerZipCode = employerZipCode;
 	}
-	public Date getFromDate() {
+
+	public Date getFromDate()
+	{
 		return fromDate;
 	}
-	public void setFromDate(Date fromDate) {
+
+	public void setFromDate(Date fromDate)
+	{
 		this.fromDate = fromDate;
 	}
-	public Date getToDate() {
+
+	public Date getToDate()
+	{
 		return toDate;
 	}
-	public void setToDate(Date toDate) {
+
+	public void setToDate(Date toDate)
+	{
 		this.toDate = toDate;
 	}
-	public Date getCreated() {
+
+	public Date getCreated()
+	{
 		return created;
 	}
-	public void setCreated(Date created) {
+
+	public void setCreated(Date created)
+	{
 		this.created = created;
 	}
-	public String getCreatedBy() {
+
+	public String getCreatedBy()
+	{
 		return createdBy;
 	}
-	public void setCreatedBy(String createdBy) {
+
+	public void setCreatedBy(String createdBy)
+	{
 		this.createdBy = createdBy;
 	}
-	public Date getUpdated() {
+
+	public Date getUpdated()
+	{
 		return updated;
 	}
-	public void setUpdated(Date updated) {
+
+	public void setUpdated(Date updated)
+	{
 		this.updated = updated;
 	}
-	public String getUpdatedBy() {
+
+	public String getUpdatedBy()
+	{
 		return updatedBy;
 	}
-	public void setUpdatedBy(String updatedBy) {
+
+	public void setUpdatedBy(String updatedBy)
+	{
 		this.updatedBy = updatedBy;
 	}
-	
-	
 }

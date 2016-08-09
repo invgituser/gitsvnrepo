@@ -4,17 +4,19 @@ import java.util.Date;
 
 public class DecedentInformation {
 
-	private long id;
+	private Long id;
 	private String dFirstName;
 	private String dMiddleName;
 	private String dLastName;
 	private String dAccountNumber;
 
-	public long getId() {
+	public Long getId()
+	{
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id)
+	{
 		this.id = id;
 	}
 

@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class AdvisorDetails {
 
-	private long id;
+	private Integer id;
 	private String advisorCode;
 	private String firmName;
 	private String pirmaryContact;
@@ -12,12 +12,17 @@ public class AdvisorDetails {
 	private String createdBy;
 	private Date updated;
 	private String updatedBy;
-	public long getId() {
+
+	public Integer getId()
+	{
 		return id;
 	}
-	public void setId(long id) {
+
+	public void setId(Integer id)
+	{
 		this.id = id;
 	}
+
 	public String getAdvisorCode() {
 		return advisorCode;
 	}

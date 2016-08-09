@@ -10,7 +10,7 @@ public class MastLookup {
 	private String parentLookupId;
 	private String value;
 	private String remark;
-	private int sortOrder;
+	private Integer sortOrder;
 	private String status;
 	private Date created;
 	private String createdBy;
@@ -52,12 +52,17 @@ public class MastLookup {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public int getSortOrder() {
+
+	public Integer getSortOrder()
+	{
 		return sortOrder;
 	}
-	public void setSortOrder(int sortOrder) {
+
+	public void setSortOrder(Integer sortOrder)
+	{
 		this.sortOrder = sortOrder;
 	}
+
 	public String getStatus() {
 		return status;
 	}

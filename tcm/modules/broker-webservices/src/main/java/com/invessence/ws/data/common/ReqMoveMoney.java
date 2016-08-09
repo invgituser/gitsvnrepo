@@ -3,98 +3,158 @@ package com.invessence.ws.data.common;
 import java.util.Date;
 
 public class ReqMoveMoney {
-
-	private long id;
+	private Integer moveMoneyID;
+	private Long acctnum;
 	private String clientAccountID;
 	private String caseNumber;
-	private long advisorId;
+	private Long advisorId;
 	private String reqType;
 	private String advisoryFirm;
-	private long acctOwnerDetailsId;
+	private Long acctOwnerDetailsId;
 	private Date signedTimeStamp;
 	private String terminalDetails;
 	private Date created;
 	private String createdBy;
 	private Date updated;
 	private String updatedBy;
-	public long getId() {
-		return id;
+
+	public Integer getMoveMoneyID()
+	{
+		return moveMoneyID;
 	}
-	public void setId(long id) {
-		this.id = id;
+
+	public void setMoveMoneyID(Integer moveMoneyID)
+	{
+		this.moveMoneyID = moveMoneyID;
 	}
-	public String getClientAccountID() {
+
+	public Long getAcctnum()
+	{
+		return acctnum;
+	}
+
+	public void setAcctnum(Long acctnum)
+	{
+		this.acctnum = acctnum;
+	}
+
+	public String getClientAccountID()
+	{
 		return clientAccountID;
 	}
-	public void setClientAccountID(String clientAccountID) {
+
+	public void setClientAccountID(String clientAccountID)
+	{
 		this.clientAccountID = clientAccountID;
 	}
-	public String getCaseNumber() {
+
+	public String getCaseNumber()
+	{
 		return caseNumber;
 	}
-	public void setCaseNumber(String caseNumber) {
+
+	public void setCaseNumber(String caseNumber)
+	{
 		this.caseNumber = caseNumber;
 	}
-	public long getAdvisorId() {
+
+	public Long getAdvisorId()
+	{
 		return advisorId;
 	}
-	public void setAdvisorId(long advisorId) {
+
+	public void setAdvisorId(Long advisorId)
+	{
 		this.advisorId = advisorId;
 	}
-	public String getReqType() {
+
+	public String getReqType()
+	{
 		return reqType;
 	}
-	public void setReqType(String reqType) {
+
+	public void setReqType(String reqType)
+	{
 		this.reqType = reqType;
 	}
-	public String getAdvisoryFirm() {
+
+	public String getAdvisoryFirm()
+	{
 		return advisoryFirm;
 	}
-	public void setAdvisoryFirm(String advisoryFirm) {
+
+	public void setAdvisoryFirm(String advisoryFirm)
+	{
 		this.advisoryFirm = advisoryFirm;
 	}
-	public long getAcctOwnerDetailsId() {
+
+	public Long getAcctOwnerDetailsId()
+	{
 		return acctOwnerDetailsId;
 	}
-	public void setAcctOwnerDetailsId(long acctOwnerDetailsId) {
+
+	public void setAcctOwnerDetailsId(Long acctOwnerDetailsId)
+	{
 		this.acctOwnerDetailsId = acctOwnerDetailsId;
 	}
-	public Date getSignedTimeStamp() {
+
+	public Date getSignedTimeStamp()
+	{
 		return signedTimeStamp;
 	}
-	public void setSignedTimeStamp(Date signedTimeStamp) {
+
+	public void setSignedTimeStamp(Date signedTimeStamp)
+	{
 		this.signedTimeStamp = signedTimeStamp;
 	}
-	public String getTerminalDetails() {
+
+	public String getTerminalDetails()
+	{
 		return terminalDetails;
 	}
-	public void setTerminalDetails(String terminalDetails) {
+
+	public void setTerminalDetails(String terminalDetails)
+	{
 		this.terminalDetails = terminalDetails;
 	}
-	public Date getCreated() {
+
+	public Date getCreated()
+	{
 		return created;
 	}
-	public void setCreated(Date created) {
+
+	public void setCreated(Date created)
+	{
 		this.created = created;
 	}
-	public String getCreatedBy() {
+
+	public String getCreatedBy()
+	{
 		return createdBy;
 	}
-	public void setCreatedBy(String createdBy) {
+
+	public void setCreatedBy(String createdBy)
+	{
 		this.createdBy = createdBy;
 	}
-	public Date getUpdated() {
+
+	public Date getUpdated()
+	{
 		return updated;
 	}
-	public void setUpdated(Date updated) {
+
+	public void setUpdated(Date updated)
+	{
 		this.updated = updated;
 	}
-	public String getUpdatedBy() {
+
+	public String getUpdatedBy()
+	{
 		return updatedBy;
 	}
-	public void setUpdatedBy(String updatedBy) {
+
+	public void setUpdatedBy(String updatedBy)
+	{
 		this.updatedBy = updatedBy;
 	}
-	
-	
 }
