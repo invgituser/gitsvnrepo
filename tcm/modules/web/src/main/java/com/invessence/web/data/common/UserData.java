@@ -3,11 +3,15 @@ package com.invessence.web.data.common;
 import java.util.*;
 
 
+import javax.faces.bean.ManagedProperty;
+
+import com.invessence.web.dao.common.UserInfoDAO;
 import com.invessence.web.util.*;
 import com.invessence.web.constant.*;
 
 public class UserData
 {
+
    private SecurityQuestions securityQuestions = new SecurityQuestions();
 
    private UserData instance = null;
@@ -55,6 +59,19 @@ public class UserData
    private String atstart;
 
    private String emailmsgtype = null;
+
+   @ManagedProperty("#{userInfoDAO}")
+   private UserInfoDAO userInfoDAO;
+
+   public UserInfoDAO getUserInfoDAO()
+   {
+      return userInfoDAO;
+   }
+
+   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
+   {
+      this.userInfoDAO = userInfoDAO;
+   }
 
 
    public UserData()
@@ -491,4 +508,48 @@ public class UserData
    {
       this.atstart = atstart;
    }
+
+   public String validateReset(String userid, String email, String resetID)
+   {
+      String msg = null;
+      try
+      {
+         if (userid == null) {
+            msg = "UserID is null";
+         }
+         if (email == null) {
+            msg = "Email is null";
+         }
+         if (resetID == null) {
+            msg = "ResetID is null";
+         }
+
+         setUserID(userid);
+         setEmail(email);
+         setResetID(Integer.valueOf(resetID));
+            int ind = getUserInfoDAO().checkReset(getUserID(), getResetID().toString());
+            switch (ind)
+            {
+               case -1:
+                  msg = "User is already registered!";
+                  break;
+               case -2:
+                  msg = "You are already registered!<br/>Please use forgot my password to reset password.";
+                  break;
+               case 0:
+                  msg = "Not registered user.";
+                  break;
+               case 1:
+                  break;
+               default:
+                  msg = "System error: contact support.";
+            }
+         }
+      catch (Exception e)
+      {
+         msg = "System error: contact support.";
+      }
+      return msg;
+   }
+
 }

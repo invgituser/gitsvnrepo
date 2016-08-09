@@ -8,7 +8,8 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.web.constant.*;
 import com.invessence.web.dao.advisor.*;
-import com.invessence.web.data.common.AccountData;
+import com.invessence.web.dao.consumer.ConsumerListDataDAO;
+import com.invessence.web.data.common.*;
 import com.invessence.web.util.*;
 
 
@@ -34,6 +35,13 @@ public class ManageAdvisorBean implements Serializable
    @ManagedProperty("#{advisorBean}")
    private AdvisorBean abean;
 */
+
+   @ManagedProperty("#{consumerListDataDAO}")
+   private ConsumerListDataDAO consumerListDataDAO;
+   public void setConsumerListDataDAO(ConsumerListDataDAO consumerListDataDAO)
+   {
+      this.consumerListDataDAO = consumerListDataDAO;
+   }
 
    @ManagedProperty("#{advisorListDataDAO}")
    private AdvisorListDataDAO advisorListDataDAO;
@@ -142,7 +150,7 @@ public class ManageAdvisorBean implements Serializable
 
             accountDataList.clear();
 
-            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, null);
+            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, null, null);
          }
       }
       catch (Exception ex)

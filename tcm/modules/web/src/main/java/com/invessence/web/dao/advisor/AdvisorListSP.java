@@ -16,9 +16,10 @@ public class AdvisorListSP extends StoredProcedure
    {
       super(datasource, sp_name);
       switch (mode) {
-         case 0: // sel_ClientProfileData2
+         case 0: // sel_ClientProfileData
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
-            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_days", Types.INTEGER));
             break;
          case 1: // sel_AdvisorAcctProfile
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -55,11 +56,12 @@ public class AdvisorListSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map collectProfileData(Long logonid, Long acctnum)
+   public Map getListOfAccounts(Long logonid, String filter, Integer days)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
-      inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_filter", filter);
+      inputMap.put("p_days", days);
       return super.execute(inputMap);
    }
 

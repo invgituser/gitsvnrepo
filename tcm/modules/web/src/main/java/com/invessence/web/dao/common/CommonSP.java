@@ -17,9 +17,7 @@ public class CommonSP extends StoredProcedure
    {
       super(datasource, sp_name);
       switch (mode) {
-         case 0: // SP: sel_ClientProfileData2
-            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
-            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+         case 0:
             break;
          case 1: // SP: sp_validate_state
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));

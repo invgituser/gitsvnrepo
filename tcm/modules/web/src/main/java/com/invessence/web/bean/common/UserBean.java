@@ -31,15 +31,6 @@ public class UserBean extends UserData
    @ManagedProperty("#{webMessage}")
    private WebMessage messageText;
 
-
-   @ManagedProperty("#{userInfoDAO}")
-   private UserInfoDAO userInfoDAO;
-
-   public String getBeanUserID()
-   {
-      return beanUserID;
-   }
-
    public void setBeanUserID(String beanUserID)
    {
       this.beanUserID = beanUserID;
@@ -75,17 +66,7 @@ public class UserBean extends UserData
       return usstates.getStates();
    }
 
-   public UserInfoDAO getUserInfoDAO()
-   {
-      return userInfoDAO;
-   }
-
-   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
-   {
-      this.userInfoDAO = userInfoDAO;
-   }
-
-   public void preRenderView()
+   public void preResetView()
    {
 
       String msg = null;
@@ -93,10 +74,11 @@ public class UserBean extends UserData
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            msg = validateUser();
+            msg = validateReset(beanUserID, beanEmail,beanResetID);
             if (msg != null)
             {
                webutil.redirecttoMessagePage("ERROR","Invalid link","Sorry, you are attempting to access the registration process, but the link contains invalid data.<br>" + msg);
+               webutil.alertSupport("ResetID", "Error: ResetID", msg, null);
             }
          }
 
@@ -105,51 +87,10 @@ public class UserBean extends UserData
       {
          msg = "System error: contact support.";
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+         webutil.alertSupport("ResetID", "Exception: ResetID", msg, e.getMessage());
       }
    }
 
-   public String validateUser()
-   {
-      String msg = null;
-      try
-      {
-         setUserID(beanUserID);
-         setResetID(Integer.valueOf(beanResetID));
-         if (webutil.isNull(getUserID()))
-         {
-            msg = "Invalid UserID";
-         }
-         else if (webutil.isNull(getResetID().toString()))
-         {
-            msg = "Invalid Registration ID";
-         }
-         else
-         {
-            int ind = userInfoDAO.checkReset(getUserID(), getResetID().toString());
-            switch (ind)
-            {
-               case -1:
-                  msg = "User is already registered!";
-                  break;
-               case -2:
-                  msg = "You are already registered!<br/>Please use forgot my password to reset password.";
-                  break;
-               case 0:
-                  msg = "Not registered user.";
-                  break;
-               case 1:
-                  break;
-               default:
-                  msg = "System error: contact support.";
-            }
-         }
-      }
-      catch (Exception e)
-      {
-         msg = "System error: contact support.";
-      }
-      return msg;
-   }
 
 
    public String signUp()
@@ -194,7 +135,7 @@ public class UserBean extends UserData
          String supportInfo = messageText.buildInternalMessage("secure.url", new Object[]{});
 
          // Save data to database....
-         long loginID = userInfoDAO.addUserInfo(getInstance());
+         long loginID = getUserInfoDAO().addUserInfo(getInstance());
 
          if (loginID < 0L) {
             String msg="This userid is already registered.  Either reset password, via FORGOT Password,or try another ID";
@@ -277,7 +218,7 @@ public class UserBean extends UserData
 
          String name = getFirstName() + " " + getLastName();
          // Save data to database....
-         long loginID = userInfoDAO.addUserInfo(getInstance());
+         long loginID = getUserInfoDAO().addUserInfo(getInstance());
 
          Boolean sendEmail = false;
          String redirectTo = null;
@@ -367,7 +308,7 @@ public class UserBean extends UserData
 
          String passwordEncrypted = MsgDigester.getMessageDigest(getPassword());
 
-         userInfoDAO.resetPassword(beanUserID, passwordEncrypted);
+         getUserInfoDAO().resetPassword(beanUserID, passwordEncrypted);
 
          msg = "registered.success";
          webutil.redirect("message.xhtml?faces-redirect=true&message=" + msg, null);
@@ -392,7 +333,7 @@ public class UserBean extends UserData
 
          String passwordEncrypted = MsgDigester.getMessageDigest(getPassword());
 
-         userInfoDAO.resetPassword(beanUserID, passwordEncrypted);
+         getUserInfoDAO().resetPassword(beanUserID, passwordEncrypted);
 
          msg = "password.set.success";
          webutil.redirect("message.xhtml?faces-redirect=true&message=" + msg, null);
@@ -408,7 +349,7 @@ public class UserBean extends UserData
       try
       {
          String check;
-         check = userInfoDAO.checkEmailID(beanUserID);
+         check = getUserInfoDAO().checkEmailID(beanUserID);
          if (check == null || check.length() == 0)
          {
              webutil.redirect("message.xhtml?faces-redirect=true&message=User not found", null);
@@ -432,7 +373,7 @@ public class UserBean extends UserData
    {
 
       // Save ResetID
-      userInfoDAO.updResetID(beanUserID, beanResetID);
+      getUserInfoDAO().updResetID(beanUserID, beanResetID);
 
       //String websiteName = messageSource.getMessage("website.name", new Object[]{}, null);
       MsgData data = new MsgData();
@@ -452,7 +393,7 @@ public class UserBean extends UserData
 
       String websiteUrl = messageText.buildInternalMessage("website.url", new Object[]{});
       String name = "User";
-      String mimetype=userInfoDAO.checkMimeType(beanUserID);
+      String mimetype=getUserInfoDAO().checkMimeType(beanUserID);
       data.setMimeType(mimetype);
       String msg = messageText.buildMessage(mimetype, "password.reset.email.template", "password.reset.email", new Object[]{websiteUrl, beanUserID, beanResetID});
 

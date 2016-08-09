@@ -18,11 +18,11 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public ArrayList<AccountData> getListOfAccounts(Long logonid, Long acctnum) {
+   public ArrayList<AccountData> getListOfAccounts(Long logonid, String filter, Integer days) {
       DataSource ds = getDataSource();
-      AdvisorListSP sp = new AdvisorListSP(ds, "sel_ClientProfileData",0);
+      AdvisorListSP sp = new AdvisorListSP(ds, "sel_Consumer4Advisor",0);
       ArrayList<AccountData> listProfiles = new ArrayList<AccountData>();
-      Map outMap = sp.collectProfileData(logonid, acctnum);
+      Map outMap = sp.getListOfAccounts(logonid, filter, days);
       String action;
       try {
          if (outMap != null)
@@ -58,7 +58,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setLongTermGoal(convert.getIntData(rs.get("longTermGoal")));
                data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
                data.setDependent(convert.getIntData(rs.get("dependent")));
-               data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
+               data.setDateOpened(convert.getStrData(rs.get("created")));
                data.setTotalIncomeAnnulized(convert.getDoubleData(rs.get("totalIncomeAnnulized")));
                data.setTotalExpenseAnnulized(convert.getDoubleData(rs.get("totalExpenseAnnulized")));
 
@@ -74,7 +74,6 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
          return listProfiles;
       }
       catch (Exception ex) {
-            ex.printStackTrace();
       }
       return null;
    }

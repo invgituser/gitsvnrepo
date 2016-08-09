@@ -8,7 +8,7 @@
 
     <f:metadata>
         <f:viewParam name="acct" value="#{tcmpb.beanAcctnum}"/>
-        <f:event type="preRenderView" listener="#{tcmpb.preRenderView}"/>
+        <f:event type="preRenderView" listener="#{tcmpb.simpleSignup}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -20,9 +20,6 @@
                     <div class="Container90 Fnone MarAuto TexAlLeft">
                         <div class="EmptyBox20"></div>
                         <h:form>
-                            <h:graphicImage id="logo" name="#{uiLayout.logo}" styleClass="Fleft" library="invessence"
-                                            class="MarAuto MarTop20 MarBot10"/>
-
                             <div class="EmptyBox10"></div>
                             <div class="Container90">
                                 <p:growl id="sgrowl"/>
@@ -34,13 +31,13 @@
                                     <div class="ContainerIndent">
                                         <div class="Container50">
                                             <p:inputText id="firstName" styleClass="Container95 Fleft MarAuto Fs18"
-                                                         value="#{tcmpb.firstName}" placeholder="FirstName"
+                                                         value="#{cto.userdata.firstName}" placeholder="FirstName"
                                                          required="true" requiredMessage="Please enter First Name.">
                                             </p:inputText>
                                         </div>
                                         <div class="Container50">
                                             <p:inputText id="lastName" styleClass="Container95 Fs18" style="margin-left: 2px"
-                                                         value="#{tcmpb.lastName}" placeholder="Last Name"
+                                                         value="#{cto.userdata.lastname}" placeholder="Last Name"
                                                          required="true" requiredMessage="Please enter Last Name.">
                                                 <p:watermark for="lastName" value="Last Name"/>
                                             </p:inputText>
@@ -50,7 +47,7 @@
                                     <div class="Container100">
                                         <div class="ContainerIndent">
                                             <p:inputText id="email" styleClass="Container80 Fleft MarAuto Fs18"
-                                                         value="#{tcmpb.email}" placeholder="Email"
+                                                         value="#{cto.userdata.email}" placeholder="Email"
                                                          required="true" requiredMessage="Please enter Email."
                                                          validatorMessage="Email format is not correct.">
                                                 <p:watermark for="email" value="Email Address"/>
@@ -64,7 +61,7 @@
                                 <f:facet name="footer">
                                     <p:commandButton value="Register" type="submit" styleClass="Fright"
                                                      update="@form"
-                                                     actionListener="#{tcmpb.signUp}"/>
+                                                     actionListener="#{cto.openCustodyAcct}"/>
                                 </f:facet>
 
                             </p:panel>
