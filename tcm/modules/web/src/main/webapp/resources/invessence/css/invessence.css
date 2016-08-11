@@ -216,7 +216,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	font-size: 15px!important;
 }
 
-.ui-selectonemenu {
+.TCM-UI-Dropdown > .ui-selectonemenu {
     margin-left: 10px;
 }
 
@@ -282,7 +282,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	font-size: 20px;
 	}
 	
-	.ui-selectonemenu {
+	.TCM-UI-Dropdown {
     margin-left: 10px;
 }
 }

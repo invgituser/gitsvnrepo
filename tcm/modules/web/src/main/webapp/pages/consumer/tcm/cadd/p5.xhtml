@@ -169,22 +169,38 @@
 
 
         <div class="Container100">
-                          <p:slider for="projection"
+                       <p:slider for="projection" listener="#{tcmpb.doProjectionChart}"
                                   minValue="1" maxValue="5">
-                            <p:ajax event="slideEnd" listener="#{tcmpb.doProjectionChart}"
+                            <p:ajax event="slideEnd" 
                                     update=":ceForm:goalPanel" />
                         </p:slider>
-                        <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}"
+                        <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}" listener="#{tcmpb.doProjectionChart}"
                                        required="true"
                                        requiredMessage="Please use the slider below to select appropriate investment"/>
 
-                        <div class="TexAlCenter FS14">
+                      <div class="TexAlCenter FS14">
                             Please slide the dot to the select appropriate investment.
                         </div>
+            <!--    <div class="InlineCitizenRadioBtn">
+                                      <p:selectOneRadio>
+                                          <f:selectItem itemValue="1" itemLabel="Conservative" />
+                                      </p:selectOneRadio>
+                                      <p:selectOneRadio>
+                                          <f:selectItem itemValue="1" itemLabel="Moderatly Conservative" />
+                                      </p:selectOneRadio>
+                                      <p:selectOneRadio>
+                                          <f:selectItem itemValue="1" itemLabel="Moderate" />
+                                      </p:selectOneRadio>
+                                      <p:selectOneRadio>
+                                          <f:selectItem itemValue="1" itemLabel="Moderatly Aggressive" />
+                                      </p:selectOneRadio>
+                                      <p:selectOneRadio>
+                                          <f:selectItem itemValue="2" itemLabel="Aggressive" />
+                                      </p:selectOneRadio>
+                                  </div> -->
+  </div>
 
-            </div>
-
-        <!-- Projection HighChart start  -->
+<!-- Projection HighChart start  -->
        <div class="Container80 Responsive100-tcmUI">
         <p:panel styleClass="GraphPanel" update="beanValueChart" action="#{tcmpb.doProjectionChart}" />
         <h:inputHidden value="#{tcmpb.charts.resultChart}" id="beanValueChart"  />
@@ -205,10 +221,10 @@
                                     </h:outputText>
 
                                    </span>
-                                   <div class="EmptyBox10"></div>
+                                  <!--  <div class="EmptyBox10"></div>
  <img src="/javax.faces.resource/images/poor.png.xhtml?ln=tcm"
                              class="poorImage"/>
-                        <div class="EmptyBox5"></div>
+                        <div class="EmptyBox5"></div>  -->
                     </div>
                 </div>
                 <div class="EmptyBox50 PerformanceVerticalSpacing"></div>
@@ -223,10 +239,10 @@
                                       </h:outputText>
 
                                      </span>
-                                     <div class="EmptyBox10"></div>
+                             <!--        <div class="EmptyBox10"></div>
 <img src="/javax.faces.resource/images/average.png.xhtml?ln=tcm"
                              class="averageImage"/>
-                        <div class="EmptyBox5"></div>
+                        <div class="EmptyBox5"></div>-->
                     </div>
                 </div>
             </div>

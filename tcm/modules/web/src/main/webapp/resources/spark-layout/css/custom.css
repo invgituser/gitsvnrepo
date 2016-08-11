@@ -4,13 +4,13 @@
 * Supported Browsers > Google Chrome 3+ , Mozilla Firefox 3+ , Safari 3+ , Opera 3+ , Yandex Browser , Inernet Explorer 9+
 * Copyright 2016 - Invessence */
 
-.ui-selectonemenu {
+.TCM-UI-Dropdown  {
 	    display: inline-flex;
 	        border: 0!important;
     border-bottom: 1px solid #5FCF80!important;
 }
 
-.ui-selectonemenu-label {
+.TCM-UI-Dropdown > .ui-selectonemenu-label {
 	padding: 9px 10px!important;
 	background: #F6FAFC;
 	font-size: 16px!important;

@@ -110,7 +110,7 @@ img.riskImage:hover {
 
 /*Prakash - Advisor Page*/
 .AdvUserName, .AdvVisitorStat {
-/ / font-size : 18 px;
+// font-size : 18 px;
     margin: 8px 0 !important;
 }
 
@@ -142,6 +142,18 @@ img.riskImage:hover {
 /**/
 
 /*Prakash: Fund Account - Component responsive*/
+@media (min-width: 1201px) and (max-width: 1339px) {
+.Margin-FAAddress {
+	margin: 0  31px!important;
+}
+}
+
+@media (min-width: 635px) and (max-width: 890px) {
+.Margin-FAAddress {
+	margin: 0  23px!important;
+}
+}
+
 @media (max-width: 750px) and (min-width: 635px) {
     .CustomWidthFA {
         width: 29% !important;
@@ -156,65 +168,94 @@ img.riskImage:hover {
         border: solid 1px #C6D6DF !important;
     }
 
-    .CustomWidthFA2 {
-        width: 100%;
-    }
 
-    .CustomWidthAccountypePanel {
-        width: 100% !important;
-        margin: 5px 0;
-    }
+.CustomWidthFA2 {
+	width: 100%!important;
+}
+
+.CustomWidthAccountypePanel {
+	width: 100%!important;
+	margin: 5px 0;
+}
+
+.CustomWidthFA-Responsive, .CustomWidthAddressFA {
+	width: 100%!important;
+	margin: 5px 0;
+	float: none!important;
+}
+
+.Margin-FAAddress {
+	margin: 5px 0!important;
+}
 }
 
 @media (min-width:367px) and (max-width: 600px) {
-    .ui-tabs-top .ui-tabs-nav li a {
-        font-size: 12px;
-    }
+	.ui-tabs-top .ui-tabs-nav li a {
+	font-size: 12px;
+	}
 
-    .accordionTabText {
-        font-size: 15px;
-    }
+	.accordionTabText {
+	font-size: 15px;
+	}
 
-    .ui-tabs .ui-tabs-panel {
-        padding-left: 0px;
-        padding-right: 20px;
-    }
+	.ui-tabs .ui-tabs-panel {
+    padding-left:0px;
+    padding-right: 20px;
+	}
 
-    .FSResponsiveFA {
-        font-size: 13px;
-    }
+	.FSResponsiveFA {
+	font-size: 13px;
+	}
 }
 
 @media (min-width:320px) and (max-width: 366px) {
-    .ui-tabs-top .ui-tabs-nav li a {
-        font-size: 10px;
-    }
+	.ui-tabs-top .ui-tabs-nav li a {
+	font-size: 10px;
+	}
 
-    .FSResponsiveFA {
-        font-size: 13px;
-    }
-
-    .accordionTabText {
-        font-size: 13px;
-    }
-
-    .ui-tabs .ui-tabs-panel {
-        padding-left: 0px;
-        padding-right: 20px;
-    }
+	.FSResponsiveFA {
+	font-size: 13px;
+	}
+	.accordionTabText {
+	font-size: 13px;
+	}
+	.ui-tabs .ui-tabs-panel {
+    padding-left:0px;
+    padding-right: 20px;
+	}
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-    .tcmPanel-UI > .ui-panel-content {
-        margin-top: 0px !important;
-    }
+.tcmPanel-UI > .ui-panel-content {
+    margin-top: 0px!important;
+}
 }
 
 /**/
 
 /*Prakash*/
+.beneficiaryAdd > .fa {
+	font-size: 22px!important;
+	padding: 0 3px;
+}
+.beneficiaryAdd > .labelBAB
+{
+position: relative;
+    top: -3px;
+}
+
+.FundAccountDropdownUI {
+padding-right: 0!important;
+}
+
+.FundAccountDropdownUI > .ui-selectonemenu-label {
+	width: 90%!important;
+	    font-size: 14px!important;
+    padding: 8px 8px!important;
+}
+
 .ResponsiveWid-tcmUI {
-    width: 100%;
+	width: 100%;
 }
 
 .poorImage, .averageImage {
@@ -222,7 +263,7 @@ img.riskImage:hover {
 }
 
 .PerformanceMeterBlock {
-    margin: 35px 0px;
+    margin: 95px 0px;
 }
 
 .GraphPanel {
@@ -275,7 +316,7 @@ Panel-UI > div {
 .tcm-graphType {
     font-size: 16px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
-/ / border-radius : 20 px 0 0 20 px;
+// border-radius : 20px 0 0 20px;
     padding: 5px 0px;
     position: relative;
     right: 8px;
@@ -286,7 +327,7 @@ Panel-UI > div {
     .tcm-graphType {
         font-size: 16px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
-    / / border-radius : 20 px 20 px 20 px 20 px;
+    // border-radius : 20px 20px 20px 20px;
         padding: 5px 0px;
         position: relative;
         top: 5px;
@@ -295,8 +336,8 @@ Panel-UI > div {
 }
 
 /*DropDown For Portfolio creation*/
-.ui-selectonemenu-trigger, .TCM-UI-Dropdown {
-    background: transparent !important;
+.TCM-UI-Dropdown > .ui-selectonemenu-trigger, .TCM-UI-Dropdown {
+	background: transparent!important;
 }
 
 .ui-selectonemenu-panel {
@@ -316,8 +357,8 @@ Panel-UI > div {
     color: white;
 }
 
-.ui-selectonemenu-trigger > .ui-icon-triangle-1-s {
-    background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm") !important;
+.dropdownInputFullWidth > .ui-selectonemenu-trigger > .ui-icon-triangle-1-s{
+background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm")!important;
     background-repeat: no-repeat;
     background-size: 100% 100% !important;
 }
@@ -434,8 +475,8 @@ Panel-UI > div {
 }
 
 .ui-icon-triangle-1-e {
-    background: url("/javax.faces.resource/images/downaccordion.png.xhtml?ln=tcm") !important;
-    background-size: 100% !important;
+	background: url("/javax.faces.resource/images/downaccordion.png.xhtml?ln=tcm")!important;
+	background-size: 100%!important;
 }
 
 .ui-icon-triangle-1-s {
@@ -625,15 +666,15 @@ body {
     box-shadow: 0px 0px 6px rgba(82, 80, 80, 0.15) !important;
 }
 
-.ui-selectonemenu-label {
-    background: #ffffff !important;
+.TCM-UI-Dropdown > .ui-selectonemenu-label {
+	background: #ffffff!important;
 }
 
 .BackgroundWhite {
     background: white;
     padding-bottom: 15px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
-/ / padding : 15 px;
+// padding : 15 px;
 }
 
 /*fundAccountRemove*/
@@ -884,204 +925,187 @@ h3 {
 
 /*Steps-tab-center-alligned (Fund Account)*/
 @media (max-width: 361px) and (min-width: 320px) {
-    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-        padding: 0 10px !important;
-    }
+	.FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
+    padding: 0 10px!important;
+	}
 
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 252px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 252px;
+	}
 
-    .FundAccountStepsPanel > ul > .ui-state-highlight {
-        position: relative;
-        top: 0;
-        background: none !important;
-        border-radius: none !important;
-    }
+	.FundAccountStepsPanel > ul > .ui-state-highlight {
+    position: relative;
+     top: 0;
+    background: none!important;
+    border-radius: none!important;
+}
+	.FundAccountStepsPanel > ul > .ui-state-highlight > a {
+    margin-top: 0px!important;
+    top: -5px;
+}
 
-    .FundAccountStepsPanel > ul > .ui-state-highlight > a {
-        margin-top: 0px !important;
-        top: -5px;
-    }
 
-    .FundAccountStepsPanel > ul > li > a > .ui-steps-number {
-        border-radius: 20px !important;
-        width: 11px !important;
-    }
+	.FundAccountStepsPanel > ul > li > a > .ui-steps-number {
+    border-radius: 20px!important;
+    width: 11px!important;
+	}
 
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
 
-    .FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        background: #F6FAFC;
-    }
+	.FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+    background: #F6FAFC;
+}
 }
 
 @media (max-width: 481px) and (min-width: 361px) {
-    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-        padding: 0 11px !important;
-    }
+	.FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
+    padding: 0 11px!important;
+	}
 
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 300px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 300px;
+	}
 
-    .FundAccountStepsPanel > ul > li > a > .ui-steps-number {
-        border-radius: 20px !important;
-        width: 15px !important;
-    }
+	.FundAccountStepsPanel > ul > li > a > .ui-steps-number {
+    border-radius: 20px!important;
+    width: 15px!important;
+	}
 
-    .FundAccountStepsPanel > ul > .ui-state-highlight {
-        position: relative;
-        top: 0;
-        background: none !important;
-        border-radius: none !important;
-    }
+	.FundAccountStepsPanel > ul > .ui-state-highlight {
+    position: relative;
+     top: 0;
+    background: none!important;
+    border-radius: none!important;
+}
+	.FundAccountStepsPanel > ul > .ui-state-highlight > a {
+    margin-top: 0px!important;
+    top: -5px;
+}
 
-    .FundAccountStepsPanel > ul > .ui-state-highlight > a {
-        margin-top: 0px !important;
-        top: -5px;
-    }
-
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-        background: #F6FAFC;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
+.FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+    background: #F6FAFC;
+}
 }
 
 @media (max-width: 560px) and (min-width: 481px) {
-    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-        padding: 0 12px;
-    }
+	.FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
+    padding: 0 12px;
+}
 
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 330px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 330px;
+	}
 
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
 }
 
 @media (max-width: 640px) and (min-width: 561px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 366px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 366px;
+	}
 
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
 
-    .FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
-        visibility: hidden;
-    }
+	.FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
+    visibility: hidden;
+}
 }
 
 @media (max-width: 729px) and (min-width: 641px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 426px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 426px;
+	}
 
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
 
-    .FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
-        visibility: hidden;
-    }
+	.FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
+    visibility: hidden;
+}
 }
 
 @media (max-width: 770px) and (min-width: 730px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 516px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 516px;
+	}
 
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
-
-    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
-        font-size: 12px !important;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
+	.portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title  {
+    font-size: 12px!important;
+}
 }
 
 @media (max-width: 960px) and (min-width: 771px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 546px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 546px;
+	}
 
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
 }
 
 @media (max-width: 999px) and (min-width: 961px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 666px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 666px;
+	}
 
-    .FundAccountTab {
-        padding: 20px 0px 0px 0px !important;
-    }
+	.FundAccountTab {
+	padding: 20px 0px 0px 0px!important;
+	}
 }
 
 @media (max-width: 1320px) and (min-width: 1000px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 636px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 636px;
+	}
 }
 
 @media (min-width: 1321px) {
-    .FundAccountTab > div {
-        margin: 0 auto;
-        width: 846px;
-    }
+	.FundAccountTab > div {
+	margin: 0 auto;
+    width: 846px;
+	}
 }
 
 /**/
 
 /*vivek CSS */
 
-.tab_main {
-    padding: 0 100px;
-    padding-top: 20px;
-}
-
+.tab_main {padding:0 100px; padding-top:20px;}
 .top_desk {
-    margin-top: -290px;
+    margin-top:-290px;
     float: right;
 }
-
-.tp1 {
-    margin-top: 20px;
-}
-
-.pg5_h1 {
-    height: 40px;
-}
-
-.page4_left {
-    margin-left: 40px;
-    border: 0px;
-}
-
+.tp1 {margin-top:20px;}
+.pg5_h1 {height: 40px;}
+.page4_left {margin-left:40px; border: 0px;}
 .selection tr {
     float: left;
     width: 20%;
 }
+
 
 .f1 {
     font-size: 18px;
@@ -1095,7 +1119,12 @@ h3 {
 @media (min-width: 960px) and (max-width: 1300px) {
     #logo {
         height: 70px;
-    / / margin-top : 4 px; /**/
+    // margin-top : 4 px; /**/
+    }
+
+    #logo2 {
+        height: 70px;
+    // margin-top : 4 px; /**/
     }
 
     .ui-steps .ui-steps-title {
@@ -1134,7 +1163,12 @@ h3 {
 @media (min-width: 730px) and (max-width: 960px) {
     #logo {
         height: 70px;
-    / / margin-top : 6 px;
+    // margin-top : 6 px;
+    }
+
+    #logo2 {
+        height: 70px;
+    // margin-top : 6 px;
     }
 
     /*vivek CSS */
@@ -1168,7 +1202,12 @@ h3 {
 @media (min-width: 640px) and (max-width: 730px) {
     #logo {
         height: 70px;
-    / / margin-top : 4 px; /**/
+    // margin-top : 4 px; /**/
+    }
+
+    #logo2 {
+        height: 70px;
+    // margin-top : 4 px; /**/
     }
 
     .ui-steps .ui-steps-title {
@@ -1212,7 +1251,12 @@ h3 {
 @media (min-width: 480px) and (max-width: 640px) {
     #logo {
         height: 40px;
-    / / margin-top : 11 px;
+    // margin-top : 11 px;
+    }
+
+    #logo2 {
+        height: 40px;
+    // margin-top : 11 px;
     }
 
     /**/
@@ -1287,7 +1331,12 @@ h3 {
 @media (min-width: 220px) and (max-width: 480px) {
     #logo {
         height: 40px;
-    / / margin-top : 6 px;
+    // margin-top : 6 px;
+    }
+
+    #logo2 {
+        height: 40px;
+    // margin-top : 6 px;
     }
 
     .ui-steps .ui-steps-title {
