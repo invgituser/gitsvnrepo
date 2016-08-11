@@ -81,6 +81,17 @@ public class AssetAllocationModel
       pdata.setFixedModel(false);
       pdata.setHasReturn(true);
       pdata.setHasRisk(true);
+
+      if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
+      {
+         return getAssetsInfoByIndex(pdata, pdata.getRiskIndex().intValue());
+      }
+      else
+      {
+         return getAssetsInfoByIndex(pdata, pdata.getAllocationIndex());
+      }
+
+/*
       if (pdata.getRiskCalcMethod() == null || pdata.getRiskCalcMethod().startsWith("C"))
       {
          return getAssetInfoByRisk(pdata);
@@ -89,10 +100,11 @@ public class AssetAllocationModel
       {
          return getAssetsInfoByIndex(pdata);
       }
+*/
    }
 
 
-   public AssetClass[] getAssetsInfoByIndex(ProfileData pdata)
+   public AssetClass[] getAssetsInfoByIndex(ProfileData pdata, Integer riskIndex)
    {
       AssetClass[] assetclass;
       String theme;
@@ -113,7 +125,7 @@ public class AssetAllocationModel
          }
          assetclass = new AssetClass[numofAllocation];
          int counter = 0;
-         int offset = (pdata.getAllocationIndex() == null) ? InvConst.ASSET_DEFAULT_POINT : pdata.getAllocationIndex();
+         int offset = (riskIndex == null) ? InvConst.ASSET_DEFAULT_POINT : riskIndex;
          while (numofAllocation > 0)
          {
             //Offset is now a slider (Just moving along the points)

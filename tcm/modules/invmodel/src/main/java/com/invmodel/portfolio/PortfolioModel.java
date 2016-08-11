@@ -166,6 +166,18 @@ public class PortfolioModel
          profileData.setMaxPortfolioAllocationPoints(InvConst.PORTFOLIO_INTERPOLATION - 1);
          if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith("C"))
          {
+            return getPortfolioByIndex(assetData, profileData, profileData.getRiskIndex().intValue(),
+                                      advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
+         }
+         else
+         {
+            return getPortfolioByIndex(assetData, profileData, profileData.getPortfolioIndex(),
+                                       advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
+         }
+
+/*
+         if (profileData.getRiskCalcMethod() == null || profileData.getRiskCalcMethod().startsWith("C"))
+         {
             return getPortfolioByRisk(assetData, profileData,
                                       advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
          }
@@ -174,6 +186,7 @@ public class PortfolioModel
             return getPortfolioByIndex(assetData, profileData,
                                        advisor, theme, invCapital, investment, reinvestment, keepLiquidCash, duration, riskOffset);
          }
+*/
 
       }
       catch (Exception ex)
@@ -210,7 +223,7 @@ public class PortfolioModel
       return offset;
    }
 
-   private Portfolio[] getPortfolioByIndex(AssetClass[] assetData, ProfileData profileData,
+   private Portfolio[] getPortfolioByIndex(AssetClass[] assetData, ProfileData profileData, Integer riskIndex,
                                            String advisor, String theme, Double invCapital, Double investment,
                                            Double reinvestment, Double keepLiquidCash, Integer duration, Double riskOffset)
    {
@@ -224,7 +237,7 @@ public class PortfolioModel
          int years = (profileData.getNumOfPortfolio() == null || profileData.getNumOfPortfolio() == 0) ? profileData.getAssetData().length : profileData.getNumOfPortfolio();
          years = (profileData.getAssetData().length < years) ? profileData.getAssetData().length : years;
          Portfolio[] portfolioclass = new Portfolio[years];
-         int offset = (profileData.getPortfolioIndex() == null) ? InvConst.PORTFOLIO_DEFAULT_POINT : profileData.getPortfolioIndex();
+         int offset = (riskIndex == null) ? InvConst.PORTFOLIO_DEFAULT_POINT : riskIndex;
          offset = (offset > InvConst.PORTFOLIO_INTERPOLATION - 1) ? InvConst.PORTFOLIO_INTERPOLATION - 1 : offset;
          offset = (offset < 0) ? 0 : offset;
          for (int investmentYear = 0; investmentYear < years; investmentYear++)

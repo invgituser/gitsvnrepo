@@ -76,7 +76,7 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.CORE");
+      profileData.setTheme("0.WEALTH");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
@@ -116,6 +116,9 @@ public class TestDistribution
       Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
       tax = "No";
+      createAssetPerformanceFile(tax, pfclass, aamc, age);
+
+      createHoldingsFile(pfclass, tax, aamc, profileData);
 
       ArrayList<ProjectionData[]> prjctdata = null;
       if (profileData.getFixedModel()) {
@@ -128,9 +131,6 @@ public class TestDistribution
          ProjectionData[] perfData = prjctdata.get(0);
          // calcGrowthInfo(perfData, perfData.length, profileData);
          // Create a assetPerformanceFile
-         createAssetPerformanceFile(tax, pfclass, aamc, age);
-
-         createHoldingsFile(pfclass, tax, aamc, profileData);
          //createPerformanceDataFile(perfData, profileData.getGoalData());
       }
       writeForwardPerformanceFile("FowardPerformance",prjctdata);
