@@ -169,35 +169,59 @@
 
 
         <div class="Container100">
-                       <p:slider for="projection" listener="#{tcmpb.doProjectionChart}"
+                       <!-- <p:slider for="projection" 
                                   minValue="1" maxValue="5">
                             <p:ajax event="slideEnd" 
                                     update=":ceForm:goalPanel" />
-                        </p:slider>
+                        </p:slider> -->
                         <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}" listener="#{tcmpb.doProjectionChart}"
                                        required="true"
                                        requiredMessage="Please use the slider below to select appropriate investment"/>
 
-                      <div class="TexAlCenter FS14">
+                      <!-- <div class="TexAlCenter FS14">
                             Please slide the dot to the select appropriate investment.
-                        </div>
-            <!--    <div class="InlineCitizenRadioBtn">
-                                      <p:selectOneRadio>
-                                          <f:selectItem itemValue="1" itemLabel="Conservative" />
-                                      </p:selectOneRadio>
-                                      <p:selectOneRadio>
-                                          <f:selectItem itemValue="1" itemLabel="Moderatly Conservative" />
-                                      </p:selectOneRadio>
-                                      <p:selectOneRadio>
-                                          <f:selectItem itemValue="1" itemLabel="Moderate" />
-                                      </p:selectOneRadio>
-                                      <p:selectOneRadio>
-                                          <f:selectItem itemValue="1" itemLabel="Moderatly Aggressive" />
-                                      </p:selectOneRadio>
-                                      <p:selectOneRadio>
-                                          <f:selectItem itemValue="2" itemLabel="Aggressive" />
-                                      </p:selectOneRadio>
-                                  </div> -->
+                        </div> -->
+            <div class="ProjectionChartRadioBlock">
+            <div class="stripe"></div>
+												<table class="ProjectionChartRadioTable">
+												<tbody>
+												<tr><td>
+												<p:selectOneRadio class="ProjectionChartRadioAssets">
+													<f:selectItem itemValue="1" listener="#{tcmpb.doProjectionChart}"/>
+												
+												</p:selectOneRadio>
+												</td>
+												<td>
+												<p:selectOneRadio class="ProjectionChartRadioAssets">
+													<f:selectItem itemValue="1" />
+												</p:selectOneRadio>
+												</td>
+												<td>
+												<p:selectOneRadio class="ProjectionChartRadioAssets">
+													<f:selectItem itemValue="1" />
+												</p:selectOneRadio>
+												</td>
+												<td>
+												<p:selectOneRadio class="ProjectionChartRadioAssets">
+													<f:selectItem itemValue="1" />
+												</p:selectOneRadio>
+												</td>
+												<td>
+												<p:selectOneRadio class="ProjectionChartRadioAssets">
+													<f:selectItem itemValue="2" />
+												</p:selectOneRadio>
+												</td>
+												</tr>
+												<tr>
+												<td class="ProjectionChartRadioAssetsLabel">Conservative</td>
+												<td class="ProjectionChartRadioAssetsLabel">Moderatly Conservative</td>
+												<td class="ProjectionChartRadioAssetsLabel">Moderate</td>
+												<td class="ProjectionChartRadioAssetsLabel">Moderatly Aggressive</td>
+												<td class="ProjectionChartRadioAssetsLabel">Aggressive</td>
+												</tr>
+												</tbody>
+												</table>
+											</div>
   </div>
 
 <!-- Projection HighChart start  -->

@@ -14,7 +14,7 @@
 
         <!-- BOX START -->
         <div class="layout-portlets-box">
-            <div class="Container90 Responsive50">
+            <div class="Container100 Responsive100">
                 <div class="ContainerIndent">
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
                         <h:form>
@@ -27,18 +27,20 @@
 
                     <h:form id="form">
                     <h3 class="BigTopic">
-                        <div class="Wid50 Responsive50 Fleft">List of Accounts</div>
-                        <div class="Wid50 Fright Responsive50">
+                        <div class="Wid100 Responsive100 HeaderTableBlock">
+                        <h2 class="Fs20 Fleft">List of Accounts</h2>
+                        <div class="PenelFilter Fright">
                             <p:selectOneButton value="#{manageAdvisorBean.filteredClient}">
                                 <f:selectItem itemLabel="ALL" itemValue="" />
                                 <f:selectItem itemLabel="Pending" itemValue="P" />
                                 <f:selectItem itemLabel="Active" itemValue="A" />
                                 <p:ajax update="@form" listener="#{manageAdvisorBean.refreshPage}" />
                             </p:selectOneButton>
+                            </div>
                         </div>
                     </h3>
 
-                        <p:dataTable id="managedDataList" var="managedVar" widgetVar="managedTable"
+                        <p:dataTable id="managedDataList" var="managedVar" styleClass="ListOfAccountsTable" widgetVar="managedTable"
                                      value="#{manageAdvisorBean.filteredDataList}">
 
 <!--
