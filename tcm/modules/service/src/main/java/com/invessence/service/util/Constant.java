@@ -8,10 +8,27 @@ public class Constant
 
    public enum SERVICES
    {
-      PRICING("PRICING"),BROKER_SERVICES("BROKER-SERVICES"),BROKER_WEBSERVICES("BROKER-WEBSERVICES");
+      PRICING("PRICING"),BROKER_SERVICES("BROKER-SERVICES"),BROKER_WEBSERVICES("BROKER-WEBSERVICES"),DOCUSIGN_SERVICES("DOCUSIGN-SERVICES");
       private String value;
 
       private SERVICES(String value) {
+         this.value = value;
+      }
+      private String getValue() {
+         return value;
+      }
+
+      @Override
+      public String toString() {
+         return this.getValue();
+      }
+   }
+
+   public enum DOCUSIGN_SERVICES {
+      DOCUSIGN("DOCUSIGN");
+      private String value;
+
+      private DOCUSIGN_SERVICES(String value) {
          this.value = value;
       }
       private String getValue() {

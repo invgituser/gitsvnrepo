@@ -14,4 +14,7 @@ public interface ServiceDao
    public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company)throws SQLException;
    public List<ServiceDetails> getServiceOperationDetails(String serviceMode, String company)throws SQLException;
    public List<WebConfigDetails> getWebServiceDetails(String serviceMode, String company) throws SQLException;
+
+   public List<DCTemplateDetails> getDCTemplateDetails(String serviceMode, String company) throws SQLException;
+   public List<DCTemplateMapping> getDCTemplateMapping(String serviceMode, String company, String tempCode) throws SQLException;
 }

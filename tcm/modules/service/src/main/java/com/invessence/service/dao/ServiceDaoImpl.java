@@ -25,6 +25,9 @@ public class ServiceDaoImpl implements ServiceDao
    private final String getServiceDetails ="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, vendor";
    private final String getWebConfigDetails ="select * from web_site_info where status = 'A' and mode =? and company=? order by service, vendor, name";
 
+   private final String getDCTemplateDetails ="select * from dc_template_details where status = 'A' and mode =? and company=? order by service";
+   private final String getDCTemplateMapping ="select * from dc_template_mapping where tempCode=?";
+
    public Map<String, SwitchDetails> getSwitchDetails() {
       logger.info("ServiceDaoImpl.getSwitchDetails");
       logger.debug("getSwitchDetails = "+ getSwitchDetails);
@@ -77,6 +80,28 @@ public class ServiceDaoImpl implements ServiceDao
       logger.debug("WebConfigDetails = "+ getWebConfigDetails);
       List<WebConfigDetails> lst = null;
       lst = serviceJdbcTemplate.query(getWebConfigDetails, new Object[]{serviceMode,company}, ParameterizedBeanPropertyRowMapper.newInstance(WebConfigDetails.class));
+      return lst;
+   }
+
+   @Override
+   public List<DCTemplateDetails> getDCTemplateDetails(String serviceMode, String company) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getDCTemplateDetails");
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "]");
+      logger.debug("getDCTemplateDetails = "+ getDCTemplateDetails);
+      List<DCTemplateDetails> lst = null;
+      lst = serviceJdbcTemplate.query(getDCTemplateDetails, new Object[]{serviceMode,company}, ParameterizedBeanPropertyRowMapper.newInstance(DCTemplateDetails.class));
+      return lst;
+   }
+
+   @Override
+   public List<DCTemplateMapping> getDCTemplateMapping(String serviceMode, String company, String tempCode) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getDCTemplateMapping");
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "], tempCode = [" + tempCode + "]");
+      logger.debug("getDCTemplateMapping = "+ getDCTemplateMapping);
+      List<DCTemplateMapping> lst = null;
+      lst = serviceJdbcTemplate.query(getDCTemplateMapping, new Object[]{tempCode}, ParameterizedBeanPropertyRowMapper.newInstance(DCTemplateMapping.class));
       return lst;
    }
 

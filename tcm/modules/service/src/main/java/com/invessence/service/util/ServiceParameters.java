@@ -22,7 +22,6 @@ public class ServiceParameters
 
    protected static Properties parameters=null;
    private static String SERVICE_MODE =null;
-
    public static String COMPANY_NAME;
    final String className="com.invessence.service.util.ServiceParameters"; //this.getClass().getName();
 
@@ -72,9 +71,11 @@ public class ServiceParameters
    }
 
    private Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetailsMap;
-   public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
 
+   public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
    public static Map<String, Map<String, WebConfigDetails>> webSiteConfigDetailsMap;
+
+   public static Map<String, Object> additionalDetails=null;
 
 
    private void loadPrimaryData(){
@@ -205,18 +206,19 @@ public class ServiceParameters
             while (itr.hasNext())
             {
                servDetails = (ServiceConfigDetails) itr.next();
+
 //            System.out.println("servDetails = " + servDetails);
-               try
-               {
-                  setStaticValue(className, servDetails.getService().replaceAll("-", "_") + "_" + servDetails.getVendor().replaceAll("-", "_") + "_" + servDetails.getName(), servDetails.getValue());
-               }
-               catch (Exception e)
-               {
-                  logger.error("Issue while setting the value for field " + servDetails.getVendor() + "_" + servDetails.getName());
-                  logger.error(e.getClass());
-//               e.printStackTrace();
-//               System.out.println("------------------------------------");
-               }
+//               try
+//               {
+//                  setStaticValue(className, servDetails.getService().replaceAll("-", "_") + "_" + servDetails.getVendor().replaceAll("-", "_") + "_" + servDetails.getName(), servDetails.getValue());
+//               }
+//               catch (Exception e)
+//               {
+//                  logger.error("Issue while setting the value for field " + servDetails.getVendor() + "_" + servDetails.getName());
+//                  logger.error(e.getClass());
+////               e.printStackTrace();
+////               System.out.println("------------------------------------");
+//               }
                if (serviceKey == null)
                {
                   serviceKey = servDetails.getService();
@@ -293,6 +295,7 @@ public class ServiceParameters
             while (entries.hasNext())
             {
                Map.Entry<String, Map<String, Map<String, ServiceConfigDetails>>> entry = entries.next();
+               loadAdditionalDetails(entry.getKey());
                Iterator<Map.Entry<String, Map<String, ServiceConfigDetails>>> entries2 = entry.getValue().entrySet().iterator();
                while (entries2.hasNext())
                {
@@ -303,19 +306,19 @@ public class ServiceParameters
                   while (entries3.hasNext())
                   {
                      Map.Entry<String, ServiceConfigDetails> entry3 = entries3.next();
-//                  System.out.println(entry3.getKey() + " = " + ((ServiceConfigDetails)entry3.getValue()).getValue());
-                     try
-                     {
-                        Object confProp = getStaticValue(className, entry.getKey().replaceAll("-", "_") + "_" + entry2.getKey().replaceAll("-", "_") + "_" + entry3.getKey());
-                        System.out.println(entry3.getKey() + " = " + confProp);
-                     }
-                     catch (Exception e)
-                     {
-                        logger.error("Issue while getting the value of field " + entry2.getKey() + "_" + entry3.getKey() + " : " + e.getClass());
-//                     logger.error(e.getClass());
-//               e.printStackTrace();
-//               System.out.println("------------------------------------");
-                     }
+                     System.out.println(entry3.getKey() + " = " + ((ServiceConfigDetails)entry3.getValue()).getValue());
+//                     try
+//                     {
+//                        Object confProp = getStaticValue(className, entry.getKey().replaceAll("-", "_") + "_" + entry2.getKey().replaceAll("-", "_") + "_" + entry3.getKey());
+//                        System.out.println(entry3.getKey() + " = " + confProp);
+//                     }
+//                     catch (Exception e)
+//                     {
+//                        logger.error("Issue while getting the value of field " + entry2.getKey() + "_" + entry3.getKey() + " : " + e.getClass());
+////                     logger.error(e.getClass());
+////               e.printStackTrace();
+////               System.out.println("------------------------------------");
+//                     }
                   }
                }
                System.out.println("------------------------------------------------------------");
@@ -326,6 +329,7 @@ public class ServiceParameters
             System.out.println(toString());
             validateConfigProperties(serviceConfigDetails);
             setWebServiceAPI(); // setting  broker-webservice vendor
+
          }
       }catch(Exception e){
          logger.error("Exception while loading service details");
@@ -333,6 +337,44 @@ public class ServiceParameters
          e.printStackTrace();
       }
 
+   }
+
+   public void loadAdditionalDetails(String service){
+      System.out.println("ServiceParameters.loadAdditionalDetails");
+      System.out.println("service = [" + service + "]");
+      if(service.equals(Constant.SERVICES.DOCUSIGN_SERVICES.toString())){
+
+         try
+         {
+               List<DCTemplateDetails> dcTemplateDetails = wsCommonDao.getDCTemplateDetails(SERVICE_MODE, COMPANY_NAME);
+            if(dcTemplateDetails.size()>0)
+            {
+               if(additionalDetails==null){additionalDetails=new LinkedHashMap<>();}
+               Iterator dcTemplateDetailsIterator = dcTemplateDetails.iterator();
+               while (dcTemplateDetailsIterator.hasNext())
+               {
+                  DCTemplateDetails dcTemplateDetail = (DCTemplateDetails) dcTemplateDetailsIterator.next();
+                  System.out.println("dcTemplate = " + dcTemplateDetail);
+                  List<DCTemplateMapping> dcTemplateMappings = wsCommonDao.getDCTemplateMapping(SERVICE_MODE, COMPANY_NAME, dcTemplateDetail.getTempCode());
+                  Iterator dcTemplateMappingIterator = dcTemplateMappings.iterator();
+//                  while (dcTemplateMappingIterator.hasNext())
+//                  {
+//                     DCTemplateMapping dcTemplateMapping = (DCTemplateMapping) dcTemplateMappingIterator.next();
+//                  }
+                  if(dcTemplateMappings.size()>0){
+                     dcTemplateDetail.setDcTemplateMappings(dcTemplateMappings);
+                  }
+                  System.out.println("dcTemplateDetail = " + dcTemplateDetail);
+               }
+               additionalDetails.put(service,dcTemplateDetails );
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            }catch(Exception e){
+            logger.error("Exception while loading service details");
+            logger.error(e.getMessage());
+            e.printStackTrace();
+         }
+         }
    }
 
    private void validateConfigProperties(Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetails){
@@ -654,6 +696,156 @@ public class ServiceParameters
 //   {
 //      ServiceParameters.tdEndPointUrl = tdEndPointUrl;
 //   }
+
+
+//   public void setServiceConfigDetails() {
+//      System.out.println("SysParameters.setServiceConfigDetails");
+//      try{
+//         loadPrimaryData();
+//         List<ServiceConfigDetails> serviceDetailsList=wsCommonDao.getServiceConfigDetails(SERVICE_MODE, COMPANY_NAME);
+//         if(serviceDetailsList==null ||serviceDetailsList.size()==0){
+//            logger.error("Configuration details are not available fro service.mode=" + SERVICE_MODE+" and company="+ COMPANY_NAME);
+//         }else{
+//
+//            Iterator<ServiceConfigDetails> itr = serviceDetailsList.iterator();
+//            Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetails = new LinkedHashMap<String, Map<String, Map<String, ServiceConfigDetails>>>();
+//            Map<String, Map<String, ServiceConfigDetails>> apiDetails = null;
+//            Map<String, ServiceConfigDetails> mapOfConfigDetails = null;
+//            String serviceKey = null, apiKey = null;
+//            ServiceConfigDetails servDetails = null;
+//            while (itr.hasNext())
+//            {
+//               servDetails = (ServiceConfigDetails) itr.next();
+////            System.out.println("servDetails = " + servDetails);
+//               try
+//               {
+//                  setStaticValue(className, servDetails.getService().replaceAll("-", "_") + "_" + servDetails.getVendor().replaceAll("-", "_") + "_" + servDetails.getName(), servDetails.getValue());
+//               }
+//               catch (Exception e)
+//               {
+//                  logger.error("Issue while setting the value for field " + servDetails.getVendor() + "_" + servDetails.getName());
+//                  logger.error(e.getClass());
+////               e.printStackTrace();
+////               System.out.println("------------------------------------");
+//               }
+//               if (serviceKey == null)
+//               {
+//                  serviceKey = servDetails.getService();
+//                  apiKey = servDetails.getVendor();
+//                  apiDetails = new LinkedHashMap<String, Map<String, ServiceConfigDetails>>();
+//
+//                  mapOfConfigDetails = new LinkedHashMap<String, ServiceConfigDetails>();
+//                  mapOfConfigDetails.put(servDetails.getName(), servDetails);
+//
+//               }
+//               else if (servDetails.getService().equalsIgnoreCase(serviceKey))
+//               {
+//                  if (servDetails.getVendor().equalsIgnoreCase(apiKey))
+//                  {
+//                     mapOfConfigDetails.put(servDetails.getName(), servDetails);
+//                  }
+//                  else if (!servDetails.getVendor().equalsIgnoreCase(apiKey))
+//                  {
+//                     apiDetails.put(apiKey, mapOfConfigDetails);
+//
+//                     apiKey = servDetails.getVendor();
+//                     mapOfConfigDetails = new LinkedHashMap<String, ServiceConfigDetails>();
+//                     mapOfConfigDetails.put(servDetails.getName(), servDetails);
+//                  }
+//
+//               }
+//               else if (!servDetails.getService().equalsIgnoreCase(serviceKey))
+//               {
+////               apiDetails=new LinkedHashMap<>();
+//                  apiDetails.put(apiKey, mapOfConfigDetails);
+//                  serviceConfigDetails.put(serviceKey, apiDetails);
+//
+//                  serviceKey = servDetails.getService();
+////               apiDetails=new HashMap<>();
+////               apiDetails.put(apiKey,listOfOperation);
+//
+//                  apiKey = servDetails.getVendor();
+//                  apiDetails = new LinkedHashMap<String, Map<String, ServiceConfigDetails>>();
+//                  mapOfConfigDetails = new LinkedHashMap<String, ServiceConfigDetails>();
+//                  mapOfConfigDetails.put(servDetails.getName(), servDetails);
+//
+//               }
+//               //System.out.println("servDetails = " + servDetails);
+//
+//            }
+//            if (apiDetails != null)
+//            {
+//               apiDetails.put(apiKey, mapOfConfigDetails);
+//               serviceConfigDetails.put(serviceKey, apiDetails);
+//            }
+//
+//            System.out.println("************************************************************");
+//            System.out.println("**** Configuration Details ****");
+//            System.out.println("************************************************************");
+//            System.out.println("SERVICE_MODE = " + SERVICE_MODE);
+//            System.out.println("COMPANY_NAME = " + COMPANY_NAME);
+//            System.out.println("------------------------------------------------------------");
+////
+////         while (itr.hasNext()) {
+////            servDetails = (ServiceConfigDetails) itr.next();
+//////            System.out.println("servDetails = " + servDetails);
+////            try
+////            {
+////               getStaticValue(className, servDetails.getVendor() + "_" + servDetails.getName());
+////            }catch(Exception e){
+////               logger.error("Issue while getting the value of field "+servDetails.getVendor() + "_" + servDetails.getName());
+////               logger.error(e.getClass());
+//////               e.printStackTrace();
+//////               System.out.println("------------------------------------");
+////            }
+////         }
+//
+//            Iterator<Map.Entry<String, Map<String, Map<String, ServiceConfigDetails>>>> entries = serviceConfigDetails.entrySet().iterator();
+//            while (entries.hasNext())
+//            {
+//               Map.Entry<String, Map<String, Map<String, ServiceConfigDetails>>> entry = entries.next();
+//               Iterator<Map.Entry<String, Map<String, ServiceConfigDetails>>> entries2 = entry.getValue().entrySet().iterator();
+//               while (entries2.hasNext())
+//               {
+//                  Map.Entry<String, Map<String, ServiceConfigDetails>> entry2 = entries2.next();
+//                  System.out.println("Service = " + entry.getKey() + "\t Vendor = " + entry2.getKey());
+//                  System.out.println("------------------------------------------------------------");
+//                  Iterator<Map.Entry<String, ServiceConfigDetails>> entries3 = entry2.getValue().entrySet().iterator();
+//                  while (entries3.hasNext())
+//                  {
+//                     Map.Entry<String, ServiceConfigDetails> entry3 = entries3.next();
+//                     System.out.println(entry3.getKey() + " = " + ((ServiceConfigDetails)entry3.getValue()).getValue());
+//                     try
+//                     {
+//                        Object confProp = getStaticValue(className, entry.getKey().replaceAll("-", "_") + "_" + entry2.getKey().replaceAll("-", "_") + "_" + entry3.getKey());
+//                        System.out.println(entry3.getKey() + " = " + confProp);
+//                     }
+//                     catch (Exception e)
+//                     {
+//                        logger.error("Issue while getting the value of field " + entry2.getKey() + "_" + entry3.getKey() + " : " + e.getClass());
+////                     logger.error(e.getClass());
+////               e.printStackTrace();
+////               System.out.println("------------------------------------");
+//                     }
+//                  }
+//               }
+//               System.out.println("------------------------------------------------------------");
+//            }
+//
+//            System.out.println("***********************************************************");
+//            serviceConfigDetailsMap = serviceConfigDetails;
+//            System.out.println(toString());
+//            validateConfigProperties(serviceConfigDetails);
+//            setWebServiceAPI(); // setting  broker-webservice vendor
+//         }
+//      }catch(Exception e){
+//         logger.error("Exception while loading service details");
+//         logger.error(e.getMessage());
+//         e.printStackTrace();
+//      }
+//
+//   }
+//
 
 
 }
