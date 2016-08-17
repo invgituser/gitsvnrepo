@@ -146,7 +146,11 @@ public class TestDistribution
       Double q3=new Double(0); Double q3_wgt = new Double(1.0);
       Double q4 =new Double(1); Double q4_wgt = new Double(1.0);
       Double q5=new Double(2); Double q5_wgt = new Double(1.0);
-      Double q6=new Double(4); Double q6_wgt = new Double(3.0);
+
+      Double q6=new Double(4); Double q6_wgt = new Double(1.0);
+      Double q7=new Double(4); Double q7_wgt = new Double(1.0);
+      Double q8=new Double(4); Double q8_wgt = new Double(1.0);
+      Double q9=new Double(4); Double q9_wgt = new Double(1.0);
 
 
       int offset;
@@ -179,12 +183,12 @@ public class TestDistribution
 
       // Adjust for risk questionnaire
       //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q3    Add
-      //{0, 16, 0, 0, 0, 0, 0, 0, 0, 0}, //        Add
-      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, //       Add
-      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, //    Compare
-      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, //    Compare
-      //{0, 50, 75, 100, 100, 0, 0, 0, 0, 0}, //   Compare
-      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, //    Compare
+      //{0, 16, 0, 0, 0, 0, 0, 0, 0, 0}, //  Q4      Add
+      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q5      Add
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q6   Compare
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q7   Compare
+      //{0, 50, 75, 100, 100, 0, 0, 0, 0, 0}, //Q8   Compare
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q9   Compare
       //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
       //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
 
@@ -200,8 +204,17 @@ public class TestDistribution
 
 
       // Question 6,7,8,9 ** compare **
-      if (q5_wgt * q6 > calcRisk)
+      if (q6_wgt * q6 > calcRisk)
          calcRisk = q6_wgt * q6;
+
+      if (q7_wgt * q7 > calcRisk)
+         calcRisk = q7_wgt * q7;
+
+      if (q8_wgt * q8 > calcRisk)
+         calcRisk = q8_wgt * q8;
+
+      if (q9_wgt * q9 > calcRisk)
+         calcRisk = q9_wgt * q9;
 
       // Store the score in an index of 1 to 100
       // Save for Asset Allocation riskIndex
