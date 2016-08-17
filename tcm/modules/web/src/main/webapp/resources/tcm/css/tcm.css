@@ -51,7 +51,7 @@ img.riskImage:hover {
 .invInputText {
     background-color: transparent;
     border: 0px none;
-    border-bottom: solid 1px #465b65;
+    border-bottom: solid 1px #f2f2f2;
     font-size: 24px;
     text-align: center;
 }
@@ -233,29 +233,28 @@ img.riskImage:hover {
 
 /**/
 /*Prakash - Projection chart slider*/
-@media (min-width: 750px) and (max-width: 850px) {
+@media (min-width: 550px) and (max-width: 850px) {
 	.ProjectionChartRadioAssetsLabel {
     font-size: 11px!important;
-    padding: 0 10px!important;
 }
 
 .ProjectionChartRadioTable {
-	 position: relative;
-    left: 52px;
-}
+        margin: 0 auto;
 }
 
-@media (min-width: 420px) and (max-width: 500px) {
-	.ProjectionChartRadioAssetsLabel {
-    font-size: 11px!important;
-    padding: 0 0px!important;
-    width: 1px;
-    visibility: hidden;
+.ProjectionChartRadioBlock > .stripe {
+	left: 75px!important;
+	right: 75px!important;
 }
 
-.ProjectionChartRadioAssets > tbody > tr >td {
-    margin: -20px 10px!important;
 }
+
+@media (min-width: 420px) and (max-width: 550px) {
+	.ProjectionChartRadioLabelRow {
+  display: none;
+}
+
+
 .ProjectionChartRadioBlock > .stripe {
 	left: 40px!important;
 	right: 40px!important;
@@ -264,11 +263,8 @@ img.riskImage:hover {
 }
 
 @media (min-width: 370px) and (max-width: 420px) {
-	.ProjectionChartRadioAssetsLabel {
-    font-size: 11px!important;
-    padding: 0 0px!important;
-    width: 1px;
-    visibility: hidden;
+	.ProjectionChartRadioLabelRow {
+  display: none;
 }
 
 .ProjectionChartRadioAssets > tbody > tr >td {
@@ -281,11 +277,8 @@ img.riskImage:hover {
 }
 
 @media (min-width: 320px) and (max-width: 370px) {
-	.ProjectionChartRadioAssetsLabel {
-    font-size: 7px!important;
-    padding: 0 1px!important;
-    width: 1px;
-    visibility: hidden;
+	.ProjectionChartRadioLabelRow {
+  display: none;
 }
 
 .ProjectionChartRadioAssets > tbody > tr >td {
@@ -298,8 +291,43 @@ img.riskImage:hover {
 }
 /**/
 /*Prakash*/
+.ui-icon-bullet {
+	background-color: #025D3C!important;
+}
+
+#layout-topbar {
+	border:0px!important;
+}
+
+.BBGreen {
+	color:#025d3c;
+}
+
+.BBDarkGray {
+color: #919d9d;
+}
+
+.Container20-tcmUI {
+	width: 19%;
+	float: right;
+}
+
+.ProjectionChartRadioTable {
+    position: relative;
+    top: -11px;
+    left: 0;
+    right: 0;
+    text-align: center;
+        width: 100%;
+}
+
 .ProjectionChartRadioAssets {
-	margin: 0 auto;
+	margin: 0!important;
+}
+
+.ProjectionChartRadioTable > tbody > tr> td {
+	text-align: center;
+	//padding: 0px 15px!important;
 }
 
 .ProjectionChartRadioAssets > tbody > tr >td {
@@ -309,11 +337,11 @@ img.riskImage:hover {
 
 .ProjectionChartRadioAssetsLabel {
     font-size: 13px;
-    padding: 0 20px;
+    
 }
 
 .ProjectionChartRadioBlock {
-    width: 692px;
+  //  width: 692px;
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -783,8 +811,12 @@ body {
     font-size: 13px;
 }
 
-.portfolioCreationStepsPanel > ul > .ui-steps-item {
-    background-color: #0BA769 !important;
+.portfolioCreationStepsPanel > ul > .ui-state-highlight {
+    background-color: #025d3c !important;
+}
+
+.portfolioCreationStepsPanel > ul > .ui-state-disabled {
+    background-color: #919d9d !important;
 }
 
 .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-number {
