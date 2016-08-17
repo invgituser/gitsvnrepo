@@ -1,5 +1,6 @@
 package invtest;
 
+import com.invmodel.Const.InvConst;
 import com.invmodel.asset.*;
 import com.invmodel.asset.data.*;
 import com.invmodel.dao.invdb.*;
@@ -103,9 +104,9 @@ public class TestDistribution
       profileData.setTotalExpense(0);
       profileData.setNumOfAllocation(duration);
 
-      profileData.setRiskCalcMethod("C"); //Using age based option A or C
-      profileData.setAllocationIndex(60);  // When flag is A
-      profileData.setPortfolioIndex(80);
+      profileData.setRiskCalcMethod("A"); //Using age based option A or C
+      profileData.setAllocationIndex(30);  // When flag is A
+      profileData.setPortfolioIndex(69);
       //profileData.offsetRiskIndex();
 
       profileData.setNumOfAllocation(1);
@@ -113,6 +114,9 @@ public class TestDistribution
       profileData.setAssetData(aamc);
 
       profileData.setNumOfPortfolio(1);
+
+      calculateRiskIndex(profileData);
+
       Portfolio[] pfclass = modelUtil.buildPortfolio(aamc, profileData);
 
       tax = "No";
@@ -133,7 +137,82 @@ public class TestDistribution
          // Create a assetPerformanceFile
          //createPerformanceDataFile(perfData, profileData.getGoalData());
       }
-      writeForwardPerformanceFile("FowardPerformance",prjctdata);
+      //writeForwardPerformanceFile("FowardPerformance",prjctdata);
+
+   }
+
+   public static void calculateRiskIndex(ProfileData profileData)
+   {
+      Double q3=new Double(0); Double q3_wgt = new Double(1.0);
+      Double q4 =new Double(1); Double q4_wgt = new Double(1.0);
+      Double q5=new Double(2); Double q5_wgt = new Double(1.0);
+      Double q6=new Double(4); Double q6_wgt = new Double(3.0);
+
+
+      int offset;
+      Double calcRisk = 0.0;
+      Integer maxScore = 100;
+      Double agePowerValue = 1.7;
+      Double ageWeight = 1.0;
+      Double value = 0.0;
+
+      // Calculate age based risk score
+         Integer ageValue = (profileData.getAge() == null) ? 30 :  profileData.getAge() ;
+         calcRisk = Math.pow((ageValue.doubleValue() / maxScore), agePowerValue);
+         calcRisk = Math.min(maxScore * calcRisk, ageWeight * maxScore);
+         calcRisk = calcRisk; // Divide Age Risk / 100
+         calcRisk = (calcRisk > 100) ? 100 : calcRisk;
+         //calcRisk = (1 - calcRisk < 0.0) ? 0.0 : 1 - calcRisk;
+
+
+         //if (calcRisk > 100.0)
+         //   calcRisk = 100.0;
+
+      // Adjust the risk score based on duration
+
+      Double calcHorizonRisk = 0.0;
+      Double maxDuration = 25.0; // This could be a constant
+      calcHorizonRisk = (maxDuration-profileData.getHorizon()*(80/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
+
+      if (calcHorizonRisk > calcRisk)
+         calcRisk = calcHorizonRisk;
+
+      // Adjust for risk questionnaire
+      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q3    Add
+      //{0, 16, 0, 0, 0, 0, 0, 0, 0, 0}, //        Add
+      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, //       Add
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, //    Compare
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, //    Compare
+      //{0, 50, 75, 100, 100, 0, 0, 0, 0, 0}, //   Compare
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, //    Compare
+      //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
+      //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
+
+      //Define operation
+      // Question 3 ** Add **
+      calcRisk = calcRisk + q3_wgt * q3;
+
+      // Question 4 ** Add **
+      calcRisk = calcRisk + q4_wgt * q4;
+
+      // Question 5 ** Add
+      calcRisk = calcRisk + q5_wgt * q5;
+
+
+      // Question 6,7,8,9 ** compare **
+      if (q5_wgt * q6 > calcRisk)
+         calcRisk = q6_wgt * q6;
+
+      // Store the score in an index of 1 to 100
+      // Save for Asset Allocation riskIndex
+      // Adjust for portfolio allocation for additional risk
+      // Save Portfolio Allocation riskIndex
+      // Save rest of the profileData
+
+
+      profileData.setRiskIndex(101.0 - calcRisk);
+      profileData.setAllocationIndex(101 - calcRisk.intValue());  // When flag is A
+      profileData.setPortfolioIndex(101 - calcRisk.intValue());
 
    }
 
