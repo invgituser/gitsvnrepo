@@ -62,14 +62,8 @@
                                                        }
                                                    },
                                                    labels: {
-                                                       opposite: true,
-                                                       formatter: function(){
-                                                           if(this.value > maxGraghPlot1)
-                                                           {
-                                                               this.value=""
-                                                           }else{
-                                                               return '$'+this.value;
-                                                           }
+                                                       formatter: function () {
+                                                           return '$' + this.axis.defaultLabelFormatter.call(this);
                                                        },
                                                        style: {
                                                            fontSize: '10px',
@@ -78,7 +72,7 @@
                                                            color:  '#808080'
 
                                                        }
-                                                   }
+                                                   },
                                                },
                                                legend: {
 
@@ -105,11 +99,7 @@
                                                    },
                                                    formatter: function() {
 
-                                                       var point = this.point,
-
-                                                               s = 'Year : '+'<b>'+xCategories[this.x]+'</b>'+'<br/>' +' Average Performance : '+'<b>'+'$'+ this.y+'</b>';
-
-                                                       return s;
+                                                       return  'Year : '+'<b>'+xCategories[this.x]+'</b>'+'<br/>' +' Average Performance : '+'<b>'+'$'+Highcharts.numberFormat(this.point.y,0,',',',')+'</b>';
                                                    },
                                                    crosshairs: true,
                                                    //shared: true,
@@ -135,20 +125,22 @@
                                                    data:$.parseJSON(chartValue).goalLowerValue,
                                                    type: 'areasplinerange',
                                                    lineWidth: 0,
-                                                   color: '#5F5AE7', //Highcharts.getOptions().colors[0]'', //#3498DB
-                                                   fillOpacity: 0.2,
+                                                   color: '#54a685', //Highcharts.getOptions().colors[0]'', //#3498DB
+                                                   fillOpacity: 0.7,
                                                    border:0,
                                                    zIndex: 1,
+                                                   enableMouseTracking: false,
                                                }, {
                                                    name: '95% probability range',
                                                    fontWeight: 'normal',
                                                    data: $.parseJSON(chartValue).goalUpperValue,
                                                    type: 'areasplinerange',
                                                    lineWidth: 0,
-                                                   color: '#20F661', //Highcharts.getOptions().colors[0],  //#ABEBC6
-                                                   fillOpacity: 0.2,
+                                                   color: '#dbe6e0', //Highcharts.getOptions().colors[0],  //#ABEBC6
+                                                   fillOpacity: 0.7,
                                                    border:0,
                                                    zIndex: 1,
+                                                   enableMouseTracking: false,
                                                },]
                                            });
 
@@ -157,7 +149,7 @@
         //<!--HighChart JS End  -->
     </script>
 
-    <div class="Container100 TextAlCenter ProjectionBlock">
+    <div class="Container100 TextAlCenter customRadioBlock">
 
         <h3 class="TexAlCenter StepsQuestionsFS">
             Assuming you invest for at least #{tcmpb.horizon} years, in the course of any given year,
@@ -169,112 +161,108 @@
 
 
         <div class="Container100">
-                       <!-- <p:slider for="projection" 
-                                  minValue="1" maxValue="5">
-                            <p:ajax event="slideEnd" 
-                                    update=":ceForm:goalPanel" />
-                        </p:slider> -->
-                        <h:inputHidden id="projection" value="#{tcmpb.riskCalculator.ans5}" listener="#{tcmpb.doProjectionChart}"
-                                       required="true"
-                                       requiredMessage="Please use the slider below to select appropriate investment"/>
+            <!-- <p:slider for="customRadio"
+                       minValue="1" maxValue="5">
+                 <p:ajax event="slideEnd"
+                         update=":ceForm:goalPanel" />
+             </p:slider> -->
 
-                      <!-- <div class="TexAlCenter FS14">
-                            Please slide the dot to the select appropriate investment.
-                        </div> -->
+            <!-- <div class="TexAlCenter FS14">
+                  Please slide the dot to the select appropriate investment.
+              </div> -->
+
             <div class="ProjectionChartRadioBlock">
-            <div class="stripe"></div>
-												<table class="ProjectionChartRadioTable">
-												<tbody>
-												<tr><td>
-												<p:selectOneRadio class="ProjectionChartRadioAssets">
-													<f:selectItem itemValue="1" listener="#{tcmpb.doProjectionChart}"/>
-												
-												</p:selectOneRadio>
-												</td>
-												<td>
-												<p:selectOneRadio class="ProjectionChartRadioAssets">
-													<f:selectItem itemValue="1" />
-												</p:selectOneRadio>
-												</td>
-												<td>
-												<p:selectOneRadio class="ProjectionChartRadioAssets">
-													<f:selectItem itemValue="1" />
-												</p:selectOneRadio>
-												</td>
-												<td>
-												<p:selectOneRadio class="ProjectionChartRadioAssets">
-													<f:selectItem itemValue="1" />
-												</p:selectOneRadio>
-												</td>
-												<td>
-												<p:selectOneRadio class="ProjectionChartRadioAssets">
-													<f:selectItem itemValue="2" />
-												</p:selectOneRadio>
-												</td>
-												</tr>
-												<tr>
-												<td class="ProjectionChartRadioAssetsLabel">Conservative</td>
-												<td class="ProjectionChartRadioAssetsLabel">Moderatly Conservative</td>
-												<td class="ProjectionChartRadioAssetsLabel">Moderate</td>
-												<td class="ProjectionChartRadioAssetsLabel">Moderatly Aggressive</td>
-												<td class="ProjectionChartRadioAssetsLabel">Aggressive</td>
-												</tr>
-												</tbody>
-												</table>
-											</div>
-  </div>
+                <p:selectOneRadio id="projection" value="#{tcmpb.riskCalculator.ans5}" layout="custom" required="true" requiredMessage="Please choose one of these choices for appropriate investment">
+                    <p:ajax listener="#{tcmpb.doProjectionChart}" update=":ceForm:inputArea" />
+                    <f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="0" />
+                    <f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="1" />
+                    <f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="2" />
+                    <f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="3" />
+                    <f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="4" />
+                </p:selectOneRadio>
+                <div class="stripe"></div>
+                <table class="ProjectionChartRadioTable">
+                    <tbody>
+                    <tr><td>
+                        <p:radioButton class="ProjectionChartRadioAssets" id="opt0" for="projection" itemIndex="0" />
+                    </td>
+                        <td>
+                            <p:radioButton class="ProjectionChartRadioAssets" id="opt1" for="projection" itemIndex="1" />
+                        </td>
+                        <td>
+                            <p:radioButton class="ProjectionChartRadioAssets" id="opt2" for="projection" itemIndex="2" />
+                        </td>
+                        <td>
+                            <p:radioButton class="ProjectionChartRadioAssets" id="opt3" for="projection" itemIndex="3" />
+                        </td>
+                        <td>
+                            <p:radioButton class="ProjectionChartRadioAssets" id="opt4" for="projection" itemIndex="4" />
+                        </td>
+                    </tr>
+                    <tr class="ProjectionChartRadioLabelRow">
+                        <td><h:outputLabel for="projection" class="ProjectionChartRadioAssetsLabel" value="Conservative"/></td>
+                        <td><h:outputLabel for="projection" class="ProjectionChartRadioAssetsLabel" value="Moderately Conservative"/></td>
+                        <td><h:outputLabel for="projection" class="ProjectionChartRadioAssetsLabel" value="Moderate"/></td>
+                        <td><h:outputLabel for="projection" class="ProjectionChartRadioAssetsLabel" value="Moderately Aggressive"/></td>
+                        <td><h:outputLabel for="projection" class="ProjectionChartRadioAssetsLabel" value="Aggressive"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
-<!-- Projection HighChart start  -->
-       <div class="Container80 Responsive100-tcmUI">
-        <p:panel styleClass="GraphPanel" update="beanValueChart" action="#{tcmpb.doProjectionChart}" />
-        <h:inputHidden value="#{tcmpb.charts.resultChart}" id="beanValueChart"  />
-
-        <div id="progressChart" class="Conatiner100 ProjectionGraph"></div>
         </div>
-        <div class="Container20 Responsive100-tcmUI">
-        <p:outputPanel id="goalPanel" deferred="true" style="background: transparent; border: 0px">
-            <div class="Container100 PerformanceMeterBlock">
-                <div class="ResponsiveWid-tcmUI Fleft-MP TexAlCenter responsiveFullwidth ">
-                    <div class="ContainerIndent">
-                        <div class="EmptyBox5"></div>
-                        <span class="Fs14 DispBlock gray">Average Market Performance</span>
-                        <div class="EmptyBox5"></div>
-                                    <span class="Fs17 DispBlock green">
+
+        <!-- customRadio HighChart start  -->
+        <div class="Container80 Responsive100-tcmUI">
+            <p:panel styleClass="GraphPanel" update="beanValueChart" action="#{tcmpb.docustomRadioChart}" />
+            <h:inputHidden value="#{tcmpb.charts.resultChart}" id="beanValueChart"  />
+            <div id="progressChart" class="Conatiner100 customRadioGraph"></div>
+        </div>
+        <!-- customRadio HighChart end  -->
+
+        <div class="Container20-tcmUI Responsive100-tcmUI">
+            <p:outputPanel id="goalPanel" deferred="true" style="background: transparent; border: 0px">
+                <div class="Container100 PerformanceMeterBlock">
+                    <div class="ResponsiveWid-tcmUI Fleft-MP TexAlCenter responsiveFullwidth UI-tcm">
+                        <div class="ContainerIndent">
+                            <div class="EmptyBox5"></div>
+                            <span class="Fs14 DispBlock gray">Average Market Performance</span>
+                            <div class="EmptyBox5"></div>
+                                    <span class="Fs17 DispBlock BBGreen">
                                     <h:outputText value="#{tcmpb.charts.avgPerformance}">
                                         <f:convertNumber pattern="$#,###,###,##0"/>
                                     </h:outputText>
-
-                                   </span>
-                                  <!--  <div class="EmptyBox10"></div>
- <img src="/javax.faces.resource/images/poor.png.xhtml?ln=tcm"
-                             class="poorImage"/>
-                        <div class="EmptyBox5"></div>  -->
+							 </span>
+                            <!--  <div class="EmptyBox10"></div>
+<img src="/javax.faces.resource/images/poor.png.xhtml?ln=tcm"
+                       class="poorImage"/>
+                  <div class="EmptyBox5"></div>  -->
+                        </div>
                     </div>
-                </div>
-                <div class="EmptyBox50 PerformanceVerticalSpacing"></div>
-                <div class="ResponsiveWid-tcmUI Fright-MP TexAlCenter responsiveFullwidth">
-                    <div class="ContainerIndent">
-                        <div class="EmptyBox5"></div>
-                        <span class="Fs14 DispBlock gray">Poor Market Performance</span>
-                        <div class="EmptyBox5"></div>
-                                    <span class="Fs17 DispBlock red">
+                    <div class="EmptyBox50 PerformanceVerticalSpacing"></div>
+                    <div class="ResponsiveWid-tcmUI Fright-MP TexAlCenter responsiveFullwidth UI-tcm">
+                        <div class="ContainerIndent">
+                            <div class="EmptyBox5"></div>
+                            <span class="Fs14 DispBlock gray">Poor Market Performance</span>
+                            <div class="EmptyBox5"></div>
+                                    <span class="Fs17 DispBlock BBDarkGray">
                                       <h:outputText value="#{tcmpb.charts.poorPerformance}">
                                           <f:convertNumber pattern="$#,###,###,##0"/>
                                       </h:outputText>
 
                                      </span>
-                             <!--        <div class="EmptyBox10"></div>
+                            <!--        <div class="EmptyBox10"></div>
 <img src="/javax.faces.resource/images/average.png.xhtml?ln=tcm"
-                             class="averageImage"/>
-                        <div class="EmptyBox5"></div>-->
+                            class="averageImage"/>
+                       <div class="EmptyBox5"></div>-->
+                        </div>
                     </div>
                 </div>
-            </div>
 
 
-        </p:outputPanel>
+            </p:outputPanel>
         </div>
-        <!-- Projection HighChart end  -->
+        <!-- customRadio HighChart end  -->
 
         <div class="EmptyBox10"></div>
         <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
