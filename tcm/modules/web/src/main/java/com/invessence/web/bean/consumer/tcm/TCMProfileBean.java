@@ -827,7 +827,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             break;
          case 2:
             calcProjectionChart();
-            doProjectionChart(null);
+            doProjectionChart();
             break;
          case 3:
             break;
@@ -879,25 +879,21 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    }
 
-
-   public void doProjectionChart(SlideEndEvent event)
+   public void doProjectionChart()
    {
+      String event = riskCalculator.getAns5();
       Integer whichslide = 0;
       if (event != null)
       {
-         whichslide = event.getValue();
+         whichslide = Integer.parseInt(event);
          riskCalculator.setAns5(whichslide.toString());
       }
-
-      charts.createProjectionChart(getProjectionDatas().get(whichslide), getHorizon());
+      //  Calls for Projection creation chart by using HighChart
+      charts.createProjectionHighChart(getProjectionDatas().get(whichslide), getHorizon(),getAge(),riskCalculator.getRetireAge());
       setRiskCalcMethod("C");
       formEdit = true;
       setRiskIndex(riskCalculator.calculateRisk(getGoal()));
       createAssetPortfolio(1);
-
-      //  Calls for Projection creation chart by using HighChart
-      charts.createProjectionHighChart(getProjectionDatas().get(whichslide), getHorizon(),getAge(),riskCalculator.getRetireAge());
-
    }
 
    public void testRiskModel()
