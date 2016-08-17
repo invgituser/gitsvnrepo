@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Conatainer100 ui-color paddingFA">
+        <div class="EmptyBox10"></div>
+        <h3 class="FSResponsiveFA">What type of account would you
+            like to open?</h3>
+
+        <p:selectOneRadio id="acctTypeRadio" value="#{tdcto.tdMasterData.accttype}" layout="custom"
+                required="true" requiredMessage="Must select one of these account type!">
+            <f:selectItem itemLabel="Individual" itemValue="Individual" />
+            <f:selectItem itemLabel="Joint" itemValue="Joint" />
+            <f:selectItem itemLabel="UGMA" itemValue="UGMA" />
+            <f:selectItem itemLabel="Traditional IRA" itemValue="Traditional IRA" />
+            <f:selectItem itemLabel="ROTH" itemValue="ROTH" />
+            <f:selectItem itemLabel="Rollover IRA" itemValue="Rollover IRA" />
+            <f:selectItem itemLabel="Beneficiary IRA" itemValue="Beneficiary IRA" />
+        </p:selectOneRadio>
+
+        <div class="EmptyBox10"></div>
+
+        <div class="Container45 CustomWidthAccountypePanel Fleft ">
+            <p:panel styleClass="Wid100 Fleft MarCenter tcmPanel-UI">
+                <div class="Container60">
+                    <h4>Individual</h4>
+
+                    <div class="EmptyBox5"></div>
+                    <h6 class="FontNormal">(Description)</h6>
+                </div>
+                <div class="Container40 textAlign">
+                    <p:radioButton id="opt1" for="acctTypeRadio" itemIndex="0" styleClass="textAlign" />
+                </div>
+            </p:panel>
+        </div>
+        <div class="Container45 CustomWidthAccountypePanel Fleft ">
+            <p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+                <div class="Container60">
+                    <h4>Traditional IRA</h4>
+
+                    <div class="EmptyBox5"></div>
+                    <h6 class="FontNormal">(Description)</h6>
+                </div>
+                <div class="Container40 textAlign">
+                    <p:radioButton id="opt4" for="acctTypeRadio" itemIndex="4" styleClass="textAlign" />
+                </div>
+            </p:panel>
+        </div>
+        <div class="EmptyBox10"></div>
+        <div class="Container45 CustomWidthAccountypePanel Fright Marleft">
+            <p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+                <div class="Container60">
+                    <h4>Joint</h4>
+
+                    <div class="EmptyBox5"></div>
+                    <h6 class="FontNormal">(Description)</h6>
+                </div>
+                <div class="Container40 textAlign">
+                    <p:radioButton id="opt2" for="acctTypeRadio" itemIndex="1" styleClass="textAlign" />
+                </div>
+            </p:panel>
+        </div>
+        <div class="Container45 CustomWidthAccountypePanel Fleft ">
+            <p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+                <div class="Container60">
+                    <h4>Roth IRA</h4>
+
+                    <div class="EmptyBox5"></div>
+                    <h6 class="FontNormal">(Description)</h6>
+                </div>
+                <div class="Container40 textAlign">
+                    <p:radioButton id="opt5" for="acctTypeRadio" itemIndex="5" styleClass="textAlign" />
+                </div>
+            </p:panel>
+        </div>
+        <div class="EmptyBox10"></div>
+        <div class="Container45 CustomWidthAccountypePanel Fright">
+            <p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+                <div class="Container60">
+                    <h4>UTMA / UGMA</h4>
+
+                    <div class="EmptyBox5"></div>
+                    <h6 class="FontNormal">(Description)</h6>
+                </div>
+                <div class="Container40 textAlign">
+                    <p:radioButton id="opt3" for="acctTypeRadio" itemIndex="3" styleClass="textAlign" />
+                </div>
+            </p:panel>
+        </div>
+        <div class="Container45 CustomWidthAccountypePanel Fright">
+            <p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+                <div class="Container60">
+                    <h4>Rollover IRA</h4>
+
+                    <div class="EmptyBox5"></div>
+                    <h6 class="FontNormal">(Description)</h6>
+                </div>
+                <div class="Container40 textAlign">
+                    <p:radioButton id="opt6" for="acctTypeRadio" itemIndex="6" styleClass="textAlign" />
+                </div>
+            </p:panel>
+        </div>
+        <div class="EmptyBox10"></div>
+        <div class="Container45 CustomWidthAccountypePanel Fleft ">
+        </div>
+        <div class="Container45 CustomWidthAccountypePanel Fleft ">
+            <p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+                <div class="Container60">
+                    <h4>Beneficiary IRA</h4>
+
+                    <div class="EmptyBox5"></div>
+                    <h6 class="FontNormal">(Description)</h6>
+                </div>
+                <div class="Container40 textAlign">
+                    <p:radioButton id="opt7" for="acctTypeRadio" itemIndex="7" styleClass="textAlign" />
+                </div>
+            </p:panel>
+        </div>
+        <div class="Container100 MarTop20" style="margin: 10px 10px;">
+            <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
+
+            <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
+        </div>
+        <div class="EmptyBox10"></div>
+    </div>
+
+</ui:composition>
