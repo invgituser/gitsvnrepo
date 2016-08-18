@@ -7,7 +7,7 @@
 .TCM-UI-Dropdown  {
 	    display: inline-flex;
 	        border: 0!important;
-    border-bottom: 1px solid #5FCF80!important;
+    border-bottom: 1px solid #f2f2f2!important;
 }
 
 .TCM-UI-Dropdown > .ui-selectonemenu-label {
@@ -21,8 +21,32 @@
 	padding: 7px 0px;
 }
 
+.TCM-UI-Dropdown > .ui-selectonemenu-label:focus {
+	background: transparent!important;
+}
+
+.ui-inputtext, .ui-selectonemenu > label {
+	color:#025d3c!important;
+}
+
+.ui-inputtext:hover {
+	color:#025d3c!important;
+}
+
+.ui-inputtext:focus {
+	color:#025d3c!important;
+}
+
+.PortfolioCreationFields > .ui-state-focus {
+	border: 1px solid #f2f2f2!important;
+}
+
+.invInputText > .ui-state-focus, .invInputText > .ui-state-hover {
+	border: 1px solid #f2f2f2!important;
+}
+
 .ui-inputtext {
-	border-bottom: 1px solid #5FCF80!important;
+	border-bottom: 1px solid #f2f2f2!important;
 }
 
 .ui-inputfield {

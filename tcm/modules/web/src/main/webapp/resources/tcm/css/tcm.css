@@ -291,6 +291,18 @@ img.riskImage:hover {
 }
 /**/
 /*Prakash*/
+
+.ProjectionChartRadioAssets > .ui-radiobutton-box > .ui-radiobutton,
+.ProjectionChartRadioAssets > .ui-radiobutton-box > .ui-radiobutton-icon {
+    width: 11px!important;
+    height: 11px!important;	
+    border: solid 2px #f2f2f2!important;
+}
+
+.ProjectionChartRadioAssets > .ui-radiobutton-box {
+	border:0!important;
+}
+
 .ui-icon-bullet {
 	background-color: #025D3C!important;
 }
@@ -354,7 +366,8 @@ color: #919d9d;
     right: 110px;
     border-radius: 5px;
     margin-top: -6px;
-    background: linear-gradient(90deg, #2196F3,#2196F3,#ef5350, #ef5350);
+    /* background: linear-gradient(90deg, #2196F3,#2196F3,#ef5350, #ef5350); */
+    background: #919d9d;
 }
 
 
