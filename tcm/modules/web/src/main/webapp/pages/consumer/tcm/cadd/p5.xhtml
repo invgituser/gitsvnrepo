@@ -116,6 +116,7 @@
                                                    lineColor: '#4d0000',
                                                    color: '#4d0000',
                                                    type: 'spline',
+                                                   zIndex: 3,
                                                    data: $.parseJSON(chartValue).goalAvgValue,
                                                    //Directly plot data series values
 
@@ -128,7 +129,7 @@
                                                    color: '#54a685', //Highcharts.getOptions().colors[0]'', //#3498DB
                                                    fillOpacity: 0.7,
                                                    border:0,
-                                                   zIndex: 1,
+                                                   zIndex: 2,
                                                    enableMouseTracking: false,
                                                }, {
                                                    name: '95% probability range',

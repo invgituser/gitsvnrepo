@@ -27,6 +27,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map />
+        <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/webapp/resources/primefaces-modena/images/music-navy.svg" />
       </configuration>
     </facet>
@@ -187,4 +188,3 @@
     <orderEntry type="library" name="Maven: com.lowagie:itext:2.1.7" level="project" />
   </component>
 </module>
-
