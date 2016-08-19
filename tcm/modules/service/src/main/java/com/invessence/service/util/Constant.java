@@ -74,4 +74,21 @@ public class Constant
          return this.getValue();
       }
    }
+
+   public enum GENERIC_DETAILS {
+      LOOKUP_DETAILS("LOOKUP_DETAILS");
+      private String value;
+
+      private GENERIC_DETAILS(String value) {
+         this.value = value;
+      }
+      private String getValue() {
+         return value;
+      }
+
+      @Override
+      public String toString() {
+         return this.getValue();
+      }
+   }
 }

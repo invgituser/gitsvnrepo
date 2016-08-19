@@ -77,11 +77,16 @@ public class ServiceParameters
 
    public static Map<String, Object> additionalDetails=null;
 
+   public static Map<String, Object> genericDetails=null;
+
 
    private void loadPrimaryData(){
 
       if(COMPANY_NAME==null){
          setSwitchDetails();
+      }
+      if(genericDetails==null){
+         loadGenericDetails();
       }
    }
 
@@ -339,6 +344,24 @@ public class ServiceParameters
 
    }
 
+   public void loadGenericDetails(){
+      System.out.println("ServiceParameters.loadGenericDetails");
+         try
+         {
+            List<LookupDetails> lookupDetails = wsCommonDao.getLookupDetails();
+            if(lookupDetails.size()>0)
+            {
+               if(genericDetails==null){genericDetails=new LinkedHashMap<>();}
+               genericDetails.put(Constant.GENERIC_DETAILS.LOOKUP_DETAILS.toString(),lookupDetails );
+            }
+            System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            }catch(Exception e){
+            logger.error("Exception while loading GenericDetails");
+            logger.error(e.getMessage());
+            e.printStackTrace();
+         }
+   }
+
    public void loadAdditionalDetails(String service){
       System.out.println("ServiceParameters.loadAdditionalDetails");
       System.out.println("service = [" + service + "]");
@@ -346,35 +369,37 @@ public class ServiceParameters
 
          try
          {
-               List<DCTemplateDetails> dcTemplateDetails = wsCommonDao.getDCTemplateDetails(SERVICE_MODE, COMPANY_NAME);
+            Map<String,DCTemplateDetails> dcTemplateDetails = wsCommonDao.getDCTemplateDetails(SERVICE_MODE, COMPANY_NAME);
             if(dcTemplateDetails.size()>0)
             {
                if(additionalDetails==null){additionalDetails=new LinkedHashMap<>();}
-               Iterator dcTemplateDetailsIterator = dcTemplateDetails.iterator();
+
+               Iterator<Map.Entry<String, DCTemplateDetails>> dcTemplateDetailsIterator = dcTemplateDetails.entrySet().iterator();
                while (dcTemplateDetailsIterator.hasNext())
                {
-                  DCTemplateDetails dcTemplateDetail = (DCTemplateDetails) dcTemplateDetailsIterator.next();
+                  Map.Entry<String, DCTemplateDetails> dcTemplateDetail = (Map.Entry<String, DCTemplateDetails>) dcTemplateDetailsIterator.next();
                   System.out.println("dcTemplate = " + dcTemplateDetail);
-                  List<DCTemplateMapping> dcTemplateMappings = wsCommonDao.getDCTemplateMapping(SERVICE_MODE, COMPANY_NAME, dcTemplateDetail.getTempCode());
-                  Iterator dcTemplateMappingIterator = dcTemplateMappings.iterator();
+                  Map<String,DCTemplateMapping> dcTemplateMappings = wsCommonDao.getDCTemplateMapping(SERVICE_MODE, COMPANY_NAME, dcTemplateDetail.getValue().getTempCode());
+
 //                  while (dcTemplateMappingIterator.hasNext())
 //                  {
 //                     DCTemplateMapping dcTemplateMapping = (DCTemplateMapping) dcTemplateMappingIterator.next();
 //                  }
-                  if(dcTemplateMappings.size()>0){
-                     dcTemplateDetail.setDcTemplateMappings(dcTemplateMappings);
+                  if(dcTemplateMappings !=null &&dcTemplateMappings.size()>0){
+                     Iterator<Map.Entry<String,DCTemplateMapping>> dcTemplateMappingIterator = dcTemplateMappings.entrySet().iterator();
+                     dcTemplateDetail.getValue().setDcTemplateMappings(dcTemplateMappings);
                   }
                   System.out.println("dcTemplateDetail = " + dcTemplateDetail);
                }
                additionalDetails.put(service,dcTemplateDetails );
             }
             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
-            }catch(Exception e){
+         }catch(Exception e){
             logger.error("Exception while loading service details");
             logger.error(e.getMessage());
             e.printStackTrace();
          }
-         }
+      }
    }
 
    private void validateConfigProperties(Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetails){

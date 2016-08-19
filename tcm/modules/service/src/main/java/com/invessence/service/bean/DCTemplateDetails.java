@@ -1,6 +1,6 @@
 package com.invessence.service.bean;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by abhangp on 8/16/2016.
@@ -15,7 +15,8 @@ public class DCTemplateDetails
    private String tempName;
    private String status;
    private String remark;
-   private List<DCTemplateMapping> dcTemplateMappings;
+   private String configFile;
+   private Map<String,DCTemplateMapping> dcTemplateMappings;
 
    @Override
    public String toString()
@@ -29,16 +30,27 @@ public class DCTemplateDetails
          ", tempName='" + tempName + '\'' +
          ", status='" + status + '\'' +
          ", remark='" + remark + '\'' +
-         ", dcTemplateMapping=" + dcTemplateMappings +
+         ", configFile='" + configFile + '\'' +
+         ", dcTemplateMappings=" + dcTemplateMappings +
          '}';
    }
 
-   public List<DCTemplateMapping> getDcTemplateMappings()
+   public String getConfigFile()
+   {
+      return configFile;
+   }
+
+   public void setConfigFile(String configFile)
+   {
+      this.configFile = configFile;
+   }
+
+   public Map<String, DCTemplateMapping> getDcTemplateMappings()
    {
       return dcTemplateMappings;
    }
 
-   public void setDcTemplateMappings(List<DCTemplateMapping> dcTemplateMappings)
+   public void setDcTemplateMappings(Map<String, DCTemplateMapping> dcTemplateMappings)
    {
       this.dcTemplateMappings = dcTemplateMappings;
    }
