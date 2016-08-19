@@ -19,7 +19,99 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public ArrayList<CustomerData> getClientProfileData(Long logonid, Long acctnum, Integer days) {
+   public void getProfileData(CustomerData data) {
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
+      Map outMap = sp.loadClientProfileData(data);
+      String action;
+      try {
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               data.setLogonid(convert.getLongData(rs.get("logonid")));
+               data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               data.setPortfolioName(convert.getStrData(rs.get("portfolioName")));
+               data.setEmail(convert.getStrData(rs.get("email")));
+               data.setUserid(convert.getStrData(rs.get("userid")));
+               data.setAdvisor(convert.getStrData(rs.get("advisor")));
+               data.setBasket(convert.getStrData(rs.get("theme")));
+               data.setTheme(convert.getStrData(rs.get("theme")));
+               data.setLastname(convert.getStrData(rs.get("lastname")));
+               data.setFirstname(convert.getStrData(rs.get("firstname")));
+               data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
+               data.setRegisteredState(convert.getStrData(rs.get("state")));
+               data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+
+               action = (convert.getStrData(rs.get("acctstatus")));
+               if (action.equalsIgnoreCase("Pending")) {
+                  data.setManaged(false);
+               }
+               else {
+                  data.setManaged(true);
+               }
+               data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
+               data.setGoal(convert.getStrData(rs.get("goal")));
+               data.setAccountType(convert.getStrData(rs.get("accttype")));
+               data.setAge(convert.getIntData(rs.get("age")));
+               data.setHorizon(convert.getIntData(rs.get("horizon")));
+               data.setCalendarYear(convert.getIntData(rs.get("yearnum")));
+               data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
+               data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
+               data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
+               data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
+               data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
+               data.setObjective(convert.getIntData(rs.get("longTermGoal")));
+               data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
+               data.setDependent(convert.getIntData(rs.get("dependent")));
+
+               data.setRiskCalcMethod(convert.getStrData(rs.get("calcModel")));
+               data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
+               data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
+
+               if (convert.getStrData(rs.get("taxable")) == null)
+                  data.setAccountTaxable(true);
+               else if (convert.getStrData(rs.get("taxable")).startsWith("N"))
+                  data.setAccountTaxable(false);
+               else
+                  data.setAccountTaxable(true);
+
+
+               data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
+
+               data.setHouseholdwages(convert.getIntData(rs.get("householdwages")));
+               data.setOtherExpense(convert.getIntData(rs.get("miscExpenses")));
+               data.setMoneymarket(convert.getIntData(rs.get("moneyMarket")));
+               data.setInvestment(convert.getIntData(rs.get("investment")));
+               data.setOtherDebt(convert.getIntData(rs.get("otherDebt")));
+
+               data.setTotalIncome(convert.getIntData(rs.get("totalIncomeAnnulized")));
+               data.setTotalExpense(convert.getIntData(rs.get("totalExpenseAnnulized")));
+               data.setTotalAsset(convert.getIntData(rs.get("totalAsset")));
+               data.setTotalLiability(convert.getIntData(rs.get("totalDebt")));
+               data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
+               //data.setNetWorth(convert.getIntData(rs.get("networth")));
+
+               if (data.getGoalData() == null )
+                  data.setGoalData(new GoalsData());
+
+               data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
+
+               i++;
+               break;  // Only load the first account info.
+            }
+         }
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+   public ArrayList<CustomerData> getClientProfileList(Long logonid, Long acctnum, Integer days) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
       ArrayList<CustomerData> listProfiles = new ArrayList<CustomerData>();
@@ -129,98 +221,6 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
-   public void getProfileData(CustomerData data) {
-      DataSource ds = getDataSource();
-      ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",1);
-      Map outMap = sp.loadClientProfileData(data);
-      String action;
-      try {
-         if (outMap != null)
-         {
-            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-            if (rows == null)
-               return;
-            int i = 0;
-            for (Map<String, Object> map : rows)
-            {
-               Map rs = (Map) rows.get(i);
-               data.setLogonid(convert.getLongData(rs.get("logonid")));
-               data.setAcctnum(convert.getLongData(rs.get("acctnum")));
-               data.setPortfolioName(convert.getStrData(rs.get("portfolioName")));
-               data.setEmail(convert.getStrData(rs.get("email")));
-               data.setUserid(convert.getStrData(rs.get("userid")));
-               data.setAdvisor(convert.getStrData(rs.get("advisor")));
-               data.setBasket(convert.getStrData(rs.get("theme")));
-               data.setTheme(convert.getStrData(rs.get("theme")));
-               data.setLastname(convert.getStrData(rs.get("lastname")));
-               data.setFirstname(convert.getStrData(rs.get("firstname")));
-               data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
-               data.setRegisteredState(convert.getStrData(rs.get("state")));
-               data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
-
-               action = (convert.getStrData(rs.get("acctstatus")));
-               if (action.equalsIgnoreCase("Pending")) {
-                  data.setManaged(false);
-               }
-               else {
-                  data.setManaged(true);
-               }
-               data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
-               data.setGoal(convert.getStrData(rs.get("goal")));
-               data.setAccountType(convert.getStrData(rs.get("accttype")));
-               data.setAge(convert.getIntData(rs.get("age")));
-               data.setHorizon(convert.getIntData(rs.get("horizon")));
-               data.setCalendarYear(convert.getIntData(rs.get("yearnum")));
-               data.setRiskIndex(convert.getDoubleData(rs.get("riskIndex")));
-               data.setInitialInvestment(convert.getIntData(rs.get("initialInvestment")));
-               data.setKeepLiquid(convert.getIntData(rs.get("keepLiquid")));
-               data.setActualInvestment(convert.getDoubleData(rs.get("actualCapital")));
-               data.setRecurringInvestment(convert.getIntData(rs.get("recurringInvestment")));
-               data.setObjective(convert.getIntData(rs.get("longTermGoal")));
-               data.setStayInvested(convert.getIntData(rs.get("stayInvested")));
-               data.setDependent(convert.getIntData(rs.get("dependent")));
-
-               data.setRiskCalcMethod(convert.getStrData(rs.get("calcModel")));
-               data.setAllocationIndex(convert.getIntData(rs.get("assetIndex")));
-               data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
-
-               if (convert.getStrData(rs.get("taxable")) == null)
-                  data.setAccountTaxable(true);
-               else if (convert.getStrData(rs.get("taxable")).startsWith("N"))
-                  data.setAccountTaxable(false);
-               else
-                  data.setAccountTaxable(true);
-
-
-               data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
-
-               data.setHouseholdwages(convert.getIntData(rs.get("householdwages")));
-               data.setOtherExpense(convert.getIntData(rs.get("miscExpenses")));
-               data.setMoneymarket(convert.getIntData(rs.get("moneyMarket")));
-               data.setInvestment(convert.getIntData(rs.get("investment")));
-               data.setOtherDebt(convert.getIntData(rs.get("otherDebt")));
-
-               data.setTotalIncome(convert.getIntData(rs.get("totalIncomeAnnulized")));
-               data.setTotalExpense(convert.getIntData(rs.get("totalExpenseAnnulized")));
-               data.setTotalAsset(convert.getIntData(rs.get("totalAsset")));
-               data.setTotalLiability(convert.getIntData(rs.get("totalDebt")));
-               data.setLiquidAsset(convert.getIntData(rs.get("liquidnetworth")));
-               //data.setNetWorth(convert.getIntData(rs.get("networth")));
-
-              if (data.getGoalData() == null )
-                  data.setGoalData(new GoalsData());
-
-               data.getGoalData().setGoalDesired(convert.getDoubleData(rs.get("goalDesired")));
-
-               i++;
-               break;  // Only load the first account info.
-            }
-         }
-      }
-      catch (Exception ex) {
-         ex.printStackTrace();
-      }
-   }
 
    public Map<String, String> getBasket(String advisor, String strategy) {
       DataSource ds = getDataSource();

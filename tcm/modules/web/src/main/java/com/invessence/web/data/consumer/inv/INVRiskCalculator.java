@@ -16,17 +16,26 @@ import com.invmodel.Const.InvConst;
  */
 public class INVRiskCalculator implements RiskCalculator
 {
+   /*
+   Explanation:  Array[0] is used for default as start up for each answers.  Start mode.
+       Array[1] is reserved for Age.  Either it is fixed value or it is formula
+       (if formula, then change the calculate function).
+       Array[2] is for horizon.  Same as age (Either fixed or formula)
+       Array[3] - Array[15] are based on answers to the security questions.
+          - Each answer has weighted risk.
+          - If answers are forrmula, then do all calucations in this calculate method.
+    */
    private static Double riskValueMatrix[][] = {
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
-      {0.0, 0.0, 1.0, 2.0, 3.0, 14.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
-      {0.0, 0.0, 7.0, 14.0, 21.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q4
-      {0.0, 0.0, 7.0, 14.0, 25.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q5
-      {0.0, 0.0, 14.0, 21.0, 28.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q6
-      {0.0, 0.0, 7.0, 14.0, 25.0, 28.0, 0.0, 0.0, 0.0, 0.0}, // Q7
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q8
-      {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q9
+      {0.0, 0.0, 4.0, 8.0, 12.0, 50.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
+      {0.0, 0.0, 16.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
+      {0.0, 0.0, 4.0, 8.0, 12.0, 50.0, 0.0, 0.0, 0.0, 0.0}, // Q5
+      {0.0, 0.0, 25.0, 50.0, 75.0, 100.0, 0.0, 0.0, 0.0, 0.0}, // Q6
+      {0.0, 0.0, 25.0, 50.0, 75.0, 100.0, 0.0, 0.0, 0.0, 0.0}, // Q7
+      {0.0, 0.0, 25.0, 50.0, 75.0, 100.0, 0.0, 0.0, 0.0, 0.0}, // Q8
+      {0.0, 0.0, 25.0, 50.0, 75.0, 100.0, 0.0, 0.0, 0.0, 0.0}, // Q9
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q10
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q11
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q12
@@ -34,14 +43,27 @@ public class INVRiskCalculator implements RiskCalculator
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q14
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}  // Q15
    };
-   private Integer numberofQuestions;
-   private String riskFormula;
-   private Double[] riskValues;     // NOTE: Q1 = Position 1.  Zero is of default.
-   private String[] answers;
-   private Integer riskAge;
-   private Integer retireAge;
-   private Integer riskHorizon;
-   private Double totalRisk;
+
+   // Adjust for risk questionnaire
+   //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q3    Add
+   //{0, 16, 0, 0, 0, 0, 0, 0, 0, 0}, //  Q4      Add
+   //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q5      Add
+   //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q6   Compare
+   //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q7   Compare
+   //{0, 50, 75, 100, 100, 0, 0, 0, 0, 0}, //Q8   Compare
+   //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q9   Compare
+   //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
+   //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
+
+
+   private Integer numberofQuestions;   // This defines the number of questions on the form.
+   private String riskFormula;      // C=Consumer (By Questions), A=Advisor or D=Direct.  (
+   private Double[] riskValues;     // Store each risk on DB Q1 = Position 1.  Zero is of default.
+   private String[] answers;        // Each answer selected.
+   private Integer riskAge;         // Age.
+   private Integer retireAge;       // Calculate Horizon, if retired age is entered.
+   private Integer riskHorizon;     // Horizon.  We are storing this horizon as well.
+   private Double totalRisk;        // Final result to pass.
    SQLData converter = new SQLData();
 
    public INVRiskCalculator()
@@ -58,29 +80,74 @@ public class INVRiskCalculator implements RiskCalculator
 
    public Double calculateRisk()
    {
-      Double riskIndex = 0.0;
+      Double calcRisk = 0.0;
+      Integer maxScore = 100;
+      Double agePowerValue = 1.7;
+      Double ageWeight = 1.0;
       try
       {
-         if (riskFormula != null && riskFormula.equalsIgnoreCase("C"))
+         if (riskFormula == null)
+         {
+            riskFormula = "C";
+         }
+
+         if (riskFormula.equalsIgnoreCase("C"))
          {
             if (numberofQuestions == null)
             {
                setTotalRisk(0.0);
                return 0.0;
             }
-            for (int loop = 0; loop < numberofQuestions; loop++)
+
+
+            Double value;
+            for (int loop = 1; loop < numberofQuestions + 1; loop++)
             {
-               if (answers[loop] != null)
+               value = 0.0;
+               switch (loop)
                {
-                  String ansstr = answers[loop];
-                  Integer ansvalue = converter.getIntData(ansstr);
-                  Double value = riskValueMatrix[loop][ansvalue];
-                  riskValues[loop] = value;
-                  riskIndex += value;
+                  case 1:
+                     Integer ageValue = (getRiskAge() == null) ? 30 :  getRiskAge() ;
+                     calcRisk = Math.pow((ageValue.doubleValue() / maxScore), agePowerValue);
+                     calcRisk = Math.min(maxScore * calcRisk, ageWeight * maxScore);
+                     calcRisk = calcRisk; // Divide Age Risk / 100
+                     calcRisk = (calcRisk > 100) ? 100 : calcRisk;
+                     riskValues[loop] = calcRisk; // Store the value in DB
+                     break;
+                  case 2:
+                     Double calcHorizonRisk = 0.0;
+                     Double maxDuration = 25.0; // This could be a constant
+                     calcHorizonRisk = (maxDuration-getRiskHorizon()*(80/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
+                     riskValues[loop] = calcHorizonRisk; // Store the value in DB
+                     if (calcHorizonRisk > calcRisk)
+                        calcRisk = calcHorizonRisk;
+                     break;
+                  case 3:
+                  case 4:
+                  case 5:
+                     if (answers[loop] != null) {
+                        Integer lookupindex = converter.getIntData(answers[loop]);
+                        value = riskValueMatrix[loop][lookupindex];
+                        calcRisk = calcRisk + value;
+                        riskValues[loop] = value; // Store the value in DB
+                     }
+                     break;
+                  default:
+                     if (answers[loop] != null) {
+                        Integer lookupindex = converter.getIntData(answers[loop]);
+                        value = riskValueMatrix[loop][lookupindex];
+                        riskValues[loop] = value; // Store the value in DB
+                        if (value > calcRisk) {
+                           calcRisk = value;
+                        }
+                     }
+                     break;
                }
             }
-            setTotalRisk(riskIndex);
-            return riskIndex;
+
+            calcRisk = (calcRisk < 0.0) ? 0.0 : calcRisk;
+            setTotalRisk(calcRisk);
+            return calcRisk;
          }
          else
          {
@@ -92,6 +159,7 @@ public class INVRiskCalculator implements RiskCalculator
          setTotalRisk(0.0);
          return 0.0;
       }
+
    }
 
    public Integer getNumberofQuestions()

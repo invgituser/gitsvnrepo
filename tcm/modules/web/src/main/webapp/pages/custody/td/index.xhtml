@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="acct" value="#{ctobean.beanAcctnum}"/>
+        <f:event type="preRenderView" listener="#{ctobean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <h:form id="ctoForm">
+
+            <div class="layout-portlets-box" style="background: #FBFCFD;">
+
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent FundAccountTab">
+                        <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{ctobean.pagemanager.page}">
+                            <p:menuitem value="Account Type"/>
+                            <p:menuitem value="Personal"/>
+                            <p:menuitem value="Address"/>
+                            <p:menuitem value="Employment"/>
+                            <p:menuitem value="Beneficiary"/>
+                            <p:menuitem value="Funding"/>
+                        </p:steps>
+                    </div>
+                    <div class="Container100">
+                        <p:messages showDetail="false" escape="true" closable="true"/>
+                    </div>
+                </div>
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+                        <p:panel id="inputArea" style="border: 0px; background: transparent;">
+                            <p:accordionPanel id="tdaccordian" styleClass="tcmAccordionPanel-UI">
+                                <p:tab id="tab1">
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Account Type" styleClass="accordionTabText"/>
+                                    </f:facet>
+                                    <ui:include src="/pages/custody/td/accttype.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab2" styleClass="tcmAccordion-UI">
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Account Holder" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/acctholder.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab3" >
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/address.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Address" styleClass="accordionTabText"/>
+                                    </f:facet>
+                                    <ui:include src="/pages/custody/td/address.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab4" >
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Regulatory" styleClass="accordionTabText"/>
+                                    </f:facet>
+                                    <ui:include src="/pages/custody/td/regulatory.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab5">
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/employment.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Employment" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/employment.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab6">
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/money.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Funding" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/funding.xhtml"/>
+                                </p:tab>
+                                <p:tab id="tab7">
+                                    <f:facet name="title">
+                                        <p:graphicImage
+                                                value="/javax.faces.resource/images/beneficiary.png.xhtml?ln=tcm"/>
+                                        <h:outputText value="Beneficiary" styleClass="accordionTabText"/>
+                                    </f:facet>
+
+                                    <ui:include src="/pages/custody/td/beneficiary.xhtml"/>
+                                </p:tab>
+                            </p:accordionPanel>
+                        </p:panel>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOX END -->
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

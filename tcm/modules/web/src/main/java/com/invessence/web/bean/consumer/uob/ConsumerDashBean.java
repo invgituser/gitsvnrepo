@@ -108,7 +108,7 @@ public class ConsumerDashBean implements Serializable
 
    public void collectData(Long logonid)
    {
-      manageAccountList = listDAO.getClientProfileData(logonid, null, null);
+      manageAccountList = listDAO.getClientProfileList(logonid, null, null);
    }
 
 

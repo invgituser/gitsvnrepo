@@ -105,7 +105,8 @@ public class ResetPasswordData
 
       if (!FacesContext.getCurrentInstance().isPostback())
       {
-         int ind = userInfoDAO.checkReset(emailID, resetCode);
+         int ind = 0;
+         //int ind = userInfoDAO.checkReset(emailID, resetCode);
 
          if ((webutil.isNull(emailID)) || (webutil.isNull(resetCode)) || (ind != 1))
          {
@@ -137,8 +138,8 @@ public class ResetPasswordData
    public String forgotPassword()
    {
       try {
-         String check;
-         check = userInfoDAO.checkEmailID(emailID);
+         String check = null;
+         // check = userInfoDAO.checkEmailID(emailID);
          if (check == null || check.length() == 0) {
             return "message.xhtml?faces-redirect=true&message=User not found";
          }

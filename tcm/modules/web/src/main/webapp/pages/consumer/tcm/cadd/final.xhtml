@@ -9,16 +9,13 @@
 <p:outputPanel id="workArea">
 <p:fieldset legend="Summary" toggleable="true" toggleSpeed="500">
     <div class="Container100 Responsive100">
-        <div class="ContainerIndent">
-            <div class="Wid100 Responsive100 Fleft">
-                <h3 class="BigTopic">
-                    #{tcmpb.fixedModelName} - Asset Allocation
-                </h3>
-            </div>
-        </div>
-    </div>
-    <div class="Container100 Responsive100">
         <div class="Container50 Responsive50 Fleft">
+            <div class="Container100 Fleft">
+                Based on the responses that you have given through on the
+                risk tolerance questionnaire we have selected the
+                <strong>#{tcmpb.fixedModelName}</strong> strategy for you.
+            </div>
+            <div class="EmptyBox10"></div>
             <div class="Container100">
                 <p:outputPanel deferred="true">
                     <p:chart type="pie" model="#{tcmpb.charts.pieChart}" style="height: 200px; width: 100%;"
@@ -69,7 +66,7 @@
                          update=":ceForm:inputArea"
                          immediate="true"
                          actionListener="#{tcmpb.startover}"/>
-        <p:commandButton styleClass="Fright" value="Fund Account"
+        <p:commandButton styleClass="Fright" value="#{tcmpb.fundButtonText}"
                          update=":ceForm:inputArea"
                          actionListener="#{tcmpb.fundAccount}"/>
 

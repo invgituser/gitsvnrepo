@@ -1,0 +1,319 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+<p:tabView id="addresstab">
+
+<p:tab title="Primary Holder">
+
+    <p:panel id="owneraddressPanel" style="border: 0px; background: transparent">
+        <div class="Container80 Responsive100 MarTop5 MarCenter"
+             style="margin-bottom: 15px;">
+
+            <div class="Container100">
+                <label Class="Container60"
+                       style="text-align: left !important; font-weight: bold !important;">
+                    Residence Address
+                </label>
+
+                <div class="EmptyBox5"></div>
+                <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+                             value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressStreet}"
+                             placeholder="Street Address 1"
+                             required="true">
+                </p:inputText>
+                <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
+                             placeholder="Street Address 2">
+                </p:inputText>
+            </div>
+
+            <div class="EmptyBox20"></div>
+            <div class="Container100 CustomWidthFA2 MarTop5">
+                <div class="Container30 CustomWidthFA-Responsive">
+                    <label Class="Container100"
+                           style="text-align: left !important; font-weight: bold !important;">City</label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                 value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressCity}"
+                                 placeholder="City"
+                                 required="true">
+                    </p:inputText>
+                </div>
+                <div
+                        class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+                    <label Class="Container100"
+                           style="text-align: left !important; font-weight: bold !important;">
+                        State
+                    </label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:selectOneMenu value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressState}"
+                                     styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+                                     style="width: 100%;"
+                                     required="true">
+                        <p:ajax/>
+                        <f:selectItem itemLabel="Select State" itemValue=""
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+                                       var="ownerphyStates" itemLabel="#{ownerphyStates.value}" itemValue="#{ownerphyStates.key}"/>
+                    </p:selectOneMenu>
+                </div>
+                <div
+                        class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+                    <label Class="Container100"
+                           style="text-align: left !important; font-weight: bold !important;">Zip
+                        Code</label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                 value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressZipCode}"
+                                 placeholder="Zip Code"
+                                 required="true">
+                    </p:inputText>
+                </div>
+            </div>
+            <div class="EmptyBox20"></div>
+
+            <div class="Container100">
+                <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.acctholderhasMailing}"
+                                         itemLabel="Different Mailing Address">
+                    <p:ajax update=":ctoForm:tdaccordian:addresstab:owneraddressPanel"/>
+                </p:selectBooleanCheckbox>
+            </div>
+
+            <p:panel style="border: 0px; background: transparent; margin-top: -10px;"
+                     rendered="#{tdcto.tdMasterData.acctholderhasMailing}">
+                <div class="EmptyBox20"></div>
+                <div class="Container100">
+
+                    <label Class="Container60"
+                           style="text-align: left !important; font-weight: bold !important;">
+                        Mailing Address
+                    </label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+                                 value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressStreet}"
+                                 placeholder="Street Address 1">
+                    </p:inputText>
+                    <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
+                                 placeholder="Street Address 2">
+                    </p:inputText>
+                </div>
+
+                <div class="EmptyBox20"></div>
+                <div class="Container100 CustomWidthFA2 MarTop5">
+                    <div class="Container30 CustomWidthFA-Responsive">
+                        <label Class="Container100"
+                               style="text-align: left !important; font-weight: bold !important;">City</label>
+
+                        <div class="EmptyBox5"></div>
+                        <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                     value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressCity}"
+                                     placeholder="City">
+                        </p:inputText>
+                    </div>
+                    <div
+                            class="Container30 CustomWidthFA-Responsive Margin-FAAddress">
+                        <label Class="Container100"
+                               style="text-align: left !important; font-weight: bold !important;">State</label>
+
+                        <div class="EmptyBox5"></div>
+                        <p:selectOneMenu value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressState}"
+                                         styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+                                         style="width: 100%;">
+                            <p:ajax/>
+                            <f:selectItem itemLabel="Select State" itemValue=""
+                                          noSelectionOption="true"/>
+                            <f:selectItems value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+                                           var="ownermailingStates" itemLabel="#{ownermailingStates.value}"
+                                           itemValue="#{ownermailingStates.key}"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div
+                            class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+                        <label Class="Container100"
+                               style="text-align: left !important; font-weight: bold !important;">Zip
+                            Code</label>
+
+                        <div class="EmptyBox5"></div>
+                        <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                     value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressZipCode}"
+                                     placeholder="Zip Code">
+                        </p:inputText>
+                    </div>
+                </div>
+            </p:panel>
+
+        </div>
+        <div class="Container100 MarTop20" style="margin: 10px 10px;">
+            <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
+
+            <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
+        </div>
+
+    </p:panel>
+</p:tab>
+<p:tab title="Joint Holder">
+
+    <p:panel id="jointaddressPanel" style="border: 0px; background: transparent">
+
+        <div class="Container100 Responsive100 MarTop5 MarCenter"
+             style="margin-bottom: 15px;">
+            <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasDifferent}"
+                                     itemLabel="Has different address then primary account holder?">
+                <p:ajax update=":ctoForm:tdaccordian:addresstab:jointaddressPanel"/>
+            </p:selectBooleanCheckbox>
+        </div>
+
+        <p:panel id="jointaddressPanel2" style="border: 0px; background: transparent"
+                 styleClass="Container80 Responsive100 MarTop5 MarCenter"
+                 rendered="#{tdcto.tdMasterData.jointhasDifferent}">
+
+            <div class="Container100">
+                <label Class="Container60"
+                       style="text-align: left !important; font-weight: bold !important;">
+                    Residence Address
+                </label>
+
+                <div class="EmptyBox5"></div>
+                <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+                             value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressStreet}"
+                             placeholder="Street Address 1">
+                </p:inputText>
+                <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
+                             placeholder="Street Address 2">
+                </p:inputText>
+            </div>
+            <div class="EmptyBox20"></div>
+
+            <div class="Container100 CustomWidthFA2 MarTop5">
+                <div class="Container30 CustomWidthFA-Responsive">
+                    <label Class="Container100"
+                           style="text-align: left !important; font-weight: bold !important;">
+                        City
+                    </label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                 value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressCity}"
+                                 placeholder="City">
+                    </p:inputText>
+                </div>
+                <div class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+                    <label Class="Container100"
+                           style="text-align: left !important; font-weight: bold !important;">
+                        State
+                    </label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:selectOneMenu value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressState}"
+                                     styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+                                     style="width: 100%;">
+                        <p:ajax/>
+                        <f:selectItem itemLabel="Select State" itemValue=""
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+                                       var="jointphyStates" itemLabel="#{jointphyStates.value}" itemValue="#{jointphyStates.key}"/>
+                    </p:selectOneMenu>
+                </div>
+                <div class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+                    <label Class="Container100"
+                           style="text-align: left !important; font-weight: bold !important;">
+                        Zip Code
+                    </label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                 value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressZipCode}"
+                                 placeholder="Zip Code">
+                    </p:inputText>
+                </div>
+            </div>
+
+            <div class="EmptyBox20"></div>
+
+            <div class="Container100">
+                <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasMailing}"
+                                         itemLabel="Different Mailing Address">
+                    <p:ajax update=":ctoForm:tdaccordian:addresstab:jointaddressPanel2"/>
+                </p:selectBooleanCheckbox>
+            </div>
+
+            <p:panel style="border: 0px; background: transparent; margin-top: -10px;"
+                     rendered="#{tdcto.tdMasterData.jointhasMailing}">
+                <div class="EmptyBox20"></div>
+                <div class="Container100">
+
+                    <label Class="Container60"
+                           style="text-align: left !important; font-weight: bold !important;">Mailing
+                        Address</label>
+
+                    <div class="EmptyBox5"></div>
+                    <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+                                 value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressStreet}"
+                                 placeholder="Street Address 1">
+                    </p:inputText>
+                    <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
+                                 placeholder="Street Address 2">
+                    </p:inputText>
+                </div>
+
+                <div class="EmptyBox20"></div>
+                <div class="Container100 CustomWidthFA2 MarTop5">
+                    <div class="Container30 CustomWidthFA-Responsive">
+                        <label Class="Container100"
+                               style="text-align: left !important; font-weight: bold !important;">City</label>
+
+                        <div class="EmptyBox5"></div>
+                        <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                     value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressCity}"
+                                     placeholder="City">
+                        </p:inputText>
+                    </div>
+                    <div class="Container30 CustomWidthFA-Responsive Margin-FAAddress">
+                        <label Class="Container100"
+                               style="text-align: left !important; font-weight: bold !important;">State</label>
+
+                        <div class="EmptyBox5"></div>
+                        <p:selectOneMenu value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressState}"
+                                         styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+                                         style="width: 100%;">
+                            <p:ajax/>
+                            <f:selectItem itemLabel="Select State" itemValue=""
+                                          noSelectionOption="true"/>
+                            <f:selectItems value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+                                           var="jointmailingStates" itemLabel="#{jointmailingStates.value}"
+                                           itemValue="#{jointmailingStates.key}"/>
+                        </p:selectOneMenu>
+                    </div>
+                    <div class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+                        <label Class="Container100"
+                               style="text-align: left !important; font-weight: bold !important;">Zip
+                            Code</label>
+
+                        <div class="EmptyBox5"></div>
+                        <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                     value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressZipCode}"
+                                     placeholder="Zip Code">
+                        </p:inputText>
+                    </div>
+                </div>
+            </p:panel>
+
+
+
+
+        </p:panel>
+
+    </p:panel>
+
+</p:tab>
+
+</p:tabView>
+
+</ui:composition>

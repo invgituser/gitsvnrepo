@@ -19,9 +19,6 @@ public class ProfileBean
    private Long beanlogonidID;
    private UserData userData = new UserData();
 
-   @ManagedProperty("#{userInfoDAO}")
-   private UserInfoDAO userInfoDAO;
-
    @ManagedProperty("#{webMessage}")
    private WebMessage messageText;
 
@@ -30,11 +27,6 @@ public class ProfileBean
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
-   }
-
-   public void setUserInfoDAO(UserInfoDAO userInfoDAO)
-   {
-      this.userInfoDAO = userInfoDAO;
    }
 
    public void setMessageText(WebMessage messageText)
@@ -95,10 +87,11 @@ public class ProfileBean
       }
    }
 
-   public void loadData(Long acctnum) {
+   public void loadData(Long logonid) {
 
       try {
-         userData = userInfoDAO.selectUserInfo(webutil.getLogonid());
+         userData.setLogonID(logonid);
+         userData.collectUserAccount();
       }
       catch (Exception ex) {
 
@@ -110,7 +103,7 @@ public class ProfileBean
       try
       {
          if (info.toUpperCase().startsWith("Q")) {
-           userInfoDAO.updateSecurityQuestions(userData);
+            userData.saveQnA();
          }
          if (info.toUpperCase().startsWith("S")) {
             if (userData.getPassword() != null && ! userData.getPassword().isEmpty()) {
@@ -124,7 +117,8 @@ public class ProfileBean
                   return "failed";
                }
             }
-            String updtmsg = userInfoDAO.updateUserProfile(userData);
+
+            String updtmsg = userData.updateUserProfile();
             if (updtmsg != null && ! updtmsg.isEmpty()) {
                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, updtmsg, updtmsg));
                return "failed";

@@ -227,7 +227,7 @@ public class ManageAdvisorBean implements Serializable
 
          if (getSelectedAccount().getAcctStatus().equals("Active"))
          {
-            uiLayout.doMenuAction("/pages/consumer/overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+            uiLayout.doMenuAction("consumer", "overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
          }
          else {
             uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());

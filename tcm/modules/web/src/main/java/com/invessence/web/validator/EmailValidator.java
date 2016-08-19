@@ -59,7 +59,8 @@ public class EmailValidator implements Validator {
 			System.out.println("null userInfoDAO");
 		}
 
-      String pwd = userInfoDAO.checkEmailID(emailID);
+      String pwd = null;
+      // String pwd = userInfoDAO.checkEmailID(emailID);
 		if (pwd != null && pwd.length() > 0) {
 			msg =  new FacesMessage("Email already exists.", "Duplicate email.");
 			msg.setSeverity(FacesMessage.SEVERITY_ERROR);

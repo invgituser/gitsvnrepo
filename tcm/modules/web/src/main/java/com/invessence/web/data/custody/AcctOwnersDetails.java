@@ -1,40 +1,29 @@
 package com.invessence.web.data.custody;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Prashant
- * Date: 8/1/16
- * Time: 10:05 AM
- * To change this template use File | Settings | File Templates.
- */
-public class AccountHolder
-{
+import java.util.Date;
+
+public class AcctOwnersDetails {
    private Long acctnum;
-   private Integer id;
-   private String ownership;
+   private Integer acctOwnerId;
+   private String ownership;  // Primary, or Joint
    private String firstName;
    private String midInitial;
    private String lastName;
    private String ssn;
    private String dob;
-   private String phoneNumber, phoneNumberNonUS;
-   private String secondPhoneNumber, secondPhoneNumberNonUS;
+   private String phoneNumber;
+   private String phoneNumberNonUS;
+   private String secondPhoneNumber;
+   private String secondPhoneNumberNonUS;
    private String emailAddress;
-
-   private String physicalAddressStreet1;
-   private String physicalAddressStreet2;
-   private String physicalAddressStreet3;
+   private String physicalAddressStreet;
    private String physicalAddressCity;
    private String physicalAddressState;
    private String physicalAddressZipCode;
-
-   private String mailingAddressStreet1;
-   private String mailingAddressStreet2;
-   private String mailingAddressStreet3;
+   private String mailingAddressStreet;
    private String mailingAddressCity;
    private String mailingAddressState;
    private String mailingAddressZipCode;
-
    private String sourceOfIncomeId;
    private String citizenshiId;
    private String countryOfCitizenship;
@@ -47,19 +36,13 @@ public class AccountHolder
    private String bd;
    private String bdDetail;
    private Double ownershipPercent;
+   private Date created;
+   private String createdBy;
+   private Date updated;
+   private String updatedBy;
 
-   public AccountHolder()
+   public AcctOwnersDetails()
    {
-   }
-
-   public Integer getId()
-   {
-      return id;
-   }
-
-   public void setId(Integer id)
-   {
-      this.id = id;
    }
 
    public Long getAcctnum()
@@ -70,6 +53,16 @@ public class AccountHolder
    public void setAcctnum(Long acctnum)
    {
       this.acctnum = acctnum;
+   }
+
+   public Integer getAcctOwnerId()
+   {
+      return acctOwnerId;
+   }
+
+   public void setAcctOwnerId(Integer acctOwnerId)
+   {
+      this.acctOwnerId = acctOwnerId;
    }
 
    public String getOwnership()
@@ -182,34 +175,14 @@ public class AccountHolder
       this.emailAddress = emailAddress;
    }
 
-   public String getPhysicalAddressStreet1()
+   public String getPhysicalAddressStreet()
    {
-      return physicalAddressStreet1;
+      return physicalAddressStreet;
    }
 
-   public void setPhysicalAddressStreet1(String physicalAddressStreet1)
+   public void setPhysicalAddressStreet(String physicalAddressStreet)
    {
-      this.physicalAddressStreet1 = physicalAddressStreet1;
-   }
-
-   public String getPhysicalAddressStreet2()
-   {
-      return physicalAddressStreet2;
-   }
-
-   public void setPhysicalAddressStreet2(String physicalAddressStreet2)
-   {
-      this.physicalAddressStreet2 = physicalAddressStreet2;
-   }
-
-   public String getPhysicalAddressStreet3()
-   {
-      return physicalAddressStreet3;
-   }
-
-   public void setPhysicalAddressStreet3(String physicalAddressStreet3)
-   {
-      this.physicalAddressStreet3 = physicalAddressStreet3;
+      this.physicalAddressStreet = physicalAddressStreet;
    }
 
    public String getPhysicalAddressCity()
@@ -242,34 +215,14 @@ public class AccountHolder
       this.physicalAddressZipCode = physicalAddressZipCode;
    }
 
-   public String getMailingAddressStreet1()
+   public String getMailingAddressStreet()
    {
-      return mailingAddressStreet1;
+      return mailingAddressStreet;
    }
 
-   public void setMailingAddressStreet1(String mailingAddressStreet1)
+   public void setMailingAddressStreet(String mailingAddressStreet)
    {
-      this.mailingAddressStreet1 = mailingAddressStreet1;
-   }
-
-   public String getMailingAddressStreet2()
-   {
-      return mailingAddressStreet2;
-   }
-
-   public void setMailingAddressStreet2(String mailingAddressStreet2)
-   {
-      this.mailingAddressStreet2 = mailingAddressStreet2;
-   }
-
-   public String getMailingAddressStreet3()
-   {
-      return mailingAddressStreet3;
-   }
-
-   public void setMailingAddressStreet3(String mailingAddressStreet3)
-   {
-      this.mailingAddressStreet3 = mailingAddressStreet3;
+      this.mailingAddressStreet = mailingAddressStreet;
    }
 
    public String getMailingAddressCity()
@@ -420,5 +373,45 @@ public class AccountHolder
    public void setOwnershipPercent(Double ownershipPercent)
    {
       this.ownershipPercent = ownershipPercent;
+   }
+
+   public Date getCreated()
+   {
+      return created;
+   }
+
+   public void setCreated(Date created)
+   {
+      this.created = created;
+   }
+
+   public String getCreatedBy()
+   {
+      return createdBy;
+   }
+
+   public void setCreatedBy(String createdBy)
+   {
+      this.createdBy = createdBy;
+   }
+
+   public Date getUpdated()
+   {
+      return updated;
+   }
+
+   public void setUpdated(Date updated)
+   {
+      this.updated = updated;
+   }
+
+   public String getUpdatedBy()
+   {
+      return updatedBy;
+   }
+
+   public void setUpdatedBy(String updatedBy)
+   {
+      this.updatedBy = updatedBy;
    }
 }

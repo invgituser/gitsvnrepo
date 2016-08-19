@@ -32,12 +32,14 @@ public class UserInfoDAO extends JdbcDaoSupport
       return ((Long) outMap.get(WebConst.LOGONID_PARAM)).longValue();
    }
 
-   public UserData selectUserInfo(Long logonid)
+   public Boolean selectUserInfo(UserData data)
    {
-      UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1);
-      Map outMap = sp.selectUserProfile(logonid);
-      try {
-         UserData data = new UserData();
+      if (data == null)
+         return false;
+
+      UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1); // Also see validateUserID, checkReset below
+
+      Map outMap = sp.selectUserProfile(data);
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -62,18 +64,87 @@ public class UserInfoDAO extends JdbcDaoSupport
                data.setEmailmsgtype(convert.getStrData(rs.get("emailmsgtype")));
                data.setCid(convert.getStrData(rs.get("cid")));
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
-               data.setRep(convert.getLongData(rs.get("rep")));
-               break;
+               data.setRep(convert.getStrData(rs.get("rep")));
+               return true;
             }
          }
-         return data;
+         return false;
+    }
+
+
+   // Called by UserBean to check email, when signup process is called.
+   public Boolean validateUserID(UserData data)
+   {
+      if (data == null)
+         return false;
+
+      // This code will check by logonid, userid, and email to see if it exists
+      UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1);
+
+      Map outMap = sp.selectUserProfile(data);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         if (rows != null && rows.size() > 0) {
+            // We don't need the data.  If there is any results, then we know that data was there.
+            return true;
+         }
       }
-      catch (Exception ex) {
-         ex.printStackTrace();
-      }
-      return null;
+      return false;
+
    }
 
+   public int checkReset(UserData data)
+   {
+      /* 0 = User found, and resetID matches and user was not in active status.
+         1 = User found, not in active status but resetID do not match.
+         -2 = User is not found on the database.
+         -3 = data object to fetch was not provided
+       */
+      if (data == null)
+      {
+         return -3;
+      }
+
+      // This code will check by logonid, userid, and email to see if it exists
+      UserInfoSP sp = new UserInfoSP(getDataSource(), "sel_user_logon", 1);
+
+      Map outMap = sp.selectUserProfile(data);
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         if (rows != null)
+         {
+            int i = 0;
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               // We don't need the data.  If just compare the data with ResetID.
+               String logonstatus = convert.getStrData(rs.get("logonstatus"));
+               String dbresetID = convert.getStrData(rs.get("resetID"));
+
+               if (logonstatus.equalsIgnoreCase("A"))
+               {
+                  return -2;
+               }
+               else
+               {
+                  if (dbresetID != null && dbresetID.equalsIgnoreCase(data.getResetID().toString()))
+                  {
+                     return 0;
+                  }
+                  else
+                  {
+                     return 1;
+                  }
+               }
+
+            }
+            return -2;
+         }
+      }
+      return -2;
+   }
 
    public String updateUserProfile(UserData userData)
    {
@@ -103,56 +174,13 @@ public class UserInfoDAO extends JdbcDaoSupport
       sp.updatePassword(userID, password);
    }
 
-
-
-   public String checkEmailID(String userid)
+   public int updLogonStatus(String userID)
    {
+      String sql = "update user_logon set logonstatus = 'A', resetID = null, lastupdated = now() " +
+         "where userid = ?";
 
-      String sql = "select email from user_logon where userid = ?";
-
-      SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userid});
-      String email = "";
-      while (rs.next())
-      {
-         email = rs.getString(1);
-      }
-      return email;
-
+      return this.getJdbcTemplate().update(sql, new Object[]{userID});
    }
-
-   public int checkReset(String userID, String resetID)
-   {
-      int sqlStatus = 0;
-      int count=0;
-      String sql = "";
-      // First check that we have valid userid.
-      sql = "select count(*) from user_logon where userid = ?";
-      sqlStatus = getJdbcTemplate().queryForInt(sql, new Object[]{userID});
-
-      // Now check that logonstatus is not active, if so then we cannot reset password.
-      if (sqlStatus == 1) {
-         sql = "select logonstatus from user_logon where userid = ? and resetID = ?";
-         SqlRowSet rs = getJdbcTemplate().queryForRowSet(sql, new Object[]{userID, resetID});
-         if (rs == null) {
-            sqlStatus = -2;
-         } else {
-            while (rs.next())
-            {
-               count++;
-               if (rs.getString("logonstatus").toUpperCase().startsWith("A"))
-                  sqlStatus = -2;
-            }
-         }
-      }
-
-      /*
-      if (count == 0 && sqlStatus == 1)
-         sqlStatus = -1;
-       */
-
-      return sqlStatus;
-   }
-
 
    public int updResetID(String userID, String resetID)
    {
@@ -176,7 +204,7 @@ public class UserInfoDAO extends JdbcDaoSupport
          {
 
             UserData data = new UserData();
-            data.setLogonID(rs.getInt(1));
+            data.setLogonID(rs.getLong(1));
             data.setUserID(rs.getString(2));
             data.setStatus(rs.getInt(3));
             // data.setPhone(rs.getString(4));

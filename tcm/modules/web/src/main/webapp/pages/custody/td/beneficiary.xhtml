@@ -1,0 +1,170 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+         style="margin-bottom: 15px;">
+        <div class="beneficiaryAdd Container100">
+            <i class="fa fa-plus-square"></i>
+            <h:outputText styleClass="Wid100 labelBAB"
+                          value="Add Beneficiary"/>
+        </div>
+        <div class="Container100 Responsive100">
+            <div class="ContainerIndent">
+                <div class="Container100 MarginBottom">
+
+                    <p:dataTable id="singleDT" var="investment" value="#{tcmdash.manageAccountList}"
+                                 emptyMessage="No beneficiary account added. Add a new beneficiary account"
+                                 reflow="true">
+
+                        <p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
+                            <p:commandButton id="activeButton" rendered="#{investment.managed}"
+                                             styleClass="Fs14 GreenButton"
+                                             process="@this" immediate="true"
+                                             icon="fa fa-search-plus Fs14 white"
+                                             action="#{tcmdash.doSelectedAction}">
+                                <p:tooltip id="activeToolTipFade" for="activeButton" value="View"/>
+                                <f:setPropertyActionListener value="#{investment}"
+                                                             target="#{tcmdash.selectedAccount}"/>
+                            </p:commandButton>
+                            <p:commandButton id="pendingButton" rendered="#{! investment.managed}"
+                                             styleClass="Fs14 BlueButton"
+                                             process="@this" immediate="true"
+                                             icon="fa fa-pencil-square-o Fs14 white"
+                                             action="#{tcmdash.doSelectedAction}">
+                                <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit"/>
+                                <f:setPropertyActionListener value="#{investment}"
+                                                             target="#{tcmdash.selectedAccount}"/>
+                            </p:commandButton>
+                        </p:column>
+
+                        <p:column styleClass="Wid25 TexAlLeft"
+                                  sortBy="" headerText="First Name" priority="3"
+                                  resizable="true">
+                            <span class="dashboardUsrColumnFloatRight"> <h:outputText value=""/></span>
+                        </p:column>
+
+                        <p:column styleClass="Wid25 TexAlLeft"
+                                  sortBy="" headerText="Last Name"
+                                  resizable="true">
+                            <span class="dashboardUsrColumnFloatRight"> <h:outputText value=""/></span>
+                        </p:column>
+
+                        <p:column styleClass="Wid25 num-text-align invest"
+                                  headerText="Share %"
+                                  resizable="true">
+                                    <span class="dashboardUsrColumnFloatRight"><h:outputText value="">
+                                        <f:convertNumber type="percent"/>
+                                    </h:outputText></span>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="Container100">
+            <label Class="Container60"
+                   style="text-align: left !important; font-weight: bold !important;">Name</label>
+
+            <div class="EmptyBox5"></div>
+            <p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+                         placeholder="First Name">
+            </p:inputText>
+            <p:inputText
+                    styleClass="CustomWidthFA FS14 InputMergeLeft InputMergeRight"
+                    placeholder="Middle Name">
+            </p:inputText>
+            <p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+                         placeholder="Last Name">
+            </p:inputText>
+        </div>
+
+        <div class="EmptyBox20"></div>
+        <div class="Container50 CustomWidthFA2 MarTop5">
+            <label Class="Container60"
+                   style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+
+            <div class="EmptyBox5"></div>
+            <p:inputText styleClass="Wid20 FS14 InputMergeRight"
+                         placeholder="DD">
+            </p:inputText>
+            <p:inputText
+                    styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+                    placeholder="MM">
+            </p:inputText>
+            <p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+                         placeholder="YY">
+            </p:inputText>
+        </div>
+
+        <div class="Container50 CustomWidthFA2 MarTop5">
+            <label Class="Container100"
+                   style="text-align: left !important; font-weight: bold !important;">Social
+                Security Number</label>
+
+            <div class="EmptyBox5"></div>
+            <p:inputText styleClass="Wid20 FS14 InputMergeRight"
+                         placeholder="">
+            </p:inputText>
+            <p:inputText
+                    styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+                    placeholder="">
+            </p:inputText>
+            <p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+                         placeholder="">
+            </p:inputText>
+        </div>
+        <div class="EmptyBox20"></div>
+
+        <div class="Container100">
+            <div class="Container45 Fleft CustomWidthFA2 MarTop5">
+                <label Class="Container100"
+                       style="text-align: left !important; font-weight: bold !important;">Relationship</label>
+
+                <div class="EmptyBox5"></div>
+                <p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+                             placeholder="Relationship">
+                </p:inputText>
+            </div>
+            <div class="Container45 Fright CustomWidthFA2 MarTop5">
+                <label Class="Container100"
+                       style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+
+                <div class="EmptyBox5"></div>
+                <div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
+                     style="margin-top: 5px;">
+                    <p:selectOneRadio styleClass="textAlign">
+                        <f:selectItem itemValue="1" itemLabel="Primary"/>
+                    </p:selectOneRadio>
+                    <p:selectOneRadio styleClass="textAlign">
+                        <f:selectItem itemValue="1" itemLabel="Contigent"/>
+                    </p:selectOneRadio>
+                </div>
+            </div>
+        </div>
+        <div class="EmptyBox20"></div>
+        <div class="Container100">
+            <div class="Container45 Fleft CustomWidthFA2 MarTop5">
+                <label Class="Container100"
+                       style="text-align: left !important; font-weight: bold !important;">Share %</label>
+
+                <div class="EmptyBox5"></div>
+                <p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+                             placeholder="Share %">
+                </p:inputText>
+            </div>
+        </div>
+        <div class="Container100 MarTop20" style="margin: 10px 10px;">
+            <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
+
+            <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
+        </div>
+    </div>
+
+</ui:composition>

@@ -13,6 +13,7 @@ import com.invessence.web.data.consumer.tcm.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
 
@@ -37,6 +38,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Boolean welcomeDialog = true;
    private Boolean displayGoalGraph = false,
       displayGoalText = false;
+   private String customErrorText;
 
    private Integer prefView = 0;
    private String whichChart;
@@ -110,6 +112,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return displayGoalText;
    }
 
+   public String getCustomErrorText()
+   {
+      return customErrorText;
+   }
+
    public String getWhichChart()
    {
       return whichChart;
@@ -148,6 +155,17 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public Integer getImageSelected()
    {
       return imageSelected;
+   }
+
+   public String getFundButtonText()
+   {
+      if (webutil == null)
+         return "Open Account";
+      if (webutil.isUserLoggedIn())
+         return "Fund Account";
+      else
+         return "Open Account";
+
    }
 
    public Boolean getWelcomeDialog()
@@ -334,7 +352,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   private void loadData(Long acctnum)
+   private void loadProfileData(Long acctnum)
    {
 
       try
@@ -519,6 +537,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          String message = null;
 
+         // Note: Required is taken care by UI.  It automatically highlights the data
+
          if (getAge() == null)
          {
             message = "Age is required<br/>";
@@ -637,8 +657,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          saveProfile();
          // if (canOpenAccount == 0) {
-         webutil.redirect("/pages/custody/td/cto.xhtml?acct=" + getAcctnum(), null);
-         //getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
+         // uiLayout.doMenuAction("custody","index.xhtml?acct=" + acctnum.toString());
+         webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
          // }
 
       }
@@ -659,9 +679,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          resetDataForm();
          if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
          {
-            loadData(getBeanAcctnum());
+            loadProfileData(getBeanAcctnum());
             loadRiskData(getBeanAcctnum());
-
+            displayGoalText = true;
          }
          else
          {
@@ -781,6 +801,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void prevPage()
    {
+      customErrorText = null;   // If we go to previous page, then erase the error message.
       pagemanager.prevPage();
 /*
       if (pagemanager.isFirstPage())
@@ -791,11 +812,27 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 */
    }
 
+   private void addCustomErrorText(String text) {
+      if (customErrorText == null) {
+         customErrorText = text;
+      }
+      else {
+         customErrorText = "<br/>" + text;
+
+      }
+   }
+
+   public void retiredNext() {
+      customErrorText = null;
+      saveProfile();
+      createAssetPortfolio(1);
+      pagemanager.nextPage();
+   }
+
    public void nextPage()
    {
       Boolean cangoToNext = true;
-      FacesContext context = FacesContext.getCurrentInstance();
-      String msg = "", header = "";
+      customErrorText = null;
 
       switch (pagemanager.getPage())
       {
@@ -806,20 +843,21 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             if ((getAge() < 18) || (getAge() > 100))
             {
-               msg = "Age must between 18 - 100";
+               addCustomErrorText("Age must between 18 - 100");
                cangoToNext = false;
             }
             if (getInitialInvestment() < 50000)
             {
-               msg += "Min $50,000 investment required.";
+               addCustomErrorText("Min $50,000 investment required.");
                cangoToNext = false;
             }
             if (getGoal().equalsIgnoreCase("retirement"))
             {
                if (riskCalculator.getRetireAge() <= getAge())
                {
-                  msg = "Retirement age must greater than current age.";
                   cangoToNext = false;
+                  RequestContext context = RequestContext.getCurrentInstance();
+                  context.execute("PF('retired').show();");
                }
             }
             break;
@@ -842,7 +880,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       else
       {
-         context.addMessage(null, new FacesMessage(msg,msg));
+         // Certain pages have default FacesContext to display error messages.
+         FacesContext context = FacesContext.getCurrentInstance();
+         context.addMessage(null, new FacesMessage(customErrorText,customErrorText));
       }
    }
 
@@ -896,6 +936,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       createAssetPortfolio(1);
    }
 
+/*
    public void testRiskModel()
    {
       String goal = "";
@@ -946,6 +987,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          }
       }
    }
+*/
 
 }
 

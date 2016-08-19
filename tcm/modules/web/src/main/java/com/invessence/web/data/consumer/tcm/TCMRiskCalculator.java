@@ -348,6 +348,11 @@ public class TCMRiskCalculator implements RiskCalculator
             answers[2] = value.toString();
          }
       }
+      else {
+         riskHorizon = value;
+         answers[2] = null;
+      }
+
    }
 
    public Double calculateRisk(String goal)

@@ -6,27 +6,34 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
+        <p:confirmDialog message="Are you already retired?  Your retired Age is greater then your age!"
+                         header="Retired?" severity="warning" global="false"
+                         widgetVar="retired">
+            <p:commandButton value="Yes, I'm retired." actionListener="#{tcmpb.retiredNext}"/>
+            <p:commandButton value="Not Yet." onclick="PF('retired').hide();" type="button" />
+        </p:confirmDialog>
 
 
         <div class="EmptyBox20"></div>
 
         <div class="TexAlCenter">
             <div class="PortfolioCreationFields">
-            <div class="mobileFullWidth"><h3 class="formFS" > I plan on investing</h3> </div>
-             <pe:inputNumber id="initialIid"
-                            styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
-                          value="#{tcmpb.initialInvestment}"
-                          maxlength="11" symbol="$"
-                          decimalPlaces="0"
-                    required="true" requiredMessage="Min. of $50,000 investment is required!"
-                    validatorMessage="Min. of $50,000 investment is required!">
-            </pe:inputNumber>
-            <p:message for="initialIid" display="tooltip"/>
-            <div class="mobileFullWidth"><h3 class="formFS" > for </h3></div>
+                <div class="mobileFullWidth"><h3 class="formFS"> I plan on investing </h3></div>
+                <pe:inputNumber id="initialIid"
+                                styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
+                                value="#{tcmpb.initialInvestment}"
+                                maxlength="11" symbol="$"
+                                decimalPlaces="0"
+                                required="true" requiredMessage="Min. of $50,000 investment is required!"
+                                validatorMessage="Min. of $50,000 investment is required!">
+                </pe:inputNumber>
+                <p:message for="initialIid" display="tooltip"/>
+
+                <div class="mobileFullWidth"><h3 class="formFS"> for </h3></div>
                 <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="TCM-UI-Dropdown dropdownInputFullWidth"
                                  required="true" requiredMessage="Please choose investment strategy">
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
-                            update=":ceForm:p1hrznpanel, :ceForm:inputArea" />
+                            update=":ceForm:p1hrznpanel, :ceForm:inputArea"/>
                     <f:selectItem itemLabel="Choose One" itemValue=""/>
                     <f:selectItem itemLabel="Retirement" itemValue="Retirement" styleClass="abcSelected"/>
                     <f:selectItem itemLabel="College" itemValue="College"/>
@@ -39,7 +46,7 @@
         <div class="EmptyBox10"></div>
 
         <p:panel id="p1hrznpanel" style="background: transparent; border: 0px"
-                rendered="#{tcmpb.displayGoalText}">
+                 rendered="#{tcmpb.displayGoalText}">
             <div class="Container100 ResponsiveMarginTop BlockErrorIncluded">
                 <ui:fragment rendered="#{tcmpb.goal == 'Retirement'}">
                     <div class="TexAlCenter">
@@ -51,10 +58,11 @@
                                             decimalPlaces="0" size="9"
                                             required="true" requiredMessage="Age is required!"
                                             validatorMessage="Age should be between 18 and 100."/>
-                            <div class="mobileFullWidth"><h3 class="formFS" > years old.</h3></div>
+
+                            <div class="mobileFullWidth"><h3 class="formFS"> years old.</h3></div>
                         </div>
                     </div>
-<div class="EmptyBox20"></div>
+                    <div class="EmptyBox20"></div>
                     <div class="TexAlCenter">
                         <div>
                             <div class="mobileFullWidth"><h3 class="formFS"> I would like to retire when I am </h3></div>
@@ -67,7 +75,8 @@
                                             required="true" requiredMessage="When do you plan to retire?">
 
                             </pe:inputNumber>
-                            <div class="mobileFullWidth"><h3 class="formFS" > years old.</h3></div>
+
+                            <div class="mobileFullWidth"><h3 class="formFS"> years old.</h3></div>
                         </div>
                     </div>
 
@@ -87,13 +96,13 @@
                     <p:message for="collegeid" display="text"/>
 
                 </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.goal == 'Building Wealth' || tcmpb.goal == 'Other'}">
+                <ui:fragment rendered="#{tcmpb.goal == 'Wealth' || tcmpb.goal == 'Other'}">
 
                     <h3 class="formFS TexAlCenter ">
                         I plan on utilize the funds for this goal in
                         <pe:inputNumber id="otherid"
                                         styleClass="invInputText input_agewid1"
-                                        
+
                                         value="#{tcmpb.horizon}"
                                         decimalPlaces="0"
                                         size="3"
@@ -106,7 +115,14 @@
             </div>
 
         </p:panel>
-<div class="TexAlCenter">
+        <div class="EmptyBox10"></div>
+        <div class="TexAlCenter">
+            <h:outputText value="#{tcmpb.customErrorText}" styleClass="red"
+                          rendered="#{tcmpb.customErrorText != null}">
+            </h:outputText>
+        </div>
+
+        <div class="TexAlCenter">
          <p:commandLink styleClass="UI-nextButtonPg1 UI-tcmButton"   rendered="#{tcmpb.pagemanager.nextButtonStat}"
                          update=":ceForm:inputArea"
                          actionListener="#{tcmpb.nextPage}">

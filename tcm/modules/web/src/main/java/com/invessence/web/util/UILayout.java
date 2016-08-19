@@ -36,143 +36,200 @@ public class UILayout implements Serializable
    @Autowired
    private WebUtil webutil;
 
-   public WebUtil getWebutil() {
+   public WebUtil getWebutil()
+   {
       return webutil;
    }
 
-   public UIProfile getUiprofile() {
+   public UIProfile getUiprofile()
+   {
       return webutil.getUiprofile();
    }
 
-   private String webserviceDB(Map<String,WebConfigDetails> webDB, String name)   {
+   private String webserviceDB(Map<String, WebConfigDetails> webDB, String name)
+   {
       String value = null;
-      if (webDB != null) {
-         if (webDB.containsKey(name)) {
+      if (webDB != null)
+      {
+         if (webDB.containsKey(name))
+         {
             value = webDB.get(name).getValue();
          }
       }
       return value;
    }
 
+   private String getWebServiceValue(String key)
+   {
+      String value = null;
+      Map<String, WebConfigDetails> webSiteConfigDetails;
+      String cid = getCid();
+
+      if (cid == null || cid.isEmpty())
+         return null;
+
+      if (ServiceParameters.webSiteConfigDetailsMap != null)
+      {
+         // First get the Proper CID records.
+         webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get(cid);
+
+         if (webSiteConfigDetails != null)
+         {
+            value = webserviceDB(webSiteConfigDetails, key);
+            if (value != null)
+            {
+               return value;
+            }
+         }
+
+         // If above logic did not find it, and it was zero, then return null
+         if (getCid().equalsIgnoreCase("0"))
+            return null;
+
+         // If no data was found, and CID <> 0, then default the data at Master level.
+         webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get("0");
+
+         if (webSiteConfigDetails != null)
+         {
+            value = webserviceDB(webSiteConfigDetails, key);
+            if (value != null)
+            {
+               return value;
+            }
+         }
+
+      }
+      return null;
+   }
+
+   public void initialize()
+   {
+      if (webutil.getUiprofile() != null)
+      {
+         if (ServiceParameters.webSiteConfigDetailsMap != null)
+         {
+            // First get the Master records.
+            Map<String, WebConfigDetails> webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get("0");
+
+            if (webSiteConfigDetails != null)
+            {
+               webutil.getUiprofile().resetAllInfo(getCid(),
+                                                   getWebServiceValue("COMPANYNAME"),
+                                                   getWebServiceValue("WEBSITE.URL"),
+                                                   getWebServiceValue("SECURE.URL"),
+                                                   getWebServiceValue("LOGO"),
+                                                   getWebServiceValue("LOGO.SIZE"),
+                                                   getWebServiceValue("LOGO.LIB"),
+                                                   getWebServiceValue("MAIN.EMAIL"),
+                                                   getWebServiceValue("SUPPORT.EMAIL"),
+                                                   getWebServiceValue("MAIN.PHONE"),
+                                                   getWebServiceValue("SUPPORT.PHONE"),
+                                                   getWebServiceValue("COPYRIGHT"),
+                                                   getWebServiceValue("FORWARD.SERVICE"),
+                                                   getWebServiceValue("CUSTODY.URL"),
+                                                   getWebServiceValue("ACCOUNTOPENING.URL"),
+                                                   getWebServiceValue("THEME"),
+                                                   getWebServiceValue("THEME.LIB"),
+                                                   getWebServiceValue("TEMPLATE.DIR"),
+                                                   getWebServiceValue("CONSUMER.DIR"),
+                                                   getWebServiceValue("CSS.DIR"),
+                                                   getWebServiceValue("CUSTOM.CSS"),
+                                                   getWebServiceValue("WEB.MODE"),
+                                                   getWebServiceValue("EMAIL.HOST"),
+                                                   getWebServiceValue("EMAIL.USER"),
+                                                   getWebServiceValue("EMAIL.PASSWORD"),
+                                                   getWebServiceValue("EMAIL.PORT"));
+               Map<String, String> emailMap = new HashMap<String,String>();
+               emailMap.put("WELCOME.EMAIL",getWebServiceValue("WELCOME.EMAIL"));
+               emailMap.put("RESET.EMAIL",getWebServiceValue("RESET.EMAIL"));
+               emailMap.put("LOCK.EMAIL",getWebServiceValue("LOCK.EMAIL"));
+               emailMap.put("FORGOT.EMAIL",getWebServiceValue("FORGOT.EMAIL"));
+               webutil.getUiprofile().setEmailTemplateMap(emailMap);
+            }
+         }
+      }
+   }
+
    public void resetCIDProfile(String cid)
    {
       if (cid != null)
       {
+         // If we already set the value for that CID, then don't do it again.
          if (!cid.equals(webutil.getUiprofile().getCid()))
          {
-            String companyname= null;
-            String websiteurl = null, secureurl = null;
-            String logo = null, logosize = null, logolib = null;
-            String mainemail = null, supportemail = null;
-            String mainphone = null, supportphone = null;
-            String copyright = null;
-            String forwardservice = null, custodyURL = null, accountOpeningURL = null;
-            String theme = null, themelib = null;
-            String consumerdir = null;
-            String templatedir = null, cssdir = null, customcss = null;
-            String webmode = null;
+            setCid(cid);
+            webutil.getUiprofile().resetAllInfo(getCid(),
+                                                getWebServiceValue("COMPANYNAME"),
+                                                getWebServiceValue("WEBSITE.URL"),
+                                                getWebServiceValue("SECURE.URL"),
+                                                getWebServiceValue("LOGO"),
+                                                getWebServiceValue("LOGO.SIZE"),
+                                                getWebServiceValue("LOGO.LIB"),
+                                                getWebServiceValue("MAIN.EMAIL"),
+                                                getWebServiceValue("SUPPORT.EMAIL"),
+                                                getWebServiceValue("MAIN.PHONE"),
+                                                getWebServiceValue("SUPPORT.PHONE"),
+                                                getWebServiceValue("COPYRIGHT"),
+                                                getWebServiceValue("FORWARD.SERVICE"),
+                                                getWebServiceValue("CUSTODY.URL"),
+                                                getWebServiceValue("ACCOUNTOPENING.URL"),
+                                                getWebServiceValue("THEME"),
+                                                getWebServiceValue("THEME.LIB"),
+                                                getWebServiceValue("TEMPLATE.DIR"),
+                                                getWebServiceValue("CONSUMER.DIR"),
+                                                getWebServiceValue("CSS.DIR"),
+                                                getWebServiceValue("CUSTOM.CSS"),
+                                                getWebServiceValue("WEB.MODE"),
+                                                getWebServiceValue("EMAIL.HOST"),
+                                                getWebServiceValue("EMAIL.USER"),
+                                                getWebServiceValue("EMAIL.PASSWORD"),
+                                                getWebServiceValue("EMAIL.PORT")
 
-            if (ServiceParameters.webSiteConfigDetailsMap != null) {
-               Map<String,WebConfigDetails> webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get("0");
-
-               if (webSiteConfigDetails != null) {
-                  companyname = webserviceDB(webSiteConfigDetails,"COMPANYNAME");
-                  websiteurl = webserviceDB(webSiteConfigDetails,"WEBSITE.URL");
-                  secureurl = webserviceDB(webSiteConfigDetails,"SECURE.URL");
-                  logo = webserviceDB(webSiteConfigDetails,"LOGO");
-                  logosize = webserviceDB(webSiteConfigDetails,"LOGO.SIZE");
-                  logolib = webserviceDB(webSiteConfigDetails,"LOGO.LIB");
-                  mainemail = webserviceDB(webSiteConfigDetails,"MAIN.EMAIL");
-                  supportemail = webserviceDB(webSiteConfigDetails,"SUPPORT.EMAIL");
-                  mainphone = webserviceDB(webSiteConfigDetails,"MAIN.PHONE");
-                  supportphone = webserviceDB(webSiteConfigDetails,"SUPPORT.PHONE");
-                  copyright = webserviceDB(webSiteConfigDetails,"COPYRIGHT");
-                  forwardservice = webserviceDB(webSiteConfigDetails,"FORWARD.SERVICE");
-                  custodyURL = webserviceDB(webSiteConfigDetails,"CUSTODY.URL");
-                  accountOpeningURL = webserviceDB(webSiteConfigDetails,"ACCOUNTOPENING.URL");
-                  theme = webserviceDB(webSiteConfigDetails,"THEME");
-                  themelib = webserviceDB(webSiteConfigDetails,"THEME.LIB");
-                  templatedir = webserviceDB(webSiteConfigDetails,"TEMPLATE.DIR");
-                  consumerdir = webserviceDB(webSiteConfigDetails,"CONSUMER.DIR");
-                  cssdir = webserviceDB(webSiteConfigDetails,"CSS.DIR");
-                  customcss = webserviceDB(webSiteConfigDetails,"CUSTOM.CSS");
-                  webmode = webserviceDB(webSiteConfigDetails,"WEB.MODE");
-               }
-            }
-
-            /* In case we cannot load from service, then default to default company.properties file as backup */
-            if (companyname == null) {
-
-               companyname = webutil.getMessageText().lookupMessage("COMPANYNAME." + cid, null);
-               websiteurl = webutil.getMessageText().lookupMessage("WEBSITE.URL." + cid, null);
-               secureurl = webutil.getMessageText().lookupMessage("SECURE.URL." + cid, null);
-               logo = webutil.getMessageText().lookupMessage("LOGO." + cid, null);
-               logosize = webutil.getMessageText().lookupMessage("LOGO.SIZE." + cid, null);
-               logolib = webutil.getMessageText().lookupMessage("LOGO.LIB." + cid, null);
-               mainemail = webutil.getMessageText().lookupMessage("MAIN.EMAIL." + cid, null);
-               supportemail = webutil.getMessageText().lookupMessage("SUPPORT.EMAIL." + cid, null);
-               mainphone = webutil.getMessageText().lookupMessage("MAIN.PHONE." + cid, null);
-               supportphone = webutil.getMessageText().lookupMessage("SUPPORT.PHONE." + cid, null);
-               copyright = webutil.getMessageText().lookupMessage("COPYRIGHT." + cid, null);
-               forwardservice = webutil.getMessageText().lookupMessage("FORWARD.SERVICE." + cid, null);
-               custodyURL = webutil.getMessageText().lookupMessage("CUSTODY.URL." + cid, null);
-               accountOpeningURL = webutil.getMessageText().lookupMessage("ACCOUNTOPENING.URL." + cid, null);
-               theme = webutil.getMessageText().lookupMessage("THEME." + cid, null);
-               themelib = webutil.getMessageText().lookupMessage("THEME.LIB." + cid, null);
-               templatedir = webutil.getMessageText().lookupMessage("TEMPLATE.DIR." + cid, null);
-               consumerdir = webutil.getMessageText().lookupMessage("CUSTOM.DIR." + cid, null);
-               cssdir = webutil.getMessageText().lookupMessage("CSS.DIR." + cid, null);
-               customcss = webutil.getMessageText().lookupMessage("CUSTOM.CSS." + cid, null);
-               webmode = webutil.getMessageText().lookupMessage("WEB.MODE" + cid, null);
-            }
+            );
 
 
-            webutil.getUiprofile().resetAllInfo(cid,
-                         companyname, websiteurl, secureurl,
-                         logo, logosize, logolib,
-                         mainemail, supportemail, mainphone, supportphone,
-                         copyright,
-                         forwardservice, custodyURL, accountOpeningURL,
-                         theme, themelib,
-                         templatedir,
-                         consumerdir, cssdir, customcss,
-                         webmode);
-
+            Map<String, String> emailMap = new HashMap<String,String>();
+            emailMap.put("HTML.WELCOME",getWebServiceValue("WELCOME.EMAIL"));
+            emailMap.put("HTML.RESET",getWebServiceValue("RESET.EMAIL"));
+            emailMap.put("HTML.LOCK",getWebServiceValue("LOCK.EMAIL"));
+            emailMap.put("HTML.FORGOT",getWebServiceValue("FORGOT.EMAIL"));
+            webutil.getUiprofile().setEmailTemplateMap(emailMap);
          }
       }
    }
 
    @PostConstruct
-   public void init() {
+   public void init()
+   {
       if (getCid() == null)
       {
          setCid("0");
          setRep("");
-         resetCIDProfile(getCid());
+         initialize();
       }
    }
 
    public void preRenderView()
    {
 
-      try {
+      try
+      {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (getCid() == null || getCid().length() == 0) {
-               Map<String, String> params =FacesContext.getCurrentInstance().
+            if (getCid() == null || getCid().length() == 0)
+            {
+               Map<String, String> params = FacesContext.getCurrentInstance().
                   getExternalContext().getRequestParameterMap();
-               if (params != null) {
+               if (params != null)
+               {
                   String tcid = params.get("cid");
                   if (tcid != null)
+                  {
                      cid = tcid;
+                  }
                }
             }
 
-            if (getCid() == null)
-            {
-               setCid("0");
-               setRep("");
-            }
             resetCIDProfile(getCid());
          }
       }
@@ -196,11 +253,13 @@ public class UILayout implements Serializable
       this.tabMenu = tabMenu;
    }
 
-   public TabView getMessagesTab () {
+   public TabView getMessagesTab()
+   {
       return menuTab;
    }
 
-   public void setMessagesTab(TabView messagesTab ) {
+   public void setMessagesTab(TabView messagesTab)
+   {
       this.menuTab = messagesTab;
    }
 
@@ -227,160 +286,203 @@ public class UILayout implements Serializable
    /* This is a method to go home, used as callback */
    public void defaultHome()
    {
-     forwardURL(getDefaultHome());
+      forwardURL(getDefaultHome());
    }
 
    public String getDefaultHome()
    {
-         if (defaultHome == null) {
-            return getDefaultDashBoard();
-         }
-         else {
-            return defaultHome;
-         }
+      if (defaultHome == null)
+      {
+         return getDefaultDashBoard();
+      }
+      else
+      {
+         return defaultHome;
+      }
    }
 
    public void setDefaultHome(String defaultHome)
    {
-      if (this.defaultHome == null) {
-            this.defaultHome = getDefaultDashBoard();
+      if (this.defaultHome == null)
+      {
+         this.defaultHome = getDefaultDashBoard();
       }
-      else {
+      else
+      {
          this.defaultHome = defaultHome;
       }
-    }
-
-   public void goToStartPage() {
-     if ((defaultHome != null) && (! defaultHome.isEmpty())) {
-         webutil.redirect(defaultHome, null);
-     }
-     else {
-       webutil.redirect(getDefaultDashBoard(), null);
-     }
    }
 
-   public String getDefaultDashBoard() {
+   public void goToStartPage()
+   {
+      if ((defaultHome != null) && (!defaultHome.isEmpty()))
+      {
+         webutil.redirect(defaultHome, null);
+      }
+      else
+      {
+         webutil.redirect(getDefaultDashBoard(), null);
+      }
+   }
+
+   public String getDefaultDashBoard()
+   {
       String dashboard;
 
-      if (webutil.isUserLoggedIn()) {
-         if (webutil.hasAccess(WebConst.WEB_ADVISOR)) {
+      if (webutil.isUserLoggedIn())
+      {
+         if (webutil.hasAccess(WebConst.WEB_ADVISOR))
+         {
 /*
             if (webutil.getUiprofile().getConsumerdir() != null) {
                dashboard = "/pages/advisor/" + webutil.getUiprofile().getConsumerdir() +"/index.xhtml";
             }
             else {
 */
-               dashboard = "/pages/advisor/index.xhtml";
+            dashboard = "/pages/advisor/index.xhtml";
 /*
             }
 */
          }
-         else {
-            if (webutil.getUiprofile().getConsumerdir() != null) {
-               dashboard = "/pages/consumer/"+webutil.getUiprofile().getConsumerdir().trim()+"/index.xhtml";
+         else
+         {
+            if (webutil.getUiprofile().getConsumerdir() != null)
+            {
+               dashboard = "/pages/consumer/" + webutil.getUiprofile().getConsumerdir().trim() + "/index.xhtml";
             }
-            else {
+            else
+            {
                dashboard = "/pages/consumer/index.xhtml";
             }
          }
       }
-      else {
+      else
+      {
          dashboard = "/index.xhtml";
       }
       return dashboard;
 
    }
 
-   public void forwardURL(String menuItem){
-      webutil.redirect(menuItem,null);
+   public void forwardURL(String menuItem)
+   {
+      webutil.redirect(menuItem, null);
    }
 
-   public void logout() {
-      try {
+   public void logout()
+   {
+      try
+      {
          FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-         cid="0";
-         rep="0";
+         cid = "0";
+         rep = "0";
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
 
       }
-      webutil.redirect("/j_spring_security_logout",null);
+      webutil.redirect("/j_spring_security_logout", null);
    }
 
-   public void doMenuAction(String menuItem){
+   public void doMenuAction(String menuItem)
+   {
       String URL;
 
-      try {
-         if (menuItem == null) {
+      try
+      {
+         if (menuItem == null)
+         {
             URL = "/pages/common/invalid.xhtml";
          }
-         else {
-            if (menuItem.startsWith("http")) {
+         else
+         {
+            if (menuItem.startsWith("http"))
+            {
                forwardURL(menuItem);
             }
 
-            if ((menuItem.startsWith("/"))) {
+            if ((menuItem.startsWith("/")))
+            {
                forwardURL(menuItem);
             }
-            else {
+            else
+            {
                forwardURL("/pages/" + menuItem);
             }
          }
       }
-      catch (Exception ex) {
-         webutil.redirect("/pages/common/invalid.xhtml",null);
+      catch (Exception ex)
+      {
+         webutil.redirect("/pages/common/invalid.xhtml", null);
       }
    }
 
-   public void doMenuAction(String location, String menuItem){
+   public void doMenuAction(String location, String menuItem)
+   {
       String URL;
 
-      try {
+      try
+      {
          if (location == null || location.trim().length() == 0)
+         {
             doMenuAction(menuItem);
-         else {
-            if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0) {
+         }
+         else
+         {
+            if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0)
+            {
                forwardURL("/pages/" + location.toLowerCase() + "/" + menuItem);
             }
-            else {
+            else
+            {
                forwardURL("/pages/" + location.toLowerCase() + "/" + getConsumerDIR() + "/" + menuItem);
             }
          }
       }
-      catch (Exception ex) {
-         webutil.redirect("/pages/common/invalid.xhtml",null);
+      catch (Exception ex)
+      {
+         webutil.redirect("/pages/common/invalid.xhtml", null);
       }
    }
 
    public void whichPage(String access, String pageinfo)
    {
       if (access == null)
+      {
          access = "user";
+      }
 
       if (pageinfo == null)
+      {
          pageinfo = "index.xhtml";
+      }
 
-      if (pageinfo.contains(".xhtml")) {
+      if (pageinfo.contains(".xhtml"))
+      {
          doMenuAction(pageinfo);
          return;
       }
 
-      if (pageinfo.equalsIgnoreCase("settings") || pageinfo.equalsIgnoreCase("security")) {
+      if (pageinfo.equalsIgnoreCase("settings") || pageinfo.equalsIgnoreCase("security"))
+      {
          doMenuAction("common", "setting.xhtml");
          return;
       }
 
-      if (access.equalsIgnoreCase("user")) {
+      if (access.equalsIgnoreCase("user"))
+      {
          doMenuAction("consumer", pageinfo);
          return;
       }
 
-      if (access.equalsIgnoreCase("advisor")) {
+      if (access.equalsIgnoreCase("advisor"))
+      {
          doMenuAction("advisor", pageinfo);
          return;
       }
 
-      if (access.equalsIgnoreCase("admin")) {
+      if (access.equalsIgnoreCase("admin"))
+      {
          doMenuAction("admin", pageinfo);
          return;
       }
@@ -388,84 +490,125 @@ public class UILayout implements Serializable
       doMenuAction("consumer", "index.xhtml");
    }
 
-   public String getDisclaimer() {
+   public String getDisclaimer()
+   {
       String txt = null;
-      if (webutil != null) {
+      if (webutil != null)
+      {
          txt = webutil.getMessageText().lookupMessage("disclaimer." + cid, null);
       }
       if (txt != null && txt.length() > 0)
+      {
          return txt;
+      }
       else
+      {
          return null;
+      }
 
    }
 
-   public String getTemplateDIR() {
+   public String getTemplateDIR()
+   {
       String templateDIR = "/template/common/spark";
-      if (webutil.getUiprofile() != null) {
+      if (webutil.getUiprofile() != null)
+      {
          if (webutil.getUiprofile().getTemplatedir() == null || webutil.getUiprofile().getTemplatedir().trim().length() == 0)
+         {
             return (templateDIR);
+         }
          else
+         {
             return (webutil.getUiprofile().getTemplatedir());
+         }
       }
       return templateDIR;
    }
 
-   public String getThemeLib() {
+   public String getThemeLib()
+   {
       String themeLib = WebConst.DEFAULT_THEME + "-layout";
       if (webutil.getUiprofile() == null)
+      {
          return (themeLib);
-      else
-      if (webutil.getUiprofile().getThemelib() == null || webutil.getUiprofile().getThemelib().trim().length() == 0)
+      }
+      else if (webutil.getUiprofile().getThemelib() == null || webutil.getUiprofile().getThemelib().trim().length() == 0)
+      {
          return (themeLib);
+      }
       else
+      {
          return (webutil.getUiprofile().getThemelib());
+      }
    }
 
-   public String getTheme() {
+   public String getTheme()
+   {
       String theme = WebConst.DEFAULT_THEME;
       if (webutil.getUiprofile() == null)
+      {
          return (theme);
-      else
-      if (webutil.getUiprofile().getTheme() == null || webutil.getUiprofile().getTheme().trim().length() == 0)
+      }
+      else if (webutil.getUiprofile().getTheme() == null || webutil.getUiprofile().getTheme().trim().length() == 0)
+      {
          return (theme);
+      }
       else
+      {
          return (webutil.getUiprofile().getTheme());
+      }
    }
 
    public String getLogo()
    {
       String logo = WebConst.DEFAULT_LOGO;
       if (webutil.getUiprofile() == null)
+      {
          return (logo);
-      else
-      if (webutil.getUiprofile().getLogo() == null || webutil.getUiprofile().getLogo().trim().length() == 0)
+      }
+      else if (webutil.getUiprofile().getLogo() == null || webutil.getUiprofile().getLogo().trim().length() == 0)
+      {
          return (logo);
+      }
       else
+      {
          return (webutil.getUiprofile().getLogo());
+      }
    }
 
    public String getCssDIR()
    {
       if (webutil.getUiprofile() == null)
+      {
          return (null);
+      }
       else
+      {
          return (webutil.getUiprofile().getCssdir());
+      }
    }
 
    public String getCustomCSS()
    {
       if (webutil.getUiprofile() == null)
+      {
          return (null);
+      }
       else
+      {
          return (webutil.getUiprofile().getCustomcss());
+      }
    }
 
    public String getConsumerDIR()
    {
       if (webutil.getUiprofile() == null)
+      {
          return (null);
+      }
       else
+      {
          return (webutil.getUiprofile().getConsumerdir());
+      }
    }
 }

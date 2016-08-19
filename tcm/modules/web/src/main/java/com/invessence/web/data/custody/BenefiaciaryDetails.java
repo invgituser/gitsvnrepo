@@ -1,38 +1,27 @@
 package com.invessence.web.data.custody;
 
-/**
- * Created with IntelliJ IDEA.
- * User: Prashant
- * Date: 8/1/16
- * Time: 11:25 AM
- * To change this template use File | Settings | File Templates.
- */
-public class Beneficiary
-{
-   private Long   acctnum;           // acctOwnerId
-   private Integer id;
-   private String beneFirstName;
-   private String beneMidInitial;
-   private String beneLastName;
-   private String beneSSN;
-   private String beneDOB;
-   private String beneRel;
-   private String typeOfBeneficiary;
-   private String perStripes;
-   private Double sharePerc;
+import java.util.Date;
 
-   public Beneficiary()
-   {
-   }
+public class BenefiaciaryDetails {
 
-   public Integer getId()
-   {
-      return id;
-   }
+      private Long acctnum;
+      private Integer beneId;
+      private String beneFirstName;
+      private String beneMidInitial;
+      private String beneLastName;
+      private String beneSSN;
+      private Date beneDOB;
+      private String beneRel;
+      private String typeOfBeneficiary;
+      private String perStripes;
+      private Double sharePerc;
+      private Date created;
+      private String createdBy;
+      private Date updated;
+      private String updatedBy;
 
-   public void setId(Integer id)
+   public BenefiaciaryDetails()
    {
-      this.id = id;
    }
 
    public Long getAcctnum()
@@ -43,6 +32,16 @@ public class Beneficiary
    public void setAcctnum(Long acctnum)
    {
       this.acctnum = acctnum;
+   }
+
+   public Integer getBeneId()
+   {
+      return beneId;
+   }
+
+   public void setBeneId(Integer beneId)
+   {
+      this.beneId = beneId;
    }
 
    public String getBeneFirstName()
@@ -85,12 +84,12 @@ public class Beneficiary
       this.beneSSN = beneSSN;
    }
 
-   public String getBeneDOB()
+   public Date getBeneDOB()
    {
       return beneDOB;
    }
 
-   public void setBeneDOB(String beneDOB)
+   public void setBeneDOB(Date beneDOB)
    {
       this.beneDOB = beneDOB;
    }
@@ -133,5 +132,45 @@ public class Beneficiary
    public void setSharePerc(Double sharePerc)
    {
       this.sharePerc = sharePerc;
+   }
+
+   public Date getCreated()
+   {
+      return created;
+   }
+
+   public void setCreated(Date created)
+   {
+      this.created = created;
+   }
+
+   public String getCreatedBy()
+   {
+      return createdBy;
+   }
+
+   public void setCreatedBy(String createdBy)
+   {
+      this.createdBy = createdBy;
+   }
+
+   public Date getUpdated()
+   {
+      return updated;
+   }
+
+   public void setUpdated(Date updated)
+   {
+      this.updated = updated;
+   }
+
+   public String getUpdatedBy()
+   {
+      return updatedBy;
+   }
+
+   public void setUpdatedBy(String updatedBy)
+   {
+      this.updatedBy = updatedBy;
    }
 }

@@ -24,6 +24,7 @@ public class UserInfoSP extends StoredProcedure
          case 0:
             declareParameter(new SqlParameter("p_addmod", Types.VARCHAR));
             declareParameter(new SqlOutParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlOutParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));
@@ -49,6 +50,8 @@ public class UserInfoSP extends StoredProcedure
             break;
          case 1:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             break;
          case 2:
             declareParameter(new SqlOutParameter("message", Types.VARCHAR));
@@ -88,6 +91,7 @@ public class UserInfoSP extends StoredProcedure
 
       inputMap.put("p_addmod", action);
       inputMap.put("p_logonid", data.getLogonID());
+      inputMap.put("p_acctnum", data.getAcctnum()); // If acctnum is null or 0L then don't link account.  Else create a linked account.
       inputMap.put("p_userid", data.getUserID());
       inputMap.put("p_email", data.getEmailID());
       inputMap.put("p_pwd", data.getPassword());
@@ -126,10 +130,12 @@ public class UserInfoSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map selectUserProfile(Long logonid)
+   public Map selectUserProfile(UserData data)
    {
       Map inputMap = new HashMap();
-      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_logonid", data.getLogonID());
+      inputMap.put("p_userid", data.getUserID());
+      inputMap.put("p_email", data.getEmail());
       return super.execute(inputMap);
    }
 

@@ -1,0 +1,301 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+   <p:tabView>
+
+   employerName
+   occupation
+   typeOfBusiness
+   employerStreetAddress
+   employerCity
+   employerState
+   employerZipCode
+   fromDate
+   toDate
+
+      <p:tab title="Primary Holder">
+          <div class="Container80 Responsive100 MarTop5 MarCenter"
+               style="margin-bottom: 15px;">
+
+              <div class="Container100">
+                  <div class="Container45 Fleft CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Employer
+                          Name</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.owneremploymentDetail.employerName}"
+                              placeholder="Employer Name">
+                      </p:inputText>
+                  </div>
+                  <div
+                          class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">occupations</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.owneremploymentDetail.occupation}"
+                              placeholder="Occupation">
+                      </p:inputText>
+                  </div>
+              </div>
+
+              <div class="EmptyBox20"></div>
+              <div class="Container100">
+                  <div class="Container45 Fleft CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Type of Business</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
+                                       value="#{tdcto.tdMasterData.owneremploymentDetail.typeOfBusiness}"
+                                       style="width: 100%;">
+                          <p:ajax/>
+                          <f:selectItem itemLabel="Select one" itemValue=""
+                                        noSelectionOption="true"/>
+                          <f:selectItem itemLabel="e1" itemValue=""/>
+                          <f:selectItem itemLabel="e2" itemValue=""/>
+                      </p:selectOneMenu>
+                  </div>
+                  <div
+                      class="Container20 Fright-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container50"
+                             style="text-align: left !important; font-weight: bold !important;">From</label>
+
+                      <label Class="Container50"
+                             style="text-align: left !important; font-weight: bold !important;">To</label>
+                      <div class="EmptyBox5"></div>
+                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
+                                   value="#{tdcto.tdMasterData.owneremploymentDetail.fromDate}"
+                                   mask="99/99/9999"
+                                   placeholder="MM/DD/YYYY"
+                                   required="true">
+                      </p:inputMask>
+                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
+                                   value="#{tdcto.tdMasterData.owneremploymentDetail.toDate}"
+                                   mask="99/99/9999"
+                                   placeholder="MM/DD/YYYY"
+                                   required="true">
+                      </p:inputMask>
+                  </div>
+              </div>
+
+
+              <div class="EmptyBox20"></div>
+              <div class="Container100">
+                  <div class="Container45 Fleft CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Employer
+                          Street Address</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.owneremploymentDetail.employerStreetAddress}"
+                              placeholder="Employer Street Address">
+                      </p:inputText>
+                  </div>
+                  <div
+                          class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                  </div>
+              </div>
+
+              <div class="EmptyBox20"></div>
+              <div class="Container100 CustomWidthFA2 MarTop5">
+                  <div class="Container30 CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">City</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                   value="#{tdcto.tdMasterData.owneremploymentDetail.employerCity}"
+                                   placeholder="City">
+                      </p:inputText>
+                  </div>
+                  <div
+                          class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">State</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
+                                       value="#{tdcto.tdMasterData.owneremploymentDetail.employerState}"
+                                       style="width: 100%;">
+                          <p:ajax/>
+                          <f:selectItem itemLabel="Select State" itemValue=""
+                                        noSelectionOption="true"/>
+                          <f:selectItems value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+                                         var="owneremploeyStates" itemLabel="#{owneremploeyStates.value}" itemValue="#{owneremploeyStates.key}"/>
+                      </p:selectOneMenu>
+                  </div>
+                  <div
+                          class="Container30 Fright-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Zip
+                          Code</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                   value="#{tdcto.tdMasterData.owneremploymentDetail.employerZipCode}"
+                                   placeholder="Zip Code">
+                      </p:inputText>
+                  </div>
+              </div>
+          </div>
+          <div class="Container100 MarTop20" style="margin: 10px 10px;">
+              <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
+
+              <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
+          </div>
+      </p:tab>
+      <p:tab title="Joint Holder">
+          <div class="Container80 Responsive100 MarTop5 MarCenter"
+               style="margin-bottom: 15px;">
+
+              <div class="Container100">
+                  <div class="Container45 Fleft CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Employer
+                          Name</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.jointEmploymentDetail.employerName}"
+                              placeholder="Employer Name">
+                      </p:inputText>
+                  </div>
+                  <div
+                          class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">occupations</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.jointEmploymentDetail.occupation}"
+                              placeholder="Occupation">
+                      </p:inputText>
+                  </div>
+              </div>
+
+              <div class="EmptyBox20"></div>
+              <div class="Container100">
+                  <div class="Container45 Fleft CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Type of Business</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
+                                       value="#{tdcto.tdMasterData.jointEmploymentDetail.typeOfBusiness}"
+                                       style="width: 100%;">
+                          <p:ajax/>
+                          <f:selectItem itemLabel="Select one" itemValue=""
+                                        noSelectionOption="true"/>
+                          <f:selectItem itemLabel="e1" itemValue=""/>
+                          <f:selectItem itemLabel="e2" itemValue=""/>
+                      </p:selectOneMenu>
+                  </div>
+                  <div
+                          class="Container20 Fright-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container50"
+                             style="text-align: left !important; font-weight: bold !important;">From</label>
+
+                      <label Class="Container50"
+                             style="text-align: left !important; font-weight: bold !important;">To</label>
+                      <div class="EmptyBox5"></div>
+                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
+                                   value="#{tdcto.tdMasterData.jointEmploymentDetail.fromDate}"
+                                   mask="99/99/9999"
+                                   placeholder="MM/DD/YYYY"
+                                   required="true">
+                      </p:inputMask>
+                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
+                                   value="#{tdcto.tdMasterData.jointEmploymentDetail.toDate}"
+                                   mask="99/99/9999"
+                                   placeholder="MM/DD/YYYY"
+                                   required="true">
+                      </p:inputMask>
+                  </div>
+              </div>
+
+
+              <div class="EmptyBox20"></div>
+              <div class="Container100">
+                  <div class="Container45 Fleft CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Employer
+                          Street Address</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.jointEmploymentDetail.employerStreetAddress}"
+                              placeholder="Employer Street Address">
+                      </p:inputText>
+                  </div>
+                  <div
+                          class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                  </div>
+              </div>
+
+              <div class="EmptyBox20"></div>
+              <div class="Container100 CustomWidthFA2 MarTop5">
+                  <div class="Container30 CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">City</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                   value="#{tdcto.tdMasterData.jointEmploymentDetail.employerCity}"
+                                   placeholder="City">
+                      </p:inputText>
+                  </div>
+                  <div
+                          class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">State</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
+                                       value="#{tdcto.tdMasterData.jointEmploymentDetail.employerState}"
+                                       style="width: 100%;">
+                          <p:ajax/>
+                          <f:selectItem itemLabel="Select State" itemValue=""
+                                        noSelectionOption="true"/>
+                          <f:selectItems value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+                                         var="jointemploeyStates" itemLabel="#{jointemploeyStates.value}" itemValue="#{jointemploeyStates.key}"/>
+                      </p:selectOneMenu>
+                  </div>
+                  <div
+                          class="Container30 Fright-FAAddress CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Zip
+                          Code</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                   value="#{tdcto.tdMasterData.jointEmploymentDetail.employerZipCode}"
+                                   placeholder="Zip Code">
+                      </p:inputText>
+                  </div>
+              </div>
+          </div>
+          <div class="Container100 MarTop20" style="margin: 10px 10px;">
+              <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
+
+              <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
+          </div>
+      </p:tab>
+
+   </p:tabView>
+
+</ui:composition>

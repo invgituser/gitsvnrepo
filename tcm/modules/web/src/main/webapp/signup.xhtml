@@ -3,64 +3,109 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/common/simple.xhtml">
+                template="/template/common/simplelayout.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="e" value="#{userBean.beanEmail}"/>
+        <f:event type="preRenderView" listener="#{userBean.preRenderSignup}"/>
+        <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
+    </f:metadata>
 
     <ui:define name="content">
         <div id="layout-portlets-cover">
-            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
-                 style="margin-top:5%;">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray">
                 <div class="Container90 Fnone MarAuto TexAlLeft">
-                    <div class="EmptyBox20"></div>
                     <h:form>
-                        <h:graphicImage id="logo" name="#{uiLayout.logo}" styleClass="Fleft" library="invessence"
-                                        class="MarAuto MarTop20 MarBot10"/>
-
-                        <div class="EmptyBox10"></div>
-                        <div class="Container90">
-                            <p:growl id="sgrowl"/>
+                        <div class="Container100 TexAlCenter">
+                            <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}"
+                                            styleClass="Fleft" library="invessence"
+                                            class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
                         </div>
+                       <div class="EmptyBox10"></div>
+                       <p:growl id="sgrowl"/>
                         <div class="EmptyBox5"></div>
                         <p:panel id="signup" styleClass="Container100" style="border:0px">
 
-                            <p:panel id="p1" styleClass="Container100 Responsive50" style="border: 0px">
-                                <div class="ContainerIndent">
-                                    <div class="Container50">
-                                        <p:inputText id="firstName" styleClass="Container95 Fleft MarAuto Fs18"
-                                                     value="#{userBean.firstName}" placeholder="FirstName"
-                                                     required="true" requiredMessage="Please enter First Name.">
+                            <p:panel id="p1" styleClass="Container100" style="border: 0px">
+                                <div class="Container100">
+                                    <div class="ContainerIndent">
+                                        <p:inputText id="email" readonly="true"
+                                                     styleClass="Container80 Fleft MarAuto Fs18"
+                                                     value="#{userBean.beanEmail}" placeholder="Email">
                                         </p:inputText>
-                                    </div>
-                                    <div class="Container50">
-                                        <p:inputText id="lastName" styleClass="Container95 Fs18" style="margin-left: 2px"
-                                                     value="#{userBean.lastName}" placeholder="Last Name"
-                                                     required="true" requiredMessage="Please enter Last Name.">
-                                            <p:watermark for="lastName" value="Last Name"/>
-                                        </p:inputText>
+
                                     </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <div class="Container100">
                                     <div class="ContainerIndent">
-                                        <p:inputText id="email" styleClass="Container80 Fleft MarAuto Fs18"
-                                                     value="#{userBean.userID}" placeholder="Email"
-                                                     required="true" requiredMessage="Please enter Email."
-                                                     validatorMessage="Email format is not correct.">
-                                            <p:watermark for="email" value="Email Address"/>
+                                        <p:inputText id="userid" styleClass="Container60 Fleft MarAuto Fs18"
+                                                     value="#{userBean.beanUserID}" placeholder="User ID"
+                                                     required="true" requiredMessage="Please create your User ID.">
+                                            <f:validator validatorId="UserIDValidator" />
                                         </p:inputText>
+                                        <p:commandButton id="uidHelp"  styleClass="Container10 Fright"
+                                                         icon="fa fa-question Fs18 white"
+                                                         process="@none"/>
+
+                                        <p:overlayPanel id="uidHP" for="uidHelp"
+                                                        hideEffect="fade" dynamic="false"
+                                                        showCloseIcon="true"
+                                                        style="width:350px; margin-left: 5px">
+                                            UserID must contain a minimum of 6 alpha characters and
+                                            may contain one of these special characters: '.' or '-'
+                                        </p:overlayPanel>
 
                                     </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
+                                <div class="Container100">
+                                    <div class="ContainerIndent">
+                                        <p:password id="pwd1" styleClass="Container60 Fleft MarAuto Fs18"
+                                                    value="#{userBean.pwd1}"
+                                                    placeholder="Password"
+                                                    required="true" requiredMessage="Password must be entered.">
+                                        </p:password>
+                                        <p:commandButton id="pwdHelp"  styleClass="Container10 Fright"
+                                                         icon="fa fa-question Fs18 white"
+                                                         process="@none"/>
+
+                                        <p:overlayPanel id="helpPanel" for="pwdHelp"
+                                                        hideEffect="fade" dynamic="false"
+                                                        showCloseIcon="true"
+                                                        style="width:350px; margin-left: 5px">
+                                            Password must contain a minimum of 8 characters including at least:
+                                            <ul>
+                                                <li>1 uppercase letter</li>
+                                                <li>1 number</li>
+                                                <li>1 of these special characters: !,#$%?:.</li>
+                                            </ul>
+                                       </p:overlayPanel>
+
+                                    </div>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <div class="Container100">
+                                    <div class="ContainerIndent">
+                                        <p:password id="pwd2" styleClass="Container60 Fleft MarAuto Fs18"
+                                                    value="#{userBean.pwd2}"
+                                                    placeholder="Confirm Password">
+                                        </p:password>
+                                    </div>
+                                </div>
+                                <div class="EmptyBox10"></div>
+                                <p:separator/>
+                                <div class="EmptyBox5"></div>
+                                <div class="Container100">
+                                   <div class="ContainerIndent TexAlCenter">
+                                       <p:commandButton value="Next" type="submit"
+                                                        actionListener="#{userBean.gotoSignPage2}"
+                                                        update="p1, sgrowl"/>
+                                   </div>
+                                </div>
                             </p:panel>
 
-                            <f:facet name="footer">
-                                <p:commandButton value="Register" type="submit" styleClass="Fright"
-                                                 update="@form"
-                                                 actionListener="#{userBean.signUp}"/>
-                            </f:facet>
-
                         </p:panel>
-
                         <div class="EmptyBox20"></div>
                     </h:form>
                 </div>
