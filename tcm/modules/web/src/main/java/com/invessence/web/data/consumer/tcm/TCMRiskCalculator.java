@@ -58,12 +58,14 @@ public class TCMRiskCalculator implements RiskCalculator
    private Integer retireAge;
    private Integer riskHorizon;
    private Double totalRisk;
+   private Boolean retired;
    SQLData converter = new SQLData();
 
 
    public TCMRiskCalculator()
    {
       this.numberofQuestions = 1;
+      this.retired = false;
       resetAllData();
    }
 
@@ -283,6 +285,15 @@ public class TCMRiskCalculator implements RiskCalculator
       setAnswer(15, value);
    }
 
+   public Boolean getRetired()
+   {
+      return retired;
+   }
+
+   public void setRetired(Boolean retired)
+   {
+      this.retired = retired;
+   }
 
    @Override
    public String getRiskFormula()

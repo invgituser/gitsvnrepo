@@ -14,7 +14,7 @@ import com.invessence.web.constant.USMaps;
 public class TDMasterData
 {
    Long acctnum;
-   Integer accttype; // 0 - Individual , 1 joint acct.
+   Integer accttype; // 1 - Individual , 2 joint acct.
    Boolean acctholderhasMailing, jointhasMailing, jointhasDifferent;
    Boolean ownerSPF, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
