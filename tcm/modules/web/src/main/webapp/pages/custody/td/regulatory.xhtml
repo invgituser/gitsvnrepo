@@ -143,8 +143,8 @@
                                     <p:ajax/>
                                     <f:selectItem itemLabel="Select State" itemValue=""
                                                   noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="California" itemValue=""/>
-                                    <f:selectItem itemLabel="Florida" itemValue=""/>
+                                    <f:selectItems value="#{tdcto.tdMasterData.usmaps.states.entrySet()}"
+                                                   var="ownerregshare" itemLabel="#{ownerregshare.value}" itemValue="#{ownerregshare.key}"/>
                                 </p:selectOneMenu>
                             </div>
                         </div>

@@ -19,7 +19,7 @@
             <div class="layout-portlets-box" style="background: #FBFCFD;">
 
                 <div class="Container100 Responsive100">
-                    <div class="ContainerIndent FundAccountTab">
+                    <div class="ContainerIndent FundAccountTab" style="display: none">
                         <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{ctobean.pagemanager.page}">
                             <p:menuitem value="Account Type"/>
                             <p:menuitem value="Personal"/>
@@ -88,7 +88,7 @@
 
                                     <ui:include src="/pages/custody/td/funding.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab7" rendered="false">
+                                <p:tab id="tab7">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/beneficiary.png.xhtml?ln=tcm"/>

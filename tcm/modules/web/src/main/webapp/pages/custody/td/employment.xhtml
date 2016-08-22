@@ -44,36 +44,37 @@
                              style="text-align: left !important; font-weight: bold !important;">Type of Business</label>
 
                       <div class="EmptyBox5"></div>
-                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
-                                       value="#{tdcto.tdMasterData.owneremploymentDetail.typeOfBusiness}"
-                                       style="width: 100%;">
-                          <p:ajax/>
-                          <f:selectItem itemLabel="Select one" itemValue=""
-                                        noSelectionOption="true"/>
-                          <f:selectItem itemLabel="e1" itemValue=""/>
-                          <f:selectItem itemLabel="e2" itemValue=""/>
-                      </p:selectOneMenu>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.owneremploymentDetail.typeOfBusiness}"
+                              placeholder="Occupation">
+                      </p:inputText>
                   </div>
-                  <div
-                      class="Container20 Fright-FAAddress CustomWidthFA-Responsive">
+                  <div class="Container50 Fright-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container50"
                              style="text-align: left !important; font-weight: bold !important;">From</label>
 
                       <label Class="Container50"
                              style="text-align: left !important; font-weight: bold !important;">To</label>
                       <div class="EmptyBox5"></div>
-                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
-                                   value="#{tdcto.tdMasterData.owneremploymentDetail.fromDate}"
-                                   mask="99/99/9999"
-                                   placeholder="MM/DD/YYYY"
-                                   required="true">
-                      </p:inputMask>
-                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
-                                   value="#{tdcto.tdMasterData.owneremploymentDetail.toDate}"
-                                   mask="99/99/9999"
-                                   placeholder="MM/DD/YYYY"
-                                   required="true">
-                      </p:inputMask>
+                      <div class="Container50">
+                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
+                                       value="#{tdcto.tdMasterData.owneremploymentDetail.fromDate}"
+                                       mask="99/99/9999"
+                                       placeholder="MM/DD/YYYY"
+                                       required="true">
+                          </p:inputMask>
+
+                      </div>
+                      <div class="Container50">
+                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
+                                       value="#{tdcto.tdMasterData.owneremploymentDetail.toDate}"
+                                       mask="99/99/9999"
+                                       placeholder="MM/DD/YYYY"
+                                       required="true">
+                          </p:inputMask>
+
+                      </div>
                   </div>
               </div>
 
@@ -183,37 +184,39 @@
                              style="text-align: left !important; font-weight: bold !important;">Type of Business</label>
 
                       <div class="EmptyBox5"></div>
-                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
-                                       value="#{tdcto.tdMasterData.jointEmploymentDetail.typeOfBusiness}"
-                                       style="width: 100%;">
-                          <p:ajax/>
-                          <f:selectItem itemLabel="Select one" itemValue=""
-                                        noSelectionOption="true"/>
-                          <f:selectItem itemLabel="e1" itemValue=""/>
-                          <f:selectItem itemLabel="e2" itemValue=""/>
-                      </p:selectOneMenu>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.jointEmploymentDetail.typeOfBusiness}"
+                              placeholder="Type of business">
+                      </p:inputText>
                   </div>
-                  <div
-                          class="Container20 Fright-FAAddress CustomWidthFA-Responsive">
+                  <div class="Container50 Fright-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container50"
                              style="text-align: left !important; font-weight: bold !important;">From</label>
 
                       <label Class="Container50"
                              style="text-align: left !important; font-weight: bold !important;">To</label>
                       <div class="EmptyBox5"></div>
-                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
-                                   value="#{tdcto.tdMasterData.jointEmploymentDetail.fromDate}"
-                                   mask="99/99/9999"
-                                   placeholder="MM/DD/YYYY"
-                                   required="true">
-                      </p:inputMask>
-                      <p:inputMask styleClass="Wid50 FS14 InputMergeRight"
-                                   value="#{tdcto.tdMasterData.jointEmploymentDetail.toDate}"
-                                   mask="99/99/9999"
-                                   placeholder="MM/DD/YYYY"
-                                   required="true">
-                      </p:inputMask>
+                      <div class="Container50">
+                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
+                                       value="#{tdcto.tdMasterData.jointEmploymentDetail.fromDate}"
+                                       mask="99/99/9999"
+                                       placeholder="MM/DD/YYYY"
+                                       required="true">
+                          </p:inputMask>
+
+                      </div>
+                      <div class="Container50">
+                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
+                                       value="#{tdcto.tdMasterData.jointEmploymentDetail.toDate}"
+                                       mask="99/99/9999"
+                                       placeholder="MM/DD/YYYY"
+                                       required="true">
+                          </p:inputMask>
+
+                      </div>
                   </div>
+
               </div>
 
 
