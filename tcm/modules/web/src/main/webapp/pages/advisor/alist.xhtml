@@ -41,7 +41,7 @@
                     </h3>
 
                         <p:dataTable id="managedDataList" var="managedVar" styleClass="ListOfAccountsTable" widgetVar="managedTable"
-                                     value="#{manageAdvisorBean.filteredDataList}">
+                                     value="#{manageAdvisorBean.filteredDataList}" reflow="true">
 
 <!--
                            <f:facet name="header" style="text-align:right">
@@ -54,7 +54,7 @@
                            </f:facet>
 -->
 
-                            <p:column style="width:5%">
+                            <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
                                 <p:commandButton id="activeButton" rendered="#{managedVar.acctStatus == 'Active'}"
                                                  styleClass="Fs16 GreenButton"
                                                  process="@this" immediate="true"
@@ -65,7 +65,7 @@
                                                                  target="#{manageAdvisorBean.selectedAccount}"/>
                                 </p:commandButton>
                                 <p:commandButton id="pendingButton" rendered="#{managedVar.acctStatus != 'Active'}"
-                                                 styleClass="Fs16 BlueButton"
+                                                 styleClass="Fs16 BlueButton DualBtnModeLeft"
                                                  process="@this" immediate="true"
                                                  icon="fa fa-pencil-square-o Fs14 white"
                                                  action="#{manageAdvisorBean.doManagedAction}">
@@ -73,10 +73,8 @@
                                     <f:setPropertyActionListener value="#{managedVar}"
                                                                  target="#{manageAdvisorBean.selectedAccount}"/>
                                 </p:commandButton>
-                            </p:column>
-                            <p:column style="width:5%">
                                 <p:commandButton id="menuDelete" rendered="#{managedVar.acctStatus != 'Active'}"
-                                                 styleClass="Fs16 RedButton"
+                                                 styleClass="Fs16 RedButton DualBtnModeRight"
                                                  process="@this" immediate="true"
                                                  icon="fa fa-trash Fs14 white"
                                                  actionListener="#{manageAdvisorBean.doDelete(managedVar)}"
@@ -84,38 +82,41 @@
                                     <p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert"/>
                                 </p:commandButton>
                             </p:column>
+                            <!-- <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
+                                
+                            </p:column> -->
                             <p:column sortBy="#{managedVar.fullname}"
                                       headerText="Name"
-                                      style="width:20%; text-align: left"
+                                      styleClass="ListOfAccntsColWidth"
                                       resizable="true">
-                                <h:outputText value="#{managedVar.fullname}"/>
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.fullname}"/>
                             </p:column>
                             <p:column sortBy="#{managedVar.displayAcct}"
                                       headerText="Acct#"
-                                      style="width:20%; text-align: left"
+                                      styleClass="ListOfAccntsColWidth"
                                       resizable="true">
-                                <h:outputText value="#{managedVar.displayAcct}"/>
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.displayAcct}"/>
                             </p:column>
 
                             <p:column sortBy="#{managedVar.goal}"
                                       headerText="Goal"
-                                      style="width:15%; text-align: left"
+                                      styleClass="ListOfAccntsColWidth"
                                       resizable="true">
-                                <h:outputText value="#{managedVar.goal}"/>
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
                             </p:column>
                             <p:column sortBy="#{managedVar.invested}"
                                       headerText="Capital($)"
-                                      style="width:10%; text-align: right"
+                                      styleClass="ListOfAccntsColWidth"
                                       resizable="true">
-                                <h:outputText value="#{managedVar.invested}">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.invested}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
                             </p:column>
                             <p:column sortBy="#{managedVar.dateOpened}"
                                       headerText="Date Opened"
-                                      style="width:10%; text-align: right"
+                                      styleClass="ListOfAccntsColWidth"
                                       resizable="true">
-                                <h:outputText value="#{managedVar.dateOpened}">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
                                 </h:outputText>
                             </p:column>
                         </p:dataTable>

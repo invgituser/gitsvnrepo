@@ -1,218 +1,178 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <p:tabView>
-        <p:tab title="Account Holder">
-            <div class="Container80 Responsive100 MarTop5 MarCenter"
-                 style="margin-bottom: 15px;">
+	<p:tabView>
+		<p:tab title="Account Holder">
+			<div class="Container80 Responsive100 MarTop5 MarCenter"
+				style="margin-bottom: 15px;">
+				<div class="Container100">
+					<label Class="Container60"
+						style="text-align: left !important; font-weight: bold !important;">Name</label>
 
-                <div class="Container100">
-                    <label Class="Container60"
-                           style="text-align: left !important; font-weight: bold !important;">
-                        Name (Firstname, Middle Initial, Lastname)
-                    </label>
+					<div class="EmptyBox5"></div>
+					<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.firstName}"
+						placeholder="First Name" required="true">
+					</p:inputText>
+					<p:inputText
+						styleClass="CustomWidthFA FS14 InputMergeLeft InputMergeRight"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.midInitial}"
+						placeholder="Middle Name">
+					</p:inputText>
+					<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.lastName}"
+						placeholder="Last Name" required="true">
+					</p:inputText>
+				</div>
 
-                    <div class="EmptyBox5"></div>
-                    <p:inputText styleClass="Wid40 FS14 InputMergeRight"
-                                 value="#{tdcto.tdMasterData.acctOwnersDetail.firstName}"
-                                 placeholder="First Name"
-                                 required="true">
-                    </p:inputText>
-                    <p:inputText
-                            styleClass="Wid10 FS14 InputMergeLeft InputMergeRight"
-                            value="#{tdcto.tdMasterData.acctOwnersDetail.midInitial}"
-                            placeholder="M.I.">
-                    </p:inputText>
-                    <p:inputText styleClass="Wid40 FS14 InputMergeLeft"
-                                 value="#{tdcto.tdMasterData.acctOwnersDetail.lastName}"
-                                 placeholder="Last Name"
-                                 required="true">
-                    </p:inputText>
-                </div>
+				<div class="EmptyBox20"></div>
+				<div class="Container100">
+					<div class="Container45 Fleft CustomWidthFA-Responsive">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
+						<div class="EmptyBox5"></div>
+						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+							value="#{tdcto.tdMasterData.acctOwnersDetail.dob}"
+							mask="99/99/9999" placeholder="MM/DD/YYYY" required="true">
+						</p:inputMask>
+					</div>
 
-                <div class="EmptyBox20"></div>
-                <div class="Container50 CustomWidthFA2 MarTop5">
-                    <label Class="Container60"
-                           style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
-                                                       kkk
-                    <div class="EmptyBox5"></div>
-                    <p:inputMask styleClass="Wid40 FS14 InputMergeRight"
-                                 value="#{tdcto.tdMasterData.acctOwnersDetail.dob}" mask="99/99/9999"
-                                 placeholder="MM/DD/YYYY"
-                                 required="true">
-                    </p:inputMask>
-               </div>
+					<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Social
+							Security Number</label>
 
-                <div class="Container50 CustomWidthFA2 MarTop5">
-                    <label Class="Container50"
-                           style="text-align: left !important; font-weight: bold !important;">
-                        Social Security Number
-                    </label>
-                    <label Class="Container50"
-                           style="text-align: left !important; font-weight: bold !important;">
-                        USA Citizen</label>
+						<div class="EmptyBox5"></div>
+						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+							value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}"
+							mask="999-99-9999" placeholder="###-##-####" required="true">
+						</p:inputMask>
+					</div>
+				</div>
+				<div class="EmptyBox20"></div>
 
-                    <div class="EmptyBox5"></div>
-                    <div class="Container50">
-                        <p:inputMask styleClass="Wid80 FS14 InputMergeRight"
-                                     value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}" mask="999-99-9999"
-                                     placeholder="###-##-####"
-                                     required="true">
-                        </p:inputMask>
-                    </div>
-                    <div class="Container50">
-                        <p:selectBooleanButton value="#{tdcto.tdMasterData.acctOwnersDetail.citizenshiId}"
-                                               onLabel="Yes" offLabel="No"
-                                               style="width:60px" />
-                    </div>
-                </div>
-                <div class="EmptyBox20"></div>
+				<div class="Container100">
+					<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Phone
+							Number</label>
 
-                <div class="Container100">
-                    <div class="Container45 Fleft CustomWidthFA2 MarTop5">
-                        <label Class="Container100"
-                               style="text-align: left !important; font-weight: bold !important;">Phone
-                            Number</label>
+						<div class="EmptyBox5"></div>
+						<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+							value="#{tdcto.tdMasterData.acctOwnersDetail.phoneNumber}"
+							mask="(999) 999-9999" placeholder="Primary Phone" required="true">
+						</p:inputMask>
+					</div>
+					<div class="Container45 Fright CustomWidthFA2 MarTop5">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
 
-                        <div class="EmptyBox5"></div>
-                        <p:inputMask styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
-                                     value="#{tdcto.tdMasterData.acctOwnersDetail.phoneNumber}" mask="(999) 999-9999"
-                                     placeholder="Primary Phone"
-                                     required="true">
-                        </p:inputMask>
-                    </div>
-                    <div class="Container45 Fright CustomWidthFA2 MarTop5">
-                        <label Class="Container100"
-                               style="text-align: left !important; font-weight: bold !important;">
-                            Email</label>
+						<div class="EmptyBox5"></div>
+						<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
+							<p:selectBooleanButton
+								value="#{tdcto.tdMasterData.acctOwnersDetail.citizenshiId}"
+								onLabel="Yes" offLabel="No" onIcon="ui-icon-check"
+								offIcon="ui-icon-close" style="width:80px" styleClass="booleanBtnCustom" />
+							<h:outputText value="USA Citizenship" style="margin:0px 10px;"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Container100 MarTop20" style="margin: 10px 10px;">
+				<p:commandLink styleClass="UI-prevButtonFA Fleft" />
 
-                        <div class="EmptyBox5"></div>
-                        <div class="CustomWidthFA-Responsive"
-                             style="margin-top: 5px;">
-                            <p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
-                                         value="#{tdcto.tdMasterData.acctOwnersDetail.emailAddress}"
-                                         placeholder="Email">
-                            </p:inputText>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="Container100 MarTop20" style="margin: 10px 10px;">
-                <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
+				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+			</div>
+		</p:tab>
+		<p:tab title="Joint Account Holder">
+			<div class="Container80 Responsive100 MarTop5 MarCenter"
+				style="margin-bottom: 15px;">
+				<div class="Container100">
+					<label Class="Container60"
+						style="text-align: left !important; font-weight: bold !important;">Name</label>
 
-                <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
-            </div>
-        </p:tab>
-        <p:tab title="Joint Account Holder">
-            <div class="Container80 Responsive100 MarTop5 MarCenter"
-                 style="margin-bottom: 15px;">
+					<div class="EmptyBox5"></div>
+					<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.firstName}"
+						placeholder="First Name" required="true">
+					</p:inputText>
+					<p:inputText
+						styleClass="CustomWidthFA FS14 InputMergeLeft InputMergeRight"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.midInitial}"
+						placeholder="Middle Name">
+					</p:inputText>
+					<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.lastName}"
+						placeholder="Last Name" required="true">
+					</p:inputText>
+				</div>
 
-                <div class="Container100">
-                    <label Class="Container60"
-                           style="text-align: left !important; font-weight: bold !important;">
-                        Name (Firstname, Middle Initial, Lastname)
-                    </label>
+				<div class="EmptyBox20"></div>
+				<div class="Container100">
+					<div class="Container45 Fleft CustomWidthFA-Responsive">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
-                    <div class="EmptyBox5"></div>
-                    <p:inputText styleClass="Wid40 FS14 InputMergeRight"
-                                 value="#{tdcto.tdMasterData.jointAcctOwnersDetail.firstName}"
-                                 placeholder="First Name"
-                                 required="true">
-                    </p:inputText>
-                    <p:inputText
-                            styleClass="Wid10 FS14 InputMergeLeft InputMergeRight"
-                            value="#{tdcto.tdMasterData.jointAcctOwnersDetail.midInitial}"
-                            placeholder="M.I.">
-                    </p:inputText>
-                    <p:inputText styleClass="Wid40 FS14 InputMergeLeft"
-                                 value="#{tdcto.tdMasterData.jointAcctOwnersDetail.lastName}"
-                                 placeholder="Last Name"
-                                 required="true">
-                    </p:inputText>
-                </div>
+						<div class="EmptyBox5"></div>
+						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+							value="#{tdcto.tdMasterData.acctOwnersDetail.dob}"
+							mask="99/99/9999" placeholder="MM/DD/YYYY" required="true">
+						</p:inputMask>
+					</div>
 
-                <div class="EmptyBox20"></div>
-                <div class="Container50 CustomWidthFA2 MarTop5">
-                    <label Class="Container60"
-                           style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+					<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Social
+							Security Number</label>
 
-                    <div class="EmptyBox5"></div>
-                    <p:inputMask styleClass="Wid40 FS14 InputMergeRight"
-                                 value="#{tdcto.tdMasterData.jointAcctOwnersDetail.dob}"
-                                 mask="99/99/9999"
-                                 placeholder="MM/DD/YYYY"
-                                 required="true">
-                    </p:inputMask>
-                </div>
+						<div class="EmptyBox5"></div>
+						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+							value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}"
+							mask="999-99-9999" placeholder="###-##-####" required="true">
+						</p:inputMask>
+					</div>
+				</div>
+				<div class="EmptyBox20"></div>
 
-                <div class="Container50 CustomWidthFA2 MarTop5">
-                    <label Class="Container50"
-                           style="text-align: left !important; font-weight: bold !important;">
-                        Social Security Number
-                    </label>
-                    <label Class="Container50"
-                           style="text-align: left !important; font-weight: bold !important;">
-                        USA Citizen</label>
+				<div class="Container100">
+					<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Phone
+							Number</label>
 
-                    <div class="EmptyBox5"></div>
-                    <div class="Container50">
-                        <p:inputMask styleClass="Wid80 FS14 InputMergeRight"
-                                     value="#{tdcto.tdMasterData.jointAcctOwnersDetail.ssn}" mask="999-99-9999"
-                                     placeholder="###-##-####"
-                                     required="true">
-                        </p:inputMask>
-                    </div>
-                    <div class="Container50">
-                        <p:selectBooleanButton value="#{tdcto.tdMasterData.jointAcctOwnersDetail.citizenshiId}"
-                                               onLabel="Yes" offLabel="No"
-                                               style="width:60px" />
-                    </div>
-                </div>
-                <div class="EmptyBox20"></div>
+						<div class="EmptyBox5"></div>
+						<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+							value="#{tdcto.tdMasterData.acctOwnersDetail.phoneNumber}"
+							mask="(999) 999-9999" placeholder="Primary Phone" required="true">
+						</p:inputMask>
+					</div>
+					<div class="Container45 Fright CustomWidthFA2 MarTop5">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
 
-                <div class="Container100">
-                    <div class="Container45 CustomWidthFA2 Fleft MarTop5">
-                        <label Class="Container100"
-                               style="text-align: left !important; font-weight: bold !important;">Phone
-                            Number</label>
+						<div class="EmptyBox5"></div>
+						<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
+							<p:selectBooleanButton
+								value="#{tdcto.tdMasterData.acctOwnersDetail.citizenshiId}"
+								onLabel="Yes" offLabel="No" onIcon="ui-icon-check"
+								offIcon="ui-icon-close" style="width:80px" styleClass="booleanBtnCustom" />
+							<h:outputText value="USA Citizenship" style="margin:0px 10px;"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="Container100 MarTop20" style="margin: 10px 10px;">
+				<p:commandLink styleClass="UI-prevButtonFA Fleft" />
 
-                        <div class="EmptyBox5"></div>
-                        <p:inputMask styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
-                                     value="#{tdcto.tdMasterData.jointAcctOwnersDetail.phoneNumber}"
-                                     mask="(999) 999-9999"
-                                     placeholder="Primary Phone#"
-                                     required="true">
-                        </p:inputMask>
-                    </div>
+				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+			</div>
+		</p:tab>
 
-                    <div class="Container45 Fright CustomWidthFA2 MarTop5">
-                        <label Class="Container100"
-                               style="text-align: left !important; font-weight: bold !important;">
-                            Email</label>
-
-                        <div class="EmptyBox5"></div>
-                        <div class="CustomWidthFA-Responsive"
-                             style="margin-top: 5px;">
-                            <p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
-                                         value="#{tdcto.tdMasterData.jointAcctOwnersDetail.emailAddress}"
-                                         placeholder="Email">
-                            </p:inputText>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="Container100 MarTop20" style="margin: 10px 10px;">
-                <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
-
-                <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
-            </div>
-        </p:tab>
-
-    </p:tabView>
+	</p:tabView>
 
 </ui:composition>

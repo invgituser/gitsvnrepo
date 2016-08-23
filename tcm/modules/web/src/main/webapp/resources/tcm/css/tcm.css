@@ -292,6 +292,27 @@ img.riskImage:hover {
 /**/
 /*Prakash*/
 
+.booleanBtnCustom > .ui-icon {
+	background-image: url("/javax.faces.resource/images/booleanWhiteIcon.png.xhtml?ln=tcm")!important;
+}
+
+.ui-datatable .ui-datatable-even {
+	background-color: #ffffff!important;
+}
+
+.ui-datatable .ui-datatable-odd {
+	background: #f2f2f2!important;
+}
+
+.ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {
+	color: #ffffff!important;
+    background-color: #919d9d!important;
+}
+
+.ui-datatable {
+    padding: 2px!important;
+}
+
 .ProjectionChartRadioAssets > .ui-radiobutton-box > .ui-radiobutton,
 .ProjectionChartRadioAssets > .ui-radiobutton-box > .ui-radiobutton-icon {
     width: 11px!important;
@@ -339,7 +360,7 @@ color: #919d9d;
 
 .ProjectionChartRadioTable > tbody > tr> td {
 	text-align: center;
-	//padding: 0px 15px!important;
+	/* padding: 0px 15px!important; */
 }
 
 .ProjectionChartRadioAssets > tbody > tr >td {
@@ -353,7 +374,7 @@ color: #919d9d;
 }
 
 .ProjectionChartRadioBlock {
-  //  width: 692px;
+  /*   width: 692px; */
     margin: 0 auto;
     margin-top: 20px;
 }
@@ -616,7 +637,7 @@ background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm")!import
 	background-size: 100%!important;
 }
 
-.ui-icon-triangle-1-s {
+.ui-accordion-header > .ui-icon-triangle-1-s {
     background: url("/javax.faces.resource/images/upaccordion.png.xhtml?ln=tcm") !important;
     background-size: 110% !important;
 }
@@ -843,7 +864,7 @@ body {
 }
 
 * {
-    font-family: 'ralewayregular';
+    font-family: 'helvetica';
 }
 
 h3 {

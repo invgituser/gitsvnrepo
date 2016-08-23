@@ -209,7 +209,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     width: 100%;
 }
 
-.ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-column-title {
+/* .ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-column-title {
 	font-size: 12px;
 }
 
@@ -220,7 +220,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 .ListOfAccountsTable > .ui-datatable-tablewrapper > table > thead > tr > th > .ui-sortable-column-icon {
 	margin-left:0px!important;
 	background-size: 75%!important;
-}
+} */
 }
 
 @media (max-width: 400px) {
@@ -238,6 +238,18 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 
 /**/
 /*Prakash*/
+
+
+
+.ListOfAccntsColWidth {
+	width: 20%;
+	text-align: left;
+}
+
+.ListOfAccntsColWidthBtn {
+	width: 20%;
+	text-align: center;
+}
 
 .HeaderTableBlock > h2{
 	position: relative;
@@ -284,6 +296,21 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	padding: 9px 0;
 }
 
+@media (min-width: 560px) and (max-width: 1075px) {
+	.ListOfAccountsTable table tfoot tr td, .ListOfAccountsTable table thead tr th {
+	    padding: 10px 0!important;
+    font-size: 12px!important;
+	}
+	
+	.ListOfAccountsTable table tbody tr td {
+	font-size: 12px!important;
+	}
+	
+	.ListOfAccountsTable table thead tr th .ui-sortable-column-icon {
+	display: none!important;
+	}
+}
+
 @media (min-width: 1200px) {
 	.StepsQuestionsFSpg3 {
 	margin-top: 70px!important;
@@ -299,6 +326,18 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 }
 
 @media (max-width: 560px) {
+	.DualBtnModeLeft, .DualBtnModeRight {
+	width: 49%!important;
+}
+	
+	.DualBtnModeLeft {
+	float: left!important;
+	}
+	
+	.DualBtnModeRight {
+	float: right!important;
+	}
+	
 	.ZeroPaddingBottom {
     padding-bottom: 0px!important;
 }
