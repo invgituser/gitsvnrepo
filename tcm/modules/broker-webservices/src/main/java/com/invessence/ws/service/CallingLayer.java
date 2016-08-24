@@ -7,6 +7,11 @@ import com.invessence.ws.bean.*;
  */
 public interface CallingLayer
 {
+   public WSCallResult processDCRequest(Long acctNum, int eventNum)throws Exception;
+   public WSCallResult moveMoney(Long acctNum, Integer reqId);
+   public WSCallResult fundTransfer(Long acctNum, Integer reqId);
+
+
    //LoginServices
    public WSCallStatus createUser(UserAcctDetails userAcctDetails) throws Exception;
    public WSCallStatus updateUserEmail(UserAcctDetails userAcctDetails, String newEmail) throws Exception;

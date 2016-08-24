@@ -4,11 +4,13 @@ import com.invessence.service.util.ServiceParameters;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
 import com.invessence.ws.provider.gemini.service.*;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by abhangp on 3/11/2016.
  */
 
+@Service("Gemini")
 public class CallingLayerGeminiImpl implements CallingLayer
 {
    LoginService loginService;
@@ -16,9 +18,32 @@ public class CallingLayerGeminiImpl implements CallingLayer
    TransactionService transactionService;
 
    WSCommonDao wsCommonDao;
+   public CallingLayerGeminiImpl(){
+      System.out.println("CallingLayerGeminiImpl.CallingLayerGeminiImpl");
+   }
    public CallingLayerGeminiImpl(WSCommonDao wsCommonDao){
       this.wsCommonDao=wsCommonDao;
    }
+
+
+   @Override
+   public WSCallResult processDCRequest(Long acctNum, int eventNum) throws Exception
+   {
+      return null;
+   }
+
+   @Override
+   public WSCallResult moveMoney(Long acctNum, Integer reqId)
+   {
+      return null;
+   }
+
+   @Override
+   public WSCallResult fundTransfer(Long acctNum, Integer reqId)
+   {
+      return null;
+   }
+
 
    public WSCallStatus createUser(UserAcctDetails userAcctDetails)throws Exception
    {

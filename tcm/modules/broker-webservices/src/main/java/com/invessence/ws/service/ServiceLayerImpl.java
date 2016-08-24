@@ -9,10 +9,9 @@ import com.invessence.service.util.*;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
-import com.invessence.ws.provider.td.service.CallingLayerTDImpl;
 import com.invessence.ws.util.*;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,7 +27,31 @@ public class ServiceLayerImpl implements ServiceLayer
    @Autowired
    EmailCreator emailCreator;
 
+   @Autowired @Qualifier("Gemini")
+   CallingLayer geminiCallingLayer;
+
+
+   @Autowired @Qualifier("TD")
+   CallingLayer tdCallingLayer;
+
    CallingLayer callingLayer;
+
+   @Override
+   public WSCallResult processDCRequest(Long acctNum, int eventNum)
+   {
+
+      System.out.println("--************************************************--");
+      try
+      {
+         getCallingLayer().processDCRequest(acctNum, eventNum);
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
+//      System.out.println(ServiceParameters.additionalDetails.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()));
+      return null;
+   }
 
    public void createPendingUser()
    {
@@ -1210,13 +1233,16 @@ public class ServiceLayerImpl implements ServiceLayer
 
    private CallingLayer getCallingLayer(){
       //SysParameters.BROKER_WEBSERVICE_API
+      System.out.println("******------------------");
       String webServiceAPI=ServiceParameters.BROKER_WEBSERVICE_API;//getServiceProvider();
       if(webServiceAPI==null){
          logger.error(Constant.SERVICES.BROKER_WEBSERVICES.toString()+" API is not available");
       }else if(webServiceAPI.equals("GEMINI")){
-         callingLayer = new CallingLayerGeminiImpl(commonDao);
+         System.out.println("Gemini");
+         callingLayer = geminiCallingLayer; //new CallingLayerGeminiImpl(commonDao);
       }else if(webServiceAPI.equals("TD")){
-         callingLayer = new CallingLayerTDImpl();
+         System.out.println("TD");
+         callingLayer = tdCallingLayer;//new CallingLayerTDImpl();
       }else{
          logger.error(webServiceAPI+" API is not available");
       }

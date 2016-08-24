@@ -7,6 +7,8 @@ import com.invessence.ws.bean.*;
  */
 public interface ServiceLayer
 {
+   public WSCallResult processDCRequest(Long acctNum, int eventNum);
+
    public void createPendingUser();
    public WSCallStatus updateEmail(String clientAccountID, String newEmail);
    public WSCallStatus updateMailingAddress(String clientAccountID,
