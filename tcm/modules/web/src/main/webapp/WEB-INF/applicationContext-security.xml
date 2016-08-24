@@ -33,6 +33,7 @@
    <http pattern="/spark/**" security="none"/>
    <http pattern="/reports/**" security="none"/>
    <http pattern="/spark/ui/**" security="none"/>
+    <http pattern="/mobile.xhtml" security="none" />
 
 
 

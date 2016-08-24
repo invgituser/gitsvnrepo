@@ -7,7 +7,7 @@
 
    <p:tabView>
       <p:tab title="Primary Holder">
-          <div class="Container80 Responsive100 MarTop5 MarCenter"
+          <div class="Container80 Responsive90 MarTop5 MarCenter"
                style="margin-bottom: 15px;">
 
               <div class="Container100">
@@ -26,7 +26,7 @@
                   <div
                           class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container100"
-                             style="text-align: left !important; font-weight: bold !important;">occupations</label>
+                             style="text-align: left !important; font-weight: bold !important;">Occupation</label>
 
                       <div class="EmptyBox5"></div>
                       <p:inputText
@@ -47,34 +47,51 @@
                       <p:inputText
                               styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                               value="#{tdcto.tdMasterData.owneremploymentDetail.typeOfBusiness}"
-                              placeholder="Occupation">
+                              placeholder="Type of Business">
                       </p:inputText>
                   </div>
-                  <div class="Container50 Fright-FAAddress CustomWidthFA-Responsive">
+                  </div>
+                  <div class="EmptyBox20"></div>
+                   <div class="Container100">
+                   <div class="Container30 Fleft CustomWidthFA-Responsive">
                       <label Class="Container50"
                              style="text-align: left !important; font-weight: bold !important;">From</label>
-
-                      <label Class="Container50"
-                             style="text-align: left !important; font-weight: bold !important;">To</label>
                       <div class="EmptyBox5"></div>
-                      <div class="Container50">
-                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
+                     <p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                        value="#{tdcto.tdMasterData.owneremploymentDetail.fromDate}"
                                        mask="99/99/9999"
                                        placeholder="MM/DD/YYYY"
                                        required="true">
                           </p:inputMask>
-
-                      </div>
-                      <div class="Container50">
-                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
-                                       value="#{tdcto.tdMasterData.owneremploymentDetail.toDate}"
+                  </div>
+                 <!-- <div class="Container20 Fleft CustomWidthFA-Responsive">
+                 <label Class="Container100"
+                          style="text-align: left !important; font-weight: bold !important;">
+                       To
+                   </label>
+                   <div class="EmptyBox5"></div>
+                 
+                 </div> -->
+                  <div class="Container60 Fleft CustomWidthFA-Responsive" style="margin: 0px 30px;">
+                      <label Class="Container50"
+                             style="text-align: left !important; font-weight: bold !important;">To</label>
+                      <div class="EmptyBox5"></div>
+                      <div class="Container30 Fleft">
+                      <div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
+                        <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.recurringFlag}"
+                                                 itemLabel="Present">
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel"/>
+                        </p:selectBooleanCheckbox>
+                    </div>
+                    </div>
+                    <div class="Container45 Fleft">
+                     <p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                       value="#{tdcto.tdMasterData.owneremploymentDetail.fromDate}"
                                        mask="99/99/9999"
                                        placeholder="MM/DD/YYYY"
                                        required="true">
                           </p:inputMask>
-
-                      </div>
+                          </div>
                   </div>
               </div>
 

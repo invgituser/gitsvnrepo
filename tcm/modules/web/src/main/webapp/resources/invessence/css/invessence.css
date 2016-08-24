@@ -296,6 +296,12 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	padding: 9px 0;
 }
 
+@media (max-width: 360px) {
+	.ResponsiveBtnFS > span {
+	font-size: 11px!important;
+	}
+}
+
 @media (min-width: 560px) and (max-width: 1075px) {
 	.ListOfAccountsTable table tfoot tr td, .ListOfAccountsTable table thead tr th {
 	    padding: 10px 0!important;
@@ -403,9 +409,17 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	}
 }
 
-@media (max-width: 480px) and (min-width: 320px){
+@media (max-width: 519px) and (min-width: 320px){
+	.ui-selectonemenu-list-item {
+	text-align: center!important;
+	}
+	
+	.dropdownInputFullWidth > label {
+	text-align: center!important;
+	}
+	
 	.StepsQuestionsFS {
-	font-size: 15px!important;
+	font-size: 14px!important;
 	}
 	
 	.ui-selectonemenu {
