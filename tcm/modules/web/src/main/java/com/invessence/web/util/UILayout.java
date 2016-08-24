@@ -194,6 +194,8 @@ public class UILayout implements Serializable
             emailMap.put("HTML.LOCK",getWebServiceValue("LOCK.EMAIL"));
             emailMap.put("HTML.FORGOT",getWebServiceValue("FORGOT.EMAIL"));
             webutil.getUiprofile().setEmailTemplateMap(emailMap);
+            webutil.getUiprofile().setAdvisor(getWebServiceValue("DEFAULT.ADVISOR"));
+            webutil.getUiprofile().setRep(getWebServiceValue("DEFAULT.REP"));
          }
       }
    }
@@ -457,12 +459,6 @@ public class UILayout implements Serializable
          pageinfo = "index.xhtml";
       }
 
-      if (pageinfo.contains(".xhtml"))
-      {
-         doMenuAction(pageinfo);
-         return;
-      }
-
       if (pageinfo.equalsIgnoreCase("settings") || pageinfo.equalsIgnoreCase("security"))
       {
          doMenuAction("common", "setting.xhtml");
@@ -486,6 +482,15 @@ public class UILayout implements Serializable
          doMenuAction("admin", pageinfo);
          return;
       }
+
+/*
+      if (pageinfo.contains(".xhtml"))
+      {
+         doMenuAction(pageinfo);
+         return;
+      }
+*/
+
 
       doMenuAction("consumer", "index.xhtml");
    }

@@ -113,7 +113,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       Boolean fetchData;
       String emailmsgtype = null;
       String access = "User";
-      String atstart = "dash";
+      String atstart = "index.xhtml";
 
       String exception = null;
 
@@ -202,7 +202,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          stateRegistered = "";
          emailmsgtype = "";
          access = "User";
-         atstart = "dash";
+         atstart = "index.xhtml";
          qa = null;
          authorities = null;
          // Note: it is either set with number of attempts or it was set in past attempt.
@@ -262,7 +262,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       credentialsNonExpired = true; // Reset for now.  We need logic to redirect.
       accountNonExpired = true;
       access = (access == null) ? "USER" : access;
-      atstart = (atstart == null) ? "dash" : atstart;
+      atstart = (atstart == null) ? "index.xhtml" : atstart;
       userInfo = new UserInfoData(logonID, userid, username, savedemail, savedpassword,
                                   enabled, accountNonExpired, credentialsNonExpired,
                                   accountNonLocked, authorities,

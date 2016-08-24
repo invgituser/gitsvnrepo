@@ -169,6 +169,7 @@ public class LoginController implements PhaseListener
       return PhaseId.RENDER_RESPONSE;
    }
 
+/*
    public String getRedirect()
    {
       FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.USERLOGON_ATTEMPTS, 0);
@@ -176,6 +177,7 @@ public class LoginController implements PhaseListener
       uiLayout.goToStartPage();
       return "success";
    }
+*/
 
 
    public void logout()

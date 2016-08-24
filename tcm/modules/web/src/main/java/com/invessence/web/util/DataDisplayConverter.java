@@ -14,6 +14,20 @@ import javax.servlet.http.HttpServletRequest;
 public class DataDisplayConverter implements Serializable
 {
 
+   public String displayAsMoneyRounded(Integer value)
+   {
+      if (value != null)
+      {
+         DecimalFormat df = new DecimalFormat("###,####,###");
+         String strValue = df.format(value);
+         return "$" + strValue;
+      }
+      else
+      {
+         return "-";
+      }
+   }
+
       public String displayAsMoney(Integer value)
       {
          if (value != null)

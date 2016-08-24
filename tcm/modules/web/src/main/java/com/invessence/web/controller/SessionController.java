@@ -24,10 +24,6 @@ public class SessionController
    protected final Log logger = LogFactory.getLog(getClass());
    private Long logonid;
 
-   private String userID, password, question, answer, savedAnswer;
-   private Boolean needAdditionalInfo = false;
-   private UserInfoData uid;
-
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
    public void setWebutil(WebUtil webutil)
@@ -43,11 +39,46 @@ public class SessionController
       this.uiLayout = uiLayout;
    }
 
+   public Long getLogonid()
+   {
+      return logonid;
+   }
+
+   public void setLogonid(Long logonid)
+   {
+      this.logonid = logonid;
+   }
+
+   public String getLogonStart() {
+
+      if (webutil != null) {
+         if (webutil.isUserLoggedIn()) {
+            if (webutil.getUserInfoData() != null) {
+               // On logon, if the Advisor and rep is defined to the user, then use that instead.
+               if (webutil.getUserInfoData().getAdvisor() != null ) {
+                  webutil.getUiprofile().setAdvisor(webutil.getUserInfoData().getAdvisor());
+                  webutil.getUiprofile().setRep(webutil.getUserInfoData().getRep());
+               }
+               if (webutil.getUserInfoData().getAtstart() != null) {
+                  uiLayout.whichPage(webutil.getUserInfoData().getAccess(), webutil.getUserInfoData().getAtstart());
+                  return "success";
+               }
+            }
+            else {
+               goToDash();
+               return "success";
+            }
+         }
+      }
+      tryOut();
+      return "success";
+   }
+
+
    public String getAtStart()
    {
-      String atstart = null;
       if (webutil != null) {
-         if (webutil.isUserLoggedIn() == null) {
+         if (webutil.isUserLoggedIn()) {
             if (webutil.getUserInfoData() != null) {
                if (webutil.getUserInfoData().getAtstart() != null) {
                   uiLayout.whichPage(webutil.getUserInfoData().getAccess(), webutil.getUserInfoData().getAtstart());

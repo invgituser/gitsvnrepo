@@ -11,7 +11,7 @@
     <div class="Container100 Responsive100">
         <div class="Container50 Responsive50 Fleft">
             <div class="Container100 Fleft TexAlCenter">
-                Based on the responses that you have given through on the
+                Based on the responses that you have given on the
                 risk tolerance questionnaire we have selected the
                 <strong>#{tcmpb.fixedModelName}</strong> strategy for you.
             </div>
@@ -46,7 +46,7 @@
                 <p:column styleClass="Wid30 Fs14 num-text-align TexAlRight"
                           headerText="Value"><!-- ROHIT's CHANGE -->
                     <h:outputText value="#{assetList.value}">
-                        <f:convertNumber currencySymbol="$" type="currency"/>
+                        <f:convertNumber pattern="$#,###,###"/>
                     </h:outputText>
                 </p:column>
                 <p:columnGroup type="footer">
@@ -55,7 +55,7 @@
                                   footerText="Total">
                         </p:column>
                         <p:column styleClass="Fs14 TexAlRight FontBold"
-                                  footerText="#{dataDisplayConverter.displayAsMoney(tcmpb.totalMoneyAllocated)}">
+                                  footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
                         </p:column>
                     </p:row>
                 </p:columnGroup>
@@ -163,7 +163,7 @@
                 <h:outputText value="#{ticker.subclass}"/>
             </p:column>
 
-            <p:column style="width:15%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+            <p:column priority="1" style="width:15%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
                 <f:facet name="header">
                     <h:outputText value="Allocated"/>
                 </f:facet>
@@ -191,7 +191,7 @@
                     <h:outputText value="Value"/>
                 </f:facet>
                 <h:outputText value="#{ticker.value}">
-                    <f:convertNumber currencySymbol="$" type="currency"/>
+                    <f:convertNumber pattern="$#,###,###"/>
                 </h:outputText>
             </p:column>
 
@@ -205,7 +205,7 @@
                     <p:column priority="3"/>
 
                     <p:column styleClass="Fs14 TexAlRight FontBold"
-                              footerText="#{dataDisplayConverter.displayAsMoney(tcmpb.totalMoneyAllocated)}">
+                              footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
                     </p:column>
                 </p:row>
             </p:columnGroup>

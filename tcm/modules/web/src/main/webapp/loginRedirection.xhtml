@@ -10,11 +10,11 @@
 <h:head>
 </h:head>
 <f:metadata>
-    <f:viewParam name="id" value="#{loginController.logonid}"/>
+    <f:viewParam name="id" value="#{sessionControl.logonid}"/>
 </f:metadata>
 
 <h:body>
-    <h:outputText value="#{loginController.redirect}" style="display: none;"/>
+    <h:outputText value="#{sessionControl.logonStart}" style="display: none;"/>
 </h:body>
 
 </html>

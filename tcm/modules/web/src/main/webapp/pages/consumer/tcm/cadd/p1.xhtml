@@ -60,23 +60,25 @@
                                             validatorMessage="Age should be between 18 and 100."/>
 
                             <div class="mobileFullWidth"><h3 class="formFS"> years old and I am
-                                <p:selectBooleanButton value="#{tcmpb.riskCalculator.retired}"
-                                        onLabel="retired" offLabel="NOT retired">
+                                <p:selectOneMenu value="#{tcmpb.riskCalculator.retired}"
+                                                 styleClass="TCM-UI-Dropdown dropdownInputFullWidth">
                                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
                                             update=":ceForm:p1hrznpanel"/>
-                                </p:selectBooleanButton>.
+                                    <f:selectItem itemLabel="NOT retired" itemValue="0"/>
+                                    <f:selectItem itemLabel="retired" itemValue="1"/>
+                                </p:selectOneMenu>
                             </h3></div>
                         </div>
                     </div>
                     <div class="EmptyBox20"></div>
                     <div class="TexAlCenter">
                         <div>
-                            <ui:fragment rendered="#{tcmpb.riskCalculator.retired}">
+                            <ui:fragment rendered="#{tcmpb.riskCalculator.retired == 0}">
                                 <div class="mobileFullWidth">
                                     <h3 class="formFS"> I would like to retire when I am </h3>
                                 </div>
                             </ui:fragment>
-                            <ui:fragment rendered="#{! tcmpb.riskCalculator.retired}">
+                            <ui:fragment rendered="#{tcmpb.riskCalculator.retired == 1}">
                                 <div class="mobileFullWidth">
                                     <h3 class="formFS"> I would like to invest till when I am </h3>
                                 </div>

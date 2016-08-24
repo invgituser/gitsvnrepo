@@ -18,9 +18,15 @@ import com.invmodel.portfolio.data.Portfolio;
  */
 public class TCMCustomer extends CustomerData
 {
-   public TCMRiskCalculator riskCalculator = new TCMRiskCalculator();
-   ArrayList<ProjectionData[]> projectionDatas = null;
+   public TCMRiskCalculator riskCalculator;
+   ArrayList<ProjectionData[]> projectionDatas;
 
+   public TCMCustomer()
+   {
+      super();
+      riskCalculator = new TCMRiskCalculator();
+      projectionDatas = null;
+   }
 
    @Override
    public Integer getAge()
@@ -39,6 +45,36 @@ public class TCMCustomer extends CustomerData
    public Integer getHorizon()
    {
       return riskCalculator.getRiskHorizon();
+   }
+
+   @Override
+   public String getGoal()
+   {
+      String theGoal = null;
+      if (goal != null) {
+         if (goal.contains("Retire")) {
+            theGoal = "Retirement";
+         }
+      }
+      return theGoal;
+   }
+
+   @Override
+   public void setGoal(String thisgoal)
+   {
+      if (thisgoal != null) {
+         if (thisgoal.contains("Retire")) {
+            if (riskCalculator.getRetired() == 1) {
+               goal = "Post-Retirement";
+            }
+            else {
+               goal = "Retirement";
+            }
+         }
+         else {
+            goal = thisgoal;
+         }
+      }
    }
 
    @Override

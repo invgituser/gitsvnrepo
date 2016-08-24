@@ -841,11 +841,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             {
                break;   // If null, then this method should not have been called.
             }
-            if ((getAge() < 18) || (getAge() > 100))
-            {
-               addCustomErrorText("Age must between 18 - 100");
-               cangoToNext = false;
-            }
             if (getInitialInvestment() < 50000)
             {
                addCustomErrorText("Min $50,000 investment required.");
@@ -853,12 +848,19 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             if (getGoal().equalsIgnoreCase("retirement"))
             {
-               if (riskCalculator.getRetireAge() <= getAge())
+               if ((getAge() < 18) || (getAge() > 100))
+               {
+                  addCustomErrorText("Age must between 18 - 100");
+                  cangoToNext = false;
+               }
+/*
+               if (riskCalculator.getRetireAge() != null && riskCalculator.getRetireAge() <= getAge())
                {
                   cangoToNext = false;
                   RequestContext context = RequestContext.getCurrentInstance();
                   context.execute("PF('retired').show();");
                }
+*/
             }
             break;
          case 1:
