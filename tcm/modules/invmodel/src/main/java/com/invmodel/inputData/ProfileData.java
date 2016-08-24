@@ -25,7 +25,7 @@ public class
    private Long acctnum;
    private String clientAccountID;
    private Integer yearly = 12;
-   private String goal;
+   public String goal;
    private String accountType;
    private String tradePreference;
    private String name;
