@@ -217,10 +217,10 @@ public class DCUtility
          signer.setName(acctOwner.getFirstName());
          signer.roleName(acctOwner.getOwnership());
          signer.setRecipientId(""+signerRecipientId);
-         signer.setTabs(tabs);
+         //signer.setTabs(tabs);
 
          if(acctOwner.getOwnership().equalsIgnoreCase("Client")){
-            signer.routingOrder("1");
+//            signer.setRoutingOrder("1");
             System.out.println("Client");
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
             itr1=dcTemplateMappingList.iterator();
@@ -245,7 +245,7 @@ public class DCUtility
             }
 
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
-            signer.routingOrder("2");
+//            signer.setRoutingOrder("2");
             System.out.println("Joint");
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Joint");
             itr1=dcTemplateMappingList.iterator();
@@ -333,23 +333,26 @@ public class DCUtility
    private Checkbox getCheckbox (DCTemplateMapping dctemplate, Object acctOwner){
 
    Checkbox checkbox=null;
-      try
-      {checkbox=new Checkbox();
+//      try
+//      {
+         checkbox=new Checkbox();
+
    checkbox.setTabLabel(dctemplate.getLable());
-   checkbox.setStatus(getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString());
-   }
-   catch (NoSuchFieldException e)
-   {
-      e.printStackTrace();
-   }
-   catch (ClassNotFoundException e)
-   {
-      e.printStackTrace();
-   }
-   catch (IllegalAccessException e)
-   {
-      e.printStackTrace();
-   }
+         checkbox.setSelected("true");
+//   checkbox.setStatus(getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString());
+//   }
+//   catch (NoSuchFieldException e)
+//   {
+//      e.printStackTrace();
+//   }
+//   catch (ClassNotFoundException e)
+//   {
+//      e.printStackTrace();
+//   }
+//   catch (IllegalAccessException e)
+//   {
+//      e.printStackTrace();
+//   }
    return checkbox;
    }
    private RadioGroup getRadioGroup (DCTemplateMapping dctemplate, Object acctOwner){
@@ -359,6 +362,7 @@ public class DCUtility
    try
    {
       radioGroup= new RadioGroup();
+      radioGroup.setGroupName(dctemplate.getLable());
       getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString();
       radioGroup.setRadios(new ArrayList<Radio>());
       						Radio radio=new Radio();
