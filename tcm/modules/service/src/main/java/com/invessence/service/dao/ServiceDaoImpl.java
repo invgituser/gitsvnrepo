@@ -25,10 +25,10 @@ public class ServiceDaoImpl implements ServiceDao
    private final String getServiceDetails ="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, vendor";
    private final String getWebConfigDetails ="select * from web_site_info where status = 'A' and mode =? and company=? order by service, vendor, name";
 
-   private final String getDCTemplateDetails ="select * from dc_template_details where status = 'A' and mode =? and company=? order by service";
-   private final String getDCTemplateMapping ="select * from dc_template_mapping where tempCode=? and (dbColumn IS NULL or dbColumn != '')";
+   private final String getDCTemplateDetails ="select * from dc_template_details where status = 'A' and mode =? and company=? order by service, tempCode";
+   private final String getDCTemplateMapping ="select * from dc_template_mapping where tempCode=? and (dbColumn IS NOT NULL or dbColumn != '')order by role, tab";
 
-   private final String getLookupDetails ="select * from dc_m_lookup where status='A'";
+   private final String getLookupDetails ="select * from mast_lookup where status='A'";
 
 
    public Map<String, SwitchDetails> getSwitchDetails() {
@@ -107,7 +107,7 @@ public class ServiceDaoImpl implements ServiceDao
    }
 
    @Override
-   public Map<String,DCTemplateMapping> getDCTemplateMapping(String serviceMode, String company, String tempCode) throws SQLException
+   public Map<String, List<DCTemplateMapping>> getDCTemplateMapping(String serviceMode, String company, String tempCode) throws SQLException
    {
       logger.info("ServiceDaoImpl.getDCTemplateMapping");
       logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "], tempCode = [" + tempCode + "]");
@@ -115,15 +115,51 @@ public class ServiceDaoImpl implements ServiceDao
       Map<String,DCTemplateMapping> map=null;
       List<DCTemplateMapping> lst = null;
       lst = serviceJdbcTemplate.query(getDCTemplateMapping, new Object[]{tempCode}, ParameterizedBeanPropertyRowMapper.newInstance(DCTemplateMapping.class));
-      if(lst !=null && lst.size()>0){
-         map=new HashMap<>();
-         Iterator<DCTemplateMapping> itr=lst.iterator();
-         while(itr.hasNext()){
-            DCTemplateMapping dctm=(DCTemplateMapping)itr.next();
-            map.put(dctm.getTempCode(),dctm);
+//      if(lst !=null && lst.size()>0){
+//         map=new HashMap<>();
+//         Iterator<DCTemplateMapping> itr=lst.iterator();
+//         while(itr.hasNext()){
+//            DCTemplateMapping dctm=(DCTemplateMapping)itr.next();
+//            map.put(dctm.getTempCode(),dctm);
+//         }
+//      }
+
+      Map<String, List<DCTemplateMapping>> clientWiseMapping = new LinkedHashMap<>();
+      List<DCTemplateMapping> listOfColumn = null;
+      String role = null;//, tab = null;
+      DCTemplateMapping dcTemplateMapping = null;
+      Iterator<DCTemplateMapping> itr=lst.iterator();
+      while (itr.hasNext())
+      {
+         dcTemplateMapping = (DCTemplateMapping) itr.next();
+         if (role == null)
+         {
+            role = dcTemplateMapping.getRole();
+
+            listOfColumn = new ArrayList<DCTemplateMapping>();
+            listOfColumn.add(dcTemplateMapping);
+
          }
+         else if (dcTemplateMapping.getRole().equalsIgnoreCase(role))
+         {
+            listOfColumn.add(dcTemplateMapping);
+         }
+         else if (!dcTemplateMapping.getRole().equalsIgnoreCase(role))
+         {
+            clientWiseMapping.put(role, listOfColumn);
+
+            role = dcTemplateMapping.getRole();
+            listOfColumn = new ArrayList<DCTemplateMapping>();
+            listOfColumn.add(dcTemplateMapping);
+         }
+         //System.out.println("servDetails = " + servDetails);
+
       }
-      return map;
+      if (clientWiseMapping != null)
+      {
+         clientWiseMapping.put(role, listOfColumn);
+      }
+      return clientWiseMapping;
    }
 
    @Override
@@ -138,3 +174,96 @@ public class ServiceDaoImpl implements ServiceDao
 
 
 }
+
+
+
+
+
+/* Tab wise Mapping COde
+*
+*
+*
+*
+*    public Map<String, Map<String, List<DCTemplateMapping>>> getDCTemplateMapping(String serviceMode, String company, String tempCode) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getDCTemplateMapping");
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "], tempCode = [" + tempCode + "]");
+      logger.debug("getDCTemplateMapping = "+ getDCTemplateMapping);
+      Map<String,DCTemplateMapping> map=null;
+      List<DCTemplateMapping> lst = null;
+      lst = serviceJdbcTemplate.query(getDCTemplateMapping, new Object[]{tempCode}, ParameterizedBeanPropertyRowMapper.newInstance(DCTemplateMapping.class));
+//      if(lst !=null && lst.size()>0){
+//         map=new HashMap<>();
+//         Iterator<DCTemplateMapping> itr=lst.iterator();
+//         while(itr.hasNext()){
+//            DCTemplateMapping dctm=(DCTemplateMapping)itr.next();
+//            map.put(dctm.getTempCode(),dctm);
+//         }
+//      }
+
+      Map<String, Map<String, List<DCTemplateMapping>>> dcTStringMapMap = new LinkedHashMap<String, Map<String, List<DCTemplateMapping>>>();
+      Map<String, List<DCTemplateMapping>> apiDetails = null;
+      List<DCTemplateMapping> listOfOperation = null;
+      String role = null, tab = null;
+      DCTemplateMapping dcTemplateMapping = null;
+      Iterator<DCTemplateMapping> itr=lst.iterator();
+      while (itr.hasNext())
+      {
+         dcTemplateMapping = (DCTemplateMapping) itr.next();
+//            System.out.println("servDetails = " + servDetails);
+         if (role == null)
+         {
+            role = dcTemplateMapping.getRole();
+            tab = dcTemplateMapping.getTab();
+            apiDetails = new LinkedHashMap<String, List<DCTemplateMapping>>();
+
+            listOfOperation = new ArrayList<DCTemplateMapping>();
+            listOfOperation.add(dcTemplateMapping);
+
+         }
+         else if (dcTemplateMapping.getRole().equalsIgnoreCase(role))
+         {
+            if (dcTemplateMapping.getTab().equalsIgnoreCase(tab))
+            {
+               listOfOperation.add(dcTemplateMapping);
+            }
+            else if (!dcTemplateMapping.getTab().equalsIgnoreCase(tab))
+            {
+
+               apiDetails.put(tab, listOfOperation);
+
+               tab = dcTemplateMapping.getTab();
+               listOfOperation = new ArrayList<DCTemplateMapping>();
+               listOfOperation.add(dcTemplateMapping);
+            }
+
+         }
+         else if (!dcTemplateMapping.getRole().equalsIgnoreCase(role))
+         {
+            apiDetails.put(tab, listOfOperation);
+            dcTStringMapMap.put(role, apiDetails);
+
+            role = dcTemplateMapping.getRole();
+
+            tab = dcTemplateMapping.getTab();
+            apiDetails = new LinkedHashMap<String, List<DCTemplateMapping>>();
+            listOfOperation = new ArrayList<DCTemplateMapping>();
+            listOfOperation.add(dcTemplateMapping);
+
+
+         }
+         //System.out.println("servDetails = " + servDetails);
+
+      }
+      if (apiDetails != null)
+      {
+         apiDetails.put(tab, listOfOperation);
+         dcTStringMapMap.put(role, apiDetails);
+      }
+
+
+      return dcTStringMapMap;
+   }
+
+
+   */

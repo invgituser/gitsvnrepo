@@ -379,14 +379,16 @@ public class ServiceParameters
                {
                   Map.Entry<String, DCTemplateDetails> dcTemplateDetail = (Map.Entry<String, DCTemplateDetails>) dcTemplateDetailsIterator.next();
                   System.out.println("dcTemplate = " + dcTemplateDetail);
-                  Map<String,DCTemplateMapping> dcTemplateMappings = wsCommonDao.getDCTemplateMapping(SERVICE_MODE, COMPANY_NAME, dcTemplateDetail.getValue().getTempCode());
+                  Map<String, List<DCTemplateMapping>> dcTemplateMappings = wsCommonDao.getDCTemplateMapping(SERVICE_MODE, COMPANY_NAME, dcTemplateDetail.getValue().getTempCode());
 
 //                  while (dcTemplateMappingIterator.hasNext())
 //                  {
 //                     DCTemplateMapping dcTemplateMapping = (DCTemplateMapping) dcTemplateMappingIterator.next();
 //                  }
                   if(dcTemplateMappings !=null &&dcTemplateMappings.size()>0){
-                     Iterator<Map.Entry<String,DCTemplateMapping>> dcTemplateMappingIterator = dcTemplateMappings.entrySet().iterator();
+                     HashMap hm=new HashMap<String, Map<String, Map<String, List<DCTemplateMapping>>>>();
+                     hm.put(dcTemplateDetail.getValue().getTempCode(),dcTemplateMappings);
+
                      dcTemplateDetail.getValue().setDcTemplateMappings(dcTemplateMappings);
                   }
                   System.out.println("dcTemplateDetail = " + dcTemplateDetail);

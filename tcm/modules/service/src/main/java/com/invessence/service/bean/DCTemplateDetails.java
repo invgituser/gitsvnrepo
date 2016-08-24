@@ -16,7 +16,7 @@ public class DCTemplateDetails
    private String status;
    private String remark;
    private String configFile;
-   private Map<String,DCTemplateMapping> dcTemplateMappings;
+   private Map<String, List<DCTemplateMapping>>dcTemplateMappings;
 
    @Override
    public String toString()
@@ -45,12 +45,12 @@ public class DCTemplateDetails
       this.configFile = configFile;
    }
 
-   public Map<String, DCTemplateMapping> getDcTemplateMappings()
+   public Map<String, List<DCTemplateMapping>> getDcTemplateMappings()
    {
       return dcTemplateMappings;
    }
 
-   public void setDcTemplateMappings(Map<String, DCTemplateMapping> dcTemplateMappings)
+   public void setDcTemplateMappings(Map<String, List<DCTemplateMapping>> dcTemplateMappings)
    {
       this.dcTemplateMappings = dcTemplateMappings;
    }
