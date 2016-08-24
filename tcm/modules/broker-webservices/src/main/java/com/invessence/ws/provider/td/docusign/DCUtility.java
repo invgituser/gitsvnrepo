@@ -6,6 +6,7 @@ import java.lang.reflect.*;
 import java.util.*;
 import java.util.List;
 
+import com.docusign.esign.api.*;
 import com.docusign.esign.client.*;
 import com.docusign.esign.model.Checkbox;
 import com.docusign.esign.model.EnvelopeDefinition;
@@ -72,48 +73,48 @@ public class DCUtility
       //===============================================================================
       // Step 1:  Login() API
       //===============================================================================
-//      try
-//      {
-//         // login call available off the AuthenticationApi
-//         AuthenticationApi authApi = new AuthenticationApi();
-//
-//         // login has some optional parameters we can set
-//         AuthenticationApi.LoginOptions loginOps = authApi.new LoginOptions();
-//         loginOps.setApiPassword("true");
-//         loginOps.setIncludeAccountIdGuid("true");
-//         LoginInformation loginInfo = authApi.login(loginOps);
-//
-//         // note that a given user may be a member of multiple accounts
-//         loginAccounts = loginInfo.getLoginAccounts();
-//
-//         System.out.println("LoginInformation: " + loginAccounts);
-//      }
-//      catch (com.docusign.esign.client.ApiException ex)
-//      {
-//         System.out.println("Exception: " + ex);
-//      }
-//
+      try
+      {
+         // login call available off the AuthenticationApi
+         AuthenticationApi authApi = new AuthenticationApi();
+
+         // login has some optional parameters we can set
+         AuthenticationApi.LoginOptions loginOps = authApi.new LoginOptions();
+         loginOps.setApiPassword("true");
+         loginOps.setIncludeAccountIdGuid("true");
+         LoginInformation loginInfo = authApi.login(loginOps);
+
+         // note that a given user may be a member of multiple accounts
+         loginAccounts = loginInfo.getLoginAccounts();
+
+         System.out.println("LoginInformation: " + loginAccounts);
+      }
+      catch (com.docusign.esign.client.ApiException ex)
+      {
+         System.out.println("Exception: " + ex);
+      }
+
 //      //===============================================================================
 //
 //
-//      try
-//      {
-//         // use the |accountId| we retrieved through the Login API to create the Envelope
-//         String accountId = loginAccounts.get(0).getAccountId();
-//
-//         // instantiate a new EnvelopesApi object
-//         EnvelopesApi envelopesApi = new EnvelopesApi();
-//
-//         // call the createEnvelope() API
-//         // envDef.setCustomFields(customFields);
-//         envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
-//
-//         System.out.println("EnvelopeSummary: " + envelopeSummary);
-//      }
-//      catch (com.docusign.esign.client.ApiException ex)
-//      {
-//         System.out.println("Exception: " + ex);
-//      }
+      try
+      {
+         // use the |accountId| we retrieved through the Login API to create the Envelope
+         String accountId = loginAccounts.get(0).getAccountId();
+
+         // instantiate a new EnvelopesApi object
+         EnvelopesApi envelopesApi = new EnvelopesApi();
+
+         // call the createEnvelope() API
+         // envDef.setCustomFields(customFields);
+         envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
+
+         System.out.println("EnvelopeSummary: " + envelopeSummary);
+      }
+      catch (com.docusign.esign.client.ApiException ex)
+      {
+         System.out.println("Exception: " + ex);
+      }
 
       return envelopeSummary;
    }
