@@ -68,8 +68,10 @@ public class ConsumerSaveSP extends StoredProcedure
             break;
          case 2: // updt_user_risk_index
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_investmentgoal", Types.VARCHAR));
             declareParameter(new SqlParameter("p_age", Types.TINYINT));
             declareParameter(new SqlParameter("p_retireage", Types.TINYINT));
+            declareParameter(new SqlParameter("p_retired", Types.TINYINT));
             declareParameter(new SqlParameter("p_horizon", Types.TINYINT));
             declareParameter(new SqlParameter("p_ans1", Types.TINYINT));
             declareParameter(new SqlParameter("p_ans2", Types.TINYINT));
@@ -310,8 +312,10 @@ public class ConsumerSaveSP extends StoredProcedure
 
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_investmentgoal", data.getInvestmentobjective());
       inputMap.put("p_age", setDefaultRisk(data.getRiskAge()));
       inputMap.put("p_retireage", setDefaultRisk(data.getRetireAge()));
+      inputMap.put("p_retired", setDefaultRisk(data.getRetired()));
       inputMap.put("p_horizon", setDefaultRisk(data.getRiskHorizon()));
       inputMap.put("p_ans1", setDefaultRisk(data.getAnswerValue(1)));
       inputMap.put("p_ans2", setDefaultRisk(data.getAnswerValue(2)));

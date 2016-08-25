@@ -17,6 +17,7 @@ import com.invmodel.performance.ProjectionReport;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
+import org.apache.commons.logging.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -28,6 +29,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class CustomerData extends ProfileData
 {
+   protected final Log logger = LogFactory.getLog(getClass());
    private JavaUtil javautil = new JavaUtil();
    private CustomerData manageGoalinstance = null;
 
@@ -119,6 +121,11 @@ public class CustomerData extends ProfileData
    @ManagedProperty("#{projectionReport}")
    public ProjectionReport projectionReport;
 */
+
+   public Log getLogger()
+   {
+      return logger;
+   }
 
    public CustomerData()
    {

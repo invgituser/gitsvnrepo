@@ -64,8 +64,8 @@
                                                  styleClass="TCM-UI-Dropdown dropdownInputFullWidth">
                                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
                                             update=":ceForm:p1hrznpanel"/>
-                                    <f:selectItem itemLabel="NOT retired" itemValue="0"/>
-                                    <f:selectItem itemLabel="retired" itemValue="1"/>
+                                    <f:selectItem itemLabel="NOT retired   " itemValue="0"/>
+                                    <f:selectItem itemLabel="retired " itemValue="1"/>
                                 </p:selectOneMenu>
                             </h3></div>
                         </div>
@@ -77,24 +77,19 @@
                                 <div class="mobileFullWidth">
                                     <h3 class="formFS"> I would like to retire when I am </h3>
                                 </div>
+                                <pe:inputNumber id="retireageID"
+                                                styleClass="invInputText input_wid1 amountBRmobileSupport mobileFullWidthinput"
+                                                style="width: 60px;"
+                                                value="#{tcmpb.retireAge}"
+                                                decimalPlaces="0"
+                                                size="3"
+                                                required="true" requiredMessage="When do you plan to retire?">
+
+                                </pe:inputNumber>
+
+                                <div class="mobileFullWidth"><h3 class="formFS"> years old.</h3></div>
                             </ui:fragment>
-                            <ui:fragment rendered="#{tcmpb.riskCalculator.retired == 1}">
-                                <div class="mobileFullWidth">
-                                    <h3 class="formFS"> I would like to invest till when I am </h3>
-                                </div>
-                            </ui:fragment>
 
-                            <pe:inputNumber id="retireageID"
-                                            styleClass="invInputText input_wid1 amountBRmobileSupport mobileFullWidthinput"
-                                            style="width: 60px;"
-                                            value="#{tcmpb.retireAge}"
-                                            decimalPlaces="0"
-                                            size="3"
-                                            required="true" requiredMessage="When do you plan to retire?">
-
-                            </pe:inputNumber>
-
-                            <div class="mobileFullWidth"><h3 class="formFS"> years old.</h3></div>
                         </div>
                     </div>
 

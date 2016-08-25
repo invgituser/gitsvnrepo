@@ -48,12 +48,23 @@ public class TCMCustomer extends CustomerData
    }
 
    @Override
+   public void setHorizon(Integer horizon)
+   {
+      this.horizon = horizon;
+      riskCalculator.setRiskHorizon(horizon);
+   }
+
+
+   @Override
    public String getGoal()
    {
       String theGoal = null;
       if (goal != null) {
          if (goal.contains("Retire")) {
             theGoal = "Retirement";
+         }
+         else {
+            theGoal = goal;
          }
       }
       return theGoal;
@@ -75,13 +86,6 @@ public class TCMCustomer extends CustomerData
             goal = thisgoal;
          }
       }
-   }
-
-   @Override
-   public void setHorizon(Integer horizon)
-   {
-      riskCalculator.setRiskHorizon(horizon);
-      this.horizon = horizon;
    }
 
 

@@ -79,7 +79,7 @@ public class testUtil
                custdata.riskCalculator.setAns3(ans);
                custdata.riskCalculator.setAns4(ans);
                custdata.riskCalculator.setAns5(ans);
-               Double riskIdex = custdata.riskCalculator.calculateRisk(goal);
+               Double riskIdex = custdata.riskCalculator.calculateRisk();
                System.out.println("Catagory =" + goal +
                                   " values > " +
                                      age.toString() + "," +

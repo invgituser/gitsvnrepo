@@ -107,4 +107,9 @@ public class SessionController
       // return "success";
    }
 
+   public String getDemoStart()
+   {
+      uiLayout.doMenuAction("consumer", "cadd.xhtml");
+      return "success";
+   }
 }

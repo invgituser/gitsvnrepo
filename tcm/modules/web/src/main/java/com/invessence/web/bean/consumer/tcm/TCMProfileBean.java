@@ -189,12 +189,20 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void setRetireAge(Integer retireAge)
    {
-      Integer riskHorizon = retireAge - getAge();
-      if (riskHorizon > 0)
-      {
+      getLogger().debug("Debug: Setting reirement Age as: " + retireAge);
+      if (retireAge == null) {
          riskCalculator.setRetireAge(retireAge);
-         riskCalculator.setRiskHorizon(riskHorizon);  // New riskHorizon
-         setHorizon(riskHorizon);                     // In Profile Class (Original)
+      }
+      else {
+         Integer riskHorizon = retireAge - getAge();
+         if (riskHorizon > 0)
+         {
+            riskCalculator.setRetireAge(retireAge);
+            // riskCalculator.setRiskHorizon(riskHorizon);  // New riskHorizon
+            setHorizon(riskHorizon);                     // In Profile Class (Original)
+            getLogger().debug("Debug: Risk Retirement Age Set: " + riskCalculator.getRetireAge());
+            getLogger().debug("Debug: Risk Horizon Set: " + riskCalculator.getRiskHorizon());
+         }
       }
 
    }
@@ -218,8 +226,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             disabledetailtabs = true;
 
             // Client related data.
-            fetchClientData();
             setRiskCalcMethod("C");
+            fetchClientData();
             canOpenAccount = initCanOpenAccount();
             welcomeDialog = false;
          }
@@ -252,13 +260,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void onChange()
    {
-      setRiskCalcMethod("C");
       formEdit = true;
    }
 
    public void onChangeValue()
    {
-      setRiskCalcMethod("C");
       formEdit = true;
       createAssetPortfolio(1);
    }
@@ -273,6 +279,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          displayGoalText = true;
       }
+      riskCalculator.setInvestmentobjective(getGoal());
       setHorizon(null);
    }
 
@@ -280,7 +287,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
       {
-         riskCalculator.setRiskFormula("C");
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
          createAssetPortfolio(1);
@@ -291,7 +297,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       formEdit = true;
       setAccountType();
-      riskCalculator.setRiskFormula("C");
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -426,7 +431,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void consumerRefresh()
    {
-      setRiskCalcMethod("C");
       createAssetPortfolio(1);
       formEdit = true;
    }
@@ -444,7 +448,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          }
 */
 
-         setRiskIndex(riskCalculator.calculateRisk(getGoal()));
+         setRiskIndex(riskCalculator.calculateRisk());
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
@@ -682,6 +686,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             loadProfileData(getBeanAcctnum());
             loadRiskData(getBeanAcctnum());
             displayGoalText = true;
+            createAssetPortfolio(1);
          }
          else
          {
@@ -690,7 +695,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          }
 
          loadBasketInfo(); // Once we know about advisor, then use that info
-         createAssetPortfolio(1);
       }
       catch (Exception ex)
       {
@@ -877,7 +881,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       if (cangoToNext)
       {
          saveProfile();
-         createAssetPortfolio(1);
+         // createAssetPortfolio(1); // Since we are refreshing on realtime, we don't need to do it during next.
          pagemanager.nextPage();
       }
       else
@@ -891,9 +895,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void riskSelected(Integer value)
    {
       riskCalculator.setAns4(value.toString());
-      setRiskCalcMethod("C");
       formEdit = true;
-      setRiskIndex(riskCalculator.calculateRisk(getGoal()));
       createAssetPortfolio(1);
    }
 
@@ -931,10 +933,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          riskCalculator.setAns5(whichslide.toString());
       }
       //  Calls for Projection creation chart by using HighChart
+      if (whichslide > 0) { // Answers are stored in 1 to 5.  Whereas array is from 0-4
+         whichslide -= 1;   // We have to offset the slider by 1 if > 0
+      }
       charts.createProjectionHighChart(getProjectionDatas().get(whichslide), getHorizon(),getAge(),riskCalculator.getRetireAge());
-      setRiskCalcMethod("C");
       formEdit = true;
-      setRiskIndex(riskCalculator.calculateRisk(getGoal()));
       createAssetPortfolio(1);
    }
 
