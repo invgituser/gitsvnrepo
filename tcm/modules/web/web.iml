@@ -184,23 +184,13 @@
     <orderEntry type="library" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: stax:stax-api:1.0.1" level="project" />
     <orderEntry type="library" name="Maven: themes:spark:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:5.2.RC3" level="project" />
+    <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.0" level="project" />
     <orderEntry type="library" name="Maven: org.primefaces.extensions:primefaces-extensions:1.2.1" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.4" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish:javax.faces:2.2.6" level="project" />
     <orderEntry type="library" name="Maven: javax.servlet:javax.servlet-api:3.0.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:jstl:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet.jsp:jsp-api:2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-servlet:2.0.12.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-config-prettyfaces:2.0.12.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-annotations-impl:2.0.12.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-api:2.0.12.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.common:common-api:1.0.5.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.logging:logging-api:1.0.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-api-servlet:2.0.12.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-addressbuilder:2.0.12.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-annotations-api:2.0.12.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.ocpsoft.rewrite:rewrite-integration-faces:2.0.12.Final" level="project" />
     <orderEntry type="library" name="Maven: com.itextpdf:itextpdf:5.1.3" level="project" />
     <orderEntry type="library" name="Maven: com.lowagie:itext:2.1.7" level="project" />
   </component>

@@ -1,6 +1,6 @@
 package com.invessence.web.controller;
 
-import java.io.IOException;
+import java.io.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.*;
@@ -18,7 +18,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 
 @ManagedBean(name = "sessionControl")
 @ViewScoped
-public class SessionController
+public class SessionController implements Serializable
 {
 
    protected final Log logger = LogFactory.getLog(getClass());

@@ -298,7 +298,7 @@
       <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>5.2.RC3</version>
+            <version>6.0</version>
         </dependency>
          <dependency>
            <groupId>org.primefaces.extensions</groupId>
@@ -330,6 +330,7 @@
 
       <!-- Other Primefaces extensions dependencies -->
       <!-- OCPSoft Preetyfaces -->
+<!--
       <dependency>
             <groupId>org.ocpsoft.rewrite</groupId>
             <artifactId>rewrite-servlet</artifactId>
@@ -340,6 +341,7 @@
           <artifactId>rewrite-config-prettyfaces</artifactId>
           <version>2.0.12.Final</version>
       </dependency>
+-->
 
       <!-- itext and other for exporting documents in pdf/excel format -->
 

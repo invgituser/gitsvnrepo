@@ -881,7 +881,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       if (cangoToNext)
       {
          saveProfile();
-         // createAssetPortfolio(1); // Since we are refreshing on realtime, we don't need to do it during next.
+         if (pagemanager.getPage() == 0) {  // This is before moving to next page. ONLY for FIRST PAGE
+            createAssetPortfolio(1); // Since we are refreshing on real-time, we don't need to do it during next.
+         }
          pagemanager.nextPage();
       }
       else

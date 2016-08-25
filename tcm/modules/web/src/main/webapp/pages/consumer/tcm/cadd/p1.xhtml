@@ -19,14 +19,14 @@
         <div class="TexAlCenter">
             <div class="PortfolioCreationFields">
                 <div class="mobileFullWidth"><h3 class="formFS"> I plan on investing </h3></div>
-                <pe:inputNumber id="initialIid"
+                <p:inputNumber id="initialIid"
                                 styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
                                 value="#{tcmpb.initialInvestment}"
                                 maxlength="11" symbol="$"
                                 decimalPlaces="0"
                                 required="true" requiredMessage="Min. of $50,000 investment is required!"
                                 validatorMessage="Min. of $50,000 investment is required!">
-                </pe:inputNumber>
+                </p:inputNumber>
                 <p:message for="initialIid" display="tooltip"/>
 
                 <div class="mobileFullWidth"><h3 class="formFS"> for </h3></div>
@@ -52,7 +52,7 @@
                     <div class="TexAlCenter">
                         <div>
                             <div class="mobileFullWidth"><h3 class="formFS"> I am </h3></div>
-                            <pe:inputNumber id="ageid"
+                            <p:inputNumber id="ageid"
                                             styleClass="invInputText input_agewid1 mobileFullWidthinput"
                                             value="#{tcmpb.age}"
                                             decimalPlaces="0" size="9"
@@ -77,7 +77,7 @@
                                 <div class="mobileFullWidth">
                                     <h3 class="formFS"> I would like to retire when I am </h3>
                                 </div>
-                                <pe:inputNumber id="retireageID"
+                                <p:inputNumber id="retireageID"
                                                 styleClass="invInputText input_wid1 amountBRmobileSupport mobileFullWidthinput"
                                                 style="width: 60px;"
                                                 value="#{tcmpb.retireAge}"
@@ -85,7 +85,7 @@
                                                 size="3"
                                                 required="true" requiredMessage="When do you plan to retire?">
 
-                                </pe:inputNumber>
+                                </p:inputNumber>
 
                                 <div class="mobileFullWidth"><h3 class="formFS"> years old.</h3></div>
                             </ui:fragment>
@@ -98,7 +98,7 @@
 
                     <h3 class="formFS TexAlCenter ">
                         The child I am saving for is expected to start college in
-                        <pe:inputNumber id="collegeid"
+                        <p:inputNumber id="collegeid"
                                         styleClass="invInputText input_wid1" style="width: 60px;"
                                         value="#{tcmpb.horizon}"
                                         decimalPlaces="0"
@@ -113,7 +113,7 @@
 
                     <h3 class="formFS TexAlCenter ">
                         I plan on utilize the funds for this goal in
-                        <pe:inputNumber id="otherid"
+                        <p:inputNumber id="otherid"
                                         styleClass="invInputText input_agewid1"
 										value="#{tcmpb.horizon}"
                                         decimalPlaces="0"

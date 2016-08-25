@@ -431,13 +431,18 @@ public class UILayout implements Serializable
          }
          else
          {
-            if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0)
-            {
-               forwardURL("/pages/" + location.toLowerCase() + "/" + menuItem);
+            if (location.equalsIgnoreCase("consumer")) {
+               if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0)
+               {
+                  forwardURL("/pages/" + location.toLowerCase() + "/" + menuItem);
+               }
+               else
+               {
+                  forwardURL("/pages/" + location.toLowerCase() + "/" + getConsumerDIR() + "/" + menuItem);
+               }
             }
-            else
-            {
-               forwardURL("/pages/" + location.toLowerCase() + "/" + getConsumerDIR() + "/" + menuItem);
+            else {
+               forwardURL("/pages/advisor/" + menuItem);
             }
          }
       }
@@ -479,7 +484,7 @@ public class UILayout implements Serializable
 
       if (access.equalsIgnoreCase("admin"))
       {
-         doMenuAction("admin", pageinfo);
+         doMenuAction("advisor", pageinfo);
          return;
       }
 
