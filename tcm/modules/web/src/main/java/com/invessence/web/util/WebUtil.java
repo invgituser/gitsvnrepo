@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
+import com.invessence.converter.SQLData;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.common.*;
 import org.primefaces.context.RequestContext;
@@ -25,6 +26,7 @@ public class WebUtil implements Serializable
 {
 
    public UIProfile uiprofile = new UIProfile();
+   public SQLData converter = new SQLData();
 
    @Autowired
    private WebMessage messageText;
@@ -36,6 +38,11 @@ public class WebUtil implements Serializable
 
    public WebUtil()
    {
+   }
+
+   public SQLData getConverter()
+   {
+      return converter;
    }
 
    public UIProfile getUiprofile()

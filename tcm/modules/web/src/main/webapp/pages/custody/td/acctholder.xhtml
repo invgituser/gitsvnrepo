@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<p:tabView>
+	<p:tabView activeIndex="#{tdcto.subtab}">
 		<p:tab title="Account Holder">
 			<div class="Container80 Responsive90 MarTop5 MarCenter"
 				style="margin-bottom: 15px;">
@@ -84,9 +84,11 @@
 				</div>
 			</div>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
-				<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+				<p:commandLink styleClass="UI-prevButtonFA Fleft"
+                               actionListener="#{tdcto.prevPage}"/>
 
-				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                               actionListener="#{tdcto.nextPage}"/>
 			</div>
 		</p:tab>
 		<p:tab title="Joint Account Holder">
@@ -167,9 +169,11 @@
 				</div>
 			</div>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
-				<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+				<p:commandLink styleClass="UI-prevButtonFA Fleft"
+                               actionListener="#{tdcto.prevPage}"/>
 
-				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                               actionListener="#{tdcto.nextPage}"/>
 			</div>
 		</p:tab>
 

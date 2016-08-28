@@ -14,10 +14,10 @@
 
                     <p:selectOneRadio id="fundRadio" value="#{tdcto.tdMasterData.fundType}" layout="custom"
                                       required="true" requiredMessage="Must select one of these fund method!">
-                        <f:selectItem itemLabel="Later" itemValue="0"/>
-                        <f:selectItem itemLabel="ACH" itemValue="1"/>
-                        <f:selectItem itemLabel="ACAT" itemValue="2"/>
-                        <f:selectItem itemLabel="Wire" itemValue="3"/>
+                        <f:selectItem itemLabel="Later" itemValue="1"/>
+                        <f:selectItem itemLabel="ACH" itemValue="2"/>
+                        <f:selectItem itemLabel="ACAT" itemValue="3"/>
+                        <f:selectItem itemLabel="Wire" itemValue="4"/>
                         <p:ajax update=":ctoForm:tdaccordian:fundTabV:fundPanel"/>
                     </p:selectOneRadio>
 
@@ -431,9 +431,6 @@
 
                 </p:panel>
             </p:panel>
-
-
-
         </p:tab>
     </p:tabView>
 

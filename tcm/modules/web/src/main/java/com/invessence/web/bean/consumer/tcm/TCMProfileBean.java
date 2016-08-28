@@ -932,7 +932,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       if (event != null)
       {
          whichslide = Integer.parseInt(event);
-         riskCalculator.setAns5(whichslide.toString());
+         // riskCalculator.setAns5(whichslide.toString());
       }
       //  Calls for Projection creation chart by using HighChart
       if (whichslide > 0) { // Answers are stored in 1 to 5.  Whereas array is from 0-4

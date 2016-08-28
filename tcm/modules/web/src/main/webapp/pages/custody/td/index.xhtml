@@ -20,7 +20,7 @@
 
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent FundAccountTab" style="display: none">
-                        <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{ctobean.pagemanager.page}">
+                        <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{tdcto.activeTab}">
                             <p:menuitem value="Account Type"/>
                             <p:menuitem value="Personal"/>
                             <p:menuitem value="Address"/>
@@ -36,7 +36,9 @@
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
                         <p:panel id="inputArea" style="border: 0px; background: transparent;">
-                            <p:accordionPanel id="tdaccordian" styleClass="tcmAccordionPanel-UI">
+                            <p:accordionPanel id="tdaccordian" styleClass="tcmAccordionPanel-UI" activeIndex="#{tdcto.activeTab}">
+                                <p:ajax event="tabChange" listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
+                                        immediate="true" />
                                 <p:tab id="tab1">
                                     <f:facet name="title">
                                         <p:graphicImage

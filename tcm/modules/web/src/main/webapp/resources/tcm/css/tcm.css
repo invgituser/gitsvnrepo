@@ -21,6 +21,11 @@
     }
 }
 
+img.atCheckMarkImg {
+    height: 20px;
+    width: 20px;
+}
+
 img.riskImage {
     height: 190px;
     opacity: 0.5;

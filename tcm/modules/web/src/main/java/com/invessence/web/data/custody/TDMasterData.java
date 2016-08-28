@@ -2,6 +2,7 @@ package com.invessence.web.data.custody;
 
 import java.util.ArrayList;
 
+import com.invessence.converter.SQLData;
 import com.invessence.web.constant.USMaps;
 
 /**
@@ -40,7 +41,7 @@ public class TDMasterData
    public TDMasterData()
    {
       acctnum = null;
-      accttype = 0; // 0 - Individual , 1+ Number of joint acct.
+      accttype = 5; // 0 - Individual , 1+ Number of joint acct.
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
@@ -71,6 +72,27 @@ public class TDMasterData
    public Long getAcctnum()
    {
       return acctnum;
+   }
+
+   public String getCheckedImage(Integer which)
+   {
+      String defaultImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
+      String selectedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
+      which = (which == null) ? 0 : which;
+      if (accttype != null) {
+         if (accttype == which) {
+             return selectedImage;
+         }
+      }
+      return defaultImage;
+
+   }
+
+   public Boolean getIsJointAcct() {
+      if (accttype == 5) {
+         return true;
+      }
+      return false;
    }
 
    public Integer getAccttype()

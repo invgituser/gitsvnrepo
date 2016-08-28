@@ -5,7 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-<p:tabView id="addresstab">
+<p:tabView id="addresstab" activeIndex="#{tdcto.subtab}">
 
 <p:tab title="Primary Holder">
 
@@ -151,14 +151,16 @@
 
         </div>
         <div class="Container100 MarTop20" style="margin: 10px 10px;">
-            <p:commandLink styleClass="UI-prevButtonFA Fleft"/>
+            <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                           actionListener="#{tdcto.prevPage}"/>
 
-            <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
+            <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                           actionListener="#{tdcto.nextPage}"/>
         </div>
 
     </p:panel>
 </p:tab>
-<p:tab title="Joint Holder">
+<p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}">
 
     <p:panel id="jointaddressPanel" style="border: 0px; background: transparent">
 
@@ -310,7 +312,16 @@
 
         </p:panel>
 
+
     </p:panel>
+    <div class="Container100 MarTop20" style="margin: 10px 10px;">
+        <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                       actionListener="#{tdcto.prevPage}"/>
+
+        <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                       actionListener="#{tdcto.nextPage}"/>
+    </div>
+
 
 </p:tab>
 
