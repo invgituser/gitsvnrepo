@@ -8,7 +8,7 @@
     <p:tabView id="regTabV">
 
         <p:tab title="Primary Holder">
-            <div class="Container80 Responsive90 MarTop5 MarCenter"
+            <div class="Container80 Responsive100 MarTop5 MarCenter"
                  style="margin-bottom: 15px;">
 
                 <label Class="Container100"
@@ -19,7 +19,7 @@
 
                 <p:panel id="ownerregspfPanel" style="border: 0px; background: transparent">
                     <div class="Container100 CustomWidthFA2 MarTop5">
-                        <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.ownerSPF}"
+                        <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerSPF}"
                                                  itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure.">
                             <p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel"/>
                         </p:selectBooleanCheckbox>
@@ -86,7 +86,7 @@
 
                 <p:panel id="ownerregsharePanel" style="border: 0px; background: transparent">
                     <div class="Container100 CustomWidthFA2 MarTop5">
-                        <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.ownerShare}"
+                        <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerShare}"
                                                  itemLabel="I, my spouse or an immediate member of my family is a director, 10% shareholder or policy maker of a publicly traded company.">
                             <p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregsharePanel"/>
                         </p:selectBooleanCheckbox>
@@ -151,12 +151,13 @@
                         <div class="EmptyBox20"></div>
                     </p:panel>
                 </p:panel>
-
+<p:panel id="unusedID" style="border: 0px; background: transparent">
                 <div class="Container100 CustomWidthFA2 MarTop5">
-                    <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.ownerBD}"
+                    <p:selectBooleanCheckbox  styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerBD}"
                                              itemLabel="I, my spouse or an immediate member of my family is a licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange.">
                     </p:selectBooleanCheckbox>
                 </div>
+                </p:panel>
             </div>
             <div class="Container100 MarTop20" style="margin: 10px 10px;">
                 <p:commandLink styleClass="UI-prevButtonFA Fleft"

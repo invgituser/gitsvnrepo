@@ -4,6 +4,33 @@
 * Supported Browsers > Google Chrome 3+ , Mozilla Firefox 3+ , Safari 3+ , Opera 3+ , Yandex Browser , Inernet Explorer 9+
 * Copyright 2016 - Invessence */
 
+@media (min-width: 625px) and (max-width: 1343px) {
+	.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 90%!important;
+}
+}
+
+@media (min-width: 409px) and (max-width: 624px) {
+	.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 85%!important;
+}
+}
+
+@media (min-width: 320px) and (max-width: 408px) {
+	.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 80%!important;
+	font-size: 14px;
+}
+}
+
+.RegulatoryCheckBox {
+	width: 100%!important;
+}
+
+.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 95%;
+}
+
 .TCM-UI-Dropdown  {
 	    display: inline-flex;
 	        border: 0!important;

@@ -239,7 +239,8 @@ img.riskImage:hover {
     }
 
     .FSResponsiveFA {
-        font-size: 13px;
+        font-size: 15px;
+        text-align: center;
     }
 }
 
@@ -298,7 +299,7 @@ img.riskImage:hover {
 
 }
 
-@media (min-width: 370px) and (max-width: 425px) {
+@media (min-width: 370px) and (max-width: 500px) {
     .stripe {
         display: none;
     }
@@ -371,8 +372,29 @@ img.riskImage:hover {
     }
 
 }
+
+@media (max-width: 1000px) and (min-width: 320px) {
+	.RightBlockAcctType, .LeftBlockAcctType {
+	width: 100%!important;
+	}
+}
 /**/
 /*Prakash*/
+.BeneficiaryButton {
+	text-align: center!important;
+}
+
+.BeneficiaryButton > button {
+	width: 200px!important;
+}
+
+.CustomWidthAccountypePanel {
+    height: 76px;
+}
+
+img.atCheckMarkImg {
+padding: 6px 0;
+}
 
 .dropdownInputFullWidth {
     border-radius: 0px!important;
@@ -548,7 +570,7 @@ img.riskImage:hover {
     margin: 0 35px;
 }
 
-.Fright-FAAddress {
+.Fright-FAAddress, .FrightForced {
     float: right !important;
 }
 
