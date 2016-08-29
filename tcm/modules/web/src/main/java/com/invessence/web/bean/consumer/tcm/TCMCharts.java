@@ -37,11 +37,12 @@ public class TCMCharts implements Serializable
    // HighChart Start
    private String yearChart;
    private String resultChart;
+
    // HighChart End
 
    public TCMCharts()
    {
-      resetCharts();
+        resetCharts();
    }
 
    public CartesianChartModel getLineChart()
@@ -306,8 +307,10 @@ public class TCMCharts implements Serializable
    }
 
    // New method implements : Projection chart creation by using HighChart
-   public void createProjectionHighChart(ProjectionData[] projectionData, Integer horizon, Integer currAge,Integer ageSeries)
+   public void createProjectionHighChart(ProjectionData[] projectionData, Integer horizon, Integer currAge,Integer ageSeries, ProjectionData[] projectionDataAggressive)
    {
+      //System.out.println("projectionData :"+projectionData+" :horizon:"+horizon+":currAge:"+currAge+":ageSeries:"+ageSeries);
+      //System.out.println("projectionData.length :"+projectionData.length);
 
       Integer year;
       Integer noOfYlabels = 0;
@@ -416,7 +419,7 @@ public class TCMCharts implements Serializable
             upper1.set(year.toString(), tmpvalue);
             tmpvalue = (Math.round((projectionData[y].getUpperBand2()/dividingFactor) * 100.0))/100.0;
             temvalueUpper2 = tmpvalue;
-            maxGraghPlot = (int)Math.floor(temvalueUpper2);
+
             upper2.set(year.toString(), tmpvalue);
             // If incrementing anything other then 1, then make sure that last year is displayed.
             if (y+1 >= totalYlabels) // If last point is plotted, then quit.
@@ -444,7 +447,7 @@ public class TCMCharts implements Serializable
          Double scale = Math.pow(10, digits - 1);
 
          maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
-
+         maxGraghPlot = (int)((Math.round((projectionDataAggressive[totalYlabels - 1].getUpperBand2()/dividingFactor) * 100.0))/100.0);
 
          HashMap chartMap = new HashMap();
 
@@ -457,7 +460,7 @@ public class TCMCharts implements Serializable
          chartMap.put("goalAgeSeries", goalAgeSeries);
 
          resultChart = new Gson().toJson(chartMap);
-         // System.out.println("resultChart = " + resultChart);
+         //System.out.println("resultChart = " + resultChart);
          // goalChart.addSeries(growth);
          goalChart.addSeries(totalGrowth);
          // goalChart.addSeries(totalInvested);
@@ -609,74 +612,74 @@ public class TCMCharts implements Serializable
       String color;
       try
       {
-            riskbarChart = new BarChartModel();
-            BarChartSeries gain = new BarChartSeries();
-            BarChartSeries loss = new BarChartSeries();
-            BarChartSeries sgain = new BarChartSeries();
-            BarChartSeries sloss = new BarChartSeries();
-            String label;
-            Integer gainval, lossval;
-            for (int i=1; i < 6; i++)
-            {
-               label = null;
-               gainval = null;
-               lossval = null;
-               switch (i) {
-                  case 1:
-                     label = "Conservative";
-                     gainval = 14;
-                     lossval = -4;
-                     break;
-                  case 2:
-                     label = "Moderately Conservative";
-                     gainval = 22;
-                     lossval = -10;
-                     gain.set(label, 22);
-                     loss.set(label,-10);
-                     break;
-                  case 3:
-                     label = "Moderate";
-                     gainval = 29;
-                     lossval = -16;
-                     break;
-                  case 4:
-                     label = "Moderately Aggressive";
-                     gainval = 35;
-                     lossval = -23;
-                     break;
-                  case 5:
-                     label = "Aggressive";
-                     gainval = 45;
-                     lossval = -34;
-                     break;
-               }
+         riskbarChart = new BarChartModel();
+         BarChartSeries gain = new BarChartSeries();
+         BarChartSeries loss = new BarChartSeries();
+         BarChartSeries sgain = new BarChartSeries();
+         BarChartSeries sloss = new BarChartSeries();
+         String label;
+         Integer gainval, lossval;
+         for (int i=1; i < 6; i++)
+         {
+            label = null;
+            gainval = null;
+            lossval = null;
+            switch (i) {
+               case 1:
+                  label = "Conservative";
+                  gainval = 14;
+                  lossval = -4;
+                  break;
+               case 2:
+                  label = "Moderately Conservative";
+                  gainval = 22;
+                  lossval = -10;
+                  gain.set(label, 22);
+                  loss.set(label,-10);
+                  break;
+               case 3:
+                  label = "Moderate";
+                  gainval = 29;
+                  lossval = -16;
+                  break;
+               case 4:
+                  label = "Moderately Aggressive";
+                  gainval = 35;
+                  lossval = -23;
+                  break;
+               case 5:
+                  label = "Aggressive";
+                  gainval = 45;
+                  lossval = -34;
+                  break;
+            }
 
-               // Selected start from 1 to 5 (i loop is also from 1 to 5
-               if (selected == i) {
-                  sgain.set(label, gainval);
-                  sloss.set(label, lossval);
-               }
-               else {
-                  gain.set(label, gainval);
-                  loss.set(label, lossval);
-
-               }
+            // Selected start from 1 to 5 (i loop is also from 1 to 5
+            if (selected == i) {
+               sgain.set(label, gainval);
+               sloss.set(label, lossval);
+            }
+            else {
+               gain.set(label, gainval);
+               loss.set(label, lossval);
 
             }
-            riskbarChart.addSeries(gain);
-            riskbarChart.addSeries(loss);
-            riskbarChart.addSeries(sgain);
-            riskbarChart.addSeries(sloss);
-            riskbarChart.setShowPointLabels(true);
-            riskbarChart.setStacked(true);
-            riskbarChart.setMouseoverHighlight(false);
-            riskbarChart.setShowDatatip(false);
-            riskbarChart.setSeriesColors("00D404,00D404,0000FF,0000FF");
-            riskbarChart.setNegativeSeriesColors("00D404,D40000,FF0000,FF0000");
-            Axis yAxis = riskbarChart.getAxis(AxisType.Y);
-            yAxis.setTickFormat("%#.0f%%");
 
-            // riskbarChart.setExtender("riskq");
+         }
+         riskbarChart.addSeries(gain);
+         riskbarChart.addSeries(loss);
+         riskbarChart.addSeries(sgain);
+         riskbarChart.addSeries(sloss);
+         riskbarChart.setShowPointLabels(true);
+         riskbarChart.setStacked(true);
+         riskbarChart.setMouseoverHighlight(false);
+         riskbarChart.setShowDatatip(false);
+         riskbarChart.setSeriesColors("00D404,00D404,0000FF,0000FF");
+         riskbarChart.setNegativeSeriesColors("00D404,D40000,FF0000,FF0000");
+         Axis yAxis = riskbarChart.getAxis(AxisType.Y);
+         yAxis.setTickFormat("%#.0f%%");
+
+         // riskbarChart.setExtender("riskq");
 
       }
       catch (Exception ex)
