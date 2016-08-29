@@ -82,6 +82,9 @@
                                                },
                                                plotOptions: {
                                                    series: {
+                                                       marker: {
+                                                           enabled: false
+                                                       },
                                                        events: {
                                                            legendItemClick: function() {
                                                                return false;
@@ -108,9 +111,7 @@
                                                    enabled: false
                                                },
                                                series: [{
-                                                   marker: {
-                                                       enabled: true
-                                                   },
+
                                                    name: 'Average market performance',
                                                    fontWeight: 'normal',
                                                    lineColor: '#4d0000',
@@ -118,8 +119,7 @@
                                                    type: 'spline',
                                                    zIndex: 3,
                                                    data: $.parseJSON(chartValue).goalAvgValue,
-                                                   //Directly plot data series values
-
+                                                   zIndex: 3,
                                                }, {
                                                    name: '50% probability range',
                                                    fontWeight: 'normal',
@@ -127,7 +127,7 @@
                                                    type: 'areasplinerange',
                                                    lineWidth: 0,
                                                    color: '#54a685', //Highcharts.getOptions().colors[0]'', //#3498DB
-                                                   fillOpacity: 0.7,
+                                                   //fillOpacity: 0.7,
                                                    border:0,
                                                    zIndex: 2,
                                                    enableMouseTracking: false,
@@ -138,7 +138,7 @@
                                                    type: 'areasplinerange',
                                                    lineWidth: 0,
                                                    color: '#dbe6e0', //Highcharts.getOptions().colors[0],  //#ABEBC6
-                                                   fillOpacity: 0.7,
+                                                   //fillOpacity: 0.7,
                                                    border:0,
                                                    zIndex: 1,
                                                    enableMouseTracking: false,
