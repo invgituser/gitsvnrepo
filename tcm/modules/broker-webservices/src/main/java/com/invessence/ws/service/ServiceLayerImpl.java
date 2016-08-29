@@ -255,7 +255,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.GET_MAILING_ADDRESS)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.GET_MAILING_ADDRESS)){
          callingLayer = getCallingLayer();
          if(callingLayer==null){
             logger.warn("Calling Service object creation issue");
@@ -327,7 +327,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.GET_ACCT_INFO)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.GET_ACCT_INFO)){
          callingLayer = getCallingLayer();
          if(callingLayer==null){
             logger.warn("Calling Service object creation issue");
@@ -399,7 +399,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "], newPwd = [" + newEmail + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.EMAIL_UPDATE)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.EMAIL_UPDATE)){
             callingLayer = getCallingLayer();
             if(callingLayer==null){
                logger.warn("Calling Service object creation issue");
@@ -466,7 +466,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "], firstName = [" + firstName + "], middleName = [" + middleName + "], lastName = [" + lastName + "], addressLine1 = [" + addressLine1 + "], addressLine2 = [" + addressLine2 + "], addressLine3 = [" + addressLine3 + "], postalZip = [" + postalZip + "], countryCode = [" + countryCode + "], voicePhone = [" + voicePhone + "], altPhone = [" + altPhone + "], faxPhone = [" + faxPhone + "], emailAddress = [" + emailAddress + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.MAILING_ADDRESS_UPDATE)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.MAILING_ADDRESS_UPDATE)){
             callingLayer = getCallingLayer();
             if(callingLayer==null){
                logger.warn("Calling Service object creation issue");
@@ -597,7 +597,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.GET_BANK_ACCT_DETAILS)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.GET_BANK_ACCT_DETAILS)){
             callingLayer = getCallingLayer();
             if(callingLayer==null){
                logger.warn("Calling Service object creation issue");
@@ -714,7 +714,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "], fundID = [" + fundID + "], amount = [" + amount + "], bankAccountNumber = [" + bankAccountNumber + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.FUND_ACCOUNT)){
             callingLayer = getCallingLayer();
             if(callingLayer==null){
                logger.warn("Calling Service object creation issue");
@@ -821,7 +821,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "], fromFundID = [" + fromFundID + "], toFundID = [" + toFundID + "], bankAccountNumber = [" + bankAccountNumber + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.FULL_FUND_TRANSFER)){
             callingLayer = getCallingLayer();
             if(callingLayer==null){
                logger.warn("Calling Service object creation issue");
@@ -952,7 +952,7 @@ public class ServiceLayerImpl implements ServiceLayer
       logger.info("clientAccountID = [" + clientAccountID + "]");
       try
       {
-         if (isServiceOprationActive(WSConstants.BrokerWebServiceOperations.UPDATE_PWD_WITH_NOAUTH)){
+         if (isServiceOperationActive(WSConstants.BrokerWebServiceOperations.UPDATE_PWD_WITH_NOAUTH)){
             callingLayer = getCallingLayer();
             if(callingLayer==null){
                logger.warn("Calling Service object creation issue");
@@ -1192,7 +1192,7 @@ public class ServiceLayerImpl implements ServiceLayer
    }
 
 
-   public boolean isServiceOprationActive(WSConstants.BrokerWebServiceOperations operation)
+   public boolean isServiceOperationActive(WSConstants.BrokerWebServiceOperations operation)
    {
       boolean result=false;
 

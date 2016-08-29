@@ -1,28 +1,15 @@
 package com.invessence.ws.service;
 
-import java.util.*;
 import java.util.List;
 
-import com.docusign.esign.api.EnvelopesApi;
 import com.docusign.esign.model.*;
 import com.invessence.ws.bean.*;
-import com.invessence.ws.dao.WSCommonDao;
 import com.invessence.ws.provider.td.bean.DCRequest;
 import com.invessence.ws.provider.td.dao.TDDaoLayer;
 import com.invessence.ws.provider.td.service.*;
-import com.invessence.ws.service.*;
 import com.invessence.ws.util.NoServiceSupportException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Created by abhangp on 3/11/2016.
@@ -44,7 +31,7 @@ public class CallingLayerTDImpl implements CallingLayer
       List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
       if(dcRequests.size()>0)
       {
-         CompositeTemplate compositeTemplate = tdAccountOpeningLayer.openIndivisualAccount(dcRequests);
+         CompositeTemplate compositeTemplate = tdAccountOpeningLayer.docuSignRequestHandler(dcRequests);
       }else{
          System.out.println("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       }

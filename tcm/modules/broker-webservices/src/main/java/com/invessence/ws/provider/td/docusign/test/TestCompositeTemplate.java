@@ -192,7 +192,7 @@ public class TestCompositeTemplate {
 		inlineTemplate2.setRecipients(new Recipients());
 		inlineTemplate2.getRecipients().setSigners(new ArrayList<Signer>());
 		inlineTemplate2.getRecipients().getSigners().add(signer3);
-//		inlineTemplate2.getRecipients().getSigners().add(signer4);
+//		inlineTemplate2.getRecipientsAcctCreation().getSigners().add(signer4);
 		inlineTemplate2.setSequence("2");
 
 		List<InlineTemplate> inlineTemplates = new ArrayList<InlineTemplate>();
@@ -243,7 +243,7 @@ public class TestCompositeTemplate {
 			inlineTemplate3.setRecipients(new Recipients());
 			inlineTemplate3.getRecipients().setSigners(new ArrayList<Signer>());
 			inlineTemplate3.getRecipients().getSigners().add(signer3);
-//			inlineTemplate2.getRecipients().getSigners().add(signer4);
+//			inlineTemplate2.getRecipientsAcctCreation().getSigners().add(signer4);
 			inlineTemplate3.setSequence("2");
 	      inlineTemplate3.setDocuments(docs);
 		

@@ -1,13 +1,10 @@
 package com.invessence.ws.provider.td.docusign;
 
 import java.io.IOException;
-import java.io.IOException;
 import java.lang.reflect.*;
 import java.util.*;
 import java.util.List;
 
-import com.docusign.esign.api.*;
-import com.docusign.esign.client.*;
 import com.docusign.esign.model.Checkbox;
 import com.docusign.esign.model.EnvelopeDefinition;
 import com.docusign.esign.model.RadioGroup;
@@ -46,75 +43,76 @@ public class DCUtility
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
+
       EnvelopeSummary envelopeSummary=null;
-      String UserName = "prashant@invessence.com";//"[EMAIL]";
-      String Password = "Inv3ss3nc3!";//"[PASSWORD]";
-
-      // TODO: Enter your Integrator Key (aka API key), created through your developer sandbox preferences
-      String IntegratorKey = "TDAM-d7feb45c-e88d-4c20-b5bd-1dcd9a9d6f56";//"[INTEGRATOR_KEY]";
-
-      // for production environment update to "www.docusign.net/restapi"
-      String BaseUrl = "https://demo.docusign.net/restapi";
-
-      // initialize the api client
-      ApiClient apiClient = new ApiClient();
-      apiClient.setBasePath(BaseUrl);
-
-      // create JSON formatted auth header
-      String creds = "{\"Username\":\"" + UserName + "\",\"Password\":\"" + Password + "\",\"IntegratorKey\":\"" + IntegratorKey + "\"}";
-      apiClient.addDefaultHeader("X-DocuSign-Authentication", creds);
-
-      // assign api client to the Configuration object
-      Configuration.setDefaultApiClient(apiClient);
-
-      // list of user account(s)
-      List<LoginAccount> loginAccounts = null;
-
-      //===============================================================================
-      // Step 1:  Login() API
-      //===============================================================================
-      try
-      {
-         // login call available off the AuthenticationApi
-         AuthenticationApi authApi = new AuthenticationApi();
-
-         // login has some optional parameters we can set
-         AuthenticationApi.LoginOptions loginOps = authApi.new LoginOptions();
-         loginOps.setApiPassword("true");
-         loginOps.setIncludeAccountIdGuid("true");
-         LoginInformation loginInfo = authApi.login(loginOps);
-
-         // note that a given user may be a member of multiple accounts
-         loginAccounts = loginInfo.getLoginAccounts();
-
-         System.out.println("LoginInformation: " + loginAccounts);
-      }
-      catch (com.docusign.esign.client.ApiException ex)
-      {
-         System.out.println("Exception: " + ex);
-      }
-
+//      String UserName = "prashant@invessence.com";//"[EMAIL]";
+//      String Password = "Inv3ss3nc3!";//"[PASSWORD]";
+//
+//      // TODO: Enter your Integrator Key (aka API key), created through your developer sandbox preferences
+//      String IntegratorKey = "TDAM-d7feb45c-e88d-4c20-b5bd-1dcd9a9d6f56";//"[INTEGRATOR_KEY]";
+//
+//      // for production environment update to "www.docusign.net/restapi"
+//      String BaseUrl = "https://demo.docusign.net/restapi";
+//
+//      // initialize the api client
+//      ApiClient apiClient = new ApiClient();
+//      apiClient.setBasePath(BaseUrl);
+//
+//      // create JSON formatted auth header
+//      String creds = "{\"Username\":\"" + UserName + "\",\"Password\":\"" + Password + "\",\"IntegratorKey\":\"" + IntegratorKey + "\"}";
+//      apiClient.addDefaultHeader("X-DocuSign-Authentication", creds);
+//
+//      // assign api client to the Configuration object
+//      Configuration.setDefaultApiClient(apiClient);
+//
+//      // list of user account(s)
+//      List<LoginAccount> loginAccounts = null;
+//
 //      //===============================================================================
+//      // Step 1:  Login() API
+//      //===============================================================================
+//      try
+//      {
+//         // login call available off the AuthenticationApi
+//         AuthenticationApi authApi = new AuthenticationApi();
 //
+//         // login has some optional parameters we can set
+//         AuthenticationApi.LoginOptions loginOps = authApi.new LoginOptions();
+//         loginOps.setApiPassword("true");
+//         loginOps.setIncludeAccountIdGuid("true");
+//         LoginInformation loginInfo = authApi.login(loginOps);
 //
-      try
-      {
-         // use the |accountId| we retrieved through the Login API to create the Envelope
-         String accountId = loginAccounts.get(0).getAccountId();
-
-         // instantiate a new EnvelopesApi object
-         EnvelopesApi envelopesApi = new EnvelopesApi();
-
-         // call the createEnvelope() API
-         // envDef.setCustomFields(customFields);
-         envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
-
-         System.out.println("EnvelopeSummary: " + envelopeSummary);
-      }
-      catch (com.docusign.esign.client.ApiException ex)
-      {
-         System.out.println("Exception: " + ex);
-      }
+//         // note that a given user may be a member of multiple accounts
+//         loginAccounts = loginInfo.getLoginAccounts();
+//
+//         System.out.println("LoginInformation: " + loginAccounts);
+//      }
+//      catch (com.docusign.esign.client.ApiException ex)
+//      {
+//         System.out.println("Exception: " + ex);
+//      }
+//
+////      //===============================================================================
+////
+////
+//      try
+//      {
+//         // use the |accountId| we retrieved through the Login API to create the Envelope
+//         String accountId = loginAccounts.get(0).getAccountId();
+//
+//         // instantiate a new EnvelopesApi object
+//         EnvelopesApi envelopesApi = new EnvelopesApi();
+//
+//         // call the createEnvelope() API
+//         // envDef.setCustomFields(customFields);
+//         envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
+//
+//         System.out.println("EnvelopeSummary: " + envelopeSummary);
+//      }
+//      catch (com.docusign.esign.client.ApiException ex)
+//      {
+//         System.out.println("Exception: " + ex);
+//      }
 
       return envelopeSummary;
    }
@@ -130,29 +128,19 @@ public class DCUtility
       return serverTemplate;
    }
 
-   public InlineTemplate getInlineTemplate (String sequence, DCTemplateDetails dcTemplateDetails,AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails){
+   public InlineTemplate getInlineTemplate (String sequence){
 
       InlineTemplate inlineTemplate = new InlineTemplate();
-      inlineTemplate.setRecipients(getSigner(dcTemplateDetails,acctDetails,acctOwnerDetails));
       inlineTemplate.setSequence(sequence);
 
       return inlineTemplate;
    }
 
-   public Recipients getSigner(DCTemplateDetails dcTemplateDetails,AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
+   public Recipients getRecipientsAcctCreation(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
    {
       System.out.println("*****************************************************");
-      System.out.println("DCUtility.getSigner");
+      System.out.println("DCUtility.getRecipientsAcctCreation");
       System.out.println("*****************************************************");
-
-//      try
-//      {
-//         System.out.println(getFieldNames(acctDetails, false));
-//      }
-//      catch (IllegalAccessException e)
-//      {
-//         e.printStackTrace();
-//      }
 
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
@@ -164,9 +152,6 @@ public class DCUtility
       List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
       Recipients recipients=null;
 
-      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-      Iterator <DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
-
       try
       {
          dbColumns=getFieldNames(acctDetails, false);
@@ -176,26 +161,9 @@ public class DCUtility
       {
          e.printStackTrace();
       }
-      while (itr1.hasNext()){
-         DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
-         System.out.println(dctemplate.getDbColumn());
-         if(dbColumns.contains(dctemplate.getDbColumn())){
 
-            if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
-               Text text=getText(dctemplate,acctDetails);
-               if(text==null){}else{textboxLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
-               Checkbox text=getCheckbox(dctemplate,acctDetails);
-               if(text==null){}else{checkboxeLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
-               RadioGroup text=getRadioGroup(dctemplate,acctDetails);
-               if(text==null){}else{radioGroupLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
-               com.docusign.esign.model.List text=getList(dctemplate, acctDetails);
-               if(text==null){}else{listboxLst.add(text);}
-            }
-         }
-      }
+      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+      getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctDetails);
 
 
       int signerRecipientId=1;
@@ -217,57 +185,16 @@ public class DCUtility
          signer.setName(acctOwner.getFirstName());
          signer.roleName(acctOwner.getOwnership());
          signer.setRecipientId(""+signerRecipientId);
-         //signer.setTabs(tabs);
 
          if(acctOwner.getOwnership().equalsIgnoreCase("Client")){
-//            signer.setRoutingOrder("1");
             System.out.println("Client");
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-            itr1=dcTemplateMappingList.iterator();
-            while (itr1.hasNext()){
-               DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
-               if(dbColumns.contains(dctemplate.getDbColumn())){
-
-                  if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
-                     Text text=getText(dctemplate,acctOwner);
-                     if(text==null){}else{textboxLst.add(text);}
-                  }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
-                     Checkbox text=getCheckbox(dctemplate,acctOwner);
-                     if(text==null){}else{checkboxeLst.add(text);}
-                  }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
-                     RadioGroup text=getRadioGroup(dctemplate,acctOwner);
-                     if(text==null){}else{radioGroupLst.add(text);}
-                  }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
-                     com.docusign.esign.model.List text=getList(dctemplate, acctOwner);
-                     if(text==null){}else{listboxLst.add(text);}
-                  }
-               }
-            }
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
 
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
-//            signer.setRoutingOrder("2");
             System.out.println("Joint");
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Joint");
-            itr1=dcTemplateMappingList.iterator();
-            while (itr1.hasNext()){
-               DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
-               if(dbColumns.contains(dctemplate.getDbColumn())){
-
-                  if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
-                     Text text=getText(dctemplate,acctOwner);
-                     if(text==null){}else{textboxLst.add(text);}
-                  }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
-                     Checkbox text=getCheckbox(dctemplate,acctOwner);
-                     if(text==null){}else{checkboxeLst.add(text);}
-                  }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
-                     RadioGroup text=getRadioGroup(dctemplate,acctOwner);
-                     if(text==null){}else{radioGroupLst.add(text);}
-                  }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
-                     com.docusign.esign.model.List text=getList(dctemplate, acctOwner);
-                     if(text==null){}else{listboxLst.add(text);}
-                  }
-               }
-            }
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
          }
 
          signerLst.add(signer);
@@ -278,7 +205,6 @@ public class DCUtility
       if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
       if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
 
-//      System.out.println("tabs :"+tabs);
       if(signerLst.size()>0){
          Iterator<Signer> signerItr=signerLst.iterator();
          while(signerItr.hasNext()){
@@ -287,50 +213,61 @@ public class DCUtility
          }
          recipients=new Recipients();
          recipients.setSigners(signerLst);
-//         Agent agent=new Agent();
-//         recipients.setAgents();
       }
-//         Field[] fields = aClass.getFields();
-//         System.out.println("fields = " + fields);
-//         for(Field field : fields){
-//            System.out.println(field.getName());
-//         }
-         //System.out.println("acctOwner = " + acctOwner);
-//         Signer signer = new Signer();
-//         signer.setEmail(acctOwnersDetails.getEmailAddress());
-//         signer.setName(acctOwnersDetails.getFirstName());
-//         signer.roleName(acctOwnersDetails.getOwnership());
-//         signer.setRecipientId("1");
-
-
-
-      //getTabs(dcTemplateDetails.getConfigFile(), dcTemplateDetails.getDcTemplateMappings());
       return recipients;
    }
-   private Text getText (DCTemplateMapping dctemplate, Object acctOwner){
+
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst,
+   List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject){
+     Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
+      while (itr1.hasNext()){
+         DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
+         if(dbColumns.contains(dctemplate.getDbColumn())){
+
+            if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
+               Text text=getText(dctemplate, dataObject);
+               if(text==null){}else{textboxLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
+               Checkbox text=getCheckbox(dctemplate, dataObject);
+               if(text==null){}else{checkboxeLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
+               RadioGroup text=getRadioGroup(dctemplate, dataObject);
+               if(text==null){}else{radioGroupLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
+               com.docusign.esign.model.List text=getList(dctemplate, dataObject);
+               if(text==null){}else{listboxLst.add(text);}
+            }
+         }
+      }
+
+   }
+   private Text getText (DCTemplateMapping dctemplate, Object dataObject){
       Text text=null;
       try
       {
          text=new Text();
 
       text.setTabLabel(dctemplate.getLable());
-      text.setValue(getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString());
+      text.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
    }
    catch (NoSuchFieldException e)
    {
+      System.out.println("dctemplate.getLable() :"+dctemplate.getLable());
       e.printStackTrace();
    }
    catch (ClassNotFoundException e)
    {
+      System.out.println("dctemplate.getLable() :"+dctemplate.getLable());
       e.printStackTrace();
    }
    catch (IllegalAccessException e)
    {
+      System.out.println("dctemplate.getLable() :"+dctemplate.getLable());
       e.printStackTrace();
    }
    return text;
 }
-   private Checkbox getCheckbox (DCTemplateMapping dctemplate, Object acctOwner){
+   private Checkbox getCheckbox (DCTemplateMapping dctemplate, Object dataObject){
 
    Checkbox checkbox=null;
 //      try
@@ -339,7 +276,7 @@ public class DCUtility
 
    checkbox.setTabLabel(dctemplate.getLable());
          checkbox.setSelected("true");
-//   checkbox.setStatus(getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString());
+//   checkbox.setStatus(getInstanceValue(dataObject,dctemplate.getDbColumn()).toString());
 //   }
 //   catch (NoSuchFieldException e)
 //   {
@@ -355,7 +292,7 @@ public class DCUtility
 //   }
    return checkbox;
    }
-   private RadioGroup getRadioGroup (DCTemplateMapping dctemplate, Object acctOwner){
+   private RadioGroup getRadioGroup (DCTemplateMapping dctemplate, Object dataObject){
 
 
    RadioGroup radioGroup =null;
@@ -363,10 +300,10 @@ public class DCUtility
    {
       radioGroup= new RadioGroup();
       radioGroup.setGroupName(dctemplate.getLable());
-      getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString();
+      getInstanceValue(dataObject, dctemplate.getDbColumn()).toString();
       radioGroup.setRadios(new ArrayList<Radio>());
       						Radio radio=new Radio();
-      						radio.setValue(getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString());
+      						radio.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
       						radio.setSelected("true");
       						radioGroup.getRadios().add(radio);
    // radioGroup.se
@@ -394,14 +331,14 @@ public class DCUtility
 
    return radioGroup;
    }
-   private com.docusign.esign.model.List getList (DCTemplateMapping dctemplate, Object acctOwner){
+   private com.docusign.esign.model.List getList (DCTemplateMapping dctemplate, Object dataObject){
 
       com.docusign.esign.model.List list=null;
       try
       {
          list=new com.docusign.esign.model.List();
          list.setTabLabel(dctemplate.getLable());
-         list.setValue(getInstanceValue(acctOwner,dctemplate.getDbColumn()).toString());
+         list.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
       }
       catch (NoSuchFieldException e)
       {
@@ -445,7 +382,7 @@ public class DCUtility
 
          System.out.println();
 
-         List<Signer> signers=envelopeDefinition;//envelopeDefinition.getRecipients().getSigners();
+         List<Signer> signers=envelopeDefinition;//envelopeDefinition.getRecipientsAcctCreation().getSigners();
          Iterator<Signer> signerItr=signers.iterator();
 
          while (signerItr.hasNext()) {

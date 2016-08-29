@@ -1,4 +1,4 @@
-package com.invessence.ws.data.common;
+package com.invessence.ws.provider.td.bean;
 
 import java.util.Date;
 

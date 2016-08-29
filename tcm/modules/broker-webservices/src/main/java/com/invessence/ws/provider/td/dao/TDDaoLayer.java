@@ -13,9 +13,11 @@ public interface TDDaoLayer
 {
    public List<DCRequest> getDCRequests(Long acctNum, int eventNum)throws SQLException;
 
-   public AcctDetails getAcctDetails(Long acctNum, Long reqId)throws SQLException;
+   public AcctDetails getAcctDetails(Long acctNum, Long reqId, boolean reqAllData)throws SQLException;
 
-   public List<AcctOwnerDetails> getAcctOwnerDetails(Long acctNum, Long reqId)throws SQLException;
+   public List<AcctOwnerDetails> getAcctOwnerDetails(Long acctNum, Long reqId, boolean reqAllData)throws SQLException;
+
+   public List<BenefiaciaryDetails> getBenefiaciaryDetails(Long acctNum, Long reqId)throws SQLException;
 
    void updateEnvelopDetails(int eventNum, EnvelopeSummary envelopeSummary)throws SQLException;
 }

@@ -11,6 +11,9 @@ public class AcctDetails
    private String clientAccountID;
    private String caseNumber;
    private Long advisorId;
+   private String advisorCode;
+   private String firmName;
+   private String primaryContact;
    private String accountType;
    private String cashsweepvehiclechoice;
    private String divIntPref;
@@ -19,7 +22,60 @@ public class AcctDetails
    private String dupStatement;
    private String dupTradeConfirm;
    private String proxy;
+
    private List<AcctOwnerDetails> acctOwnerDetails;
+   private List<BenefiaciaryDetails> benefiaciaryDetails;
+   private DupDocReqParty dupDocReqParty;
+
+   public String getAdvisorCode()
+   {
+      return advisorCode;
+   }
+
+   public void setAdvisorCode(String advisorCode)
+   {
+      this.advisorCode = advisorCode;
+   }
+
+   public String getFirmName()
+   {
+      return firmName;
+   }
+
+   public void setFirmName(String firmName)
+   {
+      this.firmName = firmName;
+   }
+
+   public String getPrimaryContact()
+   {
+      return primaryContact;
+   }
+
+   public void setPrimaryContact(String primaryContact)
+   {
+      this.primaryContact = primaryContact;
+   }
+
+   public List<BenefiaciaryDetails> getBenefiaciaryDetails()
+   {
+      return benefiaciaryDetails;
+   }
+
+   public void setBenefiaciaryDetails(List<BenefiaciaryDetails> benefiaciaryDetails)
+   {
+      this.benefiaciaryDetails = benefiaciaryDetails;
+   }
+
+   public DupDocReqParty getDupDocReqParty()
+   {
+      return dupDocReqParty;
+   }
+
+   public void setDupDocReqParty(DupDocReqParty dupDocReqParty)
+   {
+      this.dupDocReqParty = dupDocReqParty;
+   }
 
    public Long getAcctnum()
    {

@@ -10,7 +10,5 @@ import com.invessence.ws.provider.td.bean.DCRequest;
  */
 public interface TDAccountOpeningLayer
 {
-   public CompositeTemplate openIndivisualAccount(List<DCRequest> dcRequests);
-   public CompositeTemplate openJointAccount(DCRequest dcRequest);
-   public CompositeTemplate openIRAAccount(DCRequest dcRequest);
+   public CompositeTemplate docuSignRequestHandler(List<DCRequest> dcRequests);
 }

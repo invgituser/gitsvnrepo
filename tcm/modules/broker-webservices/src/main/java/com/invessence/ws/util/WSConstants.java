@@ -40,4 +40,34 @@ public class WSConstants
       }
    }
 
+   public enum DocuSignServiceOperations {
+      ACCT_APPLI_NEW("ACCT_APPLI_NEW"),
+      ACCT_TRAN_NEW("ACCT_TRAN_NEW"),
+      IRA_APPLI_NEW("IRA_APPLI_NEW"),
+      IRA_MOVE_MONEY_NEW("IRA_MOVE_MONEY_NEW"),
+      IRA_MOVE_MONEY_CHANGE("IRA_MOVE_MONEY_CHANGE"),
+      IRA_MOVE_MONEY_REMOVE("IRA_MOVE_MONEY_REMOVE"),
+      IRA_QRP_BENE_NEW("IRA_QRP_BENE_NEW"),
+      MOVE_MONEY_NEW("MOVE_MONEY_NEW"),
+      MOVE_MONEY_CHANGE("MOVE_MONEY_CHANGE"),
+      MOVE_MONEY_REMOVE("MOVE_MONEY_REMOVE"),
+      ELEC_FUND_TRAN_CHANGE("ELEC_FUND_TRAN_CHANGE"),
+      ELEC_FUND_TRAN_NEW("ELEC_FUND_TRAN_NEW"),
+      ELEC_FUND_TRAN_REPLACE("ELEC_FUND_TRAN_REPLACE");
+
+      private String value;
+
+      private DocuSignServiceOperations(String value) {
+         this.value = value;
+      }
+      private String getValue() {
+         return value;
+      }
+
+      @Override
+      public String toString() {
+         return this.getValue();
+      }
+   }
+
 }

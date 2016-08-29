@@ -24,7 +24,7 @@ public class AcctOwnerDetails
    private String physicalAddressState;
    private String physicalAddressZipCode;
    private List<EmploymentDetails> employmentDetails;
-private List<BenefiaciaryDetails> benefiaciaryDetails;
+   private VisaDetails visaDetails;
 
    public List<EmploymentDetails> getEmploymentDetails()
    {
@@ -36,14 +36,14 @@ private List<BenefiaciaryDetails> benefiaciaryDetails;
       this.employmentDetails = employmentDetails;
    }
 
-   public List<BenefiaciaryDetails> getBenefiaciaryDetails()
+   public VisaDetails getVisaDetails()
    {
-      return benefiaciaryDetails;
+      return visaDetails;
    }
 
-   public void setBenefiaciaryDetails(List<BenefiaciaryDetails> benefiaciaryDetails)
+   public void setVisaDetails(VisaDetails visaDetails)
    {
-      this.benefiaciaryDetails = benefiaciaryDetails;
+      this.visaDetails = visaDetails;
    }
 
    @Override
