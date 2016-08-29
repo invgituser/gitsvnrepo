@@ -34,12 +34,14 @@ public class TCMRiskCalculator extends RiskCalculator
 
    static Integer RETIRE_AGE_MAX = 85;
 
-
+   private String ans5;
+   private String ans5AggressiveRadio;
    public TCMRiskCalculator()
    {
       super();
       setNumberofQuestions(1);
       setRetireAge(null);
+      //ans5 = "1";
       resetAllData();
    }
 
@@ -234,6 +236,27 @@ public class TCMRiskCalculator extends RiskCalculator
       }
    }
 
+   @Override
+   public String getAns5()
+   {
+      return ans5;
+   }
+
+   @Override
+   public void setAns5(String ans5)
+   {
+      this.ans5 = ans5;
+   }
+
+   public String getAns5AggressiveRadio()
+   {
+      return ans5AggressiveRadio;
+   }
+
+   public void setAns5AggressiveRadio(String ans5AggressiveRadio)
+   {
+      this.ans5AggressiveRadio = ans5AggressiveRadio;
+   }
 
    @Override
    public void resetAllData()
@@ -244,6 +267,8 @@ public class TCMRiskCalculator extends RiskCalculator
       riskHorizon = 20;
       totalRisk = 0.0;
       riskFormula = "C";
+      //ans5 = "1";
+      //ans5AggressiveRadio = "4";
    }
 
 }
