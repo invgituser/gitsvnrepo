@@ -928,17 +928,25 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void doProjectionChart()
    {
       String event = riskCalculator.getAns5();
+      Integer aggressiveRadio = 4;
       Integer whichslide = 0;
+     // riskCalculator.setAns5AggressiveRadio(aggressiveRadio.toString());
+     // riskCalculator.setAns5(whichslide.toString());
+
       if (event != null)
       {
          whichslide = Integer.parseInt(event);
-         // riskCalculator.setAns5(whichslide.toString());
+         riskCalculator.setAns5AggressiveRadio(aggressiveRadio.toString());
+         riskCalculator.setAns5(whichslide.toString());
+
       }
-      //  Calls for Projection creation chart by using HighChart
+
       if (whichslide > 0) { // Answers are stored in 1 to 5.  Whereas array is from 0-4
          whichslide -= 1;   // We have to offset the slider by 1 if > 0
-      }
-      charts.createProjectionHighChart(getProjectionDatas().get(whichslide), getHorizon(),getAge(),riskCalculator.getRetireAge());
+        }
+      //  Calls for Projection creation chart by using HighChart
+      charts.createProjectionHighChart(getProjectionDatas().get(whichslide), getHorizon(),getAge(),riskCalculator.getRetireAge(),getProjectionDatas().get(aggressiveRadio));
+      setRiskCalcMethod("C");
       formEdit = true;
       createAssetPortfolio(1);
    }
