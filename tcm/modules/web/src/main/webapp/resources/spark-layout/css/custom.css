@@ -37,7 +37,7 @@
 	color:#025d3c!important;
 }
 
-.PortfolioCreationFields > .ui-state-focus {
+.PortfolioCreationFields > .ui-state-focus, .portfolioCreation2DropdownBlock > h3 > .ui-state-focus {
 	border: 1px solid #f2f2f2!important;
 }
 

@@ -1,72 +1,77 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <p:panel id="inputArea" style="border: 0px; background: transparent; height: auto">
-        <div class="Container100">
-            <div class="ContainerIndent Responsive100 tab_main">
+	<p:panel id="inputArea"
+		style="border: 0px; background: transparent; height: auto">
+		<div class="Container100">
+			<div class="ContainerIndent Responsive100 tab_main">
 
-                <p:steps id="progressbar" styleClass="portfolioCreationStepsPanel" activeIndex="#{tcmpb.pagemanager.page}">
-                    <p:menuitem value="Start"/>
-                    <p:menuitem value="Objective"/>
-                    <p:menuitem value="Risk"/>
-                    <p:menuitem value="Projection"/>
-                    <p:menuitem value="Review"/>
-                </p:steps>
+				<p:steps id="progressbar" styleClass="portfolioCreationStepsPanel"
+					activeIndex="#{tcmpb.pagemanager.page}">
+					<p:menuitem value="Start" />
+					<p:menuitem value="Objective" />
+					<p:menuitem value="Risk" />
+					<p:menuitem value="Projection" />
+					<p:menuitem value="Review" />
+				</p:steps>
 
-            </div>
-        </div>
+			</div>
+		</div>
 
-        <div class="Container100 BackgroundWhite">
-            <div class="ContainerIndent">
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 0}">
-                    <ui:include src="/pages/consumer/tcm/cadd/p1.xhtml"/>
-                </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 1}">
-                    <ui:include src="/pages/consumer/tcm/cadd/p3.xhtml"/>
-                </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 2}">
-                    <ui:include src="/pages/consumer/tcm/cadd/p4.xhtml"/>
-                </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 3}">
-                    <ui:include src="/pages/consumer/tcm/cadd/p5.xhtml"/>
-                </ui:fragment>
-                <ui:fragment rendered="#{tcmpb.pagemanager.page == 4}">
-                    <ui:include src="/pages/consumer/tcm/cadd/final.xhtml"/>
-                </ui:fragment>
-            </div>
-        </div>
+		<div class="Container100 BackgroundWhite">
+			<div class="ContainerIndent">
+				<ui:fragment rendered="#{tcmpb.pagemanager.page == 0}">
+					<ui:include src="/pages/consumer/tcm/cadd/p1.xhtml" />
+				</ui:fragment>
+				<ui:fragment rendered="#{tcmpb.pagemanager.page == 1}">
+					<ui:include src="/pages/consumer/tcm/cadd/p3.xhtml" />
+				</ui:fragment>
+				<ui:fragment rendered="#{tcmpb.pagemanager.page == 2}">
+					<ui:include src="/pages/consumer/tcm/cadd/p4.xhtml" />
+				</ui:fragment>
+				<ui:fragment rendered="#{tcmpb.pagemanager.page == 3}">
+					<ui:include src="/pages/consumer/tcm/cadd/p5.xhtml" />
+				</ui:fragment>
+				<ui:fragment rendered="#{tcmpb.pagemanager.page == 4}">
+					<ui:include src="/pages/consumer/tcm/cadd/final.xhtml" />
+				</ui:fragment>
+			</div>
+		</div>
 
-        <div class="Container100">
-            <p style="font-style: italic; font-size: .8em; text-align:justify">
-                Building Benjamins is a service of Tradition Capital Management, LLC., an SEC
-                (Securities and Exchange Commission) Registered Investment Adviser under the Federal
-                Investment Advisers Act, and provides portfolio management and related services for a fee.
-                Nothing should be considered a solicitation to buy or an offer to sell shares of any
-                security or service in any jurisdiction where the offer or solicitation would be unlawful
-                under the securities laws of such jurisdiction. Investing in stocks and other risk assets
-                could result in losses and positive returns are not guaranteed. Diversification only
-                reduces risk of capital loss but does not eliminate these risks. Expected return and
-                expected risk are not forecasted returns or risks but are only statistical definitions for
-                modeling purposes. Financial assets are also exposed to potential inflation and liquidity
-                risks. Past performance is no indication to future results, and all investments could lose
-                value in the future. Copies of the ADV and Privacy policy are available upon request.
-                The information provided is not written or intended as direct investment advice or
-                recommendations, tax or legal advice and in the context of such may not especially be
-                relied on for purposes of avoiding any tax penalties in any jurisdiction. Individuals are
-                encouraged to seek advice from their own respective tax, legal, accounting, or personal
-                planning professional as the case may be. Individuals involved in the estate planning
-                process should work with estate planning professionals. Neither the information presented
-                nor any opinion expressed constitutes a representation by us of a specific
-                investment or the purchase or sale of any securities. Asset allocation and
-                diversification do not ensure a profit or protect against loss in declining
-                markets.
-            </p>
-        </div>
-    </p:panel>
+		<div class="Container100">
+			<p style="font-style: italic; font-size: .8em; text-align: justify; margin-bottom: 0px;">
+				This content is developed from sources believed to be providing
+				accurate information. The information provided is not written or
+				intended as direct investment advice or recommendations, tax or
+				legal advice and in the context of such may not especially be relied
+				on for purposes of avoiding any tax penalties in any jurisdiction.
+				Individuals are encouraged to seek advice from their own respective
+				tax, legal, accounting, or personal planning professional as the
+				case may be. Individuals involved in the estate planning process
+				should work with estate planning professionals. Neither the
+				information presented nor any opinion expressed constitutes a
+				representation by us of a specific investment or the purchase or
+				sale of any securities. Asset allocation and diversification do not
+				ensure a profit or protect against loss in declining markets. For
+				illustrative purposes only to show possible return profiles of
+				various asset classes. This illustration is not historical returns
+				nor is it a projection of future returns. Past performance is not
+				indicative of future results. Investing involves risk and may result
+				in losses. At a given time, any risk asset class or asset may lose
+				value and result in substantial losses. Inflation risk is an
+				additional risk for financial assets. This illustration is not GIPS
+				compliant and is shown only for illustrative purposes. Tradition
+				Capital Management does not make any assertions, estimates or
+				guarantees about future results. Future results are unpredictable
+				and could result in losses. Expected return and expected risk are
+				not forecasted returns or risks but are only statistical definitions
+				for modeling purposes.</p>
+		</div>
+	</p:panel>
 
 
 </ui:composition>

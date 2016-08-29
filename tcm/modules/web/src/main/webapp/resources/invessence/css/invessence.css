@@ -331,7 +331,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	}
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
 	.DualBtnModeLeft, .DualBtnModeRight {
 	width: 49%!important;
 }
@@ -409,7 +409,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	}
 }
 
-@media (max-width: 519px) and (min-width: 320px){
+@media (max-width: 675px) and (min-width: 320px){
 	.ui-selectonemenu-list-item {
 	text-align: center!important;
 	}
@@ -420,6 +420,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	
 	.StepsQuestionsFS {
 	font-size: 14px!important;
+	    text-align: center;
 	}
 	
 	.ui-selectonemenu {
@@ -458,7 +459,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	}	
 }
 
-@media (max-width: 35em) {
+@media (max-width: 640px) {
 	.dashboardUsrColumnFloatRight {
 	float: right;
 }

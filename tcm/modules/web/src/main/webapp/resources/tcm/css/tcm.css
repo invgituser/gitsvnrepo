@@ -115,7 +115,7 @@ img.riskImage:hover {
 
 /*Prakash - Advisor Page*/
 .AdvUserName, .AdvVisitorStat {
-/*font-size : 18 px;*/
+    /*font-size : 18 px;*/
     margin: 8px 0 !important;
 }
 
@@ -148,15 +148,45 @@ img.riskImage:hover {
 
 /*Prakash: Fund Account - Component responsive*/
 @media (min-width: 1201px) and (max-width: 1339px) {
-.Margin-FAAddress {
-	margin: 0  31px!important;
+    .Margin-FAAddress {
+        margin: 0  31px!important;
+    }
 }
+
+@media (min-width: 635px) and (max-width: 700px) {
+    .MiddleInitialWidth {
+        width: 25%!important;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 900px) {
+    .MiddleInitialWidth {
+        width: 20%!important;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1100px) {
+    .MiddleInitialWidth {
+        width: 15%!important;
+    }
+}
+
+@media (min-width: 1100px){
+    .MiddleInitialWidth {
+        width: 11%!important;
+    }
+}
+
+@media (max-width: 635px){
+    .MiddleInitialWidth {
+        width: 100%!important;
+    }
 }
 
 @media (min-width: 635px) and (max-width: 890px) {
-.Margin-FAAddress {
-	margin: 0  23px!important;
-}
+    .Margin-FAAddress {
+        margin: 0  23px!important;
+    }
 }
 
 @media (max-width: 750px) and (min-width: 635px) {
@@ -174,195 +204,218 @@ img.riskImage:hover {
     }
 
 
-.CustomWidthFA2 {
-	width: 100%!important;
-}
+    .CustomWidthFA2 {
+        width: 100%!important;
+    }
 
-.CustomWidthAccountypePanel {
-	width: 100%!important;
-	margin: 5px 0;
-}
+    .CustomWidthAccountypePanel {
+        width: 100%!important;
+        margin: 5px 0;
+    }
 
-.CustomWidthFA-Responsive, .CustomWidthAddressFA {
-	width: 100%!important;
-	margin: 5px 0;
-	float: none!important;
-}
+    .CustomWidthFA-Responsive, .CustomWidthAddressFA {
+        width: 100%!important;
+        margin: 5px 0;
+        float: none!important;
+    }
 
-.Margin-FAAddress {
-	margin: 5px 0!important;
-}
+    .Margin-FAAddress {
+        margin: 5px 0!important;
+    }
 }
 
 @media (min-width:367px) and (max-width: 600px) {
-	.ui-tabs-top .ui-tabs-nav li a {
-	font-size: 12px;
-	}
+    .ui-tabs-top .ui-tabs-nav li a {
+        font-size: 12px;
+    }
 
-	.accordionTabText {
-	font-size: 15px;
-	}
+    .accordionTabText {
+        font-size: 15px;
+    }
 
-	.ui-tabs .ui-tabs-panel {
-    padding-left:0px;
-    padding-right: 20px;
-	}
+    .ui-tabs .ui-tabs-panel {
+        padding-left:0px;
+        padding-right: 20px;
+    }
 
-	.FSResponsiveFA {
-	font-size: 13px;
-	}
+    .FSResponsiveFA {
+        font-size: 13px;
+    }
 }
 
 @media (min-width:320px) and (max-width: 366px) {
-	.ui-tabs-top .ui-tabs-nav li a {
-	font-size: 10px;
-	}
+    .ui-tabs-top .ui-tabs-nav li a {
+        font-size: 10px;
+    }
 
-	.FSResponsiveFA {
-	font-size: 13px;
-	}
-	.accordionTabText {
-	font-size: 13px;
-	}
-	.ui-tabs .ui-tabs-panel {
-    padding-left:0px;
-    padding-right: 20px;
-	}
+    .FSResponsiveFA {
+        font-size: 13px;
+    }
+    .accordionTabText {
+        font-size: 13px;
+    }
+    .ui-tabs .ui-tabs-panel {
+        padding-left:0px;
+        padding-right: 20px;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-.tcmPanel-UI > .ui-panel-content {
-    margin-top: 0px!important;
-}
+    .tcmPanel-UI > .ui-panel-content {
+        margin-top: 0px!important;
+    }
 }
 
 /**/
 /*Prakash - Projection chart slider*/
 @media (min-width: 550px) and (max-width: 850px) {
-	.ProjectionChartRadioAssetsLabel {
-    font-size: 11px!important;
-}
+    .ProjectionChartRadioAssetsLabel {
+        font-size: 11px!important;
+    }
 
-.ProjectionChartRadioTable {
+    .ProjectionChartRadioTable {
         margin: 0 auto;
-}
+    }
 
-.ProjectionChartRadioBlock > .stripe {
-	left: 75px!important;
-	right: 75px!important;
-}
+    .ProjectionChartRadioBlock > .stripe {
+        left: 75px!important;
+        right: 75px!important;
+    }
 
 }
 
 @media (min-width: 420px) and (max-width: 550px) {
-	.ProjectionChartRadioLabelRow {
-  /* display: none; */
-}
+    .ProjectionChartRadioLabelRow {
+        /* display: none; */
+    }
 
 
 
-.ProjectionChartRadioBlock > .stripe {
-	left: 40px!important;
-	right: 40px!important;
-}
+    .ProjectionChartRadioBlock > .stripe {
+        left: 40px!important;
+        right: 40px!important;
+    }
 
 }
 
 @media (min-width: 370px) and (max-width: 425px) {
-	.stripe {
-	display: none;
-	}
-	
-	.ProjectionChartRadioLabelRow {
-  /* display: none; */
-  float: right;
-}
+    .stripe {
+        display: none;
+    }
 
-.ProjectionChartRadioTable {
-	display: inline;
-}
+    .ProjectionChartRadioLabelRow {
+        /* display: none; */
+        float: right;
+    }
 
-.ProjectionChartRadioTable > tbody > tr {
-	float: left;
-}
+    .ProjectionChartRadioTable {
+        display: inline;
+    }
 
-.ProjectionChartRadioTable > tbody > tr> td {
-    text-align: center;
-    display: table;
-}
+    .ProjectionChartRadioTable > tbody > tr {
+        float: left;
+    }
 
-.ProjectionChartRadioAssets > tbody > tr >td {
-    margin: -20px 12px!important;
-}
-.ProjectionChartRadioBlock > .stripe {
-	left: 40px!important;
-	right: 40px!important;
-}
+    .ProjectionChartRadioTable > tbody > tr> td {
+        text-align: center;
+        display: table;
+    }
+
+    .ProjectionChartRadioAssets > tbody > tr >td {
+        margin: -20px 12px!important;
+    }
+    .ProjectionChartRadioBlock > .stripe {
+        left: 40px!important;
+        right: 40px!important;
+    }
 }
 
 @media (min-width: 320px) and (max-width: 370px) {
-	.stripe {
-	display: none;
-	}
-	
-	.ProjectionChartRadioLabelRow {
-  /* display: none; */
-  float: right;
+    .stripe {
+        display: none;
+    }
+
+    .ProjectionChartRadioLabelRow {
+        /* display: none; */
+        float: right;
+    }
+
+    .ProjectionChartRadioTable {
+        display: inline;
+    }
+
+    .ProjectionChartRadioTable > tbody > tr {
+        float: left;
+    }
+
+    .ProjectionChartRadioTable > tbody > tr> td {
+        text-align: center;
+        display: table;
+    }
+
+    .ProjectionChartRadioAssets > tbody > tr >td {
+        margin: -20px 12px!important;
+    }
+    .ProjectionChartRadioBlock > .stripe {
+        left: 40px!important;
+        right: 40px!important;
+    }
 }
 
-.ProjectionChartRadioTable {
-	display: inline;
-}
+@media (min-width: 641px) {
+    .mobileFullWidthinput {
+        margin: 0 5px;
+    }
+    .dropdownInputFullWidth {
+        margin: 0 5px;
+    }
 
-.ProjectionChartRadioTable > tbody > tr {
-	float: left;
-}
-
-.ProjectionChartRadioTable > tbody > tr> td {
-    text-align: center;
-    display: table;
-}
-
-.ProjectionChartRadioAssets > tbody > tr >td {
-    margin: -20px 12px!important;
-}
-.ProjectionChartRadioBlock > .stripe {
-	left: 40px!important;
-	right: 40px!important;
-}
 }
 /**/
 /*Prakash*/
 
+.dropdownInputFullWidth {
+    border-radius: 0px!important;
+}
+
+.mobileFullWidthinput {
+    border:0px!important;
+}
+
+.mobileFullWidthinput > input {
+    border-bottom: 1px solid #f2f2f2;
+    border-radius: 0px!important;
+}
+
 .getStartedBtn > span {
-	background:#025d3c!important;
+    background:#025d3c!important;
 }
 
 .loginStartedBtn > span {
-	background:#919d9d!important;
+    background:#919d9d!important;
 }
 
 .BeneficiaryEditPanel {
-float: none!important;
-margin: 0 auto!important;
-padding: 10px 30px 10px 11px;box-shadow: 0px 0px 7px #ECECEC;
+    float: none!important;
+    margin: 0 auto!important;
+    padding: 10px 30px 10px 11px;box-shadow: 0px 0px 7px #ECECEC;
     border-radius: 10px;
 }
 
 .booleanBtnCustom > .ui-icon {
-	background-image: url("/javax.faces.resource/images/booleanWhiteIcon.png.xhtml?ln=tcm")!important;
+    background-image: url("/javax.faces.resource/images/booleanWhiteIcon.png.xhtml?ln=tcm")!important;
 }
 
 .ui-datatable .ui-datatable-even {
-	background-color: #ffffff!important;
+    background-color: #ffffff!important;
 }
 
 .ui-datatable .ui-datatable-odd {
-	background: #f2f2f2!important;
+    background: #f2f2f2!important;
 }
 
 .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {
-	color: #ffffff!important;
+    color: #ffffff!important;
     background-color: #919d9d!important;
 }
 
@@ -373,33 +426,33 @@ padding: 10px 30px 10px 11px;box-shadow: 0px 0px 7px #ECECEC;
 .ProjectionChartRadioAssets > .ui-radiobutton-box > .ui-radiobutton,
 .ProjectionChartRadioAssets > .ui-radiobutton-box > .ui-radiobutton-icon {
     width: 11px!important;
-    height: 11px!important;	
+    height: 11px!important;
     border: solid 2px #f2f2f2!important;
 }
 
 .ProjectionChartRadioAssets > .ui-radiobutton-box {
-	border:0!important;
+    border:0!important;
 }
 
 .ui-icon-bullet {
-	background-color: #025D3C!important;
+    background-color: #025D3C!important;
 }
 
 #layout-topbar {
-	border:0px!important;
+    border:0px!important;
 }
 
 .BBGreen {
-	color:#025d3c;
+    color:#025d3c;
 }
 
 .BBDarkGray {
-color: #919d9d;
+    color: #919d9d;
 }
 
 .Container20-tcmUI {
-	width: 19%;
-	float: right;
+    width: 19%;
+    float: right;
 }
 
 .ProjectionChartRadioTable {
@@ -408,36 +461,36 @@ color: #919d9d;
     left: 0;
     right: 0;
     text-align: center;
-        width: 100%;
+    width: 100%;
 }
 
 .ProjectionChartRadioAssets {
-	margin: 0!important;
+    margin: 0!important;
 }
 
 .ProjectionChartRadioTable > tbody > tr> td {
-	text-align: center;
-	/* padding: 0px 15px!important; */
+    text-align: center;
+    /* padding: 0px 15px!important; */
 }
 
 .ProjectionChartRadioAssets > tbody > tr >td {
-	position: absolute;
-	margin: -20px -10px;
+    position: absolute;
+    margin: -20px -10px;
 }
 
 .ProjectionChartRadioAssetsLabel {
     font-size: 13px;
-    
+
 }
 
 .ProjectionChartRadioBlock {
-  /*   width: 692px; */
+    /*   width: 692px; */
     margin: 0 auto;
     margin-top: 20px;
 }
 
-.ProjectionChartRadioBlock > .stripe 
-	{
+.ProjectionChartRadioBlock > .stripe
+{
     height: 12px;
     position: absolute;
     left: 110px;
@@ -450,27 +503,27 @@ color: #919d9d;
 
 
 .beneficiaryAdd > .fa {
-	font-size: 22px!important;
-	padding: 0 3px;
+    font-size: 22px!important;
+    padding: 0 3px;
 }
 .beneficiaryAdd > .labelBAB
 {
-position: relative;
+    position: relative;
     top: -3px;
 }
 
 .FundAccountDropdownUI {
-padding-right: 0!important;
+    padding-right: 0!important;
 }
 
 .FundAccountDropdownUI > .ui-selectonemenu-label {
-	width: 90%!important;
-	    font-size: 14px!important;
+    width: 90%!important;
+    font-size: 14px!important;
     padding: 8px 8px!important;
 }
 
 .ResponsiveWid-tcmUI {
-	width: 100%;
+    width: 100%;
 }
 
 .poorImage, .averageImage {
@@ -531,7 +584,7 @@ Panel-UI > div {
 .tcm-graphType {
     font-size: 16px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
-/* border-radius : 20px 0 0 20px;*/
+    /* border-radius : 20px 0 0 20px;*/
     padding: 5px 0px;
     position: relative;
     right: 8px;
@@ -542,7 +595,7 @@ Panel-UI > div {
     .tcm-graphType {
         font-size: 16px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.14);
-    /* border-radius : 20px 20px 20px 20px;*/
+        /* border-radius : 20px 20px 20px 20px;*/
         padding: 5px 0px;
         position: relative;
         top: 5px;
@@ -552,7 +605,7 @@ Panel-UI > div {
 
 /*DropDown For Portfolio creation*/
 .TCM-UI-Dropdown > .ui-selectonemenu-trigger, .TCM-UI-Dropdown {
-	background: transparent!important;
+    background: transparent!important;
 }
 
 .ui-selectonemenu-panel {
@@ -568,12 +621,12 @@ Panel-UI > div {
 }
 
 .ui-selectonemenu-items > .ui-state-hover {
-    background: #56E0AC !important;
+    background: #025d3c !important;
     color: white;
 }
 
 .dropdownInputFullWidth > .ui-selectonemenu-trigger > .ui-icon-triangle-1-s{
-background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm")!important;
+    background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm")!important;
     background-repeat: no-repeat;
     background-size: 100% 100% !important;
 }
@@ -690,8 +743,8 @@ background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm")!import
 }
 
 .ui-icon-triangle-1-e {
-	background: url("/javax.faces.resource/images/downaccordion.png.xhtml?ln=tcm")!important;
-	background-size: 100%!important;
+    background: url("/javax.faces.resource/images/downaccordion.png.xhtml?ln=tcm")!important;
+    background-size: 100%!important;
 }
 
 .ui-accordion-header > .ui-icon-triangle-1-s {
@@ -882,14 +935,14 @@ body {
 }
 
 .TCM-UI-Dropdown > .ui-selectonemenu-label {
-	background: #ffffff!important;
+    background: #ffffff!important;
 }
 
 .BackgroundWhite {
     background: white;
     padding-bottom: 15px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.25);
-/* padding : 15 px;*/
+    /* padding : 15 px;*/
 }
 
 /*fundAccountRemove*/
@@ -1006,7 +1059,7 @@ h3 {
     }
 
     .tab_main {
-        padding: 20px 0px 0px 0px !important;
+        padding: 35px 0px 0px 0px !important;
     }
 
     .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
@@ -1026,7 +1079,7 @@ h3 {
     }
 
     .tab_main {
-        padding: 20px 0px 0px 0px !important;
+        padding: 35px 0px 0px 0px !important;
     }
 
     .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
@@ -1060,6 +1113,10 @@ h3 {
         width: 305px;
     }
 
+    .portfolioCreationStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        width: 40px;
+    }
+
     .tab_main {
         padding: 20px 0px 0px 0px !important;
     }
@@ -1068,6 +1125,7 @@ h3 {
         visibility: hidden;
     }
 }
+
 
 @media (max-width: 729px) and (min-width: 641px) {
     .tab_main > div {
@@ -1089,6 +1147,7 @@ h3 {
         margin: 0 auto;
         width: 430px;
     }
+
 
     .tab_main {
         padding: 20px 0px 0px 0px !important;
@@ -1125,6 +1184,12 @@ h3 {
     }
 }
 
+@media (min-width: 1301px) and (max-width: 1320px){
+    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
+        margin-left: -6px!important;
+    }
+}
+
 @media (max-width: 1320px) and (min-width: 1000px) {
     .tab_main > div {
         margin: 0 auto;
@@ -1144,168 +1209,168 @@ h3 {
 
 /*Steps-tab-center-alligned (Fund Account)*/
 @media (max-width: 361px) and (min-width: 320px) {
-	.FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-    padding: 0 10px!important;
-	}
+    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
+        padding: 0 10px!important;
+    }
 
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 252px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 252px;
+    }
 
-	.FundAccountStepsPanel > ul > .ui-state-highlight {
-    position: relative;
-     top: 0;
-    background: none!important;
-    border-radius: none!important;
-}
-	.FundAccountStepsPanel > ul > .ui-state-highlight > a {
-    margin-top: 0px!important;
-    top: -5px;
-}
+    .FundAccountStepsPanel > ul > .ui-state-highlight {
+        position: relative;
+        top: 0;
+        background: none!important;
+        border-radius: none!important;
+    }
+    .FundAccountStepsPanel > ul > .ui-state-highlight > a {
+        margin-top: 0px!important;
+        top: -5px;
+    }
 
 
-	.FundAccountStepsPanel > ul > li > a > .ui-steps-number {
-    border-radius: 20px!important;
-    width: 11px!important;
-	}
+    .FundAccountStepsPanel > ul > li > a > .ui-steps-number {
+        border-radius: 20px!important;
+        width: 11px!important;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
 
-	.FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-    background: #F6FAFC;
-}
+    .FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        background: #F6FAFC;
+    }
 }
 
 @media (max-width: 481px) and (min-width: 361px) {
-	.FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-    padding: 0 11px!important;
-	}
+    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
+        padding: 0 11px!important;
+    }
 
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 300px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 300px;
+    }
 
-	.FundAccountStepsPanel > ul > li > a > .ui-steps-number {
-    border-radius: 20px!important;
-    width: 15px!important;
-	}
+    .FundAccountStepsPanel > ul > li > a > .ui-steps-number {
+        border-radius: 20px!important;
+        width: 15px!important;
+    }
 
-	.FundAccountStepsPanel > ul > .ui-state-highlight {
-    position: relative;
-     top: 0;
-    background: none!important;
-    border-radius: none!important;
-}
-	.FundAccountStepsPanel > ul > .ui-state-highlight > a {
-    margin-top: 0px!important;
-    top: -5px;
-}
+    .FundAccountStepsPanel > ul > .ui-state-highlight {
+        position: relative;
+        top: 0;
+        background: none!important;
+        border-radius: none!important;
+    }
+    .FundAccountStepsPanel > ul > .ui-state-highlight > a {
+        margin-top: 0px!important;
+        top: -5px;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
-.FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
-    background: #F6FAFC;
-}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
+    .FundAccountStepsPanel > ul > li > a.ui-menuitem-link.ui-corner-all {
+        background: #F6FAFC;
+    }
 }
 
 @media (max-width: 560px) and (min-width: 481px) {
-	.FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
-    padding: 0 12px;
-}
+    .FundAccountStepsPanel .FundAccountStepsPanel > ul > .ui-steps-item {
+        padding: 0 12px;
+    }
 
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 330px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 330px;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
 }
 
 @media (max-width: 640px) and (min-width: 561px) {
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 366px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 366px;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
 
-	.FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
-    visibility: hidden;
-}
+    .FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
+        visibility: hidden;
+    }
 }
 
 @media (max-width: 729px) and (min-width: 641px) {
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 426px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 426px;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
 
-	.FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
-    visibility: hidden;
-}
+    .FundAccountStepsPanel > ul > li > a > span.ui-steps-title {
+        visibility: hidden;
+    }
 }
 
 @media (max-width: 770px) and (min-width: 730px) {
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 516px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 516px;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
-	.portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title  {
-    font-size: 12px!important;
-}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
+    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title  {
+        font-size: 12px!important;
+    }
 }
 
 @media (max-width: 960px) and (min-width: 771px) {
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 546px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 546px;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
 }
 
 @media (max-width: 999px) and (min-width: 961px) {
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 666px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 666px;
+    }
 
-	.FundAccountTab {
-	padding: 20px 0px 0px 0px!important;
-	}
+    .FundAccountTab {
+        padding: 20px 0px 0px 0px!important;
+    }
 }
 
 @media (max-width: 1320px) and (min-width: 1000px) {
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 636px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 636px;
+    }
 }
 
 @media (min-width: 1321px) {
-	.FundAccountTab > div {
-	margin: 0 auto;
-    width: 846px;
-	}
+    .FundAccountTab > div {
+        margin: 0 auto;
+        width: 846px;
+    }
 }
 
 /**/
@@ -1338,12 +1403,12 @@ h3 {
 @media (min-width: 960px) and (max-width: 1300px) {
     #logo {
         height: 70px;
-    /*margin-top : 4 px; */
+        /*margin-top : 4 px; */
     }
 
     #logo2 {
         height: 70px;
-    /* margin-top : 4 px; */
+        /* margin-top : 4 px; */
     }
 
     .ui-steps .ui-steps-title {
@@ -1382,12 +1447,12 @@ h3 {
 @media (min-width: 730px) and (max-width: 960px) {
     #logo {
         height: 70px;
-    /* margin-top : 6 px;*/
+        /* margin-top : 6 px;*/
     }
 
     #logo2 {
         height: 70px;
-    /* margin-top : 6 px;*/
+        /* margin-top : 6 px;*/
     }
 
     /*vivek CSS */
@@ -1421,12 +1486,12 @@ h3 {
 @media (min-width: 640px) and (max-width: 730px) {
     #logo {
         height: 70px;
-    /* margin-top : 4 px; */
+        /* margin-top : 4 px; */
     }
 
     #logo2 {
         height: 70px;
-    /* margin-top : 4 px; */
+        /* margin-top : 4 px; */
     }
 
     .ui-steps .ui-steps-title {
@@ -1470,12 +1535,12 @@ h3 {
 @media (min-width: 480px) and (max-width: 640px) {
     #logo {
         height: 40px;
-    /* margin-top : 11 px;*/
+        /* margin-top : 11 px;*/
     }
 
     #logo2 {
         height: 40px;
-    /* margin-top : 11 px;*/
+        /* margin-top : 11 px;*/
     }
 
     /**/
@@ -1550,12 +1615,12 @@ h3 {
 @media (min-width: 220px) and (max-width: 480px) {
     #logo {
         height: 40px;
-    /* margin-top : 6 px;*/
+        /* margin-top : 6 px;*/
     }
 
     #logo2 {
         height: 40px;
-    /* margin-top : 6 px;*/
+        /* margin-top : 6 px;*/
     }
 
     .ui-steps .ui-steps-title {

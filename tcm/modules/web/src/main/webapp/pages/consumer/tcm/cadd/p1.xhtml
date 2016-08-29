@@ -59,13 +59,13 @@
                                             required="true" requiredMessage="Age is required!"
                                             validatorMessage="Age should be between 18 and 100."/>
 
-                            <div class="mobileFullWidth"><h3 class="formFS"> years old and I am
+                            <div class="mobileFullWidth portfolioCreation2DropdownBlock"><h3 class="formFS"> years old and I am
                                 <p:selectOneMenu value="#{tcmpb.riskCalculator.retired}"
                                                  styleClass="TCM-UI-Dropdown dropdownInputFullWidth">
                                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
                                             update=":ceForm:p1hrznpanel"/>
-                                    <f:selectItem itemLabel="NOT retired   " itemValue="0"/>
-                                    <f:selectItem itemLabel="retired " itemValue="1"/>
+                                    <f:selectItem itemLabel="Not Retired" itemValue="0"/>
+                                    <f:selectItem itemLabel="Retired" itemValue="1"/>
                                 </p:selectOneMenu>
                             </h3></div>
                         </div>
@@ -99,7 +99,7 @@
                     <h3 class="formFS TexAlCenter ">
                         The child I am saving for is expected to start college in
                         <p:inputNumber id="collegeid"
-                                        styleClass="invInputText input_wid1" style="width: 60px;"
+                                        styleClass="invInputText input_wid1 mobileFullWidthinput" style="width: 60px;"
                                         value="#{tcmpb.horizon}"
                                         decimalPlaces="0"
                                         size="3"
@@ -114,7 +114,7 @@
                     <h3 class="formFS TexAlCenter ">
                         I plan on utilize the funds for this goal in
                         <p:inputNumber id="otherid"
-                                        styleClass="invInputText input_agewid1"
+                                        styleClass="invInputText input_agewid1 mobileFullWidthinput"
 										value="#{tcmpb.horizon}"
                                         decimalPlaces="0"
                                         size="3"
@@ -142,17 +142,17 @@
                          </p:commandLink>
          </div>         
     <div style="display: none;">
-       <img src="/javax.faces.resource/images/gl.png.xhtml?ln=tcm"/>
-       <img src="/javax.faces.resource/images/gl.png.xhtml?ln=tcm"/>
-       <img src="/javax.faces.resource/images/gl.png.xhtml?ln=tcm"/>
-       <img src="/javax.faces.resource/images/gl.png.xhtml?ln=tcm"/>
-       <img src="/javax.faces.resource/images/gl.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl1.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl2.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl3.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl4.png.xhtml?ln=tcm"/>
+       <img src="/javax.faces.resource/images/gl5.png.xhtml?ln=tcm"/>
 
-        <img src="/javax.faces.resource/images/sgl.png.xhtml?ln=tcm"/>
-        <img src="/javax.faces.resource/images/sgl.png.xhtml?ln=tcm"/>
-        <img src="/javax.faces.resource/images/sgl.png.xhtml?ln=tcm"/>
-        <img src="/javax.faces.resource/images/sgl.png.xhtml?ln=tcm"/>
-        <img src="/javax.faces.resource/images/sgl.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl1.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl2.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl3.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl4.png.xhtml?ln=tcm"/>
+        <img src="/javax.faces.resource/images/sgl5.png.xhtml?ln=tcm"/>
 
     </div>
     </div>
