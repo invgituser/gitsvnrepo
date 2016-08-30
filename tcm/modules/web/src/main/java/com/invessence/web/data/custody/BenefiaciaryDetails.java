@@ -10,8 +10,9 @@ public class BenefiaciaryDetails {
       private String beneMidInitial;
       private String beneLastName;
       private String beneSSN;
-      private Date beneDOB;
+      private String beneDOB;
       private String beneRel;
+      private String beneCitizenshiId;
       private String typeOfBeneficiary;
       private String perStripes;
       private Double sharePerc;
@@ -22,6 +23,14 @@ public class BenefiaciaryDetails {
 
    public BenefiaciaryDetails()
    {
+
+   }
+
+   public BenefiaciaryDetails(String beneFirstName,String beneLastName,Double sharePerc)
+   {
+      this.beneFirstName = beneFirstName;
+      this.beneLastName = beneLastName;
+      this.sharePerc = sharePerc;
    }
 
    public Long getAcctnum()
@@ -84,12 +93,12 @@ public class BenefiaciaryDetails {
       this.beneSSN = beneSSN;
    }
 
-   public Date getBeneDOB()
+   public String getBeneDOB()
    {
       return beneDOB;
    }
 
-   public void setBeneDOB(Date beneDOB)
+   public void setBeneDOB(String beneDOB)
    {
       this.beneDOB = beneDOB;
    }
@@ -172,5 +181,15 @@ public class BenefiaciaryDetails {
    public void setUpdatedBy(String updatedBy)
    {
       this.updatedBy = updatedBy;
+   }
+
+   public String getBeneCitizenshiId()
+   {
+      return beneCitizenshiId;
+   }
+
+   public void setBeneCitizenshiId(String beneCitizenshiId)
+   {
+      this.beneCitizenshiId = beneCitizenshiId;
    }
 }
