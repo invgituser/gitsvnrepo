@@ -33,6 +33,21 @@ public class TdCto
    private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
    private String selectedCheckedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
 
+   public TdCto()
+   {
+      userdata = new UserData();
+      tdMasterData = new TDMasterData();
+   }
+
+   public TDMasterData getTdMasterData()
+   {
+      return tdMasterData;
+   }
+
+   public void setTdMasterData(TDMasterData tdMasterData)
+   {
+      this.tdMasterData = tdMasterData;
+   }
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -97,11 +112,6 @@ public class TdCto
       this.custodySaveDAO = saveDAO;
    }
 
-   public TdCto()
-   {
-      userdata = new UserData();
-      tdMasterData = new TDMasterData();
-   }
 
    public String getBeanacctnum()
    {
@@ -119,10 +129,6 @@ public class TdCto
       return userdata;
    }
 
-   public TDMasterData getTdMasterData()
-   {
-      return tdMasterData;
-   }
 
    public void startFundAccount(Long acctnum)
    {
@@ -226,16 +232,34 @@ public class TdCto
             String tabname = event.getTab().getId();
             String tabnum = tabname.substring(3);
             Integer num = webutil.getConverter().getIntData(tabnum);
-            // Page number are from 0 - 11
-            if (num > 0)
+            switch (num)
             {
-               pagemanager.setPage(num);
+               case 0:
+                  pagemanager.setPage(0);
+                  break;
+               case 1:
+                  pagemanager.setPage(1);
+                  break;
+               case 2:
+                  pagemanager.setPage(3);
+                  break;
+               case 3:
+                  pagemanager.setPage(5);
+                  break;
+               case 4:
+                  pagemanager.setPage(6);
+                  break;
+               case 5:
+                  pagemanager.setPage(8);
+                  break;
+               case 6:
+                  pagemanager.setPage(9);
+                  break;
+               default:
+                  pagemanager.setPage(0);
+
             }
-            else
-            {
-               pagemanager.setPage(0);
-            }
-            // setActiveTab(num); // Since the user is moving via tab control, we don't need to make active tab.
+
          }
       }
       catch (Exception ex)
@@ -310,6 +334,8 @@ public class TdCto
             }
             break;
          case 8: // Beneficiary
+
+            System.out.println("Benefitiary pageControl() ");
             newTab = 5;
             break;
          case 9: // Funding
@@ -340,6 +366,7 @@ public class TdCto
    // NOTE: Let resetActiveTab deal with joint account or not to go to appropriate tab.
    public void nextPage()
    {
+      System.out.println("Benefitiary nextPage() ");
       Boolean cangoToNext = true;
 
       switch (pagemanager.getPage())
@@ -374,7 +401,7 @@ public class TdCto
       }
       if (cangoToNext)
       {
-         saveData(pagemanager.getPage());
+         //saveData(pagemanager.getPage());
          pagemanager.nextPage();
          resetActiveTab(pagemanager.getPage());
 
@@ -429,6 +456,7 @@ public class TdCto
          case 7:
             break;
          case 8:
+            custodySaveDAO.td_saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailses());
             break;
          case 9:
             break;
