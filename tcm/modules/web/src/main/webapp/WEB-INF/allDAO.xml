@@ -15,4 +15,5 @@
    <bean id="msgDAO" class="com.invessence.emailer.dao.MsgDAO">
          <property name="dataSource" ref="dataSource"/>
    </bean>
+
 </beans>
