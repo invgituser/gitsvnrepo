@@ -16,7 +16,7 @@
 					<div class="EmptyBox5"></div>
 					<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
 						value="#{tdcto.tdMasterData.acctOwnersDetail.firstName}"
-						placeholder="First Name" required="true">
+						placeholder="First Name" required="false">
 					</p:inputText>
 					<p:inputText
 						styleClass="MiddleInitialWidth FS14 InputMergeLeft InputMergeRight"
@@ -25,7 +25,7 @@
 					</p:inputText>
 					<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
 						value="#{tdcto.tdMasterData.acctOwnersDetail.lastName}"
-						placeholder="Last Name" required="true">
+						placeholder="Last Name" required="false">
 					</p:inputText>
 				</div>
 
@@ -38,7 +38,7 @@
 						<div class="EmptyBox5"></div>
 						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
 							value="#{tdcto.tdMasterData.acctOwnersDetail.dob}"
-							mask="99/99/9999" placeholder="MM/DD/YYYY" required="true">
+							mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
 						</p:inputMask>
 					</div>
 
@@ -50,7 +50,7 @@
 						<div class="EmptyBox5"></div>
 						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
 							value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}"
-							mask="999-99-9999" placeholder="###-##-####" required="true">
+							mask="999-99-9999" placeholder="###-##-####" required="false">
 						</p:inputMask>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 						<div class="EmptyBox5"></div>
 						<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
 							value="#{tdcto.tdMasterData.acctOwnersDetail.phoneNumber}"
-							mask="(999) 999-9999" placeholder="Primary Phone" required="true">
+							mask="(999) 999-9999" placeholder="Primary Phone" required="false">
 						</p:inputMask>
 					</div>
 					<div class="Container45 Fright CustomWidthFA2 MarTop5">
@@ -85,13 +85,15 @@
 			</div>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
 				<p:commandLink styleClass="UI-prevButtonFA Fleft"
-                               actionListener="#{tdcto.prevPage}"/>
+                               actionListener="#{tdcto.prevPage}"
+                               update="@form"/>
 
 				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                               actionListener="#{tdcto.nextPage}"/>
+                               actionListener="#{tdcto.nextPage}"
+                               update="@form"/>
 			</div>
 		</p:tab>
-		<p:tab title="Joint Account Holder">
+		<p:tab title="Joint Account Holder" rendered="#{tdcto.tdMasterData.isJointAcct}">
 			<div class="Container80 Responsive100 MarTop5 MarCenter"
 				style="margin-bottom: 15px;">
 				<div class="Container100">
@@ -100,17 +102,17 @@
 
 					<div class="EmptyBox5"></div>
 					<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
-						value="#{tdcto.tdMasterData.acctOwnersDetail.firstName}"
-						placeholder="First Name" required="true">
+						value="#{tdcto.tdMasterData.jointAcctOwnersDetail.firstName}"
+						placeholder="First Name" required="false">
 					</p:inputText>
 					<p:inputText
 						styleClass="MiddleInitialWidth FS14 InputMergeLeft InputMergeRight"
-						value="#{tdcto.tdMasterData.acctOwnersDetail.midInitial}"
+						value="#{tdcto.tdMasterData.jointAcctOwnersDetail.midInitial}"
 						placeholder="Middle Initial">
 					</p:inputText>
 					<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
-						value="#{tdcto.tdMasterData.acctOwnersDetail.lastName}"
-						placeholder="Last Name" required="true">
+						value="#{tdcto.tdMasterData.jointAcctOwnersDetail.lastName}"
+						placeholder="Last Name" required="false">
 					</p:inputText>
 				</div>
 
@@ -122,8 +124,8 @@
 
 						<div class="EmptyBox5"></div>
 						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-							value="#{tdcto.tdMasterData.acctOwnersDetail.dob}"
-							mask="99/99/9999" placeholder="MM/DD/YYYY" required="true">
+							value="#{tdcto.tdMasterData.jointAcctOwnersDetail.dob}"
+							mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
 						</p:inputMask>
 					</div>
 
@@ -134,8 +136,8 @@
 
 						<div class="EmptyBox5"></div>
 						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-							value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}"
-							mask="999-99-9999" placeholder="###-##-####" required="true">
+							value="#{tdcto.tdMasterData.jointAcctOwnersDetail.ssn}"
+							mask="999-99-9999" placeholder="###-##-####" required="false">
 						</p:inputMask>
 					</div>
 				</div>
@@ -149,8 +151,8 @@
 
 						<div class="EmptyBox5"></div>
 						<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
-							value="#{tdcto.tdMasterData.acctOwnersDetail.phoneNumber}"
-							mask="(999) 999-9999" placeholder="Primary Phone" required="true">
+							value="#{tdcto.tdMasterData.jointAcctOwnersDetail.phoneNumber}"
+							mask="(999) 999-9999" placeholder="Primary Phone" required="false">
 						</p:inputMask>
 					</div>
 					<div class="Container45 Fright CustomWidthFA2 MarTop5">
@@ -160,7 +162,7 @@
 						<div class="EmptyBox5"></div>
 						<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
 							<p:selectBooleanButton
-								value="#{tdcto.tdMasterData.acctOwnersDetail.citizenshiId}"
+								value="#{tdcto.tdMasterData.jointAcctOwnersDetail.citizenshiId}"
 								onLabel="Yes" offLabel="No" onIcon="ui-icon-check"
 								offIcon="ui-icon-close" style="width:80px" styleClass="booleanBtnCustom" />
 							<h:outputText value="USA Citizenship" style="margin:0px 10px;"/>
@@ -170,10 +172,12 @@
 			</div>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
 				<p:commandLink styleClass="UI-prevButtonFA Fleft"
-                               actionListener="#{tdcto.prevPage}"/>
+                               actionListener="#{tdcto.prevPage}"
+                               update="@form"/>
 
 				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                               actionListener="#{tdcto.nextPage}"/>
+                               actionListener="#{tdcto.nextPage}"
+                               update="@form"/>
 			</div>
 		</p:tab>
 

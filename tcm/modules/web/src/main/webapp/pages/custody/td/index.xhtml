@@ -39,7 +39,7 @@
                             <p:accordionPanel id="tdaccordian" styleClass="tcmAccordionPanel-UI" activeIndex="#{tdcto.activeTab}">
                                 <p:ajax event="tabChange" listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
-                                <p:tab id="tab1">
+                                <p:tab id="tab0">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm"/>
@@ -47,7 +47,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/accttype.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab2" styleClass="tcmAccordion-UI">
+                                <p:tab id="tab1" styleClass="tcmAccordion-UI">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm"/>
@@ -56,7 +56,7 @@
 
                                     <ui:include src="/pages/custody/td/acctholder.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab3" >
+                                <p:tab id="tab2" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/address.png.xhtml?ln=tcm"/>
@@ -64,7 +64,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/address.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab4">
+                                <p:tab id="tab3">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm"/>
@@ -72,7 +72,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/regulatory.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab5">
+                                <p:tab id="tab4">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/employment.png.xhtml?ln=tcm"/>
@@ -81,7 +81,7 @@
 
                                     <ui:include src="/pages/custody/td/employment.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab6">
+                                <p:tab id="tab5">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/beneficiary.png.xhtml?ln=tcm"/>
@@ -90,7 +90,7 @@
 
                                     <ui:include src="/pages/custody/td/beneficiary.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab7">
+                                <p:tab id="tab6">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/money.png.xhtml?ln=tcm"/>

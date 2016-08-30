@@ -26,8 +26,11 @@ public class TdCto
    private Long acctnum;
    private UserData userdata;
    private TDMasterData tdMasterData;
-   private PagesImpl pagemanager = new PagesImpl(11);
-   private String activeTab, newTab, subtab;
+   private PagesImpl pagemanager = new PagesImpl(10);
+   private Integer activeTab = 0;   // Start with first tab.
+   private Integer newTab, subtab;
+   private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
+   private String selectedCheckedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
 
 
    @ManagedProperty("#{webutil}")
@@ -155,14 +158,39 @@ public class TdCto
       tdMasterData.setAccttype(type);
    }
 
-   public String getActiveTab()
+   public void setSubtab(Integer subtab)
+   {
+      this.subtab = subtab;
+   }
+
+   public String getCheckedImage(Integer which)
+   {
+      which = (which == null) ? 0 : which;
+      if (tdMasterData.getAccttype() != null)
+      {
+         if (tdMasterData.getAccttype() == which)
+         {
+            return selectedCheckedImage;
+         }
+      }
+      return defaultCheckedImage;
+
+   }
+
+   public Integer getActiveTab()
    {
       return activeTab;
    }
 
-   public String getSubtab()
+   public Integer getSubtab()
    {
       return subtab;
+   }
+
+   public void setActiveTab(Integer activeTab)
+   {
+      this.activeTab = activeTab;
+      subtab = 0;
    }
 
    public void onTabChange(TabChangeEvent event)
@@ -174,7 +202,15 @@ public class TdCto
             String tabname = event.getTab().getId();
             String tabnum = tabname.substring(3);
             Integer num = webutil.getConverter().getIntData(tabnum);
-            pagemanager.setPage(num);
+            // Page number are from 0 - 11
+            if (num > 0)
+            {
+               pagemanager.setPage(num);
+            }
+            else
+            {
+               pagemanager.setPage(0);
+            }
             // setActiveTab(num); // Since the user is moving via tab control, we don't need to make active tab.
          }
       }
@@ -186,88 +222,81 @@ public class TdCto
       }
    }
 
-   private String pageControl(Integer pagenum)
+   private Integer pageControl(Integer pagenum)
    {
       if (pagenum == null)
       {
-         return "1";
+         return 1;
       }
 
-      subtab = "0";
+      subtab = 0;
       switch (pagenum) // Note: The switch is based on pagenum
       {
-         case 1: // accttype Page
-            newTab = "1";
+         case 0: // accttype Page
+            newTab = 0;
             break;
-         case 2: // Individual Account Holder
-            newTab = "2";
+         case 1: // Individual Account Holder
+            newTab = 1;
             break;
-         case 3: // Joint Account Holder;
-               newTab = "3";
-               subtab = "0";
+         case 2: // Joint Account Holder;
+            if (tdMasterData.getIsJointAcct())
+            {
+               newTab = 1;
+               subtab = 1;
+            }
+            else
+            {  // Force to go to next tab.
+               pagemanager.nextPage();
+               newTab = 2;
+            }
             break;
-         case 4: // Individual Address
+         case 3: // Individual Address
+            newTab = 2;
+            break;
+         case 4: // Joint Address
             // If we are using next page, and the counter is 4, then if it is not joint, then go to tab #4.
-            if (tdMasterData.getIsJointAcct()) {
-               newTab = "3";
-               subtab = "1";
-            }
-            else {
-               pagemanager.nextPage();
-               newTab = "4";
-               subtab = "1";
-            }
-            break;
-         case 5: // Joint Account Holder;
-            newTab = "4";
-            subtab = "0";
-            break;
-         case 6: // Joint Address
-            // If we are using next page, and the counter is 4, then if it is not joint, then go to tab #5.
-            if (tdMasterData.getIsJointAcct()) {
-               newTab = "5";
-               subtab = "0";
-            }
-            else {
-               pagemanager.nextPage();
-               newTab = "4";
-               subtab = "1";
-            }
-            break;
-         case 7: // Regulatory
-            newTab = "4";
-            break;
-         case 8: // Employment
-            newTab = "5";
-            subtab = "0";
-            break;
-         case 9: // Joint Employment
-            if (!tdMasterData.getIsJointAcct())
-            { // Skip the page, not joint account
-               pagemanager.nextPage();
-               newTab = "6";
-               subtab = "0";
+            if (tdMasterData.getIsJointAcct())
+            {
+               newTab = 2;
+               subtab = 1;
             }
             else
             {
-               newTab = "5";
-               subtab = "1";
+               pagemanager.nextPage();
+               newTab = 3;
             }
             break;
-         case 10: // Beneficiary
-            newTab = "6";
+         case 5: // Regulatory;
+            newTab = 3;
             break;
-         case 11: // Funding
-            newTab = "7";
-            subtab = "0";
+         case 6: // Employment
+            newTab = 4;
             break;
-         case 12: // Funding
-            newTab = "7";
-            subtab = "1";
+         case 7: // Joint Employment
+            // If we are using next page, and the counter is 4, then if it is not joint, then go to tab #5.
+            if (tdMasterData.getIsJointAcct())
+            {
+               newTab = 4;
+               subtab = 1;
+            }
+            else
+            {
+               pagemanager.nextPage();
+               newTab = 5;
+            }
+            break;
+         case 8: // Beneficiary
+            newTab = 5;
+            break;
+         case 9: // Funding
+            newTab = 6;
+            break;
+         case 10: // Funding Page 2
+            newTab = 6;
+            subtab = 1;
             break;
          default:
-            newTab = "0";
-            subtab = "0";
+            newTab = 0;
             break;
       }
 
@@ -278,42 +307,58 @@ public class TdCto
    {
       // customErrorText = null;   // If we go to previous page, then erase the error message.
       pagemanager.prevPage();
-      setActiveTab(pagemanager.getPage());
+      resetActiveTab(pagemanager.getPage());
    }
 
 
+   // Before going to next page, determine if the data in current tab passes validity,
+   // then save the data before going to the next page
+   // NOTE: Let resetActiveTab deal with joint account or not to go to appropriate tab.
    public void nextPage()
    {
       Boolean cangoToNext = true;
 
       switch (pagemanager.getPage())
       {
-         case 0:
+         case 0: // Accttype page
             if (tdMasterData.getAccttype() == null)
             {
                cangoToNext = false;
             }
             break;
-         case 1:
+         case 1: // Account Holder
             break;
-         case 2:
+         case 2: // Joint Holder
             break;
-         case 3:
+         case 3: // Address
             break;
-         case 4:
+         case 4: // Joint Address
+            break;
+         case 5: // Regulatory
+            break;
+         case 6: // Employment
+            break;
+         case 7: // Joint Employment
+            break;
+         case 8: // Benefitiary
+            break;
+         case 9: // Funding Page 1
+            break;
+         case 10: // Funding Recurring Page 2
+            break;
 
       }
       if (cangoToNext)
       {
          pagemanager.nextPage();
-         setActiveTab(pagemanager.getPage());
+         resetActiveTab(pagemanager.getPage());
 
       }
    }
 
-   private void setActiveTab(Integer pagenum)
+   private void resetActiveTab(Integer pagenum)
    {
-      String nextTab = pageControl(pagenum);
+      Integer nextTab = pageControl(pagenum);
       if (nextTab != null)
       {
          activeTab = nextTab;

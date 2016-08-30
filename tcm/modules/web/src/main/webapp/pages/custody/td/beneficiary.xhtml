@@ -171,9 +171,11 @@
 	</div>
 	<div class="Container100 MarTop20" style="margin: 10px 10px;">
 		<p:commandLink styleClass="UI-prevButtonFA Fleft"
-                       actionListener="#{tdcto.prevPage}"/>
+                       actionListener="#{tdcto.prevPage}"
+                       update="@form"/>
 
 		<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                       actionListener="#{tdcto.nextPage}"/>
+                       actionListener="#{tdcto.nextPage}"
+                       update="@form"/>
 	</div>
 </ui:composition>

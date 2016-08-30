@@ -38,10 +38,12 @@ public class TDMasterData
    FedwireAcctDetails fedwireAcctDetail;
    InternalTransferDetails internalTransferDetail;
 
+
+
    public TDMasterData()
    {
       acctnum = null;
-      accttype = 5; // 0 - Individual , 1+ Number of joint acct.
+      accttype = 0; // 1 - Individual , 2 Number of joint acct.
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
@@ -74,22 +76,9 @@ public class TDMasterData
       return acctnum;
    }
 
-   public String getCheckedImage(Integer which)
-   {
-      String defaultImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
-      String selectedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
-      which = (which == null) ? 0 : which;
-      if (accttype != null) {
-         if (accttype == which) {
-             return selectedImage;
-         }
-      }
-      return defaultImage;
-
-   }
 
    public Boolean getIsJointAcct() {
-      if (accttype == 5) {
+      if (accttype == 2) {
          return true;
       }
       return false;

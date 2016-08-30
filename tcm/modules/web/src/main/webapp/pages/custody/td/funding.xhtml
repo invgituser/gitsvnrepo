@@ -13,11 +13,11 @@
                      style="margin-bottom: 15px; border: 0px; background: transparent">
 
                     <p:selectOneRadio id="fundRadio" value="#{tdcto.tdMasterData.fundType}" layout="custom"
-                                      required="true" requiredMessage="Must select one of these fund method!">
-                        <f:selectItem itemLabel="Later" itemValue="1"/>
-                        <f:selectItem itemLabel="ACH" itemValue="2"/>
-                        <f:selectItem itemLabel="ACAT" itemValue="3"/>
-                        <f:selectItem itemLabel="Wire" itemValue="4"/>
+                                      required="false" requiredMessage="Must select one of these fund method!">
+                        <f:selectItem itemLabel="Later" itemValue="0"/>
+                        <f:selectItem itemLabel="ACH" itemValue="1"/>
+                        <f:selectItem itemLabel="ACAT" itemValue="2"/>
+                        <f:selectItem itemLabel="Wire" itemValue="3"/>
                         <p:ajax update=":ctoForm:tdaccordian:fundTabV:fundPanel"/>
                     </p:selectOneRadio>
 
@@ -90,7 +90,7 @@
                                             value="#{tdcto.tdMasterData.initialInvestment}"
                                             maxlength="11" symbol="$"
                                             decimalPlaces="2"
-                                            required="true" requiredMessage="Min. of $50,000 investment is required!"
+                                            required="false" requiredMessage="Min. of $50,000 investment is required!"
                                             validatorMessage="Min. of $50,000 investment is required!">
                             </pe:inputNumber>
                        </div>
@@ -343,7 +343,7 @@
                                             value="#{tdcto.tdMasterData.electroicBankDetail.tranAmount}"
                                             maxlength="8" symbol="$"
                                             decimalPlaces="2"
-                                            required="true" requiredMessage="Min. of $50 is required!"
+                                            required="false" requiredMessage="Min. of $50 is required!"
                                             validatorMessage="Min. of $50 is required!">
                             </pe:inputNumber>
                         </div>
@@ -358,7 +358,7 @@
                                          value="#{tdcto.tdMasterData.electroicBankDetail.tranStartDate}"
                                          mask="99/99/9999"
                                          placeholder="MM/DD/YYYY"
-                                         required="true">
+                                         required="false">
                             </p:inputMask>
                         </div>
                     </div>
