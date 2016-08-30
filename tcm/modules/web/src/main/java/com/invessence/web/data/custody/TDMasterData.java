@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.invessence.converter.SQLData;
 import com.invessence.web.constant.USMaps;
+import javax.faces.event.ActionEvent;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +18,8 @@ public class TDMasterData
    Long acctnum;
    Integer accttype; // 1 - Individual , 2 joint acct.
    Boolean acctholderhasMailing, jointhasMailing, jointhasDifferent;
+   Boolean addBeneficiary;
+
    Boolean ownerSPF, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
    Integer fundType;
@@ -39,8 +42,6 @@ public class TDMasterData
    FedwireAcctDetails fedwireAcctDetail;
    InternalTransferDetails internalTransferDetail;
 
-
-
    public TDMasterData()
    {
       acctnum = null;
@@ -48,6 +49,7 @@ public class TDMasterData
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
+      addBeneficiary = false;
       recurringFlag = false;
       fundType = 0;
       initialInvestment = null;
@@ -67,6 +69,15 @@ public class TDMasterData
       fedwireAcctDetail = new FedwireAcctDetails();
       internalTransferDetail = new InternalTransferDetails();
    }
+
+
+
+ /*
+   private static final ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
+
+   public ArrayList<BenefiaciaryDetails> getBenefiaciaryDetailsList() {
+      return benefiaciaryDetailsList;
+   }  */
 
    public void setAcctnum(Long acctnum)
    {
@@ -301,6 +312,16 @@ public class TDMasterData
       this.benefiaciaryDetailses = benefiaciaryDetailses;
    }
 
+   public Boolean getAddBeneficiary()
+   {
+      return addBeneficiary;
+   }
+
+   public void setAddBeneficiary(Boolean addBeneficiary)
+   {
+      this.addBeneficiary = addBeneficiary;
+   }
+
    public MapMovemoneyPaymethod getMapMovemoneyPaymethod()
    {
       return mapMovemoneyPaymethod;
@@ -350,4 +371,14 @@ public class TDMasterData
    {
       this.internalTransferDetail = internalTransferDetail;
    }
+
+   public void addTempBeneficiary() {
+      System.out.println("addTempBeneficiary() ");
+      System.out.println("addTempBeneficiary() 1:"+benefiaciaryDetailses.getBeneFirstName());
+      //BenefiaciaryDetails addTempBene = new BenefiaciaryDetails(benefiaciaryDetailses.getBeneFirstName(),benefiaciaryDetailses.getBeneLastName(),benefiaciaryDetailses.getSharePerc());
+    //  benefiaciaryDetailsList.add(addTempBene);
+     // System.out.println("addTempBeneficiary() 1:"+addTempBene);
+
+   }
+
 }
