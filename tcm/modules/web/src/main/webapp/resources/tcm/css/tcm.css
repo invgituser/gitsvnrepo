@@ -113,7 +113,30 @@ img.riskImage:hover {
     background-color: #00D404 !important;
 }
 
+/**Button save and cancel**/
+
+@media (min-width: 320px) and (max-width: 450px){
+	.CommonBtnWidthSave {
+	float: right!important;
+	}
+	
+	.CommonBtnWidthCancel {
+	float: left!important;
+	}
+	
+	.CommonBtnWidthCancel > span, .CommonBtnWidthSave > span{
+	font-size: 12px!important;
+	}
+	
+	.BenBttonBlock {
+	width: 108%!important;
+	}
+}
 /*Prakash - Advisor Page*/
+.CommonBtnWidthCancel,.CommonBtnWidthSave {
+	width: 100px!important;
+}
+
 .AdvUserName, .AdvVisitorStat {
     /*font-size : 18 px;*/
     margin: 8px 0 !important;
@@ -420,7 +443,7 @@ padding: 6px 0;
 .BeneficiaryEditPanel {
     float: none!important;
     margin: 0 auto!important;
-    padding: 10px 30px 10px 11px;box-shadow: 0px 0px 7px #ECECEC;
+    padding: 10px 30px 55px 11px;box-shadow: 0px 0px 7px #ECECEC;
     border-radius: 10px;
 }
 

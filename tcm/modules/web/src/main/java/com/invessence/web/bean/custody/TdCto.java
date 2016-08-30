@@ -57,6 +57,31 @@ public class TdCto
       this.custodyListDAO = listDAO;
    }
 
+   public CustodySaveDAO getCustodySaveDAO()
+   {
+      return custodySaveDAO;
+   }
+
+   public void setCustodySaveDAO(CustodySaveDAO custodySaveDAO)
+   {
+      this.custodySaveDAO = custodySaveDAO;
+   }
+
+   public CustodyListDAO getCustodyListDAO()
+   {
+      return custodyListDAO;
+   }
+
+   public void setCustodyListDAO(CustodyListDAO custodyListDAO)
+   {
+      this.custodyListDAO = custodyListDAO;
+   }
+
+   public CommonDAO getCommonDAO()
+   {
+      return commonDAO;
+   }
+
    @ManagedProperty("#{commonDAO}")
    private CommonDAO commonDAO;
 

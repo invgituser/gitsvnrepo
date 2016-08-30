@@ -79,8 +79,7 @@
 				<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
 					placeholder="First Name">
 				</p:inputText>
-				<p:inputText
-					styleClass="MiddleInitialWidth FS14 InputMergeLeft InputMergeRight"
+				<p:inputText styleClass="MiddleInitialWidth FS14 InputMergeLeft"
 					placeholder="Middle Initial">
 				</p:inputText>
 				<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
@@ -89,33 +88,29 @@
 			</div>
 
 			<div class="EmptyBox20"></div>
-			<div class="Container50 CustomWidthFA2 MarTop5">
-				<label Class="Container60"
-					style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+			<div class="Container100">
+				<div class="Container45 Fleft CustomWidthFA-Responsive">
+					<label Class="Container100"
+						style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
-				<div class="EmptyBox5"></div>
-				<p:inputText styleClass="Wid20 FS14 InputMergeRight"
-					placeholder="DD">
-				</p:inputText>
-				<p:inputText styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
-					placeholder="MM">
-				</p:inputText>
-				<p:inputText styleClass="Wid20 FS14 InputMergeLeft" placeholder="YY">
-				</p:inputText>
-			</div>
-			<div class="Container50 CustomWidthFA2 MarTop5">
-				<label Class="Container100"
-					style="text-align: left !important; font-weight: bold !important;">Social
-					Security Number</label>
+					<div class="EmptyBox5"></div>
+					<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.dob}"
+						mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
+					</p:inputMask>
+				</div>
 
-				<div class="EmptyBox5"></div>
-				<p:inputText styleClass="Wid20 FS14 InputMergeRight" placeholder="">
-				</p:inputText>
-				<p:inputText styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
-					placeholder="">
-				</p:inputText>
-				<p:inputText styleClass="Wid20 FS14 InputMergeLeft" placeholder="">
-				</p:inputText>
+				<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+					<label Class="Container100"
+						style="text-align: left !important; font-weight: bold !important;">Social
+						Security Number</label>
+
+					<div class="EmptyBox5"></div>
+					<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+						value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}"
+						mask="999-99-9999" placeholder="###-##-####" required="false">
+					</p:inputMask>
+				</div>
 			</div>
 			<div class="EmptyBox20"></div>
 
@@ -129,10 +124,11 @@
 						placeholder="Relationship">
 					</p:inputText>
 				</div>
-				
+
 				<div class="Container45 Fright CustomWidthFA2 MarTop5">
 					<label Class="Container100"
-						style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+						style="text-align: left !important; font-weight: bold !important;">Type
+						of Beneficiary</label>
 
 					<div class="EmptyBox5"></div>
 					<div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
@@ -148,34 +144,49 @@
 			</div>
 			<div class="EmptyBox10"></div>
 			<div class="Container100">
-				<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+				<div
+					class="Container45 Fleft CustomWidthFA2 MarTop5 BeneficiaryButton">
+					<label Class="Container50"
+						style="text-align: left !important; font-weight: bold !important;">Per
+						Stirpes</label>
+					<div class="EmptyBox5"></div>
+					<div class="Container100 Fleft">
+						<div style="margin-top: 5px;">
+							<p:selectBooleanCheckbox value="" itemLabel="Per Stirpes">
+							</p:selectBooleanCheckbox>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="Container45 Fright CustomWidthFA2 MarTop5">
 					<label Class="Container100"
 						style="text-align: left !important; font-weight: bold !important;">Share
 						%</label>
 
 					<div class="EmptyBox5"></div>
-					<p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+					<p:inputText styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
 						placeholder="Share %">
 					</p:inputText>
 				</div>
-				
-				<div class="Container45 Fright CustomWidthFA2 MarTop5 BeneficiaryButton">
-				<div class="EmptyBox20"></div>
-				<p:button value="Save">
+
+
+			</div>
+			<div class="EmptyBox20"></div>
+			<div class="Container100 BenBttonBlock" style="text-align: center;">
+			<p:button styleClass="CommonBtnWidthCancel" value="Cancel">
+    <f:param name="Cancel"/>
+</p:button><p:button styleClass="CommonBtnWidthSave" value="Save">
     <f:param name="BeneficiarySave"/>
 </p:button>
-				</div>
 			</div>
-			<div class="EmptyBox5"></div>
 		</div>
 	</div>
 	<div class="Container100 MarTop20" style="margin: 10px 10px;">
 		<p:commandLink styleClass="UI-prevButtonFA Fleft"
-                       actionListener="#{tdcto.prevPage}"
-                       update="@form"/>
+			actionListener="#{tdcto.prevPage}" update="@form" />
 
 		<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                       actionListener="#{tdcto.nextPage}"
-                       update="@form"/>
+			actionListener="#{tdcto.nextPage}" update="@form" />
 	</div>
 </ui:composition>
