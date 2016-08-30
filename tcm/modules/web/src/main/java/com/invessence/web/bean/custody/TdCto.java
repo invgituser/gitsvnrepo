@@ -4,6 +4,7 @@ import javax.faces.bean.*;
 
 import com.invessence.web.dao.common.*;
 import com.invessence.web.dao.consumer.*;
+import com.invessence.web.dao.custody.*;
 import com.invessence.web.data.common.UserData;
 import com.invessence.web.data.custody.*;
 import com.invessence.web.util.*;
@@ -49,12 +50,11 @@ public class TdCto
       this.uiLayout = uiLayout;
    }
 
-   @ManagedProperty("#{consumerListDataDAO}")
-   private ConsumerListDataDAO listDAO;
-
-   public void setListDAO(ConsumerListDataDAO listDAO)
+   @ManagedProperty("#{custodyListDAO}")
+   private CustodyListDAO custodyListDAO;
+   public void setListDAO(CustodyListDAO listDAO)
    {
-      this.listDAO = listDAO;
+      this.custodyListDAO = listDAO;
    }
 
    @ManagedProperty("#{commonDAO}")
@@ -65,12 +65,11 @@ public class TdCto
       this.commonDAO = commonDAO;
    }
 
-   @ManagedProperty("#{consumerSaveDataDAO}")
-   private ConsumerSaveDataDAO saveDAO;
-
-   public void setSaveDAO(ConsumerSaveDataDAO saveDAO)
+   @ManagedProperty("#{custodySaveDAO}")
+   private CustodySaveDAO custodySaveDAO;
+   public void setSaveDAO(CustodySaveDAO saveDAO)
    {
-      this.saveDAO = saveDAO;
+      this.custodySaveDAO = saveDAO;
    }
 
    public TdCto()
@@ -350,8 +349,10 @@ public class TdCto
       }
       if (cangoToNext)
       {
+         saveData(pagemanager.getPage());
          pagemanager.nextPage();
          resetActiveTab(pagemanager.getPage());
+
 
       }
    }
@@ -376,5 +377,42 @@ public class TdCto
 
    }
 
+   private void saveData(Integer pagenum)
+   {
+      if ( pagenum == null )
+         return;
+
+      switch (pagenum) {
+         case 0:
+            custodySaveDAO.td_saveRequest(tdMasterData.getRequest());
+            custodySaveDAO.td_saveAccountDetail(tdMasterData.getAcctdetail());
+            break;
+         case 1:
+            custodySaveDAO.td_saveAccountOwner(tdMasterData.getAcctOwnersDetail());
+            break;
+         case 2:
+            custodySaveDAO.td_saveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
+            break;
+         case 3:
+            break;
+         case 4:
+            break;
+         case 5:
+            break;
+         case 6:
+            break;
+         case 7:
+            break;
+         case 8:
+            break;
+         case 9:
+            break;
+         case 10:
+            break;
+         default:
+            break;
+      }
+
+   }
 
 }

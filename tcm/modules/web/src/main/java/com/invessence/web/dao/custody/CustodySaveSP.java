@@ -3,9 +3,7 @@ package com.invessence.web.dao.custody;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.web.data.consumer.CTO.AccountHolder;
-import com.invessence.web.data.custody.TDMasterData;
-import com.invessence.ws.data.common.AcctOwnersDetails;
+import com.invessence.web.data.custody.*;
 import org.springframework.jdbc.object.StoredProcedure;
 
 /**
@@ -45,12 +43,12 @@ public class CustodySaveSP extends StoredProcedure
       compile();
    }
 
-   public Map td_saveRequest(TDMasterData data) {
+   public Map td_saveRequest(TDRequest data) {
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }
 
-   public Map td_saveAccountDetail(TDMasterData data) {
+   public Map td_saveAccountDetail(TDAcctdetails data) {
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }

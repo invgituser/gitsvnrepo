@@ -6,9 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.web.data.consumer.CTO.AccountHolder;
-import com.invessence.web.data.custody.TDMasterData;
-import com.invessence.ws.data.common.AcctOwnersDetails;
+import com.invessence.web.data.custody.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 /**
@@ -25,7 +23,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public Boolean td_saveRequest(TDMasterData data)
+   public Boolean td_saveRequest(TDRequest data)
    {
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_requests",0);
@@ -36,7 +34,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
-   public Boolean td_saveAccountDetail(TDMasterData data )
+   public Boolean td_saveAccountDetail(TDAcctdetails data )
    {
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_acct_details",1);

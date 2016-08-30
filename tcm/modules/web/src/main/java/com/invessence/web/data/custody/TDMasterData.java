@@ -26,6 +26,7 @@ public class TDMasterData
    private USMaps usmaps;
    // TD information
    TDRequest request;
+   TDAcctdetails  acctdetail;
    AdvisorDetails advisorDetails;
    AcctOwnersDetails acctOwnersDetail;
    AcctOwnersDetails jointAcctOwnersDetail;
@@ -53,6 +54,7 @@ public class TDMasterData
       usmaps = USMaps.getInstance();
 
       request = new TDRequest();
+      acctdetail = new TDAcctdetails();
       advisorDetails = new AdvisorDetails();
       acctOwnersDetail = new AcctOwnersDetails();
       jointAcctOwnersDetail = new AcctOwnersDetails();
@@ -222,6 +224,16 @@ public class TDMasterData
    public void setRequest(TDRequest request)
    {
       this.request = request;
+   }
+
+   public TDAcctdetails getAcctdetail()
+   {
+      return acctdetail;
+   }
+
+   public void setAcctdetail(TDAcctdetails acctdetail)
+   {
+      this.acctdetail = acctdetail;
    }
 
    public void setAccttype(Integer accttype)
