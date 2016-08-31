@@ -162,6 +162,7 @@ public class TdCto
          return;
       }
       userdata.setAcctnum(acctnum);
+      userdata.setUserID(userdata.getEmail()); // Since we are collecting email, make sure to set the userid same.
       Long logonID = userdata.addUserLogon();
       if (logonID != null && logonID >= 0L)
       {

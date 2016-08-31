@@ -5,7 +5,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
-import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.CTO.ClientData;
 import com.invessence.web.data.consumer.RiskCalculator;
 import com.invmodel.asset.data.AssetClass;
@@ -194,6 +194,14 @@ public class ConsumerSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_state", Types.VARCHAR));
             declareParameter(new SqlParameter("p_country", Types.VARCHAR));
             declareParameter(new SqlParameter("p_zip", Types.VARCHAR));
+            break;
+         case 12:
+            declareParameter(new SqlInOutParameter("p_demoid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_ip", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_source", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_data", Types.VARCHAR));
             break;
          default:
       }
@@ -555,5 +563,18 @@ public class ConsumerSaveSP extends StoredProcedure
    {
       String sql = "select count(*) from client_emp_info where logonid = ?";
       return getJdbcTemplate().queryForInt(sql, new Object[]{logonid});
+   }
+
+   @SuppressWarnings({"unchecked", "rawtypes"})
+   public Map saveVisitor(UserData data)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_demoid", data.getAcctnum());
+      inputMap.put("p_advisor", data.getAdvisor());
+      inputMap.put("p_rep", data.getRep());
+      inputMap.put("p_ip", data.getIp());
+      inputMap.put("p_source", data.getLeadsource());
+      inputMap.put("p_data", data.getEmail());
+      return super.execute(inputMap);
    }
 }

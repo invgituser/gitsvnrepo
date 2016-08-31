@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <ui:define name="content">
+        <h:outputScript name="/js/ltamCharts.js" library="ltam"/>
+
+        <!-- BOX START -->
+        <h:form id="ceForm">
+            <p:panel id="contentpanel" style="border: 0px; background: transparent">
+
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+
+                        <p:steps id="ltamprogressbar" class="tab_main" rendered="#{ceb.isEditMode}"
+                                 activeIndex="#{ceb.ltammenu}">
+                            <p:menuitem value="Start"/>
+                            <p:menuitem value="Goal"/>
+                            <p:menuitem value="Horizon"/>
+                            <p:menuitem value="Risk"/>
+                            <p:menuitem value="Risk"/>
+                            <p:menuitem value="Risk"/>
+                            <p:menuitem value="Review"/>
+                            <p:menuitem value="Terms"/>
+                            <p:menuitem value="Confirmation"/>
+                        </p:steps>
+
+                    </div>
+                    <div class="Container100 Responsive100">
+                        <div class="ContainerIndent Responsive100">
+                            <p:growl showDetail="false" escape="true" closable="true"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Container100">
+                    <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
+                        <ui:fragment rendered="#{ceb.pagemanager.page == 6}">
+                            <ui:include src="/pages/consumer/edit/page7.xhtml"/>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{ceb.pagemanager.page == 7}">
+                            <ui:include src="/pages/consumer/edit/page8.xhtml"/>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{ceb.pagemanager.page == 8}">
+                            <ui:include src="/pages/consumer/edit/page9.xhtml"/>
+                        </ui:fragment>
+                    </p:panel>
+                </div>
+
+            </div>
+
+            </p:panel>
+
+            <p:outputPanel id="disclaimer" style="border: 0px"
+                           rendered="#{uiLayout.prodMode}">
+                <div class="layout-portlets-box">
+                    <div class="Container100 Responsive100">
+                        <div class="Container100 Responsive100">
+                            <div class="ContainerIndent Responsive100">
+                                <div class="Fs12 TexAlCenter">
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 1}">
+                                        <h:outputText value="#{uiLayout.getPageInfo(ceb.pagemanager.page)}" escape="false"/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 2}">
+                                        <h:outputText value="#{uiLayout.getPageInfo(ceb.pagemanager.page)}" escape="false"/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 3}">
+                                        <h:outputText value="#{uiLayout.getPageInfo(ceb.pagemanager.page)}" escape="false"/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 4}">
+                                        <h:outputText value="#{uiLayout.getPageInfo(ceb.pagemanager.page)}" escape="false"/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{ceb.pagemanager.page == 5}">
+                                        <h:outputText value="#{uiLayout.getPageInfo(ceb.pagemanager.page)}" escape="false"/>
+                                    </ui:fragment>
+
+                                    <div class="EmptyBox10"></div>
+                                    <h:outputText value="#{uiLayout.disclaimer}" escape="false"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </p:outputPanel>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

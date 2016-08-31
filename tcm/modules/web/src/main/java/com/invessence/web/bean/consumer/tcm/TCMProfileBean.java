@@ -5,6 +5,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.faces.event.*;
+import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.converter.*;
 import com.invessence.web.dao.consumer.*;
@@ -661,8 +662,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          saveProfile();
          // if (canOpenAccount == 0) {
-         // uiLayout.doMenuAction("custody","index.xhtml?acct=" + acctnum.toString());
-         webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
+         uiLayout.doMenuAction("consumer","signup.xhtml?acct=" + getAcctnum().toString());
+         // webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
          // }
 
       }
@@ -882,6 +883,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          saveProfile();
          if (pagemanager.getPage() == 0) {  // This is before moving to next page. ONLY for FIRST PAGE
+            saveVisitor();
             createAssetPortfolio(1); // Since we are refreshing on real-time, we don't need to do it during next.
          }
          pagemanager.nextPage();
@@ -893,6 +895,29 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          context.addMessage(null, new FacesMessage(customErrorText,customErrorText));
       }
    }
+
+   private void saveVisitor()
+   {
+
+      try
+      {
+         UserData data = new UserData();
+         data.setIp(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));;
+         data.setAcctnum(getAcctnum());
+         data.setAdvisor(webutil.getUiprofile().getAdvisor());
+         data.setRep(webutil.getUiprofile().getRep());
+         data.setEmail(null);
+         if (saveDAO != null) {
+            saveDAO.saveVisitor(data);
+         }
+      }
+      catch (Exception ex)
+      {
+
+      }
+   }
+
+
 
    public void riskSelected(Integer value)
    {

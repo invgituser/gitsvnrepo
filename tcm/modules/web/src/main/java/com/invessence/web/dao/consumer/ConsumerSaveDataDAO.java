@@ -6,7 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
-import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.CTO.ClientData;
 import com.invessence.web.data.consumer.RiskCalculator;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -87,4 +87,10 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       sp.saveClientEmpInfo(data);
    }
 
+   public void saveVisitor(UserData data)
+   {
+      DataSource ds = getDataSource();
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "save_visitor",12);
+      sp.saveVisitor(data);
+   }
 }
