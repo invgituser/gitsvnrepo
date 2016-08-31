@@ -14,7 +14,7 @@ import com.invessence.web.util.*;
 
 
 @ManagedBean(name = "manageAdvisorBean")
-@ViewScoped
+@SessionScoped
 public class ManageAdvisorBean implements Serializable
 {
    @ManagedProperty("#{webutil}")

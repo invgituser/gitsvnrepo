@@ -17,7 +17,7 @@ import org.springframework.security.web.WebAttributes;
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
 @ManagedBean(name = "loginController")
-@ViewScoped
+@SessionScoped
 public class LoginController implements PhaseListener
 {
 

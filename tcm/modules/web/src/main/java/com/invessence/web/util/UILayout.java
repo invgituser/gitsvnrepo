@@ -145,6 +145,7 @@ public class UILayout implements Serializable
                emailMap.put("LOCK.EMAIL",getWebServiceValue("LOCK.EMAIL"));
                emailMap.put("FORGOT.EMAIL",getWebServiceValue("FORGOT.EMAIL"));
                webutil.getUiprofile().setEmailTemplateMap(emailMap);
+               webutil.getUiprofile().setGoogleAnalytic(getWebServiceValue("GOOGLE.ANALYTICS"));
             }
          }
       }
@@ -184,7 +185,6 @@ public class UILayout implements Serializable
                                                 getWebServiceValue("EMAIL.USER"),
                                                 getWebServiceValue("EMAIL.PASSWORD"),
                                                 getWebServiceValue("EMAIL.PORT")
-
             );
 
 

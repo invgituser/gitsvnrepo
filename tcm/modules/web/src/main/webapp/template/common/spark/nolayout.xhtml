@@ -29,5 +29,9 @@
     <ui:fragment rendered="#{uiLayout.customCSS != null}">
         <h:outputStylesheet name="#{uiLayout.customCSS}" library="#{uiLayout.cssDIR}"/>
     </ui:fragment>
+    <ui:fragment rendered="#{uiLayout.uiprofile.googleAnalytic != null}">
+        <h:outputStylesheet name="#{uiLayout.uiprofile.googleAnalytic}" library="#{uiLayout.cssDIR}"/>
+    </ui:fragment>
+
 
 </ui:composition>

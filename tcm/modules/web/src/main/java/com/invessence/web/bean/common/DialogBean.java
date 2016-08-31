@@ -1,12 +1,11 @@
 package com.invessence.web.bean.common;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 @ManagedBean(name = "dialogBean")
-@ViewScoped
+@SessionScoped
 public class DialogBean {
 
    public void keepAliveSession() {

@@ -35,6 +35,7 @@ public class UIProfile
    String cssdir;
    String customcss;
    String webmode;
+   String googleAnalytic;
 
    //  These properties are based on the visitor or person logged on.
    //  These will be created after the visitor opens a landing page.
@@ -235,6 +236,16 @@ public class UIProfile
    public String getWebmode()
    {
       return webmode;
+   }
+
+   public String getGoogleAnalytic()
+   {
+      return googleAnalytic;
+   }
+
+   public void setGoogleAnalytic(String googleAnalytic)
+   {
+      this.googleAnalytic = googleAnalytic;
    }
 
    public void setCid(String cid)

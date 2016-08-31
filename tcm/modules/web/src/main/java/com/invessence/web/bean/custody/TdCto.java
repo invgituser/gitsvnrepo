@@ -334,8 +334,6 @@ public class TdCto
             }
             break;
          case 8: // Beneficiary
-
-            System.out.println("Benefitiary pageControl() ");
             newTab = 5;
             break;
          case 9: // Funding
@@ -366,7 +364,6 @@ public class TdCto
    // NOTE: Let resetActiveTab deal with joint account or not to go to appropriate tab.
    public void nextPage()
    {
-      System.out.println("Benefitiary nextPage() ");
       Boolean cangoToNext = true;
 
       switch (pagemanager.getPage())
@@ -456,7 +453,7 @@ public class TdCto
          case 7:
             break;
          case 8:
-            custodySaveDAO.td_saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailses());
+            // custodySaveDAO.td_saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailses());
             break;
          case 9:
             break;

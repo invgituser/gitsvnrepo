@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @ManagedBean(name = "advisorAssetBean")
-@ViewScoped
+@SessionScoped
 public class AdvisorAssetBean implements Serializable
 {
    @Autowired
