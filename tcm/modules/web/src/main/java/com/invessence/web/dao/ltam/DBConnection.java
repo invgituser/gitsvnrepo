@@ -43,11 +43,11 @@ public class DBConnection
       {
 
          dbProperties.load(getClass().getClassLoader().getResourceAsStream("db.properties"));
-         connectionUrl = dbProperties.getProperty("ltam.url") +
-            "&user=" + dbProperties.getProperty("ltam.username") +
-            "&password=" + dbProperties.getProperty("ltam.password");
+         connectionUrl = dbProperties.getProperty("jdbc.url") +
+            "&user=" + dbProperties.getProperty("jdbc.username") +
+            "&password=" + dbProperties.getProperty("jdbc.password");
 
-         Class.forName(dbProperties.getProperty("ltam.driverClassName")).newInstance();
+         Class.forName(dbProperties.getProperty("jdbc.driverClassName")).newInstance();
       }
       catch (Exception e)
       {
