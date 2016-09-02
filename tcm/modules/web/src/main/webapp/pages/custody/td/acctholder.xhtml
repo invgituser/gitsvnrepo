@@ -7,7 +7,7 @@
 
 	<p:tabView activeIndex="#{tdcto.subtab}">
 		<p:tab title="Account Holder">
-			<div class="Container80 Responsive90 MarTop5 MarCenter"
+			<div class="Container80 Responsive100 MarTop5 MarCenter"
 				style="margin-bottom: 15px;">
 				<div class="Container100">
 					<label Class="Container60"
@@ -31,27 +31,44 @@
 
 				<div class="EmptyBox20"></div>
 				<div class="Container100">
-					<div class="Container45 Fleft CustomWidthFA-Responsive">
+					<div class="Container32 Fleft CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
 						<div class="EmptyBox5"></div>
-						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+						<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 							value="#{tdcto.tdMasterData.acctOwnersDetail.dob}"
 							mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
 						</p:inputMask>
 					</div>
 
-					<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+					<div class="Container32 CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Social
 							Security Number</label>
 
 						<div class="EmptyBox5"></div>
-						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+						<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 							value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}"
 							mask="999-99-9999" placeholder="###-##-####" required="false">
 						</p:inputMask>
+					</div>
+
+					<div class="Container32 CustomWidthFA2 MarTop5">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+
+						<div class="EmptyBox5"></div>
+
+						<div class="Container100 Fleft">
+							<div style="margin-top: 10px;">
+								<p:selectBooleanCheckbox
+									value="#{tdcto.tdMasterData.acctOwnersDetail.citizenshiId}"
+									styleClass="benCheckBox" itemLabel="USA Citizenship">
+								</p:selectBooleanCheckbox>
+							</div>
+						</div>
+
 					</div>
 				</div>
 				<div class="EmptyBox20"></div>
@@ -68,19 +85,18 @@
 							mask="(999) 999-9999" placeholder="Primary Phone" required="false">
 						</p:inputMask>
 					</div>
+
 					<div class="Container45 Fright CustomWidthFA2 MarTop5">
 						<label Class="Container100"
-							style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+							style="text-align: left !important; font-weight: bold !important;">Email Address</label>
 
 						<div class="EmptyBox5"></div>
-						<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
-							<p:selectBooleanButton
-								value="#{tdcto.tdMasterData.acctOwnersDetail.citizenshiId}"
-								onLabel="Yes" offLabel="No" onIcon="ui-icon-check"
-								offIcon="ui-icon-close" style="width:80px" styleClass="booleanBtnCustom" />
-							<h:outputText value="USA Citizenship" style="margin:0px 10px;"/>
-						</div>
+						<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+							placeholder="Email Address"
+							required="false">
+						</p:inputMask>
 					</div>
+
 				</div>
 			</div>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
@@ -118,27 +134,44 @@
 
 				<div class="EmptyBox20"></div>
 				<div class="Container100">
-					<div class="Container45 Fleft CustomWidthFA-Responsive">
+					<div class="Container32 Fleft CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
 						<div class="EmptyBox5"></div>
-						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+						<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 							value="#{tdcto.tdMasterData.jointAcctOwnersDetail.dob}"
 							mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
 						</p:inputMask>
 					</div>
 
-					<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+					<div class="Container32 Fright-FAAddress CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Social
 							Security Number</label>
 
 						<div class="EmptyBox5"></div>
-						<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+						<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 							value="#{tdcto.tdMasterData.jointAcctOwnersDetail.ssn}"
 							mask="999-99-9999" placeholder="###-##-####" required="false">
 						</p:inputMask>
+					</div>
+
+					<div class="Container32 Fright CustomWidthFA2 MarTop5">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+
+						<div class="EmptyBox5"></div>
+
+						<div class="Container100 Fleft">
+							<div style="margin-top: 10px;">
+								<p:selectBooleanCheckbox
+									value="#{tdcto.tdMasterData.acctOwnersDetail.citizenshiId}"
+									styleClass="benCheckBox" itemLabel="USA Citizenship">
+								</p:selectBooleanCheckbox>
+							</div>
+						</div>
+
 					</div>
 				</div>
 				<div class="EmptyBox20"></div>
@@ -157,17 +190,15 @@
 					</div>
 					<div class="Container45 Fright CustomWidthFA2 MarTop5">
 						<label Class="Container100"
-							style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+							style="text-align: left !important; font-weight: bold !important;">Email Address</label>
 
 						<div class="EmptyBox5"></div>
-						<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
-							<p:selectBooleanButton
-								value="#{tdcto.tdMasterData.jointAcctOwnersDetail.citizenshiId}"
-								onLabel="Yes" offLabel="No" onIcon="ui-icon-check"
-								offIcon="ui-icon-close" style="width:80px" styleClass="booleanBtnCustom" />
-							<h:outputText value="USA Citizenship" style="margin:0px 10px;"/>
-						</div>
+						<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+							placeholder="Email Address"
+							required="false">
+						</p:inputMask>
 					</div>
+
 				</div>
 			</div>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">

@@ -4,6 +4,20 @@
 * Supported Browsers > Google Chrome 3+ , Mozilla Firefox 3+ , Safari 3+ , Opera 3+ , Yandex Browser , Inernet Explorer 9+
 * Copyright 2016 - Invessence */
 
+@media (max-width: 850px) {
+	.ui-accordion-content {
+	font-size: 12px!important;
+	}
+	
+	.formRadioBtn > tbody > tr > td > label {
+	font-size: 12px!important;
+	}
+	
+	.benCheckBox > .ui-chkbox-label {
+	font-size: 12px!important;
+	}
+}
+
 @media (min-width: 625px) and (max-width: 1343px) {
 	.RegulatoryCheckBox > .ui-chkbox-label {
 	width: 90%!important;

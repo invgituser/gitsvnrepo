@@ -92,7 +92,6 @@
 						</div>
 					</div>
 				</div>
-
 				<p:panel id="beneficiaryAdd"
 						 style="border: 0px; background: transparent; margin-top: -10px;"
 						 rendered="#{tdcto.tdMasterData.addBeneficiary}">
@@ -108,7 +107,7 @@
 										 placeholder="First Name"
 										 value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneFirstName}">
 							</p:inputText>
-							<p:inputText styleClass="MiddleInitialWidth FS14 InputMergeLeft"
+							<p:inputText styleClass="MiddleInitialWidth FS14 InputMergeLeft InputMergeRight"
 										 placeholder="Middle Initial"
 										 value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneMidInitial}">
 							</p:inputText>
@@ -120,90 +119,88 @@
 
 						<div class="EmptyBox20"></div>
 						<div class="Container100">
-							<div class="Container45 Fleft CustomWidthFA-Responsive">
+							<div class="Container32 Fleft CustomWidthFA-Responsive">
 								<label Class="Container100"
 									   style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 											 value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneDOB}"
 											 mask="99/99/9999" placeholder="MM/DD/YYYY">
 								</p:inputMask>
 							</div>
 
 							<div
-									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									class="Container32 CustomWidthFA-Responsive">
 								<label Class="Container100"
 									   style="text-align: left !important; font-weight: bold !important;">Social
 									Security Number</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 											 value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneSSN}"
 											 mask="999-99-9999" placeholder="###-##-####" required="false">
 								</p:inputMask>
 							</div>
-						</div>
-						<div class="EmptyBox20"></div>
 
-						<div class="Container100">
-							<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+
+							<div class="Container32 CustomWidthFA-Responsive">
 								<label Class="Container100"
 									   style="text-align: left !important; font-weight: bold !important;">Relationship</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
 											 placeholder="Relationship"
 											 value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneRel}">
 								</p:inputText>
 							</div>
-
-							<div class="Container45 Fright CustomWidthFA2 MarTop5">
+</div>
+			<div class="EmptyBox20"></div>
+			<div class="Container100">
+							<div class="Container32 Fleft CustomWidthFA2 MarTop5">
 								<label Class="Container100"
 									   style="text-align: left !important; font-weight: bold !important;">Type
 									of Beneficiary</label>
 
 								<div class="EmptyBox5"></div>
+								<div class="Container100 Fleft">
 								<div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
 									 style="margin-top: 5px;">
-									<p:selectOneRadio styleClass="textAlign" value="#{tdcto.tdMasterData.benefiaciaryDetailses.typeOfBeneficiary}">
+									<p:selectOneRadio styleClass="textAlign formRadioBtn" value="#{tdcto.tdMasterData.benefiaciaryDetailses.typeOfBeneficiary}">
 										<f:selectItem itemValue="1" itemLabel="Primary" />
 										<f:selectItem itemValue="2" itemLabel="Contigent" />
 									</p:selectOneRadio>
 								</div>
 							</div>
 						</div>
-						<div class="EmptyBox10"></div>
-						<div class="Container100">
-							<div
-									class="Container45 Fleft CustomWidthFA2 MarTop5 BeneficiaryButton">
-								<label Class="Container50"
+
+							<div class="Container32 CustomWidthFA2-Responsive">
+								<label Class="Container100"
 									   style="text-align: left !important; font-weight: bold !important;">Per
 									Stirpes</label>
 								<div class="EmptyBox5"></div>
 								<div class="Container100 Fleft">
-									<div style="margin-top: 5px;">
-										<p:selectBooleanCheckbox value="#{tdcto.tdMasterData.benefiaciaryDetailses.perStripes}" itemLabel="Per Stirpes">
+									<div style="margin-top: 10px;">
+										<p:selectBooleanCheckbox styleClass="benCheckBox" value="#{tdcto.tdMasterData.benefiaciaryDetailses.perStripes}" itemLabel="Per Stirpes">
 										</p:selectBooleanCheckbox>
 									</div>
 								</div>
 
 							</div>
 
-							<div class="Container45 Fright CustomWidthFA2 MarTop5">
+							<div class="Container32 CustomWidthFA2-Responsive">
 								<label Class="Container100"
 									   style="text-align: left !important; font-weight: bold !important;">Share
 									%</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
 											 placeholder="Share %"
 											 value="#{tdcto.tdMasterData.benefiaciaryDetailses.sharePerc}">
 								</p:inputText>
 							</div>
+                           </div>
 
-
-						</div>
 						<div class="EmptyBox20"></div>
 						<div class="Container100 BenBttonBlock"
 							 style="text-align: center;">
@@ -211,23 +208,22 @@
 								<f:param name="Cancel" />
 							</p:button>
 
-							<p:commandButton value="Save" ajax="true" update=":ctoForm:tdaccordian:beneficiaryPanel" actionListener="#{tdcto.tdMasterData.addTempBeneficiary}" styleClass="ui-priority-primary" />
+							<p:commandButton value="Save" ajax="true" update=":ctoForm:tdaccordian:beneficiaryPanel" actionListener="#{tdcto.tdMasterData.addTempBeneficiary}" styleClass="ui-priority-primary CommonBtnWidthSave" />
 
 
 						</div>
+							<div class="EmptyBox5"></div>
+                    </div>
 
-					</div>
-				</p:panel>
-
-
-				<div class="Container100 MarTop20" style="margin: 10px 10px;">
+            </p:panel>
+			<div class="Container100 MarTop20" style="margin: 10px 10px;">
 					<p:commandLink styleClass="UI-prevButtonFA Fleft"
 								   actionListener="#{tdcto.prevPage}" update="@form" />
 
 					<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
 								   actionListener="#{tdcto.nextPage}" update="@form" />
 				</div>
-			</div>
-		</p:panel>
+            </div>
 
+</p:panel>
 </ui:composition>

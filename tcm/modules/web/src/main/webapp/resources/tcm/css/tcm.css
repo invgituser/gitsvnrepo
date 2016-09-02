@@ -117,11 +117,11 @@ img.riskImage:hover {
 
 @media (min-width: 320px) and (max-width: 450px){
 	.CommonBtnWidthSave {
-	float: right!important;
+	float: none!important;
 	}
 	
 	.CommonBtnWidthCancel {
-	float: left!important;
+	float: none!important;
 	}
 	
 	.CommonBtnWidthCancel > span, .CommonBtnWidthSave > span{
@@ -176,13 +176,13 @@ img.riskImage:hover {
     }
 }
 
-@media (min-width: 635px) and (max-width: 700px) {
+/* @media (min-width: 635px) and (max-width: 700px) {
     .MiddleInitialWidth {
         width: 25%!important;
     }
-}
+} */
 
-@media (min-width: 700px) and (max-width: 900px) {
+@media (min-width: 736px) and (max-width: 900px) {
     .MiddleInitialWidth {
         width: 20%!important;
     }
@@ -196,13 +196,15 @@ img.riskImage:hover {
 
 @media (min-width: 1100px){
     .MiddleInitialWidth {
-        width: 11%!important;
+        width: 12%!important;
     }
 }
 
-@media (max-width: 635px){
+@media (max-width: 735px){
     .MiddleInitialWidth {
         width: 100%!important;
+         border-right: 1px solid #D9E19B!important;
+         border-radius: 3px!important;
     }
 }
 
@@ -218,9 +220,20 @@ img.riskImage:hover {
     }
 }
 
-@media (max-width: 634px) {
+@media (max-width: 735px) {
+	.BenBttonBlock {
+	width: 105%!important;
+	}	
+	.BeneficiaryEditPanel {
+	width: 100%!important;
+	}
+	
+	.BeneficiaryEditPanel > .ContainerIndent {
+	padding-right: 25px!important;
+	}
+	
     .CustomWidthFA {
-        width: 100% !important;
+        width: 95% !important;
         margin: 5px 0;
         border-radius: 3px !important;
         border: solid 1px #C6D6DF !important;
@@ -403,6 +416,18 @@ img.riskImage:hover {
 }
 /**/
 /*Prakash*/
+
+
+
+.Container32 {
+	width: 32%;
+	float: left;
+}
+
+.Wid85 {
+	width: 85%;
+}
+
 .BeneficiaryButton {
 	text-align: center!important;
 }
@@ -443,7 +468,8 @@ padding: 6px 0;
 .BeneficiaryEditPanel {
     float: none!important;
     margin: 0 auto!important;
-    padding: 10px 30px 55px 11px;box-shadow: 0px 0px 7px #ECECEC;
+    /* padding: 10px 30px 55px 11px; */
+    box-shadow: 0px 0px 7px #ECECEC;
     border-radius: 10px;
 }
 
@@ -960,7 +986,7 @@ body {
     font-size: 12px !important;
 }
 
-.ui-selectoneradio label {
+.ui-selectoneradio label, .ui-chkbox-label {
     font-size: 14px !important;
 }
 
