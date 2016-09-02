@@ -233,7 +233,7 @@ img.riskImage:hover {
 	}
 	
     .CustomWidthFA {
-        width: 95% !important;
+        width: 100% !important;
         margin: 5px 0;
         border-radius: 3px !important;
         border: solid 1px #C6D6DF !important;
@@ -413,6 +413,10 @@ img.riskImage:hover {
 	.RightBlockAcctType, .LeftBlockAcctType {
 	width: 100%!important;
 	}
+
+    .BeneficiaryEditPanel {
+        width: 100%!important;
+    }
 }
 /**/
 /*Prakash*/
