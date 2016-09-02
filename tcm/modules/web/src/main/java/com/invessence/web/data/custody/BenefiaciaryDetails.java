@@ -1,14 +1,69 @@
 package com.invessence.web.data.custody;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.util.*;
+import javax.faces.bean.ManagedProperty;
+import javax.management.monitor.StringMonitor;
 
-public class BenefiaciaryDetails {
+import com.invessence.web.data.common.CustomerData;
+import com.invessence.web.util.*;
 
+public class BenefiaciaryDetails implements Serializable
+{
+
+      private static final long serialVersionUID = 1L;
       private Long acctnum;
-      private Integer beneId;
+      private int beneId =0;
       private String beneFirstName;
       private String beneMidInitial;
-      private String beneLastName;
+
+   public int getBeneId()
+   {
+
+     return beneId;
+   }
+
+   public void setBeneId(int beneId)
+   {
+       this.beneId = beneId;
+
+   }
+   @Override
+   public boolean equals(Object o)
+   {
+      if (this == o)
+      {
+         return true;
+      }
+      if (o == null || getClass() != o.getClass())
+      {
+         return false;
+      }
+
+      BenefiaciaryDetails that = (BenefiaciaryDetails) o;
+
+      if (!beneFirstName.equals(that.beneFirstName))
+      {
+         return false;
+      }
+      if (!beneLastName.equals(that.beneLastName))
+      {
+         return false;
+      }
+      return sharePerc.equals(that.sharePerc);
+
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int result = beneFirstName.hashCode();
+      result = 31 * result + beneLastName.hashCode();
+      result = 31 * result + sharePerc.hashCode();
+      return result;
+   }
+
+   private String beneLastName;
       private String beneSSN;
       private String beneDOB;
       private String beneRel;
@@ -20,19 +75,69 @@ public class BenefiaciaryDetails {
       private String createdBy;
       private Date updated;
       private String updatedBy;
+      private Boolean managed =true;
+
 
    public BenefiaciaryDetails()
    {
 
    }
 
-   public BenefiaciaryDetails(String beneFirstName,String beneLastName,Double sharePerc)
+   /*
+   public BenefiaciaryDetails(String beneFirstName, String beneLastName, Double sharePerc)
    {
-      this.beneFirstName = beneFirstName;
-      this.beneLastName = beneLastName;
-      this.sharePerc = sharePerc;
+       this.beneFirstName = beneFirstName;
+       this.beneLastName =beneLastName;
+       this.sharePerc =sharePerc;
+   }
+*/
+   public Boolean getManaged()
+   {
+      return managed;
    }
 
+   public void setManaged(Boolean managed)
+   {
+      this.managed = managed;
+   }
+
+
+   @ManagedProperty("#{webutil}")
+   private WebUtil webutil;
+   public void setWebutil(WebUtil webutil)
+   {
+      this.webutil = webutil;
+   }
+
+   @ManagedProperty("#{uiLayout}")
+   private UILayout uiLayout;
+   public void setUiLayout(UILayout uiLayout)
+   {
+      this.uiLayout = uiLayout;
+   }
+   public String doSelectedAction()
+   {
+      System.out.println("doSelectedAction() :"+getManaged());
+
+      String whichXML;
+      try
+      {
+
+         if (getManaged())
+         {
+
+         }
+         else {
+
+         }
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
    public Long getAcctnum()
    {
       return acctnum;
@@ -41,16 +146,6 @@ public class BenefiaciaryDetails {
    public void setAcctnum(Long acctnum)
    {
       this.acctnum = acctnum;
-   }
-
-   public Integer getBeneId()
-   {
-      return beneId;
-   }
-
-   public void setBeneId(Integer beneId)
-   {
-      this.beneId = beneId;
    }
 
    public String getBeneFirstName()
@@ -191,5 +286,31 @@ public class BenefiaciaryDetails {
    public void setBeneCitizenshiId(String beneCitizenshiId)
    {
       this.beneCitizenshiId = beneCitizenshiId;
+   }
+
+   @Override
+   public String toString()
+   {
+      return "BenefiaciaryDetails{" +
+         "acctnum=" + acctnum +
+         ", beneId=" + beneId +
+         ", beneFirstName='" + beneFirstName + '\'' +
+         ", beneMidInitial='" + beneMidInitial + '\'' +
+         ", beneLastName='" + beneLastName + '\'' +
+         ", beneSSN='" + beneSSN + '\'' +
+         ", beneDOB='" + beneDOB + '\'' +
+         ", beneRel='" + beneRel + '\'' +
+         ", beneCitizenshiId='" + beneCitizenshiId + '\'' +
+         ", typeOfBeneficiary='" + typeOfBeneficiary + '\'' +
+         ", perStripes='" + perStripes + '\'' +
+         ", sharePerc=" + sharePerc +
+         ", created=" + created +
+         ", createdBy='" + createdBy + '\'' +
+         ", updated=" + updated +
+         ", updatedBy='" + updatedBy + '\'' +
+         ", managed=" + managed +
+         ", webutil=" + webutil +
+         ", uiLayout=" + uiLayout +
+         '}';
    }
 }

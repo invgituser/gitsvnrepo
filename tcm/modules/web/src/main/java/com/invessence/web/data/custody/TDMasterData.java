@@ -1,9 +1,13 @@
 package com.invessence.web.data.custody;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-
+import com.invessence.web.bean.custody.*;
 import com.invessence.converter.SQLData;
 import com.invessence.web.constant.USMaps;
+import com.invessence.web.dao.custody.CustodySaveDAO;
+
+import javax.faces.bean.*;
 import javax.faces.event.ActionEvent;
 
 /**
@@ -13,8 +17,10 @@ import javax.faces.event.ActionEvent;
  * Time: 10:31 PM
  * To change this template use File | Settings | File Templates.
  */
-public class TDMasterData
+
+public class TDMasterData implements Serializable
 {
+   private static final long serialVersionUID = 1L;
    Long acctnum;
    Integer accttype; // 1 - Individual , 2 joint acct.
    Boolean acctholderhasMailing, jointhasMailing, jointhasDifferent;
@@ -41,9 +47,11 @@ public class TDMasterData
    ElectronicFundDetails electroicBankDetail;
    FedwireAcctDetails fedwireAcctDetail;
    InternalTransferDetails internalTransferDetail;
+   BenefiaciaryDetails benefiaciaryDetails;
 
    public TDMasterData()
    {
+
       acctnum = null;
       accttype = 0; // 1 - Individual , 2 Number of joint acct.
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
@@ -68,16 +76,8 @@ public class TDMasterData
       electroicBankDetail = new ElectronicFundDetails();
       fedwireAcctDetail = new FedwireAcctDetails();
       internalTransferDetail = new InternalTransferDetails();
+
    }
-
-
-
- /*
-   private static final ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
-
-   public ArrayList<BenefiaciaryDetails> getBenefiaciaryDetailsList() {
-      return benefiaciaryDetailsList;
-   }  */
 
    public void setAcctnum(Long acctnum)
    {
@@ -370,15 +370,6 @@ public class TDMasterData
    public void setInternalTransferDetail(InternalTransferDetails internalTransferDetail)
    {
       this.internalTransferDetail = internalTransferDetail;
-   }
-
-   public void addTempBeneficiary() {
-      System.out.println("addTempBeneficiary() ");
-      System.out.println("addTempBeneficiary() 1:"+benefiaciaryDetailses.getBeneFirstName());
-      //BenefiaciaryDetails addTempBene = new BenefiaciaryDetails(benefiaciaryDetailses.getBeneFirstName(),benefiaciaryDetailses.getBeneLastName(),benefiaciaryDetailses.getSharePerc());
-    //  benefiaciaryDetailsList.add(addTempBene);
-     // System.out.println("addTempBeneficiary() 1:"+addTempBene);
-
    }
 
 }

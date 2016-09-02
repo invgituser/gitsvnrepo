@@ -1,6 +1,9 @@
 package com.invessence.web.bean.custody;
 
+import java.util.*;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
+import javax.faces.context.FacesContext;
 
 import com.invessence.web.dao.common.*;
 import com.invessence.web.dao.consumer.*;
@@ -9,7 +12,7 @@ import com.invessence.web.data.common.UserData;
 import com.invessence.web.data.custody.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
-import org.primefaces.event.TabChangeEvent;
+import org.primefaces.event.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,18 +29,41 @@ public class TdCto
    private String beanacctnum;
    private Long acctnum;
    private UserData userdata;
-   private TDMasterData tdMasterData;
+   private TDMasterData tdMasterData = new TDMasterData();
    private PagesImpl pagemanager = new PagesImpl(10);
    private Integer activeTab = 0;   // Start with first tab.
    private Integer newTab, subtab;
    private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
    private String selectedCheckedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
+   BenefiaciaryDetails benefiaciaryDetails;
 
-   public TdCto()
+   private String beneFirstName;
+   private String beneLastName;
+   private Double sharePerc;
+   private int intNum;
+
+   public int getIntNum()
    {
-      userdata = new UserData();
-      tdMasterData = new TDMasterData();
+      return intNum;
    }
+
+   public void setIntNum(int intNum)
+   {
+      this.intNum = intNum;
+   }
+
+   private BenefiaciaryDetails selectedAccount;
+
+   public BenefiaciaryDetails getSelectedAccount()
+   {
+      return selectedAccount;
+   }
+
+   public void setSelectedAccount(BenefiaciaryDetails selectedAccount)
+   {
+      this.selectedAccount = selectedAccount;
+   }
+
 
    public TDMasterData getTdMasterData()
    {
@@ -72,16 +98,6 @@ public class TdCto
       this.custodyListDAO = listDAO;
    }
 
-   public CustodySaveDAO getCustodySaveDAO()
-   {
-      return custodySaveDAO;
-   }
-
-   public void setCustodySaveDAO(CustodySaveDAO custodySaveDAO)
-   {
-      this.custodySaveDAO = custodySaveDAO;
-   }
-
    public CustodyListDAO getCustodyListDAO()
    {
       return custodyListDAO;
@@ -112,6 +128,15 @@ public class TdCto
       this.custodySaveDAO = saveDAO;
    }
 
+   public CustodySaveDAO getCustodySaveDAO()
+   {
+      return custodySaveDAO;
+   }
+
+   public void setCustodySaveDAO(CustodySaveDAO custodySaveDAO)
+   {
+      this.custodySaveDAO = custodySaveDAO;
+   }
 
    public String getBeanacctnum()
    {
@@ -129,6 +154,120 @@ public class TdCto
       return userdata;
    }
 
+   private static final ArrayList<BenefiaciaryDetails> beneTempList = new ArrayList<BenefiaciaryDetails>();
+
+   public ArrayList<BenefiaciaryDetails> getBeneTempList()
+   {
+      return beneTempList;
+   }
+   private static final Set<BenefiaciaryDetails> benePermList = new LinkedHashSet<BenefiaciaryDetails>();
+
+   public static Set<BenefiaciaryDetails> getBenePermList()
+   {
+      return benePermList;
+   }
+
+   public void addTempBeneficiary() {
+      //System.out.println("addTempBeneficiary() :"+tdMasterData.getBenefiaciaryDetailses().getBeneId());
+
+      //System.out.println("addTempBeneficiary :"+tdMasterData.getBenefiaciaryDetailses().toString());
+      tdMasterData.getBenefiaciaryDetailses().setBeneId(tdMasterData.getBenefiaciaryDetailses().getBeneId());
+      beneTempList.add(tdMasterData.getBenefiaciaryDetailses());
+
+      tdMasterData.setBenefiaciaryDetailses(new BenefiaciaryDetails());
+
+/*
+     if(benePermList.contains(tdMasterData.getBenefiaciaryDetailses()))
+
+     {
+        /// validation  data already presnt
+
+
+     }
+      else
+     {
+        benePermList.add(tdMasterData.getBenefiaciaryDetailses());
+     }
+
+*/
+
+
+      System.out.println("addTempBeneficiary()2 :");
+      //custodySaveDAO.td_saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailses());
+
+
+
+   }
+   public void editTempBeneficiary(int beneId ) {
+      System.out.println("editTempBeneficiary() beneId :"+beneId);
+      System.out.println("editTempBeneficiary :"+tdMasterData.getBenefiaciaryDetailses().toString());
+
+      tdMasterData.setBenefiaciaryDetailses(beneTempList.get(beneId));
+
+/*
+      for(BenefiaciaryDetails t :benePermList)
+      {
+         if(t.getBeneId()!=tdMasterData.getBenefiaciaryDetailses().getBeneId())
+         {
+            benePermList.add(tdMasterData.getBenefiaciaryDetailses());
+         }
+         else
+         {
+            t.setBeneFirstName(tdMasterData.getBenefiaciaryDetailses().getBeneFirstName());
+            t.setBeneMidInitial(tdMasterData.getBenefiaciaryDetailses().getBeneMidInitial());
+            t.setBeneLastName(tdMasterData.getBenefiaciaryDetailses().getBeneLastName());
+            t.setBeneDOB(tdMasterData.getBenefiaciaryDetailses().getBeneDOB());
+            t.setBeneSSN(tdMasterData.getBenefiaciaryDetailses().getBeneSSN());
+            t.setBeneRel(tdMasterData.getBenefiaciaryDetailses().getBeneRel());
+            t.setTypeOfBeneficiary(tdMasterData.getBenefiaciaryDetailses().getTypeOfBeneficiary());
+            t.setPerStripes(tdMasterData.getBenefiaciaryDetailses().getPerStripes());
+            t.setSharePerc(tdMasterData.getBenefiaciaryDetailses().getSharePerc());
+         }
+      }
+*/
+
+   }
+   public void onEditBenefiaciary(RowEditEvent event) {
+      System.out.println("onEditBenefiaciary() ");
+      FacesMessage msg = new FacesMessage("Benefiaciary Edited", ((BenefiaciaryDetails) event.getObject()).getBeneFirstName());
+      FacesContext.getCurrentInstance().addMessage(null, msg);
+   }
+   public void onCancelBenefiaciary(RowEditEvent event) {
+      System.out.println("onCancelBenefiaciary() ");
+      FacesMessage msg = new FacesMessage("Benefiaciary Cancelled");
+      FacesContext.getCurrentInstance().addMessage(null, msg);
+      beneTempList.remove((BenefiaciaryDetails) event.getObject());
+   }
+
+   public String getBeneFirstName()
+   {
+      return beneFirstName;
+   }
+
+   public void setBeneFirstName(String beneFirstName)
+   {
+      this.beneFirstName = beneFirstName;
+   }
+
+   public String getBeneLastName()
+   {
+      return beneLastName;
+   }
+
+   public void setBeneLastName(String beneLastName)
+   {
+      this.beneLastName = beneLastName;
+   }
+
+   public Double getSharePerc()
+   {
+      return sharePerc;
+   }
+
+   public void setSharePerc(Double sharePerc)
+   {
+      this.sharePerc = sharePerc;
+   }
 
    public void startFundAccount(Long acctnum)
    {
@@ -335,6 +474,8 @@ public class TdCto
             }
             break;
          case 8: // Beneficiary
+
+            System.out.println("Benefitiary pageControl() ");
             newTab = 5;
             break;
          case 9: // Funding
