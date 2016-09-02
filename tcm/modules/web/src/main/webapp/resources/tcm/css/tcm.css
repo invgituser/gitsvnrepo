@@ -420,7 +420,16 @@ img.riskImage:hover {
 }
 /**/
 /*Prakash*/
+.FundCenterAlignBlock {
+	margin: 0 auto!important;
+	float: none!important;
+}
 
+.FundTitle {
+font-weight: bold;
+    padding: 5px 0;
+    border-bottom: 2px solid grey;
+}
 .closeAddBeneficiary  {
 	margin-bottom: -20px;
 	}
@@ -1095,12 +1104,14 @@ h3 {
 @media (max-width: 360px) and (min-width: 320px) {
     img.riskImage {
         height: 114px !important;
+        opacity: 1!important;
     }
 }
 
 @media (max-width: 470px) and (min-width: 361px) {
     img.riskImage {
         height: 137px !important;
+        opacity:1!important;
     }
 }
 
