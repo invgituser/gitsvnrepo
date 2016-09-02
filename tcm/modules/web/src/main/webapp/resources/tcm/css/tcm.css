@@ -421,7 +421,13 @@ img.riskImage:hover {
 /**/
 /*Prakash*/
 
+.closeAddBeneficiary  {
+	margin-bottom: -20px;
+	}
 
+.AddBeneficiaryButton > .ui-icon {
+	background-image: url("/javax.faces.resource/images/ui-icons_ffffff_256x240.png.xhtml?ln=primefaces-spark")!important;
+}
 
 .Container32 {
 	width: 32%;
