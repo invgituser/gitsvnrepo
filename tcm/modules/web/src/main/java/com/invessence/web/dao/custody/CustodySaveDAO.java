@@ -1,13 +1,14 @@
 package com.invessence.web.dao.custody;
 
 import java.io.Serializable;
-import java.util.Map;
+import java.util.*;
 import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
 import com.invessence.web.data.custody.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,10 +20,9 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "custodySaveDAO")
 @SessionScoped
-public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
+public class CustodySaveDAO extends JdbcDaoSupport
 {
    SQLData convert = new SQLData();
-
    public Boolean td_saveRequest(TDRequest data)
    {
       DataSource ds = getDataSource();
@@ -56,5 +56,20 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
+   public Boolean td_saveBenefiaciaryDetails(ArrayList<BenefiaciaryDetails> beneTempList)
+   {
+
+      CustodySaveSP sp = new CustodySaveSP(getDataSource(), "save_tddc_benefiaciary_details",8);
+      Map outMap= null;
+      for(BenefiaciaryDetails data:beneTempList)
+      {
+           outMap = sp.td_saveBenefiaciaryDetails(data);
+      }
+
+      if (outMap == null)
+         return (false);
+      else
+         return true;
+   }
 
 }
