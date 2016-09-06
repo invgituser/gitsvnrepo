@@ -5,6 +5,7 @@ import java.util.*;
 import javax.faces.bean.ManagedProperty;
 import javax.management.monitor.StringMonitor;
 
+import com.invessence.web.bean.consumer.CTOBean;
 import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.util.*;
 
@@ -13,54 +14,20 @@ public class BenefiaciaryDetails implements Serializable
 
       private static final long serialVersionUID = 1L;
       private Long acctnum;
-      private int beneId =0;
+      private int beneId =1;
+
       private String beneFirstName;
       private String beneMidInitial;
 
    public int getBeneId()
    {
+      return beneId++;
 
-     return beneId;
-   }
+    }
 
    public void setBeneId(int beneId)
    {
-       this.beneId = beneId;
-
-   }
-   @Override
-   public boolean equals(Object o)
-   {
-      if (this == o)
-      {
-         return true;
-      }
-      if (o == null || getClass() != o.getClass())
-      {
-         return false;
-      }
-
-      BenefiaciaryDetails that = (BenefiaciaryDetails) o;
-
-      if (!beneFirstName.equals(that.beneFirstName))
-      {
-         return false;
-      }
-      if (!beneLastName.equals(that.beneLastName))
-      {
-         return false;
-      }
-      return sharePerc.equals(that.sharePerc);
-
-   }
-
-   @Override
-   public int hashCode()
-   {
-      int result = beneFirstName.hashCode();
-      result = 31 * result + beneLastName.hashCode();
-      result = 31 * result + sharePerc.hashCode();
-      return result;
+      this.beneId = beneId;
    }
 
    private String beneLastName;
@@ -83,14 +50,6 @@ public class BenefiaciaryDetails implements Serializable
 
    }
 
-   /*
-   public BenefiaciaryDetails(String beneFirstName, String beneLastName, Double sharePerc)
-   {
-       this.beneFirstName = beneFirstName;
-       this.beneLastName =beneLastName;
-       this.sharePerc =sharePerc;
-   }
-*/
    public Boolean getManaged()
    {
       return managed;
@@ -100,7 +59,6 @@ public class BenefiaciaryDetails implements Serializable
    {
       this.managed = managed;
    }
-
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -117,8 +75,6 @@ public class BenefiaciaryDetails implements Serializable
    }
    public String doSelectedAction()
    {
-      System.out.println("doSelectedAction() :"+getManaged());
-
       String whichXML;
       try
       {
