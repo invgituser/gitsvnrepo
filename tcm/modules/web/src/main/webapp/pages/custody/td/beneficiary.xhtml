@@ -20,8 +20,7 @@
 
 			<p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary"
 				offLabel="Add Beneficiary" onIcon="ui-icon-minus"
-				offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.addBeneficiary}"
-				>
+				offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.addBeneficiary}">
 
 				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" />
 			</p:selectBooleanButton>
@@ -31,12 +30,13 @@
 				<div class="ContainerIndent">
 					<div class="Container100 MarginBottom">
 						<p:growl id="beneGrowl" autoUpdate="true" escape="false" />
-						<p:dataTable id="singleDT" var="investment"
+
+						<p:dataTable id="singleDT" var="investment" widgetVar="managedTable"
 							value="#{tdcto.beneTempList}"
 							emptyMessage="No beneficiary account added. Add a new beneficiary account"
 							reflow="true">
 
-							<p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
+							<p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom" resizable="true">
 								<p:commandButton id="activeButton"
 									rendered="#{!investment.managed}" styleClass="Fs14 GreenButton"
 									process="@this" immediate="true"
@@ -47,24 +47,27 @@
 									<f:setPropertyActionListener value="#{investment}"
 										target="#{tdcto.selectedAccount}" />
 								</p:commandButton>
+
 								<p:commandButton id="pendingButton"
 									rendered="#{investment.managed}" styleClass="Fs14 BlueButton"
 									process="@this" immediate="true"
 									icon="fa fa-pencil-square-o Fs14 white"
-									ajax="true" update=":ctoForm:tdaccordian:beneficiaryAdd" actionListener="#{tdcto.editTempBeneficiary(investment.beneId)}">
+									update=":ctoForm:tdaccordian:beneficiaryAdd" actionListener="#{tdcto.editTempBeneficiary(investment.beneId)}">
 									<p:tooltip id="pendingToolTipFade" for="pendingButton"
 										value="Edit" />
 									<f:setPropertyActionListener value="#{investment}"
 										target="#{tdcto.selectedAccount}" />
 								</p:commandButton>
+
 								<p:commandButton id="menuDelete" rendered="#{investment.managed}"
 												 styleClass="Fs16 RedButton DualBtnModeRight"
 												 process="@this" immediate="true"
 												 icon="fa fa-trash Fs14 white"
-												 actionListener="#{tdcto.tdMasterData.benefiaciaryDetailses.doSelectedAction}"
-												 update="singleDT">
-									<p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert"/>
+												 actionListener="#{tdcto.doDelete(investment)}"
+												 update=":ctoForm:tdaccordian:singleDT">
+									<p:confirm header="Delete This Benefiaciary" message="Are you sure?" icon="ui-icon-alert"/>
 								</p:commandButton>
+
 							</p:column>
 
 							<p:column styleClass="Wid25 TexAlLeft" sortBy=""
@@ -218,10 +221,10 @@
 
 							<p:commandButton value="Save" ajax="true"
 								update=":ctoForm:tdaccordian:beneficiaryPanel"
-								actionListener="#{tdcto.addTempBeneficiary}"
-								styleClass="ui-priority-primary CommonBtnWidthSave" />
+								actionListener="#{tdcto.addTempBeneficiary()}"
+								styleClass="ui-priority-primary CommonBtnWidthSave">
 
-
+							</p:commandButton>
 						</div>
 						<div class="EmptyBox5"></div>
 					</div>
