@@ -82,6 +82,8 @@ public class TDMasterData implements Serializable
    public void setAcctnum(Long acctnum)
    {
       this.acctnum = acctnum;
+      benefiaciaryDetails.setAcctnum(this.acctnum);
+
    }
 
    public Long getAcctnum()
