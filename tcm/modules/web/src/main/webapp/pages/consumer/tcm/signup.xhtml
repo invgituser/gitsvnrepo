@@ -14,54 +14,53 @@
         <!-- BOX START -->
         <h:form id="suForm">
             <div id="layout-portlets-cover">
-                <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                <div class="other-pages-box Container40 Responsive100 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
                      style="margin-top:5%;">
                     <div class="Container90 Fnone MarAuto TexAlLeft">
-                        <div class="EmptyBox20"></div>
+                     
                         <h:form>
-                            <div class="EmptyBox10"></div>
+                           
                             <div class="Container90">
                                 <p:growl id="sgrowl"/>
                             </div>
                             <div class="EmptyBox5"></div>
-                            <p:panel id="signup" styleClass="Container100" style="border:0px">
+                            <p:panel id="signup" styleClass="Container100" style="border:0px; background: transparent; margin-top:0!important;">
 
-                                <p:panel id="p1" styleClass="Container100 Responsive50" style="border: 0px">
-                                    <div class="ContainerIndent">
-                                        <div class="Container50">
-                                            <p:inputText id="firstName" styleClass="Container95 Fleft MarAuto Fs18"
+                                <p:panel id="p1" styleClass="Container100 Responsive50" style="width: 100%; border: 0px; background: transparent;  margin-top:0!important;">
+                                    <div class="ContainerIndent margin-top-signup">
+                                        <div class="Container100" style="text-align: center;">
+                                            <p:inputText id="firstName" styleClass="Wid40 FS14 InputMergeRight"
                                                          value="#{tdcto.userdata.firstName}" placeholder="FirstName"
                                                          required="true" requiredMessage="Please enter First Name.">
                                             </p:inputText>
-                                        </div>
-                                        <div class="Container50">
-                                            <p:inputText id="lastName" styleClass="Container95 Fs18" style="margin-left: 2px"
+                                        
+                                            <p:inputText id="lastName" styleClass="Wid40 FS14 InputMergeLeft" 
                                                          value="#{tdcto.userdata.lastName}" placeholder="Last Name"
                                                          required="true" requiredMessage="Please enter Last Name.">
                                                 <p:watermark for="lastName" value="Last Name"/>
                                             </p:inputText>
-                                        </div>
-                                    </div>
+                                        
                                     <div class="EmptyBox10"></div>
-                                    <div class="Container100">
-                                        <div class="ContainerIndent">
-                                            <p:inputText id="email" styleClass="Container80 Fleft MarAuto Fs18"
+                                   
+                                            <p:inputText id="email" styleClass="Wid80 FS14"
                                                          value="#{tdcto.userdata.email}" placeholder="Email"
                                                          required="true" requiredMessage="Please enter Email."
                                                          validatorMessage="Email format is not correct.">
                                                 <p:watermark for="email" value="Email Address"/>
                                                 <f:validator validatorId="EmailValidator" />
                                             </p:inputText>
-
-                                        </div>
+</div>
+                                      
                                     </div>
-                                    <div class="EmptyBox10"></div>
+                                    <div class="EmptyBox5"></div>
                                 </p:panel>
 
                                 <f:facet name="footer">
-                                    <p:commandButton value="Register" type="submit" styleClass="Fright"
+                                 <div class="Container100" style="text-align: center;">
+                                    <p:commandButton value="Register" type="submit" 
                                                      update="@form"
                                                      actionListener="#{tdcto.creteSimpleSignup}"/>
+                                                     </div>
                                 </f:facet>
 
                             </p:panel>
@@ -71,7 +70,7 @@
                     </div>
                 </div>
             </div>
-
+<div class="EmptyBox50"></div>
 
         </h:form>
 
