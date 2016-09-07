@@ -11,6 +11,31 @@
                style="margin-bottom: 15px;">
 
               <div class="Container100">
+					<div class="Container45 Fleft">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Employment</label>
+						<div class="EmptyBox5"></div>
+						<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+							style="width: 100%;">
+							<p:ajax />
+							<f:selectItem itemLabel="Select Employemnt" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="e1" itemValue="" />
+							<f:selectItem itemLabel="e2" itemValue="" />
+						</p:selectOneMenu>
+					</div>
+					<div class="Container45 Fright-FAAddress">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Source
+							Of Income</label>
+						<div class="EmptyBox5"></div>
+						<p:inputText styleClass="Wid100 FS14"
+							placeholder="Source Of Income">
+						</p:inputText>
+					</div>
+				</div>
+<div class="EmptyBox20"></div>
+              <div class="Container100">
                   <div class="Container45 Fleft CustomWidthFA-Responsive">
                       <label Class="Container100"
                              style="text-align: left !important; font-weight: bold !important;">Employer
@@ -51,49 +76,7 @@
                       </p:inputText>
                   </div>
                   </div>
-                  <div class="EmptyBox20"></div>
-                   <div class="Container100">
-                   <div class="Container30 Fleft CustomWidthFA-Responsive">
-                      <label Class="Container50"
-                             style="text-align: left !important; font-weight: bold !important;">From</label>
-                      <div class="EmptyBox5"></div>
-                     <p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                       value="#{tdcto.tdMasterData.owneremploymentDetail.fromDate}"
-                                       mask="99/99/9999"
-                                       placeholder="MM/DD/YYYY"
-                                       required="false">
-                          </p:inputMask>
-                  </div>
-                 <!-- <div class="Container20 Fleft CustomWidthFA-Responsive">
-                 <label Class="Container100"
-                          style="text-align: left !important; font-weight: bold !important;">
-                       To
-                   </label>
-                   <div class="EmptyBox5"></div>
-                 
-                 </div> -->
-                  <div class="Container60 Fleft CustomWidthFA-Responsive" style="margin: 0px 30px;">
-                      <label Class="Container50"
-                             style="text-align: left !important; font-weight: bold !important;">To</label>
-                      <div class="EmptyBox5"></div>
-                      <div class="Container30 Fleft">
-                      <div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
-                        <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.recurringFlag}"
-                                                 itemLabel="Present">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel"/>
-                        </p:selectBooleanCheckbox>
-                    </div>
-                    </div>
-                    <div class="Container45 Fleft">
-                     <p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                       value="#{tdcto.tdMasterData.owneremploymentDetail.fromDate}"
-                                       mask="99/99/9999"
-                                       placeholder="MM/DD/YYYY"
-                                       required="false">
-                          </p:inputMask>
-                          </div>
-                  </div>
-              </div>
+
 
 
               <div class="EmptyBox20"></div>
@@ -110,8 +93,7 @@
                               placeholder="Employer Street Address">
                       </p:inputText>
                   </div>
-                  <div
-                          class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                  <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
                   </div>
               </div>
 
@@ -127,8 +109,7 @@
                                    placeholder="City">
                       </p:inputText>
                   </div>
-                  <div
-                          class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+                  <div class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container100"
                              style="text-align: left !important; font-weight: bold !important;">State</label>
 
@@ -143,8 +124,7 @@
                                          var="owneremploeyStates" itemLabel="#{owneremploeyStates.value}" itemValue="#{owneremploeyStates.key}"/>
                       </p:selectOneMenu>
                   </div>
-                  <div
-                          class="Container30 Fright-FAAddress CustomWidthFA-Responsive">
+                  <div class="Container30 Fright-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container100"
                              style="text-align: left !important; font-weight: bold !important;">Zip
                           Code</label>
@@ -171,6 +151,31 @@
           <div class="Container80 Responsive100 MarTop5 MarCenter"
                style="margin-bottom: 15px;">
 
+<div class="Container100">
+					<div class="Container45 Fleft">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Employment</label>
+						<div class="EmptyBox5"></div>
+						<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+							style="width: 100%;">
+							<p:ajax />
+							<f:selectItem itemLabel="Select Employemnt" itemValue=""
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="e1" itemValue="" />
+							<f:selectItem itemLabel="e2" itemValue="" />
+						</p:selectOneMenu>
+					</div>
+					<div class="Container45 Fright-FAAddress">
+						<label Class="Container100"
+							style="text-align: left !important; font-weight: bold !important;">Source
+							Of Income</label>
+						<div class="EmptyBox5"></div>
+						<p:inputText styleClass="Wid100 FS14"
+							placeholder="Source Of Income">
+						</p:inputText>
+					</div>
+				</div>
+<div class="EmptyBox20"></div>
               <div class="Container100">
                   <div class="Container45 Fleft CustomWidthFA-Responsive">
                       <label Class="Container100"
@@ -199,46 +204,7 @@
               </div>
 
               <div class="EmptyBox20"></div>
-              <div class="Container100">
-                  <div class="Container45 Fleft CustomWidthFA-Responsive">
-                      <label Class="Container100"
-                             style="text-align: left !important; font-weight: bold !important;">Type of Business</label>
 
-                      <div class="EmptyBox5"></div>
-                      <p:inputText
-                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                              value="#{tdcto.tdMasterData.jointEmploymentDetail.typeOfBusiness}"
-                              placeholder="Type of business">
-                      </p:inputText>
-                  </div>
-                  <div class="Container50 Fright-FAAddress CustomWidthFA-Responsive">
-                      <label Class="Container50"
-                             style="text-align: left !important; font-weight: bold !important;">From</label>
-
-                      <label Class="Container50"
-                             style="text-align: left !important; font-weight: bold !important;">To</label>
-                      <div class="EmptyBox5"></div>
-                      <div class="Container50">
-                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
-                                       value="#{tdcto.tdMasterData.jointEmploymentDetail.fromDate}"
-                                       mask="99/99/9999"
-                                       placeholder="MM/DD/YYYY"
-                                       required="false">
-                          </p:inputMask>
-
-                      </div>
-                      <div class="Container50">
-                          <p:inputMask styleClass="Wid90 FS14 InputMergeLeft"
-                                       value="#{tdcto.tdMasterData.jointEmploymentDetail.toDate}"
-                                       mask="99/99/9999"
-                                       placeholder="MM/DD/YYYY"
-                                       required="false">
-                          </p:inputMask>
-
-                      </div>
-                  </div>
-
-              </div>
 
 
               <div class="EmptyBox20"></div>

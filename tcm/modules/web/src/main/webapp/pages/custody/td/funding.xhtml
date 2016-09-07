@@ -87,7 +87,7 @@
 					<div class="EmptyBox10"></div>
 					<div class="Container100">
 						<div
-							class="Container100 Fright-FAAddress CustomWidthFA-Responsive">
+							class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
 							<label Class="Container100"
 								style="text-align: left !important; font-weight: bold !important;">
 								Investment Amount </label>
@@ -101,6 +101,19 @@
 								validatorMessage="Min. of $50,000 investment is required!">
 							</pe:inputNumber>
 						</div>
+						<div class="Container45 Fright CustomWidthFA2 MarTop5">
+					<label Class="Container100"
+						style="text-align: left !important; font-weight: bold !important;">
+						Recurring Funding </label>
+					<div class="EmptyBox5"></div>
+					<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
+						<p:selectBooleanCheckbox
+							value="#{tdcto.tdMasterData.recurringFlag}"
+							itemLabel="I would like to make recurring investments.">
+							<p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel" />
+						</p:selectBooleanCheckbox>
+					</div>
+				</div>
 					</div>
 				</div>
 
@@ -176,65 +189,7 @@
 				<p:panel id="acatPanel" styleClass="Container80 FundCenterAlignBlock"
 					style="border: 0px; background: transparent"
 					rendered="#{tdcto.tdMasterData.fundType == 2}">
-					<div class="EmptyBox20"></div>
-					<div class="Container100 FundTitle">TD Ameritrade Account Information</div>
-					<div  class="EmptyBox10"></div>
-					<div class="Container100">
-						<div class="Container32 Fleft CustomWidthFA-Responsive">
-							<label Class="Container100"
-								style="text-align: left !important; font-weight: bold !important;">
-								Account Title / Registration</label>
-
-							<div class="EmptyBox5"></div>
-							<p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-								value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
-								placeholder="Account Title">
-							</p:inputText>
-						</div>
-						<div class="Container32 CustomWidthFA-Responsive">
-							<label Class="Container100"
-								style="text-align: left !important; font-weight: bold !important;">Social
-								Security Number</label>
-
-							<div class="EmptyBox5"></div>
-							<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-								value="#{tdcto.tdMasterData.acctOwnersDetail.ssn}"
-								mask="999-99-9999" placeholder="###-##-####" required="false">
-							</p:inputMask>
-						</div>
-						<div class="Container32 CustomWidthFA-Responsive">
-							<label Class="Container100"
-								style="text-align: left !important; font-weight: bold !important;">
-								Clearing Number</label>
-
-							<div class="EmptyBox5"></div>
-							<p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-								value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
-								placeholder="Clearing Number">
-							</p:inputText>
-						</div>
-					</div>
-					<div class="EmptyBox20"></div>
-					<div class="Container100">
-						<div class="Container30 CustomWidthFA-Responsive">
-							<label Class="Container100"
-								style="text-align: left !important; font-weight: bold !important;">Account Type</label>
-
-							<div class="EmptyBox5"></div>
-							<p:selectOneMenu styleClass="FundAccountDropdownUI"
-								style="width: 100%;">
-								<p:ajax />
-								<f:selectItem itemLabel="Select Account Type" itemValue=""
-									noSelectionOption="true" />
-								<f:selectItem itemLabel="Joint"/>
-								<f:selectItem itemLabel="Roth IRA"/>
-								<f:selectItem itemLabel="UTMA / UGMA"/>
-								<f:selectItem itemLabel="Traditional IRA / Rollover IRA"/>
-								<f:selectItem itemLabel="Beneficiary IRA"/>
-							</p:selectOneMenu>
-						</div>
-					</div>
-					<!-- 2 -->
+										<!-- 2 -->
 					<div class="EmptyBox20"></div>
 					<div class="Container100 FundTitle">Information on the account your transferring from</div>
 					<div  class="EmptyBox10"></div>
@@ -446,13 +401,19 @@
 				</p:panel>
 
 			</p:panel>
+<div class="Container100 MarTop20" style="margin: 10px 10px;">
+				<p:commandLink styleClass="UI-prevButtonFA Fleft" />
 
+				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+			</div>
 		</p:tab>
 
 		<p:tab title="Recurring">
 			<p:panel id="recurrringPanel" styleClass="Container100"
 				style="border: 0px; background: transparent">
-				<div class="Container45 Fright CustomWidthFA2 MarTop5">
+				<div class="Container80 Responsive90 MarTop5 MarCenter ui-color"
+					style="margin-bottom: 15px; border: 0px; background: transparent">
+				<div class="Container100 Fright CustomWidthFA2 MarTop5">
 					<label Class="Container100"
 						style="text-align: left !important; font-weight: bold !important;">
 						Recurring Funding </label>
@@ -489,8 +450,7 @@
 								<f:selectItem itemLabel="Yearly" itemValue="Yearly" />
 							</p:selectOneMenu>
 						</div>
-						<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
-						</div>
+
 					</div>
 
 					<div class="EmptyBox20"></div>
@@ -501,13 +461,13 @@
 								Amount </label>
 
 							<div class="EmptyBox5"></div>
-							<pe:inputNumber
+							<p:inputNumber
 								styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
 								value="#{tdcto.tdMasterData.electroicBankDetail.tranAmount}"
 								maxlength="8" symbol="$" decimalPlaces="2" required="false"
 								requiredMessage="Min. of $50 is required!"
 								validatorMessage="Min. of $50 is required!">
-							</pe:inputNumber>
+							</p:inputNumber>
 						</div>
 						<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
 							<label Class="Container100"
@@ -515,7 +475,7 @@
 								Start Date </label>
 
 							<div class="EmptyBox5"></div>
-							<p:inputMask styleClass="Wid40 FS14 InputMergeRight"
+							<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 								value="#{tdcto.tdMasterData.electroicBankDetail.tranStartDate}"
 								mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
 							</p:inputMask>
@@ -586,8 +546,15 @@
 
 
 				</p:panel>
+		</div>
 			</p:panel>
+			<div class="Container100 MarTop20" style="margin: 10px 10px;">
+				<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+			</div>
 		</p:tab>
+
 	</p:tabView>
 
 
