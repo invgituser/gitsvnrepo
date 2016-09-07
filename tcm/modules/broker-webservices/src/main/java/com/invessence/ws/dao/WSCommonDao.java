@@ -3,7 +3,6 @@ package com.invessence.ws.dao;
 import java.sql.SQLException;
 import java.util.*;
 
-import com.invessence.service.bean.ServiceDetails;
 import com.invessence.ws.bean.*;
 
 /**

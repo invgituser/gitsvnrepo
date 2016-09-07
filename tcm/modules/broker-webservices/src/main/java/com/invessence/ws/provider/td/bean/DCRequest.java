@@ -10,6 +10,28 @@ public class DCRequest
    private String reqType;
    private String envelopeId;
    private String status;
+   private Integer eventNum;
+      private String envelopeHeading;
+
+   public String getEnvelopeHeading()
+   {
+      return envelopeHeading;
+   }
+
+   public void setEnvelopeHeading(String envelopeHeading)
+   {
+      this.envelopeHeading = envelopeHeading;
+   }
+
+   public Integer getEventNum()
+   {
+      return eventNum;
+   }
+
+   public void setEventNum(Integer eventNum)
+   {
+      this.eventNum = eventNum;
+   }
 
    public Long getAcctnum()
    {
@@ -70,6 +92,8 @@ public class DCRequest
          ", reqType='" + reqType + '\'' +
          ", envelopeId='" + envelopeId + '\'' +
          ", status='" + status + '\'' +
+         ", eventNum=" + eventNum +
+         ", envelopeHeading='" + envelopeHeading + '\'' +
          '}';
    }
 }

@@ -34,8 +34,16 @@ public class TDDaoLayerImpl implements TDDaoLayer
    private final String updateEnvelopDetails="update dc_requests set envelopeId=? where eventNum=?";
    private final String insertReqAudit = "insert into dc_request_audit(eventNum, envelopeDetails, status, remarks, reqTime, resTime) value (?,?,?,?,?,?)";
 
+   // Move Money
+   private final String getMove_money_details="select * from vwdc_move_money_details where eventNum =? and acctnum=? ";
+   private final String getMMAchBankDetails="select * from vwdc_mm_ach_bank_details where moveMoneyPayMethodID =? ";
+   private final String getMMFedwireAcctDetails="select * from vwdc_mm_internal_transfer_details where moveMoneyPayMethodID =? ";
+   private final String getMMInternalTransferDetails="select * from vwdc_mm_fedwire_acct_details where moveMoneyPayMethodID =? ";
+
+
+
    @Override
-   public List<DCRequest> getDCRequests(Long acctNum, int eventNum) throws SQLException
+   public List<DCRequest> getDCRequests(Long acctNum, Integer eventNum) throws SQLException
    {
       List<DCRequest> lst = null;
       logger.debug("getDCRequests = "+getDCRequests);
@@ -96,6 +104,46 @@ public class TDDaoLayerImpl implements TDDaoLayer
       List<BenefiaciaryDetails> lst = null;
       logger.debug("getBenefiaciaryDetails = "+getBenefiaciaryDetails);
       lst = webServiceJdbcTemplate.query(getBenefiaciaryDetails, new Object[]{acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(BenefiaciaryDetails.class));
+
+      return lst;
+   }
+
+   @Override
+   public MoveMoneyDetails getMoveMoneyDetails(Long acctNum, Integer eventNum) throws SQLException
+   {
+      List<MoveMoneyDetails> lst = null;
+      logger.debug("getMoveMoneyDetails = "+getMove_money_details);
+      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{eventNum,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
+
+      return lst==null || lst.size()<=0 ? null: lst.get(0);
+   }
+
+   @Override
+   public List<MMAchBankDetails> getMMAchBankDetails(Long acctNum, Long moveMoneyPayMethodID) throws SQLException
+   {
+      List<MMAchBankDetails> lst = null;
+      logger.debug("getMMAchBankDetails = "+getMMAchBankDetails);
+      lst = webServiceJdbcTemplate.query(getMMAchBankDetails, new Object[]{moveMoneyPayMethodID}, ParameterizedBeanPropertyRowMapper.newInstance(MMAchBankDetails.class));
+
+      return lst;
+   }
+
+   @Override
+   public List<MMFedwireAcctDetails> getMMFedwireAcctDetails(Long acctNum, Long moveMoneyPayMethodID) throws SQLException
+   {
+      List<MMFedwireAcctDetails> lst = null;
+      logger.debug("getMMFedwireAcctDetails = "+getMMFedwireAcctDetails);
+      lst = webServiceJdbcTemplate.query(getMMFedwireAcctDetails, new Object[]{moveMoneyPayMethodID}, ParameterizedBeanPropertyRowMapper.newInstance(MMFedwireAcctDetails.class));
+
+      return lst;
+   }
+
+   @Override
+   public List<MMInternalTransferDetails> getMMInternalTransferDetails(Long acctNum, Long moveMoneyPayMethodID) throws SQLException
+   {
+      List<MMInternalTransferDetails> lst = null;
+      logger.debug("getMMInternalTransferDetails = "+getMMInternalTransferDetails);
+      lst = webServiceJdbcTemplate.query(getMMInternalTransferDetails, new Object[]{moveMoneyPayMethodID}, ParameterizedBeanPropertyRowMapper.newInstance(MMInternalTransferDetails.class));
 
       return lst;
    }

@@ -4,7 +4,7 @@ import java.net.UnknownHostException;
 import java.util.*;
 
 import com.invessence.emailer.util.EmailCreator;
-import com.invessence.service.bean.ServiceDetails;
+import com.invessence.service.bean.ServiceOperationDetails;
 import com.invessence.service.util.*;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
@@ -1200,16 +1200,20 @@ public class ServiceLayerImpl implements ServiceLayer
          logger.error("Service Operation details are not available in context.");
       }else if(ServiceParameters.serviceDetailsMap.containsKey(Constant.SERVICES.BROKER_WEBSERVICES.toString())){
          System.out.println(ServiceParameters.BROKER_WEBSERVICE_API);
-        List<ServiceDetails>sd= ServiceParameters.serviceDetailsMap.get(Constant.SERVICES.BROKER_WEBSERVICES.toString()).get(ServiceParameters.BROKER_WEBSERVICE_API);
+         Map<String,ServiceOperationDetails>sd= ServiceParameters.serviceDetailsMap.get(Constant.SERVICES.BROKER_WEBSERVICES.toString()).get(ServiceParameters.BROKER_WEBSERVICE_API);
 
-         Iterator<ServiceDetails> itr=sd.iterator();
-         while(itr.hasNext()){
-            ServiceDetails sdi=itr.next();
-            if(sdi.getOperation().equalsIgnoreCase(operation.toString())){
-               result =true;
-               break;
-            }
+         if(sd.containsKey(operation.toString())){
+            result =true;
          }
+
+//         Iterator<ServiceOperationDetails> itr=sd.iterator();
+//         while(itr.hasNext()){
+//            ServiceOperationDetails sdi=itr.next();
+//            if(sdi.getOperation().equalsIgnoreCase(operation.toString())){
+//               result =true;
+//               break;
+//            }
+//         }
       }
       return result;
    }

@@ -11,13 +11,21 @@ import com.invessence.ws.provider.td.bean.*;
  */
 public interface TDDaoLayer
 {
-   public List<DCRequest> getDCRequests(Long acctNum, int eventNum)throws SQLException;
+   public List<DCRequest> getDCRequests(Long acctNum, Integer eventNum)throws SQLException;
 
    public AcctDetails getAcctDetails(Long acctNum, Long reqId, boolean reqAllData)throws SQLException;
 
    public List<AcctOwnerDetails> getAcctOwnerDetails(Long acctNum, Long reqId, boolean reqAllData)throws SQLException;
 
    public List<BenefiaciaryDetails> getBenefiaciaryDetails(Long acctNum, Long reqId)throws SQLException;
+
+   public MoveMoneyDetails getMoveMoneyDetails(Long acctNum, Integer eventNum)throws SQLException;
+
+   public List<MMAchBankDetails> getMMAchBankDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
+
+   public List<MMFedwireAcctDetails> getMMFedwireAcctDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
+
+   public List<MMInternalTransferDetails> getMMInternalTransferDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
 
    void updateEnvelopDetails(int eventNum, EnvelopeSummary envelopeSummary)throws SQLException;
 }

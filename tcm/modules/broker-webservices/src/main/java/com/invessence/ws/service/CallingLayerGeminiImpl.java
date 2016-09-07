@@ -27,7 +27,7 @@ public class CallingLayerGeminiImpl implements CallingLayer
 
 
    @Override
-   public WSCallResult processDCRequest(Long acctNum, int eventNum) throws Exception
+   public WSCallResult processDCRequest(Long acctNum, Integer eventNum) throws Exception
    {
       return null;
    }
