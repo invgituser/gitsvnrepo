@@ -16,6 +16,7 @@ public class DCTemplateDetails
    private String status;
    private String remark;
    private String configFile;
+   private String authRequired;
    private Map<String, List<DCTemplateMapping>>dcTemplateMappings;
 
    @Override
@@ -30,9 +31,19 @@ public class DCTemplateDetails
          ", tempName='" + tempName + '\'' +
          ", status='" + status + '\'' +
          ", remark='" + remark + '\'' +
-         ", configFile='" + configFile + '\'' +
+         ", authRequired='" + authRequired + '\'' +
          ", dcTemplateMappings=" + dcTemplateMappings +
          '}';
+   }
+
+   public String getAuthRequired()
+   {
+      return authRequired;
+   }
+
+   public void setAuthRequired(String authRequired)
+   {
+      this.authRequired = authRequired;
    }
 
    public String getConfigFile()

@@ -5,10 +5,20 @@ import java.util.Map;
 /**
  * Created by abhangp on 4/20/2016.
  */
-public class ServiceDetails
+public class ServiceOperationDetails
 {
-   private String company, service, serviceStatus, operation, vendor, operationStatus;
+   private String company, service, serviceStatus, operation, vendor, operationStatus, refValue;
    private int priority;
+
+   public String getRefValue()
+   {
+      return refValue;
+   }
+
+   public void setRefValue(String refValue)
+   {
+      this.refValue = refValue;
+   }
 
    public String getCompany()
    {
@@ -83,13 +93,14 @@ public class ServiceDetails
    @Override
    public String toString()
    {
-      return "ServiceDetails{" +
+      return "ServiceOperationDetails{" +
          "company='" + company + '\'' +
          ", service='" + service + '\'' +
          ", serviceStatus='" + serviceStatus + '\'' +
          ", operation='" + operation + '\'' +
          ", vendor='" + vendor + '\'' +
          ", operationStatus='" + operationStatus + '\'' +
+         ", refValue='" + refValue + '\'' +
          ", priority=" + priority +
          '}';
    }

@@ -22,7 +22,7 @@ public class ServiceDaoImpl implements ServiceDao
 
    private final String getSwitchDetails = "SELECT name, value, format, description FROM vw_invessence_switch where name in('COMPANY_NAME')";
    private final String getServiceConfigDetails ="select * from vw_service_config_details where mode =? and company=? order by company, mode, service, vendor";
-   private final String getServiceDetails ="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, vendor";
+   private final String getServiceOperationDetails ="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, vendor";
    private final String getWebConfigDetails ="select * from web_site_info where status = 'A' and mode =? and company=? order by service, vendor, name";
 
    private final String getDCTemplateDetails ="select * from dc_template_details where status = 'A' and mode =? and company=? order by service, tempCode";
@@ -66,13 +66,13 @@ public class ServiceDaoImpl implements ServiceDao
       return lst;
    }
 
-   public List<ServiceDetails> getServiceOperationDetails(String serviceMode, String company) throws SQLException
+   public List<ServiceOperationDetails> getServiceOperationDetails(String serviceMode, String company) throws SQLException
    {
       logger.info("ServiceDaoImpl.getServiceOperationDetails");
       logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "]");
-      logger.debug("getServiceOperationDetails = "+ getServiceDetails);
-      List<ServiceDetails> lst = null;
-      lst = serviceJdbcTemplate.query(getServiceDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceDetails.class));
+      logger.debug("getServiceOperationDetails = "+ getServiceOperationDetails);
+      List<ServiceOperationDetails> lst = null;
+      lst = serviceJdbcTemplate.query(getServiceOperationDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceOperationDetails.class));
       return lst;
    }
 

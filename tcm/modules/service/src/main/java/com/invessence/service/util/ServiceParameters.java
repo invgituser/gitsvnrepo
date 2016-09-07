@@ -70,9 +70,9 @@ public class ServiceParameters
          '}';
    }
 
-   private Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetailsMap;
+   private static Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetailsMap;
 
-   public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
+   public static Map<String, Map<String, Map<String,ServiceOperationDetails>>> serviceDetailsMap;
    public static Map<String, Map<String, WebConfigDetails>> webSiteConfigDetailsMap;
 
    public static Map<String, Object> additionalDetails=null;
@@ -438,36 +438,37 @@ public class ServiceParameters
       System.out.println("SysParameters.setServiceDetails");
       try{
          loadPrimaryData();
-         List<ServiceDetails> serviceDetailsList=wsCommonDao.getServiceOperationDetails(SERVICE_MODE, COMPANY_NAME);
+         List<ServiceOperationDetails> serviceDetailsList=wsCommonDao.getServiceOperationDetails(SERVICE_MODE, COMPANY_NAME);
          if(serviceDetailsList==null ||serviceDetailsList.size()==0){
             logger.error("Configuration details are not available for company="+ COMPANY_NAME);
          }else
          {
-            Iterator<ServiceDetails> itr = serviceDetailsList.iterator();
-            Map<String, Map<String, List<ServiceDetails>>> serviceDetails = new LinkedHashMap<String, Map<String, List<ServiceDetails>>>();
-            Map<String, List<ServiceDetails>> apiDetails = null;
-            List<ServiceDetails> listOfOperation = null;
+            Iterator<ServiceOperationDetails> itr = serviceDetailsList.iterator();
+            Map<String, Map<String, Map<String, ServiceOperationDetails>>> serviceDetails = new LinkedHashMap<String, Map<String, Map<String, ServiceOperationDetails>>>();
+            Map<String, Map<String, ServiceOperationDetails>> apiDetails = null;
+            Map<String, ServiceOperationDetails> listOfOperation = null;
             String serviceKey = null, apiKey = null;
-            ServiceDetails servDetails = null;
+            ServiceOperationDetails servDetails = null;
+
             while (itr.hasNext())
             {
-               servDetails = (ServiceDetails) itr.next();
+               servDetails = (ServiceOperationDetails) itr.next();
 //            System.out.println("servDetails = " + servDetails);
                if (serviceKey == null)
                {
                   serviceKey = servDetails.getService();
                   apiKey = servDetails.getVendor();
-                  apiDetails = new LinkedHashMap<String, List<ServiceDetails>>();
+                  apiDetails = new LinkedHashMap<String, Map<String, ServiceOperationDetails>>();
 
-                  listOfOperation = new ArrayList<ServiceDetails>();
-                  listOfOperation.add(servDetails);
+                  listOfOperation = new LinkedHashMap<String, ServiceOperationDetails>();
+                  listOfOperation.put(servDetails.getOperation(),servDetails);
 
                }
                else if (servDetails.getService().equalsIgnoreCase(serviceKey))
                {
                   if (servDetails.getVendor().equalsIgnoreCase(apiKey))
                   {
-                     listOfOperation.add(servDetails);
+                     listOfOperation.put(servDetails.getOperation(),servDetails);
                   }
                   else if (!servDetails.getVendor().equalsIgnoreCase(apiKey))
                   {
@@ -475,8 +476,8 @@ public class ServiceParameters
                      apiDetails.put(apiKey, listOfOperation);
 
                      apiKey = servDetails.getVendor();
-                     listOfOperation = new ArrayList<ServiceDetails>();
-                     listOfOperation.add(servDetails);
+                     listOfOperation = new LinkedHashMap<String, ServiceOperationDetails>();
+                     listOfOperation.put(servDetails.getOperation(),servDetails);
                   }
 
                }
@@ -491,11 +492,9 @@ public class ServiceParameters
 //               apiDetails.put(apiKey,listOfOperation);
 
                   apiKey = servDetails.getVendor();
-                  apiDetails = new LinkedHashMap<String, List<ServiceDetails>>();
-                  listOfOperation = new ArrayList<ServiceDetails>();
-                  listOfOperation.add(servDetails);
-
-
+                  apiDetails = new LinkedHashMap<String, Map<String, ServiceOperationDetails>>();
+                  listOfOperation = new LinkedHashMap<String, ServiceOperationDetails>();
+                  listOfOperation.put(servDetails.getOperation(),servDetails);
                }
                //System.out.println("servDetails = " + servDetails);
 
@@ -510,22 +509,25 @@ public class ServiceParameters
             System.out.println("**** Operation Details ****");
             System.out.println("************************************************************");
             System.out.println("------------------------------------------------------------");
-            Iterator<Map.Entry<String, Map<String, List<ServiceDetails>>>> entries = serviceDetails.entrySet().iterator();
+            Iterator<Map.Entry<String, Map<String, Map<String,ServiceOperationDetails>>>> entries = serviceDetails.entrySet().iterator();
             while (entries.hasNext())
             {
-               Map.Entry<String, Map<String, List<ServiceDetails>>> entry = entries.next();
+               Map.Entry<String, Map<String, Map<String,ServiceOperationDetails>>> entry = entries.next();
 //            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-               Iterator<Map.Entry<String, List<ServiceDetails>>> entries2 = entry.getValue().entrySet().iterator();
+               Iterator<Map.Entry<String, Map<String,ServiceOperationDetails>>> entries2 = entry.getValue().entrySet().iterator();
                while (entries2.hasNext())
                {
-                  Map.Entry<String, List<ServiceDetails>> entry2 = entries2.next();
+                  Map.Entry<String, Map<String,ServiceOperationDetails>> entry2 = entries2.next();
                   System.out.println("Service = " + entry.getKey() + "\t Vendor = " + entry2.getKey());
                   System.out.println("------------------------------------------------------------");
-                  Iterator<ServiceDetails> entries3 = entry2.getValue().iterator();
+                  //Iterator<ServiceOperationDetails> entries3 = entry2.getValue().iterator();
+                  Iterator<Map.Entry<String,ServiceOperationDetails>> entries3 = entry2.getValue().entrySet().iterator();
+
                   while (entries3.hasNext())
                   {
-                     ServiceDetails entry3 = entries3.next();
-                     System.out.println("Operation = " + entry3.getOperation() + ", Status = " + entry3.getOperationStatus() + ", Vendor = " + entry3.getVendor());
+                     Map.Entry<String,ServiceOperationDetails> entry3 = entries3.next();
+
+                     System.out.println("Operation = " + entry3.getKey() + ", Status = " + entry3.getValue().getOperationStatus() + ", Vendor = " + entry3.getValue().getVendor());
                   }
                }
                System.out.println("------------------------------------------------------------");
@@ -874,5 +876,31 @@ public class ServiceParameters
 //   }
 //
 
+   public static String getConfigProperty(String service, String provider, String property)
+   {
 
+      if (serviceConfigDetailsMap.get(service) == null)
+      {
+         logger.debug("Value not available for Service :" + service);
+      }
+      else
+      {
+         if (serviceConfigDetailsMap.get(service).get(provider) == null)
+         {
+            logger.debug("Value not available for Provider :" + provider);
+         }
+         else
+         {
+            if (serviceConfigDetailsMap.get(service).get(provider).get(property) == null)
+            {
+               logger.debug("Value not available for Property :" + property);
+            }
+            else
+            {
+               return serviceConfigDetailsMap.get(service).get(provider).get(property).getValue();
+            }
+         }
+      }
+      return null;
+   }
 }
