@@ -91,4 +91,21 @@ public class Constant
          return this.getValue();
       }
    }
+
+   public enum ADDITIONAL_DETAILS {
+      TEMPLATE_DETAILS("TEMPLATE_DETAILS"),DOCUMENT_DETAILS("DOCUMENT_DETAILS");
+      private String value;
+
+      private ADDITIONAL_DETAILS(String value) {
+         this.value = value;
+      }
+      private String getValue() {
+         return value;
+      }
+
+      @Override
+      public String toString() {
+         return this.getValue();
+      }
+   }
 }

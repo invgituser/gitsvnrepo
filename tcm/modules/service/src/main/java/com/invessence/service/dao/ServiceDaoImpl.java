@@ -28,6 +28,10 @@ public class ServiceDaoImpl implements ServiceDao
    private final String getDCTemplateDetails ="select * from dc_template_details where status = 'A' and mode =? and company=? order by service, tempCode";
    private final String getDCTemplateMapping ="select * from dc_template_mapping where tempCode=? and (dbColumn IS NOT NULL or dbColumn != '')order by role, tab";
 
+   private final String getDCDocumentDetails ="select * from dc_document_details where status = 'A' and company=? order by service, docCode";
+   private final String getDCDocumentMapping ="select * from dc_document_mapping where docCode=? order by role, tab";
+
+
    private final String getLookupDetails ="select * from mast_lookup where status='A'";
 
 
@@ -151,6 +155,74 @@ public class ServiceDaoImpl implements ServiceDao
             role = dcTemplateMapping.getRole();
             listOfColumn = new ArrayList<DCTemplateMapping>();
             listOfColumn.add(dcTemplateMapping);
+         }
+         //System.out.println("servDetails = " + servDetails);
+
+      }
+      if (clientWiseMapping != null)
+      {
+         clientWiseMapping.put(role, listOfColumn);
+      }
+      return clientWiseMapping;
+   }
+
+   @Override
+   public Map<String,DCDocumentDetails> getDCDocumentDetails(String serviceMode, String company) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getDCDocumentDetails");
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "]");
+      logger.debug("getDCDocumentDetails = "+ getDCDocumentDetails);
+      Map<String,DCDocumentDetails> map=null;
+      List<DCDocumentDetails> lst = null;
+      lst = serviceJdbcTemplate.query(getDCDocumentDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(DCDocumentDetails.class));
+      if(lst !=null && lst.size()>0){
+         map=new HashMap<>();
+         Iterator<DCDocumentDetails> itr=lst.iterator();
+         while(itr.hasNext()){
+            DCDocumentDetails dct=(DCDocumentDetails)itr.next();
+            map.put(dct.getDocCode(),dct);
+         }
+      }
+      return map;
+   }
+
+   @Override
+   public Map<String, List<DCDocumentMapping>> getDCDocumentMapping(String serviceMode, String company, String tempCode) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getDCDocumentMapping");
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "], tempCode = [" + tempCode + "]");
+      logger.debug("getDCDocumentMapping = "+ getDCDocumentMapping);
+      Map<String,DCDocumentMapping> map=null;
+      List<DCDocumentMapping> lst = null;
+      lst = serviceJdbcTemplate.query(getDCDocumentMapping, new Object[]{tempCode}, ParameterizedBeanPropertyRowMapper.newInstance(DCDocumentMapping.class));
+
+      Map<String, List<DCDocumentMapping>> clientWiseMapping = new LinkedHashMap<>();
+      List<DCDocumentMapping> listOfColumn = null;
+      String role = null;//, tab = null;
+      DCDocumentMapping dcDocumentMapping = null;
+      Iterator<DCDocumentMapping> itr=lst.iterator();
+      while (itr.hasNext())
+      {
+         dcDocumentMapping = (DCDocumentMapping) itr.next();
+         if (role == null)
+         {
+            role = dcDocumentMapping.getRole();
+
+            listOfColumn = new ArrayList<DCDocumentMapping>();
+            listOfColumn.add(dcDocumentMapping);
+
+         }
+         else if (dcDocumentMapping.getRole().equalsIgnoreCase(role))
+         {
+            listOfColumn.add(dcDocumentMapping);
+         }
+         else if (!dcDocumentMapping.getRole().equalsIgnoreCase(role))
+         {
+            clientWiseMapping.put(role, listOfColumn);
+
+            role = dcDocumentMapping.getRole();
+            listOfColumn = new ArrayList<DCDocumentMapping>();
+            listOfColumn.add(dcDocumentMapping);
          }
          //System.out.println("servDetails = " + servDetails);
 

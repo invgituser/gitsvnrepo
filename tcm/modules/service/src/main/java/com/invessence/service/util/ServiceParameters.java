@@ -75,7 +75,7 @@ public class ServiceParameters
    public static Map<String, Map<String, Map<String,ServiceOperationDetails>>> serviceDetailsMap;
    public static Map<String, Map<String, WebConfigDetails>> webSiteConfigDetailsMap;
 
-   public static Map<String, Object> additionalDetails=null;
+   public static Map<String, Map<String,Object>> additionalDetails=null;
 
    public static Map<String, Object> genericDetails=null;
 
@@ -365,14 +365,18 @@ public class ServiceParameters
    public void loadAdditionalDetails(String service){
       System.out.println("ServiceParameters.loadAdditionalDetails");
       System.out.println("service = [" + service + "]");
+      Map<String, Object> innerAdditionalDetails=null;
       if(service.equals(Constant.SERVICES.DOCUSIGN_SERVICES.toString())){
 
          try
          {
             Map<String,DCTemplateDetails> dcTemplateDetails = wsCommonDao.getDCTemplateDetails(SERVICE_MODE, COMPANY_NAME);
-            if(dcTemplateDetails.size()>0)
+            if(dcTemplateDetails==null || dcTemplateDetails.size()<=0){
+               logger.debug("DC Template Details are not available");
+            }
+            else
             {
-               if(additionalDetails==null){additionalDetails=new LinkedHashMap<>();}
+               if(innerAdditionalDetails==null){innerAdditionalDetails=new LinkedHashMap<>();}
 
                Iterator<Map.Entry<String, DCTemplateDetails>> dcTemplateDetailsIterator = dcTemplateDetails.entrySet().iterator();
                while (dcTemplateDetailsIterator.hasNext())
@@ -391,11 +395,45 @@ public class ServiceParameters
 
                      dcTemplateDetail.getValue().setDcTemplateMappings(dcTemplateMappings);
                   }
-                  System.out.println("dcTemplateDetail = " + dcTemplateDetail);
+//                  System.out.println("dcTemplateDetail = " + dcTemplateDetail);
                }
-               additionalDetails.put(service,dcTemplateDetails );
+               innerAdditionalDetails.put(Constant.ADDITIONAL_DETAILS.TEMPLATE_DETAILS.toString(),dcTemplateDetails);
             }
+
+            Map<String,DCDocumentDetails> dcDocumentDetails = wsCommonDao.getDCDocumentDetails(SERVICE_MODE, COMPANY_NAME);
+            if(dcDocumentDetails==null || dcDocumentDetails.size()<=0){
+               logger.debug("DC Document Details are not available");
+            }
+            else
+            {
+               if(innerAdditionalDetails==null){innerAdditionalDetails=new LinkedHashMap<>();}
+
+               Iterator<Map.Entry<String, DCDocumentDetails>> dcDocumentDetailsIterator = dcDocumentDetails.entrySet().iterator();
+               while (dcDocumentDetailsIterator.hasNext())
+               {
+                  Map.Entry<String, DCDocumentDetails> dcDocumentDetail = (Map.Entry<String, DCDocumentDetails>) dcDocumentDetailsIterator.next();
+                  System.out.println("dcDocument = " + dcDocumentDetail);
+                  Map<String, List<DCDocumentMapping>> dcDocumentMappings = wsCommonDao.getDCDocumentMapping(SERVICE_MODE, COMPANY_NAME, dcDocumentDetail.getValue().getDocCode());
+
+//                  while (dcDocumentMappingIterator.hasNext())
+//                  {
+//                     DCDocumentMapping dcDocumentMapping = (DCDocumentMapping) dcDocumentMappingIterator.next();
+//                  }
+                  if(dcDocumentMappings !=null &&dcDocumentMappings.size()>0){
+                     HashMap hm=new HashMap<String, Map<String, Map<String, List<DCDocumentMapping>>>>();
+                     hm.put(dcDocumentDetail.getValue().getDocCode(),dcDocumentMappings);
+
+                     dcDocumentDetail.getValue().setDcDocumentMappings(dcDocumentMappings);
+                  }
+//                  System.out.println("dcDocumentDetail = " + dcDocumentDetail);
+               }
+               innerAdditionalDetails.put(Constant.ADDITIONAL_DETAILS.DOCUMENT_DETAILS.toString(),dcDocumentDetails);
+            }
+            if(additionalDetails==null){additionalDetails=new LinkedHashMap<>();}
+            additionalDetails.put(service,innerAdditionalDetails);
+
             System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+            System.out.println(additionalDetails);
          }catch(Exception e){
             logger.error("Exception while loading service details");
             logger.error(e.getMessage());
@@ -434,8 +472,8 @@ public class ServiceParameters
    }
 
    @Autowired
-   public void setServiceDetails() {
-      System.out.println("SysParameters.setServiceDetails");
+   public void setServiceOperationDetails() {
+      System.out.println("SysParameters.setServiceOperationDetails");
       try{
          loadPrimaryData();
          List<ServiceOperationDetails> serviceDetailsList=wsCommonDao.getServiceOperationDetails(SERVICE_MODE, COMPANY_NAME);

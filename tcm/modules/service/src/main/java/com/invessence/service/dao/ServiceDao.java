@@ -18,6 +18,9 @@ public interface ServiceDao
    public Map<String,DCTemplateDetails> getDCTemplateDetails(String serviceMode, String company) throws SQLException;
    public Map<String, List<DCTemplateMapping>> getDCTemplateMapping(String serviceMode, String company, String tempCode) throws SQLException;
 
+   public Map<String,DCDocumentDetails> getDCDocumentDetails(String serviceMode, String company) throws SQLException;
+   public Map<String, List<DCDocumentMapping>> getDCDocumentMapping(String serviceMode, String company, String tempCode) throws SQLException;
+
    public List<LookupDetails> getLookupDetails() throws SQLException;
 
 }
