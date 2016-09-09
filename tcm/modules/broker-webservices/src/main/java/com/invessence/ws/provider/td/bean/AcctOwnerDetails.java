@@ -12,6 +12,7 @@ public class AcctOwnerDetails
    private String firstName;
    private String midInitial;
    private String lastName;
+   private String fullName;
    private String ssn;
    private String dob;
    private String phoneNumber;
@@ -34,6 +35,16 @@ public class AcctOwnerDetails
    public void setEmploymentDetails(List<EmploymentDetails> employmentDetails)
    {
       this.employmentDetails = employmentDetails;
+   }
+
+   public String getFullName()
+   {
+      return fullName;
+   }
+
+   public void setFullName(String fullName)
+   {
+      this.fullName = fullName;
    }
 
    public VisaDetails getVisaDetails()

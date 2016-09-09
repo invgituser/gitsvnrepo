@@ -28,4 +28,6 @@ public interface TDDaoLayer
    public List<MMInternalTransferDetails> getMMInternalTransferDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
 
    void updateEnvelopDetails(int eventNum, EnvelopeSummary envelopeSummary)throws SQLException;
+
+   public boolean callDCAuditSP(DCRequestAudit dcRequest);
 }

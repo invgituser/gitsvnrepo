@@ -65,7 +65,7 @@ public class SysParameters
 //      }
 //   }
 //   @Autowired
-//   public void setServiceDetails() {
+//   public void setServiceOperationDetails() {
 //      try{
 //         List<ServiceDetails> serviceDetailsList=wsCommonDao.getServiceOperationDetails(Const.COMPANY_NAME);
 //         Iterator<ServiceDetails>itr=serviceDetailsList.iterator();

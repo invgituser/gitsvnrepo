@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.*;
 
 import com.docusign.esign.model.EnvelopeSummary;
+import com.invessence.ws.bean.*;
 import com.invessence.ws.provider.td.bean.VisaDetails;
 import com.invessence.ws.provider.td.bean.*;
+import com.invessence.ws.util.WSConstants;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -156,5 +158,26 @@ public class TDDaoLayerImpl implements TDDaoLayer
 
       logger.debug("updateEnvelopDetails = "+updateEnvelopDetails);
       webServiceJdbcTemplate.update(updateEnvelopDetails, new Object[]{envelopeSummary.getEnvelopeId(),eventNum});
+   }
+
+
+   public boolean callDCAuditSP(DCRequestAudit dcRequest)
+   {
+      try
+      {
+         logger.info("TDDaoLayerImpl.callDCAuditSP");
+         logger.debug("dcRequest = " + dcRequest);
+
+         SPDCRequestAuditrial requestAuditrialSP = new SPDCRequestAuditrial(webServiceJdbcTemplate);
+         dcRequest.setResTime(new Date());
+         dcRequest.setOpt(WSConstants.dbInsertOpt);
+         logger.debug("dcRequest.setOpt = " + dcRequest.getOpt());
+         DBResponse dbResponse = requestAuditrialSP.execute(dcRequest);
+         logger.debug("dbResponse = [" + dbResponse.toString() + "]");
+      }catch (Exception e){
+         logger.error("Issue while storing web request in DB :"+e.getMessage());
+
+      }
+      return true;
    }
 }

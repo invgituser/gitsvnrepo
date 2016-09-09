@@ -31,7 +31,7 @@ public class CallingLayerTDImpl implements CallingLayer
       List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
       if(dcRequests.size()>0)
       {
-         CompositeTemplate compositeTemplate = tdAccountOpeningLayer.docuSignRequestHandler(dcRequests);
+         tdAccountOpeningLayer.docuSignRequestHandler(dcRequests);
       }else{
          System.out.println("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       }

@@ -2,8 +2,12 @@ package com.invessence.ws.provider.td.docusign;
 
 import java.io.IOException;
 import java.lang.reflect.*;
+import java.nio.file.*;
 import java.util.*;
+import java.util.Date;
 import java.util.List;
+
+import javax.xml.bind.DatatypeConverter;
 
 import com.docusign.esign.api.*;
 import com.docusign.esign.client.*;
@@ -18,8 +22,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.*;
 import com.invessence.service.bean.*;
 import com.invessence.service.util.*;
-import com.invessence.web.constant.Const;
 import com.invessence.ws.provider.td.bean.*;
+import com.invessence.ws.provider.td.dao.TDDaoLayer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -34,6 +39,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class DCUtility
 {
+   @Autowired
+   TDDaoLayer tdDaoLayer;
    public EnvelopeSummary createEnvelope (EnvelopeDefinition envDef)
    {
       try {
@@ -98,14 +105,18 @@ public class DCUtility
 //      //===============================================================================
 //
 //
+      Date reqTime= null;
       try
       {
          // use the |accountId| we retrieved through the Login API to create the Envelope
-         String accountId = loginAccounts.get(0).getAccountId();
+         //String accountId = loginAccounts.get(0).getAccountId();
+
+         String accountId=ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ACCOUNT_ID");
+
 
          // instantiate a new EnvelopesApi object
          EnvelopesApi envelopesApi = new EnvelopesApi();
-
+         reqTime= new Date();
          // call the createEnvelope() API
          // envDef.setCustomFields(customFields);
          envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
@@ -117,10 +128,13 @@ public class DCUtility
          System.out.println("Exception: " + ex);
       }
 
+      DCRequestAudit dcRequest = new DCRequestAudit(1,envDef==null?"":"",envelopeSummary==null?"":envelopeSummary.toString(),"S", reqTime, envelopeSummary==null?"":envelopeSummary.getEnvelopeId());
+      tdDaoLayer.callDCAuditSP(dcRequest);
+//      return new WSCallResult(new WSCallStatus(mailingAddressesResult.getErrorStatus().getErrorCode(), mailingAddressesResult.getErrorStatus().getErrorMessage()),userAcctExt);
+
+
       return envelopeSummary;
    }
-
-
 
    public ServerTemplate getServerTemplate (String sequence, DCTemplateDetails dcTemplateDetails){
 
@@ -210,22 +224,22 @@ public class DCUtility
 //            if (acctOwner.getOwnership().equalsIgnoreCase("Client"))
 //            {
 //               System.out.println("Client");
-//               dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
+//               dcDocumentMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
             List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
-              // System.out.println("dcTemplateMappingList = " + dcTemplateMappingList);
+              // System.out.println("dcDocumentMappingList = " + dcDocumentMappingList);
                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
 //            }
 //            else if (acctOwner.getOwnership().equalsIgnoreCase("Joint"))
 //            {
 //               System.out.println("Joint");
-//               dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Joint");
-//               if (dcTemplateMappingList == null || dcTemplateMappingList.size() <= 0)
+//               dcDocumentMappingList = dcTemplateDetails.getDcTemplateMappings().get("Joint");
+//               if (dcDocumentMappingList == null || dcDocumentMappingList.size() <= 0)
 //               {
 //
 //               }
 //               else
 //               {
-//                  getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
+//                  getTabObject(dcDocumentMappingList, dbColumns, textboxLst, signHereLst, radioGroupLst, listboxLst, acctOwner);
 //               }
 //            }
          }
@@ -246,16 +260,151 @@ public class DCUtility
          recipients.setSigners(signerLst);
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
          CarbonCopy cc = new CarbonCopy();
-         cc.setEmail("abhang.patil@gmail.com");
-         cc.setName("Abhang A. Patil");
+         cc.setEmail(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"CCMAIL"));
+         //cc.setName("Abhang A. Patil");
          cc.setRecipientId("1");
          recipients.getCarbonCopies().add(cc);
       }
       return recipients;
    }
 
-   private List<Signer> getSigners(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<Text> textboxLst,
-                                   List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst){
+   public InlineTemplate getInlineTemplateAgreements(Map<String,DCDocumentDetails> dcDocumentDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
+   {
+      System.out.println("*****************************************************");
+      System.out.println("DCUtility.getInlineTemplateAgreements");
+      System.out.println("*****************************************************");
+
+      List<String> dbColumns=null;
+      InlineTemplate inlineTemplate=null;
+      List<Signer> signerLst=new ArrayList<>();
+
+      Tabs tabs = new Tabs();
+      List<Text> textboxLst=new ArrayList<>();
+      List<SignHere> signHereLst=new ArrayList<>();
+      Recipients recipients=null;
+
+      int signerRecipientId=1;
+      Iterator<AcctOwnerDetails> itr = acctOwnerDetails.iterator();
+      while (itr.hasNext())
+      {
+         AcctOwnerDetails acctOwner = (AcctOwnerDetails) itr.next();
+         Signer signer=null;
+         if(acctOwner.getOwnership().equalsIgnoreCase("Client")){
+            signer=new Signer();
+            signer.setEmail(acctOwner.getEmailAddress());
+            signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
+            signer.roleName(acctOwner.getOwnership());
+            signer.setRecipientId(""+signerRecipientId);
+
+         }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
+               signer=new Signer();
+               signer.setEmail(acctOwner.getEmailAddress());
+               signer.setName(acctOwner.getFirstName());
+               signer.roleName(acctOwner.getOwnership());
+               signer.setRecipientId(""+signerRecipientId);
+         }
+         if(signer!=null)
+         {
+            signerLst.add(signer);
+            signerRecipientId ++;
+         }
+
+      }
+      final String SignTest1File = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"DOC_PATH");//"[PATH/TO/DOCUMENT/TEST.PDF]";
+
+
+      List<Document> docs = new ArrayList<Document>();
+
+      List<DCDocumentMapping> dcDocumentDetailsList=null;
+
+      int documentId=1;
+      Iterator<Map.Entry<String,DCDocumentDetails>> docItr = dcDocumentDetails.entrySet().iterator();
+      while (docItr.hasNext())
+      {
+         Map.Entry<String, DCDocumentDetails> dcDocumentDetail1 = (Map.Entry<String, DCDocumentDetails>) docItr.next();
+         DCDocumentDetails dcDocumentDetail=dcDocumentDetail1.getValue();
+         System.out.println(dcDocumentDetail);
+
+         byte[] fileBytes = null;
+
+         try
+         {
+            // read file from a local directory
+            Path path = Paths.get(SignTest1File+"//"+dcDocumentDetail.getFileName());
+
+            fileBytes = Files.readAllBytes(path);
+         }
+         catch (IOException ioExcp)
+         {
+            // handle error
+            System.out.println("Exception: " + ioExcp);
+         }
+
+         Document doc = new Document();
+         String base64Doc = DatatypeConverter.printBase64Binary(fileBytes);//Base64.getEncoder().encodeToString(fileBytes);
+         doc.setDocumentBase64(base64Doc);
+         doc.setName(dcDocumentDetail.getDocName());    // can be different from actual file name
+         doc.setDocumentId(""+documentId);
+
+
+         if(dcDocumentDetail.getEditable().equalsIgnoreCase("Y"))
+         {
+
+            Iterator<AcctOwnerDetails> itr2 = acctOwnerDetails.iterator();
+            while (itr2.hasNext())
+            {
+               AcctOwnerDetails acctOwner = (AcctOwnerDetails) itr2.next();
+
+               dbColumns=null;
+               try
+               {
+                  dbColumns=getFieldNames(acctOwner, false);
+               }
+               catch (IllegalAccessException e)
+               {
+                  e.printStackTrace();
+               }
+
+
+               dcDocumentDetailsList = dcDocumentDetail.getDcDocumentMappings().get(acctOwner.getOwnership());
+               getTabObject(dcDocumentDetailsList,dbColumns,textboxLst,signHereLst,acctOwner, ""+documentId);
+            }
+         }
+         if(doc!=null)
+         {
+            docs.add(doc);
+            documentId ++;
+         }
+      }
+
+      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
+      if(signHereLst.size()>0){tabs.setSignHereTabs(signHereLst);}
+
+      if(signerLst.size()>0){
+         Iterator<Signer> signerItr=signerLst.iterator();
+         while(signerItr.hasNext()){
+            Signer signer=(Signer)signerItr.next();
+            signer.setTabs(tabs);
+         }
+         recipients=new Recipients();
+         recipients.setSigners(signerLst);
+         recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
+         CarbonCopy cc = new CarbonCopy();
+         cc.setEmail(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"CCMAIL"));
+         cc.setName("Carbon Copy");
+         cc.setRecipientId("1");
+         recipients.getCarbonCopies().add(cc);
+         inlineTemplate=new InlineTemplate();
+         inlineTemplate.setSequence("1");
+         inlineTemplate.setRecipients(recipients);
+         //inlineTemplate.setDocuments(docs);
+         printJsonObject(inlineTemplate);
+      }
+
+      return inlineTemplate;
+   }
+
+   private List<Signer> getSigners(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst){
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
       try
@@ -300,7 +449,7 @@ public class DCUtility
                signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
             }
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-            System.out.println("dcTemplateMappingList = " + dcTemplateMappingList);
+            System.out.println("dcDocumentMappingList = " + dcTemplateMappingList);
             getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
 
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
@@ -354,6 +503,24 @@ public class DCUtility
       }
 
    }
+
+   private void getTabObject(List<DCDocumentMapping> dcDocumentMappingList, List<String> dbColumns, List<Text> textboxLst, List<SignHere> signHereLst, Object dataObject, String documentId){
+      Iterator<DCDocumentMapping> itr1= dcDocumentMappingList.iterator();
+      while (itr1.hasNext()){
+         DCDocumentMapping dcDocumentMapping=(DCDocumentMapping)itr1.next();
+         if(dbColumns.contains(dcDocumentMapping.getDbColumn())){
+
+            if(dcDocumentMapping.getTab().equalsIgnoreCase("Textbox")){
+               Text text=getText(dcDocumentMapping, dataObject, documentId);
+               if(text==null){}else{textboxLst.add(text);}
+            }else if(dcDocumentMapping.getTab().equalsIgnoreCase("SIgnHere")){
+               SignHere text=getSignHere(dcDocumentMapping, dataObject, documentId);
+               if(text==null){}else{
+                  signHereLst.add(text);}
+            }
+         }
+      }
+   }
    private IdCheckInformationInput getKBAInputs(AcctOwnerDetails acctOwnerDetails){
       IdCheckInformationInput idCheckInformationInput=new IdCheckInformationInput();
       AddressInformationInput addressInformationInput=new AddressInformationInput();
@@ -376,6 +543,56 @@ public class DCUtility
       idCheckInformationInput.setDobInformationInput(dobInformationInput);
 
      return idCheckInformationInput;
+   }
+
+   private Text getText (DCDocumentMapping documentMapping, Object dataObject, String documentId){
+      Text text=null;
+      try
+      {
+         text=new Text();
+         text.setTabLabel(documentMapping.getLable());
+         text.xPosition(documentMapping.getxPosition());
+         text.yPosition(documentMapping.getyPosition());
+         text.setDocumentId(""+documentId);
+         text.setPageNumber(documentMapping.getPageNumber());
+         text.setWidth(documentMapping.getWidth());
+         text.setHeight(documentMapping.getHeight());
+
+         text.setValue(getInstanceValue(dataObject, documentMapping.getDbColumn()).toString());
+      }
+      catch (NoSuchFieldException e)
+      {
+         System.out.println("dctemplate.getLable() :"+documentMapping.getLable());
+         e.printStackTrace();
+      }
+      catch (ClassNotFoundException e)
+      {
+         System.out.println("dctemplate.getLable() :"+documentMapping.getLable());
+         e.printStackTrace();
+      }
+      catch (IllegalAccessException e)
+      {
+         System.out.println("dctemplate.getLable() :"+documentMapping.getLable());
+         e.printStackTrace();
+      }
+      return text;
+   }
+   private SignHere getSignHere (DCDocumentMapping documentMapping, Object dataObject, String documentId){
+      SignHere signHere=null;
+      try
+      {
+         signHere = new SignHere();
+         signHere.setTabLabel(documentMapping.getLable());
+         signHere.setDocumentId("" + documentId);
+         signHere.setPageNumber(documentMapping.getPageNumber());
+         //signHere.setRecipientId("1");
+         signHere.setXPosition(documentMapping.getxPosition());
+         signHere.setYPosition(documentMapping.getyPosition());
+
+      }catch (Exception e){
+
+      }
+      return signHere;
    }
 
    private Text getText (DCTemplateMapping dctemplate, Object dataObject){
@@ -492,7 +709,7 @@ public class DCUtility
       return list;
    }
 
-   public static Object getInstanceValue(final Object classInstance, final String fieldName) throws SecurityException,     NoSuchFieldException,ClassNotFoundException,          IllegalArgumentException, IllegalAccessException {
+   public static Object getInstanceValue(final Object classInstance, final String fieldName) throws SecurityException,     NoSuchFieldException,ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
 
       // Get the private field
       final Field field = classInstance.getClass().getDeclaredField(fieldName);
@@ -501,84 +718,6 @@ public class DCUtility
       // Return the Obect corresponding to the field
       return field.get(classInstance);
 
-   }
-
-
-   public Tabs getTabs (String jsonString, Map<String, DCTemplateMapping> mapping){
-      //String jsonString="[{\"defaultRecipient\": \"false\",\"signInEachLocation\": \"false\",\"email\": \"\",\"accessCode\": \"\",\"requireIdLookup\": \"true\",\"idCheckConfigurationName\": \"ID Check $\",\"routingOrder\": \"10\",\"note\": \"\",\"roleName\": \"Client\",\"inheritEmailNotificationConfiguration\": \"false\",\"recipientType\": \"signer\",\"tabs\": {\"signHereTabs\": [{\"stampType\": \"signature\",\"tabLabel\": \"Signature 104\",\"scaleValue\": \"0.8\",\"optional\": \"false\"}],\"initialHereTabs\": [{\"tabLabel\": \"LPOA Initials\",\"scaleValue\": \"0.75\",\"optional\": \"false\"}, {\"tabLabel\": \"Man Fee Initials\",\"scaleValue\": \"0.75\",\"optional\": \"false\"}],\"dateSignedTabs\": [{\"value\": \"\",\"tabLabel\": \"Date Signed\"}],\"textTabs\": [{\"value\": \"\",\"tabLabel\": \"FirmName\"}, {\"value\": \"\",\"tabLabel\": \"PrimaryContact\"}, {\"value\": \"\",\"tabLabel\": \"SSN\"}, {\"value\": \"\",\"tabLabel\": \"DOB\"}, {\"value\": \"\",\"tabLabel\": \"MailingAddressCity\"}, {\"value\": \"\",\"tabLabel\": \"PhysicalAddressCity\"}, {\"value\": \"\",\"tabLabel\": \"PhysicalAddressZipCode\"}, {\"value\": \"\",\"tabLabel\": \"PhoneNumber\"}, {\"value\": \"\",\"tabLabel\": \"PhysicalAddressStreet\"}, {\"value\": \"\",\"tabLabel\": \"MailingAddressStreet\"}, {\"value\": \"\",\"tabLabel\": \"MailingAddressZipCode\"}, {\"value\": \"\",\"tabLabel\": \"DupAddressCompany\"}, {\"value\": \"\",\"tabLabel\": \"FullName\"}, {\"value\": \"\",\"tabLabel\": \"SecondPhoneNumber\"}, {\"value\": \"\",\"tabLabel\": \"AccountNumber\"}, {\"value\": \"\",\"tabLabel\": \"repcode\"}, {\"value\": \"\",\"tabLabel\": \"TypeOfBusiness\"}, {\"value\": \"\",\"tabLabel\": \"EmployerStreetAddress\"}, {\"value\": \"\",\"tabLabel\": \"EmployerCity\"}, {\"value\": \"\",\"tabLabel\": \"CountryOfDualCitizenship\"}, {\"value\": \"\",\"tabLabel\": \"CaseNumber\"}, {\"value\": \"\",\"tabLabel\": \"FirstName\"}, {\"value\": \"\",\"tabLabel\": \"LastName\"}, {\"value\": \"\",\"tabLabel\": \"MidInitial\"}, {\"value\": \"\",\"tabLabel\": \"EstateName\"}, {\"value\": \"\",\"tabLabel\": \"EmployerZipCode\"}, {\"value\": \"\",\"tabLabel\": \"EmailAddress\"}, {\"value\": \"\",\"tabLabel\": \"DupAddressName\"}, {\"value\": \"\",\"tabLabel\": \"DupAddressStreet\"}, {\"value\": \"\",\"tabLabel\": \"DupAddressCity\"}, {\"value\": \"\",\"tabLabel\": \"DupAddressZipCode\"}, {\"value\": \"\",\"tabLabel\": \"CustForMinorState\"}, {\"value\": \"\",\"tabLabel\": \"TICOwner%\"}, {\"value\": \"\",\"tabLabel\": \"DecedentAccountNumber\"}, {\"value\": \"\",\"tabLabel\": \"SPFDetail\"}, {\"value\": \"\",\"tabLabel\": \"DirectorShareholderDetail\"}, {\"value\": \"\",\"tabLabel\": \"BDDetail\"}, {\"value\": \"\",\"tabLabel\": \"TICCOOwner%\"}, {\"value\": \"\",\"tabLabel\": \"VisaExpiration\"}, {\"value\": \"\",\"tabLabel\": \"CountryOfCitizenship\"}, {\"value\": \"\",\"tabLabel\": \"CountryOfBirth\"}, {\"value\": \"\",\"tabLabel\": \"SourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"EmployerName\"}, {\"value\": \"\",\"tabLabel\": \"Occupation\"}, {\"value\": \"\",\"tabLabel\": \"VisaNumber\"}, {\"value\": \"\",\"tabLabel\": \"Occupation\"}, {\"value\": \"\",\"tabLabel\": \"SourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"EmployerName\"}, {\"value\": \"\",\"tabLabel\": \"SourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"SourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"CountryOfCitizenship\"}, {\"value\": \"\",\"tabLabel\": \"CountryOfBirth\"}],\"noteTabs\": [{\"value\": \"If you choose not to initial the LPOA or Management Fee section, simply uncheck the check box to the left of the initial box.\",\"tabLabel\": \"Note\",\"font\": \"arial\",\"bold\": \"true\",\"italic\": \"false\",\"underline\": \"false\",\"fontColor\": \"brightred\"}, {\"value\": \"If you choose not to initial the LPOA or Management Fee section, simply uncheck the check box to the left of the initial box.\",\"tabLabel\": \"Note\",\"font\": \"arial\",\"bold\": \"true\",\"italic\": \"false\",\"underline\": \"false\",\"fontColor\": \"brightred\"}],\"checkboxTabs\": [{\"tabLabel\": \"NoCorpComm\",\"selected\": \"false\"}, {\"tabLabel\": \"DupTradeConfirm\",\"selected\": \"false\"}, {\"tabLabel\": \"PhoneNumberNonUS\",\"selected\": \"false\"}, {\"tabLabel\": \"SecondPhoneNumberNonUS\",\"selected\": \"false\"}, {\"tabLabel\": \"##parent458c4da2-4e71-47ff-96c8-8109be730cc3##DupStatement\",\"selected\": \"false\"}, {\"tabLabel\": \"##parentcf7c9315-b404-4e5f-a31a-2c7ce62632f9##SPF\",\"selected\": \"false\"}, {\"tabLabel\": \"##parent5e32c9ee-bd2b-4b69-83e0-0f4e834ceb77##DirectorShareholder\",\"selected\": \"false\"}, {\"tabLabel\": \"##parentf1b52420-165e-45a3-a658-6acbf74a9604##BD\",\"selected\": \"false\"}, {\"tabLabel\": \"##parent93a23c85-c137-4dbe-b4bf-e5faf39bee4a##LPOA Checkbox\",\"selected\": \"true\"}, {\"tabLabel\": \"##parente3d13c44-563b-4658-9087-a60ffa940c72##Man Fee Checkbox\",\"selected\": \"true\"}],\"radioGroupTabs\": [{\"groupName\": \"AccountType\",\"radios\": [{\"value\": \"CustodianForMinor\",\"selected\": \"false\"}, {\"value\": \"JointTenants\",\"selected\": \"false\"}, {\"value\": \"TenantsInCommon\",\"selected\": \"false\"}, {\"value\": \"CommunityProperty\",\"selected\": \"false\"}, {\"value\": \"TenantsByTheEntireties\",\"selected\": \"false\"}, {\"value\": \"Estate\",\"selected\": \"false\"}, {\"value\": \"Guardianship\",\"selected\": \"false\"}, {\"value\": \"Conservatorship\",\"selected\": \"false\"}]}, {\"groupName\": \"cashsweepvehiclechoice\",\"radios\": [{\"value\": \"TDAFDICIDA\",\"selected\": \"false\"}, {\"value\": \"TDACASH\",\"selected\": \"false\"}]}, {\"groupName\": \"DivIntPref\",\"radios\": [{\"value\": \"Hold\",\"selected\": \"false\"}, {\"value\": \"Mail\",\"selected\": \"false\"}]}, {\"groupName\": \"MonthlyStatements\",\"radios\": [{\"value\": \"Electronic\",\"selected\": \"false\"}, {\"value\": \"Paper\",\"selected\": \"false\"}]}, {\"groupName\": \"TradeConfirmations\",\"radios\": [{\"value\": \"Electronic\",\"selected\": \"false\"}, {\"value\": \"Paper\",\"selected\": \"false\"}]}, {\"groupName\": \"Proxy\",\"radios\": [{\"value\": \"Client\",\"selected\": \"false\"}, {\"value\": \"Agent\",\"selected\": \"false\"}, {\"value\": \"Agent/Client\",\"selected\": \"false\"}]}, {\"groupName\": \"Employment\",\"radios\": [{\"value\": \"Unemployed\",\"selected\": \"false\"}, {\"value\": \"Retired\",\"selected\": \"false\"}, {\"value\": \"Homemaker\",\"selected\": \"false\"}, {\"value\": \"Student\",\"selected\": \"false\"}, {\"value\": \"SelfEmployed\",\"selected\": \"false\"}]}, {\"groupName\": \"USVisa\",\"radios\": [{\"value\": \"No\",\"selected\": \"false\"}]}, {\"groupName\": \"Citizenship\",\"radios\": [{\"value\": \"NotUSCitizen\",\"selected\": \"false\"}, {\"value\": \"PermanentResident\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent2261d822-0e41-4c72-9729-cacb1f1514e1##AccountType\",\"radios\": [{\"value\": \"Individual\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent71dcbe65-cff3-4140-b218-2958a194cc83##USVisa\",\"radios\": [{\"value\": \"Yes\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent4d7af60a-2b4c-4a25-9fc4-bcf476114ca3##Employment\",\"radios\": [{\"value\": \"Employed\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent9ecf8129-629d-497e-a04f-1fbca6ae621e##Citizenship\",\"radios\": [{\"value\": \"USCitizen\",\"selected\": \"false\"}]}],\"listTabs\": [{\"listItems\": [{\"text\": \"AA\",\"value\": \"AA\",\"selected\": \"false\"}, {\"text\": \"AE\",\"value\": \"AE\",\"selected\": \"false\"}, {\"text\": \"AK\",\"value\": \"AK\",\"selected\": \"false\"}, {\"text\": \"AL\",\"value\": \"AL\",\"selected\": \"false\"}, {\"text\": \"AP\",\"value\": \"AP\",\"selected\": \"false\"}, {\"text\": \"AS\",\"value\": \"AS\",\"selected\": \"false\"}, {\"text\": \"AZ\",\"value\": \"AZ\",\"selected\": \"false\"}, {\"text\": \"AR\",\"value\": \"AR\",\"selected\": \"false\"}, {\"text\": \"CA\",\"value\": \"CA\",\"selected\": \"false\"}, {\"text\": \"CO\",\"value\": \"CO\",\"selected\": \"false\"}, {\"text\": \"CT\",\"value\": \"CT\",\"selected\": \"false\"}, {\"text\": \"DE\",\"value\": \"DE\",\"selected\": \"false\"}, {\"text\": \"DC\",\"value\": \"DC\",\"selected\": \"false\"}, {\"text\": \"FL\",\"value\": \"FL\",\"selected\": \"false\"}, {\"text\": \"FM\",\"value\": \"FM\",\"selected\": \"false\"}, {\"text\": \"GA\",\"value\": \"GA\",\"selected\": \"false\"}, {\"text\": \"GU\",\"value\": \"GU\",\"selected\": \"false\"}, {\"text\": \"HI\",\"value\": \"HI\",\"selected\": \"false\"}, {\"text\": \"ID\",\"value\": \"ID\",\"selected\": \"false\"}, {\"text\": \"IL\",\"value\": \"IL\",\"selected\": \"false\"}, {\"text\": \"IN\",\"value\": \"IN\",\"selected\": \"false\"}, {\"text\": \"IA\",\"value\": \"IA\",\"selected\": \"false\"}, {\"text\": \"KS\",\"value\": \"KS\",\"selected\": \"false\"}, {\"text\": \"KY\",\"value\": \"KY\",\"selected\": \"false\"}, {\"text\": \"LA\",\"value\": \"LA\",\"selected\": \"false\"}, {\"text\": \"ME\",\"value\": \"ME\",\"selected\": \"false\"}, {\"text\": \"MD\",\"value\": \"MD\",\"selected\": \"false\"}, {\"text\": \"MA\",\"value\": \"MA\",\"selected\": \"false\"}, {\"text\": \"MH\",\"value\": \"MH\",\"selected\": \"false\"}, {\"text\": \"MI\",\"value\": \"MI\",\"selected\": \"false\"}, {\"text\": \"MN\",\"value\": \"MN\",\"selected\": \"false\"}, {\"text\": \"MP\",\"value\": \"MP\",\"selected\": \"false\"}, {\"text\": \"MS\",\"value\": \"MS\",\"selected\": \"false\"}, {\"text\": \"MO\",\"value\": \"MO\",\"selected\": \"false\"}, {\"text\": \"MT\",\"value\": \"MT\",\"selected\": \"false\"}, {\"text\": \"NE\",\"value\": \"NE\",\"selected\": \"false\"}, {\"text\": \"NV\",\"value\": \"NV\",\"selected\": \"false\"}, {\"text\": \"NH\",\"value\": \"NH\",\"selected\": \"false\"}, {\"text\": \"NJ\",\"value\": \"NJ\",\"selected\": \"false\"}, {\"text\": \"NM\",\"value\": \"NM\",\"selected\": \"false\"}, {\"text\": \"NY\",\"value\": \"NY\",\"selected\": \"false\"}, {\"text\": \"NC\",\"value\": \"NC\",\"selected\": \"false\"}, {\"text\": \"ND\",\"value\": \"ND\",\"selected\": \"false\"}, {\"text\": \"OH\",\"value\": \"OH\",\"selected\": \"false\"}, {\"text\": \"OK\",\"value\": \"OK\",\"selected\": \"false\"}, {\"text\": \"OR\",\"value\": \"OR\",\"selected\": \"false\"}, {\"text\": \"PA\",\"value\": \"PA\",\"selected\": \"false\"}, {\"text\": \"PR\",\"value\": \"PR\",\"selected\": \"false\"}, {\"text\": \"PW\",\"value\": \"PW\",\"selected\": \"false\"}, {\"text\": \"RI\",\"value\": \"RI\",\"selected\": \"false\"}, {\"text\": \"SC\",\"value\": \"SC\",\"selected\": \"false\"}, {\"text\": \"SD\",\"value\": \"SD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"TX\",\"value\": \"TX\",\"selected\": \"false\"}, {\"text\": \"UT\",\"value\": \"UT\",\"selected\": \"false\"}, {\"text\": \"VT\",\"value\": \"VT\",\"selected\": \"false\"}, {\"text\": \"VA\",\"value\": \"VA\",\"selected\": \"false\"}, {\"text\": \"VI\",\"value\": \"VI\",\"selected\": \"false\"}, {\"text\": \"WA\",\"value\": \"WA\",\"selected\": \"false\"}, {\"text\": \"WV\",\"value\": \"WV\",\"selected\": \"false\"}, {\"text\": \"WI\",\"value\": \"WI\",\"selected\": \"false\"}, {\"text\": \"WY\",\"value\": \"WY\",\"selected\": \"false\"}, {\"text\": \"N/A\",\"value\": \"N/A\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"PhysicalAddressState\",\"font\": \"arial\"}, {\"listItems\": [{\"text\": \"AA\",\"value\": \"AA\",\"selected\": \"false\"}, {\"text\": \"AE\",\"value\": \"AE\",\"selected\": \"false\"}, {\"text\": \"AK\",\"value\": \"AK\",\"selected\": \"false\"}, {\"text\": \"AL\",\"value\": \"AL\",\"selected\": \"false\"}, {\"text\": \"AP\",\"value\": \"AP\",\"selected\": \"false\"}, {\"text\": \"AS\",\"value\": \"AS\",\"selected\": \"false\"}, {\"text\": \"AZ\",\"value\": \"AZ\",\"selected\": \"false\"}, {\"text\": \"AR\",\"value\": \"AR\",\"selected\": \"false\"}, {\"text\": \"CA\",\"value\": \"CA\",\"selected\": \"false\"}, {\"text\": \"CO\",\"value\": \"CO\",\"selected\": \"false\"}, {\"text\": \"CT\",\"value\": \"CT\",\"selected\": \"false\"}, {\"text\": \"DE\",\"value\": \"DE\",\"selected\": \"false\"}, {\"text\": \"DC\",\"value\": \"DC\",\"selected\": \"false\"}, {\"text\": \"FL\",\"value\": \"FL\",\"selected\": \"false\"}, {\"text\": \"FM\",\"value\": \"FM\",\"selected\": \"false\"}, {\"text\": \"GA\",\"value\": \"GA\",\"selected\": \"false\"}, {\"text\": \"GU\",\"value\": \"GU\",\"selected\": \"false\"}, {\"text\": \"HI\",\"value\": \"HI\",\"selected\": \"false\"}, {\"text\": \"ID\",\"value\": \"ID\",\"selected\": \"false\"}, {\"text\": \"IL\",\"value\": \"IL\",\"selected\": \"false\"}, {\"text\": \"IN\",\"value\": \"IN\",\"selected\": \"false\"}, {\"text\": \"IA\",\"value\": \"IA\",\"selected\": \"false\"}, {\"text\": \"KS\",\"value\": \"KS\",\"selected\": \"false\"}, {\"text\": \"KY\",\"value\": \"KY\",\"selected\": \"false\"}, {\"text\": \"LA\",\"value\": \"LA\",\"selected\": \"false\"}, {\"text\": \"ME\",\"value\": \"ME\",\"selected\": \"false\"}, {\"text\": \"MD\",\"value\": \"MD\",\"selected\": \"false\"}, {\"text\": \"MA\",\"value\": \"MA\",\"selected\": \"false\"}, {\"text\": \"MH\",\"value\": \"MH\",\"selected\": \"false\"}, {\"text\": \"MI\",\"value\": \"MI\",\"selected\": \"false\"}, {\"text\": \"MN\",\"value\": \"MN\",\"selected\": \"false\"}, {\"text\": \"MP\",\"value\": \"MP\",\"selected\": \"false\"}, {\"text\": \"MS\",\"value\": \"MS\",\"selected\": \"false\"}, {\"text\": \"MO\",\"value\": \"MO\",\"selected\": \"false\"}, {\"text\": \"MT\",\"value\": \"MT\",\"selected\": \"false\"}, {\"text\": \"NE\",\"value\": \"NE\",\"selected\": \"false\"}, {\"text\": \"NV\",\"value\": \"NV\",\"selected\": \"false\"}, {\"text\": \"NH\",\"value\": \"NH\",\"selected\": \"false\"}, {\"text\": \"NJ\",\"value\": \"NJ\",\"selected\": \"false\"}, {\"text\": \"NM\",\"value\": \"NM\",\"selected\": \"false\"}, {\"text\": \"NY\",\"value\": \"NY\",\"selected\": \"false\"}, {\"text\": \"NC\",\"value\": \"NC\",\"selected\": \"false\"}, {\"text\": \"ND\",\"value\": \"ND\",\"selected\": \"false\"}, {\"text\": \"OH\",\"value\": \"OH\",\"selected\": \"false\"}, {\"text\": \"OK\",\"value\": \"OK\",\"selected\": \"false\"}, {\"text\": \"OR\",\"value\": \"OR\",\"selected\": \"false\"}, {\"text\": \"PA\",\"value\": \"PA\",\"selected\": \"false\"}, {\"text\": \"PR\",\"value\": \"PR\",\"selected\": \"false\"}, {\"text\": \"PW\",\"value\": \"PW\",\"selected\": \"false\"}, {\"text\": \"RI\",\"value\": \"RI\",\"selected\": \"false\"}, {\"text\": \"SC\",\"value\": \"SC\",\"selected\": \"false\"}, {\"text\": \"SD\",\"value\": \"SD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"TX\",\"value\": \"TX\",\"selected\": \"false\"}, {\"text\": \"UT\",\"value\": \"UT\",\"selected\": \"false\"}, {\"text\": \"VT\",\"value\": \"VT\",\"selected\": \"false\"}, {\"text\": \"VA\",\"value\": \"VA\",\"selected\": \"false\"}, {\"text\": \"VI\",\"value\": \"VI\",\"selected\": \"false\"}, {\"text\": \"WA\",\"value\": \"WA\",\"selected\": \"false\"}, {\"text\": \"WV\",\"value\": \"WV\",\"selected\": \"false\"}, {\"text\": \"WI\",\"value\": \"WI\",\"selected\": \"false\"}, {\"text\": \"WY\",\"value\": \"WY\",\"selected\": \"false\"}, {\"text\": \"N/A\",\"value\": \"N/A\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"MailingAddressState\",\"font\": \"arial\"}, {\"listItems\": [{\"text\": \"AA\",\"value\": \"AA\",\"selected\": \"false\"}, {\"text\": \"AE\",\"value\": \"AE\",\"selected\": \"false\"}, {\"text\": \"AK\",\"value\": \"AK\",\"selected\": \"false\"}, {\"text\": \"AL\",\"value\": \"AL\",\"selected\": \"false\"}, {\"text\": \"AP\",\"value\": \"AP\",\"selected\": \"false\"}, {\"text\": \"AS\",\"value\": \"AS\",\"selected\": \"false\"}, {\"text\": \"AZ\",\"value\": \"AZ\",\"selected\": \"false\"}, {\"text\": \"AR\",\"value\": \"AR\",\"selected\": \"false\"}, {\"text\": \"CA\",\"value\": \"CA\",\"selected\": \"false\"}, {\"text\": \"CO\",\"value\": \"CO\",\"selected\": \"false\"}, {\"text\": \"CT\",\"value\": \"CT\",\"selected\": \"false\"}, {\"text\": \"DE\",\"value\": \"DE\",\"selected\": \"false\"}, {\"text\": \"DC\",\"value\": \"DC\",\"selected\": \"false\"}, {\"text\": \"FL\",\"value\": \"FL\",\"selected\": \"false\"}, {\"text\": \"FM\",\"value\": \"FM\",\"selected\": \"false\"}, {\"text\": \"GA\",\"value\": \"GA\",\"selected\": \"false\"}, {\"text\": \"GU\",\"value\": \"GU\",\"selected\": \"false\"}, {\"text\": \"HI\",\"value\": \"HI\",\"selected\": \"false\"}, {\"text\": \"ID\",\"value\": \"ID\",\"selected\": \"false\"}, {\"text\": \"IL\",\"value\": \"IL\",\"selected\": \"false\"}, {\"text\": \"IN\",\"value\": \"IN\",\"selected\": \"false\"}, {\"text\": \"IA\",\"value\": \"IA\",\"selected\": \"false\"}, {\"text\": \"KS\",\"value\": \"KS\",\"selected\": \"false\"}, {\"text\": \"KY\",\"value\": \"KY\",\"selected\": \"false\"}, {\"text\": \"LA\",\"value\": \"LA\",\"selected\": \"false\"}, {\"text\": \"ME\",\"value\": \"ME\",\"selected\": \"false\"}, {\"text\": \"MD\",\"value\": \"MD\",\"selected\": \"false\"}, {\"text\": \"MA\",\"value\": \"MA\",\"selected\": \"false\"}, {\"text\": \"MH\",\"value\": \"MH\",\"selected\": \"false\"}, {\"text\": \"MI\",\"value\": \"MI\",\"selected\": \"false\"}, {\"text\": \"MN\",\"value\": \"MN\",\"selected\": \"false\"}, {\"text\": \"MP\",\"value\": \"MP\",\"selected\": \"false\"}, {\"text\": \"MS\",\"value\": \"MS\",\"selected\": \"false\"}, {\"text\": \"MO\",\"value\": \"MO\",\"selected\": \"false\"}, {\"text\": \"MT\",\"value\": \"MT\",\"selected\": \"false\"}, {\"text\": \"NE\",\"value\": \"NE\",\"selected\": \"false\"}, {\"text\": \"NV\",\"value\": \"NV\",\"selected\": \"false\"}, {\"text\": \"NH\",\"value\": \"NH\",\"selected\": \"false\"}, {\"text\": \"NJ\",\"value\": \"NJ\",\"selected\": \"false\"}, {\"text\": \"NM\",\"value\": \"NM\",\"selected\": \"false\"}, {\"text\": \"NY\",\"value\": \"NY\",\"selected\": \"false\"}, {\"text\": \"NC\",\"value\": \"NC\",\"selected\": \"false\"}, {\"text\": \"ND\",\"value\": \"ND\",\"selected\": \"false\"}, {\"text\": \"OH\",\"value\": \"OH\",\"selected\": \"false\"}, {\"text\": \"OK\",\"value\": \"OK\",\"selected\": \"false\"}, {\"text\": \"OR\",\"value\": \"OR\",\"selected\": \"false\"}, {\"text\": \"PA\",\"value\": \"PA\",\"selected\": \"false\"}, {\"text\": \"PR\",\"value\": \"PR\",\"selected\": \"false\"}, {\"text\": \"PW\",\"value\": \"PW\",\"selected\": \"false\"}, {\"text\": \"RI\",\"value\": \"RI\",\"selected\": \"false\"}, {\"text\": \"SC\",\"value\": \"SC\",\"selected\": \"false\"}, {\"text\": \"SD\",\"value\": \"SD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"TX\",\"value\": \"TX\",\"selected\": \"false\"}, {\"text\": \"UT\",\"value\": \"UT\",\"selected\": \"false\"}, {\"text\": \"VT\",\"value\": \"VT\",\"selected\": \"false\"}, {\"text\": \"VA\",\"value\": \"VA\",\"selected\": \"false\"}, {\"text\": \"VI\",\"value\": \"VI\",\"selected\": \"false\"}, {\"text\": \"WA\",\"value\": \"WA\",\"selected\": \"false\"}, {\"text\": \"WV\",\"value\": \"WV\",\"selected\": \"false\"}, {\"text\": \"WI\",\"value\": \"WI\",\"selected\": \"false\"}, {\"text\": \"WY\",\"value\": \"WY\",\"selected\": \"false\"}, {\"text\": \"N/A\",\"value\": \"N/A\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"EmployerState\",\"font\": \"arial\"}, {\"listItems\": [{\"text\": \"AA\",\"value\": \"AA\",\"selected\": \"false\"}, {\"text\": \"AE\",\"value\": \"AE\",\"selected\": \"false\"}, {\"text\": \"AK\",\"value\": \"AK\",\"selected\": \"false\"}, {\"text\": \"AL\",\"value\": \"AL\",\"selected\": \"false\"}, {\"text\": \"AP\",\"value\": \"AP\",\"selected\": \"false\"}, {\"text\": \"AS\",\"value\": \"AS\",\"selected\": \"false\"}, {\"text\": \"AZ\",\"value\": \"AZ\",\"selected\": \"false\"}, {\"text\": \"AR\",\"value\": \"AR\",\"selected\": \"false\"}, {\"text\": \"CA\",\"value\": \"CA\",\"selected\": \"false\"}, {\"text\": \"CO\",\"value\": \"CO\",\"selected\": \"false\"}, {\"text\": \"CT\",\"value\": \"CT\",\"selected\": \"false\"}, {\"text\": \"DE\",\"value\": \"DE\",\"selected\": \"false\"}, {\"text\": \"DC\",\"value\": \"DC\",\"selected\": \"false\"}, {\"text\": \"FL\",\"value\": \"FL\",\"selected\": \"false\"}, {\"text\": \"FM\",\"value\": \"FM\",\"selected\": \"false\"}, {\"text\": \"GA\",\"value\": \"GA\",\"selected\": \"false\"}, {\"text\": \"GU\",\"value\": \"GU\",\"selected\": \"false\"}, {\"text\": \"HI\",\"value\": \"HI\",\"selected\": \"false\"}, {\"text\": \"ID\",\"value\": \"ID\",\"selected\": \"false\"}, {\"text\": \"IL\",\"value\": \"IL\",\"selected\": \"false\"}, {\"text\": \"IN\",\"value\": \"IN\",\"selected\": \"false\"}, {\"text\": \"IA\",\"value\": \"IA\",\"selected\": \"false\"}, {\"text\": \"KS\",\"value\": \"KS\",\"selected\": \"false\"}, {\"text\": \"KY\",\"value\": \"KY\",\"selected\": \"false\"}, {\"text\": \"LA\",\"value\": \"LA\",\"selected\": \"false\"}, {\"text\": \"ME\",\"value\": \"ME\",\"selected\": \"false\"}, {\"text\": \"MD\",\"value\": \"MD\",\"selected\": \"false\"}, {\"text\": \"MA\",\"value\": \"MA\",\"selected\": \"false\"}, {\"text\": \"MH\",\"value\": \"MH\",\"selected\": \"false\"}, {\"text\": \"MI\",\"value\": \"MI\",\"selected\": \"false\"}, {\"text\": \"MN\",\"value\": \"MN\",\"selected\": \"false\"}, {\"text\": \"MP\",\"value\": \"MP\",\"selected\": \"false\"}, {\"text\": \"MS\",\"value\": \"MS\",\"selected\": \"false\"}, {\"text\": \"MO\",\"value\": \"MO\",\"selected\": \"false\"}, {\"text\": \"MT\",\"value\": \"MT\",\"selected\": \"false\"}, {\"text\": \"NE\",\"value\": \"NE\",\"selected\": \"false\"}, {\"text\": \"NV\",\"value\": \"NV\",\"selected\": \"false\"}, {\"text\": \"NH\",\"value\": \"NH\",\"selected\": \"false\"}, {\"text\": \"NJ\",\"value\": \"NJ\",\"selected\": \"false\"}, {\"text\": \"NM\",\"value\": \"NM\",\"selected\": \"false\"}, {\"text\": \"NY\",\"value\": \"NY\",\"selected\": \"false\"}, {\"text\": \"NC\",\"value\": \"NC\",\"selected\": \"false\"}, {\"text\": \"ND\",\"value\": \"ND\",\"selected\": \"false\"}, {\"text\": \"OH\",\"value\": \"OH\",\"selected\": \"false\"}, {\"text\": \"OK\",\"value\": \"OK\",\"selected\": \"false\"}, {\"text\": \"OR\",\"value\": \"OR\",\"selected\": \"false\"}, {\"text\": \"PA\",\"value\": \"PA\",\"selected\": \"false\"}, {\"text\": \"PR\",\"value\": \"PR\",\"selected\": \"false\"}, {\"text\": \"PW\",\"value\": \"PW\",\"selected\": \"false\"}, {\"text\": \"RI\",\"value\": \"RI\",\"selected\": \"false\"}, {\"text\": \"SC\",\"value\": \"SC\",\"selected\": \"false\"}, {\"text\": \"SD\",\"value\": \"SD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"TX\",\"value\": \"TX\",\"selected\": \"false\"}, {\"text\": \"UT\",\"value\": \"UT\",\"selected\": \"false\"}, {\"text\": \"VT\",\"value\": \"VT\",\"selected\": \"false\"}, {\"text\": \"VA\",\"value\": \"VA\",\"selected\": \"false\"}, {\"text\": \"VI\",\"value\": \"VI\",\"selected\": \"false\"}, {\"text\": \"WA\",\"value\": \"WA\",\"selected\": \"false\"}, {\"text\": \"WV\",\"value\": \"WV\",\"selected\": \"false\"}, {\"text\": \"WI\",\"value\": \"WI\",\"selected\": \"false\"}, {\"text\": \"WY\",\"value\": \"WY\",\"selected\": \"false\"}, {\"text\": \"N/A\",\"value\": \"N/A\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"DupAddressState\",\"font\": \"arial\"}, {\"listItems\": [{\"text\": \"\",\"value\": \"\",\"selected\": \"true\"}, {\"text\": \"B1/B2\",\"value\": \"B1/B2\",\"selected\": \"false\"}, {\"text\": \"A/G\",\"value\": \"A/G\",\"selected\": \"false\"}, {\"text\": \"C\",\"value\": \"C\",\"selected\": \"false\"}, {\"text\": \"D\",\"value\": \"D\",\"selected\": \"false\"}, {\"text\": \"E\",\"value\": \"E\",\"selected\": \"false\"}, {\"text\": \"F\",\"value\": \"F\",\"selected\": \"false\"}, {\"text\": \"H\",\"value\": \"H\",\"selected\": \"false\"}, {\"text\": \"I\",\"value\": \"I\",\"selected\": \"false\"}, {\"text\": \"J\",\"value\": \"J\",\"selected\": \"false\"}, {\"text\": \"K\",\"value\": \"K\",\"selected\": \"false\"}, {\"text\": \"L\",\"value\": \"L\",\"selected\": \"false\"}, {\"text\": \"M\",\"value\": \"M\",\"selected\": \"false\"}, {\"text\": \"O\",\"value\": \"O\",\"selected\": \"false\"}, {\"text\": \"P\",\"value\": \"P\",\"selected\": \"false\"}, {\"text\": \"Q\",\"value\": \"Q\",\"selected\": \"false\"}, {\"text\": \"R\",\"value\": \"R\",\"selected\": \"false\"}, {\"text\": \"TC\",\"value\": \"TC\",\"selected\": \"false\"}, {\"text\": \"TD\",\"value\": \"TD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"V\",\"value\": \"V\",\"selected\": \"false\"}, {\"text\": \"None\",\"value\": \"None\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"VisaType\",\"font\": \"arial\"}]}}, {\"defaultRecipient\": \"false\",\"signInEachLocation\": \"false\",\"email\": \"\",\"accessCode\": \"\",\"requireIdLookup\": \"true\",\"idCheckConfigurationName\": \"ID Check $\",\"routingOrder\": \"20\",\"note\": \"\",\"roleName\": \"Joint\",\"inheritEmailNotificationConfiguration\": \"false\",\"recipientType\": \"signer\",\"tabs\": {\"signHereTabs\": [{\"stampType\": \"signature\",\"tabLabel\": \"Signature 107\",\"scaleValue\": \"0.8\",\"optional\": \"false\"}],\"initialHereTabs\": [{\"tabLabel\": \"LPOA Joint Initials\",\"scaleValue\": \"0.75\",\"optional\": \"false\"}, {\"tabLabel\": \"Man Fee Joint Initials\",\"scaleValue\": \"0.75\",\"optional\": \"false\"}],\"dateSignedTabs\": [{\"value\": \"\",\"tabLabel\": \"Date Signed\"}],\"textTabs\": [{\"value\": \"\",\"tabLabel\": \"JointAHFirstName\"}, {\"value\": \"\",\"tabLabel\": \"JointAHSSN\"}, {\"value\": \"\",\"tabLabel\": \"JointAHDOB\"}, {\"value\": \"\",\"tabLabel\": \"JointAHPhoneNumber\"}, {\"value\": \"\",\"tabLabel\": \"JointAHPhysicalAddressStreet\"}, {\"value\": \"\",\"tabLabel\": \"JointAHPhysicalAddressCity\"}, {\"value\": \"\",\"tabLabel\": \"JointAHPhysicalAddressZipCode\"}, {\"value\": \"\",\"tabLabel\": \"JointAHMailingAddressStreet\"}, {\"value\": \"\",\"tabLabel\": \"JointAHMailingAddressCity\"}, {\"value\": \"\",\"tabLabel\": \"JointAHMailingAddressZipCode\"}, {\"value\": \"\",\"tabLabel\": \"JointAHFullName\"}, {\"value\": \"\",\"tabLabel\": \"JointAHSecondPhoneNumber\"}, {\"value\": \"\",\"tabLabel\": \"JointAHTypeOfBusiness\"}, {\"value\": \"\",\"tabLabel\": \"JointAHEmployerStreetAddress\"}, {\"value\": \"\",\"tabLabel\": \"JointAHEmployerCity\"}, {\"value\": \"\",\"tabLabel\": \"JointAHCountryOfDualCitizenship\"}, {\"value\": \"\",\"tabLabel\": \"JointAHLastName\"}, {\"value\": \"\",\"tabLabel\": \"JointAHEstateName\"}, {\"value\": \"\",\"tabLabel\": \"JointAHMidInitial\"}, {\"value\": \"\",\"tabLabel\": \"JointAHEmployerName\"}, {\"value\": \"\",\"tabLabel\": \"JointAHSourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"JointAHCountryOfCitizenship\"}, {\"value\": \"\",\"tabLabel\": \"JointAHVisaExpiration\"}, {\"value\": \"\",\"tabLabel\": \"JointAHSPFDetail\"}, {\"value\": \"\",\"tabLabel\": \"JointAHDirectorShareholderDetail\"}, {\"value\": \"\",\"tabLabel\": \"JointAHBDDetail\"}, {\"value\": \"\",\"tabLabel\": \"JointAHCountryOfBirth\"}, {\"value\": \"\",\"tabLabel\": \"JointAHSourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"JointAHSourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"JointAHSourceOfIncome\"}, {\"value\": \"\",\"tabLabel\": \"JointAHVisaNumber\"}, {\"value\": \"\",\"tabLabel\": \"JointAHOccupation\"}, {\"value\": \"\",\"tabLabel\": \"JointAHOccupation\"}, {\"value\": \"\",\"tabLabel\": \"JointAHEmployerName\"}, {\"value\": \"\",\"tabLabel\": \"JointAHCountryOfCitizenship\"}, {\"value\": \"\",\"tabLabel\": \"JointAHCountryOfBirth\"}],\"checkboxTabs\": [{\"tabLabel\": \"SecondPhoneNumberNonUS 176\",\"selected\": \"false\"}, {\"tabLabel\": \"JointAHPhoneNumberNonUS\",\"selected\": \"false\"}, {\"tabLabel\": \"##parent49558361-ff5f-43a7-9800-31024f8c4e32##JointAHSPF\",\"selected\": \"false\"}, {\"tabLabel\": \"##parentbddd1cf7-29e1-4550-a0fd-ce54a92d2a25##JointAHDirectorShareholder\",\"selected\": \"false\"}, {\"tabLabel\": \"##parent372f7cd0-8385-44fe-96be-7e7bbb4c1e77##JointAHBD\",\"selected\": \"false\"}, {\"tabLabel\": \"##parent7761640b-6924-485c-b7bd-ba868eb14b51##LPOA Joint Checkbox\",\"selected\": \"true\"}, {\"tabLabel\": \"##parent522fd208-28c2-499e-ac0a-ee2122124244##Man Fee Joint Checkbox\",\"selected\": \"true\"}],\"radioGroupTabs\": [{\"groupName\": \"JointAHEmployment\",\"radios\": [{\"value\": \"Retired\",\"selected\": \"false\"}, {\"value\": \"Homemaker\",\"selected\": \"false\"}, {\"value\": \"Student\",\"selected\": \"false\"}, {\"value\": \"SelfEmployed\",\"selected\": \"false\"}]}, {\"groupName\": \"JointAHUSVisa\",\"radios\": [{\"value\": \"No\",\"selected\": \"false\"}]}, {\"groupName\": \"JointAHCitizenship\",\"radios\": [{\"value\": \"NotUSCitizen\",\"selected\": \"false\"}, {\"value\": \"PermanentResident\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent3968dc41-fbc4-408b-8d02-6158af488a61##JointAHEmployment\",\"radios\": [{\"value\": \"Employed\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent042f6b32-adf8-4d9f-9932-44d04ac07bb2##JointAHEmployment\",\"radios\": [{\"value\": \"Unemployed\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent89a140b7-e8db-428e-86cf-896aeb57b83f##JointAHUSVisa\",\"radios\": [{\"value\": \"Yes\",\"selected\": \"false\"}]}, {\"groupName\": \"##parent68bd95b7-6d83-47dd-a0b3-a66100ab41b7##JointAHCitizenship\",\"radios\": [{\"value\": \"USCitizen\",\"selected\": \"false\"}]}],\"listTabs\": [{\"listItems\": [{\"text\": \"AA\",\"value\": \"AA\",\"selected\": \"false\"}, {\"text\": \"AE\",\"value\": \"AE\",\"selected\": \"false\"}, {\"text\": \"AK\",\"value\": \"AK\",\"selected\": \"false\"}, {\"text\": \"AL\",\"value\": \"AL\",\"selected\": \"false\"}, {\"text\": \"AP\",\"value\": \"AP\",\"selected\": \"false\"}, {\"text\": \"AS\",\"value\": \"AS\",\"selected\": \"false\"}, {\"text\": \"AZ\",\"value\": \"AZ\",\"selected\": \"false\"}, {\"text\": \"AR\",\"value\": \"AR\",\"selected\": \"false\"}, {\"text\": \"CA\",\"value\": \"CA\",\"selected\": \"false\"}, {\"text\": \"CO\",\"value\": \"CO\",\"selected\": \"false\"}, {\"text\": \"CT\",\"value\": \"CT\",\"selected\": \"false\"}, {\"text\": \"DE\",\"value\": \"DE\",\"selected\": \"false\"}, {\"text\": \"DC\",\"value\": \"DC\",\"selected\": \"false\"}, {\"text\": \"FL\",\"value\": \"FL\",\"selected\": \"false\"}, {\"text\": \"FM\",\"value\": \"FM\",\"selected\": \"false\"}, {\"text\": \"GA\",\"value\": \"GA\",\"selected\": \"false\"}, {\"text\": \"GU\",\"value\": \"GU\",\"selected\": \"false\"}, {\"text\": \"HI\",\"value\": \"HI\",\"selected\": \"false\"}, {\"text\": \"ID\",\"value\": \"ID\",\"selected\": \"false\"}, {\"text\": \"IL\",\"value\": \"IL\",\"selected\": \"false\"}, {\"text\": \"IN\",\"value\": \"IN\",\"selected\": \"false\"}, {\"text\": \"IA\",\"value\": \"IA\",\"selected\": \"false\"}, {\"text\": \"KS\",\"value\": \"KS\",\"selected\": \"false\"}, {\"text\": \"KY\",\"value\": \"KY\",\"selected\": \"false\"}, {\"text\": \"LA\",\"value\": \"LA\",\"selected\": \"false\"}, {\"text\": \"ME\",\"value\": \"ME\",\"selected\": \"false\"}, {\"text\": \"MD\",\"value\": \"MD\",\"selected\": \"false\"}, {\"text\": \"MA\",\"value\": \"MA\",\"selected\": \"false\"}, {\"text\": \"MH\",\"value\": \"MH\",\"selected\": \"false\"}, {\"text\": \"MI\",\"value\": \"MI\",\"selected\": \"false\"}, {\"text\": \"MN\",\"value\": \"MN\",\"selected\": \"false\"}, {\"text\": \"MP\",\"value\": \"MP\",\"selected\": \"false\"}, {\"text\": \"MS\",\"value\": \"MS\",\"selected\": \"false\"}, {\"text\": \"MO\",\"value\": \"MO\",\"selected\": \"false\"}, {\"text\": \"MT\",\"value\": \"MT\",\"selected\": \"false\"}, {\"text\": \"NE\",\"value\": \"NE\",\"selected\": \"false\"}, {\"text\": \"NV\",\"value\": \"NV\",\"selected\": \"false\"}, {\"text\": \"NH\",\"value\": \"NH\",\"selected\": \"false\"}, {\"text\": \"NJ\",\"value\": \"NJ\",\"selected\": \"false\"}, {\"text\": \"NM\",\"value\": \"NM\",\"selected\": \"false\"}, {\"text\": \"NY\",\"value\": \"NY\",\"selected\": \"false\"}, {\"text\": \"NC\",\"value\": \"NC\",\"selected\": \"false\"}, {\"text\": \"ND\",\"value\": \"ND\",\"selected\": \"false\"}, {\"text\": \"OH\",\"value\": \"OH\",\"selected\": \"false\"}, {\"text\": \"OK\",\"value\": \"OK\",\"selected\": \"false\"}, {\"text\": \"OR\",\"value\": \"OR\",\"selected\": \"false\"}, {\"text\": \"PA\",\"value\": \"PA\",\"selected\": \"false\"}, {\"text\": \"PR\",\"value\": \"PR\",\"selected\": \"false\"}, {\"text\": \"PW\",\"value\": \"PW\",\"selected\": \"false\"}, {\"text\": \"RI\",\"value\": \"RI\",\"selected\": \"false\"}, {\"text\": \"SC\",\"value\": \"SC\",\"selected\": \"false\"}, {\"text\": \"SD\",\"value\": \"SD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"TX\",\"value\": \"TX\",\"selected\": \"false\"}, {\"text\": \"UT\",\"value\": \"UT\",\"selected\": \"false\"}, {\"text\": \"VT\",\"value\": \"VT\",\"selected\": \"false\"}, {\"text\": \"VA\",\"value\": \"VA\",\"selected\": \"false\"}, {\"text\": \"VI\",\"value\": \"VI\",\"selected\": \"false\"}, {\"text\": \"WA\",\"value\": \"WA\",\"selected\": \"false\"}, {\"text\": \"WV\",\"value\": \"WV\",\"selected\": \"false\"}, {\"text\": \"WI\",\"value\": \"WI\",\"selected\": \"false\"}, {\"text\": \"WY\",\"value\": \"WY\",\"selected\": \"false\"}, {\"text\": \"N/A\",\"value\": \"N/A\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"JointAHPhysicalAddressState\",\"font\": \"arial\"}, {\"listItems\": [{\"text\": \"AA\",\"value\": \"AA\",\"selected\": \"false\"}, {\"text\": \"AE\",\"value\": \"AE\",\"selected\": \"false\"}, {\"text\": \"AK\",\"value\": \"AK\",\"selected\": \"false\"}, {\"text\": \"AL\",\"value\": \"AL\",\"selected\": \"false\"}, {\"text\": \"AP\",\"value\": \"AP\",\"selected\": \"false\"}, {\"text\": \"AS\",\"value\": \"AS\",\"selected\": \"false\"}, {\"text\": \"AZ\",\"value\": \"AZ\",\"selected\": \"false\"}, {\"text\": \"AR\",\"value\": \"AR\",\"selected\": \"false\"}, {\"text\": \"CA\",\"value\": \"CA\",\"selected\": \"false\"}, {\"text\": \"CO\",\"value\": \"CO\",\"selected\": \"false\"}, {\"text\": \"CT\",\"value\": \"CT\",\"selected\": \"false\"}, {\"text\": \"DE\",\"value\": \"DE\",\"selected\": \"false\"}, {\"text\": \"DC\",\"value\": \"DC\",\"selected\": \"false\"}, {\"text\": \"FL\",\"value\": \"FL\",\"selected\": \"false\"}, {\"text\": \"FM\",\"value\": \"FM\",\"selected\": \"false\"}, {\"text\": \"GA\",\"value\": \"GA\",\"selected\": \"false\"}, {\"text\": \"GU\",\"value\": \"GU\",\"selected\": \"false\"}, {\"text\": \"HI\",\"value\": \"HI\",\"selected\": \"false\"}, {\"text\": \"ID\",\"value\": \"ID\",\"selected\": \"false\"}, {\"text\": \"IL\",\"value\": \"IL\",\"selected\": \"false\"}, {\"text\": \"IN\",\"value\": \"IN\",\"selected\": \"false\"}, {\"text\": \"IA\",\"value\": \"IA\",\"selected\": \"false\"}, {\"text\": \"KS\",\"value\": \"KS\",\"selected\": \"false\"}, {\"text\": \"KY\",\"value\": \"KY\",\"selected\": \"false\"}, {\"text\": \"LA\",\"value\": \"LA\",\"selected\": \"false\"}, {\"text\": \"ME\",\"value\": \"ME\",\"selected\": \"false\"}, {\"text\": \"MD\",\"value\": \"MD\",\"selected\": \"false\"}, {\"text\": \"MA\",\"value\": \"MA\",\"selected\": \"false\"}, {\"text\": \"MH\",\"value\": \"MH\",\"selected\": \"false\"}, {\"text\": \"MI\",\"value\": \"MI\",\"selected\": \"false\"}, {\"text\": \"MN\",\"value\": \"MN\",\"selected\": \"false\"}, {\"text\": \"MP\",\"value\": \"MP\",\"selected\": \"false\"}, {\"text\": \"MS\",\"value\": \"MS\",\"selected\": \"false\"}, {\"text\": \"MO\",\"value\": \"MO\",\"selected\": \"false\"}, {\"text\": \"MT\",\"value\": \"MT\",\"selected\": \"false\"}, {\"text\": \"NE\",\"value\": \"NE\",\"selected\": \"false\"}, {\"text\": \"NV\",\"value\": \"NV\",\"selected\": \"false\"}, {\"text\": \"NH\",\"value\": \"NH\",\"selected\": \"false\"}, {\"text\": \"NJ\",\"value\": \"NJ\",\"selected\": \"false\"}, {\"text\": \"NM\",\"value\": \"NM\",\"selected\": \"false\"}, {\"text\": \"NY\",\"value\": \"NY\",\"selected\": \"false\"}, {\"text\": \"NC\",\"value\": \"NC\",\"selected\": \"false\"}, {\"text\": \"ND\",\"value\": \"ND\",\"selected\": \"false\"}, {\"text\": \"OH\",\"value\": \"OH\",\"selected\": \"false\"}, {\"text\": \"OK\",\"value\": \"OK\",\"selected\": \"false\"}, {\"text\": \"OR\",\"value\": \"OR\",\"selected\": \"false\"}, {\"text\": \"PA\",\"value\": \"PA\",\"selected\": \"false\"}, {\"text\": \"PR\",\"value\": \"PR\",\"selected\": \"false\"}, {\"text\": \"PW\",\"value\": \"PW\",\"selected\": \"false\"}, {\"text\": \"RI\",\"value\": \"RI\",\"selected\": \"false\"}, {\"text\": \"SC\",\"value\": \"SC\",\"selected\": \"false\"}, {\"text\": \"SD\",\"value\": \"SD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"TX\",\"value\": \"TX\",\"selected\": \"false\"}, {\"text\": \"UT\",\"value\": \"UT\",\"selected\": \"false\"}, {\"text\": \"VT\",\"value\": \"VT\",\"selected\": \"false\"}, {\"text\": \"VA\",\"value\": \"VA\",\"selected\": \"false\"}, {\"text\": \"VI\",\"value\": \"VI\",\"selected\": \"false\"}, {\"text\": \"WA\",\"value\": \"WA\",\"selected\": \"false\"}, {\"text\": \"WV\",\"value\": \"WV\",\"selected\": \"false\"}, {\"text\": \"WI\",\"value\": \"WI\",\"selected\": \"false\"}, {\"text\": \"WY\",\"value\": \"WY\",\"selected\": \"false\"}, {\"text\": \"N/A\",\"value\": \"N/A\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"JointAHMailingAddressState\",\"font\": \"arial\"}, {\"listItems\": [{\"text\": \"AA\",\"value\": \"AA\",\"selected\": \"false\"}, {\"text\": \"AE\",\"value\": \"AE\",\"selected\": \"false\"}, {\"text\": \"AK\",\"value\": \"AK\",\"selected\": \"false\"}, {\"text\": \"AL\",\"value\": \"AL\",\"selected\": \"false\"}, {\"text\": \"AP\",\"value\": \"AP\",\"selected\": \"false\"}, {\"text\": \"AS\",\"value\": \"AS\",\"selected\": \"false\"}, {\"text\": \"AZ\",\"value\": \"AZ\",\"selected\": \"false\"}, {\"text\": \"AR\",\"value\": \"AR\",\"selected\": \"false\"}, {\"text\": \"CA\",\"value\": \"CA\",\"selected\": \"false\"}, {\"text\": \"CO\",\"value\": \"CO\",\"selected\": \"false\"}, {\"text\": \"CT\",\"value\": \"CT\",\"selected\": \"false\"}, {\"text\": \"DE\",\"value\": \"DE\",\"selected\": \"false\"}, {\"text\": \"DC\",\"value\": \"DC\",\"selected\": \"false\"}, {\"text\": \"FL\",\"value\": \"FL\",\"selected\": \"false\"}, {\"text\": \"FM\",\"value\": \"FM\",\"selected\": \"false\"}, {\"text\": \"GA\",\"value\": \"GA\",\"selected\": \"false\"}, {\"text\": \"GU\",\"value\": \"GU\",\"selected\": \"false\"}, {\"text\": \"HI\",\"value\": \"HI\",\"selected\": \"false\"}, {\"text\": \"ID\",\"value\": \"ID\",\"selected\": \"false\"}, {\"text\": \"IL\",\"value\": \"IL\",\"selected\": \"false\"}, {\"text\": \"IN\",\"value\": \"IN\",\"selected\": \"false\"}, {\"text\": \"IA\",\"value\": \"IA\",\"selected\": \"false\"}, {\"text\": \"KS\",\"value\": \"KS\",\"selected\": \"false\"}, {\"text\": \"KY\",\"value\": \"KY\",\"selected\": \"false\"}, {\"text\": \"LA\",\"value\": \"LA\",\"selected\": \"false\"}, {\"text\": \"ME\",\"value\": \"ME\",\"selected\": \"false\"}, {\"text\": \"MD\",\"value\": \"MD\",\"selected\": \"false\"}, {\"text\": \"MA\",\"value\": \"MA\",\"selected\": \"false\"}, {\"text\": \"MH\",\"value\": \"MH\",\"selected\": \"false\"}, {\"text\": \"MI\",\"value\": \"MI\",\"selected\": \"false\"}, {\"text\": \"MN\",\"value\": \"MN\",\"selected\": \"false\"}, {\"text\": \"MP\",\"value\": \"MP\",\"selected\": \"false\"}, {\"text\": \"MS\",\"value\": \"MS\",\"selected\": \"false\"}, {\"text\": \"MO\",\"value\": \"MO\",\"selected\": \"false\"}, {\"text\": \"MT\",\"value\": \"MT\",\"selected\": \"false\"}, {\"text\": \"NE\",\"value\": \"NE\",\"selected\": \"false\"}, {\"text\": \"NV\",\"value\": \"NV\",\"selected\": \"false\"}, {\"text\": \"NH\",\"value\": \"NH\",\"selected\": \"false\"}, {\"text\": \"NJ\",\"value\": \"NJ\",\"selected\": \"false\"}, {\"text\": \"NM\",\"value\": \"NM\",\"selected\": \"false\"}, {\"text\": \"NY\",\"value\": \"NY\",\"selected\": \"false\"}, {\"text\": \"NC\",\"value\": \"NC\",\"selected\": \"false\"}, {\"text\": \"ND\",\"value\": \"ND\",\"selected\": \"false\"}, {\"text\": \"OH\",\"value\": \"OH\",\"selected\": \"false\"}, {\"text\": \"OK\",\"value\": \"OK\",\"selected\": \"false\"}, {\"text\": \"OR\",\"value\": \"OR\",\"selected\": \"false\"}, {\"text\": \"PA\",\"value\": \"PA\",\"selected\": \"false\"}, {\"text\": \"PR\",\"value\": \"PR\",\"selected\": \"false\"}, {\"text\": \"PW\",\"value\": \"PW\",\"selected\": \"false\"}, {\"text\": \"RI\",\"value\": \"RI\",\"selected\": \"false\"}, {\"text\": \"SC\",\"value\": \"SC\",\"selected\": \"false\"}, {\"text\": \"SD\",\"value\": \"SD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"TX\",\"value\": \"TX\",\"selected\": \"false\"}, {\"text\": \"UT\",\"value\": \"UT\",\"selected\": \"false\"}, {\"text\": \"VT\",\"value\": \"VT\",\"selected\": \"false\"}, {\"text\": \"VA\",\"value\": \"VA\",\"selected\": \"false\"}, {\"text\": \"VI\",\"value\": \"VI\",\"selected\": \"false\"}, {\"text\": \"WA\",\"value\": \"WA\",\"selected\": \"false\"}, {\"text\": \"WV\",\"value\": \"WV\",\"selected\": \"false\"}, {\"text\": \"WI\",\"value\": \"WI\",\"selected\": \"false\"}, {\"text\": \"WY\",\"value\": \"WY\",\"selected\": \"false\"}, {\"text\": \"N/A\",\"value\": \"N/A\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"JointAHEmployerState\",\"font\": \"arial\"}, {\"listItems\": [{\"text\": \"\",\"value\": \"\",\"selected\": \"true\"}, {\"text\": \"B1/B2\",\"value\": \"B1/B2\",\"selected\": \"false\"}, {\"text\": \"A/G\",\"value\": \"A/G\",\"selected\": \"false\"}, {\"text\": \"C\",\"value\": \"C\",\"selected\": \"false\"}, {\"text\": \"D\",\"value\": \"D\",\"selected\": \"false\"}, {\"text\": \"E\",\"value\": \"E\",\"selected\": \"false\"}, {\"text\": \"F\",\"value\": \"F\",\"selected\": \"false\"}, {\"text\": \"H\",\"value\": \"H\",\"selected\": \"false\"}, {\"text\": \"I\",\"value\": \"I\",\"selected\": \"false\"}, {\"text\": \"J\",\"value\": \"J\",\"selected\": \"false\"}, {\"text\": \"K\",\"value\": \"K\",\"selected\": \"false\"}, {\"text\": \"L\",\"value\": \"L\",\"selected\": \"false\"}, {\"text\": \"M\",\"value\": \"M\",\"selected\": \"false\"}, {\"text\": \"O\",\"value\": \"O\",\"selected\": \"false\"}, {\"text\": \"P\",\"value\": \"P\",\"selected\": \"false\"}, {\"text\": \"Q\",\"value\": \"Q\",\"selected\": \"false\"}, {\"text\": \"R\",\"value\": \"R\",\"selected\": \"false\"}, {\"text\": \"TC\",\"value\": \"TC\",\"selected\": \"false\"}, {\"text\": \"TD\",\"value\": \"TD\",\"selected\": \"false\"}, {\"text\": \"TN\",\"value\": \"TN\",\"selected\": \"false\"}, {\"text\": \"V\",\"value\": \"V\",\"selected\": \"false\"}, {\"text\": \"None\",\"value\": \"None\",\"selected\": \"false\"}],\"value\": \"\",\"tabLabel\": \"JointAHVisaType\",\"font\": \"arial\"}]}}]";
-
-      int tempId=1;
-
-      System.out.println("JsonObjectIterator.JsonObjectIterator()");
-
-      ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-      List<Signer> envelopeDefinition=null;
-      try {
-         mapper.setSerializationInclusion(Include.NON_EMPTY);
-         envelopeDefinition = mapper.readValue(jsonString, new TypeReference<List<Signer>>() {});
-         System.out.println();
-
-         System.out.println();
-
-         List<Signer> signers=envelopeDefinition;//envelopeDefinition.getRecipientsAcctCreation().getSigners();
-         Iterator<Signer> signerItr=signers.iterator();
-
-         while (signerItr.hasNext()) {
-            Signer signer = (Signer) signerItr.next();
-            Tabs tabs=signer.getTabs();
-
-            Iterator<Text> itrText = tabs.getTextTabs().iterator();
-            while (itrText.hasNext()) {
-               Text text = (Text) itrText.next();
-               //System.out.println(tempId+",Textbox,"+text.getTabLabel()+",,"+signer.getRoleName());
-
-            }
-
-            Iterator<Checkbox> itrChkBox = tabs.getCheckboxTabs().iterator();
-            while (itrChkBox.hasNext()) {
-               Checkbox checkbox = (Checkbox) itrChkBox.next();
-               //System.out.println(tempId+",Checkbox,"+checkbox.getTabLabel()+",,"+signer.getRoleName());
-            }
-
-            Iterator<com.docusign.esign.model.List> itrListBox = tabs.getListTabs().iterator();
-            while (itrListBox.hasNext()) {
-               com.docusign.esign.model.List listbox = (com.docusign.esign.model.List) itrListBox.next();
-               //System.out.println(tempId+",Listbox,"+listbox.getTabLabel()+",,"+signer.getRoleName());
-            }
-
-            Iterator<RadioGroup> itrRadioGroup = tabs.getRadioGroupTabs().iterator();
-            while (itrRadioGroup.hasNext()) {
-               RadioGroup radioGroup = (RadioGroup) itrRadioGroup.next();
-               //System.out.println(tempId+",Radiobox,"+radioGroup.getGroupName()+",,"+signer.getRoleName());
-//					if(radioGroup.getGroupName().equalsIgnoreCase("AccountType")){
-//						radioGroup.setRadios(new ArrayList<Radio>());
-//						Radio radio=new Radio();
-//						radio.setValue("JointTenants");
-//						radio.setSelected("true");
-//						radioGroup.getRadios().add(radio);
-//						System.out.println(tempId+",Radio,"+radioGroup.getGroupName()+",,"+signer.getRoleName());
-//					}
-               radioGroup.getRadios();
-
-            }
-
-         }
-
-
-
-
-
-      } catch (JsonParseException e1) {
-         // TODO Auto-generated catch block
-         e1.printStackTrace();
-      } catch (JsonMappingException e1) {
-         // TODO Auto-generated catch block
-         e1.printStackTrace();
-      } catch (IOException e1) {
-         // TODO Auto-generated catch block
-         e1.printStackTrace();
-      }
-      return null;
    }
 
    public static List<String> getFieldNames(final Object obj, boolean publicOnly)
@@ -615,30 +754,117 @@ public class DCUtility
       return lst;
    }
 
-
-      public static Map<String, Object> getFieldNamesAndValues(final Object obj, boolean publicOnly)
-         throws IllegalArgumentException,IllegalAccessException
-      {
-         Class<? extends Object> c1 = obj.getClass();
-         Map<String, Object> map = new HashMap<String, Object>();
-         Field[] fields = c1.getDeclaredFields();
-         for (int i = 0; i < fields.length; i++) {
-            String name = fields[i].getName();
-            if (publicOnly) {
-               if(Modifier.isPublic(fields[i].getModifiers())) {
-                  Object value = fields[i].get(obj);
-                  map.put(name, value);
-               }
-            }
-            else {
-               fields[i].setAccessible(true);
+   public static Map<String, Object> getFieldNamesAndValues(final Object obj, boolean publicOnly)
+      throws IllegalArgumentException,IllegalAccessException
+   {
+      Class<? extends Object> c1 = obj.getClass();
+      Map<String, Object> map = new HashMap<String, Object>();
+      Field[] fields = c1.getDeclaredFields();
+      for (int i = 0; i < fields.length; i++) {
+         String name = fields[i].getName();
+         if (publicOnly) {
+            if(Modifier.isPublic(fields[i].getModifiers())) {
                Object value = fields[i].get(obj);
                map.put(name, value);
             }
          }
-         return map;
+         else {
+            fields[i].setAccessible(true);
+            Object value = fields[i].get(obj);
+            map.put(name, value);
+         }
       }
-   public void temp(){
+      return map;
+   }
 
-}
+   public void printJsonObject(Object object){
+
+      try {
+         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+         System.out.println("PrintJsonObject :" +mapper.writeValueAsString(object));
+      } catch (JsonProcessingException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   }
+
+   //   public Tabs getTabs (String jsonString, Map<String, DCTemplateMapping> mapping){
+//
+//      int tempId=1;
+//
+//      System.out.println("JsonObjectIterator.JsonObjectIterator()");
+//
+//      ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//      List<Signer> envelopeDefinition=null;
+//      try {
+//         mapper.setSerializationInclusion(Include.NON_EMPTY);
+//         envelopeDefinition = mapper.readValue(jsonString, new TypeReference<List<Signer>>() {});
+//         System.out.println();
+//
+//         System.out.println();
+//
+//         List<Signer> signers=envelopeDefinition;//envelopeDefinition.getRecipientsAcctCreation().getSigners();
+//         Iterator<Signer> signerItr=signers.iterator();
+//
+//         while (signerItr.hasNext()) {
+//            Signer signer = (Signer) signerItr.next();
+//            Tabs tabs=signer.getTabs();
+//
+//            Iterator<Text> itrText = tabs.getTextTabs().iterator();
+//            while (itrText.hasNext()) {
+//               Text text = (Text) itrText.next();
+//               //System.out.println(tempId+",Textbox,"+text.getTabLabel()+",,"+signer.getRoleName());
+//
+//            }
+//
+//            Iterator<Checkbox> itrChkBox = tabs.getCheckboxTabs().iterator();
+//            while (itrChkBox.hasNext()) {
+//               Checkbox checkbox = (Checkbox) itrChkBox.next();
+//               //System.out.println(tempId+",Checkbox,"+checkbox.getTabLabel()+",,"+signer.getRoleName());
+//            }
+//
+//            Iterator<com.docusign.esign.model.List> itrListBox = tabs.getListTabs().iterator();
+//            while (itrListBox.hasNext()) {
+//               com.docusign.esign.model.List listbox = (com.docusign.esign.model.List) itrListBox.next();
+//               //System.out.println(tempId+",Listbox,"+listbox.getTabLabel()+",,"+signer.getRoleName());
+//            }
+//
+//            Iterator<RadioGroup> itrRadioGroup = tabs.getRadioGroupTabs().iterator();
+//            while (itrRadioGroup.hasNext()) {
+//               RadioGroup radioGroup = (RadioGroup) itrRadioGroup.next();
+//               //System.out.println(tempId+",Radiobox,"+radioGroup.getGroupName()+",,"+signer.getRoleName());
+////					if(radioGroup.getGroupName().equalsIgnoreCase("AccountType")){
+////						radioGroup.setRadios(new ArrayList<Radio>());
+////						Radio radio=new Radio();
+////						radio.setValue("JointTenants");
+////						radio.setSelected("true");
+////						radioGroup.getRadios().add(radio);
+////						System.out.println(tempId+",Radio,"+radioGroup.getGroupName()+",,"+signer.getRoleName());
+////					}
+//               radioGroup.getRadios();
+//
+//            }
+//
+//         }
+//
+//
+//
+//
+//
+//      } catch (JsonParseException e1) {
+//         // TODO Auto-generated catch block
+//         e1.printStackTrace();
+//      } catch (JsonMappingException e1) {
+//         // TODO Auto-generated catch block
+//         e1.printStackTrace();
+//      } catch (IOException e1) {
+//         // TODO Auto-generated catch block
+//         e1.printStackTrace();
+//      }
+//      return null;
+//   }
+
 }
