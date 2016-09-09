@@ -140,7 +140,7 @@
 								Account Type</label>
 
 							<div class="EmptyBox5"></div>
-							<p:selectOneMenu styleClass="FundAccountDropdownUI"
+							<p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
 								value="#{tdcto.tdMasterData.achBankDetail.bankAcctType}"
 								style="width: 100%;">
 								<p:ajax />
@@ -253,7 +253,7 @@
 								style="text-align: left !important; font-weight: bold !important;">Account Type</label>
 
 							<div class="EmptyBox5"></div>
-							<p:selectOneMenu styleClass="FundAccountDropdownUI"
+							<p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
 								style="width: 100%;">
 								<p:ajax />
 								<f:selectItem itemLabel="Select Account Type" itemValue=""
@@ -413,22 +413,10 @@
 				style="border: 0px; background: transparent">
 				<div class="Container80 Responsive90 MarTop5 MarCenter ui-color"
 					style="margin-bottom: 15px; border: 0px; background: transparent">
-				<div class="Container100 Fright CustomWidthFA2 MarTop5">
-					<label Class="Container100"
-						style="text-align: left !important; font-weight: bold !important;">
-						Recurring Funding </label>
-					<div class="EmptyBox5"></div>
-					<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
-						<p:selectBooleanCheckbox
-							value="#{tdcto.tdMasterData.recurringFlag}"
-							itemLabel="I would like to make recurring investments.">
-							<p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel" />
-						</p:selectBooleanCheckbox>
-					</div>
-				</div>
+
 
 				<p:panel style="border: 0px; background: transparent"
-					rendered="#{tdcto.tdMasterData.recurringFlag}">
+					rendered="true">
 
 					<!-- Rerurring -->
 					<div class="EmptyBox20"></div>
@@ -439,7 +427,7 @@
 								Frequency </label>
 
 							<div class="EmptyBox5"></div>
-							<p:selectOneMenu styleClass="FundAccountDropdownUI"
+							<p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
 								value="#{tdcto.tdMasterData.electroicBankDetail.tranFreqId}"
 								style="width: 100%;">
 								<p:ajax />
@@ -462,7 +450,7 @@
 
 							<div class="EmptyBox5"></div>
 							<p:inputNumber
-								styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
+								styleClass="Wid85 invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
 								value="#{tdcto.tdMasterData.electroicBankDetail.tranAmount}"
 								maxlength="8" symbol="$" decimalPlaces="2" required="false"
 								requiredMessage="Min. of $50 is required!"
@@ -501,7 +489,7 @@
 								Account Type</label>
 
 							<div class="EmptyBox5"></div>
-							<p:selectOneMenu styleClass="FundAccountDropdownUI"
+							<p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
 								value="#{tdcto.tdMasterData.achBankDetail.bankAcctType}"
 								style="width: 100%;">
 								<p:ajax />

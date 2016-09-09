@@ -7,29 +7,33 @@
 
    <p:tabView activeIndex="#{tdcto.subtab}">
       <p:tab title="Primary Holder">
-          <div class="Container80 Responsive90 MarTop5 MarCenter"
+          <div class="Container80 Responsive100 MarTop5 MarCenter"
                style="margin-bottom: 15px;">
 
               <div class="Container100">
-					<div class="Container45 Fleft">
+					<div class="Container45 Fleft CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Employment</label>
 						<div class="EmptyBox5"></div>
-						<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+						<p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown" value=""
 							style="width: 100%;">
 							<p:ajax />
-							<f:selectItem itemLabel="Select Employemnt" itemValue=""
+							<f:selectItem itemLabel="Select Employment" itemValue=""
 								noSelectionOption="true" />
-							<f:selectItem itemLabel="e1" itemValue="" />
-							<f:selectItem itemLabel="e2" itemValue="" />
+							<f:selectItem itemLabel="Employed" itemValue="" />
+							<f:selectItem itemLabel="Self-Employed" itemValue="" />
+                            <f:selectItem itemLabel="Unemployed" itemValue="" />
+                            <f:selectItem itemLabel="Retired" itemValue="" />
+                            <f:selectItem itemLabel="Homemaker" itemValue="" />
+                            <f:selectItem itemLabel="Student" itemValue="" />
 						</p:selectOneMenu>
 					</div>
-					<div class="Container45 Fright-FAAddress">
+					<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Source
 							Of Income</label>
 						<div class="EmptyBox5"></div>
-						<p:inputText styleClass="Wid100 FS14"
+						<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 							placeholder="Source Of Income">
 						</p:inputText>
 					</div>
@@ -75,11 +79,23 @@
                               placeholder="Type of Business">
                       </p:inputText>
                   </div>
+                  <div class="Container45 Fright CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Employer
+                          Street Address</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.owneremploymentDetail.employerStreetAddress}"
+                              placeholder="Employer Street Address">
+                      </p:inputText>
+                  </div>
                   </div>
 
 
 
-              <div class="EmptyBox20"></div>
+              <!-- <div class="EmptyBox20"></div>
               <div class="Container100">
                   <div class="Container45 Fleft CustomWidthFA-Responsive">
                       <label Class="Container100"
@@ -95,7 +111,7 @@
                   </div>
                   <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
                   </div>
-              </div>
+              </div> -->
 
               <div class="EmptyBox20"></div>
               <div class="Container100 CustomWidthFA2 MarTop5">
@@ -114,7 +130,7 @@
                              style="text-align: left !important; font-weight: bold !important;">State</label>
 
                       <div class="EmptyBox5"></div>
-                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
+                      <p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown"
                                        value="#{tdcto.tdMasterData.owneremploymentDetail.employerState}"
                                        style="width: 100%;">
                           <p:ajax/>
@@ -151,26 +167,30 @@
           <div class="Container80 Responsive100 MarTop5 MarCenter"
                style="margin-bottom: 15px;">
 
-<div class="Container100">
-					<div class="Container45 Fleft">
+              <div class="Container100">
+					<div class="Container45 Fleft CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Employment</label>
 						<div class="EmptyBox5"></div>
-						<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+						<p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown" value=""
 							style="width: 100%;">
 							<p:ajax />
-							<f:selectItem itemLabel="Select Employemnt" itemValue=""
+							<f:selectItem itemLabel="Select Employment" itemValue=""
 								noSelectionOption="true" />
-							<f:selectItem itemLabel="e1" itemValue="" />
-							<f:selectItem itemLabel="e2" itemValue="" />
+                            <f:selectItem itemLabel="Employed" itemValue="" />
+                            <f:selectItem itemLabel="Self-Employed" itemValue="" />
+                            <f:selectItem itemLabel="Unemployed" itemValue="" />
+                            <f:selectItem itemLabel="Retired" itemValue="" />
+                            <f:selectItem itemLabel="Homemaker" itemValue="" />
+                            <f:selectItem itemLabel="Student" itemValue="" />
 						</p:selectOneMenu>
 					</div>
-					<div class="Container45 Fright-FAAddress">
+					<div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
 						<label Class="Container100"
 							style="text-align: left !important; font-weight: bold !important;">Source
 							Of Income</label>
 						<div class="EmptyBox5"></div>
-						<p:inputText styleClass="Wid100 FS14"
+						<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 							placeholder="Source Of Income">
 						</p:inputText>
 					</div>
@@ -192,7 +212,7 @@
                   <div
                           class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container100"
-                             style="text-align: left !important; font-weight: bold !important;">occupations</label>
+                             style="text-align: left !important; font-weight: bold !important;">Occupation</label>
 
                       <div class="EmptyBox5"></div>
                       <p:inputText
@@ -205,11 +225,19 @@
 
               <div class="EmptyBox20"></div>
 
-
-
-              <div class="EmptyBox20"></div>
               <div class="Container100">
                   <div class="Container45 Fleft CustomWidthFA-Responsive">
+                      <label Class="Container100"
+                             style="text-align: left !important; font-weight: bold !important;">Type of Business</label>
+
+                      <div class="EmptyBox5"></div>
+                      <p:inputText
+                              styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                              value="#{tdcto.tdMasterData.owneremploymentDetail.typeOfBusiness}"
+                              placeholder="Type of Business">
+                      </p:inputText>
+                  </div>
+                  <div class="Container45 Fright CustomWidthFA-Responsive">
                       <label Class="Container100"
                              style="text-align: left !important; font-weight: bold !important;">Employer
                           Street Address</label>
@@ -221,9 +249,7 @@
                               placeholder="Employer Street Address">
                       </p:inputText>
                   </div>
-                  <div
-                          class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
-                  </div>
+
               </div>
 
               <div class="EmptyBox20"></div>
@@ -238,13 +264,12 @@
                                    placeholder="City">
                       </p:inputText>
                   </div>
-                  <div
-                          class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+                  <div class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container100"
                              style="text-align: left !important; font-weight: bold !important;">State</label>
 
                       <div class="EmptyBox5"></div>
-                      <p:selectOneMenu styleClass="FundAccountDropdownUI"
+                      <p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown"
                                        value="#{tdcto.tdMasterData.jointEmploymentDetail.employerState}"
                                        style="width: 100%;">
                           <p:ajax/>
@@ -254,8 +279,7 @@
                                          var="jointemploeyStates" itemLabel="#{jointemploeyStates.value}" itemValue="#{jointemploeyStates.key}"/>
                       </p:selectOneMenu>
                   </div>
-                  <div
-                          class="Container30 Fright-FAAddress CustomWidthFA-Responsive">
+                  <div class="Container30 Fright-FAAddress CustomWidthFA-Responsive">
                       <label Class="Container100"
                              style="text-align: left !important; font-weight: bold !important;">Zip
                           Code</label>

@@ -201,6 +201,11 @@ img.riskImage:hover {
 }
 
 @media (max-width: 735px){
+	.ui-selectonemenu label.ui-selectonemenu-label {
+	    color: #778D9B!important;
+    padding: 7px 1px!important;
+	}
+	
     .MiddleInitialWidth {
         width: 100%!important;
          border-right: 1px solid #D9E19B!important;
@@ -253,6 +258,11 @@ img.riskImage:hover {
         width: 100%!important;
         margin: 5px 0;
         float: none!important;
+        padding: 10px 1px!important;
+    }
+    
+    .CustomWidthFA2, .MiddleInitialWidth, .InputMergeRight, .InputMergeLeft {
+    padding: 10px 1px!important;
     }
 
     .Margin-FAAddress {
@@ -427,6 +437,23 @@ img.riskImage:hover {
 }
 
 /*Prakash*/
+.formPage .ui-tabs .ui-tabs-panel {
+    padding-right: 0!important;
+}
+
+.formpageDropdown.ui-state-hover, .formpageDropdown.ui-state-focus,
+.formPage .ui-inputfield, .formpageDropdown, 
+.formPage .ui-inputfield.ui-state-hover, 
+.formPage .ui-inputfield.ui-state-focus {
+    border: solid 1px #f2f2f2!important;
+    background-color: transparent;
+    color:#025d3c!important;
+}
+
+.ui-selectonemenu label.ui-selectonemenu-label {
+	border-color:transparent!important;
+}
+
 .signupFooter {
 bottom: 0!important;
     position: absolute;
@@ -618,6 +645,7 @@ padding: 6px 0;
 
 .FundAccountDropdownUI {
     padding-right: 0!important;
+    padding:0!important;
 }
 
 .FundAccountDropdownUI > .ui-selectonemenu-label {
@@ -708,7 +736,7 @@ Panel-UI > div {
 }
 
 /*DropDown For Portfolio creation*/
-.TCM-UI-Dropdown > .ui-selectonemenu-trigger, .TCM-UI-Dropdown {
+.TCM-UI-Dropdown > .ui-selectonemenu-trigger, .formpageDropdown > .ui-selectonemenu-trigger, .TCM-UI-Dropdown, .formpageDropdown {
     background: transparent!important;
 }
 
@@ -729,7 +757,7 @@ Panel-UI > div {
     color: white;
 }
 
-.dropdownInputFullWidth > .ui-selectonemenu-trigger > .ui-icon-triangle-1-s{
+.formpageDropdown > .ui-selectonemenu-trigger > .ui-icon-triangle-1-s, .dropdownInputFullWidth > .ui-selectonemenu-trigger > .ui-icon-triangle-1-s{
     background: url("/javax.faces.resource/images/dropdown.png.xhtml?ln=tcm")!important;
     background-repeat: no-repeat;
     background-size: 100% 100% !important;
