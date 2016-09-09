@@ -9,11 +9,23 @@ public class DCDocumentMapping
    private String tab;
    private String lable;
    private String role;
+   private String dbColumn;
    private String pageNumber;
    private String xPosition;
    private String yPosition;
    private int width;
    private int height;
+
+
+   public String getDbColumn()
+   {
+      return dbColumn;
+   }
+
+   public void setDbColumn(String dbColumn)
+   {
+      this.dbColumn = dbColumn;
+   }
 
    @Override
    public String toString()
@@ -23,6 +35,7 @@ public class DCDocumentMapping
          ", tab='" + tab + '\'' +
          ", lable='" + lable + '\'' +
          ", role='" + role + '\'' +
+         ", dbColumn='" + dbColumn + '\'' +
          ", pageNumber='" + pageNumber + '\'' +
          ", xPosition='" + xPosition + '\'' +
          ", yPosition='" + yPosition + '\'' +
