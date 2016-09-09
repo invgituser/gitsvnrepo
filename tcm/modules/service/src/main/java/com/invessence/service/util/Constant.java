@@ -8,7 +8,9 @@ public class Constant
 
    public enum SERVICES
    {
-      PRICING("PRICING"),BROKER_SERVICES("BROKER-SERVICES"),BROKER_WEBSERVICES("BROKER-WEBSERVICES"),DOCUSIGN_SERVICES("DOCUSIGN-SERVICES");
+      PRICING("PRICING"),BROKER_SERVICES("BROKER-SERVICES"),
+      BROKER_WEBSERVICES("BROKER-WEBSERVICES"),DOCUSIGN_SERVICES("DOCUSIGN-SERVICES"),
+      EMAIL_SERVICE("EMAIL-SERVICE");
       private String value;
 
       private SERVICES(String value) {
@@ -97,6 +99,23 @@ public class Constant
       private String value;
 
       private ADDITIONAL_DETAILS(String value) {
+         this.value = value;
+      }
+      private String getValue() {
+         return value;
+      }
+
+      @Override
+      public String toString() {
+         return this.getValue();
+      }
+   }
+
+   public enum EMAIL_SERVICE {
+      INVESSENCE_GMAIL("INVESSENCE-GMAIL"),SYMBIL_MAILGUN("SYMBIL-MAILGUN"),BUILDINGBENJAMINS_EMAIL("BUILDINGBENJAMINS-GMAIL");
+      private String value;
+
+      private EMAIL_SERVICE(String value) {
          this.value = value;
       }
       private String getValue() {
