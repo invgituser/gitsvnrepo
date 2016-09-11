@@ -1,4 +1,4 @@
-package com.invessence.web.data.custody;
+package com.invessence.web.data.custody.td;
 
 public class MapMovemoneyPaymethod {
 

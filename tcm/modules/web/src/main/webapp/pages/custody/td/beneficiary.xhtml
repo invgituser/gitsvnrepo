@@ -20,9 +20,9 @@
 
 			<p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary"
 				offLabel="Add Beneficiary" onIcon="ui-icon-minus"
-				offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.addBeneficiary}">
-
-				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" />
+				offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.createBeneficiary}">
+				<p:ajax listener="#{tdcto.tdMasterData.addBenefiaciary}"
+                        update=":ctoForm:tdaccordian:beneficiaryPanel" />
 			</p:selectBooleanButton>
 
 
@@ -30,63 +30,51 @@
 				<div class="ContainerIndent">
 					<div class="Container100 MarginBottom">
 						<p:growl id="beneGrowl" autoUpdate="true" escape="false" />
-
-						<p:dataTable id="singleDT" var="investment" widgetVar="managedTable"
-							value="#{tdcto.beneTempList}"
+						<p:dataTable id="singleDT" var="benefiaciary"
+							value="#{tdcto.tdMasterData.benefiaciaryDetailsList}"
 							emptyMessage="No beneficiary account added. Add a new beneficiary account"
 							reflow="true">
 
-							<p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom" resizable="true">
-								<p:commandButton id="activeButton"
-									rendered="#{!investment.managed}" styleClass="Fs14 GreenButton"
-									process="@this" immediate="true"
-									icon="fa fa-search-plus Fs14 white"
-									action="#{tdcto.doSelectedAction}">
-									<p:tooltip id="activeToolTipFade" for="activeButton"
-										value="View" />
-									<f:setPropertyActionListener value="#{investment}"
-										target="#{tdcto.selectedAccount}" />
-								</p:commandButton>
-
-								<p:commandButton id="pendingButton"
-									rendered="#{investment.managed}" styleClass="Fs14 BlueButton"
+							<p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
+								<p:commandButton id="editButton"
+									styleClass="Fs14 BlueButton"
 									process="@this" immediate="true"
 									icon="fa fa-pencil-square-o Fs14 white"
-									update=":ctoForm:tdaccordian:beneficiaryAdd" actionListener="#{tdcto.editTempBeneficiary(investment.beneId)}">
-									<p:tooltip id="pendingToolTipFade" for="pendingButton"
+									ajax="true" update=":ctoForm:tdaccordian:beneficiaryPanel"
+                                    actionListener="#{tdcto.tdMasterData.editBeneficiary}">
+									<p:tooltip id="editToolTipFade" for="editButton"
 										value="Edit" />
-									<f:setPropertyActionListener value="#{investment}"
-										target="#{tdcto.selectedAccount}" />
-								</p:commandButton>
+                                    <f:setPropertyActionListener value="#{benefiaciary}"
+                                                                 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
 
-								<p:commandButton id="menuDelete" rendered="#{investment.managed}"
+                                </p:commandButton>
+								<p:commandButton id="menuDelete"
 												 styleClass="Fs16 RedButton DualBtnModeRight"
 												 process="@this" immediate="true"
 												 icon="fa fa-trash Fs14 white"
-												 actionListener="#{tdcto.doDelete(investment)}"
-												 update=":ctoForm:tdaccordian:singleDT">
-									<p:confirm header="Delete This Benefiaciary" message="Are you sure?" icon="ui-icon-alert"/>
+												 update="singleDT"
+                                                 actionListener="#{tdcto.tdMasterData.deleteBeneficiary(benefiaciary.beneId)}">
+									<p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert"/>
 								</p:commandButton>
-
 							</p:column>
 
 							<p:column styleClass="Wid25 TexAlLeft" sortBy=""
 								headerText="First Name" priority="3" resizable="true">
 								<span class="dashboardUsrColumnFloatRight"> <h:outputText
-										value="#{investment.beneFirstName}" /></span>
+										value="#{benefiaciary.beneFirstName}" /></span>
 							</p:column>
 
 							<p:column styleClass="Wid25 TexAlLeft" sortBy=""
 								headerText="Last Name" resizable="true">
 								<span class="dashboardUsrColumnFloatRight"> <h:outputText
-										value="#{investment.beneLastName}" /></span>
+										value="#{benefiaciary.beneLastName}" /></span>
 							</p:column>
 
 							<p:column styleClass="Wid25 num-text-align invest"
 								headerText="Share %" resizable="true">
 								<span class="dashboardUsrColumnFloatRight"><h:outputText
-										value="#{investment.sharePerc}">
-										<!--<f:convertNumber type="percent" />-->
+										value="#{benefiaciary.sharePerc}">
+										  <f:convertNumber pattern="##0" />
 									</h:outputText></span>
 
 							</p:column>
@@ -98,7 +86,7 @@
 			</div>
 			<p:panel id="beneficiaryAdd"
 				style="border: 0px; background: transparent; margin-top: -10px;"
-				rendered="#{tdcto.tdMasterData.addBeneficiary}">
+				rendered="#{tdcto.tdMasterData.createBeneficiary}">
 
 				<div class="EmptyBox30"></div>
 				<div class="Container80 BeneficiaryEditPanel">
@@ -215,16 +203,16 @@
 						<div class="EmptyBox20"></div>
 						<div class="Container100 BenBttonBlock"
 							style="text-align: center;">
-							<p:button styleClass="CommonBtnWidthCancel" value="Reset">
+							<p:button styleClass="CommonBtnWidthCancel" value="Reset" rendered="false">
 								<f:param name="Reset" />
 							</p:button>
 
 							<p:commandButton value="Save" ajax="true"
 								update=":ctoForm:tdaccordian:beneficiaryPanel"
-								actionListener="#{tdcto.addTempBeneficiary()}"
-								styleClass="ui-priority-primary CommonBtnWidthSave">
+								actionListener="#{tdcto.tdMasterData.saveBenefiaciaryDetails}"
+								styleClass="ui-priority-primary CommonBtnWidthSave" />
 
-							</p:commandButton>
+
 						</div>
 						<div class="EmptyBox5"></div>
 					</div>

@@ -13,7 +13,7 @@ import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
 
-
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class ConsumerSaveSP extends StoredProcedure
 {
 

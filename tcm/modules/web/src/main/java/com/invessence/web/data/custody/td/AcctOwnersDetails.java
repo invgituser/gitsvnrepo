@@ -1,4 +1,4 @@
-package com.invessence.web.data.custody;
+package com.invessence.web.data.custody.td;
 
 import java.util.Date;
 
@@ -43,6 +43,12 @@ public class AcctOwnersDetails {
 
    public AcctOwnersDetails()
    {
+   }
+
+   public AcctOwnersDetails(Long acctnum, Integer acctOwnerId)
+   {
+      this.acctnum = acctnum;
+      this.acctOwnerId = acctOwnerId;
    }
 
    public Long getAcctnum()

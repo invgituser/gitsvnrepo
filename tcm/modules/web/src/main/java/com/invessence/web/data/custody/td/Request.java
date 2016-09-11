@@ -1,20 +1,28 @@
-package com.invessence.web.data.custody;
+package com.invessence.web.data.custody.td;
 
 import java.util.Date;
 
-public class TDRequest
+public class Request
 {
-      private Long acctnum;
       private Long reqId;
+      private Long acctnum;
+      private Integer eventNum;
       private String reqType;
+      private String envelopeHeading;
       private String envelopeId;
       private String status;
       private Date created;
       private Date updated;
       private String terminalDetails;
 
-   public TDRequest()
+   public Request()
    {
+   }
+
+   public Request(Long reqId, Long acctnum)
+   {
+      this.reqId = reqId;
+      this.acctnum = acctnum;
    }
 
    public Long getAcctnum()
@@ -37,6 +45,16 @@ public class TDRequest
       this.reqId = reqId;
    }
 
+   public Integer getEventNum()
+   {
+      return eventNum;
+   }
+
+   public void setEventNum(Integer eventNum)
+   {
+      this.eventNum = eventNum;
+   }
+
    public String getReqType()
    {
       return reqType;
@@ -45,6 +63,16 @@ public class TDRequest
    public void setReqType(String reqType)
    {
       this.reqType = reqType;
+   }
+
+   public String getEnvelopeHeading()
+   {
+      return envelopeHeading;
+   }
+
+   public void setEnvelopeHeading(String envelopeHeading)
+   {
+      this.envelopeHeading = envelopeHeading;
    }
 
    public String getEnvelopeId()

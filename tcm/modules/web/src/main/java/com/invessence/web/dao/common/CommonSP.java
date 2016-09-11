@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class CommonSP extends StoredProcedure
 {
 
@@ -47,7 +48,6 @@ public class CommonSP extends StoredProcedure
       compile();
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map collectProfileData(Long logonid, Long acctnum)
    {
       Map inputMap = new HashMap();

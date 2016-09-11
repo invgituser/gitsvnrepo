@@ -1,6 +1,7 @@
 package com.invessence.web.bean.consumer.tcm;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -629,8 +630,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean validate = false;
       try
       {
-         if (formEdit)
-         {
             // setDefaults();
             acctnum = saveDAO.saveProfileData(getInstance());
             if (acctnum > 0)
@@ -643,7 +642,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
             formEdit = false;
-         }
       }
       catch (Exception ex)
       {
@@ -663,7 +661,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          saveProfile();
          // if (canOpenAccount == 0) {
          uiLayout.doMenuAction("consumer","signup.xhtml?acct=" + getAcctnum().toString());
-         // webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
+         //webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
          // }
 
       }
@@ -883,7 +881,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          saveProfile();
          if (pagemanager.getPage() == 0) {  // This is before moving to next page. ONLY for FIRST PAGE
-            saveVisitor();
+            if (getAcctnum() > 0)
+               saveVisitor();
             createAssetPortfolio(1); // Since we are refreshing on real-time, we don't need to do it during next.
          }
          pagemanager.nextPage();
@@ -953,81 +952,171 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void doProjectionChart()
    {
       String event = riskCalculator.getAns5();
-      Integer aggressiveRadio = 4;
       Integer whichslide = 0;
-     // riskCalculator.setAns5AggressiveRadio(aggressiveRadio.toString());
-     // riskCalculator.setAns5(whichslide.toString());
 
       if (event != null)
       {
          whichslide = Integer.parseInt(event);
-         riskCalculator.setAns5AggressiveRadio(aggressiveRadio.toString());
-         riskCalculator.setAns5(whichslide.toString());
-
       }
 
       if (whichslide > 0) { // Answers are stored in 1 to 5.  Whereas array is from 0-4
          whichslide -= 1;   // We have to offset the slider by 1 if > 0
         }
       //  Calls for Projection creation chart by using HighChart
-      charts.createProjectionHighChart(getProjectionDatas().get(whichslide), getHorizon(),getAge(),riskCalculator.getRetireAge(),getProjectionDatas().get(aggressiveRadio));
+      if (getProjectionDatas() != null) {
+         Integer aggressivePortfolio = getProjectionDatas().size() - 1;
+         charts.createProjectionHighChart(getProjectionDatas().get(whichslide),
+                                          getHorizon(),
+                                          getAge(),
+                                          riskCalculator.getRetireAge(),
+                                          getProjectionDatas().get(aggressivePortfolio));
+
+      }
       setRiskCalcMethod("C");
       formEdit = true;
       createAssetPortfolio(1);
    }
 
-/*
+   public ArrayList<TCMRiskCalculator> testArrayList = null;
+
+   public ArrayList<TCMRiskCalculator> getTestArrayList()
+   {
+      return testArrayList;
+   }
+
    public void testRiskModel()
    {
       String goal = "";
+      Integer age;
+      Integer retired = 0;
+      Integer horizon = 1;
+      String ans = "1";
 
-      for (Integer g=0; g < 2; g++) {
+      testArrayList = new ArrayList<TCMRiskCalculator>();
+
+      for (Integer g=0; g < 3; g++) {
          switch (g) {
             case 0:
                goal = "Retirement";
+               retired = 0;
+               for (age=20; age < 80; age += 10) {
+                  for (horizon = age + 1; horizon < 85; horizon +=5) {
+                     for (Integer tc=0; tc < 3; tc++) {
+                        switch (tc) {
+                           case 0:
+                              ans = "1";
+                              break;
+                           case 1:
+                              ans = "3";
+                              break;
+                           case 2:
+                              ans = "5";
+                              break;
+                        }
+                        TCMRiskCalculator tmpRiskData = new TCMRiskCalculator(goal,
+                                                                              age, retired, horizon,
+                                                                              ans, ans, ans);
+                        testArrayList.add(tmpRiskData);
+/*
+                  System.out.println("Catagory =" + goal +
+                                        " values > " +
+                                        age.toString() + "," +
+                                        horizon.toString() + "," +
+                                        ans + "," +
+                                        ans + "," +
+                                        ans + "---->" +
+                                        "Answer: " + riskIdex.toString()
+
+                  );
+
+*/
+                        if (testArrayList.size() > 1000)
+                           return;
+                     }
+                  }
+               }
+               break;
+            case 1:
+               goal = "Retired";
+               retired = 1;
+               horizon = null;
+               for (age=20; age < 80; age += 10) {
+                     for (Integer tc=0; tc < 3; tc++) {
+                        switch (tc) {
+                           case 0:
+                              ans = "1";
+                              break;
+                           case 1:
+                              ans = "3";
+                              break;
+                           case 2:
+                              ans = "5";
+                              break;
+                        }
+                        TCMRiskCalculator tmpRiskData = new TCMRiskCalculator(goal,
+                                                                              age, retired, horizon,
+                                                                              ans, ans, ans);
+                        testArrayList.add(tmpRiskData);
+/*
+                  System.out.println("Catagory =" + goal +
+                                        " values > " +
+                                        age.toString() + "," +
+                                        horizon.toString() + "," +
+                                        ans + "," +
+                                        ans + "," +
+                                        ans + "---->" +
+                                        "Answer: " + riskIdex.toString()
+
+                  );
+
+*/
+                        if (testArrayList.size() > 1000)
+                           return;
+                     }
+               }
                break;
             default:
+               retired = null;
                goal = "Other";
-               break;
-         }
-         Integer horizon = 1;
-         String ans = "1";
-         for (Integer age=20; age < 100; age += 15) {
-            riskCalculator.setRiskAge(age);
-            for (Integer tc=0; tc < 3; tc++) {
-               switch (tc) {
-                  case 0:
-                     horizon = 1;
-                     ans = "1";
-                     break;
-                  case 1:
-                     horizon = 7;
-                     ans = "3";
-                     break;
-                  case 2:
-                     horizon = 20;
-                     ans = "5";
-                     break;
+               age=null;
+               for (horizon=1; horizon < 25; horizon += 5) {
+                  for (Integer tc=0; tc < 3; tc++) {
+                     switch (tc) {
+                        case 0:
+                           ans = "1";
+                           break;
+                        case 1:
+                           ans = "3";
+                           break;
+                        case 2:
+                           ans = "5";
+                           break;
+                     }
+                     TCMRiskCalculator tmpRiskData = new TCMRiskCalculator(goal,
+                                                                           age, retired, horizon,
+                                                                           ans, ans, ans);
+                     testArrayList.add(tmpRiskData);
+/*
+                  System.out.println("Catagory =" + goal +
+                                        " values > " +
+                                        age.toString() + "," +
+                                        horizon.toString() + "," +
+                                        ans + "," +
+                                        ans + "," +
+                                        ans + "---->" +
+                                        "Answer: " + riskIdex.toString()
+
+                  );
+
+*/
+                     if (testArrayList.size() > 1000)
+                        return;
+                  }
                }
-               riskCalculator.setRiskHorizon(horizon);
-               riskCalculator.setAns3(ans);
-               riskCalculator.setAns4(ans);
-               riskCalculator.setAns5(ans);
-               Double riskIdex = riskCalculator.calculateRisk(goal);
-               System.out.println("Catagory =" + goal +
-                                     " values > " +
-                                     age.toString() + "," +
-                                     horizon.toString() + "," +
-                                     ans + "," +
-                                     ans + "," +
-                                     ans + "---->" +
-                                     "Answer: " + riskIdex.toString()
-               );
-            }
+               break;
          }
       }
    }
-*/
 
 }
 

@@ -1,52 +1,64 @@
-package com.invessence.web.data.custody;
+package com.invessence.web.data.custody.td;
 
 import java.io.Serializable;
 import java.util.*;
 import javax.faces.bean.ManagedProperty;
 import javax.management.monitor.StringMonitor;
 
-import com.invessence.web.bean.consumer.CTOBean;
 import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.util.*;
 
 public class BenefiaciaryDetails implements Serializable
 {
+   private Long acctnum;
+   private Integer beneId = null;
 
-      private static final long serialVersionUID = 1L;
-      private Long acctnum;
-      private int beneId =1;
-
-      private String beneFirstName;
-      private String beneMidInitial;
-
-   public int getBeneId()
-   {
-      return beneId++;
-
-    }
-
-   public void setBeneId(int beneId)
-   {
-      this.beneId = beneId;
-   }
+   private String beneFirstName;
+   private String beneMidInitial;
 
    private String beneLastName;
-      private String beneSSN;
-      private String beneDOB;
-      private String beneRel;
-      private String beneCitizenshiId;
-      private String typeOfBeneficiary;
-      private String perStripes;
-      private Double sharePerc;
-      private Date created;
-      private String createdBy;
-      private Date updated;
-      private String updatedBy;
-      private Boolean managed =true;
+   private String beneSSN;
+   private String beneDOB;
+   private String beneRel;
+   private String beneCitizenshiId;
+   private String typeOfBeneficiary;
+   private String perStripes;
+   private Double sharePerc;
+   private Date created;
+   private String createdBy;
+   private Date updated;
+   private String updatedBy;
+   private Boolean managed = true;
 
 
    public BenefiaciaryDetails()
    {
+
+   }
+
+   public BenefiaciaryDetails(Long acctnum, Integer beneId)
+   {
+      this.acctnum = acctnum;
+      this.beneId =  beneId;
+   }
+
+   /*
+   public BenefiaciaryDetails(String beneFirstName, String beneLastName, Double sharePerc)
+   {
+       this.beneFirstName = beneFirstName;
+       this.beneLastName =beneLastName;
+       this.sharePerc =sharePerc;
+   }
+*/
+   public Integer getBeneId()
+   {
+
+      return beneId;
+   }
+
+   public void setBeneId(Integer beneId)
+   {
+      this.beneId = beneId;
 
    }
 
@@ -60,8 +72,10 @@ public class BenefiaciaryDetails implements Serializable
       this.managed = managed;
    }
 
+
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
+
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -69,12 +83,16 @@ public class BenefiaciaryDetails implements Serializable
 
    @ManagedProperty("#{uiLayout}")
    private UILayout uiLayout;
+
    public void setUiLayout(UILayout uiLayout)
    {
       this.uiLayout = uiLayout;
    }
+
    public String doSelectedAction()
    {
+      System.out.println("doSelectedAction() :" + getManaged());
+
       String whichXML;
       try
       {
@@ -83,7 +101,8 @@ public class BenefiaciaryDetails implements Serializable
          {
 
          }
-         else {
+         else
+         {
 
          }
       }
@@ -94,6 +113,7 @@ public class BenefiaciaryDetails implements Serializable
 
       return ("success");
    }
+
    public Long getAcctnum()
    {
       return acctnum;

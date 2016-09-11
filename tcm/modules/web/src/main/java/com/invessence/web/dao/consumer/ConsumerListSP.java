@@ -9,7 +9,7 @@ import com.invessence.web.data.common.CustomerData;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
-
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class ConsumerListSP extends StoredProcedure
 {
 
@@ -47,7 +47,6 @@ public class ConsumerListSP extends StoredProcedure
       compile();
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map loadClientProfileData(Long logonid, Long acctnum, Integer days)
    {
       Map inputMap = new HashMap();

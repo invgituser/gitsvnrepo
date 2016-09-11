@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
 
 
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class AdvisorSaveSP extends StoredProcedure
 {
 
@@ -118,7 +119,6 @@ public class AdvisorSaveSP extends StoredProcedure
       compile();
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map saveProfile(AdvisorData data)
    {
          Map inputMap = new HashMap();
@@ -164,7 +164,6 @@ public class AdvisorSaveSP extends StoredProcedure
       super.execute(inputMap);
    }
 
-  @SuppressWarnings({"unchecked", "rawtypes"})
    public void saveAllocation(AdvisorData data)
    {
       if (data.getEditableAsset() != null) {
@@ -200,7 +199,6 @@ public class AdvisorSaveSP extends StoredProcedure
       super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void savePortfolio(AdvisorData data)
    {
 

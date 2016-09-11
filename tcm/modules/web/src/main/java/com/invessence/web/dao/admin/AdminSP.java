@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class AdminSP extends StoredProcedure
 {
 
@@ -92,7 +93,6 @@ public class AdminSP extends StoredProcedure
       compile();
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map getIBData(String filter)
    {
 
@@ -162,7 +162,6 @@ public class AdminSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map loadProfile(String filter)
    {
       Map inputMap = new HashMap();
@@ -170,7 +169,6 @@ public class AdminSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map loadTradesDetails(Long acctnum)
    {
       Map inputMap = new HashMap();
@@ -178,7 +176,6 @@ public class AdminSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map getTradesAllocationData()
    {
       Map inputMap = new HashMap();

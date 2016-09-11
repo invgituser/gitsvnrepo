@@ -1,27 +1,33 @@
-package com.invessence.web.data.custody;
+package com.invessence.web.data.custody.td;
 
 import java.util.Date;
 
 public class EmploymentDetails {
-      private Long acctnum;
-      private Integer acctOwnerId;
-      private Integer emplId;
-      private String employerName;
-      private String occupation;
-      private String typeOfBusiness;
-      private String employerStreetAddress;
-      private String employerCity;
-      private String employerState;
-      private String employerZipCode;
-      private Date fromDate;
-      private Date toDate;
-      private Date created;
-      private String createdBy;
-      private Date updated;
-      private String updatedBy;
+   private Long acctnum;
+   private Integer acctOwnerId;
+   private Integer emplId;
+   private String emplTypeId;
+   private String sourceOfIncome;
+   private String employerName;
+   private String occupation;
+   private String typeOfBusiness;
+   private String employerStreetAddress;
+   private String employerCity;
+   private String employerState;
+   private String employerZipCode;
+   private String fromDate;
+   private String toDate;
+   private String createdBy;
 
    public EmploymentDetails()
    {
+   }
+
+   public EmploymentDetails(Long acctnum, Integer acctOwnerId, Integer emplId)
+   {
+      this.acctnum = acctnum;
+      this.acctOwnerId = acctOwnerId;
+      this.emplId = emplId;
    }
 
    public Long getAcctnum()
@@ -52,6 +58,33 @@ public class EmploymentDetails {
    public void setEmplId(Integer emplId)
    {
       this.emplId = emplId;
+   }
+
+   public String getEmplTypeId()
+   {
+      return emplTypeId;
+   }
+
+   public void setEmplTypeId(String emplTypeId)
+   {
+      this.emplTypeId = emplTypeId;
+   }
+
+   public Boolean getNeedInfo() {
+     if (emplTypeId == null)
+       return false;
+
+     return(emplTypeId.startsWith("Employed") || emplTypeId.startsWith("SelfEmployed"));
+   }
+
+   public String getSourceOfIncome()
+   {
+      return sourceOfIncome;
+   }
+
+   public void setSourceOfIncome(String sourceOfIncome)
+   {
+      this.sourceOfIncome = sourceOfIncome;
    }
 
    public String getEmployerName()
@@ -124,34 +157,24 @@ public class EmploymentDetails {
       this.employerZipCode = employerZipCode;
    }
 
-   public Date getFromDate()
+   public String getFromDate()
    {
       return fromDate;
    }
 
-   public void setFromDate(Date fromDate)
+   public void setFromDate(String fromDate)
    {
       this.fromDate = fromDate;
    }
 
-   public Date getToDate()
+   public String getToDate()
    {
       return toDate;
    }
 
-   public void setToDate(Date toDate)
+   public void setToDate(String toDate)
    {
       this.toDate = toDate;
-   }
-
-   public Date getCreated()
-   {
-      return created;
-   }
-
-   public void setCreated(Date created)
-   {
-      this.created = created;
    }
 
    public String getCreatedBy()
@@ -162,25 +185,5 @@ public class EmploymentDetails {
    public void setCreatedBy(String createdBy)
    {
       this.createdBy = createdBy;
-   }
-
-   public Date getUpdated()
-   {
-      return updated;
-   }
-
-   public void setUpdated(Date updated)
-   {
-      this.updated = updated;
-   }
-
-   public String getUpdatedBy()
-   {
-      return updatedBy;
-   }
-
-   public void setUpdatedBy(String updatedBy)
-   {
-      this.updatedBy = updatedBy;
    }
 }

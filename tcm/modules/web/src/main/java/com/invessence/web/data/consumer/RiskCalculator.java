@@ -138,6 +138,11 @@ public class RiskCalculator
       this.retired = retired;
    }
 
+   public Boolean isRetired() {
+      if (retired != null && retired == 1)
+         return true;
+      return false;
+   }
    public String getInvestmentobjective()
    {
       return investmentobjective;
@@ -145,7 +150,18 @@ public class RiskCalculator
 
    public void setInvestmentobjective(String investmentobjective)
    {
-      this.investmentobjective = investmentobjective;
+      if (investmentobjective != null)
+         this.investmentobjective = investmentobjective.toLowerCase();
+      else
+         this.investmentobjective = null;
+   }
+
+   public Boolean isThisRetirement()
+   {
+       if (investmentobjective != null && investmentobjective.startsWith("retire")) {
+            return true;
+       }
+      return false;
    }
 
    public SQLData getConverter()

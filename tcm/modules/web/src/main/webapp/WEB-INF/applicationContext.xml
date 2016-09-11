@@ -11,7 +11,6 @@
     <!-- Enable annotation driven controllers, validation etc... -->
    <mvc:annotation-driven/>
 
-			
 	 <context:component-scan base-package="com.invessence.web.dao"/>
 	 <context:component-scan base-package="com.invessence.web.validator"/>
 	 <context:component-scan base-package="com.invessence.web.util"/>

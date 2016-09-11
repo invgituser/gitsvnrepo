@@ -1,14 +1,11 @@
 package com.invessence.web.data.custody;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import com.invessence.web.bean.custody.*;
-import com.invessence.converter.SQLData;
-import com.invessence.web.constant.USMaps;
-import com.invessence.web.dao.custody.CustodySaveDAO;
+import java.util.*;
 
-import javax.faces.bean.*;
-import javax.faces.event.ActionEvent;
+import com.invessence.web.constant.USMaps;
+import com.invessence.web.data.custody.td.*;
+import org.primefaces.event.RowEditEvent;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,14 +25,15 @@ public class TDMasterData implements Serializable
 
    Boolean ownerSPF, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
+   Boolean createBeneficiary;
    Integer fundType;
    Boolean recurringFlag;
    Double initialInvestment;
 
    private USMaps usmaps;
    // TD information
-   TDRequest request;
-   TDAcctdetails  acctdetail;
+   Request request;
+   Acctdetails acctdetail;
    AdvisorDetails advisorDetails;
    AcctOwnersDetails acctOwnersDetail;
    AcctOwnersDetails jointAcctOwnersDetail;
@@ -47,7 +45,8 @@ public class TDMasterData implements Serializable
    ElectronicFundDetails electroicBankDetail;
    FedwireAcctDetails fedwireAcctDetail;
    InternalTransferDetails internalTransferDetail;
-   BenefiaciaryDetails benefiaciaryDetails;
+   ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList;
+   BenefiaciaryDetails tmpBenefiaciaryDetail;
 
    public TDMasterData()
    {
@@ -57,32 +56,44 @@ public class TDMasterData implements Serializable
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
+      createBeneficiary = false;
       addBeneficiary = false;
       recurringFlag = false;
       fundType = 0;
       initialInvestment = null;
       usmaps = USMaps.getInstance();
 
-      request = new TDRequest();
-      acctdetail = new TDAcctdetails();
+      request = new Request();
+      acctdetail = new Acctdetails();
       advisorDetails = new AdvisorDetails();
       acctOwnersDetail = new AcctOwnersDetails();
       jointAcctOwnersDetail = new AcctOwnersDetails();
       owneremploymentDetail = new EmploymentDetails ();
       jointEmploymentDetail= new EmploymentDetails ();
-      benefiaciaryDetailses = new BenefiaciaryDetails();
+      benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
       mapMovemoneyPaymethod = new MapMovemoneyPaymethod();
       achBankDetail = new AchBankDetail();
       electroicBankDetail = new ElectronicFundDetails();
       fedwireAcctDetail = new FedwireAcctDetails();
       internalTransferDetail = new InternalTransferDetails();
 
+      tmpBenefiaciaryDetail = new BenefiaciaryDetails();
    }
 
    public void setAcctnum(Long acctnum)
    {
-      this.acctnum = acctnum;
-      benefiaciaryDetails.setAcctnum(this.acctnum);
+      if (acctnum != null) {
+         if (this.acctnum != null && this.acctnum == acctnum)
+            return;
+
+         this.acctnum = acctnum;
+         request = new Request(null, acctnum);
+         acctdetail = new Acctdetails(acctnum);
+         acctOwnersDetail = new AcctOwnersDetails(acctnum, 1);
+         jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2);
+         owneremploymentDetail = new EmploymentDetails(acctnum, 1, 1);
+         jointEmploymentDetail = new EmploymentDetails(acctnum, 1, 1);
+      }
 
    }
 
@@ -229,22 +240,22 @@ public class TDMasterData implements Serializable
       return usmaps;
    }
 
-   public TDRequest getRequest()
+   public Request getRequest()
    {
       return request;
    }
 
-   public void setRequest(TDRequest request)
+   public void setRequest(Request request)
    {
       this.request = request;
    }
 
-   public TDAcctdetails getAcctdetail()
+   public Acctdetails getAcctdetail()
    {
       return acctdetail;
    }
 
-   public void setAcctdetail(TDAcctdetails acctdetail)
+   public void setAcctdetail(Acctdetails acctdetail)
    {
       this.acctdetail = acctdetail;
    }
@@ -373,5 +384,73 @@ public class TDMasterData implements Serializable
    {
       this.internalTransferDetail = internalTransferDetail;
    }
+
+   public ArrayList<BenefiaciaryDetails> getBenefiaciaryDetailsList()
+   {
+      return benefiaciaryDetailsList;
+   }
+
+   public void saveBenefiaciaryDetails() {
+      if (benefiaciaryDetailsList == null) {
+         benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
+      }
+
+      if (tmpBenefiaciaryDetail == null)
+         return;
+
+      if (tmpBenefiaciaryDetail.getBeneId() == null) {
+         tmpBenefiaciaryDetail.setBeneId(benefiaciaryDetailsList.size());
+      }
+      benefiaciaryDetailsList.add(tmpBenefiaciaryDetail.getBeneId(), tmpBenefiaciaryDetail);
+      createBeneficiary = false;
+   }
+
+   public BenefiaciaryDetails getTmpBenefiaciaryDetail()
+   {
+      return tmpBenefiaciaryDetail;
+   }
+
+   public Boolean getCreateBeneficiary()
+   {
+      return createBeneficiary;
+   }
+
+   public void setCreateBeneficiary(Boolean createBeneficiary)
+   {
+      this.createBeneficiary = createBeneficiary;
+      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, 1);
+   }
+
+   public void addBenefiaciary() {
+      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, 1);
+      createBeneficiary = true;
+   }
+
+   public void setSelectedBeneficiary(BenefiaciaryDetails thisBenefificiary) {
+      tmpBenefiaciaryDetail = thisBenefificiary;
+   }
+
+   public void editBeneficiary() {
+      createBeneficiary = true;
+   }
+
+   public void deleteBeneficiary(Integer beneID) {
+      if (beneID == null)
+         return;
+
+      if (beneID > benefiaciaryDetailsList.size())
+         return;
+
+      benefiaciaryDetailsList.remove(beneID.intValue());
+      for (int i=0; i < benefiaciaryDetailsList.size(); i++) {
+         benefiaciaryDetailsList.get(i).setBeneId(i);  // Reset all seq#.
+      }
+   }
+
+   public void onCancelBenefiaciary(RowEditEvent event) {
+      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, 1);
+      createBeneficiary = false;
+   }
+
 
 }

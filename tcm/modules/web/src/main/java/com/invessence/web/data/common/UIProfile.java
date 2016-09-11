@@ -37,6 +37,8 @@ public class UIProfile
    String webmode;
    String googleAnalytic;
 
+   String custodydir;
+   String custodycss;
    //  These properties are based on the visitor or person logged on.
    //  These will be created after the visitor opens a landing page.
    String advisor;
@@ -251,6 +253,26 @@ public class UIProfile
    public void setCid(String cid)
    {
       this.cid = cid;
+   }
+
+   public String getCustodydir()
+   {
+      return custodydir;
+   }
+
+   public void setCustodydir(String custodydir)
+   {
+      this.custodydir = custodydir;
+   }
+
+   public String getCustodycss()
+   {
+      return custodycss;
+   }
+
+   public void setCustodycss(String custodycss)
+   {
+      this.custodycss = custodycss;
    }
 
    public String getAdvisor()

@@ -697,7 +697,7 @@ public class WebUtil implements Serializable
 
    }
 
-   public static String validateNewPass(String pass1, String pass2)
+   public String validateNewPass(String pass1, String pass2)
    {
       StringBuilder retVal = new StringBuilder();
 

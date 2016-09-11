@@ -10,6 +10,7 @@ import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class TradeSP extends StoredProcedure
 {
 
@@ -73,7 +74,6 @@ public class TradeSP extends StoredProcedure
       compile();
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map getVirtualPosition(Long acctnum) {
       Map inputMap = new HashMap();
 
@@ -82,7 +82,6 @@ public class TradeSP extends StoredProcedure
 
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void updateNextRebalDate(String name, String nextRebalDate)
    {
 
@@ -95,7 +94,6 @@ public class TradeSP extends StoredProcedure
    }
 
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void deleteAllocation(CustomerData data)
    {
       Map inputAssetMap = new HashMap();
@@ -105,7 +103,6 @@ public class TradeSP extends StoredProcedure
       super.execute(inputAssetMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void saveAllocation(CustomerData data)
    {
       com.invmodel.asset.data.AssetClass aac[] = data.getAssetData();
@@ -127,7 +124,6 @@ public class TradeSP extends StoredProcedure
       }
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void deletePortfolio(CustomerData data)
    {
       Map inputAssetMap = new HashMap();
@@ -135,7 +131,6 @@ public class TradeSP extends StoredProcedure
       super.execute(inputAssetMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void savePortfolio(CustomerData data)
    {
 
@@ -164,7 +159,6 @@ public class TradeSP extends StoredProcedure
       }
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void createTrades(Long acctnum)
    {
       Map inputMap = new HashMap();
@@ -173,7 +167,6 @@ public class TradeSP extends StoredProcedure
       super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map loadTradesDetails(Long acctnum)
    {
       Map inputMap = new HashMap();
@@ -181,28 +174,24 @@ public class TradeSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map getTradeData()
    {
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void updateExecutedTrades()
    {
       Map inputMap = new HashMap();
       super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public void delete_pending_trades()
    {
       Map inputMap = new HashMap();
       super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map selectPosition(Long acctnum)
    {
       Map inputMap = new HashMap();

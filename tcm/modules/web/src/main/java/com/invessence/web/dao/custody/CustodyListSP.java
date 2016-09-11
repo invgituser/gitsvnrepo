@@ -13,6 +13,7 @@ import org.springframework.jdbc.object.StoredProcedure;
  * Time: 11:27 AM
  * To change this template use File | Settings | File Templates.
  */
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class CustodyListSP extends StoredProcedure
 {
 

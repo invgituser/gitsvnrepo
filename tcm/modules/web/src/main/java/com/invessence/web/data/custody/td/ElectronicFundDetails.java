@@ -1,4 +1,4 @@
-package com.invessence.web.data.custody;
+package com.invessence.web.data.custody.td;
 
 import java.util.Date;
 
@@ -29,6 +29,12 @@ public class ElectronicFundDetails
 
    public ElectronicFundDetails()
    {
+   }
+
+   public ElectronicFundDetails(Long acctnum, Long reqId)
+   {
+      this.acctnum = acctnum;
+      this.reqId = reqId;
    }
 
    public Long getAcctnum()

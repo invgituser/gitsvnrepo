@@ -18,8 +18,8 @@ public class TCMRiskCalculator extends RiskCalculator
       {0.0, 60.00, 48.00, 42.00, 36.00, 30.00, 24.00, 18.00, 12.00, 6.00, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
       {0.0, 60.00, 48.00, 42.00, 36.00, 30.00, 24.00, 18.00, 12.00, 6.00, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q2 (Corresponds to Horizon)
       {0.0, 20.0, 15.0, 10.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q3 Rest below is customizable
-      {0.0, 10.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
-      {0.0, 10.0, 8.0, 6.0, 4.0, 2.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q5
+      {0.0, 20.0, 15.0, 10.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q4
+      {0.0, 20.0, 15.0, 10.0, 5.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q5
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q6
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q7
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Q8
@@ -34,8 +34,6 @@ public class TCMRiskCalculator extends RiskCalculator
 
    static Integer RETIRE_AGE_MAX = 85;
 
-   private String ans5;
-   private String ans5AggressiveRadio;
    public TCMRiskCalculator()
    {
       super();
@@ -44,6 +42,37 @@ public class TCMRiskCalculator extends RiskCalculator
       //ans5 = "1";
       resetAllData();
    }
+
+
+   // This constructor is designed to test calculator. Not practical in useage.
+   public TCMRiskCalculator(String goal,
+                            Integer age, Integer retired,
+                            Integer horizon, String ans3, String ans4, String ans5)
+   {
+      super();
+      setNumberofQuestions(5);
+      resetAllData();
+      setInvestmentobjective(goal);
+      setRiskAge(age);
+      setRetired(retired);
+      if (isThisRetirement()) {
+         if (! isRetired()) {  // Not retired, then set retirement age.
+            setRetireAge(horizon);
+         }
+         else {
+            setRiskHorizon(null);
+         }
+      }
+      else {
+         setRiskHorizon(horizon);
+      }
+
+      setAnswer(3, ans3);
+      setAnswer(4, ans4);
+      setAnswer(5, ans5);
+      setTotalRisk(calculateRisk());
+   }
+
 
    public TCMRiskCalculator(Integer numberofQuestions)
    {
@@ -70,16 +99,16 @@ public class TCMRiskCalculator extends RiskCalculator
          this.riskHorizon = value;
    }
 
-   private void redoRiskHorizon(Integer value)
+   private void redoRiskHorizon()
    {
       if (getRiskAge() == null)
          return;
 
-      Integer retiredAge = (value == null) ? 0: value;
       Integer age = getRiskAge();
       Integer calcValue;
-      if (getRetireAge() != null) {
-         if (getRetired() == 0) {  // Not retired
+      if (isThisRetirement()) {
+         if (! isRetired()) {  // Not retired
+            Integer retiredAge = (getRetireAge() == null) ? 0: retireAge;
             calcValue =  ((retiredAge - age) < 0) ? 0 : (retiredAge - age);
             calcValue = calcValue + ((RETIRE_AGE_MAX - retiredAge)/2);
             calcValue = (calcValue < 0) ? 0 : calcValue;
@@ -92,21 +121,20 @@ public class TCMRiskCalculator extends RiskCalculator
             this.riskHorizon = calcValue;
          }
       }
-      else {
-         this.riskHorizon = value;
+
+      // This is catch all, in-case something failed above.
+      if (riskHorizon == null) {
+         riskHorizon = 0;
       }
    }
 
    private Integer getTimeHorizon() {
       Integer horizon = getRiskHorizon();
       try {
-         if (getInvestmentobjective() == null)
-            return horizon;
-
          if (horizon == null)
             horizon = 0;
 
-         if (getInvestmentobjective().equalsIgnoreCase("Retirement")) {
+         if (isThisRetirement()) {
             if (horizon <= 3)
                return 1;
             else
@@ -137,7 +165,7 @@ public class TCMRiskCalculator extends RiskCalculator
                return 10;
         }
          else {
-            if (horizon <= 1)
+            if (horizon < 1)
                return 1;
             else
             if (horizon <= 2)
@@ -195,7 +223,10 @@ public class TCMRiskCalculator extends RiskCalculator
                return 0.0;
             }
 
-            redoRiskHorizon(getRetireAge());
+            String investmentType =  getInvestmentobjective().toLowerCase();
+            if (isThisRetirement()) {
+               redoRiskHorizon();
+            }
             Double value;
             adjustRisk = 120.0;
             Integer lookupindex;
@@ -205,7 +236,7 @@ public class TCMRiskCalculator extends RiskCalculator
                switch (loop)
                {
                   case 1:
-                        riskValues[loop] = getRetired().doubleValue();
+                        riskValues[loop] = adjustRisk;
                      break;
                  default:
                      lookupindex = (loop == 2) ? getTimeHorizon() : converter.getIntData(answers[loop]);
@@ -234,28 +265,6 @@ public class TCMRiskCalculator extends RiskCalculator
          setTotalRisk(0.0);
          return 0.0;
       }
-   }
-
-   @Override
-   public String getAns5()
-   {
-      return ans5;
-   }
-
-   @Override
-   public void setAns5(String ans5)
-   {
-      this.ans5 = ans5;
-   }
-
-   public String getAns5AggressiveRadio()
-   {
-      return ans5AggressiveRadio;
-   }
-
-   public void setAns5AggressiveRadio(String ans5AggressiveRadio)
-   {
-      this.ans5AggressiveRadio = ans5AggressiveRadio;
    }
 
    @Override

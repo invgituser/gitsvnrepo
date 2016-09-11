@@ -12,6 +12,7 @@ import java.util.*;
 
 import org.springframework.jdbc.core.SqlParameter;
 
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class UserInfoSP extends StoredProcedure
 {
 
@@ -24,7 +25,7 @@ public class UserInfoSP extends StoredProcedure
          case 0:
             declareParameter(new SqlParameter("p_addmod", Types.VARCHAR));
             declareParameter(new SqlOutParameter("p_logonid", Types.BIGINT));
-            declareParameter(new SqlOutParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
             declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));
@@ -45,8 +46,8 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_leadsource", Types.VARCHAR));
             declareParameter(new SqlParameter("p_cid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_rep", Types.BIGINT));
-            declareParameter(new SqlParameter("p_access", Types.BIGINT));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_access", Types.VARCHAR));
             break;
          case 1:
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
@@ -93,9 +94,9 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_logonid", data.getLogonID());
       inputMap.put("p_acctnum", data.getAcctnum()); // If acctnum is null or 0L then don't link account.  Else create a linked account.
       inputMap.put("p_userid", data.getUserID());
-      inputMap.put("p_email", data.getEmailID());
+      inputMap.put("p_email", data.getEmail());
       inputMap.put("p_pwd", data.getPassword());
-      if (action.equals("A"))
+      if (data.getLogonstatus() == null)
       {
          inputMap.put("p_logonstatus", "T");
       }

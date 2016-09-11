@@ -5,12 +5,11 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.web.bean.consumer.CTOBean;
 import com.invessence.web.dao.common.*;
-import com.invessence.web.dao.consumer.*;
 import com.invessence.web.dao.custody.*;
 import com.invessence.web.data.common.UserData;
 import com.invessence.web.data.custody.*;
+import com.invessence.web.data.custody.td.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import org.primefaces.event.*;
@@ -29,7 +28,7 @@ public class TdCto
 {
    private String beanacctnum;
    private Long acctnum;
-   private UserData userdata;
+   private UserData userdata = new UserData();
    private TDMasterData tdMasterData = new TDMasterData();
    private PagesImpl pagemanager = new PagesImpl(10);
    private Integer activeTab = 0;   // Start with first tab.
@@ -52,6 +51,19 @@ public class TdCto
    {
       this.intNum = intNum;
    }
+
+   private BenefiaciaryDetails selectedAccount;
+
+   public BenefiaciaryDetails getSelectedAccount()
+   {
+      return selectedAccount;
+   }
+
+   public void setSelectedAccount(BenefiaciaryDetails selectedAccount)
+   {
+      this.selectedAccount = selectedAccount;
+   }
+
 
    public TDMasterData getTdMasterData()
    {
@@ -126,19 +138,6 @@ public class TdCto
       this.custodySaveDAO = custodySaveDAO;
    }
 
-   @ManagedProperty("#{ctobean}")
-   private CTOBean ctoBean;
-
-   public CTOBean getCtoBean()
-   {
-      return ctoBean;
-   }
-
-   public void setCtoBean(CTOBean ctoBean)
-   {
-      this.ctoBean = ctoBean;
-   }
-
    public String getBeanacctnum()
    {
       return beanacctnum;
@@ -147,8 +146,21 @@ public class TdCto
    public void setBeanacctnum(String beanacctnum)
    {
       this.beanacctnum = beanacctnum;
-      this.acctnum = Long.valueOf(beanacctnum);
+      Long acctnum;
 
+      if (beanacctnum != null) {
+         acctnum = Long.valueOf(beanacctnum);
+         this.acctnum =  acctnum;
+         if (tdMasterData != null) {
+            tdMasterData.setAcctnum(acctnum);
+            tdMasterData.getAcctdetail().setAcctnum(acctnum);
+            tdMasterData.getAcctOwnersDetail().setAcctnum(acctnum);
+            tdMasterData.getJointAcctOwnersDetail().setAcctnum(acctnum);
+            tdMasterData.getOwneremploymentDetail().setAcctnum(acctnum);
+            tdMasterData.getJointEmploymentDetail().setAcctnum(acctnum);
+         }
+
+      }
    }
 
    public UserData getUserdata()
@@ -162,11 +174,10 @@ public class TdCto
    {
       return beneTempList;
    }
-
+  
    public void addTempBeneficiary() {
 
-      tdMasterData.getBenefiaciaryDetailses().setAcctnum(ctoBean.getBeanAcctnum());
-
+      tdMasterData.getBenefiaciaryDetailses().setAcctnum(tdMasterData.getAcctnum());
       if(beneTempList.isEmpty())
       {
          tdMasterData.getBenefiaciaryDetailses().setBeneId(1);
@@ -200,6 +211,18 @@ public class TdCto
       }
 
       return ("success");
+   }
+   public void onEditBenefiaciary(RowEditEvent event) {
+      System.out.println("onEditBenefiaciary() ");
+      FacesMessage msg = new FacesMessage("Benefiaciary Edited", ((BenefiaciaryDetails) event.getObject()).getBeneFirstName());
+      FacesContext.getCurrentInstance().addMessage(null, msg);
+   }
+
+   public void onCancelBenefiaciary(RowEditEvent event) {
+      System.out.println("onCancelBenefiaciary() ");
+      FacesMessage msg = new FacesMessage("Benefiaciary Cancelled");
+      FacesContext.getCurrentInstance().addMessage(null, msg);
+      beneTempList.remove((BenefiaciaryDetails) event.getObject());
    }
 
    public String getBeneFirstName()
@@ -249,41 +272,6 @@ public class TdCto
       // If they are signed-up then check if this account is already entered.
       // If so, then edit, else add.
       uiLayout.doMenuAction("custody", "index.xhtml?acct=" + acctnum.toString());
-   }
-
-
-   // This interface will show the signup window, and then allow the user.
-   // Function addUserLogon will determine the validity of data and returns the valid LogonID.
-   // After the LogonID is created, then call function to connect the logonID with acctnum.
-   public void creteSimpleSignup()
-   {
-      if (userdata == null)
-      {
-         webutil.redirecttoMessagePage("Error", "System Error", "Unable to process your request at this time.  Please contact support");
-         webutil.alertSupport("TdCto.createSimpleSignup()", "CreateSimpleSignup error", "UserData Object is null.  Check System.", null);
-         return;
-      }
-      userdata.setAcctnum(acctnum);
-      userdata.setUserID(userdata.getEmail()); // Since we are collecting email, make sure to set the userid same.
-      Long logonID = userdata.addUserLogon();
-      if (logonID != null && logonID >= 0L)
-      {
-         tdMasterData.setAcctnum(acctnum);
-         AdvisorDetails advisorDetails = loadAdvisorData();
-         if (advisorDetails != null)
-         {
-            tdMasterData.setAdvisorDetails(advisorDetails);
-         }
-         uiLayout.doMenuAction("custody", "cto.xhtml?acct=" + acctnum.toString());
-      }
-      else
-      {
-         webutil.redirecttoMessagePage("Error", "System Error", "Unable to create your credentials at this time.  Please try again later.");
-         webutil.alertSupport("TdCto.createSimpleSignup()", "CreateSimpleSignup error", "LogonID was not created, even though the signup process was initiated.  Check SQL log.", null);
-         return;
-      }
-
-
    }
 
    public void selectAcctType(Integer type)
@@ -502,7 +490,7 @@ public class TdCto
       }
       if (cangoToNext)
       {
-         saveData(pagemanager.getPage());
+         //saveData(pagemanager.getPage());
          pagemanager.nextPage();
          resetActiveTab(pagemanager.getPage());
 
@@ -537,35 +525,39 @@ public class TdCto
          return;
 
       switch (pagenum) {
-         case 0:
-            custodySaveDAO.td_saveRequest(tdMasterData.getRequest());
-            custodySaveDAO.td_saveAccountDetail(tdMasterData.getAcctdetail());
+         case 0: // Account Type and create basic info
+            custodySaveDAO.tdSaveRequest(tdMasterData.getRequest());
+            custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail());
             break;
-         case 1:
-            custodySaveDAO.td_saveAccountOwner(tdMasterData.getAcctOwnersDetail());
+         case 1: // Account Owner
+            custodySaveDAO.tdSaveAccountOwner(tdMasterData.getAcctOwnersDetail());
             break;
-         case 2:
-            custodySaveDAO.td_saveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
+         case 2:  // Joint Owner  (if Any)
+            custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
             break;
-         case 3:
+         case 3:  // Owner Address
+            custodySaveDAO.tdSaveEmployment(tdMasterData.getOwneremploymentDetail());
             break;
-         case 4:
+         case 4:  // Joint Owner  Address (if Any)
+            custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
             break;
-         case 5:
+         case 5:  // Owner Emplyment
+            custodySaveDAO.tdSaveEmployment(tdMasterData.getOwneremploymentDetail());
             break;
-         case 6:
+         case 6: // Joint Emplyment  (If any)
+            custodySaveDAO.tdSaveEmployment(tdMasterData.getJointEmploymentDetail());
             break;
-         case 7:
+         case 7: // Regulatory
+            custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
             break;
          case 8:
-            custodySaveDAO.td_saveBenefiaciaryDetails(beneTempList);
+            custodySaveDAO.saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailses());
             break;
          case 9:
             break;
          case 10:
             break;
          default:
-
             break;
       }
 

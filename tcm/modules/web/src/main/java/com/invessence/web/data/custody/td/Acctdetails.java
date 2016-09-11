@@ -1,8 +1,8 @@
-package com.invessence.web.data.custody;
+package com.invessence.web.data.custody.td;
 
 import java.util.Date;
 
-public class TDAcctdetails
+public class Acctdetails
 {
    private Long acctnum;
    private String clientAccountID;
@@ -18,8 +18,13 @@ public class TDAcctdetails
    private String proxyAuthorizationId;
 
 
-   public TDAcctdetails()
+   public Acctdetails()
    {
+   }
+
+   public Acctdetails(Long acctnum)
+   {
+      this.acctnum = acctnum;
    }
 
    public Long getAcctnum()

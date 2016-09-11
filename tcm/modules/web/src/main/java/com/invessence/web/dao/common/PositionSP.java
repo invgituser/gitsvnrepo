@@ -8,7 +8,7 @@ import javax.sql.DataSource;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
-
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class PositionSP extends StoredProcedure
 {
 
@@ -20,7 +20,6 @@ public class PositionSP extends StoredProcedure
       compile();
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map loadDBData(Long p_acctnum)
    {
 

@@ -13,6 +13,7 @@ import com.invessence.web.data.consumer.*;
 import com.invmodel.inputData.GoalsData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 @ManagedBean(name = "consumerListDataDAO")
 @SessionScoped
 public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable

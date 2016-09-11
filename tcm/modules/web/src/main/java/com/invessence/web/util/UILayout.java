@@ -140,11 +140,16 @@ public class UILayout implements Serializable
                                                    getWebServiceValue("EMAIL.PASSWORD"),
                                                    getWebServiceValue("EMAIL.PORT"));
                Map<String, String> emailMap = new HashMap<String,String>();
-               emailMap.put("WELCOME.EMAIL",getWebServiceValue("WELCOME.EMAIL"));
-               emailMap.put("RESET.EMAIL",getWebServiceValue("RESET.EMAIL"));
-               emailMap.put("LOCK.EMAIL",getWebServiceValue("LOCK.EMAIL"));
-               emailMap.put("FORGOT.EMAIL",getWebServiceValue("FORGOT.EMAIL"));
+               emailMap.put(WebConst.HTML_WELCOME,getWebServiceValue(WebConst.HTML_WELCOME));
+               emailMap.put(WebConst.HTML_LOCKED,getWebServiceValue(WebConst.HTML_LOCKED));
+               emailMap.put(WebConst.HTML_RESET,getWebServiceValue(WebConst.HTML_RESET));
+               emailMap.put(WebConst.HTML_WELCOME_ADV,getWebServiceValue(WebConst.HTML_WELCOME_ADV));
                webutil.getUiprofile().setEmailTemplateMap(emailMap);
+
+               webutil.getUiprofile().setAdvisor(getWebServiceValue("DEFAULT.ADVISOR"));
+               webutil.getUiprofile().setRep(getWebServiceValue("DEFAULT.REP"));
+               webutil.getUiprofile().setCustodydir(getWebServiceValue("CUSTODY.DIR"));
+               webutil.getUiprofile().setCustodycss(getWebServiceValue("CUSTODY.CSS"));
                webutil.getUiprofile().setGoogleAnalytic(getWebServiceValue("GOOGLE.ANALYTICS"));
             }
          }
@@ -189,13 +194,16 @@ public class UILayout implements Serializable
 
 
             Map<String, String> emailMap = new HashMap<String,String>();
-            emailMap.put("HTML.WELCOME",getWebServiceValue("WELCOME.EMAIL"));
-            emailMap.put("HTML.RESET",getWebServiceValue("RESET.EMAIL"));
-            emailMap.put("HTML.LOCK",getWebServiceValue("LOCK.EMAIL"));
-            emailMap.put("HTML.FORGOT",getWebServiceValue("FORGOT.EMAIL"));
+            emailMap.put(WebConst.HTML_WELCOME,getWebServiceValue(WebConst.HTML_WELCOME));
+            emailMap.put(WebConst.HTML_LOCKED,getWebServiceValue(WebConst.HTML_LOCKED));
+            emailMap.put(WebConst.HTML_RESET,getWebServiceValue(WebConst.HTML_RESET));
+            emailMap.put(WebConst.HTML_WELCOME_ADV,getWebServiceValue(WebConst.HTML_WELCOME_ADV));
             webutil.getUiprofile().setEmailTemplateMap(emailMap);
             webutil.getUiprofile().setAdvisor(getWebServiceValue("DEFAULT.ADVISOR"));
             webutil.getUiprofile().setRep(getWebServiceValue("DEFAULT.REP"));
+            webutil.getUiprofile().setCustodydir(getWebServiceValue("CUSTODY.DIR"));
+            webutil.getUiprofile().setCustodycss(getWebServiceValue("CUSTODY.CSS"));
+
          }
       }
    }
@@ -432,9 +440,10 @@ public class UILayout implements Serializable
          else
          {
             if (location.equalsIgnoreCase("consumer")) {
+               // Only for consumer, they can have custom pages.  Go to Custom Directory if defined.
                if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0)
                {
-                  forwardURL("/pages/" + location.toLowerCase() + "/" + menuItem);
+                  forwardURL("/pages/" + location.toLowerCase() + "/invessence/" + menuItem);
                }
                else
                {
@@ -442,7 +451,20 @@ public class UILayout implements Serializable
                }
             }
             else {
-               forwardURL("/pages/advisor/" + menuItem);
+               if (location.equalsIgnoreCase("custody")) {
+                  if (getUiprofile().getCustodydir() == null || getUiprofile().getCustodydir().trim().length() == 0)
+                  {
+                     forwardURL("/pages/" + location.toLowerCase() + "/invessence/" + menuItem);
+                  }
+                  else
+                  {
+                     forwardURL("/pages/" + location.toLowerCase() + "/" + getUiprofile().getCustodydir() + "/" + menuItem);
+                  }
+               }
+               else {
+                  // For other, just go to advusor as is.
+                  forwardURL("/pages/" + location.toLowerCase() + "/" + menuItem);
+               }
             }
          }
       }

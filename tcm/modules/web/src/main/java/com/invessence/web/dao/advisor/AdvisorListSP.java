@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.object.StoredProcedure;
 
 
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class AdvisorListSP extends StoredProcedure
 {
 
@@ -55,7 +56,6 @@ public class AdvisorListSP extends StoredProcedure
       compile();
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map getListOfAccounts(Long logonid, String filter, Integer days)
    {
       Map inputMap = new HashMap();
@@ -65,7 +65,6 @@ public class AdvisorListSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   @SuppressWarnings({"unchecked", "rawtypes"})
    public Map getProfileData(Long acctnum)
    {
       Map inputMap = new HashMap();
