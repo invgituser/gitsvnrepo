@@ -30,8 +30,16 @@ public class AcctOwnersDetails {
    private String countryOfDualCitizenship;
    private String countryOfBirth;
    private String isSPF;
+   private String spfName;
+   private String spfRelationship;
+   private String spfTitle;
+   private String spfCountry;
    private String spfDetail;
    private String isDirectorShareholder;
+   private String shareholderCompany;
+   private String shareholderAddress;
+   private String shareholderCity;
+   private String shareholderState;
    private String directorShareholderDetail;
    private String bd;
    private String bdDetail;
@@ -328,6 +336,46 @@ public class AcctOwnersDetails {
       isSPF = SPF;
    }
 
+   public String getSpfName()
+   {
+      return spfName;
+   }
+
+   public void setSpfName(String spfName)
+   {
+      this.spfName = spfName;
+   }
+
+   public String getSpfRelationship()
+   {
+      return spfRelationship;
+   }
+
+   public void setSpfRelationship(String spfRelationship)
+   {
+      this.spfRelationship = spfRelationship;
+   }
+
+   public String getSpfTitle()
+   {
+      return spfTitle;
+   }
+
+   public void setSpfTitle(String spfTitle)
+   {
+      this.spfTitle = spfTitle;
+   }
+
+   public String getSpfCountry()
+   {
+      return spfCountry;
+   }
+
+   public void setSpfCountry(String spfCountry)
+   {
+      this.spfCountry = spfCountry;
+   }
+
    public String getSpfDetail()
    {
       return spfDetail;
@@ -356,6 +404,46 @@ public class AcctOwnersDetails {
    public void setDirectorShareholderDetail(String directorShareholderDetail)
    {
       this.directorShareholderDetail = directorShareholderDetail;
+   }
+
+   public String getShareholderCompany()
+   {
+      return shareholderCompany;
+   }
+
+   public void setShareholderCompany(String shareholderCompany)
+   {
+      this.shareholderCompany = shareholderCompany;
+   }
+
+   public String getShareholderAddress()
+   {
+      return shareholderAddress;
+   }
+
+   public void setShareholderAddress(String shareholderAddress)
+   {
+      this.shareholderAddress = shareholderAddress;
+   }
+
+   public String getShareholderCity()
+   {
+      return shareholderCity;
+   }
+
+   public void setShareholderCity(String shareholderCity)
+   {
+      this.shareholderCity = shareholderCity;
+   }
+
+   public String getShareholderState()
+   {
+      return shareholderState;
+   }
+
+   public void setShareholderState(String shareholderState)
+   {
+      this.shareholderState = shareholderState;
    }
 
    public String getBd()

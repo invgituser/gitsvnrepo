@@ -254,7 +254,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_directorShareholderDetail", data.getDirectorShareholderDetail());
       inputMap.put("p_bd", data.getBd());
       inputMap.put("p_bdDetail", data.getBdDetail());
-      inputMap.put("p_ownershipPercent", data.getOwnership());
+      inputMap.put("p_ownershipPercent", data.getOwnershipPercent());
       inputMap.put("p_createdBy", "Invessence");
       return super.execute(inputMap);
    }

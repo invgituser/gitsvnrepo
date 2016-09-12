@@ -37,6 +37,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText
+                                        value="#{tdcto.tdMasterData.acctOwnersDetail.spfName}"
                                         styleClass="Wid100 CustomWidthFA-Responsive FS14"
                                         placeholder="Name of SPF">
                                 </p:inputText>
@@ -48,6 +49,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText
+                                        value="#{tdcto.tdMasterData.acctOwnersDetail.spfRelationship}"
                                         styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                         placeholder="Relationship">
                                 </p:inputText>
@@ -62,6 +64,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText
+                                        value="#{tdcto.tdMasterData.acctOwnersDetail.spfTitle}"
                                         styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                         placeholder="Political Title">
                                 </p:inputText>
@@ -74,6 +77,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText
+                                        value="#{tdcto.tdMasterData.acctOwnersDetail.spfCountry}"
                                         styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                         placeholder="Country Of Office">
                                 </p:inputText>
@@ -103,6 +107,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText
+                                        value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderCompany}"
                                         styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                         placeholder="Company Name">
                                 </p:inputText>
@@ -115,6 +120,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText
+                                        value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderAddress}"
                                         styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                         placeholder="Company Address">
                                 </p:inputText>
@@ -128,6 +134,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText
+                                        value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderCity}"
                                         styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                         placeholder="City">
                                 </p:inputText>
@@ -138,7 +145,8 @@
                                        style="text-align: left !important; font-weight: bold !important;">State</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:selectOneMenu value="" styleClass="FundAccountDropdownUI formpageDropdown"
+                                <p:selectOneMenu value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderState}"
+                                                 styleClass="FundAccountDropdownUI formpageDropdown"
                                                  style="width: 100%;">
                                     <p:ajax/>
                                     <f:selectItem itemLabel="Select State" itemValue=""
