@@ -24,7 +24,7 @@ public class AcctOwnersDetails {
    private String mailingAddressCity;
    private String mailingAddressState;
    private String mailingAddressZipCode;
-   private String sourceOfIncomeId;
+   private Boolean citizenShipFlag;
    private String citizenshiId;
    private String countryOfCitizenship;
    private String countryOfDualCitizenship;
@@ -45,10 +45,11 @@ public class AcctOwnersDetails {
    {
    }
 
-   public AcctOwnersDetails(Long acctnum, Integer acctOwnerId)
+   public AcctOwnersDetails(Long acctnum, Integer acctOwnerId, String ownership)
    {
       this.acctnum = acctnum;
       this.acctOwnerId = acctOwnerId;
+      this.ownership = ownership;
    }
 
    public Long getAcctnum()
@@ -261,14 +262,20 @@ public class AcctOwnersDetails {
       this.mailingAddressZipCode = mailingAddressZipCode;
    }
 
-   public String getSourceOfIncomeId()
+   public Boolean getCitizenShipFlag()
    {
-      return sourceOfIncomeId;
+      return citizenShipFlag;
    }
 
-   public void setSourceOfIncomeId(String sourceOfIncomeId)
+   public void setCitizenShipFlag(Boolean citizenShipFlag)
    {
-      this.sourceOfIncomeId = sourceOfIncomeId;
+      this.citizenShipFlag = citizenShipFlag;
+      if (citizenShipFlag) {
+         setCitizenshiId("USCITZ");
+      }
+      else {
+         setCitizenshiId(null);
+      }
    }
 
    public String getCitizenshiId()

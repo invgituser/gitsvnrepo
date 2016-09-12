@@ -10,6 +10,7 @@
 
         <p:panel id="acctTypePanel"
                  style="border: 0px; background: transparent">
+
             <div class="EmptyBox5"></div>
             <h3 class="FSResponsiveFA">What type of account would you
                 like to open?</h3>
@@ -120,7 +121,7 @@
                 </div>
 
 
-                <div class="Container100 CustomWidthAccountypePanel">
+                <div class="Container100 CustomWidthAccountypePanel" style="display: hide">
                     <p:commandLink actionListener="#{tdcto.selectAcctType(7)}"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -146,6 +147,7 @@
 
             <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                            actionListener="#{tdcto.nextPage}"
+                           process="@parent"
                            update="@form"/>
 
         </div>

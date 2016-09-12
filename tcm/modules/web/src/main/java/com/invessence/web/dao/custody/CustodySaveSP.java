@@ -30,9 +30,9 @@ public class CustodySaveSP extends StoredProcedure
       super(datasource, spname);
       switch (mode) {
          case 0:
-            declareParameter(new SqlParameter("p_reqId", Types.BIGINT));
+            declareParameter(new SqlInOutParameter("p_reqId", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
-            declareParameter(new SqlParameter("p_eventNum", Types.INTEGER));
+            declareParameter(new SqlInOutParameter("p_eventNum", Types.INTEGER));
             declareParameter(new SqlParameter("p_reqType", Types.VARCHAR));
             declareParameter(new SqlParameter("p_envelopeHeading", Types.VARCHAR));
             declareParameter(new SqlParameter("p_envelopeId", Types.VARCHAR));
@@ -47,6 +47,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctTypeId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_cashSweepVehicleChoiceId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_divIntPrefId", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_monthStmtId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_tradConfId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_dupStatement", Types.VARCHAR));
             declareParameter(new SqlParameter("p_dupTradeConfirm", Types.VARCHAR));
@@ -75,7 +76,6 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_mailingAddressCity", Types.VARCHAR));
             declareParameter(new SqlParameter("p_mailingAddressState", Types.VARCHAR));
             declareParameter(new SqlParameter("p_mailingAddressZipCode", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_sourceOfIncomeId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_citizenshiId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_countryOfCitizenship", Types.VARCHAR));
             declareParameter(new SqlParameter("p_countryOfDualCitizenship", Types.VARCHAR));
@@ -195,7 +195,12 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_envelopeId", data.getEnvelopeId());
       inputMap.put("p_status", data.getStatus());
       inputMap.put("p_terminalDetails", data.getTerminalDetails());
-      return super.execute(inputMap);
+      Map outMap =  super.execute(inputMap);
+      if (outMap != null) {
+         data.setReqId((Long) outMap.get("p_reqId"));
+         data.setEventNum((Integer) outMap.get("p_eventNum"));
+      }
+      return outMap;
    }
 
    public Map tdSaveAccountDetail(Acctdetails data) {
@@ -207,6 +212,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_acctTypeId", data.getAcctTypeId());
       inputMap.put("p_cashSweepVehicleChoiceId", data.getCashSweepVehicleChoiceId());
       inputMap.put("p_divIntPrefId", data.getDivIntPrefId());
+      inputMap.put("p_monthStmtId", data.getMonthStmtId());
       inputMap.put("p_tradConfId", data.getTradConfId());
       inputMap.put("p_dupStatement", data.getDupStatement());
       inputMap.put("p_dupTradeConfirm", data.getDupTradeConfirm());
@@ -238,7 +244,6 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_mailingAddressCity", data.getMailingAddressCity());
       inputMap.put("p_mailingAddressState", data.getMailingAddressState());
       inputMap.put("p_mailingAddressZipCode", data.getMailingAddressZipCode());
-      inputMap.put("p_sourceOfIncomeId", data.getSourceOfIncomeId());
       inputMap.put("p_citizenshiId", data.getCitizenshiId());
       inputMap.put("p_countryOfCitizenship", data.getCountryOfCitizenship());
       inputMap.put("p_countryOfDualCitizenship", data.getCountryOfDualCitizenship());

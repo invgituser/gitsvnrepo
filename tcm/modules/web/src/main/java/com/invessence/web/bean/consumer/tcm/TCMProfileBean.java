@@ -175,6 +175,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return welcomeDialog;
    }
 
+   @Override
    public TCMRiskCalculator getRiskCalculator()
    {
       return riskCalculator;

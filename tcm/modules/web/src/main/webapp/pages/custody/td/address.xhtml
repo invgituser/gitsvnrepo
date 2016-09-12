@@ -26,9 +26,9 @@
                              placeholder="Street Address 1"
                              required="false">
                 </p:inputText>
-               <!--  <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
-                             placeholder="Street Address 2">
-                </p:inputText> -->
+                <!--  <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
+                              placeholder="Street Address 2">
+                 </p:inputText> -->
             </div>
 
             <div class="EmptyBox20"></div>
@@ -101,9 +101,9 @@
                                  value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressStreet}"
                                  placeholder="Street Address 1">
                     </p:inputText>
-                   <!--  <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
-                                 placeholder="Street Address 2">
-                    </p:inputText> -->
+                    <!--  <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
+                                  placeholder="Street Address 2">
+                     </p:inputText> -->
                 </div>
 
                 <div class="EmptyBox20"></div>
@@ -190,9 +190,9 @@
                              value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressStreet}"
                              placeholder="Street Address 1">
                 </p:inputText>
-               <!--  <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
-                             placeholder="Street Address 2">
-                </p:inputText> -->
+                <!--  <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"
+                              placeholder="Street Address 2">
+                 </p:inputText> -->
             </div>
             <div class="EmptyBox20"></div>
 
@@ -311,21 +311,19 @@
             </p:panel>
 
 
-
-
         </p:panel>
 
 
-    </p:panel>
-    <div class="Container100 MarTop20" style="margin: 10px 10px;">
-        <p:commandLink styleClass="UI-prevButtonFA Fleft"
-                       actionListener="#{tdcto.prevPage}"
-                       update="@form"/>
+        <div class="Container100 MarTop20" style="margin: 10px 10px;">
+            <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                           actionListener="#{tdcto.prevPage}"
+                           update="@form"/>
 
-        <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                       actionListener="#{tdcto.nextPage}"
-                       update="@form"/>
-    </div>
+            <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                           actionListener="#{tdcto.nextPage}"
+                           update="@form"/>
+        </div>
+    </p:panel>
 
 
 </p:tab>

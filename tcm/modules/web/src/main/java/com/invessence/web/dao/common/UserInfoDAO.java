@@ -29,7 +29,7 @@ public class UserInfoDAO extends JdbcDaoSupport
 
       Map outMap = sp.addUser(action, userData);
 
-      return ((Long) outMap.get(WebConst.LOGONID_PARAM)).longValue();
+      return ((Long) outMap.get(WebConst.LOGONID_PARAM));
    }
 
    public Boolean selectUserInfo(UserData data)

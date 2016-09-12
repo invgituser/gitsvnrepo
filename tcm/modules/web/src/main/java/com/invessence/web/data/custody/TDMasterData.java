@@ -89,8 +89,8 @@ public class TDMasterData implements Serializable
          this.acctnum = acctnum;
          request = new Request(null, acctnum);
          acctdetail = new Acctdetails(acctnum);
-         acctOwnersDetail = new AcctOwnersDetails(acctnum, 1);
-         jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2);
+         acctOwnersDetail = new AcctOwnersDetails(acctnum, 1, "Client");
+         jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2, "Joint");
          owneremploymentDetail = new EmploymentDetails(acctnum, 1, 1);
          jointEmploymentDetail = new EmploymentDetails(acctnum, 1, 1);
       }
@@ -263,6 +263,33 @@ public class TDMasterData implements Serializable
    public void setAccttype(Integer accttype)
    {
       this.accttype = accttype;
+      if (accttype != null) {
+         switch (accttype) {
+            case 0:
+               acctdetail.setAcctTypeId("ACCSTD");
+               break;
+            case 1:
+               acctdetail.setAcctTypeId("ACINDIV");
+               break;
+            case 2:
+               acctdetail.setAcctTypeId("ACJOINT");
+               break;
+            case 3:
+               acctdetail.setAcctTypeId("ACCSTD");
+               break;
+            case 4:
+               acctdetail.setAcctTypeId("ACIRA");
+               break;
+            case 5:
+               acctdetail.setAcctTypeId("ACIRA");
+               break;
+            case 6:
+               acctdetail.setAcctTypeId("ACIRA");
+               break;
+            default:
+               acctdetail.setAcctTypeId("ACIRA");
+         }
+      }
    }
 
    public AdvisorDetails getAdvisorDetails()

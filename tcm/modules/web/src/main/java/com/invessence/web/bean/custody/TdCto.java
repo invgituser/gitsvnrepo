@@ -12,6 +12,7 @@ import com.invessence.web.data.custody.*;
 import com.invessence.web.data.custody.td.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
+import org.apache.commons.logging.*;
 import org.primefaces.event.*;
 
 /**
@@ -26,6 +27,7 @@ import org.primefaces.event.*;
 @SessionScoped
 public class TdCto
 {
+   protected final Log logger = LogFactory.getLog(getClass());
    private String beanacctnum;
    private Long acctnum;
    private UserData userdata = new UserData();
@@ -174,7 +176,22 @@ public class TdCto
    {
       return beneTempList;
    }
-  
+
+   public void startCTO() {
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            pagemanager = new PagesImpl(10);
+            pagemanager.setPage(0);
+         }
+      }
+      catch (Exception ex) {
+         logger.info("Exception: raised during Starting TD CTO process.");
+      }
+   }
+
+
    public void addTempBeneficiary() {
 
       tdMasterData.getBenefiaciaryDetailses().setAcctnum(tdMasterData.getAcctnum());
@@ -490,7 +507,7 @@ public class TdCto
       }
       if (cangoToNext)
       {
-         //saveData(pagemanager.getPage());
+         saveData(pagemanager.getPage());
          pagemanager.nextPage();
          resetActiveTab(pagemanager.getPage());
 
@@ -526,7 +543,7 @@ public class TdCto
 
       switch (pagenum) {
          case 0: // Account Type and create basic info
-            custodySaveDAO.tdSaveRequest(tdMasterData.getRequest());
+            // custodySaveDAO.tdSaveRequest(tdMasterData.getRequest());   We are going to add the request on final save.
             custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail());
             break;
          case 1: // Account Owner
@@ -536,7 +553,7 @@ public class TdCto
             custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
             break;
          case 3:  // Owner Address
-            custodySaveDAO.tdSaveEmployment(tdMasterData.getOwneremploymentDetail());
+            custodySaveDAO.tdSaveAccountOwner(tdMasterData.getAcctOwnersDetail());
             break;
          case 4:  // Joint Owner  Address (if Any)
             custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
