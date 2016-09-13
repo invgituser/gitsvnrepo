@@ -21,11 +21,11 @@ public class TDMasterData implements Serializable
    Long acctnum;
    Integer accttype; // 1 - Individual , 2 joint acct.
    Boolean acctholderhasMailing, jointhasMailing, jointhasDifferent;
-   Boolean addBeneficiary;
+   Boolean showBeneficiaryForm;
+   Boolean newBeneficiaryForm;
 
    Boolean ownerSPF, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
-   Boolean createBeneficiary;
    Integer fundType;
    Boolean recurringFlag;
    Double initialInvestment;
@@ -56,8 +56,8 @@ public class TDMasterData implements Serializable
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
-      createBeneficiary = false;
-      addBeneficiary = false;
+      showBeneficiaryForm = false;
+      newBeneficiaryForm = false;
       recurringFlag = false;
       fundType = 0;
       initialInvestment = null;
@@ -352,14 +352,14 @@ public class TDMasterData implements Serializable
       this.benefiaciaryDetailses = benefiaciaryDetailses;
    }
 
-   public Boolean getAddBeneficiary()
+   public Boolean getShowBeneficiaryForm()
    {
-      return addBeneficiary;
+      return showBeneficiaryForm;
    }
 
-   public void setAddBeneficiary(Boolean addBeneficiary)
+   public void setShowBeneficiaryForm(Boolean showBeneficiaryForm)
    {
-      this.addBeneficiary = addBeneficiary;
+      this.showBeneficiaryForm = showBeneficiaryForm;
    }
 
    public MapMovemoneyPaymethod getMapMovemoneyPaymethod()
@@ -428,8 +428,8 @@ public class TDMasterData implements Serializable
       if (tmpBenefiaciaryDetail.getBeneId() == null) {
          tmpBenefiaciaryDetail.setBeneId(benefiaciaryDetailsList.size());
       }
-      benefiaciaryDetailsList.add(tmpBenefiaciaryDetail.getBeneId(), tmpBenefiaciaryDetail);
-      createBeneficiary = false;
+      benefiaciaryDetailsList.add(tmpBenefiaciaryDetail);
+      showBeneficiaryForm = false;
    }
 
    public BenefiaciaryDetails getTmpBenefiaciaryDetail()
@@ -437,20 +437,17 @@ public class TDMasterData implements Serializable
       return tmpBenefiaciaryDetail;
    }
 
-   public Boolean getCreateBeneficiary()
+   public Boolean getNewBeneficiaryForm()
    {
-      return createBeneficiary;
+      return newBeneficiaryForm;
    }
 
-   public void setCreateBeneficiary(Boolean createBeneficiary)
+   public void setNewBeneficiaryForm(Boolean newBeneficiaryForm)
    {
-      this.createBeneficiary = createBeneficiary;
-      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, 1);
-   }
-
-   public void addBenefiaciary() {
-      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, 1);
-      createBeneficiary = true;
+      this.newBeneficiaryForm = newBeneficiaryForm;
+      this.showBeneficiaryForm = true;
+      Integer beneNum = benefiaciaryDetailsList.size();
+      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum+1);
    }
 
    public void setSelectedBeneficiary(BenefiaciaryDetails thisBenefificiary) {
@@ -458,7 +455,11 @@ public class TDMasterData implements Serializable
    }
 
    public void editBeneficiary() {
-      createBeneficiary = true;
+      showBeneficiaryForm = true;
+   }
+
+   public void cancelEditBeneficiary() {
+      showBeneficiaryForm = false;
    }
 
    public void deleteBeneficiary(Integer beneID) {
@@ -473,11 +474,4 @@ public class TDMasterData implements Serializable
          benefiaciaryDetailsList.get(i).setBeneId(i);  // Reset all seq#.
       }
    }
-
-   public void onCancelBenefiaciary(RowEditEvent event) {
-      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, 1);
-      createBeneficiary = false;
-   }
-
-
 }

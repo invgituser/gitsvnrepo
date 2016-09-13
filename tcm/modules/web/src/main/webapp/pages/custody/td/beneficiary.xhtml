@@ -15,14 +15,22 @@
 		style="border: 0px; background: transparent" closable="true"
 		toggleable="true">
 
-		<div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
+        <h:form>
+            <p:commandButton value="Yes" type="button"
+                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+            <p:commandButton value="No" type="button"
+                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+        </h:form>
+    </p:confirmDialog>
+
+    <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
 			style="margin-bottom: 15px;">
 
 			<p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary"
 				offLabel="Add Beneficiary" onIcon="ui-icon-minus"
-				offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.createBeneficiary}">
-				<p:ajax listener="#{tdcto.tdMasterData.addBenefiaciary}"
-                        update=":ctoForm:tdaccordian:beneficiaryPanel" />
+				offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
+				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" />
 			</p:selectBooleanButton>
 
 
@@ -46,7 +54,6 @@
 										value="Edit" />
                                     <f:setPropertyActionListener value="#{benefiaciary}"
                                                                  target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
-
                                 </p:commandButton>
 								<p:commandButton id="menuDelete"
 												 styleClass="Fs16 RedButton DualBtnModeRight"
@@ -73,8 +80,7 @@
 							<p:column styleClass="Wid25 num-text-align invest"
 								headerText="Share %" resizable="true">
 								<span class="dashboardUsrColumnFloatRight"><h:outputText
-										value="#{benefiaciary.sharePerc}">
-										  <f:convertNumber pattern="##0" />
+										value="#{benefiaciary.sharePerc}%">
 									</h:outputText></span>
 
 							</p:column>
@@ -86,13 +92,13 @@
 			</div>
 			<p:panel id="beneficiaryAdd"
 				style="border: 0px; background: transparent; margin-top: -10px;"
-				rendered="#{tdcto.tdMasterData.createBeneficiary}">
+				rendered="#{tdcto.tdMasterData.showBeneficiaryForm}">
 
 				<div class="EmptyBox30"></div>
 				<div class="Container80 BeneficiaryEditPanel">
 					<div class="ContainerIndent">
 					<div class="closeAddBeneficiary Fright">
-					<i class="fa fa-times" aria-hidden="true"></i>
+                            <i class="fa fa-times" aria-hidden="true"></i>
 					</div>
 						<div class="Container100">
 							<label Class="Container60"
@@ -101,16 +107,16 @@
 							<div class="EmptyBox5"></div>
 							<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
 								placeholder="First Name"
-								value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneFirstName}">
+								value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneFirstName}">
 							</p:inputText>
 							<p:inputText
 								styleClass="MiddleInitialWidth FS14 InputMergeLeft InputMergeRight"
 								placeholder="Middle Initial"
-								value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneMidInitial}">
+								value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneMidInitial}">
 							</p:inputText>
 							<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
 								placeholder="Last Name"
-								value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneLastName}">
+								value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneLastName}">
 							</p:inputText>
 						</div>
 
@@ -122,7 +128,7 @@
 
 								<div class="EmptyBox5"></div>
 								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-									value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneDOB}"
+									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneDOB}"
 									mask="99/99/9999" placeholder="MM/DD/YYYY">
 								</p:inputMask>
 							</div>
@@ -134,7 +140,7 @@
 
 								<div class="EmptyBox5"></div>
 								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-									value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneSSN}"
+									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneSSN}"
 									mask="999-99-9999" placeholder="###-##-####" required="false">
 								</p:inputMask>
 							</div>
@@ -147,7 +153,7 @@
 								<div class="EmptyBox5"></div>
 								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
 									placeholder="Relationship"
-									value="#{tdcto.tdMasterData.benefiaciaryDetailses.beneRel}">
+									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneRel}">
 								</p:inputText>
 							</div>
 						</div>
@@ -163,7 +169,7 @@
 									<div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
 										style="margin-top: 5px;">
 										<p:selectOneRadio styleClass="textAlign formRadioBtn"
-											value="#{tdcto.tdMasterData.benefiaciaryDetailses.typeOfBeneficiary}">
+											value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.typeOfBeneficiary}">
 											<f:selectItem itemValue="1" itemLabel="Primary" />
 											<f:selectItem itemValue="2" itemLabel="Contigent" />
 										</p:selectOneRadio>
@@ -179,7 +185,7 @@
 								<div class="Container100 Fleft">
 									<div style="margin-top: 15px;">
 										<p:selectBooleanCheckbox styleClass="benCheckBox"
-											value="#{tdcto.tdMasterData.benefiaciaryDetailses.perStripes}"
+											value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.perStripes}"
 											itemLabel="Per Stirpes">
 										</p:selectBooleanCheckbox>
 									</div>
@@ -193,10 +199,11 @@
 									%</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
-									placeholder="Share %"
-									value="#{tdcto.tdMasterData.benefiaciaryDetailses.sharePerc}">
-								</p:inputText>
+                                <p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
+                                               value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.sharePerc}"
+                                               symbol="%"
+                                               symbolPosition="s" emptyValue="zero">
+                                </p:inputNumber>
 							</div>
 						</div>
 
