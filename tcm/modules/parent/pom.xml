@@ -449,6 +449,7 @@
       </profile>
 
       <!-- Mail -->
+      <!-- Email service provider details fetching from Database
       <profile>
          <id>1A-Invessence-Gmail</id>
          <properties>
@@ -477,9 +478,9 @@
          </properties>
       </profile>
       <profile>
-         <id>1Z---------------1Z</id>
+         <id>1Z-1Z</id>
       </profile>
-
+-->
       <!-- Host -->
       <profile>
          <id>2A-HOST-WIN</id>
@@ -488,7 +489,8 @@
             <base.rbsa.dir>C:\\INV\\RBSA</base.rbsa.dir>
             <base.clientdata.dir>C:\\INV\\client</base.clientdata.dir>
             <base.advisor.dir>C:\\INV\\advisor</base.advisor.dir>
-            <catalina.base>C:\\workspace\\web\\</catalina.base>
+            <!--<catalina.base>C:\\workspace\\web\\</catalina.base> Ned to be change -->
+            <catalina.base>D:\\Project\\Sudhir\\</catalina.base>
             <base.web.dir>C:\\workspace\\web\\www\\ROOT</base.web.dir>
             <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
             <advisor.upload.localdir>${base.advisor.dir}\\upload\\</advisor.upload.localdir>
