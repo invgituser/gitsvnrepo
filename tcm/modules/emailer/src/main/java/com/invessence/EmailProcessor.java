@@ -13,8 +13,19 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class EmailProcessor
 {
+   static{
+
+      System.out.println("Start static block :");
+      String [] args = new String[2];
+      args[0] = "-test";
+      args[1] = "sudhir.chavhan@invessence.com";
+      EmailProcessor.main(args);
+   }
+
+
    public static void main(String[] args)
    {
+
       try
       {
          if (args.length == 2)
@@ -23,7 +34,7 @@ public class EmailProcessor
             {
                // If called with test mode, then send one email and quit.
                String[] emailAddresses = args[1].split(",");
-               EmailJob.setTestMode(true, emailAddresses);
+               EmailJob.setTestMode(false, emailAddresses);
             }
             else if (args[0].equals("-resend"))  {
                // Resend message ID: Which is part of sencond arg.
@@ -35,6 +46,7 @@ public class EmailProcessor
                //  Option 2, can only be run from command line.  How do you handle already running version
             }
             else {
+
                // Else start the camel context and keep checking the email.
                ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/email.util.xml");
                Scheduler schedulerFactory = (Scheduler) applicationContext.getBean("schedulerFactory");
@@ -49,10 +61,12 @@ public class EmailProcessor
       }
       catch (Error e)
       {
+         System.out.println("Error 1 :"+e.toString());
          e.printStackTrace();
       }
       catch (Exception e)
       {
+         System.out.println("Exception 2 :"+e.toString());
          e.printStackTrace();
       }
    }

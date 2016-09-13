@@ -34,7 +34,7 @@ public class EmailJob
 
    public void run()
    {
-      LOG.info("Entered EmailJob:run()...");
+      System.out.println("Entered EmailJob:run()...");
 
       try
       {
@@ -69,7 +69,7 @@ public class EmailJob
             data.setReceiver(recipient);
             data.setCc(null);
             data.setBcc(null);
-            data.setSubject("Symbil Emailer Test Email");
+            data.setSubject("Invessence Emailer Test Email");
             data.setMsg("Test Email Body");
             data.setStatus(0);
             data.setCategory(0);
@@ -79,10 +79,12 @@ public class EmailJob
             data.setSentDate("");
             data.setMimeType("Text");
             data.setAttachmentFile("");
+
             sendEmail(data);
          }
          catch (Exception e)
          {
+            System.out.println("EmailJob : sendTestEmail :"+e.toString());
             e.printStackTrace();
          }
 

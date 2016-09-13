@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>  
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<import resource="dataSource.xml"/>
-       
+    <import resource="classpath*:serviceConfig.xml"/>
+
     <bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
       <property name="triggers">
         <list>
@@ -27,30 +28,30 @@
         <property name="msgDAO" ref="msgDAO"/>
         <property name="emailUtil" ref="emailUtil"/>
     </bean>
-    
+
     <bean id="msgDAO" class="com.invessence.emailer.dao.MsgDAO">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-    
-     <bean id="emailUtil" class="com.invessence.emailer.util.EmailUtil">
 
-          <property name="mailSender">
-            <bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
-                <property name="host" value="${mail.host}"/>
-                <property name="port" value="${mail.port}"/>
-                <property name="username" value="${mail.username}"/>
-                <property name="password" value="${mail.password}"/>
-                <property name="javaMailProperties">
-                   <props>
-                      <prop key="mail.smtp.auth">true</prop>
-                      <prop key="mail.smtp.starttls.enable">true</prop>
-                   </props>
-                </property>
-            </bean>
-          </property>
-        
-        
-    </bean>
-      
- 
+
+     <bean id="emailUtil" class="com.invessence.emailer.util.EmailUtil">
+   <!--
+           <property name="mailSender">
+             <bean class="org.springframework.mail.javamail.JavaMailSenderImpl">
+                 <property name="host" value="${mail.host}"/>
+                 <property name="port" value="${mail.port}"/>
+                 <property name="username" value="${mail.username}"/>
+                 <property name="password" value="${mail.password}"/>
+                 <property name="javaMailProperties">
+                    <props>
+                       <prop key="mail.smtp.auth">true</prop>
+                       <prop key="mail.smtp.starttls.enable">true</prop>
+                    </props>
+                 </property>
+             </bean>
+           </property>
+ -->
+     </bean>
+
+
 </beans>

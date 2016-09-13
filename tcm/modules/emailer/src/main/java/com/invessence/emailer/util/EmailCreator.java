@@ -36,9 +36,9 @@ public class EmailCreator implements MessageSourceAware, Serializable
    }
 
    public void setMessageSource(MessageSource messageSource)
-   {
-      this.messageSource = messageSource;
-   }
+{
+   this.messageSource = messageSource;
+}
 
    public String buildMessage(String msgType, String htmlSrc, String txtSrc, Object [] obj) {
 
