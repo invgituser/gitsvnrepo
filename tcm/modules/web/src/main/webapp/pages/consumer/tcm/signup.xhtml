@@ -29,13 +29,14 @@
                                 <p:panel id="p1" styleClass="Container100 Responsive50"
                                          style="width: 100%; border: 0px; background: transparent;  margin-top:0!important;">
                                     <div class="ContainerIndent margin-top-signup">
+
                                         <div class="Container100" style="text-align: center;">
-                                            <p:inputText id="firstName" styleClass="Wid40 FS14 InputMergeRight"
+                                            <p:inputText id="firstName" styleClass="FS14 InputMergeRight CustomWidthFA3"
                                                          value="#{userBean.userdata.firstName}" placeholder="FirstName"
                                                          required="true" requiredMessage="Please enter First Name.">
                                             </p:inputText>
 
-                                            <p:inputText id="lastName" styleClass="Wid40 FS14 InputMergeLeft"
+                                            <p:inputText id="lastName" styleClass="FS14 InputMergeLeft CustomWidthFA3"
                                                          value="#{userBean.userdata.lastName}" placeholder="Last Name"
                                                          required="true" requiredMessage="Please enter Last Name.">
                                                 <p:watermark for="lastName" value="Last Name"/>
@@ -43,7 +44,7 @@
 
                                             <div class="EmptyBox10"></div>
 
-                                            <p:inputText id="email" styleClass="Wid80 FS14"
+                                            <p:inputText id="email" styleClass="Wid80 FS14 CustomWidthFA2"
                                                          value="#{userBean.userdata.email}" placeholder="Email"
                                                          required="true" requiredMessage="Please enter Email."
                                                          validatorMessage="Email format is not correct.">

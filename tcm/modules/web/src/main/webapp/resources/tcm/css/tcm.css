@@ -254,7 +254,7 @@ img.riskImage:hover {
         margin: 5px 0;
     }
 
-    .CustomWidthFA-Responsive, .CustomWidthAddressFA {
+    .CustomWidthFA-Responsive, .CustomWidthAddressFA, .CustomWidthFA3 {
         width: 100%!important;
         margin: 5px 0;
         float: none!important;
@@ -437,6 +437,10 @@ img.riskImage:hover {
 }
 
 /*Prakash*/
+.CustomWidthFA3 {
+	width: 40%;
+}
+
 .formPage .ui-tabs .ui-tabs-panel {
     padding-right: 0!important;
 }
