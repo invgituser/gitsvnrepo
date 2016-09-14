@@ -237,6 +237,11 @@ img.riskImage:hover {
 	padding-right: 25px!important;
 	}
 	
+	.fundingRecurring > input {
+	    width: 100%!important;
+    padding: 7px 0px!important;
+	}
+	
     .CustomWidthFA {
         width: 100% !important;
         margin: 5px 0;
@@ -436,7 +441,39 @@ img.riskImage:hover {
 	}
 }
 
+@media (min-width: 736px) {
+	.fundingRecurring > input {
+	 padding: 7px 10px!important;
+	}
+}
+
 /*Prakash*/
+.fundingRecurring > input {
+	width: 95%;
+    border-radius: 3px!important;
+}
+
+.fundingRecurring {
+margin: 0;
+border-bottom: 0px!important;
+}
+
+
+.FullWidthCustomWindow {
+width: 97%!important;
+    padding: 1% 1.5%;
+    margin: 8px auto!important;
+    overflow: hidden;
+    float: left;
+    background-color: #F6FAFC/*#F1F6F9*/;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 0px 0px rgba(159,172,183,0.7);
+    -moz-box-shadow: 0px 1px 0px 0px rgba(159,172,183,0.7);
+    box-shadow: 0px 1px 0px 0px rgba(159,172,183,0.7);
+	}
+
 .CustomWidthFA3 {
 	width: 40%;
 }
@@ -562,7 +599,8 @@ padding: 6px 0;
 .ProjectionChartRadioAssets > .ui-radiobutton-box > .ui-radiobutton-icon {
     width: 11px!important;
     height: 11px!important;
-    border: solid 2px #f2f2f2!important;
+    border: solid 2px #025d3c!important;
+    background: #ffffff;
 }
 
 .ProjectionChartRadioAssets > .ui-radiobutton-box {
@@ -655,7 +693,7 @@ padding: 6px 0;
 .FundAccountDropdownUI > .ui-selectonemenu-label {
     width: 90%!important;
     font-size: 14px!important;
-    padding: 8px 8px!important;
+    padding: 7px 8px!important;
 }
 
 .ResponsiveWid-tcmUI {

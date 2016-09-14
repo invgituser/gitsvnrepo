@@ -10,11 +10,11 @@
 
     <p:panel id="owneraempPanel" style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
-             style="margin-bottom: 15px;">
+             style="margin-bottom: 15px; margin-top: 10px!important;">
             <div class="Container100">
                 <div class="Container45 Fleft CustomWidthFA-Responsive">
                     <label Class="Container100"
-                           style="text-align: left !important; font-weight: bold !important;">Employment</label>
+                           style="text-align: left !important; font-weight: bold !important;">Employment Status</label>
 
                     <div class="EmptyBox5"></div>
                     <p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown"
@@ -24,7 +24,7 @@
                         <f:selectItem itemLabel="Select Employment" itemValue=""
                                       noSelectionOption="true"/>
                         <f:selectItem itemLabel="Employed" itemValue="EMPL"/>
-                        <f:selectItem itemLabel="SelfEmployed" itemValue="SLFEMPL"/>
+                        <f:selectItem itemLabel="Self-Employed" itemValue="SLFEMPL"/>
                         <f:selectItem itemLabel="Unemployed" itemValue="UNEMPL"/>
                         <f:selectItem itemLabel="Retired" itemValue="RETIR"/>
                         <f:selectItem itemLabel="Homemaker" itemValue="HOMAKE"/>
@@ -37,7 +37,7 @@
                         Source Of Income</label>
 
                     <div class="EmptyBox5"></div>
-                    <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                  value="#{tdcto.tdMasterData.owneremploymentDetail.sourceOfIncome}"
                                  placeholder="Source Of Income"
                                  rendered="#{! tdcto.tdMasterData.owneremploymentDetail.needInfo}">
@@ -55,7 +55,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.owneremploymentDetail.employerName}"
                                 placeholder="Employer Name">
                         </p:inputText>
@@ -67,7 +67,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.owneremploymentDetail.occupation}"
                                 placeholder="Occupation">
                         </p:inputText>
@@ -82,7 +82,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.owneremploymentDetail.typeOfBusiness}"
                                 placeholder="Type of Business">
                         </p:inputText>
@@ -94,7 +94,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.owneremploymentDetail.employerStreetAddress}"
                                 placeholder="Employer Street Address">
                         </p:inputText>
@@ -183,9 +183,8 @@
             <div class="Container100">
                 <div class="Container45 Fleft CustomWidthFA-Responsive">
                     <label Class="Container100"
-                           style="text-align: left !important; font-weight: bold !important;">Employment</label>
-
-                    <div class="EmptyBox5"></div>
+                           style="text-align: left !important; font-weight: bold !important;">Employment Status</label>
+ <div class="EmptyBox5"></div>
                     <p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown"
                                      value="#{tdcto.tdMasterData.jointEmploymentDetail.emplTypeId}"
                                      style="width: 100%;">
@@ -193,7 +192,7 @@
                         <f:selectItem itemLabel="Select Employment" itemValue=""
                                       noSelectionOption="true"/>
                         <f:selectItem itemLabel="Employed" itemValue="EMPL"/>
-                        <f:selectItem itemLabel="SelfEmployed" itemValue="SLFEMPL"/>
+                        <f:selectItem itemLabel="Self-Employed" itemValue="SLFEMPL"/>
                         <f:selectItem itemLabel="Unemployed" itemValue="UNEMPL"/>
                         <f:selectItem itemLabel="Retired" itemValue="RETIR"/>
                         <f:selectItem itemLabel="Homemaker" itemValue="HOMAKE"/>
@@ -206,7 +205,7 @@
                         Of Income</label>
 
                     <div class="EmptyBox5"></div>
-                    <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                  placeholder="Source Of Income"
                                  value="#{tdcto.tdMasterData.jointEmploymentDetail.sourceOfIncome}"
                                  rendered="#{! tdcto.tdMasterData.jointEmploymentDetail.needInfo}">
@@ -225,7 +224,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.jointEmploymentDetail.employerName}"
                                 placeholder="Employer Name">
                         </p:inputText>
@@ -237,7 +236,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.jointEmploymentDetail.occupation}"
                                 placeholder="Occupation">
                         </p:inputText>
@@ -253,7 +252,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.jointEmploymentDetail.typeOfBusiness}"
                                 placeholder="Type of Business">
                         </p:inputText>
@@ -265,7 +264,7 @@
 
                         <div class="EmptyBox5"></div>
                         <p:inputText
-                                styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                 value="#{tdcto.tdMasterData.jointEmploymentDetail.employerStreetAddress}"
                                 placeholder="Employer Street Address">
                         </p:inputText>
