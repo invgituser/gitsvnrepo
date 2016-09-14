@@ -941,4 +941,20 @@ public class ServiceParameters
       }
       return null;
    }
+   public static String getServiceProvider(String service)
+   {
+
+      if (serviceConfigDetailsMap.get(service) == null)
+      {
+         logger.debug("Value not available for Service :" + service);
+      }
+      else
+      {
+         Map.Entry<String, Map<String, ServiceConfigDetails>> keySet=serviceConfigDetailsMap.get(service).entrySet().iterator().next();
+
+         return keySet.getKey();
+
+      }
+      return null;
+   }
 }
