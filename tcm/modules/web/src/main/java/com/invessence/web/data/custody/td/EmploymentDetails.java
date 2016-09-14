@@ -74,7 +74,7 @@ public class EmploymentDetails {
      if (emplTypeId == null)
        return false;
 
-     return(emplTypeId.startsWith("Employed") || emplTypeId.startsWith("SelfEmployed"));
+     return(emplTypeId.startsWith("EMPL") || emplTypeId.startsWith("SLFEMPL"));
    }
 
    public String getSourceOfIncome()

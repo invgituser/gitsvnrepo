@@ -535,6 +535,46 @@ public class TdCto
 
    }
 
+   private AcctOwnersDetails setOwnerData(String dataFlag,TDMasterData tdMasterData)
+   {
+      TDMasterData mstData=tdMasterData;
+      AcctOwnersDetails acctOwnersDetail=tdMasterData.getAcctOwnersDetail();
+      AcctOwnersDetails jointAcctOwnersDetail=tdMasterData.getJointAcctOwnersDetail();
+      if(dataFlag.equals("add"))
+      {
+         jointAcctOwnersDetail.setPhysicalAddressStreet(acctOwnersDetail.getPhysicalAddressStreet());
+         jointAcctOwnersDetail.setPhysicalAddressCity(acctOwnersDetail.getPhysicalAddressCity());
+         jointAcctOwnersDetail.setPhysicalAddressState(acctOwnersDetail.getPhysicalAddressState());
+         jointAcctOwnersDetail.setPhysicalAddressZipCode(acctOwnersDetail.getPhysicalAddressZipCode());
+         jointAcctOwnersDetail.setMailingAddressStreet(acctOwnersDetail.getMailingAddressStreet());
+         jointAcctOwnersDetail.setMailingAddressCity(acctOwnersDetail.getMailingAddressCity());
+         jointAcctOwnersDetail.setMailingAddressState(acctOwnersDetail.getMailingAddressState());
+         jointAcctOwnersDetail.setMailingAddressZipCode(acctOwnersDetail.getMailingAddressZipCode());
+
+      }
+
+      return jointAcctOwnersDetail;
+   }
+   private AcctOwnersDetails setRegulatoryData(TDMasterData tdMasterData)
+   {
+      TDMasterData mstData=tdMasterData;
+      AcctOwnersDetails acctOwnersDetail=tdMasterData.getAcctOwnersDetail();
+      if(mstData.getOwnerSPF())
+      {
+         acctOwnersDetail.setSPF("Y");
+         acctOwnersDetail.setSpfDetail(acctOwnersDetail.getSpfName() + "," + acctOwnersDetail.getSpfRelationship() + "," + acctOwnersDetail.getSpfTitle() + "," + acctOwnersDetail.getSpfCountry());
+      }
+      if(mstData.getOwnerShare())
+      {
+         acctOwnersDetail.setDirectorShareholder("Y");
+         acctOwnersDetail.setDirectorShareholderDetail(acctOwnersDetail.getShareholderCompany() + "," + acctOwnersDetail.getShareholderAddress() + "," + acctOwnersDetail.getShareholderCity() + "," + acctOwnersDetail.getShareholderState());
+      }
+      if(mstData.getOwnerBD())
+      {
+         acctOwnersDetail.setBd("Y");
+      }
+      return acctOwnersDetail;
+   }
    private void saveData(Integer pagenum)
    {
 
@@ -556,19 +596,22 @@ public class TdCto
             custodySaveDAO.tdSaveAccountOwner(tdMasterData.getAcctOwnersDetail());
             break;
          case 4:  // Joint Owner  Address (if Any)
-            custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
+            if(tdMasterData.getJointhasDifferent())
+               custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
+            else
+                custodySaveDAO.tdSaveAccountOwner(setOwnerData("add",tdMasterData));
             break;
-         case 5:  // Owner Emplyment
+         case 5: // Regulatory
+            custodySaveDAO.tdSaveAccountOwner(setRegulatoryData(tdMasterData));
+            break;
+         case 6:  // Owner Emplyment
             custodySaveDAO.tdSaveEmployment(tdMasterData.getOwneremploymentDetail());
             break;
-         case 6: // Joint Emplyment  (If any)
+         case 7: // Joint Emplyment  (If any)
             custodySaveDAO.tdSaveEmployment(tdMasterData.getJointEmploymentDetail());
             break;
-         case 7: // Regulatory
-            custodySaveDAO.tdSaveAccountOwner(tdMasterData.getJointAcctOwnersDetail());
-            break;
          case 8:
-            custodySaveDAO.saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailses());
+            custodySaveDAO.saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailsList());
             break;
          case 9:
             break;

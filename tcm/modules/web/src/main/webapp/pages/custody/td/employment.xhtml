@@ -23,12 +23,12 @@
                         <p:ajax update=":ctoForm:tdaccordian:employmenttab:owneraempPanel"/>
                         <f:selectItem itemLabel="Select Employment" itemValue=""
                                       noSelectionOption="true"/>
-                        <f:selectItem itemLabel="Employed" itemValue="Employed"/>
-                        <f:selectItem itemLabel="Self-Employed" itemValue="SelfEmployed"/>
-                        <f:selectItem itemLabel="Unemployed" itemValue="Unemployed"/>
-                        <f:selectItem itemLabel="Retired" itemValue="Retired"/>
-                        <f:selectItem itemLabel="Homemaker" itemValue="Homemaker"/>
-                        <f:selectItem itemLabel="Student" itemValue="Student"/>
+                        <f:selectItem itemLabel="Employed" itemValue="EMPL"/>
+                        <f:selectItem itemLabel="SelfEmployed" itemValue="SLFEMPL"/>
+                        <f:selectItem itemLabel="Unemployed" itemValue="UNEMPL"/>
+                        <f:selectItem itemLabel="Retired" itemValue="RETIR"/>
+                        <f:selectItem itemLabel="Homemaker" itemValue="HOMAKE"/>
+                        <f:selectItem itemLabel="Student" itemValue="STUDE"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
@@ -192,12 +192,12 @@
                         <p:ajax update=":ctoForm:tdaccordian:employmenttab:jointaempPanel"/>
                         <f:selectItem itemLabel="Select Employment" itemValue=""
                                       noSelectionOption="true"/>
-                        <f:selectItem itemLabel="Employed" itemValue="Employed"/>
-                        <f:selectItem itemLabel="Self-Employed" itemValue="SelfEmployed"/>
-                        <f:selectItem itemLabel="Unemployed" itemValue="Unemployed"/>
-                        <f:selectItem itemLabel="Retired" itemValue="Retired"/>
-                        <f:selectItem itemLabel="Homemaker" itemValue="Homemaker"/>
-                        <f:selectItem itemLabel="Student" itemValue="Student"/>
+                        <f:selectItem itemLabel="Employed" itemValue="EMPL"/>
+                        <f:selectItem itemLabel="SelfEmployed" itemValue="SLFEMPL"/>
+                        <f:selectItem itemLabel="Unemployed" itemValue="UNEMPL"/>
+                        <f:selectItem itemLabel="Retired" itemValue="RETIR"/>
+                        <f:selectItem itemLabel="Homemaker" itemValue="HOMAKE"/>
+                        <f:selectItem itemLabel="Student" itemValue="STUDE"/>
                     </p:selectOneMenu>
                 </div>
                 <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
@@ -254,7 +254,7 @@
                         <div class="EmptyBox5"></div>
                         <p:inputText
                                 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                value="#{tdcto.tdMasterData.owneremploymentDetail.typeOfBusiness}"
+                                value="#{tdcto.tdMasterData.jointEmploymentDetail.typeOfBusiness}"
                                 placeholder="Type of Business">
                         </p:inputText>
                     </div>

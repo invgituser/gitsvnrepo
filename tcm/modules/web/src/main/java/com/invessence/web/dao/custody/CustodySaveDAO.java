@@ -69,7 +69,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
    public Boolean saveBenefiaciaryDetails(ArrayList<BenefiaciaryDetails> beneTempList)
    {
 
-      CustodySaveSP sp = new CustodySaveSP(getDataSource(), "save_tddc_benefiaciary_details",8);
+      CustodySaveSP sp = new CustodySaveSP(getDataSource(), "save_tddc_benefiaciary_details",4);
       Map outMap= null;
       for(BenefiaciaryDetails data:beneTempList)
       {

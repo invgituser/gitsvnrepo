@@ -89,10 +89,10 @@ public class TDMasterData implements Serializable
          this.acctnum = acctnum;
          request = new Request(null, acctnum);
          acctdetail = new Acctdetails(acctnum);
-         acctOwnersDetail = new AcctOwnersDetails(acctnum, 1, "Client");
-         jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2, "Joint");
+         acctOwnersDetail = new AcctOwnersDetails(acctnum, 1, "AOPRIMARY");
+         jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2, "AOJOINT");
          owneremploymentDetail = new EmploymentDetails(acctnum, 1, 1);
-         jointEmploymentDetail = new EmploymentDetails(acctnum, 1, 1);
+         jointEmploymentDetail = new EmploymentDetails(acctnum, 2, 1);
       }
 
    }

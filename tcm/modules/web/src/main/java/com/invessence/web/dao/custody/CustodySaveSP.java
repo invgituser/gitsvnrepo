@@ -93,7 +93,10 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctOwnerId", Types.INTEGER));
             declareParameter(new SqlParameter("p_emplId", Types.INTEGER));
+            declareParameter(new SqlParameter("p_emplTypeId", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_sourceOfIncome", Types.VARCHAR));
             declareParameter(new SqlParameter("p_employerName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_occupation", Types.VARCHAR));
             declareParameter(new SqlParameter("p_typeOfBusiness", Types.VARCHAR));
             declareParameter(new SqlParameter("p_employerStreetAddress", Types.VARCHAR));
             declareParameter(new SqlParameter("p_employerCity", Types.VARCHAR));
@@ -264,12 +267,15 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_acctnum", data.getAcctnum());
       inputMap.put("p_acctOwnerId", data.getAcctOwnerId());
       inputMap.put("p_emplId", data.getEmplId());
+      inputMap.put("p_emplTypeId", data.getEmplTypeId());
+      inputMap.put("p_sourceOfIncome", data.getSourceOfIncome());
       inputMap.put("p_employerName", data.getEmployerName());
+      inputMap.put("p_occupation",data.getOccupation());
       inputMap.put("p_typeOfBusiness", data.getTypeOfBusiness());
       inputMap.put("p_employerStreetAddress", data.getEmployerStreetAddress());
       inputMap.put("p_employerCity", data.getEmployerCity());
       inputMap.put("p_employerState", data.getEmployerState());
-      inputMap.put("p_employerZipCode", data.getEmployerCity());
+      inputMap.put("p_employerZipCode", data.getEmployerZipCode());
       inputMap.put("p_fromDate", data.getFromDate());
       inputMap.put("p_toDate", data.getToDate());
       inputMap.put("p_createdBy", "Invessence");
