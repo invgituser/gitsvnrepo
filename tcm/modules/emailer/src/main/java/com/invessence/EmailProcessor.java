@@ -13,15 +13,16 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class EmailProcessor
 {
+/* Only for testing purpose
    static{
 
       System.out.println("Start static block :");
       String [] args = new String[2];
       args[0] = "-test";
-      args[1] = "sudhir.chavhan@invessence.com";
+      args[1] = "abhangp@mindcraft.in";
       EmailProcessor.main(args);
    }
-
+*/
 
    public static void main(String[] args)
    {
@@ -46,7 +47,7 @@ public class EmailProcessor
                //  Option 2, can only be run from command line.  How do you handle already running version
             }
             else {
-
+               System.out.println("test 0");
                // Else start the camel context and keep checking the email.
                ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/email.util.xml");
                Scheduler schedulerFactory = (Scheduler) applicationContext.getBean("schedulerFactory");
@@ -54,6 +55,7 @@ public class EmailProcessor
             }
          }
          else {
+
             ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/email.util.xml");
             Scheduler schedulerFactory = (Scheduler) applicationContext.getBean("schedulerFactory");
             schedulerFactory.start();
@@ -61,7 +63,7 @@ public class EmailProcessor
       }
       catch (Error e)
       {
-         System.out.println("Error 1 :"+e.toString());
+
          e.printStackTrace();
       }
       catch (Exception e)
