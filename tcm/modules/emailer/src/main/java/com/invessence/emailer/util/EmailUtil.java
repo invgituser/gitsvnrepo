@@ -31,14 +31,16 @@ public class EmailUtil
 
    public EmailUtil()
    {
+      System.out.println("EmailUtil.EmailUtil");
       //  Fetch parameters from ServiceParameters module (i.e. Database) Start & set to mailSender//
+
       mailSender = new JavaMailSenderImpl();
-      emailHost = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(), "HOST");
-      emailPort = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(), "PORT");
-      emailUsername = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(), "USERNAME");
-      emailPassword = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(), "PASSWORD");
-      emailCC_EXTERNAL_RECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(), "CC_EXTERNAL_RECEIVER");
-      emailCC_INVESSENCE_RECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(), "CC_INVESSENCE_RECEIVER");
+      emailHost = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "HOST");
+      emailPort = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "PORT");
+      emailUsername = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "USERNAME");
+      emailPassword = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "PASSWORD");
+      emailCC_EXTERNAL_RECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "CC_EXTERNAL_RECEIVER");
+      emailCC_INVESSENCE_RECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "CC_INVESSENCE_RECEIVER");
 
       System.out.println("emailHost = "+emailHost+" || emailPort = "+emailPort+" || emailUsername = "+emailUsername+" || emailPassword = XXXX");
 
