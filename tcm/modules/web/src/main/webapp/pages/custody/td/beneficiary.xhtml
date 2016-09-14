@@ -1,9 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions">
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<f:metadata>
 		<f:viewParam name="acct" value="#{ctobean.beanAcctnum}" />
@@ -12,15 +12,15 @@
 
 
 	<p:panel id="beneficiaryPanel"
-		style="border: 0px; background: transparent" closable="true"
-		toggleable="true">
+			 style="border: 0px; background: transparent" closable="true"
+			 toggleable="true">
 
-    <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
-			style="margin-bottom: 15px;">
+		<div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+			 style="margin-bottom: 15px;">
 
 			<p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary"
-				offLabel="Add Beneficiary" onIcon="ui-icon-minus"
-				offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
+								   offLabel="Add Beneficiary" onIcon="ui-icon-minus"
+								   offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
 				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" />
 			</p:selectBooleanButton>
 
@@ -30,49 +30,49 @@
 					<div class="Container100 MarginBottom">
 						<p:growl id="beneGrowl" autoUpdate="true" escape="false" />
 						<p:dataTable id="singleDT" var="benefiaciary"
-							value="#{tdcto.tdMasterData.benefiaciaryDetailsList}"
-							emptyMessage="No beneficiary account added. Add a new beneficiary account"
-							reflow="true">
+									 value="#{tdcto.tdMasterData.benefiaciaryDetailsList}"
+									 emptyMessage="No beneficiary account added. Add a new beneficiary account"
+									 reflow="true">
 
 							<p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
 								<p:commandButton id="editButton"
-									styleClass="Fs14 BlueButton"
-									process="@this" immediate="true"
-									icon="fa fa-pencil-square-o Fs14 white"
-									ajax="true" update=":ctoForm:tdaccordian:beneficiaryPanel"
-                                    actionListener="#{tdcto.tdMasterData.editBeneficiary}">
+												 styleClass="Fs14 BlueButton"
+												 process="@this" immediate="true"
+												 icon="fa fa-pencil-square-o Fs14 white"
+												 ajax="true" update=":ctoForm:tdaccordian:beneficiaryPanel"
+												 actionListener="#{tdcto.tdMasterData.editBeneficiary}">
 									<p:tooltip id="editToolTipFade" for="editButton"
-										value="Edit" />
-                                    <f:setPropertyActionListener value="#{benefiaciary}"
-                                                                 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
-                                </p:commandButton>
+											   value="Edit" />
+									<f:setPropertyActionListener value="#{benefiaciary}"
+																 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
+								</p:commandButton>
 								<p:commandButton id="menuDelete"
 												 styleClass="Fs16 RedButton DualBtnModeRight"
 												 process="@this" immediate="true"
 												 icon="fa fa-trash Fs14 white"
 												 update="singleDT"
-                                                 actionListener="#{tdcto.tdMasterData.deleteBeneficiary(benefiaciary.beneId)}">
+												 actionListener="#{tdcto.tdMasterData.deleteBeneficiary(benefiaciary.beneId)}">
 									<p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert"/>
 								</p:commandButton>
 							</p:column>
 
 							<p:column styleClass="Wid25 TexAlLeft" sortBy=""
-								headerText="First Name" priority="3" resizable="true">
+									  headerText="First Name" priority="3" resizable="true">
 								<span class="dashboardUsrColumnFloatRight"> <h:outputText
 										value="#{benefiaciary.beneFirstName}" /></span>
 							</p:column>
 
 							<p:column styleClass="Wid25 TexAlLeft" sortBy=""
-								headerText="Last Name" resizable="true">
+									  headerText="Last Name" resizable="true">
 								<span class="dashboardUsrColumnFloatRight"> <h:outputText
 										value="#{benefiaciary.beneLastName}" /></span>
 							</p:column>
 
 							<p:column styleClass="Wid25 num-text-align invest"
-								headerText="Share %" resizable="true">
+									  headerText="Share %" resizable="true">
 								<span class="dashboardUsrColumnFloatRight"><h:outputText
 										value="#{benefiaciary.sharePerc}%">
-									</h:outputText></span>
+								</h:outputText></span>
 
 							</p:column>
 
@@ -82,32 +82,35 @@
 				</div>
 			</div>
 			<p:panel id="beneficiaryAdd"
-				style="border: 0px; background: transparent; margin-top: -10px;"
-				rendered="#{tdcto.tdMasterData.showBeneficiaryForm}">
+					 style="border: 0px; background: transparent; margin-top: -10px;"
+					 rendered="#{tdcto.tdMasterData.showBeneficiaryForm}">
 
 				<div class="EmptyBox30"></div>
 				<div class="Container80 BeneficiaryEditPanel">
 					<div class="ContainerIndent">
-					<div class="closeAddBeneficiary Fright">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-					</div>
+
+						<div class="closeAddBeneficiary Fright">
+							<p:commandLink>
+								<img src="/javax.faces.resource/images/closeBen.png.xhtml?ln=tcm" class="atCheckMarkImg"/>
+							</p:commandLink>
+						</div>
 						<div class="Container100">
 							<label Class="Container60"
-								style="text-align: left !important; font-weight: bold !important;">Name</label>
+								   style="text-align: left !important; font-weight: bold !important;">Name</label>
 
 							<div class="EmptyBox5"></div>
 							<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
-								placeholder="First Name"
-								value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneFirstName}">
+										 placeholder="First Name"
+										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneFirstName}">
 							</p:inputText>
 							<p:inputText
-								styleClass="MiddleInitialWidth FS14 InputMergeLeft InputMergeRight"
-								placeholder="Middle Initial"
-								value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneMidInitial}">
+									styleClass="MiddleInitialWidth FS14 InputMergeLeft InputMergeRight"
+									placeholder="Middle Initial"
+									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneMidInitial}">
 							</p:inputText>
 							<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
-								placeholder="Last Name"
-								value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneLastName}">
+										 placeholder="Last Name"
+										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneLastName}">
 							</p:inputText>
 						</div>
 
@@ -115,36 +118,36 @@
 						<div class="Container100">
 							<div class="Container32 Fleft CustomWidthFA-Responsive">
 								<label Class="Container100"
-									style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+									   style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
 								<div class="EmptyBox5"></div>
 								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneDOB}"
-									mask="99/99/9999" placeholder="MM/DD/YYYY">
+											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneDOB}"
+											 mask="99/99/9999" placeholder="MM/DD/YYYY">
 								</p:inputMask>
 							</div>
 
 							<div class="Container32 CustomWidthFA-Responsive">
 								<label Class="Container100"
-									style="text-align: left !important; font-weight: bold !important;">Social
+									   style="text-align: left !important; font-weight: bold !important;">Social
 									Security Number</label>
 
 								<div class="EmptyBox5"></div>
 								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneSSN}"
-									mask="999-99-9999" placeholder="###-##-####" required="false">
+											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneSSN}"
+											 mask="999-99-9999" placeholder="###-##-####" required="false">
 								</p:inputMask>
 							</div>
 
 
 							<div class="Container32 CustomWidthFA-Responsive">
 								<label Class="Container100"
-									style="text-align: left !important; font-weight: bold !important;">Relationship</label>
+									   style="text-align: left !important; font-weight: bold !important;">Relationship</label>
 
 								<div class="EmptyBox5"></div>
 								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
-									placeholder="Relationship"
-									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneRel}">
+											 placeholder="Relationship"
+											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneRel}">
 								</p:inputText>
 							</div>
 						</div>
@@ -152,15 +155,15 @@
 						<div class="Container100">
 							<div class="Container32 Fleft CustomWidthFA2 MarTop5">
 								<label Class="Container100"
-									style="text-align: left !important; font-weight: bold !important;">Type
+									   style="text-align: left !important; font-weight: bold !important;">Type
 									of Beneficiary</label>
 
 								<div class="EmptyBox5"></div>
 								<div class="Container100 Fleft">
 									<div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
-										style="margin-top: 5px;">
+										 style="margin-top: 5px;">
 										<p:selectOneRadio styleClass="textAlign formRadioBtn"
-											value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.typeOfBeneficiary}">
+														  value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.typeOfBeneficiary}">
 											<f:selectItem itemValue="1" itemLabel="Primary" />
 											<f:selectItem itemValue="2" itemLabel="Contigent" />
 										</p:selectOneRadio>
@@ -170,14 +173,14 @@
 
 							<div class="Container32 CustomWidthFA2">
 								<label Class="Container100"
-									style="text-align: left !important; font-weight: bold !important;">Per
+									   style="text-align: left !important; font-weight: bold !important;">Per
 									Stirpes</label>
 								<div class="EmptyBox5"></div>
 								<div class="Container100 Fleft">
 									<div style="margin-top: 15px;">
 										<p:selectBooleanCheckbox styleClass="benCheckBox"
-											value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.perStripes}"
-											itemLabel="Per Stirpes">
+																 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.perStripes}"
+																 itemLabel="Per Stirpes">
 										</p:selectBooleanCheckbox>
 									</div>
 								</div>
@@ -186,29 +189,29 @@
 
 							<div class="Container32 CustomWidthFA2">
 								<label Class="Container100"
-									style="text-align: left !important; font-weight: bold !important;">Share
+									   style="text-align: left !important; font-weight: bold !important;">Share
 									%</label>
 
 								<div class="EmptyBox5"></div>
-                                <p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
-                                               value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.sharePerc}"
-                                               symbol="%"
-                                               symbolPosition="s" emptyValue="zero">
-                                </p:inputNumber>
+								<p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
+											   value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.sharePerc}"
+											   symbol="%"
+											   symbolPosition="s" emptyValue="zero">
+								</p:inputNumber>
 							</div>
 						</div>
 
 						<div class="EmptyBox20"></div>
 						<div class="Container100 BenBttonBlock"
-							style="text-align: center;">
+							 style="text-align: center;">
 							<p:button styleClass="CommonBtnWidthCancel" value="Reset" rendered="false">
 								<f:param name="Reset" />
 							</p:button>
 
 							<p:commandButton value="Save" ajax="true"
-								update=":ctoForm:tdaccordian:beneficiaryPanel"
-								actionListener="#{tdcto.tdMasterData.saveBenefiaciaryDetails}"
-								styleClass="ui-priority-primary CommonBtnWidthSave" />
+											 update=":ctoForm:tdaccordian:beneficiaryPanel"
+											 actionListener="#{tdcto.tdMasterData.saveBenefiaciaryDetails}"
+											 styleClass="ui-priority-primary CommonBtnWidthSave" />
 
 
 						</div>
@@ -218,10 +221,10 @@
 			</p:panel>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
 				<p:commandLink styleClass="UI-prevButtonFA Fleft"
-					actionListener="#{tdcto.prevPage}" update="@form" />
+							   actionListener="#{tdcto.prevPage}" update="@form" />
 
 				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-					actionListener="#{tdcto.nextPage}" update="@form" />
+							   actionListener="#{tdcto.nextPage}" update="@form" />
 			</div>
 		</div>
 
