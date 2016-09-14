@@ -18,8 +18,8 @@
                 Template
             </ui:insert>
 
-            <div class="layout-portlets-box TexAlCenter">
-                <div class="layout-portlets-box TexAlCenter">
+            <div class="layout-portlets-box TexAlCenter" style="font-size: 13px;">
+                <div class="layout-portlets-box TexAlCenter" style="border-radius:0;">
                     <script type="text/javascript" src="https://seal.thawte.com/getthawteseal?host_name=www.buildingbenjamins.com&amp;size=S&amp;lang=en"></script>
                 </div>
                 Powered by <i class="fa fa-copyright"></i>Invessence<br/>
@@ -52,7 +52,7 @@
         <ui:fragment rendered="#{uiLayout.customCSS != null}">
             <h:outputStylesheet name="#{uiLayout.customCSS}" library="#{uiLayout.cssDIR}"/>
         </ui:fragment>
-        <ui:fragment rendered="#{uiLayout.uiprofile.googleAnalytic != null}">
+        ent rendered="#{uiLayout.uiprofile.googleAnalytic != null}">
            <h:outputStylesheet name="#{uiLayout.uiprofile.googleAnalytic}" library="#{uiLayout.cssDIR}"/>
         </ui:fragment>
 

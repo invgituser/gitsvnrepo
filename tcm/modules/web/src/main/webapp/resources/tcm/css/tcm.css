@@ -448,6 +448,10 @@ img.riskImage:hover {
 }
 
 /*Prakash*/
+.funding > span{
+	font-size: 18px!important;
+}
+
 .fundingRecurring > input {
 	width: 95%;
     border-radius: 3px!important;
