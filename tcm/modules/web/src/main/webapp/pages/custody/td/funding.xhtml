@@ -100,6 +100,7 @@
                             <div class="EmptyBox5"></div>
                             <pe:inputNumber
                                     styleClass="Wid85 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
+                                    style="text-align: left;"
                                     value="#{tdcto.tdMasterData.initialInvestment}" maxlength="11"
                                     symbol="$" decimalPlaces="2" required="false"
                                     requiredMessage="Min. of $50,000 investment is required!"
@@ -154,8 +155,7 @@
                                               noSelectionOption="true"/>
                                 <f:selectItem itemLabel="Checking" itemValue="Checking"/>
                                 <f:selectItem itemLabel="Savings" itemValue="Savings"/>
-                                <f:selectItem itemLabel="Money Market" itemValue="Money Market"/>
-                                <f:selectItem itemLabel="CD" itemValue="CD"/>
+
                             </p:selectOneMenu>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
                         <div class="Container45 Fright CustomWidthFA-Responsive">
                             <label Class="Container100"
                                    style="text-align: left !important; font-weight: bold !important;">
-                                Name on bank account </label>
+                                Name on Bank Account </label>
 
                             <div class="EmptyBox5"></div>
                             <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
@@ -380,7 +380,7 @@
                          style="border: 0px; background: transparent; margin: 0 auto!important;"
                          rendered="#{tdcto.tdMasterData.fundType == 3}">
                     <div class="EmptyBox20"></div>
-                    <h3 class="FSResponsiveFA">Domestic Wire Information</h3>
+                    <div class="Container100 FundTitle">Domestic Wire Information</div>
 
                     <div class="EmptyBox10"></div>
                     <div class="Container100">
@@ -421,7 +421,7 @@
                         <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
                             <label Class="Container100"
                                    style="text-align: left !important; font-weight: bold !important;">
-                                Bank Account Number</label>
+                                Receiving Bank Account Number</label>
 
                             <div class="EmptyBox5"></div>
                             <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
@@ -499,6 +499,7 @@
                                 <div class="EmptyBox5"></div>
                                 <p:inputNumber
                                         styleClass="Wid85 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
+                                       style="text-align: left;"
                                         value="#{tdcto.tdMasterData.electroicBankDetail.tranAmount}"
                                         maxlength="8" symbol="$" decimalPlaces="2" required="false"
                                         requiredMessage="Min. of $50 is required!"
@@ -545,8 +546,7 @@
                                                   noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Checking" itemValue="Checking"/>
                                     <f:selectItem itemLabel="Savings" itemValue="Savings"/>
-                                    <f:selectItem itemLabel="Money Market" itemValue="Money Market"/>
-                                    <f:selectItem itemLabel="CD" itemValue="CD"/>
+
                                 </p:selectOneMenu>
                             </div>
                         </div>
