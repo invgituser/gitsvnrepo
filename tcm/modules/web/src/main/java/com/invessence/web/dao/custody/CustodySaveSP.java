@@ -119,6 +119,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_perStripes", Types.VARCHAR));
             declareParameter(new SqlParameter("p_sharePerc", Types.DOUBLE));
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
+            break;
          case 5: // ACH
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_moveMoneyPayMethodID", Types.INTEGER));
@@ -228,7 +229,7 @@ public class CustodySaveSP extends StoredProcedure
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", data.getAcctnum());
       inputMap.put("p_acctOwnerId", data.getAcctOwnerId());
-      inputMap.put("p_ownership", data.getAcctOwnerId());
+      inputMap.put("p_ownership",data.getOwnership());
       inputMap.put("p_firstName", data.getFirstName());
       inputMap.put("p_midInitial", data.getMidInitial());
       inputMap.put("p_lastName", data.getLastName());
