@@ -253,7 +253,7 @@ public class UserBean implements Serializable
                if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
                {
                   collectUserAccount();
-                  if (!beanResetID.equals(userdata.getResetID().toString()))
+                  if (!beanResetID.equals(userdata.getResetID()))
                   {
                      webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid Reset data.");
                   }
@@ -365,16 +365,6 @@ public class UserBean implements Serializable
          }
          else
          {
-            // Check if the username/password match.  Cannot change the Email Address.
-            // msg = webutil.validateNewPass(pwd1, pwd2);
-/*
-            if (!msg.toUpperCase().equals("SUCCESS"))
-            {
-               logger.debug("LOG: Validate Password failed: " + beanUserID + " with status = " + msg);
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-               return;
-            }
-*/
             Long acctnum = webutil.getConverter().getLongData(beanCustID);
             userdata.setAcctnum(acctnum);
             Long logonID = saveUser();
@@ -412,7 +402,7 @@ public class UserBean implements Serializable
          if (userdata.getEmail() != null && !userdata.getEmail().isEmpty())
          {
             logger.debug("LOG: Validate UserID failed: " + beanUserID);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID taken", "Try different UserID, this one is taken."));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID/Email already registered!", "Try different UserID"));
          }
          else
          {

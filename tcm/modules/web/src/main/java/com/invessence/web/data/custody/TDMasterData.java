@@ -27,7 +27,7 @@ public class TDMasterData implements Serializable
    Boolean ownerSPF, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
    Integer fundType;
-   Boolean recurringFlag;
+   Boolean fundNow, recurringFlag;
    Double initialInvestment;
 
    private USMaps usmaps;
@@ -42,6 +42,7 @@ public class TDMasterData implements Serializable
    BenefiaciaryDetails benefiaciaryDetailses;
    MapMovemoneyPaymethod mapMovemoneyPaymethod;
    AchBankDetail achBankDetail;
+   ACATDetails acatDetails;
    ElectronicFundDetails electroicBankDetail;
    FedwireAcctDetails fedwireAcctDetail;
    InternalTransferDetails internalTransferDetail;
@@ -58,6 +59,7 @@ public class TDMasterData implements Serializable
       jointSPF = jointShare = jointBD = false;
       showBeneficiaryForm = false;
       newBeneficiaryForm = false;
+      fundNow = false;
       recurringFlag = false;
       fundType = 0;
       initialInvestment = null;
@@ -73,6 +75,7 @@ public class TDMasterData implements Serializable
       benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
       mapMovemoneyPaymethod = new MapMovemoneyPaymethod();
       achBankDetail = new AchBankDetail();
+      acatDetails = new ACATDetails();
       electroicBankDetail = new ElectronicFundDetails();
       fedwireAcctDetail = new FedwireAcctDetails();
       internalTransferDetail = new InternalTransferDetails();
@@ -203,6 +206,16 @@ public class TDMasterData implements Serializable
    public void setJointBD(Boolean jointBD)
    {
       this.jointBD = jointBD;
+   }
+
+   public Boolean getFundNow()
+   {
+      return fundNow;
+   }
+
+   public void setFundNow(Boolean fundNow)
+   {
+      this.fundNow = fundNow;
    }
 
    public Boolean getRecurringFlag()
@@ -380,6 +393,16 @@ public class TDMasterData implements Serializable
    public void setAchBankDetail(AchBankDetail achBankDetail)
    {
       this.achBankDetail = achBankDetail;
+   }
+
+   public ACATDetails getAcatDetails()
+   {
+      return acatDetails;
+   }
+
+   public void setAcatDetails(ACATDetails acatDetails)
+   {
+      this.acatDetails = acatDetails;
    }
 
    public ElectronicFundDetails getElectroicBankDetail()

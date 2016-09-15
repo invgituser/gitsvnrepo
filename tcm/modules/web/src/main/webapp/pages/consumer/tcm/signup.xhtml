@@ -12,16 +12,14 @@
 
     <ui:define name="content">
         <!-- BOX START -->
-        <h:form id="suForm">
             <div id="layout-portlets-cover">
                 <div class="other-pages-box Container40 Responsive100 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
                      style="margin-top:5%;">
                     <div class="Container90 Fnone MarAuto TexAlLeft">
 
                         <h:form>
-
                             <div class="Container90">
-                                <p:growl id="sgrowl"/>
+                                <p:messages id="signmsg" showDetail="false" sticky="true" escape="true" closable="true"/>
                             </div>
                             <div class="EmptyBox5"></div>
                             <p:panel id="signup" styleClass="Container100" style="border:0px; background: transparent; margin-top:0!important;">
@@ -60,7 +58,7 @@
                                 <f:facet name="footer">
                                     <div class="Container100" style="text-align: center;">
                                         <p:commandButton value="Register" type="submit"
-                                                         update="@form"
+                                                         update="@form, signmsg"
                                                          actionListener="#{userBean.simpleSignup}"/>
                                     </div>
                                 </f:facet>
@@ -73,8 +71,6 @@
                 </div>
             </div>
             <div class="EmptyBox50"></div>
-
-        </h:form>
 
 
     </ui:define>

@@ -9,6 +9,26 @@
 
         <p:tab title="Fund">
             <p:panel id="fundPanel" style="border: 0px; background: transparent">
+            <div class="Container80 Responsive90 MarTop5 MarCenter ui-color"
+                 style="margin-bottom: 15px; border: 0px; background: transparent">
+                <div class="Container50 CustomWidthFA2 MarTop5">
+                    <p:selectBooleanCheckbox style="font-size: 18px!important;" styleClass="funding RegulatoryCheckBox"
+                                             value="#{tdcto.tdMasterData.fundNow}"
+                                             itemLabel="Do you want to fund now?">
+                        <p:ajax update=":ctoForm:tdaccordian:fundTabV:fundPanel"/>
+                    </p:selectBooleanCheckbox>
+                </div>
+                <div class="Container50 CustomWidthFA2 MarTop5">
+                    <p:selectBooleanCheckbox
+                            value="#{tdcto.tdMasterData.recurringFlag}"
+                            itemLabel="I would like to make recurring investments.">
+                        <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                    </p:selectBooleanCheckbox>
+                </div>
+            </div>
+
+            <p:panel id="fundPanel2" style="border: 0px; background: transparent"
+                    rendered="#{tdcto.tdMasterData.fundNow}">
                 <div class="Container80 Responsive90 MarTop5 MarCenter ui-color"
                      style="margin-bottom: 15px; border: 0px; background: transparent">
 
@@ -22,12 +42,6 @@
                         <f:selectItem itemLabel="Wire" itemValue="3"/>
                         <p:ajax update=":ctoForm:tdaccordian:fundTabV:fundPanel"/>
                     </p:selectOneRadio>
- <div class="Container100 CustomWidthFA2 MarTop5">
-                        <p:selectBooleanCheckbox style="font-size: 18px!important;" styleClass="funding RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerSPF}"
-                                                 itemLabel="Do you want to fund now?">
-                            <p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel"/>
-                        </p:selectBooleanCheckbox>
-                    </div>
                         <div class="EmptyBox20"></div>
                     <div class="Container45 CustomWidthAccountypePanel Fleft ">
                         <p:panel styleClass="Wid90 Fleft MarCenter tcmPanel-UI">
@@ -60,7 +74,7 @@
                     </div>
 
                     <div class="EmptyBox10"></div>
-                    <div class="Container45 CustomWidthAccountypePanel Fleft ">
+                    <div class="Container45 CustomWidthAccountypePanel Fleft" style="display: hide">
                         <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
                             <div class="Container60">
                                 <h4>Wire Transfer</h4>
@@ -107,7 +121,7 @@
                                     validatorMessage="Min. of $50,000 investment is required!">
                             </pe:inputNumber>
                         </div>
-                        <div class="Container45 Fleft CustomWidthFA2 MarTop5">
+                        <div class="Container45 Fleft CustomWidthFA2 MarTop5" style="display: hide">
                             <label Class="Container100"
                                    style="text-align: left !important; font-weight: bold !important;">
                                 Recurring Funding </label>
@@ -117,7 +131,7 @@
                                 <p:selectBooleanCheckbox
                                         value="#{tdcto.tdMasterData.recurringFlag}"
                                         itemLabel="I would like to make recurring investments.">
-                                    <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel"/>
+                                    <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
                                 </p:selectBooleanCheckbox>
                             </div>
                         </div>
@@ -232,7 +246,7 @@
 
                             <div class="EmptyBox5"></div>
                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
+                                         value="#{tdcto.tdMasterData.acatDetails.fromAccountTitle}"
                                          placeholder="Account Title">
                             </p:inputText>
                         </div>
@@ -242,7 +256,7 @@
 
                             <div class="EmptyBox5"></div>
                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
+                                         value="#{tdcto.tdMasterData.acatDetails.accountNumber2}"
                                          placeholder="Account Number">
                             </p:inputText>
                         </div>
@@ -252,7 +266,7 @@
 
                             <div class="EmptyBox5"></div>
                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
+                                         value="#{tdcto.tdMasterData.acatDetails.fromEEPlanType}"
                                          placeholder="Name of delivery firm">
                             </p:inputText>
                         </div>
@@ -265,7 +279,7 @@
 
                             <div class="EmptyBox5"></div>
                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
+                                         value="#{tdcto.tdMasterData.acatDetails.fullName}"
                                          placeholder="Physical address of firm">
                             </p:inputText>
                         </div>
@@ -275,7 +289,7 @@
 
                             <div class="EmptyBox5"></div>
                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
+                                         value="#{tdcto.tdMasterData.acatDetails.fromFirmPhoneNumber}"
                                          placeholder="Phone Number">
                             </p:inputText>
                         </div>
@@ -285,6 +299,7 @@
 
                             <div class="EmptyBox5"></div>
                             <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                             value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
                                              style="width: 100%;">
                                 <p:ajax/>
                                 <f:selectItem itemLabel="Select Account Type" itemValue=""
@@ -305,74 +320,19 @@
                         <div class="Container32 CustomWidthFA2">
                             <div class="Container100 Fleft">
                                 <div style="margin-top: 15px;">
-                                    <p:selectBooleanCheckbox styleClass="benCheckBox"
-                                                             value="#{tdcto.tdMasterData.benefiaciaryDetailses.perStripes}"
-                                                             itemLabel="Full Transfer">
-                                    </p:selectBooleanCheckbox>
-                                    <p:selectBooleanCheckbox styleClass="benCheckBox"
-                                                             value="#{tdcto.tdMasterData.benefiaciaryDetailses.perStripes}"
-                                                             itemLabel="Partial Transfer">
-                                    </p:selectBooleanCheckbox>
-                                </div>
+                                    <p:selectOneRadio
+                                            value="#{tdcto.tdMasterData.acatDetails.transferTypeId}">
+                                        <f:selectItem itemLabel="Full Transfer" itemValue="FULL" />
+                                        <f:selectItem itemLabel="Partial Transfer" itemValue="PARTIAL" />
+                                    </p:selectOneRadio>
+                               </div>
                             </div>
 
                         </div>
 
                     </div>
 
-                    <!-- <div class="Container100">
-                        <div class="Container45 Fleft CustomWidthFA-Responsive">
-                            <label Class="Container100"
-                                   style="text-align: left !important; font-weight: bold !important;">
-                                Bank Name</label>
-
-                            <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
-                                         placeholder="Bank Name">
-                            </p:inputText>
-                        </div>
-                        <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
-                            <label Class="Container100"
-                                   style="text-align: left !important; font-weight: bold !important;">
-                                Account Name
-                            </label>
-
-                            <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAcctName}"
-                                         placeholder="Account Name">
-                            </p:inputText>
-                        </div>
-                    </div> -->
-
                     <div class="EmptyBox20"></div>
-                    <!--  <div class="Container100">
-                        <div class="Container45 Fleft CustomWidthFA-Responsive">
-                            <label Class="Container100"
-                                   style="text-align: left !important; font-weight: bold !important;">
-                                ABA Routing Number</label>
-
-                            <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireABARouting}"
-                                         placeholder="ABA Routing Number">
-                            </p:inputText>
-                        </div>
-                        <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
-                            <label Class="Container100"
-                                   style="text-align: left !important; font-weight: bold !important;">
-                                Account Number
-                            </label>
-
-                            <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                         value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankAccountNumber}"
-                                         placeholder="Account Number">
-                            </p:inputText>
-                        </div>
-                    </div> -->
-
                 </p:panel>
 
                 <!-- Wire transfer -->
@@ -437,10 +397,11 @@
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"/>
                 </div>
             </p:panel>
+        </p:panel>
 
         </p:tab>
 
-        <p:tab title="Recurring">
+        <p:tab title="Recurring" rendered="#{tdcto.tdMasterData.recurringFlag}">
             <p:panel id="recurrringPanel" styleClass="Container100"
                      style="border: 0px; background: transparent">
                 <div class="Container80 Responsive90 MarTop5 MarCenter ui-color"
