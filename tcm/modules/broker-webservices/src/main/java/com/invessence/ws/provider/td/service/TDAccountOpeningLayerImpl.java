@@ -203,7 +203,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
     System.out.println("dcRequest = [" + dcRequest + "]");
     AcctDetails acctDetails= null;
     List<AcctOwnerDetails> acctOwnerDetails=null;
-      MoveMoneyDetails moveMoneyDetails=null;
+     // MoveMoneyDetails moveMoneyDetails=null;
       List<MoveMoneyDetails> moveMoneyDetailsLst=null;
       List<MMAchBankDetails> mmAchBankDetails=null;
       List<MMInternalTransferDetails> mmInternalTransferDetails=null;
@@ -214,11 +214,11 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
        acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
        acctOwnerDetails=tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
        acctDetails.setAcctOwnerDetails(acctOwnerDetails);
-       moveMoneyDetails=tdDaoLayer.getMoveMoneyDetail(dcRequest.getAcctnum(), dcRequest.getEventNum());
+       //moveMoneyDetails=tdDaoLayer.getMoveMoneyDetail(dcRequest.getAcctnum(), dcRequest.getEventNum());
        moveMoneyDetailsLst=tdDaoLayer.getMoveMoneyDetails(dcRequest.getAcctnum(), dcRequest.getEventNum());
-       if(moveMoneyDetails==null){
-          logger.debug("Move Money Details are not available for acctNum :"+dcRequest.getAcctnum()+" eventNum :"+dcRequest.getReqId());
-          System.out.println("Move Money Details are not available for acctNum :"+dcRequest.getAcctnum()+" eventNum :"+dcRequest.getReqId());
+       if(moveMoneyDetailsLst==null || moveMoneyDetailsLst.size()<=0){
+          logger.debug("Move Money Details are not available for acctNum :"+dcRequest.getAcctnum()+" eventNum :"+dcRequest.getEventNum());
+          System.out.println("Move Money Details are not available for acctNum :"+dcRequest.getAcctnum()+" eventNum :"+dcRequest.getEventNum());
        }else
        {
           inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetailsLst));
