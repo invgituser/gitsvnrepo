@@ -93,11 +93,11 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
-   public Boolean tdSaveACH(Long acctnum, AchBankDetail data)
+   public Boolean tdSaveACH(Long acctnum,Double initialInv,String fundType, AchBankDetail data)
    {
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_ach_bank_details",5);
-      Map outMap = sp.tdSaveACH(acctnum, data);
+      Map outMap = sp.tdSaveACH(acctnum,initialInv,fundType, data);
       if (outMap == null)
          return (false);
       else

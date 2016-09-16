@@ -613,7 +613,11 @@ public class TdCto
          case 8:
             custodySaveDAO.saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailsList());
             break;
-         case 9:
+         case 9: // funding
+            if(tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
+               custodySaveDAO.tdSaveACH(tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
+            else if(tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
+               custodySaveDAO.tdSaveACAT(tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
             break;
          case 10:
             break;

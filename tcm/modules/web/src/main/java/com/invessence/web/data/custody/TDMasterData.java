@@ -23,10 +23,11 @@ public class TDMasterData implements Serializable
    Boolean acctholderhasMailing, jointhasMailing, jointhasDifferent;
    Boolean showBeneficiaryForm;
    Boolean newBeneficiaryForm;
+   Boolean editBeneficiaryForm=false;
 
    Boolean ownerSPF, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
-   Integer fundType;
+   String fundType;
    Boolean fundNow, recurringFlag;
    Double initialInvestment;
 
@@ -61,7 +62,7 @@ public class TDMasterData implements Serializable
       newBeneficiaryForm = false;
       fundNow = false;
       recurringFlag = false;
-      fundType = 0;
+      fundType = null;
       initialInvestment = null;
       usmaps = USMaps.getInstance();
 
@@ -228,12 +229,12 @@ public class TDMasterData implements Serializable
       this.recurringFlag = recurringFlag;
    }
 
-   public Integer getFundType()
+   public String getFundType()
    {
       return fundType;
    }
 
-   public void setFundType(Integer fundType)
+   public void setFundType(String fundType)
    {
       this.fundType = fundType;
    }
@@ -288,13 +289,13 @@ public class TDMasterData implements Serializable
                acctdetail.setAcctTypeId("ACJOINT");
                break;
             case 3:
-               acctdetail.setAcctTypeId("ACCSTD");
+               acctdetail.setAcctTypeId("IRATRAD");
                break;
             case 4:
-               acctdetail.setAcctTypeId("ACIRA");
+               acctdetail.setAcctTypeId("IRAROTH");
                break;
             case 5:
-               acctdetail.setAcctTypeId("ACIRA");
+               acctdetail.setAcctTypeId("IRAROOV");
                break;
             case 6:
                acctdetail.setAcctTypeId("ACIRA");
@@ -451,8 +452,23 @@ public class TDMasterData implements Serializable
       if (tmpBenefiaciaryDetail.getBeneId() == null) {
          tmpBenefiaciaryDetail.setBeneId(benefiaciaryDetailsList.size());
       }
+      ArrayList<BenefiaciaryDetails> tmpbenefiaciaryDetailsList=benefiaciaryDetailsList;
+
+      if(editBeneficiaryForm)
+      {
+         for (int i=0; i < tmpbenefiaciaryDetailsList.size(); i++)
+         {
+            BenefiaciaryDetails tmpb=tmpbenefiaciaryDetailsList.get(i);
+            if(tmpBenefiaciaryDetail.getBeneId().intValue()==tmpb.getBeneId().intValue())
+               benefiaciaryDetailsList.remove(i);
+         }
+
+      }
+
+
       benefiaciaryDetailsList.add(tmpBenefiaciaryDetail);
       showBeneficiaryForm = false;
+      editBeneficiaryForm=false;
    }
 
    public BenefiaciaryDetails getTmpBenefiaciaryDetail()
@@ -470,7 +486,10 @@ public class TDMasterData implements Serializable
       this.newBeneficiaryForm = newBeneficiaryForm;
       this.showBeneficiaryForm = true;
       Integer beneNum = benefiaciaryDetailsList.size();
-      tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum+1);
+      if(editBeneficiaryForm)
+         tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum);
+      else
+         tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum+1);
    }
 
    public void setSelectedBeneficiary(BenefiaciaryDetails thisBenefificiary) {
@@ -479,6 +498,7 @@ public class TDMasterData implements Serializable
 
    public void editBeneficiary() {
       showBeneficiaryForm = true;
+      editBeneficiaryForm=true;
    }
 
    public void cancelEditBeneficiary() {

@@ -122,7 +122,9 @@ public class CustodySaveSP extends StoredProcedure
             break;
          case 5: // ACH
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_fundType", Types.VARCHAR));
             declareParameter(new SqlParameter("p_moveMoneyPayMethodID", Types.INTEGER));
+            declareParameter(new SqlParameter("p_initialInvestment", Types.DOUBLE));
             declareParameter(new SqlParameter("p_achId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_bankAcctType", Types.VARCHAR));
             declareParameter(new SqlParameter("p_bankName", Types.VARCHAR));
@@ -138,7 +140,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_reqId", Types.INTEGER));
             declareParameter(new SqlParameter("p_fromAccountTitle", Types.VARCHAR));
             declareParameter(new SqlParameter("p_accountNumber2", Types.VARCHAR));
-            declareParameter(new SqlParameter("p_fullName", Types.VARCHAR));
+            //declareParameter(new SqlParameter("p_fullName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_fromFirmAddress", Types.VARCHAR));
             declareParameter(new SqlParameter("p_fromFirmPhoneNumber", Types.VARCHAR));
             declareParameter(new SqlParameter("p_fromEEPlanType", Types.VARCHAR));
@@ -300,10 +302,12 @@ public class CustodySaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map tdSaveACH(Long acctnum, AchBankDetail data) {
+   public Map tdSaveACH(Long acctnum,Double initialInv,String fundType, AchBankDetail data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum",acctnum);
+      inputMap.put("p_fundType",fundType);
       inputMap.put("p_moveMoneyPayMethodID", data.getMoveMoneyPayMethodID());
+      inputMap.put("p_initialInvestment", initialInv);
       inputMap.put("p_achId", data.getAchId());
       inputMap.put("p_bankAcctType", data.getBankAcctType());
       inputMap.put("p_bankName", data.getBankName());
@@ -322,7 +326,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_reqId", data.getReqId());
       inputMap.put("p_fromAccountTitle", data.getFromAccountTitle());
       inputMap.put("p_accountNumber2", data.getAccountNumber2());
-      inputMap.put("p_fullName", data.getFullName());
+      //inputMap.put("p_fullName", data.getFullName());
       inputMap.put("p_fromFirmAddress", data.getFromFirmAddress());
       inputMap.put("p_fromFirmPhoneNumber", data.getFromFirmPhoneNumber());
       inputMap.put("p_fromEEPlanType", data.getFromEEPlanType());
