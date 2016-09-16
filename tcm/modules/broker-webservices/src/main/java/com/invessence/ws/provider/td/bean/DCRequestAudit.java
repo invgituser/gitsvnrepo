@@ -19,18 +19,33 @@ public class DCRequestAudit
    private Date resTime;
    private String envelopId, opt;
 
+   @Override
+   public String toString()
+   {
+      return "DCRequestAudit{" +
+         "id=" + id +
+         ", requestId=" + requestId +
+         ", eventNum=" + eventNum +
+         ", acctnum=" + acctnum +
+         ", dcRequest='" + dcRequest + '\'' +
+         ", dcResponce='" + dcResponce + '\'' +
+         ", status='" + status + '\'' +
+         ", remarks='" + remarks + '\'' +
+         ", reqTime=" + reqTime +
+         ", resTime=" + resTime +
+         ", envelopId='" + envelopId + '\'' +
+         ", opt='" + opt + '\'' +
+         '}';
+   }
+
    public DCRequestAudit(Integer eventNum, String dcRequest, String dcResponce, String status, Date reqTime, String envelopId)
    {
-      this.id = id;
       this.eventNum = eventNum;
       this.dcRequest = dcRequest;
       this.dcResponce = dcResponce;
       this.status = status;
-      this.remarks = remarks;
       this.reqTime = reqTime;
-      this.resTime = resTime;
       this.envelopId = envelopId;
-      this.opt = opt;
    }
 
    public String getOpt()

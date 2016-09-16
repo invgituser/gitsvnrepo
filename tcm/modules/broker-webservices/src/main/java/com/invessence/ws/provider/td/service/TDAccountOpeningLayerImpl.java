@@ -36,6 +36,8 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       Map<String,DCTemplateDetails> dcTemplateDetails=(Map<String,DCTemplateDetails>) ServiceParameters.additionalDetails.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()).get(Constant.ADDITIONAL_DETAILS.TEMPLATE_DETAILS.toString());
       Map<String,ServiceOperationDetails> docuSignOperationDetails=ServiceParameters.serviceDetailsMap.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()).get(Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString());
       Iterator<DCRequest> itr=dcRequests.iterator();
+      int reqCounter=1;
+      envDef.setCompositeTemplates(new ArrayList<CompositeTemplate>());
       while(itr.hasNext())
       {
          DCRequest dcRequest=(DCRequest)itr.next();
@@ -54,16 +56,18 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
 
          if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_APPLI_NEW.toString())){
 
-            CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail);
+            CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString())){
-            agreementDocuments(dcRequest);
+            CompositeTemplate compositeTemplate=acctTransfer(dcRequest,dcTemplateDetail,""+reqCounter);
+            envDef.getCompositeTemplates().add(compositeTemplate);
+            //agreementDocuments(dcRequest);
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())){
             System.out.println("*********************");
             System.out.println("dcTemplateDetail :"+dcTemplateDetail);
-            CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail);
+            CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_MOVE_MONEY_NEW.toString())
@@ -77,23 +81,89 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_NEW.toString())
             || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_CHANGE.toString())
             ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_REMOVE.toString())){
-            CompositeTemplate compositeTemplate=moveMoney(dcRequest, dcTemplateDetail);
+            CompositeTemplate compositeTemplate=moveMoney(dcRequest, dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
 
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ELEC_FUND_TRAN_CHANGE.toString())
          ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ELEC_FUND_TRAN_NEW.toString())
          ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ELEC_FUND_TRAN_REPLACE.toString())){
-            
+            CompositeTemplate compositeTemplate=elecFundTransfer(dcRequest,dcTemplateDetail,""+reqCounter);
+            envDef.getCompositeTemplates().add(compositeTemplate);
          }
+         reqCounter++;
       }
       envDef.setEmailSubject(emailSubject);
       envDef.setStatus("sent");
 
-      //dcUtility.createEnvelope(envDef);
+      dcUtility.createEnvelope(envDef);
 
       return null;
    }
+
+   private CompositeTemplate acctTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail,String servTempSeq){
+      System.out.println("TDAccountOpeningLayerImpl.acctTransfer");
+      System.out.println("dcRequest = [" + dcRequest + "]");
+
+      AcctDetails acctDetails= null;
+      List<AcctOwnerDetails> acctOwnerDetails=null;
+      AcctTransferDetails acctTransferDetails=null;
+      try
+      {
+         acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+         acctOwnerDetails=tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+         acctDetails.setAcctOwnerDetails(acctOwnerDetails);
+         acctTransferDetails=tdDaoLayer.getAcctTransferDetails(dcRequest.getAcctnum(), dcRequest.getReqId());
+      }
+      catch (SQLException e)
+      {
+         e.printStackTrace();
+      }
+
+      InlineTemplate inlineTemplate = dcUtility.getInlineTemplate(servTempSeq);
+      inlineTemplate.setRecipients(dcUtility.getRecipientsAcctTransfer(dcTemplateDetail, acctDetails, acctTransferDetails));
+      ServerTemplate serverTemplate =dcUtility.getServerTemplate(servTempSeq,dcTemplateDetail);
+
+      CompositeTemplate compositeTemplate = new CompositeTemplate();
+      compositeTemplate.setServerTemplates(new ArrayList<ServerTemplate>());
+      compositeTemplate.getServerTemplates().add(serverTemplate);
+
+      compositeTemplate.setInlineTemplates(new ArrayList<InlineTemplate>());
+      compositeTemplate.getInlineTemplates().add(inlineTemplate);
+      return compositeTemplate;
+   }
+   private CompositeTemplate elecFundTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq){
+      System.out.println("TDAccountOpeningLayerImpl.acctTransfer");
+      System.out.println("dcRequest = [" + dcRequest + "]");
+
+      AcctDetails acctDetails= null;
+      List<AcctOwnerDetails> acctOwnerDetails=null;
+      ElecFundTransferDetails elecFundTransferDetails=null;
+      try
+      {
+         acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+         acctOwnerDetails=tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), true);
+         acctDetails.setAcctOwnerDetails(acctOwnerDetails);
+         elecFundTransferDetails=tdDaoLayer.getElecFundTransferDetails(dcRequest.getAcctnum(), dcRequest.getReqId());
+      }
+      catch (SQLException e)
+      {
+         e.printStackTrace();
+      }
+
+      InlineTemplate inlineTemplate = dcUtility.getInlineTemplate(servTempSeq);
+      inlineTemplate.setRecipients(dcUtility.getRecipientsElecFundTransfer(dcTemplateDetail, acctDetails, elecFundTransferDetails));
+      ServerTemplate serverTemplate =dcUtility.getServerTemplate(servTempSeq,dcTemplateDetail);
+
+      CompositeTemplate compositeTemplate = new CompositeTemplate();
+      compositeTemplate.setServerTemplates(new ArrayList<ServerTemplate>());
+      compositeTemplate.getServerTemplates().add(serverTemplate);
+
+      compositeTemplate.setInlineTemplates(new ArrayList<InlineTemplate>());
+      compositeTemplate.getInlineTemplates().add(inlineTemplate);
+      return compositeTemplate;
+   }
+
 
    private void agreementDocuments(DCRequest dcRequest){
       System.out.println("TDAccountOpeningLayerImpl.agreementDocumnets");
@@ -128,44 +198,45 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
 
       dcUtility.createEnvelope(envDef);
    }
-
-
-   private CompositeTemplate moveMoney(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail){
+   private CompositeTemplate moveMoney(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq){
     System.out.println("TDAccountOpeningLayerImpl.moveMoney");
     System.out.println("dcRequest = [" + dcRequest + "]");
     AcctDetails acctDetails= null;
     List<AcctOwnerDetails> acctOwnerDetails=null;
       MoveMoneyDetails moveMoneyDetails=null;
+      List<MoveMoneyDetails> moveMoneyDetailsLst=null;
       List<MMAchBankDetails> mmAchBankDetails=null;
       List<MMInternalTransferDetails> mmInternalTransferDetails=null;
       List<MMFedwireAcctDetails> mmFedwireAcctDetails=null;
-      InlineTemplate inlineTemplate = dcUtility.getInlineTemplate("1");
+      InlineTemplate inlineTemplate = dcUtility.getInlineTemplate(servTempSeq);
     try
     {
        acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
        acctOwnerDetails=tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
        acctDetails.setAcctOwnerDetails(acctOwnerDetails);
-       moveMoneyDetails=tdDaoLayer.getMoveMoneyDetails(dcRequest.getAcctnum(),dcRequest.getEventNum());
+       moveMoneyDetails=tdDaoLayer.getMoveMoneyDetail(dcRequest.getAcctnum(), dcRequest.getEventNum());
+       moveMoneyDetailsLst=tdDaoLayer.getMoveMoneyDetails(dcRequest.getAcctnum(), dcRequest.getEventNum());
        if(moveMoneyDetails==null){
           logger.debug("Move Money Details are not available for acctNum :"+dcRequest.getAcctnum()+" eventNum :"+dcRequest.getReqId());
           System.out.println("Move Money Details are not available for acctNum :"+dcRequest.getAcctnum()+" eventNum :"+dcRequest.getReqId());
        }else
        {
-          if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("ACH"))
-          {
-             mmAchBankDetails = tdDaoLayer.getMMAchBankDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
-             inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetails, mmAchBankDetails));
-          }
-          else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("FedWires"))
-          {
-             mmFedwireAcctDetails = tdDaoLayer.getMMFedwireAcctDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
-             inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetails, mmFedwireAcctDetails));
-          }
-          else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("3rdPartyInternal"))
-          {
-             mmInternalTransferDetails = tdDaoLayer.getMMInternalTransferDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
-             inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetails, mmInternalTransferDetails));
-          }
+          inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetailsLst));
+//          if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("ACH"))
+//          {
+//             mmAchBankDetails = tdDaoLayer.getMMAchBankDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
+//             inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetails, mmAchBankDetails));
+//          }
+//          else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("FedWires"))
+//          {
+//             mmFedwireAcctDetails = tdDaoLayer.getMMFedwireAcctDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
+//             inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetails, mmFedwireAcctDetails));
+//          }
+//          else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("3rdPartyInternal"))
+//          {
+//             mmInternalTransferDetails = tdDaoLayer.getMMInternalTransferDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
+//             inlineTemplate.setRecipients(dcUtility.getRecipientsMoveMoney(dcTemplateDetail, acctDetails, acctOwnerDetails, moveMoneyDetails, mmInternalTransferDetails));
+//          }
        }
 
     }
@@ -175,7 +246,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
     }
 
 
-    ServerTemplate serverTemplate =dcUtility.getServerTemplate("1",dcTemplateDetail);
+    ServerTemplate serverTemplate =dcUtility.getServerTemplate(servTempSeq,dcTemplateDetail);
 
     CompositeTemplate compositeTemplate = new CompositeTemplate();
     compositeTemplate.setServerTemplates(new ArrayList<ServerTemplate>());
@@ -185,7 +256,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
     compositeTemplate.getInlineTemplates().add(inlineTemplate);
     return compositeTemplate;
  }
-   private CompositeTemplate accountApplication(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail){
+   private CompositeTemplate accountApplication(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq){
       System.out.println("TDAccountOpeningLayerImpl.accountApplication");
       System.out.println("dcRequest = [" + dcRequest + "]");
 
@@ -199,7 +270,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
 //      signer3.setEmail(signerEmail);
 //      signer3.setName(signerName);
 //      signer3.roleName(templateRoleName);
-//      signer3.setRecipientId("1");
+//      signer3.setRecipientId(servTempSeq);
 
       //      InlineTemplate inlineTemplate = new InlineTemplate();
 //      inlineTemplate.setRecipients(new Recipients());
@@ -224,9 +295,9 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
          e.printStackTrace();
       }
 
-      InlineTemplate inlineTemplate = dcUtility.getInlineTemplate("1");
+      InlineTemplate inlineTemplate = dcUtility.getInlineTemplate(servTempSeq);
       inlineTemplate.setRecipients(dcUtility.getRecipientsAcctCreation(dcTemplateDetail, acctDetails, acctOwnerDetails));
-      ServerTemplate serverTemplate =dcUtility.getServerTemplate("1",dcTemplateDetail);
+      ServerTemplate serverTemplate =dcUtility.getServerTemplate(servTempSeq,dcTemplateDetail);
 
       CompositeTemplate compositeTemplate = new CompositeTemplate();
       compositeTemplate.setServerTemplates(new ArrayList<ServerTemplate>());

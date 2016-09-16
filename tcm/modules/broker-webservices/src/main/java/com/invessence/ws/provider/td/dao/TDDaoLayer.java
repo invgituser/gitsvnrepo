@@ -19,13 +19,20 @@ public interface TDDaoLayer
 
    public List<BenefiaciaryDetails> getBenefiaciaryDetails(Long acctNum, Long reqId)throws SQLException;
 
-   public MoveMoneyDetails getMoveMoneyDetails(Long acctNum, Integer eventNum)throws SQLException;
+   public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum)throws SQLException;
+
+   public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Integer eventNum)throws SQLException;
 
    public List<MMAchBankDetails> getMMAchBankDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
 
    public List<MMFedwireAcctDetails> getMMFedwireAcctDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
 
    public List<MMInternalTransferDetails> getMMInternalTransferDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
+
+   public AcctTransferDetails getAcctTransferDetails(Long acctNum, Long reqId)throws SQLException;
+
+   public ElecFundTransferDetails getElecFundTransferDetails(Long acctNum, Long reqId)throws SQLException;
+
 
    void updateEnvelopDetails(int eventNum, EnvelopeSummary envelopeSummary)throws SQLException;
 

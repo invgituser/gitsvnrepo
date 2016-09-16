@@ -42,6 +42,10 @@ public class TDDaoLayerImpl implements TDDaoLayer
    private final String getMMFedwireAcctDetails="select * from vwdc_mm_internal_transfer_details where moveMoneyPayMethodID =? ";
    private final String getMMInternalTransferDetails="select * from vwdc_mm_fedwire_acct_details where moveMoneyPayMethodID =? ";
 
+   private final String getAcctTransferDetails="select * from vwdc_acct_transfer_details where reqId=? and acctnum=?";
+   private final String getElecFundTransferDetails="select * from vwdc_elecfund_transfer_details where reqId=? and acctnum=?";
+
+
 
 
    @Override
@@ -111,13 +115,23 @@ public class TDDaoLayerImpl implements TDDaoLayer
    }
 
    @Override
-   public MoveMoneyDetails getMoveMoneyDetails(Long acctNum, Integer eventNum) throws SQLException
+   public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum) throws SQLException
    {
       List<MoveMoneyDetails> lst = null;
-      logger.debug("getMoveMoneyDetails = "+getMove_money_details);
+      logger.debug("getMoveMoneyDetail = "+getMove_money_details);
       lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{eventNum,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
 
       return lst==null || lst.size()<=0 ? null: lst.get(0);
+   }
+
+   @Override
+   public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Integer eventNum) throws SQLException
+   {
+      List<MoveMoneyDetails> lst = null;
+      logger.debug("getMoveMoneyDetail = "+getMove_money_details);
+      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{eventNum,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
+
+      return lst;
    }
 
    @Override
@@ -148,6 +162,26 @@ public class TDDaoLayerImpl implements TDDaoLayer
       lst = webServiceJdbcTemplate.query(getMMInternalTransferDetails, new Object[]{moveMoneyPayMethodID}, ParameterizedBeanPropertyRowMapper.newInstance(MMInternalTransferDetails.class));
 
       return lst;
+   }
+
+   @Override
+   public AcctTransferDetails getAcctTransferDetails(Long acctNum, Long reqId) throws SQLException
+   {
+      List<AcctTransferDetails> lst = null;
+      logger.debug("getAcctTransferDetails = "+getAcctTransferDetails);
+      lst = webServiceJdbcTemplate.query(getAcctTransferDetails, new Object[]{reqId, acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(AcctTransferDetails.class));
+
+      return lst==null || lst.size()<=0 ? null: lst.get(0);
+   }
+
+   @Override
+   public ElecFundTransferDetails getElecFundTransferDetails(Long acctNum, Long reqId) throws SQLException
+   {
+      List<ElecFundTransferDetails> lst = null;
+      logger.debug("getElecFundTransferDetails = "+getElecFundTransferDetails);
+      lst = webServiceJdbcTemplate.query(getElecFundTransferDetails, new Object[]{reqId, acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(ElecFundTransferDetails.class));
+
+      return lst==null || lst.size()<=0 ? null: lst.get(0);
    }
 
    @Override
