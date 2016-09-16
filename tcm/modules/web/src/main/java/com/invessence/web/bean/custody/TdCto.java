@@ -12,6 +12,7 @@ import com.invessence.web.data.custody.*;
 import com.invessence.web.data.custody.td.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
+import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
 import org.primefaces.event.*;
 
@@ -95,6 +96,10 @@ public class TdCto
 
    @ManagedProperty("#{custodyListDAO}")
    private CustodyListDAO custodyListDAO;
+
+   @ManagedProperty("#{serviceLayer}")
+   private ServiceLayerImpl serviceLayer;
+
    public void setListDAO(CustodyListDAO listDAO)
    {
       this.custodyListDAO = listDAO;
@@ -143,6 +148,16 @@ public class TdCto
    public String getBeanacctnum()
    {
       return beanacctnum;
+   }
+
+   public ServiceLayerImpl getServiceLayer()
+   {
+      return serviceLayer;
+   }
+
+   public void setServiceLayer(ServiceLayerImpl serviceLayer)
+   {
+      this.serviceLayer = serviceLayer;
    }
 
    public void setBeanacctnum(String beanacctnum)
@@ -625,6 +640,34 @@ public class TdCto
             break;
       }
 
+   }
+
+   public void openAccount()
+   {
+      Request data=new Request();
+      data.setReqId(new Long(0));
+      data.setEventNum(0);
+      data.setAcctnum(tdMasterData.getAcctnum());
+      data.setReqType("ACCT_APPLI_NEW");
+      data.setEnvelopeHeading("Please sign account opening document.");
+
+      custodySaveDAO.tdOpenAccount(data);
+      if(data.getEventNum()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
+      {
+         data.setAcctnum(tdMasterData.getAcctnum());
+         data.setReqType("MOVE_MONEY_NEW");
+         data.setEnvelopeHeading("Please sign move money document.");
+         custodySaveDAO.tdOpenAccount(data);
+      }
+      if(data.getEventNum()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
+      {
+         data.setAcctnum(tdMasterData.getAcctnum());
+         data.setReqType("ACCT_TRAN_NEW");
+         data.setEnvelopeHeading("Please sign account transfer document.");
+         custodySaveDAO.tdOpenAccount(data);
+      }
+      serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum());
+      System.out.println("in open account");
    }
 
 }

@@ -6,6 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
+import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
@@ -131,6 +132,17 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_elecfund_transfer_details",8);
       Map outMap = sp.tdSaveElectronicPayment(acctnum, data);
+      if (outMap == null)
+         return (false);
+      else
+         return true;
+   }
+
+   public Boolean tdOpenAccount(Request data )
+   {
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_requests",0);
+      Map outMap = sp.tdSaveRequest(data);
       if (outMap == null)
          return (false);
       else

@@ -102,9 +102,14 @@
                             </p:accordionPanel>
                         </p:panel>
                         <div class="Container100" style="text-align: center;">
-                            <p:button value="Save and Open Account" styleClass="">
+                          <!--  <p:button value="Save and Open Account" styleClass=""
+                                accesskey="" >
                                 <f:param name="AccountOpenSave" />
-                            </p:button>
+                            </p:button>-->
+                            <p:commandButton value="Save and Open Account" ajax="true"
+
+                                             actionListener="#{tdcto.openAccount}"
+                                             styleClass="text-align: center" />
                         </div>
                     </div>
                 </div>
