@@ -75,6 +75,14 @@ public class WebMessage implements MessageSourceAware, Serializable
      return getMessagetext(text_version, obj);
    }
 
+   public String getDisplayMessage(String text_version, String defaultMsg, Object [] obj) {
+      String lookupTxt = getMessagetext(text_version, obj);
+      if (lookupTxt == null) {
+         return defaultMsg;
+      }
+      return lookupTxt;
+   }
+
    public String getMessagetext(String inputText, Object [] obj) {
       String msgText = null;
       try {
