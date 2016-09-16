@@ -21,7 +21,7 @@
                                      value="#{tdcto.tdMasterData.owneremploymentDetail.emplTypeId}"
                                      style="width: 100%;">
                         <p:ajax update=":ctoForm:tdaccordian:employmenttab:owneraempPanel"/>
-                        <f:selectItem itemLabel="Select Employment" itemValue=""
+                        <f:selectItem itemLabel="Select Employment Status" itemValue=""
                                       noSelectionOption="true"/>
                         <f:selectItem itemLabel="Employed" itemValue="EMPL"/>
                         <f:selectItem itemLabel="Self-Employed" itemValue="SLFEMPL"/>
@@ -44,9 +44,10 @@
                     </p:inputText>
                 </div>
             </div>
-            <p:panel style="border: 0px; background: transparent; margin-top: -10px;"
+            <div class="EmptyBox20"></div>
+            <p:panel styleClass="BeneficiaryEditPanel" style="border: 0px; background: transparent; margin-top: -10px;"
                      rendered="#{tdcto.tdMasterData.owneremploymentDetail.needInfo}">
-                <div class="EmptyBox20"></div>
+             
                 <div class="Container100">
                     <div class="Container45 Fleft CustomWidthFA-Responsive">
                         <label Class="Container100"
@@ -178,7 +179,7 @@
 
     <p:panel id="jointaempPanel" style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
-             style="margin-bottom: 15px;">
+             style="margin-bottom: 15px; margin-top: 10px!important;">
 
             <div class="Container100">
                 <div class="Container45 Fleft CustomWidthFA-Responsive">
@@ -189,7 +190,7 @@
                                      value="#{tdcto.tdMasterData.jointEmploymentDetail.emplTypeId}"
                                      style="width: 100%;">
                         <p:ajax update=":ctoForm:tdaccordian:employmenttab:jointaempPanel"/>
-                        <f:selectItem itemLabel="Select Employment" itemValue=""
+                        <f:selectItem itemLabel="Select Employment Status" itemValue=""
                                       noSelectionOption="true"/>
                         <f:selectItem itemLabel="Employed" itemValue="EMPL"/>
                         <f:selectItem itemLabel="Self-Employed" itemValue="SLFEMPL"/>
@@ -212,10 +213,10 @@
                     </p:inputText>
                 </div>
             </div>
-
-            <p:panel style="border: 0px; background: transparent; margin-top: -10px;"
+ <div class="EmptyBox20"></div>
+            <p:panel styleClass="BeneficiaryEditPanel" style="border: 0px; background: transparent; margin-top: -10px;"
                      rendered="#{tdcto.tdMasterData.jointEmploymentDetail.needInfo}">
-                <div class="EmptyBox20"></div>
+                
                 <div class="Container100">
                     <div class="Container45 Fleft CustomWidthFA-Responsive">
                         <label Class="Container100"
