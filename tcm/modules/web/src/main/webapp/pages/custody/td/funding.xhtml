@@ -42,8 +42,8 @@
                       required="false"
                       requiredMessage="Must select one of these fund method!">
         <f:selectItem itemLabel="Later" itemValue="0"/>
-        <f:selectItem itemLabel="ACH" itemValue="1"/>
-        <f:selectItem itemLabel="ACAT" itemValue="2"/>
+        <f:selectItem itemLabel="ACH" itemValue="PMACH"/>
+        <f:selectItem itemLabel="ACAT" itemValue="PMFEDW"/>
         <f:selectItem itemLabel="Wire" itemValue="3"/>
         <p:ajax update=":ctoForm:tdaccordian:fundTabV:fundPanel2"/>
     </p:selectOneRadio>
@@ -132,7 +132,7 @@
 <!-- ACH -->
 <p:panel id="achPanel" styleClass="Container80 Fnone"
          style="border: 0px; background: transparent; margin: 0 auto!important;"
-         rendered="#{tdcto.tdMasterData.fundType == 1}">
+         rendered="#{tdcto.tdMasterData.fundType == 'PMACH'}">
     <div class="EmptyBox20"></div>
     <div class="Container100">
         <!-- <div class="Container45 Fleft CustomWidthFA-Responsive">
@@ -158,8 +158,8 @@
                 <p:ajax/>
                 <f:selectItem itemLabel="Select Type" itemValue=""
                               noSelectionOption="true"/>
-                <f:selectItem itemLabel="Checking" itemValue="Checking"/>
-                <f:selectItem itemLabel="Savings" itemValue="Savings"/>
+                <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
+                <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
 
             </p:selectOneMenu>
         </div>
@@ -184,7 +184,7 @@
 
             <div class="EmptyBox5"></div>
             <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                         value="#{tdcto.tdMasterData.achBankDetail.bankName}"
+                         value="#{tdcto.tdMasterData.achBankDetail.bankAcctName}"
                          placeholder="Name on bank account">
             </p:inputText>
         </div>
@@ -224,7 +224,7 @@
 <!-- ACAT -->
 <p:panel id="acatPanel" styleClass="Container80 FundCenterAlignBlock"
          style="border: 0px; background: transparent"
-         rendered="#{tdcto.tdMasterData.fundType == 2}">
+         rendered="#{tdcto.tdMasterData.fundType == 'PMFEDW'}">
     <!-- 2 -->
     <div class="EmptyBox20"></div>
     <div class="Container100 FundTitle">Information on the account your transferring from</div>
@@ -292,7 +292,7 @@
 
             <div class="EmptyBox5"></div>
             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                         value="#{tdcto.tdMasterData.acatDetails.fullName}"
+                         value="#{tdcto.tdMasterData.acatDetails.fromFirmAddress}"
                          placeholder="Physical address of firm">
             </p:inputText>
         </div>
@@ -315,13 +315,14 @@
                              value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
                              style="width: 100%;">
                 <p:ajax/>
-                <f:selectItem itemLabel="Select Account Type" itemValue=""
+                <f:selectItem itemLabel="Select Account Type" itemValue="   "
                               noSelectionOption="true"/>
-                <f:selectItem itemLabel="Joint"/>
-                <f:selectItem itemLabel="Roth IRA"/>
-                <f:selectItem itemLabel="UTMA / UGMA"/>
-                <f:selectItem itemLabel="Traditional IRA / Rollover IRA"/>
-                <f:selectItem itemLabel="Beneficiary IRA"/>
+                <f:selectItem itemLabel="Individual" itemValue="ACINDIV"/>
+                <f:selectItem itemLabel="Joint" itemValue="ACJOINT"/>
+                <f:selectItem itemLabel="Roth IRA"  itemValue="IRAROTH"/>
+                <f:selectItem itemLabel="UTMA / UGMA" itemValue="" />
+                <f:selectItem itemLabel="Traditional IRA" itemValue="IRATRAD" />
+                <f:selectItem itemLabel="Rollover IRA" itemValue="IRAROOV"/>
             </p:selectOneMenu>
         </div>
     </div>
@@ -351,7 +352,7 @@
 <!-- Wire transfer -->
 <p:panel id="wirePanel" styleClass="Container80 Fnone"
          style="border: 0px; background: transparent; margin: 0 auto!important;"
-         rendered="#{tdcto.tdMasterData.fundType == 3}">
+         rendered="#{tdcto.tdMasterData.fundType == '3'}">
     <div class="EmptyBox20"></div>
     <div class="Container100 FundTitle">Domestic Wire Information</div>
 
@@ -526,8 +527,8 @@
                             <p:ajax/>
                             <f:selectItem itemLabel="Select Type" itemValue=""
                                           noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Checking" itemValue="Checking"/>
-                            <f:selectItem itemLabel="Savings" itemValue="Savings"/>
+                            <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
+                            <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
 
                         </p:selectOneMenu>
                     </div>
