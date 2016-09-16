@@ -12,16 +12,18 @@
                 <div class="Container100">
                     <div class="Container80 Responsive90 MarTop5 MarCenter ui-color"
                          style="margin-bottom: 15px; border: 0px; background: transparent">
-                        <div class="Container50 CustomWidthFA2 MarTop5">
-                            <p:selectBooleanCheckbox style="font-size: 18px!important;"
-                                                     styleClass="funding RegulatoryCheckBox"
+                        <div class="Container100 CustomWidthFA2 MarTop5">
+                            <p:selectBooleanCheckbox
+                                                     styleClass="RegulatoryCheckBox"
                                                      value="#{tdcto.tdMasterData.fundNow}"
                                                      itemLabel="Do you want to fund now?">
                                 <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
                             </p:selectBooleanCheckbox>
                         </div>
-                        <div class="Container50 CustomWidthFA2 MarTop5">
+                        <div class="EmptyBox10"></div>
+                        <div class="Container100 CustomWidthFA2 MarTop5">
                             <p:selectBooleanCheckbox
+                                    styleClass="RegulatoryCheckBox"
                                     value="#{tdcto.tdMasterData.recurringFlag}"
                                     itemLabel="I would like to make recurring investments.">
                                 <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
@@ -96,7 +98,7 @@
 
                             <div class="EmptyBox10"></div>
                             <div class="Container100">
-                                <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">
                                         Investment Amount </label>
@@ -255,17 +257,38 @@
                                            style="text-align: left !important; font-weight: bold !important;">Name of delivery firm</label>
 
                                     <div class="EmptyBox5"></div>
-                                    <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.acatDetails.fromEEPlanType}"
-                                                 placeholder="Name of delivery firm">
-                                    </p:inputText>
+                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                                     value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
+                                                     style="width: 100%;">
+                                        <p:ajax/>
+                                        <f:selectItem itemLabel="Select the Delivery Firm" itemValue="   "
+                                                      noSelectionOption="true"/>
+                                        <f:selectItem itemValue="" itemLabel="Curian Clearing" />
+                                        <f:selectItem itemValue="" itemLabel="Edward Jones" />
+                                        <f:selectItem itemValue="" itemLabel="First Clearing Corp(Wachovia and Wells Fargo)" />
+                                        <f:selectItem itemValue="" itemLabel="Janney Montgomery Scott" />
+                                        <f:selectItem itemValue="" itemLabel="Lincoln Financial Advisors" />
+                                        <f:selectItem itemValue="" itemLabel="Lincoln Financial Securities" />
+                                        <f:selectItem itemValue="" itemLabel="Linsco Private Ledger (LPL)" />
+                                        <f:selectItem itemValue="" itemLabel="M and I Brokerage Services" />
+                                        <f:selectItem itemValue="" itemLabel="Merrill Lynch" />
+                                        <f:selectItem itemValue="" itemLabel="Morgan Stanley Smith Barney" />
+                                        <f:selectItem itemValue="" itemLabel="National Financial Services" />
+                                        <f:selectItem itemValue="" itemLabel="OptionsXpress/BrokersXpress" />
+                                        <f:selectItem itemValue="" itemLabel="Pershing" />
+                                        <f:selectItem itemValue="" itemLabel="RBC Capital Markets" />
+                                        <f:selectItem itemValue="" itemLabel="SEI Private Trust Co." />
+                                        <f:selectItem itemValue="" itemLabel="Stifel, Nicolaus and Company Incorporated" />
+                                        <f:selectItem itemValue="" itemLabel="Wachovia Securities" />
+                                        <f:selectItem itemValue="" itemLabel="Wedbush Securities Inc." />
+                                    </p:selectOneMenu>
                                 </div>
                             </div>
                             <div class="EmptyBox20"></div>
                             <div class="Container100">
                                 <div class="Container32 CustomWidthFA-Responsive">
                                     <label Class="Container100"
-                                           style="text-align: left !important; font-weight: bold !important;">Physical address of firm</label>
+                                           style="text-align: left !important; font-weight: bold !important;">Physical Address of Firm</label>
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
