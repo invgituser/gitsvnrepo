@@ -658,6 +658,11 @@ public class TdCto
          data.setReqType("MOVE_MONEY_NEW");
          data.setEnvelopeHeading("Please sign move money document.");
          custodySaveDAO.tdOpenAccount(data);
+
+         data.setAcctnum(tdMasterData.getAcctnum());
+         data.setReqType("ELEC_FUND_TRAN_NEW");
+         data.setEnvelopeHeading("Please sign electronic fund transfer document.");
+         custodySaveDAO.tdOpenAccount(data);
       }
       if(data.getEventNum()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
       {
