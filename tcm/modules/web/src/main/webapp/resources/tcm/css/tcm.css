@@ -445,9 +445,15 @@ img.riskImage:hover {
 	.fundingRecurring > input {
 	 padding: 7px 10px!important;
 	}
+	
+	.AddressFieldOnly {
+	width: 97%!important;
+}
 }
 
 /*Prakash*/
+
+
 .tdPanelInternal > div {
 	padding:0!important;
 }
