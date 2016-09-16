@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/common/simplelayout.xhtml">
+                template="/template/common/simple.xhtml">
 
     <ui:define name="content">
 
@@ -22,7 +22,7 @@
 
                     <h:form id="signup2Form">
                         <div class="Container100 MarTop20">
-                            <p:growl id="profilegrowl" autoUpdate="true" escape="false"/>
+                            <p:messages id="sign2msg" showDetail="false" sticky="true" escape="true" closable="true"/>
                             <p:panel style="border: 0px; background: transparent; margin-left: 10px">
                                 <div class="EmptyBox10"></div>
                                 <div class="ContainerIndent">
@@ -104,7 +104,7 @@
                                 <div class="Container100 TexAlCenter">
                                     <div class="ContainerIndent">
                                         <p:commandButton value="Next" ajax="true"
-                                                         update=":signup2Form:profilegrowl"
+                                                         update=":signup2Form:sign2msg"
                                                          actionListener="#{userBean.acceptQA}"/>
                                     </div>
                                 </div>

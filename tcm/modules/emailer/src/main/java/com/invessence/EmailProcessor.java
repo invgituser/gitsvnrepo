@@ -55,7 +55,7 @@ public class EmailProcessor
             }
          }
          else {
-
+            System.out.println("Start of Process: META-INF/spring/email.util.xml");
             ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("META-INF/spring/email.util.xml");
             Scheduler schedulerFactory = (Scheduler) applicationContext.getBean("schedulerFactory");
             schedulerFactory.start();

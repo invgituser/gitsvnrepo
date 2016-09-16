@@ -18,7 +18,7 @@ public class Test
          TestImpl serviceLayer = (TestImpl) context.getBean("testImpl");
          System.out.println(ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()));
          System.out.println(ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(),ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()),"HOST"));
-      }
+   }
       catch (Exception e)
       {
          e.printStackTrace();

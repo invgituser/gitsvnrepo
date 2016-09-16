@@ -22,7 +22,7 @@ public class UserBean implements Serializable
    protected final Log logger = LogFactory.getLog(getClass());
    private String beanUserID, beanResetID, beanEmail;
    private String beanCustID;
-   private Long beanLogonID;
+   private String beanLogonID;
 
    private String pwd1, pwd2;
    private String beanq1, beanq2, beanq3, beanans1, beanans2, beanans3;
@@ -107,6 +107,16 @@ public class UserBean implements Serializable
    public void setBeanCustID(String beanCustID)
    {
       this.beanCustID = beanCustID;
+   }
+
+   public String getBeanLogonID()
+   {
+      return beanLogonID;
+   }
+
+   public void setBeanLogonID(String beanLogonID)
+   {
+      this.beanLogonID = beanLogonID;
    }
 
    public String getPwd1()
@@ -234,9 +244,9 @@ public class UserBean implements Serializable
       userInfoDAO.updLogonStatus(beanUserID);
    }
 
-   public Boolean validateUserAccount()
+   public Boolean validateUserAccount(String userid)
    {
-      return (userInfoDAO.validateUserID(userdata));
+      return (userInfoDAO.validateUserID(userid));
    }
 
    public void preRenderResetUser()
@@ -292,7 +302,10 @@ public class UserBean implements Serializable
             resetBean();
             logger.debug("LOG: fetch data for, UserID = " + beanUserID + ", Reset " + beanResetID);
             userdata.setUserID(beanUserID);
-            userdata.setLogonID(beanLogonID);
+            if (beanLogonID != null)
+               userdata.setLogonID(Long.valueOf(beanLogonID));
+            else
+               userdata.setLogonID(null);
             userdata.setResetID(beanResetID);
             String validateMsg = validateReset();
             if (validateMsg != null && !validateMsg.isEmpty())
@@ -315,59 +328,90 @@ public class UserBean implements Serializable
    // This method is used during Pre-signup process.  Validate the Email.
    public void preRenderCreateUserID()
    {
-      String msg;
+      String msg, msgheader;
 
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            Boolean canCreateID = false;
             beanUserID = null;
             beanResetID = null;
             resetBean();
-            if (beanEmail == null || beanEmail.isEmpty())
+            if (beanEmail != null && ! beanEmail.isEmpty())
             {
+              userdata.setEmail(beanEmail);
+              canCreateID = true;
+           }
+            else {
+               userdata.setEmail(null);
+            }
+
+            if (beanLogonID != null && ! beanLogonID.isEmpty()) {
+               userdata.setLogonID(Long.valueOf(beanLogonID));
+               canCreateID = true;
+            }
+            else {
+               userdata.setLogonID(null);
+            }
+
+            if (! canCreateID) {
                logger.debug("WARN, Cannot Signup, Attempting to register on site, but NO email address is included.");
-               webutil.redirecttoMessagePage("WARN", "Cannot Signup", "Attempting to register on site, but valid email address is not provided.");
+               msgheader = "signup.U102";
+               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Unable to create account. link is not valid.", null);
+               webutil.redirecttoMessagePage("WARN", msgheader, msg);
             }
-            userdata.setLogonID(null);
-            userdata.setUserID(null);
-            userdata.setEmail(beanEmail);
-            collectUserAccount();
-            if (userdata.getUserID() != null && !userdata.getUserID().isEmpty())
-            {
-               logger.debug("Info: Email is already registered: " + beanEmail);
-               webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.");
+            else {
+               userdata.setUserID(null);
+               collectUserAccount();
+               if (userdata.getLogonstatus() != null && ! userdata.getLogonstatus().startsWith("I"))
+               {
+                  logger.debug("Info: User is already registered: " + userdata.getEmail());
+                  msgheader = "signup.U103";
+                  msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.", null);
+                  webutil.redirecttoMessagePage("ERROR", "Invalid link", msg);
+               }
+               else {  // Either no records were found or status = 'I', then allow registration.
+                  beanEmail = userdata.getEmail(); // If data was found then add to interface.
+                  beanUserID = userdata.getUserID(); // If data found then add to interface.
+                  logger.info("Info: Start registration process for: " + userdata.getEmail());
+               }
             }
-            logger.info("Info: Start registration process for: " + userdata.getEmail());
+
          }
       }
       catch (Exception ex)
       {
          logger.debug("ERROR: Exception: " + ex.getMessage());
          logger.debug("Message", ex);
-         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support");
+         msgheader = "signup.EX.U102";
+         msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support.", null);
+         webutil.redirecttoMessagePage("ERROR", "Exception: Invalid link", msg);
       }
    }
 
    // This method is used during Pre-signup process.  Validate the Email.
    public void simpleSignup()
    {
+      String msg;
+      String msgheader;
       try
       {
-         String msg;
          beanUserID = userdata.getEmail();
          beanEmail = userdata.getEmail();
          userdata.setUserID(beanUserID);
-         if (validateUserAccount())
+         if (validateUserAccount(beanUserID))
          {
             logger.debug("LOG: Validate UserID failed: " + beanUserID);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID taken", "Try different UserID, this one is taken."));
+            msgheader = "signup.U100";
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "This userid is already taken, please try another", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
          }
          else
          {
             Long acctnum = webutil.getConverter().getLongData(beanCustID);
             userdata.setAcctnum(acctnum);
-            Long logonID = saveUser();
+            Long logonID = saveUser("I");
             if (logonID > 0L)
             {
                logger.debug("Info: Saving data UserID/Password, all checks were successful for: " + userdata.getUserID());
@@ -377,9 +421,10 @@ public class UserBean implements Serializable
             }
             else
             {
-               msg = "Failed to save data.  Your session must have timed out.";
                logger.debug("Debug: DB failure: " + beanUserID);
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+               msgheader = "signup.U101";
+               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Failed to save data.  Your session must have timed out.", null);
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
             }
          }
 
@@ -388,34 +433,43 @@ public class UserBean implements Serializable
       {
          logger.debug("Exception: " + ex.getMessage());
          logger.debug("Message", ex);
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "System issue", "Contact Support"));
-         webutil.alertSupport("Userbean.preRenderSimpleSignup", "Exception: Create UserID/Pwd", "Problem attempting to create simpleuser", ex.getMessage());
+         msgheader = "signup.EX.100";
+         msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
+         webutil.alertSupport("Userbean.preRenderSimpleSignup", msgheader, msg, ex.getMessage());
       }
    }
 
    public void validateSignOn()
    {
+      String msg;
+      String msgheader;
       try
       {
-         userdata.setUserID(beanUserID);
-         collectUserAccount();
-         if (userdata.getEmail() != null && !userdata.getEmail().isEmpty())
+         userInfoDAO.validateUserID(beanUserID);            // Since both logonid and email is forced to
+         if (userInfoDAO.validateUserID(beanUserID))
          {
             logger.debug("LOG: Validate UserID failed: " + beanUserID);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "UserID/Email already registered!", "Try different UserID"));
+            msgheader = "signup.U104";
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "UserID already taken", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
          }
          else
          {
             // Check if the username/password match.  Cannot change the Email Address.
-            String msg = webutil.validateNewPass(pwd1, pwd2);
-            if (!msg.toUpperCase().equals("SUCCESS"))
+            String validatePwd = webutil.validateNewPass(pwd1, pwd2);
+            if (!validatePwd.toUpperCase().equals("SUCCESS"))
             {
-               logger.debug("LOG: Validate Password failed: " + beanUserID + " with status = " + msg);
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
+               logger.debug("LOG: Validate Password failed: " + beanUserID + " with status = " + validatePwd);
+               msgheader = "signup.U105";
+               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Password don't match criteria or two passwords are not same.", null);
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
                return;
             }
             logger.debug("Debug: Intial Page of UserID/Password checks were successful for: " + userdata.getUserID());
-            Long logonID = saveUser();
+
+            // If this user data was collected and they already have logonid, then add the userid and change the 'A'
+            String logonStatus = (userdata.getLogonID() == null) ? "T" : "A";
+            Long logonID = saveUser("T");
             if (logonID > 0L)
             {
                sendConfirmation();
@@ -503,8 +557,11 @@ public class UserBean implements Serializable
       }
    }
 
-   public Long saveUser()
+   public Long saveUser(String logonStatus)
    {
+      String msg;
+      String msgheader;
+
       if (beanUserID == null || beanUserID.length() < 5)
       {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid UserID", "Invalid UserID"));
@@ -532,7 +589,7 @@ public class UserBean implements Serializable
          }
          else
          {
-            userdata.setLogonstatus("T");
+            userdata.setLogonstatus(logonStatus);
          }
          // We are using the First Name, Last Name from UserData as entered.
 
@@ -546,7 +603,6 @@ public class UserBean implements Serializable
          //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
          userdata.setIp(myIP);
          userdata.setResetID(myResetID.toString());
-         userdata.setLogonstatus("T");
          userdata.setSecCode(tmpCode);
          userdata.setPassword(tmpCode);
          userdata.setCid(webutil.getUiprofile().getCid());
@@ -562,7 +618,7 @@ public class UserBean implements Serializable
          if (loginID <= 0L)
          {
             logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
-            String msg = "There was some error when attempting to save this userid.  Please reach out to support desk.";
+            String savemsg = "There was some error when attempting to save this userid.  Please reach out to support desk.";
             webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Had issue when attempting to save your credentials.  Please try again in 30 min..");
             webutil.alertSupport("signup", "Save -" + beanEmail, "Save Registration Error", null);
             return loginID;
@@ -577,7 +633,6 @@ public class UserBean implements Serializable
          webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support.");
          webutil.alertSupport("signup", "Signup -" + beanEmail, "Registration Error", null);
          logger.debug("Error: Attempting to save UserID, for: " + beanEmail);
-         ex.printStackTrace();
       }
       return 0L;
    }

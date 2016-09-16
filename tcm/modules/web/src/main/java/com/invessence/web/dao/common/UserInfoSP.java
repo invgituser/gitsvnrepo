@@ -140,6 +140,15 @@ public class UserInfoSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map selectUserProfile(String userid)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_logonid", null);
+      inputMap.put("p_userid", userid);
+      inputMap.put("p_email", null);
+      return super.execute(inputMap);
+   }
+
    public Map updateUserProfile(UserData data)
    {
       Map inputMap = new HashMap();

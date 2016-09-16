@@ -50,6 +50,7 @@ public class UserInfoDAO extends JdbcDaoSupport
 
                data.setLogonID(convert.getLongData(rs.get("logonid")));
                data.setUserID(convert.getStrData(rs.get("userid")));
+               data.setLogonstatus(convert.getStrData(rs.get("logonstatus")));
                data.setEmail(convert.getStrData(rs.get("email")));
                data.setCurrentPassword(convert.getStrData(rs.get("pwd")));
                data.setLastName(convert.getStrData(rs.get("lastname")));
@@ -73,15 +74,16 @@ public class UserInfoDAO extends JdbcDaoSupport
 
 
    // Called by UserBean to check email, when signup process is called.
-   public Boolean validateUserID(UserData data)
+   public Boolean validateUserID(String userid)
    {
-      if (data == null)
-         return false;
+      if (userid == null) {
+         return true;
+      }
 
       // This code will check by logonid, userid, and email to see if it exists
       UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1);
 
-      Map outMap = sp.selectUserProfile(data);
+      Map outMap = sp.selectUserProfile(userid);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");

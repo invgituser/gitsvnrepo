@@ -26,23 +26,25 @@ public class EmailUtil
    String emailPort ="";
    String emailUsername ="";
    String emailPassword ="";
-   String emailCC_EXTERNAL_RECEIVER ="";
-   String emailCC_INVESSENCE_RECEIVER ="";
+   String emailCCEXTERNALRECEIVER ="";
+   String emailCCINVESSENCERECEIVER ="";
+   String emailUserTitle = "";
 
    public EmailUtil()
    {
-      System.out.println("EmailUtil.EmailUtil");
+      LOG.info("Contructor: EmailUtil.EmailUtil");
       //  Fetch parameters from ServiceParameters module (i.e. Database) Start & set to mailSender//
 
       mailSender = new JavaMailSenderImpl();
-      emailHost = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "HOST");
-      emailPort = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "PORT");
-      emailUsername = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "USERNAME");
-      emailPassword = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "PASSWORD");
-      emailCC_EXTERNAL_RECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "CC_EXTERNAL_RECEIVER");
-      emailCC_INVESSENCE_RECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), Constant.EMAIL_SERVICE.BB_GMAL.toString(), "CC_INVESSENCE_RECEIVER");
+      emailHost = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "HOST");
+      emailPort = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "PORT");
+      emailUsername = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "USERNAME");
+      emailUserTitle = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "USERTITLE");
+      emailPassword = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "PASSWORD");
+      emailCCEXTERNALRECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "CC_EXTERNAL_RECEIVER");
+      emailCCINVESSENCERECEIVER = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "CC_INVESSENCE_RECEIVER");
 
-      System.out.println("emailHost = "+emailHost+" || emailPort = "+emailPort+" || emailUsername = "+emailUsername+" || emailPassword = XXXX");
+      LOG.info("emailHost = "+emailHost+" || emailPort = "+emailPort+" || emailUsername = "+emailUsername+" || emailPassword = XXXX");
 
       mailSender.setHost(emailHost);
       mailSender.setPort(Integer.parseInt(emailPort));
@@ -79,7 +81,7 @@ public class EmailUtil
       {
          MimeMessage message = mailSender.createMimeMessage();
          MimeMessageHelper helper = new MimeMessageHelper(message, true);
-         helper.setFrom(msgData.getSender(), "Invessence");
+         helper.setFrom(msgData.getSender(), emailUserTitle);
          helper.setSubject(msgData.getSubject());
 
          String[] emails = msgData.getReceiver().split(" ");
@@ -88,13 +90,13 @@ public class EmailUtil
             helper.setTo(emails);
          }
 
-         if(emailCC_INVESSENCE_RECEIVER==null)
-         {
-            System.out.println("CC policy not set for company :"+emailCC_INVESSENCE_RECEIVER);
-         }else
+         if(emailCCINVESSENCERECEIVER != null && ! emailCCINVESSENCERECEIVER.isEmpty())
          {
             //Adding emailCC_INVESSENCE_RECEIVER
-            helper.setCc(emailCC_INVESSENCE_RECEIVER);
+            helper.setCc(emailCCINVESSENCERECEIVER);
+         }else
+         {
+            LOG.info("CC policy not set for company.");
          }
 
          String cc = msgData.getCc();
@@ -206,7 +208,7 @@ public class EmailUtil
                   groupMail = groupMail + ", " + emails[i];
             }
 
-            System.out.println(src + ": Sending email ID(" + msgID + ") to: " + groupMail + ", from: " + fromMail);
+            LOG.info(src + ": Sending email ID(" + msgID + ") to: " + groupMail + ", from: " + fromMail);
 
             mailSender.send(message);
 
@@ -214,7 +216,7 @@ public class EmailUtil
          catch (Exception e)
          {
             e.printStackTrace();
-            System.out.println("MsgID: (" + msgData.getMsgID() + "), Err Msg: " + e.getMessage());
+            LOG.info("MsgID: (" + msgData.getMsgID() + "), Err Msg: " + e.getMessage());
             LOG.error("Error sending email: " + msgData.getMsgID() + ":" + e);
          }
 

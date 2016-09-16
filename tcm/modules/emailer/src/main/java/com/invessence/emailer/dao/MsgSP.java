@@ -50,14 +50,14 @@ public class MsgSP extends StoredProcedure
       inputs.put("p_source", data.getSource());
       inputs.put("p_messageid", data.getMsgID());
       if (data.getSender() == null)
-         data.setSender("no-replay@invessence.com");
+         data.setSender("no-reply@invessence.com");
       inputs.put("p_sender", data.getSender());
       inputs.put("p_receiver", data.getReceiver());
       inputs.put("p_cc", data.getCc());
       inputs.put("p_bcc", data.getBcc());
       inputs.put("p_subject", data.getSubject());
       if (data.getSubject() == null)
-         data.setSubject("Symbil");
+         data.setSubject("No Subject:");
       inputs.put("p_msg", data.getMsg());
       inputs.put("p_status", data.getStatus());
       inputs.put("p_category", data.getCategory());
