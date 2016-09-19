@@ -1,50 +1,56 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                template="/template/common/simple.xhtml">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/common/simple.xhtml">
 
-    <ui:define name="content">
-        <div id="layout-portlets-cover">
-            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray">
-                <div class="Container90 Fnone MarAuto TexAlCenter">
-                    <h:form>
-                        <div class="EmptyBox50"></div>
-                        <h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}"
-                                        styleClass="Fleft" library="invessence"
-                                        class="MarAuto MarTop20 MarBot10" style="height: 40px"/>
-                        <div class="EmptyBox20"></div>
-                        <div class="ContainerIndent">
-                            <h2>This is your final step.</h2>
-                        </div>
-                        <div class="EmptyBox20"></div>
-                        <div class="ContainerIndent">
+	<ui:define name="content">
+		<div id="layout-portlets-cover">
+			<div class="EmptyBox50"></div>
+			<div
+				class="other-pages-box Container40 Responsive100 MarAuto Fnone TexAlCenter ShadowGray">
+				<div class="Container90 Fnone MarAuto TexAlCenter">
+					<h:form>
+						<div class="Container100 TexAlCenter">
+							<h:graphicImage id="logo" name="#{uiLayout.uiprofile.logo}"
+								styleClass="" library="invessence" class="MarAuto MarTop20"
+								style="height: 50px" />
+						</div>
 
-                            <h3>
-                                The security of your account is our top priority.  You will receive a confirmation email soon.
-                                Follow the instructions in the email message to activate your account. Once activated, you will
-                                have access to your personalized portfolio.
-                            </h3>
-                            <br/>
+						<div class="EmptyBox10"></div>
+						<div class="ContainerIndent">
+							<h3 class="FsRes14">This is your final step.</h3>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="ContainerIndent">
+							<h3 class="FsRes14">The security of your account is our top priority. You
+								will receive a confirmation email soon. Follow the instructions
+								in the email message to activate your account. Once activated,
+								you will have access to your personalized portfolio.</h3>
+						</div>
+						<div class="ContainerIndent">
+						<h4 class="FsRes13">
+								If you can't find the confirmation email, please check your
+								spam/junk folder and add <a
+									href="#{webutil.uiprofile.securehomepage}">#{webutil.uiprofile.securehomepage}</a>
+								as a trusted site.
+							</h4>
+						</div>
+						<div class="EmptyBox10"></div>
+						<p:button value="OK" styleClass="Fs16 BlueButton"
+							href="/login.xhtml" />
+						<div class="EmptyBox10"></div>
+						<p:commandButton value="Resend confirmation"
+							styleClass="Fs16 OrangeButton"
+							actionListener="#{userBean.emailActivate}" />
+						<div class="EmptyBox10"></div>
 
-                            <p>
-                                If you can't find the confirmation email, please check your spam/junk folder and add
-                                <a href="#{webutil.uiprofile.securehomepage}">#{webutil.uiprofile.securehomepage}</a> as a trusted site.
-                            </p>
-                        </div>
-                        <div class="EmptyBox20"></div>
-                        <p:button  value="OK" styleClass="Fs16 BlueButton" href="/login.xhtml"/>
-                        <div class="EmptyBox20"></div>
-                        <p:commandButton  value="Resend confirmation" styleClass="Fs16 OrangeButton"
-                                   actionListener="#{userBean.emailActivate}"/>
-                        <div class="EmptyBox50"></div>
+					</h:form>
+				</div>
+			</div>
+		</div>
 
-                    </h:form>
-                </div>
-            </div>
-        </div>
-
-    </ui:define>
+	</ui:define>
 
 </ui:composition>

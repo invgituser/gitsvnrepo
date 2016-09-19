@@ -226,6 +226,14 @@ img.riskImage:hover {
 }
 
 @media (max-width: 735px) {
+	.FsRes14 {
+	font-size: 14px!important;
+	}
+	
+	.FsRes13 {
+	font-size: 13px!important;
+	}
+	
 	.BenBttonBlock {
 	width: 105%!important;
 	}	
@@ -452,7 +460,35 @@ img.riskImage:hover {
 }
 
 /*Prakash*/
+.sigupLabel {
+font-size: 14px;
+    font-weight: bold!important;
+    margin: 0 10px;
+}
 
+.selectBG > label {
+	background: transparent;
+}
+.selectBG {
+	width: 100%!important;
+}
+
+.ui-overlaypanel-content {
+	    font-size: 13px;
+    padding: 10px!important;
+}
+
+input {
+	box-sizing: border-box;
+}
+
+.sigupRegRootHelp0, .sigupRegRootHelp0 > span {
+	background: transparent!important;
+	border: 0!important;
+	width: 0!important;
+	margin:0!important;
+	    margin-top: -22px!important;
+}
 
 .tdPanelInternal > div {
 	padding:0!important;
@@ -1924,6 +1960,14 @@ h3 {
     .ui-panel .ui-panel-content {
         margin-top: -15px;
     }
+    
+    .SignupBlock0 > div {
+    margin-top:15px!important;
+    }
+    
+    .SignupBlock2 > div {
+    margin-top:0px!important;
+    }
 
     .ui-messages-error, .ui-message-error {
         font-size: 13px;
@@ -2075,6 +2119,11 @@ h3 {
     .ui-panel .ui-panel-content {
         margin-top: -15px;
     }
+    
+    .SignupBlock2 > div {
+    margin-top:0px!important;
+    }
+    
 
     .ui-messages-error, .ui-message-error {
         font-size: 12px;
@@ -2210,6 +2259,11 @@ h3 {
     .ui-panel .ui-panel-content {
         margin-top: -15px;
     }
+    
+    .SignupBlock2 > div {
+    margin-top:0px!important;
+    }
+    
 
     .ui-messages-error, .ui-message-error {
         font-size: 12px;
