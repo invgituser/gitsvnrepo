@@ -18,6 +18,7 @@ import com.invessence.web.constant.*;
 
 @ManagedBean(name = "userInfoDAO")
 @ApplicationScoped
+@SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class UserInfoDAO extends JdbcDaoSupport
 {
    SQLData convert = new SQLData();
@@ -29,7 +30,7 @@ public class UserInfoDAO extends JdbcDaoSupport
 
       Map outMap = sp.addUser(action, userData);
 
-      return ((Long) outMap.get(WebConst.LOGONID_PARAM));
+      return ((Long) outMap.get("p_logonid"));
    }
 
    public Boolean selectUserInfo(UserData data)
@@ -73,33 +74,48 @@ public class UserInfoDAO extends JdbcDaoSupport
     }
 
 
-   // Called by UserBean to check email, when signup process is called.
-   public Boolean validateUserID(String userid)
+   // This method attempts to find data based on UserID/Email/LogonID.
+   // True - if Found.
+   // false - Exception: if LogonID on DB and matches the logonID on data source.
+   // false - Cannot continue
+   public Boolean validateUserID(UserData data)
    {
-      if (userid == null) {
+      // No Data provided.  Then assume false.
+      if (data == null) {
          return true;
       }
 
-      // This code will check by logonid, userid, and email to see if it exists
+      // This code will userid.  LogonID and email is forced to be null.
       UserInfoSP sp = new UserInfoSP(getDataSource(),"sel_user_logon",1);
+      Map outMap = sp.selectUserProfile(data);
 
-      Map outMap = sp.selectUserProfile(userid);
-      if (outMap != null)
+      // If object is null, then database did not find anything.  More System Error
+      if (outMap == null)
       {
-         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-         if (rows != null && rows.size() > 0) {
-            // We don't need the data.  If there is any results, then we know that data was there.
-            return true;
-         }
+         return false;  // DB issue.  It should return some object.
       }
-      return false;
 
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         if (rows == null || rows.size() == 0)
+            return false;  // No data.  Can continue
+
+         if (data.getLogonID() == null)
+            return true;    // If logon ID is not defined, then return true, because we have some data.
+
+         Map rs = (Map) rows.get(0);
+         // In this case the result=set array map was found but there is no data.  In this case
+         // we can assume that no userid was found.
+
+         Long tLogonID = convert.getLongData(rs.get("logonid"));
+
+         // If there are records and both logonID is same (DB vs. Cache)
+         return (! tLogonID.equals(data.getLogonID()));
    }
 
    public int checkReset(UserData data)
    {
       /* 0 = User found, and resetID matches and user was not in active status.
-         1 = User found, not in active status but resetID do not match.
+         1 = User found, and resetID matches and user in in active status
          -2 = User is not found on the database.
          -3 = data object to fetch was not provided
        */
@@ -124,23 +140,20 @@ public class UserInfoDAO extends JdbcDaoSupport
                // We don't need the data.  If just compare the data with ResetID.
                String logonstatus = convert.getStrData(rs.get("logonstatus"));
                String dbresetID = convert.getStrData(rs.get("resetID"));
+               data.setLogonstatus(logonstatus);
+               data.setUserID(convert.getStrData(rs.get("userid")));
+               data.setEmail(convert.getStrData(rs.get("email")));
 
+               // Don't bother checking the reset code.  Since it is active, just send status 1
                if (logonstatus.equalsIgnoreCase("A"))
                {
-                  return -2;
-               }
-               else
-               {
-                  if (dbresetID != null && dbresetID.equalsIgnoreCase(data.getResetID().toString()))
-                  {
-                     return 0;
-                  }
-                  else
-                  {
-                     return 1;
-                  }
+                  return 1;
                }
 
+               // If anything other then active, then and resetID matches, then 0.
+               if (dbresetID != null && dbresetID.equalsIgnoreCase(data.getResetID())) {
+                  return 0;
+               }
             }
             return -2;
          }
@@ -175,6 +188,13 @@ public class UserInfoDAO extends JdbcDaoSupport
 
       sp.updatePassword(userID, password);
    }
+
+   public void addUserAccess(UserData data)
+   {
+      UserInfoSP sp = new UserInfoSP(getDataSource(),"sp_user_access_add_mod",5);
+      sp.addUserAccess(data);
+   }
+
 
    public int updLogonStatus(String userID)
    {

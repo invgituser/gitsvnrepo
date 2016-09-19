@@ -15,7 +15,7 @@ public class UserData
 
    private UserData instance = null;
    private Long logonID = 0L;
-   private String logonstatus = "A";
+   private String logonstatus = "T";
    private Long acctnum;
 
    private String prefix = null;

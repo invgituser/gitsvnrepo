@@ -109,6 +109,14 @@ public class UserBean implements Serializable
       this.beanCustID = beanCustID;
    }
 
+   public Long getLongBeanLogonID()
+   {
+      if (beanLogonID == null)
+         return null;
+
+      return(Long.valueOf(beanLogonID));
+   }
+
    public String getBeanLogonID()
    {
       return beanLogonID;
@@ -227,7 +235,6 @@ public class UserBean implements Serializable
    /*
       public void collectClientData()
       {
-        // System.out.println("Info: Calling userInfoDAO.getUserByEmail(" + beanEmail + ")");
         userdata = userInfoDAO.getUserByEmail(userdata);
 
       }
@@ -242,11 +249,6 @@ public class UserBean implements Serializable
    {
       Boolean found;
       userInfoDAO.updLogonStatus(beanUserID);
-   }
-
-   public Boolean validateUserAccount(String userid)
-   {
-      return (userInfoDAO.validateUserID(userid));
    }
 
    public void preRenderResetUser()
@@ -303,7 +305,7 @@ public class UserBean implements Serializable
             logger.debug("LOG: fetch data for, UserID = " + beanUserID + ", Reset " + beanResetID);
             userdata.setUserID(beanUserID);
             if (beanLogonID != null)
-               userdata.setLogonID(Long.valueOf(beanLogonID));
+               userdata.setLogonID(getLongBeanLogonID());
             else
                userdata.setLogonID(null);
             userdata.setResetID(beanResetID);
@@ -325,7 +327,8 @@ public class UserBean implements Serializable
       }
    }
 
-   // This method is used during Pre-signup process.  Validate the Email.
+   // This method is used twice.  Either the email address is provided and we need to find the corresponding record.
+   // Or there is not data and register is clicked from logon window.
    public void preRenderCreateUserID()
    {
       String msg, msgheader;
@@ -348,36 +351,33 @@ public class UserBean implements Serializable
             }
 
             if (beanLogonID != null && ! beanLogonID.isEmpty()) {
-               userdata.setLogonID(Long.valueOf(beanLogonID));
+               userdata.setLogonID(getLongBeanLogonID());
                canCreateID = true;
             }
             else {
                userdata.setLogonID(null);
             }
 
-            if (! canCreateID) {
-               logger.debug("WARN, Cannot Signup, Attempting to register on site, but NO email address is included.");
-               msgheader = "signup.U102";
-               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Unable to create account. link is not valid.", null);
-               webutil.redirecttoMessagePage("WARN", msgheader, msg);
-            }
-            else {
+            // If either email or logonid is provided, then find the correspinding record.
+            if (canCreateID) {
                userdata.setUserID(null);
-               collectUserAccount();
-               if (userdata.getLogonstatus() != null && ! userdata.getLogonstatus().startsWith("I"))
+               userdata.setLogonstatus(null);
+               Integer check = userInfoDAO.checkReset(userdata);
+               if (check > 0)
                {
                   logger.debug("Info: User is already registered: " + userdata.getEmail());
                   msgheader = "signup.U103";
                   msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.", null);
                   webutil.redirecttoMessagePage("ERROR", "Invalid link", msg);
                }
-               else {  // Either no records were found or status = 'I', then allow registration.
+               else {
+                  // NOTE:  This signup method is called from either welcome link or it is called from register on main page.
+                  // If the user is not found or it is valid reset, then continue.
                   beanEmail = userdata.getEmail(); // If data was found then add to interface.
                   beanUserID = userdata.getUserID(); // If data found then add to interface.
                   logger.info("Info: Start registration process for: " + userdata.getEmail());
                }
             }
-
          }
       }
       catch (Exception ex)
@@ -385,7 +385,7 @@ public class UserBean implements Serializable
          logger.debug("ERROR: Exception: " + ex.getMessage());
          logger.debug("Message", ex);
          msgheader = "signup.EX.U102";
-         msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support.", null);
+         msg = webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support.", null);
          webutil.redirecttoMessagePage("ERROR", "Exception: Invalid link", msg);
       }
    }
@@ -397,10 +397,11 @@ public class UserBean implements Serializable
       String msgheader;
       try
       {
-         beanUserID = userdata.getEmail();
+         // beanUserID = userdata.getEmail();
          beanEmail = userdata.getEmail();
-         userdata.setUserID(beanUserID);
-         if (validateUserAccount(beanUserID))
+         userdata.setUserID(null);
+         // userdata.setEmail(beanUserID);
+         if (userInfoDAO.validateUserID(userdata))
          {
             logger.debug("LOG: Validate UserID failed: " + beanUserID);
             msgheader = "signup.U100";
@@ -411,6 +412,7 @@ public class UserBean implements Serializable
          {
             Long acctnum = webutil.getConverter().getLongData(beanCustID);
             userdata.setAcctnum(acctnum);
+            userdata.setUserID(beanEmail);
             Long logonID = saveUser("I");
             if (logonID > 0L)
             {
@@ -445,8 +447,9 @@ public class UserBean implements Serializable
       String msgheader;
       try
       {
-         userInfoDAO.validateUserID(beanUserID);            // Since both logonid and email is forced to
-         if (userInfoDAO.validateUserID(beanUserID))
+         userdata.setLogonID(getLongBeanLogonID());
+         userdata.setUserID(beanUserID);            // Since both logonid and email is forced to
+         if (userInfoDAO.validateUserID(userdata))
          {
             logger.debug("LOG: Validate UserID failed: " + beanUserID);
             msgheader = "signup.U104";
@@ -469,7 +472,11 @@ public class UserBean implements Serializable
 
             // If this user data was collected and they already have logonid, then add the userid and change the 'A'
             String logonStatus = (userdata.getLogonID() == null) ? "T" : "A";
-            Long logonID = saveUser("T");
+            userdata.setUserID(beanUserID);
+            userdata.setSecCode(pwd1);
+            userdata.setPassword(pwd1);
+            userdata.setConfirmNewPassword(pwd2);
+            Long logonID = saveUser(logonStatus);
             if (logonID > 0L)
             {
                sendConfirmation();
@@ -494,7 +501,7 @@ public class UserBean implements Serializable
 
          saveQnA();
          // If there is no error with QA save, then redirect to proper page.
-         if (userdata.getAccess().equalsIgnoreCase("advisor"))
+         if (userdata.getLogonstatus() != null && getUserdata().getLogonstatus().startsWith("A"))
          {
             webutil.redirect("/signup4.xhtml", null);
          }
@@ -581,6 +588,11 @@ public class UserBean implements Serializable
          userdata.setAns2(beanans2);
          userdata.setAns3(beanans3);
 */
+
+         String dataText = "Email: " + userdata.getEmail() + "/n" +
+            "UserID: " + userdata.getUserID() + "/n" +
+            "Name: " + userdata.getFirstName() + " " + userdata.getLastName();
+
          userdata.setEmailmsgtype(emailMsgType);
          // Save data to database....
          if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("advisor"))
@@ -593,18 +605,32 @@ public class UserBean implements Serializable
          }
          // We are using the First Name, Last Name from UserData as entered.
 
-         String rndmPassword = PasswordGenerator.getSecCode();
-         String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(rndmPassword);
+         if (logonStatus == null || logonStatus.isEmpty() || logonStatus.startsWith("I")) {
+            String rndmPassword = PasswordGenerator.getSecCode();
+            String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(rndmPassword);
+            userdata.setSecCode(tmpCode);
+            userdata.setPassword(tmpCode);
+         }
+         else {
+            String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(userdata.getPassword());
+            userdata.setSecCode(tmpCode);
+            userdata.setPassword(tmpCode);
+         }
+
+         if (userdata.getLogonstatus() != null && userdata.getLogonstatus().startsWith("A")) {
+            userdata.setResetID(null);
+         }
+         else {
+            Integer myResetID = webutil.randomGenerator(0, 347896);
+            userdata.setResetID(myResetID.toString());
+         }
+
          String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-         Integer myResetID = webutil.randomGenerator(0, 347896);
          String img = "123";
-         Map<String, String> cookieInfo = new HashMap<String, String>();
-         cookieInfo.put("img", img);
+         // Map<String, String> cookieInfo = new HashMap<String, String>();
+         // cookieInfo.put("img", img);
          //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
          userdata.setIp(myIP);
-         userdata.setResetID(myResetID.toString());
-         userdata.setSecCode(tmpCode);
-         userdata.setPassword(tmpCode);
          userdata.setCid(webutil.getUiprofile().getCid());
          userdata.setAdvisor(webutil.getUiprofile().getAdvisor());
          userdata.setRep(webutil.getUiprofile().getRep());
@@ -618,9 +644,10 @@ public class UserBean implements Serializable
          if (loginID <= 0L)
          {
             logger.debug("ERROR: Had issue with this userid when attempting to save: " + loginID);
-            String savemsg = "There was some error when attempting to save this userid.  Please reach out to support desk.";
-            webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Had issue when attempting to save your credentials.  Please try again in 30 min..");
-            webutil.alertSupport("signup", "Save -" + beanEmail, "Save Registration Error", null);
+            msgheader = "signup.U106";
+            msg = webutil.getMessageText().getDisplayMessage(msgheader, "There was some error when attempting to save this userid.  Please reach out to support desk.", null);
+            webutil.redirecttoMessagePage("ERROR", msg, "Failed Signup" + msgheader);
+            webutil.alertSupport("Userbean.saveUser", "Save -" + beanEmail, "Save Registration Error", null);
             return loginID;
          }
          userdata.setLogonID(loginID);
@@ -630,15 +657,18 @@ public class UserBean implements Serializable
       catch (Exception ex)
       {
          logger.debug("Exception " + ex.getMessage());
-         webutil.redirecttoMessagePage("ERROR", "Failed Signup", "Sorry, there was an issue with signup.  Please call support.");
-         webutil.alertSupport("signup", "Signup -" + beanEmail, "Registration Error", null);
          logger.debug("Error: Attempting to save UserID, for: " + beanEmail);
+
+         msgheader = "signup.EX.100";
+         msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Sorry, there was an issue with signup.  Please call support.", null);
+         webutil.alertSupport("Userbean.saveUser", "Signup -" + msgheader, msg, ex.getMessage());
       }
       return 0L;
    }
 
    public void saveQnA()
    {
+      String msgheader, msg;
       try
       {
          logger.info("Info: Save Question/Answer section: " + beanUserID);
@@ -651,24 +681,37 @@ public class UserBean implements Serializable
          userdata.setAns1(beanans1);
          userdata.setAns2(beanans2);
          userdata.setAns3(beanans3);
-         saveQnA();  // If there is error, then exception is raised
+         userInfoDAO.updateSecurityQuestions(userdata);  // If there is error, then exception is raised
       }
       catch (Exception ex)
       {
          logger.debug("Exception " + ex.getMessage());
-         webutil.redirecttoMessagePage("ERROR", "Q/A Save", "It seems that there was an error attempting to save Questions/Ans. Section.  Your account has been saved.");
-         webutil.alertSupport("signup", "Q/A Signup -" + beanEmail, "Q/A save Error", null);
+         msgheader = "signup.EX.105";
+         msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Sorry, there was an issue with signup.  Please call support.", null);
+         webutil.redirecttoMessagePage("ERROR", "Q/A Save", msg);
+         webutil.alertSupport("Userbean.saveQnA", "Signup -" + msgheader, msg, ex.getMessage());
       }
    }
 
-
-   public void emailResetInfo()
+   public void sendActivatedEmail()
    {
       if (beanEmail == null)
       {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email is required", "Email is required"));
       }
+      sendConfirmation();
+   }
+
+   public void sendResetEmail()
+   {
+      String msgheader, msg;
+      if (beanEmail == null)
+      {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email is required", "Email is required"));
+      }
       userdata.setEmail(beanEmail);
+      userdata.setUserID(null);
+      userdata.setLogonID(null);
       collectUserAccount();
 
       if (userdata.getLogonID() != null && userdata.getLogonID() > 0L)
@@ -677,58 +720,14 @@ public class UserBean implements Serializable
 
          Integer myResetID = webutil.randomGenerator(0, 347896);
          userInfoDAO.updResetID(userdata.getUserID(), myResetID.toString());
-
-         MsgData data = new MsgData();
-         data.setSource("User");  // This is set to User to it insert into appropriate table.
-         data.setSender(Const.MAIL_SENDER);
-         data.setReceiver(beanEmail);
-         data.setSubject("Reset Instructions");
-         String secureUrl = uiLayout.getUiprofile().getSecurehomepage();
-
-         String name = userdata.getFullName();
-         String emailMsgType;
-         String htmlfile, htmltempate, textInfo;
-         textInfo = WebConst.TEXT_RESET;
-         htmltempate = WebConst.HTML_RESET;
-         // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_RESET);
-
-         if (htmltempate == null) {
-            emailMsgType = "TEXT";
-            htmlfile = null;
-         }
-         else {
-            emailMsgType = "HTML";
-            htmlfile = htmltempate;
-            // htmlfile = "/template/html/" + htmltempate;
-         }
-
-         userdata.setEmailmsgtype(userdata.getEmailmsgtype());
-         String msg = webutil.getMessageText().buildMessage(emailMsgType,
-                                                            htmlfile,
-                                                            textInfo,
-                                                            new Object[]{
-                                                               secureUrl,
-                                                               userdata.getUserID(),
-                                                               userdata.getResetID(),
-                                                               userdata.getFirstName(),
-                                                               userdata.getLastName(),
-                                                               userdata.getEmail(),
-                                                               webutil.getUiprofile().getSupportemail(),
-                                                               webutil.getUiprofile().getSupportphone(),
-                                                               webutil.getUiprofile().getCompanyname(),
-                                                               webutil.getUiprofile().getLogo()
-                                                            });
-         data.setMsg(msg);
-         webutil.getMessageText().writeMessage("custom", data);
-
-         String displayMessage = webutil.getMessageText().buildInternalMessage("txt.reset.info", null);
-         webutil.redirecttoMessagePage("INFO", "Reset Instructions sent", displayMessage);
-         logger.info("Info: Email Sent, succcesfully: " + beanEmail);
+         userdata.setLogonstatus("R");
+         sendConfirmation();
       }
-      else
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "This email is not valid. Not a registered user", "This email is not valid. Not a registered user"));
-         logger.debug("ERROR: Attempting to reset, but valid email: " + beanEmail);
+      else {
+         logger.debug("Warning: Reset Denied: " + beanEmail);
+         msgheader = "signup.U107";
+         msg = webutil.getMessageText().getDisplayMessage(msgheader, "Email Address is invalid, or it is not registered.", null);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, msg, msgheader));
       }
    }
 
@@ -765,125 +764,6 @@ public class UserBean implements Serializable
          msg = "System error: contact support.";
       }
       return msg;
-   }
-
-   public Long addUserLogon()
-   {
-      String dataText = "Email: " + userdata.getEmail() + "/n" +
-         "UserID: " + userdata.getUserID() + "/n" +
-         "Name: " + userdata.getFirstName() + " " + userdata.getLastName();
-
-      if (userdata.getUserID() == null || userdata.getUserID().length() < 5)
-      {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Invalid Email", "Invalid Email"));
-      }
-      MsgData data = new MsgData();
-      //String websiteUrl = messageSource.getMessage("website.url", new Object[]{}, null);
-
-      logger.info("Registered by: " + dataText);
-      try
-      {
-         if (webutil == null) {
-            logger.debug("Initilization Error!!!!!!");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
-            webutil.alertSupport("Userdata.saveUser", "Error: Webutil object", "Java object is null \n" + dataText, null);
-            return 0L;
-         }
-
-         if (webutil.getMessageText() == null)
-         {
-            logger.debug("Webutil.getMessageText() is null!!!!!!");
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/message.xhtml?message=System error:  Error code (signup failure)");
-            webutil.alertSupport("Userdata.saveUser", "Error: MessageText object", "Message Text object is null \n" + dataText, null);
-            return 0L;
-         }
-
-         // We are using the First Name, Last Name from UserData as entered.
-         String rndmPassword = PasswordGenerator.getSecCode();
-         String tmpCode = com.invessence.web.util.MsgDigester.getMessageDigest(rndmPassword);
-         String myIP = webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-         Integer myResetID = webutil.randomGenerator(0, 347896);
-         String img = "123";
-         Map<String, String> cookieInfo = new HashMap<String, String>();
-         cookieInfo.put("img", img);
-         //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
-         userdata.setIp(myIP);
-         userdata.setResetID(myResetID.toString());
-         userdata.setLogonstatus("T");
-         userdata.setSecCode(tmpCode);
-         userdata.setPassword(tmpCode);
-         userdata.setCid(webutil.getUiprofile().getCid());
-         userdata.setAdvisor(webutil.getUiprofile().getAdvisor());
-         userdata.setRep(webutil.getUiprofile().getRep());
-         // secCode = "Default123";
-         String supportInfo = webutil.getUiprofile().getSupportemail();
-
-         // Save data to database....
-         long loginID = userInfoDAO.addUserInfo(userdata);
-
-         if (loginID < 0L) {
-            String msg="Database could not create logonID.  Serious Error";
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg));
-            webutil.alertSupport("Userdata.saveUser", "Error: Unable to create LogonID", "Unable to create proper logonid on database \n" + dataText, null);
-            return 0L;
-         }
-         else {
-            // Now send email support.
-            data.setSource("User");  // This is set to User to it insert into appropriate table.
-            data.setSender(Const.MAIL_SENDER);
-            data.setReceiver(userdata.getEmailID());
-            data.setSubject(Const.COMPANY_NAME + " - Successfully registered");
-            String secureUrl = webutil.getUiprofile().getSecurehomepage();
-            String name = userdata.getFirstName() + " " + userdata.getLastName();
-
-            String emailMsgType;
-            String htmlfile, htmltempate, textInfo;
-            textInfo = WebConst.TEXT_WELCOME;
-            htmltempate = WebConst.HTML_WELCOME;
-            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME);
-
-            if (htmltempate == null) {
-               emailMsgType = "TEXT";
-               htmlfile = null;
-            }
-            else {
-               emailMsgType = "HTML";
-               htmlfile = htmltempate;
-               // htmlfile = "/template/html/" + htmltempate;
-            }
-
-            userdata.setEmailmsgtype(userdata.getEmailmsgtype());
-            String msg = webutil.getMessageText().buildMessage(emailMsgType,
-                                                            htmlfile,
-                                                            textInfo,
-                                                            new Object[]{
-                                                               secureUrl,
-                                                               userdata.getUserID(),
-                                                               userdata.getResetID(),
-                                                               userdata.getFirstName(),
-                                                               userdata.getLastName(),
-                                                               userdata.getEmail(),
-                                                               webutil.getUiprofile().getSupportemail(),
-                                                               webutil.getUiprofile().getSupportphone(),
-                                                               webutil.getUiprofile().getCompanyname(),
-                                                               webutil.getUiprofile().getLogo()
-                                                            });
-            data.setMsg(msg);
-            webutil.getMessageText().writeMessage("custom", data);
-
-
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebConst.LOGONID_PARAM, loginID);
-            return userdata.getLogonID();
-         }
-
-      }
-      catch (Exception ex)
-      {
-         String username = userdata.getUserID();
-         String stackTrace = "User: " + username + " \n" + ex.getMessage();
-         webutil.alertSupport("Userdata.saveUser", "Exception: Unable to create LogonID", "Unable to create proper logonid on database \n" + dataText, stackTrace);
-         return 0L;
-      }
    }
 
    public String updateUserProfile()
@@ -932,55 +812,96 @@ public class UserBean implements Serializable
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Session timed out.  Use Forgot password to get access to your account.", "System timed out"));
       }
 
+      if (userdata.getLogonstatus() != null && userdata.getLogonstatus().startsWith("A")) {
+         return;
+      }
       logger.debug("Debug: Sending confirmation email: " + userdata.getEmail());
 
       MsgData data = new MsgData();
       data.setSource("User");  // This is set to User to it insert into appropriate table.
       data.setSender(webutil.getUiprofile().getEmailUser());
       data.setReceiver(userdata.getEmail());
-      data.setSubject("Successfully registered");
       String secureUrl = webutil.getUiprofile().getSecurehomepage();
       String name = userdata.getFullName();
 
       String emailMsgType;
-      String htmlfile, htmltempate, textInfo;
-      if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
-         textInfo = WebConst.TEXT_WELCOME_ADV;
-         htmltempate = WebConst.HTML_WELCOME_ADV;
-         // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME_ADV);
+      String htmlfile = null, htmltempate = null, textInfo = null;
+      String whichURL = null;
+      String subject = "No subject";
 
-         if (htmltempate == null) {
-            emailMsgType = "TEXT";
-            htmlfile = null;
-         }
-         else {
-            emailMsgType = "HTML";
-            htmlfile = htmltempate;
-            // htmlfile = "/template/html/" + htmltempate;
-         }
+      Integer whichEmail = 0;
+      if (userdata.getLogonstatus() == null) {
+         return; // No email
       }
       else {
-         textInfo = WebConst.TEXT_WELCOME;
-         htmltempate = WebConst.HTML_WELCOME;
-         // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME);
-
-         if (htmltempate == null) {
-            emailMsgType = "TEXT";
-            htmlfile = null;
-         }
-         else {
-            emailMsgType = "HTML";
-            htmlfile = htmltempate;
-            // htmlfile = "/template/html/" + htmltempate;
-         }
+         if (userdata.getLogonstatus().startsWith("A"))
+            whichEmail = 0;
+         else if (userdata.getLogonstatus().startsWith("R"))
+               whichEmail = 1;
+         else  if (userdata.getLogonstatus().startsWith("I"))
+            whichEmail = 8;
+         else  whichEmail = 9;
       }
 
+      switch (whichEmail) {
+         case 0:
+            subject = "Account Activated";
+            textInfo = WebConst.TEXT_ACTIVATED;
+            htmltempate = WebConst.HTML_ACTIVATED;
+            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_ACTIVATED);
+            whichURL=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            break;
+         case 1:
+            subject = "Account Reset";
+            textInfo = WebConst.TEXT_RESET;
+            htmltempate = WebConst.HTML_RESET;
+            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_RESET);
+            whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            break;
+         case 2:
+         case 3:
+         case 4:
+         case 5:
+         case 6:
+         case 7:
+         case 8:
+         case 9:
+            subject = "Welcome";
+            whichURL=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
+               textInfo = WebConst.TEXT_WELCOME_ADV;
+               htmltempate = WebConst.HTML_WELCOME_ADV;
+               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME_ADV);
+            }
+            else {
+               textInfo = WebConst.TEXT_WELCOME;
+               htmltempate = WebConst.HTML_WELCOME;
+               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME);
+            }
+            break;
+         default:
+
+      }
+
+      if (htmltempate == null) {
+         emailMsgType = "TEXT";
+         htmlfile = null;
+      }
+      else {
+         emailMsgType = "HTML";
+         htmlfile = htmltempate;
+         // htmlfile = "/template/html/" + htmltempate;
+      }
+
+      data.setSubject(subject);
       String msg = webutil.getMessageText().buildMessage(emailMsgType,
                                                          htmlfile,
                                                          textInfo,
                                                          new Object[]{
-                                                            secureUrl,
+                                                            whichURL,
+                                                            userdata.getLogonID().toString(),
                                                             userdata.getUserID(),
+                                                            userdata.getEmail(),
                                                             userdata.getResetID(),
                                                             userdata.getFirstName(),
                                                             userdata.getLastName(),

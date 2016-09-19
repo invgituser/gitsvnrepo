@@ -50,6 +50,7 @@ public class WebConst
    public final static String HTML_SURVEY = "HTML.SURVEY";
 */
 
+   public final static String HTML_ACTIVATED = "html.activate.email";
    public final static String HTML_WELCOME = "html.welcome.email";
    public final static String HTML_LOCKED = "html.locked.email";
    public final static String HTML_RESET = "html.reset.email";
@@ -57,6 +58,7 @@ public class WebConst
    public final static String HTML_INVOICE = "html.invoice.email";
    public final static String HTML_SURVEY = "html.survey.email";
 
+   public final static String TEXT_ACTIVATED = "txt.activate.email";
    public final static String TEXT_WELCOME = "txt.welcome.email";
    public final static String TEXT_LOCKED = "txt.locked.email";
    public final static String TEXT_RESET = "txt.reset.email";

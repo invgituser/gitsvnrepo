@@ -162,11 +162,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public String getFundButtonText()
    {
       if (webutil == null)
-         return "Open Account";
+         return "Register";
       if (webutil.isUserLoggedIn())
-         return "Fund Account";
-      else
          return "Open Account";
+      else
+         return "Register";
 
    }
 
@@ -660,10 +660,15 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       try
       {
          saveProfile();
-         // if (canOpenAccount == 0) {
-         uiLayout.doMenuAction("consumer","signup.xhtml?acct=" + getAcctnum().toString());
-         //webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
-         // }
+         if (webutil.isUserLoggedIn()) {
+            uiLayout.doMenuAction("custody","index.xhtml?acct=" + getAcctnum().toString());
+         }
+         else {
+            // if (canOpenAccount == 0) {
+            uiLayout.doMenuAction("consumer","signup.xhtml?acct=" + getAcctnum().toString());
+            //webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
+            // }
+         }
 
       }
       catch (Exception ex)

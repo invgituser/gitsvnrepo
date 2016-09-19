@@ -4,13 +4,11 @@ package com.invessence.web.dao.common;
 import javax.sql.DataSource;
 
 import com.invessence.web.data.common.UserData;
-import org.springframework.jdbc.core.SqlOutParameter;
+import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
 
 import java.sql.Types;
 import java.util.*;
-
-import org.springframework.jdbc.core.SqlParameter;
 
 @SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class UserInfoSP extends StoredProcedure
@@ -21,10 +19,11 @@ public class UserInfoSP extends StoredProcedure
 
       //super(datasource, "sp_login_add_mod");
       super(datasource, sp_name);
-      switch (mode) {
+      switch (mode)
+      {
          case 0:
             declareParameter(new SqlParameter("p_addmod", Types.VARCHAR));
-            declareParameter(new SqlOutParameter("p_logonid", Types.BIGINT));
+            declareParameter(new SqlInOutParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_email", Types.VARCHAR));
@@ -74,13 +73,17 @@ public class UserInfoSP extends StoredProcedure
             declareParameter(new SqlParameter("p_userid", Types.VARCHAR));
             declareParameter(new SqlParameter("p_pwd", Types.VARCHAR));
             break;
-         case 5:
+         case 5: // sp_user_access_add_mod
+            declareParameter(new SqlParameter("p_addmodflag", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_loginid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_functionid", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_role", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_privileges", Types.VARCHAR));
          default:
             break;
       }
-
-
-     compile();
+      compile();
    }
 
 
@@ -91,8 +94,19 @@ public class UserInfoSP extends StoredProcedure
       Map inputMap = new HashMap();
 
       inputMap.put("p_addmod", action);
-      inputMap.put("p_logonid", data.getLogonID());
-      inputMap.put("p_acctnum", data.getAcctnum()); // If acctnum is null or 0L then don't link account.  Else create a linked account.
+      if (data.getLogonID() == null) {
+         inputMap.put("p_logonid", 0L);
+      }
+      else {
+         inputMap.put("p_logonid", data.getLogonID());
+      }
+
+      if (data.getAcctnum() == null) {
+         inputMap.put("p_acctnum", 0L); // If acctnum is null or 0L then don't link account.  Else create a linked account.
+      }
+      else {
+         inputMap.put("p_acctnum", data.getAcctnum()); // If acctnum is null or 0L then don't link account.  Else create a linked account.
+      }
       inputMap.put("p_userid", data.getUserID());
       inputMap.put("p_email", data.getEmail());
       inputMap.put("p_pwd", data.getPassword());
@@ -180,5 +194,19 @@ public class UserInfoSP extends StoredProcedure
       inputMap.put("p_pwd", password);
       return super.execute(inputMap);
    }
+
+   public Map addUserAccess(UserData data)
+   {
+      Map inputMap = new HashMap();
+
+      inputMap.put("p_addmod", null);
+      inputMap.put("p_logonid", data.getLogonID());
+      inputMap.put("p_acctnum", data.getAcctnum()); // If acctnum is null or 0L then don't link account.  Else create a linked account.
+      inputMap.put("p_functionid", "A");
+      inputMap.put("p_role", "OWNER");
+      inputMap.put("p_privileges", null);
+      return super.execute(inputMap);
+   }
+
 }
 

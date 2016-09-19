@@ -67,7 +67,7 @@ public class MessageBean implements Serializable {
       if (supportInfo != null )
          return supportInfo;
       else
-         return messageText.buildInternalMessage("support.info", new Object[]{});
+         return messageText.buildInternalMessage("support.info", new Object[]{webutil.getUiprofile().getSupportphone(), webutil.getUiprofile().getSupportemail()});
    }
 
    public void setSupportInfo(String supportInfo)

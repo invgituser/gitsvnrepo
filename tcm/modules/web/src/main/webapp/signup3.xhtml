@@ -3,7 +3,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="/template/common/simplelayout.xhtml">
+                template="/template/common/simple.xhtml">
 
     <ui:define name="content">
         <div id="layout-portlets-cover">
@@ -30,14 +30,14 @@
 
                             <p>
                                 If you can't find the confirmation email, please check your spam/junk folder and add
-                                <a href="${apache.url}">${apache.url}</a> as a trusted site.
+                                <a href="#{webutil.uiprofile.securehomepage}">#{webutil.uiprofile.securehomepage}</a> as a trusted site.
                             </p>
                         </div>
                         <div class="EmptyBox20"></div>
                         <p:button  value="OK" styleClass="Fs16 BlueButton" href="/login.xhtml"/>
                         <div class="EmptyBox20"></div>
                         <p:commandButton  value="Resend confirmation" styleClass="Fs16 OrangeButton"
-                                   actionListener="#{userBean.emailResetInfo}"/>
+                                   actionListener="#{userBean.emailActivate}"/>
                         <div class="EmptyBox50"></div>
 
                     </h:form>

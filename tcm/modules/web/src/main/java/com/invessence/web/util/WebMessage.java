@@ -100,7 +100,7 @@ public class WebMessage implements MessageSourceAware, Serializable
       catch (Exception ex) {
          System.out.println("Text: " + inputText + " not found in the message processing file.");
       }
-      return inputText;
+      return null;
    }
 
    private String getHTMLMessagetext(String inputText, Object [] obj) {
