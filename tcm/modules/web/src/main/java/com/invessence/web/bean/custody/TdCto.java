@@ -465,7 +465,10 @@ public class TdCto
             break;
          case 10: // Funding Page 2
             newTab = 6;
-            subtab = 1;
+            if (tdMasterData.getRecurringFlag())
+               subtab = 1;
+            else
+               subtab = 0;
             break;
          default:
             newTab = 0;
