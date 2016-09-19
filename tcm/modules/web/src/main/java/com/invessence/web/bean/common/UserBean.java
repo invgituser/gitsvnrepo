@@ -472,7 +472,8 @@ public class UserBean implements Serializable
 
             // If this user data was collected and they already have logonid, then add the userid and change the 'A'
             String logonStatus = (userdata.getLogonID() == null) ? "T" : "A";
-            userdata.setUserID(beanUserID);
+            userdata.setEmail(beanEmail);  // Since, this may be called from General Register, add Email to userdata.
+            userdata.setUserID(beanUserID);// Since, this may be called from General Register, add UserID to userdata.
             userdata.setSecCode(pwd1);
             userdata.setPassword(pwd1);
             userdata.setConfirmNewPassword(pwd2);
@@ -481,6 +482,13 @@ public class UserBean implements Serializable
             {
                sendConfirmation();
                webutil.redirect("/signup2.xhtml", null);
+            }
+            else {
+               logger.debug("ERROR: Save to DB failed: " + beanEmail);
+               msgheader = "signup.U108";
+               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Failed to create user-logon session.", null);
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+
             }
          }
 
@@ -835,6 +843,8 @@ public class UserBean implements Serializable
       }
       else {
          if (userdata.getLogonstatus().startsWith("A"))
+            whichEmail = 0;
+         else if (userdata.getLogonstatus().startsWith("T"))
             whichEmail = 0;
          else if (userdata.getLogonstatus().startsWith("R"))
                whichEmail = 1;

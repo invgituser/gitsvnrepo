@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+
+<head>
+   <title>Welcome</title>
+</head>
+
+<body>
+<table>
+    <tbody>
+    <tr>
+        <td style="padding: 10px 0px; text-align:center;">
+            <img src="BB1.png">
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p style="color:#006844; font-size:20px"><b>Welcome to Building Benjamins</b></p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p style="font-size:20px"><b>Hi &#39;3&#39;,</b></p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>Thank you for opening an account! Now that you&#39;ve registered, it&#39;s time to set your password.<br>
+                Follow the simple prompts on our secure page to create your personalized password.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>Once that&#39;s done, you&#39;re on your way to a wiser, better diversified, portfolio ? all customized to your<br>
+                individual risk tolerance level.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>Your User ID is: ?1?</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>After clicking the link below, you will be asked to:</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>1. Enter your new password.<br>
+
+                2. Re-enter your new password to confirm it.<br>
+
+                3. Click &quot;Submit&quot;.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>Please store your User ID and Password in a safe place ? and remember, neither Building<br>
+                Benjamins nor any of its affiliates will ever ask you to share your password with us.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p><b>NOTE: This link is valid for one use only.<b></p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p><a href="">Click here to set-up your new password.</a></p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>Thank you for investing wiser with Building Benjamins.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>Sincerely,</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>The Building Benjamins Team</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 10px 0px;">
+            <p>If you have any questions, please contact us at <i><a href="mailto:support@invessence.com">support@buildingbenjamins.com</a></i>.</p>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding: 0px; background-color:#ebebeb; text-align:center;">
+            <p style="color:#8f9d9d">Building Benjamins · 129 Summit Avenue, Suite 300 · Summit, NJ 07901 · USA</p>
+        </td>
+    </tr>
+
+
+    </tbody>
+</table>
+</body>
+</html>
+
