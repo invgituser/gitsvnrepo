@@ -848,6 +848,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          case 0:
             if (getGoal() == null || getAge() == null || getInitialInvestment() == null)
             {
+               cangoToNext = false;
                break;   // If null, then this method should not have been called.
             }
             if (getInitialInvestment() < 50000)
@@ -862,14 +863,26 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                   addCustomErrorText("Age must between 18 - 100");
                   cangoToNext = false;
                }
-/*
-               if (riskCalculator.getRetireAge() != null && riskCalculator.getRetireAge() <= getAge())
+               if (riskCalculator.getRetireAge() == null || riskCalculator.getRetireAge() <= riskCalculator.getRiskAge())
                {
                   cangoToNext = false;
-                  RequestContext context = RequestContext.getCurrentInstance();
-                  context.execute("PF('retired').show();");
+                  addCustomErrorText("Retired age must greater then current age");
                }
-*/
+            }
+            else {
+               if (getGoal().equalsIgnoreCase("college")) {
+                if (riskCalculator.getRiskHorizon() != null && riskCalculator.getRiskHorizon() > 20) {
+                     cangoToNext = false;
+                     addCustomErrorText("Horizon must between 1 - 20");
+                  }
+               }
+                else {
+                  if (riskCalculator.getRiskHorizon() != null && riskCalculator.getRiskHorizon() > 100) {
+                     addCustomErrorText("Horizon must between 1 - 100");
+                  }
+
+               }
+
             }
             break;
          case 1:

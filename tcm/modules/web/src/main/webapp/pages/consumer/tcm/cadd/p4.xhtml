@@ -12,11 +12,9 @@
                 Select the option that best matches your comfort zone to continue.
             </h3>
 
-            <h:inputHidden value="#{tcmpb.riskCalculator.ans4}"/>
-<!--
+            <h:inputHidden value="#{tcmpb.riskCalculator.ans4}"
                            required="true"
                            requiredMessage="Please click on one of the images below to select appropriate risk."/>
--->
 
             <div class="EmptyBox20"></div>
             <div class="Container100 TexAlCenter">
@@ -25,29 +23,34 @@
                 <p:panel id="riskimgpanel" styleClass="Container100"
                          style="border: 0px; background: transparent;">
                     <p:commandLink actionListener="#{tcmpb.riskSelected(1)}"
+                                   process="@this"
                                    update=":ceForm:inputArea, :ceForm:riskimgpanel">
                         <img src="#{tcmpb.getRiskGraphic(1)}" class="riskImage"/>
                     </p:commandLink>
 
                     <p:commandLink actionListener="#{tcmpb.riskSelected(2)}"
+                                   process="@this"
                                    update=":ceForm:inputArea, :ceForm:riskimgpanel">
                         <img src="#{tcmpb.getRiskGraphic(2)}"
                              class="riskImage"/>
                     </p:commandLink>
 
                     <p:commandLink actionListener="#{tcmpb.riskSelected(3)}"
+                                   process="@this"
                                    update=":ceForm:inputArea, :ceForm:riskimgpanel">
                         <img src="#{tcmpb.getRiskGraphic(3)}"
                              class="riskImage"/>
                     </p:commandLink>
 
                     <p:commandLink actionListener="#{tcmpb.riskSelected(4)}"
+                                   process="@this"
                                    update=":ceForm:inputArea, :ceForm:riskimgpanel">
                         <img src="#{tcmpb.getRiskGraphic(4)}"
                              class="riskImage"/>
                     </p:commandLink>
 
                     <p:commandLink actionListener="#{tcmpb.riskSelected(5)}"
+                                   process="@this"
                                    update=":ceForm:inputArea, :ceForm:riskimgpanel">
                         <img src="#{tcmpb.getRiskGraphic(5)}"
                              class="riskImage"/>

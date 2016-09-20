@@ -367,8 +367,8 @@ public class UserBean implements Serializable
                {
                   logger.debug("Info: User is already registered: " + userdata.getEmail());
                   msgheader = "signup.U103";
-                  msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.", null);
-                  webutil.redirecttoMessagePage("ERROR", "Invalid link", msg);
+                  // msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.", null);
+                  webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
                }
                else {
                   // NOTE:  This signup method is called from either welcome link or it is called from register on main page.
@@ -385,8 +385,8 @@ public class UserBean implements Serializable
          logger.debug("ERROR: Exception: " + ex.getMessage());
          logger.debug("Message", ex);
          msgheader = "signup.EX.U102";
-         msg = webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support.", null);
-         webutil.redirecttoMessagePage("ERROR", "Exception: Invalid link", msg);
+         // msg = webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support.", null);
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
       }
    }
 
@@ -400,12 +400,13 @@ public class UserBean implements Serializable
          // beanUserID = userdata.getEmail();
          beanEmail = userdata.getEmail();
          userdata.setUserID(null);
+         userdata.setLogonID(null);
          // userdata.setEmail(beanUserID);
          if (userInfoDAO.validateUserID(userdata))
          {
             logger.debug("LOG: Validate UserID failed: " + beanUserID);
             msgheader = "signup.U100";
-            msg= webutil.getMessageText().getDisplayMessage(msgheader, "This userid is already taken, please try another", null);
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
          }
          else
@@ -438,6 +439,7 @@ public class UserBean implements Serializable
          msgheader = "signup.EX.100";
          msg= webutil.getMessageText().getDisplayMessage(msgheader, "Exception: Create UserID/Pwd, problem attempting to create simpleuser", null);
          webutil.alertSupport("Userbean.preRenderSimpleSignup", msgheader, msg, ex.getMessage());
+         webutil.redirecttoMessagePage("ERROR", "Signup Failure", msgheader);
       }
    }
 

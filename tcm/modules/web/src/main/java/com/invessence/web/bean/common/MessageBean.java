@@ -37,7 +37,7 @@ public class MessageBean implements Serializable {
       this.type = null;
       if (type != null)
          this.type = type.substring(0,1).toUpperCase();
-    }
+   }
 
    public String getMessage() {
       return message;
@@ -48,11 +48,10 @@ public class MessageBean implements Serializable {
       try {
          msgText = messageText.buildInternalMessage(message, new Object[]{});
          if (msgText == null || msgText.length() == 0)
-            msgText = getMessage();
+            msgText = message;
          this.message =  msgText;
       }
       catch (Exception ex) {
-         ex.printStackTrace();
          this.message = message;
       }
    }
@@ -91,7 +90,6 @@ public class MessageBean implements Serializable {
          this.title =  msgText;
       }
       catch (Exception ex) {
-         ex.printStackTrace();
          this.title = title;
       }
    }

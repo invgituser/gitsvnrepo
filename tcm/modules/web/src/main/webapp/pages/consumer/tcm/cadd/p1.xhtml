@@ -6,14 +6,6 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <div class="Container100 TextAlCenter">
-        <p:confirmDialog message="Are you already retired?  Your retired Age is greater then your age!"
-                         header="Retired?" severity="warning" global="false"
-                         widgetVar="retired">
-            <p:commandButton value="Yes, I'm retired." actionListener="#{tcmpb.retiredNext}"/>
-            <p:commandButton value="Not Yet." onclick="PF('retired').hide();" type="button" />
-        </p:confirmDialog>
-
-
         <div class="EmptyBox20"></div>
 
         <div class="TexAlCenter">
