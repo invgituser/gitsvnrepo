@@ -1,9 +1,11 @@
 package com.invessence.web.dao.custody;
 
+import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
 import com.invessence.web.data.custody.TDMasterData;
+import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
 
 /**
@@ -28,12 +30,26 @@ public class CustodyListSP extends StoredProcedure
       super(datasource, spname);
       switch (mode) {
          case 0:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 1:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 2:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 3:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 4:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 5:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 6:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          case 7:
          case 8:
          case 9:
@@ -44,7 +60,20 @@ public class CustodyListSP extends StoredProcedure
       compile();
    }
 
-   public Map getMasterData(Long acctnum) {
+   public Map getTDAccountHolder(Long acctnum) {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
+
+   public Map getTDEmployment(Long acctnum) {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
+
+
+   public Map getTDBeneficiary(Long acctnum) {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);
       return super.execute(inputMap);

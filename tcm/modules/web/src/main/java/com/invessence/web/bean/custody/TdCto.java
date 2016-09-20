@@ -199,6 +199,7 @@ public class TdCto
          {
             pagemanager = new PagesImpl(10);
             pagemanager.setPage(0);
+            loadData();
          }
       }
       catch (Exception ex) {
@@ -548,8 +549,12 @@ public class TdCto
       return null;
    }
 
-   private void loadData(String acctnum)
+   private void loadData()
    {
+      if (beanacctnum == null)
+         return;
+
+      // custodyListDAO.getTDAccountHolder(tdMasterData);
 
    }
 
