@@ -417,70 +417,37 @@
    <profiles>
       <!-- Mode -->
       <profile>
-         <id>0A-MODE-PROD</id>
+         <id>1A-MODE-PROD</id>
          <properties>
             <web.mode>PROD</web.mode>
              <service.mode>PROD</service.mode>
          </properties>
       </profile>
       <profile>
-         <id>0B-MODE-DEV</id>
+         <id>1B-MODE-DEV</id>
          <properties>
             <web.mode>DEV</web.mode>
              <service.mode>DEV</service.mode>
          </properties>
       </profile>
       <profile>
-         <id>0C-MODE-UAT</id>
+         <id>1C-MODE-UAT</id>
          <properties>
             <web.mode>UAT</web.mode>
              <service.mode>UAT</service.mode>
          </properties>
       </profile>
       <profile>
-         <id>0D-MODE-DEMO</id>
+         <id>1D-MODE-DEMO</id>
          <properties>
             <web.mode>DEMO</web.mode>
              <service.mode>DEMO</service.mode>
          </properties>
       </profile>
       <profile>
-         <id>0Z---------------0Z</id>
+         <id>1Z---------------1Z</id>
       </profile>
 
-      <!-- Mail -->
-      <!-- Email service provider details fetching from Database
-      <profile>
-         <id>1A-Invessence-Gmail</id>
-         <properties>
-            <mail.host>smtp.gmail.com</mail.host>
-            <mail.username>no-reply@invessence.com</mail.username>
-            <mail.password>G3n3r@l89</mail.password>
-            <mail.port>587</mail.port>
-         </properties>
-      </profile>
-      <profile>
-         <id>1B-Symbil-MAILGUN</id>
-         <properties>
-            <mail.host>smtp.mailgun.org</mail.host>
-            <mail.username>noreply@symbil.com</mail.username>
-            <mail.password>G3n3r@l89</mail.password>
-            <mail.port>587</mail.port>
-         </properties>
-      </profile>
-      <profile>
-         <id>1C-BuldingBenjamins-GMAIL</id>
-         <properties>
-            <mail.host>smtp.gmail.com</mail.host>
-            <mail.username>no-reply@buildingbenjamins.com</mail.username>
-            <mail.password>BBInvessence598!!</mail.password>
-            <mail.port>587</mail.port>
-         </properties>
-      </profile>
-      <profile>
-         <id>1Z-1Z</id>
-      </profile>
--->
       <!-- Host -->
       <profile>
          <id>2A-HOST-WIN</id>
@@ -693,99 +660,6 @@
          </properties>
       </profile>
       <profile>
-         <id>3Z---------------3Z</id>
-      </profile>
-
-      <!-- Web -->
-      <profile>
-         <id>5A-WEB-LOCAL</id>
-         <properties>
-            <apache.url>http://localhost:9090</apache.url>
-            <tomcat.url>http://localhost:9090</tomcat.url>
-            <ssl.url>http://localhost:9090</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-         <id>5B-WEB-DEV</id>
-         <properties>
-            <apache.url>http://dev.invessence.com:8080</apache.url>
-            <tomcat.url>http://dev.invessence.com:8080</tomcat.url>
-            <ssl.url>http://dev.invessence.com:8080</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-         <id>5C-WEB-UAT</id>
-         <properties>
-            <apache.url>http://uat.invessence.com:8080</apache.url>
-            <tomcat.url>http://uat.invessence.com:8080</tomcat.url>
-            <ssl.url>http://uat.invessence.com:8080</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-         <id>5D-WEB-PRERELEASE</id>
-         <properties>
-            <apache.url>http://prerel.invessence.com:8080</apache.url>
-            <tomcat.url>http://prerel.invessence.com:8080</tomcat.url>
-            <ssl.url>http://prerel.invessence.com:8080</ssl.url>
-         </properties>
-      </profile>
-       <profile>
-         <id>5E-WEB-DEMO</id>
-         <properties>
-            <apache.url>http://demo.invessence.com:8080</apache.url>
-            <tomcat.url>http://demo.invessence.com:8080</tomcat.url>
-            <ssl.url>http://demo.invessence.com:8080</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-         <id>5F-WEB-DEMO1</id>
-         <properties>
-            <apache.url>http://demo1.invessence.com:8080</apache.url>
-            <tomcat.url>http://demo1.invessence.com:8080</tomcat.url>
-            <ssl.url>http://demo1.invessence.com:8080</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-         <id>5P1-WEB-PROD</id>
-         <properties>
-            <apache.url>http://www.invessence.com</apache.url>
-            <tomcat.url>https://www.invessence.com</tomcat.url>
-            <ssl.url>https://www.invessence.com</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-         <id>5P2-WEB-SYMBIL</id>
-         <properties>
-            <apache.url>http://symbil.com</apache.url>
-            <tomcat.url>https://symbil.com</tomcat.url>
-            <ssl.url>https://symbil.com</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-         <id>5P3-WEB-VCM</id>
-         <properties>
-            <apache.url>http://versatilecapdigital.com</apache.url>
-            <tomcat.url>https://versatilecapdigital.com</tomcat.url>
-            <ssl.url>https://versatilecapdigital.com</ssl.url>
-         </properties>
-      </profile>
-            <profile>
-         <id>6P3-WEB-UOB</id>
-         <properties>
-            <apache.url>http://uob.invessence.com:8080</apache.url>
-            <tomcat.url>http://uob.invessence.com:8080</tomcat.url>
-            <ssl.url>http://uob.invessence.com:8080</ssl.url>
-         </properties>
-      </profile>
-      <profile>
-      <id>5P3-WEB-TCM</id>
-         <properties>
-            <apache.url>http://tcm.invessence.com:8080</apache.url>
-            <tomcat.url>http://tcm.invessence.com:8080</tomcat.url>
-            <ssl.url>http://tcm.invessence.com:8080</ssl.url>
-      </properties>
-      </profile>
-      <profile>
          <id>5Z---------------5Z</id>
       </profile>
 
@@ -823,6 +697,39 @@
             <doc.localdir>${base.data.dir}/doc/</doc.localdir>
             <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
             <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+         </properties>
+      </profile>
+            <profile>
+         <id>ZZ DEPLOY-PROD</id>
+         <properties>
+            <!-- Mode PROD -->
+            <web.mode>PROD</web.mode>
+            <service.mode>PROD</service.mode>
+            <!-- Host PROD -->
+            <base.data.dir>/data</base.data.dir>
+            <base.rbsa.dir>/data/</base.rbsa.dir>
+            <base.clientdata.dir>/data/client</base.clientdata.dir>
+            <base.advisor.dir>/data/advisor</base.advisor.dir>
+            <catalina.base>/inv/www/</catalina.base>
+            <base.web.dir>/inv/www/invessence/ROOT</base.web.dir>
+            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
+            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
+            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
+            <ftp.localdir>${base.data.dir}/eodfiles</ftp.localdir>
+            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
+            <report.localdir>${base.data.dir}/rpt/</report.localdir>
+            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
+            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
+            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
+            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
+            <!-- DB PROD -->
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <service.url>jdbc:mysql://localhost:3306/service?noAccessToProcedureBodies=true</service.url>
+            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>weblocal</jdbc.username>
+            <jdbc.password>Ma5t3r0p7i0n</jdbc.password>
          </properties>
       </profile>
    </profiles>
