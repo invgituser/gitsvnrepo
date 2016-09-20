@@ -19,29 +19,29 @@
                                       required="true" requiredMessage="Please choose one of these choices">
                         <p:ajax listener="#{tcmpb.onChangeValue}"
                                 update=":ceForm:inputArea"/>
-                        <f:selectItem itemLabel="Maximize Current Income" itemValue="1" />
+                        <f:selectItem itemLabel="Maximize current income" itemValue="1" />
                         <f:selectItem itemLabel="Emphasizing income with some potential for growth" itemValue="2" />
                         <f:selectItem itemLabel="Emphasizing growth with some potential for income" itemValue="3" />
                         <f:selectItem itemLabel="Growth" itemValue="4" />
-                        <f:selectItem itemLabel="Maximizing Growth" itemValue="5" />
+                        <f:selectItem itemLabel="Maximizing growth" itemValue="5" />
                     </p:selectOneRadio>
                 </div>
                 <p:message for="p3id" display="text"/>
             </div>
 
-        <div class="EmptyBox5"></div>
-        <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
-                         update=":ceForm:inputArea"
-                         immediate="true"
-                         actionListener="#{tcmpb.prevPage}">
-                         <h:outputText value="Previous" />
-                         </p:commandLink>
-             <p:commandLink styleClass="UI-nextButton Fright UI-tcmButton"   rendered="#{tcmpb.pagemanager.nextButtonStat}"
-                         update=":ceForm:inputArea"
-                         actionListener="#{tcmpb.nextPage}">
-                         <h:outputText value="Next" />
-                         </p:commandLink>
-                         </div>
+            <div class="EmptyBox5"></div>
+            <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+                           update=":ceForm:inputArea"
+                           immediate="true"
+                           actionListener="#{tcmpb.prevPage}">
+                <h:outputText value="Previous" />
+            </p:commandLink>
+            <p:commandLink styleClass="UI-nextButton Fright UI-tcmButton"   rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                           update=":ceForm:inputArea"
+                           actionListener="#{tcmpb.nextPage}">
+                <h:outputText value="Next" />
+            </p:commandLink>
+        </div>
         <div class="Container50 Responsive100">
             <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
         </div>

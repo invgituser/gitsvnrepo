@@ -174,7 +174,7 @@
 
             <p:panel id="jointaddressPanel" style="border: 0px; background: transparent">
 
-                <div class="Container100 Responsive100 MarTop5 MarCenter"
+                <div class="Container80 Responsive100 MarTop5 MarCenter"
                      style="margin-bottom: 15px;">
                     <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasDifferent}"
                                              itemLabel="Has different address then primary account holder?">
@@ -323,15 +323,7 @@
                                              placeholder="Zip Code">
                                 </p:inputText>
                             </div>
-                        </div>
-                    </p:panel>
-                </p:panel>
-
-
-
-
-
-                <div class="Container100 MarTop20" style="margin: 10px 10px;">
+                            <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
                                    update="@form"/>
@@ -340,6 +332,10 @@
                                    actionListener="#{tdcto.nextPage}"
                                    update="@form"/>
                 </div>
+                        </div>
+                    </p:panel>
+                </p:panel>
+
             </p:panel>
 
 

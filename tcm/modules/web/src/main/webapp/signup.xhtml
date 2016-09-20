@@ -36,6 +36,17 @@
 
 									<p:messages id="signmsg" showDetail="false" sticky="true"
 										escape="true" closable="true" />
+										<div><label class="sigupLabel">Full Name</label></div>
+										<p:inputText id="firstName" styleClass="FS14 InputMergeRight CustomWidthFA3"
+                                                         value="#{userBean.userdata.firstName}" placeholder="First Name"
+                                                         required="true" requiredMessage="Please enter First Name.">
+                                            </p:inputText>
+
+                                            <p:inputText id="lastName" styleClass="FS14 InputMergeLeft CustomWidthFA3"
+                                                         value="#{userBean.userdata.lastName}" placeholder="Last Name"
+                                                         required="true" requiredMessage="Please enter Last Name.">
+                                                <p:watermark for="lastName" value="Last Name"/>
+                                            </p:inputText>
 									<div class="EmptyBox10"></div>
 									<label class="sigupLabel">Email Id</label>
 									<p:inputText id="email"
@@ -108,7 +119,7 @@
 							</p:panel>
 
 						</p:panel>
-						<div class="EmptyBox20"></div>
+						<div class="EmptyBox10"></div>
 					</h:form>
 				</div>
 			</div>

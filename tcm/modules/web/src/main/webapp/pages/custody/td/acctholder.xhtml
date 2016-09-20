@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
 <p:tabView activeIndex="#{tdcto.subtab}">
-<p:tab title="Account Holder">
+<p:tab title="Primary Holder">
     <p:panel id="ownerHolderPanel"
              style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
@@ -101,8 +101,7 @@
                 </div>
 
             </div>
-        </div>
-        <div class="Container100 MarTop20" style="margin: 10px 10px;">
+            <div class="Container100 MarTop20" style="margin: 10px 10px;">
             <p:commandLink styleClass="UI-prevButtonFA Fleft"
                            actionListener="#{tdcto.prevPage}"
                            update="@form"/>
@@ -111,10 +110,12 @@
                            actionListener="#{tdcto.nextPage}"
                            update="@form"/>
         </div>
+        </div>
+        
     </p:panel>
 
 </p:tab>
-<p:tab title="Joint Account Holder" rendered="#{tdcto.tdMasterData.isJointAcct}">
+<p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}">
     <p:panel id="jointHolderPanel"
              style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
@@ -208,8 +209,7 @@
                 </div>
 
             </div>
-        </div>
-        <div class="Container100 MarTop20" style="margin: 10px 10px;">
+            <div class="Container100 MarTop20" style="margin: 10px 10px;">
             <p:commandLink styleClass="UI-prevButtonFA Fleft"
                            actionListener="#{tdcto.prevPage}"
                            update="@form"/>
@@ -218,6 +218,8 @@
                            actionListener="#{tdcto.nextPage}"
                            update="@form"/>
         </div>
+        </div>
+        
     </p:panel>
 
 </p:tab>

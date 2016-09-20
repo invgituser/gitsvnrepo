@@ -17,7 +17,7 @@
                      style="margin-top:5%;">
                     <div class="Container90 Fnone MarAuto TexAlLeft">
 
-                        <h:form>
+                        <h:form styleClass="formPage">
                             <div class="EmptyBox5"></div>
                             <p:panel id="signup" styleClass="Container100" style="border:0px; background: transparent; margin-top:0!important;">
 
@@ -31,7 +31,7 @@
 
                                         <div class="Container100" style="text-align: center;">
                                             <p:inputText id="firstName" styleClass="FS14 InputMergeRight CustomWidthFA3"
-                                                         value="#{userBean.userdata.firstName}" placeholder="FirstName"
+                                                         value="#{userBean.userdata.firstName}" placeholder="First Name"
                                                          required="true" requiredMessage="Please enter First Name.">
                                             </p:inputText>
 
@@ -43,7 +43,7 @@
 
                                             <div class="EmptyBox10"></div>
 
-                                            <p:inputText id="email" styleClass="Wid80 FS14 CustomWidthFA2"
+                                            <p:inputText id="email" styleClass="Wid100 FS14 CustomWidthFA2"
                                                          value="#{userBean.userdata.email}" placeholder="Email"
                                                          required="true" requiredMessage="Please enter Email."
                                                          validatorMessage="Email format is not correct.">
