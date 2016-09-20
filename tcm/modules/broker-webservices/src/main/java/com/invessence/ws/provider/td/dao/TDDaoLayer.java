@@ -19,7 +19,7 @@ public interface TDDaoLayer
 
    public List<BenefiaciaryDetails> getBenefiaciaryDetails(Long acctNum, Long reqId)throws SQLException;
 
-   public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum)throws SQLException;
+   //public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum)throws SQLException;
 
    public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Integer eventNum)throws SQLException;
 

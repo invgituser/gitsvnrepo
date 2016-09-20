@@ -114,15 +114,15 @@ public class TDDaoLayerImpl implements TDDaoLayer
       return lst;
    }
 
-   @Override
-   public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum) throws SQLException
-   {
-      List<MoveMoneyDetails> lst = null;
-      logger.debug("getMoveMoneyDetail = "+getMove_money_details);
-      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{eventNum,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
-
-      return lst==null || lst.size()<=0 ? null: lst.get(0);
-   }
+//   @Override
+//   public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum) throws SQLException
+//   {
+//      List<MoveMoneyDetails> lst = null;
+//      logger.debug("getMoveMoneyDetail = "+getMove_money_details);
+//      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{eventNum,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
+//
+//      return lst==null || lst.size()<=0 ? null: lst.get(0);
+//   }
 
    @Override
    public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Integer eventNum) throws SQLException

@@ -10,7 +10,7 @@ public class BenefiaciaryDetails {
 	private String beneMidInitial;
 	private String beneLastName;
 	private String beneSSN;
-	private Date beneDOB;
+	private String beneDOB;
 	private String beneRel;
 	private String typeOfBeneficiary;
 	private String perStripes;
@@ -80,12 +80,12 @@ public class BenefiaciaryDetails {
 		this.beneSSN = beneSSN;
 	}
 
-	public Date getBeneDOB()
+	public String getBeneDOB()
 	{
 		return beneDOB;
 	}
 
-	public void setBeneDOB(Date beneDOB)
+	public void setBeneDOB(String beneDOB)
 	{
 		this.beneDOB = beneDOB;
 	}

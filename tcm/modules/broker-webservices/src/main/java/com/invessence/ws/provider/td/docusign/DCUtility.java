@@ -38,7 +38,7 @@ public class DCUtility
 {
    @Autowired
    TDDaoLayer tdDaoLayer;
-   public EnvelopeSummary createEnvelope (EnvelopeDefinition envDef)
+   public EnvelopeSummary createEnvelope (EnvelopeDefinition envDef/*, String acctNum, String eventNum*/)
    {
       try {
          ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -276,6 +276,49 @@ public class DCUtility
       Recipients recipients=null;
 
       signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst);
+         if(acctDetails.getBenefiaciaryDetails()==null || acctDetails.getBenefiaciaryDetails().size()<=0){
+
+         }else{
+         Iterator<BenefiaciaryDetails> itr1 = acctDetails.getBenefiaciaryDetails().iterator();
+            int iterCount=1;
+         while (itr1.hasNext())
+         {
+            BenefiaciaryDetails beneDetails = (BenefiaciaryDetails) itr1.next();
+            dbColumns = null;
+            try
+            {
+               dbColumns = getFieldNames(beneDetails, false);
+            }
+            catch (IllegalAccessException e)
+            {
+               e.printStackTrace();
+            }
+
+//            if (acctOwner.getOwnership().equalsIgnoreCase("Client"))
+//            {
+//               System.out.println("Client");
+//               dcDocumentMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
+            List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
+            // System.out.println("dcDocumentMappingList = " + dcDocumentMappingList);
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, beneDetails, ""+iterCount, true);
+            iterCount++;
+//            }
+//            else if (acctOwner.getOwnership().equalsIgnoreCase("Joint"))
+//            {
+//               System.out.println("Joint");
+//               dcDocumentMappingList = dcTemplateDetails.getDcTemplateMappings().get("Joint");
+//               if (dcDocumentMappingList == null || dcDocumentMappingList.size() <= 0)
+//               {
+//
+//               }
+//               else
+//               {
+//                  getTabObject(dcDocumentMappingList, dbColumns, textboxLst, signHereLst, radioGroupLst, listboxLst, acctOwner);
+//               }
+//            }
+         }
+      }
+
 
       if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
       if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
@@ -706,8 +749,7 @@ catch (Exception e)
 
       return signerLst;
    }
-   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst,
-   List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject){
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject){
      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
       while (itr1.hasNext()){
          DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
@@ -730,7 +772,6 @@ catch (Exception e)
       }
 
    }
-
    private void getTabObject(List<DCDocumentMapping> dcDocumentMappingList, List<String> dbColumns, List<Text> textboxLst, List<SignHere> signHereLst, Object dataObject, String documentId){
       Iterator<DCDocumentMapping> itr1= dcDocumentMappingList.iterator();
       while (itr1.hasNext()){
@@ -751,6 +792,36 @@ catch (Exception e)
          }
       }
    }
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst,
+                             List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject, String addLableVal, boolean isPostfix){
+      //0 preFix, 1 postFix
+      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
+      while (itr1.hasNext()){
+         DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
+         System.out.println(dctemplate.getDbColumn() +" : "+dctemplate.getDbColumn()+addLableVal+" : "+addLableVal+dctemplate.getDbColumn());
+
+         System.out.println(dbColumns.contains(dctemplate.getDbColumn()) + "(isPostfix==true?"+ dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal)+" : "+dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()));
+         //if(dbColumns.contains(dctemplate.getDbColumn()) && (isPostfix==true? dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal):dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()))){
+         if(dbColumns.contains(dctemplate.getDbColumn()) && (isPostfix==true? dctemplate.getLable().equalsIgnoreCase(dctemplate.getDbColumn()+addLableVal):dctemplate.getLable().equalsIgnoreCase(addLableVal+dctemplate.getDbColumn()))){
+
+            if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
+               Text text=getText(dctemplate, dataObject);
+               if(text==null){}else{textboxLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
+               Checkbox text=getCheckbox(dctemplate, dataObject);
+               if(text==null){}else{checkboxeLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
+               RadioGroup text=getRadioGroup(dctemplate, dataObject);
+               if(text==null){}else{radioGroupLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
+               com.docusign.esign.model.List text=getList(dctemplate, dataObject);
+               if(text==null){}else{listboxLst.add(text);}
+            }
+         }
+      }
+
+   }
+
    private IdCheckInformationInput getKBAInputs(AcctOwnerDetails acctOwnerDetails){
       IdCheckInformationInput idCheckInformationInput=new IdCheckInformationInput();
       AddressInformationInput addressInformationInput=new AddressInformationInput();
@@ -774,6 +845,7 @@ catch (Exception e)
 
      return idCheckInformationInput;
    }
+
 
    private Text getText (DCDocumentMapping documentMapping, Object dataObject, String documentId,String identifier){
       Text text=null;

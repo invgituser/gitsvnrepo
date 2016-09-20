@@ -5,6 +5,9 @@ import java.util.*;
 import java.util.List;
 
 import com.docusign.esign.model.*;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.*;
 import com.invessence.service.bean.*;
 import com.invessence.service.util.*;
 import com.invessence.ws.bean.WSCallResult;
@@ -35,6 +38,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       String emailSubject=null;
       Map<String,DCTemplateDetails> dcTemplateDetails=(Map<String,DCTemplateDetails>) ServiceParameters.additionalDetails.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()).get(Constant.ADDITIONAL_DETAILS.TEMPLATE_DETAILS.toString());
       Map<String,ServiceOperationDetails> docuSignOperationDetails=ServiceParameters.serviceDetailsMap.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()).get(Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString());
+
       Iterator<DCRequest> itr=dcRequests.iterator();
       int reqCounter=1;
       envDef.setCompositeTemplates(new ArrayList<CompositeTemplate>());
@@ -58,32 +62,31 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
 
             CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
+            //agreementDocuments(dcRequest);
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString())){
             CompositeTemplate compositeTemplate=acctTransfer(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
-            //agreementDocuments(dcRequest);
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())){
-            System.out.println("*********************");
-            System.out.println("dcTemplateDetail :"+dcTemplateDetail);
             CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
+            //agreementDocuments(dcRequest);
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_MOVE_MONEY_NEW.toString())
             ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_MOVE_MONEY_CHANGE.toString())
             ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_MOVE_MONEY_REMOVE.toString())){
-            
+            CompositeTemplate compositeTemplate=moveMoney(dcRequest, dcTemplateDetail,""+reqCounter);
+            envDef.getCompositeTemplates().add(compositeTemplate);
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString())){
-            
+            System.out.println("Required in next phase");
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_NEW.toString())
             || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_CHANGE.toString())
             ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_REMOVE.toString())){
             CompositeTemplate compositeTemplate=moveMoney(dcRequest, dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
-
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ELEC_FUND_TRAN_CHANGE.toString())
          ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ELEC_FUND_TRAN_NEW.toString())
@@ -97,6 +100,17 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       envDef.setStatus("sent");
 
       dcUtility.createEnvelope(envDef);
+
+//      try {
+//         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+//         mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+//         System.out.println("EnvelopeDefinition :" +mapper.writeValueAsString(envDef));
+//      } catch (JsonProcessingException e) {
+//         // TODO Auto-generated catch block
+//         e.printStackTrace();
+//      }
 
       return null;
    }
@@ -163,7 +177,6 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       compositeTemplate.getInlineTemplates().add(inlineTemplate);
       return compositeTemplate;
    }
-
 
    private void agreementDocuments(DCRequest dcRequest){
       System.out.println("TDAccountOpeningLayerImpl.agreementDocumnets");
@@ -286,7 +299,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       List<AcctOwnerDetails> acctOwnerDetails=null;
       try
       {
-         acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+         acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), true);
          acctOwnerDetails=tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), true);
          acctDetails.setAcctOwnerDetails(acctOwnerDetails);
       }
