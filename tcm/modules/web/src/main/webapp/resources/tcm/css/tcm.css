@@ -152,7 +152,7 @@ img.riskImage:hover {
 }
 
 .MarAuto {
-    margin: 0 auto;
+    margin: 0 auto!important;
 }
 
 .Seperator {
@@ -271,11 +271,11 @@ img.riskImage:hover {
         width: 100%!important;
         margin: 5px 0;
         float: none!important;
-        padding: 10px 1px!important;
+        /* padding: 10px 1px!important; */
     }
     
     .CustomWidthFA2, .MiddleInitialWidth, .InputMergeRight, .InputMergeLeft {
-    padding: 10px 1px!important;
+   /*  padding: 10px 1px!important; */
     }
 
     .Margin-FAAddress {
@@ -460,6 +460,10 @@ img.riskImage:hover {
 }
 
 /*Prakash*/
+.RiskQuestionBlock > table > tbody> tr > td >label {
+    text-transform: capitalize;
+}
+
 .sigupLabel {
 font-size: 14px;
     font-weight: bold!important;

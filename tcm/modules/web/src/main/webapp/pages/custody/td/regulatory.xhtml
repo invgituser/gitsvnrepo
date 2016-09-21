@@ -174,29 +174,29 @@
 						</p:selectBooleanCheckbox>
 					</div>
 					<div class="EmptyBox20"></div>
+					<p:panel style="border: 0px; background: transparent;">
 					<div class="Container100">
-							<div class="Container45 Fleft CustomWidthFA-Responsive">
-								<label Class="Container100"
-									style="text-align: left !important; font-weight: bold !important;">Entity</label>
+						<div class="Container45 Fleft CustomWidthFA-Responsive">
+							<label Class="Container100"
+								style="text-align: left !important; font-weight: bold !important;">Entity</label>
 
-								<div class="EmptyBox5"></div>
-								<p:inputText
-									
-									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-									placeholder="Entity">
-								</p:inputText>
-							</div>
-							</div>
-							<div class="Container100 MarTop20" style="margin: 10px 10px;">
-				<p:commandLink styleClass="UI-prevButtonFA Fleft"
-					actionListener="#{tdcto.prevPage}" update="@form" />
+							<div class="EmptyBox5"></div>
+							<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+								placeholder="Entity">
+							</p:inputText>
+						</div>
+					</div>
+					</p:panel>
+					<div class="Container100 MarTop20" style="margin: 10px 10px;">
+						<p:commandLink styleClass="UI-prevButtonFA Fleft"
+							actionListener="#{tdcto.prevPage}" update="@form" />
 
-				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-					actionListener="#{tdcto.nextPage}" update="@form" />
-			</div>
+						<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+							actionListener="#{tdcto.nextPage}" update="@form" />
+					</div>
 				</p:panel>
 			</div>
-			
+
 		</p:tab>
 		<p:tab title="Joint Holder" disabled="true" rendered="false">
 		</p:tab>

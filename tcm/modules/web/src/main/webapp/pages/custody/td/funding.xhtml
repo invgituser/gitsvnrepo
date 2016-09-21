@@ -281,6 +281,7 @@
                                         <f:selectItem itemValue="" itemLabel="Stifel, Nicolaus and Company Incorporated" />
                                         <f:selectItem itemValue="" itemLabel="Wachovia Securities" />
                                         <f:selectItem itemValue="" itemLabel="Wedbush Securities Inc." />
+                                        <f:selectItem itemValue="" itemLabel="Others" />
                                     </p:selectOneMenu>
                                 </div>
                             </div>
@@ -347,8 +348,22 @@
                             </div>
 
                             <div class="EmptyBox20"></div>
+                            
                         </p:panel>
+<div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
+                    <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                                   actionListener="#{tdcto.prevPage}"
+                                   process="@this"
+                                   update="@form"/>
 
+                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                    				style="background-position-x: 50px!important;"
+                                   rendered="#{tdcto.tdMasterData.recurringFlag}"
+                                   actionListener="#{tdcto.nextPage}"
+                                   process="@parent"
+                                   update="@form"/>
+
+                </div>
                         <!-- Wire transfer -->
                         <p:panel id="wirePanel" styleClass="Container80 Fnone"
                                  style="border: 0px; background: transparent; margin: 0 auto!important;"
@@ -407,19 +422,7 @@
 
                     </p:panel>
                 </div>
-                <div class="Container100 MarTop20" style="margin: 10px 10px;">
-                    <p:commandLink styleClass="UI-prevButtonFA Fleft"
-                                   actionListener="#{tdcto.prevPage}"
-                                   process="@this"
-                                   update="@form"/>
-
-                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                                   rendered="#{tdcto.tdMasterData.recurringFlag}"
-                                   actionListener="#{tdcto.nextPage}"
-                                   process="@parent"
-                                   update="@form"/>
-
-                </div>
+                
 
             </p:panel>
         </p:tab>
@@ -573,8 +576,8 @@
                                    process="@this"
                                    update="@form"/>
 
-                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                            rendered="false"/>
+                  <!--   <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                            rendered="false"/> -->
                 </div>
             </p:panel>
 
