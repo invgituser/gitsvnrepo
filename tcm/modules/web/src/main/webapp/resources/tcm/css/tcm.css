@@ -201,6 +201,7 @@ img.riskImage:hover {
 }
 
 @media (max-width: 735px){
+		
 	.ui-selectonemenu label.ui-selectonemenu-label {
 	    color: #778D9B!important;
     padding: 7px 1px!important;
@@ -225,6 +226,11 @@ img.riskImage:hover {
     }
 }
 
+@media (min-width:735px) {
+	.portfolioCreationDD {
+	width: 180px!important;
+	}
+}
 @media (max-width: 735px) {
 	.FsRes14 {
 	font-size: 14px!important;
@@ -460,6 +466,24 @@ img.riskImage:hover {
 }
 
 /*Prakash*/
+
+.ui-state-error {
+    height: 97%!important;
+}
+
+.perStripesHelp, .perStripesHelp > span {
+background: transparent!important;
+    border: 0!important;
+    width: 0!important;
+    height: 0!important;
+    margin: 0!important;
+    margin-top: 11px!important;
+}
+
+.perStripesHelp > span {
+	display: none!important;
+}
+
 .RiskQuestionBlock > table > tbody> tr > td >label {
     text-transform: capitalize;
 }
