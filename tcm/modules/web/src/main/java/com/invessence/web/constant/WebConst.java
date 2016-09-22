@@ -49,6 +49,17 @@ public class WebConst
    public final static String HTML_INVOICE = "HTML.INVOICE";
    public final static String HTML_SURVEY = "HTML.SURVEY";
 */
+   public final static String EMAIL_ACTIVATE = "EMAIL_ACTIVATE";
+   public final static String EMAIL_LOCKED = "EMAIL_LOCKED";
+   public final static String EMAIL_RESET = "EMAIL_RESET";
+   public final static String EMAIL_WELCOME = "EMAIL_WELCOME";
+   public final static String EMAIL_WELCOME_ADV = "EMAIL_WELCOME_ADV";
+
+   public final static String EMAIL_ACTIVATE_SUBJECT = "EMAIL.ACTIVATE.SUBJECT";
+   public final static String EMAIL_LOCKED_SUBJECT = "EMAIL.LOCKED.SUBJECT";
+   public final static String EMAIL_RESET_SUBJECT = "EMAIL.RESET.SUBJECT";
+   public final static String EMAIL_WELCOME_SUBJECT = "EMAIL.WELCOME.SUBJECT";
+   public final static String EMAIL_WELCOME_ADV_SUBJECT = "EMAIL.WELCOME.SUBJECT";
 
    public final static String HTML_ACTIVATED = "html.activated.email";
    public final static String HTML_WELCOME = "html.welcome.email";

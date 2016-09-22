@@ -478,7 +478,7 @@ public class YodleeAPIServiceImpl implements YodleeAPIService {
 			if(jb.has("Error")==true){
 				JSONArray errJA=jb.getJSONArray("Error");
 				int accArrLen=errJA.length();
-				System.out.println(accArrLen+" accArrLen");
+				// System.out.println(accArrLen+" accArrLen");
 				if(accArrLen>0){
 
 					for (int j = 0; j < errJA.length(); j++) {

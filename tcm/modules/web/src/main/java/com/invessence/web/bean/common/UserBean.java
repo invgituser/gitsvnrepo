@@ -20,6 +20,7 @@ import org.apache.commons.logging.*;
 public class UserBean implements Serializable
 {
    protected final Log logger = LogFactory.getLog(getClass());
+   private Boolean newRegistration;
    private String beanUserID, beanResetID, beanEmail;
    private String beanCustID;
    private String beanLogonID;
@@ -62,6 +63,11 @@ public class UserBean implements Serializable
    public UserBean()
    {
       userdata = new UserData();
+   }
+
+   public Boolean getNewRegistration()
+   {
+      return newRegistration;
    }
 
    public UserData getUserdata()
@@ -227,6 +233,7 @@ public class UserBean implements Serializable
       beanans1 = null;
       beanans2 = null;
       beanans3 = null;
+      beanCustID = null;
       attempts = 0;
       userdata = new UserData();
 
@@ -295,7 +302,7 @@ public class UserBean implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             logger.debug("LOG: Activate UserID = " + beanUserID);
-            if (beanUserID == null || beanUserID.isEmpty())
+            if (beanLogonID == null || beanLogonID.isEmpty())
             {
                logger.debug("Info: During activation section: " + beanUserID + " is missing!");
                webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid reset data.");
@@ -303,11 +310,7 @@ public class UserBean implements Serializable
             }
             resetBean();
             logger.debug("LOG: fetch data for, UserID = " + beanUserID + ", Reset " + beanResetID);
-            userdata.setUserID(beanUserID);
-            if (beanLogonID != null)
-               userdata.setLogonID(getLongBeanLogonID());
-            else
-               userdata.setLogonID(null);
+            userdata.setLogonID(getLongBeanLogonID());
             userdata.setResetID(beanResetID);
             String validateMsg = validateReset();
             if (validateMsg != null && !validateMsg.isEmpty())
@@ -327,6 +330,37 @@ public class UserBean implements Serializable
       }
    }
 
+   private Boolean checkRegistrationInfo() {
+      userInfoDAO.selectUserInfo(userdata);
+      if (userdata.getLogonID() == null || userdata.getLogonID() < 0L)
+         return false;
+
+      // Check that logoid that was passed matches the DB
+      if (beanLogonID != null) {
+         if (userdata.getLogonID().equals(getLongBeanLogonID())) {
+            if (userdata.getLogonstatus() != null && (
+               userdata.getLogonstatus().startsWith("I") || userdata.getLogonstatus().startsWith("T")))
+               return true;
+            else
+               return false;
+         }
+      }
+      else {
+         if (beanEmail != null) {
+            // It there was NO match with LOGONID, then Check that email matches the DB.
+            if (userdata.getEmail().equalsIgnoreCase(beanEmail)) {
+               if (userdata.getLogonstatus() != null && (
+                  userdata.getLogonstatus().startsWith("I") || userdata.getLogonstatus().startsWith("T")))
+                  return true;
+               else
+                  return false;
+            }
+         }
+      }
+      // Cannot continue, the data does not match.
+      return false;
+   }
+
    // This method is used twice.  Either the email address is provided and we need to find the corresponding record.
    // Or there is not data and register is clicked from logon window.
    public void preRenderCreateUserID()
@@ -337,14 +371,14 @@ public class UserBean implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            Boolean canCreateID = false;
             beanUserID = null;
             beanResetID = null;
+            newRegistration = true;
             resetBean();
             if (beanEmail != null && ! beanEmail.isEmpty())
             {
               userdata.setEmail(beanEmail);
-              canCreateID = true;
+               newRegistration = false;
            }
             else {
                userdata.setEmail(null);
@@ -352,30 +386,31 @@ public class UserBean implements Serializable
 
             if (beanLogonID != null && ! beanLogonID.isEmpty()) {
                userdata.setLogonID(getLongBeanLogonID());
-               canCreateID = true;
+               newRegistration = false;
             }
             else {
                userdata.setLogonID(null);
             }
 
             // If either email or logonid is provided, then find the correspinding record.
-            if (canCreateID) {
+            if (! newRegistration) {
                userdata.setUserID(null);
                userdata.setLogonstatus(null);
-               Integer check = userInfoDAO.checkReset(userdata);
-               if (check > 0)
+
+
+               if (checkRegistrationInfo())
                {
-                  logger.debug("Info: User is already registered: " + userdata.getEmail());
-                  msgheader = "signup.U103";
-                  // msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.", null);
-                  webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
-               }
-               else {
                   // NOTE:  This signup method is called from either welcome link or it is called from register on main page.
                   // If the user is not found or it is valid reset, then continue.
                   beanEmail = userdata.getEmail(); // If data was found then add to interface.
                   beanUserID = userdata.getUserID(); // If data found then add to interface.
                   logger.info("Info: Start registration process for: " + userdata.getEmail());
+               }
+               else {
+                  logger.debug("Info: User is already registered: " + userdata.getEmail());
+                  msgheader = "signup.U103";
+                  // msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.", null);
+                  webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
                }
             }
          }
@@ -418,7 +453,7 @@ public class UserBean implements Serializable
             if (logonID > 0L)
             {
                logger.debug("Info: Saving data UserID/Password, all checks were successful for: " + userdata.getUserID());
-               sendConfirmation();
+               webutil.sendConfirmation(userdata);
                //uiLayout.doMenuAction("consumer","aftersignup.xhtml?log="+userdata.getLogonID()+"&acct="+userdata.getAcctnum().toString());
                uiLayout.doMenuAction("custody", "index.xhtml?acct=" + userdata.getAcctnum().toString());
             }
@@ -482,7 +517,7 @@ public class UserBean implements Serializable
             Long logonID = saveUser(logonStatus);
             if (logonID > 0L)
             {
-               sendConfirmation();
+               webutil.sendConfirmation(userdata);
                webutil.redirect("/signup2.xhtml", null);
             }
             else {
@@ -511,6 +546,11 @@ public class UserBean implements Serializable
 
          saveQnA();
          // If there is no error with QA save, then redirect to proper page.
+         beanEmail = null;
+         beanLogonID = null;
+         beanUserID = null;
+         resetBean();
+
          if (userdata.getLogonstatus() != null && getUserdata().getLogonstatus().startsWith("A"))
          {
             webutil.redirect("/signup4.xhtml", null);
@@ -709,7 +749,7 @@ public class UserBean implements Serializable
       {
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email is required", "Email is required"));
       }
-      sendConfirmation();
+      webutil.sendConfirmation(userdata);
    }
 
    public void sendResetEmail()
@@ -731,7 +771,7 @@ public class UserBean implements Serializable
          Integer myResetID = webutil.randomGenerator(0, 347896);
          userInfoDAO.updResetID(userdata.getUserID(), myResetID.toString());
          userdata.setLogonstatus("R");
-         sendConfirmation();
+         webutil.sendConfirmation(userdata);
       }
       else {
          logger.debug("Warning: Reset Denied: " + beanEmail);
@@ -816,120 +856,5 @@ public class UserBean implements Serializable
             break;
       }
    }
-
-   public void sendConfirmation() {
-      if (userdata.getEmail() == null) {
-         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Session timed out.  Use Forgot password to get access to your account.", "System timed out"));
-      }
-
-      if (userdata.getLogonstatus() != null && userdata.getLogonstatus().startsWith("A")) {
-         return;
-      }
-      logger.debug("Debug: Sending confirmation email: " + userdata.getEmail());
-
-      MsgData data = new MsgData();
-      data.setSource("User");  // This is set to User to it insert into appropriate table.
-      data.setSender(webutil.getUiprofile().getEmailUser());
-      data.setReceiver(userdata.getEmail());
-      String secureUrl = webutil.getUiprofile().getSecurehomepage();
-      String name = userdata.getFullName();
-
-      String emailMsgType;
-      String htmlfile = null, htmltempate = null, textInfo = null;
-      String whichURL = null;
-      String subject = "No subject";
-
-      Integer whichEmail = 0;
-      if (userdata.getLogonstatus() == null) {
-         return; // No email
-      }
-      else {
-         if (userdata.getLogonstatus().startsWith("A"))
-            whichEmail = 0;
-         else if (userdata.getLogonstatus().startsWith("T"))
-            whichEmail = 0;
-         else if (userdata.getLogonstatus().startsWith("R"))
-               whichEmail = 1;
-         else  if (userdata.getLogonstatus().startsWith("I"))
-            whichEmail = 8;
-         else  whichEmail = 9;
-      }
-
-      switch (whichEmail) {
-         case 0:
-            subject = "Account Activated";
-            textInfo = WebConst.TEXT_ACTIVATED;
-            htmltempate = WebConst.HTML_ACTIVATED;
-            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_ACTIVATED);
-            whichURL=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
-            break;
-         case 1:
-            subject = "Account Reset";
-            textInfo = WebConst.TEXT_RESET;
-            htmltempate = WebConst.HTML_RESET;
-            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_RESET);
-            whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
-            break;
-         case 2:
-         case 3:
-         case 4:
-         case 5:
-         case 6:
-         case 7:
-         case 8:
-         case 9:
-            subject = "Welcome";
-            whichURL=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
-            if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
-               textInfo = WebConst.TEXT_WELCOME_ADV;
-               htmltempate = WebConst.HTML_WELCOME_ADV;
-               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME_ADV);
-            }
-            else {
-               textInfo = WebConst.TEXT_WELCOME;
-               htmltempate = WebConst.HTML_WELCOME;
-               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME);
-            }
-            break;
-         default:
-
-      }
-
-      if (htmltempate == null) {
-         emailMsgType = "TEXT";
-         htmlfile = null;
-      }
-      else {
-         emailMsgType = "HTML";
-         htmlfile = htmltempate;
-         // htmlfile = "/template/html/" + htmltempate;
-      }
-
-      data.setSubject(subject);
-      String msg = webutil.getMessageText().buildMessage(emailMsgType,
-                                                         htmlfile,
-                                                         textInfo,
-                                                         new Object[]{
-                                                            whichURL,
-                                                            userdata.getLogonID().toString(),
-                                                            userdata.getUserID(),
-                                                            userdata.getEmail(),
-                                                            userdata.getResetID(),
-                                                            userdata.getFirstName(),
-                                                            userdata.getLastName(),
-                                                            userdata.getEmail(),
-                                                            webutil.getUiprofile().getSupportemail(),
-                                                            webutil.getUiprofile().getSupportphone(),
-                                                            webutil.getUiprofile().getCompanyname(),
-                                                            webutil.getUiprofile().getLogo()
-                                                         });
-      data.setMsg(msg);
-      webutil.getMessageText().writeMessage("custom", data);
-      logger.debug("Debug: Sending Activation email to: " + userdata.getEmail());
-
-   }
-
-
-
 
 }

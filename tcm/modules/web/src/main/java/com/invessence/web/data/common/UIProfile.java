@@ -36,6 +36,7 @@ public class UIProfile
    String customcss;
    String webmode;
    String googleAnalytic;
+   String emailUser;
 
    String custodydir;
    String custodycss;
@@ -45,15 +46,13 @@ public class UIProfile
    String rep;
 
    // List of email templates for appropriate correspondance
-   String emailHost;
-   String emailUser;
-   String emailPassword;
-   String emailPort;
    Map<String,String> emailTemplateMap;
+   Map<String,String> emailSubjectMap;
 
    public UIProfile()
    {
       emailTemplateMap = new HashMap<String, String>();
+      emailSubjectMap = new HashMap<String, String>();
    }
 
    public UIProfile(String cid,
@@ -65,8 +64,10 @@ public class UIProfile
                     String theme, String themelib,
                     String templatedir,
                     String consumerdir, String cssdir, String customcss, String webmode,
-                    String emailHost, String emailUser, String emailPassword, String emailPort)
+                    String emailUser)
    {
+      emailTemplateMap = new HashMap<String, String>();
+      emailSubjectMap = new HashMap<String, String>();
       resetAllInfo(cid,
                    companyname, homepage, securehomepage,
                    logo, logosize, logolib,
@@ -76,7 +77,7 @@ public class UIProfile
                    theme, themelib,
                    templatedir,
                    consumerdir, cssdir, customcss, webmode,
-                   emailHost, emailUser, emailPassword, emailPort);
+                   emailUser);
    }
 
    public String getCid()
@@ -316,9 +317,30 @@ public class UIProfile
          this.emailTemplateMap.put(key,value);
    }
 
-   public String getEmailHost()
+   public String getEmailSubject(String key)
    {
-      return emailHost;
+      if (key == null || emailSubjectMap == null)
+         return null;
+
+      if (emailSubjectMap.containsKey(key))
+         return emailSubjectMap.get(key);
+      return null;
+   }
+
+   public void setEmailSubject(String key, String value)
+   {
+      if (emailSubjectMap != null)
+         this.emailSubjectMap.put(key,value);
+   }
+
+   public Map<String, String> getEmailSubjectMap()
+   {
+      return emailSubjectMap;
+   }
+
+   public void setEmailSubjectMap(Map<String, String> emailSubjectMap)
+   {
+      this.emailSubjectMap = emailSubjectMap;
    }
 
    public String getEmailUser()
@@ -326,14 +348,9 @@ public class UIProfile
       return emailUser;
    }
 
-   public String getEmailPassword()
+   public void setEmailUser(String emailUser)
    {
-      return emailPassword;
-   }
-
-   public String getEmailPort()
-   {
-      return emailPort;
+      this.emailUser = emailUser;
    }
 
    public void resetAllInfo(String cid,
@@ -346,7 +363,7 @@ public class UIProfile
                             String templatedir,
                             String consumerdir, String cssdir, String customcss,
                             String webmode,
-                            String emailHost, String emailUser, String emailPassword, String emailPort)
+                            String emailUser)
    {
       setCid(cid);
       this.companyname = companyname;
@@ -366,10 +383,7 @@ public class UIProfile
       setConsumerdir(consumerdir);
       resetTheme(theme, themelib, templatedir, cssdir, customcss);
       this.webmode = webmode;
-      this.emailHost = emailHost;
       this.emailUser = emailUser;
-      this.emailPassword = emailPassword;
-      this.emailPort = emailPort;
    }
 
 

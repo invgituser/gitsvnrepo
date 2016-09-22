@@ -1,7 +1,7 @@
 package com.invessence.web.dao.common;
 
 import com.invessence.emailer.data.MsgData;
-import com.invessence.web.data.common.UserInfoData;
+import com.invessence.web.data.common.*;
 import com.invessence.web.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.simple.ParameterizedRowMapper;
@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.*;
 import java.util.*;
 
 import javax.faces.bean.ManagedProperty;
@@ -46,8 +47,13 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
    private String lockUserSql = null;
    private String listofQAQuery = null;
 
-   @Autowired
+   @ManagedProperty("#{webutil}")
    private WebUtil webutl;
+   public void setWebutl(WebUtil webutl)
+   {
+      this.webutl = webutl;
+   }
+
    boolean enabled = true;
    boolean accountNonLocked = true;
    boolean accountNonExpired = true;
@@ -73,6 +79,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       this.listofQAQuery = listofQAQuery;
    }
 
+   @Override
    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException
    {
 
@@ -118,7 +125,9 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String exception = null;
 
       String myIP = webutl.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
-      System.out.println("Attempting Logon >> " + username + " from: " + myIP);
+      DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+      Date date = new Date();
+      System.out.println("Attempting Logon >> " + username + " from: " + myIP + " date:" + dateFormat.format(date));
       userInfo = (UserInfoData) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(WebConst.USER_INFO);
 
       if (userInfo != null)
@@ -176,11 +185,11 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          {
             enabled = false;
             exception="This account is in locked mode.";
-            if (logonStatus.equalsIgnoreCase("I"))
+            if (logonStatus.equalsIgnoreCase("X"))
             {
                exception = "Username is disabled!";
             }
-            else if (logonStatus.equalsIgnoreCase("T"))
+            else if (logonStatus.equalsIgnoreCase("T") || logonStatus.equalsIgnoreCase("I"))
             {
                exception = "Username is not active, please activate account!";
             }
@@ -240,14 +249,10 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                String secureUrl = uiLayout.getUiprofile().getSecurehomepage();
 
                // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
-               String msg = emailMessage.buildMessage(emailmsgtype,"html.accountlocked.email", "txt.accountlocked.email", new Object[]{secureUrl, userid, rnumber.toString()} );
-               data.setSource("User");  // This is set to User to it insert into appropriate table.
-               data.setSender(Const.MAIL_SENDER);
-               data.setReceiver(savedemail);
-               data.setSubject(Const.COMPANY_NAME + " - Account Locked");
-               data.setMsg(msg);
-               data.setMimeType(emailmsgtype);
-               emailMessage.writeMessage("user", data);
+               UserData userdata = new UserData();
+               userdata.setLogonstatus(logonStatus);
+               userdata.setEmail(savedemail);
+               webutl.sendConfirmation(userdata);
                throw new BadCredentialsException("Too many attemps.  Account Locked!");
             }
          }

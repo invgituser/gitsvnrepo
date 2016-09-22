@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.converter.SQLData;
+import com.invessence.emailer.data.MsgData;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.common.*;
+import org.apache.commons.logging.*;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
@@ -24,7 +26,7 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 @SessionScoped
 public class WebUtil implements Serializable
 {
-
+   protected final Log webutillooger = LogFactory.getLog(getClass());
    public UIProfile uiprofile = new UIProfile();
    public SQLData converter = new SQLData();
 
@@ -790,6 +792,117 @@ public class WebUtil implements Serializable
       }
       return num;
    }
+
+   public void sendConfirmation(UserData userdata) {
+      if (userdata.getEmail() == null) {
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Session timed out.  Use Forgot password to get access to your account.", "System timed out"));
+      }
+
+      if (userdata.getLogonstatus() != null && userdata.getLogonstatus().startsWith("A")) {
+         return;
+      }
+      webutillooger.debug("Debug: Sending confirmation email: " + userdata.getEmail());
+
+      MsgData data = new MsgData();
+      data.setSource("User");  // This is set to User to it insert into appropriate table.
+      data.setSender(getUiprofile().getEmailUser());
+      data.setReceiver(userdata.getEmail());
+      String secureUrl = getUiprofile().getSecurehomepage();
+      String emailMsgType;
+      String htmlfile = null, htmltempate = null, textInfo = null;
+      String whichURL = null;
+      String subject = "No subject";
+
+      Integer whichEmail = 0;
+      if (userdata.getLogonstatus() == null) {
+         return; // No email
+      }
+      else {
+         if (userdata.getLogonstatus().startsWith("A"))
+            whichEmail = 0;
+         else if (userdata.getLogonstatus().startsWith("T"))
+            whichEmail = 0;
+         else if (userdata.getLogonstatus().startsWith("R"))
+            whichEmail = 1;
+         else if (userdata.getLogonstatus().startsWith("L"))
+            whichEmail = 2;
+         else  if (userdata.getLogonstatus().startsWith("I"))
+            whichEmail = 3;
+         else  whichEmail = 99;
+      }
+
+      switch (whichEmail) {
+         case 0:
+            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
+            textInfo = WebConst.TEXT_ACTIVATED;
+            htmltempate = WebConst.HTML_ACTIVATED;
+            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_ACTIVATED);
+            whichURL=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            break;
+         case 1:
+            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_RESET_SUBJECT);
+            textInfo = WebConst.TEXT_RESET;
+            htmltempate = WebConst.HTML_RESET;
+            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_RESET);
+            whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            break;
+         case 2:
+            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_LOCKED_SUBJECT);
+            textInfo = WebConst.TEXT_LOCKED;
+            htmltempate = WebConst.HTML_LOCKED;
+            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_LOCKED);
+            whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            break;
+         case 3:
+            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_WELCOME_SUBJECT);
+            whichURL=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
+               subject = getUiprofile().getEmailSubject(WebConst.EMAIL_WELCOME_ADV_SUBJECT);
+               textInfo = WebConst.TEXT_WELCOME_ADV;
+               htmltempate = WebConst.HTML_WELCOME_ADV;
+               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME_ADV);
+            }
+            else {
+               textInfo = WebConst.TEXT_WELCOME;
+               htmltempate = WebConst.HTML_WELCOME;
+               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME);
+            }
+            break;
+         default:
+            return;
+      }
+
+         emailMsgType = "HTML";
+         htmlfile = htmltempate;
+         // htmlfile = "/template/html/" + htmltempate;
+
+      data.setSubject(subject);
+      String msg = getMessageText().buildMessage(emailMsgType,
+                                                         htmlfile,
+                                                         textInfo,
+                                                         new Object[]{
+                                                            whichURL,
+                                                            userdata.getLogonID().toString(),
+                                                            userdata.getUserID(),
+                                                            userdata.getEmail(),
+                                                            userdata.getResetID(),
+                                                            userdata.getFirstName(),
+                                                            userdata.getLastName(),
+                                                            userdata.getEmail(),
+                                                            getUiprofile().getSupportemail(),
+                                                            getUiprofile().getSupportphone(),
+                                                            getUiprofile().getCompanyname(),
+                                                            getUiprofile().getLogo()
+                                                         });
+      data.setMsg(msg);
+      getMessageText().writeMessage("custom", data);
+      webutillooger.debug("Debug: Sending Activation email to: " + userdata.getEmail());
+
+   }
+
+
+
+
 
 
 }

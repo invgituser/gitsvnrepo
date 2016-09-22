@@ -135,16 +135,20 @@ public class UILayout implements Serializable
                                                    getWebServiceValue("CSS.DIR"),
                                                    getWebServiceValue("CUSTOM.CSS"),
                                                    getWebServiceValue("WEB.MODE"),
-                                                   getWebServiceValue("EMAIL.HOST"),
-                                                   getWebServiceValue("EMAIL.USER"),
-                                                   getWebServiceValue("EMAIL.PASSWORD"),
-                                                   getWebServiceValue("EMAIL.PORT"));
+                                                   getWebServiceValue("EMAIL.USER"));
                Map<String, String> emailMap = new HashMap<String,String>();
                emailMap.put(WebConst.HTML_WELCOME,getWebServiceValue(WebConst.HTML_WELCOME));
+               emailMap.put(WebConst.HTML_WELCOME_ADV,getWebServiceValue(WebConst.HTML_WELCOME_ADV));
                emailMap.put(WebConst.HTML_LOCKED,getWebServiceValue(WebConst.HTML_LOCKED));
                emailMap.put(WebConst.HTML_RESET,getWebServiceValue(WebConst.HTML_RESET));
-               emailMap.put(WebConst.HTML_WELCOME_ADV,getWebServiceValue(WebConst.HTML_WELCOME_ADV));
                webutil.getUiprofile().setEmailTemplateMap(emailMap);
+
+               Map<String, String> emailSubjectMap = new HashMap<String,String>();
+               emailSubjectMap.put(WebConst.EMAIL_WELCOME_SUBJECT,getWebServiceValue(WebConst.EMAIL_WELCOME_SUBJECT));
+               emailSubjectMap.put(WebConst.EMAIL_WELCOME_ADV_SUBJECT,getWebServiceValue(WebConst.EMAIL_WELCOME_ADV_SUBJECT));
+               emailSubjectMap.put(WebConst.EMAIL_LOCKED_SUBJECT,getWebServiceValue(WebConst.EMAIL_LOCKED_SUBJECT));
+               emailSubjectMap.put(WebConst.EMAIL_RESET_SUBJECT,getWebServiceValue(WebConst.EMAIL_RESET_SUBJECT));
+               webutil.getUiprofile().setEmailSubjectMap(emailSubjectMap);
 
                webutil.getUiprofile().setAdvisor(getWebServiceValue("DEFAULT.ADVISOR"));
                webutil.getUiprofile().setRep(getWebServiceValue("DEFAULT.REP"));
@@ -186,10 +190,7 @@ public class UILayout implements Serializable
                                                 getWebServiceValue("CSS.DIR"),
                                                 getWebServiceValue("CUSTOM.CSS"),
                                                 getWebServiceValue("WEB.MODE"),
-                                                getWebServiceValue("EMAIL.HOST"),
-                                                getWebServiceValue("EMAIL.USER"),
-                                                getWebServiceValue("EMAIL.PASSWORD"),
-                                                getWebServiceValue("EMAIL.PORT")
+                                                getWebServiceValue("EMAIL.USER")
             );
 
 
