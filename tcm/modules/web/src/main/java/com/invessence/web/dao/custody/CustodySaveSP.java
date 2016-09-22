@@ -4,6 +4,7 @@ import java.sql.Types;
 import java.util.*;
 import javax.sql.DataSource;
 
+import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.*;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
@@ -121,11 +122,8 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
             break;
          case 5: // ACH
-            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
-            declareParameter(new SqlParameter("p_fundType", Types.VARCHAR));
             declareParameter(new SqlParameter("p_moveMoneyPayMethodID", Types.INTEGER));
-            declareParameter(new SqlParameter("p_initialInvestment", Types.DOUBLE));
-            declareParameter(new SqlParameter("p_achId", Types.VARCHAR));
+            declareParameter(new SqlInOutParameter("p_achId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_bankAcctType", Types.VARCHAR));
             declareParameter(new SqlParameter("p_bankName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_bankABARouting", Types.VARCHAR));
@@ -200,11 +198,23 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_tranFreqId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
             break;
+         case 10: // move money payment details
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlInOutParameter("p_moveMoneyPayMethId", Types.BIGINT));
+            declareParameter(new SqlParameter("p_payMethodId", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_status", Types.VARCHAR));
+            break;
+         case 11: // move money details
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_reqId", Types.BIGINT));
+            declareParameter(new SqlParameter("p_reqType", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
+            break;
       }
       compile();
    }
 
-   public Map tdSaveRequest(Request data) {
+     public Map tdSaveRequest(Request data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_reqId", data.getReqId());
       inputMap.put("p_acctnum", data.getAcctnum());
@@ -221,6 +231,28 @@ public class CustodySaveSP extends StoredProcedure
       }
       return outMap;
    }
+
+   public Map tdSaveMoveMoneyPay(TDMasterData tdMasterData) {
+      Map<String, Object> inputMap = new HashMap<String, Object>();
+      inputMap.put("p_acctnum", tdMasterData.getAcctnum());
+      inputMap.put("p_moveMoneyPayMethId", new Long(0));
+      inputMap.put("p_payMethodId", tdMasterData.getFundType());
+      inputMap.put("p_status", "A");
+      Map outMap =  super.execute(inputMap);
+      //if (outMap != null) {
+        // data.setReqId((Long) outMap.get("p_moveMoneyPayMethId"));
+      //}
+      return outMap;
+   }
+   public Map tdSaveMoveMoneyDetails(Long reqId,TDMasterData tdMasterData) {
+      Map<String, Object> inputMap = new HashMap<String, Object>();
+      inputMap.put("p_acctnum", tdMasterData.getAcctnum());
+      inputMap.put("p_reqId",reqId );
+      inputMap.put("p_reqType","MMINEW" );
+      inputMap.put("p_createdBy", "Invessence");
+      return super.execute(inputMap);
+   }
+
 
    public Map tdSaveAccountDetail(Acctdetails data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
@@ -315,13 +347,14 @@ public class CustodySaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map tdSaveACH(Long acctnum,Double initialInv,String fundType, AchBankDetail data) {
+  // public Map tdSaveACH(String ftype,Boolean ownerSPF,Long acctnum,Long reqId,Double initialInv,String fundType, AchBankDetail data) {
+  public Map tdSaveACH(AchBankDetail data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
-      inputMap.put("p_acctnum",acctnum);
-      inputMap.put("p_fundType",fundType);
       inputMap.put("p_moveMoneyPayMethodID", data.getMoveMoneyPayMethodID());
-      inputMap.put("p_initialInvestment", initialInv);
-      inputMap.put("p_achId", data.getAchId());
+      if(data.getAchId()==null)
+         inputMap.put("p_achId", new Long(0));
+     else
+         inputMap.put("p_achId", data.getAchId());
       inputMap.put("p_bankAcctType", data.getBankAcctType());
       inputMap.put("p_bankName", data.getBankName());
       inputMap.put("p_bankABARouting", data.getBankABARouting());
@@ -333,10 +366,10 @@ public class CustodySaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map tdSaveACAT(Long acctnum, ACATDetails data) {
+   public Map tdSaveACAT(Long acctnum, Long reqId,ACATDetails data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", acctnum);
-      inputMap.put("p_reqId", data.getReqId());
+      inputMap.put("p_reqId", reqId);
       inputMap.put("p_fromAccountTitle", data.getFromAccountTitle());
       inputMap.put("p_accountNumber2", data.getAccountNumber2());
       //inputMap.put("p_fullName", data.getFullName());
@@ -377,7 +410,7 @@ public class CustodySaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map tdSaveElectronicPayment(Long acctnum, ElectronicFundDetails data) {
+   public Map tdSaveElectronicPayment(Long acctnum,ElectronicFundDetails data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", acctnum);
       inputMap.put("p_reqId", data.getReqId());
@@ -390,6 +423,22 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_tranAmount", data.getTranAmount());
       inputMap.put("p_tranFreqId", data.getTranFreqId());
       inputMap.put("p_createdBy", "Invessence");
+    /*  inputMap.put("p_fType",ftype);
+      inputMap.put("p_ownerSPF",ownerSPF);
+      inputMap.put("p_tranFreqId",data.getTranFreqId());
+      inputMap.put("p_acctnum",acctnum);
+      inputMap.put("p_fundType",fundType);
+      inputMap.put("p_moveMoneyPayMethodID", data.getMoveMoneyPayMethodID());
+      inputMap.put("p_initialInvestment", data.getTranAmount());
+      inputMap.put("p_achId", data.getAchId());
+      inputMap.put("p_bankAcctType", data.getBankAcctType());
+      inputMap.put("p_bankName", data.getBankName());
+      inputMap.put("p_bankABARouting", data.getBankABARouting());
+      inputMap.put("p_bankCityState", data.getBankCityState());
+      inputMap.put("p_bankPhoneNumber", data.getBankPhoneNumber());
+      inputMap.put("p_bankAcctName", data.getBankAcctName());
+      inputMap.put("p_bankAcctNumber", data.getBankAcctNumber());
+      inputMap.put("p_createdBy", "Invessence");*/
       return super.execute(inputMap);
    }
 

@@ -553,8 +553,10 @@ public class TdCto
    {
       if (beanacctnum == null)
          return;
-
-      // custodyListDAO.getTDAccountHolder(tdMasterData);
+      custodyListDAO.getTDAccountDetails(tdMasterData);
+      custodyListDAO.getTDAccountHolder(tdMasterData);
+      custodyListDAO.getTDEmployment(tdMasterData);
+      custodyListDAO.getTDBeneficiary(tdMasterData);
 
    }
 
@@ -637,12 +639,19 @@ public class TdCto
             custodySaveDAO.saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailsList());
             break;
          case 9: // funding
+
+           // custodySaveDAO.tdsaveACHData(tdMasterData);
             if(tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
-               custodySaveDAO.tdSaveACH(tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
+            {
+               custodySaveDAO.tdsaveACHData(tdMasterData);
+            }
             else if(tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
                custodySaveDAO.tdSaveACAT(tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
+              // custodySaveDAO.tdSaveACH("ACH",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
             break;
          case 10:
+               custodySaveDAO.tdSaveElectronicPaymentData(tdMasterData);
+               //custodySaveDAO.tdSaveElectronicPayment("REC",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getElectroicBankDetail());
             break;
          default:
             break;
@@ -656,7 +665,13 @@ public class TdCto
       data.setReqId(new Long(0));
       data.setEventNum(0);
       data.setAcctnum(tdMasterData.getAcctnum());
-      data.setReqType("ACCT_APPLI_NEW");
+      if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
+         tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
+         tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD") )
+         data.setReqType("ACCT_APPLI_NEW");
+      else
+         data.setReqType("IRA_APPLI_NEW");
+
       data.setEnvelopeHeading("Please sign account opening document.");
 
       custodySaveDAO.tdOpenAccount(data);

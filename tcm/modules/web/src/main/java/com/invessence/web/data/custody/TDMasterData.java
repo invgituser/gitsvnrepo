@@ -54,7 +54,7 @@ public class TDMasterData implements Serializable
    {
 
       acctnum = null;
-      accttype = 0; // 1 - Individual , 2 Number of joint acct.
+      accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
@@ -93,10 +93,14 @@ public class TDMasterData implements Serializable
          this.acctnum = acctnum;
          request = new Request(null, acctnum);
          acctdetail = new Acctdetails(acctnum);
-         acctOwnersDetail = new AcctOwnersDetails(acctnum, 1, "AOPRIMARY");
+         if(getAcctOwnersDetail().getAcctOwnerId()==null)
+            acctOwnersDetail = new AcctOwnersDetails(acctnum, 1, "AOPRIMARY");
+         if(getJointAcctOwnersDetail().getAcctOwnerId()==null)
          jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2, "AOJOINT");
-         owneremploymentDetail = new EmploymentDetails(acctnum, 1, 1);
-         jointEmploymentDetail = new EmploymentDetails(acctnum, 2, 1);
+         if(getOwneremploymentDetail().getAcctOwnerId()==null)
+            owneremploymentDetail = new EmploymentDetails(acctnum, 1, 1);
+         if(getJointEmploymentDetail().getAcctOwnerId()==null)
+            jointEmploymentDetail = new EmploymentDetails(acctnum, 2, 1);
       }
 
    }
@@ -441,6 +445,11 @@ public class TDMasterData implements Serializable
       return benefiaciaryDetailsList;
    }
 
+   public void setBenefiaciaryDetailsList(ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList)
+   {
+      this.benefiaciaryDetailsList = benefiaciaryDetailsList;
+   }
+
    public void saveBenefiaciaryDetails() {
       if (benefiaciaryDetailsList == null) {
          benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
@@ -485,7 +494,7 @@ public class TDMasterData implements Serializable
    {
       this.newBeneficiaryForm = newBeneficiaryForm;
       this.showBeneficiaryForm = true;
-      Integer beneNum = benefiaciaryDetailsList.size();
+      Integer beneNum = tmpBenefiaciaryDetail.getBeneId();
       if(editBeneficiaryForm)
          tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum);
       else

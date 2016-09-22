@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 import com.invessence.converter.SQLData;
 import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.*;
+import org.apache.xpath.operations.Bool;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 /**
@@ -93,23 +94,144 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       else
          return true;
    }
-
-   public Boolean tdSaveACH(Long acctnum,Double initialInv,String fundType, AchBankDetail data)
+   public Long tdSaveMoveMoneyPay(TDMasterData tdMasterData)
    {
+      long  payId=0;
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_movemoney_paymethod",10);
+      Map outMap = sp.tdSaveMoveMoneyPay(tdMasterData);
+      if (outMap != null)
+      {
+         payId=(Long) outMap.get("p_moveMoneyPayMethId");
+      }
+     return payId;
+   }
+   public Boolean tdSaveMoveMoneyDetails(Long reqId,TDMasterData tdMasterData)
+   {
+      Boolean saveFalg=true;
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_move_money_details",11);
+      Map outMap = sp.tdSaveMoveMoneyDetails(reqId,tdMasterData);
+      if (outMap == null)
+         saveFalg=false;
+      return saveFalg;
+   }
+
+   public boolean tdSaveElectronicPaymentData(TDMasterData tdMasterData )
+   {
+      if(tdMasterData.getOwnerSPF())
+      {
+         DataSource ds = getDataSource();
+         Request reqdata = new Request();
+         reqdata.setReqId(new Long(0));
+         reqdata.setEventNum(0);
+         reqdata.setAcctnum(tdMasterData.getAcctnum());
+         reqdata.setReqType("ELEC_FUND_TRAN_NEW");
+         reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+         tdOpenAccount(reqdata);
+         if (reqdata.getReqId() > 0)
+         {
+            Long moveMoneyPayMethId = tdSaveMoveMoneyPay(tdMasterData);
+            ElectronicFundDetails electronicFundDetails = tdMasterData.getElectroicBankDetail();
+            electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
+            tdMasterData.getElectroicBankDetail().setReqId(reqdata.getReqId());
+            tdMasterData.getElectroicBankDetail().setEftInstId("EFINEW");
+            tdMasterData.getElectroicBankDetail().setDirectionId("EFDTOTD");
+            tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+            tdMasterData.getElectroicBankDetail().setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
+            electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
+
+            Boolean elecFundSave = tdSaveElectronicPayment(tdMasterData.getAcctnum(), tdMasterData.getElectroicBankDetail());
+         }
+         }
+         else
+         {
+            tdsaveACHData(tdMasterData );
+         }
+      return true;
+   }
+
+  public Boolean tdsaveACHData(TDMasterData tdMasterData )
+  {
+     DataSource ds = getDataSource();
+     Long moveMoneyPayMethId=tdSaveMoveMoneyPay(tdMasterData);
+     if(moveMoneyPayMethId==0)
+     {
+        return false;
+     }
+     tdMasterData.getAchBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+     long achId=tdSaveACH(tdMasterData.getAchBankDetail());
+     Request reqdata=new Request();
+     if(achId>0)
+     {
+        tdMasterData.getAchBankDetail().setAchId(achId);
+        reqdata.setReqId(new Long(0));
+        reqdata.setEventNum(0);
+        reqdata.setAcctnum(tdMasterData.getAcctnum());
+        reqdata.setReqType("MOVE_MONEY_NEW");
+        reqdata.setEnvelopeHeading("Please sign move money document.");
+        tdOpenAccount(reqdata);
+        if(reqdata.getReqId()>0)
+        {
+           Boolean movemoneySave=tdSaveMoveMoneyDetails(reqdata.getReqId(),tdMasterData);
+           if(movemoneySave)
+           {
+              reqdata.setReqId(new Long(0));
+              reqdata.setEventNum(0);
+              reqdata.setAcctnum(tdMasterData.getAcctnum());
+              reqdata.setReqType("ELEC_FUND_TRAN_NEW");
+              reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+              tdOpenAccount(reqdata);
+              if(reqdata.getReqId()>0)
+              {
+                 ElectronicFundDetails electronicFundDetails=tdMasterData.getElectroicBankDetail();
+                 electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
+                 electronicFundDetails.setReqId(reqdata.getReqId());
+                 electronicFundDetails.setEftInstId("EFINEW");
+                 electronicFundDetails.setDirectionId("EFDTOTD");
+                 electronicFundDetails.setMoveMoneyPayMethodID(moveMoneyPayMethId);
+                 electronicFundDetails.setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
+                 electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
+                 electronicFundDetails.setTranFreqId("ONETIME");
+                 Boolean elecFundSave=tdSaveElectronicPayment(tdMasterData.getAcctnum(),tdMasterData.getElectroicBankDetail());
+              }
+           }
+           else
+              return false;
+        }
+     }
+
+
+     return true;
+  }
+  // public Boolean tdSaveACH(String ftype, Boolean ownerSPF, Long acctnum, Double initialInv, String fundType, AchBankDetail data)
+   public Long tdSaveACH(AchBankDetail bankDetail )
+   {
+      long  achId=0;
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_ach_bank_details",5);
-      Map outMap = sp.tdSaveACH(acctnum,initialInv,fundType, data);
-      if (outMap == null)
-         return (false);
-      else
-         return true;
+      Map outMap = sp.tdSaveACH(bankDetail);
+
+         if (outMap != null)
+         {
+            achId=Long.valueOf(outMap.get("p_achId").toString());
+         }
+
+         return achId;
    }
 
    public Boolean tdSaveACAT(Long acctnum, ACATDetails data)
    {
       DataSource ds = getDataSource();
+      Request reqdata=new Request();
+      reqdata.setReqId(new Long(0));
+      reqdata.setEventNum(0);
+      reqdata.setAcctnum(acctnum);
+      reqdata.setReqType("ACCT_TRAN_NEW");
+      reqdata.setEnvelopeHeading("Please sign account transfer document.");
+      tdOpenAccount(reqdata);
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_acct_transfer_details",6);
-      Map outMap = sp.tdSaveACAT(acctnum, data);
+      Map outMap = sp.tdSaveACAT(acctnum,reqdata.getReqId(), data);
       if (outMap == null)
          return (false);
       else
@@ -127,15 +249,27 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
-   public Boolean tdSaveElectronicPayment(Long acctnum, ElectronicFundDetails data)
+   public Boolean tdSaveElectronicPayment(Long acctnum,ElectronicFundDetails data)
    {
       DataSource ds = getDataSource();
+      // comment as same procedure being called for ACH and electronic fund
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_elecfund_transfer_details",8);
       Map outMap = sp.tdSaveElectronicPayment(acctnum, data);
       if (outMap == null)
          return (false);
       else
          return true;
+
+     /* Request reqdata=new Request();
+      reqdata.setReqId(new Long(0));
+      reqdata.setEventNum(0);
+      reqdata.setAcctnum(acctnum);
+      reqdata.setReqType("MOVE_MONEY_NEW");
+      reqdata.setEnvelopeHeading("Please sign move money document.");
+      tdOpenAccount(reqdata);
+      CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_ach_bank_details",5);
+      Map outMap = sp.tdSaveElectronicPayment(ftype,ownerSPF,acctnum,initialInv,fundType, data);*/
+
    }
 
    public Boolean tdOpenAccount(Request data )
