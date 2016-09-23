@@ -352,20 +352,7 @@
 
                         </p:panel>
                         <div class="EmptyBox20"></div>
-<div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
-                    <p:commandLink styleClass="UI-prevButtonFA Fleft"
-                                   actionListener="#{tdcto.prevPage}"
-                                   process="@this"
-                                   update="@form"/>
 
-                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                    				style="background-position-x: 50px!important;"
-                                   rendered="#{tdcto.tdMasterData.recurringFlag}"
-                                   actionListener="#{tdcto.nextPage}"
-                                   process="@parent"
-                                   update="@form"/>
-
-                </div>
                         <!-- Wire transfer -->
                         <p:panel id="wirePanel" styleClass="Container80 Fnone"
                                  style="border: 0px; background: transparent; margin: 0 auto!important;"
@@ -424,7 +411,19 @@
 
                     </p:panel>
                 </div>
+                <div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
+                    <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                                   actionListener="#{tdcto.prevPage}"
+                                   process="@this"
+                                   update="@form"/>
 
+                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                                   style="background-position-x: 50px!important;"
+                                   actionListener="#{tdcto.nextPage}"
+                                   process="@parent"
+                                   update="@form"/>
+
+                </div>
 
             </p:panel>
         </p:tab>
