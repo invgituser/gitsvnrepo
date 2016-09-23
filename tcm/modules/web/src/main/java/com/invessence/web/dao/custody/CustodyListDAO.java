@@ -113,6 +113,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                acctHolder.setMailingAddressState(convert.getStrData(rs.get("mailingAddressState")));
                acctHolder.setMailingAddressZipCode(convert.getStrData(rs.get("mailingAddressZipCode")));
                acctHolder.setCitizenshiId(convert.getStrData(rs.get("citizenshiId")));
+                  if(acctHolder.getCitizenshiId()!=null && acctHolder.getCitizenshiId().equalsIgnoreCase("USCITZ"))
+                     acctHolder.setCitizenShipFlag(true);
                acctHolder.setCountryOfCitizenship(convert.getStrData(rs.get("countryOfCitizenship")));
                acctHolder.setCountryOfBirth(convert.getStrData(rs.get("countryOfBirth")));
                acctHolder.setSPF(convert.getStrData(rs.get("isSPF")));

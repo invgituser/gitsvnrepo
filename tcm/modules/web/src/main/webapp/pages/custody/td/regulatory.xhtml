@@ -166,15 +166,17 @@
 						<div class="EmptyBox20"></div>
 					</p:panel>
 				</p:panel>
-				<p:panel id="unusedID" style="border: 0px; background: transparent">
+				<p:panel id="ownerBDPanel" style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
 						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
 							value="#{tdcto.tdMasterData.ownerBD}"
 							itemLabel="I, my spouse or an immediate member of my family is a licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange. (Please provide a copy of the required authorization letter)">
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerBDPanel" />
+
 						</p:selectBooleanCheckbox>
 					</div>
 					<div class="EmptyBox20"></div>
-					<p:panel style="border: 0px; background: transparent;">
+					<p:panel style="border: 0px; background: transparent;" rendered="#{tdcto.tdMasterData.ownerBD}">
 					<div class="Container100">
 						<div class="Container45 Fleft CustomWidthFA-Responsive">
 							<label Class="Container100"
@@ -182,6 +184,7 @@
 
 							<div class="EmptyBox5"></div>
 							<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										 value="#{tdcto.tdMasterData.acctOwnersDetail.bdDetail}"
 								placeholder="Entity">
 							</p:inputText>
 						</div>
