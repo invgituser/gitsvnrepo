@@ -349,9 +349,23 @@
 
                             </div>
 
-                            <div class="EmptyBox20"></div>
-                        </p:panel>
 
+                        </p:panel>
+                        <div class="EmptyBox20"></div>
+<div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
+                    <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                                   actionListener="#{tdcto.prevPage}"
+                                   process="@this"
+                                   update="@form"/>
+
+                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                    				style="background-position-x: 50px!important;"
+                                   rendered="#{tdcto.tdMasterData.recurringFlag}"
+                                   actionListener="#{tdcto.nextPage}"
+                                   process="@parent"
+                                   update="@form"/>
+
+                </div>
                         <!-- Wire transfer -->
                         <p:panel id="wirePanel" styleClass="Container80 Fnone"
                                  style="border: 0px; background: transparent; margin: 0 auto!important;"
@@ -409,19 +423,6 @@
                         </p:panel>
 
                     </p:panel>
-                    <div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
-                        <p:commandLink styleClass="UI-prevButtonFA Fleft"
-                                       actionListener="#{tdcto.prevPage}"
-                                       process="@this"
-                                       update="@form"/>
-
-                        <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                                       style="background-position-x: 50px!important;"
-                                       actionListener="#{tdcto.nextPage}"
-                                       process="@parent"
-                                       update="@form"/>
-
-                    </div>
                 </div>
 
 
@@ -488,7 +489,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputNumber
-                                        styleClass="Wid85 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
+                                        styleClass="Wid100 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
                                         style="text-align: left;"
                                         value="#{tdcto.tdMasterData.electroicBankDetail.tranAmount}"
                                         maxlength="8" symbol="$" decimalPlaces="2" required="false"
@@ -502,7 +503,7 @@
                                     Start Date </label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.tranStartDate}"
                                              mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
                                 </p:inputMask>
@@ -517,7 +518,7 @@
                                     Bank Name </label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankName}"
                                              placeholder="Bank Name">
                                 </p:inputText>
@@ -552,7 +553,7 @@
                                     Routing Number</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankABARouting}"
                                              placeholder="ABA Routing Number">
                                 </p:inputText>
@@ -563,7 +564,7 @@
                                     Bank Account Number</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctNumber}"
                                              placeholder="Bank Account Number">
                                 </p:inputText>
@@ -572,8 +573,7 @@
 
 
                     </p:panel>
-                </div>
-                <div class="Container100 MarTop20" style="margin: 10px 10px;">
+                     <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
                                    process="@this"
@@ -585,6 +585,8 @@
                   <!--   <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                             rendered="false"/> -->
                 </div>
+                </div>
+
             </p:panel>
 
         </p:tab>
