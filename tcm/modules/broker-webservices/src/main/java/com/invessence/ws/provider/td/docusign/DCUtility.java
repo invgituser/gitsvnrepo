@@ -180,15 +180,13 @@ public class DCUtility
    {
       dbColumns=getFieldNames(acctTransferDetails, false);
       System.out.println("dbColumns = =" + dbColumns);
+      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+      getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctTransferDetails);
    }
    catch (IllegalAccessException e)
    {
       e.printStackTrace();
    }
-
-   List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-   getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctTransferDetails);
-
 
    if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
    if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
@@ -230,15 +228,13 @@ public class DCUtility
       {
          dbColumns=getFieldNames(elecFundTransferDetails, false);
          System.out.println("dbColumns = =" + dbColumns);
+         List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+         getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, elecFundTransferDetails);
       }
       catch (IllegalAccessException e)
       {
          e.printStackTrace();
       }
-
-      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-      getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, elecFundTransferDetails);
-
 
       if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
       if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
@@ -622,8 +618,6 @@ catch (Exception e)
             {
                e.printStackTrace();
             }
-
-
 
             Iterator<AcctOwnerDetails> itr2 = acctOwnerDetails.iterator();
             while (itr2.hasNext())
