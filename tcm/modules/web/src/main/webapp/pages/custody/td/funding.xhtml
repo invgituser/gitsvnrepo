@@ -442,8 +442,9 @@
                         <div class="Container100 CustomWidthFA2 MarTop5">
                             <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerSPF}"
                                                      itemLabel="Please use the existing account details"
-                                rendered="#{tdcto.tdMasterData.fundType=='PMACH'}">
-                                <p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel"/>
+                                rendered="#{tdcto.tdMasterData.fundType=='PMACH'}"  >
+                                <p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" listener="#{tdcto.tdMasterData.existingAccount}"/>
+
                             </p:selectBooleanCheckbox>
                         </div>
                         <div class="EmptyBox20"></div>

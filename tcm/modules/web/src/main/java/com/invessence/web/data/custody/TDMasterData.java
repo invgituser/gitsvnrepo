@@ -510,6 +510,13 @@ public class TDMasterData implements Serializable
       editBeneficiaryForm=true;
    }
 
+   public void existingAccount() {
+      if(ownerSPF)
+         System.out.println("Checked");
+      else
+         System.out.println("Uncheck");
+   }
+
    public void cancelEditBeneficiary() {
       showBeneficiaryForm = false;
    }
