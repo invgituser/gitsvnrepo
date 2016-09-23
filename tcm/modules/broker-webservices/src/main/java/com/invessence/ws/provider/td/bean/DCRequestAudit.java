@@ -8,7 +8,7 @@ import java.util.Date;
 public class DCRequestAudit
 {
    private Long id;
-   private Long requestId;
+   private String requestIds;
    private Integer eventNum;
    private Long acctnum;
    private String dcRequest;
@@ -24,7 +24,7 @@ public class DCRequestAudit
    {
       return "DCRequestAudit{" +
          "id=" + id +
-         ", requestId=" + requestId +
+         ", requestIds=" + requestIds +
          ", eventNum=" + eventNum +
          ", acctnum=" + acctnum +
          ", dcRequest='" + dcRequest + '\'' +
@@ -38,8 +38,10 @@ public class DCRequestAudit
          '}';
    }
 
-   public DCRequestAudit(Integer eventNum, String dcRequest, String dcResponce, String status, Date reqTime, String envelopId)
+   public DCRequestAudit(String requestIds,Long acctnum,Integer eventNum, String dcRequest, String dcResponce, String status, Date reqTime, String envelopId)
    {
+      this.requestIds=requestIds;
+      this.acctnum = acctnum;
       this.eventNum = eventNum;
       this.dcRequest = dcRequest;
       this.dcResponce = dcResponce;
@@ -68,14 +70,14 @@ public class DCRequestAudit
       this.id = id;
    }
 
-   public Long getRequestId()
+   public String getRequestIds()
    {
-      return requestId;
+      return requestIds;
    }
 
-   public void setRequestId(Long requestId)
+   public void setRequestIds(String requestIds)
    {
-      this.requestId = requestId;
+      this.requestIds = requestIds;
    }
 
    public Integer getEventNum()

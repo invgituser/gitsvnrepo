@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class AcctOwnerDetails
 {
+
    private Integer acctOwnerId;
    private String ownership;
    private String firstName;
@@ -83,7 +84,7 @@ public class AcctOwnerDetails
          ", mailingAddressState='" + mailingAddressState + '\'' +
          ", mailingAddressZipCode='" + mailingAddressZipCode + '\'' +
          ", sourceOfIncomeId='" + sourceOfIncomeId + '\'' +
-         ", citizenshiId='" + citizenshiId + '\'' +
+         ", citizenship='" + citizenship + '\'' +
          ", countryOfCitizenship='" + countryOfCitizenship + '\'' +
          ", countryOfDualCitizenship='" + countryOfDualCitizenship + '\'' +
          ", countryOfBirth='" + countryOfBirth + '\'' +
@@ -101,7 +102,7 @@ public class AcctOwnerDetails
    private String mailingAddressState;
    private String mailingAddressZipCode;
    private String sourceOfIncomeId;
-   private String citizenshiId;
+   private String citizenship;
    private String countryOfCitizenship;
    private String countryOfDualCitizenship;
    private String countryOfBirth;
@@ -323,14 +324,14 @@ public class AcctOwnerDetails
       this.sourceOfIncomeId = sourceOfIncomeId;
    }
 
-   public String getCitizenshiId()
+   public String getCitizenship()
    {
-      return citizenshiId;
+      return citizenship;
    }
 
-   public void setCitizenshiId(String citizenshiId)
+   public void setCitizenship(String citizenship)
    {
-      this.citizenshiId = citizenshiId;
+      this.citizenship = citizenship;
    }
 
    public String getCountryOfCitizenship()

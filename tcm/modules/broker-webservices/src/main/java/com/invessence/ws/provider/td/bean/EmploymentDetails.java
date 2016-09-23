@@ -4,10 +4,11 @@ import java.util.Date;
 
 public class EmploymentDetails
 {
-
-	private Integer emplId;
-	private Integer acctOwnerId;
 	private Long acctnum;
+	private Integer acctOwnerId;
+	private Integer emplId;
+	private String emplTypeId;
+	private String sourceOfIncome;
 	private String employerName;
 	private String occupation;
 	private String typeOfBusiness;
@@ -15,21 +16,17 @@ public class EmploymentDetails
 	private String employerCity;
 	private String employerState;
 	private String employerZipCode;
-	private Date fromDate;
-	private Date toDate;
-	private Date created;
-	private String createdBy;
-	private Date updated;
-	private String updatedBy;
+	private String fromDate;
+	private String toDate;
 
-	public Integer getEmplId()
+	public Long getAcctnum()
 	{
-		return emplId;
+		return acctnum;
 	}
 
-	public void setEmplId(Integer emplId)
+	public void setAcctnum(Long acctnum)
 	{
-		this.emplId = emplId;
+		this.acctnum = acctnum;
 	}
 
 	public Integer getAcctOwnerId()
@@ -42,14 +39,34 @@ public class EmploymentDetails
 		this.acctOwnerId = acctOwnerId;
 	}
 
-	public Long getAcctnum()
+	public Integer getEmplId()
 	{
-		return acctnum;
+		return emplId;
 	}
 
-	public void setAcctnum(Long acctnum)
+	public void setEmplId(Integer emplId)
 	{
-		this.acctnum = acctnum;
+		this.emplId = emplId;
+	}
+
+	public String getEmplTypeId()
+	{
+		return emplTypeId;
+	}
+
+	public void setEmplTypeId(String emplTypeId)
+	{
+		this.emplTypeId = emplTypeId;
+	}
+
+	public String getSourceOfIncome()
+	{
+		return sourceOfIncome;
+	}
+
+	public void setSourceOfIncome(String sourceOfIncome)
+	{
+		this.sourceOfIncome = sourceOfIncome;
 	}
 
 	public String getEmployerName()
@@ -122,63 +139,23 @@ public class EmploymentDetails
 		this.employerZipCode = employerZipCode;
 	}
 
-	public Date getFromDate()
+	public String getFromDate()
 	{
 		return fromDate;
 	}
 
-	public void setFromDate(Date fromDate)
+	public void setFromDate(String fromDate)
 	{
 		this.fromDate = fromDate;
 	}
 
-	public Date getToDate()
+	public String getToDate()
 	{
 		return toDate;
 	}
 
-	public void setToDate(Date toDate)
+	public void setToDate(String toDate)
 	{
 		this.toDate = toDate;
-	}
-
-	public Date getCreated()
-	{
-		return created;
-	}
-
-	public void setCreated(Date created)
-	{
-		this.created = created;
-	}
-
-	public String getCreatedBy()
-	{
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy)
-	{
-		this.createdBy = createdBy;
-	}
-
-	public Date getUpdated()
-	{
-		return updated;
-	}
-
-	public void setUpdated(Date updated)
-	{
-		this.updated = updated;
-	}
-
-	public String getUpdatedBy()
-	{
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy)
-	{
-		this.updatedBy = updatedBy;
 	}
 }

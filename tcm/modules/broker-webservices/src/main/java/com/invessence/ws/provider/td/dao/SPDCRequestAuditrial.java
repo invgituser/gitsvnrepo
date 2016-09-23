@@ -20,6 +20,8 @@ public class SPDCRequestAuditrial extends StoredProcedure
       super(datasource, SPROC_NAME );
       //id, requestId, eventNum, acctnum, dcRequest, dcResponce, status, remarks, reqTime, resTime, id, id
       declareParameter(new SqlParameter("p_id", Types.BIGINT));
+      declareParameter(new SqlParameter("p_requestIds", Types.VARCHAR));
+      declareParameter(new SqlParameter("p_acctNum", Types.VARCHAR));
       declareParameter(new SqlParameter("p_eventNum", Types.VARCHAR));
       declareParameter(new SqlParameter("p_envelopId",Types.VARCHAR));
       declareParameter(new SqlParameter("p_status",Types.VARCHAR));
@@ -37,6 +39,8 @@ public class SPDCRequestAuditrial extends StoredProcedure
       public DBResponse execute(DCRequestAudit dcRequest){
          Map inputs = new HashMap();
          inputs.put("p_id", dcRequest.getId());
+         inputs.put("p_requestIds", dcRequest.getRequestIds());
+         inputs.put("p_acctNum", dcRequest.getAcctnum());
          inputs.put("p_eventNum", dcRequest.getEventNum());
          inputs.put("p_envelopId",dcRequest.getEnvelopId());
          inputs.put("p_status", dcRequest.getStatus());

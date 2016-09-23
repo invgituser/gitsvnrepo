@@ -28,14 +28,16 @@ public class CallingLayerTDImpl implements CallingLayer
    @Override
    public WSCallResult processDCRequest(Long acctNum, Integer eventNum) throws Exception
    {
+      WSCallResult wsCallResult=null;
       List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
       if(dcRequests.size()>0)
       {
-         tdAccountOpeningLayer.docuSignRequestHandler(dcRequests);
+         wsCallResult=tdAccountOpeningLayer.docuSignRequestHandler(dcRequests);
       }else{
+         wsCallResult=new WSCallResult(new WSCallStatus(1,"Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]"),null);
          System.out.println("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       }
-return null;
+      return wsCallResult;
    }
 
    @Override

@@ -38,7 +38,7 @@ public class DCUtility
 {
    @Autowired
    TDDaoLayer tdDaoLayer;
-   public EnvelopeSummary createEnvelope (EnvelopeDefinition envDef/*, String acctNum, String eventNum*/)
+   public EnvelopeSummary createEnvelope (EnvelopeDefinition envDef, Long acctNum, int eventNum, String requestIds)
    {
       try {
          ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -119,19 +119,18 @@ public class DCUtility
          envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
 
          System.out.println("EnvelopeSummary: " + envelopeSummary);
-         DCRequestAudit dcRequest = new DCRequestAudit(1,envDef==null?"":""/*getJsonObjectToString(envDef)*/,envelopeSummary==null?"":getJsonObjectToString(envelopeSummary),"S", reqTime, envelopeSummary==null?"":envelopeSummary.getEnvelopeId());
+         DCRequestAudit dcRequest = new DCRequestAudit(requestIds, acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,envelopeSummary==null?"":getJsonObjectToString(envelopeSummary),"S", reqTime, envelopeSummary==null?"":envelopeSummary.getEnvelopeId());
          System.out.println("dcRequest = " + dcRequest);
          tdDaoLayer.callDCAuditSP(dcRequest);
       }
       catch (com.docusign.esign.client.ApiException ex)
       {
          System.out.println("Exception: " + ex);
-         DCRequestAudit dcRequest = new DCRequestAudit(1,envDef==null?"":""/*getJsonObjectToString(envDef)*/,ex.toString(),"E", reqTime, "");
+         DCRequestAudit dcRequest = new DCRequestAudit(requestIds,acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,ex.toString(),"E", reqTime, "");
          System.out.println("dcRequest = " + dcRequest);
          tdDaoLayer.callDCAuditSP(dcRequest);
       }
 //      return new WSCallResult(new WSCallStatus(mailingAddressesResult.getErrorStatus().getErrorCode(), mailingAddressesResult.getErrorStatus().getErrorMessage()),userAcctExt);
-
 
       return envelopeSummary;
    }
@@ -156,6 +155,7 @@ public class DCUtility
       cc.setEmail(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"CCMAIL"));
       cc.setName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"CCMAILNAME"));
       cc.setRecipientId("1");
+      cc.setRoutingOrder("102");
       return cc;
    }
 
@@ -556,15 +556,15 @@ catch (Exception e)
             signer=new Signer();
             signer.setEmail(acctOwner.getEmailAddress());
             signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
-            signer.roleName(acctOwner.getOwnership());
             signer.setRecipientId(""+signerRecipientId);
+            signer.setRoleName(acctOwner.getOwnership());
 
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
                signer=new Signer();
                signer.setEmail(acctOwner.getEmailAddress());
                signer.setName(acctOwner.getFirstName());
-               signer.roleName(acctOwner.getOwnership());
                signer.setRecipientId(""+signerRecipientId);
+               signer.setRoleName(acctOwner.getOwnership());
          }
          if(signer!=null)
          {
@@ -721,6 +721,19 @@ catch (Exception e)
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
             System.out.println("dcDocumentMappingList = " + dcTemplateMappingList);
             getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
+            if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
+               System.out.println("Employment details are not available");
+            }else{
+               try
+               {
+                  dbColumns=getFieldNames(acctOwner.getEmploymentDetails().get(0), false);
+               }
+               catch (IllegalAccessException e)
+               {
+                  e.printStackTrace();
+               }
+               getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner.getEmploymentDetails().get(0));
+            }
 
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
             System.out.println("Joint");
@@ -738,6 +751,20 @@ catch (Exception e)
                   signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
                }
                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
+
+               if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
+                  System.out.println("Employment details are not available");
+               }else{
+                  try
+                  {
+                     dbColumns=getFieldNames(acctOwner.getEmploymentDetails().get(0), false);
+                  }
+                  catch (IllegalAccessException e)
+                  {
+                     e.printStackTrace();
+                  }
+                  getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner.getEmploymentDetails().get(0));
+               }
             }
          }
          if(signer!=null)
@@ -792,15 +819,13 @@ catch (Exception e)
          }
       }
    }
-   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst,
-                             List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject, String addLableVal, boolean isPostfix){
-      //0 preFix, 1 postFix
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject, String addLableVal, boolean isPostfix){
       Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
       while (itr1.hasNext()){
          DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
-         System.out.println(dctemplate.getDbColumn() +" : "+dctemplate.getDbColumn()+addLableVal+" : "+addLableVal+dctemplate.getDbColumn());
+//         System.out.println(dctemplate.getDbColumn() +" : "+dctemplate.getDbColumn()+addLableVal+" : "+addLableVal+dctemplate.getDbColumn());
 
-         System.out.println(dbColumns.contains(dctemplate.getDbColumn()) + "(isPostfix==true?"+ dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal)+" : "+dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()));
+//         System.out.println(dbColumns.contains(dctemplate.getDbColumn()) + "(isPostfix==true?"+ dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal)+" : "+dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()));
          //if(dbColumns.contains(dctemplate.getDbColumn()) && (isPostfix==true? dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal):dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()))){
          if(dbColumns.contains(dctemplate.getDbColumn()) && (isPostfix==true? dctemplate.getLable().equalsIgnoreCase(dctemplate.getDbColumn()+addLableVal):dctemplate.getLable().equalsIgnoreCase(addLableVal+dctemplate.getDbColumn()))){
 

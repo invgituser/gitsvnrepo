@@ -36,6 +36,9 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
    {
       EnvelopeDefinition envDef = new EnvelopeDefinition();
       String emailSubject=null;
+      Long acctNum=null;
+      int eventNum=0;
+      StringBuilder requestIds=new StringBuilder();
       Map<String,DCTemplateDetails> dcTemplateDetails=(Map<String,DCTemplateDetails>) ServiceParameters.additionalDetails.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()).get(Constant.ADDITIONAL_DETAILS.TEMPLATE_DETAILS.toString());
       Map<String,ServiceOperationDetails> docuSignOperationDetails=ServiceParameters.serviceDetailsMap.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()).get(Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString());
 
@@ -51,36 +54,30 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
             }else
             {
                emailSubject = dcRequest.getEnvelopeHeading();
+               acctNum=dcRequest.getAcctnum();
+               eventNum=dcRequest.getEventNum();
             }
          }
+         requestIds=requestIds.append(dcRequest.getReqId()+",");
 
          System.out.println(dcTemplateDetails.size());
 
          DCTemplateDetails dcTemplateDetail=dcTemplateDetails.get(docuSignOperationDetails.get(dcRequest.getReqType()).getRefValue());
 
          if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_APPLI_NEW.toString())){
-
             CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
-            //agreementDocuments(dcRequest);
-         }
-         else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString())){
-            CompositeTemplate compositeTemplate=acctTransfer(dcRequest,dcTemplateDetail,""+reqCounter);
-            envDef.getCompositeTemplates().add(compositeTemplate);
-         }
-         else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())){
+            agreementDocuments(dcRequest, acctNum, eventNum, ""+ dcRequest.getReqId());
+         }else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())){
             CompositeTemplate compositeTemplate=accountApplication(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
-            //agreementDocuments(dcRequest);
+            agreementDocuments(dcRequest, acctNum, eventNum, ""+ dcRequest.getReqId());
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_MOVE_MONEY_NEW.toString())
             ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_MOVE_MONEY_CHANGE.toString())
             ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_MOVE_MONEY_REMOVE.toString())){
             CompositeTemplate compositeTemplate=moveMoney(dcRequest, dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
-         }
-         else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString())){
-            System.out.println("Required in next phase");
          }
          else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_NEW.toString())
             || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.MOVE_MONEY_CHANGE.toString())
@@ -94,12 +91,19 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
             CompositeTemplate compositeTemplate=elecFundTransfer(dcRequest,dcTemplateDetail,""+reqCounter);
             envDef.getCompositeTemplates().add(compositeTemplate);
          }
+         else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString())){
+            CompositeTemplate compositeTemplate=acctTransfer(dcRequest,dcTemplateDetail,""+reqCounter);
+            envDef.getCompositeTemplates().add(compositeTemplate);
+         }
+         else if(dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString())){
+            System.out.println("Required in next phase");
+         }
          reqCounter++;
       }
       envDef.setEmailSubject(emailSubject);
       envDef.setStatus("sent");
 
-      dcUtility.createEnvelope(envDef);
+      dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds.toString());
 
 //      try {
 //         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -125,7 +129,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       try
       {
          acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
-         acctOwnerDetails=tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+         acctOwnerDetails=tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), true);
          acctDetails.setAcctOwnerDetails(acctOwnerDetails);
          acctTransferDetails=tdDaoLayer.getAcctTransferDetails(dcRequest.getAcctnum(), dcRequest.getReqId());
       }
@@ -178,7 +182,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       return compositeTemplate;
    }
 
-   private void agreementDocuments(DCRequest dcRequest){
+   private void agreementDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds){
       System.out.println("TDAccountOpeningLayerImpl.agreementDocumnets");
       System.out.println("dcRequest = [" + dcRequest + "]");
       AcctDetails acctDetails= null;
@@ -209,7 +213,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       envDef.setEmailSubject(emailSubject);
       envDef.setStatus("sent");
 
-      dcUtility.createEnvelope(envDef);
+      dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds);
    }
    private CompositeTemplate moveMoney(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq){
     System.out.println("TDAccountOpeningLayerImpl.moveMoney");

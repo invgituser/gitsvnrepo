@@ -24,15 +24,15 @@ public class TDDaoLayerImpl implements TDDaoLayer
 
    @Autowired
    JdbcTemplate webServiceJdbcTemplate;
-   private final String getDCRequests="select * from vwdc_requests where eventNum =? and acctnum=? ";
+   private final String getDCRequests="select * from vwdc_requests where eventNum =? and acctnum=? and status='I'";
    private final String getAcctDetails="select * from vwdc_acct_details where acctnum=? ";
    private final String getBenefiaciaryDetails="select * from vwdc_benefiaciary_details where acctnum=? ";
    private final String getDupDocReqPartyDetails="select * from vwdc_employment_details where acctnum=? and 1=2";
 
 
    private final String getAcctOwnerDetails="select * from vwdc_acct_owners_details where acctnum=? ";
-   private final String getEmploymentDetails="select * from vwdc_employment_details where acctnum=? ";
-   private final String getVisaDetails="select * from vwdc_employment_details where acctnum=? and 1=2";
+   private final String getEmploymentDetails="select * from vwdc_employment_details where acctnum=? and acctOwnerId=?";
+   private final String getVisaDetails="select * from vwdc_visa_details where acctnum=? and 1=2";
    private final String updateEnvelopDetails="update dc_requests set envelopeId=? where eventNum=?";
    private final String insertReqAudit = "insert into dc_request_audit(eventNum, envelopeDetails, status, remarks, reqTime, resTime) value (?,?,?,?,?,?)";
 
@@ -95,7 +95,7 @@ public class TDDaoLayerImpl implements TDDaoLayer
          while (itr.hasNext())
          {
             AcctOwnerDetails aod = (AcctOwnerDetails) itr.next();
-            emplyLst = webServiceJdbcTemplate.query(getEmploymentDetails, new Object[]{acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(EmploymentDetails.class));
+            emplyLst = webServiceJdbcTemplate.query(getEmploymentDetails, new Object[]{acctNum, aod.getAcctOwnerId()}, ParameterizedBeanPropertyRowMapper.newInstance(EmploymentDetails.class));
             visaDetails = webServiceJdbcTemplate.query(getVisaDetails, new Object[]{acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(VisaDetails.class));
             aod.setEmploymentDetails(emplyLst);
             aod.setVisaDetails((visaDetails==null || visaDetails.size()<=0)?null:visaDetails.get(0));
