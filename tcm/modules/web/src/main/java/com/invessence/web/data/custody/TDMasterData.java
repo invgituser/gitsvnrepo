@@ -494,9 +494,9 @@ public class TDMasterData implements Serializable
    {
       this.newBeneficiaryForm = newBeneficiaryForm;
       this.showBeneficiaryForm = true;
-      Integer beneNum = tmpBenefiaciaryDetail.getBeneId();
+      Integer beneNum = benefiaciaryDetailsList.size();
       if(editBeneficiaryForm)
-         tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum);
+         tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, tmpBenefiaciaryDetail.getBeneId());
       else
          tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum+1);
    }
