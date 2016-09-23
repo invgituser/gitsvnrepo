@@ -28,31 +28,14 @@ import com.invessence.web.constant.*;
 
 public class CustomJdbcDaoImpl extends JdbcDaoImpl
 {
-   @ManagedProperty("#{webMessage}")
-   private WebMessage emailMessage;
-   public void setEmailMessage(WebMessage emailMessage)
-   {
-      this.emailMessage = emailMessage;
-   }
-
-   @ManagedProperty("#{uiLayout}")
-   private UILayout uiLayout;
-   public void setUiLayout(UILayout uiLayout)
-   {
-      this.uiLayout = uiLayout;
-   }
 
    private MsgData data = new MsgData();
 
    private String lockUserSql = null;
    private String listofQAQuery = null;
 
-   @ManagedProperty("#{webutil}")
+   @Autowired
    private WebUtil webutl;
-   public void setWebutl(WebUtil webutl)
-   {
-      this.webutl = webutl;
-   }
 
    boolean enabled = true;
    boolean accountNonLocked = true;
@@ -125,6 +108,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
       String exception = null;
 
       String myIP = webutl.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest());
+      //System.out.println("Attempting Logon >> " + username + " from: " + myIP );
       DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
       Date date = new Date();
       System.out.println("Attempting Logon >> " + username + " from: " + myIP + " date:" + dateFormat.format(date));
@@ -246,7 +230,7 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                resetID = rnumber.toString();
                sql = getLockUserSql();
                getJdbcTemplate().update(sql, new Object[]{logonStatus, rnumber, username});
-               String secureUrl = uiLayout.getUiprofile().getSecurehomepage();
+               String secureUrl = webutl.getUiprofile().getSecurehomepage();
 
                // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
                UserData userdata = new UserData();
