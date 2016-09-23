@@ -168,7 +168,15 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
         reqdata.setReqId(new Long(0));
         reqdata.setEventNum(0);
         reqdata.setAcctnum(tdMasterData.getAcctnum());
-        reqdata.setReqType("MOVE_MONEY_NEW");
+
+        if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
+           tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
+           tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD") )
+                  reqdata.setReqType("MOVE_MONEY_NEW");
+        else
+           reqdata.setReqType("IRA_MOVE_MONEY_NEW");
+
+
         reqdata.setEnvelopeHeading("Please sign move money document.");
         tdOpenAccount(reqdata);
         if(reqdata.getReqId()>0)
