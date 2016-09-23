@@ -675,25 +675,6 @@ public class TdCto
       data.setEnvelopeHeading("Please sign account opening document.");
 
       custodySaveDAO.tdOpenAccount(data);
-      if(data.getEventNum()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
-      {
-         data.setAcctnum(tdMasterData.getAcctnum());
-         data.setReqType("MOVE_MONEY_NEW");
-         data.setEnvelopeHeading("Please sign move money document.");
-         custodySaveDAO.tdOpenAccount(data);
-
-         data.setAcctnum(tdMasterData.getAcctnum());
-         data.setReqType("ELEC_FUND_TRAN_NEW");
-         data.setEnvelopeHeading("Please sign electronic fund transfer document.");
-         custodySaveDAO.tdOpenAccount(data);
-      }
-      if(data.getEventNum()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
-      {
-         data.setAcctnum(tdMasterData.getAcctnum());
-         data.setReqType("ACCT_TRAN_NEW");
-         data.setEnvelopeHeading("Please sign account transfer document.");
-         custodySaveDAO.tdOpenAccount(data);
-      }
       serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum());
       System.out.println("in open account");
    }
