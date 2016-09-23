@@ -26,5 +26,8 @@ public class TestClass
 //      serviceLayer.processDCRequest(new Long(123),12);
 //      serviceLayer.processDCRequest(new Long(123),2);
       //1929	1
+
+
+      serviceLayer.processDCRequest(new Long(123),2);
    }
 }
