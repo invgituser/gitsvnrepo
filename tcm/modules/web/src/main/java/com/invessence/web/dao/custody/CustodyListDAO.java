@@ -42,20 +42,24 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
+               String accttype = convert.getStrData(rs.get("acctTypeId"));
+               Long advisorID = convert.getLongData(rs.get("advisorId"));
+               advisorID = (advisorID == null || advisorID == 0) ? 1 : advisorID;
+
                data.getAcctdetail().setAcctnum(convert.getLongData(rs.get("acctnum")));
-               data.getAcctdetail().setAcctTypeId(rs.get("acctTypeId").toString());
-               if(data.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV"))
-                  data.setAccttype(1);
-               else if(data.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT"))
-                     data.setAccttype(2);
-               else if(data.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRATRAD"))
-                  data.setAccttype(3);
-               else if(data.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRAROTH"))
-                  data.setAccttype(4);
-               else if(data.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRAROOV"))
-                  data.setAccttype(5);
-               else if(data.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACIRA"))
-                  data.setAccttype(6);
+               data.getAcctdetail().setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+               data.getAcctdetail().setCaseNumber(convert.getStrData(rs.get("caseNumber")));
+               data.getAcctdetail().setAdvisorId(advisorID);
+               data.getAcctdetail().setAcctTypeId(accttype);
+               data.loadAcctType(accttype);
+
+               data.getAcctdetail().setCashSweepVehicleChoiceId(convert.getStrData(rs.get("cashSweepVehicleChoiceId")));
+               data.getAcctdetail().setDivIntPrefId(convert.getStrData(rs.get("divIntPrefId")));
+               data.getAcctdetail().setMonthStmtId(convert.getStrData(rs.get("monthStmtId")));
+               data.getAcctdetail().setTradConfId(convert.getStrData(rs.get("tradConfId")));
+               data.getAcctdetail().setDupStatement(convert.getStrData(rs.get("dupStatement")));
+               data.getAcctdetail().setDupTradeConfirm(convert.getStrData(rs.get("tradConfId")));
+               data.getAcctdetail().setProxyAuthorizationId(convert.getStrData(rs.get("proxyAuthorizationId")));
             }
          }
       }

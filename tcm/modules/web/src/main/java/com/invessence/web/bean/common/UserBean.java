@@ -260,28 +260,30 @@ public class UserBean implements Serializable
 
    public void preRenderResetUser()
    {
-      String msg;
+      String msg, msgheader;
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             resetBean();
             logger.debug("LOG: Reset UserID = " + beanUserID);
-            if (beanUserID != null && beanResetID != null)
+            if (beanLogonID != null && getLongBeanLogonID() >= 0L)
             {
-               if (!beanUserID.isEmpty() && !beanResetID.isEmpty())
-               {
+                  userdata.setLogonID(getLongBeanLogonID());
                   collectUserAccount();
                   if (!beanResetID.equals(userdata.getResetID()))
                   {
-                     webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid Reset data.");
+                     logger.debug("Info: ResetID does not match >> " + userdata.getEmail());
+                     msgheader = "signup.U109";
+                     webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
                   }
                   setRandomQuestion();
-               }
-               else
-               {
-                  webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid User data.");
-               }
+            }
+            else
+            {
+               logger.debug("Info: No LogonID> ");
+               msgheader = "signup.U109";
+               webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
             }
          }
       }
@@ -289,7 +291,8 @@ public class UserBean implements Serializable
       {
          logger.debug("LOG: Exception = " + ex.getMessage());
          logger.debug("Message", ex);
-         webutil.redirecttoMessagePage("ERROR", "Invalid link", "Sorry, this link contains invalid data.  Exception raised:" + ex.getMessage());
+         msgheader = "signup.EX.101";
+         webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
          webutil.alertSupport("Exception", "UserBean.ResetUser", "Sorry, this link contains invalid data.", ex.getMessage());
       }
    }
@@ -330,35 +333,45 @@ public class UserBean implements Serializable
       }
    }
 
-   private Boolean checkRegistrationInfo() {
-      userInfoDAO.selectUserInfo(userdata);
+   private Integer checkRegistrationInfo() {
+      // If DB object returns false, then fetch failed.
+      if (! userInfoDAO.selectUserInfo(userdata))
+         return -2;
+
+      // If we got no data.
       if (userdata.getLogonID() == null || userdata.getLogonID() < 0L)
-         return false;
+         return -1;
 
       // Check that logoid that was passed matches the DB
       if (beanLogonID != null) {
          if (userdata.getLogonID().equals(getLongBeanLogonID())) {
-            if (userdata.getLogonstatus() != null && (
-               userdata.getLogonstatus().startsWith("I") || userdata.getLogonstatus().startsWith("T")))
-               return true;
-            else
-               return false;
+            if (userdata.getLogonstatus() != null) {
+               if (userdata.getLogonstatus().startsWith("I"))
+                  return 1;
+               else if (userdata.getLogonstatus().startsWith("T"))
+                  return 2;
+               else if (userdata.getLogonstatus().startsWith("A"))
+                  return 3;
+            }
          }
       }
       else {
          if (beanEmail != null) {
             // It there was NO match with LOGONID, then Check that email matches the DB.
             if (userdata.getEmail().equalsIgnoreCase(beanEmail)) {
-               if (userdata.getLogonstatus() != null && (
-                  userdata.getLogonstatus().startsWith("I") || userdata.getLogonstatus().startsWith("T")))
-                  return true;
-               else
-                  return false;
+               if (userdata.getLogonstatus() != null) {
+                  if (userdata.getLogonstatus().startsWith("I"))
+                     return 1;
+                  else if (userdata.getLogonstatus().startsWith("T"))
+                     return 2;
+                  else if (userdata.getLogonstatus().startsWith("A"))
+                     return 3;
+               }
             }
          }
       }
       // Cannot continue, the data does not match.
-      return false;
+      return 4;
    }
 
    // This method is used twice.  Either the email address is provided and we need to find the corresponding record.
@@ -397,8 +410,8 @@ public class UserBean implements Serializable
                userdata.setUserID(null);
                userdata.setLogonstatus(null);
 
-
-               if (checkRegistrationInfo())
+               Integer checkStat =  checkRegistrationInfo();
+               if (checkStat == 1)
                {
                   // NOTE:  This signup method is called from either welcome link or it is called from register on main page.
                   // If the user is not found or it is valid reset, then continue.
@@ -407,8 +420,13 @@ public class UserBean implements Serializable
                   logger.info("Info: Start registration process for: " + userdata.getEmail());
                }
                else {
-                  logger.debug("Info: User is already registered: " + userdata.getEmail());
-                  msgheader = "signup.U103";
+                  logger.debug("Info: Data fetch issue>> " + userdata.getEmail());
+                  if (checkStat == 3) {
+                     msgheader = "signup.U103";
+                  }
+                  else {
+                     msgheader = "signup.U102";
+                  }
                   // msg= webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to sign-up for account that is already registered.  Either, follow the instruction to activate the account or use forgot password to reset your access.", null);
                   webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
                }
@@ -419,7 +437,7 @@ public class UserBean implements Serializable
       {
          logger.debug("ERROR: Exception: " + ex.getMessage());
          logger.debug("Message", ex);
-         msgheader = "signup.EX.U102";
+         msgheader = "signup.EX.102";
          // msg = webutil.getMessageText().getDisplayMessage(msgheader, "Sorry, you are attempting to activate account, but the link contains invalid data. Call Support.", null);
          webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
       }

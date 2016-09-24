@@ -311,7 +311,8 @@ public class TCMCharts implements Serializable
    {
       //System.out.println("projectionData :"+projectionData+" :horizon:"+horizon+":currAge:"+currAge+":ageSeries:"+ageSeries);
       //System.out.println("projectionData.length :"+projectionData.length);
-
+      currAge = (currAge == null) ? 30: currAge;
+      horizon = (horizon == null) ? 10 : horizon;
       Integer year;
       Integer noOfYlabels = 0;
       Integer totalYlabels = 0;
@@ -324,8 +325,9 @@ public class TCMCharts implements Serializable
       goalChart = null;
       try
       {
-         if (projectionData == null)
+         if (projectionData == null)  {
             return;
+         }
 
          if (projectionData.length < 2)
             return;

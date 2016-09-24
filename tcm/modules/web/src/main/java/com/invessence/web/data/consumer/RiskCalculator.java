@@ -136,6 +136,9 @@ public class RiskCalculator
    public void setRetired(Integer retired)
    {
       this.retired = retired;
+      if (retired != null && retired > 1) {
+          setRetireAge(null);
+      }
    }
 
    public Boolean isRetired() {

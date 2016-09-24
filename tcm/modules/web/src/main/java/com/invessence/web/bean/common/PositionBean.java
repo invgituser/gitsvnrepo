@@ -465,6 +465,5 @@ public class PositionBean implements Serializable
       }
    }
 
-
 }
 

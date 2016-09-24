@@ -98,8 +98,6 @@
                                         required="true" requiredMessage="When does your child plan to attend college?"/>
                         years.
                     </h3>
-                    <p:message for="collegeid" display="text"/>
-
                 </ui:fragment>
                 <ui:fragment rendered="#{tcmpb.goal == 'Wealth' || tcmpb.goal == 'Other'}">
 
@@ -113,15 +111,13 @@
                                         required="true" requiredMessage="When do you plan to use these funds?"/>
                         years.
                     </h3>
-                    <p:message for="otherid" display="text"/>
-
                 </ui:fragment>
             </div>
 
         </p:panel>
         <div class="EmptyBox10"></div>
         <div class="TexAlCenter">
-            <h:outputText value="#{tcmpb.customErrorText}" styleClass="red"
+            <h:outputText value="#{tcmpb.customErrorText}" styleClass="red" escape="true"
                           rendered="#{tcmpb.customErrorText != null}">
             </h:outputText>
         </div>

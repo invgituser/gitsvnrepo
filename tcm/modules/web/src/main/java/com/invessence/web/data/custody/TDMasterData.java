@@ -278,6 +278,25 @@ public class TDMasterData implements Serializable
       this.acctdetail = acctdetail;
    }
 
+   public void loadAcctType(String strtype) {
+      if (strtype != null) {
+         if (strtype.equalsIgnoreCase("ACCSTD"))
+            accttype = 0;
+         else if (strtype.equalsIgnoreCase("ACINDIV"))
+            accttype = 1;
+         else if (strtype.equalsIgnoreCase("ACJOINT"))
+            accttype = 2;
+         else if (strtype.equalsIgnoreCase("IRATRAD"))
+            accttype = 3;
+         else if (strtype.equalsIgnoreCase("IRAROTH"))
+            accttype = 4;
+         else if (strtype.equalsIgnoreCase("ACIRA"))
+            accttype = 5;
+         else
+            accttype = 6;
+      }
+   }
+
    public void setAccttype(Integer accttype)
    {
       this.accttype = accttype;

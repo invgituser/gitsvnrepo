@@ -165,19 +165,6 @@ public class TdCto
       this.beanacctnum = beanacctnum;
       Long acctnum;
 
-      if (beanacctnum != null) {
-         acctnum = Long.valueOf(beanacctnum);
-         this.acctnum =  acctnum;
-         if (tdMasterData != null) {
-            tdMasterData.setAcctnum(acctnum);
-            tdMasterData.getAcctdetail().setAcctnum(acctnum);
-            tdMasterData.getAcctOwnersDetail().setAcctnum(acctnum);
-            tdMasterData.getJointAcctOwnersDetail().setAcctnum(acctnum);
-            tdMasterData.getOwneremploymentDetail().setAcctnum(acctnum);
-            tdMasterData.getJointEmploymentDetail().setAcctnum(acctnum);
-         }
-
-      }
    }
 
    public UserData getUserdata()
@@ -553,6 +540,19 @@ public class TdCto
    {
       if (beanacctnum == null)
          return;
+
+      acctnum = Long.valueOf(beanacctnum);
+      this.acctnum =  acctnum;
+      if (tdMasterData != null) {
+         tdMasterData.setAcctnum(acctnum);
+         tdMasterData.getAcctdetail().setAcctnum(acctnum);
+         tdMasterData.getAcctdetail().setCashSweepVehicleChoiceId("TDSIPC");
+         tdMasterData.getAcctOwnersDetail().setAcctnum(acctnum);
+         tdMasterData.getJointAcctOwnersDetail().setAcctnum(acctnum);
+         tdMasterData.getOwneremploymentDetail().setAcctnum(acctnum);
+         tdMasterData.getJointEmploymentDetail().setAcctnum(acctnum);
+      }
+
       custodyListDAO.getTDAccountDetails(tdMasterData);
       custodyListDAO.getTDAccountHolder(tdMasterData);
       custodyListDAO.getTDEmployment(tdMasterData);

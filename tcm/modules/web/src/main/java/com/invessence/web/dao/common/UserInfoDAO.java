@@ -44,6 +44,8 @@ public class UserInfoDAO extends JdbcDaoSupport
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return false;
             int i = 0;
             for (Map<String, Object> map : rows)
             {
@@ -67,6 +69,7 @@ public class UserInfoDAO extends JdbcDaoSupport
                data.setCid(convert.getStrData(rs.get("cid")));
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
                data.setRep(convert.getStrData(rs.get("rep")));
+               data.setResetID(convert.getStrData(rs.get("resetID")));
                return true;
             }
          }
