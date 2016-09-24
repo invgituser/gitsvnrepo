@@ -876,6 +876,10 @@ public class WebUtil implements Serializable
          htmlfile = htmltempate;
          // htmlfile = "/template/html/" + htmltempate;
 
+      if (subject == null) {
+         subject = getUiprofile().getCompanyname() + "Email";
+      }
+
       data.setSubject(subject);
       String msg = getMessageText().buildMessage(emailMsgType,
                                                          htmlfile,

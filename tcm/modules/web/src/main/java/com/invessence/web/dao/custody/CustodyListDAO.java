@@ -101,6 +101,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                acctHolder.setOwnership(convert.getStrData(rs.get("ownership")));
                acctHolder.setFirstName(convert.getStrData(rs.get("firstName")));
                acctHolder.setMidInitial(convert.getStrData(rs.get("midInitial")));
+               acctHolder.setLastName(convert.getStrData(rs.get("lastname")));
                acctHolder.setSsn(convert.getStrData(rs.get("ssn")));
                acctHolder.setDob(convert.getStrData(rs.get("dob")));
                acctHolder.setPhoneNumber(convert.getStrData(rs.get("phoneNumber")));

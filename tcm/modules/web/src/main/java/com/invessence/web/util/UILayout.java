@@ -148,6 +148,7 @@ public class UILayout implements Serializable
                emailSubjectMap.put(WebConst.EMAIL_WELCOME_ADV_SUBJECT,getWebServiceValue(WebConst.EMAIL_WELCOME_ADV_SUBJECT));
                emailSubjectMap.put(WebConst.EMAIL_LOCKED_SUBJECT,getWebServiceValue(WebConst.EMAIL_LOCKED_SUBJECT));
                emailSubjectMap.put(WebConst.EMAIL_RESET_SUBJECT,getWebServiceValue(WebConst.EMAIL_RESET_SUBJECT));
+               emailSubjectMap.put(WebConst.EMAIL_ACTIVATE_SUBJECT,getWebServiceValue(WebConst.EMAIL_ACTIVATE_SUBJECT));
                webutil.getUiprofile().setEmailSubjectMap(emailSubjectMap);
 
                webutil.getUiprofile().setAdvisor(getWebServiceValue("DEFAULT.ADVISOR"));

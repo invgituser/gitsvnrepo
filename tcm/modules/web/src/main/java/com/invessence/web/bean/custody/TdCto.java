@@ -12,6 +12,7 @@ import com.invessence.web.data.custody.*;
 import com.invessence.web.data.custody.td.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
+import com.invessence.ws.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
 import org.primefaces.event.*;
@@ -32,9 +33,10 @@ public class TdCto
    private String beanacctnum;
    private Long acctnum;
    private UserData userdata = new UserData();
-   private TDMasterData tdMasterData = new TDMasterData();
-   private PagesImpl pagemanager = new PagesImpl(10);
+   private TDMasterData tdMasterData = new TDMasterData(0L);
+   private PagesImpl pagemanager = new PagesImpl(11);
    private Integer activeTab = 0;   // Start with first tab.
+   private Integer enableTabs = 0;
    private Integer newTab, subtab;
    private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
    private String selectedCheckedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
@@ -150,6 +152,17 @@ public class TdCto
       return beanacctnum;
    }
 
+   public Long getLongBeanacctnum()
+   {
+      if (beanacctnum == null)
+         return 0L;
+
+      if (beanacctnum.isEmpty())
+         return 0L;
+
+      return (webutil.converter.getLongData(beanacctnum));
+   }
+
    public ServiceLayerImpl getServiceLayer()
    {
       return serviceLayer;
@@ -163,8 +176,6 @@ public class TdCto
    public void setBeanacctnum(String beanacctnum)
    {
       this.beanacctnum = beanacctnum;
-      Long acctnum;
-
    }
 
    public UserData getUserdata()
@@ -180,12 +191,21 @@ public class TdCto
    }
 
    public void startCTO() {
+      String msgheader;
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            pagemanager = new PagesImpl(10);
+            if (beanacctnum == null || beanacctnum.isEmpty()) {
+               msgheader = "dctd.100";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            // clear all data.
+            tdMasterData = new TDMasterData(getLongBeanacctnum());
+            pagemanager = new PagesImpl(11);
             pagemanager.setPage(0);
+            enableTabs = 0;
             loadData();
          }
       }
@@ -321,6 +341,11 @@ public class TdCto
    public Integer getActiveTab()
    {
       return activeTab;
+   }
+
+   public Integer getEnableTabs()
+   {
+      return enableTabs;
    }
 
    public Integer getSubtab()
@@ -516,8 +541,7 @@ public class TdCto
          saveData(pagemanager.getPage());
          pagemanager.nextPage();
          resetActiveTab(pagemanager.getPage());
-
-
+         enableTabs = (enableTabs <= pagemanager.getPage()) ? pagemanager.getPage() : enableTabs;
       }
    }
 
@@ -541,6 +565,7 @@ public class TdCto
       if (beanacctnum == null)
          return;
 
+/*
       acctnum = Long.valueOf(beanacctnum);
       this.acctnum =  acctnum;
       if (tdMasterData != null) {
@@ -552,12 +577,21 @@ public class TdCto
          tdMasterData.getOwneremploymentDetail().setAcctnum(acctnum);
          tdMasterData.getJointEmploymentDetail().setAcctnum(acctnum);
       }
+*/
 
       custodyListDAO.getTDAccountDetails(tdMasterData);
       custodyListDAO.getTDAccountHolder(tdMasterData);
       custodyListDAO.getTDEmployment(tdMasterData);
       custodyListDAO.getTDBeneficiary(tdMasterData);
 
+      // Fix issues related to bad data.
+      if (tdMasterData.getAcctOwnersDetail().getOwnership() == null ||
+         tdMasterData.getAcctOwnersDetail().getOwnership().isEmpty())
+         tdMasterData.getAcctOwnersDetail().setOwnership("AOPRIMARY");
+
+      if (tdMasterData.getJointAcctOwnersDetail().getOwnership() == null ||
+         tdMasterData.getJointAcctOwnersDetail().getOwnership().isEmpty())
+         tdMasterData.getJointAcctOwnersDetail().setOwnership("AOJOINT");
    }
 
    private AcctOwnersDetails setOwnerData(String dataFlag,TDMasterData tdMasterData)
@@ -661,22 +695,52 @@ public class TdCto
 
    public void openAccount()
    {
-      Request data=new Request();
-      data.setReqId(new Long(0));
-      data.setEventNum(0);
-      data.setAcctnum(tdMasterData.getAcctnum());
-      if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
-         tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
-         tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD") )
-         data.setReqType("ACCT_APPLI_NEW");
-      else
-         data.setReqType("IRA_APPLI_NEW");
+      String msg, msgheader;
 
-      data.setEnvelopeHeading("Please sign account opening document.");
+      try {
+/*
+         if (!serviceLayer.isServiceActive())
+         {
+            msgheader = "dctd.101";
+            webutil.redirecttoMessagePage("ERROR", "Service not Active", msgheader);
+            return;
+         }
+*/
 
-      custodySaveDAO.tdOpenAccount(data);
-      serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum());
-      System.out.println("in open account");
+         WSCallStatus wsstatus;
+         WSCallResult wsCallResult;
+
+         Request data=new Request();
+         data.setReqId(new Long(0));
+         data.setEventNum(0);
+         data.setAcctnum(tdMasterData.getAcctnum());
+         if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
+            tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
+            tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD") )
+            data.setReqType("ACCT_APPLI_NEW");
+         else
+            data.setReqType("IRA_APPLI_NEW");
+
+         data.setEnvelopeHeading("Please sign account opening document.");
+
+         custodySaveDAO.tdOpenAccount(data);
+         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum());
+         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+         {
+            msg = wsCallResult.getWSCallStatus().getErrorMessage();
+            webutil.redirecttoMessagePage("ERROR", "Failed to Save", msg);
+         }
+         else {
+            System.out.println("in open account");
+            uiLayout.doMenuAction("custody","tdconfirmation.xhtml");
+         }
+      }
+      catch (Exception ex) {
+         msgheader = "dctd.EX.101";
+         webutil.redirecttoMessagePage("ERROR", "Service Error", msgheader);
+         return;
+
+      }
    }
 
 }

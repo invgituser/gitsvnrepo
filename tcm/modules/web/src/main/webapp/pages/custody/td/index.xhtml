@@ -29,9 +29,6 @@
                             <p:menuitem value="Funding"/>
                         </p:steps>
                     </div>
-                    <div class="Container100">
-                        <p:messages showDetail="false" escape="true" closable="true"/>
-                    </div>
                 </div>
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
@@ -39,7 +36,7 @@
                             <p:accordionPanel id="tdaccordian" styleClass="tcmAccordionPanel-UI" activeIndex="#{tdcto.activeTab}">
                                 <p:ajax event="tabChange" listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
-                                <p:tab id="tab0">
+                                <p:tab id="tab0" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm"/>

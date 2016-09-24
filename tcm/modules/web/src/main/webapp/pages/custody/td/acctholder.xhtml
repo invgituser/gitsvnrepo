@@ -44,7 +44,7 @@
                     <p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                  value="#{tdcto.tdMasterData.acctOwnersDetail.dob}"
                                  maxlength="30"
-                                 mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
+                                 mask="99/99/9999" placeholder="MM/DD/YYYY" required="true">
                     </p:inputMask>
                 </div>
 
@@ -69,7 +69,8 @@
                         <div style="margin-top: 10px;">
                             <p:selectBooleanCheckbox
                                     value="#{tdcto.tdMasterData.acctOwnersDetail.citizenShipFlag}"
-                                    styleClass="benCheckBox" itemLabel="USA Citizenship">
+                                    styleClass="benCheckBox" itemLabel="USA Citizenship"
+                                    required="false">
                             </p:selectBooleanCheckbox>
                         </div>
                     </div>
@@ -97,22 +98,23 @@
                            style="text-align: left !important; font-weight: bold !important;">Email Address</label>
 
                     <div class="EmptyBox5"></div>
-                    <p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+                    <p:inputText styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
                                  value="#{tdcto.tdMasterData.acctOwnersDetail.emailAddress}"
                                  maxlength="50"
-                                 placeholder="Email Address"
-                                 required="false">
-                    </p:inputMask>
+                                 placeholder="Email Address">
+                    </p:inputText>
                 </div>
 
             </div>
             <div class="Container100 MarTop20" style="margin: 10px 10px;">
             <p:commandLink styleClass="UI-prevButtonFA Fleft"
                            actionListener="#{tdcto.prevPage}"
+                           process="@none"
                            update="@form"/>
 
             <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                            actionListener="#{tdcto.nextPage}"
+                           process="@parent"
                            update="@form"/>
         </div>
         </div>
@@ -212,22 +214,23 @@
                            style="text-align: left !important; font-weight: bold !important;">Email Address</label>
 
                     <div class="EmptyBox5"></div>
-                    <p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+                    <p:inputText styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
                                  value="#{tdcto.tdMasterData.jointAcctOwnersDetail.emailAddress}"
                                  maxlength="50"
-                                 placeholder="Email Address"
-                                 required="false">
-                    </p:inputMask>
+                                 placeholder="Email Address">
+                    </p:inputText>
                 </div>
 
             </div>
             <div class="Container100 MarTop20" style="margin: 10px 10px;">
             <p:commandLink styleClass="UI-prevButtonFA Fleft"
                            actionListener="#{tdcto.prevPage}"
+                           process="@none"
                            update="@form"/>
 
             <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                            actionListener="#{tdcto.nextPage}"
+                           process="@parent"
                            update="@form"/>
         </div>
         </div>

@@ -21,6 +21,7 @@ public class UserBean implements Serializable
 {
    protected final Log logger = LogFactory.getLog(getClass());
    private Boolean newRegistration;
+   private String action;
    private String beanUserID, beanResetID, beanEmail;
    private String beanCustID;
    private String beanLogonID;
@@ -73,6 +74,16 @@ public class UserBean implements Serializable
    public UserData getUserdata()
    {
       return userdata;
+   }
+
+   public String getAction()
+   {
+      return action;
+   }
+
+   public void setAction(String action)
+   {
+      this.action = action;
    }
 
    public String getBeanUserID()
@@ -221,6 +232,28 @@ public class UserBean implements Serializable
    public Map<String, String> getUsstates()
    {
       return usstates.getStates();
+   }
+
+   private void resetALL()
+   {
+
+      newRegistration = true;
+      action = "N";
+      beanUserID = null;
+      beanResetID = null;
+      beanEmail = null;
+      beanCustID = null;
+      beanLogonID = null;
+      pwd1 = null;
+      pwd2 = null;
+      beanq1 = null;
+      beanq2 = null;
+      beanq3 = null;
+      beanans1 = null;
+      beanans2 = null;
+      beanans3 = null;
+      attempts = 0;
+      userdata = new UserData();
    }
 
    private void resetBean()
@@ -384,25 +417,29 @@ public class UserBean implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            beanUserID = null;
-            beanResetID = null;
-            newRegistration = true;
-            resetBean();
-            if (beanEmail != null && ! beanEmail.isEmpty())
-            {
-              userdata.setEmail(beanEmail);
-               newRegistration = false;
-           }
-            else {
-               userdata.setEmail(null);
+            if (action != null) {
+               resetALL();
+               newRegistration = true;
             }
+            else {
+               beanUserID = null;
+               beanResetID = null;
+               newRegistration = false;
+               resetBean();
+               if (beanEmail != null && ! beanEmail.isEmpty())
+               {
+                 userdata.setEmail(beanEmail);
+              }
+               else {
+                  userdata.setEmail(null);
+               }
 
-            if (beanLogonID != null && ! beanLogonID.isEmpty()) {
-               userdata.setLogonID(getLongBeanLogonID());
-               newRegistration = false;
-            }
-            else {
-               userdata.setLogonID(null);
+               if (beanLogonID != null && ! beanLogonID.isEmpty()) {
+                  userdata.setLogonID(getLongBeanLogonID());
+               }
+               else {
+                  userdata.setLogonID(null);
+               }
             }
 
             // If either email or logonid is provided, then find the correspinding record.
@@ -564,10 +601,6 @@ public class UserBean implements Serializable
 
          saveQnA();
          // If there is no error with QA save, then redirect to proper page.
-         beanEmail = null;
-         beanLogonID = null;
-         beanUserID = null;
-         resetBean();
 
          if (userdata.getLogonstatus() != null && getUserdata().getLogonstatus().startsWith("A"))
          {
@@ -577,8 +610,10 @@ public class UserBean implements Serializable
          {
             webutil.redirect("/signup3.xhtml", null);
          }
-
-
+         beanEmail = null;
+         beanLogonID = null;
+         beanUserID = null;
+         resetBean();
       }
       catch (Exception ex)
       {

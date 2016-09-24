@@ -50,10 +50,10 @@ public class TDMasterData implements Serializable
    ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList;
    BenefiaciaryDetails tmpBenefiaciaryDetail;
 
-   public TDMasterData()
+   public TDMasterData(Long acctnum)
    {
 
-      acctnum = null;
+      this.acctnum = acctnum;
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
@@ -67,12 +67,12 @@ public class TDMasterData implements Serializable
       usmaps = USMaps.getInstance();
 
       request = new Request();
-      acctdetail = new Acctdetails();
-      advisorDetails = new AdvisorDetails();
-      acctOwnersDetail = new AcctOwnersDetails();
-      jointAcctOwnersDetail = new AcctOwnersDetails();
-      owneremploymentDetail = new EmploymentDetails ();
-      jointEmploymentDetail= new EmploymentDetails ();
+      request = new Request(null, acctnum);
+      acctdetail = new Acctdetails(acctnum);
+      acctOwnersDetail = new AcctOwnersDetails(acctnum, 1, "AOPRIMARY");
+      jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2, "AOJOINT");
+      owneremploymentDetail = new EmploymentDetails(acctnum, 1, 1);
+      jointEmploymentDetail = new EmploymentDetails(acctnum, 2, 1);
       benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
       mapMovemoneyPaymethod = new MapMovemoneyPaymethod();
       achBankDetail = new AchBankDetail();
@@ -80,7 +80,6 @@ public class TDMasterData implements Serializable
       electroicBankDetail = new ElectronicFundDetails();
       fedwireAcctDetail = new FedwireAcctDetails();
       internalTransferDetail = new InternalTransferDetails();
-
       tmpBenefiaciaryDetail = new BenefiaciaryDetails();
    }
 
@@ -91,16 +90,7 @@ public class TDMasterData implements Serializable
             return;
 
          this.acctnum = acctnum;
-         request = new Request(null, acctnum);
-         acctdetail = new Acctdetails(acctnum);
-         if(getAcctOwnersDetail().getAcctOwnerId()==null)
-            acctOwnersDetail = new AcctOwnersDetails(acctnum, 1, "AOPRIMARY");
-         if(getJointAcctOwnersDetail().getAcctOwnerId()==null)
-         jointAcctOwnersDetail = new AcctOwnersDetails(acctnum, 2, "AOJOINT");
-         if(getOwneremploymentDetail().getAcctOwnerId()==null)
-            owneremploymentDetail = new EmploymentDetails(acctnum, 1, 1);
-         if(getJointEmploymentDetail().getAcctOwnerId()==null)
-            jointEmploymentDetail = new EmploymentDetails(acctnum, 2, 1);
+
       }
 
    }
