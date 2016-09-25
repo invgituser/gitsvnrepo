@@ -30,6 +30,7 @@ public class TDMasterData implements Serializable
    String fundType;
    Boolean fundNow, recurringFlag;
    Double initialInvestment;
+   Integer totalbeneficiaryShares;
 
    private USMaps usmaps;
    // TD information
@@ -64,6 +65,7 @@ public class TDMasterData implements Serializable
       recurringFlag = false;
       fundType = null;
       initialInvestment = null;
+      totalbeneficiaryShares = null;
       usmaps = USMaps.getInstance();
 
       request = new Request();
@@ -483,7 +485,7 @@ public class TDMasterData implements Serializable
 
       }
 
-
+      totalbeneficiaryShares = ((totalbeneficiaryShares == null) ? 0 : totalbeneficiaryShares) + tmpBenefiaciaryDetail.getSharePerc().intValue();
       benefiaciaryDetailsList.add(tmpBenefiaciaryDetail);
       showBeneficiaryForm = false;
       editBeneficiaryForm=false;
@@ -530,16 +532,23 @@ public class TDMasterData implements Serializable
       showBeneficiaryForm = false;
    }
 
-   public void deleteBeneficiary(Integer beneID) {
-      if (beneID == null)
+   public void deleteBeneficiary(BenefiaciaryDetails thisBeneficiary) {
+      if (thisBeneficiary == null)
          return;
 
-      if (beneID > benefiaciaryDetailsList.size())
+      if (thisBeneficiary.getBeneId() > benefiaciaryDetailsList.size())
          return;
 
-      benefiaciaryDetailsList.remove(beneID.intValue());
-      for (int i=0; i < benefiaciaryDetailsList.size(); i++) {
-         benefiaciaryDetailsList.get(i).setBeneId(i);  // Reset all seq#.
+      benefiaciaryDetailsList.remove(thisBeneficiary.getBeneId().intValue());
+      if (benefiaciaryDetailsList.size() > 0) {
+         totalbeneficiaryShares = 0;
+         for (int i=0; i < benefiaciaryDetailsList.size(); i++) {
+            totalbeneficiaryShares += benefiaciaryDetailsList.get(i).getSharePerc().intValue();
+            benefiaciaryDetailsList.get(i).setBeneId(i+1);  // Reset all seq#.
+         }
+      }
+      else {
+         totalbeneficiaryShares = null;
       }
    }
 }

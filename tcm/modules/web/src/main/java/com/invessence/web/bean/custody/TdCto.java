@@ -34,9 +34,9 @@ public class TdCto
    private Long acctnum;
    private UserData userdata = new UserData();
    private TDMasterData tdMasterData = new TDMasterData(0L);
-   private PagesImpl pagemanager = new PagesImpl(11);
+   private PagesImpl pagemanager = new PagesImpl(10);
    private Integer activeTab = 0;   // Start with first tab.
-   private Integer enableTabs = 0;
+   private Boolean[] enableTabs = new Boolean[10];
    private Integer newTab, subtab;
    private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
    private String selectedCheckedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
@@ -190,6 +190,14 @@ public class TdCto
       return beneTempList;
    }
 
+   private void initBean() {
+
+      for (int i = 0; i < enableTabs.length; i++)  {
+         enableTabs[0] = false;
+      }
+
+   }
+
    public void startCTO() {
       String msgheader;
       try
@@ -202,10 +210,10 @@ public class TdCto
                return;
             }
             // clear all data.
+            enableTabs = new Boolean[10];
             tdMasterData = new TDMasterData(getLongBeanacctnum());
-            pagemanager = new PagesImpl(11);
+            pagemanager = new PagesImpl(10);
             pagemanager.setPage(0);
-            enableTabs = 0;
             loadData();
          }
       }
@@ -343,9 +351,9 @@ public class TdCto
       return activeTab;
    }
 
-   public Integer getEnableTabs()
+   public Boolean getEnableTabs(Integer pos)
    {
-      return enableTabs;
+      return enableTabs[pos];
    }
 
    public Integer getSubtab()
@@ -488,6 +496,7 @@ public class TdCto
             break;
       }
 
+      enableTabs[newTab] = true;
       return newTab;
    }
 
@@ -541,7 +550,6 @@ public class TdCto
          saveData(pagemanager.getPage());
          pagemanager.nextPage();
          resetActiveTab(pagemanager.getPage());
-         enableTabs = (enableTabs <= pagemanager.getPage()) ? pagemanager.getPage() : enableTabs;
       }
    }
 

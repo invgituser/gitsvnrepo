@@ -310,6 +310,8 @@ public class UserBean implements Serializable
                      msgheader = "signup.U109";
                      webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
                   }
+                  beanUserID = userdata.getUserID();
+
                   setRandomQuestion();
             }
             else
@@ -663,7 +665,7 @@ public class UserBean implements Serializable
       {
          String passwordEncrypted = MsgDigester.getMessageDigest(pwd1);
          userInfoDAO.resetPassword(beanUserID, passwordEncrypted);
-         webutil.redirect("/approved.xhtml", null);
+         webutil.redirect("/signup4.xhtml", null);
       }
    }
 
@@ -824,7 +826,11 @@ public class UserBean implements Serializable
          Integer myResetID = webutil.randomGenerator(0, 347896);
          userInfoDAO.updResetID(userdata.getUserID(), myResetID.toString());
          userdata.setLogonstatus("R");
+         userdata.setResetID(myResetID.toString());
          webutil.sendConfirmation(userdata);
+         msgheader = "signup.U110";
+         msg = webutil.getMessageText().getDisplayMessage(msgheader, "Reset email sent.", null);
+         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msgheader));
       }
       else {
          logger.debug("Warning: Reset Denied: " + beanEmail);

@@ -59,7 +59,8 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.7.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-joda:2.1.5" level="project" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.9.3" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces:6.0" level="project" />
+    <orderEntry type="library" name="org.primefaces.extensions:resources-codemirror:6.0.0" level="project" />
+    <orderEntry type="library" name="org.primefaces.extensions:primefaces-extensions:6.0.0" level="project" />
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="broker-webservices" />
     <orderEntry type="module" module-name="emailer" />
