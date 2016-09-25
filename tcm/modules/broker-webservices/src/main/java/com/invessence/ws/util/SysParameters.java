@@ -44,8 +44,130 @@ public class SysParameters
    public static int wsDBErrCode;
    public static String wsDBErrMsg;
 
+   @Autowired
+   public void setWsOperationNAMsgCode(@Value("${wsOperationNACode}")int wsOperationNACode)
+   {
+      SysParameters.wsOperationNACode = wsOperationNACode;
+   }
+   @Autowired
+   public void setWsOperationNAMsg(@Value("${wsOperationNAMsg}")String wsOperationNAMsg)
+   {
+      SysParameters.wsOperationNAMsg = wsOperationNAMsg;
+   }
+   @Autowired
+   public void setWsUserRegIssueCode(@Value("${wsUserRegIssueCode}")int wsUserRegIssueCode)
+   {
+      SysParameters.wsUserRegIssueCode = wsUserRegIssueCode;
+   }
+   @Autowired
+   public void setWsUserRegIssueMsg(@Value("${wsUserRegIssueMsg}") String wsUserRegIssueMsg)
+   {
+      SysParameters.wsUserRegIssueMsg = wsUserRegIssueMsg;
+   }
+   @Autowired
+   public void setWsDBErrCode(@Value("${wsDBErrCode}")int wsDBErrCode)
+   {
+      SysParameters.wsDBErrCode = wsDBErrCode;
+   }
+   @Autowired
+   public void setWsDBErrMsg(@Value("${wsDBErrMsg}")String wsDBErrMsg)
+   {
+      SysParameters.wsDBErrMsg = wsDBErrMsg;
+   }
+   @Autowired
+   public void setWsResIssueCode(@Value("${wsResIssueCode}") int wsResIssueCode)
+   {
+      SysParameters.wsResIssueCode = wsResIssueCode;
+   }
+   @Autowired
+   public void setWsResIssueMsg(@Value("${wsResIssueMsg}") String wsResIssueMsg)
+   {
+      SysParameters.wsResIssueMsg = wsResIssueMsg;
+   }
+   @Autowired
+   public void setWsIGenErrCode(@Value("${wsIGenErrCode}")int wsIGenErrCode)
+   {
+      SysParameters.wsIGenErrCode = wsIGenErrCode;
+   }
+   @Autowired
+   public void setWsIGenErrMsg(@Value("${wsIGenErrMsg}")String wsIGenErrMsg)
+   {
+      SysParameters.wsIGenErrMsg = wsIGenErrMsg;
+   }
+   @Autowired
+   public void setWsEGenErrCode(@Value("${wsEGenErrCode}")int wsEGenErrCode)
+   {
+      SysParameters.wsEGenErrCode = wsEGenErrCode;
+   }
+   @Autowired
+   public void setWsEGenErrMsg(@Value("${wsEGenErrMsg}")String wsEGenErrMsg)
+   {
+      SysParameters.wsEGenErrMsg = wsEGenErrMsg;
+   }
 
-//   public static String getUserAccDetailsByAccNumber;
+   public static String dcSuccessMsg;
+   public static int dcSuccessCode;
+   public static String dcReqDataIssueMsg;
+   public static int dcReqDataIssueCode;
+   public static String dcEGenErrMsg;
+   public static int dcEGenErrCode;
+   public static String dcIGenErrMsg;
+   public static int dcIGenErrCode;
+   public static String dcTechIssueMsg;
+   public static int dcTechIssueCode;
+   @Autowired
+   public void setDcSuccessMsg(@Value("${dcSuccessMsg}")String dcSuccessMsg)
+   {
+      SysParameters.dcSuccessMsg = dcSuccessMsg;
+   }
+   @Autowired
+   public void setDcSuccessCode(@Value("${dcSuccessCode}")int dcSuccessCode)
+   {
+      SysParameters.dcSuccessCode = dcSuccessCode;
+   }
+
+   @Autowired
+   public void setDcReqDataIssueMsg(@Value("${dcReqDataIssueMsg}")String dcReqDataIssueMsg)
+   {
+      SysParameters.dcReqDataIssueMsg = dcReqDataIssueMsg;
+   }
+   @Autowired
+   public void setDcReqDataIssueCode(@Value("${dcReqDataIssueCode}")int dcReqDataIssueCode)
+   {
+      SysParameters.dcReqDataIssueCode = dcReqDataIssueCode;
+   }
+   @Autowired
+   public void setDcEGenErrMsg(@Value("${dcEGenErrMsg}")String dcEGenErrMsg)
+   {
+      SysParameters.dcEGenErrMsg = dcEGenErrMsg;
+   }
+   @Autowired
+   public void setDcEGenErrCode(@Value("${dcEGenErrCode}")int dcEGenErrCode)
+   {
+      SysParameters.dcEGenErrCode = dcEGenErrCode;
+   }
+   @Autowired
+   public void setDcIGenErrMsg(@Value("${dcIGenErrMsg}")String dcIGenErrMsg)
+   {
+      SysParameters.dcIGenErrMsg = dcIGenErrMsg;
+   }
+   @Autowired
+   public void setDcIGenErrCode(@Value("${dcIGenErrCode}")int dcIGenErrCode)
+   {
+      SysParameters.dcIGenErrCode = dcIGenErrCode;
+   }
+   @Autowired
+   public void setDcTechIssueMsg(@Value("${dcTechIssueMsg}")String dcTechIssueMsg)
+   {
+      SysParameters.dcTechIssueMsg = dcTechIssueMsg;
+   }
+   @Autowired
+   public void setDcTechIssueCode(@Value("${dcTechIssueCode}")int dcTechIssueCode)
+   {
+      SysParameters.dcTechIssueCode = dcTechIssueCode;
+   }
+
+   //   public static String getUserAccDetailsByAccNumber;
 //   public static String getPendingUserAccDetails;
 //   public static String updatePendingUserAccDetailsOnSuccess;
 //   public static String updatePendingUserAccDetailsOnFailure;
@@ -160,73 +282,6 @@ public class SysParameters
 //   {
 //      SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME = BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME;
 //   }
-
-   @Autowired
-   public void setWsOperationNAMsgCode(@Value("${wsOperationNACode}")int wsOperationNACode)
-   {
-      SysParameters.wsOperationNACode = wsOperationNACode;
-   }
-   @Autowired
-   public void setWsOperationNAMsg(@Value("${wsOperationNAMsg}")String wsOperationNAMsg)
-   {
-      SysParameters.wsOperationNAMsg = wsOperationNAMsg;
-   }
-   @Autowired
-   public void setWsUserRegIssueCode(@Value("${wsUserRegIssueCode}")int wsUserRegIssueCode)
-   {
-      SysParameters.wsUserRegIssueCode = wsUserRegIssueCode;
-   }
-   @Autowired
-   public void setWsUserRegIssueMsg(@Value("${wsUserRegIssueMsg}") String wsUserRegIssueMsg)
-   {
-      SysParameters.wsUserRegIssueMsg = wsUserRegIssueMsg;
-   }
-   @Autowired
-   public void setWsDBErrCode(@Value("${wsDBErrCode}")int wsDBErrCode)
-   {
-      SysParameters.wsDBErrCode = wsDBErrCode;
-   }
-   @Autowired
-   public void setWsDBErrMsg(@Value("${wsDBErrMsg}")String wsDBErrMsg)
-   {
-      SysParameters.wsDBErrMsg = wsDBErrMsg;
-   }
-
-   @Autowired
-   public void setWsResIssueCode(@Value("${wsResIssueCode}") int wsResIssueCode)
-   {
-      SysParameters.wsResIssueCode = wsResIssueCode;
-   }
-
-   @Autowired
-   public void setWsResIssueMsg(@Value("${wsResIssueMsg}") String wsResIssueMsg)
-   {
-      SysParameters.wsResIssueMsg = wsResIssueMsg;
-   }
-
-   @Autowired
-   public void setWsIGenErrCode(@Value("${wsIGenErrCode}")int wsIGenErrCode)
-   {
-      SysParameters.wsIGenErrCode = wsIGenErrCode;
-   }
-
-   @Autowired
-   public void setWsIGenErrMsg(@Value("${wsIGenErrMsg}")String wsIGenErrMsg)
-   {
-      SysParameters.wsIGenErrMsg = wsIGenErrMsg;
-   }
-
-   @Autowired
-   public void setWsEGenErrCode(@Value("${wsEGenErrCode}")int wsEGenErrCode)
-   {
-      SysParameters.wsEGenErrCode = wsEGenErrCode;
-   }
-
-   @Autowired
-   public void setWsEGenErrMsg(@Value("${wsEGenErrMsg}")String wsEGenErrMsg)
-   {
-      SysParameters.wsEGenErrMsg = wsEGenErrMsg;
-   }
 //   @Autowired
 //   public void setGetAccountExtInfo(@Value("${getAccountExtInfo}")String getAccountExtInfo)
 //   {

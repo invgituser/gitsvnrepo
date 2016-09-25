@@ -24,6 +24,8 @@ import com.invessence.service.bean.*;
 import com.invessence.service.util.*;
 import com.invessence.ws.provider.td.bean.*;
 import com.invessence.ws.provider.td.dao.TDDaoLayer;
+import com.invessence.ws.util.CommonUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -36,28 +38,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Component
 public class DCUtility
 {
+   private static final Logger logger = Logger.getLogger(DCUtility.class);
    @Autowired
    TDDaoLayer tdDaoLayer;
-   public EnvelopeSummary createEnvelope (EnvelopeDefinition envDef, Long acctNum, int eventNum, String requestIds)
+   public boolean createEnvelope (EnvelopeDefinition envDef, Long acctNum, int eventNum, String requestIds)
    {
+      boolean resultFlag=false;
       try {
          ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
          mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
          mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-         System.out.println("EnvelopeDefinition :" +mapper.writeValueAsString(envDef));
+         logger.info("EnvelopeDefinition :" +mapper.writeValueAsString(envDef));
       } catch (JsonProcessingException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
       EnvelopeSummary envelopeSummary=null;
+      Date reqTime= new Date();
       String UserName = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"USERNAME");//"prashant@invessence.com";//"[EMAIL]";
       String Password = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"PASSWORD");//"Inv3ss3nc3!";//"[PASSWORD]";
-
       // TODO: Enter your Integrator Key (aka API key), created through your developer sandbox preferences
       String IntegratorKey = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"INTEGRATOR_KEY");//"TDAM-d7feb45c-e88d-4c20-b5bd-1dcd9a9d6f56";//"[INTEGRATOR_KEY]";
-
       // for production environment update to "www.docusign.net/restapi"
       String BaseUrl = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"BASE_URL");//"https://demo.docusign.net/restapi";
 
@@ -92,47 +95,34 @@ public class DCUtility
          // note that a given user may be a member of multiple accounts
          loginAccounts = loginInfo.getLoginAccounts();
 
-         System.out.println("LoginInformation: " + loginAccounts);
-      }
-      catch (com.docusign.esign.client.ApiException ex)
-      {
-         System.out.println("Exception: " + ex);
-      }
+         logger.info("LoginInformation: " + loginAccounts);
 
-//      //===============================================================================
-//
-//
-      Date reqTime= null;
-      try
-      {
          // use the |accountId| we retrieved through the Login API to create the Envelope
          //String accountId = loginAccounts.get(0).getAccountId();
 
          String accountId=ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ACCOUNT_ID");
 
-
          // instantiate a new EnvelopesApi object
          EnvelopesApi envelopesApi = new EnvelopesApi();
-         reqTime= new Date();
          // call the createEnvelope() API
-         // envDef.setCustomFields(customFields);
          envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
 
-         System.out.println("EnvelopeSummary: " + envelopeSummary);
-         DCRequestAudit dcRequest = new DCRequestAudit(requestIds, acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,envelopeSummary==null?"":getJsonObjectToString(envelopeSummary),"S", reqTime, envelopeSummary==null?"":envelopeSummary.getEnvelopeId());
-         System.out.println("dcRequest = " + dcRequest);
-         tdDaoLayer.callDCAuditSP(dcRequest);
+         logger.info("EnvelopeSummary: " + envelopeSummary);
+         DCRequestAudit dcRequestAudit = new DCRequestAudit(requestIds, acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,envelopeSummary==null?"":getJsonObjectToString(envelopeSummary),"S", reqTime, envelopeSummary==null?"":envelopeSummary.getEnvelopeId());
+         logger.debug("dcRequestAudit = " + dcRequestAudit);
+         tdDaoLayer.callDCAuditSP(dcRequestAudit);
+         return true;
       }
       catch (com.docusign.esign.client.ApiException ex)
       {
-         System.out.println("Exception: " + ex);
-         DCRequestAudit dcRequest = new DCRequestAudit(requestIds,acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,ex.toString(),"E", reqTime, "");
-         System.out.println("dcRequest = " + dcRequest);
-         tdDaoLayer.callDCAuditSP(dcRequest);
+         logger.error(ex);
+         DCRequestAudit dcRequestAudit = new DCRequestAudit(requestIds,acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,ex.toString(),"E", reqTime, "");
+         logger.debug("dcRequestAudit = " + dcRequestAudit);
+         tdDaoLayer.callDCAuditSP(dcRequestAudit);
+      }catch(Exception ex){
+         logger.error(ex.getMessage());
       }
-//      return new WSCallResult(new WSCallStatus(mailingAddressesResult.getErrorStatus().getErrorCode(), mailingAddressesResult.getErrorStatus().getErrorMessage()),userAcctExt);
-
-      return envelopeSummary;
+      return resultFlag;
    }
 
    public ServerTemplate getServerTemplate (String sequence, DCTemplateDetails dcTemplateDetails){
@@ -161,9 +151,7 @@ public class DCUtility
 
    public Recipients getRecipientsAcctTransfer(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, AcctTransferDetails acctTransferDetails)
    {
-   System.out.println("*****************************************************");
-      System.out.println("DCUtility.getRecipientsAcctTransfer");
-   System.out.println("*****************************************************");
+      logger.info("DCUtility.getRecipientsAcctTransfer");
 
    List<String> dbColumns=null;
    List<Signer> signerLst=new ArrayList<>();
@@ -209,9 +197,7 @@ public class DCUtility
 
    public Recipients getRecipientsElecFundTransfer(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, ElecFundTransferDetails elecFundTransferDetails)
    {
-      System.out.println("*****************************************************");
-      System.out.println("DCUtility.getRecipientsAcctCreation");
-      System.out.println("*****************************************************");
+      logger.info("DCUtility.getRecipientsElecFundTransfer");
 
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
@@ -227,7 +213,7 @@ public class DCUtility
       try
       {
          dbColumns=getFieldNames(elecFundTransferDetails, false);
-         System.out.println("dbColumns = =" + dbColumns);
+         System.out.println("dbColumns =" + dbColumns);
          List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
          getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, elecFundTransferDetails);
       }
@@ -257,9 +243,9 @@ public class DCUtility
 
    public Recipients getRecipientsAcctCreation(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
    {
-      System.out.println("*****************************************************");
+
       System.out.println("DCUtility.getRecipientsAcctCreation");
-      System.out.println("*****************************************************");
+
 
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
@@ -337,9 +323,9 @@ public class DCUtility
 
    public Recipients getRecipientsMoveMoney(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, MoveMoneyDetails moveMoneyDetails,  Object dataObject)
    {
-      System.out.println("*****************************************************");
-      System.out.println("DCUtility.getRecipientsAcctCreation");
-      System.out.println("*****************************************************");
+
+      logger.info("DCUtility.getRecipientsMoveMoney");
+
 
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
@@ -413,9 +399,9 @@ public class DCUtility
 
    public Recipients getRecipientsMoveMoney(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<MoveMoneyDetails> moveMoneyDetailsLst)
    {
-      System.out.println("*****************************************************");
-      System.out.println("DCUtility.getRecipientsAcctCreation");
-      System.out.println("*****************************************************");
+
+      logger.info("DCUtility.getRecipientsMoveMoney");
+
 
       List<MMAchBankDetails> mmAchBankDetails=null;
       List<MMInternalTransferDetails> mmInternalTransferDetails=null;
@@ -444,12 +430,12 @@ try{
          try
          {
             dbColumns = getFieldNames(moveMoneyDetails, false);
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, moveMoneyDetails);
          }
          catch (IllegalAccessException e)
          {
             e.printStackTrace();
          }
-         getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, moveMoneyDetails);
 
          if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("ACH"))
           {
@@ -462,15 +448,13 @@ try{
                 try
                 {
                    dbColumns = getFieldNames(achBankDetails, false);
+                   getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
                 }
                 catch (IllegalAccessException e)
                 {
                    e.printStackTrace();
                 }
-
-                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
-             }
-
+               }
           }
           else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("FedWires"))
           {
@@ -483,21 +467,18 @@ try{
                 try
                 {
                    dbColumns = getFieldNames(achBankDetails, false);
+                   getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
                 }
                 catch (IllegalAccessException e)
                 {
                    e.printStackTrace();
                 }
-
-                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
              }
           }
           else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("3rdPartyInternal"))
           {
              mmInternalTransferDetails = tdDaoLayer.getMMInternalTransferDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
           }
-
-
       }
 
 //      if( (dataObject!=null && ((List)dataObject).size()>0) && ((List)dataObject).get(0) instanceof MMAchBankDetails){
@@ -529,9 +510,8 @@ catch (Exception e)
 
    public InlineTemplate getInlineTemplateAgreements(Map<String,DCDocumentDetails> dcDocumentDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
    {
-      System.out.println("*****************************************************");
+
       System.out.println("DCUtility.getInlineTemplateAgreements");
-      System.out.println("*****************************************************");
 
       List<String> dbColumns=null;
       InlineTemplate inlineTemplate=null;
@@ -582,7 +562,7 @@ catch (Exception e)
       {
          Map.Entry<String, DCDocumentDetails> dcDocumentDetail1 = (Map.Entry<String, DCDocumentDetails>) docItr.next();
          DCDocumentDetails dcDocumentDetail=dcDocumentDetail1.getValue();
-         System.out.println(dcDocumentDetail);
+         logger.info("dcDocumentDetail = " + dcDocumentDetail);
 
          byte[] fileBytes = null;
 
@@ -595,7 +575,7 @@ catch (Exception e)
          catch (IOException ioExcp)
          {
             // handle error
-            System.out.println("Exception: " + ioExcp);
+            logger.error(ioExcp);
          }
 
          Document doc = new Document();
@@ -610,7 +590,7 @@ catch (Exception e)
             try
             {
                dbColumns=getFieldNames(acctDetails, false);
-               System.out.println("dbColumns = =" + dbColumns);
+               logger.info("dbColumns = =" + dbColumns);
                dcDocumentDetailsList = dcDocumentDetail.getDcDocumentMappings().get("Client");
                getTabObject(dcDocumentDetailsList,dbColumns,textboxLst,signHereLst,acctDetails, ""+documentId);
             }
@@ -671,20 +651,18 @@ catch (Exception e)
    private List<Signer> getSigners(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst){
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
+      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+
       try
       {
          dbColumns=getFieldNames(acctDetails, false);
-         System.out.println("dbColumns = =" + dbColumns);
-      }
+         logger.info("dbColumns = =" + dbColumns);
+         getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctDetails);
+  }
       catch (IllegalAccessException e)
       {
          e.printStackTrace();
       }
-
-      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-      getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctDetails);
-
-
       int signerRecipientId=1;
       Iterator<AcctOwnerDetails> itr = acctDetails.getAcctOwnerDetails().iterator();
       while (itr.hasNext())
@@ -702,7 +680,6 @@ catch (Exception e)
          Signer signer=null;
 
          if(acctOwner.getOwnership().equalsIgnoreCase("Client")){
-            System.out.println("Client");
             signer=new Signer();
             signer.setEmail(acctOwner.getEmailAddress());
             signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
@@ -713,24 +690,23 @@ catch (Exception e)
                signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
             }
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-            System.out.println("dcDocumentMappingList = " + dcTemplateMappingList);
+            logger.info("dcDocumentMappingList = " + dcTemplateMappingList);
             getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
             if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
-               System.out.println("Employment details are not available");
+               logger.info("Employment details are not available");
             }else{
                try
                {
                   dbColumns=getFieldNames(acctOwner.getEmploymentDetails().get(0), false);
+                  getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner.getEmploymentDetails().get(0));
                }
                catch (IllegalAccessException e)
                {
                   e.printStackTrace();
                }
-               getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner.getEmploymentDetails().get(0));
             }
 
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
-            System.out.println("Joint");
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Joint");
             if(dcTemplateMappingList==null || dcTemplateMappingList.size()<=0){
 
@@ -747,7 +723,7 @@ catch (Exception e)
                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
 
                if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
-                  System.out.println("Employment details are not available");
+                  logger.info("Employment details are not available");
                }else{
                   try
                   {
@@ -865,7 +841,6 @@ catch (Exception e)
      return idCheckInformationInput;
    }
 
-
    private Text getText (DCDocumentMapping documentMapping, Object dataObject, String documentId,String identifier){
       Text text=null;
       try
@@ -881,22 +856,22 @@ catch (Exception e)
          if (identifier == null || identifier.equals("")){
             text.setValue(getInstanceValue(dataObject, documentMapping.getDbColumn()).toString());
          }else if(identifier.equals("DATE")){
-            text.setValue(""+new Date());
+            text.setValue(CommonUtil.getDateMMDDYYYY(new Date()));
          }
       }
       catch (NoSuchFieldException e)
       {
-         System.out.println("dctemplate.getLable() :"+documentMapping.getLable());
+         logger.error(documentMapping.getLable()+" = "+e);
          e.printStackTrace();
       }
       catch (ClassNotFoundException e)
       {
-         System.out.println("dctemplate.getLable() :"+documentMapping.getLable());
+         logger.error(documentMapping.getLable()+" = "+e);
          e.printStackTrace();
       }
       catch (IllegalAccessException e)
       {
-         System.out.println("dctemplate.getLable() :"+documentMapping.getLable());
+         logger.error(documentMapping.getLable()+" = "+e);
          e.printStackTrace();
       }
       return text;
@@ -930,17 +905,17 @@ catch (Exception e)
    }
    catch (NoSuchFieldException e)
    {
-      System.out.println("dctemplate.getLable() :"+dctemplate.getLable());
+      logger.error(dctemplate.getLable()+" = "+e);
       e.printStackTrace();
    }
    catch (ClassNotFoundException e)
    {
-      System.out.println("dctemplate.getLable() :"+dctemplate.getLable());
+      logger.error(dctemplate.getLable()+" = "+e);
       e.printStackTrace();
    }
    catch (IllegalAccessException e)
    {
-      System.out.println("dctemplate.getLable() :"+dctemplate.getLable());
+      logger.error(dctemplate.getLable()+" = "+e);
       e.printStackTrace();
    }
    return text;
@@ -950,7 +925,6 @@ catch (Exception e)
    Checkbox checkbox=null;
       try
       {
-         System.out.println("$%$%$%$%$%$%$%$");
          if(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("Y")){
             checkbox=new Checkbox();
             checkbox.setTabLabel(dctemplate.getLable());
@@ -963,14 +937,17 @@ catch (Exception e)
       }
       catch (NoSuchFieldException e)
       {
+         logger.error(dctemplate.getLable()+" = "+e);
          e.printStackTrace();
       }
       catch (ClassNotFoundException e)
       {
+         logger.error(dctemplate.getLable()+" = "+e);
          e.printStackTrace();
       }
       catch (IllegalAccessException e)
       {
+         logger.error(dctemplate.getLable()+" = "+e);
          e.printStackTrace();
       }
    return checkbox;
@@ -1001,14 +978,17 @@ catch (Exception e)
 }
    catch (NoSuchFieldException e)
    {
+      logger.error(dctemplate.getLable()+" = "+e);
       e.printStackTrace();
    }
    catch (ClassNotFoundException e)
    {
+      logger.error(dctemplate.getLable()+" = "+e);
       e.printStackTrace();
    }
    catch (IllegalAccessException e)
    {
+      logger.error(dctemplate.getLable()+" = "+e);
       e.printStackTrace();
    }
 
@@ -1078,8 +1058,8 @@ catch (Exception e)
             lst.add(name);}
          }
       }
-      System.out.println("Avoided properties of "+c1+" due to empty or null value : (" + sb + ")");
-      System.out.println("Properties for further process = " + lst);
+//      System.out.println("Avoided properties of "+c1+" due to empty or null value : (" + sb + ")");
+      logger.info("Properties for further process = " + lst);
       return lst;
    }
 
@@ -1114,7 +1094,7 @@ String jsonObject=null;
          mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
          mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
          jsonObject=mapper.writeValueAsString(object);
-         System.out.println("PrintJsonObject :" +jsonObject);
+         logger.info("PrintJsonObject :" +jsonObject);
          return jsonObject;
       } catch (JsonProcessingException e) {
          // TODO Auto-generated catch block

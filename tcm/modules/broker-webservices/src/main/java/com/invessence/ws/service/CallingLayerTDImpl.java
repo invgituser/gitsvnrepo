@@ -7,7 +7,8 @@ import com.invessence.ws.bean.*;
 import com.invessence.ws.provider.td.bean.DCRequest;
 import com.invessence.ws.provider.td.dao.TDDaoLayer;
 import com.invessence.ws.provider.td.service.*;
-import com.invessence.ws.util.NoServiceSupportException;
+import com.invessence.ws.util.*;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 @Service("TD")
 public class CallingLayerTDImpl implements CallingLayer
 {
+   private static final Logger logger = Logger.getLogger(CallingLayerTDImpl.class);
    @Autowired TDDaoLayer tdDaoLayer;
    @Autowired
    TDAccountOpeningLayer tdAccountOpeningLayer;
@@ -28,14 +30,16 @@ public class CallingLayerTDImpl implements CallingLayer
    @Override
    public WSCallResult processDCRequest(Long acctNum, Integer eventNum) throws Exception
    {
+      logger.info("CallingLayerTDImpl.processDCRequest");
+      logger.info("acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       WSCallResult wsCallResult=null;
       List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
       if(dcRequests.size()>0)
       {
          wsCallResult=tdAccountOpeningLayer.docuSignRequestHandler(dcRequests);
       }else{
-         wsCallResult=new WSCallResult(new WSCallStatus(1,"Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]"),null);
-         System.out.println("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
+         wsCallResult=new WSCallResult(new WSCallStatus(SysParameters.dcReqDataIssueCode, SysParameters.dcReqDataIssueMsg), null);
+         logger.info("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       }
       return wsCallResult;
    }

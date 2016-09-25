@@ -39,18 +39,18 @@ public class ServiceLayerImpl implements ServiceLayer
    @Override
    public WSCallResult processDCRequest(Long acctNum, int eventNum)
    {
-
-      System.out.println("--************************************************--");
+      logger.info("ServiceLayerImpl.processDCRequest");
+      WSCallResult wsCallResult=null;
       try
       {
-         getCallingLayer().processDCRequest(acctNum, eventNum);
+         wsCallResult= getCallingLayer().processDCRequest(acctNum, eventNum);
       }
       catch (Exception e)
       {
-         e.printStackTrace();
-      }
-//      System.out.println(ServiceParameters.additionalDetails.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()));
-      return null;
+         logger.error(e.getMessage());
+         return new WSCallResult(new WSCallStatus(SysParameters.dcTechIssueCode, SysParameters.dcTechIssueMsg),null);
+   }
+      return wsCallResult;
    }
 
    public void createPendingUser()
