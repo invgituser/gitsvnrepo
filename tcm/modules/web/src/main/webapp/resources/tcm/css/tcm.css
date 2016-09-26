@@ -69,6 +69,12 @@ img.riskImage:hover {
     text-align: center;
 }
 
+.errorText {
+    background-color: transparent;
+    color: #dd4b39;
+    font-size: 14px;
+    text-align: left;
+}
 /*
 .ui-widget input {
     background-color: transparent !important;

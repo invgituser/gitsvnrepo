@@ -1,6 +1,7 @@
 package com.invessence.web.util.Impl;
 
 import java.io.Serializable;
+import java.util.*;
 
 import com.invessence.web.util.Pages;
 
@@ -14,11 +15,13 @@ import com.invessence.web.util.Pages;
 public class PagesImpl implements Serializable, Pages
 {
    Integer pageNo;
+   Map<Integer, String> errorMessgage;
    Integer maxNoofPages;
 
    public PagesImpl()
    {
       setPage(0);
+      errorMessgage = new HashMap<Integer, String>();
    }
 
    public PagesImpl(Integer maxpages)
@@ -30,6 +33,7 @@ public class PagesImpl implements Serializable, Pages
    @Override
    public void initPage(){
       pageNo = 0;
+      errorMessgage.clear();
    }
 
    @Override
@@ -109,4 +113,49 @@ public class PagesImpl implements Serializable, Pages
       return true;
    }
 
+   @Override
+   public String getErrorMessage(){
+      if (pageNo >= maxNoofPages) {
+         return null;
+      }
+      if (errorMessgage.containsKey(pageNo))
+         return errorMessgage.get(pageNo);
+
+      return null;
+   }
+
+   @Override
+   public String getErrorMessage(Integer pagenum){
+      if (pagenum >= maxNoofPages) {
+         return null;
+      }
+      if (errorMessgage.containsKey(pagenum))
+         return errorMessgage.get(pagenum);
+
+      return null;
+   }
+
+
+   @Override
+   public void setErrorMessage(String message){
+      if (pageNo >= maxNoofPages)
+         return;
+
+      if (errorMessgage.containsKey(pageNo)) {
+         if (errorMessgage.get(pageNo) != null && ! errorMessgage.get(pageNo).isEmpty())
+            errorMessgage.put(pageNo, errorMessgage.get(pageNo) + "<br/>" + message);
+      }
+
+      errorMessgage.put(pageNo, message);
+   }
+
+   @Override
+   public void clearAllErrorMessage(){
+      errorMessgage.clear();
+   }
+
+   @Override
+   public void clearErrorMessage(Integer pagenum){
+      errorMessgage.remove(pagenum);
+   }
 }

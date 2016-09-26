@@ -36,26 +36,12 @@ public class TdCto
    private TDMasterData tdMasterData = new TDMasterData(0L);
    private PagesImpl pagemanager = new PagesImpl(10);
    private Integer activeTab = 0;   // Start with first tab.
-   private Boolean[] enableTabs = new Boolean[10];
    private Integer newTab, subtab;
    private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
    private String selectedCheckedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
-   BenefiaciaryDetails benefiaciaryDetails;
 
    private String beneFirstName;
    private String beneLastName;
-   private Double sharePerc;
-   private int intNum;
-
-   public int getIntNum()
-   {
-      return intNum;
-   }
-
-   public void setIntNum(int intNum)
-   {
-      this.intNum = intNum;
-   }
 
    private BenefiaciaryDetails selectedAccount;
 
@@ -190,14 +176,6 @@ public class TdCto
       return beneTempList;
    }
 
-   private void initBean() {
-
-      for (int i = 0; i < enableTabs.length; i++)  {
-         enableTabs[0] = false;
-      }
-
-   }
-
    public void startCTO() {
       String msgheader;
       try
@@ -210,10 +188,9 @@ public class TdCto
                return;
             }
             // clear all data.
-            enableTabs = new Boolean[10];
             tdMasterData = new TDMasterData(getLongBeanacctnum());
             pagemanager = new PagesImpl(10);
-            pagemanager.setPage(0);
+            pagemanager.initPage();
             loadData();
          }
       }
@@ -293,14 +270,9 @@ public class TdCto
       this.beneLastName = beneLastName;
    }
 
-   public Double getSharePerc()
+   public String getErrorMessage(Integer pagenum)
    {
-      return sharePerc;
-   }
-
-   public void setSharePerc(Double sharePerc)
-   {
-      this.sharePerc = sharePerc;
+      return pagemanager.getErrorMessage(pagenum);
    }
 
    public void startFundAccount(Long acctnum)
@@ -349,11 +321,6 @@ public class TdCto
    public Integer getActiveTab()
    {
       return activeTab;
-   }
-
-   public Boolean getEnableTabs(Integer pos)
-   {
-      return enableTabs[pos];
    }
 
    public Integer getSubtab()
@@ -492,11 +459,10 @@ public class TdCto
                subtab = 0;
             break;
          default:
-            newTab = 0;
+            newTab = null;
             break;
       }
 
-      enableTabs[newTab] = true;
       return newTab;
    }
 
@@ -507,25 +473,74 @@ public class TdCto
       resetActiveTab(pagemanager.getPage());
    }
 
+   private Boolean hasRequiredData(String value) {
 
-   // Before going to next page, determine if the data in current tab passes validity,
-   // then save the data before going to the next page
-   // NOTE: Let resetActiveTab deal with joint account or not to go to appropriate tab.
-   public void nextPage()
-   {
-      Boolean cangoToNext = true;
+      if (value == null || value.isEmpty())
+         return false;
 
-      switch (pagemanager.getPage())
+      return true;
+   }
+
+
+   private Boolean validatePage(Integer pagenum) {
+
+      Boolean dataOK = true;
+      pagemanager.clearErrorMessage(pagemanager.getPage());
+
+      if (pagenum == null)
+         return false;
+
+      switch (pagenum)
       {
          case 0: // Accttype page
             if (tdMasterData.getAccttype() == null)
             {
-               cangoToNext = false;
+               dataOK = false;
             }
             break;
          case 1: // Account Holder
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getLastName())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Last Name is required!");
+            }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getDob())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Date of Birth is required!");
+            }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSsn())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Social Security is required!");
+            }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getCitizenshiId())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Must of US Citizen!");
+            }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getEmailAddress())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Email Address is required!");
+            }
             break;
          case 2: // Joint Holder
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getLastName())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Last Name is required!");
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getDob())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Date of Birth is required!");
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getSsn())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Social Security is required!");
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getCitizenshiId())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Must of US Citizen!");
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getEmailAddress())) {
+               dataOK = false;
+               pagemanager.setErrorMessage("Email Address is required!");
+            }
             break;
          case 3: // Address
             break;
@@ -545,7 +560,15 @@ public class TdCto
             break;
 
       }
-      if (cangoToNext)
+      return dataOK;
+   }
+
+   // Before going to next page, determine if the data in current tab passes validity,
+   // then save the data before going to the next page
+   // NOTE: Let resetActiveTab deal with joint account or not to go to appropriate tab.
+   public void nextPage()
+   {
+      if (validatePage(pagemanager.getPage()))
       {
          saveData(pagemanager.getPage());
          pagemanager.nextPage();
@@ -556,10 +579,13 @@ public class TdCto
    private void resetActiveTab(Integer pagenum)
    {
       Integer nextTab = pageControl(pagenum);
+      activeTab = nextTab;
+/*
       if (nextTab != null)
       {
          activeTab = nextTab;
       }
+*/
    }
 
 

@@ -11,6 +11,14 @@
     <p:panel id="owneraempPanel" style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
              style="margin-bottom: 15px; margin-top: 10px!important;">
+
+            <p:panel rendered="#{tdcto.getErrorMessage(5) != null}"
+                     style="border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText styleClass="errorText"
+                              value="#{tdcto.getErrorMessage(5)}" escape="false"/>
+            </p:panel>
+
             <div class="Container100">
                 <div class="Container45 Fleft CustomWidthFA-Responsive">
                     <label Class="Container100"
@@ -184,6 +192,13 @@
     <p:panel id="jointaempPanel" style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
              style="margin-bottom: 15px; margin-top: 10px!important;">
+
+            <p:panel rendered="#{tdcto.getErrorMessage(6) != null}"
+                     style="border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText styleClass="errorText"
+                              value="#{tdcto.getErrorMessage(6)}" escape="false"/>
+            </p:panel>
 
             <div class="Container100">
                 <div class="Container45 Fleft CustomWidthFA-Responsive">

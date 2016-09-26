@@ -31,4 +31,11 @@ public interface Pages
    public Boolean getPrevButtonStat();
 
    public Boolean getNextButtonStat();
+
+   public String getErrorMessage();
+   public String getErrorMessage(Integer pagenum);
+   public void clearAllErrorMessage();
+   public void clearErrorMessage(Integer pagenum);
+   public void setErrorMessage(String message);
+
 }
