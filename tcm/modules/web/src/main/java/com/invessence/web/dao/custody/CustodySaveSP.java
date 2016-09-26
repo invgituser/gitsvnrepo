@@ -236,7 +236,10 @@ public class CustodySaveSP extends StoredProcedure
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", tdMasterData.getAcctnum());
       inputMap.put("p_moveMoneyPayMethId", new Long(0));
-      inputMap.put("p_payMethodId", tdMasterData.getFundType());
+      if(tdMasterData.getFundType()==null)
+         inputMap.put("p_payMethodId", "PMACH");
+      else
+         inputMap.put("p_payMethodId", tdMasterData.getFundType());
       inputMap.put("p_status", "A");
       Map outMap =  super.execute(inputMap);
       //if (outMap != null) {
@@ -349,11 +352,28 @@ public class CustodySaveSP extends StoredProcedure
 
   // public Map tdSaveACH(String ftype,Boolean ownerSPF,Long acctnum,Long reqId,Double initialInv,String fundType, AchBankDetail data) {
   public Map tdSaveACH(AchBankDetail data) {
+   Map<String, Object> inputMap = new HashMap<String, Object>();
+   inputMap.put("p_moveMoneyPayMethodID", data.getMoveMoneyPayMethodID());
+   if(data.getAchId()==null)
+      inputMap.put("p_achId", new Long(0));
+   else
+      inputMap.put("p_achId", data.getAchId());
+   inputMap.put("p_bankAcctType", data.getBankAcctType());
+   inputMap.put("p_bankName", data.getBankName());
+   inputMap.put("p_bankABARouting", data.getBankABARouting());
+   inputMap.put("p_bankCityState", data.getBankCityState());
+   inputMap.put("p_bankPhoneNumber", data.getBankPhoneNumber());
+   inputMap.put("p_bankAcctName", data.getBankAcctName());
+   inputMap.put("p_bankAcctNumber", data.getBankAcctNumber());
+   inputMap.put("p_createdBy", "Invessence");
+   return super.execute(inputMap);
+}
+   public Map tdSaveACHFund(ElectronicFundDetails data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_moveMoneyPayMethodID", data.getMoveMoneyPayMethodID());
       if(data.getAchId()==null)
          inputMap.put("p_achId", new Long(0));
-     else
+      else
          inputMap.put("p_achId", data.getAchId());
       inputMap.put("p_bankAcctType", data.getBankAcctType());
       inputMap.put("p_bankName", data.getBankName());

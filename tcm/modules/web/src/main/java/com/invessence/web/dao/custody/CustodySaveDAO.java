@@ -146,12 +146,12 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          }
          else
          {
-            tdsaveACHData(tdMasterData );
+            tdsaveACHData(tdMasterData,"EFT" );
          }
       return true;
    }
 
-  public Boolean tdsaveACHData(TDMasterData tdMasterData )
+  public Boolean tdsaveACHData(TDMasterData tdMasterData,String dataFlag )
   {
      DataSource ds = getDataSource();
      Long moveMoneyPayMethId=tdSaveMoveMoneyPay(tdMasterData);
@@ -159,8 +159,17 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
      {
         return false;
      }
-     tdMasterData.getAchBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
-     long achId=tdSaveACH(tdMasterData.getAchBankDetail());
+     if(dataFlag.equalsIgnoreCase("ACH"))
+         tdMasterData.getAchBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+     else
+         tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+     long achId=0;
+        if(dataFlag.equalsIgnoreCase("EFT"))
+           achId=tdSaveACHFund(tdMasterData.getElectroicBankDetail());
+      else
+        {
+           achId= tdSaveACH(tdMasterData.getAchBankDetail());
+        }
      Request reqdata=new Request();
      if(achId>0)
      {
@@ -199,8 +208,15 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
                  electronicFundDetails.setDirectionId("EFDTOTD");
                  electronicFundDetails.setMoveMoneyPayMethodID(moveMoneyPayMethId);
                  electronicFundDetails.setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
-                 electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
-                 electronicFundDetails.setTranFreqId("ONETIME");
+                 if(dataFlag.equalsIgnoreCase("EFT"))
+                 {
+                    electronicFundDetails.setTranAmount(tdMasterData.getElectroicBankDetail().getTranAmount());
+                 }
+                 else
+                 {
+                    electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
+                    electronicFundDetails.setTranFreqId("ONETIME");
+                 }
                  Boolean elecFundSave=tdSaveElectronicPayment(tdMasterData.getAcctnum(),tdMasterData.getElectroicBankDetail());
               }
            }
@@ -214,18 +230,32 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
   }
   // public Boolean tdSaveACH(String ftype, Boolean ownerSPF, Long acctnum, Double initialInv, String fundType, AchBankDetail data)
    public Long tdSaveACH(AchBankDetail bankDetail )
+{
+   long  achId=0;
+   DataSource ds = getDataSource();
+   CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_ach_bank_details",5);
+   Map outMap = sp.tdSaveACH(bankDetail);
+
+   if (outMap != null)
+   {
+      achId=Long.valueOf(outMap.get("p_achId").toString());
+   }
+
+   return achId;
+}
+   public Long tdSaveACHFund(ElectronicFundDetails bankDetail )
    {
       long  achId=0;
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_ach_bank_details",5);
-      Map outMap = sp.tdSaveACH(bankDetail);
+      Map outMap = sp.tdSaveACHFund(bankDetail);
 
-         if (outMap != null)
-         {
-            achId=Long.valueOf(outMap.get("p_achId").toString());
-         }
+      if (outMap != null)
+      {
+         achId=Long.valueOf(outMap.get("p_achId").toString());
+      }
 
-         return achId;
+      return achId;
    }
 
    public Boolean tdSaveACAT(Long acctnum, ACATDetails data)

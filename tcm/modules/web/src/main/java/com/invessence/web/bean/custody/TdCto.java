@@ -714,7 +714,7 @@ public class TdCto
            // custodySaveDAO.tdsaveACHData(tdMasterData);
             if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
             {
-               custodySaveDAO.tdsaveACHData(tdMasterData);
+               custodySaveDAO.tdsaveACHData(tdMasterData,"ACH");
             }
             else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
                custodySaveDAO.tdSaveACAT(tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
