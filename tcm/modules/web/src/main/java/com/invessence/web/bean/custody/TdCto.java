@@ -34,7 +34,7 @@ public class TdCto
    private Long acctnum;
    private UserData userdata = new UserData();
    private TDMasterData tdMasterData = new TDMasterData(0L);
-   private PagesImpl pagemanager = new PagesImpl(10);
+   private PagesImpl pagemanager = new PagesImpl(11);
    private Integer activeTab = 0;   // Start with first tab.
    private Integer newTab, subtab;
    private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
@@ -456,7 +456,10 @@ public class TdCto
             if (tdMasterData.getRecurringFlag())
                subtab = 1;
             else
+            {
                subtab = 0;
+               newTab=null;
+            }
             break;
          default:
             newTab = null;
@@ -485,7 +488,7 @@ public class TdCto
    private Boolean validatePage(Integer pagenum) {
 
       Boolean dataOK = true;
-      pagemanager.clearErrorMessage(pagemanager.getPage());
+      pagemanager.clearErrorMessage(pagenum);
 
       if (pagenum == null)
          return false;
@@ -709,11 +712,11 @@ public class TdCto
          case 9: // funding
 
            // custodySaveDAO.tdsaveACHData(tdMasterData);
-            if(tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
+            if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
             {
                custodySaveDAO.tdsaveACHData(tdMasterData);
             }
-            else if(tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
+            else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
                custodySaveDAO.tdSaveACAT(tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
               // custodySaveDAO.tdSaveACH("ACH",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
             break;

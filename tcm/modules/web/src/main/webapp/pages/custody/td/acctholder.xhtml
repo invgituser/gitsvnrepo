@@ -11,12 +11,12 @@
              style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
              style="margin-bottom: 15px;">
-            <p:panel rendered="#{tdcto.getErrorMessage(1) != null}"
-                     style="border: 0px; background: transparent"
-                    styleClass="Container100">
-                <h:outputText styleClass="errorText"
-                        value="#{tdcto.getErrorMessage(1)}" escape="false"/>
-            </p:panel>
+            <!--<p:panel rendered="#{tdcto.getErrorMessage(1) != null}"-->
+                     <!--style="border: 0px; background: transparent"-->
+                    <!--styleClass="Container100">-->
+                <!--<h:outputText styleClass="errorText"-->
+                        <!--value="#{tdcto.getErrorMessage(1)}" escape="false"/>-->
+            <!--</p:panel>-->
             <div class="Container100">
                 <label Class="Container60"
                        style="text-align: left !important; font-weight: bold !important;">Name</label>
@@ -128,7 +128,7 @@
     </p:panel>
 
 </p:tab>
-<p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}">
+<p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}"   >
     <p:panel id="jointHolderPanel"
              style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"

@@ -33,6 +33,7 @@ public class PagesImpl implements Serializable, Pages
 
    public void initPage(){
       pageNo = 0;
+      if(errorMessgage!=null)
       errorMessgage.clear();
    }
 
@@ -83,7 +84,7 @@ public class PagesImpl implements Serializable, Pages
 
    public void nextPage(){
       if (maxNoofPages > 0) {
-         if (pageNo <  maxNoofPages)
+         if (pageNo <=  maxNoofPages)
             setPage(++pageNo);
       }
    }
