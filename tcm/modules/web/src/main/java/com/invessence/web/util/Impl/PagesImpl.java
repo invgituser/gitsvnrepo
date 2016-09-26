@@ -28,6 +28,7 @@ public class PagesImpl implements Serializable, Pages
    {
       setPage(0);
       setMaxNoofPages(maxpages);
+      errorMessgage = new HashMap<Integer, String>();
    }
 
 
@@ -146,6 +147,7 @@ public class PagesImpl implements Serializable, Pages
       if (errorMessgage.containsKey(pageNo)) {
          if (errorMessgage.get(pageNo) != null && ! errorMessgage.get(pageNo).isEmpty())
             errorMessgage.put(pageNo, errorMessgage.get(pageNo) + "<br/>" + message);
+         return;
       }
 
       errorMessgage.put(pageNo, message);
