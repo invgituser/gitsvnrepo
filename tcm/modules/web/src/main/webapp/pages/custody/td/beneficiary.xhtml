@@ -109,15 +109,18 @@
 							<div class="EmptyBox5"></div>
 							<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
 										 placeholder="First Name"
+										 maxlength="20"
 										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneFirstName}">
 							</p:inputText>
 							<p:inputText
 									styleClass="MiddleInitialWidthB FS14 InputMergeLeft InputMergeRight"
 									placeholder="Middle Initial"
+									maxlength="1"
 									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneMidInitial}">
 							</p:inputText>
 							<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
 										 placeholder="Last Name"
+										 maxlength="30"
 										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneLastName}">
 							</p:inputText>
 						</div>
@@ -131,6 +134,7 @@
 								<div class="EmptyBox5"></div>
 								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneDOB}"
+											 maxlength="10"
 											 mask="99/99/9999" placeholder="MM/DD/YYYY">
 								</p:inputMask>
 							</div>
@@ -143,6 +147,7 @@
 								<div class="EmptyBox5"></div>
 								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneSSN}"
+											 maxlength="11"
 											 mask="999-99-9999" placeholder="###-##-####" required="false">
 								</p:inputMask>
 							</div>
@@ -155,6 +160,7 @@
 								<div class="EmptyBox5"></div>
 								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
 											 placeholder="Relationship"
+											 maxlength="90"
 											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneRel}">
 								</p:inputText>
 							</div>
@@ -214,6 +220,7 @@ tax or estate planning. Please consult an estate planner for details regarding t
 								<div class="EmptyBox5"></div>
 								<p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
 											   value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.sharePerc}"
+											   maxlength="15"
 											   decimalPlaces="0" emptyValue="zero">
 								</p:inputNumber>
 							</div>
