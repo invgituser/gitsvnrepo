@@ -31,32 +31,32 @@ public class PagesImpl implements Serializable, Pages
       errorMessgage = new HashMap<Integer, String>();
    }
 
-
+   @Override
    public void initPage(){
       pageNo = 0;
       if(errorMessgage!=null)
       errorMessgage.clear();
    }
 
-
+   @Override
    public Integer getPage() {
       if (pageNo == null)
          return 0;
       return pageNo;
    }
 
-
+   @Override
    public void setMaxNoofPages(Integer maxpages) {
       maxNoofPages =  maxpages;
    }
 
 
-
+   @Override
    public void setPage(Integer pageno) {
       pageNo = pageno;
    }
 
-
+   @Override
    public Boolean isLastPage() {
       if (pageNo >= maxNoofPages)
          return true;
@@ -64,7 +64,7 @@ public class PagesImpl implements Serializable, Pages
          return false;
    }
 
-
+   @Override
    public Boolean isNextToLastPage() {
       if ((pageNo + 1) >= maxNoofPages)
          return true;
@@ -73,7 +73,7 @@ public class PagesImpl implements Serializable, Pages
    }
 
 
-
+   @Override
    public Boolean isFirstPage() {
       if (pageNo <= 0)
          return true;
@@ -82,7 +82,7 @@ public class PagesImpl implements Serializable, Pages
    }
 
 
-
+   @Override
    public void nextPage(){
       if (maxNoofPages > 0) {
          if (pageNo <=  maxNoofPages)
@@ -90,7 +90,7 @@ public class PagesImpl implements Serializable, Pages
       }
    }
 
-
+   @Override
    public void prevPage() {
       if (maxNoofPages > 0) {
          if (pageNo >  0)
@@ -98,7 +98,7 @@ public class PagesImpl implements Serializable, Pages
       }
    }
 
-
+   @Override
    public Boolean getPrevButtonStat(){
       if (pageNo > 0)
          return true;
@@ -106,7 +106,7 @@ public class PagesImpl implements Serializable, Pages
          return false;
    }
 
-
+   @Override
    public Boolean getNextButtonStat(){
       if (maxNoofPages > 0) {
          if (pageNo >=  maxNoofPages)
@@ -114,7 +114,7 @@ public class PagesImpl implements Serializable, Pages
       }
       return true;
    }
-
+   @Override
    public String getErrorMessage(){
       if (pageNo >= maxNoofPages) {
          return null;
@@ -125,7 +125,7 @@ public class PagesImpl implements Serializable, Pages
       return null;
    }
 
-
+   @Override
    public String getErrorMessage(Integer pagenum){
       if (pagenum >= maxNoofPages) {
          return null;
@@ -139,7 +139,7 @@ public class PagesImpl implements Serializable, Pages
    }
 
 
-
+   @Override
    public void setErrorMessage(String message){
       if (pageNo >= maxNoofPages)
          return;
@@ -153,12 +153,12 @@ public class PagesImpl implements Serializable, Pages
       errorMessgage.put(pageNo, message);
    }
 
-
+   @Override
    public void clearAllErrorMessage(){
       errorMessgage.clear();
    }
 
-
+   @Override
    public void clearErrorMessage(Integer pagenum){
       if(errorMessgage!=null)
       errorMessgage.remove(pagenum);
