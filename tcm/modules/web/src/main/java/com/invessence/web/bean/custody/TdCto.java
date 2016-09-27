@@ -5,15 +5,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
+import com.invessence.converter.JavaUtil;
 import com.invessence.web.dao.common.*;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.dao.custody.*;
 import com.invessence.web.data.common.UserData;
 import com.invessence.web.data.custody.*;
 import com.invessence.web.data.custody.td.*;
+import com.invessence.web.data.custody.td.BenefiaciaryDetails;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
+import com.invessence.ws.provider.td.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
 import org.primefaces.event.*;
@@ -209,7 +212,7 @@ public class TdCto
    public void addTempBeneficiary() {
 
       tdMasterData.getBenefiaciaryDetailses().setAcctnum(tdMasterData.getAcctnum());
-      if(beneTempList.isEmpty())
+         if(beneTempList.isEmpty())
       {
          tdMasterData.getBenefiaciaryDetailses().setBeneId(1);
       }else
@@ -217,10 +220,14 @@ public class TdCto
          tdMasterData.getBenefiaciaryDetailses().setBeneId(tdMasterData.getBenefiaciaryDetailses().getBeneId()+1);
       }
 
-       beneTempList.add(tdMasterData.getBenefiaciaryDetailses());
-       tdMasterData.setBenefiaciaryDetailses(new BenefiaciaryDetails());
+         beneTempList.add(tdMasterData.getBenefiaciaryDetailses());
+         tdMasterData.setBenefiaciaryDetailses(new BenefiaciaryDetails());
+
 
    }
+
+
+
    public void editTempBeneficiary(int beneId ) {
 
       tdMasterData.setBenefiaciaryDetailses(beneTempList.get(beneId));
@@ -471,6 +478,49 @@ public class TdCto
       return true;
    }
 
+   public Boolean validateBenificieryPage(BenefiaciaryDetails benefiaciaryDetail, Integer pagenum) {
+
+      Boolean dataOK = true;
+      pagemanager.clearErrorMessage(pagenum);
+
+      if (! hasRequiredData(benefiaciaryDetail.getBeneFirstName())) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.firstName.requiredMsg", "First Name is required!", null));
+      }
+      if (! hasRequiredData(benefiaciaryDetail.getBeneLastName())) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.lastName.requiredMsg", "Last Name is required!", null));
+      }
+      if (! hasRequiredData(benefiaciaryDetail.getBeneDOB())) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.requiredMsg", "Date of Birth is required!", null));
+      }else if(! JavaUtil.isValidDate(benefiaciaryDetail.getBeneDOB(),"MM/dd/yyyy")){
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
+      }
+      if (! hasRequiredData(benefiaciaryDetail.getBeneSSN())) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.requiredMsg", "Social Security is required!", null));
+      }else if(! JavaUtil.isValidSSN(benefiaciaryDetail.getBeneSSN())){
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.formatMsg", "Enter valid Social Security Number!", null));
+      }
+      if (! hasRequiredData(benefiaciaryDetail.getBeneRel())) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.beneRelation.requiredMsg", "Benefiaciary Relationship is required!", null));
+      }
+      if (! hasRequiredData(benefiaciaryDetail.getTypeOfBeneficiary())) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.beneType.requiredMsg", "Type of Beneficiary is required!", null));
+      }
+
+      if (! hasRequiredData(""+benefiaciaryDetail.getSharePerc())) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.beneShare.requiredMsg", "Share is required!", null));
+      }
+
+      return dataOK;
+   }
 
    private Boolean validatePage(Integer pagenum) {
 
@@ -483,58 +533,119 @@ public class TdCto
       switch (pagenum)
       {
          case 0: // Accttype page
-            if (tdMasterData.getAccttype() == null)
+            if (tdMasterData.getAccttype() == null || tdMasterData.getAccttype()==0)
             {
                dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.acctType.requiredMsg", "Account Type is required!", null));
             }
             break;
          case 1: // Account Holder
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getFirstName())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.firstName.requiredMsg", "First Name is required!", null));
+            }
             if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getLastName())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Last Name is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.lastName.requiredMsg", "Last Name is required!", null));
+//               pagemanager.setErrorMessage("Last Name is required!");
+               //webutil.getMessageText().getDisplayMessage(msgheader, "This Email is already registered!", null);
             }
             if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getDob())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Date of Birth is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.requiredMsg", "Date of Birth is required!", null));
+            }else if(! JavaUtil.isValidDate(tdMasterData.getAcctOwnersDetail().getDob(),"MM/dd/yyyy")){
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
             }
             if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSsn())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Social Security is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.requiredMsg", "Social Security is required!", null));
+            }else if(! JavaUtil.isValidSSN(tdMasterData.getAcctOwnersDetail().getSsn())){
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.formatMsg", "Enter valid Social Security Number!", null));
             }
             if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getCitizenshiId())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Must of US Citizen!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.citizenship.requiredMsg", "Must of US Citizen!", null));
             }
             if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getEmailAddress())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Email Address is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));
             }
             break;
          case 2: // Joint Holder
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getFirstName())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.firstName.requiredMsg", "First Name is required!", null));
+            }
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getLastName())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Last Name is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.lastName.requiredMsg", "Last Name is required!", null));
             }
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getDob())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Date of Birth is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.requiredMsg", "Date of Birth is required!", null));
+            }else if(! JavaUtil.isValidDate(tdMasterData.getJointAcctOwnersDetail().getDob(),"MM/dd/yyyy")){
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
             }
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getSsn())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Social Security is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.requiredMsg", "Social Security Number is required!", null));
+            }else if(! JavaUtil.isValidSSN(tdMasterData.getJointAcctOwnersDetail().getSsn())){
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.formatMsg", "Enter valid Social Security Number!", null));
             }
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getCitizenshiId())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Must of US Citizen!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.citizenship.requiredMsg", "Must be US Citizen!", null));
             }
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getEmailAddress())) {
                dataOK = false;
-               pagemanager.setErrorMessage("Email Address is required!");
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));
             }
             break;
          case 3: // Address
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressStreet())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
+            }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressCity())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+            }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressState())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+            }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressZipCode())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+            }else if(! JavaUtil.isValidZipCode(tdMasterData.getAcctOwnersDetail().getPhysicalAddressZipCode())){
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+            }
             break;
          case 4: // Joint Address
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressStreet())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressCity())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressState())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+            }else if(! JavaUtil.isValidZipCode(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode())){
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+            }
             break;
          case 5: // Regulatory
             break;
