@@ -46,8 +46,7 @@ public class TdCto
 
    private String beneFirstName;
    private String beneLastName;
-
-   private BenefiaciaryDetails selectedAccount;
+      private BenefiaciaryDetails selectedAccount;
 
    public BenefiaciaryDetails getSelectedAccount()
    {
@@ -533,6 +532,7 @@ public class TdCto
       switch (pagenum)
       {
          case 0: // Accttype page
+
             if (tdMasterData.getAccttype() == null || tdMasterData.getAccttype()==0)
             {
                dataOK = false;
@@ -654,6 +654,23 @@ public class TdCto
          case 7: // Joint Employment
             break;
          case 8: // Benefitiary
+               if (tdMasterData.getBenefiaciaryDetailsList().size()>0)
+               {
+                  double shareHolderPer=0;
+                  ArrayList<BenefiaciaryDetails> tmpbenefiaciaryDetailsList=tdMasterData.getBenefiaciaryDetailsList();
+                  for (int i=0; i < tmpbenefiaciaryDetailsList.size(); i++)
+                  {
+                     BenefiaciaryDetails tmpb=tmpbenefiaciaryDetailsList.get(i);
+                     shareHolderPer=tmpb.getSharePerc()+shareHolderPer;
+                  }
+                  if(shareHolderPer==100)
+                        dataOK = true;
+                  else
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage("Share holder percentage should be 100%");
+                  }
+               }
             break;
          case 9: // Funding Page 1
             break;
@@ -714,8 +731,8 @@ public class TdCto
       }
 */
       tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
-      tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
-      consumerListDAO.getProfileData(tdMasterData.getCustomerData());
+     // tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
+      //consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
       custodyListDAO.getTDAccountDetails(tdMasterData);
       custodyListDAO.getTDAccountHolder(tdMasterData);

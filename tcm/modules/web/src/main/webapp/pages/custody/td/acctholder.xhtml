@@ -115,12 +115,10 @@
             <div class="Container100 MarTop20" style="margin: 10px 10px;">
             <p:commandLink styleClass="UI-prevButtonFA Fleft"
                            actionListener="#{tdcto.prevPage}"
-                           process="@none"
                            update="@form"/>
 
             <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                            actionListener="#{tdcto.nextPage}"
-                           process="@parent"
                            update="@form"/>
         </div>
         </div>
@@ -129,8 +127,10 @@
 
 </p:tab>
 <p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}"   >
+
     <p:panel id="jointHolderPanel"
-             style="border: 0px; background: transparent">
+             style="border: 0px; background: transparent"  >
+
         <div class="Container80 Responsive100 MarTop5 MarCenter"
              style="margin-bottom: 15px;">
             <p:panel rendered="#{tdcto.getErrorMessage(2) != null}"
@@ -237,12 +237,10 @@
             <div class="Container100 MarTop20" style="margin: 10px 10px;">
             <p:commandLink styleClass="UI-prevButtonFA Fleft"
                            actionListener="#{tdcto.prevPage}"
-                           process="@none"
                            update="@form"/>
 
             <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                            actionListener="#{tdcto.nextPage}"
-                           process="@parent"
                            update="@form"/>
         </div>
         </div>
