@@ -21,6 +21,7 @@ public class ResetPasswordData
    private String question1 = null;
    private String answer1 = null;
 
+/*
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
    public void setWebutil(WebUtil webutil)
@@ -158,7 +159,8 @@ public class ResetPasswordData
    {
 
       // Save ResetID
-      userInfoDAO.updResetID(getEmailID(), getResetCode());
+      String logonID = get
+      userInfoDAO.updResetID(, getResetCode());
 
       //String websiteName = messageSource.getMessage("website.name", new Object[]{}, null);
       MsgData data = new MsgData();
@@ -187,5 +189,6 @@ public class ResetPasswordData
       return "message.xhtml?faces-redirect=true&message=" + resetMsg;
 
    }
+*/
 
 }

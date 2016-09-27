@@ -6,6 +6,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.web.dao.common.*;
+import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.dao.custody.*;
 import com.invessence.web.data.common.UserData;
 import com.invessence.web.data.custody.*;
@@ -31,7 +32,7 @@ public class TdCto
 {
    protected final Log logger = LogFactory.getLog(getClass());
    private String beanacctnum;
-   private Long acctnum;
+   private String beanlogonID;
    private UserData userdata = new UserData();
    private TDMasterData tdMasterData = new TDMasterData(0L);
    private PagesImpl pagemanager = new PagesImpl(11);
@@ -82,6 +83,13 @@ public class TdCto
       this.uiLayout = uiLayout;
    }
 
+   @ManagedProperty("#{consumerListDAO}")
+   private ConsumerListDataDAO consumerListDAO;
+   public void setConsumerListDAO(ConsumerListDataDAO consumerListDAO)
+   {
+      this.consumerListDAO = consumerListDAO;
+   }
+
    @ManagedProperty("#{custodyListDAO}")
    private CustodyListDAO custodyListDAO;
 
@@ -92,25 +100,13 @@ public class TdCto
    {
       this.custodyListDAO = listDAO;
    }
-
-   public CustodyListDAO getCustodyListDAO()
-   {
-      return custodyListDAO;
-   }
-
    public void setCustodyListDAO(CustodyListDAO custodyListDAO)
    {
       this.custodyListDAO = custodyListDAO;
    }
 
-   public CommonDAO getCommonDAO()
-   {
-      return commonDAO;
-   }
-
    @ManagedProperty("#{commonDAO}")
    private CommonDAO commonDAO;
-
    public void setCommonDAO(CommonDAO commonDAO)
    {
       this.commonDAO = commonDAO;
@@ -122,7 +118,6 @@ public class TdCto
    {
       this.custodySaveDAO = saveDAO;
    }
-
    public CustodySaveDAO getCustodySaveDAO()
    {
       return custodySaveDAO;
@@ -147,6 +142,17 @@ public class TdCto
          return 0L;
 
       return (webutil.converter.getLongData(beanacctnum));
+   }
+
+   public Long getLongBeanlogonid()
+   {
+      if (beanlogonID == null)
+         return 0L;
+
+      if (beanlogonID.isEmpty())
+         return 0L;
+
+      return (webutil.converter.getLongData(beanlogonID));
    }
 
    public ServiceLayerImpl getServiceLayer()
@@ -273,25 +279,6 @@ public class TdCto
    public String getErrorMessage(Integer pagenum)
    {
       return pagemanager.getErrorMessage(pagenum);
-   }
-
-   public void startFundAccount(Long acctnum)
-   {
-      // If we called here with no acctnum, it must be a mistake.  This is special signup process for TD account opening only
-      if (acctnum == null || acctnum <= 0L)
-      {
-         webutil.redirecttoMessagePage("Error", "Attempting to Signup", "This function is not allowed, till a proper portfolio is created.");
-         return;
-      }
-      this.acctnum = acctnum;
-      beanacctnum = acctnum.toString();
-
-      // First determine if this account is registered.
-      // If not, then create a new account with signup.
-      // Then, allow the user to create Customer profile.
-      // If they are signed-up then check if this account is already entered.
-      // If so, then edit, else add.
-      uiLayout.doMenuAction("custody", "index.xhtml?acct=" + acctnum.toString());
    }
 
    public void selectAcctType(Integer type)
@@ -615,6 +602,9 @@ public class TdCto
          tdMasterData.getJointEmploymentDetail().setAcctnum(acctnum);
       }
 */
+      tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
+      tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
+      consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
       custodyListDAO.getTDAccountDetails(tdMasterData);
       custodyListDAO.getTDAccountHolder(tdMasterData);

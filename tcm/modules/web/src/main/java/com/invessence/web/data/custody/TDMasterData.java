@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 import com.invessence.web.constant.USMaps;
+import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.data.custody.td.*;
 import org.primefaces.event.RowEditEvent;
 
@@ -51,10 +52,14 @@ public class TDMasterData implements Serializable
    ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList;
    BenefiaciaryDetails tmpBenefiaciaryDetail;
 
+   CustomerData customerData;
+
    public TDMasterData(Long acctnum)
    {
 
       this.acctnum = acctnum;
+
+      customerData = new CustomerData();
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF = ownerShare = ownerBD = false;
@@ -102,6 +107,15 @@ public class TDMasterData implements Serializable
       return acctnum;
    }
 
+   public CustomerData getCustomerData()
+   {
+      return customerData;
+   }
+
+   public void setCustomerData(CustomerData customerData)
+   {
+      this.customerData = customerData;
+   }
 
    public Boolean getIsJointAcct() {
       if (accttype == 2) {

@@ -199,20 +199,20 @@ public class UserInfoDAO extends JdbcDaoSupport
    }
 
 
-   public int updLogonStatus(String userID)
+   public int updLogonStatus(String logonid)
    {
       String sql = "update user_logon set logonstatus = 'A', resetID = null, lastupdated = now() " +
-         "where userid = ?";
+         "where logonid = ?";
 
-      return this.getJdbcTemplate().update(sql, new Object[]{userID});
+      return this.getJdbcTemplate().update(sql, new Object[]{logonid});
    }
 
-   public int updResetID(String userID, String resetID)
+   public int updResetID(Long logonid, String resetID)
    {
       String sql = "update user_logon set resetID = ?, lastupdated = now(), logonstatus = 'R' " +
-         "where userid = ?";
+         "where logonid = ?";
 
-      return this.getJdbcTemplate().update(sql, new Object[]{resetID, userID});
+      return this.getJdbcTemplate().update(sql, new Object[]{resetID, logonid.toString()});
    }
 
    public List<UserData> getUserByEmail(final String emailID) throws DataAccessException

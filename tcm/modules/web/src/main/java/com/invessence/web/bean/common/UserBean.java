@@ -288,7 +288,7 @@ public class UserBean implements Serializable
    public void updateLogonStatus()
    {
       Boolean found;
-      userInfoDAO.updLogonStatus(beanUserID);
+      userInfoDAO.updLogonStatus(beanLogonID);
    }
 
    public void preRenderResetUser()
@@ -512,7 +512,7 @@ public class UserBean implements Serializable
                logger.debug("Info: Saving data UserID/Password, all checks were successful for: " + userdata.getUserID());
                webutil.sendConfirmation(userdata);
                //uiLayout.doMenuAction("consumer","aftersignup.xhtml?log="+userdata.getLogonID()+"&acct="+userdata.getAcctnum().toString());
-               uiLayout.doMenuAction("custody", "index.xhtml?acct=" + userdata.getAcctnum().toString());
+               uiLayout.doMenuAction("custody", "index.xhtml?l=" + logonID.toString() + "&acct=" + userdata.getAcctnum().toString());
             }
             else
             {
@@ -824,7 +824,7 @@ public class UserBean implements Serializable
          // Now send email support.
 
          Integer myResetID = webutil.randomGenerator(0, 347896);
-         userInfoDAO.updResetID(userdata.getUserID(), myResetID.toString());
+         userInfoDAO.updResetID(userdata.getLogonID(), myResetID.toString());
          userdata.setLogonstatus("R");
          userdata.setResetID(myResetID.toString());
          webutil.sendConfirmation(userdata);

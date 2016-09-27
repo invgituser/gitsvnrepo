@@ -7,6 +7,7 @@
                 template="/template/common/template.xhtml">
 
     <f:metadata>
+        <f:viewParam name="l" value="#{tdcto.beanacctnum}"/>
         <f:viewParam name="acct" value="#{tdcto.beanacctnum}"/>
         <f:event type="preRenderView" listener="#{tdcto.startCTO}"/>
     </f:metadata>

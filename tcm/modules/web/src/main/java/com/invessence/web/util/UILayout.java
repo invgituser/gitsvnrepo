@@ -370,7 +370,12 @@ public class UILayout implements Serializable
       }
       else
       {
-         dashboard = "/index.xhtml";
+         if (getUiprofile().getHomepage() != null) {
+            dashboard = getUiprofile().getHomepage();
+         }
+         else {
+            dashboard = "/index.xhtml";
+         }
       }
       return dashboard;
 

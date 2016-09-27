@@ -644,6 +644,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       try
       {
          // setDefaults();
+         setPortfolioName(getFixedModelName());
          acctnum = saveDAO.saveProfileData(getInstance());
          if (acctnum > 0)
          {
@@ -884,6 +885,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                   if (riskCalculator.getRiskAge() == null)
                   {
                      addCustomErrorText("Age must between 18 - 100");
+                     cangoToNext = false;
                   }
                   else
                   {
@@ -929,6 +931,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                      if (riskCalculator.getRiskHorizon() != null &&
                         (riskCalculator.getRiskHorizon() < 1 || riskCalculator.getRiskHorizon() > 100))
                      {
+                        cangoToNext = false;
                         addCustomErrorText("Horizon must between 1 - 100");
                      }
                   }

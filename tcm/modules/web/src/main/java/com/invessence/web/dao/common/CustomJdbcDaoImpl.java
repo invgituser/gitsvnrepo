@@ -236,6 +236,8 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                UserData userdata = new UserData();
                userdata.setLogonstatus(logonStatus);
                userdata.setEmail(savedemail);
+               userdata.setLogonID(logonID);
+               userdata.setResetID(resetID);
                webutl.sendConfirmation(userdata);
                throw new BadCredentialsException("Too many attemps.  Account Locked!");
             }
