@@ -568,6 +568,10 @@ public class TdCto
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.citizenship.requiredMsg", "Must of US Citizen!", null));
             }
+            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhoneNumber())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.phoneno.requiredMsg", "Phone Number is required!", null));
+            }
             if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getEmailAddress())) {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));
@@ -599,6 +603,10 @@ public class TdCto
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getCitizenshiId())) {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.citizenship.requiredMsg", "Must be US Citizen!", null));
+            }
+            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhoneNumber())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.phoneno.requiredMsg", "Phone Number is required!", null));
             }
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getEmailAddress())) {
                dataOK = false;
@@ -648,6 +656,52 @@ public class TdCto
             }
             break;
          case 5: // Regulatory
+            if(tdMasterData.getOwnerSPF())
+            {
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSpfName())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.spfname.requiredMsg", "Name of SPF is required!", null));
+               }
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSpfRelationship())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.spfrelation.requiredMsg", "Relationship of SPF is required!", null));
+               }
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSpfTitle())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.spftitle.requiredMsg", "Political title is required!", null));
+               }
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSpfCountry())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.spfcountry.requiredMsg", "Country of office is required!", null));
+               }
+            }
+            if(tdMasterData.getOwnerShare())
+            {
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getShareholderCompany())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sharecompany.requiredMsg", "Company Name is required!", null));
+               }
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getShareholderAddress())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.shareaddress.requiredMsg", "Company Adddress is required!", null));
+               }
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getShareholderCity())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sharecity.requiredMsg", "Company city is required!", null));
+               }
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getShareholderState())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sharestate.requiredMsg", "Company state is required!", null));
+               }
+            }
+            if(tdMasterData.getOwnerBD())
+            {
+               if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getBdDetail())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bdentity.requiredMsg", "Entity is required!", null));
+               }
+            }
+
             break;
          case 6: // Employment
             break;
