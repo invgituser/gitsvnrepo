@@ -1,7 +1,9 @@
 package com.invessence.converter;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
+import java.text.*;
+import java.util.Date;
+import java.util.regex.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -89,4 +91,44 @@ public class JavaUtil implements Serializable
    }
 
 
+
+   public static void main(String[] args) {
+      //System.out.println(isValidDate("11/31/2016", "MM/dd/yyyy"));
+      //System.out.println(isValidZipCode("98989"));
+      //System.out.println(isValidSSN("343-22-4444"));
+      String s="98";
+      System.out.println(s==null || s.trim().equals("")?"":s.substring(0,s.length()>5?5:s.length()));
+   }
+
+
+
+   public static boolean isValidDate(String value, String format) {
+      Date date = null;
+      try {
+         SimpleDateFormat sdf = new SimpleDateFormat(format);
+         date = sdf.parse(value);
+         if (!value.equals(sdf.format(date))) {
+            date = null;
+         }
+      } catch (ParseException ex) {
+         ex.printStackTrace();
+      }
+      return date != null;
+   }
+
+   public static boolean isValidSSN(String value)
+   {
+      String regex = "^\\d{3}-\\d{2}-\\d{4}$";
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher = pattern.matcher(value);
+      return matcher.matches();
+   }
+
+   public static boolean isValidZipCode(String value)
+   {
+      String regex = "^[0-9]{5}(?:-[0-9]{4})?$";
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher = pattern.matcher(value);
+      return matcher.matches();
+   }
 }
