@@ -7,7 +7,7 @@
                 template="/template/common/template.xhtml">
 
     <f:metadata>
-        <f:viewParam name="l" value="#{tdcto.beanacctnum}"/>
+        <f:viewParam name="l" value="#{tdcto.beanlogonID}"/>
         <f:viewParam name="acct" value="#{tdcto.beanacctnum}"/>
         <f:event type="preRenderView" listener="#{tdcto.startCTO}"/>
     </f:metadata>
@@ -104,8 +104,13 @@
                                 accesskey="" >
                                 <f:param name="AccountOpenSave" />
                             </p:button>-->
-                            <p:commandButton value="Save and Open Account" ajax="true"
+                            <h:outputText styleClass="errorText" rendered="#{tdcto.saveandOpenError != null}"
+                                          value="#{tdcto.saveandOpenError}" escape="false"/>
 
+                        </div>
+                        <div class="Container100" style="text-align: center;">
+                            <p:commandButton value="Save and Open Account" ajax="true"
+                                             update="@form"
                                              actionListener="#{tdcto.openAccount}"
                                              styleClass="text-align: center" />
                         </div>

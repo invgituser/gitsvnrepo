@@ -45,6 +45,11 @@ public class PagesImpl implements Serializable, Pages
       return pageNo;
    }
 
+   public Integer getMaxNoofPages()
+   {
+      return maxNoofPages;
+   }
+
    @Override
    public void setMaxNoofPages(Integer maxpages) {
       maxNoofPages =  maxpages;

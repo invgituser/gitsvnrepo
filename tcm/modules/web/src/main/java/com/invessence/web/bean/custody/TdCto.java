@@ -16,7 +16,6 @@ import com.invessence.web.data.custody.td.BenefiaciaryDetails;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
-import com.invessence.ws.provider.td.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
 import org.primefaces.event.*;
@@ -46,7 +45,8 @@ public class TdCto
 
    private String beneFirstName;
    private String beneLastName;
-      private BenefiaciaryDetails selectedAccount;
+   private String saveandOpenError;
+   private BenefiaciaryDetails selectedAccount;
 
    public BenefiaciaryDetails getSelectedAccount()
    {
@@ -135,6 +135,16 @@ public class TdCto
       return beanacctnum;
    }
 
+   public String getBeanlogonID()
+   {
+      return beanlogonID;
+   }
+
+   public void setBeanlogonID(String beanlogonID)
+   {
+      this.beanlogonID = beanlogonID;
+   }
+
    public Long getLongBeanacctnum()
    {
       if (beanacctnum == null)
@@ -155,6 +165,11 @@ public class TdCto
          return 0L;
 
       return (webutil.converter.getLongData(beanlogonID));
+   }
+
+   public String getSaveandOpenError()
+   {
+      return saveandOpenError;
    }
 
    public ServiceLayerImpl getServiceLayer()
@@ -324,7 +339,7 @@ public class TdCto
    public void setActiveTab(Integer activeTab)
    {
       this.activeTab = activeTab;
-      subtab = 0;
+      // subtab = 0;
    }
 
    public void onTabChange(TabChangeEvent event)
@@ -336,6 +351,7 @@ public class TdCto
             String tabname = event.getTab().getId();
             String tabnum = tabname.substring(3);
             Integer num = webutil.getConverter().getIntData(tabnum);
+            subtab = 0;
             switch (num)
             {
                case 0:
@@ -748,6 +764,37 @@ public class TdCto
       }
    }
 
+   public Boolean validateAllPage()
+   {
+      Integer currentPage = pagemanager.getPage();
+      Boolean status;
+      saveandOpenError = null;
+
+      pagemanager.setPage(0);
+      status = true;
+      while (! pagemanager.isLastPage())
+      {
+         if (validatePage(pagemanager.getPage()))
+         {
+            //saveData(pagemanager.getPage());
+            saveData(pagemanager.getPage());
+            pagemanager.nextPage();
+            pageControl(pagemanager.getPage());
+         }
+         else {
+            currentPage=pagemanager.getPage();
+            status = false;
+            break;
+         }
+      }
+      pagemanager.setPage(currentPage);
+      resetActiveTab(pagemanager.getPage());
+      if (!status)
+         saveandOpenError="Please fill appropriate forms above.";
+      return status;
+   }
+
+
    private void resetActiveTab(Integer pagenum)
    {
       Integer nextTab = pageControl(pagenum);
@@ -785,8 +832,8 @@ public class TdCto
       }
 */
       tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
-     // tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
-      //consumerListDAO.getProfileData(tdMasterData.getCustomerData());
+      tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
+      consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
       custodyListDAO.getTDAccountDetails(tdMasterData);
       custodyListDAO.getTDAccountHolder(tdMasterData);
@@ -907,6 +954,8 @@ public class TdCto
       String msg, msgheader;
 
       try {
+         if (! validateAllPage() )
+            return;
 /*
          if (!serviceLayer.isServiceActive())
          {
