@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -11,11 +11,11 @@
 			<div class="Container80 Responsive100 MarTop5 MarCenter"
 				style="margin-bottom: 15px;">
 
-                <p:panel rendered="#{tdcto.getErrorMessage(7) != null}"
+                <p:panel rendered="#{tdcto.getErrorMessage(5) != null}"
                          style="border: 0px; background: transparent"
                          styleClass="Container100">
                     <h:outputText styleClass="errorText"
-                                  value="#{tdcto.getErrorMessage(7)}" escape="false"/>
+                                  value="#{tdcto.getErrorMessage(5)}" escape="false"/>
                 </p:panel>
 
                 <label Class="Container100"

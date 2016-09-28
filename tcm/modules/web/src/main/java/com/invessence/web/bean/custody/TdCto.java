@@ -720,8 +720,56 @@ public class TdCto
 
             break;
          case 6: // Employment
+                  if (! hasRequiredData(tdMasterData.getOwneremploymentDetail().getEmplTypeId())) {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empstatus.requiredMsg", "Employment status is required!", null));
+                  }
+                  else if (tdMasterData.getOwneremploymentDetail().getEmplTypeId().startsWith("EMPL") ||
+                              tdMasterData.getOwneremploymentDetail().getEmplTypeId().startsWith("SLFEMPL"))
+                  {
+                     if (! hasRequiredData(tdMasterData.getOwneremploymentDetail().getEmployerName())) {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empname.requiredMsg", "Employer name is required!", null));
+                     }
+                     if (! hasRequiredData(tdMasterData.getOwneremploymentDetail().getOccupation())) {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.occupation.requiredMsg", "Occupation is required!", null));
+                     }
+                  }
+                  else
+                  {
+                     if (! hasRequiredData(tdMasterData.getOwneremploymentDetail().getSourceOfIncome())) {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sourceincome.requiredMsg", "Source of income is required!", null));
+                     }
+                  }
+
             break;
          case 7: // Joint Employment
+            if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getEmplTypeId())) {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empstatus.requiredMsg", "Employment status is required!", null));
+            }
+            else if (tdMasterData.getJointEmploymentDetail().getEmplTypeId().startsWith("EMPL") ||
+               tdMasterData.getJointEmploymentDetail().getEmplTypeId().startsWith("SLFEMPL"))
+            {
+               if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getEmployerName())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empname.requiredMsg", "Employer name is required!", null));
+               }
+               if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getOccupation())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.occupation.requiredMsg", "Occupation is required!", null));
+               }
+            }
+            else
+            {
+               if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getSourceOfIncome())) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sourceincome.requiredMsg", "Source of income is required!", null));
+               }
+            }
+
             break;
          case 8: // Benefitiary
                if (tdMasterData.getBenefiaciaryDetailsList().size()>0)
@@ -901,8 +949,8 @@ public class TdCto
       }
 */
       tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
-      tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
-      consumerListDAO.getProfileData(tdMasterData.getCustomerData());
+      //tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
+      //consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
       custodyListDAO.getTDAccountDetails(tdMasterData);
       custodyListDAO.getTDAccountHolder(tdMasterData);
