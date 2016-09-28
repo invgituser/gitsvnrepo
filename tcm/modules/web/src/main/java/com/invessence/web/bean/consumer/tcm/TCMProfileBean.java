@@ -844,7 +844,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       else
       {
-         customErrorText = customErrorText + "<br/>" + text;
+         customErrorText = customErrorText + "<br/>" +text;
+
 
       }
    }

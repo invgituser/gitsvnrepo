@@ -27,8 +27,7 @@
 
 
         <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary"
-								   offLabel="Add Beneficiary" onIcon="ui-icon-minus"
-								   offIcon="ui-icon-plus" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
+								   offLabel="Add Beneficiary" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
 				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" />
 			</p:selectBooleanButton>
 
@@ -53,7 +52,7 @@
 																 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
 								</p:commandButton>
 								<p:commandButton id="menuDelete"
-												 styleClass="Fs16 RedButton DualBtnModeRight"
+												 styleClass="Fs16 RedButton"
 												 process="@this" immediate="true"
 												 icon="fa fa-trash Fs14 white"
 												 update="singleDT"
@@ -92,14 +91,14 @@
 					 rendered="#{tdcto.tdMasterData.showBeneficiaryForm}">
 
 				<div class="EmptyBox30"></div>
-				<div class="Container80 BeneficiaryEditPanel">
+				<div class="Container80 BeneficiaryEditPanel BeneficiaryBlockPadding">
 					<div class="ContainerIndent">
 
 						<div class="closeAddBeneficiary Fright">
 							<p:commandLink actionListener="#{tdcto.tdMasterData.cancelEditBeneficiary}"
                                     process="@this" update=":ctoForm:tdaccordian:beneficiaryPanel">
 								<img src="/javax.faces.resource/images/closeBen.png.xhtml?ln=tcm"
-                                     class="atCheckMarkImg"/>
+                                     class="atCheckMarkImg imgSizeClose"/>
 							</p:commandLink>
 						</div>
 						<div class="Container100">
@@ -218,7 +217,7 @@ tax or estate planning. Please consult an estate planner for details regarding t
 									%</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
+								<p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5 sharePercentageInput"
 											   value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.sharePerc}"
 											   maxlength="15"
 											   decimalPlaces="0" emptyValue="zero">

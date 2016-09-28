@@ -198,7 +198,7 @@
                                       value="#{tdcto.getErrorMessage(4)}" escape="false"/>
                     </p:panel>
 
-                    <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasDifferent}"
+                    <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasDifferent}" styleClass="RegulatoryCheckBox"
                                              itemLabel="Has different address then primary account holder?">
                         <p:ajax update=":ctoForm:tdaccordian:addresstab:jointaddressPanel"/>
                     </p:selectBooleanCheckbox>
