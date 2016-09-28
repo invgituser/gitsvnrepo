@@ -651,24 +651,33 @@ public class TdCto
             }
             break;
          case 4: // Joint Address
-            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressStreet())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
-            }
-            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressCity())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
-            }
-            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressState())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
-            }
-            if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
-            }else if(! JavaUtil.isValidZipCode(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode())){
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+            if(tdMasterData.getJointhasDifferent())
+            {
+               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressStreet()))
+               {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
+               }
+               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressCity()))
+               {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+               }
+               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressState()))
+               {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+               }
+               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode()))
+               {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+               }
+               else if (!JavaUtil.isValidZipCode(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode()))
+               {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+               }
             }
             break;
          case 5: // Regulatory
