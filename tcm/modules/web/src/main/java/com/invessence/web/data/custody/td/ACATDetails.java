@@ -20,6 +20,8 @@ public class ACATDetails
    private String simpleFunded;
    private String fromOtherAccountType;
    private String transferTypeId;
+   private String contraFirmList;
+
 
    public ACATDetails()
    {
@@ -139,5 +141,15 @@ public class ACATDetails
    public void setTransferTypeId(String transferTypeId)
    {
       this.transferTypeId = transferTypeId;
+   }
+
+   public String getContraFirmList()
+   {
+      return contraFirmList;
+   }
+
+   public void setContraFirmList(String contraFirmList)
+   {
+      this.contraFirmList = contraFirmList;
    }
 }

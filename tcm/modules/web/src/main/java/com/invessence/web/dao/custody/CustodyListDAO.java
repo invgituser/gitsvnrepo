@@ -287,5 +287,113 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
    }
 
 
+   public void getTDACHDetails(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_tddc_ach_bank",3);
+      Map outMap = sp.getTDBeneficiary(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            AchBankDetail achBankDetail=new AchBankDetail();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               achBankDetail.setMoveMoneyPayMethodID(convert.getLongData(rs.get("moveMoneyPayMethodID")));
+               achBankDetail.setAchId(convert.getLongData(rs.get("achId")));
+               achBankDetail.setBankAcctType(convert.getStrData(rs.get("bankAcctType")));
+               achBankDetail.setBankName(convert.getStrData(rs.get("bankName")));
+               achBankDetail.setBankABARouting(convert.getStrData(rs.get("bankABARouting")));
+               achBankDetail.setBankCityState(convert.getStrData(rs.get("bankCityState")));
+               achBankDetail.setBankPhoneNumber(convert.getStrData(rs.get("bankPhoneNumber")));
+               achBankDetail.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
+               achBankDetail.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
+            }
+            data.setAchBankDetail(achBankDetail);
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
+   public void getTDACATDetails(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_tddc_account_transfer",3);
+      Map outMap = sp.getTDACAT(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            ACATDetails acatDetails=new ACATDetails();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               acatDetails.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               acatDetails.setReqId(convert.getLongData(rs.get("reqId")));
+               acatDetails.setFromAccountTitle(convert.getStrData(rs.get("fromAccountTitle")));
+               acatDetails.setAccountNumber2(convert.getStrData(rs.get("accountNumber2")));
+               acatDetails.setFromFirmAddress(convert.getStrData(rs.get("fromFirmAddress")));
+               acatDetails.setFromFirmPhoneNumber(convert.getStrData(rs.get("fromFirmPhoneNumber")));
+               acatDetails.setFromOtherAccountType(convert.getStrData(rs.get("fromOtherAccountType")));
+               acatDetails.setTransferTypeId(convert.getStrData(rs.get("transferTypeId")));
+               acatDetails.setContraFirmList(convert.getStrData(rs.get("contraFirmList")));
+            }
+            data.setAcatDetails(acatDetails);
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+   public void getfundingData(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_tddc_requests_type",3);
+      Map outMap = sp.getTDRequestType(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            AchBankDetail achBankDetail=new AchBankDetail();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               data.setFundNow(true);
+
+               if(convert.getStrData(rs.get("reqtype")).equalsIgnoreCase("ACH"))
+               {
+                  getTDACHDetails(data);
+                  data.setFundType("ACH");
+               }
+               else
+               {
+                  getTDACATDetails(data);
+                  data.setFundType("PMFEDW");
+               }
+            }
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
 
 }

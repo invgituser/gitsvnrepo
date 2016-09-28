@@ -273,11 +273,11 @@
                                            style="text-align: left !important; font-weight: bold !important;">Name of delivery firm *</label>
 
                                     <div class="EmptyBox5"></div>
-                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-                                                     value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
+                                    <p:selectOneMenu styleClass="formpageDropdown FundAccouintDropdownUI"
+                                                     value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
                                                      style="width: 100%;">
                                         <p:ajax/>
-                                        <f:selectItem itemLabel="Select the Delivery Firm" itemValue="   "
+                                        <f:selectItem itemLabel="Select the Delivery Firm" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemValue="CURICLEAR" itemLabel="Curian Clearing" />
                                         <f:selectItem itemValue="EDWAJONE" itemLabel="Edward Jones" />
@@ -334,7 +334,7 @@
                                                      value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
                                                      style="width: 100%;">
                                         <p:ajax/>
-                                        <f:selectItem itemLabel="Select Account Type" itemValue="   "
+                                        <f:selectItem itemLabel="Select Account Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Individual" itemValue="ACINDIV"/>
                                         <f:selectItem itemLabel="Joint" itemValue="ACJOINT"/>

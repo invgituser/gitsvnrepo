@@ -743,6 +743,75 @@ public class TdCto
                }
             break;
          case 9: // Funding Page 1
+               if(tdMasterData.getFundNow())
+               {
+                  if (! hasRequiredData(tdMasterData.getFundType())) {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.fundtype.requiredMsg", "Fund type is required!", null));
+                  }
+                  if (! hasRequiredData(tdMasterData.getInitialInvestment().toString())) {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required!", null));
+                  }
+                 else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
+                  {
+                     if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankAcctType()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccounttype.requiredMsg", "Account type is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankName()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankname.requiredMsg", "Bank Name is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankAcctName()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountname.requiredMsg", "Name on bank account is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankABARouting()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.abaroutingno.requiredMsg", "ABA Routing Number is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankAcctNumber()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountno.requiredMsg", "Bank Account Number is required!", null));
+                     }
+                  }
+                  else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
+                  {
+                     if (!hasRequiredData(tdMasterData.getAcatDetails().getFromAccountTitle()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccounttitle.requiredMsg", "Account Title is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAcatDetails().getAccountNumber2()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountno.requiredMsg", "Account Number is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAcatDetails().getFromOtherAccountType()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.deliveryfirm.requiredMsg", "Name of delivery firm is required!", null));
+                     }
+
+                     if (!hasRequiredData(tdMasterData.getAcatDetails().getFromOtherAccountType()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.accttype.requiredMsg", "Account Type is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAcatDetails().getTransferTypeId()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.fullpartial.requiredMsg", "Full/Partial transfer is required!", null));
+                     }
+                  }
+
+               }
             break;
          case 10: // Funding Recurring Page 2
             break;
@@ -839,6 +908,7 @@ public class TdCto
       custodyListDAO.getTDAccountHolder(tdMasterData);
       custodyListDAO.getTDEmployment(tdMasterData);
       custodyListDAO.getTDBeneficiary(tdMasterData);
+      custodyListDAO.getfundingData(tdMasterData);
 
       // Fix issues related to bad data.
       if (tdMasterData.getAcctOwnersDetail().getOwnership() == null ||
