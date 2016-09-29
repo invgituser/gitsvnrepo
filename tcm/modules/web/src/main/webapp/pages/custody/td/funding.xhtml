@@ -8,44 +8,21 @@
     <p:tabView id="fundTabV" activeIndex="#{tdcto.subtab}">
 
         <p:tab title="Fund">
-            <p:panel id="fundPanel" style="border: 0px; background: transparent">
-                <div class="Container100">
-                    <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
-                         style="margin-bottom: 15px; border: 0px; background: transparent">
+            <!--<p:panel id="fundPanel" style="border: 0px; background: transparent">-->
 
-                        <p:panel rendered="#{tdcto.getErrorMessage(9) != null}"
-                                 style="border: 0px; background: transparent"
-                                 styleClass="Container100">
-                            <h:outputText styleClass="errorText"
-                                          value="#{tdcto.getErrorMessage(9)}" escape="false"/>
-                        </p:panel>
-
-                        <div class="Container100 CustomWidthFA2 MarTop5">
-                            <p:selectBooleanCheckbox
-                                                     styleClass="RegulatoryCheckBox"
-                                                     value="#{tdcto.tdMasterData.fundNow}"
-                                                     itemLabel="Do you want to fund now?">
-                                <p:ajax update=":ctoForm:tdaccordian:fundTabV:funddetailsPanel"/>
-                            </p:selectBooleanCheckbox>
-                        </div>
-                        <div class="EmptyBox10"></div>
-                        <div class="Container100 CustomWidthFA2 MarTop5">
-                            <p:selectBooleanCheckbox
-                                    styleClass="RegulatoryCheckBox"
-                                    value="#{tdcto.tdMasterData.recurringFlag}"
-                                    itemLabel="I would like to make recurring investments.(See new tab)">
-                                <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
-                            </p:selectBooleanCheckbox>
-                        </div>
-                    </div>
-                </div>
+                <p:panel rendered="#{tdcto.getErrorMessage(9) != null}"
+                         style="border: 0px; background: transparent"
+                         styleClass="Container100 MarAuto ">
+                    <h:outputText styleClass="errorText"
+                                  value="#{tdcto.getErrorMessage(9)}" escape="false"/>
                 </p:panel>
+                <!--</p:panel>-->
             <p:panel id="funddetailsPanel" style="border: 0px; background: transparent">
 
                 <div class="Container100">
                     <p:panel id="fundPanel2" style="border: 0px; background: transparent"
-                             rendered="#{tdcto.tdMasterData.fundNow}">
-                        <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+                             rendered="true">
+                        <div class="Container80 Responsive100 MarCenter ui-color"
                              style="margin-bottom: 15px; border: 0px; background: transparent">
 
                             <p:selectOneRadio id="fundRadio"
@@ -430,6 +407,15 @@
                         </p:panel>
 
                     </p:panel>
+                    <div class="Container80 Fnone MarAuto CustomWidthFA2">
+                        <p:selectBooleanCheckbox
+                                styleClass="RegulatoryCheckBox"
+                                value="#{tdcto.tdMasterData.fundNow}"
+                                itemLabel="Do you want to fund now?">
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV:funddetailsPanel"/>
+                        </p:selectBooleanCheckbox>
+                    </div>
+                    <div class="EmptyBox20"></div>
                 </div>
                 <div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
@@ -448,7 +434,7 @@
             </p:panel>
         </p:tab>
 
-        <p:tab title="Recurring" rendered="#{tdcto.tdMasterData.recurringFlag}">
+        <p:tab title="Recurring" rendered="true">
             <p:panel id="recurrringPanel" styleClass="Container100"
                      style="border: 0px; background: transparent">
                 <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
@@ -468,7 +454,7 @@
                         <div class="Container100 CustomWidthFA2 MarTop5">
                             <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerSPF}"
                                                      itemLabel="Please use the existing account details"
-                                rendered="#{tdcto.tdMasterData.fundType=='PMACH'}"  >
+                                rendered="true"  >
                                 <p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" listener="#{tdcto.tdMasterData.existingAccount}"/>
 
                             </p:selectBooleanCheckbox>
@@ -609,8 +595,16 @@
                                 </p:inputText>
                             </div>
                         </div>
-
-
+<div class="EmptyBox10"></div>
+                        <div class="Container80 MarAuto CustomWidthFA2">
+                            <p:selectBooleanCheckbox
+                                    styleClass="RegulatoryCheckBox"
+                                    value="#{tdcto.tdMasterData.recurringFlag}"
+                                    itemLabel="I would like to make recurring investments.">
+                                <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                            </p:selectBooleanCheckbox>
+                        </div>
+                        <div class="EmptyBox10"></div>
                     </p:panel>
                      <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
