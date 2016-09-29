@@ -239,7 +239,9 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 /**/
 /*Prakash*/
 
-
+.ui-messages-error-icon {
+	margin-top: -4px!important;
+}
 
 .ListOfAccntsColWidth {
 	width: 20%;
