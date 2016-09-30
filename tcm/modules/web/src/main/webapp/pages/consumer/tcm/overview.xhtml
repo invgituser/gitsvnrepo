@@ -18,9 +18,9 @@
             <div class="layout-portlets-box">
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
-                        <div class="DispInlBlock MarTop20">
+                        <div class="DispInlBlock">
                             <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
-                            <div class="Container80">
+                            <div class="Container80 UsernameDashboard">
                                 <div class="Fright">
                                     <h2 class="black head FontThemeMedium">#{positionBean.fullName}</h2>
                                 <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{positionBean.clientAccountID}
@@ -28,7 +28,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p:accordionPanel multiple="true">
+                        <p:accordionPanel multiple="true" styleClass="marginZero">
                             <p:tab title="Summary">
                                 <div class="Container100">
                                     <div class="Container50 Responsive50"><!-- ROHIT's CHANGE -->
@@ -92,6 +92,7 @@
                                     </div>
                                 </div>
                             </p:tab>
+
                             <p:tab title="Detail">
                                 <div class="Container100 Responsive100">
                                     <div class="ContainerIndent">
@@ -103,7 +104,7 @@
                                                 <h:outputText value=" "/>
                                             </p:column>
 
-                                            <p:column headerText="Asset" priority="2"
+                                            <p:column headerText="Asset" priority="5"
                                                       style="text-align: left; width:10%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{position.assetclass}"/>
                                             </p:column>
@@ -121,7 +122,7 @@
                                                     <f:convertNumber pattern="###,###,###"/>
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column headerText="Weight" priority="2"
+                                            <p:column headerText="Weight" priority="5"
                                                       style="text-align: right; width:6%;" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{position.weight}">
                                                     <f:convertNumber pattern="##0.00%"/>
@@ -166,17 +167,22 @@
                                                 <p:row>
 
                                                     <p:column footerText="" style="text-align:left"/>
-                                                    <p:column priority="0" footerText="Total" style="text-align:left;"/>
-                                                    <p:column styleClass="tbl_hide" colspan="5" footerText="" style="text-align:left"/>
+
+                                                    <p:column priority="5" footerText="" style="text-align:left;"/>
+                                                    <p:column footerText="Total" style="text-align:left;"/>
+                                                    <p:column priority="2" footerText="" style="text-align:left;"/>
+                                                    <p:column priority="2" footerText="" style="text-align:left;"/>
+                                                    <p:column priority="5" footerText="" style="text-align:left;"/>
+                                                    <p:column priority="2" footerText="" style="text-align:left"/>
 
                                                     <p:column priority="2"
                                                               footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalmoney)}"
                                                               style="text-align:right"/>
                                                     <p:column priority="2" footerText="" style="text-align:left"/>
-                                                    <p:column priority="0"
+                                                    <p:column
                                                               footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}"
                                                               style="text-align:right"/>
-                                                    <p:column colspan="" priority="0"
+                                                    <p:column colspan=""
                                                               footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalpnl)}"
                                                               style="text-align:right"/>
                                                 </p:row>

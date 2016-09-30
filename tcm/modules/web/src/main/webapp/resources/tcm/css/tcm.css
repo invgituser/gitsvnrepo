@@ -519,6 +519,15 @@ padding: 5px!important;
 }
 
 /*Prakash*/
+
+.ui-tooltip {
+    border:0!important;
+}
+
+.marginZero > .ui-accordion-header {
+    margin: 10px 0px!important;
+}
+
 .imgSizeClose {
     position: relative;
 }
@@ -645,6 +654,8 @@ width: 97%!important;
     background-color: transparent;
     color:#778D9B!important;
 }
+
+
 
 .ui-selectonemenu label.ui-selectonemenu-label {
 	border-color:transparent!important;
