@@ -5,9 +5,10 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <p:tabView id="fundTabV" activeIndex="#{tdcto.subtab}">
-
-        <p:tab title="Fund">
+    <p:tabView id="fundTabV" activeIndex="#{tdcto.subtab}" >
+        <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
+                immediate="true" />
+        <p:tab title="Fund" id="tab6S0">
             <!--<p:panel id="fundPanel" style="border: 0px; background: transparent">-->
 
                 <p:panel rendered="#{tdcto.getErrorMessage(9) != null}"
@@ -439,7 +440,7 @@
             </p:panel>
         </p:tab>
 
-        <p:tab id="Recurring" title="Recurring" rendered="#{!tdcto.tdMasterData.fundNow}">
+        <p:tab id="tab6S1"  title="Recurring" rendered="#{!tdcto.tdMasterData.fundNow}">
             <p:panel rendered="#{tdcto.getErrorMessage(10) != null}"
                      style="border: 0px; background: transparent"
                      styleClass="Container100">

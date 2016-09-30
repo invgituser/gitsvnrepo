@@ -6,8 +6,9 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <p:tabView id="addresstab" activeIndex="#{tdcto.subtab}">
-
-        <p:tab title="Primary Holder">
+        <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:addresstab"
+                immediate="true" />
+        <p:tab title="#{tdcto.tdMasterData.titlePrimary}"  id="tab2S0">
 
             <p:panel id="owneraddressPanel" style="border: 0px; background: transparent">
                 <div class="Container80 Responsive100 MarTop5 MarCenter"
@@ -184,7 +185,7 @@
         </p:tab>
 
 
-        <p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}">
+        <p:tab  title="#{tdcto.tdMasterData.titleSecondary}"   id="tab2S1" rendered="#{tdcto.tdMasterData.isJointAcct}">
 
             <p:panel id="jointaddressPanel" style="border: 0px; background: transparent">
 

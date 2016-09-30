@@ -6,7 +6,10 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
 <p:tabView id="employmenttab" activeIndex="#{tdcto.subtab}">
-<p:tab title="Primary Holder">
+    <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:employmenttab"
+            immediate="true" />
+
+    <p:tab  title="#{tdcto.tdMasterData.titlePrimary}"  id="tab4S0">
 
     <p:panel id="owneraempPanel" style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
@@ -194,7 +197,7 @@
         </div>
     </p:panel>
 </p:tab>
-<p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}">
+<p:tab  title="#{tdcto.tdMasterData.titleSecondary}"  id="tab4S1" rendered="#{tdcto.tdMasterData.isJointAcct}">
 
     <p:panel id="jointaempPanel" style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"

@@ -119,10 +119,22 @@ public class TDMasterData implements Serializable
    }
 
    public Boolean getIsJointAcct() {
-      if (accttype == 2) {
+      if (accttype == 2 || accttype == 3 ) {
          return true;
       }
       return false;
+   }
+   public String getTitlePrimary() {
+      if ( accttype == 3 ) {
+         return "Custodian Holder";
+      }
+      return "Primary Holder";
+   }
+   public String getTitleSecondary() {
+      if ( accttype == 3 ) {
+         return "Minor Holder";
+      }
+      return "Joint Holder";
    }
 
    public Integer getAccttype()

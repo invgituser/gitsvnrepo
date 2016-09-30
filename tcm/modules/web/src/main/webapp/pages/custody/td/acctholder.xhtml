@@ -5,8 +5,10 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-<p:tabView activeIndex="#{tdcto.subtab}">
-<p:tab title="Primary Holder">
+<p:tabView activeIndex="#{tdcto.subtab}" id="accHolderTabV">
+    <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
+            immediate="true" />
+<p:tab title="#{tdcto.tdMasterData.titlePrimary}" id="tab1S0" >
     <p:panel id="ownerHolderPanel"
              style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
@@ -126,7 +128,7 @@
     </p:panel>
 
 </p:tab>
-<p:tab title="Joint Holder" rendered="#{tdcto.tdMasterData.isJointAcct}"   >
+<p:tab title="#{tdcto.tdMasterData.titleSecondary}" id="tab1S1"  rendered="#{tdcto.tdMasterData.isJointAcct}"   >
 
     <p:panel id="jointHolderPanel"
              style="border: 0px; background: transparent"  >

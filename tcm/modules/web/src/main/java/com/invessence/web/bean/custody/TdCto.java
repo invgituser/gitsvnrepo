@@ -390,6 +390,41 @@ public class TdCto
       }
    }
 
+   public void onSubTabChange(TabChangeEvent event)
+   {
+      try
+      {
+         if (event != null)
+         {
+            String tabname = event.getTab().getId();
+            String tabnum = tabname.substring(5);
+            Integer num = webutil.getConverter().getIntData(tabnum);
+            subtab = 0;
+            switch (num)
+            {
+               case 0:
+
+                  break;
+               case 1:
+                  pagemanager.nextPage();
+                  subtab=1;
+                  break;
+
+               default:
+                  pagemanager.setPage(0);
+
+            }
+
+         }
+      }
+      catch (Exception ex)
+      {
+         pagemanager.setPage(0);
+         //setActiveTab(0);
+
+      }
+   }
+
    private Integer pageControl(Integer pagenum)
    {
       if (pagenum == null)
@@ -493,7 +528,16 @@ public class TdCto
    public void prevPage()
    {
       // customErrorText = null;   // If we go to previous page, then erase the error message.
-      pagemanager.prevPage();
+      if(tdMasterData.getAccttype()==2 || tdMasterData.getAccttype()==3 )
+      {
+         pagemanager.prevPage();
+
+      }
+      else
+      {
+         pagemanager.prevPage();
+         pagemanager.prevPage();
+      }
       resetActiveTab(pagemanager.getPage());
    }
 
@@ -679,53 +723,62 @@ public class TdCto
             }
             break;
          case 3: // Address
-            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressStreet())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
-            }
-            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressCity())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
-            }
-            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressState())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
-            }
-            if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressZipCode())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
-            }else if(! JavaUtil.isValidZipCode(tdMasterData.getAcctOwnersDetail().getPhysicalAddressZipCode())){
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
-            }
-            break;
-         case 4: // Joint Address
-            if(tdMasterData.getJointhasDifferent())
-            {
-               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressStreet()))
+               if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressStreet()))
                {
                   dataOK = false;
                   pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
                }
-               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressCity()))
+               if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressCity()))
                {
                   dataOK = false;
                   pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
                }
-               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressState()))
+               if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressState()))
                {
                   dataOK = false;
                   pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
                }
-               if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode()))
+               if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressZipCode()))
                {
                   dataOK = false;
                   pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
                }
-               else if (!JavaUtil.isValidZipCode(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode()))
+               else if (!JavaUtil.isValidZipCode(tdMasterData.getAcctOwnersDetail().getPhysicalAddressZipCode()))
                {
                   dataOK = false;
                   pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+            }
+            break;
+         case 4: // Joint Address
+            if(tdMasterData.getAccttype()==2)
+            {
+               if (tdMasterData.getJointhasDifferent())
+               {
+                  if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressStreet()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
+                  }
+                  if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressCity()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+                  }
+                  if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressState()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+                  }
+                  if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+                  }
+                  else if (!JavaUtil.isValidZipCode(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressZipCode()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+                  }
                }
             }
             break;
@@ -804,27 +857,34 @@ public class TdCto
 
             break;
          case 7: // Joint Employment
-            if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getEmplTypeId())) {
-               dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empstatus.requiredMsg", "Employment status is required!", null));
-            }
-            else if (tdMasterData.getJointEmploymentDetail().getEmplTypeId().startsWith("EMPL") ||
-               tdMasterData.getJointEmploymentDetail().getEmplTypeId().startsWith("SLFEMPL"))
+            if(tdMasterData.getAccttype()==2)
             {
-               if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getEmployerName())) {
+               if (!hasRequiredData(tdMasterData.getJointEmploymentDetail().getEmplTypeId()))
+               {
                   dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empname.requiredMsg", "Employer name is required!", null));
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empstatus.requiredMsg", "Employment status is required!", null));
                }
-               if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getOccupation())) {
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.occupation.requiredMsg", "Occupation is required!", null));
+               else if (tdMasterData.getJointEmploymentDetail().getEmplTypeId().startsWith("EMPL") ||
+                  tdMasterData.getJointEmploymentDetail().getEmplTypeId().startsWith("SLFEMPL"))
+               {
+                  if (!hasRequiredData(tdMasterData.getJointEmploymentDetail().getEmployerName()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.empname.requiredMsg", "Employer name is required!", null));
+                  }
+                  if (!hasRequiredData(tdMasterData.getJointEmploymentDetail().getOccupation()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.occupation.requiredMsg", "Occupation is required!", null));
+                  }
                }
-            }
-            else
-            {
-               if (! hasRequiredData(tdMasterData.getJointEmploymentDetail().getSourceOfIncome())) {
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sourceincome.requiredMsg", "Source of income is required!", null));
+               else
+               {
+                  if (!hasRequiredData(tdMasterData.getJointEmploymentDetail().getSourceOfIncome()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sourceincome.requiredMsg", "Source of income is required!", null));
+                  }
                }
             }
 
@@ -1145,12 +1205,23 @@ public class TdCto
       if ( pagenum == null )
          return;
 
+      if(tdMasterData.getAccttype()==3)
+      {
+         tdMasterData.getAcctOwnersDetail().setOwnership("AOCUSTODIAN");
+         tdMasterData.getJointAcctOwnersDetail().setOwnership("AOMINOR");
+      }
+      else
+      {
+         tdMasterData.getAcctOwnersDetail().setOwnership("AOPRIMARY");
+         tdMasterData.getJointAcctOwnersDetail().setOwnership("AOJOINT");
+      }
       switch (pagenum) {
          case 0: // Account Type and create basic info
             // custodySaveDAO.tdSaveRequest(tdMasterData.getRequest());   We are going to add the request on final save.
             custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail());
             break;
          case 1: // Account Owner
+
             custodySaveDAO.tdSaveAccountOwner(tdMasterData.getAcctOwnersDetail());
             break;
          case 2:  // Joint Owner  (if Any)
@@ -1242,7 +1313,6 @@ public class TdCto
             webutil.redirecttoMessagePage("ERROR", "Failed to Save", msg);
          }
          else {
-            System.out.println("in open account");
             uiLayout.doMenuAction("custody","tdconfirmation.xhtml");
          }
       }

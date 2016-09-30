@@ -121,9 +121,6 @@ public class PagesImpl implements Serializable, Pages
    }
    @Override
    public String getErrorMessage(){
-      if (pageNo >= maxNoofPages) {
-         return null;
-      }
       if (errorMessgage.containsKey(pageNo))
          return errorMessgage.get(pageNo);
 
@@ -132,9 +129,6 @@ public class PagesImpl implements Serializable, Pages
 
    @Override
    public String getErrorMessage(Integer pagenum){
-      if (pagenum >= maxNoofPages) {
-         return null;
-      }
       if(errorMessgage!=null)
       {
          if (errorMessgage.containsKey(pagenum))
@@ -146,8 +140,6 @@ public class PagesImpl implements Serializable, Pages
 
    @Override
    public void setErrorMessage(String message){
-      if (pageNo >= maxNoofPages)
-         return;
 
       if (errorMessgage.containsKey(pageNo)) {
          if (errorMessgage.get(pageNo) != null && ! errorMessgage.get(pageNo).isEmpty())
