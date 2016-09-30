@@ -190,8 +190,19 @@
                   Please slide the dot to the select appropriate investment.
               </div> -->
 
-			<!-- <div class="ProjectionChartRadioBlock">
-				
+			<div class="ProjectionChartRadioBlock">
+				<p:selectOneRadio id="projection"
+					value="#{tcmpb.riskCalculator.ans5}" layout="custom"
+					required="true"
+					requiredMessage="Please choose one of these choices for appropriate investment">
+					<p:ajax listener="#{tcmpb.doProjectionChart}"
+						update=":ceForm:inputArea" />
+					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="1" />
+					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="2" />
+					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="3" />
+					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="4" />
+					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="5" />
+				</p:selectOneRadio>
 				<div class="stripe"></div>
 				<table class="ProjectionChartRadioTable">
 					<tbody>
@@ -223,125 +234,25 @@
 						</tr>
 					</tbody>
 				</table>
-			</div> -->
-
-		</div>
-
-		<!-- Projection Slab  -->
-<p:selectOneRadio id="projection"
-					value="#{tcmpb.riskCalculator.ans5}" layout="custom"
-					required="true"
-					requiredMessage="Please choose one of these choices for appropriate investment">
-					<p:ajax listener="#{tcmpb.doProjectionChart}"
-						update=":ceForm:inputArea" />
-					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="1" />
-					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="2" />
-					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="3" />
-					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="4" />
-					<f:selectItem class="ProjectionChartRadioAssetsLabel" itemValue="5" />
-				</p:selectOneRadio>
-		<div class="ContainerDropDownSizing">
-			<div class="ContainerPSlab-tcmUI MarAuto Fnone EnableDrodownProjection">
-				<p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-					value="#{tdcto.tdMasterData.achBankDetail.bankAcctType}"
-					style="width: 100%;">
-					<p:ajax />
-					<f:selectItem itemLabel="Select Type" itemValue=""
-						noSelectionOption="true" />
-					<f:selectItem itemLabel="Aggressive (Higher Risk)" itemValue="" />
-					<f:selectItem itemLabel="Moderately Aggressive" itemValue="" />
-					<f:selectItem itemLabel="Moderate" itemValue="" />
-					<f:selectItem itemLabel="Moderately Conservative" itemValue="" />
-					<f:selectItem itemLabel="Conservative (Lower Risk)" itemValue="" />
-				</p:selectOneMenu>
 			</div>
+
 		</div>
 
-		<div
-			class="Container30-tcmUI Fright PSlabPadding EnableProjectionSlab">
-			<div class="Container100">
-			<div class="Container50 TexAlCenter Fleft UI-tcm">
-						<div class="ContainerIndent">
-							<div class="EmptyBox5"></div>
-							<span class="Fs13 DispBlock gray">Average Market
-								Performance</span>
-							<div class="EmptyBox5"></div>
-							<span class="Fs15 DispBlock BBGreen"> <h:outputText
-									value="#{tcmpb.charts.avgPerformance}">
-									<f:convertNumber pattern="$#,###,###,##0" />
-								</h:outputText>
-							</span>
-						</div>
-					</div>
-				<div class="Container50 FrightForced TexAlCenter UI-tcm">
-						<div class="ContainerIndent">
-							<div class="EmptyBox5"></div>
-							<span class="Fs13 DispBlock gray">Poor Market Performance</span>
-							<div class="EmptyBox5"></div>
-							<span class="Fs15 DispBlock BBDarkGray"> <h:outputText
-									value="#{tcmpb.charts.poorPerformance}">
-									<f:convertNumber pattern="$#,###,###,##0" />
-								</h:outputText>
-							</span>
-						</div>
-					</div>
-			</div>
-			<div class="EmptyBox5"></div>
-			<p:commandLink styleClass="PSlabLink">
-				<p:panel styleClass="PojectionSlabPanel">
-					<div class="triangleShape Fleft"></div>
-					<div class="Container90 ProjectionSlabHeight">
-						<span class="PSlabLabel">Aggressive</span>
-					</div>
-				</p:panel>
-			</p:commandLink>
-			<div class="EmptyBox5"></div>
-			<p:commandLink styleClass="PSlabLink">
-				<p:panel styleClass="PojectionSlabPanel">
-					<div class="triangleShape Fleft"></div>
-					<div class="Container90 ProjectionSlabHeight">
-						<span class="PSlabLabel">Moderately Aggressive</span>
-					</div>
-				</p:panel>
-			</p:commandLink>
-			<div class="EmptyBox5"></div>
-			<p:commandLink styleClass="PSlabLink">
-				<p:panel styleClass="PojectionSlabPanel">
-					<div class="triangleShape Fleft"></div>
-					<div class="Container90 ProjectionSlabHeight">
-						<span class="PSlabLabel">Moderate</span>
-					</div>
-				</p:panel>
-			</p:commandLink>
-			<div class="EmptyBox5"></div>
-			<p:commandLink styleClass="PSlabLink">
-				<p:panel styleClass="PojectionSlabPanel">
-					<div class="triangleShape Fleft"></div>
-					<div class="Container90 ProjectionSlabHeight">
-						<span class="PSlabLabel">Moderately Conservative</span>
-					</div>
-				</p:panel>
-			</p:commandLink>
-			<div class="EmptyBox5"></div>
-			<p:commandLink styleClass="PSlabLink">
-				<p:panel styleClass="PojectionSlabPanel">
-					<div class="triangleShape Fleft"></div>
-					<div class="Container90 ProjectionSlabHeight">
-						<span class="PSlabLabel">Conservative</span>
-					</div>
-				</p:panel>
-			</p:commandLink>
-		</div>
-		<div class="Container70-tcmUI fleft">
+		<!-- customRadio HighChart start  -->
+		<div class="Container80 Responsive100-tcmUI">
 			<p:panel styleClass="GraphPanel" update="beanValueChart"
 				action="#{tcmpb.docustomRadioChart}" />
 			<h:inputHidden value="#{tcmpb.charts.resultChart}"
 				id="beanValueChart" />
 			<div id="progressChart" class="Conatiner100 customRadioGraph"></div>
 		</div>
-<div class="EmptyBox20"></div>
-<div class="Container100">
-			<div class="Container45 Res100MP TexAlCenter Fleft UI-tcm">
+		<!-- customRadio HighChart end  -->
+
+		<div class="Container50">
+			<p:outputPanel id="goalPanel" deferred="true"
+				style="background: transparent; border: 0px">
+				<div class="Container100 PerformanceMeterBlock">
+					<div class="ResponsiveWid-tcmUI Fleft-MP TexAlCenter responsiveFullwidth UI-tcm">
 						<div class="ContainerIndent">
 							<div class="EmptyBox5"></div>
 							<span class="Fs14 DispBlock gray">Average Market
@@ -354,8 +265,7 @@
 							</span>
 						</div>
 					</div>
-					
-				<div class="Container45 Res100MP FrightForced TexAlCenter UI-tcm MarTopRes">
+					<div class="ResponsiveWid-tcmUI Fright-MP TexAlCenter responsiveFullwidth UI-tcm">
 						<div class="ContainerIndent">
 							<div class="EmptyBox5"></div>
 							<span class="Fs14 DispBlock gray">Poor Market Performance</span>
@@ -367,7 +277,12 @@
 							</span>
 						</div>
 					</div>
-			</div>
+				</div>
+
+
+			</p:outputPanel>
+		</div>
+		<!-- customRadio HighChart end  -->
 
 		<div class="EmptyBox10"></div>
 		<p:commandLink styleClass="UI-prevButton Fleft" value="Previous"
