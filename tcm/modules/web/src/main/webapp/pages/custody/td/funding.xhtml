@@ -493,17 +493,7 @@
                                     <f:selectItem itemValue="WEEKLY" itemLabel="Weekly "/>
                                 </p:selectOneMenu>
                             </div>
- <div class="Container45 Fright CustomWidthFA-Responsive">
-                                <label Class="Container100"
-                                       style="text-align: left !important; font-weight: bold !important;">Bank Account Title <span class="Fs12">(Please provide full title of the account)</span> *</label>
 
-                                <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctName}"
-                                             maxlength="90"
-                                             placeholder="Bank Account Title">
-                                </p:inputText>
-                            </div>
                         </div>
 
                         <div class="EmptyBox20"></div>
@@ -511,7 +501,7 @@
                             <div class="Container45 Fleft CustomWidthFA-Responsive">
                                 <label Class="Container100"
                                        style="text-align: left !important; font-weight: bold !important;">
-                                    Amount  *</label>
+                                    Amount of Transaction  *</label>
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputNumber
@@ -538,20 +528,9 @@
                         </div>
 
                         <div class="EmptyBox20"></div>
+
                         <div class="Container100">
                             <div class="Container45 Fleft CustomWidthFA-Responsive">
-                                <label Class="Container100"
-                                       style="text-align: left !important; font-weight: bold !important;">
-                                    Bank Name  *</label>
-
-                                <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankName}"
-                                             maxlength="90"
-                                             placeholder="Bank Name">
-                                </p:inputText>
-                            </div>
-                            <div class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
                                 <label Class="Container100"
                                        style="text-align: left !important; font-weight: bold !important;">
                                     Account Type *</label>
@@ -567,6 +546,31 @@
                                     <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
 
                                 </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="Container100">
+                            <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Bank Name  *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankName}"
+                                             maxlength="90"
+                                             placeholder="Bank Name">
+                                </p:inputText>
+                            </div>
+                            <div class="Container45 Fright CustomWidthFA-Responsive">
+                                <label Class="Container100"
+                                       style="text-align: left !important; font-weight: bold !important;">Bank Account Title <span class="Fs12">(Please provide full title of the account)</span> *</label>
+
+                                <div class="EmptyBox5"></div>
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctName}"
+                                             maxlength="90"
+                                             placeholder="Bank Account Title">
+                                </p:inputText>
                             </div>
                         </div>
                         <div class="EmptyBox20"></div>

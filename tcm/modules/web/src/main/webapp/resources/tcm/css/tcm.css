@@ -518,7 +518,107 @@ padding: 5px!important;
 }
 }
 
+/*Projection Salb*/
+.ProjectionSlabHeight {
+height: 50px;
+background: #f2f2f2;
+text-align: left;	
+}
+.triangleShape {
+    height: 0px;
+    background: transparent;
+    border-top: 25px solid transparent;
+    border-bottom: 25px solid transparent;
+    border-right: 25px solid #f2f2f2;
+    float: left;
+}
+.BoxShadow {
+	box-shadow: 2px 2px 4px #d8d5d5;
+}
+
+.PSlabLabel {
+	    line-height: 50px;
+    font-size: 17px;
+}
+
+.PSlabLink {
+	margin:0px 0px!important;
+}
+
+.PojectionSlabPanel {
+	border: 0!important;
+	background: transparent!important;
+}
+
+.Container30-tcmUI {
+    width: 30%;
+    float: right;
+}
+
+.Container70-tcmUI {
+	width: 70%;
+	float: left;
+}
+
+.PSlabPadding {
+padding: 28px 0;
+}
+
+.ContainerDropDownSizing {
+	width: 100%;
+}
+
+.ContainerPSlab-tcmUI {
+	width: 50%;
+}
+
+.EnableDrodownProjection, .EmptyBox20Res {
+	Display: none;
+}
+
+@media (max-width: 600px) and (min-width: 320px) {
+	.ContainerPSlab-tcmUI {
+	width: 100%;
+}
+
+.Res100MP {
+	width: 100%!important;
+}
+
+.MarTopRes {
+	margin-top: 20px;
+}
+
+}
+
+@media (max-width: 735px) {
+		.ContainerPSlab-tcmUI {
+	margin-top: 25px!important;
+}
+}
+
+@media (max-width: 1015px) and (min-width: 320px) {
+	.Container30-tcmUI {
+    width: 100%;
+	}
+	
+	.EnableProjectionSlab {
+	Display: none!important;
+	}
+	.Container70-tcmUI {
+	width: 100%;
+	}
+	
+	.EnableDrodownProjection {
+	Display: block;
+	}
+}
+/**/
+
 /*Prakash*/
+.GraphPanel > .ui-panel-content {
+padding: 0!important;
+	}
 
 .ui-tooltip {
     border:0!important;
