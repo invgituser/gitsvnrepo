@@ -3,6 +3,7 @@ package com.invessence.web.data.custody;
 import java.io.Serializable;
 import java.util.*;
 
+import com.invessence.web.bean.custody.TdCto;
 import com.invessence.web.constant.USMaps;
 import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.data.custody.td.*;
@@ -564,5 +565,15 @@ public class TDMasterData implements Serializable
       else {
          totalbeneficiaryShares = null;
       }
+   }
+
+   public Boolean getEditBeneficiaryForm()
+   {
+      return editBeneficiaryForm;
+   }
+
+   public void setEditBeneficiaryForm(Boolean editBeneficiaryForm)
+   {
+      this.editBeneficiaryForm = editBeneficiaryForm;
    }
 }

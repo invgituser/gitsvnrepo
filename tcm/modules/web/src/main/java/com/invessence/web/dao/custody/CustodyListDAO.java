@@ -358,6 +358,51 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
 
       }
    }
+
+   public void getTDElectronicDetails(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_tddc_electronic_fund",3);
+      Map outMap = sp.getTDACAT(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            ElectronicFundDetails acatDetails=new ElectronicFundDetails();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               acatDetails.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               acatDetails.setDirectionId(convert.getStrData(rs.get("directionId")));
+               acatDetails.setMoveMoneyPayMethodID(convert.getLongData(rs.get("moveMoneyPayMethodID")));
+               acatDetails.setReqId(convert.getLongData(rs.get("reqid")));
+               acatDetails.setAchId(convert.getIntData(rs.get("achid")));
+               acatDetails.setTranAmount(convert.getDoubleData(rs.get("tranAmount")));
+               acatDetails.setTranFreqId(convert.getStrData(rs.get("tranFreqId")));
+               acatDetails.setBankAcctType(convert.getStrData(rs.get("bankAcctType")));
+               acatDetails.setBankName(convert.getStrData(rs.get("bankName")));
+               acatDetails.setBankABARouting(convert.getStrData(rs.get("bankABARouting")));
+               acatDetails.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
+               acatDetails.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
+               acatDetails.setTranStartDate(convert.getStrData(rs.get("transtartdate")));
+            }
+            data.setElectroicBankDetail(acatDetails);
+            if(data.getElectroicBankDetail().getAchId().toString().equalsIgnoreCase(data.getAchBankDetail().getAchId().toString()))
+               data.setOwnerSPF(true);
+            else
+               data.setOwnerSPF(false);
+
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
    public void getfundingData(TDMasterData data)
    {
       DataSource ds = getDataSource();
@@ -372,22 +417,29 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
             if (rows == null)
                return;
             int i = 0;
+            data.setFundNow(true);
+            data.setRecurringFlag(true);
             AchBankDetail achBankDetail=new AchBankDetail();
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               data.setFundNow(true);
-
-               if(convert.getStrData(rs.get("reqtype")).equalsIgnoreCase("ACH"))
+               data.setFundNow(false);
+               if(convert.getStrData(rs.get("reqfor")).equalsIgnoreCase("ACH"))
                {
                   getTDACHDetails(data);
-                  data.setFundType("ACH");
+                  data.setFundType("PMACH");
                }
-               else
+              else  if(convert.getStrData(rs.get("reqfor")).equalsIgnoreCase("ACAT"))
                {
                   getTDACATDetails(data);
                   data.setFundType("PMFEDW");
                }
+               else  if(convert.getStrData(rs.get("reqfor")).equalsIgnoreCase("EFT"))
+               {
+                  getTDElectronicDetails(data);
+                  data.setRecurringFlag(false);
+               }
+               i++;
             }
          }
       }

@@ -14,6 +14,7 @@ public class Request
       private Date created;
       private Date updated;
       private String terminalDetails;
+      private String requestFor;
 
    public Request()
    {
@@ -123,5 +124,15 @@ public class Request
    public void setTerminalDetails(String terminalDetails)
    {
       this.terminalDetails = terminalDetails;
+   }
+
+   public String getRequestFor()
+   {
+      return requestFor;
+   }
+
+   public void setRequestFor(String requestFor)
+   {
+      this.requestFor = requestFor;
    }
 }

@@ -119,34 +119,69 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
 
    public boolean tdSaveElectronicPaymentData(TDMasterData tdMasterData )
    {
-      if(tdMasterData.getOwnerSPF())
+      if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getOwnerSPF())
       {
          DataSource ds = getDataSource();
          Request reqdata = new Request();
          reqdata.setReqId(new Long(0));
          reqdata.setEventNum(0);
+         reqdata.setRequestFor("EFT");
          reqdata.setAcctnum(tdMasterData.getAcctnum());
          reqdata.setReqType("ELEC_FUND_TRAN_NEW");
          reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
          tdOpenAccount(reqdata);
-         if (reqdata.getReqId() > 0)
-         {
-            Long moveMoneyPayMethId = tdSaveMoveMoneyPay(tdMasterData);
-            ElectronicFundDetails electronicFundDetails = tdMasterData.getElectroicBankDetail();
-            electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
-            tdMasterData.getElectroicBankDetail().setReqId(reqdata.getReqId());
-            tdMasterData.getElectroicBankDetail().setEftInstId("EFINEW");
-            tdMasterData.getElectroicBankDetail().setDirectionId("EFDTOTD");
-            tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
-            tdMasterData.getElectroicBankDetail().setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
-            electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
+            if (reqdata.getReqId() > 0)
+            {
+               Long moveMoneyPayMethId = tdSaveMoveMoneyPay(tdMasterData);
+               ElectronicFundDetails electronicFundDetails = tdMasterData.getElectroicBankDetail();
+               electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
+               tdMasterData.getElectroicBankDetail().setReqId(reqdata.getReqId());
+               tdMasterData.getElectroicBankDetail().setEftInstId("EFINEW");
+               tdMasterData.getElectroicBankDetail().setDirectionId("EFDTOTD");
+               tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+               tdMasterData.getElectroicBankDetail().setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
+               electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
 
-            Boolean elecFundSave = tdSaveElectronicPayment(tdMasterData.getAcctnum(), tdMasterData.getElectroicBankDetail());
-         }
+               Boolean elecFundSave = tdSaveElectronicPayment(tdMasterData.getAcctnum(), tdMasterData.getElectroicBankDetail());
+            }
          }
          else
          {
-            tdsaveACHData(tdMasterData,"EFT" );
+            DataSource ds = getDataSource();
+            Long moveMoneyPayMethId=tdSaveMoveMoneyPay(tdMasterData);
+            if(moveMoneyPayMethId==0)
+            {
+               return false;
+            }
+            tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+            long achId=0;
+            tdMasterData.getElectroicBankDetail().setAchId(0);
+            achId=tdSaveACHFund(tdMasterData.getElectroicBankDetail());
+
+            Request reqdata=new Request();
+            if(achId>0)
+            {
+                     reqdata.setReqId(new Long(0));
+                     reqdata.setEventNum(0);
+                     reqdata.setAcctnum(tdMasterData.getAcctnum());
+                     reqdata.setReqType("ELEC_FUND_TRAN_NEW");
+                     reqdata.setRequestFor("EFT");
+                     reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+                     tdOpenAccount(reqdata);
+                     if(reqdata.getReqId()>0)
+                     {
+                        ElectronicFundDetails electronicFundDetails=tdMasterData.getElectroicBankDetail();
+                        electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
+                        electronicFundDetails.setReqId(reqdata.getReqId());
+                        electronicFundDetails.setEftInstId("EFINEW");
+                        electronicFundDetails.setDirectionId("EFDTOTD");
+                        electronicFundDetails.setMoveMoneyPayMethodID(moveMoneyPayMethId);
+                        electronicFundDetails.setAchId((int)achId);
+                        electronicFundDetails.setTranAmount(tdMasterData.getElectroicBankDetail().getTranAmount());
+                       Boolean elecFundSave=tdSaveElectronicPayment(tdMasterData.getAcctnum(),tdMasterData.getElectroicBankDetail());
+                     }
+
+            }
          }
       return true;
    }
@@ -177,6 +212,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
         reqdata.setReqId(new Long(0));
         reqdata.setEventNum(0);
         reqdata.setAcctnum(tdMasterData.getAcctnum());
+        reqdata.setRequestFor("ACH");
 
         if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
            tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
@@ -197,6 +233,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
               reqdata.setEventNum(0);
               reqdata.setAcctnum(tdMasterData.getAcctnum());
               reqdata.setReqType("ELEC_FUND_TRAN_NEW");
+              reqdata.setRequestFor("ACH");
               reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
               tdOpenAccount(reqdata);
               if(reqdata.getReqId()>0)
@@ -266,6 +303,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       reqdata.setEventNum(0);
       reqdata.setAcctnum(acctnum);
       reqdata.setReqType("ACCT_TRAN_NEW");
+      reqdata.setRequestFor("ACAT");
       reqdata.setEnvelopeHeading("Please sign account transfer document.");
       tdOpenAccount(reqdata);
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_acct_transfer_details",6);
@@ -315,6 +353,16 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_requests",0);
       Map outMap = sp.tdSaveRequest(data);
+      if (outMap == null)
+         return (false);
+      else
+         return true;
+   }
+   public Boolean tdCheckRequest(TDMasterData data )
+   {
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_requests_final",12);
+      Map outMap = sp.tdCheckRequest(data);
       if (outMap == null)
          return (false);
       else

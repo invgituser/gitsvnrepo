@@ -461,14 +461,26 @@ public class TdCto
             newTab = 6;
             break;
          case 10: // Funding Page 2
-            newTab = 6;
             if (tdMasterData.getRecurringFlag())
-               subtab = 1;
-            else
             {
-               subtab = 0;
-               newTab=null;
+             newTab = null;
             }
+            else
+            {  // Force to go to next tab.
+             //  pagemanager.nextPage();
+               newTab = 6;
+               subtab = 1;
+            }
+
+
+          //  newTab = 6;
+         //   if (tdMasterData.getRecurringFlag())
+            //   subtab = 1;
+//            else
+//            {
+//               subtab = 0;
+//               newTab=null;
+//            }
             break;
          default:
             newTab = null;
@@ -493,7 +505,44 @@ public class TdCto
       return true;
    }
 
-   public Boolean validateBenificieryPage(BenefiaciaryDetails benefiaciaryDetail, Integer pagenum) {
+   public void saveBenefiaciaryDetails() {
+      ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList=tdMasterData.getBenefiaciaryDetailsList();
+     if(validateBenificieryPage(tdMasterData.getTmpBenefiaciaryDetail(),8))
+     {
+        if (tdMasterData.getBenefiaciaryDetailsList() == null)
+        {
+           benefiaciaryDetailsList = new ArrayList<BenefiaciaryDetails>();
+        }
+
+        if (tdMasterData.getTmpBenefiaciaryDetail() == null)
+           return;
+
+        if (tdMasterData.getTmpBenefiaciaryDetail().getBeneId() == null)
+        {
+           tdMasterData.getTmpBenefiaciaryDetail().setBeneId(benefiaciaryDetailsList.size());
+        }
+        ArrayList<BenefiaciaryDetails> tmpbenefiaciaryDetailsList = benefiaciaryDetailsList;
+
+        if (tdMasterData.getEditBeneficiaryForm())
+        {
+           for (int i = 0; i < tmpbenefiaciaryDetailsList.size(); i++)
+           {
+              BenefiaciaryDetails tmpb = tmpbenefiaciaryDetailsList.get(i);
+              if (tdMasterData.getTmpBenefiaciaryDetail().getBeneId().intValue() == tmpb.getBeneId().intValue())
+                 benefiaciaryDetailsList.remove(i);
+           }
+
+        }
+
+        benefiaciaryDetailsList.add(tdMasterData.getTmpBenefiaciaryDetail());
+        tdMasterData.setBenefiaciaryDetailsList(benefiaciaryDetailsList);
+        tdMasterData.setShowBeneficiaryForm(false);
+        tdMasterData.setEditBeneficiaryForm(false);
+     }
+
+   }
+
+   public  boolean validateBenificieryPage(BenefiaciaryDetails benefiaciaryDetail, Integer pagenum) {
 
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
@@ -502,24 +551,24 @@ public class TdCto
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.firstName.requiredMsg", "First Name is required!", null));
       }
-      if (! hasRequiredData(benefiaciaryDetail.getBeneLastName())) {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.lastName.requiredMsg", "Last Name is required!", null));
-      }
-      if (! hasRequiredData(benefiaciaryDetail.getBeneDOB())) {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.requiredMsg", "Date of Birth is required!", null));
-      }else if(! JavaUtil.isValidDate(benefiaciaryDetail.getBeneDOB(),"MM/dd/yyyy")){
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
-      }
-      if (! hasRequiredData(benefiaciaryDetail.getBeneSSN())) {
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.requiredMsg", "Social Security is required!", null));
-      }else if(! JavaUtil.isValidSSN(benefiaciaryDetail.getBeneSSN())){
-         dataOK = false;
-         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.formatMsg", "Enter valid Social Security Number!", null));
-      }
+//      if (! hasRequiredData(benefiaciaryDetail.getBeneLastName())) {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.lastName.requiredMsg", "Last Name is required!", null));
+//      }
+//      if (! hasRequiredData(benefiaciaryDetail.getBeneDOB())) {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.requiredMsg", "Date of Birth is required!", null));
+//      }else if(! JavaUtil.isValidDate(benefiaciaryDetail.getBeneDOB(),"MM/dd/yyyy")){
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
+//      }
+//      if (! hasRequiredData(benefiaciaryDetail.getBeneSSN())) {
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.requiredMsg", "Social Security is required!", null));
+//      }else if(! JavaUtil.isValidSSN(benefiaciaryDetail.getBeneSSN())){
+//         dataOK = false;
+//         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.formatMsg", "Enter valid Social Security Number!", null));
+//      }
       if (! hasRequiredData(benefiaciaryDetail.getBeneRel())) {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.beneRelation.requiredMsg", "Benefiaciary Relationship is required!", null));
@@ -781,26 +830,36 @@ public class TdCto
 
             break;
          case 8: // Benefitiary
-               if (tdMasterData.getBenefiaciaryDetailsList().size()>0)
+            if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRAROTH") ||
+               tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRAROOV") ||
+               tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACIRA") )
                {
-                  double shareHolderPer=0;
-                  ArrayList<BenefiaciaryDetails> tmpbenefiaciaryDetailsList=tdMasterData.getBenefiaciaryDetailsList();
-                  for (int i=0; i < tmpbenefiaciaryDetailsList.size(); i++)
-                  {
-                     BenefiaciaryDetails tmpb=tmpbenefiaciaryDetailsList.get(i);
-                     shareHolderPer=tmpb.getSharePerc()+shareHolderPer;
-                  }
-                  if(shareHolderPer==100)
-                        dataOK = true;
-                  else
+                  if (tdMasterData.getBenefiaciaryDetailsList().size() == 0)
                   {
                      dataOK = false;
-                     pagemanager.setErrorMessage("Share holder percentage should be 100%");
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.benedetails.requiredMsg", "Beneficiary details is required!", null));
+                  }
+                 else if (tdMasterData.getBenefiaciaryDetailsList().size() > 0)
+                  {
+                     double shareHolderPer = 0;
+                     ArrayList<BenefiaciaryDetails> tmpbenefiaciaryDetailsList = tdMasterData.getBenefiaciaryDetailsList();
+                     for (int i = 0; i < tmpbenefiaciaryDetailsList.size(); i++)
+                     {
+                        BenefiaciaryDetails tmpb = tmpbenefiaciaryDetailsList.get(i);
+                        shareHolderPer = tmpb.getSharePerc() + shareHolderPer;
+                     }
+                     if (shareHolderPer == 100)
+                        dataOK = true;
+                     else
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage("Share holder percentage should be 100%");
+                     }
                   }
                }
             break;
          case 9: // Funding Page 1
-               if(tdMasterData.getFundNow())
+               if(tdMasterData.getFundNow()==false) // flag if opt of for funcindg is false
                {
                   if (! hasRequiredData(tdMasterData.getFundType())) {
                      dataOK = false;
@@ -850,10 +909,15 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountno.requiredMsg", "Account Number is required!", null));
                      }
-                     if (!hasRequiredData(tdMasterData.getAcatDetails().getFromOtherAccountType()))
+                     if (!hasRequiredData(tdMasterData.getAcatDetails().getContraFirmList()))
                      {
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.deliveryfirm.requiredMsg", "Name of delivery firm is required!", null));
+                     }
+                     if (tdMasterData.getAcatDetails().getContraFirmList().equalsIgnoreCase("OTH") && !hasRequiredData(tdMasterData.getAcatDetails().getOtherContraFirmList()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.deliveryfirmother.requiredMsg", "Name of other delivery firm is required!", null));
                      }
 
                      if (!hasRequiredData(tdMasterData.getAcatDetails().getFromOtherAccountType()))
@@ -871,6 +935,64 @@ public class TdCto
                }
             break;
          case 10: // Funding Recurring Page 2
+               if(tdMasterData.getFundNow()==false) // flag if opt of for funding is false
+               {
+                  if(tdMasterData.getRecurringFlag()==false) //
+                  {
+                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranFreqId()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transfrequency.requiredMsg", "Frequency is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankAcctName()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.banktitle.requiredMsg", "Bank Account title is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranAmount().toString()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transamt.requiredMsg", "Amount is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranStartDate()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transstartdate.requiredMsg", "Start date is requied!", null));
+                     }
+
+                     if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getOwnerSPF())
+                     {
+
+                     }
+                     else
+                     {
+
+                        if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankName()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankname.requiredMsg", "Bank Name is required!", null));
+                        }
+                        if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankAcctName()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountname.requiredMsg", "Name on bank account is required!", null));
+                        }
+                        if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankABARouting()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.abaroutingno.requiredMsg", "ABA Routing Number is required!", null));
+                        }
+                        if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankAcctNumber()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountno.requiredMsg", "Bank Account Number is required!", null));
+                        }
+                     }
+
+                  }
+
+               }
+
             break;
 
       }
@@ -1067,7 +1189,8 @@ public class TdCto
               // custodySaveDAO.tdSaveACH("ACH",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
             break;
          case 10:
-               custodySaveDAO.tdSaveElectronicPaymentData(tdMasterData);
+               if(!tdMasterData.getRecurringFlag())
+                  custodySaveDAO.tdSaveElectronicPaymentData(tdMasterData);
                //custodySaveDAO.tdSaveElectronicPayment("REC",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getElectroicBankDetail());
             break;
          default:
@@ -1095,6 +1218,8 @@ public class TdCto
          WSCallStatus wsstatus;
          WSCallResult wsCallResult;
 
+         custodySaveDAO.tdCheckRequest(tdMasterData);  // check for fund and recuring tab is filled on save and open buttton
+
          Request data=new Request();
          data.setReqId(new Long(0));
          data.setEventNum(0);
@@ -1109,6 +1234,7 @@ public class TdCto
          data.setEnvelopeHeading("Please sign account opening document.");
 
          custodySaveDAO.tdOpenAccount(data);
+
          wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {

@@ -39,6 +39,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_envelopeId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_status", Types.VARCHAR));
             declareParameter(new SqlParameter("p_terminalDetails", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_requestFor", Types.VARCHAR));
             break;
          case 1:
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -146,6 +147,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_fromOtherAccountType", Types.VARCHAR));
             declareParameter(new SqlParameter("p_transferTypeId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_otherContraFirmList", Types.VARCHAR));
             break;
          case 7: // Fed Wire
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -210,26 +212,40 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_reqType", Types.VARCHAR));
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
             break;
+         case 12: // request for final save and open acoount
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_optfund", Types.BOOLEAN));
+            declareParameter(new SqlParameter("p_optrec", Types.BOOLEAN));
+            break;
       }
       compile();
    }
 
      public Map tdSaveRequest(Request data) {
+   Map<String, Object> inputMap = new HashMap<String, Object>();
+   inputMap.put("p_reqId", data.getReqId());
+   inputMap.put("p_acctnum", data.getAcctnum());
+   inputMap.put("p_eventNum", data.getEventNum());
+   inputMap.put("p_reqType", data.getReqType());
+   inputMap.put("p_envelopeHeading", data.getEnvelopeHeading());
+   inputMap.put("p_envelopeId", data.getEnvelopeId());
+   inputMap.put("p_status", data.getStatus());
+   inputMap.put("p_terminalDetails", data.getTerminalDetails());
+   inputMap.put("p_requestFor", data.getRequestFor());
+
+   Map outMap =  super.execute(inputMap);
+   if (outMap != null) {
+      data.setReqId((Long) outMap.get("p_reqId"));
+      data.setEventNum((Integer) outMap.get("p_eventNum"));
+   }
+   return outMap;
+}
+   public Map tdCheckRequest(TDMasterData data) {
       Map<String, Object> inputMap = new HashMap<String, Object>();
-      inputMap.put("p_reqId", data.getReqId());
       inputMap.put("p_acctnum", data.getAcctnum());
-      inputMap.put("p_eventNum", data.getEventNum());
-      inputMap.put("p_reqType", data.getReqType());
-      inputMap.put("p_envelopeHeading", data.getEnvelopeHeading());
-      inputMap.put("p_envelopeId", data.getEnvelopeId());
-      inputMap.put("p_status", data.getStatus());
-      inputMap.put("p_terminalDetails", data.getTerminalDetails());
-      Map outMap =  super.execute(inputMap);
-      if (outMap != null) {
-         data.setReqId((Long) outMap.get("p_reqId"));
-         data.setEventNum((Integer) outMap.get("p_eventNum"));
-      }
-      return outMap;
+      inputMap.put("p_optfund", data.getFundNow());
+      inputMap.put("p_optrec", data.getRecurringFlag());
+      return super.execute(inputMap);
    }
 
    public Map tdSaveMoveMoneyPay(TDMasterData tdMasterData) {
@@ -400,6 +416,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_fromOtherAccountType", data.getFromOtherAccountType());
       inputMap.put("p_transferTypeId", data.getTransferTypeId());
       inputMap.put("p_createdBy", "Invesence");
+      inputMap.put("p_otherContraFirmList", data.getOtherContraFirmList());
       return super.execute(inputMap);
    }
 

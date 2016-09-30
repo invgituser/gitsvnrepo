@@ -17,11 +17,11 @@
                                   value="#{tdcto.getErrorMessage(9)}" escape="false"/>
                 </p:panel>
                 <!--</p:panel>-->
-            <p:panel id="funddetailsPanel" style="border: 0px; background: transparent">
+            <p:panel id="funddetailsPanel" style="border: 0px; background: transparent" >
 
                 <div class="Container100">
                     <p:panel id="fundPanel2" style="border: 0px; background: transparent"
-                             rendered="true">
+                             rendered="#{!tdcto.tdMasterData.fundNow}">
                         <div class="Container80 Responsive100 MarCenter ui-color"
                              style="margin-bottom: 15px; border: 0px; background: transparent">
 
@@ -33,7 +33,7 @@
                                 <f:selectItem itemLabel="ACH" itemValue="PMACH"/>
                                 <f:selectItem itemLabel="ACAT" itemValue="PMFEDW"/>
                                 <f:selectItem itemLabel="Wire" itemValue="3"/>
-                                <p:ajax update=":ctoForm:tdaccordian:fundTabV:fundPanel2"/>
+                                <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
                             </p:selectOneRadio>
 
                             <div class="EmptyBox20"></div>
@@ -108,7 +108,6 @@
                                     <div class="EmptyBox5"></div>
                                     <div class="CustomWidthFA-Responsive" style="margin-top: 5px; font-size: 18px;">
                                         <p:selectBooleanCheckbox
-                                                value="#{tdcto.tdMasterData.recurringFlag}"
                                                 itemLabel="I would like to make recurring investments.">
                                             <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
                                         </p:selectBooleanCheckbox>
@@ -253,7 +252,7 @@
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccouintDropdownUI"
                                                      value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
                                                      style="width: 100%!important; box-sizing: border-box; min-width: auto!important;">
-                                        <p:ajax/>
+                                        <p:ajax />
                                         <f:selectItem itemLabel="Select the Delivery Firm" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemValue="CURICLEAR" itemLabel="Curian Clearing" />
@@ -277,7 +276,7 @@
                                         <f:selectItem itemValue="OTH" itemLabel="Others" />
                                     </p:selectOneMenu>
                                     <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                                 value=""
+                                                 value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
                                                  maxlength="90"
                                                  placeholder="Other Delivery Firm">
                                     </p:inputText>
@@ -417,7 +416,8 @@
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.fundNow}"
                                 itemLabel="I choose to opt out of funding for now.">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV:funddetailsPanel"/>
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+
                         </p:selectBooleanCheckbox>
                     </div>
                     <div class="EmptyBox20"></div>
@@ -439,27 +439,28 @@
             </p:panel>
         </p:tab>
 
-        <p:tab title="Recurring" rendered="true">
+        <p:tab id="Recurring" title="Recurring" rendered="#{!tdcto.tdMasterData.fundNow}">
+            <p:panel rendered="#{tdcto.getErrorMessage(10) != null}"
+                     style="border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText styleClass="errorText"
+                              value="#{tdcto.getErrorMessage(10)}" escape="false"/>
+            </p:panel>
             <p:panel id="recurrringPanel" styleClass="Container100"
-                     style="border: 0px; background: transparent">
+                     style="border: 0px; background: transparent" >
                 <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
                      style="margin-bottom: 15px; border: 0px; background: transparent">
 
-                    <p:panel rendered="#{tdcto.getErrorMessage(10) != null}"
-                             style="border: 0px; background: transparent"
-                             styleClass="Container100">
-                        <h:outputText styleClass="errorText"
-                                      value="#{tdcto.getErrorMessage(10)}" escape="false"/>
-                    </p:panel>
+
 
                     <p:panel style="border: 0px; background: transparent"
-                             rendered="true">
+                             rendered="#{!tdcto.tdMasterData.recurringFlag}">
 
                         <!-- Rerurring -->
                         <div class="Container100 CustomWidthFA2 MarTop5">
                             <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerSPF}"
                                                      itemLabel="Please use the existing account details"
-                                rendered="true"  >
+                                                     rendered="#{tdcto.tdMasterData.fundType == 'PMACH'}" >
                                 <p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" listener="#{tdcto.tdMasterData.existingAccount}"/>
 
                             </p:selectBooleanCheckbox>
@@ -604,17 +605,18 @@
                                 </p:inputText>
                             </div>
                         </div>
-<div class="EmptyBox10"></div>
-                        <div class="Container80 MarAuto CustomWidthFA2">
-                            <p:selectBooleanCheckbox
-                                    styleClass="RegulatoryCheckBox"
-                                    value="#{tdcto.tdMasterData.recurringFlag}"
-                                    itemLabel="I choose to opt out of recurring for now">
-                                <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
-                            </p:selectBooleanCheckbox>
-                        </div>
-                        <div class="EmptyBox10"></div>
+
                     </p:panel>
+                    <div class="EmptyBox10"></div>
+                    <div class="Container80 MarAuto CustomWidthFA2">
+                        <p:selectBooleanCheckbox
+                                styleClass="RegulatoryCheckBox"
+                                value="#{tdcto.tdMasterData.recurringFlag}"
+                                itemLabel="I choose to opt out of recurring for now">
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                        </p:selectBooleanCheckbox>
+                    </div>
+                    <div class="EmptyBox10"></div>
                      <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
