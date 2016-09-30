@@ -529,9 +529,30 @@ text-align: left;
     background: transparent;
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-right: 25px solid #f2f2f2;
+    border-right: 15px solid #f2f2f2;
     float: left;
 }
+
+.VerticalTriangleTop {
+	height: 0px;
+    width: 0px;
+    background: transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid red;
+    border-left: 7px solid transparent;
+}
+
+.VerticalTriangleBottom {
+	height: 0px;
+    width: 0px;
+    background: transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-top: 7px solid #b78888;
+    border-left: 7px solid transparent;
+}
+
 .BoxShadow {
 	box-shadow: 2px 2px 4px #d8d5d5;
 }
@@ -561,7 +582,7 @@ text-align: left;
 }
 
 .PSlabPadding {
-padding: 28px 0;
+padding: 110px 0;
 }
 
 .ContainerDropDownSizing {
@@ -574,6 +595,35 @@ padding: 28px 0;
 
 .EnableDrodownProjection, .EmptyBox20Res {
 	Display: none;
+}
+.VerticalLine {
+	text-align: center;
+}
+
+
+
+.PLine {
+	width: 4px;
+	height: 240px;
+	    background: linear-gradient(0deg, #b78888, red)!important;
+}
+
+
+.ProjectionSlabHeight_Selected {
+	background: #025d3c!important;
+    color: white!important;
+        height: 50px;
+        text-align: left;
+}
+
+.triangleShape_Selected {
+	border-right: 15px solid #025d3c!important;
+}
+
+@media (max-width: 1205px) {
+	.PSlabLabel {
+	font-size:14px;
+	}
 }
 
 @media (max-width: 600px) and (min-width: 320px) {
