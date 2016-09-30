@@ -517,10 +517,7 @@ catch (Exception e)
       InlineTemplate inlineTemplate=null;
       List<Signer> signerLst=new ArrayList<>();
 
-      Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<SignHere> clientSignHereLst=new ArrayList<>();
-      List<SignHere> jointSignHereLst=new ArrayList<>();
+
       Recipients recipients=null;
 
       int signerRecipientId=1;
@@ -553,18 +550,16 @@ catch (Exception e)
 
       }
       final String SignTest1File = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"DOC_PATH");//"[PATH/TO/DOCUMENT/TEST.PDF]";
-
-//      ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(),Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(),"HOST");
       List<Document> docs = new ArrayList<Document>();
 
-      List<DCDocumentMapping> dcDocumentDetailsList=null;
+      List<DCDocumentMapping> dcDocumentDetailsList = null;
 
-      int documentId=1;
-      Iterator<Map.Entry<String,DCDocumentDetails>> docItr = dcDocumentDetails.entrySet().iterator();
+      int documentId = 1;
+      Iterator<Map.Entry<String, DCDocumentDetails>> docItr = dcDocumentDetails.entrySet().iterator();
       while (docItr.hasNext())
       {
          Map.Entry<String, DCDocumentDetails> dcDocumentDetail1 = (Map.Entry<String, DCDocumentDetails>) docItr.next();
-         DCDocumentDetails dcDocumentDetail=dcDocumentDetail1.getValue();
+         DCDocumentDetails dcDocumentDetail = dcDocumentDetail1.getValue();
          logger.info("dcDocumentDetail = " + dcDocumentDetail);
 
          byte[] fileBytes = null;
@@ -572,7 +567,7 @@ catch (Exception e)
          try
          {
             // read file from a local directory
-            Path path = Paths.get(SignTest1File+"//"+dcDocumentDetail.getFileName());
+            Path path = Paths.get(SignTest1File + "//" + dcDocumentDetail.getFileName());
             fileBytes = Files.readAllBytes(path);
          }
          catch (IOException ioExcp)
@@ -585,62 +580,102 @@ catch (Exception e)
          String base64Doc = DatatypeConverter.printBase64Binary(fileBytes);//Base64.getEncoder().encodeToString(fileBytes);
          doc.setDocumentBase64(base64Doc);
          doc.setName(dcDocumentDetail.getDocName());    // can be different from actual file name
-         doc.setDocumentId(""+documentId);
+         doc.setDocumentId("" + documentId);
 
 
-         if(dcDocumentDetail.getEditable().equalsIgnoreCase("Y"))
-         {
-            try
-            {
-               dbColumns=getFieldNames(acctDetails, false);
-               logger.info("dbColumns = =" + dbColumns);
-               dcDocumentDetailsList = dcDocumentDetail.getDcDocumentMappings().get("Client");
-               getTabObject(dcDocumentDetailsList,dbColumns,textboxLst,clientSignHereLst,acctDetails, ""+documentId, false);
-            }
-            catch (IllegalAccessException e)
-            {
-               e.printStackTrace();
-            }
-
-            Iterator<AcctOwnerDetails> itr2 = acctOwnerDetails.iterator();
-            while (itr2.hasNext())
-            {
-               AcctOwnerDetails acctOwner = (AcctOwnerDetails) itr2.next();
-               dbColumns=null;
-               try
-               {
-                  dbColumns=getFieldNames(acctOwner, false);
-                  dcDocumentDetailsList = dcDocumentDetail.getDcDocumentMappings().get(acctOwner.getOwnership());
-                  getTabObject(dcDocumentDetailsList,dbColumns,textboxLst,acctOwner.getOwnership().equals("Client")?clientSignHereLst:jointSignHereLst,acctOwner, ""+documentId, true);
-               }
-               catch (IllegalAccessException e)
-               {
-                  e.printStackTrace();
-               }
-            }
-         }
-         if(doc!=null)
+         if (doc != null)
          {
             docs.add(doc);
-            documentId ++;
+            documentId++;
          }
-      }
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      //if(signHereLst.size()>0){tabs.setSignHereTabs(signHereLst);}
+      }
 
       if(signerLst.size()>0){
          Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
-            if(signer.getRoleName().equals("Client")){
-               if(clientSignHereLst.size()>0){tabs.setSignHereTabs(clientSignHereLst);}
+         while(signerItr.hasNext())
+         {
+
+            Signer signer = (Signer) signerItr.next();
+            Tabs tabs = new Tabs();
+            List<Text> textboxLst = new ArrayList<>();
+            List<SignHere> clientSignHereLst = new ArrayList<>();
+            List<SignHere> jointSignHereLst = new ArrayList<>();
+
+//      ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(),Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(),"HOST");
+
+            int documentIdTab = 1;
+            Iterator<Map.Entry<String, DCDocumentDetails>> docItrTab = dcDocumentDetails.entrySet().iterator();
+            while (docItrTab.hasNext())
+            {
+               Map.Entry<String, DCDocumentDetails> dcDocumentDetail1 = (Map.Entry<String, DCDocumentDetails>) docItrTab.next();
+               DCDocumentDetails dcDocumentDetail = dcDocumentDetail1.getValue();
+               logger.info("dcDocumentDetail = " + dcDocumentDetail);
+
+               if (dcDocumentDetail.getEditable().equalsIgnoreCase("Y"))
+               {
+                  try
+                  {
+                     dbColumns = getFieldNames(acctDetails, false);
+                     logger.info("dbColumns = =" + dbColumns);
+                     dcDocumentDetailsList = dcDocumentDetail.getDcDocumentMappings().get("Client");
+                     getTabObject(dcDocumentDetailsList, dbColumns, textboxLst, clientSignHereLst, acctDetails, "" + documentIdTab, false, "" + 0);
+                  }
+                  catch (IllegalAccessException e)
+                  {
+                     e.printStackTrace();
+                  }
+
+                  Iterator<AcctOwnerDetails> itr2 = acctOwnerDetails.iterator();
+                  int i = 1;
+                  while (itr2.hasNext())
+                  {
+                     AcctOwnerDetails acctOwner = (AcctOwnerDetails) itr2.next();
+                     dbColumns = null;
+                     try
+                     {
+                        dbColumns = getFieldNames(acctOwner, false);
+                        dcDocumentDetailsList = dcDocumentDetail.getDcDocumentMappings().get(acctOwner.getOwnership());
+                        getTabObject(dcDocumentDetailsList, dbColumns, textboxLst, acctOwner.getOwnership().equals("Client") ? clientSignHereLst : jointSignHereLst, acctOwner, "" + documentIdTab, true, "" + i);
+                        i++;
+                     }
+                     catch (IllegalAccessException e)
+                     {
+                        e.printStackTrace();
+                     }
+                  }
+               }
+               documentIdTab++;
             }
-            if(signer.getRoleName().equals("Joint")){
-               if(jointSignHereLst.size()>0){tabs.setSignHereTabs(jointSignHereLst);}
-            }
+            if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
+            tabs.setSignHereTabs(signer.getRoleName().equals("Client") ? clientSignHereLst : jointSignHereLst);
             signer.setTabs(tabs);
          }
+     // if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
+      //if(signHereLst.size()>0){tabs.setSignHereTabs(signHereLst);}
+
+//      if(signerLst.size()>0){
+//         Iterator<Signer> signerItr=signerLst.iterator();
+//         while(signerItr.hasNext()){
+//
+//            Signer signer=(Signer)signerItr.next();
+//            if(signer.getRoleName().equals("Client")){
+//               if(clientSignHereLst.size()>0)
+//               {
+//                  Tabs tabs1=new Tabs();
+//                  tabs1 = tabs;
+//                  tabs1.setSignHereTabs(clientSignHereLst);
+//                  signer.setTabs(tabs1);
+//               }
+//            }else if(signer.getRoleName().equals("Joint")){
+//               if(jointSignHereLst.size()>0){
+//                  Tabs tabs1= new Tabs();
+//                  tabs1=tabs;
+//                  tabs1.setSignHereTabs(jointSignHereLst);
+//                  signer.setTabs(tabs1);
+//               }
+//            }
+//         }
          recipients=new Recipients();
          recipients.setSigners(signerLst);
 
@@ -778,7 +813,7 @@ catch (Exception e)
       }
 
    }
-   private void getTabObject(List<DCDocumentMapping> dcDocumentMappingList, List<String> dbColumns, List<Text> textboxLst, List<SignHere> signHereLst, Object dataObject, String documentId, boolean sigHereFlag){
+   private void getTabObject(List<DCDocumentMapping> dcDocumentMappingList, List<String> dbColumns, List<Text> textboxLst, List<SignHere> signHereLst, Object dataObject, String documentId, boolean sigHereFlag, String recipientId){
       Iterator<DCDocumentMapping> itr1= dcDocumentMappingList.iterator();
       while (itr1.hasNext()){
          DCDocumentMapping dcDocumentMapping=(DCDocumentMapping)itr1.next();
@@ -791,7 +826,7 @@ catch (Exception e)
          }else if(dcDocumentMapping.getTab().equalsIgnoreCase("SignHere")){
             if(sigHereFlag)
             {
-               SignHere text = getSignHere(dcDocumentMapping, dataObject, documentId);
+               SignHere text = getSignHere(dcDocumentMapping, dataObject, documentId, recipientId);
                if (text == null)
                {
                }
@@ -893,15 +928,16 @@ catch (Exception e)
       }
       return text;
    }
-   private SignHere getSignHere (DCDocumentMapping documentMapping, Object dataObject, String documentId/*, String recipientId*/){
+   private SignHere getSignHere (DCDocumentMapping documentMapping, Object dataObject, String documentId, String recipientId){
       SignHere signHere=null;
       try
       {
+         System.out.println(documentMapping);
          signHere = new SignHere();
          signHere.setTabLabel(documentMapping.getLable());
          signHere.setDocumentId("" + documentId);
          signHere.setPageNumber(documentMapping.getPageNumber());
-         /*signHere.setRecipientId(recipientId);*/
+         signHere.setRecipientId(recipientId);
          signHere.setXPosition(documentMapping.getxPosition());
          signHere.setYPosition(documentMapping.getyPosition());
 

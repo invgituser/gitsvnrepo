@@ -116,6 +116,10 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
          else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString()))
          {
             logger.info("Required in next phase");
+            CompositeTemplate compositeTemplate = accountApplication(dcRequest, dcTemplateDetail, "" + reqCounter);
+            if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
+            envDef.getCompositeTemplates().add(compositeTemplate);
+//            dcReqExtDoc = dcRequest;
          }
          reqCounter++;
       }
