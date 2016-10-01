@@ -15,6 +15,8 @@
       <spring-version>3.2.0.RELEASE</spring-version>
       <spring-security-version>3.2.0.M1</spring-security-version>
       <camel-version>2.11.0</camel-version>
+      <maven.compiler.source>1.7</maven.compiler.source>
+  <maven.compiler.target>1.7</maven.compiler.target>
    </properties>
 
    <repositories>
@@ -631,6 +633,18 @@
             <rbsa.url>jdbc:mysql://tcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://192.168.100.95:3306/service?noAccessToProcedureBodies=true</service.url>
             <ltam.url>jdbc:mysql://tcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+         </properties>
+      </profile>
+      <profile>
+         <id>3P3-EXT-VCM-PROD</id>
+         <properties>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://vcm.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://vcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <service.url>jdbc:mysql://vcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
+            <ltam.url>jdbc:mysql://vcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>

@@ -5,6 +5,7 @@
  * Time: 5:37 PM
  * To change this template use File | Settings | File Templates.
  */
+
 (function (i, s, o, g, r, a, m)
 {
     i['GoogleAnalyticsObject'] = r;
@@ -19,12 +20,8 @@
     m.parentNode.insertBefore(a, m)
 })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-//ga('create', 'UA-83369548-1', 'auto'); Invessence tracking BB
-ga('create', 'UA-84838554-1', 'auto');
-
+ga('create', 'UA-83369548-1', 'auto');
 ga('send', 'pageview');
-
-
 
 
 

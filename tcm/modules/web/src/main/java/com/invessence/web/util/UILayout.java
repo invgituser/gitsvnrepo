@@ -370,12 +370,16 @@ public class UILayout implements Serializable
       }
       else
       {
+/*       // Due to mobile app, we cannot go to unsecure site.
          if (getUiprofile().getHomepage() != null) {
             dashboard = getUiprofile().getHomepage();
          }
          else {
+*/
             dashboard = "/index.xhtml";
+/*
          }
+*/
       }
       return dashboard;
 

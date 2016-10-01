@@ -1119,9 +1119,15 @@ public class CustomerData extends ProfileData
 
          if (tallyAssetclass.size() > 0) {
             recreateEditableAsset();
+            AssetClass[] aamc = new AssetClass[tallyAssetclass.size()];
+            Integer i = 0;
+            aamc[i] = new AssetClass();
             for (Asset asset : tallyAssetclass.values()) {
                setEditableAsset(asset);
+               aamc[i].addAssetClass(asset.getAsset(),asset.getDisplayName(),asset.getColor(),
+                                     asset.getAllocweight(), asset.getAvgReturn());
             }
+            setAssetData(aamc);
          }
       }
    }

@@ -405,7 +405,7 @@ public class CardStatement  implements java.io.Serializable {
         this.intPaidThisPrd = intPaidThisPrd;
     }
     
-    @Column(name="INT PAID_YTD", precision=20, scale=4)
+    @Column(name="INT_PAID_YTD", precision=20, scale=4)
 
     public Double getIntPaidYtd() {
         return this.intPaidYtd;

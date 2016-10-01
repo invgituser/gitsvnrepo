@@ -15,6 +15,9 @@ function pie_extensions()
         legend: false,
         gridPadding: {top: 0, bottom: 38, left: 0, right: 0}
     };
+    this.cfg.axis ={
+        showLabels: false
+    };
 }
 
 function meter_extensions()

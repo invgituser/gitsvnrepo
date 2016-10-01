@@ -22,6 +22,7 @@ public class ConsumerSaveSP extends StoredProcedure
       super(datasource, sp_name);
       switch (mode) {
          case 0:  // save_user_trade_profile
+            declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlInOutParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_portfolioName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
@@ -224,6 +225,13 @@ public class ConsumerSaveSP extends StoredProcedure
 
       try
       {
+         if (data.getLogonid() == null) {
+            inputMap.put("p_logonid", 0L);
+         }
+         else{
+            inputMap.put("p_logonid", data.getLogonid());
+         }
+
          if (data.getAcctnum() == null) {
             inputMap.put("p_acctnum", 0L);
          }
