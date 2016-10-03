@@ -14,14 +14,14 @@ public class PositionDAO extends JdbcDaoSupport
 {
    SQLData convert = new SQLData();
 
-   public List<Position> loadDBPosition(Long p_logonid, Long p_acctnum)
+   public List<Position> loadDBPosition(Long logonid, Long acctnum)
    {
       DataSource ds = getDataSource();
       String storedProcName = "sel_position";
       PositionSP sp = new PositionSP(ds, storedProcName);
       List<Position> positionList = new ArrayList<Position>();
 
-      Map outMap = sp.loadDBData(p_acctnum);
+      Map outMap = sp.loadDBData(logonid, acctnum);
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");

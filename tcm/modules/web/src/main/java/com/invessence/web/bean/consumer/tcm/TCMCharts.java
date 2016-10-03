@@ -520,7 +520,8 @@ public class TCMCharts implements Serializable
             {
                Asset asset = assetdata.getAsset(assetname);
                Double weight = asset.getActualweight();
-               String label = assetname + " - " + jutil.displayFormat(weight, "##0.##%");
+               //String label = assetname + " - " + jutil.displayFormat(weight, "##0.##%");
+               String label = assetname;
                weight = weight * 100;
                pieChart.set(label, weight);
                color = asset.getColor().replace('#',' ');

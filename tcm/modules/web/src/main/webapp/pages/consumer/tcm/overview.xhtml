@@ -7,12 +7,12 @@
                 template="/template/common/template.xhtml">
 
     <f:metadata>
-        <f:viewParam name="acct" value="#{positionBean.acctnum}"/>
-        <f:event type="preRenderView" listener="#{positionBean.preRenderView}"/>
+        <f:viewParam name="acct" value="#{tcmpos.acctnum}"/>
+        <f:event type="preRenderView" listener="#{tcmpos.preRenderView}"/>
     </f:metadata>
 
     <ui:define name="content">
-        <h:outputScript name="js/invCharts.js" library="spark-layout"/>
+        <h:outputScript name="js/invCharts.js" library="#{uiLayout.cssDIR}"/>
         <h:form>
 
             <div class="layout-portlets-box">
@@ -22,8 +22,8 @@
                             <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
                             <div class="Container80 UsernameDashboard">
                                 <div class="Fright">
-                                    <h2 class="black head FontThemeMedium">#{positionBean.fullName}</h2>
-                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{positionBean.clientAccountID}
+                                    <h2 class="black head FontThemeMedium">#{tcmpos.fullName}</h2>
+                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{tcmpos.clientAccountID}
                                 </span>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                                     <div class="Container50 Responsive50"><!-- ROHIT's CHANGE -->
                                         <div class="ContainerIndent">
                                             <p:dataTable id="editAlloc" styleClass="invAllocTable"
-                                                         value="#{positionBean.managedAssetsList}"
+                                                         value="#{tcmpos.managedAssetsList}"
                                                          var="assetList" rowKey="#{assetList.asset}"
                                                          reflow="false"><!-- ROHIT's CHANGE -->
 
@@ -68,7 +68,7 @@
                                                                   footerText="Total">
                                                         </p:column>
                                                         <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                                  footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}">
+                                                                  footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalvalue)}">
                                                         </p:column>
                                                     </p:row>
                                                 </p:columnGroup>
@@ -78,16 +78,10 @@
                                     <div class="Container50 Responsive50 tp20">
                                         <!-- ROHIT's CHANGE -->
                                         <div class="ContainerIndent">
-
-                                            <div class="Wrapper">
-                                                <div class="Wid90 hide-mobile"
-                                                     style="width:200px; height:200px; margin:20px auto 10px;"><!-- ROHIT's CHANGE -->
-                                                    <p:chart type="pie" model="#{positionBean.pieModel}"
-                                                             styleClass="Wid100 MarTop10" responsive="true"
-                                                             rendered="#{positionBean.pieModel == null ? false : true}"/>
-
-                                                </div>
-                                            </div>
+                                                <p:chart type="pie" model="#{tcmpos.pieModel}" styleClass="PieGraphPosition"
+                                                         style="height:200px; width: 100%;"
+                                                         rendered="#{tcmpos.pieModel != null}"
+                                                         responsive="true"/>
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +90,7 @@
                             <p:tab title="Detail">
                                 <div class="Container100 Responsive100">
                                     <div class="ContainerIndent">
-                                        <p:dataTable id="dataTable" var="position" value="#{positionBean.displayPositionList}"
+                                        <p:dataTable id="dataTable" var="position" value="#{tcmpos.displayPositionList}"
                                                      styleClass="invDataTable" reflow="false"> <!-- ROHIT's CHANGE reflow="true" for previuos table-->
 
                                             <p:column priority="0"
@@ -176,14 +170,14 @@
                                                     <p:column priority="2" footerText="" style="text-align:left"/>
 
                                                     <p:column priority="2"
-                                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalmoney)}"
+                                                              footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalmoney)}"
                                                               style="text-align:right"/>
                                                     <p:column priority="2" footerText="" style="text-align:left"/>
                                                     <p:column
-                                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}"
+                                                              footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalvalue)}"
                                                               style="text-align:right"/>
                                                     <p:column colspan=""
-                                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalpnl)}"
+                                                              footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalpnl)}"
                                                               style="text-align:right"/>
                                                 </p:row>
                                             </p:columnGroup>

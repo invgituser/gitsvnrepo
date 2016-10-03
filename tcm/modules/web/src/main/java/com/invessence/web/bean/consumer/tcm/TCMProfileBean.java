@@ -176,6 +176,24 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    }
 
+   public String getAns5Tag1(Integer which)
+   {
+      if (which != null) {
+         if (riskCalculator.getAns5() != null && riskCalculator.getAns5().equalsIgnoreCase(which.toString()))
+            return "triangleShape Fleft triangleShape_Selected";
+      }
+      return "triangleShape Fleft";
+   }
+
+   public String getAns5Tag2(Integer which)
+   {
+      if (which != null) {
+         if (riskCalculator.getAns5() != null &&  riskCalculator.getAns5().equalsIgnoreCase(which.toString()))
+            return "Container90 ProjectionSlabHeight ProjectionSlabHeight_Selected";
+      }
+      return "Container90 ProjectionSlabHeight";
+   }
+
    public Boolean getWelcomeDialog()
    {
       return welcomeDialog;
@@ -296,6 +314,14 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       riskCalculator.setInvestmentobjective(getGoal());
       setHorizon(null);
+   }
+
+   public void setAnswer5(Integer ans) {
+
+     if (ans != null && ans > 0) {
+        riskCalculator.setAns5(ans.toString());
+        doProjectionChart();
+     }
    }
 
    public void calculateGoal()
@@ -1053,7 +1079,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
       if (event != null)
       {
-         whichslide = Integer.parseInt(event);
+         whichslide = webutil.getConverter().getIntData(event);
       }
 
       if (whichslide > 0)

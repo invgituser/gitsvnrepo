@@ -16,15 +16,17 @@ public class PositionSP extends StoredProcedure
    {
       super(datasource, storedProcName);
 
+      declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
       declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
       compile();
    }
 
-   public Map loadDBData(Long p_acctnum)
+   public Map loadDBData(Long logonid, Long acctnum)
    {
 
       Map inputMap = new HashMap();
-      inputMap.put("p_acctnum", p_acctnum);
+      inputMap.put("p_logonid", logonid);
+      inputMap.put("p_acctnum", acctnum);
       return super.execute(inputMap);
    }
 
