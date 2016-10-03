@@ -163,7 +163,7 @@ public class DCUtility
    List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
    Recipients recipients=null;
 
-   signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst);
+   signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, null);
    try
    {
       dbColumns=getFieldNames(acctTransferDetails, false);
@@ -209,7 +209,7 @@ public class DCUtility
       List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
       Recipients recipients=null;
 
-      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst);
+      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst,null);
       try
       {
          dbColumns=getFieldNames(elecFundTransferDetails, false);
@@ -257,7 +257,7 @@ public class DCUtility
       List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
       Recipients recipients=null;
 
-      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst);
+      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst, null);
          if(acctDetails.getBenefiaciaryDetails()==null || acctDetails.getBenefiaciaryDetails().size()<=0){
 
          }else{
@@ -337,7 +337,7 @@ public class DCUtility
       List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
       Recipients recipients=null;
 
-      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst);
+      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst,null);
 
       if( (dataObject!=null && ((List)dataObject).size()>0) && ((List)dataObject).get(0) instanceof MMAchBankDetails){
          Iterator<MMAchBankDetails> itr1 = ((List<MMAchBankDetails>)dataObject).iterator();
@@ -407,6 +407,7 @@ public class DCUtility
       List<MMInternalTransferDetails> mmInternalTransferDetails=null;
       List<MMFedwireAcctDetails> mmFedwireAcctDetails=null;
 
+
       Recipients recipients=null;
 try{
       List<String> dbColumns=null;
@@ -417,8 +418,9 @@ try{
       List<Checkbox> checkboxeLst=new ArrayList<>();
       List<RadioGroup> radioGroupLst=new ArrayList<>();
       List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
+      List<Ssn> ssnLst=new ArrayList<>();
 
-      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst);
+      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst, ssnLst);
 
       List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
 
@@ -488,6 +490,7 @@ try{
       if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
       if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
       if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+      if(ssnLst.size()>0){tabs.setSsnTabs(ssnLst);}
 
       if(signerLst.size()>0){
          Iterator<Signer> signerItr=signerLst.iterator();
@@ -692,7 +695,7 @@ catch (Exception e)
       return inlineTemplate;
    }
 
-   private List<Signer> getSigners(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst){
+   private List<Signer> getSigners(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst){
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
       List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
@@ -735,7 +738,7 @@ catch (Exception e)
             }
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
             logger.info("dcDocumentMappingList = " + dcTemplateMappingList);
-            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, acctOwner);
             if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
                logger.info("Employment details are not available");
             }else{
@@ -764,7 +767,7 @@ catch (Exception e)
                   signer.setIdCheckConfigurationName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ID_CHECK_CONF_NAME"));
                   signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
                }
-               getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner);
+               getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, acctOwner);
 
                if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
                   logger.info("Employment details are not available");
@@ -811,8 +814,35 @@ catch (Exception e)
             }
          }
       }
+   }
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst, Object dataObject){
+      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
+      while (itr1.hasNext()){
+         DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
+         if(dbColumns.contains(dctemplate.getDbColumn())){
+
+            if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
+               Text text=getText(dctemplate, dataObject);
+               if(text==null){}else{textboxLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
+               Checkbox text=getCheckbox(dctemplate, dataObject);
+               if(text==null){}else{checkboxeLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
+               RadioGroup text=getRadioGroup(dctemplate, dataObject);
+               if(text==null){}else{radioGroupLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
+               com.docusign.esign.model.List text=getList(dctemplate, dataObject);
+               if(text==null){}else{listboxLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Ssn")){
+               if(ssnLst==null){}else{
+               Ssn text=getSsn(dctemplate, dataObject);
+               if(text==null){}else{ssnLst.add(text);}}
+            }
+         }
+      }
 
    }
+
    private void getTabObject(List<DCDocumentMapping> dcDocumentMappingList, List<String> dbColumns, List<Text> textboxLst, List<SignHere> signHereLst, Object dataObject, String documentId, boolean sigHereFlag, String recipientId){
       Iterator<DCDocumentMapping> itr1= dcDocumentMappingList.iterator();
       while (itr1.hasNext()){
@@ -945,6 +975,32 @@ catch (Exception e)
 
       }
       return signHere;
+   }
+
+   private Ssn getSsn (DCTemplateMapping dctemplate, Object dataObject){
+      Ssn text=null;
+      try
+      {
+         text=new Ssn();
+         text.setTabLabel(dctemplate.getLable());
+         text.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
+      }
+      catch (NoSuchFieldException e)
+      {
+         logger.error(dctemplate.getLable()+" = "+e);
+         e.printStackTrace();
+      }
+      catch (ClassNotFoundException e)
+      {
+         logger.error(dctemplate.getLable()+" = "+e);
+         e.printStackTrace();
+      }
+      catch (IllegalAccessException e)
+      {
+         logger.error(dctemplate.getLable()+" = "+e);
+         e.printStackTrace();
+      }
+      return text;
    }
 
    private Text getText (DCTemplateMapping dctemplate, Object dataObject){
