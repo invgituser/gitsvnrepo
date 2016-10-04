@@ -4,31 +4,17 @@ import java.util.Date;
 
 public class BenefiaciaryDetails {
 
-	private Integer beneId;
 	private Long acctnum;
+	private Integer beneId;
 	private String beneFirstName;
 	private String beneMidInitial;
 	private String beneLastName;
 	private String beneSSN;
 	private String beneDOB;
 	private String beneRel;
-	private String typeOfBeneficiary;
-	private String perStripes;
-	private Double sharePerc;
-	private Date created;
-	private String createdBy;
-	private Date updated;
-	private String updatedBy;
-
-	public Integer getBeneId()
-	{
-		return beneId;
-	}
-
-	public void setBeneId(Integer beneId)
-	{
-		this.beneId = beneId;
-	}
+	private String beneType;
+	private String perStirpes;
+	private Double beneShare;
 
 	public Long getAcctnum()
 	{
@@ -38,6 +24,16 @@ public class BenefiaciaryDetails {
 	public void setAcctnum(Long acctnum)
 	{
 		this.acctnum = acctnum;
+	}
+
+	public Integer getBeneId()
+	{
+		return beneId;
+	}
+
+	public void setBeneId(Integer beneId)
+	{
+		this.beneId = beneId;
 	}
 
 	public String getBeneFirstName()
@@ -100,73 +96,33 @@ public class BenefiaciaryDetails {
 		this.beneRel = beneRel;
 	}
 
-	public String getTypeOfBeneficiary()
+	public String getBeneType()
 	{
-		return typeOfBeneficiary;
+		return beneType;
 	}
 
-	public void setTypeOfBeneficiary(String typeOfBeneficiary)
+	public void setBeneType(String beneType)
 	{
-		this.typeOfBeneficiary = typeOfBeneficiary;
+		this.beneType = beneType;
 	}
 
-	public String getPerStripes()
+	public String getPerStirpes()
 	{
-		return perStripes;
+		return perStirpes;
 	}
 
-	public void setPerStripes(String perStripes)
+	public void setPerStirpes(String perStirpes)
 	{
-		this.perStripes = perStripes;
+		this.perStirpes = perStirpes;
 	}
 
-	public Double getSharePerc()
+	public Double getBeneShare()
 	{
-		return sharePerc;
+		return beneShare;
 	}
 
-	public void setSharePerc(Double sharePerc)
+	public void setBeneShare(Double beneShare)
 	{
-		this.sharePerc = sharePerc;
-	}
-
-	public Date getCreated()
-	{
-		return created;
-	}
-
-	public void setCreated(Date created)
-	{
-		this.created = created;
-	}
-
-	public String getCreatedBy()
-	{
-		return createdBy;
-	}
-
-	public void setCreatedBy(String createdBy)
-	{
-		this.createdBy = createdBy;
-	}
-
-	public Date getUpdated()
-	{
-		return updated;
-	}
-
-	public void setUpdated(Date updated)
-	{
-		this.updated = updated;
-	}
-
-	public String getUpdatedBy()
-	{
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(String updatedBy)
-	{
-		this.updatedBy = updatedBy;
+		this.beneShare = beneShare;
 	}
 }

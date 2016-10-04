@@ -872,14 +872,21 @@ catch (Exception e)
       }
    }
    private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject, String addLableVal, boolean isPostfix){
-      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
+      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();;
+      String preLable=null;
       while (itr1.hasNext()){
+         preLable=addLableVal;
          DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
 //         System.out.println(dctemplate.getDbColumn() +" : "+dctemplate.getDbColumn()+addLableVal+" : "+addLableVal+dctemplate.getDbColumn());
 
 //         System.out.println(dbColumns.contains(dctemplate.getDbColumn()) + "(isPostfix==true?"+ dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal)+" : "+dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()));
          //if(dbColumns.contains(dctemplate.getDbColumn()) && (isPostfix==true? dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal):dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()))){
-         if(dbColumns.contains(dctemplate.getDbColumn()) && (isPostfix==true? dctemplate.getLable().equalsIgnoreCase(dctemplate.getDbColumn()+addLableVal):dctemplate.getLable().equalsIgnoreCase(addLableVal+dctemplate.getDbColumn()))){
+         if(dctemplate.getDbColumn().equalsIgnoreCase("beneShare")){
+            preLable="%"+addLableVal;
+         }
+         if(dbColumns.contains(dctemplate.getDbColumn())
+            && (isPostfix==true? dctemplate.getLable().equalsIgnoreCase(dctemplate.getDbColumn()+preLable)
+            :dctemplate.getLable().equalsIgnoreCase(preLable+dctemplate.getDbColumn()))){
 
             if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
                Text text=getText(dctemplate, dataObject);
@@ -1034,7 +1041,7 @@ catch (Exception e)
    Checkbox checkbox=null;
       try
       {
-         if(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("Y")){
+         if(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("Y") || getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("true")){
             checkbox=new Checkbox();
             checkbox.setTabLabel(dctemplate.getLable());
             checkbox.setSelected("true");
