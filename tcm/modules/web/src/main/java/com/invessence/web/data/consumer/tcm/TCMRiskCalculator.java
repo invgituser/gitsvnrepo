@@ -33,6 +33,7 @@ public class TCMRiskCalculator extends RiskCalculator
    };
 
    static Integer RETIRE_AGE_MAX = 85;
+   private Integer calc_horizon;
 
    public TCMRiskCalculator()
    {
@@ -80,25 +81,6 @@ public class TCMRiskCalculator extends RiskCalculator
       resetAllData();
    }
 
-   @Override
-   public Integer getRiskAge()
-   {
-      return riskAge;
-   }
-
-   @Override
-   public void setRetireAge(Integer retireAge)
-   {
-      this.retireAge = retireAge;
-   }
-
-
-   @Override
-   public void setRiskHorizon(Integer value)
-   {
-         this.riskHorizon = value;
-   }
-
    private void redoRiskHorizon()
    {
       if (getRiskAge() == null)
@@ -112,24 +94,24 @@ public class TCMRiskCalculator extends RiskCalculator
             calcValue =  ((retiredAge - age) < 0) ? 0 : (retiredAge - age);
             calcValue = calcValue + ((RETIRE_AGE_MAX - retiredAge)/2);
             calcValue = (calcValue < 0) ? 0 : calcValue;
-            this.riskHorizon = calcValue;
+            this.calc_horizon = calcValue;
          }
          else {  // Retired.
             calcValue =  ((RETIRE_AGE_MAX - age) < 0) ? 0 : (RETIRE_AGE_MAX - age);
             calcValue = (calcValue/2);
             calcValue = (calcValue < 0) ? 0 : calcValue;
-            this.riskHorizon = calcValue;
+            this.calc_horizon = calcValue;
          }
       }
 
       // This is catch all, in-case something failed above.
       if (riskHorizon == null) {
-         riskHorizon = 0;
+         calc_horizon = 0;
       }
    }
 
    private Integer getTimeHorizon() {
-      Integer horizon = getRiskHorizon();
+      Integer horizon = calc_horizon;
       try {
          if (horizon == null)
             horizon = 0;
@@ -227,6 +209,10 @@ public class TCMRiskCalculator extends RiskCalculator
             if (isThisRetirement()) {
                redoRiskHorizon();
             }
+            else {
+               calc_horizon = getRiskHorizon();
+            }
+
             Double value;
             adjustRisk = 120.0;
             Integer lookupindex;

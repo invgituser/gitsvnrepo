@@ -68,13 +68,23 @@ public class ForwardProjection
          Double recurring = (pdata.getRecurringInvestment() != null) ? pdata.getRecurringInvestment() : 0.0;
          Integer horizon = (pdata.getHorizon() != null) ? pdata.getHorizon() : 35;
          horizon = (horizon < 20) ? 20 : horizon;
-         if (fixedOptimizer.getFmprojectiondata() != null) {
+         String theme;
+         // Only base these, does not use both Taxable and non-taxable.
+         if (pdata.getTheme() != null && pdata.getTheme().startsWith("T")) {
+            theme = pdata.getTheme().substring(2);
+         }
+         else {
+            theme = pdata.getTheme();
+         }
+         // First check if we have projection data on DB.  If so, then use the data as is.
+         Map<String, ArrayList<FMProjectionData>> fmprojection = fixedOptimizer.getFmprojection(theme);
+         if (fmprojection != null) {
             perfdata = new ArrayList<ProjectionData[]>();
-            for (Integer model : fixedOptimizer.getFmprojectiondata().keySet()) {
+            for (String model : fmprojection.keySet()) {
                array =  goalsProjection(investment,
                                         recurring,
                                         model,
-                                        fixedOptimizer.getFmprojectiondata().get(model));
+                                        fmprojection.get(model));
 
                if (array != null)
                {
@@ -83,6 +93,7 @@ public class ForwardProjection
             }
          }
          else {
+            // First we don't have the data then use the expected return to calc.
             if (fixedOptimizer.isThisFixedTheme(pdata.getTheme()))
             {
                perfdata = new ArrayList<ProjectionData[]>();
@@ -229,7 +240,7 @@ public class ForwardProjection
    }
 
    private ProjectionData[] goalsProjection(Double invested, Double recurring,
-                                            Integer model,
+                                            String model,
                                             ArrayList<FMProjectionData> projectionchart)
    {
 
@@ -264,11 +275,11 @@ public class ForwardProjection
             perf.setTheme(model.toString());
             perf.setYear((cal.YEAR + year));
 
-            datalower2 = projectionchart.get(year).getLower2();
-            datalower1 = datalower2 + projectionchart.get(year).getLower1();
-            datamid =  projectionchart.get(year).getMid();
-            dataupper1 = datalower1 + projectionchart.get(year).getUpper1();
-            dataupper2 = dataupper1 + projectionchart.get(year).getUpper2();
+            datalower2 = projectionchart.get(year).getFivepercent();
+            datalower1 = projectionchart.get(year).getTwentyfivepercent();
+            datamid =  projectionchart.get(year).getFiftypercent();
+            dataupper1 = projectionchart.get(year).getSeventyfivepercent();
+            dataupper2 = projectionchart.get(year).getNintyfivepercent();
 
             if (datalower1 < 0.0)
             {
@@ -282,17 +293,17 @@ public class ForwardProjection
 
             array[year] = perf;
 
-            perf.setTotalCapitalWithGains(portGrowth * datamid);
+            portGrowth += recurring;
             perf.setTotalCost(0);
-            perf.setInvestmentReturns(portGrowth * datamid);
+            perf.setInvestmentReturns(portGrowth);
             perf.setInvestmentRisk(0);
-            perf.setUpperBand1(portGrowth * dataupper1);
-            perf.setUpperBand2(portGrowth * dataupper2);
-            perf.setLowerBand1(portGrowth * datalower1);
-            perf.setLowerBand2(portGrowth * datalower2);
-            perf.setInvestedCapital(invested + recurring);
+            perf.setUpperBand1(invested * dataupper1);
+            perf.setUpperBand2(invested * dataupper2);
+            perf.setLowerBand1(invested * datalower1);
+            perf.setLowerBand2(invested * datalower2);
+            perf.setTotalCapitalWithGains(invested * datamid);
+            perf.setInvestedCapital(portGrowth);
             perf.setRecurInvestments(totalRecurring);
-            portGrowth = portGrowth + recurring;
             totalRecurring = totalRecurring + recurring;
 
          }

@@ -202,7 +202,7 @@ public class FixedModelDao extends JdbcDaoSupport
       }
    }
 
-   public Map<Integer, ArrayList<FMProjectionData>> load_fixedmodule_projectionChart()
+   public Map<String, FMProjection> load_fixedmodule_projection()
    {
 
       // DataSource ds = getDs();
@@ -210,8 +210,9 @@ public class FixedModelDao extends JdbcDaoSupport
       FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
 
       Map outMap = sp.loadFixedProjectionChart();
-      Map<Integer, ArrayList<FMProjectionData>> fmprojectiondata = new LinkedHashMap<Integer, ArrayList<FMProjectionData>>();
-
+      Map<String, FMProjection> fmprojection = new LinkedHashMap<String, FMProjection>();
+      Map<String, ArrayList<FMProjectionData>> projectiondata;
+      FMProjection projection;
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -219,31 +220,44 @@ public class FixedModelDao extends JdbcDaoSupport
          if (rows != null) {
             for (Map<String, Object> map : rows) {
                Map rs = (Map) rows.get(i);
-               Integer model = convert.getIntData(rs.get("model"));
+               String theme = convert.getStrData(rs.get("theme"));
+               if (! fmprojection.containsKey(theme)) {
+                 projection = new FMProjection();
+                 projectiondata = new LinkedHashMap<String, ArrayList<FMProjectionData>>();
+               }
+               else {
+                  projection = fmprojection.get(theme);
+                  projectiondata = projection.getData();
+               }
+
+               String model = convert.getStrData(rs.get("model"));
                if (model == null)
                   continue;
 
-               ArrayList projectiondata;
-               if (fmprojectiondata.containsKey(model)) {
-                  projectiondata = fmprojectiondata.get(model);
+               ArrayList<FMProjectionData> datamodel;
+               if (projectiondata.containsKey(model)) {
+                  datamodel = projectiondata.get(model);
                }
                else {
-                  projectiondata = new ArrayList<FMPerformanceData>();
+                  datamodel = new ArrayList<FMProjectionData>();
                }
                FMProjectionData data = new FMProjectionData();
                data.setModel(model);
                data.setYear(convert.getIntData(rs.get("year")));
-               data.setLower1(convert.getDoubleData(rs.get("lower1")));
-               data.setLower2(convert.getDoubleData(rs.get("lower2")));
-               data.setMid(convert.getDoubleData(rs.get("mid")));
-               data.setUpper1(convert.getDoubleData(rs.get("upper1")));
-               data.setUpper2(convert.getDoubleData(rs.get("upper2")));
-               projectiondata.add(data);
-               fmprojectiondata.put(model, projectiondata);
+               data.setFivepercent(convert.getDoubleData(rs.get("5percent")));
+               data.setTwentyfivepercent(convert.getDoubleData(rs.get("25percent")));
+               data.setFiftypercent(convert.getDoubleData(rs.get("50percent")));
+               data.setSeventyfivepercent(convert.getDoubleData(rs.get("75percent")));
+               data.setNintyfivepercent(convert.getDoubleData(rs.get("95percent")));
+               datamodel.add(data);
+               projectiondata.put(model, datamodel);
+               projection.setTheme(theme);
+               projection.setData(projectiondata);
+               fmprojection.put(theme,projection);
                i++;
             }
          }
       }
-      return fmprojectiondata;
+      return fmprojection;
    }
 }

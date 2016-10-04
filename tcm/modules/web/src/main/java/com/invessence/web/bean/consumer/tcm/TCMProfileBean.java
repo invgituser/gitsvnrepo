@@ -798,50 +798,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   public String getForwardInstructions()
-   {
-      String msg;
-      if (getCanOpenAccount() == null)
-      {
-         canOpenAccount = -1;
-      }
-      switch (getCanOpenAccount())
-      {
-         case -1:
-            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
-               "<p>You are currently not logged on to the system.  Either your session has expired or you have reached this page in error</p>";
-            break;
-         case 0:
-            msg = "<p>You are being forwarded to <strong>Interactive Broker</strong> to open an account.</p>\n" +
-               "<p>You will be logged off this site.</p>";
-            break;
-         case 1:
-            msg = "We are in the <strong>process of registering in your state</strong>.\n" +
-               "Unfortunately, we <u>cannot open an account at this time</u>.";
-            break;
-         case 2:
-            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
-            break;
-         case -99:
-            msg = "Unfortunately, we <u>cannot open an account at this time</u>.\n" +
-               "<p>Please contact support desk.  Phone number and email is listed at top of the page.</p>";
-            break;
-         default:
-            msg = "Unfortunately, we <u>cannot open an account at this time</u>.";
-            break;
-      }
-      return msg;
-   }
-
-   public String getGoalAdjustment()
-   {
-      if ((!getGoalData().getReachable()))
-      {
-         return jutil.displayFormat(getGoalData().getCalcRecurringAmount(), "$###,###,###");
-      }
-      return "";
-   }
-
    public void startover()
    {
       pagemanager.setPage(0);
@@ -1089,12 +1045,14 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       //  Calls for Projection creation chart by using HighChart
       if (getProjectionDatas() != null)
       {
-         Integer aggressivePortfolio = getProjectionDatas().size() - 1;
+         if (getProjectionDatas().size() > 0) {
+         Integer portfolioID = getProjectionDatas().size() - 1;
          charts.createProjectionHighChart(getProjectionDatas().get(whichslide),
                                           getHorizon(),
                                           getAge(),
                                           riskCalculator.getRetireAge(),
-                                          getProjectionDatas().get(aggressivePortfolio));
+                                          getProjectionDatas().get(portfolioID));
+         }
 
       }
       setRiskCalcMethod("C");

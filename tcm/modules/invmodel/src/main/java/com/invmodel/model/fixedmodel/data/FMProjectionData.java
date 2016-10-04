@@ -9,24 +9,24 @@ package com.invmodel.model.fixedmodel.data;
  */
 public class FMProjectionData
 {
-   private Integer model;
+   private String model;
    private Integer year;
-   private Double lower1;
-   private Double lower2;
-   private Double mid;
-   private Double upper1;
-   private Double upper2;
+   private Double fivepercent;
+   private Double twentyfivepercent;
+   private Double fiftypercent;
+   private Double seventyfivepercent;
+   private Double nintyfivepercent;
 
    public FMProjectionData()
    {
    }
 
-   public Integer getModel()
+   public String getModel()
    {
       return model;
    }
 
-   public void setModel(Integer model)
+   public void setModel(String model)
    {
       this.model = model;
    }
@@ -41,53 +41,53 @@ public class FMProjectionData
       this.year = year;
    }
 
-   public Double getLower1()
+   public Double getFivepercent()
    {
-      return lower1;
+      return fivepercent;
    }
 
-   public void setLower1(Double lower1)
+   public void setFivepercent(Double fivepercent)
    {
-      this.lower1 = lower1;
+      this.fivepercent = fivepercent;
    }
 
-   public Double getLower2()
+   public Double getTwentyfivepercent()
    {
-      return lower2;
+      return twentyfivepercent;
    }
 
-   public void setLower2(Double lower2)
+   public void setTwentyfivepercent(Double twentyfivepercent)
    {
-      this.lower2 = lower2;
+      this.twentyfivepercent = twentyfivepercent;
    }
 
-   public Double getMid()
+   public Double getFiftypercent()
    {
-      return mid;
+      return fiftypercent;
    }
 
-   public void setMid(Double mid)
+   public void setFiftypercent(Double fiftypercent)
    {
-      this.mid = mid;
+      this.fiftypercent = fiftypercent;
    }
 
-   public Double getUpper1()
+   public Double getSeventyfivepercent()
    {
-      return upper1;
+      return seventyfivepercent;
    }
 
-   public void setUpper1(Double upper1)
+   public void setSeventyfivepercent(Double seventyfivepercent)
    {
-      this.upper1 = upper1;
+      this.seventyfivepercent = seventyfivepercent;
    }
 
-   public Double getUpper2()
+   public Double getNintyfivepercent()
    {
-      return upper2;
+      return nintyfivepercent;
    }
 
-   public void setUpper2(Double upper2)
+   public void setNintyfivepercent(Double nintyfivepercent)
    {
-      this.upper2 = upper2;
+      this.nintyfivepercent = nintyfivepercent;
    }
 }

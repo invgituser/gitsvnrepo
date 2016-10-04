@@ -416,7 +416,8 @@
                         <p:selectBooleanCheckbox
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.fundNow}"
-                                itemLabel="I choose to opt-out of funding my account at the moment. (Please note that if your account is not funded within 30 days it will be closed.)">
+                                escape="false"
+                                itemLabel="I choose to opt-out of funding my account at the moment.">
                             <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
 
                         </p:selectBooleanCheckbox>
@@ -538,7 +539,7 @@
                                     Account Type *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                  value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctType}"
                                                  style="width: 100%;">
                                     <p:ajax/>
@@ -557,7 +558,7 @@
                                     Bank Name  *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankName}"
                                              maxlength="90"
                                              placeholder="Bank Name">
@@ -568,7 +569,7 @@
                                        style="text-align: left !important; font-weight: bold !important;">Bank Account Title <span class="Fs12">(Please provide full title of the account)</span> *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctName}"
                                              maxlength="90"
                                              placeholder="Bank Account Title">
@@ -587,7 +588,7 @@
                                     Routing Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankABARouting}"
                                              maxlength="40"
                                              placeholder="ABA Routing Number">
@@ -599,7 +600,7 @@
                                     Bank Account Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctNumber}"
                                              maxlength="90"
                                              placeholder="Bank Account Number">

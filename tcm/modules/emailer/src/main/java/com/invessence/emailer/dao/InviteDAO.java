@@ -10,12 +10,6 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 public class InviteDAO extends JdbcDaoSupport
 {
-   private String weburl;
-   public void setWeburl(String weburl)
-   {
-      this.weburl = weburl;
-   }
-
    public List<InvitedGuestData> getEmailList() throws DataAccessException
    {
 
@@ -35,7 +29,7 @@ public class InviteDAO extends JdbcDaoSupport
             data.setEmail(rs.getString("email"));
             data.setName(rs.getString("name"));
             data.setGuesttype(rs.getString("guesttype"));
-            data.setWeburl(weburl);
+            data.setWeburl(null);
             return data;
          }
       };
