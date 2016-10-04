@@ -892,7 +892,8 @@ public class TdCto
          case 8: // Benefitiary
             if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRAROTH") ||
                tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRAROOV") ||
-               tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACIRA") )
+               tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRATRAD") ||
+               tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRABENE"))
                {
                   if (tdMasterData.getBenefiaciaryDetailsList().size() == 0)
                   {
@@ -1299,6 +1300,8 @@ public class TdCto
             tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
             tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD") )
             data.setReqType("ACCT_APPLI_NEW");
+         else if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRABENE")  )
+            data.setReqType("IRA_QRP_BENE_NEW");
          else
             data.setReqType("IRA_APPLI_NEW");
 

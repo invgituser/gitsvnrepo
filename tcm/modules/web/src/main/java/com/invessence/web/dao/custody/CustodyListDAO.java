@@ -417,8 +417,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
             if (rows == null)
                return;
             int i = 0;
-            data.setFundNow(true);
-            data.setRecurringFlag(true);
+            data.setFundNow(false);
+            data.setRecurringFlag(false);
             AchBankDetail achBankDetail=new AchBankDetail();
             for (Map<String, Object> map : rows)
             {

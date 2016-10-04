@@ -299,20 +299,20 @@ public class TDMasterData implements Serializable
 
    public void loadAcctType(String strtype) {
       if (strtype != null) {
-         if (strtype.equalsIgnoreCase("ACCSTD"))
-            accttype = 0;
-         else if (strtype.equalsIgnoreCase("ACINDIV"))
+         if (strtype.equalsIgnoreCase("ACINDIV"))
             accttype = 1;
          else if (strtype.equalsIgnoreCase("ACJOINT"))
             accttype = 2;
-         else if (strtype.equalsIgnoreCase("IRATRAD"))
+         else if (strtype.equalsIgnoreCase("ACCSTD"))
             accttype = 3;
-         else if (strtype.equalsIgnoreCase("IRAROTH"))
+         else if (strtype.equalsIgnoreCase("IRATRAD"))
             accttype = 4;
-         else if (strtype.equalsIgnoreCase("ACIRA"))
+         else if (strtype.equalsIgnoreCase("IRAROTH"))
             accttype = 5;
-         else
+         else if (strtype.equalsIgnoreCase("IRAROOV"))
             accttype = 6;
+         else if (strtype.equalsIgnoreCase("IRABENE"))
+            accttype = 7;
       }
    }
 
@@ -321,9 +321,6 @@ public class TDMasterData implements Serializable
       this.accttype = accttype;
       if (accttype != null) {
          switch (accttype) {
-            case 0:
-               acctdetail.setAcctTypeId("ACCSTD");
-               break;
             case 1:
                acctdetail.setAcctTypeId("ACINDIV");
                break;
@@ -331,16 +328,19 @@ public class TDMasterData implements Serializable
                acctdetail.setAcctTypeId("ACJOINT");
                break;
             case 3:
-               acctdetail.setAcctTypeId("IRATRAD");
+               acctdetail.setAcctTypeId("ACCSTD");
                break;
             case 4:
-               acctdetail.setAcctTypeId("IRAROTH");
+               acctdetail.setAcctTypeId("IRATRAD");
                break;
             case 5:
-               acctdetail.setAcctTypeId("IRAROOV");
+               acctdetail.setAcctTypeId("IRAROTH");
                break;
             case 6:
-               acctdetail.setAcctTypeId("ACIRA");
+               acctdetail.setAcctTypeId("IRAROOV");
+               break;
+            case 7:
+               acctdetail.setAcctTypeId("IRABENE");
                break;
             default:
                acctdetail.setAcctTypeId("ACIRA");
@@ -549,10 +549,15 @@ public class TDMasterData implements Serializable
    }
 
    public void existingAccount() {
-      if(ownerSPF)
+      if(ownerSPF  && getFundType().equalsIgnoreCase("PMACH"))
+      {
          System.out.println("Checked");
+
+      }
       else
+      {
          System.out.println("Uncheck");
+      }
    }
 
    public void cancelEditBeneficiary() {
