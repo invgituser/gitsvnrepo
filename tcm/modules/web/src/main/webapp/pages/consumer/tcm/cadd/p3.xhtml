@@ -15,8 +15,7 @@
                 <div class="Container25 Responsive0" style="height:1px;"></div>
                 <div class="Container100 Responsive100 MarginSpaceP3 RiskQuestionBlock">
                     <p:selectOneRadio id="p3id" value="#{tcmpb.riskCalculator.ans3}"
-                                      layout="pageDirection"
-                                      required="true" requiredMessage="Please choose one of these choices">
+                                      layout="pageDirection">
                         <p:ajax listener="#{tcmpb.onChangeValue}"
                                 update=":ceForm:inputArea"/>
                         <f:selectItem itemLabel="Maximize current Income" itemValue="1" />
@@ -30,6 +29,13 @@
             </div>
 
         <div class="EmptyBox5"></div>
+         <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(1) != null}"
+                  style="border: 0px; background: transparent"
+                  styleClass="Container100">
+             <h:outputText styleClass="errorText"
+                           value="#{tcmpb.pagemanager.getErrorMessage(1)}" escape="false"/>
+             <div class="EmptyBox5"></div>
+         </p:panel>
         <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"

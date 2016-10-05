@@ -12,13 +12,10 @@
                 Select the option that best matches your comfort zone to continue.
             </h3>
 
-            <h:inputHidden value="#{tcmpb.riskCalculator.ans4}"
-                           required="true"
-                           requiredMessage="Please click on one of the images below to select appropriate risk."/>
+            <h:inputHidden value="#{tcmpb.riskCalculator.ans4}"/>
 
             <div class="EmptyBox20"></div>
             <div class="Container100 TexAlCenter">
-                <p:messages showDetail="false" sticky="true" escape="true" closable="true"/>
 
                 <p:panel id="riskimgpanel" styleClass="Container100"
                          style="border: 0px; background: transparent;">
@@ -57,13 +54,20 @@
                     </p:commandLink>
                 </p:panel>
                 <div class="EmptyBox10"></div>
-                <h:outputText value="The questions determine your attitude toward risk.  It is one of many inputs
-that determine your optimal portfolio.  A change in your attiture toward risk
-may not impact your initial target portfolio.">
+                <h:outputText value="The question determines your attitude towards risk.
+                It is one of many inputs that determine your optimal portfolio.
+                A change in your attitude towards risk may not impact your initial target portfolio.">
 
                 </h:outputText>
             </div>
         <div class="EmptyBox5"></div>
+            <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(2) != null}"
+                     style="border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText styleClass="errorText"
+                              value="#{tcmpb.pagemanager.getErrorMessage(2)}" escape="false"/>
+                <div class="EmptyBox5"></div>
+            </p:panel>
         <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                          update=":ceForm:inputArea"
                          immediate="true"

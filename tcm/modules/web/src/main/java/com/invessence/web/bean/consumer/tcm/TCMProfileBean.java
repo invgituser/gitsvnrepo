@@ -840,25 +840,27 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       pagemanager.nextPage();
    }
 
-   private Boolean validatePage()
-   {
-      Boolean cangoToNext = true;
-      customErrorText = null;
+   private Boolean validatePage(Integer pagenum) {
 
-      switch (pagemanager.getPage())
+      Boolean dataOK = true;
+      pagemanager.clearErrorMessage(pagenum);
+
+      if (pagenum == null)
+         return false;
+
+      switch (pagenum)
       {
-         case 0:
+         case 0: // Accttype page
+
             if (getGoal() == null || getInitialInvestment() == null)
             {
-               addCustomErrorText("Min $50,000 investment required.");
-               cangoToNext = false;
-               break;   // If null, then this method should not have been called.
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.required", "Min $50,000 investment required", new Object[]{"$50,000"}));
             }
-
             if (getInitialInvestment() != null && getInitialInvestment() < 50000)
             {
-               addCustomErrorText("Min $50,000 investment required.");
-               cangoToNext = false;
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.constraint", "Min $50,000 investment required", new Object[]{"$50,000"}));
             }
 
             if (getGoal() != null)
@@ -867,15 +869,15 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                {
                   if (riskCalculator.getRiskAge() == null)
                   {
-                     addCustomErrorText("Age must between 18 - 100");
-                     cangoToNext = false;
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.age.constraint", "Age must be between 18 and 100 years.", null));
                   }
                   else
                   {
                      if ((getAge() < 18) || (getAge() > 100))
                      {
-                        addCustomErrorText("Age must between 18 - 100");
-                        cangoToNext = false;
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.age.constraint", "Age must be between 18 and 100 years.", null));
                      }
                   }
 
@@ -883,18 +885,18 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                   {
                      if (riskCalculator.getRetireAge() == null)
                      {
-                        cangoToNext = false;
-                        addCustomErrorText("Please provide retirement age.");
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.retireage.required", "When do you plan to retire?", null));
                      }
                      else if (riskCalculator.getRetireAge() <= riskCalculator.getRiskAge())
                      {
-                        cangoToNext = false;
-                        addCustomErrorText("Retired age must greater then current age.");
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.retireage.constraint", "Retirement age must be greater than current age.", null));
                      }
                      else if (riskCalculator.getRetireAge() > 100)
                      {
-                        cangoToNext = false;
-                        addCustomErrorText("Retired age cannot be greater then 100.");
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.retireage.constraint2", "Retirement age must be less than 100 years.", null));
                      }
                   }
                }
@@ -902,33 +904,52 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                {
                   if (getGoal().equalsIgnoreCase("college"))
                   {
-                     if (riskCalculator.getRiskHorizon() != null &&
-                        (riskCalculator.getRiskHorizon() < 1 || riskCalculator.getRiskHorizon() > 20))
+                     if (riskCalculator.getRiskHorizon() == null) {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.college.required", "When does your child plan to attend college?", null));
+                     }
+                     else if (riskCalculator.getRiskHorizon() < 1 || riskCalculator.getRiskHorizon() > 20)
                      {
-                        cangoToNext = false;
-                        addCustomErrorText("Horizon must between 1 - 20");
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.college.constraint", "Number of years to invest must be between 1 and 18 years.", null));
                      }
                   }
                   else
                   {
-                     if (riskCalculator.getRiskHorizon() != null &&
-                        (riskCalculator.getRiskHorizon() < 1 || riskCalculator.getRiskHorizon() > 100))
+                     if (riskCalculator.getRiskHorizon() != null) {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.otherhorizon.required", "When do you plan to use these funds?", null));
+                     }
+                     else if (riskCalculator.getRiskHorizon() < 1 || riskCalculator.getRiskHorizon() > 100)
                      {
-                        cangoToNext = false;
-                        addCustomErrorText("Horizon must between 1 - 100");
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.otherhorizon.constraint", "Number of years to invest must be between 1 and 100 years.", null));
                      }
                   }
                }
             }
             break;
-         case 1:
-         case 2:
-         case 3:
-         default:
-            break;
+            case 1: // Investment Choices
+               if (riskCalculator.getAns3() == null || riskCalculator.getAns3().isEmpty()) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.risk.radio.required", "Please choose one of these choices.", null));
+               }
+               break;
+            case 2: // Investment Risk
+                  if (riskCalculator.getAns4() == null || riskCalculator.getAns4().isEmpty()) {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.risk.meter.required", "Please select the image that best represents your tolerance for risk.", null));
+                  }
+                  break;
+            case 3: // Investment Projection
+               if (riskCalculator.getAns5() == null || riskCalculator.getAns5().isEmpty()) {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.risk.projection.required", "Please choose an investment strategy.", null));
+               }
+               break;
       }
 
-      return cangoToNext;
+      return dataOK;
    }
 
    public void nextPage()
@@ -939,17 +960,24 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       switch (pagemanager.getPage())
       {
          case 0:
-            cangoToNext = validatePage();
+            cangoToNext = validatePage(pagemanager.getPage());
             break;
          case 1:
+            cangoToNext = validatePage(pagemanager.getPage());
             break;
          case 2:
-            calcProjectionChart();
-            doProjectionChart();
+            cangoToNext = validatePage(pagemanager.getPage());
+            if (cangoToNext) {
+               calcProjectionChart();
+               doProjectionChart();
+            }
             break;
          case 3:
+            cangoToNext = validatePage(pagemanager.getPage());
             break;
          case 4:
+            cangoToNext = validatePage(pagemanager.getPage());
+            break;
 
       }
       if (cangoToNext)
@@ -1162,7 +1190,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                                         "Answer: " + riskIdex.toString()
 
                   );
-
 */
                      if (testArrayList.size() > 1000)
                      {

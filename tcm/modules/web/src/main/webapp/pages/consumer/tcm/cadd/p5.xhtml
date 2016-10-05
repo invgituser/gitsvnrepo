@@ -175,24 +175,21 @@
 <div class="Container100 TextAlCenter customRadioBlock">
 
     <h3 class="TexAlCenter StepsQuestionsFS">
-        <!-- Assuming you invest for at least #{tcmpb.horizon} years, in the course of any given year,
-        which of the below range of returns would be most acceptable to you?-->
+<!--
         Below is a simulation of the possible performance ranges over time of
         5 hypothetical portfolios at differing levels of risk, comparing the
         5 options, which range of uncertainty best matches your comfort
         level?
-    </h3>
+-->
+        The chart below is a hypothetical simulation of the performance of 5 portfolios at
+        differing levels of risk. Which range of risk and return best matches your comfort level?
 
-    <div class="EmptyBox5"></div>
-    <p:messages showDetail="false" sticky="true" escape="true"
-                closable="true"/>
+    </h3>
 
     <div class="EmptyBox5"></div>
 
     <!-- Projection Slab  -->
-    <h:inputHidden value="#{tcmpb.riskCalculator.ans5}"
-                   required="true"
-                   requiredMessage="Please choose one appropriate investment strategy."/>
+    <h:inputHidden value="#{tcmpb.riskCalculator.ans5}"/>
     <div class="ContainerDropDownSizing">
         <div class="ContainerPSlab-tcmUI MarAuto Fnone EnableDrodownProjection">
             <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
@@ -320,7 +317,12 @@
         <div id="progressChart" class="Conatiner100 customRadioGraph"></div>
     </div>
     <div class="EmptyBox20"></div>
-
+    <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(3) != null}"
+             style="border: 0px; background: transparent"
+             styleClass="Container100">
+        <h:outputText styleClass="errorText"
+                      value="#{tcmpb.pagemanager.getErrorMessage(3)}" escape="false"/>
+    </p:panel>
 
     <div class="EmptyBox10"></div>
     <p:commandLink styleClass="UI-prevButton Fleft" value="Previous"

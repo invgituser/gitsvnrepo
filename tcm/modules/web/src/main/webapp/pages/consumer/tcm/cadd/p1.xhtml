@@ -102,7 +102,7 @@
                 <ui:fragment rendered="#{tcmpb.goal == 'Wealth' || tcmpb.goal == 'Other'}">
 
                     <h3 class="formFS TexAlCenter ">
-                        I plan on utilizing the funds
+                        I plan on utilizing the funds for this goal in
                         <p:inputNumber id="otherid"
                                         styleClass="invInputText input_agewid1 mobileFullWidthinput"
 										value="#{tcmpb.horizon}"
@@ -116,11 +116,12 @@
 
         </p:panel>
         <div class="EmptyBox10"></div>
-        <div class="TexAlCenter">
-            <h:outputText value="#{tcmpb.customErrorText}" styleClass="red" escape="false"
-                          rendered="#{tcmpb.customErrorText != null}">
-            </h:outputText>
-        </div>
+        <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(0) != null}"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100 TexAlCenter">
+            <h:outputText styleClass="errorText"
+                          value="#{tcmpb.pagemanager.getErrorMessage(0)}" escape="false"/>
+        </p:panel>
 
         <div class="TexAlCenter">
          <p:commandLink styleClass="UI-nextButtonPg1 UI-tcmButton"   rendered="#{tcmpb.pagemanager.nextButtonStat}"

@@ -17,23 +17,27 @@ public class SecurityQuestions
       {  "Home town/city at age 10?",
          "Name of favorite teacher?",
          "Name of first pet?",
-         "Favorite US President?",
+         "Name your favorite US President?",
          "How much money I need to retire?",
-         "Name of mentor?"
+         "Name of your mentor?"
       },
       {
          "Favorite sports team?",
-         "Favorite TV show",
+         "Favorite TV show?",
          "Favorite movie?",
          "Favorite food?",
          "Favorite vacation spot?",
-         "Favorite comedian?"
+         "Favorite restaurant?"
       },
       {
-        "Describe yourself",
-        "I like to ___________",
-        "I enjoy  ____________",
-        "I would like to be ___________"}
+         "Who is your best friend?",
+         "Make of your first car?",
+         "Where did you meet your spouse?",
+         "What is your favorite novel?",
+         "Name your favorite song?",
+         "Who is Godfather of your first child?",
+         "Name of first boyfriend/girlfriend?"
+      }
       };
 
    public Map<String, String> getQuestion(Integer question_number)
