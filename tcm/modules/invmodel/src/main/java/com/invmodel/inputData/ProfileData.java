@@ -139,18 +139,6 @@ public class
       return this;
    }
 
-   public String getDisplayActiveAcctNum()
-   {
-      if (getClientAccountID() != null && getClientAccountID().length() > 0)
-      {
-         return getClientAccountID();
-      }
-      else
-      {
-         return getAcctnum().toString();
-      }
-   }
-
    public Long getAcctnum()
    {
       return acctnum;

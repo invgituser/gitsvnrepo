@@ -73,6 +73,9 @@ public class TCMCustomer extends CustomerData
    @Override
    public void setGoal(String thisgoal)
    {
+      if (thisgoal == null)
+         goal = null;
+      else
       if (thisgoal != null) {
          if (thisgoal.contains("Retire")) {
             if (riskCalculator.getRetired() == 1) {

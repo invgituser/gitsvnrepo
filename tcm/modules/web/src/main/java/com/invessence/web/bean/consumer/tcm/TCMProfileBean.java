@@ -31,6 +31,7 @@ import org.primefaces.event.*;
 @SessionScoped
 public class TCMProfileBean extends TCMCustomer implements Serializable
 {
+   private String newapp;
    private Long beanAcctnum;
    private PagesImpl pagemanager;
    private Boolean formEdit = false;
@@ -66,6 +67,16 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public PagesImpl getPagemanager()
    {
       return pagemanager;
+   }
+
+   public String getNewapp()
+   {
+      return newapp;
+   }
+
+   public void setNewapp(String newapp)
+   {
+      this.newapp = newapp;
    }
 
    public Long getBeanAcctnum()
@@ -253,6 +264,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             whichChart = "pie";
             disablegraphtabs = true;
             disabledetailtabs = true;
+
+            if (newapp != null && newapp.startsWith("N")) {
+               beanAcctnum = null;
+            }
 
             // Client related data.
             setRiskCalcMethod("C");
@@ -575,50 +590,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-
-   public Boolean validateProfile()
-   {
-      try
-      {
-         String message = null;
-
-         // Note: Required is taken care by UI.  It automatically highlights the data
-
-         if (getAge() == null)
-         {
-            message = "Age is required<br/>";
-         }
-         if (getInitialInvestment() == null)
-         {
-            message = "Initial Investment Amount needs to be defined<br/>";
-         }
-         if (getRiskIndex() == null)
-         {
-            message = "Risk has to be defined.<br/>";
-         }
-         if (getEmail() == null)
-         {
-            message = "Customer profile has to be created.<br/>";
-         }
-
-         if (message != null)
-         {
-            FacesContext context = FacesContext.getCurrentInstance();
-
-            context.addMessage(null, new FacesMessage("Error", "Incomplete Form " + message));
-            return false;
-         }
-      }
-      catch (Exception ex)
-      {
-         FacesContext context = FacesContext.getCurrentInstance();
-
-         context.addMessage(null, new FacesMessage("Error", "Serious Error " + "System Error: " + ex.getMessage()));
-         return false;
-      }
-      return true;
-   }
-
    private void setAccountType()
    {
       if (getAccountTaxable())
@@ -731,6 +702,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          {
             loadProfileData(getBeanAcctnum());
             loadRiskData(getBeanAcctnum());
+            riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
             displayGoalText = true;
             createAssetPortfolio(1);
          }
@@ -916,7 +888,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                   }
                   else
                   {
-                     if (riskCalculator.getRiskHorizon() != null) {
+                     if (riskCalculator.getRiskHorizon() == null) {
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.otherhorizon.required", "When do you plan to use these funds?", null));
                      }

@@ -103,13 +103,13 @@ public class SessionController implements Serializable
 
    public void tryOut()
    {
-      uiLayout.doMenuAction("consumer", "cadd.xhtml");
+      uiLayout.doMenuAction("consumer", "cadd.xhtml?app=N");
       // return "success";
    }
 
    public String getDemoStart()
    {
-      uiLayout.doMenuAction("consumer", "cadd.xhtml");
+      uiLayout.doMenuAction("consumer", "cadd.xhtml?app=N");
       return "success";
    }
 }

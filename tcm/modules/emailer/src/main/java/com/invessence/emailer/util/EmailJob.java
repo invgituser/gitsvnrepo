@@ -34,7 +34,7 @@ public class EmailJob
 
    public void run()
    {
-      System.out.println("Entered EmailJob:run()...");
+      // System.out.println("Entered EmailJob:run()...");
 
       try
       {
@@ -54,7 +54,7 @@ public class EmailJob
          LOG.error("EmailJob:run():" + e);
       }
 
-      LOG.info("Ended EmailJob:run()...");
+      // LOG.info("Ended EmailJob:run()...");
    }
 
    private void sendTestEmail()
@@ -144,7 +144,7 @@ public class EmailJob
    public void saveMsg(MsgData msgData)
    {
 
-      LOG.info("Entered EmailJob:saveMsg()...");
+      // LOG.info("Entered EmailJob:saveMsg()...");
 
       try
       {
@@ -157,7 +157,7 @@ public class EmailJob
          LOG.error("EmailJob:run():" + e);
       }
 
-      LOG.info("Ended saveMsg:run()...");
+      // LOG.info("Ended saveMsg:run()...");
    }
 
 /*

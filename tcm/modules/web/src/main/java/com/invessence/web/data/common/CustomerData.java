@@ -1132,4 +1132,32 @@ public class CustomerData extends ProfileData
       }
    }
 
+   public Boolean getHasPosition()
+   {
+      if (getClientAccountID() != null && getClientAccountID().length() > 0)
+      {
+         return true;
+      }
+      else
+      {
+         return false;
+      }
+   }
+
+   public String getDisplayActiveAcctNum()
+   {
+      if (getClientAccountID() != null && getClientAccountID().length() > 0)
+      {
+         return getClientAccountID();
+      }
+      else
+      {
+         if (getManaged()) {
+               return ("Pending");
+         }
+      }
+      return getAcctnum().toString();
+   }
+
+
 }

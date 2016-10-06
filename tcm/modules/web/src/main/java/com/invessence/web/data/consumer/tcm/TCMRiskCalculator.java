@@ -205,7 +205,6 @@ public class TCMRiskCalculator extends RiskCalculator
                return 0.0;
             }
 
-            String investmentType =  getInvestmentobjective().toLowerCase();
             if (isThisRetirement()) {
                redoRiskHorizon();
             }

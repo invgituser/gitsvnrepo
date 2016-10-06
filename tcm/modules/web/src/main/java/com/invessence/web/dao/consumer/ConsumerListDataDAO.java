@@ -140,9 +140,9 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
             data.setRegisteredState(convert.getStrData(rs.get("state")));
             data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+            String managed = convert.getStrData(rs.get("managed"));
 
-            String action = (convert.getStrData(rs.get("acctstatus")));
-            if (action.equalsIgnoreCase("Pending")) {
+            if (managed.equalsIgnoreCase("N")) {
                data.setManaged(false);
             }
             else {

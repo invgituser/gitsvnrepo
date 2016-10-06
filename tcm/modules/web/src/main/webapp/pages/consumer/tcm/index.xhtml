@@ -40,7 +40,7 @@
                                          reflow="true">
 
                                 <p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
-                                    <p:commandButton id="activeButton" rendered="#{investment.managed}"
+                                    <p:commandButton id="activeButton" rendered="#{investment.hasPosition}"
                                                      styleClass="Fs14 GreenButton"
                                                      process="@this" immediate="true"
                                                      icon="fa fa-search-plus Fs14 white"
@@ -67,9 +67,15 @@
                                 </p:column>
 								 -->
                                 <p:column styleClass="Wid25 TexAlLeft"
-                                          sortBy="#{investment.goal}" headerText="Type" priority="3"
+                                          headerText="Type" priority="3"
                                           resizable="true">
                                    <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.goal}"/></span>
+                                </p:column>
+
+                                <p:column styleClass="Wid25 TexAlLeft"
+                                          headerText="Strategy " priority="3"
+                                          resizable="true">
+                                    <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.portfolioName}"/></span>
                                 </p:column>
 
                                 <p:column styleClass="Wid25 TexAlLeft"
