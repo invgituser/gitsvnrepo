@@ -45,7 +45,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/accttype.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab1" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab1" styleClass="tcmAccordion-UI" disabled="#{!tdcto.validatePage(0)}"  >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm"/>
@@ -54,7 +54,7 @@
 
                                     <ui:include src="/pages/custody/td/acctholder.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab2" styleClass="tcmAccordion-UI">
+                                <p:tab id="tab2" styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/address.png.xhtml?ln=tcm"/>

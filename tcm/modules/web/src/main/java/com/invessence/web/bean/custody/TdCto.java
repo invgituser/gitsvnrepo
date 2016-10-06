@@ -346,6 +346,7 @@ public class TdCto
    {
       try
       {
+         //if(validatePage(activeTab)
          if (event != null)
          {
             String tabname = event.getTab().getId();
@@ -630,7 +631,7 @@ public class TdCto
       return dataOK;
    }
 
-   private Boolean validatePage(Integer pagenum) {
+   public Boolean validatePage(Integer pagenum) {
 
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
@@ -726,7 +727,7 @@ public class TdCto
                if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressStreet()))
                {
                   dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.resstreet.requiredMsg", "Residence Street Address is required!", null));
                }
                if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getPhysicalAddressCity()))
                {
@@ -747,7 +748,35 @@ public class TdCto
                {
                   dataOK = false;
                   pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
-            }
+               }
+               if(tdMasterData.getAcctholderhasMailing())
+               {
+                  if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getMailingAddressStreet()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.mailstreet.requiredMsg", "Mailing Street Address is required!", null));
+                  }
+                  if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getMailingAddressCity()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+                  }
+                  if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getMailingAddressState()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+                  }
+                  if (!hasRequiredData(tdMasterData.getAcctOwnersDetail().getMailingAddressZipCode()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+                  }
+                  else if (!JavaUtil.isValidZipCode(tdMasterData.getAcctOwnersDetail().getMailingAddressZipCode()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+                  }
+               }
             break;
          case 4: // Joint Address
             if(tdMasterData.getAccttype()==2)
@@ -757,7 +786,7 @@ public class TdCto
                   if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressStreet()))
                   {
                      dataOK = false;
-                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.street.requiredMsg", "Street Address is required!", null));
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.resstreet.requiredMsg", "Residence Street Address is required!", null));
                   }
                   if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getPhysicalAddressCity()))
                   {
@@ -778,6 +807,35 @@ public class TdCto
                   {
                      dataOK = false;
                      pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+                  }
+
+                  if(tdMasterData.getJointhasDifferent())
+                  {
+                     if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getMailingAddressStreet()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.mailstreet.requiredMsg", "Mailing Street Address is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getMailingAddressCity()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getMailingAddressState()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getMailingAddressZipCode()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+                     }
+                     else if (!JavaUtil.isValidZipCode(tdMasterData.getJointAcctOwnersDetail().getMailingAddressZipCode()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+                     }
                   }
                }
             }
@@ -947,6 +1005,16 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountname.requiredMsg", "Name on bank account is required!", null));
                      }
+                     if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankCityState()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankcityState.requiredMsg", "Bank City/State is required!", null));
+                     }
+                     if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankPhoneNumber()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankphoneno.requiredMsg", "Bank Phone number is required!", null));
+                     }
                      if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankABARouting()))
                      {
                         dataOK = false;
@@ -1037,6 +1105,16 @@ public class TdCto
                         {
                            dataOK = false;
                            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountname.requiredMsg", "Name on bank account is required!", null));
+                        }
+                        if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankCityState()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankcityState.requiredMsg", "Bank City/State is required!", null));
+                        }
+                        if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankPhoneNumber()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankphoneno.requiredMsg", "Bank Phone number is required!", null));
                         }
                         if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankABARouting()))
                         {
@@ -1316,6 +1394,7 @@ public class TdCto
             webutil.redirecttoMessagePage("ERROR", "Failed to Save", msg);
          }
          else {
+            custodySaveDAO.tdMangedUserProfile(tdMasterData.getAcctnum());
             uiLayout.doMenuAction("custody","tdconfirmation.xhtml");
          }
       }

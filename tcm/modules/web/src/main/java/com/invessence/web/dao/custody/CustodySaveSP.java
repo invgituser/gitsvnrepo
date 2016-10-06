@@ -217,6 +217,10 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_optfund", Types.BOOLEAN));
             declareParameter(new SqlParameter("p_optrec", Types.BOOLEAN));
             break;
+         case 13:
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_managed", Types.VARCHAR));
+            break;
       }
       compile();
    }
@@ -476,6 +480,14 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_bankAcctName", data.getBankAcctName());
       inputMap.put("p_bankAcctNumber", data.getBankAcctNumber());
       inputMap.put("p_createdBy", "Invessence");*/
+      return super.execute(inputMap);
+   }
+
+   public Map tdMangedUserProfile(Long acctnum)
+   {
+      Map<String, Object> inputMap = new HashMap<String, Object>();
+      inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_managed", "N");
       return super.execute(inputMap);
    }
 
