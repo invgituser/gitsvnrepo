@@ -627,6 +627,26 @@ public class TdCto
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.beneShare.requiredMsg", "Share is required!", null));
       }
+      else if (benefiaciaryDetail.getSharePerc()<=0) {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.beneSharegreter.requiredMsg", "Share should be greater than 0!", null));
+      }
+      else
+      {
+         double shareHolderPer = 0;
+         ArrayList<BenefiaciaryDetails> tmpbenefiaciaryDetailsList = tdMasterData.getBenefiaciaryDetailsList();
+         for (int i = 0; i < tmpbenefiaciaryDetailsList.size(); i++)
+         {
+            BenefiaciaryDetails tmpb = tmpbenefiaciaryDetailsList.get(i);
+            shareHolderPer = tmpb.getSharePerc() + shareHolderPer;
+         }
+         shareHolderPer=benefiaciaryDetail.getSharePerc()+shareHolderPer;
+         if(shareHolderPer>100)
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage("Share holder total percentage should be 100%");
+         }
+      }
 
       return dataOK;
    }

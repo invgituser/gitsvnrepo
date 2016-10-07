@@ -487,7 +487,7 @@ public class CustodySaveSP extends StoredProcedure
    {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", acctnum);
-      inputMap.put("p_managed", "N");
+      inputMap.put("p_managed", "P");
       return super.execute(inputMap);
    }
 
