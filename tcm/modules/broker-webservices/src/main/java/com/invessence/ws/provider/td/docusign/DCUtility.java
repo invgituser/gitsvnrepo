@@ -255,9 +255,10 @@ public class DCUtility
       List<Checkbox> checkboxeLst=new ArrayList<>();
       List<RadioGroup> radioGroupLst=new ArrayList<>();
       List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
+      List<Ssn> ssnLst=new ArrayList<>();
       Recipients recipients=null;
 
-      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst, null);
+      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst, ssnLst);
          if(acctDetails.getBenefiaciaryDetails()==null || acctDetails.getBenefiaciaryDetails().size()<=0){
 
          }else{
@@ -282,7 +283,7 @@ public class DCUtility
 //               dcDocumentMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
             List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
             // System.out.println("dcDocumentMappingList = " + dcDocumentMappingList);
-            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, beneDetails, ""+iterCount, true);
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, beneDetails, ""+iterCount, true);
             iterCount++;
 //            }
 //            else if (acctOwner.getOwnership().equalsIgnoreCase("Joint"))
@@ -306,6 +307,7 @@ public class DCUtility
       if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
       if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
       if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+      if(ssnLst.size()>0){tabs.setSsnTabs(ssnLst);}
 
       if(signerLst.size()>0){
          Iterator<Signer> signerItr=signerLst.iterator();
@@ -871,7 +873,7 @@ catch (Exception e)
          }
       }
    }
-   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject, String addLableVal, boolean isPostfix){
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst, Object dataObject, String addLableVal, boolean isPostfix){
       Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();;
       String preLable=null;
       while (itr1.hasNext()){
@@ -900,6 +902,10 @@ catch (Exception e)
             }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
                com.docusign.esign.model.List text=getList(dctemplate, dataObject);
                if(text==null){}else{listboxLst.add(text);}
+            }else if(dctemplate.getTab().equalsIgnoreCase("Ssn")){
+               if(ssnLst==null){}else{
+                  Ssn text=getSsn(dctemplate, dataObject);
+                  if(text==null){}else{ssnLst.add(text);}}
             }
          }
       }
