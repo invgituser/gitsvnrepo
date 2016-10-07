@@ -14,6 +14,28 @@ public class MMAchBankDetails
    private String ACHBankPhoneNumber;
    private String ACHBankAcctName;
    private String ACHBankAcctNumber;
+   private String ACHBanktoTD;
+   private String ACHTDtoBank;
+
+   public String getACHBanktoTD()
+   {
+      return ACHBanktoTD;
+   }
+
+   public void setACHBanktoTD(String ACHBanktoTD)
+   {
+      this.ACHBanktoTD = ACHBanktoTD;
+   }
+
+   public String getACHTDtoBank()
+   {
+      return ACHTDtoBank;
+   }
+
+   public void setACHTDtoBank(String ACHTDtoBank)
+   {
+      this.ACHTDtoBank = ACHTDtoBank;
+   }
 
    public Long getMoveMoneyPayMethodID()
    {
