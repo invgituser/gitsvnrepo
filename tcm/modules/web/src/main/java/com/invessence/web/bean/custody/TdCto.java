@@ -85,7 +85,7 @@ public class TdCto
       this.uiLayout = uiLayout;
    }
 
-   @ManagedProperty("#{consumerListDAO}")
+   @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO consumerListDAO;
    public void setConsumerListDAO(ConsumerListDataDAO consumerListDAO)
    {
@@ -199,6 +199,42 @@ public class TdCto
       return beneTempList;
    }
 
+   public void startCTO(Long logonid, Long acctnum) {
+      String msgheader;
+      try
+      {
+            if (logonid == null || logonid <= 0L) {
+               msgheader = "dctd.100";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            else {
+               beanlogonID = logonid.toString();
+               beanacctnum = acctnum.toString();
+               tdMasterData = new TDMasterData(acctnum);
+               pagemanager = new PagesImpl(10);
+               pagemanager.initPage();
+               if (! loadData()) {
+                  msgheader = "dctd.100";
+                  webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+                  return;
+               }
+               else {
+                  uiLayout.doMenuAction("custody", "index.xhtml");
+               }
+            }
+         msgheader = "dctd.100";
+         webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+         return;
+      }
+      catch (Exception ex) {
+         logger.info("Exception: raised during Starting TD CTO process.");
+         msgheader = "dctd.100";
+         webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+         return;
+      }
+   }
+
    public void startCTO() {
       String msgheader;
       try
@@ -214,7 +250,11 @@ public class TdCto
             tdMasterData = new TDMasterData(getLongBeanacctnum());
             pagemanager = new PagesImpl(10);
             pagemanager.initPage();
-            loadData();
+            if (!loadData()) {
+               msgheader = "dctd.100";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
          }
       }
       catch (Exception ex) {
@@ -1220,10 +1260,10 @@ public class TdCto
       return null;
    }
 
-   private void loadData()
+   private Boolean loadData()
    {
       if (beanacctnum == null)
-         return;
+         return false;
 
 /*
       acctnum = Long.valueOf(beanacctnum);
@@ -1238,24 +1278,33 @@ public class TdCto
          tdMasterData.getJointEmploymentDetail().setAcctnum(acctnum);
       }
 */
+
       tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
-      //tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
-      //consumerListDAO.getProfileData(tdMasterData.getCustomerData());
+      tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
+      consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
-      custodyListDAO.getTDAccountDetails(tdMasterData);
-      custodyListDAO.getTDAccountHolder(tdMasterData);
-      custodyListDAO.getTDEmployment(tdMasterData);
-      custodyListDAO.getTDBeneficiary(tdMasterData);
-      custodyListDAO.getfundingData(tdMasterData);
+      if (! tdMasterData.getCustomerData().getManaged()) {
+         custodyListDAO.getTDAccountDetails(tdMasterData);
+         custodyListDAO.getTDAccountHolder(tdMasterData);
+         custodyListDAO.getTDEmployment(tdMasterData);
+         custodyListDAO.getTDBeneficiary(tdMasterData);
+         custodyListDAO.getfundingData(tdMasterData);
 
-      // Fix issues related to bad data.
-      if (tdMasterData.getAcctOwnersDetail().getOwnership() == null ||
-         tdMasterData.getAcctOwnersDetail().getOwnership().isEmpty())
-         tdMasterData.getAcctOwnersDetail().setOwnership("AOPRIMARY");
+         // Fix issues related to bad data.
+         if (tdMasterData.getAcctOwnersDetail().getOwnership() == null ||
+            tdMasterData.getAcctOwnersDetail().getOwnership().isEmpty()) {
+            tdMasterData.getAcctOwnersDetail().setOwnership("AOPRIMARY");
+         }
 
-      if (tdMasterData.getJointAcctOwnersDetail().getOwnership() == null ||
-         tdMasterData.getJointAcctOwnersDetail().getOwnership().isEmpty())
-         tdMasterData.getJointAcctOwnersDetail().setOwnership("AOJOINT");
+         if (tdMasterData.getJointAcctOwnersDetail().getOwnership() == null ||
+            tdMasterData.getJointAcctOwnersDetail().getOwnership().isEmpty()) {
+            tdMasterData.getJointAcctOwnersDetail().setOwnership("AOJOINT");
+         }
+         return true;
+      }
+      else {
+         return false;
+      }
    }
 
    private AcctOwnersDetails setOwnerData(String dataFlag,TDMasterData tdMasterData)

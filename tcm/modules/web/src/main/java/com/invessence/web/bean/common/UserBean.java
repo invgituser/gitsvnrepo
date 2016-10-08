@@ -512,7 +512,7 @@ public class UserBean implements Serializable
                logger.debug("Info: Saving data UserID/Password, all checks were successful for: " + userdata.getUserID());
                webutil.sendConfirmation(userdata);
                //uiLayout.doMenuAction("consumer","aftersignup.xhtml?log="+userdata.getLogonID()+"&acct="+userdata.getAcctnum().toString());
-               uiLayout.doMenuAction("custody", "index.xhtml?l=" + logonID.toString() + "&acct=" + userdata.getAcctnum().toString());
+               uiLayout.doCustody(logonID, userdata.getAcctnum());
             }
             else
             {

@@ -672,7 +672,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          saveProfile();
          if (webutil.isUserLoggedIn())
          {
-            uiLayout.doMenuAction("custody", "index.xhtml?acct=" + getAcctnum().toString());
+            uiLayout.doCustody(webutil.getLogonid(), getAcctnum());
          }
          else
          {
@@ -1033,9 +1033,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       String event = riskCalculator.getAns5();
       Integer whichslide = 0;
 
-      if (event != null)
+      if ( (event != null) && (! event.isEmpty()) )
       {
          whichslide = webutil.getConverter().getIntData(event);
+      }
+
+      if (whichslide == null) {
+         whichslide = 0;
       }
 
       if (whichslide > 0)

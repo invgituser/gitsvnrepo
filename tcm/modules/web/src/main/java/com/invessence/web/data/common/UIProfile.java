@@ -27,7 +27,7 @@ public class UIProfile
    String copyright;
    String forwardservice;
    String custodyURL;
-   String accountOpeningURL;
+   String custodyprocess;
    String theme;
    String themelib;
    String templatedir;
@@ -60,7 +60,7 @@ public class UIProfile
                     String logo, String logosize, String logolib,
                     String mainemail, String supportemail, String mainphone, String supportphone,
                     String copyright,
-                    String forwardservice, String custodyURL, String accountOpeningURL,
+                    String forwardservice, String custodyURL, String custodyprocess,
                     String theme, String themelib,
                     String templatedir,
                     String consumerdir, String cssdir, String customcss, String webmode,
@@ -73,7 +73,7 @@ public class UIProfile
                    logo, logosize, logolib,
                    mainemail, supportemail, mainphone, supportphone,
                    copyright,
-                   forwardservice, custodyURL, accountOpeningURL,
+                   forwardservice, custodyURL, custodyprocess,
                    theme, themelib,
                    templatedir,
                    consumerdir, cssdir, customcss, webmode,
@@ -135,9 +135,9 @@ public class UIProfile
       return custodyURL;
    }
 
-   public String getAccountOpeningURL()
+   public String getCustodyprocess()
    {
-      return accountOpeningURL;
+      return custodyprocess;
    }
 
    public String getConsumerdir()
@@ -379,7 +379,7 @@ public class UIProfile
       this.copyright = copyright;
       this.forwardservice = forwardservice;
       this.custodyURL = custodyURL;
-      this.accountOpeningURL = accountOpeningURL;
+      this.custodyprocess = accountOpeningURL;
       setConsumerdir(consumerdir);
       resetTheme(theme, themelib, templatedir, cssdir, customcss);
       this.webmode = webmode;

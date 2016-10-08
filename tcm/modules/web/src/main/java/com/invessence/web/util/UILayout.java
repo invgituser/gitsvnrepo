@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.service.bean.WebConfigDetails;
 import com.invessence.service.util.ServiceParameters;
+import com.invessence.web.bean.custody.TdCto;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.data.common.UIProfile;
 import org.primefaces.component.tabview.TabView;
@@ -32,6 +33,9 @@ public class UILayout implements Serializable
    private Integer tabMenu = 0;
    private TabView menuTab = new TabView();
    private String defaultHome;
+
+   @Autowired
+   private TdCto tdcto;
 
    @Autowired
    private WebUtil webutil;
@@ -127,7 +131,7 @@ public class UILayout implements Serializable
                                                    getWebServiceValue("COPYRIGHT"),
                                                    getWebServiceValue("FORWARD.SERVICE"),
                                                    getWebServiceValue("CUSTODY.URL"),
-                                                   getWebServiceValue("ACCOUNTOPENING.URL"),
+                                                   getWebServiceValue("CUSTODY.PROCESS"),
                                                    getWebServiceValue("THEME"),
                                                    getWebServiceValue("THEME.LIB"),
                                                    getWebServiceValue("TEMPLATE.DIR"),
@@ -183,7 +187,7 @@ public class UILayout implements Serializable
                                                 getWebServiceValue("COPYRIGHT"),
                                                 getWebServiceValue("FORWARD.SERVICE"),
                                                 getWebServiceValue("CUSTODY.URL"),
-                                                getWebServiceValue("ACCOUNTOPENING.URL"),
+                                                getWebServiceValue("CUSTODY.PROCESS"),
                                                 getWebServiceValue("THEME"),
                                                 getWebServiceValue("THEME.LIB"),
                                                 getWebServiceValue("TEMPLATE.DIR"),
@@ -437,6 +441,37 @@ public class UILayout implements Serializable
          webutil.redirect("/pages/common/invalid.xhtml", null);
       }
    }
+
+   public void doCustody(Long logonid, Long acctnum)
+   {
+      try
+      {
+         if (webutil.getUiprofile().getCustodyprocess() != null) {
+           if (webutil.getUiprofile().getCustodyprocess().equalsIgnoreCase("URL")) {
+              if (webutil.getUiprofile().getCustodyURL() != null) {
+                  forwardURL(webutil.getUiprofile().getCustodyURL());
+                 return;
+              }
+           }
+           else if (webutil.getUiprofile().getCustodyprocess().equalsIgnoreCase("INTERNAL")) {
+               if (webutil.getUiprofile().getCustodydir() != null &&
+                  webutil.getUiprofile().getCustodydir().equalsIgnoreCase("td")) {
+                  doMenuAction("custody", "index.xhtml?l="+logonid.toString()+"&acct="+acctnum.toString());
+                  // tdcto.startCTO(logonid,acctnum);
+                  return;
+               }
+           }
+         }
+         String msgheader = "custody.100";
+         webutil.redirecttoMessagePage("ERROR", "Service Error", msgheader);
+         return;
+      }
+      catch (Exception ex)
+      {
+         webutil.redirect("/pages/common/invalid.xhtml", null);
+      }
+   }
+
 
    public void doMenuAction(String location, String menuItem)
    {
