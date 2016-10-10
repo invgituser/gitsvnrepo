@@ -123,6 +123,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                acctHolder.setCountryOfCitizenship(convert.getStrData(rs.get("countryOfCitizenship")));
                acctHolder.setCountryOfBirth(convert.getStrData(rs.get("countryOfBirth")));
                acctHolder.setSPF(convert.getStrData(rs.get("isSPF")));
+                  data.setOwnerSPF(false);
                   if(acctHolder.getSPF()!=null && acctHolder.getSPF().equalsIgnoreCase("Y"))
                   {
                      data.setOwnerSPF(true);
@@ -135,6 +136,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                   }
 
                acctHolder.setDirectorShareholder(convert.getStrData(rs.get("isDirectorShareholder")));
+                  data.setOwnerShare(false);
                   if(acctHolder.getDirectorShareholder()!=null  && acctHolder.getDirectorShareholder().equalsIgnoreCase("Y"))
                   {
                      data.setOwnerShare(true);
@@ -147,6 +149,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
 
                   }
                acctHolder.setBd(convert.getStrData(rs.get("bd")));
+                  data.setOwnerBD(false);
                   if(acctHolder.getBd()!=null && acctHolder.getBd().equalsIgnoreCase("Y"))
                   {
                      data.setOwnerBD(true);

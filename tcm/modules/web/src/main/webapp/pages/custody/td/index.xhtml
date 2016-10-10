@@ -1,10 +1,21 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/template.xhtml">
+    <ui:define name="head">
+        <script type="text/javascript">
+        function handleChange(activetab,nexttab) {
+
+            PF('accordionPanel').unselect(nexttab);
+            PF('accordionPanel').select(activetab);
+
+
+        }
+    </script>
+    </ui:define>
 
     <f:metadata>
         <f:viewParam name="l" value="#{tdcto.beanlogonID}"/>
@@ -34,8 +45,9 @@
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
                         <p:panel id="inputArea" style="border: 0px; background: transparent;">
-                            <p:accordionPanel id="tdaccordian" styleClass="tcmAccordionPanel-UI" activeIndex="#{tdcto.activeTab}">
-                                <p:ajax event="tabChange" listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
+                            <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI"
+                                             dynamic="true" activeIndex="#{tdcto.activeTab}"  >
+                                <p:ajax event="tabChange" async="false" listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
                                 <p:tab id="tab0" styleClass="tcmAccordion-UI">
                                     <f:facet name="title">
@@ -62,7 +74,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/address.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab3" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab3" styleClass="tcmAccordion-UI"  >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm"/>

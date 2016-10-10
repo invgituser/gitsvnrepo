@@ -1,6 +1,9 @@
 package com.invessence.web.bean.custody;
 
 import java.util.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -18,6 +21,7 @@ import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
 /**
@@ -386,43 +390,52 @@ public class TdCto
    {
       try
       {
-         //if(validatePage(activeTab)
-         if (event != null)
+         if(validatePage(activeTab))
          {
-            String tabname = event.getTab().getId();
-            String tabnum = tabname.substring(3);
-            Integer num = webutil.getConverter().getIntData(tabnum);
-            subtab = 0;
-            switch (num)
+            if (event != null)
             {
-               case 0:
-                  pagemanager.setPage(0);
-                  break;
-               case 1:
-                  pagemanager.setPage(1);
-                  break;
-               case 2:
-                  pagemanager.setPage(3);
-                  break;
-               case 3:
-                  pagemanager.setPage(5);
-                  break;
-               case 4:
-                  pagemanager.setPage(6);
-                  break;
-               case 5:
-                  pagemanager.setPage(8);
-                  break;
-               case 6:
-                  pagemanager.setPage(9);
-                  break;
-               default:
-                  pagemanager.setPage(0);
+               String tabname = event.getTab().getId();
+               String tabnum = tabname.substring(3);
+               Integer num = webutil.getConverter().getIntData(tabnum);
+               subtab = 0;
+               switch (num)
+               {
+                  case 0:
+                     pagemanager.setPage(0);
+                     break;
+                  case 1:
+                     pagemanager.setPage(1);
+                     break;
+                  case 2:
+                     pagemanager.setPage(3);
+                     break;
+                  case 3:
+                     pagemanager.setPage(5);
+                     break;
+                  case 4:
+                     pagemanager.setPage(6);
+                     break;
+                  case 5:
+                     pagemanager.setPage(8);
+                     break;
+                  case 6:
+                     pagemanager.setPage(9);
+                    break;
+                  default:
+                     pagemanager.setPage(0);
 
+               }
             }
-
+         }
+         else
+         {
+            RequestContext requestContext = RequestContext.getCurrentInstance();
+            String activeStr=this.activeTab.toString()+","+event.getTab().getId().substring(3);
+            requestContext.execute("handleChange("+activeStr+")");
+            resetActiveTab(activeTab);
          }
       }
+
       catch (Exception ex)
       {
          pagemanager.setPage(0);
@@ -589,7 +602,19 @@ public class TdCto
 
       return true;
    }
+   private Boolean hasRequiredData(Double value) {
 
+      if (value == null )
+         return false;
+
+      return true;
+   }
+   private Boolean hasRequiredData(Integer value) {
+      if (value == null )
+         return false;
+
+      return true;
+   }
    public void saveBenefiaciaryDetails() {
       ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList=tdMasterData.getBenefiaciaryDetailsList();
      if(validateBenificieryPage(tdMasterData.getTmpBenefiaciaryDetail(),8))
@@ -635,6 +660,11 @@ public class TdCto
       if (! hasRequiredData(benefiaciaryDetail.getBeneFirstName())) {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.firstName.requiredMsg", "First Name is required!", null));
+      }
+      if(!benefiaciaryDetail.getBeneDOB().equals("") && ! JavaUtil.isValidDate(benefiaciaryDetail.getBeneDOB(),"MM/dd/yyyy"))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
       }
 //      if (! hasRequiredData(benefiaciaryDetail.getBeneLastName())) {
 //         dataOK = false;
@@ -746,6 +776,14 @@ public class TdCto
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));
             }
+            else
+            {
+                  if(validateEmailPattern(tdMasterData.getAcctOwnersDetail().getEmailAddress()))
+                  {
+                     dataOK = false;
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validemail.requiredMsg", "Enter valid  Email address!", null));
+                  }
+            }
             break;
          case 2: // Joint Holder
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getFirstName())) {
@@ -781,6 +819,14 @@ public class TdCto
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getEmailAddress())) {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));
+            }
+            else
+            {
+               if(validateEmailPattern(tdMasterData.getJointAcctOwnersDetail().getEmailAddress()))
+               {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validemail.requiredMsg", "Enter valid  Email address!", null));
+               }
             }
             break;
          case 3: // Address
@@ -1044,7 +1090,7 @@ public class TdCto
                      dataOK = false;
                      pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.fundtype.requiredMsg", "Fund type is required!", null));
                   }
-                  if (! hasRequiredData(tdMasterData.getInitialInvestment().toString())) {
+                  if (! hasRequiredData(tdMasterData.getInitialInvestment())) {
                      dataOK = false;
                      pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required!", null));
                   }
@@ -1450,7 +1496,7 @@ public class TdCto
          else if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRABENE")  )
             data.setReqType("IRA_QRP_BENE_NEW");
          else
-            data.setReqType("IRA_APPLI_NEW");
+               data.setReqType("IRA_APPLI_NEW");
 
          data.setEnvelopeHeading("Please sign account opening document.");
 
@@ -1474,5 +1520,30 @@ public class TdCto
 
       }
    }
+   public Boolean validateEmailPattern(String emailID)
+   {
 
+      final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\." +
+         "[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*" +
+         "(\\.[A-Za-z]{2,})$";
+
+      Pattern pattern;
+      Matcher matcher;
+      pattern = Pattern.compile(EMAIL_PATTERN);
+      Boolean msg = false;
+      if ((emailID == null) || (emailID.trim().equals("")) ||
+         (emailID.indexOf('.') == -1) ||
+         (emailID.indexOf('@') == -1))
+      {
+         msg = true;
+      }
+
+      matcher = pattern.matcher(emailID);
+      if (!matcher.matches())
+      {
+
+         msg = true;
+      }
+      return msg;
+   }
 }

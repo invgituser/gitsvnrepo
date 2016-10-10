@@ -63,7 +63,8 @@ public class TDMasterData implements Serializable
       customerData = new CustomerData();
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
-      ownerSPF = ownerShare = ownerBD = false;
+      ownerSPF=true;
+      ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
       showBeneficiaryForm = false;
       newBeneficiaryForm = false;
