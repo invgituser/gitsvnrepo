@@ -20,7 +20,7 @@ public class InvModelDAO extends JdbcDaoSupport
    SQLData convert = new SQLData();
    DataSource ds = dbconnection.getMySQLDataSource();
 
-   public CurrentHolding loadDBHolding(Long p_acctnum)
+   public CurrentHolding loadDBHolding(Long logonid, Long p_acctnum)
    {
       // DataSource ds = getDs();
       String storedProcName = "sel_position";
@@ -28,7 +28,7 @@ public class InvModelDAO extends JdbcDaoSupport
       CurrentHolding currentHolding = new CurrentHolding();
       currentHolding.setHoldingList(new ArrayList<HoldingData>());
 
-      Map outMap = sp.loadDBData(p_acctnum);
+      Map outMap = sp.loadDBData(logonid, p_acctnum);
 
       Double longGain = 0.0,
          longLoss= 0.0,

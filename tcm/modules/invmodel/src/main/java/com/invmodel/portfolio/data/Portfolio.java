@@ -384,11 +384,9 @@ public class Portfolio
    @SuppressWarnings("rawtypes")
    public ArrayList<PortfolioSecurityData> getPortfolio()
    {
-      try
-      {
+      ArrayList<PortfolioSecurityData> dataList = new ArrayList<PortfolioSecurityData>();
          if (!this.portfolio.isEmpty())
          {
-            ArrayList<PortfolioSecurityData> dataList = new ArrayList<PortfolioSecurityData>();
             PortfolioSecurityData pData;
             for (int i = 0; i < tickers.size(); i++)
             {
@@ -398,13 +396,7 @@ public class Portfolio
             }
             return dataList;
          }
-
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-      return null;
+      return dataList;
    }
 
    @SuppressWarnings("rawtypes")

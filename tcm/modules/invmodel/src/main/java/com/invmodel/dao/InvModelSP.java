@@ -23,6 +23,7 @@ public class InvModelSP extends StoredProcedure
          case 1: // Rebalance/TaxLossHarvesting
             switch (which) {
                case 0:
+                  declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
                   declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
                   break;
                case 1:
@@ -83,10 +84,11 @@ public class InvModelSP extends StoredProcedure
    }
 
    @SuppressWarnings({"unchecked", "rawtypes"})
-   public Map loadDBData(Long p_acctnum)
+   public Map loadDBData(Long p_logonid, Long p_acctnum)
    {
 
       Map inputMap = new HashMap();
+      inputMap.put("p_logonid", p_logonid);
       inputMap.put("p_acctnum", p_acctnum);
       return super.execute(inputMap);
    }

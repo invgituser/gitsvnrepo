@@ -76,11 +76,11 @@ public class RebalanceProcess
 
    }
 
-   public CurrentHolding loadHoldings(Long acctnum) {
+   public CurrentHolding loadHoldings(Long logonid, Long acctnum) {
       CurrentHolding data = null;
       try
       {
-         data = invModelDAO.loadDBHolding(acctnum);
+         data = invModelDAO.loadDBHolding(logonid, acctnum);
          if (data != null) {
             data.addTotals();
          }
@@ -314,7 +314,7 @@ public class RebalanceProcess
             List<PortfolioSubclass> exclude = loadExcludedSubclass(pdata.getAcctnum());
 
             // Load Position Data (Current Holding)
-            CurrentHolding curHolding = loadHoldings(pdata.getAcctnum());
+            CurrentHolding curHolding = loadHoldings(pdata.getLogonid(), pdata.getAcctnum());
             //  Since, currentHolding will be changed by process, below, we are coping the original to master for final save.
             holdingMasterDataMap.clear();
             if (curHolding.getHoldingDataMap() != null) {
