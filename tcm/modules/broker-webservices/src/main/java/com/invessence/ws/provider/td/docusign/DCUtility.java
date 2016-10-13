@@ -537,7 +537,7 @@ catch (Exception e)
             signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
             signer.setRecipientId(""+signerRecipientId);
             signer.setRoleName(acctOwner.getOwnership());
-            signer.setRoutingOrder("1");
+            //signer.setRoutingOrder("1");
 
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
                signer=new Signer();
@@ -545,7 +545,7 @@ catch (Exception e)
                signer.setName(acctOwner.getFirstName());
                signer.setRecipientId(""+signerRecipientId);
                signer.setRoleName(acctOwner.getOwnership());
-            signer.setRoutingOrder("2");
+            //signer.setRoutingOrder("2");
          }
          if(signer!=null)
          {

@@ -123,11 +123,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
          }
          reqCounter++;
       }
-      envDef.setEmailSubject(emailSubject);
-      envDef.setStatus("sent");
 
-      if (dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds.toString()) == true)
-      {
          if (dcReqExtDoc == null)
          {
             logger.info("No need to send additional documents for signature.");
@@ -138,12 +134,33 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
                || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())
                || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString()))
             {
-               if (agreementDocuments(dcReqExtDoc, acctNum, eventNum, "" + dcReqExtDoc.getReqId())==false){
-                  wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
-                  logger.info("Something went wrong while processing agreement documents envelope");
-               }
+               CompositeTemplate compositeTemplate = agreementDocuments(dcReqExtDoc, acctNum, eventNum, "" + dcReqExtDoc.getReqId());
+               if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcReqExtDoc.getAcctnum()+" reqId = "+dcReqExtDoc.getReqId());
+               envDef.getCompositeTemplates().add(0,compositeTemplate);
             }
          }
+
+      envDef.setEmailSubject(emailSubject);
+      envDef.setStatus("sent");
+
+      if (dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds.toString()) == true)
+      {
+//         if (dcReqExtDoc == null)
+//         {
+//            logger.info("No need to send additional documents for signature.");
+//         }
+//         else
+//         {
+//            if (dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_APPLI_NEW.toString())
+//               || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())
+//               || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString()))
+//            {
+//               if (agreementDocuments(dcReqExtDoc, acctNum, eventNum, "" + dcReqExtDoc.getReqId())==false){
+//                  wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
+//                  logger.info("Something went wrong while processing agreement documents envelope");
+//               }
+//            }
+//         }
          return new WSCallResult(new WSCallStatus(SysParameters.dcSuccessCode, SysParameters.dcSuccessMsg), null);
       }
       else
@@ -317,7 +334,8 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       }
       return compositeTemplate;
    }
-   private boolean agreementDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds)throws Exception{
+
+   private CompositeTemplate agreementDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds)throws Exception{
       logger.info("TDAccountOpeningLayerImpl.agreementDocuments");
       logger.info("dcRequest = [" + dcRequest + "]");
 
@@ -348,14 +366,55 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
             compositeTemplate.setInlineTemplates(new ArrayList<InlineTemplate>());
             compositeTemplate.getInlineTemplates().add(inlineTemplate);
 
-            envDef.getCompositeTemplates().add(compositeTemplate);
-            envDef.setEmailSubject(emailSubject);
-            envDef.setStatus("sent");
+//            envDef.getCompositeTemplates().add(compositeTemplate);
+//            envDef.setEmailSubject(emailSubject);
+//            envDef.setStatus("sent");
 
-            return dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds);
+//            return dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds);
          }
       }
-      return false;
+      return compositeTemplate;
    }
+
+//   private boolean agreementDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds)throws Exception{
+//      logger.info("TDAccountOpeningLayerImpl.agreementDocuments");
+//      logger.info("dcRequest = [" + dcRequest + "]");
+//
+//      Map<String,DCDocumentDetails> dcDocumentDetails=(Map<String,DCDocumentDetails>) ServiceParameters.additionalDetails.get(Constant.SERVICES.DOCUSIGN_SERVICES.toString()).get(Constant.ADDITIONAL_DETAILS.DOCUMENT_DETAILS
+//                                                                                                                                                                                     .toString());
+//      EnvelopeDefinition envDef = new EnvelopeDefinition();
+//      String emailSubject=dcRequest.getEnvelopeHeading();
+//
+//      CompositeTemplate compositeTemplate=null;
+//      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+//      if(acctDetails==null){
+//         logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
+//      }
+//      else
+//      {
+//         List<AcctOwnerDetails> acctOwnerDetails = tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
+//         if (acctOwnerDetails == null || acctOwnerDetails.size() <= 0)
+//         {
+//            logger.error("AcctOwnerDetails information not available for acctNum = " + dcRequest.getAcctnum() + " requestId = " + dcRequest.getReqId());
+//         }
+//         else
+//         {
+//            acctDetails.setAcctOwnerDetails(acctOwnerDetails);
+//
+//            InlineTemplate inlineTemplate = dcUtility.getInlineTemplateAgreements(dcDocumentDetails, acctDetails, acctOwnerDetails);
+//
+//            compositeTemplate = new CompositeTemplate();
+//            compositeTemplate.setInlineTemplates(new ArrayList<InlineTemplate>());
+//            compositeTemplate.getInlineTemplates().add(inlineTemplate);
+//
+//            envDef.getCompositeTemplates().add(compositeTemplate);
+//            envDef.setEmailSubject(emailSubject);
+//            envDef.setStatus("sent");
+//
+//            return dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds);
+//         }
+//      }
+//      return false;
+//   }
 
 }
