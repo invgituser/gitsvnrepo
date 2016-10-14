@@ -104,7 +104,12 @@ public class RiskCalculator
    {
       this.retireAge = retireAge;
       if (retireAge != null && getRiskAge() != null) {
-         setRiskHorizon(((retireAge - getRiskAge()) < 0) ? null : (retireAge - getRiskAge()));
+         if (retireAge - getRiskAge() <= 0) {
+            setRiskHorizon( null );
+         }
+         else {
+            setRiskHorizon(retireAge - getRiskAge());
+         }
       }
    }
 

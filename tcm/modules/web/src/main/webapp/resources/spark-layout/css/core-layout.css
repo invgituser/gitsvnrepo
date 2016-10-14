@@ -21,6 +21,7 @@ h1, h2, h3, h4, h5, h6{ margin:0px !important;}
 /*visibilities according to the platform*/
 .ShowOnMobile{ display:none;}
 .ShowOnDesktop{ display:inherit;}
+.ShowOnDesktopTablet{ display:inherit; opacity:1;}
 .FloatNoneOnMobile{}
 
 .show{display:block !important;}
@@ -383,6 +384,8 @@ input[type="text"], input[type="password"], textarea{ -webkit-appearance: none; 
 	/*visibilities according to the platform*/
 	.ShowOnMobile{display:inherit; opacity:1;}
 	.ShowOnDesktop{display:none; opacity:0;}
+    .ShowOnDesktopTablet{ display:none; opacity:0;}
+
     .FloatNoneOnMobile{float:none !important;}
 	
 	/* responsive support */

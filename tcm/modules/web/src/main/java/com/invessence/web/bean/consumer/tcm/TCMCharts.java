@@ -312,7 +312,7 @@ public class TCMCharts implements Serializable
       //System.out.println("projectionData :"+projectionData+" :horizon:"+horizon+":currAge:"+currAge+":ageSeries:"+ageSeries);
       //System.out.println("projectionData.length :"+projectionData.length);
       currAge = (currAge == null) ? 30: currAge;
-      horizon = (horizon == null) ? 10 : horizon;
+      horizon = (horizon == null) ? 2 : horizon;
       Integer year;
       Integer noOfYlabels = 0;
       Integer totalYlabels = 0;
@@ -349,7 +349,7 @@ public class TCMCharts implements Serializable
          upper1.setLabel("Upper1");
          upper2.setLabel("Upper2");
 
-         totalYlabels = (horizon < 10) ? 10 : ((horizon > MAXPOINTONGRAPH) ? MAXPOINTONGRAPH : horizon);
+         totalYlabels = (horizon < 2) ? 2 : ((horizon > MAXPOINTONGRAPH) ? MAXPOINTONGRAPH : horizon);
          // yIncrement = (int) ((totalYlabels) / ((double) horizon));
          yIncrement = 1;  // offset by 1
          noOfYlabels = (int) (totalYlabels / ((double) yIncrement) % horizon);

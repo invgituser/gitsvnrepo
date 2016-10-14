@@ -2,8 +2,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:p="http://primefaces.org/ui">
 
     <div class="Container100 TextAlCenter">
         <div class="EmptyBox20"></div>
@@ -72,7 +71,7 @@
                                 <p:inputNumber id="retireageID"
                                                 styleClass="invInputText input_wid1 amountBRmobileSupport mobileFullWidthinput"
                                                 style="width: 60px;"
-                                                value="#{tcmpb.retireAge}"
+                                                value="#{tcmpb.riskCalculator.retireAge}"
                                                 decimalPlaces="0"
                                                 size="3"
                                                 required="true" requiredMessage="When do you plan to retire?">

@@ -216,37 +216,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return riskCalculator;
    }
 
-   public Integer getRetireAge()
-   {
-      if (riskCalculator == null)
-      {
-         return null;
-      }
-      return riskCalculator.getRetireAge();
-   }
-
-   public void setRetireAge(Integer retireAge)
-   {
-      getLogger().debug("Debug: Setting reirement Age as: " + retireAge);
-      if (retireAge == null)
-      {
-         riskCalculator.setRetireAge(retireAge);
-      }
-      else
-      {
-         Integer riskHorizon = retireAge - getAge();
-         if (riskHorizon > 0)
-         {
-            riskCalculator.setRetireAge(retireAge);
-            // riskCalculator.setRiskHorizon(riskHorizon);  // New riskHorizon
-            setHorizon(riskHorizon);                     // In Profile Class (Original)
-            getLogger().debug("Debug: Risk Retirement Age Set: " + riskCalculator.getRetireAge());
-            getLogger().debug("Debug: Risk Horizon Set: " + riskCalculator.getRiskHorizon());
-         }
-      }
-
-   }
-
    public void preRenderView()
    {
 

@@ -33,7 +33,7 @@
                         </p:column>
 
                         <p:column styleClass="Wid30 Fs14 TexAlLeft"
-                                  headerText="Asset">
+                                  headerText="Class">
                             <h:outputText value="#{assetList.asset}"/>
                         </p:column>
                         <p:column styleClass="Wid20 Fs14 num-text-align TexAlRight"
@@ -150,14 +150,14 @@
 
                     <p:column priority="4" style="width:14%;" styleClass="Fs12 TexAlLeft">
                         <f:facet name="header">
-                            <h:outputText value="Asset"/>
+                            <h:outputText value="Class"/>
                         </f:facet>
                         <h:outputText value="#{ticker.assetType}"/>
                     </p:column>
 
                     <p:column style="width:17%;" styleClass="Fs12 TexAlLeft">
                         <f:facet name="header">
-                            <h:outputText value="Class"/>
+                            <h:outputText value="Asset"/>
                         </f:facet>
                         <h:outputText value="#{ticker.subclass}"/>
                     </p:column>

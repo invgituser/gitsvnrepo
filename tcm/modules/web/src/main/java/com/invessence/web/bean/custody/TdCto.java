@@ -21,6 +21,7 @@ import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
 /**
@@ -389,8 +390,10 @@ public class TdCto
    {
       try
       {
-        /* if(validatePage(activeTab))
-         {*/
+/*
+         if(validatePage(activeTab))
+         {
+*/
             if (event != null)
             {
                String tabname = event.getTab().getId();
@@ -425,14 +428,16 @@ public class TdCto
 
                }
             }
-        /* }
+/*
+         }
          else
          {
             RequestContext requestContext = RequestContext.getCurrentInstance();
             String activeStr=this.activeTab.toString()+","+event.getTab().getId().substring(3);
             requestContext.execute("handleChange("+activeStr+")");
             resetActiveTab(activeTab);
-         }*/
+         }
+*/
       }
 
       catch (Exception ex)

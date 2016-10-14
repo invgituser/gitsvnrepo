@@ -368,7 +368,7 @@ public class UILayout implements Serializable
             }
             else
             {
-               dashboard = "/pages/consumer/index.xhtml";
+               dashboard = "/pages/consumer/invessence/index.xhtml";
             }
          }
       }
@@ -489,22 +489,22 @@ public class UILayout implements Serializable
                // Only for consumer, they can have custom pages.  Go to Custom Directory if defined.
                if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0)
                {
-                  forwardURL("/pages/" + location.toLowerCase() + "/invessence/" + menuItem);
+                  forwardURL("/pages/consumer/invessence/" + menuItem);
                }
                else
                {
-                  forwardURL("/pages/" + location.toLowerCase() + "/" + getConsumerDIR() + "/" + menuItem);
+                  forwardURL("/pages/consumer/" + getConsumerDIR() + "/" + menuItem);
                }
             }
             else {
                if (location.equalsIgnoreCase("custody")) {
                   if (getUiprofile().getCustodydir() == null || getUiprofile().getCustodydir().trim().length() == 0)
                   {
-                     forwardURL("/pages/" + location.toLowerCase() + "/invessence/" + menuItem);
+                     forwardURL("/pages/custody/invessence/" + menuItem);
                   }
                   else
                   {
-                     forwardURL("/pages/" + location.toLowerCase() + "/" + getUiprofile().getCustodydir() + "/" + menuItem);
+                     forwardURL("/pages/custody/" + getUiprofile().getCustodydir() + "/" + menuItem);
                   }
                }
                else {

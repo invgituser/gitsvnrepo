@@ -13,10 +13,8 @@
                                  actionListener="#{uiLayout.defaultHome}"/>
             </f:facet>
 
-            <p:submenu label="Account" icon="fa fa-file-text-o">
-                <p:menuitem value="New" icon="fa fa-plus-square"
-                            actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}"/>
-            </p:submenu>
+            <p:menuitem value="New Account" icon="fa fa-plus-square"
+                        actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}"/>
 
         </ps:menu>
     </h:form>

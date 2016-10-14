@@ -36,7 +36,7 @@
                         <div class="Container100 MarginBottom ConsumerDashboardTable">
 
                             <p:dataTable id="singleDT" var="investment" value="#{tcmdash.manageAccountList}"
-                                         emptyMessage="No account were created. Use new application to add account."
+                                         emptyMessage="You have not yet created any accounts. Please click 'New Account' on the menu bar to add a new account."
                                          reflow="true">
 
                                 <p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
@@ -79,7 +79,7 @@
                                 </p:column>
 
                                 <p:column styleClass="Wid25 TexAlLeft"
-                                          sortBy="#{investment.displayActiveAcctNum}" headerText="Account#"
+                                          headerText="Account#"
                                           resizable="true">
                                    <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.displayActiveAcctNum}"/></span>
                                 </p:column>
