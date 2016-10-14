@@ -48,22 +48,52 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       int reqCounter = 1;
       envDef.setCompositeTemplates(new ArrayList<CompositeTemplate>());
       DCRequest dcReqExtDoc = null;
+         boolean emailSubSet=false;
       while (itr.hasNext())
       {
          DCRequest dcRequest = (DCRequest) itr.next();
-         if (emailSubject == null)
-         {
-            if (dcRequest.getEnvelopeHeading() == null || dcRequest.getEnvelopeHeading().equals(""))
-            {
-               logger.debug("EnvelopeHeading is empty.");
-            }
-            else
-            {
-               emailSubject = dcRequest.getEnvelopeHeading();
-               acctNum = dcRequest.getAcctnum();
-               eventNum = dcRequest.getEventNum();
+         if(emailSubSet==false){
+            if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_APPLI_NEW.toString())
+               || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())
+               || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString())
+               || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.TD_TRAN_NEW.toString())){
+               if (dcRequest.getEnvelopeHeading() == null || dcRequest.getEnvelopeHeading().equals(""))
+               {
+                  logger.debug("EnvelopeHeading is empty.");
+               }
+               else
+               {
+                  emailSubject = dcRequest.getEnvelopeHeading();
+                  acctNum = dcRequest.getAcctnum();
+                  eventNum = dcRequest.getEventNum();
+                  emailSubSet=true;
+               }
+            }else{
+               if (dcRequest.getEnvelopeHeading() == null || dcRequest.getEnvelopeHeading().equals(""))
+               {
+                  logger.debug("EnvelopeHeading is empty.");
+               }
+               else
+               {
+                  emailSubject = dcRequest.getEnvelopeHeading();
+                  acctNum = dcRequest.getAcctnum();
+                  eventNum = dcRequest.getEventNum();
+               }
             }
          }
+//         if (emailSubject == null)
+//         {
+//            if (dcRequest.getEnvelopeHeading() == null || dcRequest.getEnvelopeHeading().equals(""))
+//            {
+//               logger.debug("EnvelopeHeading is empty.");
+//            }
+//            else
+//            {
+//               emailSubject = dcRequest.getEnvelopeHeading();
+//               acctNum = dcRequest.getAcctnum();
+//               eventNum = dcRequest.getEventNum();
+//            }
+//         }
          requestIds = requestIds.append(dcRequest.getReqId() + ",");
 
          DCTemplateDetails dcTemplateDetail = dcTemplateDetails.get(docuSignOperationDetails.get(dcRequest.getReqType()).getRefValue());
@@ -120,6 +150,12 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
             if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
             envDef.getCompositeTemplates().add(compositeTemplate);
             dcReqExtDoc = dcRequest;
+         }else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.TD_TRAN_NEW.toString()))
+         {
+            CompositeTemplate compositeTemplate = tdTransfer(dcRequest, dcTemplateDetail, "" + reqCounter);
+            if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
+            envDef.getCompositeTemplates().add(compositeTemplate);
+            dcReqExtDoc = dcRequest;
          }
          reqCounter++;
       }
@@ -132,7 +168,8 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
          {
             if (dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_APPLI_NEW.toString())
                || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())
-               || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString()))
+               || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString())
+               || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.TD_TRAN_NEW.toString()))
             {
                CompositeTemplate compositeTemplate = agreementDocuments(dcReqExtDoc, acctNum, eventNum, "" + dcReqExtDoc.getReqId());
                if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcReqExtDoc.getAcctnum()+" reqId = "+dcReqExtDoc.getReqId());
@@ -142,6 +179,9 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
 
       envDef.setEmailSubject(emailSubject);
       envDef.setStatus("sent");
+         System.out.println("************************************************");
+         System.out.println("emailSubject = " + emailSubject);
+         System.out.println("************************************************");
 
       if (dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds.toString()) == true)
       {
@@ -175,6 +215,49 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       e.printStackTrace();
    }
       return wsCallResult;
+   }
+   private CompositeTemplate tdTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail,String servTempSeq)throws Exception{
+      logger.info("TDAccountOpeningLayerImpl.acctTransfer");
+      logger.info("dcRequest = [" + dcRequest + "]");
+
+      CompositeTemplate compositeTemplate=null;
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+      if(acctDetails==null){
+         logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
+      }
+      else
+      {
+         List<AcctOwnerDetails> acctOwnerDetails = tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
+         if (acctOwnerDetails == null || acctOwnerDetails.size() <= 0)
+         {
+            logger.error("AcctOwnerDetails information not available for acctNum = " + dcRequest.getAcctnum() + " requestId = " + dcRequest.getReqId());
+         }
+         else
+         {
+            TDTransferDetails tdTransferDetails = tdDaoLayer.getTDTransferDetails(dcRequest.getAcctnum(), dcRequest.getReqId());
+            if (tdTransferDetails == null)
+            {
+               logger.error("TDTransferDetails information not available for acctNum = " + dcRequest.getAcctnum() + " requestId = " + dcRequest.getReqId());
+            }else
+            {
+
+               acctDetails.setAcctOwnerDetails(acctOwnerDetails);
+
+               InlineTemplate inlineTemplate = dcUtility.getInlineTemplate(servTempSeq);
+               inlineTemplate.setRecipients(dcUtility.getRecipientsTDTransfer(dcTemplateDetail, acctDetails, tdTransferDetails));
+               ServerTemplate serverTemplate = dcUtility.getServerTemplate(servTempSeq, dcTemplateDetail);
+
+               compositeTemplate = new CompositeTemplate();
+               compositeTemplate.setServerTemplates(new ArrayList<ServerTemplate>());
+               compositeTemplate.getServerTemplates().add(serverTemplate);
+
+               compositeTemplate.setInlineTemplates(new ArrayList<InlineTemplate>());
+               compositeTemplate.getInlineTemplates().add(inlineTemplate);
+            }
+         }
+      }
+
+      return compositeTemplate;
    }
 
    private CompositeTemplate acctTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail,String servTempSeq)throws Exception{

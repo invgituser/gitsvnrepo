@@ -43,6 +43,8 @@ public class TDDaoLayerImpl implements TDDaoLayer
    private final String getMMInternalTransferDetails="select * from vwdc_mm_fedwire_acct_details where moveMoneyPayMethodID =? ";
 
    private final String getAcctTransferDetails="select * from vwdc_acct_transfer_details where reqId=? and acctnum=?";
+   private final String getTDTransferDetails="select * from vwdc_td_transfer_details where reqId=? and acctnum=?";
+
    private final String getElecFundTransferDetails="select * from vwdc_elecfund_transfer_details where reqId=? and acctnum=?";
 
 
@@ -173,6 +175,17 @@ public class TDDaoLayerImpl implements TDDaoLayer
 
       return lst==null || lst.size()<=0 ? null: lst.get(0);
    }
+
+   @Override
+   public TDTransferDetails getTDTransferDetails(Long acctNum, Long reqId) throws SQLException
+   {
+      List<TDTransferDetails> lst = null;
+      logger.debug("getTDTransferDetails = "+getTDTransferDetails);
+      lst = webServiceJdbcTemplate.query(getTDTransferDetails, new Object[]{reqId, acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(TDTransferDetails.class));
+
+      return lst==null || lst.size()<=0 ? null: lst.get(0);
+   }
+
 
    @Override
    public ElecFundTransferDetails getElecFundTransferDetails(Long acctNum, Long reqId) throws SQLException

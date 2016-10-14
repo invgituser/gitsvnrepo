@@ -31,6 +31,8 @@ public interface TDDaoLayer
 
    public AcctTransferDetails getAcctTransferDetails(Long acctNum, Long reqId)throws SQLException;
 
+   public TDTransferDetails getTDTransferDetails(Long acctNum, Long reqId)throws SQLException;
+
    public ElecFundTransferDetails getElecFundTransferDetails(Long acctNum, Long reqId)throws SQLException;
 
 

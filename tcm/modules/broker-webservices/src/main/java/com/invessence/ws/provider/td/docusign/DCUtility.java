@@ -195,6 +195,54 @@ public class DCUtility
    return recipients;
 }
 
+   public Recipients getRecipientsTDTransfer(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, TDTransferDetails tdTransferDetails)
+   {
+      logger.info("DCUtility.getRecipientsTDTransfer");
+
+      List<String> dbColumns=null;
+      List<Signer> signerLst=new ArrayList<>();
+
+      Tabs tabs = new Tabs();
+      List<Text> textboxLst=new ArrayList<>();
+      List<Checkbox> checkboxeLst=new ArrayList<>();
+      List<RadioGroup> radioGroupLst=new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
+      List<Ssn> ssnLst=new ArrayList<>();
+      Recipients recipients=null;
+
+      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst);
+      try
+      {
+         dbColumns=getFieldNames(tdTransferDetails, false);
+         System.out.println("dbColumns = =" + dbColumns);
+         List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+         getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, tdTransferDetails);
+      }
+      catch (IllegalAccessException e)
+      {
+         e.printStackTrace();
+      }
+
+      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
+      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
+      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
+      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+      if(ssnLst.size()>0){tabs.setSsnTabs(ssnLst);}
+
+      if(signerLst.size()>0){
+         Iterator<Signer> signerItr=signerLst.iterator();
+         while(signerItr.hasNext()){
+            Signer signer=(Signer)signerItr.next();
+            signer.setTabs(tabs);
+         }
+         recipients=new Recipients();
+         recipients.setSigners(signerLst);
+         recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+      }
+      return recipients;
+   }
+
    public Recipients getRecipientsElecFundTransfer(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, ElecFundTransferDetails elecFundTransferDetails)
    {
       logger.info("DCUtility.getRecipientsElecFundTransfer");
@@ -739,38 +787,44 @@ catch (Exception e)
                signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
             }
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-            logger.info("dcDocumentMappingList = " + dcTemplateMappingList);
-            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, acctOwner);
-            if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
-               logger.info("Employment details are not available");
-            }else{
-               try
+//            logger.info("dcDocumentMappingList = " + dcTemplateMappingList);
+            if(dcTemplateMappingList==null || dcTemplateMappingList.size()<=0){
+               logger.info("Template Mapping details are not available for Client");
+            }else
+            {
+               getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, acctOwner);
+               if (acctOwner.getEmploymentDetails() == null || acctOwner.getEmploymentDetails().size() <= 0)
                {
-                  dbColumns=getFieldNames(acctOwner.getEmploymentDetails().get(0), false);
-                  getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner.getEmploymentDetails().get(0));
+                  logger.info("Employment details are not available");
                }
-               catch (IllegalAccessException e)
+               else
                {
-                  e.printStackTrace();
+                  try
+                  {
+                     dbColumns = getFieldNames(acctOwner.getEmploymentDetails().get(0), false);
+                     getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctOwner.getEmploymentDetails().get(0));
+                  }
+                  catch (IllegalAccessException e)
+                  {
+                     e.printStackTrace();
+                  }
                }
             }
-
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
+            signer=new Signer();
+            signer.setEmail(acctOwner.getEmailAddress());
+            signer.setName(acctOwner.getFirstName());
+            signer.roleName(acctOwner.getOwnership());
+            signer.setRecipientId(""+signerRecipientId);
+            if(dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y")){
+               signer.setIdCheckConfigurationName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ID_CHECK_CONF_NAME"));
+               signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
+            }
             dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Joint");
             if(dcTemplateMappingList==null || dcTemplateMappingList.size()<=0){
-
+               logger.info("Template Mapping details are not available for Joint");
             }else{
-               signer=new Signer();
-               signer.setEmail(acctOwner.getEmailAddress());
-               signer.setName(acctOwner.getFirstName());
-               signer.roleName(acctOwner.getOwnership());
-               signer.setRecipientId(""+signerRecipientId);
-               if(dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y")){
-                  signer.setIdCheckConfigurationName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ID_CHECK_CONF_NAME"));
-                  signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
-               }
                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, acctOwner);
-
                if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
                   logger.info("Employment details are not available");
                }else{
@@ -795,6 +849,7 @@ catch (Exception e)
 
       return signerLst;
    }
+
    private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject){
      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
       while (itr1.hasNext()){
