@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
 <p:tabView activeIndex="#{tdcto.subtab}" id="accHolderTabV">
-    <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
+    <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:accHolderTabV"
             immediate="true" />
 <p:tab title="#{tdcto.tdMasterData.titlePrimary}" id="tab1S0" >
     <p:panel id="ownerHolderPanel"

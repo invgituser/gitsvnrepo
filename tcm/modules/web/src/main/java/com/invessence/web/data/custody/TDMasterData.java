@@ -47,6 +47,7 @@ public class TDMasterData implements Serializable
    MapMovemoneyPaymethod mapMovemoneyPaymethod;
    AchBankDetail achBankDetail;
    ACATDetails acatDetails;
+   TDTransferDetails tdTransferDetails;
    ElectronicFundDetails electroicBankDetail;
    FedwireAcctDetails fedwireAcctDetail;
    InternalTransferDetails internalTransferDetail;
@@ -86,6 +87,7 @@ public class TDMasterData implements Serializable
       mapMovemoneyPaymethod = new MapMovemoneyPaymethod();
       achBankDetail = new AchBankDetail();
       acatDetails = new ACATDetails();
+      tdTransferDetails = new TDTransferDetails();
       electroicBankDetail = new ElectronicFundDetails();
       fedwireAcctDetail = new FedwireAcctDetails();
       internalTransferDetail = new InternalTransferDetails();
@@ -447,6 +449,16 @@ public class TDMasterData implements Serializable
    public void setAcatDetails(ACATDetails acatDetails)
    {
       this.acatDetails = acatDetails;
+   }
+
+   public TDTransferDetails getTdTransferDetails()
+   {
+      return tdTransferDetails;
+   }
+
+   public void setTdTransferDetails(TDTransferDetails tdTransferDetails)
+   {
+      this.tdTransferDetails = tdTransferDetails;
    }
 
    public ElectronicFundDetails getElectroicBankDetail()

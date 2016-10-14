@@ -362,6 +362,52 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
+   public void getTDTRFDetails(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_tddc_td_transfer",3);
+      Map outMap = sp.getTDTRF(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            TDTransferDetails tdTransferDetails=new TDTransferDetails();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               tdTransferDetails.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               tdTransferDetails.setReqId(convert.getLongData(rs.get("reqId")));
+               tdTransferDetails.setAccountTitle(convert.getStrData(rs.get("accountTitle")));
+               tdTransferDetails.setFirmName(convert.getStrData(rs.get("firmName")));
+               tdTransferDetails.setPrimaryContact(convert.getStrData(rs.get("primaryContact")));
+               tdTransferDetails.setPriorFirmName(convert.getStrData(rs.get("priorFirmName")));
+               tdTransferDetails.setRetailAccountNumber(convert.getStrData(rs.get("retailAccountNumber")));
+               tdTransferDetails.setAdvisorID(convert.getStrData(rs.get("advisorID")));
+               if(rs.get("removeAdvisor")!=null && rs.get("removeAdvisor").equals("Y"))
+               {
+                  tdTransferDetails.setRemoveAdvisor(true);
+                  tdTransferDetails.setAddAdvisor(false);
+               }
+               else
+               {
+                  tdTransferDetails.setRemoveAdvisor(false);
+                  tdTransferDetails.setAddAdvisor(true);
+               }
+               tdTransferDetails.setSsn(convert.getStrData(rs.get("ssn")));
+            }
+            data.setTdTransferDetails(tdTransferDetails);
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
    public void getTDElectronicDetails(TDMasterData data)
    {
       DataSource ds = getDataSource();
@@ -436,6 +482,11 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                {
                   getTDACATDetails(data);
                   data.setFundType("PMFEDW");
+               }
+               else  if(convert.getStrData(rs.get("reqfor")).equalsIgnoreCase("TDTRF"))
+               {
+                  getTDTRFDetails(data);
+                  data.setFundType("TDTRF");
                }
                else  if(convert.getStrData(rs.get("reqfor")).equalsIgnoreCase("EFT"))
                {

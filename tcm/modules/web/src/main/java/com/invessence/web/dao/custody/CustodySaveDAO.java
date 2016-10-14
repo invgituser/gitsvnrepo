@@ -314,6 +314,25 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
+   public Boolean tdSaveTDTransferData(Long acctnum, TDTransferDetails data)
+   {
+      DataSource ds = getDataSource();
+      Request reqdata=new Request();
+      reqdata.setReqId(new Long(0));
+      reqdata.setEventNum(0);
+      reqdata.setAcctnum(acctnum);
+      reqdata.setReqType("TD_TRAN_NEW");
+      reqdata.setRequestFor("TDTRF");
+      reqdata.setEnvelopeHeading("Please sign TD transfer document.");
+      tdOpenAccount(reqdata);
+      CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_TD_transfer_details",14);
+      Map outMap = sp.tdSaveTDTransferData(acctnum,reqdata.getReqId(), data);
+      if (outMap == null)
+         return (false);
+      else
+         return true;
+   }
+
    public Boolean tdSaveFEDWire(Long acctnum, FedwireAcctDetails data)
    {
       DataSource ds = getDataSource();

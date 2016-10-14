@@ -6,7 +6,7 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <p:tabView id="addresstab" activeIndex="#{tdcto.subtab}">
-        <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
+        <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:addresstab"
                 immediate="true" />
         <p:tab title="#{tdcto.tdMasterData.titlePrimary}"  id="tab2S0">
 
@@ -175,11 +175,11 @@
                 <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
-                                   update="@form"/>
+                                   update="@form"  immediate="true"/>
 
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    actionListener="#{tdcto.nextPage}"
-                                   update="@form"/>
+                                   update="@form"  />
                 </div>
             </p:panel>
         </p:tab>
@@ -359,11 +359,11 @@
                 <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
-                                   update="@form"/>
+                                   update="@form"   immediate="true"/>
 
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    actionListener="#{tdcto.nextPage}"
-                                   update="@form"/>
+                                   update="@form"  />
                 </div>
             </p:panel>
 

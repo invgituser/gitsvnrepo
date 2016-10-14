@@ -221,6 +221,20 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_managed", Types.VARCHAR));
             break;
+         case 14: // TD Transfer
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_reqId", Types.INTEGER));
+            declareParameter(new SqlParameter("p_accountTitle", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_firmName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_primaryContact", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_priorFirmName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_retailAccountNumber", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_advisorID", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_removeAdvisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_addAdvisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_ssn", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
+            break;
       }
       compile();
    }
@@ -421,6 +435,31 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_transferTypeId", data.getTransferTypeId());
       inputMap.put("p_createdBy", "Invesence");
       inputMap.put("p_otherContraFirmList", data.getOtherContraFirmList());
+      return super.execute(inputMap);
+   }
+
+   public Map tdSaveTDTransferData(Long acctnum, Long reqId,TDTransferDetails data) {
+      Map<String, Object> inputMap = new HashMap<String, Object>();
+      inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_reqId", reqId);
+      inputMap.put("p_accountTitle", data.getAccountTitle());
+      inputMap.put("p_firmName", data.getFirmName());
+      inputMap.put("p_primaryContact", data.getPrimaryContact());
+      inputMap.put("p_priorFirmName", data.getPriorFirmName());
+      inputMap.put("p_retailAccountNumber", data.getRetailAccountNumber());
+      inputMap.put("p_advisorID", data.getAdvisorID());
+      if(data.isRemoveAdvisor())
+      {
+         inputMap.put("p_removeAdvisor", "Y");
+         inputMap.put("p_addAdvisor", "N");
+      }
+      else
+      {
+         inputMap.put("p_removeAdvisor", "N");
+         inputMap.put("p_addAdvisor", "Y");
+      }
+      inputMap.put("p_ssn", data.getSsn());
+      inputMap.put("p_createdBy", "Invesence");
       return super.execute(inputMap);
    }
 

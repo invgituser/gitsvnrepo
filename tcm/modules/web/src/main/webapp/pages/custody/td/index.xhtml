@@ -49,7 +49,7 @@
                                              dynamic="true" activeIndex="#{tdcto.activeTab}"  >
                                 <p:ajax event="tabChange" async="false" listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
-                                <p:tab id="tab0" styleClass="tcmAccordion-UI">
+                                <p:tab id="tab0" styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm"/>
@@ -57,7 +57,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/accttype.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab1" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab1" styleClass="tcmAccordion-UI"  >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm"/>

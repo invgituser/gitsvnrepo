@@ -21,7 +21,6 @@ import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
 /**
@@ -43,7 +42,7 @@ public class TdCto
    private TDMasterData tdMasterData = new TDMasterData(0L);
    private PagesImpl pagemanager = new PagesImpl(11);
    private Integer activeTab = 0;   // Start with first tab.
-   private Integer newTab, subtab;
+   public Integer newTab, subtab;
    private String defaultCheckedImage = "/javax.faces.resource/images/checkedN.png.xhtml?ln=tcm";
    private String selectedCheckedImage = "/javax.faces.resource/images/checkedY.png.xhtml?ln=tcm";
 
@@ -390,8 +389,8 @@ public class TdCto
    {
       try
       {
-         if(validatePage(activeTab))
-         {
+        /* if(validatePage(activeTab))
+         {*/
             if (event != null)
             {
                String tabname = event.getTab().getId();
@@ -426,14 +425,14 @@ public class TdCto
 
                }
             }
-         }
+        /* }
          else
          {
             RequestContext requestContext = RequestContext.getCurrentInstance();
             String activeStr=this.activeTab.toString()+","+event.getTab().getId().substring(3);
             requestContext.execute("handleChange("+activeStr+")");
             resetActiveTab(activeTab);
-         }
+         }*/
       }
 
       catch (Exception ex)
@@ -1090,12 +1089,13 @@ public class TdCto
                      dataOK = false;
                      pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.fundtype.requiredMsg", "Fund type is required!", null));
                   }
-                  if (! hasRequiredData(tdMasterData.getInitialInvestment())) {
-                     dataOK = false;
-                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required!", null));
-                  }
+
                  else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
                   {
+                     if (! hasRequiredData(tdMasterData.getInitialInvestment())) {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required!", null));
+                     }
                      if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankAcctType()))
                      {
                         dataOK = false;
@@ -1167,6 +1167,32 @@ public class TdCto
                      }
                   }
 
+                  else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
+                  {
+                     if (tdMasterData.getTdTransferDetails().isRemoveAdvisor())
+                     {
+                        if (!hasRequiredData(tdMasterData.getTdTransferDetails().getPriorFirmName()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerfirmname.requiredMsg", "Broker Firm Name is required!", null));
+                        }
+                     }
+                     else
+                     {
+                        if (!hasRequiredData(tdMasterData.getTdTransferDetails().getRetailAccountNumber()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerAccno.requiredMsg", "Account Number is required!", null));
+                        }
+                        if (!hasRequiredData(tdMasterData.getTdTransferDetails().getAdvisorID()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.advisorId.requiredMsg", "Advisor ID is required!", null));
+                        }
+                     }
+
+                  }
+
                }
             break;
          case 10: // Funding Recurring Page 2
@@ -1184,7 +1210,7 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.banktitle.requiredMsg", "Bank Account title is required!", null));
                      }
-                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranAmount().toString()))
+                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranAmount()))
                      {
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transamt.requiredMsg", "Amount is required!", null));
@@ -1265,7 +1291,7 @@ public class TdCto
 
       pagemanager.setPage(0);
       status = true;
-      while (! pagemanager.isLastPage())
+      while (pagemanager.getPage()<=10)
       {
          if (validatePage(pagemanager.getPage()))
          {
@@ -1329,7 +1355,7 @@ public class TdCto
       tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
       consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
-      if (! tdMasterData.getCustomerData().getManaged()) {
+     if (! tdMasterData.getCustomerData().getManaged()) {
          custodyListDAO.getTDAccountDetails(tdMasterData);
          custodyListDAO.getTDAccountHolder(tdMasterData);
          custodyListDAO.getTDEmployment(tdMasterData);
@@ -1451,6 +1477,9 @@ public class TdCto
             }
             else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
                custodySaveDAO.tdSaveACAT(tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
+
+            else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
+               custodySaveDAO.tdSaveTDTransferData(tdMasterData.getAcctnum(),tdMasterData.getTdTransferDetails());
               // custodySaveDAO.tdSaveACH("ACH",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
             break;
          case 10:
@@ -1485,24 +1514,26 @@ public class TdCto
 
          custodySaveDAO.tdCheckRequest(tdMasterData);  // check for fund and recuring tab is filled on save and open buttton
 
-         Request data=new Request();
-         data.setReqId(new Long(0));
-         data.setEventNum(0);
-         data.setAcctnum(tdMasterData.getAcctnum());
-         if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
-            tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
-            tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD") )
-            data.setReqType("ACCT_APPLI_NEW");
-         else if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRABENE")  )
-            data.setReqType("IRA_QRP_BENE_NEW");
-         else
+         if(!tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
+         {
+            Request data = new Request();
+            data.setReqId(new Long(0));
+            data.setEventNum(0);
+            data.setAcctnum(tdMasterData.getAcctnum());
+            if (tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
+               tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
+               tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD"))
+               data.setReqType("ACCT_APPLI_NEW");
+            else if (tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRABENE"))
+               data.setReqType("IRA_QRP_BENE_NEW");
+            else
                data.setReqType("IRA_APPLI_NEW");
 
-         data.setEnvelopeHeading("Please sign account opening document.");
+            data.setEnvelopeHeading("Please sign account opening document.");
 
-         custodySaveDAO.tdOpenAccount(data);
-
-         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum());
+            custodySaveDAO.tdOpenAccount(data);
+         }
+         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),tdMasterData.getAcctnum().intValue());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
             msg = wsCallResult.getWSCallStatus().getErrorMessage();
