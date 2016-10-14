@@ -77,7 +77,7 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.WEALTH");
+      profileData.setTheme("0.Core");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
@@ -87,7 +87,7 @@ public class TestDistribution
       duration = profileData.getHorizon();
 
       // profileData.setAccountTaxable(false);
-      profileData.setRiskIndex(0.0);
+      profileData.setRiskIndex(70.0);
 
       //1 = preservation 2 = Accumulation
       profileData.setObjective(2);

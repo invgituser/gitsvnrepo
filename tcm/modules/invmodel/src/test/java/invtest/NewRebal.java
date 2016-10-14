@@ -33,11 +33,11 @@ public class NewRebal
       DailyReturns dailyReturnDAO = DailyReturns.getInstance();*/
 
       SecurityCollection secCollection = new SecurityCollection();
-      secCollection.loadDataFromDB(InvConst.INVESSENCE_ADVISOR, InvConst.DEFAULT_THEME);
+      secCollection.loadDataFromDB(InvConst.INVESSENCE_ADVISOR, "0.Wealth");
       rbal.setTlhSecurityCollection(tlhsecurityCollection);
 
-      // Now we can do rebalaning on account(s).
-      ArrayList<RebalanceTradeData> rebalanceTradeDataList = rbal.process(null, 115L);
+      // Now we can do re-balancing on account(s).
+      ArrayList<RebalanceTradeData> rebalanceTradeDataList = rbal.process(10L, 1L);
       printTradeFile(rebalanceTradeDataList);
    }
 

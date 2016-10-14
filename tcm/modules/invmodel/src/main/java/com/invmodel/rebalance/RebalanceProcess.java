@@ -39,6 +39,7 @@ public class RebalanceProcess
    {
       super();
       tlhSecurityCollection = TLHSecurityCollection.getInstance();
+      modelUtil = ModelUtil.getInstance();
    }
 
    public static synchronized RebalanceProcess getInstance()
@@ -141,8 +142,8 @@ public class RebalanceProcess
       try {
          if (pdata.getAssetData() == null) {
             AssetClass[] aamc;
-            if (years == null)
-               years = pdata.getHorizon();
+            //if (years == null)
+               //years = pdata.getHorizon();
             pdata.setNumOfAllocation(years);
             aamc = modelUtil.buildAllocation(pdata);
             if (aamc != null)  {
@@ -288,6 +289,9 @@ public class RebalanceProcess
          for (ProfileData pdata : profileList) {
             advisor = pdata.getAdvisor();
             pdata.setNumOfAllocation(1);
+
+            // Not sure if I need to set this JAV
+            pdata.setLogonid(logonid);
             /*
             Questions1: loadCurrentAssetAllocation loads what is currently allocated from allocation table.
             Do we want the allocation from our DB or should we look at the holding and get the allocation from holding?
@@ -300,10 +304,10 @@ public class RebalanceProcess
             Question3: Also, the loadPortfolio saves the allocation and portfolio on pdata class.
             Info: So,newHoldings is just getting that data.
              */
-            loadPortfolio(pdata, pdata.getHorizon());
+            loadPortfolio(pdata, 1);
 
             //Number of years is 1
-            loadAssetClass(pdata, 1);
+            // loadAssetClass(pdata, 1);
             //AssetDBCollection assetDAO = AssetDBCollection.getInstance();
             pdata.setNumOfPortfolio(1);
 

@@ -20,7 +20,7 @@ public class InvConst
    public static Double MNGT_FEES = 0.0025;
    public static double MIN_MNGT_FEES_DOLLARS = 250.0;
 
-   public static Integer ASSET_INTERPOLATION = 80;
+   public static Integer ASSET_INTERPOLATION = 100;
    public static Integer ASSET_DEFAULT_POINT = 10;
    public static Double ASSET_PRECISION = 0.00001;
 

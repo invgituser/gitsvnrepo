@@ -97,6 +97,8 @@ public class InvModelDAO extends JdbcDaoSupport
             currentHolding.setShortGains(shortGain);
             currentHolding.setShortLoss(shortLoss);
             currentHolding.getHoldingList().add(i, data);
+            //Not sure I need logonid JAV
+            currentHolding.setLogonid(logonid);
 
             i++;
          }
