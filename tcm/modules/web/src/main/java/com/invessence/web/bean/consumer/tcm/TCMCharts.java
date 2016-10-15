@@ -312,7 +312,7 @@ public class TCMCharts implements Serializable
       //System.out.println("projectionData :"+projectionData+" :horizon:"+horizon+":currAge:"+currAge+":ageSeries:"+ageSeries);
       //System.out.println("projectionData.length :"+projectionData.length);
       currAge = (currAge == null) ? 30: currAge;
-      horizon = (horizon == null) ? 2 : horizon;
+      horizon = (horizon == null) ? 1 : horizon;
       Integer year;
       Integer noOfYlabels = 0;
       Integer totalYlabels = 0;
@@ -349,7 +349,7 @@ public class TCMCharts implements Serializable
          upper1.setLabel("Upper1");
          upper2.setLabel("Upper2");
 
-         totalYlabels = (horizon < 2) ? 2 : ((horizon > MAXPOINTONGRAPH) ? MAXPOINTONGRAPH : horizon);
+         totalYlabels = (horizon < 1) ? 1 : ((horizon > MAXPOINTONGRAPH) ? MAXPOINTONGRAPH : horizon);
          // yIncrement = (int) ((totalYlabels) / ((double) horizon));
          yIncrement = 1;  // offset by 1
          noOfYlabels = (int) (totalYlabels / ((double) yIncrement) % horizon);
@@ -393,7 +393,7 @@ public class TCMCharts implements Serializable
          ArrayList lstLower=null;
          ArrayList lstUpper=null;
 
-         while (y < totalYlabels)
+         while (y <= totalYlabels)
          {
             lstLower=new ArrayList();
             lstUpper=new ArrayList();
@@ -424,9 +424,9 @@ public class TCMCharts implements Serializable
 
             upper2.set(year.toString(), tmpvalue);
             // If incrementing anything other then 1, then make sure that last year is displayed.
-            if (y+1 >= totalYlabels) // If last point is plotted, then quit.
+            if (y >= totalYlabels) // If last point is plotted, then quit.
             {
-               Integer lastpoint = totalYlabels - 1;
+               Integer lastpoint = totalYlabels;
                avgPerformance = (int) ((Math.round((projectionData[lastpoint].getTotalCapitalWithGains()/dividingFactor) * 100.0))/100.0);
                poorPerformance = (int) ((Math.round((projectionData[lastpoint].getLowerBand2()/dividingFactor) * 100.0))/100.0);
             }
@@ -449,7 +449,7 @@ public class TCMCharts implements Serializable
          Double scale = Math.pow(10, digits - 1);
 
          maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
-         maxGraghPlot = (int)((Math.round((projectionDataAggressive[totalYlabels - 1].getUpperBand2()/dividingFactor) * 100.0))/100.0);
+         maxGraghPlot = (int)((Math.round((projectionDataAggressive[totalYlabels].getUpperBand2()/dividingFactor) * 100.0))/100.0);
 
          HashMap chartMap = new HashMap();
 

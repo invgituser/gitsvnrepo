@@ -87,10 +87,10 @@
                             <div class="Container45 CustomWidthAccountypePanel Fright Marleft">
                                 <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
                                     <div class="Container60">
-                                        <h4>TD Trasfer</h4>
+                                        <h4>TD Transfer</h4>
 
                                         <div class="EmptyBox5"></div>
-                                        <h6 class="FontNormal">(TD Transfer)</h6>
+                                        <h6 class="FontNormal">(TD Retail/Broker Transfer)</h6>
                                     </div>
                                     <div class="Container40 textAlign">
                                         <p:radioButton id="fundopt4" for="fundRadio" itemIndex="4"
@@ -547,8 +547,7 @@
                 <div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
-                                   process="@this"
-                                   update="@form"/>
+                                   update=":ctoForm:tdaccordian"  process="@this"/>
 
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    style="background-position-x: 50px!important;"
@@ -769,8 +768,7 @@
                     <div class="Container100 MarTop20" style="margin: 10px 10px;">
                         <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                        actionListener="#{tdcto.prevPage}"
-                                       process="@this"
-                                       update="@form"/>
+                                       update=":ctoForm:tdaccordian"  process="@this"/>
                         <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                        actionListener="#{tdcto.nextPage}"
                                        update="@form"/>
