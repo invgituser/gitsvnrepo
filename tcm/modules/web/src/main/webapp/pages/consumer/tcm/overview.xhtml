@@ -57,7 +57,7 @@
 
                                                 <p:column style="text-align: right; width:35%"
                                                           headerText="Value" priority="0" styleClass="Fs14">
-                                                    <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs12">
+                                                    <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs14">
                                                         <f:convertNumber type="currency" currencySymbol="$"/>
                                                     </h:outputText>
                                                 </p:column>
@@ -79,7 +79,7 @@
                                         <!-- ROHIT's CHANGE -->
                                         <div class="ContainerIndent">
                                                 <p:chart type="pie" model="#{tcmpos.pieModel}" styleClass="PieGraphPosition"
-                                                         style="height:200px; width: 100%;"
+                                                         style="height:200px; width: 100%; "
                                                          rendered="#{tcmpos.pieModel != null}"
                                                          responsive="true"/>
                                         </div>
