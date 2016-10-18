@@ -121,7 +121,7 @@
 
             <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                            actionListener="#{tdcto.nextPage}"
-                           update=":ctoForm:tdaccordian"/>
+                           update=":ctoForm:tdaccordian" process=":ctoForm:tdaccordian:accHolderTabV"/>
         </div>
         </div>
         
@@ -238,13 +238,13 @@
 
             </div>
             <div class="Container100 MarTop20" style="margin: 10px 10px;">
-            <p:commandLink styleClass="UI-prevButtonFA Fleft"
-                           actionListener="#{tdcto.prevPage}"
-                           update=":ctoForm:tdaccordian"  process="@this"/>
+                <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                               actionListener="#{tdcto.prevPage}"
+                               update=":ctoForm:tdaccordian"  process="@this"/>
 
-            <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                           actionListener="#{tdcto.nextPage}"
-                           update=":ctoForm:tdaccordian"/>
+                <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                               actionListener="#{tdcto.nextPage}"
+                               update=":ctoForm:tdaccordian" process=":ctoForm:tdaccordian:accHolderTabV"/>
         </div>
         </div>
         

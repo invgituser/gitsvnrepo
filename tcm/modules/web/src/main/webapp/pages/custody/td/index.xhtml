@@ -118,8 +118,8 @@
 
                         </div>
                         <div class="Container100 saveNopenBtn" style="text-align: center;">
-                            <p:commandButton value="Save and Open Account" ajax="true"
-                                             update=":ctoForm:tdaccordian"
+                            <p:commandButton value="Save and Open Account"
+                                             update=":ctoForm:tdaccordian" process="@this"
                                              actionListener="#{tdcto.openAccount}"
                                              styleClass="text-align: center" />
 

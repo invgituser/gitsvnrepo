@@ -568,7 +568,7 @@
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    style="background-position-x: 50px!important;"
                                    actionListener="#{tdcto.nextPage}"
-                                   process="@parent"
+                                   process=":ctoForm:tdaccordian:fundTabV"
                                    update=":ctoForm:tdaccordian"/>
 
                 </div>
@@ -786,7 +786,7 @@
                                        actionListener="#{tdcto.prevPage}"
                                        update=":ctoForm:tdaccordian"  process="@this"/>
                         <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                                       actionListener="#{tdcto.nextPage}"
+                                       actionListener="#{tdcto.nextPage}" process=":ctoForm:tdaccordian:fundTabV"
                                        update=":ctoForm:tdaccordian"/>
 
                         <!--   <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
