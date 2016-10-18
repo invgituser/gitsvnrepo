@@ -122,40 +122,44 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                      acctHolder.setCitizenShipFlag(true);
                acctHolder.setCountryOfCitizenship(convert.getStrData(rs.get("countryOfCitizenship")));
                acctHolder.setCountryOfBirth(convert.getStrData(rs.get("countryOfBirth")));
-               acctHolder.setSPF(convert.getStrData(rs.get("isSPF")));
-                  data.setOwnerSPF(false);
-                  if(acctHolder.getSPF()!=null && acctHolder.getSPF().equalsIgnoreCase("Y"))
+                  if (whichAcct == 1)
                   {
-                     data.setOwnerSPF(true);
-                     String spfDet=convert.getStrData(rs.get("spfDetail"));
-                     String[] array = spfDet.split(",");
-                     acctHolder.setSpfName(array[0]);
-                     acctHolder.setSpfRelationship(array[1]);
-                     acctHolder.setSpfTitle(array[2]);
-                     acctHolder.setSpfCountry(array[3]);
-                  }
+                     acctHolder.setSPF(convert.getStrData(rs.get("isSPF")));
+                     data.setOwnerSPF(false);
+                     if (acctHolder.getSPF() != null && acctHolder.getSPF().equalsIgnoreCase("Y"))
+                     {
+                        data.setOwnerSPF(true);
+                        String spfDet = convert.getStrData(rs.get("spfDetail"));
+                        String[] array = spfDet.split(",");
+                        acctHolder.setSpfName(array[0]);
+                        acctHolder.setSpfRelationship(array[1]);
+                        acctHolder.setSpfTitle(array[2]);
+                        acctHolder.setSpfCountry(array[3]);
+                     }
 
-               acctHolder.setDirectorShareholder(convert.getStrData(rs.get("isDirectorShareholder")));
-                  data.setOwnerShare(false);
-                  if(acctHolder.getDirectorShareholder()!=null  && acctHolder.getDirectorShareholder().equalsIgnoreCase("Y"))
-                  {
-                     data.setOwnerShare(true);
-                     String shreDet=convert.getStrData(convert.getStrData(rs.get("directorShareholderDetail")));
-                     String[] array = shreDet.split(",");
-                     acctHolder.setShareholderCompany(array[0]);
-                     acctHolder.setShareholderAddress(array[1]);
-                     acctHolder.setShareholderCity(array[2]);
-                     acctHolder.setShareholderState(array[3]);
+                     acctHolder.setDirectorShareholder(convert.getStrData(rs.get("isDirectorShareholder")));
+                     data.setOwnerShare(false);
+                     if (acctHolder.getDirectorShareholder() != null && acctHolder.getDirectorShareholder().equalsIgnoreCase("Y"))
+                     {
+                        data.setOwnerShare(true);
+                        String shreDet = convert.getStrData(convert.getStrData(rs.get("directorShareholderDetail")));
+                        String[] array = shreDet.split(",");
+                        acctHolder.setShareholderCompany(array[0]);
+                        acctHolder.setShareholderAddress(array[1]);
+                        acctHolder.setShareholderCity(array[2]);
+                        acctHolder.setShareholderState(array[3]);
+
+                     }
+                     acctHolder.setBd(convert.getStrData(rs.get("bd")));
+                     data.setOwnerBD(false);
+                     if (acctHolder.getBd() != null && acctHolder.getBd().equalsIgnoreCase("Y"))
+                     {
+                        data.setOwnerBD(true);
+                        acctHolder.setBdDetail(convert.getStrData(rs.get("bdDetail")));
+                     }
 
                   }
-               acctHolder.setBd(convert.getStrData(rs.get("bd")));
-                  data.setOwnerBD(false);
-                  if(acctHolder.getBd()!=null && acctHolder.getBd().equalsIgnoreCase("Y"))
-                  {
-                     data.setOwnerBD(true);
-                     acctHolder.setBdDetail(convert.getStrData(rs.get("bdDetail")));
-                  }
-               acctHolder.setOwnership(convert.getStrData(rs.get("ownershipPercent")));
+                  acctHolder.setOwnership(convert.getStrData(rs.get("ownershipPercent")));
                acctHolder.setCreatedBy(convert.getStrData(rs.get("createdBy")));
                   i++;
                   if(whichAcct==1)

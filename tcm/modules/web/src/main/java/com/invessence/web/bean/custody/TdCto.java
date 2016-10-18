@@ -961,7 +961,7 @@ public class TdCto
                      pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
                   }
 
-                  if(tdMasterData.getJointhasDifferent())
+                  if(tdMasterData.getJointhasMailing())
                   {
                      if (!hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getMailingAddressStreet()))
                      {
@@ -1323,7 +1323,7 @@ public class TdCto
    }
 
    // Before going to next page, determine if the data in current tab passes validity,
-   // then save the data before going to the next page
+   // then save the data beefore going to the next page
    // NOTE: Let resetActiveTab deal with joint account or not to go to appropriate tab.
    public void nextPage()
    {
@@ -1384,7 +1384,7 @@ public class TdCto
       return null;
    }
 
-   private Boolean loadData()
+      private Boolean loadData()
    {
       if (beanacctnum == null)
          return false;
@@ -1405,7 +1405,7 @@ public class TdCto
 
       tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
       tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
-      consumerListDAO.getProfileData(tdMasterData.getCustomerData());
+     consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
      if (! tdMasterData.getCustomerData().getManaged()) {
          custodyListDAO.getTDAccountDetails(tdMasterData);
