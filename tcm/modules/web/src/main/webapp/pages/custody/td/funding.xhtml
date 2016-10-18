@@ -34,7 +34,7 @@
                                 <f:selectItem itemLabel="ACH" itemValue="PMACH"/>
                                 <f:selectItem itemLabel="ACAT" itemValue="PMFEDW"/>
                                 <f:selectItem itemLabel="Wire" itemValue="3"/>
-                                <f:selectItem itemLabel="TD Trasfer" itemValue="TDTRF"/>
+                                <f:selectItem itemLabel="TD Ameritrade Transfer" itemValue="TDTRF"/>
                                 <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
                             </p:selectOneRadio>
 
@@ -87,10 +87,10 @@
                             <div class="Container45 CustomWidthAccountypePanel Fright Marleft">
                                 <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
                                     <div class="Container60">
-                                        <h4>TD Transfer</h4>
+                                        <h4>TD Ameritrade Transfer</h4>
 
                                         <div class="EmptyBox5"></div>
-                                        <h6 class="FontNormal">(TD Retail/Broker Transfer)</h6>
+                                        <h6 class="FontNormal">(Transfer in an account already at TD Ameritrade (either Retail or Advisor managed))</h6>
                                     </div>
                                     <div class="Container40 textAlign">
                                         <p:radioButton id="fundopt4" for="fundRadio" itemIndex="4"
@@ -405,31 +405,47 @@
                                  rendered="#{tdcto.tdMasterData.fundType == 'TDTRF'}">
                             <div class="EmptyBox20"></div>
                             <div class="Container100">
-                                <div class="Container100 Fleft CustomWidthFA-Responsive">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Is this a Retail or Advisor managed account ? </label>
+
+                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                                     value="#{tdcto.tdMasterData.tdTransferDetails.retilFlag}"
+                                                     style="width: 100%;">
+                                        <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                                        <f:selectItem itemLabel="Select Type" itemValue=""
+                                                      noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Retail" itemValue="N"/>
+                                        <f:selectItem itemLabel="Advisor managed" itemValue="Y"/>
+
+                                    </p:selectOneMenu>
+                                </div>
+                                <!--<div class="Container100 Fleft CustomWidthFA-Responsive">
                                     <p:selectBooleanCheckbox
                                             styleClass="RegulatoryCheckBox"
                                             value="#{tdcto.tdMasterData.tdTransferDetails.removeAdvisor}"
-                                            itemLabel="Is this broker account?">
+                                            itemLabel="Is this a Retail or Advisor managed account?">
                                         <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
 
                                     </p:selectBooleanCheckbox>
-                                </div>
+                                </div>-->
                             </div>
                             <div class="EmptyBox20"></div>
                             <p:panel id="tdtrfDetails1" styleClass="Container100 Responsive100 Fnone"
                                      style="border: 0px; background: transparent; margin: 0 auto!important;"
-                                     rendered="#{tdcto.tdMasterData.tdTransferDetails.removeAdvisor}">
+                                     rendered="#{tdcto.tdMasterData.tdTransferDetails.retilFlag=='Y'}">
                             <div class="Container100">
                                 <div class="Container45 Fleft MarAuto CustomWidthFA2">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">
-                                        Firm Name  *</label>
+                                        Existing Advisory Firm Name  *</label>
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdcto.tdMasterData.tdTransferDetails.priorFirmName}"
                                                  maxlength="90"
-                                                 placeholder="Firm Name">
+                                                 placeholder="Existing Advisory Firm Name">
                                     </p:inputText>
                                 </div>
                                 <div class="Container45 Fright CustomWidthFA-Responsive">
@@ -439,19 +455,19 @@
                                 </p:panel>
                             <p:panel id="tdtrfDetails2" styleClass="Container100 Responsive100 Fnone"
                                      style="border: 0px; background: transparent; margin: 0 auto!important;"
-                                     rendered="#{!tdcto.tdMasterData.tdTransferDetails.removeAdvisor}">
+                                     rendered="#{tdcto.tdMasterData.tdTransferDetails.retilFlag=='N'}">
 
                             <div class="Container100">
                                 <div class="Container45 Fleft CustomWidthFA-Responsive">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">
-                                        Account Number *</label>
+                                        TD Ameritrade Retail Brokerage Account Number *</label>
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdcto.tdMasterData.tdTransferDetails.retailAccountNumber}"
                                                  maxlength="15"
-                                                 placeholder="Account Number">
+                                                 placeholder="TD Ameritrade Retail Brokerage Account Number">
                                     </p:inputText>
                                 </div>
                                 <div class="Container45 Fright CustomWidthFA-Responsive">

@@ -392,11 +392,13 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                {
                   tdTransferDetails.setRemoveAdvisor(true);
                   tdTransferDetails.setAddAdvisor(false);
+                  tdTransferDetails.setRetilFlag("Y");
                }
                else
                {
                   tdTransferDetails.setRemoveAdvisor(false);
                   tdTransferDetails.setAddAdvisor(true);
+                  tdTransferDetails.setRetilFlag("N");
                }
                tdTransferDetails.setSsn(convert.getStrData(rs.get("ssn")));
             }

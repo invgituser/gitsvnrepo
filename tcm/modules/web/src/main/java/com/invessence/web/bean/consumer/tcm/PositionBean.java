@@ -44,7 +44,7 @@ public class PositionBean implements Serializable
    private Double goalDesired;
    private Double goalReached;
    private Long acctnum;
-   private String firstname, lastname, dateOpened, clientAccountID;
+   private String firstname, lastname, dateOpened, clientAccountID,accountAlias;
    private Boolean managed;
 
    public void preRenderView()
@@ -166,6 +166,16 @@ public class PositionBean implements Serializable
       this.clientAccountID = clientAccountID;
    }
 
+   public String getAccountAlias()
+   {
+      return accountAlias;
+   }
+
+   public void setAccountAlias(String accountAlias)
+   {
+      this.accountAlias = accountAlias;
+   }
+
    public Boolean getManaged()
    {
       return managed;
@@ -279,6 +289,7 @@ public class PositionBean implements Serializable
                setLastname(position.getLastname());
                setDateOpened(position.getDateOpened());
                setClientAccountID(position.getClientAccountID());
+               setAccountAlias(position.getAccountAlias());
                totalFees = position.getFees();  // NOTE: This field contains the ytd total.  It is not by security;
             }
             totalAllocation = totalAllocation + position.getWeight();

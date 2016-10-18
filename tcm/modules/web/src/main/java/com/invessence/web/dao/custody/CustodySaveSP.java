@@ -448,7 +448,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_priorFirmName", data.getPriorFirmName());
       inputMap.put("p_retailAccountNumber", data.getRetailAccountNumber());
       inputMap.put("p_advisorID", data.getAdvisorID());
-      if(data.isRemoveAdvisor())
+      if(data.getRetilFlag().equals("Y"))
       {
          inputMap.put("p_removeAdvisor", "Y");
          inputMap.put("p_addAdvisor", "N");

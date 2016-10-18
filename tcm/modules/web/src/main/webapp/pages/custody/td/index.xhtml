@@ -8,11 +8,8 @@
     <ui:define name="head">
         <script type="text/javascript">
         function handleChange(activetab,nexttab) {
-
-            PF('accordionPanel').unselect(nexttab);
+            //PF('accordionPanel').unselect(nexttab);
             PF('accordionPanel').select(activetab);
-
-
         }
     </script>
     </ui:define>
@@ -46,8 +43,8 @@
                     <div class="ContainerIndent">
                         <p:panel id="inputArea" style="border: 0px; background: transparent;">
                             <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI"
-                                             dynamic="true" activeIndex="#{tdcto.activeTab}"  >
-                                <p:ajax event="tabChange" async="false" listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
+                                      dynamic="true" activeIndex="#{tdcto.activeTab}"   >
+                                <p:ajax event="tabChange"   listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
                                 <p:tab id="tab0" styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">

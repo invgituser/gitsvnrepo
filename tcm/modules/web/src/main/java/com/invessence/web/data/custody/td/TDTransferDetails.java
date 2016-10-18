@@ -20,6 +20,7 @@ public class TDTransferDetails
    private boolean removeAdvisor;
    private boolean addAdvisor;
    private String ssn;
+   private String retilFlag;
 
    public TDTransferDetails()
    {
@@ -139,5 +140,15 @@ public class TDTransferDetails
    public void setSsn(String ssn)
    {
       this.ssn = ssn;
+   }
+
+   public String getRetilFlag()
+   {
+      return retilFlag;
+   }
+
+   public void setRetilFlag(String retilFlag)
+   {
+      this.retilFlag = retilFlag;
    }
 }

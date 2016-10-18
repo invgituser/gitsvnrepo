@@ -21,9 +21,11 @@
                         <div class="DispInlBlock">
                             <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
                             <div class="Container80 UsernameDashboard">
+                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{tcmpos.clientAccountID}
+                                </span>
                                 <div class="Fright">
                                     <h2 class="black head FontThemeMedium">#{tcmpos.fullName}</h2>
-                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{tcmpos.clientAccountID}
+                                    <span class="Fs15 gray FontThemeRegular DispBlock">Strategy: #{tcmpos.accountAlias}
                                 </span>
                                 </div>
                             </div>
@@ -31,6 +33,15 @@
                         <p:accordionPanel multiple="true" styleClass="marginZero">
                             <p:tab title="Summary">
                                 <div class="Container100">
+                                    <div class="Container50 Responsive50 tp20">
+                                        <!-- ROHIT's CHANGE -->
+                                        <div class="ContainerIndent">
+                                            <p:chart type="pie" model="#{tcmpos.pieModel}" styleClass="PieGraphPosition"
+                                                     style="height:200px; width: 100%; border:0!important;"
+                                                     rendered="#{tcmpos.pieModel != null}"
+                                                     responsive="true"/>
+                                        </div>
+                                    </div>
                                     <div class="Container50 Responsive50"><!-- ROHIT's CHANGE -->
                                         <div class="ContainerIndent">
                                             <p:dataTable id="editAlloc" styleClass="invAllocTable"
@@ -57,7 +68,7 @@
 
                                                 <p:column style="text-align: right; width:35%"
                                                           headerText="Value" priority="0" styleClass="Fs14">
-                                                    <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs14">
+                                                    <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs12">
                                                         <f:convertNumber type="currency" currencySymbol="$"/>
                                                     </h:outputText>
                                                 </p:column>
@@ -75,15 +86,7 @@
                                             </p:dataTable>
                                         </div>
                                     </div>
-                                    <div class="Container50 Responsive50 tp20">
-                                        <!-- ROHIT's CHANGE -->
-                                        <div class="ContainerIndent">
-                                                <p:chart type="pie" model="#{tcmpos.pieModel}" styleClass="PieGraphPosition"
-                                                         style="height:200px; width: 100%; "
-                                                         rendered="#{tcmpos.pieModel != null}"
-                                                         responsive="true"/>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </p:tab>
 

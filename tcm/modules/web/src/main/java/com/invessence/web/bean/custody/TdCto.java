@@ -20,7 +20,9 @@ import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
+import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.*;
+import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
@@ -386,14 +388,63 @@ public class TdCto
       // subtab = 0;
    }
 
+  /* public boolean controlTab(TabChangeEvent event)
+   {
+      if(validatePage(activeTab))
+      {
+         if (event != null)
+         {
+            String tabname = event.getTab().getId();
+            String tabnum = tabname.substring(3);
+            Integer num = webutil.getConverter().getIntData(tabnum);
+            subtab = 0;
+            switch (num)
+            {
+               case 0:
+                  pagemanager.setPage(0);
+                  break;
+               case 1:
+                  pagemanager.setPage(1);
+                  break;
+               case 2:
+                  pagemanager.setPage(3);
+                  break;
+               case 3:
+                  pagemanager.setPage(5);
+                  break;
+               case 4:
+                  pagemanager.setPage(6);
+                  break;
+               case 5:
+                  pagemanager.setPage(8);
+                  break;
+               case 6:
+                  pagemanager.setPage(9);
+                  break;
+               default:
+                  pagemanager.setPage(0);
+
+            }
+         }
+         return true;
+      }
+      else{
+         RequestContext requestContext = RequestContext.getCurrentInstance();
+         String activeStr = this.activeTab.toString() + "," + event.getTab().getId().substring(3);
+      //   requestContext.execute("handleChange(" + activeStr + ")");
+         resetActiveTab(activeTab);
+         AccordionPanel panel= (AccordionPanel) event.getComponent();
+         FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("Tab"+activeTab.toString());
+         return false;
+      }
+
+   }*/
+
    public void onTabChange(TabChangeEvent event)
    {
       try
       {
-/*
-         if(validatePage(activeTab))
-         {
-*/
+
             if (event != null)
             {
                String tabname = event.getTab().getId();
@@ -428,16 +479,7 @@ public class TdCto
 
                }
             }
-/*
-         }
-         else
-         {
-            RequestContext requestContext = RequestContext.getCurrentInstance();
-            String activeStr=this.activeTab.toString()+","+event.getTab().getId().substring(3);
-            requestContext.execute("handleChange("+activeStr+")");
-            resetActiveTab(activeTab);
-         }
-*/
+
       }
 
       catch (Exception ex)
@@ -1174,20 +1216,25 @@ public class TdCto
 
                   else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
                   {
-                     if (tdMasterData.getTdTransferDetails().isRemoveAdvisor())
+                     if(tdMasterData.getTdTransferDetails().getRetilFlag().equals(""))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerfirmnamefalg.requiredMsg", "Is this a Retail or Advisor managed account is required!", null));
+                     }
+                     else if (tdMasterData.getTdTransferDetails().getRetilFlag().equals("Y"))
                      {
                         if (!hasRequiredData(tdMasterData.getTdTransferDetails().getPriorFirmName()))
                         {
                            dataOK = false;
-                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerfirmname.requiredMsg", "Broker Firm Name is required!", null));
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerfirmname.requiredMsg", "Existing Advisory Firm Name is required!", null));
                         }
                      }
-                     else
+                     else  if (tdMasterData.getTdTransferDetails().getRetilFlag().equals("N"))
                      {
                         if (!hasRequiredData(tdMasterData.getTdTransferDetails().getRetailAccountNumber()))
                         {
                            dataOK = false;
-                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerAccno.requiredMsg", "Account Number is required!", null));
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerAccno.requiredMsg", "TD Ameritrade Retail Brokerage Account Number is required!", null));
                         }
                         if (!hasRequiredData(tdMasterData.getTdTransferDetails().getAdvisorID()))
                         {
