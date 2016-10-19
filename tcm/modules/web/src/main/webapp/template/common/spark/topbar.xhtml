@@ -8,20 +8,23 @@
 
     <div id="layout-topbar" class="ShadowGray">
         <div id="layout-topbar-indent">
-               <a href="#{uiLayout.defaultHome}">
-                   <h:graphicImage name="#{uiLayout.logo}"
-                                   styleClass="Fleft" library="invessence" id="logo2" class="Fleft"/>
-               </a>
+            <a href="#{uiLayout.defaultHome}">
+                <h:graphicImage name="#{uiLayout.logo}"
+                                styleClass="Fleft" library="invessence" id="logo2" class="Fleft"/>
+            </a>
 
             <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
-                <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>
-                <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Top Menu</a>
+                <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Menu</a>
+                <!--   <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Top Menu</a> -->
 
                 <ul id="layout-topbar-menu">
-                    <li>
-                        <a href="j_spring_security_logout" class="Animated05"><i class="fa fa-sign-out"></i> Logout</a>
+                    <li class="MobileModeOnly">
+                        <a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>
                     </li>
-                    <li class="fa fa-ellipsis-v menu-separator"></li>
+                    <li class="MobileModeOnly">
+                        <a href="#{uiLayout.defaultHome}" class="Animated05"><i class="fa fa-home"></i> Dashboard</a>
+                    </li>
+
                     <li>
                         <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
                             <a class="Animated05 CursPointer Marbottom"><i class="fa fa-cog"></i> Settings</a>
@@ -36,18 +39,25 @@
                             </ul>
                         </ui:fragment>
                     </li>
+
+
                     <li class="fa fa-ellipsis-v menu-separator"></li>
                     <li>
-                        <p:outputText value="#{webutil.uiprofile.supportphone}"/>
-                        <br/>
-                        <a href="mailto:#{webutil.uiprofile.supportemail}">
-                            <p:outputText value="#{webutil.uiprofile.supportemail}"/>
-                        </a>
+                        <a href="j_spring_security_logout" class="Animated05"><i class="fa fa-sign-out"></i> Logout</a>
                     </li>
+                    <!-- <li class="fa fa-ellipsis-v menu-separator"></li> -->
+
 
                 </ul>
             </ui:fragment>
-            <ui:fragment rendered="#{!webutil.isUserLoggedIn()}">
+            <div class="submenuCustom submenu">
+                <p:outputText value="#{webutil.uiprofile.supportphone}"/>
+                <br/>
+                <a href="mailto:#{webutil.uiprofile.supportemail}">
+                    <p:outputText value="#{webutil.uiprofile.supportemail}"/>
+                </a>
+            </div>
+            <!-- <ui:fragment rendered="#{!webutil.isUserLoggedIn()}">
                 <ul id="layout-topbar-menu">
                 <li>
                     <p:outputText value="#{webutil.uiprofile.supportphone}"/>
@@ -58,7 +68,7 @@
                 </li>
 
                 </ul>
-            </ui:fragment>
+            </ui:fragment> -->
 
         </div>
     </div>

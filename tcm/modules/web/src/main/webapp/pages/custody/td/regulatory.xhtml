@@ -28,7 +28,7 @@
 					style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
 						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
-							value="#{tdcto.tdMasterData.ownerSPF}"
+							value="#{tdcto.tdMasterData.senoirPolitical}"
 							itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure.">
 							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" />
 						</p:selectBooleanCheckbox>
@@ -36,7 +36,7 @@
 
 
 					<p:panel style="border: 0px; background: transparent"
-						rendered="#{tdcto.tdMasterData.ownerSPF}">
+						rendered="#{tdcto.tdMasterData.senoirPolitical}">
 						<div class="EmptyBox20"></div>
 						<div class="Container100">
 							<div class="Container45 Fleft CustomWidthFA-Responsive">

@@ -125,10 +125,10 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                   if (whichAcct == 1)
                   {
                      acctHolder.setSPF(convert.getStrData(rs.get("isSPF")));
-                     data.setOwnerSPF(false);
+                     data.setSenoirPolitical(false);
                      if (acctHolder.getSPF() != null && acctHolder.getSPF().equalsIgnoreCase("Y"))
                      {
-                        data.setOwnerSPF(true);
+                        data.setSenoirPolitical(true);
                         String spfDet = convert.getStrData(rs.get("spfDetail"));
                         String[] array = spfDet.split(",");
                         acctHolder.setSpfName(array[0]);

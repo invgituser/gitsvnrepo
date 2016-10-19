@@ -19,13 +19,13 @@
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
                         <div class="DispInlBlock">
-                            <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
+                            <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10" style="padding-top:15px;"></i></div>
                             <div class="Container80 UsernameDashboard">
-                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{tcmpos.clientAccountID}
-                                </span>
+                                <h2 class="Fs18 black head FontThemeMedium DispBlock">Account#: #{tcmpos.clientAccountID}
+                                </h2>
                                 <div class="Fright">
-                                    <h2 class="black head FontThemeMedium">#{tcmpos.fullName}</h2>
-                                    <span class="Fs15 gray FontThemeRegular DispBlock">Strategy: #{tcmpos.accountAlias}
+                                    <span class="Fs13 gray FontThemeRegular">#{tcmpos.fullName}</span>
+                                    <span class="Fs13 gray FontThemeRegular DispBlock">Strategy: #{tcmpos.accountAlias}
                                 </span>
                                 </div>
                             </div>
@@ -177,8 +177,8 @@
                                                               style="text-align:right"/>
                                                     <p:column priority="2" footerText="" style="text-align:left"/>
                                                     <p:column
-                                                              footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalvalue)}"
-                                                              style="text-align:right"/>
+                                                            footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalvalue)}"
+                                                            style="text-align:right"/>
                                                     <p:column colspan=""
                                                               footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalpnl)}"
                                                               style="text-align:right"/>

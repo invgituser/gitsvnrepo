@@ -27,7 +27,7 @@ public class TDMasterData implements Serializable
    Boolean newBeneficiaryForm;
    Boolean editBeneficiaryForm=false;
 
-   Boolean ownerSPF, ownerShare, ownerBD;
+   Boolean ownerSPF, senoirPolitical, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
    String fundType;
    Boolean fundNow, recurringFlag;
@@ -64,7 +64,8 @@ public class TDMasterData implements Serializable
       customerData = new CustomerData();
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
-      ownerSPF=false;
+      //ownerSPF=false;
+      senoirPolitical=false;
       ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
       showBeneficiaryForm = false;
@@ -183,6 +184,16 @@ public class TDMasterData implements Serializable
    public void setOwnerSPF(Boolean ownerSPF)
    {
       this.ownerSPF = ownerSPF;
+   }
+
+   public Boolean getSenoirPolitical()
+   {
+      return senoirPolitical;
+   }
+
+   public void setSenoirPolitical(Boolean senoirPolitical)
+   {
+      this.senoirPolitical = senoirPolitical;
    }
 
    public Boolean getOwnerShare()

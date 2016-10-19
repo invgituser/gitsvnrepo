@@ -1015,7 +1015,7 @@ public class TdCto
             }
             break;
          case 5: // Regulatory
-            if(tdMasterData.getOwnerSPF())
+            if(tdMasterData.getSenoirPolitical())
             {
                if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSpfName())) {
                   dataOK = false;
@@ -1485,7 +1485,7 @@ public class TdCto
    {
       TDMasterData mstData=tdMasterData;
       AcctOwnersDetails acctOwnersDetail=tdMasterData.getAcctOwnersDetail();
-      if(mstData.getOwnerSPF())
+      if(mstData.getSenoirPolitical())
       {
          acctOwnersDetail.setSPF("Y");
          acctOwnersDetail.setSpfDetail(acctOwnersDetail.getSpfName() + "," + acctOwnersDetail.getSpfRelationship() + "," + acctOwnersDetail.getSpfTitle() + "," + acctOwnersDetail.getSpfCountry());
