@@ -1558,10 +1558,10 @@ public class TdCto
                custodySaveDAO.tdsaveACHData(tdMasterData,"ACH");
             }
             else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
-               custodySaveDAO.tdSaveACAT(tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
+               custodySaveDAO.tdSaveACAT(tdMasterData,tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
 
             else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
-               custodySaveDAO.tdSaveTDTransferData(tdMasterData.getAcctnum(),tdMasterData.getTdTransferDetails());
+               custodySaveDAO.tdSaveTDTransferData(tdMasterData,tdMasterData.getAcctnum(),tdMasterData.getTdTransferDetails());
               // custodySaveDAO.tdSaveACH("ACH",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
             break;
          case 10:
@@ -1596,11 +1596,11 @@ public class TdCto
 
          custodySaveDAO.tdCheckRequest(tdMasterData);  // check for fund and recuring tab is filled on save and open buttton
 
-         Request data = new Request();
-         data.setReqId(new Long(0));
-         data.setEventNum(0);
          if(!tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
          {
+            Request data = new Request();
+            data.setReqId(new Long(0));
+            data.setEventNum(0);
             data.setAcctnum(tdMasterData.getAcctnum());
             if (tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
                tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
@@ -1613,9 +1613,10 @@ public class TdCto
 
             data.setEnvelopeHeading("Please sign account opening document.");
 
+            tdMasterData.getRequest().setEventNum(data.getEventNum());
             custodySaveDAO.tdOpenAccount(data);
          }
-         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum().intValue());
+         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),tdMasterData.getRequest().getEventNum());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
             msg = wsCallResult.getWSCallStatus().getErrorMessage();

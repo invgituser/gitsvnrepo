@@ -130,6 +130,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          reqdata.setReqType("ELEC_FUND_TRAN_NEW");
          reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
          tdOpenAccount(reqdata);
+         tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
             if (reqdata.getReqId() > 0)
             {
                Long moveMoneyPayMethId = tdSaveMoveMoneyPay(tdMasterData);
@@ -226,6 +227,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
         tdOpenAccount(reqdata);
         if(reqdata.getReqId()>0)
         {
+           tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
            Boolean movemoneySave=tdSaveMoveMoneyDetails(reqdata.getReqId(),tdMasterData);
            if(movemoneySave)
            {
@@ -295,7 +297,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       return achId;
    }
 
-   public Boolean tdSaveACAT(Long acctnum, ACATDetails data)
+   public Boolean tdSaveACAT(TDMasterData tdMasterData,Long acctnum, ACATDetails data)
    {
       DataSource ds = getDataSource();
       Request reqdata=new Request();
@@ -306,6 +308,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       reqdata.setRequestFor("ACAT");
       reqdata.setEnvelopeHeading("Please sign account transfer document.");
       tdOpenAccount(reqdata);
+      tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_acct_transfer_details",6);
       Map outMap = sp.tdSaveACAT(acctnum,reqdata.getReqId(), data);
       if (outMap == null)
@@ -314,7 +317,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
-   public Boolean tdSaveTDTransferData(Long acctnum, TDTransferDetails data)
+   public Boolean tdSaveTDTransferData(TDMasterData tdMasterData,Long acctnum, TDTransferDetails data)
    {
       DataSource ds = getDataSource();
       Request reqdata=new Request();
@@ -325,6 +328,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       reqdata.setRequestFor("TDTRF");
       reqdata.setEnvelopeHeading("Please sign TD transfer document.");
       tdOpenAccount(reqdata);
+      tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_TD_transfer_details",14);
       Map outMap = sp.tdSaveTDTransferData(acctnum,reqdata.getReqId(), data);
       if (outMap == null)
