@@ -55,9 +55,11 @@ public class EmailValidator implements Validator {
 
 		}
 
+/*
 		if (userInfoDAO == null) {
 			System.out.println("null userInfoDAO");
 		}
+*/
 
       String pwd = null;
       // String pwd = userInfoDAO.checkEmailID(emailID);

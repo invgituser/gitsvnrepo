@@ -1366,7 +1366,7 @@ public class TdCto
 
       pagemanager.setPage(0);
       status = true;
-      while (pagemanager.getPage()<=10)
+      while (pagemanager.getPage() <= pagemanager.getMaxNoofPages())
       {
          if (validatePage(pagemanager.getPage()))
          {
@@ -1378,6 +1378,9 @@ public class TdCto
          else {
             currentPage=pagemanager.getPage();
             status = false;
+            break;
+         }
+         if (pagemanager.isLastPage()) {
             break;
          }
       }
@@ -1593,11 +1596,11 @@ public class TdCto
 
          custodySaveDAO.tdCheckRequest(tdMasterData);  // check for fund and recuring tab is filled on save and open buttton
 
+         Request data = new Request();
+         data.setReqId(new Long(0));
+         data.setEventNum(0);
          if(!tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
          {
-            Request data = new Request();
-            data.setReqId(new Long(0));
-            data.setEventNum(0);
             data.setAcctnum(tdMasterData.getAcctnum());
             if (tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
                tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
@@ -1612,7 +1615,7 @@ public class TdCto
 
             custodySaveDAO.tdOpenAccount(data);
          }
-         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),tdMasterData.getAcctnum().intValue());
+         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),data.getEventNum().intValue());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
             msg = wsCallResult.getWSCallStatus().getErrorMessage();
