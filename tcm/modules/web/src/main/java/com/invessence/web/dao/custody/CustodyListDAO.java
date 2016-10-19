@@ -446,7 +446,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                acatDetails.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
                acatDetails.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
                acatDetails.setTranStartDate(convert.getStrData(rs.get("transtartdate")));
-
+               acatDetails.setBankCityState(convert.getStrData(rs.get("bankCityState")));
+               acatDetails.setBankPhoneNumber(convert.getStrData(rs.get("bankPhoneNumber")));
 
             }
 

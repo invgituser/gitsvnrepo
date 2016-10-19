@@ -627,7 +627,7 @@
                                 <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                  value="#{tdcto.tdMasterData.electroicBankDetail.tranFreqId}"
                                                  style="width: 100%;">
-                                    <p:ajax/>
+                                    <p:ajax event="change" update="@this" />
                                     <f:selectItem itemLabel="Select Frequency" itemValue=""
                                                   noSelectionOption="true"/>
                                     <f:selectItem itemValue="ANNUALLY" itemLabel="Annually"/>

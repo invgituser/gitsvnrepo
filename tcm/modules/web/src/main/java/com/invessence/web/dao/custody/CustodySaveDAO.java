@@ -240,23 +240,24 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
               tdOpenAccount(reqdata);
               if(reqdata.getReqId()>0)
               {
-                 ElectronicFundDetails electronicFundDetails=tdMasterData.getElectroicBankDetail();
-                 electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
-                 electronicFundDetails.setReqId(reqdata.getReqId());
-                 electronicFundDetails.setEftInstId("EFINEW");
-                 electronicFundDetails.setDirectionId("EFDTOTD");
-                 electronicFundDetails.setMoveMoneyPayMethodID(moveMoneyPayMethId);
-                 electronicFundDetails.setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
+                 ElectronicFundDetails ed=new ElectronicFundDetails();
+                 ed.setAcctnum(tdMasterData.getAcctnum());
+                 ed.setReqId(reqdata.getReqId());
+                 ed.setEftInstId("EFINEW");
+                 ed.setDirectionId("EFDTOTD");
+                 ed.setMoveMoneyPayMethodID(moveMoneyPayMethId);
+                 ed.setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
                  if(dataFlag.equalsIgnoreCase("EFT"))
                  {
-                    electronicFundDetails.setTranAmount(tdMasterData.getElectroicBankDetail().getTranAmount());
+                    ed.setTranAmount(tdMasterData.getElectroicBankDetail().getTranAmount());
+                    ed.setTranFreqId(tdMasterData.getElectroicBankDetail().getTranFreqId());
                  }
                  else
                  {
-                    electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
-                    electronicFundDetails.setTranFreqId("ONETIME");
+                    ed.setTranAmount(tdMasterData.getInitialInvestment());
+                    ed.setTranFreqId("ONETIME");
                  }
-                 Boolean elecFundSave=tdSaveElectronicPayment(tdMasterData.getAcctnum(),tdMasterData.getElectroicBankDetail());
+                 Boolean elecFundSave=tdSaveElectronicPayment(tdMasterData.getAcctnum(),ed);
               }
            }
            else
