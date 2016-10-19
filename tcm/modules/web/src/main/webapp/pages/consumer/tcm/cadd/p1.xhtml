@@ -24,7 +24,7 @@
                 <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="TCM-UI-Dropdown dropdownInputFullWidth portfolioCreationDD"
                                  required="true" requiredMessage="Please choose investment strategy">
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
-                            update=":ceForm:p1hrznpanel, :ceForm:inputArea"/>
+                            update=":ceForm:inputArea" process="initialIid q3"/>/>
                     <f:selectItem itemLabel="Choose One" itemValue=""/>
                     <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
                     <f:selectItem itemLabel="College" itemValue="College"/>
@@ -51,9 +51,9 @@
                                             validatorMessage="Age should be between 18 and 100."/>
 
                             <div class="mobileFullWidth portfolioCreation2DropdownBlock"><h3 class="formFS"> years old and I am
-                                <p:selectOneMenu value="#{tcmpb.riskCalculator.retired}"
+                                <p:selectOneMenu id="retiredDDID" value="#{tcmpb.riskCalculator.retired}"
                                                  styleClass="TCM-UI-Dropdown dropdownInputFullWidth">
-                                    <p:ajax listener="#{tcmpb.onGoalChangeValue}"
+                                    <p:ajax event="change" process="@this ageid"
                                             update=":ceForm:p1hrznpanel"/>
                                     <f:selectItem itemLabel="Not Retired" itemValue="0"/>
                                     <f:selectItem itemLabel="Retired" itemValue="1"/>

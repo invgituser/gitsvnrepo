@@ -30,41 +30,47 @@
                                               value="#{tdcto.tdMasterData.fundType}" layout="custom"
                                               required="false"
                                               requiredMessage="Must select one of these fund method!">
+                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this"/>
                                 <f:selectItem itemLabel="Later" itemValue="0"/>
                                 <f:selectItem itemLabel="ACH" itemValue="PMACH"/>
                                 <f:selectItem itemLabel="ACAT" itemValue="PMFEDW"/>
                                 <f:selectItem itemLabel="Wire" itemValue="3"/>
                                 <f:selectItem itemLabel="TD Ameritrade Transfer" itemValue="TDTRF"/>
-                                <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
                             </p:selectOneRadio>
 
                             <div class="EmptyBox20"></div>
                             <div class="Container45 CustomWidthAccountypePanel Fleft ">
                                 <p:panel styleClass="Wid90 Fleft MarCenter tcmPanel-UI">
-                                    <div class="Container60">
-                                        <h4>ACH</h4>
-
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>ACH</h4>
+                                        </div>
+                                        <div class="Container40 textAlign">
+                                            <p:radioButton id="fundopt1" for="fundRadio" itemIndex="1"
+                                                           styleClass="textAlign"/>
+                                        </div>
+                                    </div>
+                                    <div class="Container90">
                                         <div class="EmptyBox5"></div>
                                         <h6 class="FontNormal">(Bank Transfer)</h6>
-                                    </div>
-                                    <div class="Container40 textAlign">
-                                        <p:radioButton id="fundopt1" for="fundRadio" itemIndex="1"
-                                                       styleClass="textAlign"/>
                                     </div>
                                 </p:panel>
                             </div>
 
                             <div class="Container45 CustomWidthAccountypePanel Fright Marleft">
                                 <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
-                                    <div class="Container60">
-                                        <h4>ACAT</h4>
-
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>ACAT</h4>
+                                        </div>
+                                        <div class="Container40 textAlign">
+                                            <p:radioButton id="fundopt2" for="fundRadio" itemIndex="2"
+                                                           styleClass="textAlign"/>
+                                        </div>
+                                    </div>
+                                    <div class="Container90">
                                         <div class="EmptyBox5"></div>
                                         <h6 class="FontNormal">(Account Transfer)</h6>
-                                    </div>
-                                    <div class="Container40 textAlign">
-                                        <p:radioButton id="fundopt2" for="fundRadio" itemIndex="2"
-                                                       styleClass="textAlign"/>
                                     </div>
                                 </p:panel>
                             </div>
@@ -72,29 +78,36 @@
                             <div class="EmptyBox10"></div>
                            <div class="Container45 CustomWidthAccountypePanel Fleft" style="display: none">
                                 <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
-                                    <div class="Container60">
-                                        <h4>Wire Transfer</h4>
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>Wire Transfer</h4>
+                                        </div>
+                                        <div class="Container40 textAlign">
+                                            <p:radioButton id="fundopt3" for="fundRadio" itemIndex="3"
+                                                           styleClass="textAlign"/>
+                                        </div>
 
-                                        <div class="EmptyBox5"></div>
-                                        <h6 class="FontNormal">(Description)</h6>
                                     </div>
-                                    <div class="Container40 textAlign">
-                                        <p:radioButton id="fundopt3" for="fundRadio" itemIndex="3"
-                                                       styleClass="textAlign"/>
+                                    <div class="Container90">
+                                         <div class="EmptyBox5"></div>
+                                         <h6 class="FontNormal">(Description)</h6>
                                     </div>
                                 </p:panel>
                             </div>
                             <div class="Container45 CustomWidthAccountypePanel Fright Marleft">
                                 <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
-                                    <div class="Container60">
-                                        <h4>TD Ameritrade Transfer</h4>
-
+                                    <div class="Container100">
+                                        <div class="Container60">
+                                            <h4>TD Ameritrade Transfer</h4>
+                                        </div>
+                                        <div class="Container40 textAlign">
+                                            <p:radioButton id="fundopt4" for="fundRadio" itemIndex="4"
+                                                           styleClass="textAlign"/>
+                                        </div>
+                                    </div>
+                                    <div class="Container90">
                                         <div class="EmptyBox5"></div>
                                         <h6 class="FontNormal">(Transfer in an account already at TD Ameritrade (either Retail or Advisor managed))</h6>
-                                    </div>
-                                    <div class="Container40 textAlign">
-                                        <p:radioButton id="fundopt4" for="fundRadio" itemIndex="4"
-                                                       styleClass="textAlign"/>
                                     </div>
                                 </p:panel>
                             </div>
@@ -129,7 +142,7 @@
                                     <div class="CustomWidthFA-Responsive" style="margin-top: 5px; font-size: 18px;">
                                         <p:selectBooleanCheckbox
                                                 itemLabel="I would like to make recurring investments.">
-                                            <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" process="@this"/>
                                         </p:selectBooleanCheckbox>
                                     </div>
                                 </div>
@@ -162,7 +175,7 @@
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                      value="#{tdcto.tdMasterData.achBankDetail.bankAcctType}"
                                                      style="width: 100%;">
-                                        <p:ajax/>
+                                        <p:ajax event="change" update="@this" process="@this"/>
                                         <f:selectItem itemLabel="Select Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
@@ -218,12 +231,12 @@
                                         Bank Phone Number *</label>
 
                                     <div class="EmptyBox5"></div>
-                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                    <p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdcto.tdMasterData.achBankDetail.bankPhoneNumber}"
                                                  maxlength="15"
                                                  mask="(999) 999-9999"
                                                  placeholder="Bank Phone Number">
-                                    </p:inputText>
+                                    </p:inputMask>
                                 </div>
                             </div>
                             <div class="EmptyBox20"></div>
@@ -300,7 +313,7 @@
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccouintDropdownUI"
                                                      value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
                                                      style="width: 100%!important; box-sizing: border-box; min-width: auto!important;">
-                                        <p:ajax />
+                                        <p:ajax event="change" update="@this, FundOthrID" process="@this" />
                                         <f:selectItem itemLabel="Select name of delivering firm" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemValue="CURICLEAR" itemLabel="Curian Clearing" />
@@ -323,7 +336,9 @@
                                         <f:selectItem itemValue="WEDBSECUINC" itemLabel="Wedbush Securities Inc." />
                                         <f:selectItem itemValue="OTH" itemLabel="Others" />
                                     </p:selectOneMenu>
-                                    <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                    <p:inputText id="FundOthrID"
+                                                 rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}"
+                                                 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
                                                  maxlength="90"
                                                  placeholder="Other Delivery Firm">
@@ -348,11 +363,11 @@
                                            style="text-align: left !important; font-weight: bold !important;">Phone Number</label>
 
                                     <div class="EmptyBox5"></div>
-                                    <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                    <p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdcto.tdMasterData.acatDetails.fromFirmPhoneNumber}"
-                                                 maxlength="40"
-                                                 placeholder="Phone Number">
-                                    </p:inputText>
+                                                 maxlength="15"
+                                                 mask="(999) 999-9999" placeholder="Phone Number">
+                                    </p:inputMask>
                                 </div>
                                 <div class="Container32 CustomWidthFA-Responsive">
                                     <label Class="Container100"
@@ -362,13 +377,12 @@
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                      value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
                                                      style="width: 100%;">
-                                        <p:ajax/>
+                                        <p:ajax event="change" update="@this" process="@this" />
                                         <f:selectItem itemLabel="Select Account Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Individual" itemValue="ACINDIV"/>
                                         <f:selectItem itemLabel="Joint" itemValue="ACJOINT"/>
                                         <f:selectItem itemLabel="Roth IRA"  itemValue="IRAROTH"/>
-                                        <f:selectItem itemLabel="UTMA / UGMA" itemValue="" />
                                         <f:selectItem itemLabel="Traditional IRA" itemValue="IRATRAD" />
                                         <f:selectItem itemLabel="Rollover IRA" itemValue="IRAROOV"/>
                                     </p:selectOneMenu>
@@ -413,7 +427,7 @@
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                      value="#{tdcto.tdMasterData.tdTransferDetails.retilFlag}"
                                                      style="width: 100%;">
-                                        <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                                        <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this" />
                                         <f:selectItem itemLabel="Select Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Retail" itemValue="N"/>
@@ -554,7 +568,7 @@
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.fundNow}"
                                 itemLabel="I choose to opt-out of funding my account at the moment. (Please note that if your account is not funded within 30 days it will be closed.)">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" process="@this"/>
 
                         </p:selectBooleanCheckbox>
                     </div>
@@ -568,8 +582,8 @@
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    style="background-position-x: 50px!important;"
                                    actionListener="#{tdcto.nextPage}"
-                                   process=":ctoForm:tdaccordian:fundTabV"
-                                   update=":ctoForm:tdaccordian"/>
+                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                   process=":ctoForm:tdaccordian:fundTabV"/>
 
                 </div>
 
@@ -786,8 +800,9 @@
                                        actionListener="#{tdcto.prevPage}"
                                        update=":ctoForm:tdaccordian"  process="@this"/>
                         <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                                       actionListener="#{tdcto.nextPage}" process=":ctoForm:tdaccordian:fundTabV"
-                                       update=":ctoForm:tdaccordian"/>
+                                       actionListener="#{tdcto.nextPage}"
+                                       update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                       process=":ctoForm:tdaccordian:fundTabV"/>
 
                         <!--   <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                   rendered="false"/> -->

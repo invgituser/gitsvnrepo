@@ -17,6 +17,7 @@ public class PagesImpl implements Serializable, Pages
    Integer pageNo;
    Map<Integer, String> errorMessgage;
    Integer maxNoofPages;
+   Integer lastPageVisited;
 
    public PagesImpl()
    {
@@ -61,6 +62,18 @@ public class PagesImpl implements Serializable, Pages
       pageNo = pageno;
    }
 
+   public Integer getLastPageVisited()
+   {
+      if (lastPageVisited == null )
+         return 0;
+      return lastPageVisited;
+   }
+
+   public void setLastPageVisited(Integer lastPageVisited)
+   {
+      this.lastPageVisited = (lastPageVisited < getLastPageVisited()) ? getLastPageVisited() : lastPageVisited;
+   }
+
    @Override
    public Boolean isLastPage() {
       if (pageNo >= maxNoofPages)
@@ -90,8 +103,11 @@ public class PagesImpl implements Serializable, Pages
    @Override
    public void nextPage(){
       if (maxNoofPages > 0) {
-         if (pageNo <=  maxNoofPages)
-            setPage(++pageNo);
+         if (pageNo <  maxNoofPages) {
+            ++pageNo;
+            setLastPageVisited(pageNo);
+            setPage(pageNo);
+         }
       }
    }
 

@@ -64,14 +64,14 @@ public class TDMasterData implements Serializable
       customerData = new CustomerData();
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
-      ownerSPF=true;
+      ownerSPF=false;
       ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
       showBeneficiaryForm = false;
       newBeneficiaryForm = false;
       fundNow = false;
       recurringFlag = false;
-      fundType = null;
+      fundType = "PMACH";
       initialInvestment = null;
       totalbeneficiaryShares = null;
       usmaps = USMaps.getInstance();

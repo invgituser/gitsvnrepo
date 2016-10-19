@@ -255,11 +255,22 @@ public class TdCto
             // clear all data.
             tdMasterData = new TDMasterData(getLongBeanacctnum());
             pagemanager = new PagesImpl(10);
-            pagemanager.initPage();
+            // Start fresh, clean and start from top page.
             if (!loadData()) {
                msgheader = "dctd.100";
                webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
+            }
+            else {
+               // Check all data to find out where they left off last time.
+               // Just don't display error. Just go to that page.
+               Boolean status = validateAllPage();
+               Integer currentPage = pagemanager.getPage();
+               pagemanager.initPage();
+               resetActiveTab(0);
+               pagemanager.setLastPageVisited(currentPage);
+               pagemanager.clearAllErrorMessage();
+               saveandOpenError=null;
             }
          }
       }
@@ -440,6 +451,17 @@ public class TdCto
 
    }*/
 
+   public Boolean isAccordianDisabled(Integer pageno) {
+     if (pageno != null ) {
+        if (pageno > 0 && pageno < pagemanager.getMaxNoofPages()) {
+           if (pagemanager.getLastPageVisited() >= pageno) {
+              return false;
+           }
+        }
+     }
+     return true;
+   }
+
    public void onTabChange(TabChangeEvent event)
    {
       try
@@ -596,9 +618,9 @@ public class TdCto
             newTab = 6;
             break;
          case 10: // Funding Page 2
-            if (tdMasterData.getRecurringFlag())
+            if (tdMasterData.getFundNow())  // Stay on same tab Fund now button
             {
-             newTab = null;
+             newTab = 6;
             }
             else
             {  // Force to go to next tab.
@@ -1332,6 +1354,7 @@ public class TdCto
          saveData(pagemanager.getPage());
          pagemanager.nextPage();
          resetActiveTab(pagemanager.getPage());
+         saveandOpenError = null;
       }
    }
 
@@ -1362,6 +1385,7 @@ public class TdCto
       resetActiveTab(pagemanager.getPage());
       if (!status)
          saveandOpenError="Please fill appropriate forms above.";
+
       return status;
    }
 
@@ -1405,9 +1429,12 @@ public class TdCto
 
       tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
       tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
-     consumerListDAO.getProfileData(tdMasterData.getCustomerData());
+      consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
-     if (! tdMasterData.getCustomerData().getManaged()) {
+      if (tdMasterData.getCustomerData() == null)
+         return true;
+
+     if ((tdMasterData.getCustomerData().getManaged() == null) || ( ! tdMasterData.getCustomerData().getManaged())) {
          custodyListDAO.getTDAccountDetails(tdMasterData);
          custodyListDAO.getTDAccountHolder(tdMasterData);
          custodyListDAO.getTDEmployment(tdMasterData);

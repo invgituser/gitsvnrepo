@@ -232,8 +232,9 @@ tax or estate planning. Please consult an estate planner for details regarding t
 								<f:param name="Reset" />
 							</p:button>
 
-							<p:commandButton value="Save" ajax="true"
+							<p:commandButton value="Save"
 											 update=":ctoForm:tdaccordian:beneficiaryPanel"
+                                             process=":ctoForm:tdaccordian:beneficiaryPanel"
 											 actionListener="#{tdcto.saveBenefiaciaryDetails}"
 											 styleClass="ui-priority-primary CommonBtnWidthSave" />
 
@@ -249,8 +250,9 @@ tax or estate planning. Please consult an estate planner for details regarding t
                                update=":ctoForm:tdaccordian"  process="@this"/>
 
 				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-							   actionListener="#{tdcto.nextPage}"  process=":ctoForm:tdaccordian:beneficiaryPanel"
-                               update=":ctoForm:tdaccordian" />
+							   actionListener="#{tdcto.nextPage}"
+                               update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                               process=":ctoForm:tdaccordian:beneficiaryPanel"/>
 			</div>
 		</div>
 

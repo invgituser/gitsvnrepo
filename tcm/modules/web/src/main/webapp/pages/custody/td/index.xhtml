@@ -54,7 +54,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/accttype.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab1" styleClass="tcmAccordion-UI"  >
+                                <p:tab id="tab1" disabled="#{tdcto.isAccordianDisabled(1)}" styleClass="tcmAccordion-UI"  >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm"/>
@@ -63,7 +63,7 @@
 
                                     <ui:include src="/pages/custody/td/acctholder.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab2" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab2" disabled="#{tdcto.isAccordianDisabled(3)}" styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/address.png.xhtml?ln=tcm"/>
@@ -71,7 +71,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/address.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab3" styleClass="tcmAccordion-UI"  >
+                                <p:tab id="tab3" disabled="#{tdcto.isAccordianDisabled(5)}" styleClass="tcmAccordion-UI"  >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm"/>
@@ -79,7 +79,7 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/regulatory.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab4" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab4" disabled="#{tdcto.isAccordianDisabled(6)}" styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/employment.png.xhtml?ln=tcm"/>
@@ -88,7 +88,7 @@
 
                                     <ui:include src="/pages/custody/td/employment.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab5" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab5" disabled="#{tdcto.isAccordianDisabled(8)}" styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/beneficiary.png.xhtml?ln=tcm"/>
@@ -97,7 +97,7 @@
 
                                     <ui:include src="/pages/custody/td/beneficiary.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab6" styleClass="tcmAccordion-UI">
+                                <p:tab id="tab6" disabled="#{tdcto.isAccordianDisabled(9)}" styleClass="tcmAccordion-UI">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/money.png.xhtml?ln=tcm"/>
@@ -113,13 +113,14 @@
                                 accesskey="" >
                                 <f:param name="AccountOpenSave" />
                             </p:button>-->
-                            <h:outputText styleClass="errorText" rendered="#{tdcto.saveandOpenError != null}"
+                            <h:outputText id="errorMsg"
+                                          styleClass="errorText" rendered="#{tdcto.saveandOpenError != null}"
                                           value="#{tdcto.saveandOpenError}" escape="false"/>
 
                         </div>
                         <div class="Container100 saveNopenBtn" style="text-align: center;">
                             <p:commandButton value="Save and Open Account"
-                                             update=":ctoForm:tdaccordian" process="@this"
+                                             update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@this"
                                              actionListener="#{tdcto.openAccount}"
                                              styleClass="text-align: center" />
 
