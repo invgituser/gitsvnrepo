@@ -484,7 +484,7 @@ public class PositionBean implements Serializable
          pieModel.setShowDataLabels(false);
          pieModel.setDiameter(150);
          pieModel.setSeriesColors(seriescolor);
-         pieModel.setExtender("pie_extensions");
+         //pieModel.setExtender("pie_extensions");
 
       }
    }
