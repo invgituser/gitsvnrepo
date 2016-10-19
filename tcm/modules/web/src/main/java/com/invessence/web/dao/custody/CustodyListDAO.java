@@ -321,6 +321,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                achBankDetail.setBankPhoneNumber(convert.getStrData(rs.get("bankPhoneNumber")));
                achBankDetail.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
                achBankDetail.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
+               data.setInitialInvestment(convert.getDoubleData(rs.get("tranAmount")));
             }
             data.setAchBankDetail(achBankDetail);
          }
@@ -445,7 +446,10 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                acatDetails.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
                acatDetails.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
                acatDetails.setTranStartDate(convert.getStrData(rs.get("transtartdate")));
+
+
             }
+
             data.setElectroicBankDetail(acatDetails);
             if(data.getElectroicBankDetail().getAchId().toString().equalsIgnoreCase(data.getAchBankDetail().getAchId().toString()))
                data.setOwnerSPF(true);
@@ -478,6 +482,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
+               data.getRequest().setEventNum(convert.getIntData(rs.get("eventNum")));
                data.setFundNow(false);
                if(convert.getStrData(rs.get("reqfor")).equalsIgnoreCase("ACH"))
                {

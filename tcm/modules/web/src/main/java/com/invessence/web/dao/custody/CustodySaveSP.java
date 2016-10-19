@@ -270,10 +270,10 @@ public class CustodySaveSP extends StoredProcedure
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", tdMasterData.getAcctnum());
       inputMap.put("p_moveMoneyPayMethId", new Long(0));
-      if(tdMasterData.getFundType()==null)
+     // if(tdMasterData.getFundType()==null)
          inputMap.put("p_payMethodId", "PMACH");
-      else
-         inputMap.put("p_payMethodId", tdMasterData.getFundType());
+      //else
+        // inputMap.put("p_payMethodId", tdMasterData.getFundType());
       inputMap.put("p_status", "A");
       Map outMap =  super.execute(inputMap);
       //if (outMap != null) {

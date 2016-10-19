@@ -1612,9 +1612,8 @@ public class TdCto
                data.setReqType("IRA_APPLI_NEW");
 
             data.setEnvelopeHeading("Please sign account opening document.");
-
-            tdMasterData.getRequest().setEventNum(data.getEventNum());
             custodySaveDAO.tdOpenAccount(data);
+            tdMasterData.getRequest().setEventNum(data.getEventNum());
          }
          wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),tdMasterData.getRequest().getEventNum());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
