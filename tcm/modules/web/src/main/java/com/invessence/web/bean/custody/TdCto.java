@@ -1615,6 +1615,7 @@ public class TdCto
             custodySaveDAO.tdOpenAccount(data);
             tdMasterData.getRequest().setEventNum(data.getEventNum());
          }
+         System.out.println("Aoount Number:-"+tdMasterData.getAcctnum()+" ---Event Number="+tdMasterData.getRequest().getEventNum());
          wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(),tdMasterData.getRequest().getEventNum());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
