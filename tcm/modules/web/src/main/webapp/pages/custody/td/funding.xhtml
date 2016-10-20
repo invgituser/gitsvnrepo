@@ -11,7 +11,7 @@
         <p:tab title="Fund" id="tab6S0">
             <!--<p:panel id="fundPanel" style="border: 0px; background: transparent">-->
 
-            <p:panel rendered="#{tdcto.getErrorMessage(9) != null and !tdcto.tdMasterData.fundNow}"
+            <p:panel rendered="#{tdcto.getErrorMessage(9) != null }"
                      style="border: 0px; background: transparent"
                      styleClass="Container100 MarAuto ">
                 <h:outputText styleClass="errorText"
@@ -591,7 +591,7 @@
         </p:tab>
 
         <p:tab  id="tab6S1" title="Recurring" rendered="#{!tdcto.tdMasterData.fundNow}">
-            <p:panel rendered="#{tdcto.getErrorMessage(10) != null and !tdcto.tdMasterData.recurringFlag}"
+            <p:panel rendered="#{tdcto.getErrorMessage(10) != null}"
                      style="border: 0px; background: transparent"
                      styleClass="Container100">
                 <h:outputText styleClass="errorText"

@@ -1295,6 +1295,16 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transstartdate.requiredMsg", "Start date is requied!", null));
                      }
+                     else if(!tdMasterData.getElectroicBankDetail().getTranStartDate().equals("") && ! JavaUtil.isValidDate(tdMasterData.getElectroicBankDetail().getTranStartDate(),"MM/dd/yyyy"))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validateStartDate.formatMsg", "Enter valid Start Date (mm/dd/yyyy)!", null));
+                     }
+                     else if(!tdMasterData.getElectroicBankDetail().getTranStartDate().equals("") && ! JavaUtil.checkdate(tdMasterData.getElectroicBankDetail().getTranStartDate()))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validateStartDate.formatMsg", "Start date should be greater than today date!", null));
+                     }
 
                      if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getOwnerSPF())
                      {

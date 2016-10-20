@@ -100,7 +100,24 @@ public class JavaUtil implements Serializable
       System.out.println(s==null || s.trim().equals("")?"":s.substring(0,s.length()>5?5:s.length()));
    }
 
+   public static boolean checkdate(String enterDate)
+   {
+      Boolean flag=false;
+      try{
+         DateFormat userDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+         Date entryDate = userDateFormat.parse(enterDate);
+         Date todayDate= new Date();
+         if(entryDate.after(todayDate))
+         {
+            flag=true;
+            System.out.println("entryDate is after todayDate");
+         }
 
+      }catch(Exception ex){
+         ex.printStackTrace();
+      }
+      return flag;
+   }
 
    public static boolean isValidDate(String value, String format) {
       Date date = null;
