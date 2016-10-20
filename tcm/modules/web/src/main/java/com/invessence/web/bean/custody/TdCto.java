@@ -707,11 +707,16 @@ public class TdCto
            {
               BenefiaciaryDetails tmpb = tmpbenefiaciaryDetailsList.get(i);
               if (tdMasterData.getTmpBenefiaciaryDetail().getBeneId().intValue() == tmpb.getBeneId().intValue())
+              {
                  benefiaciaryDetailsList.remove(i);
+
+                tdMasterData.setTotalbeneficiaryShares((tdMasterData.getTotalbeneficiaryShares()) - (tmpb.getSharePerc().intValue()));
+              }
            }
 
         }
-
+        tdMasterData.setTotalbeneficiaryShares(((tdMasterData.getTotalbeneficiaryShares()== null) ? 0 : tdMasterData.getTotalbeneficiaryShares()) + tdMasterData.getTmpBenefiaciaryDetail().getSharePerc().intValue());
+        tdMasterData.setTmptottalShares(tdMasterData.getTotalbeneficiaryShares());
         benefiaciaryDetailsList.add(tdMasterData.getTmpBenefiaciaryDetail());
         tdMasterData.setBenefiaciaryDetailsList(benefiaciaryDetailsList);
         tdMasterData.setShowBeneficiaryForm(false);
@@ -778,7 +783,8 @@ public class TdCto
             BenefiaciaryDetails tmpb = tmpbenefiaciaryDetailsList.get(i);
             shareHolderPer = tmpb.getSharePerc() + shareHolderPer;
          }
-         shareHolderPer=benefiaciaryDetail.getSharePerc()+shareHolderPer;
+         shareHolderPer=tdMasterData.getTmptottalShares()+ tdMasterData.getTmpBenefiaciaryDetail().getSharePerc().intValue();
+
          if(shareHolderPer>100)
          {
             dataOK = false;
@@ -1279,12 +1285,7 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transfrequency.requiredMsg", "Frequency is required!", null));
                      }
-                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankAcctName()))
-                     {
-                        dataOK = false;
-                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.banktitle.requiredMsg", "Bank Account title is required!", null));
-                     }
-                     if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranAmount()))
+                    if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranAmount()))
                      {
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transamt.requiredMsg", "Amount is required!", null));
@@ -1301,7 +1302,11 @@ public class TdCto
                      }
                      else
                      {
-
+                        if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankAcctType()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.accounttype.requiredMsg", "Bank Account Type is required!", null));
+                        }
                         if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankName()))
                         {
                            dataOK = false;
@@ -1310,7 +1315,7 @@ public class TdCto
                         if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankAcctName()))
                         {
                            dataOK = false;
-                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.bankaccountname.requiredMsg", "Name on bank account is required!", null));
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.banktitle.requiredMsg", "Bank Account title is required!", null));
                         }
                         if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankCityState()))
                         {

@@ -28,7 +28,7 @@
 
         <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary"
 								   offLabel="Add Beneficiary" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
-				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" />
+				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="#{tdcto.tdMasterData.addnewBeneficiary}" />
 			</p:selectBooleanButton>
 
 			<div class="Container100 Responsive100">

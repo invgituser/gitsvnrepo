@@ -32,7 +32,7 @@ public class TDMasterData implements Serializable
    String fundType;
    Boolean fundNow, recurringFlag;
    Double initialInvestment;
-   Integer totalbeneficiaryShares;
+   Integer totalbeneficiaryShares,tmptottalShares;
 
    private USMaps usmaps;
    // TD information
@@ -74,7 +74,8 @@ public class TDMasterData implements Serializable
       recurringFlag = false;
       fundType = "PMACH";
       initialInvestment = null;
-      totalbeneficiaryShares = null;
+      totalbeneficiaryShares = 0;
+      tmptottalShares=0;
       usmaps = USMaps.getInstance();
 
       request = new Request();
@@ -139,6 +140,26 @@ public class TDMasterData implements Serializable
          return "Minor Holder";
       }
       return "Joint Holder";
+   }
+
+   public Integer getTotalbeneficiaryShares()
+   {
+      return totalbeneficiaryShares;
+   }
+
+   public void setTotalbeneficiaryShares(Integer totalbeneficiaryShares)
+   {
+      this.totalbeneficiaryShares = totalbeneficiaryShares;
+   }
+
+   public Integer getTmptottalShares()
+   {
+      return tmptottalShares;
+   }
+
+   public void setTmptottalShares(Integer tmptottalShares)
+   {
+      this.tmptottalShares = tmptottalShares;
    }
 
    public Integer getAccttype()
@@ -537,6 +558,7 @@ public class TDMasterData implements Serializable
       }
 
       totalbeneficiaryShares = ((totalbeneficiaryShares == null) ? 0 : totalbeneficiaryShares) + tmpBenefiaciaryDetail.getSharePerc().intValue();
+      tmptottalShares=totalbeneficiaryShares;
       benefiaciaryDetailsList.add(tmpBenefiaciaryDetail);
       showBeneficiaryForm = false;
       editBeneficiaryForm=false;
@@ -564,12 +586,18 @@ public class TDMasterData implements Serializable
    }
 
    public void setSelectedBeneficiary(BenefiaciaryDetails thisBenefificiary) {
+      tmptottalShares=((totalbeneficiaryShares) - (thisBenefificiary.getSharePerc().intValue()));
       tmpBenefiaciaryDetail = thisBenefificiary;
    }
 
    public void editBeneficiary() {
       showBeneficiaryForm = true;
       editBeneficiaryForm=true;
+   }
+
+   public void addnewBeneficiary() {
+      tmptottalShares=totalbeneficiaryShares;
+      editBeneficiaryForm=false;
    }
 
    public void existingAccount() {
