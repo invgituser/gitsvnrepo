@@ -14,7 +14,7 @@ public class BenefiaciaryDetails {
 	private String beneRel;
 	private String beneType;
 	private String perStirpes;
-	private Double beneShare;
+	private String beneShare;
 
 	public Long getAcctnum()
 	{
@@ -116,12 +116,12 @@ public class BenefiaciaryDetails {
 		this.perStirpes = perStirpes;
 	}
 
-	public Double getBeneShare()
+	public String getBeneShare()
 	{
 		return beneShare;
 	}
 
-	public void setBeneShare(Double beneShare)
+	public void setBeneShare(String beneShare)
 	{
 		this.beneShare = beneShare;
 	}
