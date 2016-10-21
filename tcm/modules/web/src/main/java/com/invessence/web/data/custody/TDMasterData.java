@@ -341,6 +341,10 @@ public class TDMasterData implements Serializable
    public void setRecurringFlag(Boolean recurringFlag)
    {
       this.recurringFlag = recurringFlag;
+
+      if (!recurringFlag) {
+         electroicBankDetail = new ElectronicFundDetails();
+      }
    }
 
    public String getFundType()
