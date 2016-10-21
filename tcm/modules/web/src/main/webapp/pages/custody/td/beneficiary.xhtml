@@ -51,14 +51,17 @@
 									<f:setPropertyActionListener value="#{benefiaciary}"
 																 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
 								</p:commandButton>
-								<p:commandButton id="menuDelete"
-												 styleClass="Fs16 RedButton"
-												 process="@this" immediate="true"
-												 icon="fa fa-trash Fs14 white"
-												 update="singleDT"
-												 actionListener="#{tdcto.tdMasterData.deleteBeneficiary(benefiaciary)}">
-									<p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert"/>
-								</p:commandButton>
+                                <p:commandButton id="menuDelete"
+                                                 styleClass="Fs16 RedButton"
+                                                 process="@this" immediate="true"
+                                                 icon="fa fa-trash Fs14 white"
+                                                 update=":ctoForm:tdaccordian:beneficiaryPanel"
+                                                 actionListener="#{tdcto.tdMasterData.deleteBeneficiary(benefiaciary)}">
+                                    <p:tooltip for="menuDelete"
+                                               value="Delete" />
+                                    <f:setPropertyActionListener value="#{benefiaciary}"
+                                                                 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
+                                </p:commandButton>
 							</p:column>
 
 							<p:column styleClass="Wid25 TexAlLeft" sortBy=""

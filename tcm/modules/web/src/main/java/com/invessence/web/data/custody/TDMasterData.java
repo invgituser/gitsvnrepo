@@ -7,6 +7,7 @@ import com.invessence.web.bean.custody.TdCto;
 import com.invessence.web.constant.USMaps;
 import com.invessence.web.data.common.CustomerData;
 import com.invessence.web.data.custody.td.*;
+import com.invessence.web.util.Impl.PagesImpl;
 import org.primefaces.event.RowEditEvent;
 
 /**
@@ -55,11 +56,13 @@ public class TDMasterData implements Serializable
    BenefiaciaryDetails tmpBenefiaciaryDetail;
 
    CustomerData customerData;
+   PagesImpl pageMgr;
 
-   public TDMasterData(Long acctnum)
+   public TDMasterData(PagesImpl pm, Long acctnum)
    {
 
       this.acctnum = acctnum;
+      this.pageMgr = pm;
 
       customerData = new CustomerData();
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
@@ -215,6 +218,15 @@ public class TDMasterData implements Serializable
    public void setSenoirPolitical(Boolean senoirPolitical)
    {
       this.senoirPolitical = senoirPolitical;
+      if (!senoirPolitical) {
+         clearErrorMsg();
+         acctOwnersDetail.setSpfDetail(null);
+         acctOwnersDetail.setSPF(null);
+         acctOwnersDetail.setSpfCountry(null);
+         acctOwnersDetail.setSpfName(null);
+         acctOwnersDetail.setSpfRelationship(null);
+         acctOwnersDetail.setSpfTitle(null);
+      }
    }
 
    public Boolean getOwnerShare()
@@ -225,6 +237,15 @@ public class TDMasterData implements Serializable
    public void setOwnerShare(Boolean ownerShare)
    {
       this.ownerShare = ownerShare;
+      if (!ownerShare) {
+         clearErrorMsg();
+         acctOwnersDetail.setShareholderCompany(null);
+         acctOwnersDetail.setShareholderAddress(null);
+         acctOwnersDetail.setShareholderCity(null);
+         acctOwnersDetail.setShareholderState(null);
+         acctOwnersDetail.setDirectorShareholderDetail(null);
+      }
+
    }
 
    public Boolean getOwnerBD()
@@ -235,6 +256,11 @@ public class TDMasterData implements Serializable
    public void setOwnerBD(Boolean ownerBD)
    {
       this.ownerBD = ownerBD;
+      if (!ownerBD) {
+         clearErrorMsg();
+         acctOwnersDetail.setBdDetail(null);
+         acctOwnersDetail.setBd(null);
+      }
    }
 
    public Boolean getJointSPF()
@@ -245,6 +271,16 @@ public class TDMasterData implements Serializable
    public void setJointSPF(Boolean jointSPF)
    {
       this.jointSPF = jointSPF;
+      if (!jointSPF) {
+         clearErrorMsg();
+         jointAcctOwnersDetail.setSpfDetail(null);
+         jointAcctOwnersDetail.setSPF(null);
+         jointAcctOwnersDetail.setSpfCountry(null);
+         jointAcctOwnersDetail.setSpfName(null);
+         jointAcctOwnersDetail.setSpfRelationship(null);
+         jointAcctOwnersDetail.setSpfTitle(null);
+      }
+
    }
 
    public Boolean getJointShare()
@@ -255,6 +291,14 @@ public class TDMasterData implements Serializable
    public void setJointShare(Boolean jointShare)
    {
       this.jointShare = jointShare;
+      if (!jointShare) {
+         clearErrorMsg();
+         jointAcctOwnersDetail.setShareholderCompany(null);
+         jointAcctOwnersDetail.setShareholderAddress(null);
+         jointAcctOwnersDetail.setShareholderCity(null);
+         jointAcctOwnersDetail.setShareholderState(null);
+         jointAcctOwnersDetail.setDirectorShareholderDetail(null);
+      }
    }
 
    public Boolean getJointBD()
@@ -265,6 +309,11 @@ public class TDMasterData implements Serializable
    public void setJointBD(Boolean jointBD)
    {
       this.jointBD = jointBD;
+      if (!jointBD) {
+         clearErrorMsg();
+         jointAcctOwnersDetail.setBdDetail(null);
+         jointAcctOwnersDetail.setBd(null);
+      }
    }
 
    public Boolean getFundNow()
@@ -330,6 +379,12 @@ public class TDMasterData implements Serializable
    public void setAcctdetail(Acctdetails acctdetail)
    {
       this.acctdetail = acctdetail;
+   }
+
+   private void clearErrorMsg() {
+      if (this.pageMgr != null) {
+         pageMgr.clearAllErrorMessage();
+      }
    }
 
    public void loadAcctType(String strtype) {
@@ -623,16 +678,28 @@ public class TDMasterData implements Serializable
       if (thisBeneficiary.getBeneId() > benefiaciaryDetailsList.size())
          return;
 
-      benefiaciaryDetailsList.remove(thisBeneficiary.getBeneId().intValue());
       if (benefiaciaryDetailsList.size() > 0) {
          totalbeneficiaryShares = 0;
-         for (int i=0; i < benefiaciaryDetailsList.size(); i++) {
-            totalbeneficiaryShares += benefiaciaryDetailsList.get(i).getSharePerc().intValue();
-            benefiaciaryDetailsList.get(i).setBeneId(i+1);  // Reset all seq#.
+         ListIterator listIterator = benefiaciaryDetailsList.listIterator();
+         int i=0;
+         while (listIterator.hasNext()) {
+            listIterator.next();
+            if (benefiaciaryDetailsList.get(i).getBeneId().equals(thisBeneficiary.getBeneId()) ) {
+               listIterator.remove();
+               break;
+            }
+            else {
+               i++;
+            }
+         }
+
+         for (i=0; i < benefiaciaryDetailsList.size(); i++) {
+               totalbeneficiaryShares += benefiaciaryDetailsList.get(i).getSharePerc().intValue();
+               benefiaciaryDetailsList.get(i).setBeneId(i+1);  // Reset all seq#.
          }
       }
       else {
-         totalbeneficiaryShares = null;
+         totalbeneficiaryShares = 0;
       }
    }
 

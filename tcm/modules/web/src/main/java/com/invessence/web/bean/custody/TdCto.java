@@ -42,7 +42,7 @@ public class TdCto
    private String beanacctnum;
    private String beanlogonID;
    private UserData userdata = new UserData();
-   private TDMasterData tdMasterData = new TDMasterData(0L);
+   private TDMasterData tdMasterData = new TDMasterData(null, 0L);
    private PagesImpl pagemanager = new PagesImpl(11);
    private Integer activeTab = 0;   // Start with first tab.
    public Integer newTab, subtab;
@@ -205,42 +205,6 @@ public class TdCto
       return beneTempList;
    }
 
-   public void startCTO(Long logonid, Long acctnum) {
-      String msgheader;
-      try
-      {
-            if (logonid == null || logonid <= 0L) {
-               msgheader = "dctd.100";
-               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               return;
-            }
-            else {
-               beanlogonID = logonid.toString();
-               beanacctnum = acctnum.toString();
-               tdMasterData = new TDMasterData(acctnum);
-               pagemanager = new PagesImpl(10);
-               pagemanager.initPage();
-               if (! loadData()) {
-                  msgheader = "dctd.100";
-                  webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-                  return;
-               }
-               else {
-                  uiLayout.doMenuAction("custody", "index.xhtml");
-               }
-            }
-         msgheader = "dctd.100";
-         webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-         return;
-      }
-      catch (Exception ex) {
-         logger.info("Exception: raised during Starting TD CTO process.");
-         msgheader = "dctd.100";
-         webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-         return;
-      }
-   }
-
    public void startCTO() {
       String msgheader;
       try
@@ -253,8 +217,8 @@ public class TdCto
                return;
             }
             // clear all data.
-            tdMasterData = new TDMasterData(getLongBeanacctnum());
             pagemanager = new PagesImpl(10);
+            tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
             // Start fresh, clean and start from top page.
             if (!loadData()) {
                msgheader = "dctd.100";
@@ -1138,8 +1102,10 @@ public class TdCto
                      dataOK = false;
                      pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.benedetails.requiredMsg", "Beneficiary details is required!", null));
                   }
-                 else if (tdMasterData.getBenefiaciaryDetailsList().size() > 0)
-                  {
+               }
+
+               if (tdMasterData.getBenefiaciaryDetailsList().size() > 0)
+               {
                      double shareHolderPer = 0;
                      ArrayList<BenefiaciaryDetails> tmpbenefiaciaryDetailsList = tdMasterData.getBenefiaciaryDetailsList();
                      for (int i = 0; i < tmpbenefiaciaryDetailsList.size(); i++)
@@ -1154,7 +1120,6 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage("Share holder percentage should be 100%");
                      }
-                  }
                }
             break;
          case 9: // Funding Page 1

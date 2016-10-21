@@ -71,11 +71,17 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
    public Boolean saveBenefiaciaryDetails(ArrayList<BenefiaciaryDetails> beneTempList)
    {
 
+      CustodySaveSP delsp = new CustodySaveSP(getDataSource(), "del_tddc_benefiaciary_details",90);
       CustodySaveSP sp = new CustodySaveSP(getDataSource(), "save_tddc_benefiaciary_details",4);
       Map outMap= null;
+      int i = 0;
       for(BenefiaciaryDetails data:beneTempList)
       {
-           outMap = sp.tdSaveBeneficiary(data);
+         if (i == 0) {
+            delsp.tdDelBeneficiary(data);
+         }
+         outMap = sp.tdSaveBeneficiary(data);
+         i++;
       }
 
       if (outMap == null)
@@ -94,6 +100,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       else
          return true;
    }
+
    public Long tdSaveMoveMoneyPay(TDMasterData tdMasterData)
    {
       long  payId=0;

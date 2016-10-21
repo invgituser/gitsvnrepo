@@ -849,7 +849,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.college.required", "When does your child plan to attend college?", null));
                      }
-                     else if (riskCalculator.getRiskHorizon() < 1 || riskCalculator.getRiskHorizon() > 20)
+                     else if (riskCalculator.getRiskHorizon() < 1 || riskCalculator.getRiskHorizon() > 18)
                      {
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.college.constraint", "Number of years to invest must be between 1 and 18 years.", null));
