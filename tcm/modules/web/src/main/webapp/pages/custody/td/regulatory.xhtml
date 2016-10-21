@@ -30,7 +30,7 @@
 						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
 							value="#{tdcto.tdMasterData.senoirPolitical}"
 							itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure.">
-							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" />
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" listener="${tdcto.tdMasterData.resetSeniorPolitical}" />
 						</p:selectBooleanCheckbox>
 					</div>
 
@@ -107,7 +107,7 @@
 						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
 							value="#{tdcto.tdMasterData.ownerShare}"
 							itemLabel="I, my spouse or an immediate member of my family is a director, 10% shareholder or policy maker of a publicly traded company.">
-							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregsharePanel" />
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregsharePanel" listener="${tdcto.tdMasterData.resetOwnerShare}"/>
 						</p:selectBooleanCheckbox>
 					</div>
 
@@ -185,7 +185,7 @@
 						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
 							value="#{tdcto.tdMasterData.ownerBD}"
 							itemLabel="I, my spouse or an immediate member of my family is licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange. (Please provide a copy of the required authorization letter)">
-							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerBDPanel" />
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerBDPanel" listener="${tdcto.tdMasterData.resetOwnereBd}" />
 
 						</p:selectBooleanCheckbox>
 					</div>

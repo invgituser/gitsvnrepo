@@ -31,7 +31,7 @@
                     <p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown"
                                      value="#{tdcto.tdMasterData.owneremploymentDetail.emplTypeId}"
                                      style="width: 100%;">
-                        <p:ajax update=":ctoForm:tdaccordian:employmenttab:owneraempPanel"/>
+                        <p:ajax update=":ctoForm:tdaccordian:employmenttab:owneraempPanel" listener="${tdcto.tdMasterData.resetOwnerEmployment}"/>
                         <f:selectItem itemLabel="Select Employment Status" itemValue=""
                                       noSelectionOption="true"/>
                         <f:selectItem itemLabel="Employed" itemValue="EMPL"/>
@@ -219,7 +219,7 @@
                     <p:selectOneMenu styleClass="FundAccountDropdownUI formpageDropdown"
                                      value="#{tdcto.tdMasterData.jointEmploymentDetail.emplTypeId}"
                                      style="width: 100%;">
-                        <p:ajax update=":ctoForm:tdaccordian:employmenttab:jointaempPanel"/>
+                        <p:ajax update=":ctoForm:tdaccordian:employmenttab:jointaempPanel" listener="${tdcto.tdMasterData.resetJointEmployment}"/>
                         <f:selectItem itemLabel="Select Employment Status" itemValue=""
                                       noSelectionOption="true"/>
                         <f:selectItem itemLabel="Employed" itemValue="EMPL"/>

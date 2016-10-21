@@ -100,7 +100,7 @@
                 <div class="Container100">
                     <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.acctholderhasMailing}"
                                              itemLabel="Different Mailing Address">
-                        <p:ajax update=":ctoForm:tdaccordian:addresstab:ownermailaddressPanel"/>
+                        <p:ajax update=":ctoForm:tdaccordian:addresstab:ownermailaddressPanel" listener="${tdcto.tdMasterData.resetAcctholderhasMailing}"/>
                     </p:selectBooleanCheckbox>
                 </div>
                 <p:panel  style="border: 0px; background: transparent; margin-top: -10px;"
@@ -199,7 +199,7 @@
 
                     <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasDifferent}" styleClass="RegulatoryCheckBox"
                                              itemLabel="Has different address then primary account holder?">
-                        <p:ajax update=":ctoForm:tdaccordian:addresstab:jointaddressPanel"/>
+                        <p:ajax update=":ctoForm:tdaccordian:addresstab:jointaddressPanel" listener="${tdcto.tdMasterData.resetJointDifferentAddress}"/>
                     </p:selectBooleanCheckbox>
                 </div>
 
@@ -285,7 +285,7 @@
                     <div class="Container100">
                         <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasMailing}"
                                                  itemLabel="Different Mailing Address">
-                            <p:ajax update=":ctoForm:tdaccordian:addresstab:jointmailaddressPanel2"/>
+                            <p:ajax update=":ctoForm:tdaccordian:addresstab:jointmailaddressPanel2" listener="${tdcto.tdMasterData.resetJointhasMailing}"/>
                         </p:selectBooleanCheckbox>
                     </div>
 

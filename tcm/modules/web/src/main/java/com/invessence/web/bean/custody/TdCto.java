@@ -1536,6 +1536,17 @@ public class TdCto
             if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
             {
                custodySaveDAO.tdsaveACHData(tdMasterData,"ACH");
+               if(tdMasterData.getOwnerSPF() && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
+               {
+                  tdMasterData.getElectroicBankDetail().setBankAcctType(tdMasterData.getAchBankDetail().getBankAcctType());
+                  tdMasterData.getElectroicBankDetail().setBankName(tdMasterData.getAchBankDetail().getBankName());
+                  tdMasterData.getElectroicBankDetail().setBankAcctName(tdMasterData.getAchBankDetail().getBankAcctName());
+                  tdMasterData.getElectroicBankDetail().setBankCityState(tdMasterData.getAchBankDetail().getBankCityState());
+                  tdMasterData.getElectroicBankDetail().setBankPhoneNumber(tdMasterData.getAchBankDetail().getBankPhoneNumber());
+                  tdMasterData.getElectroicBankDetail().setBankABARouting(tdMasterData.getAchBankDetail().getBankABARouting());
+                  tdMasterData.getElectroicBankDetail().setBankAcctNumber(tdMasterData.getAchBankDetail().getBankAcctNumber());
+
+               }
             }
             else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
                custodySaveDAO.tdSaveACAT(tdMasterData,tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());

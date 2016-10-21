@@ -180,6 +180,17 @@ public class TDMasterData implements Serializable
       this.acctholderhasMailing = acctholderhasMailing;
    }
 
+   public void resetAcctholderhasMailing()
+   {
+      if(!acctholderhasMailing)
+      {
+         acctOwnersDetail.setMailingAddressStreet("");
+         acctOwnersDetail.setMailingAddressCity("");
+         acctOwnersDetail.setMailingAddressState("");
+         acctOwnersDetail.setMailingAddressZipCode("");
+      }
+   }
+
    public Boolean getJointhasMailing()
    {
       return jointhasMailing;
@@ -190,6 +201,17 @@ public class TDMasterData implements Serializable
       this.jointhasMailing = jointhasMailing;
    }
 
+   public void resetJointhasMailing()
+   {
+      if(!jointhasMailing)
+      {
+         jointAcctOwnersDetail.setMailingAddressStreet("");
+         jointAcctOwnersDetail.setMailingAddressCity("");
+         jointAcctOwnersDetail.setMailingAddressState("");
+         jointAcctOwnersDetail.setMailingAddressZipCode("");
+      }
+   }
+
    public Boolean getJointhasDifferent()
    {
       return jointhasDifferent;
@@ -198,6 +220,21 @@ public class TDMasterData implements Serializable
    public void setJointhasDifferent(Boolean jointhasDifferent)
    {
       this.jointhasDifferent = jointhasDifferent;
+   }
+   public void resetJointDifferentAddress()
+   {
+      if(!jointhasDifferent)
+      {
+         jointhasMailing = false;
+         jointAcctOwnersDetail.setPhysicalAddressStreet("");
+         jointAcctOwnersDetail.setPhysicalAddressCity("");
+         jointAcctOwnersDetail.setPhysicalAddressState("");
+         jointAcctOwnersDetail.setPhysicalAddressZipCode("");
+         jointAcctOwnersDetail.setMailingAddressStreet("");
+         jointAcctOwnersDetail.setMailingAddressCity("");
+         jointAcctOwnersDetail.setMailingAddressState("");
+         jointAcctOwnersDetail.setMailingAddressZipCode("");
+      }
    }
 
    public Boolean getOwnerSPF()
@@ -218,8 +255,12 @@ public class TDMasterData implements Serializable
    public void setSenoirPolitical(Boolean senoirPolitical)
    {
       this.senoirPolitical = senoirPolitical;
+
+   }
+   public void resetSeniorPolitical()
+   {
       if (!senoirPolitical) {
-         clearErrorMsg();
+        // clearErrorMsg();
          acctOwnersDetail.setSpfDetail(null);
          acctOwnersDetail.setSPF(null);
          acctOwnersDetail.setSpfCountry(null);
@@ -237,13 +278,18 @@ public class TDMasterData implements Serializable
    public void setOwnerShare(Boolean ownerShare)
    {
       this.ownerShare = ownerShare;
+
+   }
+   public void resetOwnerShare()
+   {
       if (!ownerShare) {
-         clearErrorMsg();
+         //clearErrorMsg();
          acctOwnersDetail.setShareholderCompany(null);
          acctOwnersDetail.setShareholderAddress(null);
          acctOwnersDetail.setShareholderCity(null);
          acctOwnersDetail.setShareholderState(null);
          acctOwnersDetail.setDirectorShareholderDetail(null);
+         acctOwnersDetail.setDirectorShareholder(null);
       }
 
    }
@@ -256,13 +302,17 @@ public class TDMasterData implements Serializable
    public void setOwnerBD(Boolean ownerBD)
    {
       this.ownerBD = ownerBD;
+
+   }
+
+   public void resetOwnereBd()
+   {
       if (!ownerBD) {
          clearErrorMsg();
          acctOwnersDetail.setBdDetail(null);
          acctOwnersDetail.setBd(null);
       }
    }
-
    public Boolean getJointSPF()
    {
       return jointSPF;
@@ -324,13 +374,13 @@ public class TDMasterData implements Serializable
    public void setFundNow(Boolean fundNow)
    {
       this.fundNow = fundNow;
-      if (! fundNow) {
+     /* if (! fundNow) {
          setFundType(null);
          mapMovemoneyPaymethod = new MapMovemoneyPaymethod();
          achBankDetail = new AchBankDetail();
          acatDetails = new ACATDetails();
          tdTransferDetails = new TDTransferDetails();
-      }
+      }*/
    }
 
    public Boolean getRecurringFlag()
@@ -342,9 +392,9 @@ public class TDMasterData implements Serializable
    {
       this.recurringFlag = recurringFlag;
 
-      if (!recurringFlag) {
+      /*if (!recurringFlag) {
          electroicBankDetail = new ElectronicFundDetails();
-      }
+      }*/
    }
 
    public String getFundType()
@@ -357,6 +407,60 @@ public class TDMasterData implements Serializable
       this.fundType = fundType;
    }
 
+   public void resetFundNowData()
+   {
+      initialInvestment=null;
+      achBankDetail=new AchBankDetail();
+      acatDetails=new ACATDetails();
+      tdTransferDetails=new TDTransferDetails();
+      electroicBankDetail=new ElectronicFundDetails();
+      ownerSPF=false;
+      recurringFlag=true;
+   }
+   public void resetFundTypeData()
+   {
+         if(fundType.equals("PMACH"))
+         {
+            acatDetails=new ACATDetails();
+            tdTransferDetails=new TDTransferDetails();
+         }
+         else if(fundType.equals("PMFEDW"))
+         {
+            initialInvestment=null;
+            achBankDetail=new AchBankDetail();
+            tdTransferDetails=new TDTransferDetails();
+         }
+         else if(fundType.equals("TDTRF"))
+         {
+            initialInvestment=null;
+            achBankDetail=new AchBankDetail();
+            acatDetails=new ACATDetails();
+         }
+   }
+   public void resetRetailFlag()
+   {
+      if(tdTransferDetails.getRetilFlag().equals(""))
+      {
+         tdTransferDetails.setPriorFirmName("");
+         tdTransferDetails.setRetailAccountNumber("");
+         tdTransferDetails.setAdvisorID("");
+      }
+      else if(tdTransferDetails.getRetilFlag().equals("Y"))
+      {
+         tdTransferDetails.setRetailAccountNumber("");
+         tdTransferDetails.setAdvisorID("");
+      }
+      else if(tdTransferDetails.getRetilFlag().equals("N"))
+      {
+         tdTransferDetails.setPriorFirmName("");
+      }
+
+   }
+   public void resetRecurringFlagData()
+   {
+      electroicBankDetail=new ElectronicFundDetails();
+      ownerSPF=false;
+   }
    public Double getInitialInvestment()
    {
       return initialInvestment;
@@ -489,6 +593,40 @@ public class TDMasterData implements Serializable
       this.owneremploymentDetail = owneremploymentDetail;
    }
 
+   public void resetOwnerEmployment()
+   {
+      if(owneremploymentDetail.getEmplTypeId().startsWith("EMPL") || owneremploymentDetail.getEmplTypeId().startsWith("SLFEMPL"))
+      {
+         owneremploymentDetail.setSourceOfIncome("");
+      }
+      else
+      {
+         owneremploymentDetail.setEmployerName("");
+         owneremploymentDetail.setOccupation("");
+         owneremploymentDetail.setTypeOfBusiness("");
+         owneremploymentDetail.setEmployerStreetAddress("");
+         owneremploymentDetail.setEmployerCity("");
+         owneremploymentDetail.setEmployerState("");
+         owneremploymentDetail.setEmployerZipCode("");
+      }
+   }
+   public void resetJointEmployment()
+   {
+      if(jointEmploymentDetail.getEmplTypeId().startsWith("EMPL") || jointEmploymentDetail.getEmplTypeId().startsWith("SLFEMPL"))
+      {
+         jointEmploymentDetail.setSourceOfIncome("");
+      }
+      else
+      {
+         jointEmploymentDetail.setEmployerName("");
+         jointEmploymentDetail.setOccupation("");
+         jointEmploymentDetail.setTypeOfBusiness("");
+         jointEmploymentDetail.setEmployerStreetAddress("");
+         jointEmploymentDetail.setEmployerCity("");
+         jointEmploymentDetail.setEmployerState("");
+         jointEmploymentDetail.setEmployerZipCode("");
+      }
+   }
    public EmploymentDetails getJointEmploymentDetail()
    {
       return jointEmploymentDetail;
@@ -669,12 +807,24 @@ public class TDMasterData implements Serializable
    public void existingAccount() {
       if(ownerSPF  && getFundType().equalsIgnoreCase("PMACH"))
       {
-         System.out.println("Checked");
+         electroicBankDetail.setBankAcctType(achBankDetail.getBankAcctType());
+         electroicBankDetail.setBankName(achBankDetail.getBankName());
+         electroicBankDetail.setBankAcctName(achBankDetail.getBankAcctName());
+         electroicBankDetail.setBankCityState(achBankDetail.getBankCityState());
+         electroicBankDetail.setBankPhoneNumber(getAchBankDetail().getBankPhoneNumber());
+         electroicBankDetail.setBankABARouting(getAchBankDetail().getBankABARouting());
+         electroicBankDetail.setBankAcctNumber(getAchBankDetail().getBankAcctNumber());
 
       }
       else
       {
-         System.out.println("Uncheck");
+         electroicBankDetail.setBankAcctType("");
+         electroicBankDetail.setBankName("");
+         electroicBankDetail.setBankAcctName("");
+         electroicBankDetail.setBankCityState("");
+         electroicBankDetail.setBankPhoneNumber("");
+         electroicBankDetail.setBankABARouting("");
+         electroicBankDetail.setBankAcctNumber("");
       }
    }
 
@@ -712,6 +862,8 @@ public class TDMasterData implements Serializable
       else {
          totalbeneficiaryShares = 0;
       }
+      showBeneficiaryForm = false;
+      editBeneficiaryForm=false;
    }
 
    public Boolean getEditBeneficiaryForm()

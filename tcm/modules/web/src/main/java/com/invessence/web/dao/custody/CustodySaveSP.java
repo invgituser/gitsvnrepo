@@ -186,6 +186,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_tranAmount", Types.DOUBLE));
             declareParameter(new SqlParameter("p_tranFreqId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
+            break;
          case 9: // OPEN Account
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_reqId", Types.INTEGER));

@@ -30,7 +30,7 @@
                                               value="#{tdcto.tdMasterData.fundType}" layout="custom"
                                               required="false"
                                               requiredMessage="Must select one of these fund method!">
-                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this"/>
+                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this" listener="${tdcto.tdMasterData.resetFundTypeData}"/>
                                 <f:selectItem itemLabel="Later" itemValue="0"/>
                                 <f:selectItem itemLabel="ACH" itemValue="PMACH"/>
                                 <f:selectItem itemLabel="ACAT" itemValue="PMFEDW"/>
@@ -427,7 +427,7 @@
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                      value="#{tdcto.tdMasterData.tdTransferDetails.retilFlag}"
                                                      style="width: 100%;">
-                                        <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this" />
+                                        <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this"  listener="${tdcto.tdMasterData.resetRetailFlag}"/>
                                         <f:selectItem itemLabel="Select Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Retail" itemValue="N"/>
@@ -568,7 +568,7 @@
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.fundNow}"
                                 itemLabel="I choose to opt-out of funding my account at the moment. (Please note that if your account is not funded within 30 days it will be closed.)">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" process="@this"/>
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" process="@this" listener="${tdcto.tdMasterData.resetFundNowData}"/>
 
                         </p:selectBooleanCheckbox>
                     </div>
@@ -791,7 +791,7 @@
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.recurringFlag}"
                                 itemLabel="I choose to opt-out of setting up a recurring contribution at this time.">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" listener="${tdcto.tdMasterData.resetRecurringFlagData}"/>
                         </p:selectBooleanCheckbox>
                     </div>
                     <div class="EmptyBox10"></div>
