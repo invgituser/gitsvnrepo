@@ -324,6 +324,13 @@ public class TDMasterData implements Serializable
    public void setFundNow(Boolean fundNow)
    {
       this.fundNow = fundNow;
+      if (! fundNow) {
+         setFundType(null);
+         mapMovemoneyPaymethod = new MapMovemoneyPaymethod();
+         achBankDetail = new AchBankDetail();
+         acatDetails = new ACATDetails();
+         tdTransferDetails = new TDTransferDetails();
+      }
    }
 
    public Boolean getRecurringFlag()
