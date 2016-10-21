@@ -624,6 +624,7 @@ public class TdCto
          pagemanager.prevPage();
          pagemanager.prevPage();
       }
+      pagemanager.clearAllErrorMessage();
       resetActiveTab(pagemanager.getPage());
    }
 
@@ -1333,6 +1334,7 @@ public class TdCto
       {
          saveData(pagemanager.getPage());
          pagemanager.nextPage();
+         pagemanager.clearAllErrorMessage();
          resetActiveTab(pagemanager.getPage());
          saveandOpenError = null;
       }
