@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import com.invessence.emailer.dao.MsgDAO;
 import com.invessence.emailer.data.MsgData;
+import com.invessence.service.util.*;
 import org.springframework.context.*;
 
 /**
@@ -243,6 +244,46 @@ public class EmailCreator implements MessageSourceAware, Serializable
             data.setMimeType("HTML");
          }
          msgDAO.saveMsg(data);
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+   }
+
+   // Added by Abhang
+
+   public void createEmail(String typeofalert, MsgData data, Object dataObject){
+
+      data.getMsg();
+      data.getAttachmentFile();
+      // Map Object
+   }
+   public void createEmail(String typeOfAlert, String subject, String message){
+
+      String receiver = null;
+      try {
+
+         // In it is warning, error and notification, then send to support desk as well as write to email_alert table.
+
+         if (typeOfAlert != null) {
+            if (typeOfAlert.toUpperCase().contains("WARN")) {
+               receiver =  ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "L1_SUPPORT_EMAIL");//messageSource.getMessage("supportdesk.L1", null, null);
+            }
+            else if (typeOfAlert.toUpperCase().contains("ERR")) {
+               receiver =  ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "L2_SUPPORT_EMAIL");//messageSource.getMessage("supportdesk.L2", null, null);
+            }
+            else receiver = ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "L1_SUPPORT_EMAIL");//messageSource.getMessage("supportdesk.L1", null, null);
+         }
+         MsgData msgData = new MsgData();
+         msgData.setMimeType("TEXT");
+         msgData.setSource("Internal");
+         msgData.setSubject(subject);
+         msgData.setReceiver(receiver);
+         // msgData.setCc();
+         msgData.setSender(ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "SENDER_EMAIL"));
+         msgData.setMsg(message);
+         writeMessage("Internal", msgData);
+         msgDAO.saveMsg(msgData);
       }
       catch (Exception ex) {
          ex.printStackTrace();
