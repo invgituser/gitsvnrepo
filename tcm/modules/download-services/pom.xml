@@ -93,7 +93,12 @@
             <artifactId>bcpg-jdk15on</artifactId>
             <version>1.51</version>
         </dependency>
-
+		<!-- Apache FTPClient API -->
+		<dependency>
+    <groupId>commons-net</groupId>
+    <artifactId>commons-net</artifactId>
+    <version>3.3</version>
+</dependency>
 	</dependencies>
 <!--<build>-->
         <!--<defaultGoal>install</defaultGoal>-->

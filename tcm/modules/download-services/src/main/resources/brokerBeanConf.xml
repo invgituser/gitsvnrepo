@@ -18,11 +18,11 @@
     <context:component-scan base-package="com.invessence.broker" />
 
    <import resource="classpath*:serviceConfig.xml"/>
-
+<!--
    <bean id="brokerFileProcessor" class="com.invessence.broker.BrokerFileProcessor">
-	  <constructor-arg name="_baseDirectory" index="0" value="${base.data.dir}/eodfiles" /> <!--/home/abhangp/broker/ D:/Project/Abhang/temp-->
-	   <constructor-arg name="_eodProcedure" index="1" value="sp_invessence_switch_eod_process" />
-   </bean>
+	  <constructor-arg name="_baseDirectory" index="0" value="C:/TCM/data/eodfiles" /> &lt;!&ndash;/home/abhangp/broker/ D:/Project/Abhang/temp&ndash;&gt;
+	   <constructor-arg name="_eodProcedure" index="1" value="_sp_invessence_switch_eod_process" />
+   </bean>-->
 
    <bean id="gpgUtil" class="com.invessence.broker.util.GPGUtil">
 	  <constructor-arg name="_privateKey" index="0" value="${base.data.dir}/gnupg/secring.gpg" /> <!--/home/abhangp/broker/ D:/Project/Abhang/temp-->
@@ -69,14 +69,14 @@
 	    <task:scheduled ref="yodleeAPIService" method="refreshUserAccDetailsManager" cron="* 50 10 * * ?"></task:scheduled>
 	</task:scheduled-tasks > -->
 
-   <!--<context:property-placeholder location="parameters.properties" />-->
-   <!--<bean id="resource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
-   <!--<property name="basenames">-->
-   <!--<list>-->
-   <!--<value>parameters</value>-->
-   <!--</list>-->
-   <!--</property>-->
-   <!--</bean>-->
+   <context:property-placeholder location="parameters.properties" />
+      <bean id="resource" class="org.springframework.context.support.ResourceBundleMessageSource">
+      <property name="basenames">
+      <list>
+         <value>parameters</value>
+      </list>
+      </property>
+   </bean>
 
    <!--   <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
            <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
@@ -84,6 +84,6 @@
            <property name="username" value="webuser"/>
            <property name="password" value="inv3ss3nc3u530n1y"/>
        </bean>-->
-	 <import resource="classpath*:META-INF/spring/invitation.util.xml"/>
+	 <import resource="classpath*:META-INF/spring/emailerConfig.xml"/>
   
 </beans>

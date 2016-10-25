@@ -13,6 +13,7 @@ import com.invessence.util.*;
 import com.jcraft.jsch.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -32,28 +33,32 @@ public class BrokerFileProcessor
    @Autowired
    GPGUtil gpgUtil;
 
-//   @Autowired
-//   protected MessageSource resource;
-//
-//   protected String getMessage(String code, Object[] object, Locale locale) {
-//      return resource.getMessage(code, object, locale);
-//   }
+   @Autowired
+   protected MessageSource resource;
+
+   protected String getMessage(String code, Object[] object, Locale locale) {
+      return resource.getMessage(code, object, locale);
+   }
+
 
    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
    SimpleDateFormat sdfFileParsing = new SimpleDateFormat("yyyyMMdd");
 
    private String baseDirectory;
-   private String eodProcedure;
-
+   private String postProcessor;
+/*
    public BrokerFileProcessor(String _baseDirectory, String _eodProcedure){
       this.baseDirectory=_baseDirectory;
-      this.eodProcedure=_eodProcedure;
-   }
+      this.postProcessor=_eodProcedure;
+   }*/
 
    public void process()
    {
+      System.out.println("Message Property : "+ getMessage("download.service.error",null,null).split("~").length);
+      baseDirectory=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "LOCAL_SRC_DIRECTORY");
+         postProcessor =ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "POST_PROCESSOR");
       logger.info("BaseDirectory :" + baseDirectory);
-      logger.info("EodProcedure :" + eodProcedure);
+      logger.info("EodProcedure :" + postProcessor);
       StringBuilder mailAlertMsg=null;
       File localDirectory=null;
       try {
@@ -61,6 +66,7 @@ public class BrokerFileProcessor
          //logger.info("Parameters"+Parameters.sqlInsertNewaccounts);
          Map<String, DBParameters> dbParamMap = commonDao.getDBParametres();
          logger.info("BUSINESS_DATE :" + dbParamMap.get("BUSINESS_DATE").getValue());
+         String UserName = ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_HOST");//"prashant@invessence.com";//"[EMAIL]";
          if(dbParamMap==null || dbParamMap.size()==0 || ! dbParamMap.containsKey("BUSINESS_DATE")){
             mailAlertMsg.append("Required DB parameters not available");
             logger.info("Required DB parameters not available");
@@ -78,19 +84,19 @@ public class BrokerFileProcessor
 //                  BrokerHostDetails hostDetails = (BrokerHostDetails) hostDetailsItr.next();
 //               String encryDecryKey="aRXDugfr4WQpVrxu";
 //               logger.info("Host Details :"+hostDetails.toString());
-               List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + ServiceParameters.BROKER_SERVICE_API + "'");
+               List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + ServiceParameters.DOWNLOAD_SERVICE_API + "'");
                if(downloadFilesLst == null && downloadFilesLst.size() == 0)
                {
-                  mailAlertMsg.append("Download files details are not available for broker :"+ServiceParameters.BROKER_SERVICE_API);
-                  logger.info("Download files details are not available for broker :" + ServiceParameters.BROKER_SERVICE_API);
+                  mailAlertMsg.append("Download files details are not available for broker :"+ServiceParameters.DOWNLOAD_SERVICE_API);
+                  logger.info("Download files details are not available for broker :" + ServiceParameters.DOWNLOAD_SERVICE_API);
                }else{
                   try
                   {
                      //
                      JSch jsch = new JSch();
                      Session session = null;
-                     session = jsch.getSession(ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_USERNAME, ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_HOST, 22);
-                     session.setPassword(ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_PASSWORD);
+                     session = jsch.getSession(ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_USERNAME"), ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_HOST"), 22);
+                     session.setPassword(ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_PASSWORD"));
                      session.setConfig("StrictHostKeyChecking", "no");
                      session.connect();
 
@@ -100,7 +106,7 @@ public class BrokerFileProcessor
                      channel = (ChannelSftp) session.openChannel("sftp");
                      channel.connect();
                      try{
-                        channel.cd(ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY);
+                        channel.cd(ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_SRC_DIRECTORY"));
                         Iterator<DownloadFileDetails> downloadFilesItr = downloadFilesLst.iterator();
                         while (downloadFilesItr.hasNext()) {
 
@@ -207,7 +213,10 @@ public class BrokerFileProcessor
                                                 String decryptedFileName = localDirectory + "/" + fileToDownload.replace(downloadFileDetails.getFileExtension(),downloadFileDetails.getLoadFormat());
                                                 try
                                                 {
-                                                   gpgUtil.decryptFile(new FileInputStream(localFileName), new FileOutputStream(decryptedFileName));
+                                                  if(downloadFileDetails.getEncryptionMethod().equalsIgnoreCase("pgp"))
+                                                  {
+                                                     gpgUtil.decryptFile(new FileInputStream(localFileName), new FileOutputStream(decryptedFileName));
+                                                  }
                                                    if (downloadFileDetails.getLoadFormat().equalsIgnoreCase("csv"))
                                                    {
                                                       try
@@ -309,7 +318,7 @@ public class BrokerFileProcessor
             try
             {
                logger.info("Sending email to support team");
-               emailCreator.sendToSupport("ERR", "Broker File Upload Process", mailAlertMsg.toString());
+               emailCreator.createEmail("ERR", "Broker File Upload Process", mailAlertMsg.toString());
             }catch (Exception e)
             {
                logger.error("While email processing \n"+e.getMessage());
@@ -319,8 +328,13 @@ public class BrokerFileProcessor
          {
             try
             {
-               logger.info("Calling EOD process \n");
-               commonDao.callEODProcess(eodProcedure);
+               if(postProcessor ==null || postProcessor.trim()==""){
+                  logger.info("No Post Processor event for execution.\n");
+               }else
+               {
+                  logger.info("Calling Post Processor:"+ postProcessor +"\n");
+                  commonDao.callEODProcess(postProcessor);
+               }
             }
             catch (Exception e)
             {
@@ -427,7 +441,7 @@ public class BrokerFileProcessor
                {
                   if (!line.equals(""))
                   {
-                     String[] lineArr = line.split(cvsSplitBy);
+                     String[] lineArr = line.split(cvsSplitBy,-1);
                      if(lineArr.length>fileDetails.getKeyData())
                      {
                         if (!lineArr[fileDetails.getKeyData()].trim().equals("") || lineArr[fileDetails.getKeyData()].trim() != null)
