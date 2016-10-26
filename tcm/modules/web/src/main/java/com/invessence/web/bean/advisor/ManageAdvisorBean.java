@@ -10,6 +10,7 @@ import com.invessence.web.constant.*;
 import com.invessence.web.dao.advisor.*;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.data.common.*;
+import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.util.*;
 
 
@@ -58,6 +59,7 @@ public class ManageAdvisorBean implements Serializable
    private ArrayList<AccountData> filteredDataList = new ArrayList<AccountData>();
    private String filteredClient;
    private AccountData selectedAccount;
+   private RiskCalculator riskCalculator;
 
    @ManagedProperty("#{emailMessage}")
    private WebMessage messageSource;
@@ -75,7 +77,6 @@ public class ManageAdvisorBean implements Serializable
 
    public void preRenderView()
    {
-
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
@@ -86,9 +87,7 @@ public class ManageAdvisorBean implements Serializable
 
                if (logonid != null)
                {
-                  if (accountDataList == null || accountDataList.size() == 0) {
                      filterData();
-                  }
                }
             }
          }
@@ -150,7 +149,7 @@ public class ManageAdvisorBean implements Serializable
 
             accountDataList.clear();
 
-            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, null, null);
+            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, null);
          }
       }
       catch (Exception ex)
@@ -159,9 +158,17 @@ public class ManageAdvisorBean implements Serializable
       }
    }
 
+   private void loadRiskData(Long acctnum)
+   {
+      riskCalculator = new RiskCalculator();
+      consumerListDataDAO.getRiskProfileData(acctnum, riskCalculator);
+   }
+
    public void filterData() {
 
       collectData(webutil.getLogonid());
+      filteredDataList = accountDataList;
+/*
       if (getFilteredClient() == null || getFilteredClient().length() == 0)
         filteredDataList = accountDataList;
       else {
@@ -171,14 +178,14 @@ public class ManageAdvisorBean implements Serializable
                filteredDataList.add(adata);
          }
       }
+*/
    }
 
    public void refreshPage() {
       String url;
       if (getFilteredClient() != null) {
-        url = "/pages/advisor/alist.xhtml?Action=" + getFilteredClient();
-         webutil.redirect(url,null);
-      }
+         uiLayout.doMenuAction("advisor", "alist.xhtml?action=" + getFilteredClient());
+       }
    }
 
    public AdvisorListDataDAO getAdvisorListDataDAO()
@@ -216,6 +223,51 @@ public class ManageAdvisorBean implements Serializable
       this.selectedAccount = selectedAccount;
    }
 
+   public RiskCalculator getRiskCalculator()
+   {
+      return riskCalculator;
+   }
+
+   public void setRiskCalculator(RiskCalculator riskCalculator)
+   {
+      this.riskCalculator = riskCalculator;
+   }
+
+   public void showList()
+   {
+      try {
+         uiLayout.doMenuAction("advisor", "alist.xhtml?action=" + filteredClient);
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
+   public void doEditAction()
+   {
+      try
+      {
+         if (getSelectedAccount() == null)
+         {
+            return;
+         }
+
+         if (getSelectedAccount().getAdvisor_priviledge() == null ||
+             getSelectedAccount().getAdvisor_priviledge().equalsIgnoreCase("V")) {
+            loadRiskData(getSelectedAccount().getAcctnum());
+            uiLayout.doMenuAction("advisor", "vwProfile.xhtml");
+         }
+         else {
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+         }
+      }
+      catch (Exception ex)
+      {
+      }
+
+   }
+
+
    public String doManagedAction()
    {
       try
@@ -230,7 +282,13 @@ public class ManageAdvisorBean implements Serializable
             uiLayout.doMenuAction("consumer", "overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
          }
          else {
-            uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+            if (getSelectedAccount().getAdvisor_priviledge().equalsIgnoreCase("V")) {
+               loadRiskData(getSelectedAccount().getAcctnum());
+               uiLayout.doMenuAction("advisor", "vwProfile.xhtml");
+            }
+            else {
+               uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+            }
          }
       }
       catch (Exception ex)

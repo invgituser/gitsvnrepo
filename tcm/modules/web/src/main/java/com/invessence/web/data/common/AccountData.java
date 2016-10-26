@@ -11,6 +11,7 @@ public class AccountData
 {
    private	Long	logonid	;
    private	Long	acctnum	;
+   private  String advisor_priviledge;
    private	String	email	;
    private	String	userid	;
    private	String	advisor	;
@@ -22,6 +23,7 @@ public class AccountData
    private	String	acctStatus	;
    private	String	tradePreference	;
    private	String	goal	;
+   private  String   portfolioName;
    private	String	accttype	;
    private	Integer	age	;
    private	Integer	horizon	;
@@ -80,6 +82,16 @@ public class AccountData
    public void setAcctnum(Long acctnum)
    {
       this.acctnum = acctnum;
+   }
+
+   public String getAdvisor_priviledge()
+   {
+      return advisor_priviledge;
+   }
+
+   public void setAdvisor_priviledge(String advisor_priviledge)
+   {
+      this.advisor_priviledge = advisor_priviledge;
    }
 
    public String getDisplayAcct()
@@ -224,6 +236,16 @@ public class AccountData
    public void setGoal(String goal)
    {
       this.goal = goal;
+   }
+
+   public String getPortfolioName()
+   {
+      return portfolioName;
+   }
+
+   public void setPortfolioName(String portfolioName)
+   {
+      this.portfolioName = portfolioName;
    }
 
    public String getAccttype()

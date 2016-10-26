@@ -35,6 +35,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                AccountData data = new AccountData();
 
                data.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               data.setAdvisor_priviledge(convert.getStrData(rs.get("advisor_privileges")));
                data.setEmail(convert.getStrData(rs.get("email")));
 
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
@@ -47,6 +48,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setAcctStatus(convert.getStrData(rs.get("acctstatus")));
                data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
                data.setGoal(convert.getStrData(rs.get("goal")));
+               data.setPortfolioName(convert.getStrData(rs.get("portfolioName")));
                data.setAccttype(convert.getStrData(rs.get("accttype")));
                data.setAge(convert.getIntData(rs.get("age")));
                data.setHorizon(convert.getIntData(rs.get("horizon")));

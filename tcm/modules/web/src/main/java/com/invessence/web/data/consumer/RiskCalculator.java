@@ -28,8 +28,8 @@ public class RiskCalculator
 
    public RiskCalculator()
    {
-      riskValues = new Double[15];
-      answers = new String[15];
+      riskValues = new Double[20];
+      answers = new String[20];
       riskAge = 30;
       riskHorizon = 20;
       totalRisk = 0.0;
@@ -146,11 +146,18 @@ public class RiskCalculator
       }
    }
 
+   public String getRetiredStr() {
+      if (retired != null && retired == 1)
+         return "Retired";
+      return "Not Retired";
+   }
+
    public Boolean isRetired() {
       if (retired != null && retired == 1)
          return true;
       return false;
    }
+
    public String getInvestmentobjective()
    {
       return investmentobjective;
@@ -405,6 +412,24 @@ public class RiskCalculator
    public void setAns15(String value)
    {
       setAnswer(15, value);
+   }
+
+   public void setRiskValue(Integer index, Double value)
+   {
+      if (index < 1)
+      {
+         return;
+      }
+
+      if (riskValues == null)
+         return;
+
+      if (index > riskValues.length)
+      {
+         return;
+      }
+
+      riskValues[index] = value;
    }
 
 }

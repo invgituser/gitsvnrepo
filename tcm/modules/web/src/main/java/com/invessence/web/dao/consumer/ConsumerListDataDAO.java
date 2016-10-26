@@ -400,6 +400,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             {
                Map rs = (Map) rows.get(0);
                data.setRiskAge(convert.getIntData(rs.get("age")));
+               data.setInvestmentobjective(convert.getStrData(rs.get("investmentgoal")));
+               data.setRetired(convert.getIntData(rs.get("retired")));
                data.setRetireAge(convert.getIntData(rs.get("retireage")));
                data.setRiskHorizon(convert.getIntData(rs.get("horizon")));
                data.setRiskFormula(convert.getStrData(rs.get("formula")));
@@ -418,6 +420,21 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setAnswer(13, convert.getStrData(rs.get("ans13")));
                data.setAnswer(14, convert.getStrData(rs.get("ans14")));
                data.setAnswer(15, convert.getStrData(rs.get("ans15")));
+               data.setRiskValue(1, convert.getDoubleData(rs.get("risk1")));
+               data.setRiskValue(2, convert.getDoubleData(rs.get("risk2")));
+               data.setRiskValue(3, convert.getDoubleData(rs.get("risk3")));
+               data.setRiskValue(4, convert.getDoubleData(rs.get("risk4")));
+               data.setRiskValue(5, convert.getDoubleData(rs.get("risk5")));
+               data.setRiskValue(6, convert.getDoubleData(rs.get("risk6")));
+               data.setRiskValue(7, convert.getDoubleData(rs.get("risk7")));
+               data.setRiskValue(8, convert.getDoubleData(rs.get("risk8")));
+               data.setRiskValue(9, convert.getDoubleData(rs.get("risk9")));
+               data.setRiskValue(10, convert.getDoubleData(rs.get("risk10")));
+               data.setRiskValue(11, convert.getDoubleData(rs.get("risk11")));
+               data.setRiskValue(12, convert.getDoubleData(rs.get("risk12")));
+               data.setRiskValue(13, convert.getDoubleData(rs.get("risk13")));
+               data.setRiskValue(14, convert.getDoubleData(rs.get("risk14")));
+               data.setRiskValue(15, convert.getDoubleData(rs.get("risk15")));
                data.setTotalRisk(convert.getDoubleData(rs.get("totalrisk")));
                break;  // Only load the first account info.
             }
