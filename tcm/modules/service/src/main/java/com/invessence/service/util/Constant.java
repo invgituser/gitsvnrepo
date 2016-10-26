@@ -8,7 +8,7 @@ public class Constant
 
    public enum SERVICES
    {
-      PRICING("PRICING"),BROKER_SERVICES("BROKER-SERVICES"),
+      PRICING("PRICING"), DOWNLOAD_SERVICES("DOWNLOAD-SERVICES"),
       BROKER_WEBSERVICES("BROKER-WEBSERVICES"),DOCUSIGN_SERVICES("DOCUSIGN-SERVICES"),
       EMAIL_SERVICE("EMAIL-SERVICE");
       private String value;
@@ -60,11 +60,12 @@ public class Constant
       }
    }
 
-   public enum BROKER_SERVICES {
+   public enum DOWNLOAD_SERVICES
+   {
       GEMINI("GEMINI");
       private String value;
 
-      private BROKER_SERVICES(String value) {
+      private DOWNLOAD_SERVICES(String value) {
          this.value = value;
       }
       private String getValue() {

@@ -16,7 +16,7 @@ public class ServiceValidator
             (ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME ==null ||ServiceParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME .equals("")) ||
             (ServiceParameters.BROKER_WEBSERVICES_GEMINI_ENCRY_DECRY_KEY ==null ||ServiceParameters.BROKER_WEBSERVICES_GEMINI_ENCRY_DECRY_KEY .equals(""))
             ){
-            logger.error("Mandatory configuration properties are not available for +" + Constant.SERVICES.BROKER_SERVICES.toString()+" and "+Constant.BROKER_WEBSERVICES.TD.toString());
+            logger.error("Mandatory configuration properties are not available for +" + Constant.SERVICES.DOWNLOAD_SERVICES.toString()+" and "+Constant.BROKER_WEBSERVICES.TD.toString());
             return false;
          }else
          {
@@ -26,32 +26,46 @@ public class ServiceValidator
       }else if(Constant.BROKER_WEBSERVICES.TD.toString().equals(vendor)){
          logger.info("Validating Configuration Properties for "+Constant.SERVICES.BROKER_WEBSERVICES.toString()+" and "+Constant.BROKER_WEBSERVICES.TD.toString());
       }else{
-         logger.error("Not supporting "+vendor+" for" + Constant.SERVICES.BROKER_SERVICES.toString());
+         logger.error("Not supporting "+vendor+" for" + Constant.SERVICES.DOWNLOAD_SERVICES.toString());
       }
      return false; 
    }
 
    public static boolean validateBrokerService(String vendor){
 
-      if(Constant.BROKER_WEBSERVICES.GEMINI.toString().equals(vendor))
+      String sftpHost=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_HOST");
+      String sftpUserName=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_USERNAME");
+      String sftpPassword=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_PASSWORD");
+      String sftpSourceDirectory=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_SRC_DIRECTORY");
+      String sftpEncrDecrKey=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "ENCRY_DECRY_KEY");
+
+
+      System.out.println("sftpHost = " + sftpHost);
+      System.out.println("sftpUserName = " + sftpUserName);
+      System.out.println("sftpPassword = " + sftpPassword);
+      System.out.println("sftpSourceDirectory = " + sftpSourceDirectory);
+      System.out.println("sftpEncrDecrKey = " + sftpEncrDecrKey);
+
+      if(Constant.BROKER_WEBSERVICES.GEMINI.toString().equals(vendor) || Constant.BROKER_WEBSERVICES.TD.toString().equals(vendor))
       {
-         logger.info("Validating Configuration Properties for " + Constant.SERVICES.BROKER_SERVICES.toString());
-         if ((ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_HOST == null || ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_HOST.equals("")) ||
-            (ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_USERNAME == null || ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_USERNAME.equals("")) ||
-            (ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_PASSWORD == null || ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_PASSWORD.equals("")) ||
-            (ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY == null || ServiceParameters.BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY.equals("")) ||
-            (ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY == null || ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY.equals(""))
-            )
+         logger.info("Validating Configuration Properties for " + Constant.SERVICES.DOWNLOAD_SERVICES.toString());
+         if ((sftpHost == null || sftpHost.trim().equals("")) ||
+            (sftpUserName == null || sftpUserName.trim().equals("")) ||
+            (sftpPassword == null || sftpPassword.trim().equals("")) ||
+            (sftpSourceDirectory == null || sftpSourceDirectory.trim().equals("")) ||
+            (sftpEncrDecrKey == null || sftpEncrDecrKey.trim().equals("")))
          {
-            logger.error("Mandatory configuration properties are not available for +" + Constant.SERVICES.BROKER_SERVICES.toString());
+            logger.error("Mandatory configuration properties are not available for +" + Constant.SERVICES.DOWNLOAD_SERVICES.toString());
             return false;
          }
          else
          {
             return true;
          }
-      }else{
-         logger.error("Not supporting "+vendor+" for" + Constant.SERVICES.BROKER_SERVICES.toString());
+
+      }
+      else{
+         logger.error("Not supporting "+vendor+" for" + Constant.SERVICES.DOWNLOAD_SERVICES.toString());
 
       }
       return false;

@@ -38,7 +38,7 @@ public class ServiceParameters
    public static String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY =null;
 
    public static String BROKER_WEBSERVICE_API;
-   public static String BROKER_SERVICE_API;
+   public static String DOWNLOAD_SERVICE_API;
    public static String tdEndPointUrl;
 
    //public static final String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY ="aRXDugfr4WQpVrxu";
@@ -451,8 +451,8 @@ public class ServiceParameters
          if(serviceConfigDetails.containsKey(Constant.SERVICES.PRICING.toString())){
             logger.info("Validating Configuration Properties for " + Constant.SERVICES.PRICING.toString());
          }
-         if(serviceConfigDetails.containsKey(Constant.SERVICES.BROKER_SERVICES.toString())){
-            ServiceValidator.validateBrokerService(Constant.BROKER_SERVICES.GEMINI.toString());
+         if(serviceConfigDetails.containsKey(Constant.SERVICES.DOWNLOAD_SERVICES.toString())){
+            ServiceValidator.validateBrokerService(Constant.DOWNLOAD_SERVICES.GEMINI.toString());
          }
 
          if(serviceConfigDetails.containsKey(Constant.SERVICES.BROKER_WEBSERVICES.toString())){
@@ -624,19 +624,19 @@ public class ServiceParameters
             ServiceParameters.BROKER_WEBSERVICE_API =sd.keySet().toArray()[0].toString();
          }
       }
-      if(serviceConfigDetailsMap.containsKey(Constant.SERVICES.BROKER_SERVICES.toString())){
-         Map<String, Map<String, ServiceConfigDetails>> sd= serviceConfigDetailsMap.get(Constant.SERVICES.BROKER_SERVICES.toString());
+      if(serviceConfigDetailsMap.containsKey(Constant.SERVICES.DOWNLOAD_SERVICES.toString())){
+         Map<String, Map<String, ServiceConfigDetails>> sd= serviceConfigDetailsMap.get(Constant.SERVICES.DOWNLOAD_SERVICES.toString());
          if(sd==null || sd.size()==0){
-            System.out.println("Expecting single API vendor for "+ Constant.SERVICES.BROKER_SERVICES.toString()+" service but it gets none");
+            System.out.println("Expecting single API vendor for "+ Constant.SERVICES.DOWNLOAD_SERVICES.toString()+" service but it gets none");
          }else if(sd.size()>1){
-            System.out.println("Expecting single API vendor for "+ Constant.SERVICES.BROKER_SERVICES.toString()+" service but it gets more the one");
-            ServiceParameters.BROKER_SERVICE_API =sd.keySet().toArray()[0].toString();
+            System.out.println("Expecting single API vendor for "+ Constant.SERVICES.DOWNLOAD_SERVICES.toString()+" service but it gets more the one");
+            ServiceParameters.DOWNLOAD_SERVICE_API =sd.keySet().toArray()[0].toString();
          }else if(sd.size()==1){
-            ServiceParameters.BROKER_SERVICE_API =sd.keySet().toArray()[0].toString();
+            ServiceParameters.DOWNLOAD_SERVICE_API =sd.keySet().toArray()[0].toString();
          }
       }
       //ServiceParameters.BROKER_WEBSERVICE_API = BROKER_WEBSERVICE_API;
-      System.out.println("BROKER_SERVICE_API = " + BROKER_SERVICE_API);
+      System.out.println("DOWNLOAD_SERVICE_API = " + DOWNLOAD_SERVICE_API);
       System.out.println("BROKER_WEBSERVICE_API = " + BROKER_WEBSERVICE_API);
 
    }
