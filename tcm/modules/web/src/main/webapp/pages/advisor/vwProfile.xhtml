@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box">
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent">
+                    <h:form id="form">
+                        <h3>Account#: #{manageAdvisorBean.selectedAccount.acctnum}</h3>
+                        <div class="EmptyBox5"></div>
+                        <p:panelGrid columns="2" rendered="#{not empty manageAdvisorBean.selectedAccount}"
+                                     columnClasses="label,value" styleClass="invNBgrid">
+
+                            <h:outputText value="Style"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.portfolioName}"/>
+
+                            <h:outputText value="Goal"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.goal}"/>
+
+                            <h:outputText value="Name"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.fullname}"/>
+
+                            <h:outputText value="Email"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.email}"/>
+
+                            <h:outputText value="Invested"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.actualCapital}">
+                                <f:convertNumber type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </p:panelGrid>
+                        <div class="EmptyBox10"></div>
+                        <p:panelGrid columns="3" rendered="#{not empty manageAdvisorBean.selectedAccount}"
+                                     columnClasses="label,value,value" styleClass="invNBgrid">
+                            <f:facet name="header">
+                                <h:outputText value="Risk Information"/>
+                            </f:facet>
+
+                            <h:outputText value="Strategy"/>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.investmentobjective}">
+                            </h:outputText>
+                            <h:outputText value=""/>
+
+                            <h:outputText value="Age"/>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.riskAge}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.retireAge}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+
+                            <h:outputText style="font-weight: bold" value="Answer"/>
+                            <h:outputText style="font-weight: bold" value="Value"/>
+                            <h:outputText style="font-weight: bold" value="Risk"/>
+
+                            <h:outputText value="Age/Horizon"/>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.riskHorizon}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(2)}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+
+
+                            <h:outputText value="Answer3"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.ans3}">
+\                            </h:outputText>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(3)}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+
+                            <h:outputText value="Answer4"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.ans4}">
+                            </h:outputText>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(4)}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+
+                            <h:outputText value="Answer5"/>
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.ans5}">
+                            </h:outputText>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(5)}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+
+                            <h:outputText value="#{manageAdvisorBean.selectedAccount.portfolioName}"/>
+                            <h:outputText value="" />
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.totalRisk}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+                        </p:panelGrid>
+
+                        <p:commandButton styleClass="prev ResponsiveBtnFS" value="Back"
+                                         actionListener="#{manageAdvisorBean.showList}"/>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+        <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>
