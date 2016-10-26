@@ -1,19 +1,17 @@
 package com.invessence.emailer.util;
 
 
-import java.io.Serializable;
 import java.util.StringTokenizer;
 import javax.mail.internet.*;
 import javax.activation.*;
-import com.invessence.service.bean.*;
+
 import com.invessence.service.util.*;
 import com.invessence.emailer.data.MsgData;
-import org.apache.commons.lang.ObjectUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.*;
 import org.springframework.mail.javamail.*;
 import java.util.*;
-import com.invessence.service.util.*;
+import java.util.regex.*;
 
 public class EmailUtil
 {
@@ -73,7 +71,6 @@ public class EmailUtil
    {
       this.mailSender = mailSender;
    }
-
 
    public void sendEmail(MsgData msgData) throws Exception
    {
@@ -225,6 +222,40 @@ public class EmailUtil
       {
          e.printStackTrace();
 
+      }
+   }
+
+   public List<String> getEditParams(String msgBody, String delimiter){
+      List<String> lstObj=null;
+      try{
+         lstObj=new ArrayList<String>();
+
+         Matcher m = Pattern.compile(
+            Pattern.quote(delimiter)+ "(.*?)"+ Pattern.quote(delimiter)
+         ).matcher(msgBody);
+         while(m.find()){
+            String match = m.group(1);
+            System.out.println(">"+match+"<");
+            //here you insert 'match' into the list
+            lstObj.add(match);
+         }
+      }catch (Exception e){
+         e.printStackTrace();
+      }
+      return lstObj;
+   }
+
+   public void replaceEditParams(String msgBody, String delimiter, List<String> lstEditParams, Object dataObject){
+
+      try{
+         Iterator<String> itr=lstEditParams.iterator();
+         while (itr.hasNext()) {
+            String string = (String) itr.next();
+            System.out.println("Param trim:"+string.trim());
+            System.out.println("Param :"+delimiter+string+delimiter);
+         }
+      }catch (Exception e){
+         e.printStackTrace();
       }
    }
 }

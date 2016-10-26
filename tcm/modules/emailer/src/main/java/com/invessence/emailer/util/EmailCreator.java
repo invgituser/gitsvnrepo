@@ -282,7 +282,6 @@ public class EmailCreator implements MessageSourceAware, Serializable
          // msgData.setCc();
          msgData.setSender(ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(), ServiceParameters.getServiceProvider(Constant.SERVICES.EMAIL_SERVICE.toString()), "SENDER_EMAIL"));
          msgData.setMsg(message);
-         writeMessage("Internal", msgData);
          msgDAO.saveMsg(msgData);
       }
       catch (Exception ex) {
