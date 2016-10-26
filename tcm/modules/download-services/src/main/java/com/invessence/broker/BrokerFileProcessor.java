@@ -137,7 +137,10 @@ public class BrokerFileProcessor
                               logger.info("Fetching list of " + downloadFileDetails.getFileName() + " files from server"+v.size());
                               if (fileNameLst == null || fileNameLst.size() == 0)
                               {
-                                 mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server for download.\n");
+                                 if(downloadFileDetails.getRequired().equalsIgnoreCase("Y"))
+                                 {
+                                    mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server for download.\n");
+                                 }
                                  logger.info(downloadFileDetails.getFileName() + " files are not available on server for download.");
                               }
                               else
@@ -313,7 +316,7 @@ public class BrokerFileProcessor
       }finally
       {
          logger.info("MailAlertMsg :"+ mailAlertMsg);
-         if( mailAlertMsg.length() > 0 || mailAlertMsg.length() <= 0)
+         if( mailAlertMsg.length() > 0)
          {
             try
             {
