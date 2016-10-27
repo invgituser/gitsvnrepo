@@ -440,13 +440,6 @@
          </properties>
       </profile>
       <profile>
-         <id>1D-MODE-PROD</id>
-         <properties>
-            <web.mode>PROD</web.mode>
-             <service.mode>PROD</service.mode>
-         </properties>
-      </profile>
-      <profile>
          <id>1Z---------------1Z</id>
       </profile>
 
@@ -494,67 +487,37 @@
             <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
          </properties>
       </profile>
-      <profile>
-         <id>2C-HOST-DEMO-INV</id>
-         <properties>
-            <base.data.dir>/inv/data/demo</base.data.dir>
-            <base.rbsa.dir>/inv/data/demo</base.rbsa.dir>
-            <base.clientdata.dir>/inv/data/demo/client</base.clientdata.dir>
-            <base.advisor.dir>/inv/data/demo/advisor</base.advisor.dir>
-            <catalina.base>/inv/www/</catalina.base>
-            <base.web.dir>/inv/www/demo/ROOT</base.web.dir>
-            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
-            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
-            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}/eodfiles</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
-            <report.localdir>${base.data.dir}/rpt/</report.localdir>
-            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
-            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
-            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
-            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
-         </properties>
-      </profile>
-      <profile>
-         <id>2C-HOST-DEMO-SYMBIL</id>
-         <properties>
-            <base.data.dir>/inv/data/symbil</base.data.dir>
-            <base.rbsa.dir>/inv/data/symbil</base.rbsa.dir>
-            <base.clientdata.dir>/inv/data/symbil/client</base.clientdata.dir>
-            <base.advisor.dir>/inv/data/symbil/advisor</base.advisor.dir>
-            <catalina.base>/inv/www/</catalina.base>
-            <base.web.dir>/inv/www/symbil/ROOT</base.web.dir>
-            <!-- Fix these paths based on above base directory,  also, make sure that directories are created on prod -->
-            <advisor.upload.localdir>${base.advisor.dir}/upload/</advisor.upload.localdir>
-            <advisor.download.localdir>${base.advisor.dir}/download/</advisor.download.localdir>
-            <ftp.localdir>${base.data.dir}/eodfiles</ftp.localdir>
-            <rsba.localdir>${base.rbsa.dir}/RBSA/</rsba.localdir>
-            <report.localdir>${base.data.dir}/rpt/</report.localdir>
-            <pdf.localdir>${base.data.dir}/pdf/</pdf.localdir>
-            <doc.localdir>${base.data.dir}/doc/</doc.localdir>
-            <web_reports_dir>${base.web.dir}/static/reports/</web_reports_dir>
-            <email_templates_dir>${base.web.dir}/template/html/</email_templates_dir>
-         </properties>
-      </profile>
-      <profile>
-         <id>2Z---------------2Z</id>
-      </profile>
 
-      <!-- DB -->
       <profile>
-         <id>3A-DB-LOCAL</id>
+         <id>2Z--- DB FOR DEBUGGING ----2Z</id>
+      </profile>
+      <!-- DB for DEBUGGING -->
+      <profile>
+         <id>3A-LOCAL</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://localhost:3306/service?noAccessToProcedureBodies=true</service.url>
             <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>weblocal</jdbc.username>
-            <jdbc.password>Ma5t3r0p7i0n</jdbc.password>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
       </profile>
       <profile>
-         <id>3B-DB-DEVEL</id>
+         <id>3B-EXT-PREUAT</id>
+         <properties>
+            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
+            <jdbc.url>jdbc:mysql://preuat.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
+            <rbsa.url>jdbc:mysql://preuat.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
+            <service.url>jdbc:mysql://preuat.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
+            <ltam.url>jdbc:mysql://preuat.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <jdbc.username>webuser</jdbc.username>
+            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
+         </properties>
+      </profile>
+      <profile>
+         <id>3C-EXT-UAT</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://uat.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
@@ -566,85 +529,13 @@
          </properties>
       </profile>
       <profile>
-         <id>3C-DB-PRE-RELEASE</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://demo.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://demo.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://demo.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://demo.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-         </properties>
-      </profile>
-      <profile>
-         <id>3D-DB-DEMO</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://demo.invessence.com:3306/demoinvdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://demo.invessence.com:3306/demorbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://demo.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://demo.invessence.com:3306/demoltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-         </properties>
-      </profile>
-      <profile>
-         <id>3P1-DB-INV-PROD</id>
+         <id>3P1-EXT-PROD-INV</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
             <jdbc.url>jdbc:mysql://invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
             <ltam.url>jdbc:mysql://invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-         </properties>
-      </profile>
-      <profile>
-         <id>3P2-DB-SYMBIL-PROD</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://symbil.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://symbil.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://symbil.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://symbil.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-         </properties>
-      </profile>
-      <profile>
-         <id>3P3-DB-VCM-PROD</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://versatilecapdigital.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://versatilecapdigital.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://versatilecapdigital.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://versatilecapdigital.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-         </properties>
-      </profile>
-      <profile>
-         <id>3P3-DB-TCM-PROD</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://192.168.100.95:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://192.168.100.95:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://192.168.100.95:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://192.168.100.95:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-         </properties>
-      </profile>
-      <profile>
-         <id>3P3-EXT-UAT-PROD</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://uat.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://uat.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://uat.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -685,10 +576,10 @@
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
       </profile>
-      <profile>
-         <id>5Z---------------5Z</id>
-      </profile>
 
+      <profile>
+         <id>5Z-----PROD ----5Z</id>
+      </profile>
       <profile>
          <id>Z-INVESSENCE-PROD</id>
          <properties>
@@ -726,7 +617,7 @@
          </properties>
       </profile>
             <profile>
-         <id>ZZ DEPLOY-PROD</id>
+         <id>ZZ DEPLOY</id>
          <properties>
             <!-- Mode PROD -->
             <web.mode>PROD</web.mode>
