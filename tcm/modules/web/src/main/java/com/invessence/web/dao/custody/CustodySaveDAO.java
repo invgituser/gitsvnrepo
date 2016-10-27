@@ -36,11 +36,11 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
-   public Boolean tdSaveAccountDetail(Acctdetails data )
+   public Boolean tdSaveAccountDetail(Acctdetails data,TDMasterData tdMasterData )
    {
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_acct_details",1);
-      Map outMap = sp.tdSaveAccountDetail(data);
+      Map outMap = sp.tdSaveAccountDetail(data,tdMasterData);
       if (outMap == null)
          return (false);
       else
@@ -63,6 +63,16 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_employment_details",3);
       Map outMap = sp.tdSaveEmployment(data);
+      if (outMap == null)
+         return (false);
+      else
+         return true;
+   }
+   public Boolean deleteBenefiaciaryDetails(TDMasterData  tdMasterData)
+   {
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "del_tddc_benefiaciary_details",90);
+      Map outMap = sp.tdDelBeneficiary(tdMasterData);
       if (outMap == null)
          return (false);
       else

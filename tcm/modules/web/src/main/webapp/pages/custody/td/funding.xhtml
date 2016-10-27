@@ -313,7 +313,7 @@
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccouintDropdownUI"
                                                      value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
                                                      style="width: 100%!important; box-sizing: border-box; min-width: auto!important;">
-                                        <p:ajax event="change" update="@this, FundOthrID" process="@this" />
+                                        <p:ajax event="change" update="@this,:ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this" listener="${tdcto.tdMasterData.resetContraFirmList}" />
                                         <f:selectItem itemLabel="Select name of delivering firm" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemValue="CURICLEAR" itemLabel="Curian Clearing" />
@@ -336,6 +336,8 @@
                                         <f:selectItem itemValue="WEDBSECUINC" itemLabel="Wedbush Securities Inc." />
                                         <f:selectItem itemValue="OTH" itemLabel="Others" />
                                     </p:selectOneMenu>
+                            <!--<p:panel id="acatOtherPanel" styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                     style="border: 0px; background: transparent">
                                     <p:inputText id="FundOthrID"
                                                  rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}"
                                                  styleClass="Wid100 FS14 CustomWidthFA-Responsive"
@@ -343,11 +345,26 @@
                                                  maxlength="90"
                                                  placeholder="Other Delivery Firm">
                                     </p:inputText>
+                                    </p:panel>-->
                                 </div>
                             </div>
                             <div class="EmptyBox10"></div>
                             <div class="Container100">
-                                <div class="Container32 CustomWidthFA-Responsive">
+                                <p:panel id="acatOtherPanel" styleClass="Container32 CustomWidthFA-Responsive"
+                                         style="border: 0px; background: transparent"  >
+                                <p:panel style="border: 0px; background: transparent"  rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">Name of Other Delivery Firm</label>
+
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText id="FundOthrID" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+
+                                                 value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
+                                                 maxlength="90"
+                                                 placeholder="Other Delivery Firm">
+                                    </p:inputText></p:panel>
+                                </p:panel>
+                                <div class="Container32 CustomWidthFA-Responsive" style="display: none">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">Physical Address of Firm</label>
 
@@ -358,7 +375,7 @@
                                                  placeholder="Physical address of firm">
                                     </p:inputText>
                                 </div>
-                                <div class="Container32 CustomWidthFA-Responsive">
+                                <div class="Container32 CustomWidthFA-Responsive" style="display: none">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">Phone Number</label>
 
@@ -463,7 +480,16 @@
                                     </p:inputText>
                                 </div>
                                 <div class="Container45 Fright CustomWidthFA-Responsive">
+                                    <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">
+                                        Firm Account Number *</label>
 
+                                    <div class="EmptyBox5"></div>
+                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.tdTransferDetails.firmAccountNo}"
+                                                 maxlength="45"
+                                                 placeholder="Firm Account Number">
+                                    </p:inputText>
                                 </div>
                             </div>
                                 </p:panel>
@@ -568,7 +594,7 @@
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.fundNow}"
                                 itemLabel="I choose to opt-out of funding my account at the moment. (Please note that if your account is not funded within 30 days it will be closed.)">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" process="@this" listener="${tdcto.tdMasterData.resetFundNowData}"/>
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId" process="@this" listener="${tdcto.tdMasterData.resetFundNowData}"/>
 
                         </p:selectBooleanCheckbox>
                     </div>
@@ -577,12 +603,12 @@
                 <div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
-                                   update=":ctoForm:tdaccordian"  process="@this"/>
+                                   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
 
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    style="background-position-x: 50px!important;"
                                    actionListener="#{tdcto.nextPage}"
-                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                    process=":ctoForm:tdaccordian:fundTabV"/>
 
                 </div>
@@ -791,17 +817,17 @@
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.recurringFlag}"
                                 itemLabel="I choose to opt-out of setting up a recurring contribution at this time.">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV" listener="${tdcto.tdMasterData.resetRecurringFlagData}"/>
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId" listener="${tdcto.tdMasterData.resetRecurringFlagData}"/>
                         </p:selectBooleanCheckbox>
                     </div>
                     <div class="EmptyBox10"></div>
                     <div class="Container100 MarTop20" style="margin: 10px 10px;">
                         <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                        actionListener="#{tdcto.prevPage}"
-                                       update=":ctoForm:tdaccordian"  process="@this"/>
+                                       update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
                         <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                        actionListener="#{tdcto.nextPage}"
-                                       update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                       update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                        process=":ctoForm:tdaccordian:fundTabV"/>
 
                         <!--   <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"

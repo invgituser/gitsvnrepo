@@ -15,6 +15,7 @@ public class TDTransferDetails
    private String firmName;
    private String primaryContact;
    private String priorFirmName;
+   private String firmAccountNo;
    private String retailAccountNumber;
    private String advisorID;;
    private boolean removeAdvisor;
@@ -150,5 +151,15 @@ public class TDTransferDetails
    public void setRetilFlag(String retilFlag)
    {
       this.retilFlag = retilFlag;
+   }
+
+   public String getFirmAccountNo()
+   {
+      return firmAccountNo;
+   }
+
+   public void setFirmAccountNo(String firmAccountNo)
+   {
+      this.firmAccountNo = firmAccountNo;
    }
 }

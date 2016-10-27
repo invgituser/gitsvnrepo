@@ -54,6 +54,8 @@ public class TdCto
    private String saveandOpenError;
    private BenefiaciaryDetails selectedAccount;
 
+
+
    public BenefiaciaryDetails getSelectedAccount()
    {
       return selectedAccount;
@@ -326,6 +328,7 @@ public class TdCto
    public void selectAcctType(Integer type)
    {
       tdMasterData.setAccttype(type);
+      tdMasterData.setOptoutBeneficiary(false);
    }
 
    public void setSubtab(Integer subtab)
@@ -1210,7 +1213,7 @@ public class TdCto
 
                   else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
                   {
-                     if(tdMasterData.getTdTransferDetails().getRetilFlag().equals(""))
+                     if(tdMasterData.getTdTransferDetails().getRetilFlag()==null || tdMasterData.getTdTransferDetails().getRetilFlag().equals(""))
                      {
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerfirmnamefalg.requiredMsg", "Is this a Retail or Advisor managed account is required!", null));
@@ -1221,6 +1224,11 @@ public class TdCto
                         {
                            dataOK = false;
                            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.brokerfirmname.requiredMsg", "Existing Advisory Firm Name is required!", null));
+                        }
+                        if (!hasRequiredData(tdMasterData.getTdTransferDetails().getFirmAccountNo()))
+                        {
+                           dataOK = false;
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.firmaccountno.requiredMsg", "Firm Account Number is required!", null));
                         }
                      }
                      else  if (tdMasterData.getTdTransferDetails().getRetilFlag().equals("N"))
@@ -1333,6 +1341,10 @@ public class TdCto
       if (validatePage(pagemanager.getPage()))
       {
          saveData(pagemanager.getPage());
+         if(pagemanager.isLastPage())
+            tdMasterData.setSubmitButton(true);
+         else
+            tdMasterData.setSubmitButton(false);
          pagemanager.nextPage();
          pagemanager.clearAllErrorMessage();
          resetActiveTab(pagemanager.getPage());
@@ -1354,6 +1366,9 @@ public class TdCto
          {
             //saveData(pagemanager.getPage());
             saveData(pagemanager.getPage());
+            if (pagemanager.isLastPage()) {
+               break;
+            }
             pagemanager.nextPage();
             pageControl(pagemanager.getPage());
          }
@@ -1362,9 +1377,7 @@ public class TdCto
             status = false;
             break;
          }
-         if (pagemanager.isLastPage()) {
-            break;
-         }
+
       }
       pagemanager.setPage(currentPage);
       resetActiveTab(pagemanager.getPage());
@@ -1423,8 +1436,25 @@ public class TdCto
          custodyListDAO.getTDAccountDetails(tdMasterData);
          custodyListDAO.getTDAccountHolder(tdMasterData);
          custodyListDAO.getTDEmployment(tdMasterData);
+        if(tdMasterData.getOptoutBeneficiary())
+        {
+           custodySaveDAO.deleteBenefiaciaryDetails(tdMasterData);
+        }
          custodyListDAO.getTDBeneficiary(tdMasterData);
-         custodyListDAO.getfundingData(tdMasterData);
+        if(!tdMasterData.getOptoutFunding())
+        {
+           custodyListDAO.getfundingData(tdMasterData);
+           if(tdMasterData.getOptoutRecurring())
+           {
+              tdMasterData.setRecurringFlag(true);
+           }
+        }
+        else
+        {
+           tdMasterData.setFundNow(true);
+           tdMasterData.setRecurringFlag(true);
+        }
+
 
          // Fix issues related to bad data.
          if (tdMasterData.getAcctOwnersDetail().getOwnership() == null ||
@@ -1502,7 +1532,7 @@ public class TdCto
       switch (pagenum) {
          case 0: // Account Type and create basic info
             // custodySaveDAO.tdSaveRequest(tdMasterData.getRequest());   We are going to add the request on final save.
-            custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail());
+            custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(),tdMasterData);
             break;
          case 1: // Account Owner
 
@@ -1522,6 +1552,7 @@ public class TdCto
             break;
          case 5: // Regulatory
             custodySaveDAO.tdSaveAccountOwner(setRegulatoryData(tdMasterData));
+            custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(),tdMasterData);
             break;
          case 6:  // Owner Emplyment
             custodySaveDAO.tdSaveEmployment(tdMasterData.getOwneremploymentDetail());
@@ -1530,36 +1561,54 @@ public class TdCto
             custodySaveDAO.tdSaveEmployment(tdMasterData.getJointEmploymentDetail());
             break;
          case 8:
+            if(tdMasterData.getOptoutBeneficiary())
+            {
+               custodySaveDAO.deleteBenefiaciaryDetails(tdMasterData);
+            }
             custodySaveDAO.saveBenefiaciaryDetails(tdMasterData.getBenefiaciaryDetailsList());
+            custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(),tdMasterData);
             break;
          case 9: // funding
 
            // custodySaveDAO.tdsaveACHData(tdMasterData);
-            if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
+            if(tdMasterData.getOptoutFunding())
             {
-               custodySaveDAO.tdsaveACHData(tdMasterData,"ACH");
-               if(tdMasterData.getOwnerSPF() && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
-               {
-                  tdMasterData.getElectroicBankDetail().setBankAcctType(tdMasterData.getAchBankDetail().getBankAcctType());
-                  tdMasterData.getElectroicBankDetail().setBankName(tdMasterData.getAchBankDetail().getBankName());
-                  tdMasterData.getElectroicBankDetail().setBankAcctName(tdMasterData.getAchBankDetail().getBankAcctName());
-                  tdMasterData.getElectroicBankDetail().setBankCityState(tdMasterData.getAchBankDetail().getBankCityState());
-                  tdMasterData.getElectroicBankDetail().setBankPhoneNumber(tdMasterData.getAchBankDetail().getBankPhoneNumber());
-                  tdMasterData.getElectroicBankDetail().setBankABARouting(tdMasterData.getAchBankDetail().getBankABARouting());
-                  tdMasterData.getElectroicBankDetail().setBankAcctNumber(tdMasterData.getAchBankDetail().getBankAcctNumber());
-
-               }
+               custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(),tdMasterData);
             }
-            else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
-               custodySaveDAO.tdSaveACAT(tdMasterData,tdMasterData.getAcctnum(),tdMasterData.getAcatDetails());
+            else
+            {
+               if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
+               {
+                  custodySaveDAO.tdsaveACHData(tdMasterData, "ACH");
+                  if (tdMasterData.getOwnerSPF() && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
+                  {
+                     tdMasterData.getElectroicBankDetail().setBankAcctType(tdMasterData.getAchBankDetail().getBankAcctType());
+                     tdMasterData.getElectroicBankDetail().setBankName(tdMasterData.getAchBankDetail().getBankName());
+                     tdMasterData.getElectroicBankDetail().setBankAcctName(tdMasterData.getAchBankDetail().getBankAcctName());
+                     tdMasterData.getElectroicBankDetail().setBankCityState(tdMasterData.getAchBankDetail().getBankCityState());
+                     tdMasterData.getElectroicBankDetail().setBankPhoneNumber(tdMasterData.getAchBankDetail().getBankPhoneNumber());
+                     tdMasterData.getElectroicBankDetail().setBankABARouting(tdMasterData.getAchBankDetail().getBankABARouting());
+                     tdMasterData.getElectroicBankDetail().setBankAcctNumber(tdMasterData.getAchBankDetail().getBankAcctNumber());
 
-            else if(tdMasterData.getFundType()!=null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
-               custodySaveDAO.tdSaveTDTransferData(tdMasterData,tdMasterData.getAcctnum(),tdMasterData.getTdTransferDetails());
+                  }
+               }
+               else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
+                  custodySaveDAO.tdSaveACAT(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getAcatDetails());
+
+               else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
+                  custodySaveDAO.tdSaveTDTransferData(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getTdTransferDetails());
+            }
               // custodySaveDAO.tdSaveACH("ACH",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
             break;
          case 10:
-               if(!tdMasterData.getRecurringFlag())
+            if(tdMasterData.getOptoutRecurring())
+            {
+               custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(),tdMasterData);
+            }else
+            {
+               if (!tdMasterData.getRecurringFlag())
                   custodySaveDAO.tdSaveElectronicPaymentData(tdMasterData);
+            }
                //custodySaveDAO.tdSaveElectronicPayment("REC",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getElectroicBankDetail());
             break;
          default:

@@ -55,6 +55,10 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_dupStatement", Types.VARCHAR));
             declareParameter(new SqlParameter("p_dupTradeConfirm", Types.VARCHAR));
             declareParameter(new SqlParameter("p_proxyAuthorizationId", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_optoutRegulatory", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_optoutBeneficiary", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_optoutFunding", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_optoutRecurring", Types.VARCHAR));
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
             break;
          case 2:  // Account Holder
@@ -228,6 +232,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_firmName", Types.VARCHAR));
             declareParameter(new SqlParameter("p_primaryContact", Types.VARCHAR));
             declareParameter(new SqlParameter("p_priorFirmName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_firmAccountNo", Types.VARCHAR));
             declareParameter(new SqlParameter("p_retailAccountNumber", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisorID", Types.VARCHAR));
             declareParameter(new SqlParameter("p_removeAdvisor", Types.VARCHAR));
@@ -303,7 +308,7 @@ public class CustodySaveSP extends StoredProcedure
    }
 
 
-   public Map tdSaveAccountDetail(Acctdetails data)
+   public Map tdSaveAccountDetail(Acctdetails data,TDMasterData tdMasterData )
    {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", data.getAcctnum());
@@ -318,6 +323,38 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_dupStatement", data.getDupStatement());
       inputMap.put("p_dupTradeConfirm", data.getDupTradeConfirm());
       inputMap.put("p_proxyAuthorizationId", data.getProxyAuthorizationId());
+      if(tdMasterData.getOptoutRegulatory())
+      {
+         inputMap.put("p_optoutRegulatory", "Y");
+      }
+      else
+      {
+         inputMap.put("p_optoutRegulatory", "N");
+      }
+      if(tdMasterData.getOptoutBeneficiary())
+      {
+         inputMap.put("p_optoutBeneficiary", "Y");
+      }
+      else
+      {
+         inputMap.put("p_optoutBeneficiary", "N");
+      }
+      if(tdMasterData.getOptoutFunding())
+      {
+         inputMap.put("p_optoutFunding", "Y");
+      }
+      else
+      {
+         inputMap.put("p_optoutFunding", "N");
+      }
+      if(tdMasterData.getOptoutRecurring())
+      {
+         inputMap.put("p_optoutRecurring","Y");
+      }
+      else
+      {
+         inputMap.put("p_optoutRecurring", "N");
+      }
       inputMap.put("p_createdBy", "Invessence");
       return super.execute(inputMap);
    }
@@ -386,6 +423,13 @@ public class CustodySaveSP extends StoredProcedure
    {
       Map<String, Object> inputMap = new HashMap<String, Object>();
       inputMap.put("p_acctnum", data.getAcctnum());
+      return super.execute(inputMap);
+   }
+
+   public Map tdDelBeneficiary(TDMasterData tdMasterData)
+   {
+      Map<String, Object> inputMap = new HashMap<String, Object>();
+      inputMap.put("p_acctnum", tdMasterData.getAcctnum());
       return super.execute(inputMap);
    }
 
@@ -482,6 +526,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_firmName", data.getFirmName());
       inputMap.put("p_primaryContact", data.getPrimaryContact());
       inputMap.put("p_priorFirmName", data.getPriorFirmName());
+      inputMap.put("p_firmAccountNo", data.getFirmAccountNo());
       inputMap.put("p_retailAccountNumber", data.getRetailAccountNumber());
       inputMap.put("p_advisorID", data.getAdvisorID());
       if (data.getRetilFlag().equals("Y"))

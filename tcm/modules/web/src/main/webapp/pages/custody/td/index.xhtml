@@ -23,7 +23,7 @@
     <ui:define name="content">
 
         <!-- BOX START -->
-        <h:form id="ctoForm" styleClass="formPage">
+
 
             <div class="layout-portlets-box" style="background: #FBFCFD;">
 
@@ -39,11 +39,12 @@
                         </p:steps>
                     </div>
                 </div>
+                <h:form id="ctoForm" styleClass="formPage">
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
                         <p:panel id="inputArea" style="border: 0px; background: transparent;">
                             <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI"
-                                      dynamic="true" activeIndex="#{tdcto.activeTab}"   >
+                                      dynamic="false" activeIndex="#{tdcto.activeTab}"   >
                                 <p:ajax event="tabChange"   listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
                                 <p:tab id="tab0" styleClass="tcmAccordion-UI" >
@@ -106,7 +107,18 @@
 
                                     <ui:include src="/pages/custody/td/funding.xhtml"/>
                                 </p:tab>
+
                             </p:accordionPanel>
+                            <p:panel id="submitBtnId" style="border: 0px; background: transparent">
+                                <div class="Container100 saveNopenBtn" style="text-align: center;">
+                                    <p:commandButton value="Submit to TD Ameritrade"
+                                                     update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
+                                                     actionListener="#{tdcto.openAccount}"
+                                                     styleClass="text-align: center" >
+
+                                    </p:commandButton>
+
+                                </div></p:panel>
                         </p:panel>
                         <div class="Container100" style="text-align: center;">
                           <!--  <p:button value="Save and Open Account" styleClass=""
@@ -118,20 +130,15 @@
                                           value="#{tdcto.saveandOpenError}" escape="false"/>
 
                         </div>
-                        <div class="Container100 saveNopenBtn" style="text-align: center;">
-                            <p:commandButton value="Submit to TD Ameritrade"
-                                             update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@this"
-                                             actionListener="#{tdcto.openAccount}"
-                                             styleClass="text-align: center" />
 
-                        </div>
                     </div>
                 </div>
+                </h:form>
             </div>
 
             <!-- BOX END -->
 
-        </h:form>
+
 
 
     </ui:define>

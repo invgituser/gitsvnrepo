@@ -34,6 +34,7 @@ public class TDMasterData implements Serializable
    Boolean fundNow, recurringFlag;
    Double initialInvestment;
    Integer totalbeneficiaryShares,tmptottalShares;
+   private Boolean optoutRegulatory,optoutBeneficiary,optoutFunding,optoutRecurring=false;
 
    private USMaps usmaps;
    // TD information
@@ -58,6 +59,8 @@ public class TDMasterData implements Serializable
    CustomerData customerData;
    PagesImpl pageMgr;
 
+   Boolean submitButton=false;
+
    public TDMasterData(PagesImpl pm, Long acctnum)
    {
 
@@ -67,7 +70,7 @@ public class TDMasterData implements Serializable
       customerData = new CustomerData();
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
-      //ownerSPF=false;
+      ownerSPF=false;
       senoirPolitical=false;
       ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
@@ -280,6 +283,37 @@ public class TDMasterData implements Serializable
       this.ownerShare = ownerShare;
 
    }
+
+   public void resetContraFirmList()
+   {
+      if(acatDetails.getContraFirmList()!=null && !acatDetails.getContraFirmList().equals("OTH"))
+         acatDetails.setOtherContraFirmList("");
+
+   }
+   public void resetoptoutBeneficiary()
+   {
+      if(optoutBeneficiary)
+      {
+         benefiaciaryDetailsList= new ArrayList<BenefiaciaryDetails>();
+         tmpBenefiaciaryDetail=new BenefiaciaryDetails();
+         totalbeneficiaryShares=0;
+         tmptottalShares=0;
+         showBeneficiaryForm=false;
+         editBeneficiaryForm=false;
+      }
+   }
+   public void resetoptoutRegulatory()
+   {
+      if(optoutRegulatory)
+      {
+         senoirPolitical=false;
+         ownerBD=false;
+         ownerShare=false;
+         resetSeniorPolitical();
+         resetOwnereBd();
+         resetOwnerShare();
+      }
+   }
    public void resetOwnerShare()
    {
       if (!ownerShare) {
@@ -411,11 +445,26 @@ public class TDMasterData implements Serializable
    {
       initialInvestment=null;
       achBankDetail=new AchBankDetail();
-      acatDetails=new ACATDetails();
+      this.acatDetails=new ACATDetails();
       tdTransferDetails=new TDTransferDetails();
       electroicBankDetail=new ElectronicFundDetails();
-      ownerSPF=false;
-      recurringFlag=true;
+
+      if(fundNow)
+      {
+         ownerSPF=false;
+         recurringFlag=true;
+         submitButton = true;
+         optoutFunding=true;
+         optoutRecurring=true;
+      }
+      else
+      {
+         ownerSPF=false;
+         recurringFlag=false;
+         submitButton = false;
+         optoutFunding=false;
+         optoutRecurring=false;
+      }
    }
    public void resetFundTypeData()
    {
@@ -444,6 +493,7 @@ public class TDMasterData implements Serializable
          tdTransferDetails.setPriorFirmName("");
          tdTransferDetails.setRetailAccountNumber("");
          tdTransferDetails.setAdvisorID("");
+         tdTransferDetails.setFirmAccountNo("");
       }
       else if(tdTransferDetails.getRetilFlag().equals("Y"))
       {
@@ -453,6 +503,7 @@ public class TDMasterData implements Serializable
       else if(tdTransferDetails.getRetilFlag().equals("N"))
       {
          tdTransferDetails.setPriorFirmName("");
+         tdTransferDetails.setFirmAccountNo("");
       }
 
    }
@@ -460,6 +511,16 @@ public class TDMasterData implements Serializable
    {
       electroicBankDetail=new ElectronicFundDetails();
       ownerSPF=false;
+      if(recurringFlag)
+      {
+         submitButton=true;
+         optoutRecurring=true;
+      }
+      else
+      {
+         submitButton=false;
+         optoutRecurring=false;
+      }
    }
    public Double getInitialInvestment()
    {
@@ -801,6 +862,7 @@ public class TDMasterData implements Serializable
 
    public void addnewBeneficiary() {
       tmptottalShares=totalbeneficiaryShares;
+      tmpBenefiaciaryDetail.setSharePerc(100-totalbeneficiaryShares.doubleValue());
       editBeneficiaryForm=false;
    }
 
@@ -874,5 +936,55 @@ public class TDMasterData implements Serializable
    public void setEditBeneficiaryForm(Boolean editBeneficiaryForm)
    {
       this.editBeneficiaryForm = editBeneficiaryForm;
+   }
+
+   public Boolean getSubmitButton()
+   {
+      return submitButton;
+   }
+
+   public void setSubmitButton(Boolean submitButton)
+   {
+      this.submitButton = submitButton;
+   }
+
+   public Boolean getOptoutRegulatory()
+   {
+      return optoutRegulatory;
+   }
+
+   public void setOptoutRegulatory(Boolean optoutRegulatory)
+   {
+      this.optoutRegulatory = optoutRegulatory;
+   }
+
+   public Boolean getOptoutBeneficiary()
+   {
+      return optoutBeneficiary;
+   }
+
+   public void setOptoutBeneficiary(Boolean optoutBeneficiary)
+   {
+      this.optoutBeneficiary = optoutBeneficiary;
+   }
+
+   public Boolean getOptoutFunding()
+   {
+      return optoutFunding;
+   }
+
+   public void setOptoutFunding(Boolean optoutFunding)
+   {
+      this.optoutFunding = optoutFunding;
+   }
+
+   public Boolean getOptoutRecurring()
+   {
+      return optoutRecurring;
+   }
+
+   public void setOptoutRecurring(Boolean optoutRecurring)
+   {
+      this.optoutRecurring = optoutRecurring;
    }
 }

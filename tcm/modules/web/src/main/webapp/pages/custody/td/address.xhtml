@@ -99,7 +99,7 @@
             <p:panel id="ownermailaddressPanel" style="border: 0px; background: transparent; margin-top: -10px;" styleClass="Container80 Responsive100 MarTop5 MarCenter">
                 <div class="Container100">
                     <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.acctholderhasMailing}"
-                                             itemLabel="Different Mailing Address">
+                                             itemLabel="Diffferent Mailing Address">
                         <p:ajax update=":ctoForm:tdaccordian:addresstab:ownermailaddressPanel" listener="${tdcto.tdMasterData.resetAcctholderhasMailing}"/>
                     </p:selectBooleanCheckbox>
                 </div>
@@ -172,11 +172,11 @@
                 <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
-                                   update=":ctoForm:tdaccordian"  process="@this" />
+                                   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this" />
 
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    actionListener="#{tdcto.nextPage}"
-                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                    process=":ctoForm:tdaccordian:addresstab" />
                 </div>
             </p:panel>
@@ -357,11 +357,11 @@
                 <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
-                                   update=":ctoForm:tdaccordian"  process="@this" />
+                                   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this" />
 
                     <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    actionListener="#{tdcto.nextPage}"
-                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                    process=":ctoForm:tdaccordian:addresstab" />
                 </div>
             </p:panel>

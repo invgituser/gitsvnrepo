@@ -25,8 +25,16 @@
                           value="#{tdcto.getErrorMessage(8)}" escape="false"/>
         </p:panel>
 
-
-        <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary"
+			<div class="Container100 CustomWidthFA2 MarTop5">
+				<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
+										 value="#{tdcto.tdMasterData.optoutBeneficiary}"
+										 itemLabel="Opt out Beneficiary details."
+				rendered="#{tdcto.tdMasterData.acctdetail.acctTypeId=='ACINDIV' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACJOINT' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACCSTD'}">
+					<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="${tdcto.tdMasterData.resetoptoutBeneficiary}"/>
+				</p:selectBooleanCheckbox>
+			</div>
+			<div class="EmptyBox20"></div>
+        <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary" rendered="#{!tdcto.tdMasterData.optoutBeneficiary}"
 								   offLabel="Add Beneficiary" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
 				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="#{tdcto.tdMasterData.addnewBeneficiary}" />
 			</p:selectBooleanButton>
@@ -91,7 +99,7 @@
 			</div>
 			<p:panel id="beneficiaryAdd"
 					 style="border: 0px; background: transparent; margin-top: -10px;"
-					 rendered="#{tdcto.tdMasterData.showBeneficiaryForm}">
+					 rendered="#{tdcto.tdMasterData.showBeneficiaryForm and !tdcto.tdMasterData.optoutBeneficiary}" >
 
 				<div class="EmptyBox30"></div>
 				<div class="Container80 BeneficiaryEditPanel BeneficiaryBlockPadding">
@@ -217,7 +225,7 @@ tax or estate planning. Please consult an estate planner for details regarding t
 							<div class="Container32 CustomWidthFA2">
 								<label Class="Container100"
 									   style="text-align: left !important; font-weight: bold !important;">Share
-									%</label>
+									%  *</label>
 
 								<div class="EmptyBox5"></div>
 								<p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5 sharePercentageInput"
@@ -250,11 +258,11 @@ tax or estate planning. Please consult an estate planner for details regarding t
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
 				<p:commandLink styleClass="UI-prevButtonFA Fleft"
 							   actionListener="#{tdcto.prevPage}"
-                               update=":ctoForm:tdaccordian"  process="@this"/>
+                               update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
 
 				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
 							   actionListener="#{tdcto.nextPage}"
-                               update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                               update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                process=":ctoForm:tdaccordian:beneficiaryPanel"/>
 			</div>
 		</div>

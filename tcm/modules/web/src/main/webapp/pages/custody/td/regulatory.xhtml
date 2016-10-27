@@ -27,7 +27,7 @@
 				<p:panel id="ownerregspfPanel"
 					style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
-						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
+						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
 							value="#{tdcto.tdMasterData.senoirPolitical}"
 							itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure.">
 							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" listener="${tdcto.tdMasterData.resetSeniorPolitical}" />
@@ -104,7 +104,7 @@
 				<p:panel id="ownerregsharePanel"
 					style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
-						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
+						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
 							value="#{tdcto.tdMasterData.ownerShare}"
 							itemLabel="I, my spouse or an immediate member of my family is a director, 10% shareholder or policy maker of a publicly traded company.">
 							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregsharePanel" listener="${tdcto.tdMasterData.resetOwnerShare}"/>
@@ -182,10 +182,10 @@
 				</p:panel>
 				<p:panel id="ownerBDPanel" style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
-						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
+						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
 							value="#{tdcto.tdMasterData.ownerBD}"
 							itemLabel="I, my spouse or an immediate member of my family is licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange. (Please provide a copy of the required authorization letter)">
-							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerBDPanel" listener="${tdcto.tdMasterData.resetOwnereBd}" />
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerBDPanel" listener="${tdcto.tdMasterData.resetOwnerShare}" />
 
 						</p:selectBooleanCheckbox>
 					</div>
@@ -205,16 +205,29 @@
 						</div>
 					</div>
 					</p:panel>
-					<div class="Container100 MarTop20" style="margin: 10px 10px;">
-						<p:commandLink styleClass="UI-prevButtonFA Fleft"
-							actionListener="#{tdcto.prevPage}"
-                            update=":ctoForm:tdaccordian"  process="@this"/>
 
-						<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-							actionListener="#{tdcto.nextPage}" process=":ctoForm:tdaccordian:regTabV"
-                            update=":ctoForm:tdaccordian" />
-					</div>
+
 				</p:panel>
+				<p:panel id="optoutPanel"
+						 style="border: 0px; background: transparent">
+					<div class="Container100 CustomWidthFA2 MarTop5">
+						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
+												 value="#{tdcto.tdMasterData.optoutRegulatory}"
+												 itemLabel="None of the above.">
+							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel, :ctoForm:tdaccordian:regTabV:ownerBDPanel, :ctoForm:tdaccordian:regTabV:ownerregsharePanel" listener="${tdcto.tdMasterData.resetoptoutRegulatory}"/>
+						</p:selectBooleanCheckbox>
+					</div>
+			</p:panel>
+
+				<div class="Container100 MarTop20" style="margin: 10px 10px;">
+					<p:commandLink styleClass="UI-prevButtonFA Fleft"
+								   actionListener="#{tdcto.prevPage}"
+								   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
+
+					<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+								   actionListener="#{tdcto.nextPage}" process=":ctoForm:tdaccordian:regTabV"
+								   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId" />
+				</div>
 			</div>
 
 		</p:tab>

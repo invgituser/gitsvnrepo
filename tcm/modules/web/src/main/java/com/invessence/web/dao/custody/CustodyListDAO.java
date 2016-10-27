@@ -60,6 +60,40 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                data.getAcctdetail().setDupStatement(convert.getStrData(rs.get("dupStatement")));
                data.getAcctdetail().setDupTradeConfirm(convert.getStrData(rs.get("tradConfId")));
                data.getAcctdetail().setProxyAuthorizationId(convert.getStrData(rs.get("proxyAuthorizationId")));
+               if(convert.getStrData(rs.get("optoutRegulatory"))==null || convert.getStrData(rs.get("optoutRegulatory")).equalsIgnoreCase("N") )
+               {
+                  data.setOptoutRegulatory(false);
+               }
+               else
+               {
+                  data.setOptoutRegulatory(true);
+               }
+
+               if(convert.getStrData(rs.get("optoutBeneficiary"))==null || convert.getStrData(rs.get("optoutBeneficiary")).equalsIgnoreCase("N") )
+               {
+                  data.setOptoutBeneficiary(false);
+               }
+               else
+               {
+                  data.setOptoutBeneficiary(true);
+               }
+               if(convert.getStrData(rs.get("optoutFunding"))==null || convert.getStrData(rs.get("optoutFunding")).equalsIgnoreCase("N") )
+               {
+                  data.setOptoutFunding(false);
+               }
+               else
+               {
+                  data.setOptoutFunding(true);
+               }
+               if(convert.getStrData(rs.get("optoutRecurring"))==null || convert.getStrData(rs.get("optoutRecurring")).equalsIgnoreCase("N") )
+               {
+                  data.setOptoutRecurring(false);
+               }
+               else
+               {
+                  data.setOptoutRecurring(true);
+               }
+
             }
          }
       }
@@ -165,13 +199,13 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                   if(whichAcct==1)
                   {
                      data.setAcctOwnersDetail(acctHolder);
-                     if(convert.getStrData(rs.get("mailingAddressStreet"))!=null)
+                     if(convert.getStrData(rs.get("mailingAddressStreet"))!=null  && !convert.getStrData(rs.get("mailingAddressStreet")).equals(""))
                         data.setAcctholderhasMailing(true);
 
                   }
                   else
                   {
-                     if(convert.getStrData(rs.get("mailingAddressStreet"))!=null)
+                     if(convert.getStrData(rs.get("mailingAddressStreet"))!=null && !convert.getStrData(rs.get("mailingAddressStreet")).equals(""))
                         data.setJointhasMailing(true);
                      data.setJointAcctOwnersDetail(acctHolder);
                   }
@@ -358,6 +392,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                acatDetails.setFromOtherAccountType(convert.getStrData(rs.get("fromOtherAccountType")));
                acatDetails.setTransferTypeId(convert.getStrData(rs.get("transferTypeId")));
                acatDetails.setContraFirmList(convert.getStrData(rs.get("contraFirmList")));
+               acatDetails.setOtherContraFirmList(convert.getStrData(rs.get("othercontraFirmList")));
             }
             data.setAcatDetails(acatDetails);
          }
@@ -391,6 +426,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                tdTransferDetails.setFirmName(convert.getStrData(rs.get("firmName")));
                tdTransferDetails.setPrimaryContact(convert.getStrData(rs.get("primaryContact")));
                tdTransferDetails.setPriorFirmName(convert.getStrData(rs.get("priorFirmName")));
+               tdTransferDetails.setFirmAccountNo(convert.getStrData(rs.get("firmAccountNo")));
                tdTransferDetails.setRetailAccountNumber(convert.getStrData(rs.get("retailAccountNumber")));
                tdTransferDetails.setAdvisorID(convert.getStrData(rs.get("advisorID")));
                if(rs.get("removeAdvisor")!=null && rs.get("removeAdvisor").equals("Y"))
@@ -502,8 +538,15 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                }
                else  if(convert.getStrData(rs.get("reqfor")).equalsIgnoreCase("EFT"))
                {
-                  getTDElectronicDetails(data);
-                  data.setRecurringFlag(false);
+                  if(data.getOptoutRecurring())
+                  {
+                     data.setRecurringFlag(true);
+                  }
+                  else
+                  {
+                     getTDElectronicDetails(data);
+                     data.setRecurringFlag(false);
+                  }
                }
                i++;
             }
