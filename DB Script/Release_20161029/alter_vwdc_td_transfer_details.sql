@@ -4,7 +4,7 @@ drop view invdb.vwdc_td_transfer_details;
 
 create view invdb.vwdc_td_transfer_details as
 select 
- ttd.acctnum, ttd.reqId, -- getTitleRegi(ttd.acctnum)accountTitle,
+ ttd.acctnum, ttd.reqId, getTitleRegi(ttd.acctnum)accountTitle,
  ttd.firmName, 
  case when (isnull(ttd.firmAccountNo) or trim(ttd.firmAccountNo)='') then 'N/A' else ttd.firmAccountNo end naAcctNumber,
  ttd.primaryContact, ttd.priorFirmName, ttd.retailAccountNumber, 
