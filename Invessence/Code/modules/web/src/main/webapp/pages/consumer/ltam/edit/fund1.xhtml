@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100">
+        <div class="Container50 fundpageonepanel">
+        <div class="fundAccountP">
+            <div class="ContainerIndent">
+                <p:panel id="fundPanel" style="border: 0px; background: transparent">
+
+                    <p:panelGrid columns="2" layout="grid" width="100%" styleClass="Container100 fundAccountContentGrid"
+                                 style="border:0px !important; background:none;" class="FormContent">
+                        <h4 style="padding: 13px 0; font-weight:normal;" class="titleFA">Choose Bank:</h4>
+                        <p:selectOneMenu id="bankinfo" styleClass="Wid90" class="ResponsivewidthP"
+                                         value="#{fundbean.bankAccountNum}" >
+                            <p:ajax update=":fundForm:workArea"/>
+                            <f:selectItems value="#{fundbean.bankNames.entrySet()}"
+                                           var="bank" itemLabel="#{bank.key}" itemValue="#{bank.value}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+
+                    <p:panelGrid id="workArea" columns="2" layout="grid" styleClass="Container100"
+                                 style="border:0px !important; background:none;" class="FormContent"
+                                 rendered = "#{fundbean.bankNames != null}">
+
+                        <div class="Wid90 titleFA">Name</div>
+                        <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
+                                      value="#{fundbean.accountHolder}">
+                        </h:outputText>
+
+
+                        <div class="Wid90 titleFA">Routing#</div>
+                        <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
+                                      value="#{fundbean.displayRoutingNum}">
+                        </h:outputText>
+
+                        <div class="Wid90 titleFA">Account#</div>
+                        <h:outputText styleClass="Wid90" placeholder="Bank" maxlength="9"
+                                      value="#{fundbean.hiddenBankAccountNum}">
+                        </h:outputText>
+
+                        <div class="Wid90 titleFA" style="padding:10px 0;">Amount to Add</div>
+                        <pe:inputNumber styleClass="input_wid1 MarginNoneP"
+                                        placeholder="Enter $ amount"
+                                        value="#{fundbean.investment}"
+                                        maxlength="11" decimalPlaces="0" symbol="$"
+                                        required="true" requiredMessage="Fund amount is required!"
+                                        validatorMessage="Min. of $1 investment is required!">
+                        </pe:inputNumber>
+                        <f:facet name="footer">
+                            <p:commandButton value="Next" styleClass="Fright"
+                                             update=":fundForm:contentpanel"
+                                             actionListener="#{fundbean.nextPage}"/>
+
+                    </f:facet>
+                    </p:panelGrid>
+                    <p:outputPanel rendered="false">
+                        <div class="Container100">
+                            <p:separator/>
+
+                            <div class="EmptyBox5"></div>
+                        </div>
+
+                        <div class="Container100">
+                            <p:graphicImage value="/images/check_image.gif"/>
+                        </div>
+                    </p:outputPanel>
+                </p:panel>
+
+            </div>
+            </div>
+        </div>
+    </div>
+
+</ui:composition>

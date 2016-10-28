@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="acct" value="#{uobpb.beanAcctnum}"/>
+        <f:event type="preRenderView" listener="#{uobpb.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+         <h:form>
+
+            <div class="layout-portlets-box">
+                <div class="Container60 Responsive50">
+                    <div class="ContainerIndent">
+                        <h3 class="BigTopic">Opening Your Account</h3>
+                            <h:outputText value="You are being forwarded to Interactive Broker to open an account."
+				escape="false"/>
+                            <div class="EmptyBox10"/>
+                            <strong>Please have the following information readily available:</strong>
+			    <br/>
+                            <br/>
+                            <i>Personal Information</i>
+                            <ul>
+                                <li>Social Security Number</li>
+                                <li>Driver's License</li>
+                            </ul>
+                            <i>For an IRA you also need</i>
+                            <ul>
+                                <li>Beneficiary Information</li>
+                                <li>Beneficiary Social Security Number</li>
+                            </ul>
+                            <i>Funding</i>
+                            <ul>
+                                <li>Bank Information</li>
+                                <li>Brokerage Information</li>
+                            </ul>
+
+                            <p>
+                                You will now be redirected to Interactive Brokers.</p>
+
+                            <p>You will also be <u>logged out of Invessence</u>!</p>
+                            <div class="EmptyBox10"/>
+                                <p:commandButton value="Continue" styleClass="TexAlCenter"
+                                                 actionListener="#{uobpb.forwardToIB}"/>
+                    </div>
+                </div>
+                <div class="Container40 Responsive50">
+                    <div class="ContainerIndent">
+                        <div class="Container100 Responsive50">
+                            <h1 class="BigTopic">Support</h1>
+                                <h3>Questions? Talk to one of our product specialists.</h3>
+                                <br/>
+                                <img src="/images/telephone_call_contact.png" alt="Phone" style="height: 18px;"/>
+                                Phone: #{uiLayout.uiprofile.mainphone}
+                                <br/>
+                                <a href="mailto:info@invessence.com">
+                                    <img src="/images/email_envelope.png" alt="Email" style="height: 18px;"/>
+                                    Email: #{uiLayout.uiprofile.supportemail}
+                                </a>
+                            <div class="EmptyBox20"/>
+                        </div>
+                        <div class="Container100 Responsive50">
+                            <h1 class="BigTopic">Account Information</h1>
+                            <p>
+                                Invessence, Inc. acts as your registered investment adviser but does not take custody of your
+                                assets. We have partnered with
+                                <strong><span style="text-decoration: underline;">
+                                <a href="https://www.interactivebrokers.com" target="policy">
+                                    Interactive Brokers, LLC
+                                </a>
+                                </span></strong>
+                                , a registered broker dealer and FINRA member, who provide technology to automate both the
+                                management and trading of our accounts. Each client creates and maintains ownership of
+                                their own separate brokerage account at Interactive Brokers.<br/>
+                            </p>
+
+                            <p>
+                                Customer securities accounts at Interactive Brokers are protected by the
+                                <strong><span style="text-decoration: underline;">
+                                <a href="https://www.interactivebrokers.com/en/index.php?f=2334" target="policy">
+                                    Securities Investor Protection Corporation.
+                                </a>
+                                 </span></strong>
+                            </p>
+
+		    </div>
+		</div>
+	    </div>
+
+            </div>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

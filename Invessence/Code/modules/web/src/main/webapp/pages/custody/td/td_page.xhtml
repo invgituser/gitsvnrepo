@@ -1,0 +1,1661 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<p:panel id="tdPanel"
+		styleClass="Container100 Responsive50"
+		style="border:0px !important; background:none;">
+	<div class="Container100 Responsive100"
+		style="margin: 0 auto; float: none;">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:accordionPanel styleClass="tcmAccordionPanel-UI"
+                    multiple="false">
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm" />
+						<h:outputText value="Account Type" styleClass="accordionTabText" />
+					</f:facet>
+					<div class="Conatainer100 ui-color paddingFA">
+						<div class="EmptyBox10"></div>
+						<h3 class="FSResponsiveFA">What type of account would you
+							like to open?</h3>
+						<div class="EmptyBox10"></div>
+
+						<div class="Container45 CustomWidthAccountypePanel Fleft ">
+							<p:panel styleClass="Wid100 Fleft MarCenter tcmPanel-UI">
+								<div class="Container60">
+									<h4>Individual</h4>
+									<div class="EmptyBox5"></div>
+									<h6 class="FontNormal">(Description)</h6>
+								</div>
+								<div class="Container40 textAlign">
+									<p:selectOneRadio styleClass="textAlign">
+										<f:selectItem itemValue="1" />
+									</p:selectOneRadio>
+								</div>
+							</p:panel>
+						</div>
+						<div class="Container45 CustomWidthAccountypePanel Fright Marleft">
+							<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+								<div class="Container60">
+									<h4>Joint</h4>
+									<div class="EmptyBox5"></div>
+									<h6 class="FontNormal">(Description)</h6>
+								</div>
+								<div class="Container40 textAlign">
+									<p:selectOneRadio required="true" styleClass="textAlign">
+										<f:selectItem itemValue="1" />
+									</p:selectOneRadio>
+								</div>
+							</p:panel>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Container45 CustomWidthAccountypePanel Fleft ">
+							<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+								<div class="Container60">
+									<h4>Roth IRA</h4>
+									<div class="EmptyBox5"></div>
+									<h6 class="FontNormal">(Description)</h6>
+								</div>
+								<div class="Container40 textAlign">
+									<p:selectOneRadio required="true" styleClass="textAlign">
+										<f:selectItem itemValue="1" />
+									</p:selectOneRadio>
+								</div>
+							</p:panel>
+						</div>
+						<div class="Container45 CustomWidthAccountypePanel Fright">
+							<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+								<div class="Container60">
+									<h4>UTMA / UGMA</h4>
+									<div class="EmptyBox5"></div>
+									<h6 class="FontNormal">(Description)</h6>
+								</div>
+								<div class="Container40 textAlign">
+									<p:selectOneRadio required="true" styleClass="textAlign">
+										<f:selectItem itemValue="1" />
+									</p:selectOneRadio>
+								</div>
+							</p:panel>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Container45 CustomWidthAccountypePanel Fleft ">
+							<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+								<div class="Container60">
+									<h4>Traditional</h4>
+									<div class="EmptyBox5"></div>
+									<h6 class="FontNormal">(Description)</h6>
+								</div>
+								<div class="Container40 textAlign">
+									<p:selectOneRadio required="true" styleClass="textAlign">
+										<f:selectItem itemValue="1" />
+									</p:selectOneRadio>
+								</div>
+							</p:panel>
+						</div>
+						<div class="Container45 CustomWidthAccountypePanel Fright">
+							<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+								<div class="Container60">
+									<h4>IRA / Rollover IRA</h4>
+									<div class="EmptyBox5"></div>
+									<h6 class="FontNormal">(Description)</h6>
+								</div>
+								<div class="Container40 textAlign">
+									<p:selectOneRadio required="true" styleClass="textAlign">
+										<f:selectItem itemValue="1" />
+									</p:selectOneRadio>
+								</div>
+							</p:panel>
+						</div>
+						<div class="EmptyBox10"></div>
+						<div class="Container45 CustomWidthAccountypePanel Fleft ">
+							<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+								<div class="Container60">
+									<h4>Beneficiary IRA</h4>
+									<div class="EmptyBox5"></div>
+									<h6 class="FontNormal">(Description)</h6>
+								</div>
+								<div class="Container40 textAlign">
+									<p:selectOneRadio required="true" styleClass="textAlign">
+										<f:selectItem itemValue="1" />
+									</p:selectOneRadio>
+								</div>
+							</p:panel>
+						</div>
+						<div class="Container100 MarTop20" style="margin: 10px 10px;">
+							<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+							<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+						</div>
+						<div class="EmptyBox10"></div>
+					</div>
+				</p:tab>
+				<p:tab styleClass="tcmAccordion-UI">
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm" />
+						<h:outputText value="Account Holder" styleClass="accordionTabText" />
+					</f:facet>
+
+						<p:tabView>
+
+							<p:tab title="Account Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Name</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+											placeholder="First Name">
+										</p:inputText>
+										<p:inputText
+											styleClass="CustomWidthFA FS14 InputMergeLeft InputMergeRight"
+											placeholder="Middle Name">
+										</p:inputText>
+										<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+											placeholder="Last Name">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container50 CustomWidthFA2 MarTop5">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="DD">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="MM">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="YY">
+										</p:inputText>
+									</div>
+
+									<div class="Container50 CustomWidthFA2 MarTop5">
+										<label Class="Container100"
+											style="text-align: left !important; font-weight: bold !important;">Social
+											Security Number</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="">
+										</p:inputText>
+									</div>
+									<div class="EmptyBox20"></div>
+
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Phone
+												Number</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+												placeholder="Primary Phone#">
+											</p:inputText>
+										</div>
+										<div class="Container45 Fright CustomWidthFA2 MarTop5">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+											<div class="EmptyBox5"></div>
+											<div class="CustomWidthFA-Responsive"
+												style="margin-top: 5px;">
+												<p:selectBooleanCheckbox />
+												<h:outputText value="USA Citizenship" />
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+							<p:tab title="Joint Account Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Name</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+											placeholder="First Name">
+										</p:inputText>
+										<p:inputText
+											styleClass="CustomWidthFA FS14 InputMergeLeft InputMergeRight"
+											placeholder="Middle Initial">
+										</p:inputText>
+										<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+											placeholder="Last Name">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container50 CustomWidthFA2 MarTop5">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="DD">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="MM">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="YY">
+										</p:inputText>
+									</div>
+
+									<div class="Container50 CustomWidthFA2 MarTop5">
+										<label Class="Container100"
+											style="text-align: left !important; font-weight: bold !important;">Social
+											Security Number</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="">
+										</p:inputText>
+									</div>
+									<div class="EmptyBox20"></div>
+
+									<div class="Container100">
+										<div class="Container45 CustomWidthFA2 Fleft MarTop5">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Phone
+												Number</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+												placeholder="Primary Phone#">
+											</p:inputText>
+										</div>
+
+										<div class="Container45 Fright CustomWidthFA2 MarTop5">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+											<div class="EmptyBox5"></div>
+
+											<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select Citizenship" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="USA Citizenship" itemValue="" />
+												<f:selectItem itemLabel="Non-USA Citizenship" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+
+						</p:tabView>
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/address.png.xhtml?ln=tcm" />
+						<h:outputText value="Address" styleClass="accordionTabText" />
+					</f:facet>
+
+						<p:tabView>
+
+							<p:tab title="Primary Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Residence
+											Address</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+											placeholder="Street Address 1">
+										</p:inputText>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fright"
+											placeholder="Street Address 2">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<div class="Container30 CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="City">
+											</p:inputText>
+										</div>
+										<div
+											class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu value=""
+												styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div
+											class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Zip
+												Code</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="Zip Code">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+
+									<p:selectOneRadio required="true" styleClass="">
+										<f:selectItem itemValue="1"
+											itemLabel="Different Mailing Address" />
+									</p:selectOneRadio>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Residence
+											Address</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+											placeholder="Street Address 1">
+										</p:inputText>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fright"
+											placeholder="Street Address 2">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<div class="Container30 CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="City">
+											</p:inputText>
+										</div>
+										<div
+											class="Container30 CustomWidthFA-Responsive Margin-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu value=""
+												styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div
+											class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Zip
+												Code</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="Zip Code">
+											</p:inputText>
+										</div>
+									</div>
+
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+							<p:tab title="Joint Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Residence
+											Address</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+											placeholder="Street Address 1">
+										</p:inputText>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fright"
+											placeholder="Street Address 2">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<div class="Container30 CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="City">
+											</p:inputText>
+										</div>
+										<div
+											class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu value=""
+												styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div
+											class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Zip
+												Code</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="Zip Code">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+
+									<p:selectOneRadio required="true" styleClass="">
+										<f:selectItem itemValue="1"
+											itemLabel="Different Mailing Address" />
+									</p:selectOneRadio>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Residence
+											Address</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fleft"
+											placeholder="Street Address 1">
+										</p:inputText>
+										<p:inputText styleClass="CustomWidthAddressFA FS14 Fright"
+											placeholder="Street Address 2">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<div class="Container30 CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="City">
+											</p:inputText>
+										</div>
+										<div
+											class="Container30 CustomWidthFA-Responsive Margin-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu value=""
+												styleClass="CustomWidthFA-Responsive FundAccountDropdownUI"
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div
+											class="Container30 CustomWidthFA-Responsive Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Zip
+												Code</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="Zip Code">
+											</p:inputText>
+										</div>
+									</div>
+
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+
+						</p:tabView>
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm" />
+						<h:outputText value="Regulatory" styleClass="accordionTabText" />
+					</f:facet>
+
+						<p:tabView>
+
+							<p:tab title="Primary Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+
+										<!--<div class="Container45 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Country
+												Of Citizenship</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Country Of Citizenship">
+											</p:inputText>
+										</div>-->
+									</div>
+									<!-- <div class="Container100">
+										<div class="Container45 Fleft">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Dual
+												Citizenship</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Country Of Dual Citizenship">
+											</p:inputText>
+										</div>
+										<div class="Container45 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Country
+												Of Birth</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Country Of Birth">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Do
+												you hold a U.S. immigration visa?</label>
+											<div class="EmptyBox5"></div>
+											<div class="InlineCitizenRadioBtn">
+												<p:selectOneRadio>
+													<f:selectItem itemValue="1" itemLabel="Yes" />
+												</p:selectOneRadio>
+												<p:selectOneRadio>
+													<f:selectItem itemValue="2" itemLabel="No" />
+												</p:selectOneRadio>
+											</div>
+										</div>
+										<div class="Container45 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Type of Visa</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Type of Visa">
+											</p:inputText>
+										</div>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Visa
+												Number</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Visa Number">
+											</p:inputText>
+										</div>
+										<div class="Container45 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Visa
+												Expiration Date</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+												placeholder="DD">
+											</p:inputText>
+											<p:inputText
+												styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+												placeholder="MM">
+											</p:inputText>
+											<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+												placeholder="YY">
+											</p:inputText>
+										</div>
+									</div>  -->
+									<div class="EmptyBox10"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<label Class="Container100"
+											style="text-align: left !important; font-weight: bold !important;">Regulatory
+											Questions</label>
+										<div class="EmptyBox5"></div>
+										<p:selectOneRadio>
+											<f:selectItem itemValue="1"
+												itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure." />
+										</p:selectOneRadio>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Name
+												Of SPF</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 CustomWidthFA-Responsive FS14"
+												placeholder="Name of SPF">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Relationship</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Relationship">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Political
+												Title</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Political Title">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Country
+												Of Office</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Country Of Office">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<p:selectOneRadio>
+											<f:selectItem itemValue="1"
+												itemLabel="I, my spouse or an immediate member of my family is a director, 10% shareholder or policy maker of a publicly traded company." />
+										</p:selectOneRadio>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Company
+												Name</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Company Name">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Company
+												Address</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Company Address">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="City">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu value="" styleClass="FundAccountDropdownUI"
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<p:selectOneRadio>
+											<f:selectItem itemValue="1"
+												itemLabel="I, my spouse or an immediate member of my family is a licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange." />
+										</p:selectOneRadio>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+							<p:tab title="Joint Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<label Class="Container100"
+											style="text-align: left !important; font-weight: bold !important;">Regulatory
+											Questions</label>
+										<div class="EmptyBox5"></div>
+										<p:selectOneRadio>
+											<f:selectItem itemValue="1"
+												itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure." />
+										</p:selectOneRadio>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Name
+												Of SPF</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 CustomWidthFA-Responsive FS14"
+												placeholder="Name of SPF">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Relationship</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Relationship">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Political
+												Title</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Political Title">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Country
+												Of Office</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Country Of Office">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<p:selectOneRadio>
+											<f:selectItem itemValue="1"
+												itemLabel="I, my spouse or an immediate member of my family is a director, 10% shareholder or policy maker of a publicly traded company." />
+										</p:selectOneRadio>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Company
+												Name</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Company Name">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Company
+												Address</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Company Address">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="City">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu value="" styleClass="FundAccountDropdownUI"
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<p:selectOneRadio>
+											<f:selectItem itemValue="1"
+												itemLabel="I, my spouse or an immediate member of my family is a licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange." />
+										</p:selectOneRadio>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+
+						</p:tabView>
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/employment.png.xhtml?ln=tcm" />
+						<h:outputText value="Employment" styleClass="accordionTabText" />
+					</f:facet>
+
+						<p:tabView>
+
+							<p:tab title="Primary Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Employment</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select Employemnt" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="e1" itemValue="" />
+												<f:selectItem itemLabel="e2" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Source
+												Of Income</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Source Of Income">
+											</p:inputText>
+										</div>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Employer
+												Name</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Employer Name">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">occupations</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Occupation">
+											</p:inputText>
+										</div>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Type
+												Of Business</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Type Of Business">
+											</p:inputText>
+										</div>
+										<div
+											class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Employer
+												Street Address</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText
+												styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+												placeholder="Employer Street Address">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<div class="Container30 CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="City">
+											</p:inputText>
+										</div>
+										<div
+											class="Container30 Margin-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div
+											class="Container30 Fright-FAAddress CustomWidthFA-Responsive">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Zip
+												Code</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+												placeholder="Zip Code">
+											</p:inputText>
+										</div>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+							<p:tab title="Joint Holder">
+								<div class="Container80 Responsive100 MarTop5 MarCenter"
+									style="margin-bottom: 15px;">
+
+									<div class="Container100">
+										<div class="Container45 Fleft">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Employment</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select Employemnt" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="e1" itemValue="" />
+												<f:selectItem itemLabel="e2" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div class="Container45 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Source
+												Of Income</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Source Of Income">
+											</p:inputText>
+										</div>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Employer
+												Name</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Employer Name">
+											</p:inputText>
+										</div>
+										<div class="Container45 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">occupations</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Occupation">
+											</p:inputText>
+										</div>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Type
+												Of Business</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Type Of Business">
+											</p:inputText>
+										</div>
+										<div class="Container45 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Employer
+												Street Address</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 FS14"
+												placeholder="Employer Street Address">
+											</p:inputText>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100 CustomWidthFA2 MarTop5">
+										<div class="Container30">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">City</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14" placeholder="City">
+											</p:inputText>
+										</div>
+										<div class="Container30 Margin-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">State</label>
+											<div class="EmptyBox5"></div>
+											<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+												style="width: 100%;">
+												<p:ajax />
+												<f:selectItem itemLabel="Select State" itemValue=""
+													noSelectionOption="true" />
+												<f:selectItem itemLabel="California" itemValue="" />
+												<f:selectItem itemLabel="Florida" itemValue="" />
+											</p:selectOneMenu>
+										</div>
+										<div class="Container30 Fright-FAAddress">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Zip
+												Code</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid90 FS14" placeholder="Zip Code">
+											</p:inputText>
+										</div>
+									</div>
+								</div>
+								<div class="Container100 MarTop20" style="margin: 10px 10px;">
+									<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+									<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+								</div>
+							</p:tab>
+
+						</p:tabView>
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/money.png.xhtml?ln=tcm" />
+						<h:outputText value="Funding" styleClass="accordionTabText" />
+					</f:facet>
+
+						<div class="EmptyBox10"></div>
+						<div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+							style="margin-bottom: 15px;">
+
+							<div class="Container45 CustomWidthAccountypePanel Fleft ">
+								<p:panel styleClass="Wid100 Fleft MarCenter tcmPanel-UI">
+									<div class="Container60">
+										<h4>ACH</h4>
+										<div class="EmptyBox5"></div>
+										<h6 class="FontNormal">(Bank Transfer)</h6>
+									</div>
+									<div class="Container40 textAlign">
+										<p:selectOneRadio styleClass="textAlign">
+											<f:selectItem itemValue="1" />
+										</p:selectOneRadio>
+									</div>
+								</p:panel>
+							</div>
+							<div
+								class="Container45 CustomWidthAccountypePanel Fright Marleft">
+								<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+									<div class="Container60">
+										<h4>ACAT</h4>
+										<div class="EmptyBox5"></div>
+										<h6 class="FontNormal">(Third Party)</h6>
+									</div>
+									<div class="Container40 textAlign">
+										<p:selectOneRadio required="true" styleClass="textAlign">
+											<f:selectItem itemValue="1" />
+										</p:selectOneRadio>
+									</div>
+								</p:panel>
+							</div>
+							<div class="EmptyBox10"></div>
+							<div class="Container45 CustomWidthAccountypePanel Fleft ">
+								<p:panel styleClass="Wid100 MarCenter tcmPanel-UI">
+									<div class="Container60">
+										<h4>Wire Transfer</h4>
+										<div class="EmptyBox5"></div>
+										<h6 class="FontNormal">(Description)</h6>
+									</div>
+									<div class="Container40 textAlign">
+										<p:selectOneRadio required="true" styleClass="textAlign">
+											<f:selectItem itemValue="1" />
+										</p:selectOneRadio>
+									</div>
+								</p:panel>
+							</div>
+
+							<div class="Container45 Fright CustomWidthFA2 MarTop5">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Recurring
+									Funding</label>
+								<div class="EmptyBox5"></div>
+								<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
+									<p:selectBooleanCheckbox />
+									<h:outputText
+										value="I would like to make recurring investments." />
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+
+							<div class="Container100">
+								<div
+									class="Container100 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Investment
+										Amount </label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid50 FS14 CustomWidthFA-Responsive"
+										placeholder="Source Of Income">
+									</p:inputText>
+								</div>
+							</div>
+
+							<div class="EmptyBox20"></div>
+							<!-- ACH -->
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Bank
+										Name</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Bank Name">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Account
+										Type</label>
+									<div class="EmptyBox5"></div>
+									<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+										style="width: 100%;">
+										<p:ajax />
+										<f:selectItem itemLabel="Select Employemnt" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="a1" itemValue="" />
+										<f:selectItem itemLabel="a2" itemValue="" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+							<div class="Container100" style="">
+								<img
+									src="/javax.faces.resource/images/check_image.gif.xhtml?ln=tcm" />
+
+							</div>
+							<div class="EmptyBox20"></div>
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">ABA
+										Routing Number</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="ABA Routing Number">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Bank
+										Account Number</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Bank Account Number">
+									</p:inputText>
+								</div>
+							</div>
+							<!-- ACAT -->
+							<div class="EmptyBox20"></div>
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Destination
+										Account Number</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Destination Account Number">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Account
+										Registration</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Account Registration">
+									</p:inputText>
+								</div>
+							</div>
+							<!-- Wire transfer -->
+							<div class="EmptyBox20"></div>
+							<div class="EmptyBox10"></div>
+							<h3 class="FSResponsiveFA">Domestic Wire Information</h3>
+							<div class="EmptyBox10"></div>
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Receiving
+										Bank Name</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Receiving Bank Name">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Name
+										on Receiving Bank Account</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Name on Receiving Bank Account">
+									</p:inputText>
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">ABA
+										Routing Number</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="ABA Routing Number">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Bank
+										Account Number</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Bank Account Number">
+									</p:inputText>
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+							<!-- Electronic Funds Transfer (Recurring Investments) -->
+							<div class="Container100 CustomWidthFA2 MarTop5">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Recurring
+									Funding</label>
+								<div class="EmptyBox5"></div>
+								<div class="CustomWidthFA-Responsive" style="margin-top: 5px;">
+									<p:selectBooleanCheckbox />
+									<h:outputText
+										value="Please use the existing account details in your records" />
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+
+							<div class="EmptyBox20"></div>
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Bank
+										Name</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Bank Name">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Account
+										Type</label>
+									<div class="EmptyBox5"></div>
+									<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+										style="width: 100%;">
+										<p:ajax />
+										<f:selectItem itemLabel="Select Employemnt" itemValue=""
+											noSelectionOption="true" />
+										<f:selectItem itemLabel="a1" itemValue="" />
+										<f:selectItem itemLabel="a2" itemValue="" />
+									</p:selectOneMenu>
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">ABA
+										Routing Number</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="ABA Routing Number">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Bank
+										Account Number</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Bank Account Number">
+									</p:inputText>
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+							<div class="Container100">
+								<div class="Container45 Fleft CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Recurring
+										Investment Amount </label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Recurring Investment Amount ">
+									</p:inputText>
+								</div>
+								<div
+									class="Container45 Fright-FAAddress CustomWidthFA-Responsive">
+									<label Class="Container100"
+										style="text-align: left !important; font-weight: bold !important;">Start
+										Date Of Transfer</label>
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+										placeholder="Start Date Of Transfer">
+									</p:inputText>
+								</div>
+							</div>
+							<div class="EmptyBox20"></div>
+							<div class="Container45 Fleft CustomWidthFA-Responsive">
+								<label Class="Container100"
+									style="text-align: left !important; font-weight: bold !important;">Frequency
+									of Transaction</label>
+								<div class="EmptyBox5"></div>
+								<p:selectOneMenu styleClass="FundAccountDropdownUI" value=""
+									style="width: 100%;">
+									<p:ajax />
+									<f:selectItem itemLabel="Select Frequency" itemValue=""
+										noSelectionOption="true" />
+									<f:selectItem itemLabel="a1" itemValue="" />
+									<f:selectItem itemLabel="a2" itemValue="" />
+								</p:selectOneMenu>
+							</div>
+							<div class="Container100 MarTop20" style="margin: 10px 10px;">
+								<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+								<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+							</div>
+						</div>
+
+				</p:tab>
+				<p:tab>
+					<f:facet name="title">
+						<p:graphicImage
+							value="/javax.faces.resource/images/beneficiary.png.xhtml?ln=tcm" />
+						<h:outputText value="Beneficiary" styleClass="accordionTabText" />
+					</f:facet>
+
+						<div class="EmptyBox10"></div>
+						<div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+							style="margin-bottom: 15px;">
+							<div class="beneficiaryAdd Container100">
+								<i class="fa fa-plus-square"></i>
+								<h:outputText styleClass="Wid100 labelBAB"
+									value="Add Beneficiary" />
+							</div>
+<div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+                        <div class="Container100 MarginBottom">
+
+                            <p:dataTable id="singleDT" var="investment" value="#{tcmdash.manageAccountList}"
+                                         emptyMessage="No beneficiary account added. Add a new beneficiary account"
+                                         reflow="true">
+
+                                <p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
+                                    <p:commandButton id="activeButton" rendered="#{investment.managed}"
+                                                     styleClass="Fs14 GreenButton"
+                                                     process="@this" immediate="true"
+                                                     icon="fa fa-search-plus Fs14 white"
+                                                     action="#{tcmdash.doSelectedAction}">
+                                        <p:tooltip id="activeToolTipFade" for="activeButton" value="View"/>
+                                        <f:setPropertyActionListener value="#{investment}"
+                                                                     target="#{tcmdash.selectedAccount}"/>
+                                    </p:commandButton>
+                                    <p:commandButton id="pendingButton" rendered="#{! investment.managed}"
+                                                     styleClass="Fs14 BlueButton"
+                                                     process="@this" immediate="true"
+                                                     icon="fa fa-pencil-square-o Fs14 white"
+                                                     action="#{tcmdash.doSelectedAction}">
+                                        <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit"/>
+                                        <f:setPropertyActionListener value="#{investment}"
+                                                                     target="#{tcmdash.selectedAccount}"/>
+                                    </p:commandButton>
+                                </p:column>
+                               
+                                <p:column styleClass="Wid25 TexAlLeft"
+                                          sortBy="" headerText="First Name" priority="3"
+                                          resizable="true">
+                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value=""/></span>
+                                </p:column>
+
+                                <p:column styleClass="Wid25 TexAlLeft"
+                                          sortBy="" headerText="Last Name"
+                                          resizable="true">
+                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value=""/></span>
+                                </p:column>
+
+                                <p:column styleClass="Wid25 num-text-align invest"
+                                          headerText="Share %"
+                                          resizable="true">
+                                    <span class="dashboardUsrColumnFloatRight"><h:outputText value="">
+                                        <f:convertNumber type="percent"/>
+                                    </h:outputText></span>
+                                  
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="Container100">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Name</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+											placeholder="First Name">
+										</p:inputText>
+										<p:inputText
+											styleClass="CustomWidthFA FS14 InputMergeLeft InputMergeRight"
+											placeholder="Middle Name">
+										</p:inputText>
+										<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+											placeholder="Last Name">
+										</p:inputText>
+									</div>
+
+									<div class="EmptyBox20"></div>
+									<div class="Container50 CustomWidthFA2 MarTop5">
+										<label Class="Container60"
+											style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="DD">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="MM">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="YY">
+										</p:inputText>
+									</div>
+
+									<div class="Container50 CustomWidthFA2 MarTop5">
+										<label Class="Container100"
+											style="text-align: left !important; font-weight: bold !important;">Social
+											Security Number</label>
+										<div class="EmptyBox5"></div>
+										<p:inputText styleClass="Wid20 FS14 InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText
+											styleClass="Wid20 FS14 InputMergeLeft InputMergeRight"
+											placeholder="">
+										</p:inputText>
+										<p:inputText styleClass="Wid20 FS14 InputMergeLeft"
+											placeholder="">
+										</p:inputText>
+									</div>
+									<div class="EmptyBox20"></div>
+
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Relationship</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+												placeholder="Relationship">
+											</p:inputText>
+										</div>
+										<div class="Container45 Fright CustomWidthFA2 MarTop5">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Citizenship</label>
+											<div class="EmptyBox5"></div>
+											<div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
+												style="margin-top: 5px;">
+												<p:selectOneRadio styleClass="textAlign">
+										<f:selectItem itemValue="1"  itemLabel="Primary"/>
+									</p:selectOneRadio>
+									<p:selectOneRadio styleClass="textAlign">
+										<f:selectItem itemValue="1"  itemLabel="Contigent"/>
+									</p:selectOneRadio>
+											</div>
+										</div>
+									</div>
+									<div class="EmptyBox20"></div>
+									<div class="Container100">
+										<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+											<label Class="Container100"
+												style="text-align: left !important; font-weight: bold !important;">Share %</label>
+											<div class="EmptyBox5"></div>
+											<p:inputText styleClass="Wid100 CustomWidthFA2 FS14 Mar5"
+												placeholder="Share %">
+											</p:inputText>
+										</div>
+										</div>
+							<div class="Container100 MarTop20" style="margin: 10px 10px;">
+								<p:commandLink styleClass="UI-prevButtonFA Fleft" />
+
+								<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" />
+							</div>
+						</div>
+				</p:tab>
+			</p:accordionPanel>
+	</div>
+    </p:panel>
+
+</ui:composition>

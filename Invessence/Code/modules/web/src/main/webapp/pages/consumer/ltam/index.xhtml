@@ -1,0 +1,174 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{cdash.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <h:form id="dashForm">
+
+            <p:panel id="contentpanel" style="border: 0px; background: transparent">
+
+                <div class="layout-portlets-box">
+
+                    <div class="Container100">
+                        <div class="ContainerIndent" style="width:100%!important;">
+                            <div class="DispInlBlock">
+                                <div class="Container100">
+                                    <div class="Fleft">
+                                        <h3 class="black Fs20 FontThemeMedium">
+                                            Hello, #{cdash.loggedUserName}
+                                        </h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="Container100">
+                        <div class="ContainerIndent" style="width:100%!important;">
+                            <div class="Container100">
+                                <div class="Container100">
+                                    <div class="Container100">
+                                        <div class="Fleft">
+                                            <h4 class="black Fs18 FontThemeMedium" style="padding:5px 0;">
+                                                Account
+                                            </h4>
+                                        </div>
+                                        <div class="Container10" style="margin-left: 10px">
+                                            <p:commandButton id="addBtn"  rendered="false"
+                                                             styleClass="Fs14 BlueButton"
+                                                             process="@this" immediate="true"
+                                                             icon="fa fa-plus Fs14 white"
+                                                             action="#{cdash.doAction('N')}">
+                                                <p:tooltip for="addBtn" value="Add New Account"/>
+                                            </p:commandButton>
+
+                                        </div>
+
+                                    </div>
+                                   <div class="Container100 Responsive100">
+                                        <p:growl showDetail="false" escape="true" closable="true"/>
+                                        <p:separator style="background-color: blue; height:5px"/>
+
+                                        <div class="Container100">
+                                            <p:dataGrid style="background: transparent; padding-right:5px;"
+                                                        var="acct" value="#{cdash.dashboardList}"
+                                                        columns="1" layout="grid">
+                                                <p:panel style="width: 100%; background: #f5f5f5;">
+                                                    <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
+                                                        <tr style="font-size: 15px;">
+                                                            <td style="width:70%;">#{acct.description}</td>
+                                                            <td style="width: 30%; text-align: right;">
+                                                                <strong>
+                                                                    <h:outputText value="#{acct.investment}">
+                                                                        <f:convertNumber currencySymbol="$" type="currency"/>
+                                                                    </h:outputText>
+                                                                </strong></td>
+                                                        </tr>
+                                                        <tr style="font-size: 13px;">
+                                                            <td colspan="2" style="width: 100%; margin-left: 5px">
+                                                                <div class="EmptyBox10"></div>
+                                                                <ui:fragment rendered="#{acct.managed == 'Y'}">
+                                                                    <div class="invNBgrid DashboardIconBlock" style="width: 100%;">
+                                                                        
+                                                                            <div class="Container40 IconWidthP">
+                                                                                <p:commandButton id="reviewBtn"
+                                                                                                 styleClass="Fs14 BlueButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-search-plus Fs14 white"
+                                                                                                 action="#{cdash.doAction('R')}">
+                                                                                    <!--  <p:tooltip for="reviewBtn" value="Overview"/>-->
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </div><div class="Mobilelabel Container60"><h3>Overview</h3></div>
+                                                                            
+                                                                            <div class="Container40 IconWidthP">
+                                                                                <p:commandButton id="fundBtn"
+                                                                                                 styleClass="Fs14 GreenButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-dollar Fs14 white"
+                                                                                                 action="#{cdash.doAction('A')}">
+                                                                                  <!-- <p:tooltip for="fundBtn" value="Add Funds"/> -->  
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </div><div class="Mobilelabel Container60"><h3>Add Money</h3></div>
+                                                                            <div class="Container40 IconWidthP">
+                                                                                <p:commandButton id="editBtn"
+                                                                                                 styleClass="Fs14 OrangeButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-pie-chart Fs14 white"
+                                                                                                 action="#{cdash.doAction('E')}">
+                                                                                   <!--   <p:tooltip for="editBtn" value="Exchange fund"/>-->
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </div><div class="Mobilelabel Container60"><h3>Choose New Portfolio</h3></div>
+                                                                            <div class="Container40 IconWidthP">
+                                                                                <p:commandButton id="acctBtn"
+                                                                                                 styleClass="Fs14 CyanButton"
+                                                                                                 process="@this" immediate="true"
+                                                                                                 icon="fa fa-edit Fs14 black"
+                                                                                                 action="#{cdash.doAction('C')}">
+                                                                                   <!--   <p:tooltip for="acctBtn" value="Edit Account"/>-->
+                                                                                    <f:setPropertyActionListener value="#{acct}"
+                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                </p:commandButton>
+                                                                            </div><div class="Mobilelabel Container60"><h3>Edit Account</h3></div>
+                                                                        
+
+                                                                    </div>
+                                                                </ui:fragment>
+                                                                <div class="EmptyBox10"></div>
+                                                                <ui:fragment rendered="#{acct.managed != 'Y'}">
+                                                                    <p:outputLabel class="SoftRed">Pending</p:outputLabel>
+                                                                </ui:fragment>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </p:panel>
+
+                                            </p:dataGrid>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--
+                                <p:outputPanel id="disclaimer" style="border: 0px">
+
+                                    <div class="layout-portlets-box">
+                                        <div class="Container100 Responsive100">
+                                            <div class="Container100 Responsive100">
+                                                <div class="ContainerIndent Responsive100">
+                                                    <div class="Fs12 TexAlCenter">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p:outputPanel>
+                -->
+
+            </p:panel>
+
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

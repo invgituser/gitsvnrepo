@@ -1,0 +1,57 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+    <div class="Container100 TextAlCenter">
+        <div class="Container50 Responsive100 Fleft">
+            <h3 class="StepsQuestionsFS StepsQuestionsFSpg3">
+                Which of the following best reflects your objectives for this investment?
+            </h3>
+            <div class="Container100">
+                <div class="Container25 Responsive0" style="height:1px;"></div>
+                <div class="Container100 Responsive100 MarginSpaceP3 RiskQuestionBlock">
+                    <p:selectOneRadio id="p3id" value="#{tcmpb.riskCalculator.ans3}"
+                                      layout="pageDirection">
+                        <p:ajax listener="#{tcmpb.onChangeValue}"
+                                update=":ceForm:inputArea"/>
+                        <f:selectItem itemLabel="Maximizing Current Income" itemValue="1" />
+                        <f:selectItem itemLabel="Emphasizing income with some potential for growth" itemValue="2" />
+                        <f:selectItem itemLabel="Emphasizing growth with some potential for income" itemValue="3" />
+                        <f:selectItem itemLabel="Growth" itemValue="4" />
+                        <f:selectItem itemLabel="Maximizing growth" itemValue="5" />
+                    </p:selectOneRadio>
+                </div>
+                <p:message for="p3id" display="text"/>
+            </div>
+
+        <div class="EmptyBox5"></div>
+         <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(1) != null}"
+                  style="border: 0px; background: transparent"
+                  styleClass="Container100">
+             <h:outputText styleClass="errorText"
+                           value="#{tcmpb.pagemanager.getErrorMessage(1)}" escape="false"/>
+             <div class="EmptyBox5"></div>
+         </p:panel>
+        <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"
+                         update=":ceForm:inputArea"
+                         immediate="true"
+                         actionListener="#{tcmpb.prevPage}">
+                         <h:outputText value="Previous" />
+                         </p:commandLink>
+             <p:commandLink styleClass="UI-nextButton Fright UI-tcmButton"   rendered="#{tcmpb.pagemanager.nextButtonStat}"
+                         update=":ceForm:inputArea"
+                         actionListener="#{tcmpb.nextPage}">
+                         <h:outputText value="Next" />
+                         </p:commandLink>
+                         </div>
+        <div class="Container50 Responsive100">
+            <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
+        </div>
+
+    </div>
+
+</ui:composition>

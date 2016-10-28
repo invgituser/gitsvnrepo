@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+</h:head>
+
+<h:body>
+    <ui:composition template="/template/common/backup/layout.xhtml/common/layout.xhtml">
+        <ui:define name="content">
+            <div id="main-content" class="content_section" style="background-color: #f5f5f5; padding: 5px;">
+                <div id="wrapper" class="container">
+                    <h:form id="advisorEditForm">
+                        <p:growl id="advisorEditgrowl" showDetail="true" sticky="true" escape="true"/>
+                        <p:panel styleClass="testPanel">
+                            <div class="testPanelPart1">
+                                <div class="testImageArea">
+                                    <div class="testTop">
+                                        <p:commandLink update=":custDialogForm:profileDataEntryid" onclick="PF('custProfileDialog').show();">
+                                            <p:graphicImage value="/images/settings_user-128.png" alt="Profile" width="40" height="40"/>
+                                        </p:commandLink>
+                                    </div>
+                                    <div class="testBottom">
+                                        <p:button value="Fund" icon="ui-icon-star"/>
+                                    </div>
+                                </div>
+                                <div class="testImageArea">
+                                </div>
+
+                                <div class="testImageArea">
+                                    <div class="testTop" style="background: #{testBean2.imageSelected == 0 ? 'gray' : 'transparent'}">
+                                        <p:commandLink ajax="true" update="@form">
+                                            <p:graphicImage value="/images/retirement.jpg" alt="Retirement"/>
+                                            <p:ajax event="click" listener="#{testBean2.actionGoal(0)}"/>
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                                <div class="testImageArea">
+                                    <div class="testTop">
+                                        <p:commandLink ajax="true" update="@form">
+                                            <p:graphicImage value="/images/growth.jpg" alt="Growth"/>
+                                            <p:ajax event="click" listener="#{testBean2.actionGoal(1)}"/>
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                                <div class="testImageArea">
+                                    <div class="testTop">
+                                        <p:commandLink ajax="true" update="@form">
+                                            <p:graphicImage value="/images/income.jpg" alt="Income"/>
+                                            <p:ajax event="click" listener="#{testBean2.actionGoal(2)}"/>
+                                        </p:commandLink>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testPanelPart2">
+                                <div class="testThreeEqPart">
+                                    <div class="testAgeArea">
+                                        <div class="testTop">
+                                            <p:inplace>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{testBean2.slider1}"
+                                                                  styleClass="invLabel" style="width:110px; font-size: 1.2em"/>
+                                                    <img alt="Edit" src="/images/Pencil-icon.png" style="width: 8px;"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputText styleClass="invInput" style="width:35px; font-size: 1.2em"
+                                                                 value="#{testBean2.slider1}"
+                                                                 maxlength="3" size="3">
+                                                        <pe:keyFilter regEx="/[\d]/"/>
+                                                    </p:inputText>
+                                                </f:facet>
+                                            </p:inplace>
+                                        </div>
+                                        <div class="testBottom">
+                                            Age
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="testThreeEqPart">
+                                <div class="testIncomeArea">
+                                    <div class="testTop">
+                                        <p:inplace>
+                                            <f:facet name="output">
+                                                <h:outputText value="#{testBean2.slider2}"
+                                                              styleClass="invLabel" style="width:110px; font-size: 1.2em"
+                                                              size="8" maxlength="9">
+                                                    <f:convertNumber pattern="$ #,###,###"/>
+                                                </h:outputText>
+                                                <img alt="Edit" src="/images/Pencil-icon.png" style="width: 8px;"/>
+                                            </f:facet>
+                                            <f:facet name="input">
+                                                <pe:inputNumber styleClass="invInput" style="width:90px; font-size: 1.2em"
+                                                                value="#{testBean2.slider2}"
+                                                                symbol="$ " decimalPlaces="0" thousandSeparator=","
+                                                                size="8" maxlength="9">
+                                                </pe:inputNumber>
+                                            </f:facet>
+                                        </p:inplace>
+                                    </div>
+                                    <div class="testBottom">
+                                        Investment
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div class="testThreeEqPart">
+                                    <div class="testAgeArea">
+                                        <div class="testTop">
+                                            <p:inplace>
+                                                <f:facet name="output">
+                                                    <h:outputText value="#{testBean2.slider3}"
+                                                                  styleClass="invLabel" style="width:110px; font-size: 1.2em"/>
+                                                    <img alt="Edit" src="/images/Pencil-icon.png" style="width: 8px;"/>
+                                                </f:facet>
+                                                <f:facet name="input">
+                                                    <p:inputText styleClass="invInput" style="width:35px; font-size: 1.2em"
+                                                                 value="#{testBean2.slider3}"
+                                                                 maxlength="3" size="3">
+                                                        <pe:keyFilter regEx="/[\d]/"/>
+                                                    </p:inputText>
+                                                </f:facet>
+                                            </p:inplace>
+                                        </div>
+                                        <div class="testBottom">
+                                            Risk
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="testPanelPart3">
+                                <div class="testCommand">
+                                    <p:graphicImage id="profileHelpImg" value="/images/Cute-Ball-Help-icon.png"
+                                                    style="cursor:pointer; width:20px; height:20px" title="Help"/>
+                                    <p:overlayPanel id="profileHelpPanel" for="profileHelpImg"
+                                                    showEffect="blind" hideEffect="explode" showEvent="mouseover"
+                                                    dismissable="true" showCloseIcon="true" dynamic="true">
+                                        <p:scrollPanel mode="native"
+                                                       style="width:250px;height:250px; background: #fff;">
+                                            <p:fieldset legend="Profile" toggleable="true" toggleSpeed="500">
+                                                <p:ajax event="toggle"/>
+                                                <h:panelGrid columns="2" cellpadding="5" style="vertical-align: top">
+                                                    <p:graphicImage value="/images/settings_user-128.png"/>
+                                                    <h:outputText
+                                                            value="Use this Icon to Create/Edit account.  Each Portfolio is created with Unique username.  All data must be filled in order to create valid account for this portfolio.">
+
+                                                    </h:outputText>
+                                                </h:panelGrid>
+                                            </p:fieldset>
+                                            <p:fieldset legend="Panel" toggleable="true" toggleSpeed="500">
+                                                <p:ajax event="toggle"/>
+                                                <h:panelGrid columns="1" cellpadding="5">
+                                                    <strong>Saving for</strong>
+                                                    <ul>
+                                                        <li>
+                                                            Retirement - The porfolio is created as non-taxable long term strategy. Assumed age of retirement is considered to be 65. If you wish to over-ride this option, please use the profile settings.
+                                                        </li>
+                                                        <li>
+                                                            Build Wealth - This is a long term taxable strategy of 10+ years of investment. One can change the "Investment Strategy" to match your investment goals.
+                                                        </li>
+                                                        <li>
+                                                            Safety Net - This is a short term taxable strategy of less then 10 years of investment. One can change the "Investment Strategy" to match your investment goals.
+                                                        </li>
+
+                                                    </ul>
+
+                                                    <strong>Investment Strategy</strong>
+                                                    <h:outputText
+                                                            value="These are options provided for creating a specialized investment strategy.  Core is default recommended strategy."/>
+                                                </h:panelGrid>
+                                            </p:fieldset>
+
+                                        </p:scrollPanel>
+                                    </p:overlayPanel>
+                                </div>
+                            </div>
+
+                        </p:panel>
+                        <p:panel styleClass="invNBgrid" style="height: 660px">
+                            <div class="testDataArea">
+                                <p:meterGaugeChart type="metergauge" value="#{testBean2.meterGaugeModels}" intervalOuterRadius="60"
+                                                   showTickLabels="false" style="width:80px;height:80px"/>
+                                <br/>
+                                <p:donutChart type="donut" value="#{testBean2.donutModels}" style="width:400px;height:400px"/>
+                            </div>
+
+                        </p:panel>
+                    </h:form>
+
+                    <ui:include src="/pages/consumer/custDialog.xhtml"/>
+
+                </div>
+            </div>
+
+
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>
+
+

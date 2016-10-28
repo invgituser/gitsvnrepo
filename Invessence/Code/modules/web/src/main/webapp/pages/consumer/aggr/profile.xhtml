@@ -1,0 +1,69 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+    <!--
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{yodleeBean.preRenderView}"/>
+        </f:metadata>
+    -->
+
+    <ui:define name="content">
+        <h:outputScript library="yodlee" name="js/oauth.js"/>
+        <h:outputScript library="yodlee" name="js/sha1.js"/>
+        <h:outputScript library="yodlee" name="js/jquery.colorbox.js"/>
+
+        <h:outputStylesheet library="yodlee" name="css/colorbox.css"/>
+        <h:outputStylesheet library="yodlee" name="css/main.css"/>
+
+        <h:outputScript library="yodlee" name="js/yodleeCommon.js"/>
+
+        <h:outputScript name="js/ydlCharts.js" library="yodlee"/>
+
+        <ui:include src="/pages/consumer/aggr/topMenu.xhtml"/>
+
+        <h:form id="ypform">
+            <p:growl id="growl" showDetail="true" sticky="true" />
+
+            <div class="Container90 Responsive100">
+                <div class="Card Wid90 Fright">
+                    <!-- Section -->
+                    <div class="Container100">
+                        <div class="ContainerIndent">
+                            <div class="Card ShadowEffect">
+                                <h2 class="CardTopic">Profile</h2>
+
+                                <div class="Seperator"></div>
+                                <div class="Container100 Responsive100">
+                                    <p:commandButton value="Register" id="register"
+                                                     rendered="#{! yodleeBean.isUserRegisteredAtYodlee()}"
+                                                     actionListener="#{yodleeBean.userRegistration}"
+                                                     update="@form"
+                                                     icon="fa fa-check" />
+
+                                    <p:commandButton value="UnRegister" id="unRegister"
+                                                     rendered="#{yodleeBean.isUserRegisteredAtYodlee()}"
+                                                     actionListener="#{yodleeBean.userUnRegistration}"
+                                                     update="@from"
+                                                     icon="fa fa-close" />
+
+                                    <!--<p:commandButton value="Disabled" id="disabled" disabled="true" />-->
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="EmptyBox150"/>
+            </div>
+
+        </h:form>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <p:panel style="border: 0px">
+    <div class="Container100 Responsive50">
+        <div class="ContainerIndent">
+            <h3>
+                4. What level of investment risk are you willing to take?
+            </h3>
+            <p:selectOneRadio value="#{cepb.riskCalculator.ans6}"
+                              layout="pageDirection">
+                <p:ajax listener="#{cepb.onChangeValue}"
+                        update=":ceForm:workArea, :ceForm:graphArea"/>
+                <f:selectItem itemLabel="Highest." itemValue="1" />
+                <f:selectItem itemLabel="High." itemValue="2" />
+                <f:selectItem itemLabel="Moderate." itemValue="3" />
+                <f:selectItem itemLabel="Low." itemValue="4" />
+                <f:selectItem itemLabel="Lowest." itemValue="5" />
+            </p:selectOneRadio>
+        </div>
+    </div>
+    </p:panel>
+
+
+</ui:composition>

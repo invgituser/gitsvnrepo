@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+        <div class="dpanelP1">
+            <div class="dPrefArea">
+<!--
+                    <p:commandLink update=":custDialogForm:profileDataEntryid" onclick="PF('custProfileDialog').show();">
+                        <p:graphicImage value="/images/settings_user-128.png" alt="Profile"
+                                        width="40" height="40"/>
+                    </p:commandLink>
+-->
+                <ui:include src="/pages/consumer/saved/profileOverlayPanel.xhtml"/>
+            </div>
+            <div class="dFiller">
+            </div>
+
+            <div class="dImgArea">
+                <div class="dImgPart">
+                    <p:graphicImage value="/images/growth-active.png" alt="Growth" rendered="#{cepb.displayAccountType == 'Growth'}"/>
+                    <p:commandLink ajax="true" rendered="#{cepb.displayAccountType != 'Growth'}">
+                        <p:graphicImage value="/images/growth.png" alt="Growth"/>
+                        <p:ajax event="click" listener="#{cepb.selectedAccountType(1)}" update=":advisorEditForm:workArea,:advisorEditForm:dPanel2"/>
+                    </p:commandLink>
+                </div>
+                <div class="dImgPart">
+                    <p:graphicImage value="/images/income-active.png" alt="Growth" rendered="#{cepb.displayAccountType == 'Income'}"/>
+                    <p:commandLink ajax="true" rendered="#{cepb.displayAccountType != 'Income'}">
+                        <p:graphicImage value="/images/income.png" alt="Income"/>
+                        <p:ajax event="click" listener="#{cepb.selectedAccountType(2)}" update=":advisorEditForm:workArea,:advisorEditForm:dPanel2"/>
+                    </p:commandLink>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dpanelP2">
+            <div class="d3EqPart">
+                <div class="dSmallPart">
+                    <div class="dTop">
+                        <p:inplace>
+                            <f:facet name="output">
+                                <h:outputText value="#{cepb.defaultAge}"
+                                              styleClass="invLabel" style="width:110px; font-size: 1.2em"/>
+                                <img alt="Edit" src="/images/Pencil-icon.png" style="height: 8px; width: 8px;"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <p:inputText styleClass="invInput" style="width:35px; font-size: 1.2em"
+                                             value="#{cepb.age}"
+                                             maxlength="3" size="3">
+                                    <pe:keyFilter regEx="/[\d]/"/>
+                                    <p:ajax event="blur" listener="#{cepb.consumerRefresh}" update="@form"/>
+                                </p:inputText>
+                            </f:facet>
+                        </p:inplace>
+                    </div>
+                    <div class="dBottom">
+                        Age
+                    </div>
+                </div>
+            </div>
+
+            <div class="d3EqPart">
+                <div class="dMidPart">
+                    <div class="dTop">
+                        <p:inplace>
+                            <f:facet name="output">
+                                <h:outputText value="#{cepb.defaultInvestment}"
+                                              styleClass="invLabel"  style="width:110px; font-size: 1.2em"
+                                              size="8" maxlength="9">
+                                    <f:convertNumber pattern="$ #,###,###"/>
+                                </h:outputText>
+                                <img alt="Edit" src="/images/Pencil-icon.png" style="height: 8px; width: 8px;"/>
+                            </f:facet>
+                            <f:facet name="input">
+                                <pe:inputNumber styleClass="invInput" style="width:110px; font-size: 1.2em"
+                                                value="#{cepb.initialInvestment}"
+                                                symbol="$ " decimalPlaces="0" thousandSeparator=","
+                                                size="8" maxlength="9">
+                                    <p:ajax event="blur" listener="#{cepb.refresh}" update="@form"/>
+                                </pe:inputNumber>
+                            </f:facet>
+                        </p:inplace>
+                    </div>
+                    <div class="dBottom">
+                        Investment
+                    </div>
+                </div>
+            </div>
+
+            <div class="d3EqPart">
+                <div class="dSmallPart">
+                    <script type="text/javascript" src="/js/invMeterGuage.js"></script>
+                    <p:meterGaugeChart value="#{cepb.charts.meterGuage}"
+                                       style="width:105px;height:85px; vertical-align: top; padding: 0px"
+                                       showTickLabels="false"
+                                       intervalOuterRadius="20"
+                                       seriesColors="006699, FFCC00, 990000"
+                                       extender="meter_extensions"
+                                       label = "Risk" labelHeightAdjust="35">
+                    </p:meterGaugeChart>
+                </div>
+            </div>
+        </div>
+        <div class="dpanelP3">
+            <div class="dRemainArea">
+                <div class="dTop">
+                    &nbsp;
+                </div>
+                <div class="dBottom">
+                    <p:button value="Save" icon="ui-icon-star"/>
+                </div>
+            </div>
+        </div>
+
+
+
+</h:body>
+</html>
+
+

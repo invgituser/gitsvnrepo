@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:head>
+</h:head>
+
+<h:body>
+    <p:outputPanel style="border: 0px; padding: 0px; margin: 0px">
+        <p:panelGrid styleClass="invNBgrid">
+            <p:row>
+                <p:column style="width: 40%">
+                    <p:outputLabel value="Asset Allocation" style="font-weight: bold"/>
+                </p:column>
+                <p:column style="text-align: left; width: 60%">
+<!--
+                    <p:spinner value="" min="0" max="100" maxlength="3" size="3"
+                               valueChangeListener="" update=":advisorEditForm:workArea">
+                    </p:spinner>
+-->
+                    <h:inputHidden id="allocSlider" value="#{cepb.allocationIndex}" />
+                    <p:slider for="allocSlider" style="width: 90%">
+                        <p:ajax event="slideEnd" listener="#{cepb.onAllocSlider}" update=":advisorEditForm:workArea,:advisorEditForm:dPanel1"/>
+                    </p:slider>
+
+                </p:column>
+                <p:column style="width: 2%">
+
+                </p:column>
+            </p:row>
+        </p:panelGrid>
+        <p:tabView widgetVar="graphTabView"
+                   styleClass="charts"
+                   dynamic="true" cache="false">
+            <p:tab id="graphtab1" title="Allocation">
+                <ui:include src="/pages/consumer/saved/pieChart.xhtml"/>
+            </p:tab>
+
+            <p:tab id="graphtab2" title="Projection" disabled="true">
+                <ui:include src="/pages/consumer/saved/lineChart.xhtml"/>
+            </p:tab>
+        </p:tabView>
+    </p:outputPanel>
+</h:body>
+</html>
+
+

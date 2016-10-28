@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+<h:head>
+    <style type="text/css">
+        .ui-panelgrid td, .ui-panelgrid tr
+        {
+            border-style: none !important
+        }
+    </style>
+</h:head>
+<h:body>
+    <p:panel id="sourcepanel">
+    <p:messages/>
+    <p:panelGrid columns="2" cellpadding="10" id="sourcegrid">
+        <h:outputLabel for="bankaccount" value="Bank Account No *"/>
+        <p:inputText id="bankaccount" value="#{sourceoffund.bankaccount}" required="true"
+                     requiredMessage="Please enter Bank Account Number." validatorMessage="Please enter Bank Account Number."/>
+
+        <h:outputLabel for="bankroutingno" value="Bank Routing No *"/>
+        <p:inputText id="bankroutingno" value="#{sourceoffund.bankroutingno}" required="true"
+                     requiredMessage="Please enter Bank Routing Number." validatorMessage="Please enter Bank Routing Number."/>
+
+        <f:facet name="footer">
+            <p:commandButton value="Save" ajax="true" actionListener="#{sourceoffund.saveSourceOfFund}"
+                             icon="ui-icon-check" update="sourcepanel"
+                             oncomplete="if (!args.validationFailed){AccountTabView.select(0);}" style="margin:0"/>
+        </f:facet>
+    </p:panelGrid>
+    </p:panel>
+</h:body>
+</html>

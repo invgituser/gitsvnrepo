@@ -1,0 +1,66 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50 TextAlLeft">
+        <div class="ContainerIndent TexAlLeft">
+            <p:panelGrid columns="2" layout="grid" styleClass="Container100 Responsive50"
+                         style="border:0px !important; background:none;" class="FormContent">
+                <div class="Wid30">Account</div>
+                <p:selectOneMenu styleClass="Wid45" >
+                    <f:selectItems value="Select One"
+                                   itemValue=""/>
+                    <f:selectItems value="Retirement"
+                                   itemValue="Retirement"/>
+                    <f:selectItems value="Saving"
+                                   itemValue="Saving"/>
+                </p:selectOneMenu>
+
+
+                <div class="Wid30">Type</div>
+                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+                    <p:selectOneRadio layout="grid" columns="2">
+                        <f:selectItems value="IRA" itemValue="IRA"/>
+                        <f:selectItems value="SEP" itemValue="SEP"/>
+                        <f:selectItems value="ROTH" itemValue="ROTH"/>
+                        <f:selectItems value="Individual" itemValue="Individual"/>
+                        <f:selectItems value="Joint" itemValue="Joint"/>
+                    </p:selectOneRadio>
+                </h:panelGrid>
+
+                <div class="Wid30">Account Owner</div>
+                <ul class="ul-vertical-align">
+                    <li>
+                        <p:selectOneMenu styleClass="Wid10" >
+                           <f:selectItems value="--" itemValue=""/>
+                           <f:selectItems value="Mr." itemValue="Mr."/>
+                           <f:selectItems value="Mrs." itemValue="Mrs."/>
+                            <f:selectItems value="Miss" itemValue="Miss"/>
+                            <f:selectItems value="Dr." itemValue="Dr."/>
+                    </p:selectOneMenu>
+                    </li>
+                    <li><p:inputText styleClass="Wid35" placeholder="First"/></li>
+                    <li><p:inputText styleClass="Wid10" placeholder="MI"/></li>
+                    <li><p:inputText styleClass="Wid35" placeholder="Last"/></li>
+                </ul>
+
+                <div class="Wid30">Phone (Home)</div>
+                <p:inputText styleClass="Wid35" placeholder="Home"/>
+
+                <div class="Wid30">Phone (Mobile)</div>
+                <p:inputText styleClass="Wid35" placeholder="Mobile"/>
+
+                <div class="Wid30">Email</div>
+                <p:inputText styleClass="Wid70" placeholder="Email"/>
+
+                <div class="Wid30">Alt. Email</div>
+                <p:inputText styleClass="Wid70" placeholder="Alt. Email"/>
+            </p:panelGrid>
+
+        </div>
+    </div>
+
+</ui:composition>

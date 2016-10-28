@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/db/sql/routine/sp_custodian_config_sel.sql" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/db/sql/routine" relative="/WEB-INF" />
+        </webroots>
+      </configuration>
+    </facet>
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/db/sql/routine/sel_position.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_risk_mapping_add_mod.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/tmp/revise_user_profile/step5_new_financial_table.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_addClients2Trade.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sel_displayTradeDetail.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_update_price_business_date.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_upload_sec_daily.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_financialprofile_add_mod.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_upload_rbsa_security.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/system</file>
+          <file>file://$MODULE_DIR$/db/sql/reports</file>
+          <file>file://$MODULE_DIR$/db/sql/survey</file>
+          <file>file://$MODULE_DIR$/db/sql/tmp/alter_IB_Acctounts.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/tmp/check_db.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/tables/ct_daily_returns.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/tmp/alter_user_logon.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/tmp/revise_user_profile/step7_sp_acct_financial_add_mod.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sel_collectTradeProfile.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sel_ConsumerProfileData.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/tmp/revise_user_profile/step1_ct_backup_table.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/trigger</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_empprofile_sel.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/vw_historical_returns-v2.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_managed_acct_sel.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/tables/ct_sec_tax_loss_harvesting.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_register_sel.sql</file>
+          <file>file://$MODULE_DIR$/db/sql/routine/sp_accttype_add_mod.sql</file>
+        </fileset>
+      </configuration>
+    </facet>
+    <facet type="web" name="Web2">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/db/sql/routine/funct_get_actualCapital.sql" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/db/sql/routine" relative="/WEB-INF" />
+        </webroots>
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
+

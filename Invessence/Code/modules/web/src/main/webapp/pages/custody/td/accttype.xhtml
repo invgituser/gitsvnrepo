@@ -1,0 +1,170 @@
+ <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container80 Responsive100 MarTop5 MarCenter ui-color paddingFA" style="margin-bottom: 15px;">
+
+        <p:panel rendered="#{tdcto.getErrorMessage(0) != null}"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100">
+            <h:outputText styleClass="errorText"
+                          value="#{tdcto.getErrorMessage(0)}" escape="false"/>
+        </p:panel>
+
+        <p:panel id="acctTypePanel"
+                 style="border: 0px; background: transparent">
+
+            <div class="EmptyBox5"></div>
+            <h3 class="FSResponsiveFA">What type of account would you
+                like to open?</h3>
+
+            <div class="Container45 Responsive100 LeftBlockAcctType Fleft">
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(1)}"
+                                   process="@this"
+                                   update=":ctoForm:tdaccordian:acctTypePanel"  >
+                        <p:panel styleClass="Wid95 Fleft MarCenter tcmPanel-UI">
+                            <div class="Container70">
+                                <h4>Individual</h4>
+
+                                <div class="EmptyBox5"></div>
+                                <h6 class="FontNormal">(Taxable Individual Account)</h6>
+                            </div>
+                            <div class="Container30 textAlign">
+                                <img src="#{tdcto.getCheckedImage(1)}" class="atCheckMarkImg"/>
+                            </div>
+                        </p:panel>
+                    </p:commandLink>
+
+                </div>
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(2)}"
+                                   process="@this"
+                                   update=":ctoForm:tdaccordian:acctTypePanel">
+                        <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
+                            <div class="Container70">
+                                <h4>Joint</h4>
+
+                                <div class="EmptyBox5"></div>
+                                <h6 class="FontNormal">(Taxable Joint Account)</h6>
+                            </div>
+                            <div class="Container30 textAlign">
+                                <img src="#{tdcto.getCheckedImage(2)}" class="atCheckMarkImg"/>
+                            </div>
+                        </p:panel>
+                    </p:commandLink>
+                </div>
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(3)}"
+                                   process="@this"
+                                   update=":ctoForm:tdaccordian:acctTypePanel">
+                        <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
+                            <div class="Container70">
+                                <h4>UTMA / UGMA</h4>
+
+                                <div class="EmptyBox5"></div>
+                                <h6 class="FontNormal">(Minor Custodian Account)</h6>
+                            </div>
+                            <div class="Container30 textAlign">
+                                <img src="#{tdcto.getCheckedImage(3)}" class="atCheckMarkImg"/>
+                            </div>
+                        </p:panel>
+                    </p:commandLink>
+                </div>
+            </div>
+            <div class="Container45 Responsive100 FrightForced RightBlockAcctType">
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(4)}"
+                                   process="@this"
+                                   update=":ctoForm:tdaccordian:acctTypePanel">
+                        <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
+                            <div class="Container70">
+                                <h4>Traditional IRA</h4>
+
+                                <div class="EmptyBox5"></div>
+                                <h6 class="FontNormal">(Individual Retirement Account)</h6>
+                            </div>
+                            <div class="Container30 textAlign">
+                                <img src="#{tdcto.getCheckedImage(4)}" class="atCheckMarkImg"/>
+                            </div>
+                        </p:panel>
+                    </p:commandLink>
+                </div>
+
+
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(5)}"
+                                   process="@this"
+                                   update=":ctoForm:tdaccordian:acctTypePanel">
+                        <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
+                            <div class="Container70">
+                                <h4>Roth IRA</h4>
+
+                                <div class="EmptyBox5"></div>
+                                <h6 class="FontNormal">(ROTH Individual Retirement Account)</h6>
+                            </div>
+                            <div class="Container30 textAlign">
+                                <img src="#{tdcto.getCheckedImage(5)}" class="atCheckMarkImg"/>
+                            </div>
+                        </p:panel>
+                    </p:commandLink>
+                </div>
+
+
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(6)}"
+                                   process="@this"
+                                   update=":ctoForm:tdaccordian:acctTypePanel">
+                        <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
+                            <div class="Container70">
+                                <h4>Rollover IRA</h4>
+
+                                <div class="EmptyBox5"></div>
+                                <h6 class="FontNormal">(Rollover Individual Retirement Account)</h6>
+                            </div>
+                            <div class="Container30 textAlign">
+                                <img src="#{tdcto.getCheckedImage(6)}" class="atCheckMarkImg"/>
+                            </div>
+                        </p:panel>
+                    </p:commandLink>
+                </div>
+
+
+                <div class="Container100 CustomWidthAccountypePanel" >
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(7)}"
+                                   process="@this"
+                                   update=":ctoForm:tdaccordian:acctTypePanel">
+                        <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
+                            <div class="Container70">
+                                <h4>Beneficiary IRA</h4>
+
+                                <div class="EmptyBox5"></div>
+                                <h6 class="FontNormal">(Beneficiary Individual Retirement Account)</h6>
+                            </div>
+                            <div class="Container30 textAlign">
+                                <img src="#{tdcto.getCheckedImage(7)}" class="atCheckMarkImg"/>
+                            </div>
+                        </p:panel>
+                    </p:commandLink>
+                </div>
+            </div>
+
+            <div class="Container100 MarTop20 acctTypeBtnNxt" style="margin: 10px 10px;">
+               
+
+                <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                               actionListener="#{tdcto.nextPage}"
+                               update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
+                               process=":ctoForm:tdaccordian:acctTypePanel"/>
+
+            </div>
+
+        </p:panel>
+
+
+    </div>
+
+</ui:composition>

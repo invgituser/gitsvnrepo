@@ -1,0 +1,271 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<f:metadata>
+		<f:viewParam name="acct" value="#{ctobean.beanAcctnum}" />
+		<f:event type="preRenderView" listener="#{ctobean.preRenderView}" />
+	</f:metadata>
+
+
+	<p:panel id="beneficiaryPanel"
+			 style="border: 0px; background: transparent" closable="true"
+			 toggleable="true">
+
+		<div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
+			 style="margin-bottom: 15px;">
+
+        <p:panel rendered="#{tdcto.getErrorMessage(8) != null}"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100">
+            <h:outputText styleClass="errorText"
+                          value="#{tdcto.getErrorMessage(8)}" escape="false"/>
+        </p:panel>
+
+			<div class="Container100 CustomWidthFA2 MarTop5">
+				<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
+										 value="#{tdcto.tdMasterData.optoutBeneficiary}"
+										 itemLabel="Opt out Beneficiary details."
+				rendered="#{tdcto.tdMasterData.acctdetail.acctTypeId=='ACINDIV' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACJOINT' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACCSTD'}">
+					<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="${tdcto.tdMasterData.resetoptoutBeneficiary}"/>
+				</p:selectBooleanCheckbox>
+			</div>
+			<div class="EmptyBox20"></div>
+        <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary" rendered="#{!tdcto.tdMasterData.optoutBeneficiary}"
+								   offLabel="Add Beneficiary" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
+				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="#{tdcto.tdMasterData.addnewBeneficiary}" />
+			</p:selectBooleanButton>
+
+			<div class="Container100 Responsive100">
+				<div class="ContainerIndent">
+					<div class="Container100 MarginBottom">
+						<p:dataTable id="singleDT" var="benefiaciary" rendered="#{!tdcto.tdMasterData.optoutBeneficiary}"
+									 value="#{tdcto.tdMasterData.benefiaciaryDetailsList}"
+									 emptyMessage="No beneficiary added. Add a new beneficiary."
+									 reflow="true">
+
+							<p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
+								<p:commandButton id="editButton"
+												 styleClass="Fs14 BlueButton"
+												 process="@this" immediate="true"
+												 icon="fa fa-pencil-square-o Fs14 white"
+												 ajax="true" update=":ctoForm:tdaccordian:beneficiaryPanel"
+												 actionListener="#{tdcto.tdMasterData.editBeneficiary}">
+									<p:tooltip id="editToolTipFade" for="editButton"
+											   value="Edit" />
+									<f:setPropertyActionListener value="#{benefiaciary}"
+																 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
+								</p:commandButton>
+                                <p:commandButton id="menuDelete"
+                                                 styleClass="Fs16 RedButton"
+                                                 process="@this" immediate="true"
+                                                 icon="fa fa-trash Fs14 white"
+                                                 update=":ctoForm:tdaccordian:beneficiaryPanel"
+                                                 actionListener="#{tdcto.tdMasterData.deleteBeneficiary(benefiaciary)}">
+                                    <p:tooltip for="menuDelete"
+                                               value="Delete" />
+                                    <f:setPropertyActionListener value="#{benefiaciary}"
+                                                                 target="#{tdcto.tdMasterData.selectedBeneficiary}"/>
+                                </p:commandButton>
+							</p:column>
+
+							<p:column styleClass="Wid25 TexAlLeft" sortBy=""
+									  headerText="First Name" priority="3" resizable="true">
+								<span class="dashboardUsrColumnFloatRight"> <h:outputText
+										value="#{benefiaciary.beneFirstName}" /></span>
+							</p:column>
+
+							<p:column styleClass="Wid25 TexAlLeft" sortBy=""
+									  headerText="Last Name" resizable="true">
+								<span class="dashboardUsrColumnFloatRight"> <h:outputText
+										value="#{benefiaciary.beneLastName}" /></span>
+							</p:column>
+
+							<p:column styleClass="Wid25 num-text-align invest"
+									  headerText="Share %" resizable="true">
+								<span class="dashboardUsrColumnFloatRight"><h:outputText
+										value="#{benefiaciary.sharePerc}">
+								</h:outputText></span>
+
+							</p:column>
+
+						</p:dataTable>
+
+					</div>
+				</div>
+			</div>
+			<p:panel id="beneficiaryAdd"
+					 style="border: 0px; background: transparent; margin-top: -10px;"
+					 rendered="#{tdcto.tdMasterData.showBeneficiaryForm and !tdcto.tdMasterData.optoutBeneficiary}" >
+
+				<div class="EmptyBox30"></div>
+				<div class="Container80 BeneficiaryEditPanel BeneficiaryBlockPadding">
+					<div class="ContainerIndent">
+
+						<div class="closeAddBeneficiary Fright">
+							<p:commandLink actionListener="#{tdcto.tdMasterData.cancelEditBeneficiary}"
+                                    process="@this" update=":ctoForm:tdaccordian:beneficiaryPanel">
+								<img src="/javax.faces.resource/images/closeBen.png.xhtml?ln=tcm"
+                                     class="atCheckMarkImg imgSizeClose"/>
+							</p:commandLink>
+						</div>
+						<div class="Container100">
+							<label Class="Container60"
+								   style="text-align: left !important; font-weight: bold !important;">Name *</label>
+
+							<div class="EmptyBox5"></div>
+							<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+										 placeholder="First Name"
+										 maxlength="20"
+										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneFirstName}">
+							</p:inputText>
+							<p:inputText
+									styleClass="MiddleInitialWidthB FS14 InputMergeLeft InputMergeRight"
+									placeholder="Middle Initial"
+									maxlength="1"
+									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneMidInitial}">
+							</p:inputText>
+							<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+										 placeholder="Last Name"
+										 maxlength="30"
+										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneLastName}">
+							</p:inputText>
+						</div>
+
+						<div class="EmptyBox20"></div>
+						<div class="Container100">
+							<div class="Container32 Fleft CustomWidthFA-Responsive">
+								<label Class="Container100"
+									   style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneDOB}"
+											 maxlength="30"
+											 mask="99/99/9999" placeholder="MM/DD/YYYY">
+								</p:inputMask>
+							</div>
+
+							<div class="Container32 CustomWidthFA-Responsive">
+								<label Class="Container100"
+									   style="text-align: left !important; font-weight: bold !important;">Social
+									Security Number</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneSSN}"
+											 maxlength="30"
+											 mask="999-99-9999" placeholder="###-##-####" required="false">
+								</p:inputMask>
+							</div>
+
+
+							<div class="Container32 CustomWidthFA-Responsive">
+								<label Class="Container100"
+									   style="text-align: left !important; font-weight: bold !important;">Relationship *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
+											 placeholder="Relationship"
+											 maxlength="90"
+											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneRel}">
+								</p:inputText>
+							</div>
+						</div>
+						<div class="EmptyBox20"></div>
+						<div class="Container100">
+							<div class="Container32 Fleft CustomWidthFA2 MarTop5">
+								<label Class="Container100"
+									   style="text-align: left !important; font-weight: bold !important;">Type
+									of Beneficiary *</label>
+
+								<div class="EmptyBox5"></div>
+								<div class="Container100 Fleft">
+									<div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
+										 style="margin-top: 5px;">
+										<p:selectOneRadio styleClass="textAlign formRadioBtn"
+														  value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.typeOfBeneficiary}">
+											<f:selectItem itemValue="BTPRIM" itemLabel="Primary" />
+											<f:selectItem itemValue="BTCONT" itemLabel="Contigent" />
+										</p:selectOneRadio>
+									</div>
+								</div>
+							</div>
+
+							<div class="Container32 CustomWidthFA2">
+								<label Class="Container100"
+									   style="text-align: left !important; font-weight: bold !important; display: inline-flex;">
+									   Per
+									Stirpes <p:commandButton id="pStripesHelp"
+										styleClass="perStripesHelp" process="@none">(?)</p:commandButton>
+										<p:overlayPanel id="pSHelp" for="pStripesHelp" hideEffect="fade"
+										dynamic="false" showCloseIcon="true"
+										style="width:350px; margin-left: 5px">
+                                           Per Stirpes shall mean: each branch of the decedent's family shall inherit in equal parts and by way of representation. Please note that the "Per Stirpes" designation carries
+certain legal and tax implications, and may not be available in all states. TD Ameritrade cannot advise whether a "Per Stirpes" election is appropriate for the Account Owner"s
+tax or estate planning. Please consult an estate planner for details regarding this designation.
+                                        </p:overlayPanel></label>
+								<div class="EmptyBox5"></div>
+								<div class="Container100 Fleft">
+									<div style="margin-top: 15px;">
+										<p:selectBooleanCheckbox styleClass="benCheckBox"
+																 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.perStripes}"
+																 itemLabel="Per Stirpes">
+										</p:selectBooleanCheckbox>
+
+
+									</div>
+								</div>
+
+							</div>
+
+							<div class="Container32 CustomWidthFA2">
+								<label Class="Container100"
+									   style="text-align: left !important; font-weight: bold !important;">Share
+									%  *</label>
+
+								<div class="EmptyBox5"></div>
+								<p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5 sharePercentageInput"
+											   value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.sharePerc}"
+											   maxValue="100"
+											   decimalPlaces="0">
+								</p:inputNumber>
+							</div>
+						</div>
+
+						<div class="EmptyBox20"></div>
+						<div class="Container100 BenBttonBlock"
+							 style="text-align: center;">
+							<p:button styleClass="CommonBtnWidthCancel" value="Reset" rendered="false">
+								<f:param name="Reset" />
+							</p:button>
+
+							<p:commandButton value="Save"
+											 update=":ctoForm:tdaccordian:beneficiaryPanel"
+                                             process=":ctoForm:tdaccordian:beneficiaryPanel"
+											 actionListener="#{tdcto.saveBenefiaciaryDetails}"
+											 styleClass="ui-priority-primary CommonBtnWidthSave" />
+
+
+						</div>
+						<div class="EmptyBox5"></div>
+					</div>
+				</div>
+			</p:panel>
+			<div class="Container100 MarTop20" style="margin: 10px 10px;">
+				<p:commandLink styleClass="UI-prevButtonFA Fleft"
+							   actionListener="#{tdcto.prevPage}"
+                               update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
+
+				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+							   actionListener="#{tdcto.nextPage}"
+                               update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
+                               process=":ctoForm:tdaccordian:beneficiaryPanel"/>
+			</div>
+		</div>
+
+	</p:panel>
+</ui:composition>

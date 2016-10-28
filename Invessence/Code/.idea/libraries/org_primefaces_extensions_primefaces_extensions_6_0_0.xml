@@ -1,0 +1,26 @@
+<component name="libraryTable">
+  <library name="org.primefaces.extensions:primefaces-extensions:6.0.0" type="repository">
+    <properties maven-id="org.primefaces.extensions:primefaces-extensions:6.0.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/primefaces-extensions-6.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/jsf-api-2.2.8.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/jsf-impl-2.2.8.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/javax.servlet-api-3.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/el-api-2.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/primefaces-6.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/gson-2.2.4.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-lang3-3.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/itext-2.1.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/poi-3.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-codec-1.5.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/poi-ooxml-3.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/poi-ooxml-schemas-3.9.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/xmlbeans-2.3.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/stax-api-1.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/dom4j-1.6.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/xml-apis-1.0.b2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

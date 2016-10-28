@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+    <div class="Container100 Responsive50">
+        <p:panelGrid columns="2" layout="grid" styleClass="Container100 Responsive50"
+                     style="border:0px !important; background:none;" class="FormContent">
+            <div class="Wid90">Portfolio name</div>
+            <p:inputText value="#{uobpb.portfolioName}" styleClass="Wid90">
+                <p:ajax listener="#{uobpb.onChange}"
+                        update=":ceForm:displayInfo"/>
+            </p:inputText>
+
+            <div class="Wid90">Account type</div>
+            <p:selectBooleanButton id="accountaxable" styleClass="Wid100"
+                                   value="#{uobpb.accountTaxable}" onLabel="Taxable"
+                                   offLabel="Non-taxable">
+                <p:ajax listener="#{uobpb.onTaxStrategy}"
+                        update=":ceForm:workArea, :ceForm:displayInfo, :ceForm:graphArea, :ceForm:pTabView:basket"/>
+            </p:selectBooleanButton>
+
+            <div class="Wid90">Invest for</div>
+            <p:selectOneMenu id="basket" styleClass="Wid90"
+                             value="#{uobpb.basket}" >
+                <p:ajax listener="#{uobpb.selectedActionBasket}"
+                        update=":ceForm:workArea, :ceForm:displayInfo, :ceForm:graphArea"/>
+                <f:selectItems value="#{uobpb.advisorBasket.entrySet()}"
+                               var="bskt" itemLabel="#{bskt.value}" itemValue="#{bskt.key}"/>
+            </p:selectOneMenu>
+
+
+            <div class="Wid90">Your current age</div>
+            <p:spinner id="age" value="#{uobpb.age}"
+                       min="1" max="100" stepFactor="1">
+                <p:ajax listener="#{uobpb.onChangeValue}"
+                        update=":ceForm:workArea, :ceForm:graphArea"/>
+            </p:spinner>
+
+            <div class="Wid90">Initial investment</div>
+            <pe:inputNumber id="initialInvestment" styleClass="Wid90"
+                            value="#{uobpb.initialInvestment}"
+                            maxlength="11" decimalPlaces="0" symbol="$">
+                <p:ajax event="blur" listener="#{uobpb.onChangeValue}"
+                        update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
+            </pe:inputNumber>
+
+        </p:panelGrid>
+    </div>
+
+</ui:composition>

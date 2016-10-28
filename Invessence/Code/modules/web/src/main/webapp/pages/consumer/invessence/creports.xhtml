@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{reportBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+            <!-- BOX START -->
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100">
+                    <div class="Container100">
+                        <div class="Container50">
+                            <div class="ContainerIndent">
+                                <div class="DispInlBlock">
+                                    <div class="Container100">
+                                        <div class="Fleft">
+                                            <h2 class="black Fs24 FontThemeMedium">Reports</h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="Container100">
+                        <div class="Container50 Fleft">
+                            <div class="Seperator"></div>
+                        </div>
+                    </div>
+                </div>
+                <h:form id="crform">
+                <div class="Container100 Responsive100">
+                    <div class="Container60 ">
+                        <p:panel id="workArea" style="border:0px !important; background:none;">
+                            <p:growl id="reportGrowl" showDetail="true" sticky="true" escape="true"/>
+                            <p:dataTable var="report" value="#{reportBean.filterReportList}"
+                                         emptyMessage="No report found."
+                                         reflow="true">
+
+                                <p:column styleClass="Wid20 TexAlLeft"
+                                          sortBy="#{report.businessdate}" headerText="Date"
+                                          resizable="true">
+                                    <h:outputText value="#{report.businessdate}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid40 TextAlLeft"
+                                          sortBy="#{report.reportName}" headerText="Report"
+                                          resizable="true">
+                                    <h:outputText value="#{report.reportName}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid20 TextAlLeft">
+
+                                    <ui:fragment rendered="#{! report.isPdf}">
+                                        <h:outputLink value="#{report.filename}" target="_report"
+                                                      title="#{report.reportName}">
+                                            <h:outputText value="View"/>
+                                        </h:outputLink>
+
+                                   </ui:fragment>
+                                    <ui:fragment rendered="#{report.isPdf}">
+                                        <p:commandButton rendered="#{report.isPdf}"
+                                                         styleClass="Fs16 GreenButton"
+                                                         process="@this" immediate="true"
+                                                         icon="fa fa-save Fs14 white"
+                                                         value="Download"
+                                                         action="#{reportBean.downloadReport}">
+                                            <f:setPropertyActionListener value="#{report}"
+                                                                         target="#{reportBean.selectReport}"/>
+                                        </p:commandButton>
+                                </ui:fragment>
+
+                            </p:column>
+                            </p:dataTable>
+
+                        </p:panel>
+
+
+                    </div>
+
+                </div>
+                </h:form>
+            </div>
+            <!-- BOX END -->
+
+    </ui:define>
+
+</ui:composition>

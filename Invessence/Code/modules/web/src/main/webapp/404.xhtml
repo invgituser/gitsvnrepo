@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/simple.xhtml">
+
+    <ui:define name="content">
+        <div id="layout-portlets-cover">
+            <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
+                 style="margin-top:5%; background-image:url(/spark/resources/spark-layout/images/loginpageillust.svg); background-repeat:no-repeat; background-position:center; background-size:cover;">
+                <div class="Container90 Fnone MarAuto TexAlCenter">
+                    <div class="EmptyBox50"></div>
+                    <h:graphicImage name="images/error-face.svg" library="spark-layout" class="MarAuto MarTop20 Wid30"/>
+                    <span class="Fs100 Wid100 DispBlock red">404</span>
+                    <span class="Wid100 DispBlock Fs30 red">Page Not Found !</span><br/>
+                    <span class="Wid100 DispBlock Fs18 red">Sorry, but the resource you are looking <br/> for has not been found.<br/>
+                    </span>
+                    <div class="EmptyBox30"></div>
+                    <p:button  value="OK" styleClass="Fs16 RedButton" action="#{uiLayout.defaultHome}"/>
+                    <div class="EmptyBox50"></div>
+                </div>
+            </div>
+        </div>
+
+    </ui:define>
+
+</ui:composition>
