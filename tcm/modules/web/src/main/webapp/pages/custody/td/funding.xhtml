@@ -307,6 +307,39 @@
                                 </div>
                                 <div class="Container32 CustomWidthFA-Responsive">
                                     <label Class="Container100"
+                                           style="text-align: left !important; font-weight: bold !important;">Account Type *</label>
+                                    <div class="EmptyBox5"></div>
+                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                                     value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
+                                                     style="width: 100%;">
+                                        <p:ajax event="change" update="@this" process="@this" />
+                                        <f:selectItem itemLabel="Select Account Type" itemValue=""
+                                                      noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Individual" itemValue="ACINDIV"/>
+                                        <f:selectItem itemLabel="Joint" itemValue="ACJOINT"/>
+                                        <f:selectItem itemLabel="Roth IRA"  itemValue="IRAROTH"/>
+                                        <f:selectItem itemLabel="Traditional IRA" itemValue="IRATRAD" />
+                                        <f:selectItem itemLabel="Rollover IRA" itemValue="IRAROOV"/>
+                                    </p:selectOneMenu>
+                                    <div class="EmptyBox5"></div>
+
+                            <!--<p:panel id="acatOtherPanel" styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                     style="border: 0px; background: transparent">
+                                    <p:inputText id="FundOthrID"
+                                                 rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}"
+                                                 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                                 value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
+                                                 maxlength="90"
+                                                 placeholder="Other Delivery Firm">
+                                    </p:inputText>
+                                    </p:panel>-->
+                                </div>
+                            </div>
+                            <div class="EmptyBox10"></div>
+
+                            <div class="Container100">
+                                <div class="Container40 CustomWidthFA-Responsive" >
+                                    <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">Name of delivering firm *</label>
 
                                     <div class="EmptyBox5"></div>
@@ -336,20 +369,8 @@
                                         <f:selectItem itemValue="WEDBSECUINC" itemLabel="Wedbush Securities Inc." />
                                         <f:selectItem itemValue="OTH" itemLabel="Others" />
                                     </p:selectOneMenu>
-                            <!--<p:panel id="acatOtherPanel" styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                     style="border: 0px; background: transparent">
-                                    <p:inputText id="FundOthrID"
-                                                 rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}"
-                                                 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
-                                                 maxlength="90"
-                                                 placeholder="Other Delivery Firm">
-                                    </p:inputText>
-                                    </p:panel>-->
                                 </div>
-                            </div>
-                            <div class="EmptyBox10"></div>
-                            <div class="Container100">
+
                                 <p:panel id="acatOtherPanel" styleClass="Container32 CustomWidthFA-Responsive"
                                          style="border: 0px; background: transparent"  >
                                 <p:panel style="border: 0px; background: transparent"  rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}">
@@ -386,24 +407,7 @@
                                                  mask="(999) 999-9999" placeholder="Phone Number">
                                     </p:inputMask>
                                 </div>
-                                <div class="Container32 CustomWidthFA-Responsive">
-                                    <label Class="Container100"
-                                           style="text-align: left !important; font-weight: bold !important;">Account Type *</label>
 
-                                    <div class="EmptyBox5"></div>
-                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-                                                     value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
-                                                     style="width: 100%;">
-                                        <p:ajax event="change" update="@this" process="@this" />
-                                        <f:selectItem itemLabel="Select Account Type" itemValue=""
-                                                      noSelectionOption="true"/>
-                                        <f:selectItem itemLabel="Individual" itemValue="ACINDIV"/>
-                                        <f:selectItem itemLabel="Joint" itemValue="ACJOINT"/>
-                                        <f:selectItem itemLabel="Roth IRA"  itemValue="IRAROTH"/>
-                                        <f:selectItem itemLabel="Traditional IRA" itemValue="IRATRAD" />
-                                        <f:selectItem itemLabel="Rollover IRA" itemValue="IRAROOV"/>
-                                    </p:selectOneMenu>
-                                </div>
                             </div>
                             <!-- 3 -->
                             <div class="EmptyBox20"></div>
