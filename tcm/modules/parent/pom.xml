@@ -433,10 +433,10 @@
          </properties>
       </profile>
       <profile>
-         <id>1C-MODE-DEMO</id>
+         <id>1C-MODE-PROD</id>
          <properties>
-            <web.mode>DEMO</web.mode>
-             <service.mode>DEMO</service.mode>
+            <web.mode>PROD</web.mode>
+             <service.mode>PROD</service.mode>
          </properties>
       </profile>
       <profile>

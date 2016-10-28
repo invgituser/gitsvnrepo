@@ -323,38 +323,10 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_dupStatement", data.getDupStatement());
       inputMap.put("p_dupTradeConfirm", data.getDupTradeConfirm());
       inputMap.put("p_proxyAuthorizationId", data.getProxyAuthorizationId());
-      if(tdMasterData.getOptoutRegulatory())
-      {
-         inputMap.put("p_optoutRegulatory", "Y");
-      }
-      else
-      {
-         inputMap.put("p_optoutRegulatory", "N");
-      }
-      if(tdMasterData.getOptoutBeneficiary())
-      {
-         inputMap.put("p_optoutBeneficiary", "Y");
-      }
-      else
-      {
-         inputMap.put("p_optoutBeneficiary", "N");
-      }
-      if(tdMasterData.getOptoutFunding())
-      {
-         inputMap.put("p_optoutFunding", "Y");
-      }
-      else
-      {
-         inputMap.put("p_optoutFunding", "N");
-      }
-      if(tdMasterData.getOptoutRecurring())
-      {
-         inputMap.put("p_optoutRecurring","Y");
-      }
-      else
-      {
-         inputMap.put("p_optoutRecurring", "N");
-      }
+      inputMap.put("p_optoutRegulatory", (tdMasterData.getOptoutRegulatory() != null && tdMasterData.getOptoutRegulatory()) ? "Y" : "N");
+      inputMap.put("p_optoutBeneficiary", (tdMasterData.getOptoutBeneficiary() != null && tdMasterData.getOptoutBeneficiary()) ? "Y" : "N");
+      inputMap.put("p_optoutFunding", (tdMasterData.getOptoutFunding() != null && tdMasterData.getOptoutFunding()) ? "Y" : "N");
+      inputMap.put("p_optoutRecurring", (tdMasterData.getOptoutRecurring() != null && tdMasterData.getOptoutRecurring()) ? "Y" : "N");
       inputMap.put("p_createdBy", "Invessence");
       return super.execute(inputMap);
    }
@@ -529,7 +501,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_firmAccountNo", data.getFirmAccountNo());
       inputMap.put("p_retailAccountNumber", data.getRetailAccountNumber());
       inputMap.put("p_advisorID", data.getAdvisorID());
-      if (data.getRetilFlag().equals("Y"))
+      if (data.getRetilFlag() != null && data.getRetilFlag().equals("Y"))
       {
          inputMap.put("p_removeAdvisor", "Y");
          inputMap.put("p_addAdvisor", "N");

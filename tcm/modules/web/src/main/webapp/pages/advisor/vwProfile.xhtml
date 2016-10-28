@@ -74,12 +74,21 @@
                         <p:panelGrid columns="3" rendered="#{not empty manageAdvisorBean.selectedAccount}"
                                      columnClasses="label,value,value" styleClass="invNBgrid">
                             <f:facet name="header">
-                                <h:outputText style="font-weight: bold" value="Answer"/>
-                                <h:outputText style="font-weight: bold" value="Value"/>
-                                <h:outputText style="font-weight: bold" value="Risk"/>
+                                <h:outputText value="Risk Information"/>
                             </f:facet>
+                            <h:outputText style="font-weight: bold" value="Question"/>
+                            <h:outputText style="font-weight: bold" value="Answer"/>
+                            <h:outputText style="font-weight: bold" value="Score"/>
 
-                            <h:outputText value="Age/Horizon"/>
+                            <h:outputText value="Age"/>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.riskAge}">
+                              <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(1)}">
+                                <f:convertNumber pattern="##0"/>
+                            </h:outputText>
+
+                            <h:outputText value="Horizon"/>
                             <h:outputText value="#{manageAdvisorBean.riskCalculator.riskHorizon}">
                                 <f:convertNumber pattern="##0"/>
                             </h:outputText>
@@ -88,32 +97,33 @@
                             </h:outputText>
 
 
-                            <h:outputText value="Answer3"/>
-                            <h:outputText value="#{manageAdvisorBean.selectedAccount.ans3}">
+                            <h:outputText value="Question 3"/>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.ans3}">
                             </h:outputText>
                             <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(3)}">
                                 <f:convertNumber pattern="##0"/>
                             </h:outputText>
 
-                            <h:outputText value="Answer4"/>
-                            <h:outputText value="#{manageAdvisorBean.selectedAccount.ans4}">
+                            <h:outputText value="Question 4"/>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.ans4}">
                             </h:outputText>
                             <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(4)}">
                                 <f:convertNumber pattern="##0"/>
                             </h:outputText>
 
-                            <h:outputText value="Answer5"/>
-                            <h:outputText value="#{manageAdvisorBean.selectedAccount.ans5}">
+                            <h:outputText value="Question 5"/>
+                            <h:outputText value="#{manageAdvisorBean.riskCalculator.ans5}">
                             </h:outputText>
                             <h:outputText value="#{manageAdvisorBean.riskCalculator.getRiskValue(5)}">
                                 <f:convertNumber pattern="##0"/>
                             </h:outputText>
 
-                            <h:outputText value="#{manageAdvisorBean.selectedAccount.portfolioName}"/>
-                            <h:outputText value=""/>
-                            <h:outputText value="#{manageAdvisorBean.riskCalculator.totalRisk}">
+                            <h:outputText style="font-weight: bold" value="#{manageAdvisorBean.selectedAccount.portfolioName}"/>
+                            <h:outputText value="Total"/>
+                            <h:outputText style="font-weight: bold" value="#{manageAdvisorBean.riskCalculator.totalRisk}">
                                 <f:convertNumber pattern="##0"/>
                             </h:outputText>
+
                         </p:panelGrid>
 
                         <p:commandButton styleClass="prev ResponsiveBtnFS" value="Back"
