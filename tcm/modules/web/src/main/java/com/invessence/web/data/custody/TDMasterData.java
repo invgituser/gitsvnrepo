@@ -34,7 +34,7 @@ public class TDMasterData implements Serializable
    Boolean fundNow, recurringFlag;
    Double initialInvestment;
    Integer totalbeneficiaryShares,tmptottalShares;
-   private Boolean optoutRegulatory,optoutBeneficiary,optoutFunding,optoutRecurring=false;
+   private Boolean optoutRegulatory,optoutBeneficiary,optoutFunding,optoutRecurring;
 
    private USMaps usmaps;
    // TD information
@@ -71,6 +71,7 @@ public class TDMasterData implements Serializable
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
       ownerSPF=false;
+      optoutRegulatory=optoutBeneficiary=optoutFunding=optoutRecurring=false;
       senoirPolitical=false;
       ownerShare = ownerBD = false;
       jointSPF = jointShare = jointBD = false;
