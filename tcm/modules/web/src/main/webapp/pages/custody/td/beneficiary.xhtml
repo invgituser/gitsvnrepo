@@ -42,7 +42,7 @@
 			<div class="Container100 Responsive100">
 				<div class="ContainerIndent">
 					<div class="Container100 MarginBottom">
-						<p:dataTable id="singleDT" var="benefiaciary"
+						<p:dataTable id="singleDT" var="benefiaciary" rendered="#{!tdcto.tdMasterData.optoutBeneficiary}"
 									 value="#{tdcto.tdMasterData.benefiaciaryDetailsList}"
 									 emptyMessage="No beneficiary added. Add a new beneficiary."
 									 reflow="true">

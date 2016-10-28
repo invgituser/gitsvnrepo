@@ -848,7 +848,10 @@ public class TDMasterData implements Serializable
       if(editBeneficiaryForm)
          tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, tmpBenefiaciaryDetail.getBeneId());
       else
-         tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum+1);
+      {
+         tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum + 1);
+         tmpBenefiaciaryDetail.setSharePerc(100-totalbeneficiaryShares.doubleValue());
+      }
    }
 
    public void setSelectedBeneficiary(BenefiaciaryDetails thisBenefificiary) {
