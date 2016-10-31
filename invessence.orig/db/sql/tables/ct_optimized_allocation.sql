@@ -1,9 +1,0 @@
-CREATE TABLE `optimized_allocation` (
-  `advisor` varchar(20) NOT NULL,
-  `asset` varchar(20) NOT NULL,
-  `index` varchar(20) NOT NULL,
-  `year` INTEGER DEFAULT 0,
-  `weight` Double DEFAULT NULL,
-  `created` DATETIME DEFAULT NULL,
-  PRIMARY KEY(`advisor`,`asset`, `index`, `year`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
