@@ -1,9 +1,10 @@
-DROP PROCEDURE IF EXISTS `sp_upload_td_sec_master`
+DROP PROCEDURE IF EXISTS `temp`.`sp_upload_td_sec_master`;
+
 DELIMITER $$
-CREATE PROCEDURE `sp_upload_td_sec_master`()
+CREATE PROCEDURE `temp`.`sp_upload_td_sec_master`()
 BEGIN
 
-	INSERT INTO `sec_master`
+	INSERT INTO `invdb`.`sec_master`
 	(`status`,
 	`ticker`,
 	`cusip`,
@@ -29,8 +30,8 @@ BEGIN
 		null as `expenseRatio`,
 		null as `securityRiskSTD`,
 		null as `yield`
-	FROM `tmp_td_security` `tmp`
-		 LEFT JOIN `sec_td_mapping_master` `tdmapping`
+	FROM `temp`.`tmp_td_security` `tmp`
+		 LEFT JOIN `temp`.`sec_td_mapping_master` `tdmapping`
          ON (`tmp`.`securityType` = `tdmapping`.`securityType`)
     WHERE `tmp`.`symbol` not in (select `sec`.`ticker` from `sec_master` `sec`)
     ;
