@@ -1,5 +1,0 @@
-1) Load Security Master from DEV
-2) Load Security_Master_Group from DEV
-3) Load advisor_info from DEV
-4) Load Asset_Mapping_Group from DEV
-5) Compare Invessence_Switch to make sure all tags are defined.
