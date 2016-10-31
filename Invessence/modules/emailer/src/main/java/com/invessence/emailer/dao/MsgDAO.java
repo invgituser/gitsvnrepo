@@ -137,7 +137,8 @@ public class MsgDAO extends JdbcDaoSupport
       }
       catch (Exception e)
       {
-         System.out.println("EmailJob:run():" + e);
+         System.out.println("Exception: EmailJob:run():" + e);
+         e.printStackTrace();
       }
    }
 

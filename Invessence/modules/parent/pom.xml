@@ -499,7 +499,7 @@
             <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://localhost:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://localhost:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -511,7 +511,7 @@
             <jdbc.url>jdbc:mysql://preuat.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://preuat.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://preuat.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://preuat.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://preuat.invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -523,7 +523,7 @@
             <jdbc.url>jdbc:mysql://uat.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://uat.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://uat.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://uat.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://uat.invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -535,7 +535,7 @@
             <jdbc.url>jdbc:mysql://invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -547,7 +547,7 @@
             <jdbc.url>jdbc:mysql://vcm.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://vcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://vcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://vcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://vcm.invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -559,7 +559,7 @@
             <jdbc.url>jdbc:mysql://tcm.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://tcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://tcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://tcm.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://tcm.invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -571,7 +571,7 @@
             <jdbc.url>jdbc:mysql://uob.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://uob.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://uob.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://uob.invessence.com:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://uob.invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>webuser</jdbc.username>
             <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
          </properties>
@@ -588,7 +588,7 @@
             <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://localhost:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://localhost:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>weblocal</jdbc.username>
             <jdbc.password>Ma5t3r0p7i0n</jdbc.password>
             <apache.url>http://www.invessence.com</apache.url>
@@ -644,7 +644,7 @@
             <jdbc.url>jdbc:mysql://localhost:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
             <rbsa.url>jdbc:mysql://localhost:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
             <service.url>jdbc:mysql://localhost:3306/service?noAccessToProcedureBodies=true</service.url>
-            <ltam.url>jdbc:mysql://localhost:3306/ltam?noAccessToProcedureBodies=true</ltam.url>
+            <temp.url>jdbc:mysql://localhost:3306/temp?noAccessToProcedureBodies=true</temp.url>
             <jdbc.username>weblocal</jdbc.username>
             <jdbc.password>Ma5t3r0p7i0n</jdbc.password>
          </properties>

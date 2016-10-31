@@ -30,7 +30,7 @@ public class EmailUtil
 
    public EmailUtil()
    {
-      LOG.info("Contructor: EmailUtil.EmailUtil");
+      // LOG.info("Contructor: EmailUtil.EmailUtil");
       //  Fetch parameters from ServiceParameters module (i.e. Database) Start & set to mailSender//
 
       mailSender = new JavaMailSenderImpl();
