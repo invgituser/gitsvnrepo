@@ -28,7 +28,7 @@
 			<div class="Container100 CustomWidthFA2 MarTop5">
 				<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
 										 value="#{tdcto.tdMasterData.optoutBeneficiary}"
-										 itemLabel="Opt out Beneficiary details."
+										 itemLabel="I prefer not to name a beneficiary for this account."
 				rendered="#{tdcto.tdMasterData.acctdetail.acctTypeId=='ACINDIV' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACJOINT' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACCSTD'}">
 					<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="${tdcto.tdMasterData.resetoptoutBeneficiary}"/>
 				</p:selectBooleanCheckbox>
