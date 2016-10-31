@@ -8,7 +8,6 @@ import javax.sql.DataSource;
 import com.invessence.converter.SQLData;
 import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.*;
-import org.apache.xpath.operations.Bool;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 /**
