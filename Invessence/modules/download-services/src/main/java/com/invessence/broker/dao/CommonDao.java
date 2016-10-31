@@ -10,7 +10,9 @@ import com.invessence.broker.bean.*;
  */
 public interface CommonDao
 {
+/* Code removed: Prashant 30-Oct-2016
    public List<BrokerHostDetails> getBrokerHostDetails(String where)throws SQLException;
+*/
    public List<DownloadFileDetails> getDownloadFileDetails(String where)throws SQLException;
    public Map<String, DBParameters> getDBParametres() throws SQLException;
    public void insertBatch(final List<String[]> dataArrLst, String sql, String proc) throws SQLException;

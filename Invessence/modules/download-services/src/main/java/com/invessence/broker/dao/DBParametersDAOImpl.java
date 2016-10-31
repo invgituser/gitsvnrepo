@@ -29,7 +29,7 @@ public class DBParametersDAOImpl implements DBParametersDao {
 		Map<String, DBParameters> dbParamsMap = null;
 		try {
 			System.out.println("SecMasterDAOImpl.findByWhere()");
-			String sql = "SELECT name, value, format, description FROM invessence_switch where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')";
+			String sql = "SELECT name, value, format, description FROM vw_invessence_switch where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')";
 			jdbcTemplate = new JdbcTemplate(dataSource);
 			dbParamsLst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
 			if(dbParamsLst.size()>0){

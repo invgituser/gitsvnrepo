@@ -187,7 +187,7 @@
 							<goal>copy-resources</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/broker-services</outputDirectory>
+							<outputDirectory>${project.build.directory}/download-services</outputDirectory>
 							<resources>
 								<resource>
 									<directory>resources</directory>
@@ -209,7 +209,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/broker-services/lib</outputDirectory>
+							<outputDirectory>${project.build.directory}/download-services/lib</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -233,7 +233,7 @@
 					</archive>
 
 					<!--<finalName>broker-services/broker-services</finalName>-->
-				   <finalName>broker-services/${artifactId}-${version}</finalName>
+				   <finalName>download-services/${artifactId}-${version}</finalName>
 				</configuration>
 			</plugin>
 		</plugins>

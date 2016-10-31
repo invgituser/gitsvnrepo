@@ -26,6 +26,7 @@ public class CommonDaoImpl implements CommonDao
    @Autowired
    JdbcTemplate jdbcTemplate;
 
+/* Code removed: Prashant 30-Oct-2016
    public List<BrokerHostDetails> getBrokerHostDetails(String where)throws SQLException
    {
       List<BrokerHostDetails> lst = null;
@@ -34,15 +35,16 @@ public class CommonDaoImpl implements CommonDao
       lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(BrokerHostDetails.class));
       return lst;
    }
+*/
 
    public List<DownloadFileDetails> getDownloadFileDetails(String where)throws SQLException
    {
       List<DownloadFileDetails> lst = null;
       logger.info("Fetching download files");
       //String sql = "SELECT vendor, filename, active, tmp_tableName, available, sourcepath, downloaddir, format, required, canbeempty, postProcess, postInstruction,containsheader,keyData FROM download_files "+where;
-      String sql = "Select vendor, filename, active, tmp_tableName, available, sourcepath, downloaddir, loadFormat, required, " +
-         "canbeempty, postProcess, postInstruction, containsheader, ifnull(keyData,0)keyData, encColumns, fileExtension, encryptionMethod " +
-         "FROM download_files "+where;
+      String sql = "Select vendor, seqno, filename, active, tmp_tableName, available, sourcepath, downloaddir, loadFormat, required, " +
+         "canbeempty, postProcess, postInstruction, containsheader, ifnull(keyData,0) keyData, encColumns, fileExtension, encryptionMethod " +
+         "FROM download_files "+where + " order by vendor, seqno";
       lst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DownloadFileDetails.class));
       return lst;
    }
@@ -52,7 +54,7 @@ public class CommonDaoImpl implements CommonDao
       Map<String, DBParameters> dbParamsMap = null;
      // try {
       logger.info("Fetching DB parameters");
-         String sql = "SELECT name, value, format, description FROM invessence_switch /*where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')*/";
+         String sql = "SELECT name, value, format, description FROM vw_invessence_switch /*where name in('LAST_BDATE_OF_MONTH','PRICE_DATE')*/";
          dbParamsLst = jdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(DBParameters.class));
          if(dbParamsLst.size()>0){
             dbParamsMap=new HashMap<String, DBParameters>();
