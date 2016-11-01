@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `sel_Consumer4Advisor`;
+DROP PROCEDURE IF EXISTS `invdb`.`sel_Consumer4Advisor`;
 
 DELIMITER $$
-CREATE PROCEDURE `sel_Consumer4Advisor`(
+CREATE PROCEDURE `invdb`.`sel_Consumer4Advisor`(
 	p_logonid BIGINT,
     p_filter  VARCHAR(1),
     p_days    INTEGER    
@@ -41,6 +41,7 @@ BEGIN
                     `profile`.rep,
 				    `profile`.theme,
 					`profile`.goal,
+					`profile`.portfolioName,
 					'Active' as acctstatus,
 					user.email as email,
 					ext_acct_info.applicantLName  as lastname,
@@ -82,6 +83,7 @@ BEGIN
                     `profile`.rep,
 				    `profile`.theme,
 					`profile`.goal,
+					`profile`.portfolioName,
 					'Pending' as acctstatus,
 					user.email email,
 					user.lastname as lastname,
@@ -123,6 +125,7 @@ BEGIN
                     `profile`.rep,
 				    `profile`.theme,
 					`profile`.goal,
+					`profile`.portfolioName,
 					CASE WHEN (ext_acct_info.`status` = 'A') THEN 'Active'
 						 ELSE 'Pending' 
 					END as acctstatus,

@@ -1,7 +1,7 @@
-DROP FUNCTION IF EXISTS `funct_get_actualCapital`;
+DROP FUNCTION IF EXISTS `invdb`.`funct_get_actualCapital`;
  
 DELIMITER $$
-CREATE FUNCTION `funct_get_actualCapital`(
+CREATE FUNCTION `invdb`.`funct_get_actualCapital`(
         p_acctnum       BIGINT(20)
 ) RETURNS double
     DETERMINISTIC
