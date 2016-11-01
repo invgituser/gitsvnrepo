@@ -495,10 +495,52 @@ public class TdCto
 
                   break;
                case 1:
-                  pagemanager.nextPage();
+                //  pagemanager.nextPage();
                   subtab=1;
                   break;
 
+               default:
+                  pagemanager.setPage(0);
+
+            }
+
+            String tabnum1 = tabname.substring(3,4);
+            Integer num1 = webutil.getConverter().getIntData(tabnum1);
+            switch (num1)
+            {
+               case 0:
+                  pagemanager.setPage(0);
+                  break;
+               case 1:
+                  if(subtab==0)
+                     pagemanager.setPage(1);
+                  else
+                     pagemanager.setPage(2);
+                  break;
+               case 2:
+                  if(subtab==0)
+                     pagemanager.setPage(3);
+                  else
+                     pagemanager.setPage(4);
+                  break;
+               case 3:
+                  pagemanager.setPage(5);
+                  break;
+               case 4:
+                  if(subtab==0)
+                     pagemanager.setPage(6);
+                  else
+                     pagemanager.setPage(7);
+                  break;
+               case 5:
+                  pagemanager.setPage(8);
+                  break;
+               case 6:
+                  if(subtab==0)
+                     pagemanager.setPage(9);
+                  else
+                     pagemanager.setPage(10);
+                  break;
                default:
                   pagemanager.setPage(0);
 
@@ -1289,7 +1331,7 @@ public class TdCto
                         if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankAcctType()))
                         {
                            dataOK = false;
-                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.accounttype.requiredMsg", "Bank Account Type is required!", null));
+                           pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.accounttype.requiredMsg", "* Bank Account Type is required!", null));
                         }
                         if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getBankName()))
                         {
