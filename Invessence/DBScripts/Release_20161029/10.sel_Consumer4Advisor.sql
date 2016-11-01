@@ -51,7 +51,7 @@ BEGIN
 					IFNULL(`profile`.horizon,35) as horizon,
 					IFNULL(`profile`.riskIndex,0) as riskIndex,
 					CAST(IFNULL(`profile`.initialInvestment,0) as SIGNED) as initialInvestment,
-					round(funct_get_actualCapital(`profile`.acctnum),0) as actualCapital,
+					funct_get_actualCapital(`profile`.acctnum) as actualCapital,
 					`profile`.keepLiquid as keepLiquid,
 					CAST(IFNULL(`profile`.recurringInvestment,0) as SIGNED) as recurringInvestment,
 					IFNULL(`profile`.longTermGoal,0) as longTermGoal,

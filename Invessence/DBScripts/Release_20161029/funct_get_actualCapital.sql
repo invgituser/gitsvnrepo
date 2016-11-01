@@ -1,5 +1,5 @@
-DROP FUNCTION `funct_get_actualCapital`;
-
+DROP FUNCTION IF EXISTS `funct_get_actualCapital`;
+ 
 DELIMITER $$
 CREATE FUNCTION `funct_get_actualCapital`(
         p_acctnum       BIGINT(20)
@@ -28,8 +28,7 @@ BEGIN
 			ELSE
 					SELECT SUM(pos.positionValue)
 					INTO tPosition
-					FROM ext_acct_info,
-						 ext_position pos
+					FROM ext_position pos
 					WHERE pos.acctnum = p_acctnum
 					AND  pos.reportDate = funct_get_switch('BROKER_BDATE')
 					AND  pos.symbol in (SELECT ticker from sec_master where sec_master.`status` = 'A')
