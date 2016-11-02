@@ -207,7 +207,7 @@ public class TdCto
       return beneTempList;
    }
 
-   public void startCTO() {
+      public void startCTO() {
       String msgheader;
       try
       {
@@ -222,8 +222,26 @@ public class TdCto
             pagemanager = new PagesImpl(10);
             tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
             // Start fresh, clean and start from top page.
-            if (!loadData()) {
+            if(!webutil.isUserLoggedIn())
+            {
+               msgheader = "dctd.102";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            String loadVal=loadData();
+            //NOACCOUNTNUMBER,  NOACCOUNTMAP,success,ACCOUNTMANAGED,differenUser
+            if (loadVal.equalsIgnoreCase("") ||
+               loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
+               loadVal.equalsIgnoreCase("differenUser") ||
+               loadVal.equalsIgnoreCase("NOACCOUNTMAP"))
+            {
                msgheader = "dctd.100";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            else if(loadVal.equalsIgnoreCase("ACCOUNTMANAGED"))
+            {
+               msgheader = "dctd.103";
                webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
             }
@@ -1448,10 +1466,15 @@ public class TdCto
       return null;
    }
 
-      private Boolean loadData()
+      private String loadData()
    {
+      String retValue="";
       if (beanacctnum == null)
-         return false;
+      {
+         retValue = "NOACCOUNTNUMBER";
+         return retValue;
+      }
+
 
 /*
       acctnum = Long.valueOf(beanacctnum);
@@ -1471,8 +1494,16 @@ public class TdCto
       tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
       consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
-      if (tdMasterData.getCustomerData() == null)
-         return true;
+      if (tdMasterData.getCustomerData().getUserid() == null)
+      {
+         retValue = "NOACCOUNTMAP";
+         return retValue;
+      }
+      if (getLongBeanlogonid() != webutil.getLogonid())
+      {
+         retValue = "differenUser";
+         return retValue;
+      }
 
      if ((tdMasterData.getCustomerData().getManaged() == null) || ( ! tdMasterData.getCustomerData().getManaged())) {
          custodyListDAO.getTDAccountDetails(tdMasterData);
@@ -1508,10 +1539,12 @@ public class TdCto
             tdMasterData.getJointAcctOwnersDetail().getOwnership().isEmpty()) {
             tdMasterData.getJointAcctOwnersDetail().setOwnership("AOJOINT");
          }
-         return true;
+        retValue="success";
+        return retValue;
       }
       else {
-         return false;
+        retValue="ACCOUNTMANAGED";
+        return retValue;
       }
    }
 

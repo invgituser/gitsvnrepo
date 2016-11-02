@@ -774,12 +774,12 @@
                                        style="text-align: left !important; font-weight: bold !important;">Bank Phone Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankPhoneNumber}"
                                              maxlength="15"
                                              mask="(999) 999-9999"
                                              placeholder="Bank Phone Number">
-                                </p:inputText>
+                                </p:inputMask>
                             </div>
                         </div>
                         <div class="EmptyBox20"></div>
