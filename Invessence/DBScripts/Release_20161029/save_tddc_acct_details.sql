@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `save_tddc_acct_details`;
+DROP PROCEDURE IF EXISTS `invdb`.`save_tddc_acct_details`;
 
 DELIMITER $$
-CREATE PROCEDURE `save_tddc_acct_details`(
+CREATE PROCEDURE `invdb`.`save_tddc_acct_details`(
   `p_acctnum` bigint(20),
   `p_clientAccountID` varchar(45),
   `p_caseNumber` varchar(45),

@@ -1,8 +1,8 @@
-DROP PROCEDURE IF EXISTS `sel_tddc_account_transfer`;
+DROP PROCEDURE IF EXISTS `invdb`.`sel_tddc_account_transfer`;
 
 
 DELIMITER $$
-CREATE PROCEDURE `sel_tddc_account_transfer`(
+CREATE PROCEDURE `invdb`.`sel_tddc_account_transfer`(
 	 `p_acctnum` bigint(20)
   )
 BEGIN
