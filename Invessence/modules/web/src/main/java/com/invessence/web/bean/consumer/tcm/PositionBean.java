@@ -265,7 +265,7 @@ public class PositionBean implements Serializable
             if (!managedAssetsMap.containsKey(assetname))
             {
                Asset asset = new Asset(assetname,
-                                       null,    // Display name is not defined in Managed Asset.
+                                       assetname,    // Display name is not defined in Managed Asset.
                                        position.getColor(),
                                        0.0, 0.0, 0.0, 0.0,0.0,0.0,
                                        position.getWeight(), position.getYield(), position.getRisk(), position.getExpenseRatio(), position.getPositionValue());
@@ -469,7 +469,7 @@ public class PositionBean implements Serializable
             Asset asset = managedAssetsMap.get(name);
             if (asset != null)
             {
-               Double displayWeight = asset.getHoldingweight();
+               Double displayWeight = Math.round(asset.getHoldingweight() * 100.0);
                String label = name;
                pieModel.set(label, displayWeight);
                String color = asset.getColor().replace('#',' ');
