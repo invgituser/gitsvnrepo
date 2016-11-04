@@ -7,7 +7,7 @@ BEGIN
   DECLARE done INT DEFAULT FALSE;
   DECLARE tClientID, tAcctNum, tTotal VARCHAR(20);
   DECLARE tAdvisor, tAlertTime, tPortfolioName, tGoal VARCHAR(30);
-  DECLARE tMessage VARCHAR(100);
+  DECLARE tMessage VARCHAR(320);
   DECLARE tReceiver VARCHAR(60);
   
   DECLARE cur1 CURSOR FOR 
@@ -52,7 +52,7 @@ BEGIN
     END IF;
 
 		SET tMessage=concat('New Account opened and funded, Account#:',tClientID,',Funded:',tTotal,',Strategy:',tPortfolioName,',Goal:',tGoal);
-        select tClientID, tAcctNum, tTotal, tAdvisor, tPortfolioName, tGoal, tMessage;
+        -- select tClientID, tAcctNum, tTotal, tAdvisor, tPortfolioName, tGoal, tMessage;
 		CALL `invdb`.`sav_notification_advisor`(
 		  null, -- `p_messageid` bigint(20),
 		  'N', -- `p_status` varchar(1), (N=New, A=Archive)

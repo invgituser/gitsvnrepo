@@ -49,8 +49,8 @@ BEGIN
 				WHEN (`tmp_td_unrealized`.`currentQuantity` = 0) THEN 1
                 ELSE (`tmp_td_unrealized`.`bookCost` / `tmp_td_unrealized`.`currentQuantity`) 
 				END) as markPrice
-		 , `tmp_td_unrealized`.`costBasis` as `positionValue`
-		 ,  (IFNULL(`tmp_td_price`.price,1) * IFNULL(`tmp_td_unrealized`.`currentQuantity`,1)) as pnlUnrealized
+		 ,  (IFNULL(`tmp_td_price`.price,1) * IFNULL(`tmp_td_unrealized`.`currentQuantity`,1)) as `positionValue`
+		 ,  (IFNULL(`tmp_td_price`.price,1) * IFNULL(`tmp_td_unrealized`.`currentQuantity`,1)) - `tmp_td_unrealized`.`bookCost` as pnlUnrealized
 		 , `tmp_td_unrealized`.`ID` as `levelOfDetail`
 		 , now() as created
     FROM `invdb`.`ext_acct_info`
