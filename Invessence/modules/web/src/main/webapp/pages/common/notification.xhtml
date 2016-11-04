@@ -24,15 +24,18 @@
                             <div class="Wid50 Responsive50 Fleft">
                                 <h3 class="BigTopic"><h:outputText value="#{notificationBean.messageHeader}"/></h3>
                             </div>
-                            <div class="Wid50 Fright Responsive50">
-                                <p:selectOneButton value="#{notificationBean.filterNotice}">
-                                    <f:selectItem itemLabel="New" itemValue="N" />
-                                    <f:selectItem itemLabel="Archived" itemValue="A" />
-                                    <p:ajax update="@form" listener="#{notificationBean.filterData}" />
-                                </p:selectOneButton>
-                            </div>
 
                         <div class="Container100 MarTop20">
+                            <div class="Container100 MarTop20">
+                                <div class="Fright Responsive50">
+                                    <p:selectOneButton value="#{notificationBean.filterNotice}">
+                                        <f:selectItem itemLabel="New" itemValue="N" />
+                                        <f:selectItem itemLabel="Archived" itemValue="A" />
+                                        <p:ajax update="@form" listener="#{notificationBean.filterData}" />
+                                    </p:selectOneButton>
+                                </div>
+                             </div>
+                             <div class="Container100 MarTop20">
                             <p:dataTable id="messageDT" var="msg" value="#{notificationBean.notificationDataList}"
                                              widgetVar="messageWidget"
                                              emptyMessage="No Messages were created."
@@ -85,6 +88,7 @@
                                     </p:column>
 
                                 </p:dataTable>
+                             </div>
                         </div>
                     </div>
                 </div>
