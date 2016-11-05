@@ -10,6 +10,7 @@ import javax.faces.event.*;
 import javax.servlet.http.HttpSession;
 
 import com.invessence.converter.*;
+import com.invessence.web.bean.consumer.InvessenceCharts;
 import com.invessence.web.constant.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;

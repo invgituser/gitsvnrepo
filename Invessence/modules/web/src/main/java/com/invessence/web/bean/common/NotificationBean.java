@@ -133,7 +133,7 @@ public class NotificationBean implements Serializable
          return "Messages";
    }
 
-   public String markDone()
+   public void markDone()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
@@ -145,12 +145,10 @@ public class NotificationBean implements Serializable
          collectNotification();
          RequestContext.getCurrentInstance().update("messageDT");
 */
-         return "success";
       }
-      return "failed";
    }
 
-   public String markUnDone()
+   public void markUnDone()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
@@ -162,9 +160,7 @@ public class NotificationBean implements Serializable
          collectNotification();
          RequestContext.getCurrentInstance().update("messageDT");
 */
-         return "success";
       }
-      return "failed";
    }
 
    public void saveNotification()

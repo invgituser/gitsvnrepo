@@ -60,7 +60,7 @@
                                                          styleClass="Fs16 BlueButton"
                                                          process="@this" immediate="true"
                                                          icon="fa fa-check Fs14 white"
-                                                         action="#{notificationBean.markDone}">
+                                                         actionListener="#{notificationBean.markDone}">
                                             <p:tooltip id="markToolTipFade" for="markButton" value="Archive" />
                                             <f:setPropertyActionListener value="#{msg}"
                                                                          target="#{notificationBean.selectedMessage}"/>
@@ -69,7 +69,7 @@
                                                          styleClass="Fs16 GrayButton"
                                                          process="@this" immediate="true"
                                                          icon="fa fa-mail-reply Fs14 white"
-                                                         action="#{notificationBean.markUnDone}">
+                                                         actionListener="#{notificationBean.markUnDone}">
                                             <p:tooltip id="undoToolTipFade" for="undoButton" value="Undo Archive" />
                                             <f:setPropertyActionListener value="#{msg}"
                                                                          target="#{notificationBean.selectedMessage}"/>

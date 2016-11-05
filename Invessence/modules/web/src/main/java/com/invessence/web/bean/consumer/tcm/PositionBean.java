@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 import com.invessence.web.dao.common.PositionDAO;
 import com.invessence.web.data.common.Position;
 import com.invessence.web.util.*;
-import com.invmodel.asset.data.Asset;
+import com.invmodel.asset.data.*;
 import org.primefaces.model.chart.PieChartModel;
 
 @ManagedBean(name = "tcmpos")
@@ -46,6 +46,8 @@ public class PositionBean implements Serializable
    private Long acctnum;
    private String firstname, lastname, dateOpened, clientAccountID,accountAlias;
    private Boolean managed;
+
+   private TCMCharts tcmChart = new TCMCharts();
 
    public void preRenderView()
    {
@@ -458,6 +460,26 @@ public class PositionBean implements Serializable
 
    private void createPieModel()
    {
+      pieModel = null;
+      pieIsValid = "false";
+      if (managedAssetsMap.size() > 0)
+      {
+         AssetClass[] assetclassArray = new AssetClass[1];
+         assetclassArray[0] = new AssetClass();
+         for (String name : managedAssetsMap.keySet())
+         {
+            Asset asset = managedAssetsMap.get(name);
+            assetclassArray[0].addAssetClass(
+               asset.getAsset(),
+               asset.getDisplayName(),
+               asset.getColor(),
+               asset.getActualweight(),
+               asset.getAvgReturn());
+         }
+         tcmChart.createPieModel(assetclassArray, 0);
+         pieModel = tcmChart.getPieChart();
+      }
+/*
       String seriescolor = "";
       this.pieModel = new PieChartModel();
       int slice = 0;
@@ -469,7 +491,7 @@ public class PositionBean implements Serializable
             Asset asset = managedAssetsMap.get(name);
             if (asset != null)
             {
-               Double displayWeight = Math.round(asset.getHoldingweight() * 100.0);
+               Long displayWeight = Math.round(asset.getHoldingweight() * 100.0);
                String label = name;
                pieModel.set(label, displayWeight);
                String color = asset.getColor().replace('#',' ');
@@ -487,6 +509,8 @@ public class PositionBean implements Serializable
          //pieModel.setExtender("pie_extensions");
 
       }
+*/
+
    }
 
 }

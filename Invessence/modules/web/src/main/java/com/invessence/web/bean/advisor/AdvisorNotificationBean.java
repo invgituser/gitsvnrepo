@@ -12,7 +12,7 @@ import com.invessence.web.data.common.NotificationData;
 import com.invessence.web.util.WebUtil;
 import org.primefaces.context.RequestContext;
 
-@ManagedBean(name = "notificationBean")
+@ManagedBean(name = "advisornotificationBean")
 @RequestScoped
 public class AdvisorNotificationBean implements Serializable
 {
