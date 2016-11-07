@@ -43,6 +43,7 @@ public class WSConstants
    public enum DocuSignServiceOperations {
       ACCT_APPLI_NEW("ACCT_APPLI_NEW"),
       ACCT_TRAN_NEW("ACCT_TRAN_NEW"),
+      ACAT_OTHER_NEW("ACAT_OTHER_NEW"),
       IRA_APPLI_NEW("IRA_APPLI_NEW"),
       IRA_MOVE_MONEY_NEW("IRA_MOVE_MONEY_NEW"),
       IRA_MOVE_MONEY_CHANGE("IRA_MOVE_MONEY_CHANGE"),

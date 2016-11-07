@@ -1,13 +1,9 @@
 package com.invessence.ws.provider.td.service;
 
-import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
 
 import com.docusign.esign.model.*;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.*;
 import com.invessence.service.bean.*;
 import com.invessence.service.util.*;
 import com.invessence.ws.bean.*;
@@ -143,6 +139,13 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
             envDef.getCompositeTemplates().add(compositeTemplate);
 
          }
+         else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString()))
+         {
+            CompositeTemplate compositeTemplate = acctTransfer(dcRequest, dcTemplateDetail, "" + reqCounter);
+            if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
+            envDef.getCompositeTemplates().add(compositeTemplate);
+
+         }
          else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString()))
          {
             logger.info("Required in next phase");
@@ -216,12 +219,12 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
    }
       return wsCallResult;
    }
-   private CompositeTemplate tdTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail,String servTempSeq)throws Exception{
+   private CompositeTemplate tdTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq)throws Exception{
       logger.info("TDAccountOpeningLayerImpl.acctTransfer");
       logger.info("dcRequest = [" + dcRequest + "]");
 
       CompositeTemplate compositeTemplate=null;
-      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
       if(acctDetails==null){
          logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
       }
@@ -260,12 +263,12 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       return compositeTemplate;
    }
 
-   private CompositeTemplate acctTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail,String servTempSeq)throws Exception{
+   private CompositeTemplate acctTransfer(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq)throws Exception{
       logger.info("TDAccountOpeningLayerImpl.acctTransfer");
       logger.info("dcRequest = [" + dcRequest + "]");
 
       CompositeTemplate compositeTemplate=null;
-      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
       if(acctDetails==null){
          logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
       }
@@ -308,7 +311,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       logger.info("dcRequest = [" + dcRequest + "]");
 
       CompositeTemplate compositeTemplate=null;
-      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
       if(acctDetails==null){
          logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
       }
@@ -349,7 +352,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       logger.info("dcRequest = [" + dcRequest + "]");
 
       CompositeTemplate compositeTemplate=null;
-      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
       if(acctDetails==null){
          logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
       }
@@ -390,7 +393,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       logger.info("TDAccountOpeningLayerImpl.accountApplication");
       logger.info("dcRequest = [" + dcRequest + "]");
       CompositeTemplate compositeTemplate =null;
-      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), true);
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), true);
       if(acctDetails==null){
          logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
       }
@@ -428,7 +431,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       String emailSubject=dcRequest.getEnvelopeHeading();
 
       CompositeTemplate compositeTemplate=null;
-      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(),dcRequest.getReqId(), false);
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
       if(acctDetails==null){
          logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
       }
