@@ -692,7 +692,9 @@ img.riskImage:hover {
 /**/
 
 /*Prakash*/
-
+.ui-panel-content {
+    width: 100%!important;
+}
 .submenuCustom {
     width: 40%;
     float: right;
