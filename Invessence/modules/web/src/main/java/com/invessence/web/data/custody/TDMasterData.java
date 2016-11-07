@@ -55,6 +55,9 @@ public class TDMasterData implements Serializable
    InternalTransferDetails internalTransferDetail;
    ArrayList<BenefiaciaryDetails> benefiaciaryDetailsList;
    BenefiaciaryDetails tmpBenefiaciaryDetail;
+   Map<String,MastACATFirm> acatFirmMap;
+   List<String> acatFirmList;
+
 
    CustomerData customerData;
    PagesImpl pageMgr;
@@ -287,8 +290,17 @@ public class TDMasterData implements Serializable
 
    public void resetContraFirmList()
    {
-      if(acatDetails.getContraFirmList()!=null && !acatDetails.getContraFirmList().equals("OTH"))
-         acatDetails.setOtherContraFirmList("");
+      String firmname=acatDetails.getContraFirmList();
+      if(acatFirmMap.containsKey(firmname))
+      {
+         acatDetails.setFromFirmAddress(acatFirmMap.get(firmname).getAddress());
+         acatDetails.setFromFirmPhoneNumber(acatFirmMap.get(firmname).getPhoneNumber());
+      }
+      else {
+         acatDetails.setFromFirmAddress("");
+         acatDetails.setFromFirmPhoneNumber("");
+      }
+
 
    }
    public void resetoptoutBeneficiary()
@@ -990,5 +1002,39 @@ public class TDMasterData implements Serializable
    public void setOptoutRecurring(Boolean optoutRecurring)
    {
       this.optoutRecurring = optoutRecurring;
+   }
+
+   public List<String> getAcatFirmList()
+   {
+      return acatFirmList;
+   }
+
+   public void setAcatFirmList(List<String> acatFirmList)
+   {
+      this.acatFirmList = acatFirmList;
+   }
+
+   public Map<String, MastACATFirm> getAcatFirmMap()
+   {
+      return acatFirmMap;
+   }
+
+   public void setAcatFirmMap(Map<String, MastACATFirm> acatFirmMap)
+   {
+      this.acatFirmMap = acatFirmMap;
+   }
+
+   public List<String> lookUpfirm(String enterString) {
+
+      List<String> MySortStrings =new ArrayList<String>();
+      for(int i=0;i<acatFirmList.size();i++)
+      {
+         if(acatFirmList.get(i).toLowerCase().startsWith(enterString.toLowerCase()))
+         {
+            MySortStrings.add(acatFirmList.get(i));
+         }
+      }
+      return MySortStrings;
+
    }
 }

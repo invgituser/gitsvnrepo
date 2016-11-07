@@ -321,7 +321,17 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       reqdata.setReqId(new Long(0));
       reqdata.setEventNum(0);
       reqdata.setAcctnum(acctnum);
-      reqdata.setReqType("ACCT_TRAN_NEW");
+
+      if(tdMasterData.getAcatFirmMap().containsKey(data.getContraFirmList()))
+      {
+         reqdata.setReqType("ACCT_TRAN_NEW");
+         data.setContraFirmList(tdMasterData.getAcatFirmMap().get(data.getContraFirmList()).getValue());
+      }
+      else
+      {
+         reqdata.setReqType("ACAT_OTHER_NEW");
+      }
+
       reqdata.setRequestFor("ACAT");
       reqdata.setEnvelopeHeading("Please sign account transfer document.");
       tdOpenAccount(reqdata);

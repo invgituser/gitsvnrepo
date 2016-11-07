@@ -557,4 +557,52 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
+
+   public void getAcatFirmList(TDMasterData data)
+   {
+
+      Map<String, MastACATFirm> acatFirmLinkedHashMap = new LinkedHashMap<String, MastACATFirm>();
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_tddc_ACATFirm_list",7);
+      Map outMap = sp.getACATFirm();
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+
+            List<String> firmList=new ArrayList<>();
+            for (Map<String, Object> map : rows)
+            {
+               MastACATFirm acatDetails=new MastACATFirm();
+               Map rs = (Map) rows.get(i);
+               acatDetails.setLookupSet(convert.getStrData(rs.get("lookupSet")));
+               acatDetails.setLookupCode(convert.getStrData(rs.get("lookupCode")));
+               acatDetails.setDisplayName(convert.getStrData(rs.get("displayName")));
+               acatDetails.setParentLookupId(convert.getStrData(rs.get("parentLookupId")));
+               acatDetails.setValue(convert.getStrData(rs.get("value")));
+               acatDetails.setRemark(convert.getStrData(rs.get("remark")));
+               acatDetails.setSortOrder(convert.getIntData(rs.get("sortOrder")));
+               acatDetails.setStatus(convert.getStrData(rs.get("status")));
+               acatDetails.setIsRequired(convert.getStrData(rs.get("isRequired")));
+               acatDetails.setAddress(convert.getStrData(rs.get("address")));
+               acatDetails.setPhoneNumber(convert.getStrData(rs.get("phoneNumber")));
+
+               firmList.add(convert.getStrData(rs.get("displayName")));
+               acatFirmLinkedHashMap.put(acatDetails.getDisplayName(),acatDetails);
+                  i++;
+            }
+            data.setAcatFirmList(firmList);
+            data.setAcatFirmMap(acatFirmLinkedHashMap);
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
 }

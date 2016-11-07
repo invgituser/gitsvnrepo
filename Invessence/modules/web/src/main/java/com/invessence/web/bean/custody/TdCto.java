@@ -221,6 +221,8 @@ public class TdCto
             // clear all data.
             pagemanager = new PagesImpl(10);
             tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
+            // load firm list for ACAt details
+            custodyListDAO.getAcatFirmList(tdMasterData);
             // Start fresh, clean and start from top page.
             if(!webutil.isUserLoggedIn())
             {
@@ -262,7 +264,6 @@ public class TdCto
          logger.info("Exception: raised during Starting TD CTO process.");
       }
    }
-
 
    public void addTempBeneficiary() {
 
@@ -1253,11 +1254,11 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.deliveryfirm.requiredMsg", "Name of delivery firm is required!", null));
                      }
-                     if (tdMasterData.getAcatDetails().getContraFirmList().equalsIgnoreCase("OTH") && !hasRequiredData(tdMasterData.getAcatDetails().getOtherContraFirmList()))
+                     /*if (tdMasterData.getAcatDetails().getContraFirmList().equalsIgnoreCase("OTH") && !hasRequiredData(tdMasterData.getAcatDetails().getOtherContraFirmList()))
                      {
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.deliveryfirmother.requiredMsg", "Name of other delivery firm is required!", null));
-                     }
+                     }*/
 
                      if (!hasRequiredData(tdMasterData.getAcatDetails().getFromOtherAccountType()))
                      {

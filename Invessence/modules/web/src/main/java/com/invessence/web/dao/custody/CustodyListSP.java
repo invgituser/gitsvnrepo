@@ -83,6 +83,10 @@ public class CustodyListSP extends StoredProcedure
       inputMap.put("p_acctnum", acctnum);
       return super.execute(inputMap);
    }
+   public Map getACATFirm() {
+      Map inputMap = new HashMap();
+      return super.execute(inputMap);
+   }
    public Map getTDTRF(Long acctnum) {
       Map inputMap = new HashMap();
       inputMap.put("p_acctnum", acctnum);

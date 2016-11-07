@@ -337,78 +337,51 @@
                             </div>
                             <div class="EmptyBox10"></div>
 
-                            <div class="Container100">
-                                <div class="Container40 CustomWidthFA-Responsive" >
-                                    <label Class="Container100"
-                                           style="text-align: left !important; font-weight: bold !important;">Name of delivering firm *</label>
+                                    <div class="Container100">
+                                        <div class="Container100 CustomWidthFA-Responsive" >
+                                            <label Class="Container100" for="event"
+                                                   style="text-align: left !important; font-weight: bold !important;">Name of delivering firm *</label>
 
-                                    <div class="EmptyBox5"></div>
-                                    <p:selectOneMenu styleClass="formpageDropdown FundAccouintDropdownUI"
-                                                     value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
-                                                     style="width: 100%!important; box-sizing: border-box; min-width: auto!important;">
-                                        <p:ajax event="change" update="@this,:ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this" listener="${tdcto.tdMasterData.resetContraFirmList}" />
-                                        <f:selectItem itemLabel="Select name of delivering firm" itemValue=""
-                                                      noSelectionOption="true"/>
-                                        <f:selectItem itemValue="CURICLEAR" itemLabel="Curian Clearing" />
-                                        <f:selectItem itemValue="EDWAJONE" itemLabel="Edward Jones" />
-                                        <f:selectItem itemValue="FIRSCLEARCORP" itemLabel="First Clearing Corp(Wachovia and Wells Fargo)" />
-                                        <f:selectItem itemValue="JANNMONTSCT" itemLabel="Janney Montgomery Scott" />
-                                        <f:selectItem itemValue="LINCFINAADVI" itemLabel="Lincoln Financial Advisors" />
-                                        <f:selectItem itemValue="LINCFINASECU" itemLabel="Lincoln Financial Securities" />
-                                        <f:selectItem itemValue="LINSPRIVLEDG" itemLabel="Linsco Private Ledger (LPL)" />
-                                        <f:selectItem itemValue="MIBROKSERV" itemLabel="M and I Brokerage Services" />
-                                        <f:selectItem itemValue="MERRLYNC" itemLabel="Merrill Lynch" />
-                                        <f:selectItem itemValue="MORGSTANSMITBARN" itemLabel="Morgan Stanley Smith Barney" />
-                                        <f:selectItem itemValue="NATIFINASERV" itemLabel="National Financial Services" />
-                                        <f:selectItem itemValue="OPTXPREBROKXPRE" itemLabel="OptionsXpress/BrokersXpress" />
-                                        <f:selectItem itemValue="PERS" itemLabel="Pershing" />
-                                        <f:selectItem itemValue="RBCCAPIMARK" itemLabel="RBC Capital Markets" />
-                                        <f:selectItem itemValue="SEIPRIVTRUS" itemLabel="SEI Private Trust Co." />
-                                        <f:selectItem itemValue="STIFNICOCOMPINCO" itemLabel="Stifel, Nicolaus and Company Incorporated" />
-                                        <f:selectItem itemValue="WACHSECU" itemLabel="Wachovia Securities" />
-                                        <f:selectItem itemValue="WEDBSECUINC" itemLabel="Wedbush Securities Inc." />
-                                        <f:selectItem itemValue="OTH" itemLabel="Others" />
-                                    </p:selectOneMenu>
-                                </div>
+                                            <div class="EmptyBox5"></div>
+                                            <p:autoComplete id="event" value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
+                                                            styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
+                                                            completeMethod="#{tdcto.tdMasterData.lookUpfirm}" >
+                                                <p:ajax event="itemSelect" update="@this,:ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
+                                                        listener="${tdcto.tdMasterData.resetContraFirmList}" /> />
+                                                <p:ajax event="change" update="@this,:ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
+                                                        listener="${tdcto.tdMasterData.resetContraFirmList}" /> />
+                                            </p:autoComplete>
 
-                                <p:panel id="acatOtherPanel" styleClass="Container32 CustomWidthFA-Responsive"
-                                         style="border: 0px; background: transparent"  >
-                                <p:panel style="border: 0px; background: transparent"  rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}">
-                                    <label Class="Container100"
-                                           style="text-align: left !important; font-weight: bold !important;">Name of Other Delivery Firm *</label>
+                                        </div>
+                                        <div class="EmptyBox10"></div>
+                                        <p:panel id="acatOtherPanel" styleClass="Container100 CustomWidthFA-Responsive"
+                                                 style="border: 0px; background: transparent"  >
 
-                                    <div class="EmptyBox5"></div>
-                                    <p:inputText id="FundOthrID" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                        <div class="Container32 CustomWidthFA-Responsive" >
+                                            <label Class="Container100"
+                                                   style="text-align: left !important; font-weight: bold !important;">Physical Address of Firm</label>
 
-                                                 value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
-                                                 maxlength="90"
-                                                 placeholder="Other Delivery Firm">
-                                    </p:inputText></p:panel>
-                                </p:panel>
-                                <div class="Container32 CustomWidthFA-Responsive" style="display: none">
-                                    <label Class="Container100"
-                                           style="text-align: left !important; font-weight: bold !important;">Physical Address of Firm</label>
+                                            <div class="EmptyBox5"></div>
+                                            <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                                         value="#{tdcto.tdMasterData.acatDetails.fromFirmAddress}"
+                                                         maxlength="90"
+                                                         placeholder="Physical address of firm">
+                                            </p:inputText>
+                                        </div>
+                                        <div class="Container32 CustomWidthFA-Responsive" >
+                                            <label Class="Container100"
+                                                   style="text-align: left !important; font-weight: bold !important;">Phone Number</label>
 
-                                    <div class="EmptyBox5"></div>
-                                    <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.acatDetails.fromFirmAddress}"
-                                                 maxlength="90"
-                                                 placeholder="Physical address of firm">
-                                    </p:inputText>
-                                </div>
-                                <div class="Container32 CustomWidthFA-Responsive" style="display: none">
-                                    <label Class="Container100"
-                                           style="text-align: left !important; font-weight: bold !important;">Phone Number</label>
+                                            <div class="EmptyBox5"></div>
+                                            <p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+                                                         value="#{tdcto.tdMasterData.acatDetails.fromFirmPhoneNumber}"
+                                                         maxlength="15"
+                                                         mask="(999) 999-9999" placeholder="Phone Number">
+                                            </p:inputMask>
+                                        </div>
+                                        </p:panel>
 
-                                    <div class="EmptyBox5"></div>
-                                    <p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.acatDetails.fromFirmPhoneNumber}"
-                                                 maxlength="15"
-                                                 mask="(999) 999-9999" placeholder="Phone Number">
-                                    </p:inputMask>
-                                </div>
-
-                            </div>
+                                    </div>
                             <!-- 3 -->
                             <div class="EmptyBox20"></div>
                             <div class="Container100 FundTitle">List assets you want to transfer</div>
