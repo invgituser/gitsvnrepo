@@ -1,8 +1,8 @@
-INSERT INTO `service.dc_template_details` VALUES ('UAT','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_ACAT_OTHER','f3d35d40-d093-4ae2-841a-12f1cac49432','Account Transfer Form Other','Y','A',NULL,NULL,NULL,NULL,NULL,NULL),
+INSERT INTO service.dc_template_details VALUES ('UAT','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_ACAT_OTHER','f3d35d40-d093-4ae2-841a-12f1cac49432','Account Transfer Form Other','Y','A',NULL,NULL,NULL,NULL,NULL,NULL),
 ('PROD','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_ACAT_OTHER','0A6AC9B2-E603-47D2-AC35-379E256E968F','Account Transfer Form Other','Y','A',NULL,NULL,NULL,NULL,NULL,NULL);
 
 
-INSERT INTO `service.dc_template_mapping` VALUES 
+INSERT INTO service.dc_template_mapping VALUES
 ('BB_ACAT_OTHER','Textbox','Contra Firm List','contraFirmList','Client'),
 ('BB_ACAT_OTHER','Radiobox','AccountType','accountType','Client'),
 ('BB_ACAT_OTHER','Radiobox','FromAccountType','fromAccountType','Client'),
@@ -45,5 +45,5 @@ INSERT INTO `service.dc_template_mapping` VALUES
 
 
 
-INSERT INTO `service.service_operation_details` VALUES 
+INSERT INTO service.service_operation_details VALUES
 ('BUILDINGBENJAMINS','DOCUSIGN-SERVICES','ACAT_OTHER_NEW','DOCUSIGN','A',0,'BB_ACAT_OTHER');
