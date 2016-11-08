@@ -344,12 +344,12 @@
 
                                             <div class="EmptyBox5"></div>
                                             <p:autoComplete id="event" value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
-                                                            styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
-                                                            completeMethod="#{tdcto.tdMasterData.lookUpfirm}" >
-                                                <p:ajax event="itemSelect" update="@this,:ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
-                                                        listener="${tdcto.tdMasterData.resetContraFirmList}" /> />
-                                                <p:ajax event="change" update="@this,:ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
-                                                        listener="${tdcto.tdMasterData.resetContraFirmList}" /> />
+                                                     forceSelection="false"       styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
+                                                          completeMethod="#{tdcto.tdMasterData.lookUpfirm}" minQueryLength="3" >
+                                                <p:ajax event="itemSelect" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
+                                                      listener="${tdcto.tdMasterData.resetContraFirmList}" />
+                                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
+                                                        listener="${tdcto.tdMasterData.resetContraFirmList}" />
                                             </p:autoComplete>
 
                                         </div>
@@ -582,11 +582,22 @@
                                    actionListener="#{tdcto.prevPage}"
                                    update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
 
-                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                        <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" rendered="#{!tdcto.tdMasterData.fundNow}"
                                    style="background-position-x: 50px!important;"
                                    actionListener="#{tdcto.nextPage}"
-                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
+                                   update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
                                    process=":ctoForm:tdaccordian:fundTabV"/>
+
+                    <div class="saveNopenBtn" style="text-align: right;">
+                        <p:commandButton value="Work Save" rendered="#{tdcto.tdMasterData.fundNow}"
+                                         update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                         actionListener="#{tdcto.nextPage}"
+                                         process=":ctoForm:tdaccordian:fundTabV">
+
+                        </p:commandButton>
+
+                    </div>
+
 
                 </div>
 
@@ -802,10 +813,14 @@
                         <p:commandLink styleClass="UI-prevButtonFA Fleft"
                                        actionListener="#{tdcto.prevPage}"
                                        update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
-                        <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
-                                       actionListener="#{tdcto.nextPage}"
-                                       update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
-                                       process=":ctoForm:tdaccordian:fundTabV"/>
+                            <div class="saveNopenBtn" style="text-align:right;">
+                                <p:commandButton value="Work Save"
+                                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                                 actionListener="#{tdcto.nextPage}"
+                                                 process=":ctoForm:tdaccordian:fundTabV">
+
+                                </p:commandButton>
+                                </div>
 
                         <!--   <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                   rendered="false"/> -->

@@ -1027,11 +1027,14 @@ public class TDMasterData implements Serializable
    public List<String> lookUpfirm(String enterString) {
 
       List<String> MySortStrings =new ArrayList<String>();
-      for(int i=0;i<acatFirmList.size();i++)
+      if(enterString.length()>2)
       {
-         if(acatFirmList.get(i).toLowerCase().startsWith(enterString.toLowerCase()))
+         for (int i = 0; i < acatFirmList.size(); i++)
          {
-            MySortStrings.add(acatFirmList.get(i));
+            if (acatFirmList.get(i).toLowerCase().contains(enterString.toLowerCase()))
+            {
+               MySortStrings.add(acatFirmList.get(i));
+            }
          }
       }
       return MySortStrings;

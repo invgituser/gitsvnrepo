@@ -1201,6 +1201,11 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required!", null));
                      }
+                     else if (tdMasterData.getInitialInvestment()<50000) {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamtless.requiredMsg", "Investment amount should be greater than $50000!", null));
+                     }
+
                      if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankAcctType()))
                      {
                         dataOK = false;
@@ -1325,6 +1330,12 @@ public class TdCto
                         dataOK = false;
                         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transamt.requiredMsg", "Amount is required!", null));
                      }
+                     else if (tdMasterData.getElectroicBankDetail().getTranAmount()<50)
+                    {
+                       dataOK = false;
+                       pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transamtless.requiredMsg", "Transaction Amount should be greater than $50.", null));
+                    }
+
                      if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranStartDate()))
                      {
                         dataOK = false;
@@ -1333,7 +1344,7 @@ public class TdCto
                      else if(!tdMasterData.getElectroicBankDetail().getTranStartDate().equals("") && ! JavaUtil.isValidDate(tdMasterData.getElectroicBankDetail().getTranStartDate(),"MM/dd/yyyy"))
                      {
                         dataOK = false;
-                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validateStartDate.formatMsg", "Enter valid Start Date (mm/dd/yyyy)!", null));
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validateStartDate.requiredMsg", "Enter valid Start Date (mm/dd/yyyy)!", null));
                      }
                      else if(!tdMasterData.getElectroicBankDetail().getTranStartDate().equals("") && ! JavaUtil.checkdate(tdMasterData.getElectroicBankDetail().getTranStartDate()))
                      {
@@ -1406,9 +1417,15 @@ public class TdCto
             tdMasterData.setSubmitButton(true);
          else
             tdMasterData.setSubmitButton(false);
-         pagemanager.nextPage();
+
          pagemanager.clearAllErrorMessage();
-         resetActiveTab(pagemanager.getPage());
+            if(pagemanager.isLastPage() || (pagemanager.getPage()==9 && tdMasterData.getFundNow()) )
+               resetActiveTab(11);
+            else
+            {
+               pagemanager.nextPage();
+               resetActiveTab(pagemanager.getPage());
+            }
          saveandOpenError = null;
       }
    }
@@ -1653,6 +1670,7 @@ public class TdCto
             }
             else
             {
+               custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(),tdMasterData);
                if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
                {
                   custodySaveDAO.tdsaveACHData(tdMasterData, "ACH");
@@ -1683,7 +1701,10 @@ public class TdCto
             }else
             {
                if (!tdMasterData.getRecurringFlag())
+               {
+                  custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(),tdMasterData);
                   custodySaveDAO.tdSaveElectronicPaymentData(tdMasterData);
+               }
             }
                //custodySaveDAO.tdSaveElectronicPayment("REC",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getElectroicBankDetail());
             break;

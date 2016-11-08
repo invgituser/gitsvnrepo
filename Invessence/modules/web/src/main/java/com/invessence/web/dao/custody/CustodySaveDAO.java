@@ -322,7 +322,8 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       reqdata.setEventNum(0);
       reqdata.setAcctnum(acctnum);
 
-      if(tdMasterData.getAcatFirmMap().containsKey(data.getContraFirmList()))
+      if(tdMasterData.getAcatFirmMap().containsKey(data.getContraFirmList())
+         && tdMasterData.getAcatFirmMap().get(data.getContraFirmList()).getIsRequired().equalsIgnoreCase("Y"))
       {
          reqdata.setReqType("ACCT_TRAN_NEW");
          data.setContraFirmList(tdMasterData.getAcatFirmMap().get(data.getContraFirmList()).getValue());
