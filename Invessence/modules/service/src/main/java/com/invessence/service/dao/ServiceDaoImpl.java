@@ -28,7 +28,7 @@ public class ServiceDaoImpl implements ServiceDao
    private final String getDCTemplateDetails ="select * from dc_template_details where status = 'A' and mode =? and company=? order by service, tempCode";
    private final String getDCTemplateMapping ="select * from dc_template_mapping where tempCode=? and (dbColumn IS NOT NULL or dbColumn != '')order by role, tab";
 
-   private final String getDCDocumentDetails ="select * from dc_document_details where status = 'A' and company=? order by service, docCode";
+   private final String getDCDocumentDetails ="select * from dc_document_details where status = 'A' and company=? order by docSeq";
    private final String getDCDocumentMapping ="select * from dc_document_mapping where docCode=? order by role, tab";
 
 
