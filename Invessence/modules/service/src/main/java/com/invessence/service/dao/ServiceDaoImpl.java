@@ -176,7 +176,7 @@ public class ServiceDaoImpl implements ServiceDao
       List<DCDocumentDetails> lst = null;
       lst = serviceJdbcTemplate.query(getDCDocumentDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(DCDocumentDetails.class));
       if(lst !=null && lst.size()>0){
-         map=new HashMap<>();
+         map=new LinkedHashMap<>();
          Iterator<DCDocumentDetails> itr=lst.iterator();
          while(itr.hasNext()){
             DCDocumentDetails dct=(DCDocumentDetails)itr.next();
