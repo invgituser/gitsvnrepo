@@ -430,7 +430,23 @@ public class WebUtil implements Serializable
       }
       return access;
    }
-
+   public String hasrole()
+   {
+      String access = "User";
+      try
+      {
+         UserInfoData userInfoData = getUserInfoData();
+         if (userInfoData != null)
+         {
+            access = userInfoData.getAccess();
+         }
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+      return access;
+   }
    public Boolean isUserLoggedIn()
    {
 

@@ -1203,7 +1203,7 @@ public class TdCto
                      }
                      else if (tdMasterData.getInitialInvestment()<50000) {
                         dataOK = false;
-                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamtless.requiredMsg", "Investment amount should be greater than $50000!", null));
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamtless.requiredMsg", "Investment amount should be minimum $50000!", null));
                      }
 
                      if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankAcctType()))
@@ -1333,7 +1333,7 @@ public class TdCto
                      else if (tdMasterData.getElectroicBankDetail().getTranAmount()<50)
                     {
                        dataOK = false;
-                       pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transamtless.requiredMsg", "Transaction Amount should be greater than $50.", null));
+                       pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.transamtless.requiredMsg", "Transaction Amount should be minimum $50.", null));
                     }
 
                      if (!hasRequiredData(tdMasterData.getElectroicBankDetail().getTranStartDate()))
