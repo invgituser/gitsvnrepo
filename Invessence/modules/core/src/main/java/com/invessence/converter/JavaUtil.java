@@ -100,6 +100,28 @@ public class JavaUtil implements Serializable
       System.out.println(s==null || s.trim().equals("")?"":s.substring(0,s.length()>5?5:s.length()));
    }
 
+   public static String compareDate(String enterDate)
+   {
+      String flag="";
+      try{
+         DateFormat userDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+         Date entryDate = userDateFormat.parse(enterDate);
+         Date todayDate= new Date();
+         todayDate = userDateFormat.parse(userDateFormat.format(todayDate));
+         if(entryDate.compareTo(todayDate)>0){
+            flag="A";
+         }else if(entryDate.compareTo(todayDate)<0){
+            flag="B";
+         }else if(entryDate.compareTo(todayDate)==0){
+            flag="E";
+         }
+
+      }catch(Exception ex){
+         ex.printStackTrace();
+      }
+      return flag;
+   }
+
    public static boolean checkdate(String enterDate)
    {
       Boolean flag=false;
