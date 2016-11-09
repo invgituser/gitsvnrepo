@@ -38,7 +38,8 @@ CREATE PROCEDURE `invdb`.`sel_Consumer4Advisor`(
             SELECT
               user.logonid,
               advisor_access.`privileges`                                 `advisor_privileges`,
-              `profile`.acctnum,
+              `ext_acct_info`.`clientAccountID`,
+              `profile`.`acctnum` as acctnum,
               `profile`.advisor,
               `profile`.rep,
               `profile`.theme,
@@ -79,7 +80,8 @@ CREATE PROCEDURE `invdb`.`sel_Consumer4Advisor`(
             SELECT
               user.logonid,
               advisor_access.`privileges`                                 `advisor_privileges`,
-              `profile`.acctnum,
+              null as `clientAccountID`,
+              `profile`.`acctnum` as acctnum,
               `profile`.advisor,
               `profile`.rep,
               `profile`.theme,
@@ -121,7 +123,8 @@ CREATE PROCEDURE `invdb`.`sel_Consumer4Advisor`(
             SELECT
               user.logonid,
               advisor_access.`privileges`                                 `advisor_privileges`,
-              `profile`.acctnum,
+              `ext_acct_info`.`clientAccountID`,
+              `profile`.`acctnum` as acctnum,
               `profile`.advisor,
               `profile`.rep,
               `profile`.theme,
