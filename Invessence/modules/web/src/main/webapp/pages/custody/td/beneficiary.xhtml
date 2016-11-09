@@ -63,9 +63,9 @@
                                                  styleClass="Fs16 RedButton"
                                                  process="@this" immediate="true"
                                                  icon="fa fa-trash Fs14 white"
-                                                 update=":ctoForm:tdaccordian:beneficiaryPanel"
+												 ajax="true"  update=":ctoForm:tdaccordian:beneficiaryPanel"
                                                  actionListener="#{tdcto.tdMasterData.deleteBeneficiary(benefiaciary)}">
-                                    <p:tooltip for="menuDelete"
+                                    <p:tooltip  for="menuDelete"
                                                value="Delete" />
                                     <f:setPropertyActionListener value="#{benefiaciary}"
                                                                  target="#{tdcto.tdMasterData.selectedBeneficiary}"/>

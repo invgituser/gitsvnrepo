@@ -871,10 +871,10 @@ public class TDMasterData implements Serializable
       tmpBenefiaciaryDetail = thisBenefificiary;
    }
 
-   public void editBeneficiary() {
-      showBeneficiaryForm = true;
-      editBeneficiaryForm=true;
-   }
+      public void editBeneficiary() {
+         showBeneficiaryForm = true;
+         editBeneficiaryForm=true;
+      }
 
    public void addnewBeneficiary() {
       tmptottalShares=totalbeneficiaryShares;

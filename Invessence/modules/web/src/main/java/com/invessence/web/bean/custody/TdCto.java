@@ -768,6 +768,7 @@ public class TdCto
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
       }
+
 //      if (! hasRequiredData(benefiaciaryDetail.getBeneLastName())) {
 //         dataOK = false;
 //         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.lastName.requiredMsg", "Last Name is required!", null));
@@ -860,6 +861,11 @@ public class TdCto
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
             }
+            else if(!JavaUtil.compareDate(tdMasterData.getAcctOwnersDetail().getDob()).equalsIgnoreCase("B"))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validdobother.formatMsg", "Birth date should be less than today date!", null));
+            }
             if (! hasRequiredData(tdMasterData.getAcctOwnersDetail().getSsn())) {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.ssn.requiredMsg", "Social Security is required!", null));
@@ -903,6 +909,16 @@ public class TdCto
             }else if(! JavaUtil.isValidDate(tdMasterData.getJointAcctOwnersDetail().getDob(),"MM/dd/yyyy")){
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.dob.formatMsg", "Enter valid Date of Birth!", null));
+            }
+            else if(tdMasterData.getAccttype()==3 && JavaUtil.compareDate(tdMasterData.getJointAcctOwnersDetail().getDob()).equalsIgnoreCase("A"))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validdobminor.formatMsg", "Birth date should not be greater than today date!", null));
+            }
+            else if(tdMasterData.getAccttype()!=3 && !JavaUtil.compareDate(tdMasterData.getJointAcctOwnersDetail().getDob()).equalsIgnoreCase("B"))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validdobother.formatMsg", "Birth date should be less than today date!", null));
             }
             if (! hasRequiredData(tdMasterData.getJointAcctOwnersDetail().getSsn())) {
                dataOK = false;
