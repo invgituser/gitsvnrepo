@@ -44,6 +44,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
       int reqCounter = 1;
       envDef.setCompositeTemplates(new ArrayList<CompositeTemplate>());
       DCRequest dcReqExtDoc = null;
+         DCRequest dcReqAcatOther = null;
          boolean emailSubSet=false;
       while (itr.hasNext())
       {
@@ -140,11 +141,10 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
 
          }
          else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString()))
-         {
-            CompositeTemplate compositeTemplate = acctTransfer(dcRequest, dcTemplateDetail, "" + reqCounter);
-            if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
-            envDef.getCompositeTemplates().add(compositeTemplate);
-
+         {//            CompositeTemplate compositeTemplate = acctTransfer(dcRequest, dcTemplateDetail, "" + reqCounter);
+//            if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
+//            envDef.getCompositeTemplates().add(compositeTemplate);
+            dcReqAcatOther = dcRequest;
          }
          else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString()))
          {
@@ -188,6 +188,17 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
 
       if (dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds.toString()) == true)
       {
+         if (dcReqAcatOther == null)
+         {
+            logger.info("No Other ACAT transfer documents for signature.");
+         }
+         else{
+            if (otherAcatDocuments(dcReqAcatOther, acctNum, eventNum, "" + dcReqExtDoc.getReqId(),dcTemplateDetails, docuSignOperationDetails)==false){
+                  wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
+                  logger.info("Something went wrong while processing Other ACAT transfer documents envelope");
+               }
+         }
+
 //         if (dcReqExtDoc == null)
 //         {
 //            logger.info("No need to send additional documents for signature.");
@@ -460,6 +471,26 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
          }
       }
       return compositeTemplate;
+   }
+
+
+   private boolean otherAcatDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds, Map<String, DCTemplateDetails> dcTemplateDetails, Map<String, ServiceOperationDetails> docuSignOperationDetails)throws Exception{
+      logger.info("TDAccountOpeningLayerImpl.otherAcatDocuments");
+      logger.info("dcRequest = [" + dcRequest + "]");
+
+      DCTemplateDetails dcTemplateDetail = dcTemplateDetails.get(docuSignOperationDetails.get(dcRequest.getReqType()).getRefValue());
+
+      EnvelopeDefinition envDef = new EnvelopeDefinition();
+      String emailSubject=dcRequest.getEnvelopeHeading();
+
+      CompositeTemplate compositeTemplate=null;
+      compositeTemplate = acctTransfer(dcRequest, dcTemplateDetail, "1");
+
+      envDef.getCompositeTemplates().add(compositeTemplate);
+      envDef.setEmailSubject(emailSubject);
+      envDef.setStatus("sent");
+
+      return dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds);
    }
 
 //   private boolean agreementDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds)throws Exception{
