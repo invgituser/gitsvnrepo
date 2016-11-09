@@ -185,9 +185,9 @@
 
         <p:tab  title="#{tdcto.tdMasterData.titleSecondary}"   id="tab2S1" rendered="#{tdcto.tdMasterData.isJointAcct}">
 
-            <p:panel id="jointaddressPanel" style="border: 0px; background: transparent">
+            <p:panel id="jointaddressPanel" styleClass="MarCenter Container80" style="border: 0px; background: transparent">
 
-                <div class="Container80 Responsive100 MarTop5 MarCenter"
+                <div class="Container100 Responsive100 MarTop5 MarCenter"
                      style="margin-bottom: 15px;">
 
                     <p:panel rendered="#{tdcto.getErrorMessage(4) != null}"
@@ -204,7 +204,7 @@
                 </div>
 
                 <p:panel id="jointaddressPanel2" style="border: 0px; background: transparent"
-                         styleClass="Container80 Responsive100 MarTop5 MarCenter"
+                         styleClass="Container100 Responsive100 MarTop5 MarCenter"
                          rendered="#{tdcto.tdMasterData.jointhasDifferent}">
 
                     <div class="Container100">
@@ -279,7 +279,7 @@
                 </p:panel>
 
                 <p:panel id="jointmailaddressPanel2"  style="border: 0px; background: transparent"
-                         styleClass="Container80 Responsive100 MarTop5 MarCenter"
+                         styleClass="Container100 Responsive100 MarTop5 MarCenter"
                          rendered="#{tdcto.tdMasterData.jointhasDifferent}">
 
                     <div class="Container100">
@@ -353,6 +353,7 @@
 
                         </div>
                     </p:panel>
+
                 </p:panel>
                 <div class="Container100 MarTop20" style="margin: 10px 10px;">
                     <p:commandLink styleClass="UI-prevButtonFA Fleft"

@@ -21,6 +21,7 @@ public class ACATDetails
    private String fromOtherAccountType;
    private String transferTypeId;
    private String contraFirmList;
+   private String contraFirmListtmp;
    private String otherContraFirmList;
 
 
@@ -162,5 +163,15 @@ public class ACATDetails
    public void setOtherContraFirmList(String otherContraFirmList)
    {
       this.otherContraFirmList = otherContraFirmList;
+   }
+
+   public String getContraFirmListtmp()
+   {
+      return contraFirmListtmp;
+   }
+
+   public void setContraFirmListtmp(String contraFirmListtmp)
+   {
+      this.contraFirmListtmp = contraFirmListtmp;
    }
 }

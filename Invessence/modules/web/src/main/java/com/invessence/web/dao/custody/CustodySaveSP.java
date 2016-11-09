@@ -477,7 +477,7 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_reqId", reqId);
       inputMap.put("p_fromAccountTitle", data.getFromAccountTitle());
       inputMap.put("p_accountNumber2", data.getAccountNumber2());
-      inputMap.put("p_contraFirmList", data.getContraFirmList());
+      inputMap.put("p_contraFirmList", data.getContraFirmListtmp());
       inputMap.put("p_fromFirmAddress", data.getFromFirmAddress());
       inputMap.put("p_fromFirmPhoneNumber", data.getFromFirmPhoneNumber());
       inputMap.put("p_fromEEPlanType", data.getFromEEPlanType());
