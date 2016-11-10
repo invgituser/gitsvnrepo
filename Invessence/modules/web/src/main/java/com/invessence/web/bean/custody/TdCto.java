@@ -229,8 +229,7 @@ public class TdCto
                ||  loadVal.equalsIgnoreCase("") ||
                loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
                loadVal.equalsIgnoreCase("differenUser") ||
-               loadVal.equalsIgnoreCase("NOACCOUNTMAP") ||
-               loadVal.equalsIgnoreCase("ACCOUNTMANAGED")
+               loadVal.equalsIgnoreCase("NOACCOUNTMAP")
                )
             {
                msgheader = "dctd.102";
@@ -248,13 +247,13 @@ public class TdCto
                msgheader = "dctd.100";
                webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
-            }
+            }*/
             else if(loadVal.equalsIgnoreCase("ACCOUNTMANAGED"))
             {
                msgheader = "dctd.103";
                webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
-            }*/
+            }
             else {
                // Check all data to find out where they left off last time.
                // Just don't display error. Just go to that page.
