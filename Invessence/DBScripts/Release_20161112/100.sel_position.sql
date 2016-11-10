@@ -9,6 +9,8 @@ BEGIN
 
 	DECLARE tAdvisorType VARCHAR(25);
     DECLARE tfilterType   VARCHAR(1);
+    
+    DECLARE tTotalPos	 DOUBLE;
 
 	SELECT 
     MIN(advisor)
@@ -20,6 +22,17 @@ BEGIN
 		THEN set tfilterType = 'A';
 		ELSE set tfilterType = 'O';  
 	END IF;
+
+			select SUM(`ext_position`.`positionValue`)
+            INTO `tTotalPos`
+			FROM `ext_position`
+			WHERE `ext_position`.`acctnum` = p_acctnum
+			AND   `ext_position`.`reportDate` = ( select max(`pos`.`reportDate`) from `ext_position` `pos`)
+			;
+            
+            IF (`tTotalPos` = 0)
+             THEN set `tTotalPos` = 1;
+			END IF;
 
 	IF (tfilterType = 'O')
 		THEN
@@ -34,17 +47,19 @@ BEGIN
 				,`ext_position`.`costBasisMoney` as `costBasisMoney`
 				,`ext_position`.`markPrice`
 				,`ext_position`.`positionValue` as `positionValue`
+                ,`ext_position`.`pnlUnrealized` as `fifoPnlUnrealized`
+                ,`ext_position`.`positionValue`/`tTotalPos` as `weight`
 				, `ext_acct_info`.`acctnum`
-                , IFNULL(`ext_acct_info`.`applicantFName`,`user_logon`.`firstname`) as firstname
-                , IFNULL(`ext_acct_info`.`applicantLName`,`user_logon`.`lastname`) as lastname
+                , IFNULL(`ext_acct_info`.`applicantFName`,`user_logon`.`firstname`) as `firstname`
+                , IFNULL(`ext_acct_info`.`applicantLName`,`user_logon`.`lastname`) as `lastname`
 				,`ext_acct_info`.`rep`
 				,`ext_acct_info`.`dateOpened`
 				,`sec_master`.`name` as `description`
 				,`sec_master`.`assetclass`
 				,`sec_master`.`subclass`
-                ,`sec_asset_master`.`assetcolor` as color
+                ,`sec_asset_master`.`assetcolor` as `color`
                 ,`user_trade_profile`.`theme`
-				,`user_trade_profile`.`portfolioName` as accountAlias
+				,`user_trade_profile`.`portfolioName` as `accountAlias`
 			FROM `ext_position`
 				 INNER JOIN `ext_acct_info`
 				 ON (`ext_position`.`clientAccountID` = `ext_acct_info`.`clientAccountID`)
@@ -77,18 +92,19 @@ BEGIN
 				,`ext_position`.`costBasisMoney` as `costBasisMoney`
 				,`ext_position`.`markPrice`
 				,`ext_position`.`positionValue` as `positionValue`
-                ,`ext_position`.`pnlUnrealized` as fifoPnlUnrealized
+                ,`ext_position`.`pnlUnrealized` as `fifoPnlUnrealized`
+                ,`ext_position`.`positionValue`/`tTotalPos` as `weight`
 				, `ext_acct_info`.`acctnum`
-                , IFNULL(`ext_acct_info`.`applicantFName`,`user_logon`.`firstname`) as firstname
-                , IFNULL(`ext_acct_info`.`applicantLName`,`user_logon`.`lastname`) as lastname
+                , IFNULL(`ext_acct_info`.`applicantFName`,`user_logon`.`firstname`) as `firstname`
+                , IFNULL(`ext_acct_info`.`applicantLName`,`user_logon`.`lastname`) as `lastname`
 				,`ext_acct_info`.`rep`
 				,`ext_acct_info`.`dateOpened`
 				,`sec_master`.`name` as `description`
 				,`sec_master`.`assetclass`
 				,`sec_master`.`subclass`
-                ,`sec_asset_master`.`assetcolor` as color
+                ,`sec_asset_master`.`assetcolor` as `color`
                 ,`user_trade_profile`.`theme`
-				,`user_trade_profile`.`portfolioName` as accountAlias
+				,`user_trade_profile`.`portfolioName` as `accountAlias`
 		FROM `ext_position`
 				 INNER JOIN `ext_acct_info`
 				 ON (`ext_position`.`clientAccountID` = `ext_acct_info`.`clientAccountID`)
