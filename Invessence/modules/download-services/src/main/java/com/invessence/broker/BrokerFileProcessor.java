@@ -149,7 +149,10 @@ public class BrokerFileProcessor
                                  List<String> filesToLoad = getFilesToLoad(fileNameLst, sdfFileParsing.parse("" + dbParamMap.get("BUSINESS_DATE").getValue()), downloadFileDetails.getFileName());
                                  if (filesToLoad == null || filesToLoad.size() == 0)
                                  {
-                                    mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server to load.\n");
+                                    if(downloadFileDetails.getRequired().equalsIgnoreCase("Y"))
+                                    {
+                                       mailAlertMsg.append(downloadFileDetails.getFileName() + " files are not available on server to load.\n");
+                                    }
                                     logger.info(downloadFileDetails.getFileName() + " files are not available on server to load.");
                                  }
                                  else
