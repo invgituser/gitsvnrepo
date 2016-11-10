@@ -224,15 +224,23 @@ public class TdCto
             // load firm list for ACAt details
             custodyListDAO.getAcatFirmList(tdMasterData);
             // Start fresh, clean and start from top page.
-            if(!webutil.isUserLoggedIn())
+            String loadVal=loadData();
+            if(!webutil.isUserLoggedIn()
+               ||  loadVal.equalsIgnoreCase("") ||
+               loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
+               loadVal.equalsIgnoreCase("differenUser") ||
+               loadVal.equalsIgnoreCase("NOACCOUNTMAP") ||
+               loadVal.equalsIgnoreCase("ACCOUNTMANAGED")
+               )
             {
                msgheader = "dctd.102";
-               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               webutil.redirect("/access-denied.xhtml", null);
+               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
             }
-            String loadVal=loadData();
+
             //NOACCOUNTNUMBER,  NOACCOUNTMAP,success,ACCOUNTMANAGED,differenUser
-            if (loadVal.equalsIgnoreCase("") ||
+           /* if (loadVal.equalsIgnoreCase("") ||
                loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
                loadVal.equalsIgnoreCase("differenUser") ||
                loadVal.equalsIgnoreCase("NOACCOUNTMAP"))
@@ -246,7 +254,7 @@ public class TdCto
                msgheader = "dctd.103";
                webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
-            }
+            }*/
             else {
                // Check all data to find out where they left off last time.
                // Just don't display error. Just go to that page.

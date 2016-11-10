@@ -176,7 +176,7 @@
                                                      value="#{tdcto.tdMasterData.achBankDetail.bankAcctType}"
                                                      style="width: 100%;">
                                         <p:ajax event="change" update="@this" process="@this"/>
-                                        <f:selectItem itemLabel="Select Type" itemValue=""
+                                        <f:selectItem itemLabel="Select Account Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
                                         <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
@@ -207,7 +207,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdcto.tdMasterData.achBankDetail.bankAcctName}"
                                                  maxlength="90"
-                                                 placeholder="Name on bank account">
+                                                 placeholder="Name on Bank Account">
                                     </p:inputText>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@
                                     <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdcto.tdMasterData.acatDetails.fromAccountTitle}"
                                                  maxlength="100"
-                                                 placeholder="Account Title">
+                                                 placeholder="Account Title / Registration">
                                     </p:inputText>
                                 </div>
                                 <div class="Container32 CustomWidthFA-Responsive">
@@ -340,11 +340,11 @@
                                     <div class="Container100">
                                         <div class="Container100 CustomWidthFA-Responsive" >
                                             <label Class="Container100" for="event"
-                                                   style="text-align: left !important; font-weight: bold !important;">Name of delivering firm *</label>
+                                                   style="text-align: left !important; font-weight: bold !important;">Name of Delivering Firm *</label>
 
                                             <div class="EmptyBox5"></div>
                                             <p:autoComplete id="event" value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
-                                                     forceSelection="false"       styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
+                                                     forceSelection="false" placeholder="Name of Delivering Firm"       styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
                                                           completeMethod="#{tdcto.tdMasterData.lookUpfirm}" minQueryLength="3" >
                                                 <p:ajax event="itemSelect" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
                                                       listener="${tdcto.tdMasterData.resetContraFirmList}" />
@@ -365,7 +365,7 @@
                                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                                          value="#{tdcto.tdMasterData.acatDetails.fromFirmAddress}"
                                                          maxlength="90"
-                                                         placeholder="Physical address of firm">
+                                                         placeholder="Physical Aaddress of Firm">
                                             </p:inputText>
                                         </div>
                                         <div class="Container32 CustomWidthFA-Responsive" >
@@ -667,7 +667,7 @@
                             <div class="Container45 Fleft CustomWidthFA-Responsive">
                                 <label Class="Container100"
                                        style="text-align: left !important; font-weight: bold !important;">
-                                    Amount of Transaction  *</label>
+                                    Amount of Transaction *</label>
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputNumber
@@ -706,7 +706,7 @@
                                                  value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctType}"
                                                  style="width: 100%;">
                                     <p:ajax/>
-                                    <f:selectItem itemLabel="Select Type" itemValue=""
+                                    <f:selectItem itemLabel="Select Account Type" itemValue=""
                                                   noSelectionOption="true"/>
                                     <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
                                     <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
