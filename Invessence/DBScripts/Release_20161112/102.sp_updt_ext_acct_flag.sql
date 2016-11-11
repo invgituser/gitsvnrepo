@@ -37,7 +37,7 @@ BEGIN
   AND mode = 'PROD'
   LIMIT 1;
   
-  set tReceiver = 'prashant@invessence.com';
+  -- set tReceiver = 'prashant@invessence.com';
   
   OPEN cur1;
  
@@ -64,7 +64,8 @@ BEGIN
 		  tAlertTime, -- `p_alertdatetime` varchar(20),
 		  tMessage -- `p_message` varchar(120)
 		);
-        
+
+        -- select tClientID, tAcctNum, tTotal, tAdvisor, tPortfolioName, tGoal, tMessage;
         CALL `invdb`.`sp_email_messages_add_mod`(
 			  'A' -- <p_addmodflag      VARCHAR(1)}>, 
 			, 'User' -- <{IN p_source    varchar(20)}>, 
@@ -86,6 +87,7 @@ BEGIN
          );
 
 
+	-- select tClientID, tAcctNum, tTotal, tAdvisor, tPortfolioName, tGoal, tMessage;
     -- Update all accounts to Active where we have nav.
     UPDATE `invdb`.`ext_acct_info`
 		set `ext_acct_info`.`status` = 'A',
