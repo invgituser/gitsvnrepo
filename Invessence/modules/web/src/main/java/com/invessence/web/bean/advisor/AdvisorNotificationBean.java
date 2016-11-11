@@ -1,7 +1,7 @@
 package com.invessence.web.bean.advisor;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -13,14 +13,15 @@ import com.invessence.web.util.WebUtil;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "advisornotificationBean")
-@RequestScoped
+@SessionScoped
 public class AdvisorNotificationBean implements Serializable
 {
-   private ArrayList<NotificationData> notificationDataList = null;
-   private NotificationData notificationData = new NotificationData();
-   private NotificationData selectedMessage = null;
-   private String filterNotice = "N";
-   private String notificationType = "";
+   private ArrayList<NotificationData> notificationDataList;
+   // private NotificationData notificationData = new NotificationData();
+   private List<NotificationData> selectionList;
+   private NotificationData selectedMessage;
+   private String filterNotice;
+   private String notificationType;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -29,23 +30,33 @@ public class AdvisorNotificationBean implements Serializable
       this.webutil = webutil;
    }
 
-   @ManagedProperty("#{advisorListDataDAO}")
-   private AdvisorListDataDAO advisorListDao;
-   public void setAdvisorListDao(AdvisorListDataDAO advisorListDao)
+   @ManagedProperty("#{advisorSaveDataDAO}")
+   private AdvisorSaveDataDAO advisorSaveDAO;
+   public void setAdvisorSaveDAO(AdvisorSaveDataDAO advisorSaveDAO)
    {
-      this.advisorListDao = advisorListDao;
+      this.advisorSaveDAO = advisorSaveDAO;
    }
 
-   @ManagedProperty("#{advisorSaveDataDAO}")
-   private AdvisorSaveDataDAO advisorSaveDao;
-   public void setAdvisorSaveDao(AdvisorSaveDataDAO advisorSaveDao)
+   @ManagedProperty("#{advisorListDataDAO}")
+   private AdvisorListDataDAO advisorListDAO;
+   public void setAdvisorListDAO(AdvisorListDataDAO advisorListDAO)
    {
-      this.advisorSaveDao = advisorSaveDao;
+      this.advisorListDAO = advisorListDAO;
    }
 
    public ArrayList<NotificationData> getNotificationDataList()
    {
       return notificationDataList;
+   }
+
+   public List<NotificationData> getSelectionList()
+   {
+      return selectionList;
+   }
+
+   public void setSelectionList(List<NotificationData> selectionList)
+   {
+      this.selectionList = selectionList;
    }
 
    public NotificationData getSelectedMessage()
@@ -78,6 +89,7 @@ public class AdvisorNotificationBean implements Serializable
       this.notificationType = notificationType.substring(0,1);
    }
 
+/*
    public NotificationData getNotificationData()
    {
       return notificationData;
@@ -87,6 +99,7 @@ public class AdvisorNotificationBean implements Serializable
    {
       this.notificationData = notificationData;
    }
+*/
 
    public void preRenderView()
    {
@@ -112,7 +125,7 @@ public class AdvisorNotificationBean implements Serializable
          logonid = webutil.getLogonid();
          if (notificationType == null || notificationType.isEmpty())
             notificationType = "M";
-         notificationDataList = advisorListDao.getAdvisorNotification(logonid, notificationType, filterNotice);
+         notificationDataList = advisorListDAO.getAdvisorNotification(logonid, notificationType, filterNotice);
       }
    }
 
@@ -140,40 +153,56 @@ public class AdvisorNotificationBean implements Serializable
          return "Messages";
    }
 
-   public String markDone()
+   public void archiveMessage()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("A");
-         advisorSaveDao.saveAdvisorNotice(data);
-         webutil.redirect("/pages/common/notification.xhtml", null);
-/*
-         selectedMessage = null;
+         advisorSaveDAO.saveAdvisorNotice(data);
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "N";
          collectNotification();
-         RequestContext.getCurrentInstance().update("messageDT");
-*/
-         return "success";
       }
-      return "failed";
    }
 
-   public String markUnDone()
+   public void archiveMessages()
+   {
+      if (selectionList != null) {
+         for (NotificationData data: selectionList) {
+            data.setStatus("A");
+            advisorSaveDAO.saveAdvisorNotice(data);
+         }
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "N";
+         collectNotification();
+      }
+   }
+
+   public void markRead()
+   {
+      NotificationData data = selectedMessage;
+      if (data != null) {
+         data.setStatus("A");
+         advisorSaveDAO.saveAdvisorNotice(data);
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "N";
+         collectNotification();
+      }
+   }
+
+   public void markUnRead()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("N");
-         advisorSaveDao.saveAdvisorNotice(data);
-         webutil.redirect("/pages/common/notification.xhtml", null);
-/*
-         selectedMessage = null;
+         advisorSaveDAO.saveAdvisorNotice(data);
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "A";
          collectNotification();
-         RequestContext.getCurrentInstance().update("messageDT");
-*/
-         return "success";
       }
-      return "failed";
    }
 
+/*
    public void saveNotification()
    {
       if (notificationData != null) {
@@ -181,12 +210,10 @@ public class AdvisorNotificationBean implements Serializable
          notificationData.setTagid("T");
          notificationData.setAdvisorlogonid(webutil.getLogonid());
          notificationData.setNoticetype(notificationData.getNoticetype().substring(1,1));
-         advisorSaveDao.saveAdvisorNotice(notificationData);
+         commonDao.saveUserNotice(notificationData);
          collectNotification();
          // RequestContext.getCurrentInstance().closeDialog("addNotification");
       }
    }
-
-
-
+*/
 }

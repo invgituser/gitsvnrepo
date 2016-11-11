@@ -1,7 +1,7 @@
 package com.invessence.web.bean.common;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -12,14 +12,15 @@ import com.invessence.web.util.*;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "notificationBean")
-@RequestScoped
+@SessionScoped
 public class NotificationBean implements Serializable
 {
-   private ArrayList<NotificationData> notificationDataList = null;
-   private NotificationData notificationData = new NotificationData();
-   private NotificationData selectedMessage = null;
-   private String filterNotice = "N";
-   private String notificationType = "";
+   private ArrayList<NotificationData> notificationDataList;
+   // private NotificationData notificationData = new NotificationData();
+   private List<NotificationData> selectionList;
+   private NotificationData selectedMessage;
+   private String filterNotice;
+   private String notificationType;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -39,6 +40,16 @@ public class NotificationBean implements Serializable
    public ArrayList<NotificationData> getNotificationDataList()
    {
       return notificationDataList;
+   }
+
+   public List<NotificationData> getSelectionList()
+   {
+      return selectionList;
+   }
+
+   public void setSelectionList(List<NotificationData> selectionList)
+   {
+      this.selectionList = selectionList;
    }
 
    public NotificationData getSelectedMessage()
@@ -71,6 +82,7 @@ public class NotificationBean implements Serializable
       this.notificationType = notificationType.substring(0,1);
    }
 
+/*
    public NotificationData getNotificationData()
    {
       return notificationData;
@@ -80,6 +92,7 @@ public class NotificationBean implements Serializable
    {
       this.notificationData = notificationData;
    }
+*/
 
    public void preRenderView()
    {
@@ -133,36 +146,56 @@ public class NotificationBean implements Serializable
          return "Messages";
    }
 
-   public void markDone()
+   public void archiveMessage()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("A");
          commonDao.saveUserNotice(data);
-         webutil.redirect("/pages/common/notification.xhtml", null);
-/*
-         selectedMessage = null;
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "N";
          collectNotification();
-         RequestContext.getCurrentInstance().update("messageDT");
-*/
       }
    }
 
-   public void markUnDone()
+   public void archiveMessages()
+   {
+      if (selectionList != null) {
+         for (NotificationData data: selectionList) {
+            data.setStatus("A");
+            commonDao.saveUserNotice(data);
+         }
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "N";
+         collectNotification();
+      }
+   }
+
+   public void markRead()
+   {
+      NotificationData data = selectedMessage;
+      if (data != null) {
+         data.setStatus("A");
+         commonDao.saveUserNotice(data);
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "N";
+         collectNotification();
+      }
+   }
+
+   public void markUnRead()
    {
       NotificationData data = selectedMessage;
       if (data != null) {
          data.setStatus("N");
          commonDao.saveUserNotice(data);
-         webutil.redirect("/pages/common/notification.xhtml", null);
-/*
-         selectedMessage = null;
+         // webutil.redirect("/pages/common/notification.xhtml", null);
+         filterNotice = "A";
          collectNotification();
-         RequestContext.getCurrentInstance().update("messageDT");
-*/
       }
    }
 
+/*
    public void saveNotification()
    {
       if (notificationData != null) {
@@ -175,6 +208,7 @@ public class NotificationBean implements Serializable
          // RequestContext.getCurrentInstance().closeDialog("addNotification");
       }
    }
+*/
 
 
 
