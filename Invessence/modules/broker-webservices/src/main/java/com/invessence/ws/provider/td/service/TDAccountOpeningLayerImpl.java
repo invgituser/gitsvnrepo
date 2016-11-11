@@ -307,6 +307,8 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
                         break;
                      }
                   }
+               }else{
+                  acctOwnerDetails2 = acctOwnerDetails;
                }
             }
             else
