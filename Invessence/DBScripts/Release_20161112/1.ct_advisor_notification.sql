@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `invdb`.`advisor_notification`;
 
-CREATE TABLE `advisor_notification` (
+CREATE TABLE `invdb`.`advisor_notification` (
   `messageid` bigint(20) NOT NULL AUTO_INCREMENT,
   `status` varchar(1) NOT NULL,
   `advisorlogonid` bigint(20) NOT NULL,

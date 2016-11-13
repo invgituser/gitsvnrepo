@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `temp`.`sp_upload_td_unrealized`;
+DROP PROCEDURE IF EXISTS `sp_upload_td_unrealized`;
 
 DELIMITER $$
-CREATE PROCEDURE `temp`.`sp_upload_td_unrealized`(
+CREATE PROCEDURE `sp_upload_td_unrealized`(
 )
 BEGIN
 
@@ -45,21 +45,25 @@ BEGIN
 		 , `tmp_td_unrealized`.`currentQuantity`
 		 , CASE WHEN (`tmp_td_unrealized`.`currentQuantity` is null) THEN 1
 				WHEN (`tmp_td_unrealized`.`currentQuantity` = 0) THEN 1
-                ELSE (`tmp_td_unrealized`.`costBasis` / `tmp_td_unrealized`.`currentQuantity`)
+                ELSE (`tmp_td_unrealized`.`bookCost` / `tmp_td_unrealized`.`currentQuantity`) 
 			END costBasisPrice
-		 , `tmp_td_unrealized`.`costBasis` as `costBasisMoney`
-		 , CASE WHEN (`tmp_td_unrealized`.`currentQuantity` is null) THEN 1
+		 , `tmp_td_unrealized`.`bookCost` as `costBasisMoney`
+		 , IFNULL(`tmp_td_price`.price, 
+				CASE WHEN (`tmp_td_unrealized`.`currentQuantity` is null) THEN 1
 				WHEN (`tmp_td_unrealized`.`currentQuantity` = 0) THEN 1
-                ELSE (`tmp_td_unrealized`.`costBasis` / `tmp_td_unrealized`.`currentQuantity`)
-			END markPrice
-		 , `tmp_td_unrealized`.`costBasis` as `positionValue`
-		 , 0 as pnlUnrealized
+                ELSE (`tmp_td_unrealized`.`bookCost` / `tmp_td_unrealized`.`currentQuantity`) 
+				END) as markPrice
+		 ,  (IFNULL(`tmp_td_price`.price,1) * IFNULL(`tmp_td_unrealized`.`currentQuantity`,1)) as `positionValue`
+		 ,  (IFNULL(`tmp_td_price`.price,1) * IFNULL(`tmp_td_unrealized`.`currentQuantity`,1)) - `tmp_td_unrealized`.`bookCost` as pnlUnrealized
 		 , `tmp_td_unrealized`.`ID` as `levelOfDetail`
 		 , now() as created
-    FROM `invdb`.`ext_acct_info` as `ext_acct_info`, `temp`.`tmp_td_unrealized` as `tmp_td_unrealized`
-    WHERE `ext_acct_info`.`clientAccountID` = `tmp_td_unrealized`.`accountNumber`
+    FROM `invdb`.`ext_acct_info`
+		 INNER JOIN `temp`.`tmp_td_unrealized`
+         ON (`ext_acct_info`.`clientAccountID` = `tmp_td_unrealized`.`accountNumber`)
+		 LEFT JOIN `temp`.`tmp_td_price`
+         ON (`tmp_td_unrealized`.`symbolCUSIP` = `tmp_td_price`.`symbolCUSIP`)
 	;
-
+    
     -- Now Add Cash Position.  NOTE:  We deleted all records at top.
 	INSERT INTO `invdb`.`ext_position`
 		(`acctnum`,
