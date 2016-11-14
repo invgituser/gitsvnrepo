@@ -24,7 +24,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
       Map outMap = sp.loadClientProfileData(data);
-      String action;
+      String managed, editable;
       try {
          if (outMap != null)
          {
@@ -48,14 +48,33 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
                data.setRegisteredState(convert.getStrData(rs.get("state")));
                data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+               managed = (convert.getStrData(rs.get("acctstatus")));
 
-               action = (convert.getStrData(rs.get("acctstatus")));
-               if (action.equalsIgnoreCase("Pending")) {
+               if (managed == null) {
                   data.setManaged(false);
                }
                else {
-                  data.setManaged(true);
+                  if (managed.equalsIgnoreCase("Pending") || managed.equalsIgnoreCase("Active")) {
+                     data.setManaged(true);
+                  }
+                  else {
+                     data.setManaged(false);
+                  }
                }
+
+               editable =  convert.getStrData(rs.get("managed"));
+               if (editable == null) {
+                  data.setEditable(true);
+               }
+               else {
+                  if (editable.startsWith("P") || editable.startsWith("A") || editable.startsWith("X")) {
+                     data.setEditable(false);
+                  }
+                  else {
+                     data.setEditable(true);
+                  }
+               }
+
                data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
                data.setGoal(convert.getStrData(rs.get("goal")));
                data.setAccountType(convert.getStrData(rs.get("accttype")));

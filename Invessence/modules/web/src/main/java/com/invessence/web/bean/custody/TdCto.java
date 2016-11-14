@@ -1510,29 +1510,22 @@ public class TdCto
       private String loadData()
    {
       String retValue="";
+      Long logonid;
       if (beanacctnum == null)
       {
          retValue = "NOACCOUNTNUMBER";
          return retValue;
       }
 
-
-/*
-      acctnum = Long.valueOf(beanacctnum);
-      this.acctnum =  acctnum;
-      if (tdMasterData != null) {
-         tdMasterData.setAcctnum(acctnum);
-         tdMasterData.getAcctdetail().setAcctnum(acctnum);
-         tdMasterData.getAcctdetail().setCashSweepVehicleChoiceId("TDSIPC");
-         tdMasterData.getAcctOwnersDetail().setAcctnum(acctnum);
-         tdMasterData.getJointAcctOwnersDetail().setAcctnum(acctnum);
-         tdMasterData.getOwneremploymentDetail().setAcctnum(acctnum);
-         tdMasterData.getJointEmploymentDetail().setAcctnum(acctnum);
+      if (webutil.isUserLoggedIn()) {
+         logonid = webutil.getLogonid();
       }
-*/
+      else {
+         logonid = getLongBeanlogonid();
+      }
 
       tdMasterData.getCustomerData().setAcctnum(getLongBeanacctnum());
-      tdMasterData.getCustomerData().setLogonid(getLongBeanlogonid());
+      tdMasterData.getCustomerData().setLogonid(logonid);
       consumerListDAO.getProfileData(tdMasterData.getCustomerData());
 
       if (tdMasterData.getCustomerData().getUserid() == null)
@@ -1540,13 +1533,15 @@ public class TdCto
          retValue = "NOACCOUNTMAP";
          return retValue;
       }
-      if (getLongBeanlogonid() != webutil.getLogonid())
+/*
+      if (getLongBeanlogonid(). != webutil.getLogonid())
       {
          retValue = "differenUser";
          return retValue;
       }
+*/
 
-     if ((tdMasterData.getCustomerData().getManaged() == null) || ( ! tdMasterData.getCustomerData().getManaged())) {
+     if (tdMasterData.getCustomerData().getEditable()) {
          custodyListDAO.getTDAccountDetails(tdMasterData);
          custodyListDAO.getTDAccountHolder(tdMasterData);
          custodyListDAO.getTDEmployment(tdMasterData);

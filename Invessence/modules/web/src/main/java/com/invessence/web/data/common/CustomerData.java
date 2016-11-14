@@ -86,7 +86,7 @@ public class CustomerData extends ProfileData
    public List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
 
    public Map<String, String> advisorBasket;
-   private Boolean managed;
+   private Boolean managed, editable;
 
 
    @ManagedProperty("#{webutil}")
@@ -145,6 +145,8 @@ public class CustomerData extends ProfileData
 
    public Boolean getManaged()
    {
+      if (managed == null)
+         return false;
       return managed;
    }
 
@@ -153,7 +155,19 @@ public class CustomerData extends ProfileData
       this.managed = managed;
    }
 
-/*
+   public Boolean getEditable()
+   {
+      if (editable == null)
+         return true;
+      return editable;
+   }
+
+   public void setEditable(Boolean editable)
+   {
+      this.editable = editable;
+   }
+
+   /*
    public AssetAllocationModel getAllocModel()
    {
       return allocModel;
