@@ -12,10 +12,10 @@
                          style="border:0px !important; background:none;"
                          class="FormContent">
                 <div class="Wid90">Desired Goal</div>
-                <p:inputNumber style="width: 80px"
+                <pe:inputNumber style="width: 80px"
                                 value="#{uobpb.goalData.goalDesired}"
                                 maxlength="11" decimalPlaces="0" symbol="$">
-                </p:inputNumber>
+                </pe:inputNumber>
                 <p:spacer width="1"/>
 
                 <div class="Wid90">Number of years when needed</div>
@@ -31,12 +31,12 @@
                 <p:spacer width="1"/>
 
                 <div class="Wid90">Recurring investment</div>
-                <p:inputNumber style="width: 80px"
+                <pe:inputNumber style="width: 80px"
                                 value="#{uobpb.recurringInvestment}"
                                 maxlength="11" decimalPlaces="0" symbol="$">
                     <p:ajax event="blur" listener="#{uobpb.onChange}"
                             update=":ceForm:workArea, :ceForm:graphArea"/>
-                </p:inputNumber>
+                </pe:inputNumber>
                 <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
                               value="#{uobpb.goalAdjustment}">
                 </h:outputText>

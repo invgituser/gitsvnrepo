@@ -29,6 +29,7 @@ public class WebUtil implements Serializable
    protected final Log webutillooger = LogFactory.getLog(getClass());
    public UIProfile uiprofile = new UIProfile();
    public SQLData converter = new SQLData();
+   public DataDisplayConverter dataDisplayConverter = new DataDisplayConverter();
 
    @Autowired
    private WebMessage messageText;
@@ -45,6 +46,11 @@ public class WebUtil implements Serializable
    public SQLData getConverter()
    {
       return converter;
+   }
+
+   public DataDisplayConverter getDataDisplayConverter()
+   {
+      return dataDisplayConverter;
    }
 
    public UIProfile getUiprofile()

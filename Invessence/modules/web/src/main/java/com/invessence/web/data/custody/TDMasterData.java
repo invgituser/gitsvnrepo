@@ -483,6 +483,7 @@ public class TDMasterData implements Serializable
    {
          if(fundType.equals("PMACH"))
          {
+            initialInvestment = getCustomerData().getInitialInvestment().doubleValue();
             acatDetails=new ACATDetails();
             tdTransferDetails=new TDTransferDetails();
          }

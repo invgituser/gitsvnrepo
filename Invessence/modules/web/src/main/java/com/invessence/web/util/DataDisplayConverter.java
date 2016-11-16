@@ -46,7 +46,7 @@ public class DataDisplayConverter implements Serializable
    {
       if (value != null)
       {
-         DecimalFormat df = new DecimalFormat("###,####,###.##");
+         DecimalFormat df = new DecimalFormat("###,####,##0.00");
          String strValue = df.format(value);
          return "$" + strValue;
       }

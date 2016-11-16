@@ -37,18 +37,18 @@
                         Total Expenses<br/>
                         <span style="font-size: small;">(Yearly)</span>
                     </div>
-                    <p:inputNumber value="#{uobpb.householdwages}" styleClass="Wid90"
+                    <pe:inputNumber value="#{uobpb.householdwages}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
+                    </pe:inputNumber>
 
                     <div class="Wid90">Total Debt</div>
-                    <p:inputNumber value="#{uobpb.otherDebt}" styleClass="Wid90"
+                    <pe:inputNumber value="#{uobpb.otherDebt}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
+                    </pe:inputNumber>
 
 
                 </h:panelGrid>

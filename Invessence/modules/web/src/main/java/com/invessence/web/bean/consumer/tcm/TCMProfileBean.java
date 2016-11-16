@@ -796,12 +796,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             if (getGoal() == null || getInitialInvestment() == null)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.required", "Min $50,000 investment required", new Object[]{"$50,000"}));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.required", "Min $2,000 investment required", new Object[]{"$2,000"}));
             }
-            if (getInitialInvestment() != null && getInitialInvestment() < 50000)
+            if (getInitialInvestment() != null && getInitialInvestment() < 2000)
             {
                dataOK = false;
-               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.constraint", "Min $50,000 investment required", new Object[]{"$50,000"}));
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.constraint", "Min $2,000 investment required", new Object[]{"$2,000"}));
             }
 
             if (getGoal() != null)

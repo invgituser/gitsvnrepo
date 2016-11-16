@@ -16,21 +16,21 @@
                         Salary/Wages (Yearly)<br/>
                         <span style="font-size: small;">(Total Gross Income)</span>
                     </div>
-                    <p:inputNumber value="#{uobpb.householdwages}" styleClass="Wid90"
+                    <pe:inputNumber value="#{uobpb.householdwages}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
+                    </pe:inputNumber>
 
                     <div class="TexAlLeft Wid90">
                         Liquid Asset<br/>
                         <span style="font-size: small;">(Cash/Savings Account, etc.)</span>
                     </div>
-                    <p:inputNumber value="#{uobpb.moneymarket}" styleClass="Wid90"
+                    <pe:inputNumber value="#{uobpb.moneymarket}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
+                    </pe:inputNumber>
                     <h:outputText/>
                     <h:outputText/>
 
@@ -38,11 +38,11 @@
                         Other Investments<br/>
                         <span style="font-size: small;">(Stocks, Bond, Retirement)</span>
                     </div>
-                    <p:inputNumber value="#{uobpb.investment}" styleClass="Wid90"
+                    <pe:inputNumber value="#{uobpb.investment}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
+                    </pe:inputNumber>
 
                 </h:panelGrid>
             </div>

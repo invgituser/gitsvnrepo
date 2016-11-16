@@ -40,12 +40,12 @@
             </p:spinner>
 
             <div class="Wid90">Initial investment</div>
-            <p:inputNumber id="initialInvestment" styleClass="Wid90"
+            <pe:inputNumber id="initialInvestment" styleClass="Wid90"
                             value="#{uobpb.initialInvestment}"
                             maxlength="11" decimalPlaces="0" symbol="$">
                 <p:ajax event="blur" listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
-            </p:inputNumber>
+            </pe:inputNumber>
 
         </p:panelGrid>
     </div>
