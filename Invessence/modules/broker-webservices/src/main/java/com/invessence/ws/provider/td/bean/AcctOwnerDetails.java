@@ -27,6 +27,7 @@ public class AcctOwnerDetails
    private String physicalAddressZipCode;
    private List<EmploymentDetails> employmentDetails;
    private VisaDetails visaDetails;
+   private String feesCheck;
 
    public List<EmploymentDetails> getEmploymentDetails()
    {
@@ -94,6 +95,7 @@ public class AcctOwnerDetails
          ", directorShareholderDetail='" + directorShareholderDetail + '\'' +
          ", bd='" + bd + '\'' +
          ", bdDetail='" + bdDetail + '\'' +
+         ", feesCheck='" + feesCheck + '\'' +
          '}';
    }
 
@@ -432,5 +434,15 @@ public class AcctOwnerDetails
    public void setOwnershipPercent(Double ownershipPercent)
    {
       this.ownershipPercent = ownershipPercent;
+   }
+
+   public String getFeesCheck()
+   {
+      return feesCheck;
+   }
+
+   public void setFeesCheck(String feesCheck)
+   {
+      this.feesCheck = feesCheck;
    }
 }

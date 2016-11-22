@@ -122,6 +122,27 @@ public class JavaUtil implements Serializable
       return flag;
    }
 
+   public static String checkYear(String enterDate)
+   {
+      String flag="";
+      try{
+         DateFormat userDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+         Date entryDate = userDateFormat.parse(enterDate);
+         Date todayDate= new Date();
+         todayDate = userDateFormat.parse(userDateFormat.format(todayDate));
+         Long year=(todayDate.getTime()-entryDate.getTime())/(24 * 60 * 60 * 1000)/365;
+         if(year>130){
+            flag="F";
+         }else {
+            flag="S";
+         }
+
+      }catch(Exception ex){
+         ex.printStackTrace();
+      }
+      return flag;
+   }
+
    public static boolean checkdate(String enterDate)
    {
       Boolean flag=false;

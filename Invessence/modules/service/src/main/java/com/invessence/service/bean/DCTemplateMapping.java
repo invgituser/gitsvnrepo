@@ -10,6 +10,8 @@ public class DCTemplateMapping
    private String lable;
    private String dbColumn;
    private String role;
+   private String isDisabled;
+
 
    @Override
    public String toString()
@@ -20,6 +22,7 @@ public class DCTemplateMapping
          ", lable='" + lable + '\'' +
          ", dbColumn='" + dbColumn + '\'' +
          ", role='" + role + '\'' +
+         ", isDisabled='" + isDisabled + '\'' +
          '}';
    }
 
@@ -71,5 +74,15 @@ public class DCTemplateMapping
    public void setRole(String role)
    {
       this.role = role;
+   }
+
+   public String getIsDisabled()
+   {
+      return isDisabled;
+   }
+
+   public void setIsDisabled(String isDisabled)
+   {
+      this.isDisabled = isDisabled;
    }
 }

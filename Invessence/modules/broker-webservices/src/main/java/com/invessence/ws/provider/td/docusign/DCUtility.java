@@ -1079,6 +1079,7 @@ catch (Exception e)
 
       text.setTabLabel(dctemplate.getLable());
       text.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
+
    }
    catch (NoSuchFieldException e)
    {
@@ -1111,6 +1112,8 @@ catch (Exception e)
             checkbox.setTabLabel(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
             checkbox.setSelected("true");
          }
+         if(dctemplate.getIsDisabled().equalsIgnoreCase("Y"))
+            checkbox.setLocked("true");
       }
       catch (NoSuchFieldException e)
       {
