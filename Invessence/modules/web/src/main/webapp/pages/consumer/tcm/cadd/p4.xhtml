@@ -63,11 +63,18 @@
                 </h:outputText>
             </div>
         <div class="EmptyBox5"></div>
-            <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(2) != null}"
+            <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(2) != null  and  !tcmpb.formPortfolioEdit }"
                      style="border: 0px; background: transparent"
                      styleClass="Container100">
                 <h:outputText styleClass="errorText"
                               value="#{tcmpb.pagemanager.getErrorMessage(2)}" escape="false"/>
+                <div class="EmptyBox5"></div>
+            </p:panel>
+            <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(3) != null  and  tcmpb.formPortfolioEdit }"
+                     style="border: 0px; background: transparent"
+                     styleClass="Container100">
+                <h:outputText styleClass="errorText"
+                              value="#{tcmpb.pagemanager.getErrorMessage(3)}" escape="false"/>
                 <div class="EmptyBox5"></div>
             </p:panel>
         <p:commandLink styleClass="UI-prevButton Fleft" value="Previous" rendered="#{tcmpb.pagemanager.prevButtonStat}"

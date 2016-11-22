@@ -1,4 +1,4 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -14,15 +14,16 @@
                                 styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
                                 value="#{tcmpb.initialInvestment}"
                                 maxlength="11" symbol="$"
-                                decimalPlaces="0"
+                                decimalPlaces="0" readonly="#{tcmpb.formPortfolioEdit}"
                                 required="true" requiredMessage="Min. of $50,000 investment is required!"
                                 validatorMessage="Min. of $50,000 investment is required!">
                 </p:inputNumber>
                 <p:message for="initialIid" display="tooltip"/>
 
                 <div class="mobileFullWidth"><h3 class="formFS"> for </h3></div>
+                <span class="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput" > <h:outputText value="#{tcmpb.goal}" rendered="#{tcmpb.formPortfolioEdit}"/></span>
                 <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="TCM-UI-Dropdown dropdownInputFullWidth portfolioCreationDD"
-                                 required="true" requiredMessage="Please choose investment strategy">
+                                 required="true" requiredMessage="Please choose investment strategy" rendered="#{!tcmpb.formPortfolioEdit}">
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
                             update=":ceForm:inputArea" process="initialIid q3"/>/>
                     <f:selectItem itemLabel="Choose One" itemValue=""/>
@@ -115,11 +116,17 @@
 
         </p:panel>
         <div class="EmptyBox10"></div>
-        <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(0) != null}"
+        <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(0) != null and  !tcmpb.formPortfolioEdit }"
                  style="border: 0px; background: transparent"
                  styleClass="Container100 TexAlCenter">
             <h:outputText styleClass="errorText"
                           value="#{tcmpb.pagemanager.getErrorMessage(0)}" escape="false"/>
+        </p:panel>
+        <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(1) != null and tcmpb.formPortfolioEdit }"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100 TexAlCenter">
+            <h:outputText styleClass="errorText"
+                          value="#{tcmpb.pagemanager.getErrorMessage(1)}" escape="false"/>
         </p:panel>
 
         <div class="TexAlCenter">

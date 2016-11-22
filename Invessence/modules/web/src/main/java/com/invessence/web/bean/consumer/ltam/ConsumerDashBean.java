@@ -133,7 +133,7 @@ public class ConsumerDashBean implements Serializable
          if (action != null) {
             if (action.equalsIgnoreCase("N")) {
                obj.put("act", "N");
-               whichXML = "/pages/consumer/cedit.xhtml";
+               whichXML = "/pages/consumer/portfolioedit.xhtml";
             }
             else {
                obj.put("acctnum", selectedAccount.getAcctnum().toString());
@@ -141,7 +141,7 @@ public class ConsumerDashBean implements Serializable
 
                if (action.equalsIgnoreCase("E")) {
                   obj.put("act", "E");
-                  whichXML = "/pages/consumer/cedit.xhtml";
+                  whichXML = "/pages/consumer/portfolioedit.xhtml";
                }
 
                if (action.equalsIgnoreCase("A")) {

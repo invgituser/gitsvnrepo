@@ -650,7 +650,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       pagemanager.setPage(0);
       Map <String, String> obj = new HashMap<String, String>();
       obj.put("act", "S");
-      webutil.redirect("/pages/consumer/cedit.xhtml", obj);
+      webutil.redirect("/pages/consumer/portfolioedit.xhtml", obj);
    }
 
    public void forwardData()
@@ -1050,7 +1050,7 @@ public class ConsumerEditBean extends LTAMCustomerData implements Serializable
       }
       catch (Exception ex)
       {
-         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Transaction exception was raised! Call support.", "Error");
+         message = new FacesMessage(FacesMessage.SEVERITY_ERRORacceptterms, "Transaction exception was raised! Call support.", "Error");
          FacesContext.getCurrentInstance().addMessage(null, message);
          ex.printStackTrace();
       }

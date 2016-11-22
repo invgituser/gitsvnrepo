@@ -35,6 +35,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Long beanAcctnum;
    private PagesImpl pagemanager;
    private Boolean formEdit = false;
+   private Boolean formPortfolioEdit = false;
    private Boolean disablegraphtabs = true, disabledetailtabs = true, disablesaveButton = true;
    private Boolean prefVisible = true;
    private Integer canOpenAccount;
@@ -42,9 +43,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Boolean displayGoalGraph = false,
       displayGoalText = false;
    private String customErrorText;
+   private String selectedThemeName;
 
    private Integer prefView = 0;
    private String whichChart;
+   private String formula;
+   private String acceptterms;
 
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
@@ -170,6 +174,48 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return imageSelected;
    }
 
+   public Boolean getFormPortfolioEdit()
+   {
+      return formPortfolioEdit;
+   }
+
+   public void setFormPortfolioEdit(Boolean formPortfolioEdit)
+   {
+      this.formPortfolioEdit = formPortfolioEdit;
+   }
+   public String getSelectedThemeName()
+   {
+      return selectedThemeName;
+   }
+
+   public void setSelectedThemeName(String selectedThemeName)
+   {
+      this.selectedThemeName = selectedThemeName;
+   }
+   public void selectedTheme()
+   {
+
+   }
+   public String getFormula()
+   {
+      return formula;
+   }
+
+   public void setFormula(String formula)
+   {
+      this.formula = formula;
+   }
+
+   public String getAcceptterms()
+   {
+      return acceptterms;
+   }
+
+   public void setAcceptterms(String acceptterms)
+   {
+      this.acceptterms = acceptterms;
+   }
+
    public String getFundButtonText()
    {
       if (webutil == null)
@@ -195,7 +241,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       return "triangleShape Fleft";
    }
-
+   public void exitPage()
+   {
+      uiLayout.goToStartPage();
+   }
    public String getAns5Tag2(Integer which)
    {
       if (which != null) {
@@ -227,6 +276,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             pagemanager = new PagesImpl(4);
             pagemanager.setPage(0);
             setPrefView(0);
+            formPortfolioEdit=false;
 
             // set dafaults
             riskCalculator.setNumberofQuestions(5);
@@ -250,6 +300,43 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          resetDataForm();
       }
    }
+
+   public void portfolioRenderView()
+   {
+
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            formPortfolioEdit=true;
+            // Page management
+            pagemanager = new PagesImpl(7);
+            pagemanager.setPage(0);
+            setPrefView(0);
+
+            // set dafaults
+            riskCalculator.setNumberofQuestions(5);
+            whichChart = "pie";
+            disablegraphtabs = true;
+            disabledetailtabs = true;
+
+            if (newapp != null && newapp.startsWith("N")) {
+               beanAcctnum = null;
+            }
+
+            // Client related data.
+            setRiskCalcMethod("C");
+            fetchClientData();
+            canOpenAccount = initCanOpenAccount();
+            welcomeDialog = false;
+         }
+      }
+      catch (Exception e)
+      {
+         resetDataForm();
+      }
+   }
+
 
    public void changeEvent(ValueChangeEvent event)
    {
@@ -738,12 +825,30 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          return -99;
       }
    }
+   public void onTermChange()
+   {
 
+   }
    public void startover()
    {
       pagemanager.setPage(0);
       // webutil.redirect("/start.xhtml", null);
 
+   }
+   public void agreeTerms()
+   {
+      FacesMessage message;
+      if (getAcceptterms() != null && getAcceptterms().equalsIgnoreCase("Y"))
+      {
+         nextPage();
+         return;
+      }
+      else
+      {
+         message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cannot continue.  Either accept the term, or go back to dashboard.", "Error");
+         FacesContext.getCurrentInstance().addMessage(null, message);
+         return;
+      }
    }
 
    public void prevPage()
@@ -893,37 +998,46 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return dataOK;
    }
 
+   public void processTransfer()
+   {
+      saveProfile();
+      pagemanager.nextPage();
+   }
    public void nextPage()
    {
       Boolean cangoToNext = true;
       customErrorText = null;
+      Integer currentpage=pagemanager.getPage();
+      if(formPortfolioEdit)
+         currentpage=currentpage-1;
 
-      switch (pagemanager.getPage())
+      switch (currentpage)
       {
-         case 0:
-            cangoToNext = validatePage(pagemanager.getPage());
+         case 0 :
+            cangoToNext = validatePage(currentpage);
             break;
          case 1:
-            cangoToNext = validatePage(pagemanager.getPage());
+            cangoToNext = validatePage(currentpage);
             break;
          case 2:
-            cangoToNext = validatePage(pagemanager.getPage());
+            cangoToNext = validatePage(currentpage);
             if (cangoToNext) {
                calcProjectionChart();
                doProjectionChart();
             }
             break;
          case 3:
-            cangoToNext = validatePage(pagemanager.getPage());
+            cangoToNext = validatePage(currentpage);
             break;
          case 4:
-            cangoToNext = validatePage(pagemanager.getPage());
+            cangoToNext = validatePage(currentpage);
             break;
 
       }
       if (cangoToNext)
       {
-         saveProfile();
+         if(!formPortfolioEdit)
+            saveProfile();
          if (pagemanager.getPage() == 0)
          {  // This is before moving to next page. ONLY for FIRST PAGE
             if (getAcctnum() > 0)
@@ -932,7 +1046,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             createAssetPortfolio(1); // Since we are refreshing on real-time, we don't need to do it during next.
          }
-         pagemanager.nextPage();
+         if((getFormula() != null && getFormula().equalsIgnoreCase("Q")) && pagemanager.getPage() == 0 && formPortfolioEdit)
+            pagemanager.nextPage();
+         else  if((getFormula() != null && getFormula().equalsIgnoreCase("D")) && pagemanager.getPage() == 0 && formPortfolioEdit)
+            pagemanager.setPage(4);
+         else
+            pagemanager.nextPage();
       }
       else
       {

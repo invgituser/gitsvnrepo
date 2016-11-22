@@ -317,11 +317,18 @@
         <div id="progressChart" class="Conatiner100 customRadioGraph"></div>
     </div>
     <div class="EmptyBox20"></div>
-    <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(3) != null}"
+    <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(3) != null  and  !tcmpb.formPortfolioEdit }"
              style="border: 0px; background: transparent"
              styleClass="Container100">
         <h:outputText styleClass="errorText"
                       value="#{tcmpb.pagemanager.getErrorMessage(3)}" escape="false"/>
+    </p:panel>
+
+    <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(4) != null  and  tcmpb.formPortfolioEdit }"
+             style="border: 0px; background: transparent"
+             styleClass="Container100">
+        <h:outputText styleClass="errorText"
+                      value="#{tcmpb.pagemanager.getErrorMessage(4)}" escape="false"/>
     </p:panel>
 
     <div class="EmptyBox10"></div>
