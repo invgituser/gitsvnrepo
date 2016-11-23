@@ -25,7 +25,7 @@ BEGIN
   WHERE `ext_acct_info`.`status` in ('O', 'P', 'X')
   AND `ext_acct_info`.`acctnum` = `user_trade_profile`.`acctnum`
   AND `ext_acct_info`.`clientAccountID` = `ext_nav`.`clientAccountID`
-  AND `ext_nav`.`reportDate` = `invdb`.`funct_get_switch`('BROKER_BDATE')
+  AND `ext_nav`.`reportDate` = (select max(reportDate) from `invdb`.`ext_nav`)
   AND `ext_nav`.`total` > 0
   ;
 
