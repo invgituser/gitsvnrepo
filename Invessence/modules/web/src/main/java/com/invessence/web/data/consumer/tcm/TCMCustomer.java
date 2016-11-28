@@ -6,6 +6,7 @@ import com.invessence.emailer.data.MsgData;
 import com.invessence.web.data.common.CustomerData;
 import com.invmodel.asset.data.AssetClass;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.model.fixedmodel.data.FMData;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.data.Portfolio;
 
@@ -20,6 +21,7 @@ public class TCMCustomer extends CustomerData
 {
    public TCMRiskCalculator riskCalculator;
    ArrayList<ProjectionData[]> projectionDatas;
+   ArrayList<FMData> fixedModelPortfolioList;
 
    public TCMCustomer()
    {
@@ -125,9 +127,13 @@ public class TCMCustomer extends CustomerData
 
    }
 
+   public ArrayList<FMData> getFixedModelPortfolioList()
+   {
+      return fixedModelPortfolioList;
+   }
 
-
-
-
-
+   public void setFixedModelPortfolioList(String theme)
+   {
+      fixedModelPortfolioList = (getTheme() != null) ? getModelUtil().getThemePortfolios(getTheme()) : null;
+   }
 }
