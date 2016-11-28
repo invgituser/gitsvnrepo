@@ -9,6 +9,7 @@ import com.invmodel.dao.invdb.SecurityCollection;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.dynamic.PortfolioOptimizer;
 import com.invmodel.model.fixedmodel.FixedModelOptimizer;
+import com.invmodel.model.fixedmodel.data.FMData;
 import com.invmodel.performance.ForwardProjection;
 import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.PortfolioModel;
@@ -85,6 +86,15 @@ public class ModelUtil
        poptimizer.refreshDataFromDB();
       fixoptimizer.refreshDataFromDB();
       tlhSecurityCollection.refreshDataFromDB();
+   }
+
+   public ArrayList<FMData> getThemePortfolios(String theme) {
+      if (fixoptimizer != null ) {
+         if (fixoptimizer.getAllThemes().contains(theme)) {
+            return fixoptimizer.getThemePortfolios(theme);
+         }
+      }
+      return null;
    }
 
    public Portfolio[] buildPortfolio(AssetClass[] assetData, ProfileData profileData)

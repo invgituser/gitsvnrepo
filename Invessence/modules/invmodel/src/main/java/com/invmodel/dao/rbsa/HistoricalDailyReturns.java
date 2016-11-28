@@ -284,7 +284,7 @@ public class HistoricalDailyReturns
          statement.executeQuery("SELECT ticker, " +
                                    "DATE_FORMAT(businessdate,'%Y%m%d') as businessdate, " +
                                    "daily_return as daily_return " +
-                                   "FROM invdb.sec_daily_info " +
+                                   "FROM rbsa.rbsa_daily " +
                                    tickerWhere  + " " +
                                    minDateWhere + " " +
                                    maxDateWhere + " " +

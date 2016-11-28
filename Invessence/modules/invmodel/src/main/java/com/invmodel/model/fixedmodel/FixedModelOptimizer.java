@@ -179,6 +179,11 @@ public class FixedModelOptimizer
       return arrayList;
    }
 
+   public ArrayList<FMData> getThemePortfolios(String theme) {
+      return getThemes(theme);
+   }
+
+
    public ArrayList<FMData> getThemes(String theme) {
       ArrayList<FMData> arrayList = new ArrayList<FMData>();
       if (theme != null) {

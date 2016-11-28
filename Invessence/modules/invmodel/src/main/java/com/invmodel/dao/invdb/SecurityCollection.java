@@ -270,6 +270,7 @@ public class SecurityCollection
       return tickerList;
    }
 
+/*
    public void doCustomSQLQuery(String advisor, String theme, ArrayList<String> tickers) {
 
       //logger.info("Loading Advisor Security from DB");
@@ -357,6 +358,7 @@ public class SecurityCollection
          DbUtils.closeQuietly(connection);
       }
    }
+*/
 
    public String getThemeLoaded()
    {
