@@ -25,7 +25,7 @@ import com.invessence.price.processor.dao.SecMasterDao;
 public class PriceProcessor
 {
    private static final Logger logger = Logger.getLogger(PriceProcessor.class);
-   @Autowired
+//   @Autowired
    EmailCreator emailCreator;
    @Autowired
    DBParametersDao dbParametersDao;

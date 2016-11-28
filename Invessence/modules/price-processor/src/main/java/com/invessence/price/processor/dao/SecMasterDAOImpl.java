@@ -44,9 +44,12 @@ public class SecMasterDAOImpl implements SecMasterDao
    public List<APIDetails> getSwitch(String companyName, String service_operation) throws SQLException
    {
       List<APIDetails> switchTable = null;
-      String sql = "SELECT service_provider,service_operation  FROM invdb.company_service_details WHERE status='A' " +
-         "and company='"+companyName+"' AND service_operation='" + service_operation + "' ORDER BY  priority  ASC";
-      //where ticker='"+ticker+"'";
+      String sql = "SELECT  vendor service_provider, operation service_operation FROM service.service_operation_details WHERE status='A' " +
+         "and company='"+companyName+"' AND operation='" + service_operation + "' ORDER BY  priority  ASC";
+
+//      String sql = "SELECT service_provider,service_operation  FROM invdb.company_service_details WHERE status='A' " +
+//         "and company='"+companyName+"' AND service_operation='" + service_operation + "' ORDER BY  priority  ASC";
+//      //where ticker='"+ticker+"'";
       System.out.println("***************************" + sql);
       switchTable = invJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(APIDetails.class));
       System.out.println("lst size**************** :" + switchTable.size());
