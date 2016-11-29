@@ -68,6 +68,13 @@ public class AssetClass
       }
    }
 
+   public void addAssetClass(Asset assetdata)
+   {
+      if (assetdata != null) {
+         assetclass.put(assetdata.getAsset(),assetdata);
+      }
+   }
+
    public String getTheme()
    {
       return theme;
