@@ -111,6 +111,7 @@ public class CustomerData extends ProfileData
    {
       this.modelUtil = modelUtil;
    }
+
 /*
    @ManagedProperty("#{assetAllocationModel}")
    public AssetAllocationModel allocModel;
@@ -198,7 +199,6 @@ public class CustomerData extends ProfileData
       this.projectionReport = projectionReport;
    }
 */
-
    public Double getTotalRisk() {
       Double value = 0.0;
       if (getPortfolioData() != null) {
@@ -1105,12 +1105,15 @@ public class CustomerData extends ProfileData
 
    public void rollupAssetClass(Portfolio pfclass) {
       Map<String, Asset> tallyAssetclass = new LinkedHashMap<String, Asset>();
+      Double totalMoney = 0.0;
       if (pfclass != null) {
          for (PortfolioSecurityData seclist: pfclass.getPortfolio()) {
             String assetname = seclist.getAssetclass();
             Double wght = seclist.getWeight();
             Double money = seclist.getMoney();
             String color = seclist.getColor();
+
+            totalMoney += money;
 
             if (! tallyAssetclass.containsKey(assetname)) {
                Asset asset = new Asset();
@@ -1131,6 +1134,7 @@ public class CustomerData extends ProfileData
             }
          }
 
+         // After the tally is done, lets reallocate to whole
          if (tallyAssetclass.size() > 0) {
             recreateEditableAsset();
             AssetClass[] aamc = new AssetClass[tallyAssetclass.size()];
@@ -1138,9 +1142,9 @@ public class CustomerData extends ProfileData
             aamc[i] = new AssetClass();
             for (Asset asset : tallyAssetclass.values()) {
                setEditableAsset(asset);
-               aamc[i].addAssetClass(asset.getAsset(),asset.getDisplayName(),asset.getColor(),
-                                     asset.getAllocweight(), asset.getAvgReturn());
+               aamc[i].addAssetClass(asset);
             }
+            aamc[i].setTotalInvested(totalMoney);
             setAssetData(aamc);
          }
       }

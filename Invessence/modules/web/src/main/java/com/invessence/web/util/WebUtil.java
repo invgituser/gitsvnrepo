@@ -108,6 +108,25 @@ public class WebUtil implements Serializable
       return true;
    }
 
+   public static String getURLAddress(String defaultVal)
+   {
+
+      HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+      if (request == null)
+         return defaultVal;
+
+      String uri = (String) request.getServerName();
+
+      if (WebUtil.isNull(uri))
+      {
+         return defaultVal;
+      }
+      else
+      {
+         return uri;
+      }
+   }
 
    public static String getValByAttr(HttpServletRequest request, String arg, String defaultVal)
    {
@@ -436,6 +455,7 @@ public class WebUtil implements Serializable
       }
       return access;
    }
+
    public String hasrole()
    {
       String access = "User";
@@ -453,6 +473,7 @@ public class WebUtil implements Serializable
       }
       return access;
    }
+
    public Boolean isUserLoggedIn()
    {
 

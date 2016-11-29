@@ -4,7 +4,4 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
-    <bean id="testBean" class="com.invessence.web.bean.TestBean" >
-
-    </bean>
 </beans>

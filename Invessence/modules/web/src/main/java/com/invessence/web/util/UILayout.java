@@ -167,6 +167,8 @@ public class UILayout implements Serializable
 
    public void resetCIDProfile(String cid)
    {
+      String uri = webutil.getURLAddress("Invessence");
+
       if (cid != null)
       {
          // If we already set the value for that CID, then don't do it again.
@@ -380,7 +382,7 @@ public class UILayout implements Serializable
          }
          else {
 */
-            dashboard = "/index.xhtml";
+            dashboard = webutil.getUiprofile().getHomepage();
 /*
          }
 */

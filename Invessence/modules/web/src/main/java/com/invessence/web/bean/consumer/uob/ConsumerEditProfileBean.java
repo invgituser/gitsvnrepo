@@ -35,6 +35,7 @@ import org.primefaces.event.*;
 public class ConsumerEditProfileBean extends CustomerData implements Serializable
 {
    private Long beanAcctnum;
+   private String newapp;
    private Boolean formEdit = false;
    private Boolean disablegraphtabs = true, disabledetailtabs = true, disablesaveButton = true;
    private Boolean prefVisible = true;
@@ -82,6 +83,16 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    {
       SQLData converter = new SQLData();
       this.beanAcctnum = converter.getLongData(beanAcctnum);
+   }
+
+   public String getNewapp()
+   {
+      return newapp;
+   }
+
+   public void setNewapp(String newapp)
+   {
+      this.newapp = newapp;
    }
 
    public void setListDAO(ConsumerListDataDAO listDAO)
@@ -179,6 +190,18 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       return riskCalculator;
    }
 
+   @Override
+   public void setAge(Integer age) {
+      this.age = age;
+      riskCalculator.setRiskAge(age);
+   }
+
+   @Override
+   public void setHorizon(Integer horizon) {
+      this.horizon = horizon;
+      riskCalculator.setRiskHorizon(horizon);
+   }
+
    public void preRenderView()
    {
 
@@ -186,9 +209,16 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (!webutil.isUserLoggedIn())
+            if (newapp != null && newapp.startsWith("N")) {
+               beanAcctnum = null;
+            }
+            else
             {
-               webutil.redirect("/login.xhtml", null);
+               if (!webutil.isUserLoggedIn())
+               {
+                  webutil.redirect("/login.xhtml", null);
+                  return;
+               }
             }
             riskCalculator.setNumberofQuestions(7);
             whichChart = "pie";
@@ -204,18 +234,10 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
             disablegraphtabs = true;
             disabledetailtabs = true;
-            if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
-            {
-               loadData(getBeanAcctnum());
-               loadRiskData(getBeanAcctnum());
-            }
-            else
-            {
-               loadBasketInfo();
-               loadNewClientData();
-            }
+            fetchClientData();
 
             canOpenAccount = initCanOpenAccount();
+/*
             if (canOpenAccount == -1)
             {
                welcomeDialog = true;
@@ -230,6 +252,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             {
                welcomeDialog = false;
             }
+*/
          }
       }
       catch (Exception e)
@@ -337,7 +360,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    public void selectedGoal()
    {
-
       formEdit = true;
       if (getGoal().toUpperCase().contains("RETIRE"))
       {
@@ -417,8 +439,21 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       }
       else
       {
-         setGoal(getAdvisorBasket().get(getTheme()));
-         setBasket(getTheme());
+         if (getTheme() == null)
+         {
+            for (String key : getAdvisorBasket().keySet())
+            {
+               setGoal(getAdvisorBasket().get(key));
+               setBasket(key);
+               setTheme(key);
+               break;  // We want to select the first key on for advisor.
+            }
+         }
+         else
+         {
+            setGoal(getAdvisorBasket().get(getTheme()));
+            setBasket(getTheme());
+         }
       }
    }
 
@@ -429,6 +464,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       displayGoalGraph = false;
       displayGoalText = false;
       resetCustomerData();
+      setAdvisor(webutil.getUiprofile().getAdvisor());
    }
 
    private void loadBasketInfo()
@@ -436,21 +472,56 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       if (getAccountTaxable())
       {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
-         setBasket(getAdvisorBasket().get(getTheme()));
-         // selectFirstBasket(); // DO this only first time.
       }
       else
       {
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
+      }
+
+      if (getTheme() != null)
+      {
          setBasket(getAdvisorBasket().get(getTheme()));
-         // selectFirstBasket();  // DO this only first time.
+      }
+      else
+      {
+         selectFirstBasket(); // DO this only first time.
       }
    }
+
+   public void fetchClientData()
+   {
+      try
+      {
+         resetDataForm();
+         if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
+         {
+            loadProfileData(getBeanAcctnum());
+            loadRiskData(getBeanAcctnum());
+            riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
+            displayGoalText = true;
+         }
+         else
+         {
+            loadNewClientData();
+
+         }
+         loadBasketInfo(); // Once we know about advisor, then use that info
+         createAssetPortfolio(1);
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         webutil.alertSupport("Consumer.fetchClient", "Error:Consumer.fetchClient",
+                              "error.fetchClient", stackTrace);
+      }
+
+   }
+
 
    private void loadNewClientData()
    {
 
-      resetDataForm();
+      // resetDataForm();
       try
       {
          UserInfoData uid = webutil.getUserInfoData();
@@ -463,7 +534,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          listDAO.getNewClientProfileData((CustomerData) this.getInstance());
          setDefaults();
          loadBasketInfo();
-         selectFirstBasket();
+         // selectFirstBasket();
          createAssetPortfolio(1); // Build default chart for the page...
          // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
       }
@@ -473,10 +544,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       }
    }
 
-   private void loadData(Long acctnum)
+   private void loadProfileData(Long acctnum)
    {
 
-      resetDataForm();
       try
       {
          if (webutil.isUserLoggedIn())
@@ -489,7 +559,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
                }
                setAcctnum(acctnum);
                listDAO.getProfileData(getInstance());
-               loadBasketInfo();
          }
          createAssetPortfolio(1);
          formEdit = false;
@@ -512,30 +581,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          ex.printStackTrace();
       }
    }
-
-
-/*
-   public void onAllocSlider(ValueChangeEvent event) {
-      if (event.getNewValue() == null)
-      {
-         return;
-      }
-
-      setRiskCalcMethod("A");
-      createAssetPortfolio(1);
-
-   }
-
-   public void onPortfolioSlider(ValueChangeEvent event) {
-      if (event.getNewValue() == null)
-      {
-         return;
-      }
-
-      setRiskCalcMethod("A");
-      createPortfolio(1);
-   }
-*/
 
    public void onAllocSlider(SlideEndEvent event)
    {
@@ -586,20 +631,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
       try
       {
-/*
-         if (getGoal().toUpperCase().contains("INCOME"))
-            setTheme("0.Income");
-         else if (getGoal().toUpperCase().contains("SAFETY"))
-            setTheme("0.Safety");
-         else
-            setTheme("0.Core");
-*/
-
-         if (getTheme() == null || getTheme().isEmpty())
-         {
-            setTheme(InvConst.DEFAULT_THEME);
-         }
-
          String tTheme = getTheme();
          if (getAccountTaxable()) {
             if (! tTheme.startsWith("T.")) {
@@ -612,8 +643,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
             }
          }
          riskCalculator.calculateRisk();
-         setNumOfAllocation(noOfYears);
-         setNumOfPortfolio(noOfYears);
+         setNumOfAllocation(1);
+         setNumOfPortfolio(1);
          buildAssetClass();
          buildPortfolio();
 
@@ -760,9 +791,12 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private void setDefaults()
    {
 
-      if (getPortfolioName() == null)
+      if (getLastname() != null)
       {
          setPortfolioName(getLastname() + "-" + getGoal());
+      }
+      else {
+         setPortfolioName(null);
       }
       if (getAge() == null)
       {
@@ -899,30 +933,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          ex.printStackTrace();
          webutil.alertSupport("ConsumerEdit.fundaccount", "Error:ConsumerEdit.FundAccount",
                               "error.fundaccount", stackTrace);
-      }
-
-   }
-
-   public void resetForm()
-   {
-      try
-      {
-         setRiskCalcMethod("C");
-
-         if (getBeanAcctnum() != null && getBeanAcctnum() > 0L)
-         {
-            loadData(getBeanAcctnum());
-         }
-         else
-         {
-            loadNewClientData();
-         }
-      }
-      catch (Exception ex)
-      {
-         String stackTrace = ex.getMessage();
-         webutil.alertSupport("Consumer.addGoals", "Error:Consumer.addGoals",
-                              "error.addGoals", stackTrace);
       }
 
    }
