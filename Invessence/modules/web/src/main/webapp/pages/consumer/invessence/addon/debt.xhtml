@@ -37,18 +37,18 @@
                         Total Expenses<br/>
                         <span style="font-size: small;">(Yearly)</span>
                     </div>
-                    <pe:inputNumber value="#{cepb.householdwages}" styleClass="Wid90"
+                    <p:inputNumber value="#{cepb.householdwages}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{cepb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
 
                     <div class="Wid90">Total Debt</div>
-                    <pe:inputNumber value="#{cepb.otherDebt}" styleClass="Wid90"
+                    <p:inputNumber value="#{cepb.otherDebt}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{cepb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
 
 
                 </h:panelGrid>

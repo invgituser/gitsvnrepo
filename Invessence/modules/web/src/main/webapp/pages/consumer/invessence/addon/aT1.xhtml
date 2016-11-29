@@ -94,20 +94,20 @@
             <div class="Container100">
                 <div class="ContainerIndent DispTable">
                     <p:outputLabel value="Initial Investment" styleClass="Container20 DispTableCell Fs14"/>
-                    <pe:inputNumber id="initialInvestment" styleClass="Container25 DispTableCell"
+                    <p:inputNumber id="initialInvestment" styleClass="Container25 DispTableCell"
                                     value="#{cepb.initialInvestment}"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax event="blur" listener="#{cepb.onChange}"
                                 />
-                    </pe:inputNumber>
+                    </p:inputNumber>
 
                     <div class="Container5"/>
                     <p:outputLabel value="Recurring Deposits (per year)" styleClass="Container20 Responsive DispTableCell Fs14"/>
-                    <pe:inputNumber id="recurringinvestment" styleClass="Container15 DispTableCell"
+                    <p:inputNumber id="recurringinvestment" styleClass="Container15 DispTableCell"
                                     value="#{cepb.recurringInvestment}"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax event="blur" listener="#{cepb.onChange}"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
                 </div>
             </div>
             <div class="EmptyBox10"/>

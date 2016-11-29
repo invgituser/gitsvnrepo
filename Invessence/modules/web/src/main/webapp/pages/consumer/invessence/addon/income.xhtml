@@ -16,21 +16,21 @@
                         Salary/Wages (Yearly)<br/>
                         <span style="font-size: small;">(Total Gross Income)</span>
                     </div>
-                    <pe:inputNumber value="#{cepb.householdwages}" styleClass="Wid90"
+                    <p:inputNumber value="#{cepb.householdwages}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{cepb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
 
                     <div class="TexAlLeft Wid90">
                         Liquid Asset<br/>
                         <span style="font-size: small;">(Cash/Savings Account, etc.)</span>
                     </div>
-                    <pe:inputNumber value="#{cepb.moneymarket}" styleClass="Wid90"
+                    <p:inputNumber value="#{cepb.moneymarket}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{cepb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
                     <h:outputText/>
                     <h:outputText/>
 
@@ -38,11 +38,11 @@
                         Other Investments<br/>
                         <span style="font-size: small;">(Stocks, Bond, Retirement)</span>
                     </div>
-                    <pe:inputNumber value="#{cepb.investment}" styleClass="Wid90"
+                    <p:inputNumber value="#{cepb.investment}" styleClass="Wid90"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{cepb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
 
                 </h:panelGrid>
             </div>

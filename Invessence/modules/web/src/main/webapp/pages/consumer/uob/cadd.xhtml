@@ -7,6 +7,7 @@
                 template="/template/common/template.xhtml">
 
     <f:metadata>
+        <f:viewParam name="app" value="#{uobpb.newapp}"/>
         <f:viewParam name="acct" value="#{uobpb.beanAcctnum}"/>
         <f:event type="preRenderView" listener="#{uobpb.preRenderView}"/>
     </f:metadata>
@@ -363,10 +364,10 @@
                                                      style="border:0px !important; background:none;"
                                                      class="FormContent">
                                             <div class="Wid90">Desired Goal</div>
-                                            <pe:inputNumber style="width: 80px"
+                                            <p:inputNumber style="width: 80px"
                                                             value="#{uobpb.goalData.goalDesired}"
                                                             maxlength="11" decimalPlaces="0" symbol="$">
-                                            </pe:inputNumber>
+                                            </p:inputNumber>
 
 
                                             <div class="Wid90">Number of years when needed</div>
@@ -382,12 +383,12 @@
 
 
                                             <div class="Wid90">Recurring investment</div>
-                                            <pe:inputNumber style="width: 80px"
+                                            <p:inputNumber style="width: 80px"
                                                             value="#{uobpb.recurringInvestment}"
                                                             maxlength="11" decimalPlaces="0" symbol="$">
                                                 <p:ajax event="blur" listener="#{uobpb.onChange}"
                                                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                                            </pe:inputNumber>
+                                            </p:inputNumber>
                                             <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
                                                           rendered="#{uobpb.displayGoalText}"
                                                           value="#{uobpb.goalAdjustment}">

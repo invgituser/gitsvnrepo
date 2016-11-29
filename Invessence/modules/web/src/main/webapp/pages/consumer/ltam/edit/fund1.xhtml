@@ -43,13 +43,13 @@
                         </h:outputText>
 
                         <div class="Wid90 titleFA" style="padding:10px 0;">Amount to Add</div>
-                        <pe:inputNumber styleClass="input_wid1 MarginNoneP"
+                        <p:inputNumber styleClass="input_wid1 MarginNoneP"
                                         placeholder="Enter $ amount"
                                         value="#{fundbean.investment}"
                                         maxlength="11" decimalPlaces="0" symbol="$"
                                         required="true" requiredMessage="Fund amount is required!"
                                         validatorMessage="Min. of $1 investment is required!">
-                        </pe:inputNumber>
+                        </p:inputNumber>
                         <f:facet name="footer">
                             <p:commandButton value="Next" styleClass="Fright"
                                              update=":fundForm:contentpanel"

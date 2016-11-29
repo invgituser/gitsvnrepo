@@ -13,10 +13,10 @@
                     <div class="Wid90">Desired Goal</div>
                 </div>
                 <div class="Container60">
-                    <pe:inputNumber styleClass="Wid80"
+                    <p:inputNumber styleClass="Wid80"
                                     value="#{cepb.goalData.goalDesired}"
                                     maxlength="11" decimalPlaces="0" symbol="$">
-                    </pe:inputNumber>
+                    </p:inputNumber>
                 </div>
             </div>
             <div class="EmptyBox20"></div>
@@ -51,12 +51,12 @@
                     <div class="Wid90">Initial Investment</div>
                 </div>
                 <div class="Container60">
-                    <pe:inputNumber styleClass="Wid90"
+                    <p:inputNumber styleClass="Wid90"
                                     value="#{cepb.initialInvestment}"
                                     maxlength="11" decimalPlaces="0" symbol="$">
                         <p:ajax event="blur" listener="#{cepb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
                 </div>
             </div>
 
@@ -65,12 +65,12 @@
                     <div class="Wid90">Recurring Investment</div>
                 </div>
                 <div class="Container60">
-                    <pe:inputNumber
+                    <p:inputNumber
                             value="#{cepb.recurringInvestment}"
                             maxlength="11" decimalPlaces="0" symbol="$">
                         <p:ajax event="blur" listener="#{cepb.onChange}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
 
                     <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
                                   rendered="#{! cepb.goalData.reachable}"

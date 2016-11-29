@@ -109,14 +109,14 @@
                     <p:message for="initialInvestment" display="icon" rendered="#{cBean.goal != ''}"/>
                 </p:column>
                 <p:column colspan="3">
-                    <pe:inputNumber id="initialInvestment" value="#{cBean.initialInvestment}" rendered="#{cBean.goal != ''}"
+                    <p:inputNumber id="initialInvestment" value="#{cBean.initialInvestment}" rendered="#{cBean.goal != ''}"
                                     required="true"
                                     maxlength="15" decimalPlaces="0" symbol="$"
                                     requiredMessage="Missing Initial investment."
                                     validatorMessage="Initial investment should be greater then $5,000."
                                     valueChangeListener="#{cBean.changeEvent}">
                         <f:validateDoubleRange minimum="5000"/>
-                    </pe:inputNumber>
+                    </p:inputNumber>
 
                 </p:column>
             </p:row>
@@ -129,10 +129,10 @@
                     <p:message for="recurringinvestment" display="icon" rendered="#{cBean.goal != ''}"/>
                 </p:column>
                 <p:column colspan="3">
-                    <pe:inputNumber id="recurringinvestment" value="#{cBean.recurringInvestment}" rendered="#{cBean.goal != ''}"
+                    <p:inputNumber id="recurringinvestment" value="#{cBean.recurringInvestment}" rendered="#{cBean.goal != ''}"
                                     maxlength="15" decimalPlaces="0" symbol="$"
                                     valueChangeListener="#{cBean.changeEvent}">
-                    </pe:inputNumber>
+                    </p:inputNumber>
                 </p:column>
             </p:row>
 
