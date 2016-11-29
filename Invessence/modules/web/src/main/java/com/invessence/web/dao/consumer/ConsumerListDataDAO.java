@@ -463,4 +463,26 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          ex.printStackTrace();
       }
    }
+
+   public String geteditFundData(Long acctnum)
+   {
+
+      DataSource ds = getDataSource();
+      ConsumerListSP sp = new ConsumerListSP(ds, "sp_sel_editfund_data",6);
+      Map outMap = sp.validatefundData(acctnum);
+      String info="quota";
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         for (Map<String, Object> map : rows)
+         {
+            Map rs = (Map) rows.get(i);
+            info=convert.getStrData(rs.get("license"));
+            i++;
+            break;
+         }
+      }
+      return info;
+   }
 }

@@ -161,4 +161,20 @@ public class TCMDashBean implements Serializable
       return ("success");
    }
 
+
+   public String doFundingAction()
+   {
+      String whichXML;
+      try
+      {
+         uiLayout.doMenuAction("custody", "fundingedit.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+
 }

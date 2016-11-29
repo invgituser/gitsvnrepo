@@ -42,6 +42,9 @@ public class ConsumerListSP extends StoredProcedure
          case 5:   // SP: sel_risk_questions
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
+         case 6:   // SP: sel_risk_questions
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            break;
          default:
       }
       compile();
@@ -99,6 +102,11 @@ public class ConsumerListSP extends StoredProcedure
       inputMap.put("p_acctnum", acctnum);
       return super.execute(inputMap);
    }
-
+   public Map validatefundData(Long acctnum)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_acctnum", acctnum);
+      return super.execute(inputMap);
+   }
 
 }

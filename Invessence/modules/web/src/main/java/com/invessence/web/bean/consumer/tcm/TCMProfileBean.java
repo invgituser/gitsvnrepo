@@ -15,6 +15,7 @@ import com.invessence.web.data.consumer.tcm.*;
 import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
+import com.invmodel.model.fixedmodel.data.FMData;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
@@ -53,6 +54,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
    private TCMCharts charts = new TCMCharts();
+   private CustomerData origCustomerData;
+   ArrayList<FMData> fmDataArrayList;
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -216,8 +219,20 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       this.acceptterms = acceptterms;
    }
 
+
+   public CustomerData getOrigCustomerData()
+   {
+      return origCustomerData;
+   }
+
+   public ArrayList<FMData> getFmDataArrayList()
+   {
+      return fmDataArrayList;
+   }
+
    public String getFundButtonText()
    {
+
       if (webutil == null)
       {
          return "Register";
@@ -485,6 +500,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             }
             setAcctnum(acctnum);
             listDAO.getProfileData(getInstance());
+            setFixedModelPortfolioList(getInstance().getTheme());
+            origCustomerData = new CustomerData();
+            origCustomerData.copyData(getInstance());
+            fmDataArrayList=getFixedModelPortfolioList();
          }
          formEdit = false;
       }
@@ -1049,7 +1068,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if((getFormula() != null && getFormula().equalsIgnoreCase("Q")) && pagemanager.getPage() == 0 && formPortfolioEdit)
             pagemanager.nextPage();
          else  if((getFormula() != null && getFormula().equalsIgnoreCase("D")) && pagemanager.getPage() == 0 && formPortfolioEdit)
-            pagemanager.setPage(4);
+            pagemanager.setPage(5);
          else
             pagemanager.nextPage();
       }

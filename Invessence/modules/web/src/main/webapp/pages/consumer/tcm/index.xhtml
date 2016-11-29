@@ -30,83 +30,96 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="Container100 Responsive100">
-                    <div class="ContainerIndent">
-                        <div class="Container100 MarginBottom ConsumerDashboardTable">
+                    <p:growl showDetail="false" escape="true" closable="true"/>
+                    <p:separator style="background-color: blue; height:5px"/>
 
-                            <p:dataTable id="singleDT" var="investment" value="#{tcmdash.manageAccountList}"
-                                         emptyMessage="You have not yet created any accounts. Please click 'New Account' on the menu bar to add a new account."
-                                         reflow="true">
+                    <div class="Container100">
+                        <p:dataGrid style="background: transparent; padding-right:5px;"
+                                    var="investment" value="#{tcmdash.manageAccountList}"
+                                    columns="1" layout="grid">
+                            <p:panel style="width: 100%; background: #f5f5f5;">
+                                <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
+                                    <tr style="font-size: 15px;">
+                                        <td style="width: 25%;">#{investment.goal}</td>
+                                        <td style="width: 25%;">#{investment.portfolioName}</td>
+                                        <td style="width: 25%;">#{investment.displayActiveAcctNum}</td>
+                                        <td style="width: 25%; text-align: right;">
+                                            <strong>
+                                                <h:outputText value="#{investment.actualInvested}"  rendered="#{investment.managed}">
+                                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                                </h:outputText>
+                                                <h:outputText value="#{investment.initialInvestment}"  rendered="#{!investment.managed}">
+                                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                                </h:outputText>
+                                            </strong></td>
+                                    </tr>
+                                    <tr style="font-size: 13px;">
+                                        <td colspan="4" style="width: 100%; margin-left: 5px">
+                                            <div class="EmptyBox10"></div>
+                                                <div class="invNBgrid DashboardIconBlock" style="width: 100%;">
+<div class="s_dashboard">
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="activeButton" disabled="#{!investment.hasPosition}"
+                                                                         styleClass="Fs14 GreenButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-search-plus Fs14 white"
+                                                                         action="#{tcmdash.doSelectedAction}">
+                                                            <p:tooltip id="activeToolTipFade" for="activeButton" value="View"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{tcmdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div><div class="Container60 s_dashboardLabel"><h3>Overview</h3></div>
+</div>
+<div class="s_dashboard">
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="editPortfolioButton" disabled="#{!investment.hasPosition}"
+                                                                         styleClass="Fs14 OrangeButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-pie-chart Fs14 white"
+                                                                         action="#{tcmdash.doPortfolioSelectedAction}">
+                                                            <p:tooltip id="portfolioToolTipFade" for="editPortfolioButton" value="Edit Portfolio"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{tcmdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div><div class="Container60 s_dashboardLabel"><h3>Choose New Portfolio</h3></div>
+</div>
+                                            <div class="s_dashboard">
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="fundButton"  disabled="#{!investment.hasPosition}"
+                                                                         styleClass="Fs14 GreenButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-dollar Fs14 white"
+                                                                         action="#{tcmdash.doSelectedAction}">
+                                                            <p:tooltip id="fundToolTipFade" for="fundButton" value="Edit Funding"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{tcmdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div><div class="Container60 s_dashboardLabel"><h3>Edit Funding</h3></div>
 
-                                <p:column styleClass="Wid25 TexAlCenter ZeroPaddingBottom">
-                                    <p:commandButton id="activeButton" rendered="#{investment.hasPosition}"
-                                                     styleClass="Fs14 GreenButton"
-                                                     process="@this" immediate="true"
-                                                     icon="fa fa-search-plus Fs14 white"
-                                                     action="#{tcmdash.doSelectedAction}">
-                                        <p:tooltip id="activeToolTipFade" for="activeButton" value="View"/>
-                                        <f:setPropertyActionListener value="#{investment}"
-                                                                     target="#{tcmdash.selectedAccount}"/>
-                                    </p:commandButton>
-                                    <p:commandButton id="pendingButton" rendered="#{! investment.managed}"
-                                                     styleClass="Fs14 BlueButton"
-                                                     process="@this" immediate="true"
-                                                     icon="fa fa-pencil-square-o Fs14 white"
-                                                     action="#{tcmdash.doSelectedAction}">
-                                        <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit"/>
-                                        <f:setPropertyActionListener value="#{investment}"
-                                                                     target="#{tcmdash.selectedAccount}"/>
-                                    </p:commandButton>
-                                    <p:commandButton id="editPortfolioButton" rendered="#{investment.hasPosition}"
-                                                     styleClass="Fs14 GreenButton"
-                                                     process="@this" immediate="true"
-                                                     icon="fa fa-search-plus Fs14 white"
-                                                     action="#{tcmdash.doPortfolioSelectedAction}">
-                                        <p:tooltip id="portfolioToolTipFade" for="editPortfolioButton" value="Edit Portfolio"/>
-                                        <f:setPropertyActionListener value="#{investment}"
-                                                                     target="#{tcmdash.selectedAccount}"/>
-                                    </p:commandButton>
-                                </p:column>
-                                <!--
-                                <p:column styleClass="Wid25 TextAlLeft"
-                                          sortBy="#{investment.portfolioName}" headerText="Portfolio" priority="2"
-                                          resizable="true">
-                                    <span class="dashboardUsrColumnFloatRight"><h:outputText value="#{investment.portfolioName}"/></span>
-                                </p:column>
-								 -->
-                                <p:column styleClass="Wid25 TexAlLeft"
-                                          headerText="Type" priority="3"
-                                          resizable="true">
-                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.goal}"/></span>
-                                </p:column>
+</div>
+                                            <div class="s_dashboard">
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="pendingButton" disabled="#{investment.managed}"
+                                                                         styleClass="Fs14 BlueButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-pencil-square-o Fs14 white"
+                                                                         action="#{tcmdash.doSelectedAction}">
+                                                            <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{tcmdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div><div class="Container60 s_dashboardLabel"><h3>Edit Account</h3></div>
+</div>
+                                                </div>
+                                            <div class="EmptyBox10"></div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </p:panel>
 
-                                <p:column styleClass="Wid25 TexAlLeft"
-                                          headerText="Strategy " priority="3"
-                                          resizable="true">
-                                    <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.portfolioName}"/></span>
-                                </p:column>
-
-                                <p:column styleClass="Wid25 TexAlLeft"
-                                          headerText="Account#"
-                                          resizable="true">
-                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.displayActiveAcctNum}"/></span>
-                                </p:column>
-
-                                <p:column styleClass="Wid25 num-text-align invest"
-                                          headerText="Invested"
-                                          resizable="true">
-                                    <span class="dashboardUsrColumnFloatRight"><h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">
-                                        <f:convertNumber currencySymbol="$" type="currency"/>
-                                    </h:outputText></span>
-                                   <span class="dashboardUsrColumnFloatRight"> <h:outputText value="#{investment.initialInvestment}" rendered="#{! investment.managed}">
-                                        <f:convertNumber currencySymbol="$" type="currency"/>
-                                    </h:outputText></span>
-                                </p:column>
-
-                            </p:dataTable>
-
-                        </div>
+                        </p:dataGrid>
                     </div>
                 </div>
 

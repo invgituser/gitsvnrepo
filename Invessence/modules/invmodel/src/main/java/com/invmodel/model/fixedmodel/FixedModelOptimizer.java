@@ -229,6 +229,19 @@ public class FixedModelOptimizer
       return thisTheme;
    }
 
+   public FMData getThemeByPortfolioName(String theme, String portfolioName) {
+      if (theme != null) {
+         if (fixedThemeMap != null) {
+            for(FMData fmData: getThemes(theme))
+            {
+               if(fmData.getDisplayname().equalsIgnoreCase(portfolioName))
+                  return fmData;
+            }
+         }
+      }
+      return null;
+   }
+
    public void addTheme(FMData FMData) {
       try {
          if (FMData != null) {

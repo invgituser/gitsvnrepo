@@ -11,11 +11,11 @@
             You are about to make an exchange from
             <span style="text-decoration: underline;"></span>
             in the amount of
-            <h:outputText value="#{tcmpb.investment}">
+            <h:outputText value="#{tcmpb.actualInvested}">
                <f:convertNumber currencySymbol="$" type="currency"/>
             </h:outputText>
             to the
-            <span style="text-decoration: underline;"></span>
+            <span style="text-decoration: underline;">#{tcmpb.portfolioName}</span>
             indicated below for the corresponding account
 	    </div>
             <div class="EmptyBox20"></div>
@@ -28,9 +28,9 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td class="TexAlLeft" style="width: 75%"></td>
+                    <td class="TexAlLeft" style="width: 75%">#{tcmpb.fixedModelName}</td>
                     <td class="TexAlRight" style="width: 25%">
-                        <h:outputText value="#{tcmpb.investment}">
+                        <h:outputText value="#{tcmpb.actualInvested}">
                             <f:convertNumber currencySymbol="$" type="currency"/>
                         </h:outputText>
                     </td>
@@ -38,7 +38,7 @@
                 <tr style="background: #f5f5f5">
                     <td class="TexAlRight" style="width: 75%">Total</td>
                     <td class="TexAlRight" style="width: 25%">
-                        <h:outputText value="#{tcmpb.investment}">
+                        <h:outputText value="#{tcmpb.actualInvested}">
                             <f:convertNumber currencySymbol="$" type="currency"/>
                         </h:outputText>
                     </td>

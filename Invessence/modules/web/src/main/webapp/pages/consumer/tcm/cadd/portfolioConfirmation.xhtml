@@ -9,7 +9,7 @@
         <p:panel id="editPage1" style="border: 0px; background: transparent;">
             <div class="Container100 TextAlCenter">
                 <div class="TexAlCenter">
-                    <h1 class="black Fs20 fnt1">#{tcmpb.firstname}, your current portfolio is:</h1>
+                    <h1 class="black Fs20 fnt1">#{tcmpb.firstname}, your currently selected strategy for this portfolio is:</h1>
                 </div>
 
                 <table class="Container100  TextAlCenter">
@@ -17,7 +17,7 @@
                         <td colspan="2" class="TexAlCenter">
                             <div class="DispInlBlock TexAlLeft tp1">
                                 <div class="Fright">
-                                    <h1 class="black Fs24 fnt1"></h1>
+                                    <h1 class="black Fs24 fnt1">#{tcmpb.origCustomerData.portfolioName}</h1>
                                 </div>
                             </div>
                         </td>
@@ -26,7 +26,7 @@
                         <td colspan="2" class="TexAlCenter">
                             <div class="DispInlBlock TexAlLeft tp1">
                                 <div class="Fright">
-                                    <h2 class="black f1 textAlign"></h2>
+                                    <h2 class="black f1 textAlign">The primary objective of this strategy is </h2>
                                 </div>
                             </div>
                         </td>
@@ -37,9 +37,11 @@
                 <div class="EmptyBox10"></div>
 
                 <div class="Fs14 textAlign">
-                    I would like to reasses my risk. By selecting one of the two options below,
-                    I understand and acknowledge that I may be moving from the account originally
-                    recommended to me by $ymbil
+                    <ul>
+                        <li class="customLi">If your situation has changed, or you no longer feel this is the best match for your goals and risk tolerance then you may revise your selected portfolio using the options below.  However, strategy changes should not be made lightly - there are a number of factors you should consider before editing your chosen strategy:</li>
+                        <li class="customLi">Changing your strategy will require portfolio rebalancing which may incur: the realization of capital gains or losses, additional transaction costs, and/or short-term trading penalties/fees. Strategy changes have the potential to be detrimental to performance.</li>
+                        <li class="customLi">Due to limited liquidity in some investments, a strategy change and accompanying rebalance may take several months to be fully completed. It may also result in temporarily increased levels of cash in the portfolio and/or variances from the model strategy allocations.  Depending on the specifics of each situation, we may also utilize placeholder investments temporarily in lieu of model strategy investments that are not currently available for purchase.</li>
+                    </ul>
                 </div>
 
                 <div class="EmptyBox20"></div>
@@ -49,12 +51,10 @@
                                       layout="pageDirection"
                                       required="true" requiredMessage="Must choose one of the method to change profile.">
                         <f:selectItem
-                                itemLabel="I prefer to answer each question, so that I can be recommended new portfolio"
+                                itemLabel="I prefer to complete the risk tolerance questionnaire again to update factors that have changed."
                                 itemValue="Q"/>
                         <f:selectItem
-                                itemLabel="I know which portfolio I would like to transfer into.
-                                I would like to skip the risk questionnaire process and move forward with
-                                transferring from the portfolio that I was originally recommended by $ymbil."
+                                itemLabel="I already know which strategy I would like assigned to my portfolio. I would like to skip the risk tolerance questionnaire process and move forward with assigning a new strategy to my portfolio."
                                 itemValue="D"/>
                     </p:selectOneRadio>
 
