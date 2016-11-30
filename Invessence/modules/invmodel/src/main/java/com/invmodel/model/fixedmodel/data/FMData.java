@@ -348,6 +348,101 @@ public class FMData
       return arrayList;
    }
 
+   @Override
+   public boolean equals(Object o)
+   {
+      if (this == o)
+      {
+         return true;
+      }
+      if (o == null || getClass() != o.getClass())
+      {
+         return false;
+      }
+
+      FMData fmData = (FMData) o;
+
+      if (theme != null ? !theme.equals(fmData.theme) : fmData.theme != null)
+      {
+         return false;
+      }
+      if (level != null ? !level.equals(fmData.level) : fmData.level != null)
+      {
+         return false;
+      }
+      if (index != null ? !index.equals(fmData.index) : fmData.index != null)
+      {
+         return false;
+      }
+      if (displayname != null ? !displayname.equals(fmData.displayname) : fmData.displayname != null)
+      {
+         return false;
+      }
+      if (description != null ? !description.equals(fmData.description) : fmData.description != null)
+      {
+         return false;
+      }
+      if (sortorder != null ? !sortorder.equals(fmData.sortorder) : fmData.sortorder != null)
+      {
+         return false;
+      }
+      if (lowRisk != null ? !lowRisk.equals(fmData.lowRisk) : fmData.lowRisk != null)
+      {
+         return false;
+      }
+      if (highRisk != null ? !highRisk.equals(fmData.highRisk) : fmData.highRisk != null)
+      {
+         return false;
+      }
+      if (expectedreturn != null ? !expectedreturn.equals(fmData.expectedreturn) : fmData.expectedreturn != null)
+      {
+         return false;
+      }
+      if (expectedrisk != null ? !expectedrisk.equals(fmData.expectedrisk) : fmData.expectedrisk != null)
+      {
+         return false;
+      }
+      if (assetList != null ? !assetList.equals(fmData.assetList) : fmData.assetList != null)
+      {
+         return false;
+      }
+      if (asset != null ? !asset.equals(fmData.asset) : fmData.asset != null)
+      {
+         return false;
+      }
+      if (indexMap != null ? !indexMap.equals(fmData.indexMap) : fmData.indexMap != null)
+      {
+         return false;
+      }
+      if (performanceHeaderMap != null ? !performanceHeaderMap.equals(fmData.performanceHeaderMap) : fmData.performanceHeaderMap != null)
+      {
+         return false;
+      }
+      return performance != null ? performance.equals(fmData.performance) : fmData.performance == null;
+
+   }
+
+   @Override
+   public int hashCode()
+   {
+      int result = theme != null ? theme.hashCode() : 0;
+      result = 31 * result + (level != null ? level.hashCode() : 0);
+      result = 31 * result + (index != null ? index.hashCode() : 0);
+      result = 31 * result + (displayname != null ? displayname.hashCode() : 0);
+      result = 31 * result + (description != null ? description.hashCode() : 0);
+      result = 31 * result + (sortorder != null ? sortorder.hashCode() : 0);
+      result = 31 * result + (lowRisk != null ? lowRisk.hashCode() : 0);
+      result = 31 * result + (highRisk != null ? highRisk.hashCode() : 0);
+      result = 31 * result + (expectedreturn != null ? expectedreturn.hashCode() : 0);
+      result = 31 * result + (expectedrisk != null ? expectedrisk.hashCode() : 0);
+      result = 31 * result + (assetList != null ? assetList.hashCode() : 0);
+      result = 31 * result + (asset != null ? asset.hashCode() : 0);
+      result = 31 * result + (indexMap != null ? indexMap.hashCode() : 0);
+      result = 31 * result + (performanceHeaderMap != null ? performanceHeaderMap.hashCode() : 0);
+      result = 31 * result + (performance != null ? performance.hashCode() : 0);
+      return result;
+   }
+
 /*
    public ArrayList<ArrayList<String>> getPrintedPerformanceData() {
 

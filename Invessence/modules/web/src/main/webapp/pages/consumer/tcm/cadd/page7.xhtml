@@ -37,27 +37,27 @@
                             <h3 class="black f1 textAlign">
                                 <ui:fragment rendered="#{tcmpb.formula == 'Q'}">
                                     <h3 class="black f1 textAlign">
-                                        After reviewing your risk though the $ymbil
+                                        After reviewing your risk though the
                                         questionnaire, your new portfolio recommendation is:#{tcmpb.fixedModelName}
                                     </h3>
                                 </ui:fragment>
                                 <ui:fragment rendered="#{tcmpb.formula != 'Q'}">
                                     <h2 class="black f1 textAlign">
-                                        By selecting one of the five portfolios below, you consent to
+                                        By selecting one of the portfolios below, you consent to
                                         transferring your assets into a new portfolio that was not
-                                        recommended to you through the $ymbil questionnaire.
+                                        recommended to you through the questionnaire.
                                     </h2>
                                 </ui:fragment>
                             </h3>
                             <div class="EmptyBox10"></div>
                             <div style="border:0px !important; background:none;" class="Container100 FormContent">
-				
+				                <div class="container100"><p:messages  showDetail="true" autoUpdate="true" closable="true" /> </div>
                                 <div class="container100 ReviewRadioBtnP" style="margin:auto;" id="abc">
-                                    <p:selectOneRadio value="#{tcmpb.selectedThemeName}" layout="pageDirection"
+                                    <p:selectOneRadio value="#{tcmpb.portfolioName}" layout="pageDirection"
                                                       required="true" requiredMessage="Please choose one of these choices">
                                         <p:ajax listener="#{tcmpb.selectedTheme}"
-                                                update=":ceForm:inputArea"/>
-                                        <f:selectItems style="font-size:14px;" itemLabel="#{c.displayname}" itemValue="#{c.displayname}" var="c"  Value="#{tcmpb.fmDataArrayList}"/>
+                                                update=":ceForm:inputArea,:ceForm:summary"/>
+                                        <f:selectItems style="font-size:14px;" itemLabel="#{c.displayname}" itemValue="#{c.displayname}" var="c"  value="#{tcmpb.fmDataArrayList}"/>
                                     </p:selectOneRadio>
                                 </div>
                             </div>
@@ -65,52 +65,75 @@
                             <div class="Container100 Responsive100 TextAlCenter">
                                  <div class="TexAlCenter tp1">
                                             
-                                                <h2 class="black f1 textAlign"></h2>
+                                                <h2 class="black f1 textAlign">#{tcmpb.longDes}</h2>
                                             
                                         </div>
                                    
                                         <div class="TexAlCenter title1">
-                                            Your revised risk level is
                                         </div>
                                    
                                         <div class="EmptyBox5"></div>
 
 
-                                <table class="Container100 Responsive100 TextAlCenter">
 
-                                    <tr>
-                                        <td  style="text-align: left">
-                                            <p:chart type="pie" model="#{tcmpb.charts.pieChart}" styleClass="PieGraphPosition"
-                                                     style="height:200px; width: 100%;"
-                                                     rendered="#{tcmpb.charts.pieChart != null}"
-                                                     responsive="true"/>
-                                        </td>
-                                        <td style="text-align: right">
-                                            <div class="Container50 Fright Responsive50">
+
+                                    <p:fieldset id="summary" legend="Summary" toggleable="true" toggleSpeed="500">
+                                        <div class="Container100 Responsive100">
+                                            <div class="Container50 Responsive50 Fleft">
+                                                <div class="Container100 Fleft TexAlCenter">
+
+                                                </div>
+                                                <div class="EmptyBox10"></div>
+                                                <div class="Container100">
+                                                    <p:outputPanel deferred="true">
+                                                        <p:chart type="pie" model="#{tcmpb.charts.pieChart}" style="height: 200px; width: 100%;"
+                                                                 rendered="#{tcmpb.charts.pieChart != null}"
+                                                                 responsive="true"/>
+                                                    </p:outputPanel>
+                                                </div>
+                                            </div>
+                                            <div class="Container50 Responsive50 Fleft assetAllocationTableMobView">
                                                 <p:dataTable styleClass="invAllocTable"
                                                              value="#{tcmpb.editableAsset}"
                                                              var="assetList">
 
-                                                    <p:column style="width: 2%; background-color: #{assetList.color};">
+                                                    <p:column style="width: 1%; background-color: #{assetList.color};">
                                                         <h:outputText value=" "/>
                                                     </p:column>
 
-                                                    <p:column styleClass="Wid60 TexAlLeft"
-                                                              resizable="true" headerText="Class"><!-- ROHIT's CHANGE -->
+                                                    <p:column styleClass="Wid30 Fs14 TexAlLeft"
+                                                              headerText="Class">
                                                         <h:outputText value="#{assetList.asset}"/>
                                                     </p:column>
-                                                    <p:column styleClass="Wid35 num-text-align TexAlRight"
-                                                              resizable="true" headerText="Weight"><!-- ROHIT's CHANGE -->
+                                                    <p:column styleClass="Wid20 Fs14 num-text-align TexAlRight"
+                                                              headerText="Weight"><!-- ROHIT's CHANGE -->
                                                         <h:outputText value="#{assetList.userEdit}">
                                                             <f:convertNumber pattern="##0.00%"/>
                                                         </h:outputText>
                                                     </p:column>
+                                                    <p:column styleClass="Wid30 Fs14 num-text-align TexAlRight"
+                                                              headerText="Value"><!-- ROHIT's CHANGE -->
+                                                        <h:outputText value="#{assetList.value}">
+                                                            <f:convertNumber pattern="$#,###,###"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:columnGroup type="footer">
+                                                        <p:row>
+                                                            <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
+                                                                      footerText="Total">
+                                                            </p:column>
+                                                            <p:column styleClass="Fs14 TexAlRight FontBold"
+                                                                      footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:columnGroup>
                                                 </p:dataTable>
                                             </div>
-                                                </td>
-                                    </tr>
+                                            <div class="EmptyBox20"></div>
+                                        </div>
+                                    </p:fieldset>
 
-                                </table>
+
                             </div>
                             <div class="EmptyBox5"></div>
                         </p:panel>

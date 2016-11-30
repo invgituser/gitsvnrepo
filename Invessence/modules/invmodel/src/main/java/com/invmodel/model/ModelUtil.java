@@ -102,7 +102,8 @@ public class ModelUtil
 
    public FMData getThemePortfolios(String theme,String portfolioName) {
       if (fixoptimizer != null ) {
-         if (fixoptimizer.getAllThemes().contains(theme)) {
+         for (FMData fmData:fixoptimizer.getAllThemes())
+            if (fmData.getTheme().equalsIgnoreCase(theme)) {
             return fixoptimizer.getThemeByPortfolioName(theme,portfolioName);
          }
       }

@@ -9,21 +9,25 @@
 
         <div class="TexAlCenter">
             <div class="PortfolioCreationFields">
-                <div class="mobileFullWidth"><h3 class="formFS"> I plan on investing </h3></div>
-                <p:inputNumber id="initialIid"
+                <span class="mobileFullWidth" >
+                    <h:outputText value="I plan on investing" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
+                    <h:outputText value="The objective for this portfolio is " styleClass="formFS" rendered="#{tcmpb.formPortfolioEdit}"/>
+                    </span>
+                <p:inputNumber id="initialIid" rendered="#{!tcmpb.formPortfolioEdit}"
                                 styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
                                 value="#{tcmpb.initialInvestment}"
                                 maxlength="11" symbol="$"
-                                decimalPlaces="0" readonly="#{tcmpb.formPortfolioEdit}"
+                                decimalPlaces="0"
                                 required="true" requiredMessage="Min. of $50,000 investment is required!"
                                 validatorMessage="Min. of $50,000 investment is required!">
                 </p:inputNumber>
                 <p:message for="initialIid" display="tooltip"/>
 
-                <div class="mobileFullWidth"><h3 class="formFS"> for </h3></div>
-                <span class="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput" > <h:outputText value="#{tcmpb.goal}" rendered="#{tcmpb.formPortfolioEdit}"/></span>
+               <span class="mobileFullWidth" >
+                    <h:outputText value="for" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
+                    </span>
                 <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="TCM-UI-Dropdown dropdownInputFullWidth portfolioCreationDD"
-                                 required="true" requiredMessage="Please choose investment strategy" rendered="#{!tcmpb.formPortfolioEdit}">
+                                 required="true" requiredMessage="Please choose investment strategy" >
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
                             update=":ceForm:inputArea" process="initialIid q3"/>/>
                     <f:selectItem itemLabel="Choose One" itemValue=""/>

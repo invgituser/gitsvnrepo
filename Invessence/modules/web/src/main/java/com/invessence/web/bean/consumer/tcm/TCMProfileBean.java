@@ -56,6 +56,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private TCMCharts charts = new TCMCharts();
    private CustomerData origCustomerData;
    ArrayList<FMData> fmDataArrayList;
+   String longDes;
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -195,9 +196,44 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       this.selectedThemeName = selectedThemeName;
    }
+
+   public String selectThemeDesc()
+   {
+     return getModelUtil().getThemePortfolios(getInstance().getTheme(),origCustomerData.getPortfolioName()).getDescription();
+   }
    public void selectedTheme()
    {
+      try
+      {
+         if (selectedThemeName == null)
+         {
+            return;
+         }
 
+         if (selectedThemeName.isEmpty())
+         {
+            selectedThemeName = null;
+            FacesMessage message;
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please choose one of the fund.", "Error");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+
+         if (selectedThemeName.equalsIgnoreCase(origCustomerData.getPortfolioName()))
+         {
+            selectedThemeName = null;
+            FacesMessage message;
+            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Current and revised fund cannot be same.", "Error");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+         }
+         longDes=getModelUtil().getThemePortfolios(getInstance().getTheme(),selectedThemeName).getDescription();
+         editAssetPortfolio(1);
+
+      }
+      catch (Exception ex)
+      {
+      }
    }
    public String getFormula()
    {
@@ -228,6 +264,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public ArrayList<FMData> getFmDataArrayList()
    {
       return fmDataArrayList;
+   }
+
+   public String getLongDes()
+   {
+      return longDes;
    }
 
    public String getFundButtonText()
@@ -504,6 +545,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             origCustomerData = new CustomerData();
             origCustomerData.copyData(getInstance());
             fmDataArrayList=getFixedModelPortfolioList();
+            longDes=getModelUtil().getThemePortfolios(getInstance().getTheme(),origCustomerData.getPortfolioName()).getDescription();
          }
          formEdit = false;
       }
@@ -578,6 +620,27 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             setTheme(InvConst.DEFAULT_THEME);
          }
 */
+
+         setRiskIndex(riskCalculator.calculateRisk());
+         setNumOfAllocation(noOfYears);
+         setNumOfPortfolio(noOfYears);
+         buildAssetClass();
+         buildPortfolio();
+
+         createCharts();
+      }
+      catch (Exception ex)
+      {
+         ex.printStackTrace();
+      }
+   }
+
+   private void editAssetPortfolio(Integer noOfYears)
+   {
+
+      try
+      {
+
 
          setRiskIndex(riskCalculator.calculateRisk());
          setNumOfAllocation(noOfYears);
