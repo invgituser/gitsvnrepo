@@ -1140,9 +1140,21 @@ public class CustomerData extends ProfileData
             AssetClass[] aamc = new AssetClass[tallyAssetclass.size()];
             Integer i = 0;
             aamc[i] = new AssetClass();
-            for (Asset asset : tallyAssetclass.values()) {
-               setEditableAsset(asset);
-               aamc[i].addAssetClass(asset);
+            for (Asset assetdata : tallyAssetclass.values()) {
+               setEditableAsset(assetdata);
+               Asset origAssetData =  aamc[i].getAssetclass().get(assetdata.getAsset());
+               if (origAssetData != null)
+               {
+                  origAssetData.setAllocweight(assetdata.getAllocweight());
+                  origAssetData.setActualweight(assetdata.getActualweight());
+                  origAssetData.setValue(assetdata.getValue());
+               }
+               else {
+                  aamc[i].addAssetClass(assetdata.getAsset(),assetdata.getDisplayName(),assetdata.getColor(),
+                                        assetdata.getAllocweight(), assetdata.getAvgReturn());
+                  aamc[i].getAssetclass().get(assetdata.getAsset()).setValue(assetdata.getValue());
+
+               }
             }
             aamc[i].setTotalInvested(totalMoney);
             setAssetData(aamc);

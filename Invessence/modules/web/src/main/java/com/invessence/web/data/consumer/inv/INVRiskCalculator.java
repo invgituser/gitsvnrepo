@@ -92,6 +92,7 @@ public class INVRiskCalculator extends RiskCalculator
                      calcRisk = calcRisk; // Divide Age Risk / 100
                      calcRisk = (calcRisk > 100) ? 100 : calcRisk;
                      riskValues[loop] = calcRisk; // Store the value in DB
+                     answers[loop] = getRiskAge().toString();
                      break;
                   case 2:
                      Double calcHorizonRisk = 0.0;
@@ -99,12 +100,17 @@ public class INVRiskCalculator extends RiskCalculator
                      calcHorizonRisk = (maxDuration-getRiskHorizon()*(80/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
                      riskValues[loop] = calcHorizonRisk; // Store the value in DB
                      if (calcHorizonRisk > calcRisk)
+                     {
                         calcRisk = calcHorizonRisk;
+                     }
+                     answers[loop] = getRiskHorizon().toString();
                      break;
                   case 3:
                   case 4:
                   case 5:
-                     if (answers[loop] != null) {
+                  case 6:
+                  case 7:
+                     if (answers[loop] != null && ! answers[loop].isEmpty()) {
                         Integer lookupindex = converter.getIntData(answers[loop]);
                         value = riskValueMatrix[loop][lookupindex];
                         calcRisk = calcRisk + value;
@@ -112,7 +118,7 @@ public class INVRiskCalculator extends RiskCalculator
                      }
                      break;
                   default:
-                     if (answers[loop] != null) {
+                     if (answers[loop] != null && ! answers[loop].isEmpty()) {
                         Integer lookupindex = converter.getIntData(answers[loop]);
                         value = riskValueMatrix[loop][lookupindex];
                         riskValues[loop] = value; // Store the value in DB
@@ -125,6 +131,7 @@ public class INVRiskCalculator extends RiskCalculator
             }
 
             calcRisk = (calcRisk < 0.0) ? 0.0 : calcRisk;
+            calcRisk = (calcRisk > 99.0) ? 99.0 : calcRisk;
             setTotalRisk(calcRisk);
             return calcRisk;
          }

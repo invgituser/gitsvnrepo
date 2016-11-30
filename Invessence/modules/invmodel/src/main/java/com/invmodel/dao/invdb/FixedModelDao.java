@@ -144,7 +144,7 @@ public class FixedModelDao extends JdbcDaoSupport
                   asset,
                   convert.getStrData(rs.get("assetname")),       // assetname
                   convert.getStrData(rs.get("keyname")),         // ticker
-                  convert.getStrData(rs.get("keydescription")),  // name
+                  convert.getStrData(rs.get("name")),  // name
                   convert.getStrData(rs.get("keydescription")),  // subasset
                   convert.getStrData(rs.get("keydescription")),  // displayname
                   convert.getStrData(rs.get("color")),

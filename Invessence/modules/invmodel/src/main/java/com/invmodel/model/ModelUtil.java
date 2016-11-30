@@ -73,10 +73,12 @@ public class ModelUtil
 
    public AssetClass[] buildAllocation(ProfileData pdata)
    {
+/*
       if (pdata == null)
       {
          return null;
       }
+*/
 
       return assetmodel.buildAllocation(pdata);
 
@@ -109,6 +111,7 @@ public class ModelUtil
 
    public Portfolio[] buildPortfolio(AssetClass[] assetData, ProfileData profileData)
    {
+/*
          if (assetData == null)
          {
             return null;
@@ -118,6 +121,7 @@ public class ModelUtil
          {
             return null;
          }
+*/
 
 
       return portfolioModel.buildPortfolio(assetData, profileData);

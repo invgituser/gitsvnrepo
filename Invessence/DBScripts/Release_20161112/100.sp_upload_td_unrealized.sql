@@ -1,7 +1,7 @@
-DROP PROCEDURE IF EXISTS `sp_upload_td_unrealized`;
+DROP PROCEDURE IF EXISTS `temp`.`sp_upload_td_unrealized`;
 
 DELIMITER $$
-CREATE PROCEDURE `sp_upload_td_unrealized`(
+CREATE PROCEDURE `temp`.`sp_upload_td_unrealized`(
 )
 BEGIN
 
