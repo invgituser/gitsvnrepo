@@ -1,6 +1,6 @@
 package com.invessence.web.data.consumer.tcm;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.data.common.CustomerData;
@@ -22,6 +22,7 @@ public class TCMCustomer extends CustomerData
    public TCMRiskCalculator riskCalculator;
    ArrayList<ProjectionData[]> projectionDatas;
    ArrayList<FMData> fixedModelPortfolioList;
+   LinkedHashMap <String, FMData> fmDataLinkedHashMap;
 
    public TCMCustomer()
    {
@@ -137,5 +138,15 @@ public class TCMCustomer extends CustomerData
       fixedModelPortfolioList = (getTheme() != null) ? getModelUtil().getThemePortfolios(getTheme()) : null;
    }
 
+   public LinkedHashMap<String, FMData> getFmDataLinkedHashMap()
+   {
+      return fmDataLinkedHashMap;
+   }
 
+   public void setFmDataLinkedHashMap(String theme)
+   {
+      fmDataLinkedHashMap = (getTheme() != null) ? getModelUtil().getThemePortfoliosMap(theme) : null;;
+
+
+   }
 }

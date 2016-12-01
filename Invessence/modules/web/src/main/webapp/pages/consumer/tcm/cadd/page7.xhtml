@@ -50,10 +50,18 @@
                                 </ui:fragment>
                             </h3>
                             <div class="EmptyBox10"></div>
+                            <ui:fragment rendered="#{(tcmpb.origCustomerData.portfolioName==tcmpb.fixedModelName) and tcmpb.formula=='Q'}" >
+                                <h2 class="black f1 textAlign">
+                                    Your current and revised portfolio is same, you can not do further processing.
+                                </h2>
+                                <div class="EmptyBox10"></div>
+                                    </ui:fragment>
+
+                            <ui:fragment rendered="#{(tcmpb.origCustomerData.portfolioName!=tcmpb.fixedModelName) or tcmpb.formula=='D'}" >
                             <div style="border:0px !important; background:none;" class="Container100 FormContent">
-				                <div class="container100"><p:messages  showDetail="true" autoUpdate="true" closable="true" /> </div>
+				                <div class="container100"><p:messages styleClass="errorText"  showDetail="false" autoUpdate="true" closable="true" /> </div>
                                 <div class="container100 ReviewRadioBtnP" style="margin:auto;" id="abc">
-                                    <p:selectOneRadio value="#{tcmpb.portfolioName}" layout="pageDirection"
+                                    <p:selectOneRadio value="#{tcmpb.selectedThemeName}" layout="pageDirection"
                                                       required="true" requiredMessage="Please choose one of these choices">
                                         <p:ajax listener="#{tcmpb.selectedTheme}"
                                                 update=":ceForm:inputArea,:ceForm:summary"/>
@@ -65,7 +73,7 @@
                             <div class="Container100 Responsive100 TextAlCenter">
                                  <div class="TexAlCenter tp1">
                                             
-                                                <h2 class="black f1 textAlign">#{tcmpb.longDes}</h2>
+                                                <h2 class="black f1 textAlign">#{tcmpb.newLongDesc}</h2>
                                             
                                         </div>
                                    
@@ -135,6 +143,7 @@
 
 
                             </div>
+                            </ui:fragment>
                             <div class="EmptyBox5"></div>
                         </p:panel>
 
@@ -144,7 +153,7 @@
                                          immediate="true"
                                          actionListener="#{tcmpb.startover}"/>
                         <p:commandButton styleClass="Fright" value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
-                                         update=":ceForm:inputArea"
+                                         update=":ceForm:inputArea" disabled="#{(tcmpb.origCustomerData.portfolioName==tcmpb.fixedModelName) and tcmpb.formula=='Q'}"
                                          actionListener="#{tcmpb.nextPage}"/>
 
                     </div>

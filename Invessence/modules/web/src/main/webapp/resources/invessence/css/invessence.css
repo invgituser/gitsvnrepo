@@ -377,6 +377,9 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 
 /**/
 /*Prakash*/
+.textAlignLeft, .ui-chkbox-label, .textAlignLeft > span {
+	text-align: left!important;
+}
 
 .autoComplteteField > input {
 	font-size: 14px!important;

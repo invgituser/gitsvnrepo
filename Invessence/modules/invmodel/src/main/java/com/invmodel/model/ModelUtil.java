@@ -1,6 +1,6 @@
 package com.invmodel.model;
 
-import java.util.ArrayList;
+import java.util.*;
 
 import com.invmodel.Const.InvConst;
 import com.invmodel.asset.AssetAllocationModel;
@@ -96,6 +96,17 @@ public class ModelUtil
          if (fmData.getTheme().equalsIgnoreCase(theme)) {
             return fixoptimizer.getThemePortfolios(theme);
          }
+      }
+      return null;
+   }
+   public LinkedHashMap<String,FMData> getThemePortfoliosMap(String theme) {
+      if (fixoptimizer != null ) {
+         LinkedHashMap<String,FMData> stringFMDataLinkedHashMap=new LinkedHashMap<String, FMData>();
+         for (FMData fmData:fixoptimizer.getAllThemes())
+            if (fmData.getTheme().equalsIgnoreCase(theme)) {
+               stringFMDataLinkedHashMap.put(fmData.getDisplayname(),fmData);
+            }
+         return stringFMDataLinkedHashMap;
       }
       return null;
    }

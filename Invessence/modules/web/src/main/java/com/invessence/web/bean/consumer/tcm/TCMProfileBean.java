@@ -1,7 +1,7 @@
 package com.invessence.web.bean.consumer.tcm;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -44,19 +44,23 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Boolean displayGoalGraph = false,
       displayGoalText = false;
    private String customErrorText;
-   private String selectedThemeName;
+   private String selectedThemeName="";
 
    private Integer prefView = 0;
    private String whichChart;
-   private String formula;
-   private String acceptterms;
+   private String formula="";
+   private String acceptterms="";
 
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
    private TCMCharts charts = new TCMCharts();
    private CustomerData origCustomerData;
    ArrayList<FMData> fmDataArrayList;
+   LinkedHashMap<String, FMData> fmDataMap;
    String longDes;
+   String newLongDesc;
+   private Boolean finalCheck1,finalCheck2,confirmationCheck=false ;
+
 
    @ManagedProperty("#{consumerListDataDAO}")
    private ConsumerListDataDAO listDAO;
@@ -197,9 +201,47 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       this.selectedThemeName = selectedThemeName;
    }
 
+   public Boolean getFinalCheck1()
+   {
+      return finalCheck1;
+   }
+
+   public void setFinalCheck1(Boolean finalCheck1)
+   {
+      this.finalCheck1 = finalCheck1;
+   }
+
+   public Boolean getFinalCheck2()
+   {
+      return finalCheck2;
+   }
+
+   public void setFinalCheck2(Boolean finalCheck2)
+   {
+      this.finalCheck2 = finalCheck2;
+   }
+
+   public Boolean getConfirmationCheck()
+   {
+      return confirmationCheck;
+   }
+
+   public void setConfirmationCheck(Boolean confirmationCheck)
+   {
+      this.confirmationCheck = confirmationCheck;
+   }
+
    public String selectThemeDesc()
    {
      return getModelUtil().getThemePortfolios(getInstance().getTheme(),origCustomerData.getPortfolioName()).getDescription();
+   }
+   public void confirmationCheckClick()
+   {
+      if(finalCheck1 && finalCheck2)
+         confirmationCheck= true;
+      else
+         confirmationCheck=false;
+
    }
    public void selectedTheme()
    {
@@ -227,7 +269,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             FacesContext.getCurrentInstance().addMessage(null, message);
             return;
          }
-         longDes=getModelUtil().getThemePortfolios(getInstance().getTheme(),selectedThemeName).getDescription();
+         newLongDesc=fmDataMap.get(selectedThemeName).getDescription();
          editAssetPortfolio(1);
 
       }
@@ -266,9 +308,19 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return fmDataArrayList;
    }
 
+   public LinkedHashMap<String, FMData> getFmDataMap()
+   {
+      return fmDataMap;
+   }
+
    public String getLongDes()
    {
       return longDes;
+   }
+
+   public String getNewLongDesc()
+   {
+      return newLongDesc;
    }
 
    public String getFundButtonText()
@@ -364,6 +416,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            selectedThemeName="";
+            finalCheck1=false;
+            finalCheck2=false;
+            confirmationCheck=false;
+            acceptterms="";
+            formula="";
+            newLongDesc="";
             formPortfolioEdit=true;
             // Page management
             pagemanager = new PagesImpl(7);
@@ -542,10 +601,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             setAcctnum(acctnum);
             listDAO.getProfileData(getInstance());
             setFixedModelPortfolioList(getInstance().getTheme());
+            setFmDataLinkedHashMap(getInstance().getTheme());
             origCustomerData = new CustomerData();
             origCustomerData.copyData(getInstance());
             fmDataArrayList=getFixedModelPortfolioList();
-            longDes=getModelUtil().getThemePortfolios(getInstance().getTheme(),origCustomerData.getPortfolioName()).getDescription();
+            fmDataMap=getFmDataLinkedHashMap();
+            longDes=fmDataMap.get(origCustomerData.getPortfolioName()).getDescription();
          }
          formEdit = false;
       }
@@ -641,7 +702,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       try
       {
 
-
+         riskCalculator.setRiskFormula("D");
+         riskCalculator.setTotalRisk(fmDataMap.get(selectedThemeName).getHighRisk());
          setRiskIndex(riskCalculator.calculateRisk());
          setNumOfAllocation(noOfYears);
          setNumOfPortfolio(noOfYears);
@@ -801,6 +863,36 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    }
 
+
+   public void savePortfolio()
+   {
+      long acctnum;
+      Boolean validate = false;
+      try
+      {
+         // setDefaults();
+         setPortfolioName(getFixedModelName());
+         acctnum = saveDAO.editProfileData(getInstance());
+         if (acctnum > 0)
+         {
+            setAcctnum(acctnum);
+            saveDAO.saveFinancials(getInstance());
+            saveDAO.saveRiskProfile(acctnum, getRiskCalculator());
+            saveDAO.saveAllocation(getInstance());
+            saveDAO.savePortfolio(getInstance());
+         }
+         // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+         formEdit = false;
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         webutil.alertSupport("ConsumerEdit.saveprofile", "Error:ConsumerEdit.SaveProfile",
+                              "error.saveprofile", stackTrace);
+      }
+
+   }
+
    public void fundAccount()
    {
       long acctnum;
@@ -914,6 +1006,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void startover()
    {
       pagemanager.setPage(0);
+      fetchClientData();
+      selectedThemeName="";
+      newLongDesc="";
       // webutil.redirect("/start.xhtml", null);
 
    }
@@ -1082,8 +1177,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void processTransfer()
    {
-      saveProfile();
-      pagemanager.nextPage();
+      setPortfolioName(selectedThemeName);
+      savePortfolio();
+      uiLayout.goToStartPage();
    }
    public void nextPage()
    {

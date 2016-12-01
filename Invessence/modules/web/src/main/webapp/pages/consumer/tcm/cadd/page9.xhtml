@@ -9,13 +9,13 @@
         <div class="ContainerIndent">
 	    <div class="Fs16 textAlign">
             You are about to make an exchange from
-            <span style="text-decoration: underline;"></span>
+            <span style="text-decoration: underline;">#{tcmpb.portfolioName}</span>
             in the amount of
             <h:outputText value="#{tcmpb.actualInvested}">
                <f:convertNumber currencySymbol="$" type="currency"/>
             </h:outputText>
             to the
-            <span style="text-decoration: underline;">#{tcmpb.portfolioName}</span>
+            <span style="text-decoration: underline;">#{tcmpb.selectedThemeName}</span>
             indicated below for the corresponding account
 	    </div>
             <div class="EmptyBox20"></div>
@@ -46,11 +46,25 @@
                 </tbody>
             </table>
             <div class="EmptyBox20"></div>
+            <div class="Fs14 textAlign">
+
+                    <p:selectBooleanCheckbox value="#{tcmpb.finalCheck1}" styleClass="RegulatoryCheckBox textAlignLeft"
+                                             itemLabel="Changing your strategy will require portfolio rebalancing which may incur: the realization of capital gains or losses, additional transaction costs, and/or short-term trading penalties/fees. Strategy changes have the potential to be detrimental to performance.">
+                        <p:ajax update=":ceForm:inputArea" listener="#{tcmpb.confirmationCheckClick}"/>
+                    </p:selectBooleanCheckbox>
+
+                    <p:selectBooleanCheckbox value="#{tcmpb.finalCheck2}" styleClass="RegulatoryCheckBox textAlignLeft"
+                                             itemLabel="Due to limited liquidity in some investments, a strategy change and accompanying rebalance may take several months to be fully completed. It may also result in temporarily increased levels of cash in the portfolio and/or variances from the model strategy allocations.  Depending on the specifics of each situation, we may also utilize placeholder investments temporarily in lieu of model strategy investments that are not currently available for purchase.">
+                        <p:ajax update=":ceForm:inputArea" listener="#{tcmpb.confirmationCheckClick}" />
+                    </p:selectBooleanCheckbox>
+
+            </div>
+            <div class="EmptyBox20"></div>
             <p:commandButton value="Cancel" rendered="#{tcmpb.pagemanager.prevButtonStat}"
                              update=":ceForm:inputArea"
                              immediate="true"
                              actionListener="#{tcmpb.exitPage}"/>
-            <p:commandButton styleClass="Fright" value="Accept"
+            <p:commandButton styleClass="Fright" value="Accept" disabled="#{!tcmpb.confirmationCheck}"
                              update=":ceForm:inputArea"
                              actionListener="#{tcmpb.processTransfer}"/>
 

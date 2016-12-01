@@ -27,6 +27,16 @@ public class ConsumerSaveDataDAO extends JdbcDaoSupport implements Serializable
       mgoal.setAcctnum(acctnum);
       return (acctnum);
    }
+   public Long editProfileData( CustomerData mgoal)
+   {
+      DataSource ds = getDataSource();
+      ConsumerSaveSP sp = new ConsumerSaveSP(ds, "edit_user_trade_profile",0);
+      Long acctnum = 0L;
+      Map outMap = sp.saveProfileData(mgoal);
+      acctnum = ((Long) outMap.get("p_acctnum")).longValue();
+      mgoal.setAcctnum(acctnum);
+      return (acctnum);
+   }
 
    public void saveFinancials(CustomerData mgoal)
    {
