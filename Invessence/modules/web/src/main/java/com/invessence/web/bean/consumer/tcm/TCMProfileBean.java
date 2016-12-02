@@ -1242,6 +1242,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             pagemanager.setPage(5);
          else
             pagemanager.nextPage();
+         if(pagemanager.getPage()==5 && getFormula().equalsIgnoreCase("Q"))
+         {
+            selectedThemeName=getFixedModelName();
+         }
       }
       else
       {

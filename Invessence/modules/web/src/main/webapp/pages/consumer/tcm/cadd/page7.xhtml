@@ -65,7 +65,7 @@
                                                       required="true" requiredMessage="Please choose one of these choices">
                                         <p:ajax listener="#{tcmpb.selectedTheme}"
                                                 update=":ceForm:inputArea,:ceForm:summary"/>
-                                        <f:selectItems style="font-size:14px;" itemLabel="#{c.displayname}" itemValue="#{c.displayname}" var="c"  value="#{tcmpb.fmDataArrayList}"/>
+                                        <f:selectItems style="font-size:14px;"  itemLabel="#{c.displayname}"  itemValue="#{c.displayname}" var="c"  value="#{tcmpb.fmDataArrayList}"/>
                                     </p:selectOneRadio>
                                 </div>
                             </div>

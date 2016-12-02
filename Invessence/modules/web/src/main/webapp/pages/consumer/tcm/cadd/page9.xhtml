@@ -18,33 +18,7 @@
             <span style="text-decoration: underline;">#{tcmpb.selectedThemeName}</span>
             indicated below for the corresponding account
 	    </div>
-            <div class="EmptyBox20"></div>
-            <table class="Container100 Responsive100">
-                <thead>
-                <tr style="background: #7B7DB3; color: #ffffff; font-weight: bold;padding: 0; height: 29px;">
-                    <th class="TexAlCenter" style="width: 75%;">Fund</th>
-                    <th class="TexAlRight" style="width: 25%; padding-right: 15px;">Amount</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td class="TexAlLeft" style="width: 75%">#{tcmpb.selectedThemeName}</td>
-                    <td class="TexAlRight" style="width: 25%">
-                        <h:outputText value="#{tcmpb.actualInvested}">
-                            <f:convertNumber currencySymbol="$" type="currency"/>
-                        </h:outputText>
-                    </td>
-                </tr>
-                <tr style="background: #f5f5f5">
-                    <td class="TexAlRight" style="width: 75%">Total</td>
-                    <td class="TexAlRight" style="width: 25%">
-                        <h:outputText value="#{tcmpb.actualInvested}">
-                            <f:convertNumber currencySymbol="$" type="currency"/>
-                        </h:outputText>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
             <div class="EmptyBox20"></div>
             <div class="Fs14 textAlign">
 

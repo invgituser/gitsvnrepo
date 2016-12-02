@@ -25,7 +25,7 @@ BEGIN
          concat(`ext_acct_info`.`applicantFName`,' ', `ext_acct_info`.`applicantLName`) as `name`
    INTO tClientID, tAcctNum, tTotal, tAdvisor, tPortfolioName, tGoal, tAcctType, tName
   FROM `invdb`.`ext_acct_info`, `invdb`.`ext_nav`, `invdb`.`user_trade_profile`
-  WHERE `ext_acct_info`.`status` in ('O', 'P', 'X')
+  WHERE `ext_acct_info`.`status` in ('A', 'R')
   AND `ext_acct_info`.`acctnum` = `user_trade_profile`.`acctnum`
   AND `ext_acct_info`.`clientAccountID` = `ext_nav`.`clientAccountID`
   AND `ext_nav`.`reportDate` = (select max(reportDate) from `invdb`.`ext_nav`)
