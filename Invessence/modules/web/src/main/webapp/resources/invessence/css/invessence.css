@@ -309,10 +309,31 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     margin: 7px 0;
 }
 /*s_dashboard*/
-@media (max-width: 500px){
+/**temporary**/
+@media (max-width:400px) {
+	.s_dashboardLabel {
+	display: none;
+	}
+	
+	.s_dashboard {
+	width: 25%!important;
+	float: left!important;
+	}
+	
+	.s_dashboardIcon {
+    text-align: center;
+    width: 100%;
+}
+.DisplaynoneMobile {
+    display: none;
+    }
+}
+/**/
+@media (min-width: 400px) and (max-width: 630px){
     .s_dashboard {
-        width: 100%;
-        float: none;
+        width: 100%!important;
+            margin: 5px 0px;
+        float: none!important;
     }
 
     .s_dashboardIcon {
@@ -320,9 +341,21 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     }
 
     .s_dashboardLabel {
-        text-align: right;
+        text-align: right!important;
         padding: 10px 0;
     }
+    
+    .DisplaynoneMobile {
+    display: none;
+    }
+}
+
+
+
+@media (max-width: 1117px) {
+	.s_dashboardLabel > h3, .FS13Custom {
+	font-size: 13px!important;
+	}
 }
 .s_dashboard {
 	width: 25%;
@@ -337,6 +370,8 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	text-align: left;
     padding: 10px 0;
 }
+
+
 /*Prakash - Advisor*/
 @media (max-width: 550px) {
 	.PenelFilter > .ui-selectonebutton > .ui-button > .ui-button-text {
@@ -375,8 +410,12 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	}
 }
 
+
+
 /**/
 /*Prakash*/
+
+
 .textAlignLeft, .ui-chkbox-label, .textAlignLeft > span {
 	text-align: left!important;
 }
