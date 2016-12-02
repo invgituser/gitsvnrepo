@@ -411,7 +411,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void portfolioRenderView()
    {
-
+      String msgheader;
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
@@ -442,6 +442,18 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             // Client related data.
             setRiskCalcMethod("C");
             fetchClientData();
+            if (!webutil.isUserLoggedIn()
+               || getBeanAcctnum()==null
+               || getInstance().getClientAccountID()==null
+
+               )
+            {
+               msgheader = "dctd.102";
+               webutil.redirect("/access-denied.xhtml", null);
+               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+
             canOpenAccount = initCanOpenAccount();
             welcomeDialog = false;
          }

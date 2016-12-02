@@ -9,7 +9,7 @@
         <div class="ContainerIndent">
 
             <div class="TexAlCenter">
-                <h1 class="black Fs24 fnt1">Review</h1>
+                <h1 class="Fs24 fnt1">Review</h1>
             </div>
             <div class="EmptyBox20"></div>
 
@@ -20,7 +20,7 @@
                         <div class="ContainerIndent">
                             <p:panel style="height: 60%; width: 100%; background: #ffffff;">
                                 <div class="EmptyBox5"></div>
-                                <h2 class="black Fs20 fnt1 textAlign">Current Portfolio:
+                                <h2 class="Fs20 fnt1 textAlign">Current Portfolio:
                                     <span style="text-decoration: underline;">#{tcmpb.origCustomerData.portfolioName}</span>
                                 </h2>
                                 <br/>
@@ -36,13 +36,13 @@
                             <div class="EmptyBox10"></div>
                             <h3 class="black f1 textAlign">
                                 <ui:fragment rendered="#{tcmpb.formula == 'Q'}">
-                                    <h3 class="black f1 textAlign">
+                                    <h3 class="f1 textAlign">
                                         After reviewing your risk though the
                                         questionnaire, your new portfolio recommendation is:#{tcmpb.fixedModelName}
                                     </h3>
                                 </ui:fragment>
                                 <ui:fragment rendered="#{tcmpb.formula != 'Q'}">
-                                    <h2 class="black f1 textAlign">
+                                    <h2 class="f1 textAlign">
                                         By selecting one of the portfolios below, you consent to
                                         transferring your assets into a new portfolio that was not
                                         recommended to you through the questionnaire.
@@ -51,7 +51,7 @@
                             </h3>
                             <div class="EmptyBox10"></div>
                             <ui:fragment rendered="#{(tcmpb.origCustomerData.portfolioName==tcmpb.fixedModelName) and tcmpb.formula=='Q'}" >
-                                <h2 class="black f1 textAlign">
+                                <h2 class="f1 textAlign">
                                     Your current and revised portfolio is same, you can not do further processing.
                                 </h2>
                                 <div class="EmptyBox10"></div>
@@ -73,7 +73,7 @@
                             <div class="Container100 Responsive100 TextAlCenter">
                                  <div class="TexAlCenter tp1">
                                             
-                                                <h2 class="black f1 textAlign">#{tcmpb.newLongDesc}</h2>
+                                                <h2 class="f1 textAlign">#{tcmpb.newLongDesc}</h2>
                                             
                                         </div>
                                    

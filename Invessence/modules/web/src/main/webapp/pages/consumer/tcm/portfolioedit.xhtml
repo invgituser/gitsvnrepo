@@ -37,7 +37,7 @@
                             <div class="Container100">
                                 <div class="ContainerIndent Responsive100 tab_main">
 
-                                    <p:steps id="progressbar" styleClass="portfolioCreationSteps8Panel portfolioCreationStepsPanel"
+                                    <p:steps id="progressbar" styleClass="portfolioCreationSteps8Panel"
                                              activeIndex="#{tcmpb.pagemanager.page}">
                                         <p:menuitem value="Selection" />
                                         <p:menuitem value="Start" />
@@ -57,27 +57,27 @@
                                     <ui:fragment rendered="#{tcmpb.pagemanager.page == 0}">
                                         <ui:include src="/pages/consumer/tcm/cadd/portfolioConfirmation.xhtml" />
                                     </ui:fragment>
-                                    <ui:fragment rendered="#{tcmpb.pagemanager.page == 1}">
+                                  <ui:fragment rendered="#{tcmpb.pagemanager.page == 1}">
                                         <ui:include src="/pages/consumer/tcm/cadd/p1.xhtml" />
                                     </ui:fragment>
-                                    <ui:fragment rendered="#{tcmpb.pagemanager.page == 2}">
-                                        <ui:include src="/pages/consumer/tcm/cadd/p3.xhtml" />
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{tcmpb.pagemanager.page == 3}">
-                                        <ui:include src="/pages/consumer/tcm/cadd/p4.xhtml" />
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{tcmpb.pagemanager.page == 4}">
-                                        <ui:include src="/pages/consumer/tcm/cadd/p5.xhtml" />
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{tcmpb.pagemanager.page == 5}">
-                                        <ui:include src="/pages/consumer/tcm/cadd/page7.xhtml" />
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{tcmpb.pagemanager.page == 6}">
-                                        <ui:include src="/pages/consumer/tcm/cadd/page8.xhtml" />
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{tcmpb.pagemanager.page == 7}">
-                                        <ui:include src="/pages/consumer/tcm/cadd/page9.xhtml" />
-                                    </ui:fragment>
+                                      <ui:fragment rendered="#{tcmpb.pagemanager.page == 2}">
+                                          <ui:include src="/pages/consumer/tcm/cadd/p3.xhtml" />
+                                      </ui:fragment>
+                                      <ui:fragment rendered="#{tcmpb.pagemanager.page == 3}">
+                                          <ui:include src="/pages/consumer/tcm/cadd/p4.xhtml" />
+                                      </ui:fragment>
+                                       <ui:fragment rendered="#{tcmpb.pagemanager.page == 4}">
+                                          <ui:include src="/pages/consumer/tcm/cadd/p5.xhtml" />
+                                      </ui:fragment>
+                                      <ui:fragment rendered="#{tcmpb.pagemanager.page == 5}">
+                                          <ui:include src="/pages/consumer/tcm/cadd/page7.xhtml" />
+                                      </ui:fragment>
+                                        <ui:fragment rendered="#{tcmpb.pagemanager.page == 6}">
+                                            <ui:include src="/pages/consumer/tcm/cadd/page8.xhtml" />
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{tcmpb.pagemanager.page == 7}">
+                                            <ui:include src="/pages/consumer/tcm/cadd/page9.xhtml" />
+                                        </ui:fragment>
                                 </div>
                             </div>
 
