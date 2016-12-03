@@ -285,6 +285,14 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void setFormula(String formula)
    {
       this.formula = formula;
+      if (formula != null && ! formula.isEmpty()) {
+         if (! formula.equalsIgnoreCase("D")) {
+            riskCalculator.setRiskFormula("C");
+         }
+         else {
+            riskCalculator.setRiskFormula("D");
+         }
+      }
    }
 
    public String getAcceptterms()
@@ -1228,7 +1236,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if(!formPortfolioEdit)
             saveProfile();
-         if (pagemanager.getPage() == 0)
+         if (currentpage == 0)
          {  // This is before moving to next page. ONLY for FIRST PAGE
             if (getAcctnum() > 0)
             {

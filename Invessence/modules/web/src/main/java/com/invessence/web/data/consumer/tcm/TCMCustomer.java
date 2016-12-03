@@ -146,7 +146,5 @@ public class TCMCustomer extends CustomerData
    public void setFmDataLinkedHashMap(String theme)
    {
       fmDataLinkedHashMap = (getTheme() != null) ? getModelUtil().getThemePortfoliosMap(theme) : null;;
-
-
    }
 }
