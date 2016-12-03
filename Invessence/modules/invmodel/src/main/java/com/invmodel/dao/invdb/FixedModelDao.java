@@ -144,7 +144,7 @@ public class FixedModelDao extends JdbcDaoSupport
                   asset,
                   convert.getStrData(rs.get("assetname")),       // assetname
                   convert.getStrData(rs.get("keyname")),         // ticker
-                  convert.getStrData(rs.get("name")),  // name
+                  convert.getStrData(rs.get("name")),            // name
                   convert.getStrData(rs.get("keydescription")),  // subasset
                   convert.getStrData(rs.get("keydescription")),  // displayname
                   convert.getStrData(rs.get("color")),
@@ -156,45 +156,6 @@ public class FixedModelDao extends JdbcDaoSupport
                   if (themeMap.get(key).getAsset().containsKey(asset)) {
                      themeMap.get(key).getAsset().get(asset).addPortfolio(portfolio);
                   }
-               }
-               i++;
-            }
-         }
-      }
-   }
-
-   public void load_fixedmodule_performance(Map<String, FMData> themeMap)
-   {
-
-      if (themeMap == null)
-         return;
-
-      // DataSource ds = getDs();
-      String storedProcName = "sel_sec_fixedmodule_performance";
-      FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
-
-      Map outMap = sp.loadPerformance();
-
-      if (outMap != null)
-      {
-         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-         int i = 0;
-         if (rows != null) {
-            for (Map<String, Object> map : rows) {
-               Map rs = (Map) rows.get(i);
-               String theme = convert.getStrData(rs.get("theme"));
-               theme = theme.toUpperCase();
-               FMPerformanceData performance = new FMPerformanceData(
-                  theme,
-                  convert.getStrData(rs.get("index")),
-                  convert.getStrData(rs.get("indexname")),
-                  convert.getIntData(rs.get("sortorder")),
-                  convert.getStrData(rs.get("displayYear")),
-                  convert.getStrData(rs.get("color")),
-                  convert.getDoubleData(rs.get("performance"))
-               );
-               if (themeMap.containsKey(theme)) {
-                  themeMap.get(theme).addPerformance(performance);
                }
                i++;
             }

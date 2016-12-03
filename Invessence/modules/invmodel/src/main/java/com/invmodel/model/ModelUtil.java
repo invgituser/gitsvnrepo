@@ -73,39 +73,29 @@ public class ModelUtil
 
    public AssetClass[] buildAllocation(ProfileData pdata)
    {
-/*
-      if (pdata == null)
-      {
-         return null;
-      }
-*/
-
       return assetmodel.buildAllocation(pdata);
 
    }
 
    public void refreshData() {
-       poptimizer.refreshDataFromDB();
+      poptimizer.refreshDataFromDB();
       fixoptimizer.refreshDataFromDB();
       tlhSecurityCollection.refreshDataFromDB();
    }
 
    public ArrayList<FMData> getThemePortfolios(String theme) {
       if (fixoptimizer != null ) {
-         for (FMData fmData:fixoptimizer.getAllThemes())
-         if (fmData.getTheme().equalsIgnoreCase(theme)) {
-            return fixoptimizer.getThemePortfolios(theme);
-         }
+         return fixoptimizer.getThemePortfolios(theme);
       }
       return null;
    }
+
    public LinkedHashMap<String,FMData> getThemePortfoliosMap(String theme) {
       if (fixoptimizer != null ) {
          LinkedHashMap<String,FMData> stringFMDataLinkedHashMap=new LinkedHashMap<String, FMData>();
-         for (FMData fmData:fixoptimizer.getAllThemes())
-            if (fmData.getTheme().equalsIgnoreCase(theme)) {
+         for (FMData fmData:fixoptimizer.getThemePortfolios(theme)){
                stringFMDataLinkedHashMap.put(fmData.getDisplayname(),fmData);
-            }
+         }
          return stringFMDataLinkedHashMap;
       }
       return null;
@@ -123,19 +113,6 @@ public class ModelUtil
 
    public Portfolio[] buildPortfolio(AssetClass[] assetData, ProfileData profileData)
    {
-/*
-         if (assetData == null)
-         {
-            return null;
-         }
-
-         if (profileData == null)
-         {
-            return null;
-         }
-*/
-
-
       return portfolioModel.buildPortfolio(assetData, profileData);
    }
 

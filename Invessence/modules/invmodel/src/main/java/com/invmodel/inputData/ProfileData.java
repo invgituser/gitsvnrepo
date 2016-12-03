@@ -448,17 +448,13 @@ public class
 
    public Double getActualInvestment()
    {
-      Integer value = 0;
+      Double value = actualInvestment;
 
-      if (initialInvestment == null)
-         return actualInvestment;
-      else {
-         if (actualInvestment == null || actualInvestment == 0.0)
-         {
-            value = initialInvestment;
-         }
-         return value.doubleValue();
+      if (value == null || value == 0.0)
+      {
+         value = initialInvestment.doubleValue();
       }
+      return value;
    }
 
    public void setActualInvestment(Double actualInvestment)
