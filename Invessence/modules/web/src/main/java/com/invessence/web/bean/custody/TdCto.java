@@ -281,6 +281,65 @@ public class TdCto
       }
    }
 
+
+   public void editStartCTO()
+   {
+      String msgheader;
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            if (beanacctnum == null || beanacctnum.isEmpty())
+            {
+               msgheader = "dctd.100";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            // clear all data.
+            pagemanager = new PagesImpl(10);
+            tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
+            // load firm list for ACAt details
+            custodyListDAO.getAcatFirmList(tdMasterData);
+            // Start fresh, clean and start from top page.
+            String loadVal = loadData();
+            if (!webutil.isUserLoggedIn()
+               || loadVal.equalsIgnoreCase("") ||
+               loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
+               loadVal.equalsIgnoreCase("differenUser") ||
+               loadVal.equalsIgnoreCase("NOACCOUNTMAP")
+               )
+            {
+               msgheader = "dctd.102";
+               webutil.redirect("/access-denied.xhtml", null);
+               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            /* else if (loadVal.equalsIgnoreCase("ACCOUNTMANAGED"))
+            {
+               msgheader = "dctd.103";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }*/
+            else
+            {
+               // Check all data to find out where they left off last time.
+               // Just don't display error. Just go to that page.
+               Boolean status = validateAllPage();
+               Integer currentPage = pagemanager.getPage();
+               pagemanager.initPage();
+               resetActiveTab(0);
+               pagemanager.setLastPageVisited(currentPage);
+               pagemanager.clearAllErrorMessage();
+               saveandOpenError = null;
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         logger.info("Exception: raised during Starting TD CTO process.");
+      }
+   }
+
    public void addTempBeneficiary()
    {
 

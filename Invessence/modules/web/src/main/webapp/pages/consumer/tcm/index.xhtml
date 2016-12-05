@@ -45,6 +45,7 @@
                                         <td style="width: 25%;" class="FS13Custom">#{investment.portfolioName}</td>
                                         <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.goal}</td>
 
+                                        <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.accountType}</td>
                                         <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.displayActiveAcctNum}</td>
                                         <td style="width: 25%; text-align: right;" class="FS13Custom">
                                             <strong>
@@ -92,7 +93,7 @@
                                                                          styleClass="Fs14 GreenButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-university Fs14 white"
-                                                                         action="#{tcmdash.doSelectedAction}">
+                                                                         action="#{tcmdash.doEditAction}">
                                                             <p:tooltip id="fundToolTipFade" for="fundButton" value="Edit Funding"/>
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>

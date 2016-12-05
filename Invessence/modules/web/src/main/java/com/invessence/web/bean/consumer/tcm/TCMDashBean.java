@@ -146,6 +146,20 @@ public class TCMDashBean implements Serializable
 
       return ("success");
    }
+   public String doEditAction()
+   {
+      String whichXML;
+      try
+      {
+         uiLayout.doMenuAction("custody", "cedit.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
    public String doPortfolioSelectedAction()
    {
       String whichXML;
