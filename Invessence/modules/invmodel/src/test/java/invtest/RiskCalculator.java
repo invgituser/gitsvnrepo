@@ -475,15 +475,24 @@ public class RiskCalculator
                switch (loop)
                {
                   case 1:
+                     Double maxDuration = 15.0; // This could be a constant
+                     double horPowerAdj = getRiskHorizon()/maxDuration;
+                     if (horPowerAdj > 1.0)
+                        horPowerAdj = 1.0;
+                     agePowerValue = agePowerValue*horPowerAdj;
+
                      answers[loop] = getRiskAge().toString();
-                     Integer ageValue = (getRiskAge() == null) ? 30 :  getRiskAge() ;
+                     //answers[loop] = getRiskHorizon().toString();
+                     Integer ageValue = (getRiskAge() == null) ? 30 :  getRiskAge();
                      calcRisk = Math.pow((ageValue.doubleValue() / maxScore), agePowerValue);
                      calcRisk = Math.min(maxScore * calcRisk, ageWeight * maxScore);
-                     calcRisk = calcRisk; // Divide Age Risk / 100
                      calcRisk = (calcRisk > 100) ? 100 : calcRisk;
                      riskValues[loop] = calcRisk; // Store the value in DB
                      break;
                   case 2:
+                     answers[loop] = getRiskHorizon().toString();
+                     break;
+                  /*case 2:
                      answers[loop] = getRiskHorizon().toString();
                      Double calcHorizonRisk = 0.0;
                      Double maxDuration = 25.0; // This could be a constant
@@ -494,13 +503,11 @@ public class RiskCalculator
                         calcRisk = calcHorizonRisk;
                      }
                      break;
+                     */
                   case 3:
                   case 4:
                   case 5:
-                  case 6:
-                  case 7:
-                  case 8:
-                  case 9:
+
                      if (answers[loop] != null && ! answers[loop].isEmpty()) {
                         Integer lookupindex = converter.getIntData(answers[loop]);
                         value = riskValueMatrix[loop][lookupindex];
@@ -523,7 +530,7 @@ public class RiskCalculator
 
             calcRisk = (calcRisk < 0.0) ? 0.0 : calcRisk;
             calcRisk = (calcRisk > 99.0) ? 99.0 : calcRisk;
-            setTotalRisk(calcRisk);
+            setTotalRisk(100.0 - calcRisk);
             return calcRisk;
          }
          else

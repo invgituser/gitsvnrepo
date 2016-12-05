@@ -77,13 +77,14 @@ public class TestDistribution
       profileData.setName("Retirement");
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
-      profileData.setTheme("0.Core");
+      profileData.setAdvisor("UOB");
+      profileData.setTheme("0.UOB");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);
       age = profileData.getAge();
 
-      profileData.setHorizon(30);
+      profileData.setHorizon(10);
       duration = profileData.getHorizon();
 
       // profileData.setAccountTaxable(false);
@@ -143,14 +144,27 @@ public class TestDistribution
 
    public static void calculateRiskIndex(ProfileData profileData)
    {
-      Double q3=new Double(0); Double q3_wgt = new Double(1.0);
-      Double q4 =new Double(1); Double q4_wgt = new Double(1.0);
-      Double q5=new Double(2); Double q5_wgt = new Double(1.0);
 
-      Double q6=new Double(4); Double q6_wgt = new Double(1.0);
-      Double q7=new Double(4); Double q7_wgt = new Double(1.0);
-      Double q8=new Double(4); Double q8_wgt = new Double(1.0);
-      Double q9=new Double(4); Double q9_wgt = new Double(1.0);
+      // Adjust for risk questionnaire
+      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q3    Add
+      //{0, 16, 0, 0, 0, 0, 0, 0, 0, 0}, //  Q4      Add
+      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q5      Add
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q6   Compare
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q7   Compare
+      //{0, 50, 75, 100, 100, 0, 0, 0, 0, 0}, //Q8   Compare
+      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q9   Compare
+      //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
+      //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
+
+
+      Double q3=new Double(0); Double q3_wgt = new Double(0.0);
+      Double q4 =new Double(1); Double q4_wgt = new Double(0.0);
+      Double q5=new Double(2); Double q5_wgt = new Double(0.0);
+
+      Double q6=new Double(4); Double q6_wgt = new Double(0.0);
+      Double q7=new Double(4); Double q7_wgt = new Double(0.0);
+      Double q8=new Double(4); Double q8_wgt = new Double(0.0);
+      Double q9=new Double(4); Double q9_wgt = new Double(0.0);
 
 
       int offset;
@@ -175,22 +189,23 @@ public class TestDistribution
       // Adjust the risk score based on duration
 
       Double calcHorizonRisk = 0.0;
-      Double maxDuration = 25.0; // This could be a constant
-      calcHorizonRisk = (maxDuration-profileData.getHorizon()*(80/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
+      Double maxDuration = 15.0; // This could be a constant
+      double horPowerAdj = profileData.getHorizon()/maxDuration;
+      if (horPowerAdj > 1.0)
+         horPowerAdj = 1.0;
+      agePowerValue = agePowerValue*horPowerAdj;
+
+      calcRisk = Math.pow((ageValue.doubleValue() / maxScore), agePowerValue);
+      calcRisk = Math.min(maxScore * calcRisk, ageWeight * maxScore);
+      calcRisk = calcRisk; // Divide Age Risk / 100
+      calcRisk = (calcRisk > 100) ? 100 : calcRisk;
+
+      //calcHorizonRisk = (maxDuration-profileData.getHorizon()*(80/maxDuration)); // 80 is fixed since we are scaling risk 1 to 100
 
       if (calcHorizonRisk > calcRisk)
          calcRisk = calcHorizonRisk;
 
-      // Adjust for risk questionnaire
-      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q3    Add
-      //{0, 16, 0, 0, 0, 0, 0, 0, 0, 0}, //  Q4      Add
-      //{0, 4, 8, 12, 50, 0, 0, 0, 0, 0}, // Q5      Add
-      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q6   Compare
-      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q7   Compare
-      //{0, 50, 75, 100, 100, 0, 0, 0, 0, 0}, //Q8   Compare
-      //{0, 25, 50, 75, 100, 0, 0, 0, 0, 0}, // Q9   Compare
-      //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
-      //{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, //
+
 
       //Define operation
       // Question 3 ** Add **

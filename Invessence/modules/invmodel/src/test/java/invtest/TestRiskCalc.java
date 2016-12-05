@@ -62,19 +62,19 @@ public class TestRiskCalc
             riskCalculator.setRiskAge(age);
             for (Integer horizon=5; horizon < 21; horizon+=5) {
                riskCalculator.setRiskHorizon(horizon);
-               for (Integer r3=1; r3 < 6; r3+=2) {
+               for (Integer r3=0; r3 < 6; r3+=2) {
                   riskCalculator.setAns3(r3.toString());
-                  for (Integer r4=1; r4 < 3; r4++) {  // Only two choices
+                  for (Integer r4=0; r4 < 2; r4++) {  // Only two choices
                      riskCalculator.setAns4(r4.toString());
-                     for (Integer r5=1; r5 < 6; r5+=2) {  // Only five choices
+                     for (Integer r5=0; r5 < 6; r5+=2) {  // Only five choices
                         riskCalculator.setAns5(r5.toString());
-                        for (Integer r6=1; r6 < 6; r6+=2) {  // Only five choices
+                        for (Integer r6=0; r6 < 6; r6+=2) {  // Only five choices
                            riskCalculator.setAns6(r6.toString());
-                           for (Integer r7=1; r7 < 6; r7+=2) {  // Only five choices
+                           for (Integer r7=0; r7 < 6; r7+=2) {  // Only five choices
                               riskCalculator.setAns7(r7.toString());
-                              for (Integer r8=1; r8 < 6; r8+=2) {  // Only five choices
+                              for (Integer r8=0; r8 < 6; r8+=2) {  // Only five choices
                                  riskCalculator.setAns8(r8.toString());
-                                 for (Integer r9=1; r9 < 6; r9+=2) {  // Only five choices
+                                 for (Integer r9=0; r9 < 6; r9+=2) {  // Only five choices
                                     riskCalculator.setAns9(r9.toString());
                                     riskCalculator.calculateRisk();
                                     result.add(riskCalculator.getAns1() + "," +
