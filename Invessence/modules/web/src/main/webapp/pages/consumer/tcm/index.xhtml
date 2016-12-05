@@ -39,23 +39,34 @@
                         <p:dataGrid style="background: transparent; padding-right:5px;"
                                     var="investment" value="#{tcmdash.manageAccountList}"
                                     columns="1" layout="grid">
-                            <p:panel style="width: 100%; background: #f5f5f5;">
+                            <p:panel styleClass="s_dashbaordPanel" style="width: 100%; background: #f5f5f5; padding-left: 0px!important;">
                                 <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
-                                    <tr style="font-size: 15px;">
-                                        <td style="width: 25%;" class="FS13Custom">#{investment.portfolioName}</td>
+                                    <tr style="font-size: 15px;" class="dashboard_customStyle">
+                                        <td style="width: 25%;" class="FS13Custom halfWidthCustom"><p:commandButton id="uidHelp"
+                                                                                                    styleClass="info_dashboard"
+                                                                                                    icon="fa fa-info-circle Fs14" process="@none"/>
+
+                                            <p:overlayPanel id="uidHP" for="uidHelp" hideEffect="fade"
+                                                            dynamic="false" showCloseIcon="true"
+                                                            style="width:200px; margin-left: 5px">
+                                                <table>
+                                                <tr><td>Strategy:</td><td>Growth</td></tr>
+                                                <tr><td>Account No.:</td><td>123456</td></tr>
+                                                </table>
+                                            </p:overlayPanel> #{investment.portfolioName}</td>
                                         <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.goal}</td>
 
                                         <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.accountType}</td>
                                         <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.displayActiveAcctNum}</td>
                                         <td style="width: 25%; text-align: right;" class="FS13Custom">
-                                            <strong>
+
                                                 <h:outputText value="#{investment.actualInvested}"  rendered="#{investment.managed}">
                                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                                 </h:outputText>
                                                 <h:outputText value="#{investment.initialInvestment}"  rendered="#{!investment.managed}">
                                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                                 </h:outputText>
-                                            </strong></td>
+                                            </td>
                                     </tr>
                                     <tr style="font-size: 13px;">
                                         <td colspan="4" style="width: 100%; margin-left: 5px">
@@ -85,7 +96,7 @@
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
-                                                    </div><div class="Container60 s_dashboardLabel"><h3>Change Strategy</h3></div>
+                                                    </div><div class="Container60 s_dashboardLabel relativeCenter"><h3>Change Strategy</h3></div>
 </div>
                                             <div class="s_dashboard">
                                                     <div class="Container40 s_dashboardIcon">
@@ -112,10 +123,9 @@
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
-                                                    </div><div class="Container60 s_dashboardLabel"><h3>Edit Account Details</h3></div>
+                                                    </div><div class="Container60 s_dashboardLabel relativeCenter relativeCenter2"><h3>Edit Account Details</h3></div>
 </div>
                                                 </div>
-                                            <div class="EmptyBox10"></div>
                                         </td>
                                     </tr>
                                 </table>

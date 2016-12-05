@@ -309,7 +309,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     margin: 7px 0;
 }
 /*s_dashboard*/
-/**temporary**/
+/**temporary
 @media (max-width:400px) {
 	.s_dashboardLabel {
 	display: none;
@@ -328,29 +328,59 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     display: none;
     }
 }
-/**/
-@media (min-width: 401px) and (max-width: 630px){
+*/
+@media (min-width: 320px) and (max-width: 630px){
+	.info_dashboard, .info_dashboard > span {
+		padding-top: 3px!important;
+	}
+
+
+
     .s_dashboard {
         width: 100%!important;
-            margin: 5px 0px;
-        //float: none%!important;
+            padding: 5px 0px;
     }
+
+	.s_dashboard:nth-child(odd) {
+		background: #f3f1f1;
+	}
 
     .s_dashboardIcon {
         text-align: left;
     }
 
     .s_dashboardLabel {
-        text-align: right!important;
+        text-align: left!important;
         padding: 10px 0;
     }
+
+	.halfWidthCustom {
+		width: 50%!important;
+	}
     
     .DisplaynoneMobile {
     display: none;
     }
 }
 
+@media(min-width: 767px) and (max-width: 932px) {
+	.relativeCenter2 {
+		position: relative;
+		top: -7px;
+	}
+}
+@media (min-width: 631px) and (max-width: 767px) {
+	.relativeCenter {
+		position: relative;
+		top: -7px;
+	}
+}
 
+@media (max-width: 798px) and (min-width: 630px) {
+	.FS13Custom {
+		width:40%!important;
+	}
+}
 
 @media (max-width: 1117px) {
 	.s_dashboardLabel > h3, .FS13Custom {
@@ -371,6 +401,22 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     padding: 10px 0;
 }
 
+.s_dashbaordPanel > div {
+	padding-left: 0px!important;
+	margin-top: 0px!important;
+}
+
+.dashboard_customStyle {
+	box-shadow: 0 4px 8px -1px #d8d6d6;
+}
+
+.info_dashboard, .info_dashboard > span {
+	background: transparent!important;
+	border: 0!important;
+	width: 0!important;
+	margin: 0!important;
+	margin-top: -22px!important;
+}
 
 /*Prakash - Advisor*/
 @media (max-width: 550px) {
