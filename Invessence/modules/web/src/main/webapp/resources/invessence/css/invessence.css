@@ -378,7 +378,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 
 @media (max-width: 798px) and (min-width: 630px) {
 	.FS13Custom {
-		width:40%!important;
+		width:30%!important;
 	}
 }
 
@@ -401,6 +401,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     padding: 10px 0;
 }
 
+
 .s_dashbaordPanel > div {
 	padding-left: 0px!important;
 	margin-top: 0px!important;
@@ -410,12 +411,32 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	box-shadow: 0 4px 8px -1px #d8d6d6;
 }
 
+.dashboard_customStyle > td {
+	height: 30px;
+}
+
+.s_dashbaordPanel {
+	padding: 0px!important;
+	border:2px solid #e9eef1!important;
+	border-radius: 0px!important;
+}
+
 .info_dashboard, .info_dashboard > span {
 	background: transparent!important;
 	border: 0!important;
 	width: 0!important;
 	margin: 0!important;
 	margin-top: -22px!important;
+}
+
+.HeaderDashboardTitle {
+	background: #c5baba!important;
+}
+
+.HeaderDashboardTitle > td {
+	padding: 10px 0px;
+	color: white;
+	font-weight: bold;
 }
 
 /*Prakash - Advisor*/

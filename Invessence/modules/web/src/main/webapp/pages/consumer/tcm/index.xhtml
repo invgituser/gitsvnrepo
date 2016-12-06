@@ -33,16 +33,28 @@
 
                 <div class="Container100 Responsive100">
                     <p:growl showDetail="false" escape="true" closable="true"/>
-                    <p:separator style="background-color: blue; height:5px"/>
+                   <!--<p:separator style="background-color: blue; height:5px"/>-->
 
                     <div class="Container100">
-                        <p:dataGrid style="background: transparent; padding-right:5px;"
+                        <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
+                            <tr style="font-size: 15px;" class="HeaderDashboardTitle">
+                                <td style="width: 20%; padding-left:35px!important;" class="FS13Custom"> Strategy</td>
+                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Goal</td>
+                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Account Type</td>
+                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Account Number</td>
+                                <td style="width: 20%; padding-right:35px!important; text-align: right;" class="FS13Custom">Invested Amount</td>
+                            </tr>
+                        </table>
+                        <div class="EmptyBox10"></div>
+                        <p:dataGrid style="background: transparent; padding-right:5px; border:0px!important"
                                     var="investment" value="#{tcmdash.manageAccountList}"
                                     columns="1" layout="grid">
-                            <p:panel styleClass="s_dashbaordPanel" style="width: 100%; background: #f5f5f5; padding-left: 0px!important;">
+                            <p:panel styleClass="s_dashbaordPanel" style="width: 100%; background: #f5f5f5; padding: 0px!important;">
+
+
                                 <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
                                     <tr style="font-size: 15px;" class="dashboard_customStyle">
-                                        <td style="width: 25%;" class="FS13Custom halfWidthCustom"><p:commandButton id="uidHelp"
+                                        <td style="width: 20%;" class="FS13Custom"><p:commandButton id="uidHelp"
                                                                                                     styleClass="info_dashboard"
                                                                                                     icon="fa fa-info-circle Fs14" process="@none"/>
 
@@ -53,12 +65,15 @@
                                                 <tr><td>Strategy:</td><td>Growth</td></tr>
                                                 <tr><td>Account No.:</td><td>123456</td></tr>
                                                 </table>
-                                            </p:overlayPanel> #{investment.portfolioName}</td>
-                                        <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.goal}</td>
+                                            </p:overlayPanel> #{investment.accountType}</td>
+                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.goal}</td>
+                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.portfolioName}</td>
+                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.displayActiveAcctNum}</td>
 
-                                        <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.accountType}</td>
-                                        <td style="width: 25%;" class="FS13Custom DisplaynoneMobile">#{investment.displayActiveAcctNum}</td>
-                                        <td style="width: 25%; text-align: right;" class="FS13Custom">
+
+
+
+                                        <td style="width: 20%; text-align: right;" class="FS13Custom">
 
                                                 <h:outputText value="#{investment.actualInvested}"  rendered="#{investment.managed}">
                                                     <f:convertNumber currencySymbol="$" type="currency"/>
@@ -68,9 +83,10 @@
                                                 </h:outputText>
                                             </td>
                                     </tr>
+
                                     <tr style="font-size: 13px;">
-                                        <td colspan="4" style="width: 100%; margin-left: 5px">
-                                            <div class="EmptyBox10"></div>
+                                        <td colspan="5" style="width: 100%; margin-left: 5px">
+                                            <div class="EmptyBox20"></div>
                                                 <div class="invNBgrid DashboardIconBlock" style="width: 100%;">
 <div class="s_dashboard">
                                                     <div class="Container40 s_dashboardIcon">
@@ -135,12 +151,14 @@
                                                     </div><div class="Container60 s_dashboardLabel relativeCenter relativeCenter2"><h3>Edit Account Details</h3></div>
 </div>
                                                 </div>
+                                            <div class="EmptyBox20"></div>
                                         </td>
                                     </tr>
                                 </table>
                             </p:panel>
-
+                            <div class="EmptyBox20"></div>
                         </p:dataGrid>
+
                     </div>
                 </div>
 
