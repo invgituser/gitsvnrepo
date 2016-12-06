@@ -1,6 +1,7 @@
 use invdb;
 drop table if exists `user_trade_profile_audit`;
 CREATE TABLE `user_trade_profile_audit` (
+ `prfid` bigint(20) NOT NULL AUTO_INCREMENT,
   `acctnum` bigint(20) NOT NULL ,
   `advisor` varchar(20) DEFAULT NULL,
   `rep` varchar(20) DEFAULT NULL,
@@ -32,5 +33,6 @@ CREATE TABLE `user_trade_profile_audit` (
   `created` date DEFAULT NULL,
   `lastUpdated` date DEFAULT NULL,
   `managed` varchar(1) NOT NULL DEFAULT 'N',
-  `clientAccountID` varchar(15) DEFAULT NULL
+  `clientAccountID` varchar(15) DEFAULT NULL,
+  PRIMARY KEY (`prfid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2348 DEFAULT CHARSET=utf8;

@@ -69,7 +69,7 @@ BEGIN
 			end if;
 		end if;
         
-        call `invdb`.`portfolio_edit_notification`(p_acctnum);
+         call `invdb`.`sp_user_profile_manage`(p_acctnum,'R');
 
 END$$
 DELIMITER ;
