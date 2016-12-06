@@ -85,9 +85,9 @@
                                                         </p:commandButton>
                                                     </div><div class="Container60 s_dashboardLabel"><h3>Positions</h3></div>
 </div>
-<div class="s_dashboard">
+                                                    <div class="s_dashboard">
                                                     <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="editPortfolioButton" disabled="#{!investment.hasPosition}"
+                                                        <p:commandButton id="editPortfolioButton" rendered="#{investment.hasPosition}"
                                                                          styleClass="Fs14 OrangeButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-pie-chart Fs14 white"
@@ -96,11 +96,20 @@
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
-                                                    </div><div class="Container60 s_dashboardLabel relativeCenter"><h3>Change Strategy</h3></div>
-</div>
-                                            <div class="s_dashboard">
+                                                        <p:commandButton id="pendingButton" rendered="#{!investment.managed}"
+                                                                         styleClass="Fs14 BlueButton"
+                                                                         process="@this" immediate="true"
+                                                                         icon="fa fa-pencil-square-o Fs14 white"
+                                                                         action="#{tcmdash.doSelectedAction}">
+                                                            <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Change Strategy"/>
+                                                            <f:setPropertyActionListener value="#{investment}"
+                                                                                         target="#{tcmdash.selectedAccount}"/>
+                                                        </p:commandButton>
+                                                    </div><div class="Container60 s_dashboardLabel relativeCenter"><h3>Change Strategy</h3></div></div>
+
+                                            <div class="s_dashboard" style="display: none">
                                                     <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="fundButton"  disabled="#{!investment.hasPosition}"
+                                                        <p:commandButton id="fundButton"   disabled="#{!investment.hasPosition}"
                                                                          styleClass="Fs14 GreenButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-university Fs14 white"
@@ -112,14 +121,14 @@
                                                     </div><div class="Container60 s_dashboardLabel"><h3>Edit Funding</h3></div>
 
 </div>
-                                            <div class="s_dashboard">
+                                            <div class="s_dashboard" style="display: none">
                                                     <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="pendingButton" disabled="#{investment.managed}"
+                                                        <p:commandButton id="editAcctButton" disabled="#{investment.managed}"
                                                                          styleClass="Fs14 BlueButton"
                                                                          process="@this" immediate="true"
-                                                                         icon="fa fa-pencil-square-o Fs14 white"
-                                                                         action="#{tcmdash.doSelectedAction}">
-                                                            <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit Account Details"/>
+                                                                         icon="fa fa-pencil-square-o Fs14 white">
+
+                                                            <p:tooltip id="editAcctToolTipFade" for="editAcctButton" value="Edit Account Details"/>
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
