@@ -31,6 +31,7 @@ CREATE PROCEDURE invdb.`edit_user_trade_profile`(
 BEGIN 
 
 			call `invdb`.`save_user_trade_profile_audit`(p_acctnum);
+			call `invdb`.`save_user_risk_questions_audit`(p_acctnum);
 	
 			 UPDATE  `invdb`.`user_trade_profile`
 			 SET

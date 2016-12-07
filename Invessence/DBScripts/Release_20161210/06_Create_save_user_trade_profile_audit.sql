@@ -67,7 +67,7 @@ BEGIN
 			`email`,
 			`ip`,
 			`created`,
-			`lastUpdated`,
+			now(),
 			`managed`,
 			`clientAccountID` from  invdb.`user_trade_profile` where acctnum=p_acctnum ;			
 

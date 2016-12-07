@@ -1,4 +1,4 @@
-use invdb;
+	use invdb;
 drop table if exists `user_trade_profile_audit`;
 CREATE TABLE `user_trade_profile_audit` (
  `prfid` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -31,7 +31,7 @@ CREATE TABLE `user_trade_profile_audit` (
   `email` varchar(60) DEFAULT NULL,
   `ip` varchar(20) DEFAULT NULL,
   `created` date DEFAULT NULL,
-  `lastUpdated` date DEFAULT NULL,
+  `lastUpdated` datetime DEFAULT NULL,
   `managed` varchar(1) NOT NULL DEFAULT 'N',
   `clientAccountID` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`prfid`)
