@@ -38,9 +38,9 @@
                     <div class="Container100">
                         <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
                             <tr style="font-size: 15px;" class="HeaderDashboardTitle">
-                                <td style="width: 20%; padding-left:35px!important;" class="FS13Custom"> Strategy</td>
-                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Goal</td>
+                                <td style="width: 20%; padding-left:35px!important;" class="FS13Custom">Goal</td>
                                 <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Account Type</td>
+                                <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Strategy</td>
                                 <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">Account Number</td>
                                 <td style="width: 20%; padding-right:35px!important; text-align: right;" class="FS13Custom">Invested Amount</td>
                             </tr>
@@ -65,8 +65,8 @@
                                                 <tr><td>Strategy:</td><td>Growth</td></tr>
                                                 <tr><td>Account No.:</td><td>123456</td></tr>
                                                 </table>
-                                            </p:overlayPanel> #{investment.accountType}</td>
-                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.goal}</td>
+                                            </p:overlayPanel>#{investment.goal}</td>
+                                        <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.accountType}</td>
                                         <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.portfolioName}</td>
                                         <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.displayActiveAcctNum}</td>
 
@@ -122,7 +122,7 @@
                                                     <div class="s_dashboard">
                                                     <div class="Container40 s_dashboardIcon">
                                                         <p:commandButton id="pendingButton" disabled="#{investment.displayActiveAcctNum=='Pending'}"
-                                                                         styleClass="Fs14 BlueButton"
+                                                                         styleClass="Fs14 OrangeButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-pie-chart Fs14 white"
                                                                          action="#{tcmdash.doSelectedAction}">

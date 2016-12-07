@@ -32,12 +32,12 @@
                                 <ui:fragment rendered="#{tcmpb.formula == 'Q'}">
                                     <div class="Fs17 textAlign">
                                         After reviewing your risk though the
-                                        questionnaire, your new portfolio recommendation is <strong>{tcmpb.fixedModelName}</strong>
+                                        questionnaire, your new portfolio recommendation is <strong>#{tcmpb.fixedModelName}</strong>
                                     </div>
                                 </ui:fragment>
                                 <ui:fragment rendered="#{tcmpb.formula != 'Q'}">
                                     <div class="Fs17 textAlign">
-                                        Rather than having a strategy recommended to me based on my time horizon and risk tolerance, I would rather directly choose my investment strategy and am familiar with the associated risks.The s trategy I choose is:
+                                        Rather than having a strategy recommended to me based on my time horizon and risk tolerance, I would rather directly choose my investment strategy and am familiar with the associated risks.The strategy I choose is:
                                     </div>
                                 </ui:fragment>
 
@@ -61,18 +61,17 @@
                                     </p:selectOneRadio>
                                 </div>
                             </div>
-
-                            <div class="Container100 Responsive100 TextAlCenter">
                                 <div class="EmptyBox10"></div>
-                                            
-                                                <div class="fs17 textAlign">#{tcmpb.newLongDesc}</div>
-                                            <div class="EmptyBox10"></div>
-              <p:fieldset id="summary" legend="Summary" toggleable="true" toggleSpeed="500">
-                                        <div class="Container100 Responsive100">
-                                            <div class="Container50 Responsive50 Fleft">
-                                                <div class="Container100 Fleft TexAlCenter">
+                            <div class="Container100 Responsive100 TextAlCenter">
 
-                                                </div>
+              <p:fieldset id="summary" legend="#{tcmpb.selectedThemeName}" toggleable="true" styleClass="summaryConfirm" toggleSpeed="500">
+                                        <div class="Container100 Responsive100">
+                                            <div class="EmptyBox10"></div>
+
+                                            <div class="fs17 textAlign">#{tcmpb.newLongDesc}</div>
+                                            <div class="EmptyBox20"></div>
+                                            <div class="Container50 Responsive50 Fleft">
+
                                                 <div class="EmptyBox10"></div>
                                                 <div class="Container100">
                                                     <p:outputPanel deferred="true">

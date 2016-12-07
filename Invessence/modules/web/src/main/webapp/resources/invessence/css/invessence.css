@@ -421,6 +421,10 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
 	border-radius: 0px!important;
 }
 
+
+.summaryConfirm > legend {
+	height: 15px!important;
+}
 .info_dashboard, .info_dashboard > span {
 	background: transparent!important;
 	border: 0!important;
