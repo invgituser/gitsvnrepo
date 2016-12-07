@@ -433,7 +433,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             newLongDesc="";
             formPortfolioEdit=true;
             // Page management
-            pagemanager = new PagesImpl(7);
+            pagemanager = new PagesImpl(6);
             pagemanager.setPage(0);
             setPrefView(0);
 
@@ -1253,6 +1253,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if(pagemanager.getPage()==5 && getFormula().equalsIgnoreCase("Q"))
          {
             selectedThemeName=getFixedModelName();
+            newLongDesc=fmDataMap.get(selectedThemeName).getDescription();
          }
       }
       else

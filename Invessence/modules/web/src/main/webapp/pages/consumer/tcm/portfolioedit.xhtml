@@ -45,7 +45,7 @@
                                         <p:menuitem value="Risk" />
                                         <p:menuitem value="Projection" />
                                         <p:menuitem value="Review" />
-                                        <p:menuitem value="Terms"  />
+
                                         <p:menuitem value="Confirmation"  />
                                     </p:steps>
 
@@ -72,10 +72,8 @@
                                       <ui:fragment rendered="#{tcmpb.pagemanager.page == 5}">
                                           <ui:include src="/pages/consumer/tcm/cadd/page7.xhtml" />
                                       </ui:fragment>
+
                                         <ui:fragment rendered="#{tcmpb.pagemanager.page == 6}">
-                                            <ui:include src="/pages/consumer/tcm/cadd/page8.xhtml" />
-                                        </ui:fragment>
-                                        <ui:fragment rendered="#{tcmpb.pagemanager.page == 7}">
                                             <ui:include src="/pages/consumer/tcm/cadd/page9.xhtml" />
                                         </ui:fragment>
                                 </div>
