@@ -265,12 +265,6 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       createAssetPortfolio(1);
    }
 
-   public void onGoalChangeValue()
-   {
-      // calculateGoal();
-      setHorizon(0);
-   }
-
    public void calculateGoal()
    {
       if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
@@ -307,14 +301,15 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
 
       formEdit = true;
       imageSelected = item;
-      setHorizon(20);
       switch (imageSelected)
       {
          case 1:
             setGoal("Growth");
+            setHorizon(20);
             break;
          case 2:
             setGoal("Income");
+            setHorizon(20);
             break;
          case 3:
             setGoal("Safety");
@@ -322,6 +317,7 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
             break;
          default:
             setGoal("Growth");
+            setHorizon(20);
       }
 
       loadBasketInfo();

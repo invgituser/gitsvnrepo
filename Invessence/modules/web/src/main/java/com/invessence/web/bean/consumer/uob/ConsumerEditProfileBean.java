@@ -295,12 +295,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       createAssetPortfolio(1);
    }
 
-   public void onGoalChangeValue()
-   {
-      // calculateGoal();
-      setHorizon(0);
-   }
-
    public void calculateGoal()
    {
       if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
@@ -327,68 +321,17 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       createAssetPortfolio(1);
    }
 
-   public void selectedGoalType(Integer item)
-   {
-
-      if (item == null)
-      {
-         item = 0;
-      }
-
-      formEdit = true;
-      imageSelected = item;
-      setHorizon(20);
-      switch (imageSelected)
-      {
-         case 1:
-            setGoal("Growth");
-            break;
-         case 2:
-            setGoal("Income");
-            break;
-         case 3:
-            setGoal("Safety");
-            setHorizon(3);
-            break;
-         default:
-            setGoal("Growth");
-      }
-
-      loadBasketInfo();
-      createAssetPortfolio(1);
-   }
-
    public void selectedGoal()
    {
       formEdit = true;
-      if (getGoal().toUpperCase().contains("RETIRE"))
+      if (getGoal().toUpperCase().contains("SAFETY"))
       {
-         if (getAge() == null)
-         {
-            setHorizon(20);
-         }
-         else if (getAge() < 65)
-         {
-            setHorizon(65 - getAge());
-         }
-         else
-         {
-            setHorizon(2);
-         }
+         setHorizon(3);
       }
       else
       {
-         if (getGoal().toUpperCase().contains("SAFETY"))
-         {
-            setHorizon(3);
-         }
-         else
-         {
-            setHorizon(20);
-         }
+         setHorizon(20);
       }
-      loadBasketInfo();
-      createAssetPortfolio(1);
    }
 
    public void handleFileUpload(FileUploadEvent event)
@@ -409,6 +352,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          setGoal(getAdvisorBasket().get(getBasket())); // Key is the Themename, value is display
          setTheme(getBasket());                        // Set theme to the Key.  (We assigned this during selection)
+         selectedGoal();
       }
       createAssetPortfolio(1);
    }

@@ -104,13 +104,9 @@ public class INVRiskCalculator extends RiskCalculator
                         calcRisk = calcHorizonRisk;
                      }
                      break;
-                  case 3:
+                  case 3: // Addative property  (For question: 3,4,5 - Relative to UI: 1,2,3)
                   case 4:
                   case 5:
-                  case 6:
-                  case 7:
-                  case 8:
-                  case 9:
                      if (answers[loop] != null && ! answers[loop].isEmpty()) {
                         Integer lookupindex = converter.getIntData(answers[loop]);
                         value = riskValueMatrix[loop][lookupindex];
@@ -118,7 +114,7 @@ public class INVRiskCalculator extends RiskCalculator
                         riskValues[loop] = value; // Store the value in DB
                      }
                      break;
-                  default:
+                  default: // Comparative property (For question: 6,7,8,9 - Relative to UI: 4,5,6,7)
                      if (answers[loop] != null && ! answers[loop].isEmpty()) {
                         Integer lookupindex = converter.getIntData(answers[loop]);
                         value = riskValueMatrix[loop][lookupindex];
