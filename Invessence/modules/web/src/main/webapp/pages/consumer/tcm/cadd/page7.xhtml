@@ -17,8 +17,8 @@
                         <div class="ContainerIndent">
                             <p:panel style="height: 60%; width: 100%; background: #ffffff;">
                                 <div class="EmptyBox5"></div>
-                                <h1 class="Fs20 fnt1 textAlign">Your currently selected strategy for this portfolio is : #{tcmpb.origCustomerData.portfolioName}
-                                </h1>
+                                <div class="Fs17 textAlign">Your currently selected strategy for this portfolio is <strong>#{tcmpb.origCustomerData.portfolioName}</strong>
+                                </div>
 
 
                                 <div class="EmptyBox5"></div>
@@ -28,26 +28,24 @@
                     <div class="ContainerIndent">
                         <p:panel id="reviewPanel" style="height: 60%; width: 100%; background: #ffffff;">
                             <div class="EmptyBox10"></div>
-                            <h3 class="black f1 textAlign">
+
                                 <ui:fragment rendered="#{tcmpb.formula == 'Q'}">
-                                    <h3 class="f1 textAlign">
+                                    <div class="Fs17 textAlign">
                                         After reviewing your risk though the
-                                        questionnaire, your new portfolio recommendation is:#{tcmpb.fixedModelName}
-                                    </h3>
+                                        questionnaire, your new portfolio recommendation is <strong>{tcmpb.fixedModelName}</strong>
+                                    </div>
                                 </ui:fragment>
                                 <ui:fragment rendered="#{tcmpb.formula != 'Q'}">
-                                    <h2 class="f1 textAlign">
-                                        By selecting one of the portfolios below, you consent to
-                                        transferring your assets into a new portfolio that was not
-                                        recommended to you through the questionnaire.
-                                    </h2>
+                                    <div class="Fs17 textAlign">
+                                        Rather than having a strategy recommended to me based on my time horizon and risk tolerance, I would rather directly choose my investment strategy and am familiar with the associated risks.The s trategy I choose is:
+                                    </div>
                                 </ui:fragment>
-                            </h3>
+
                             <div class="EmptyBox10"></div>
                             <ui:fragment rendered="#{(tcmpb.origCustomerData.portfolioName==tcmpb.fixedModelName) and tcmpb.formula=='Q'}" >
-                                <h2 class="f1 textAlign">
+                                <div class="fs17 textAlign">
                                     Your current and revised portfolio is same, you can not do further processing.
-                                </h2>
+                                </div>
                                 <div class="EmptyBox10"></div>
                                     </ui:fragment>
 
@@ -65,21 +63,11 @@
                             </div>
 
                             <div class="Container100 Responsive100 TextAlCenter">
-                                 <div class="TexAlCenter tp1">
+                                <div class="EmptyBox10"></div>
                                             
-                                                <h2 class="f1 textAlign">#{tcmpb.newLongDesc}</h2>
-                                            
-                                        </div>
-                                   
-                                        <div class="TexAlCenter title1">
-                                        </div>
-                                   
-                                        <div class="EmptyBox5"></div>
-
-
-
-
-                                    <p:fieldset id="summary" legend="Summary" toggleable="true" toggleSpeed="500">
+                                                <div class="fs17 textAlign">#{tcmpb.newLongDesc}</div>
+                                            <div class="EmptyBox10"></div>
+              <p:fieldset id="summary" legend="Summary" toggleable="true" toggleSpeed="500">
                                         <div class="Container100 Responsive100">
                                             <div class="Container50 Responsive50 Fleft">
                                                 <div class="Container100 Fleft TexAlCenter">
