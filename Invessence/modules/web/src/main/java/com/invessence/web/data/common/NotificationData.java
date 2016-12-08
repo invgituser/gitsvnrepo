@@ -21,6 +21,7 @@ public class NotificationData
    String tagid;
    String businessdate;
    String message;
+   String link;
    String color;
    String javaDate;
    final String JAVA_FORMAT = "EEE MMM dd HH:mm:ss z yyyy";
@@ -30,7 +31,11 @@ public class NotificationData
    {
    }
 
-   public NotificationData(Long messageid, String status, Long advisorlogonid, String advisor, Long acctnum, String noticetype, String tagid, String businessdate, String message)
+   public NotificationData(Long messageid, String status,
+                           Long advisorlogonid, String advisor,
+                           Long acctnum, String noticetype,
+                           String tagid, String businessdate,
+                           String message, String link)
    {
       this.messageid = messageid;
       this.status = status;
@@ -41,6 +46,7 @@ public class NotificationData
       this.tagid = tagid;
       this.businessdate = businessdate;
       this.message = message;
+      this.link = link;
    }
 
    public Long getMessageid()
@@ -173,6 +179,16 @@ public class NotificationData
    public void setMessage(String message)
    {
       this.message = message;
+   }
+
+   public String getLink()
+   {
+      return link;
+   }
+
+   public void setLink(String link)
+   {
+      this.link = link;
    }
 
    public Boolean isError() {
