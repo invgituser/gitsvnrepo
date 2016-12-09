@@ -47,12 +47,14 @@ BEGIN
 				THEN call `invdb`.`sp_send_advisor_notification`(p_acctnum, tAdvisor, tRep, 'PROCESSED');
 			WHEN (p_status = 'O') -- Custody has acked the application as opened
 				THEN call `invdb`.`sp_send_advisor_notification`(p_acctnum, tAdvisor, tRep, 'OPENED');
-			WHEN (p_status = 'A' and tLastStatus in ('N', 'O', 'P')) -- Custody has acked the application as opened and funded.
+			WHEN (p_status = 'A') -- Custody has acked the application as opened and funded.
 				THEN call `invdb`.`sp_send_advisor_notification`(p_acctnum, tAdvisor, tRep, 'ACTIVE');
 			WHEN (p_status = 'R') -- User wants to rebalance the trades (Based on new risk assessement.
 				THEN call `invdb`.`sp_send_advisor_notification`(p_acctnum, tAdvisor, tRep, 'REBALANCE');
 			WHEN (p_status = 'F') -- User wants to fund additional amount.
 				THEN call `invdb`.`sp_send_advisor_notification`(p_acctnum, tAdvisor, tRep, 'FUNDED');
+			ELSE
+				call `invdb`.`sp_send_advisor_notification`(p_acctnum, tAdvisor, tRep, 'NOEVENT');
 		  END CASE;
   END IF;
 	
