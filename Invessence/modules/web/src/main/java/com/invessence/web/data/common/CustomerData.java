@@ -87,7 +87,7 @@ public class CustomerData extends ProfileData
 
    public Map<String, String> advisorBasket;
    private Boolean managed, editable;
-
+   public String managedFlag, currentStatus;
 
    @ManagedProperty("#{webutil}")
    public WebUtil webutil;
@@ -168,37 +168,26 @@ public class CustomerData extends ProfileData
       this.editable = editable;
    }
 
-   /*
-   public AssetAllocationModel getAllocModel()
+   public String getManagedFlag()
    {
-      return allocModel;
+      return managedFlag;
    }
 
-   public void setAllocModel(AssetAllocationModel allocModel)
+   public void setManagedFlag(String managedFlag)
    {
-      this.allocModel = allocModel;
+      this.managedFlag = managedFlag;
    }
 
-   public PortfolioModel getPortfolioModel()
+   public String getCurrentStatus()
    {
-      return portfolioModel;
+      return currentStatus;
    }
 
-   public void setPortfolioModel(PortfolioModel portfolioModel)
+   public void setCurrentStatus(String currentStatus)
    {
-      this.portfolioModel = portfolioModel;
+      this.currentStatus = currentStatus;
    }
 
-   public ProjectionReport getProjectionReport()
-   {
-      return projectionReport;
-   }
-
-   public void setProjectionReport(ProjectionReport projectionReport)
-   {
-      this.projectionReport = projectionReport;
-   }
-*/
    public Double getTotalRisk() {
       Double value = 0.0;
       if (getPortfolioData() != null) {
@@ -801,10 +790,9 @@ public class CustomerData extends ProfileData
 
    public Double getActualInvested() {
       if (getManaged())
-         if (getManagedtotalMoney() > 0.0)
-            return getManagedtotalMoney();
+         return(getActualInvestment());
 
-      return getInitialInvestment().doubleValue();
+      return 0.0;
    }
 
    public DataPortfolio getSelectedPortfolio()
@@ -1164,7 +1152,8 @@ public class CustomerData extends ProfileData
 
    public Boolean getHasPosition()
    {
-      if (getClientAccountID() != null && getClientAccountID().length() > 0)
+      if ((getClientAccountID() != null)
+         && (getActualInvested() != null && getActualInvested() > 0.0))
       {
          return true;
       }
@@ -1176,17 +1165,13 @@ public class CustomerData extends ProfileData
 
    public String getDisplayActiveAcctNum()
    {
-      if (getClientAccountID() != null && getClientAccountID().length() > 0)
-      {
+      if (getManaged()) {
          return getClientAccountID();
       }
       else
       {
-         if (getManaged()) {
-               return ("Pending");
-         }
+         return getCurrentStatus();
       }
-      return getAcctnum().toString();
    }
 
 

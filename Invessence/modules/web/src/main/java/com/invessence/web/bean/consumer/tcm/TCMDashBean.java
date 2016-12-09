@@ -126,7 +126,7 @@ public class TCMDashBean implements Serializable
       this.selectedAccount = selectedAccount;
    }
 
-   public String doSelectedAction()
+   public String showPosition()
    {
       String whichXML;
       try
@@ -134,9 +134,6 @@ public class TCMDashBean implements Serializable
          if (getSelectedAccount().getManaged())
          {
             uiLayout.doMenuAction("consumer", "overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
-         }
-         else {
-            uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
          }
       }
       catch (Exception ex)
@@ -165,7 +162,14 @@ public class TCMDashBean implements Serializable
       String whichXML;
       try
       {
+         if (getSelectedAccount().getManaged())
+         {
             uiLayout.doMenuAction("consumer", "portfolioedit.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+         }
+         else
+         {
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+         }
       }
       catch (Exception ex)
       {

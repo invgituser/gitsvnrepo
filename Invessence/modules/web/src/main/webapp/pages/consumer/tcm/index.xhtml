@@ -33,7 +33,7 @@
 
                 <div class="Container100 Responsive100">
                     <p:growl showDetail="false" escape="true" closable="true"/>
-                   <!--<p:separator style="background-color: blue; height:5px"/>-->
+                    <!--<p:separator style="background-color: blue; height:5px"/>-->
 
                     <div class="Container100">
                         <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
@@ -62,8 +62,30 @@
                                                             dynamic="false" showCloseIcon="true"
                                                             style="width:200px; margin-left: 5px">
                                                 <table>
-                                                <tr><td>Strategy:</td><td>Growth</td></tr>
-                                                <tr><td>Account No.:</td><td>123456</td></tr>
+                                                    <tr>
+                                                        <td>Goal:</td>
+                                                        <td>#{investment.goal}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Strategy:</td>
+                                                        <td>#{investment.portfolioName}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Date Opened:</td>
+                                                        <td>#{investment.displayDateOpened}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Account No.:</td>
+                                                        <td>#{investment.displayActiveAcctNum}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Account Type:</td>
+                                                        <td>#{investment.accountType}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Name:</td>
+                                                        <td>#{investment.firstname} #{investment.lastname}</td>
+                                                    </tr>
                                                 </table>
                                             </p:overlayPanel>#{investment.goal}</td>
                                         <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.accountType}</td>
@@ -71,72 +93,56 @@
                                         <td style="width: 20%;" class="FS13Custom DisplaynoneMobile">#{investment.displayActiveAcctNum}</td>
 
 
-
-
                                         <td style="width: 20%; text-align: right; padding-right: 30px!important;" class="FS13Custom">
 
-                                                <h:outputText value="#{investment.actualInvested}"  rendered="#{investment.managed}">
-                                                    <f:convertNumber currencySymbol="$" type="currency"/>
-                                                </h:outputText>
-                                                <h:outputText value="#{investment.initialInvestment}"  rendered="#{!investment.managed}">
-                                                    <f:convertNumber currencySymbol="$" type="currency"/>
-                                                </h:outputText>
-                                            </td>
+                                            <h:outputText value="#{investment.actualInvested}" rendered="#{investment.managed}">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </h:outputText>
+                                            <h:outputText value="-" rendered="#{!investment.managed}">
+                                            </h:outputText>
+                                        </td>
                                     </tr>
-</table>
+                                </table>
                                 <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
                                     <tr style="font-size: 13px;">
                                         <td colspan="5" style="width: 100%; margin-left: 5px">
                                             <div class="EmptyBox20"></div>
-                                                <div class="invNBgrid DashboardIconBlock" style="width: 100%;">
-<div class="s_dashboard">
+                                            <div class="invNBgrid DashboardIconBlock" style="width: 100%;">
+                                                <div class="s_dashboard">
                                                     <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="activeButton" disabled="#{!investment.hasPosition }"
+                                                        <p:commandButton id="activeButton" disabled="#{!investment.hasPosition}"
                                                                          styleClass="Fs14 GreenButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-search-plus Fs14 white"
-                                                                         action="#{tcmdash.doSelectedAction}">
+                                                                         action="#{tcmdash.showPosition}">
                                                             <p:tooltip id="activeToolTipFade" for="activeButton" value="Positions"/>
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
-                                                    </div><div class="Container60 s_dashboardLabel"><h3>Positions</h3></div>
-</div>
-                                                    <ui:fragment rendered="#{investment.hasPosition  }">
-                                                    <div class="s_dashboard">
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel"><h3>Positions</h3></div>
+                                                </div>
+                                                <div class="s_dashboard">
 
-                                                        <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="editPortfolioButton" rendered="#{investment.hasPosition }"
+                                                    <div class="Container40 s_dashboardIcon">
+                                                        <p:commandButton id="editPortfolioButton" disabled="#{!investment.editable}"
                                                                          styleClass="Fs14 OrangeButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-pie-chart Fs14 white"
                                                                          action="#{tcmdash.doPortfolioSelectedAction}">
-                                                            <p:tooltip id="portfolioToolTipFade" for="editPortfolioButton" value="Change Strategy"/>
+                                                            <p:tooltip id="portfolioToolTipFade" for="editPortfolioButton"
+                                                                       value="Change Strategy"/>
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
 
-                                                    </div><div class="Container60 s_dashboardLabel relativeCenter"><h3>Change Strategy</h3></div></div>
-                        </ui:fragment><ui:fragment rendered="#{!investment.hasPosition }">
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel relativeCenter"><h3>Change Strategy</h3></div>
+                                                </div>
 
-                                                    <div class="s_dashboard">
+                                                <div class="s_dashboard" style="display: none">
                                                     <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="pendingButton" disabled="#{investment.displayActiveAcctNum=='Pending'}"
-                                                                         styleClass="Fs14 OrangeButton"
-                                                                         process="@this" immediate="true"
-                                                                         icon="fa fa-pie-chart Fs14 white"
-                                                                         action="#{tcmdash.doSelectedAction}">
-                                                            <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Change Strategy"/>
-                                                            <f:setPropertyActionListener value="#{investment}"
-                                                                                         target="#{tcmdash.selectedAccount}"/>
-                                                        </p:commandButton>
-
-                                                    </div><div class="Container60 s_dashboardLabel relativeCenter"><h3>Change Strategy</h3></div></div>
-                                    </ui:fragment>
-
-                                            <div class="s_dashboard" style="display: none">
-                                                    <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="fundButton"   disabled="#{!investment.hasPosition}"
+                                                        <p:commandButton id="fundButton" disabled="#{!investment.editable}"
                                                                          styleClass="Fs14 GreenButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-university Fs14 white"
@@ -145,12 +151,13 @@
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
-                                                    </div><div class="Container60 s_dashboardLabel"><h3>Edit Funding</h3></div>
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel"><h3>Edit Funding</h3></div>
 
-</div>
-                                            <div class="s_dashboard" style="display: none">
+                                                </div>
+                                                <div class="s_dashboard" style="display: none">
                                                     <div class="Container40 s_dashboardIcon">
-                                                        <p:commandButton id="editAcctButton" disabled="#{investment.managed}"
+                                                        <p:commandButton id="editAcctButton" disabled="#{investment.editable}"
                                                                          styleClass="Fs14 BlueButton"
                                                                          process="@this" immediate="true"
                                                                          icon="fa fa-pencil-square-o Fs14 white">
@@ -159,9 +166,11 @@
                                                             <f:setPropertyActionListener value="#{investment}"
                                                                                          target="#{tcmdash.selectedAccount}"/>
                                                         </p:commandButton>
-                                                    </div><div class="Container60 s_dashboardLabel relativeCenter relativeCenter2"><h3>Edit Account Details</h3></div>
-</div>
+                                                    </div>
+                                                    <div class="Container60 s_dashboardLabel relativeCenter relativeCenter2">
+                                                        <h3>Edit Account Details</h3></div>
                                                 </div>
+                                            </div>
                                             <div class="EmptyBox20"></div>
                                         </td>
                                     </tr>

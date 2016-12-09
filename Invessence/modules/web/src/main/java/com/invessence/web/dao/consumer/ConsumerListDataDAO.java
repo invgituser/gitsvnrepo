@@ -24,7 +24,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
       Map outMap = sp.loadClientProfileData(data);
-      String managed, editable;
+      String managed, currentstatus;
       try {
          if (outMap != null)
          {
@@ -49,12 +49,13 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setRegisteredState(convert.getStrData(rs.get("state")));
                data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
                managed = (convert.getStrData(rs.get("acctstatus")));
+               data.setManagedFlag(managed);
 
                if (managed == null) {
                   data.setManaged(false);
                }
                else {
-                  if (managed.equalsIgnoreCase("Pending") || managed.equalsIgnoreCase("Active")) {
+                  if (managed.equalsIgnoreCase("Active")) {
                      data.setManaged(true);
                   }
                   else {
@@ -62,16 +63,19 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                   }
                }
 
-               editable =  convert.getStrData(rs.get("managed"));
-               if (editable == null) {
+               currentstatus = convert.getStrData(rs.get("status"));
+               data.setCurrentStatus(currentstatus);;
+               if (currentstatus == null) {
                   data.setEditable(true);
                }
                else {
-                  if (editable.startsWith("P") || editable.startsWith("A") || editable.startsWith("X")) {
-                     data.setEditable(false);
+                  if (currentstatus.equalsIgnoreCase("visitor") ||
+                     currentstatus.equalsIgnoreCase("pending") ||
+                     currentstatus.equalsIgnoreCase("active")) {
+                     data.setEditable(true);
                   }
                   else {
-                     data.setEditable(true);
+                     data.setEditable(false);
                   }
                }
 
@@ -136,6 +140,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
       ArrayList<CustomerData> listProfiles = new ArrayList<CustomerData>();
       Map outMap = sp.loadClientProfileData(logonid, acctnum, days);
+      String managed, currentstatus;
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -159,14 +164,38 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
             data.setRegisteredState(convert.getStrData(rs.get("state")));
             data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
-            String managed = convert.getStrData(rs.get("managed"));
 
-            if (managed.equalsIgnoreCase("N")) {
+            managed = (convert.getStrData(rs.get("acctstatus")));
+            data.setManagedFlag(managed);
+
+            if (managed == null) {
                data.setManaged(false);
             }
             else {
-               data.setManaged(true);
+               if (managed.equalsIgnoreCase("Active")) {
+                  data.setManaged(true);
+               }
+               else {
+                  data.setManaged(false);
+               }
             }
+
+            currentstatus = convert.getStrData(rs.get("status"));
+            data.setCurrentStatus(currentstatus);;
+            if (currentstatus == null) {
+               data.setEditable(true);
+            }
+            else {
+               if (currentstatus.equalsIgnoreCase("visitor") ||
+                  currentstatus.equalsIgnoreCase("pending") ||
+                  currentstatus.equalsIgnoreCase("active")) {
+                  data.setEditable(true);
+               }
+               else {
+                  data.setEditable(false);
+               }
+            }
+
             data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
             data.setPortfolioName(convert.getStrData(rs.get("portfolioName")));
             data.setGoal(convert.getStrData(rs.get("goal")));

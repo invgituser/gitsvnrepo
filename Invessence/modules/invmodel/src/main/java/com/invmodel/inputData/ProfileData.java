@@ -448,12 +448,7 @@ public class
 
    public Double getActualInvestment()
    {
-      Double value = actualInvestment;
-
-      if (value == null || value == 0.0)
-      {
-         value = initialInvestment.doubleValue();
-      }
+      Double value = (actualInvestment == null) ? 0.0 : actualInvestment;
       return value;
    }
 
