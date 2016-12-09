@@ -64,11 +64,12 @@ BEGIN
 					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
-					CASE WHEN (IFNULL(`profile`.`status`,'N') in ('N')) THEN 'Visitor'
+					CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+						 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
 						 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
 						 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-						 WHEN (upper(`profile`.`status`) in ('A','F','R')) THEN 'Active'
-						 ELSE 'Pending'
+						 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+						 ELSE 'Visitor'
 					END as `status`,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') in ('N')) THEN 'Pending'
 						 WHEN (upper(`profile`.`managed`) in ('A')) THEN 'Active'
