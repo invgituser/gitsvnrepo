@@ -1322,7 +1322,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void doProjectionChart()
    {
       String event = riskCalculator.getAns5();
-      Integer whichslide = 0;
+      Integer whichslide = null;
 
       if ( (event != null) && (! event.isEmpty()) )
       {
@@ -1330,7 +1330,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
 
       if (whichslide == null) {
-         whichslide = 0;
+         if (riskCalculator.getAns4() != null && ! riskCalculator.getAns4().isEmpty()) {
+            whichslide = webutil.getConverter().getIntData(riskCalculator.getAns4()); // See comment below, we are offsetting it by one.
+         }
+         else
+         {
+            whichslide = 0;
+         }
       }
 
       if (whichslide > 0)

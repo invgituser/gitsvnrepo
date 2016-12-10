@@ -64,7 +64,7 @@ public class ForwardProjection
       ProjectionData[] array;
       if (fixedOptimizer != null)
       {
-         Double investment = (pdata.getActualInvestment() != null) ? pdata.getActualInvestment() : 100000;
+         Double investment = (pdata.getInitialInvestment() != null) ? pdata.getInitialInvestment().doubleValue() : 100000.0;
          Double recurring = (pdata.getRecurringInvestment() != null) ? pdata.getRecurringInvestment() : 0.0;
          Integer horizon = (pdata.getHorizon() != null) ? pdata.getHorizon() : 35;
          horizon = (horizon < 20) ? 20 : horizon;
