@@ -228,110 +228,37 @@ public class TdCto
             // clear all data.
             pagemanager = new PagesImpl(10);
             tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
-            // load firm list for ACAt details
-            custodyListDAO.getAcatFirmList(tdMasterData);
-            // Start fresh, clean and start from top page.
             String loadVal = loadData();
-            if (!webutil.isUserLoggedIn()
-               || loadVal.equalsIgnoreCase("") ||
-               loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
-               loadVal.equalsIgnoreCase("differenUser") ||
-               loadVal.equalsIgnoreCase("NOACCOUNTMAP")
-               )
-            {
-               msgheader = "dctd.102";
-               webutil.redirect("/access-denied.xhtml", null);
-               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               return;
-            }
+            Boolean check = false;
 
-            //NOACCOUNTNUMBER,  NOACCOUNTMAP,success,ACCOUNTMANAGED,differenUser
-           /* if (loadVal.equalsIgnoreCase("") ||
-               loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
-               loadVal.equalsIgnoreCase("differenUser") ||
-               loadVal.equalsIgnoreCase("NOACCOUNTMAP"))
-            {
-               msgheader = "dctd.100";
-               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               return;
-            }*/
-            else if (loadVal.equalsIgnoreCase("ACCOUNTMANAGED"))
+            // If account is managed
+            if (loadVal.equalsIgnoreCase("ACCOUNTMANAGED"))
             {
                msgheader = "dctd.103";
                webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
             }
-            else
-            {
-               // Check all data to find out where they left off last time.
-               // Just don't display error. Just go to that page.
-               Boolean status = validateAllPage();
-               Integer currentPage = pagemanager.getPage();
-               pagemanager.initPage();
-               resetActiveTab(0);
-               pagemanager.setLastPageVisited(currentPage);
-               pagemanager.clearAllErrorMessage();
-               saveandOpenError = null;
-            }
-         }
-      }
-      catch (Exception ex)
-      {
-         logger.info("Exception: raised during Starting TD CTO process.");
-      }
-   }
 
-
-   public void editStartCTO()
-   {
-      String msgheader;
-      try
-      {
-         if (!FacesContext.getCurrentInstance().isPostback())
-         {
-            if (beanacctnum == null || beanacctnum.isEmpty())
+            if (! loadVal.equalsIgnoreCase("success"))
             {
-               msgheader = "dctd.100";
-               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               // msgheader = "dctd.102";
+               // webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               webutil.accessdenied();
                return;
             }
-            // clear all data.
-            pagemanager = new PagesImpl(10);
-            tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
+
             // load firm list for ACAt details
             custodyListDAO.getAcatFirmList(tdMasterData);
+            // Check all data to find out where they left off last time.
+            // Just don't display error. Just go to that page.
             // Start fresh, clean and start from top page.
-            String loadVal = loadData();
-            if (!webutil.isUserLoggedIn()
-               || loadVal.equalsIgnoreCase("") ||
-               loadVal.equalsIgnoreCase("NOACCOUNTNUMBER") ||
-               loadVal.equalsIgnoreCase("differenUser") ||
-               loadVal.equalsIgnoreCase("NOACCOUNTMAP")
-               )
-            {
-               msgheader = "dctd.102";
-               webutil.redirect("/access-denied.xhtml", null);
-               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               return;
-            }
-            /* else if (loadVal.equalsIgnoreCase("ACCOUNTMANAGED"))
-            {
-               msgheader = "dctd.103";
-               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               return;
-            }*/
-            else
-            {
-               // Check all data to find out where they left off last time.
-               // Just don't display error. Just go to that page.
-               Boolean status = validateAllPage();
-               Integer currentPage = pagemanager.getPage();
-               pagemanager.initPage();
-               resetActiveTab(0);
-               pagemanager.setLastPageVisited(currentPage);
-               pagemanager.clearAllErrorMessage();
-               saveandOpenError = null;
-            }
+            Boolean status = validateAllPage();
+            Integer currentPage = pagemanager.getPage();
+            pagemanager.initPage();
+            resetActiveTab(0);
+            pagemanager.setLastPageVisited(currentPage);
+            pagemanager.clearAllErrorMessage();
+            saveandOpenError = null;
          }
       }
       catch (Exception ex)
@@ -1678,17 +1605,22 @@ public class TdCto
          retValue = "NOACCOUNTMAP";
          return retValue;
       }
-/*
-      if (getLongBeanlogonid(). != webutil.getLogonid())
-      {
-         retValue = "differenUser";
+
+      if (tdMasterData.getCustomerData().getManaged()) {
+         retValue = "ACCOUNTMANAGED";
          return retValue;
+
       }
-*/
 
       if (tdMasterData.getCustomerData().getEditable())
       {
          custodyListDAO.getTDAccountDetails(tdMasterData);
+         if (! webutil.isUserLoggedIn()) {
+            if (tdMasterData.getAcctdetail() != null && tdMasterData.getAcctdetail().getAcctTypeId() != null ) {
+               retValue = "differenUser";
+               return retValue;
+            }
+         }
          custodyListDAO.getTDAccountHolder(tdMasterData);
          custodyListDAO.getTDEmployment(tdMasterData);
          if (tdMasterData.getOptoutBeneficiary())
@@ -1978,12 +1910,14 @@ public class TdCto
 
    public void editFundingInitPage()
    {
-      pagemanager = new PagesImpl(10);
       tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
       custodyListDAO.getAcatFirmList(tdMasterData);
       try
       {
-         consumerListDAO.geteditFundData(getLongBeanacctnum());
+         //custodyListDAO.getFundACHData(getLongBeanacctnum());
+         custodyListDAO.getFundACATData(tdMasterData);
+         custodyListDAO.getFundTDData(tdMasterData);
+         custodyListDAO.getFundEFTData(tdMasterData);
       }
       catch (Exception e)
       {

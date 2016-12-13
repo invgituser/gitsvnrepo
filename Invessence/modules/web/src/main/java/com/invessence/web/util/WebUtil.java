@@ -509,7 +509,7 @@ public class WebUtil implements Serializable
             }
             else
             {
-               redirect("/access-denied.xhtml", null);
+               accessdenied();
                return false;
             }
          }
@@ -520,6 +520,10 @@ public class WebUtil implements Serializable
          redirect(url, null);
          return false;
       }
+   }
+
+   public void accessdenied() {
+      redirect("/access-denied.xhtml", null);
    }
 
    public boolean hasRole(String role)
