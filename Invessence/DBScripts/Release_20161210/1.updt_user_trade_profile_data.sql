@@ -1,3 +1,7 @@
+update `invdb`.`user_trade_profile`
+set accttype = 'Joint (JTWROS)'
+where accttype like 'JOINT%';
+
 update `invdb`.`user_trade_profile`, `invdb`.`dc_acct_details`, `invdb`.`dc_m_lookup`
  set `user_trade_profile`.`acctType` = upper(`dc_m_lookup`.`displayName`)
 WHERE `dc_acct_details`.`acctnum` = `user_trade_profile`.`acctnum`
