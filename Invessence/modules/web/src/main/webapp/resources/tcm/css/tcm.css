@@ -691,6 +691,539 @@ img.riskImage:hover {
 }
 /**/
 
+
+/*8 top tabs*/
+
+.portfolioCreationSteps8Panel > ul > .ui-state-highlight > a > span:nth-child(1), .portfolioCreationStepsPanel > ul > .ui-state-highlight > a > span:nth-child(1) {
+    background-color: #025d3c!important;
+}
+
+.portfolioCreationSteps8Panel > ul > .ui-state-disabled > a > span:nth-child(1), .portfolioCreationStepsPanel > ul > .ui-state-disabled > a > span:nth-child(1) {
+    background-color: #919d9d!important;
+}
+
+@media (min-width: 1321px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+    margin: 0 auto;
+    /*width: 689px;*/
+    width: 602px;
+}
+
+} @media (max-width: 1320px) and (min-width: 1000px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+        margin: 0 auto;
+        /*width: 689px;*/
+        width: 602px;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(2) {
+        left: -6px!important;
+    }
+
+}
+
+@media (max-width: 999px) and (min-width: 961px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+    margin: 0 auto;
+    /*width: 729px;*/
+    width: 637px;
+}
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(2) {
+        left: -3px!important;
+    }
+
+} @media (max-width: 960px) and (min-width: 771px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+        margin: 0 auto;
+        /*width: 569px;*/
+        width: 497px;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(2) {
+        left: -4px!important;
+        font-size: 11px!important;
+    }
+
+    /*.portfolioCreationSteps8Panel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+*/
+} @media (max-width: 770px) and (min-width: 730px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+        margin: 0 auto;
+        /*width: 528px;*/
+        width: 462px;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(2) {
+        display: none!important;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+
+    .portfolioCreationSteps8Panel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+} @media (max-width: 729px) and (min-width: 641px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+        margin: 0 auto;
+        /*width: 408px;*/
+        width: 357px;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationSteps8Panel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+} @media (max-width: 640px) and (min-width: 561px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+        margin: 0 auto;
+        /*width: 328px;*/
+        width: 287px;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationSteps8Panel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+}
+
+@media (max-width: 560px) and (min-width: 480px) {
+
+    .tab_main > .portfolioCreationSteps8Panel {
+        margin: 0 auto;
+        /*width: 328px;*/
+        width: 215px;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationSteps8Panel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+}
+
+@media (max-width: 481px) and (min-width: 361px)
+{ .tab_main > .portfolioCreationSteps8Panel {
+    margin: 0 auto;
+    /*width: 226px;*/
+    width: 196px;
+}
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationSteps8Panel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
+} @media (max-width: 361px) and (min-width: 320px) {
+    .tab_main > .portfolioCreationSteps8Panel {
+        margin: 0 auto;
+        /*width: 193px;*/
+        width: 168px;
+    }
+
+    .portfolioCreationSteps8Panel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationSteps8Panel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+}
+
+@media (min-width:1000px) {
+    .portfolioCreationSteps8Panel > ul > li > a {
+        width: 65px!important;
+    }
+}
+
+@media (max-width:999px) and (min-width:961px) {
+    .portfolioCreationSteps8Panel > ul > li > a {
+        width: 70px!important;
+    }
+}
+
+@media (max-width: 960px) and (min-width: 771px) {
+    .portfolioCreationSteps8Panel > ul > li > a {
+        width: 50px!important;
+    }
+}
+
+@media (max-width: 770px) and (min-width: 730px) {
+    .portfolioCreationSteps8Panel > ul > li > a {
+        width: 45px!important;
+    }
+}
+
+
+@media (max-width: 729px) and (min-width: 641px) {
+    .portfolioCreationSteps8Panel > ul > li > a {
+        width: 30px!important;
+    }
+}
+
+@media (max-width: 640px) and (min-width: 561px) {
+    .portfolioCreationSteps8Panel > ul > li > a {
+        width: 20px!important;
+    }
+}
+
+@media (max-width: 560px) {
+    .portfolioCreationSteps8Panel > ul > li > a {
+        width: 7px!important;
+    }
+}
+
+.portfolioCreationSteps8Panel > ul > li > a > span:nth-child(2) {
+    /*width: 60px!important;*/
+    position: relative;
+    left: -18px;
+    margin: 0 2px;
+}
+/**/
+.customLi {
+    list-style: initial!important;
+    text-align: left;
+    margin: 7px 0;
+}
+/*s_dashboard*/
+/**temporary
+@media (max-width:400px) {
+	.s_dashboardLabel {
+	display: none;
+	}
+
+	.s_dashboard {
+	width: 25%!important;
+	float: left!important;
+	}
+
+	.s_dashboardIcon {
+    text-align: center;
+    width: 100%!important;
+}
+.DisplaynoneMobile {
+    display: none;
+    }
+}
+*/
+@media (min-width: 320px) and (max-width: 630px){
+    .info_dashboard, .info_dashboard > span {
+        padding-top: 3px!important;
+    }
+
+
+
+    .s_dashboard {
+        width: 100%!important;
+        padding: 5px 0px;
+    }
+
+    .s_dashboard:nth-child(odd) {
+        background: #f3f1f1;
+    }
+
+    .s_dashboardIcon {
+        text-align: left;
+    }
+
+    .s_dashboardLabel {
+        text-align: left!important;
+        padding: 10px 0;
+    }
+
+    .halfWidthCustom {
+        width: 50%!important;
+    }
+
+    .DisplaynoneMobile {
+        display: none;
+    }
+}
+
+@media(min-width: 767px) and (max-width: 932px) {
+    .relativeCenter2 {
+        position: relative;
+        top: -7px;
+    }
+}
+@media (min-width: 631px) and (max-width: 767px) {
+    .relativeCenter {
+        position: relative;
+        top: -7px;
+    }
+}
+
+@media (max-width: 798px) and (min-width: 630px) {
+    .FS13Custom {
+        width:30%!important;
+    }
+}
+
+@media (max-width: 1117px) {
+    .s_dashboardLabel > h3, .FS13Custom {
+        font-size: 13px!important;
+    }
+}
+.s_dashboard {
+    width: 25%;
+    float: left;
+}
+
+.s_dashboardIcon {
+    text-align: center;
+}
+
+.s_dashboardLabel {
+    text-align: left;
+    padding: 10px 0;
+}
+
+
+.s_dashbaordPanel > div {
+    padding-left: 0px!important;
+    margin-top: 0px!important;
+}
+
+.dashboard_customStyle {
+    box-shadow: 0px 0px 12px 1px #b9b7b7;
+}
+
+.dashboard_customStyle > td {
+    height: 40px;
+}
+
+.s_dashbaordPanel {
+    padding: 0px!important;
+    border:2px solid #e9eef1!important;
+    border-radius: 0px!important;
+}
+
+
+.summaryConfirm > legend {
+    height: 15px!important;
+}
+.info_dashboard, .info_dashboard > span {
+    background: transparent!important;
+    border: 0!important;
+    width: 0!important;
+    margin: 0!important;
+    margin-top: -22px!important;
+}
+
+.HeaderDashboardTitle {
+    background: #c5baba!important;
+}
+
+.HeaderDashboardTitle > td {
+    padding: 10px 0px;
+    color: white;
+    font-weight: bold;
+}
+
+.effectShiftMargin {
+    margin-top: 10px;
+}
+
+/**New Version Dashboard**/
+
+@media (max-width: 500px) {
+
+    /* .NewDashTable > tbody > tr > td:nth-child(1), .NewDashTable > tbody > tr > td:nth-child(3) {
+    width: 50%!important;
+    }
+     */
+    .InfoNewDash {
+        float: none;
+    }
+
+    .CustomWidthColumn_d_2_newDash {
+        text-align: center;
+    }
+
+    .NewDashButtonBlock {
+        width: 25%!important;
+    }
+
+    .NewDashTable, .NewDashTable2 {
+        width: 100%!important;
+    }
+
+
+}
+
+@media (max-width: 735px) {
+    .acctOverviewLabel {
+        padding: 5px 0px 10px 10px!important;
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .ButtonConDashBlock {
+        display: none;
+    }
+
+    .NewDashTable > tbody > tr > td:nth-child(2) {
+        display:none;
+    }
+
+    /* .tableCustomSeperater > td {
+    background: linear-gradient(to right, #307a5d 0%, transparent 55%)!important;
+} */
+
+    .NewDashTable > tbody > tr > td, .NewDashTable2 > tbody > tr > td {
+        font-size: 14px!important;
+    }
+}
+
+.ContentTitleDash {
+    font-size: 12px;
+}
+
+.ContentForTitleDash {
+    font-weight: bold;
+}
+
+.CustomWidthColumn_d_2_newDash {
+    font-size: 14px;
+    height: 55px!important;
+    padding: 0px 10px!important;
+}
+
+.NewDashTable2 {
+    width: 40%;
+    float: left;
+}
+
+.NewDashTable {
+    width: 60%;
+    float: left;
+}
+
+.AdvisorConsumerName {
+    font-size: 14px;
+    padding: 8px 0px;
+}
+
+.AdvisorConsumerName {
+    text-align: center;
+}
+
+.AdvisorUserName, .CreateAccount_d {
+    margin: 0 10px;
+    padding: 5px 5px;
+    background: #fbfbfb;
+    box-shadow: 1px 1px 2px rgba(123, 116, 116, 0.72);
+}
+
+.CustomWidthColumn_d {
+    width: 20%;
+}
+
+.CustomWidthColumn_d_2 {
+    width: 40%;
+}
+
+.NewDashButtonBlock {
+    width: 30%;
+    text-align: center;
+    float: right;
+}
+
+.DashboardBlock_d {
+    width: 100%;
+    background: #fbfbfb;
+    padding: 0px!important;
+    border: 0;
+    border-radius: 0;
+    box-shadow: 2px 2px 5px rgba(123, 116, 116, 0.72);
+}
+
+.NewDashTable > tbody > tr > td, .NewDashTable2 > tbody > tr > td {
+    font-size: 14px;
+    height: 55px!important;
+    padding: 0px 5px!important;
+}
+
+.InfoNewDash > span:nth-child(2) {
+    background: whitesmoke!important;
+    color: #778D9B!important;
+}
+
+.tableCustomSeperater {
+    width: 100%;
+    height: 0!important;
+}
+
+
+.tableCustomSeperater > td {
+    height: 2px!important;
+    background: linear-gradient(to right, #307a5d 0%, transparent 98%);
+}
+
+.acctOverviewLabel {
+    padding: 0px 0px 10px 10px;
+}
+/************************/
+
+
+
+
+
 /*Prakash*/
 .ui-panel-content {
     width: 100%!important;
@@ -1484,15 +2017,19 @@ body {
 }
 
 .portfolioCreationStepsPanel > ul > .ui-state-highlight {
-    background-color: #025d3c !important;
+    background-color: #025d3c;
+}
+
+.tabColorOnluCustom > ul > .ui-state-highlight {
+    background-color: #025d3c!important;
 }
 
 .portfolioCreationStepsPanel > ul > .ui-state-disabled {
-    background-color: #919d9d !important;
+    background-color: #919d9d;
 }
 
 .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-number {
-    display: none !important;
+    position: absolute;
     visibility: hidden;
 }
 
@@ -1579,6 +2116,23 @@ h3 {
 
 /*Steps-tab-center-alligned*/
 @media (max-width: 361px) and (min-width: 320px) {
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
     .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
         padding: 0 10px !important;
     }
@@ -1599,6 +2153,23 @@ h3 {
 }
 
 @media (max-width: 481px) and (min-width: 361px) {
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
     .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
         padding: 0 11px !important;
     }
@@ -1619,6 +2190,23 @@ h3 {
 }
 
 @media (max-width: 560px) and (min-width: 481px) {
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
     .portfolioCreationStepsPanel .portfolioCreationStepsPanel > ul > .ui-steps-item {
         padding: 0 12px;
     }
@@ -1638,6 +2226,24 @@ h3 {
 }
 
 @media (max-width: 640px) and (min-width: 561px) {
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
+        visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
+    }
+
     .tab_main > div {
         margin: 0 auto;
         width: 305px;
@@ -1667,8 +2273,21 @@ h3 {
         padding: 20px 0px 0px 0px !important;
     }
 
-    .portfolioCreationStepsPanel > ul > li > a > span.ui-steps-title {
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(2) {
         visibility: hidden;
+    }
+
+    .portfolioCreationStepsPanel > ul > li > a > span:nth-child(1) {
+        visibility: visible!important;
+        position: static!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-disabled {
+        background-color: transparent!important;
+    }
+
+    .portfolioCreationStepsPanel > ul > .ui-state-highlight {
+        background-color: transparent!important;
     }
 }
 
@@ -1752,7 +2371,7 @@ h3 {
         position: relative;
         top: 0;
         background: none!important;
-        border-radius: none!important;
+        border-radius: 0!important;
     }
     .FundAccountStepsPanel > ul > .ui-state-highlight > a {
         margin-top: 0px!important;
@@ -1793,7 +2412,7 @@ h3 {
         position: relative;
         top: 0;
         background: none!important;
-        border-radius: none!important;
+        border-radius: 0!important;
     }
     .FundAccountStepsPanel > ul > .ui-state-highlight > a {
         margin-top: 0px!important;

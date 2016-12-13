@@ -67,7 +67,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                   convert.getStrData(rs.get("tagid")),
                   convert.getStrData(rs.get("alertdatetime")),
                   convert.getStrData(rs.get("message")),
-                  convert.getStrData(rs.get("link"))
+                  null
                   // convert.getStrData(rs.get("created")),
 
                );
