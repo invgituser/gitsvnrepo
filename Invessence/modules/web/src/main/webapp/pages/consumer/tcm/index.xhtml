@@ -103,37 +103,39 @@
                                                 <tbody>
                                                 <tr>
                                                     <td class="CustomWidthColumn_d_2_newDash"><p:commandButton id="uidHelp"
-                                                                                                               styleClass="info_dashboard  Fright"
+                                                                                                               styleClass="InfoNewDash  Fright"
                                                                                                                icon="fa fa-info-circle Fs14" value="Info" process="@none"/>
 
                                                         <p:overlayPanel id="uidHP" for="uidHelp" hideEffect="fade"
                                                                         dynamic="false" showCloseIcon="true"
                                                                         style="width:200px; margin-left: 5px">
-                                                            <table>
+                                                            <table class="dashExtraInfoTable">
+                                                                <tbody>
                                                                 <tr>
-                                                                    <td>Goal:</td>
-                                                                    <td>#{investment.goal}</td>
+                                                                    <td><div class="ContentTitleDash"><i class="fa fa-caret-right" aria-hidden="true"></i> Goal</div>
+                                                                        <div class="ContentForTitleDash">#{investment.goal}</div></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Strategy:</td>
-                                                                    <td>#{investment.portfolioName}</td>
+                                                                    <td><div class="ContentTitleDash"><i class="fa fa-caret-right" aria-hidden="true"></i> Strategy</div>
+                                                                        <div class="ContentForTitleDash">#{investment.portfolioName}</div></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Date Opened:</td>
-                                                                    <td>#{investment.displayDateOpened}</td>
+                                                                    <td><div class="ContentTitleDash"><i class="fa fa-caret-right" aria-hidden="true"></i> Date Opened</div>
+                                                                        <div class="ContentForTitleDash">#{investment.displayDateOpened}</div></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Account No.:</td>
-                                                                    <td>#{investment.displayActiveAcctNum}</td>
+                                                                    <td><div class="ContentTitleDash"><i class="fa fa-caret-right" aria-hidden="true"></i> Account Number</div>
+                                                                        <div class="ContentForTitleDash">#{investment.displayActiveAcctNum}</div></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Account Type:</td>
-                                                                    <td>#{investment.accountType}</td>
+                                                                    <td><div class="ContentTitleDash"><i class="fa fa-caret-right" aria-hidden="true"></i> Account Type</div>
+                                                                        <div class="ContentForTitleDash">#{investment.accountType}</div></td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Name:</td>
-                                                                    <td>#{investment.firstname} #{investment.lastname}</td>
+                                                                    <td><div class="ContentTitleDash"><i class="fa fa-caret-right" aria-hidden="true"></i> Name</div>
+                                                                        <div class="ContentForTitleDash">#{investment.firstname} #{investment.lastname}</div></td>
                                                                 </tr>
+                                                                </tbody>
                                                             </table>
                                                         </p:overlayPanel></td>
                                                 </tr>
