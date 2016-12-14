@@ -172,7 +172,7 @@
                                                                                      disabled="#{!investment.hasPosition}"
                                                                                      styleClass="Fs14 GreenButton" process="@this"
                                                                                      immediate="true" icon="fa fa-university Fs14 white"
-                                                                                     action="#{tcmdash.doEditAction}">
+                                                                                     action="#{tcmdash.doFundingAction}">
                                                                         <p:tooltip id="fundToolTipFade" for="fundButton"
                                                                                    value="Edit Funding" />
                                                                         <f:setPropertyActionListener value="#{investment}"
@@ -185,12 +185,11 @@
 
                                                             </div>
 
-                                                            <ui:fragment rendered="#{investment.hasPosition  }">
+
                                                                 <div class="NewDashButtonBlock">
                                                                     <div class="Container100">
 
                                                                         <p:commandButton id="editPortfolioButton"
-                                                                                         rendered="#{investment.hasPosition}"
                                                                                          styleClass="Fs14 OrangeButton" process="@this"
                                                                                          immediate="true" icon="fa fa-pie-chart Fs14 white"
                                                                                          action="#{tcmdash.doPortfolioSelectedAction}">
@@ -205,27 +204,6 @@
                                                                     </div>
                                                                 </div>
 
-                                                            </ui:fragment>
-                                                            <ui:fragment rendered="#{!investment.hasPosition }">
-                                                                <div class="NewDashButtonBlock">
-                                                                    <div class="Container100">
-                                                                        <p:commandButton id="pendingButton"
-                                                                                         disabled="#{investment.displayActiveAcctNum=='Pending'}"
-                                                                                         styleClass="Fs14 OrangeButton" process="@this"
-                                                                                         immediate="true" icon="fa fa-pie-chart Fs14 white"
-                                                                                         action="#{tcmdash. }">
-                                                                            <p:tooltip id="pendingToolTipFade"
-                                                                                       for="pendingButton" value="Change Strategy" />
-                                                                            <f:setPropertyActionListener value="#{investment}"
-                                                                                                         target="#{tcmdash.selectedAccount}" />
-                                                                        </p:commandButton>
-                                                                    </div>
-                                                                    <div class="Container100 ButtonConDashBlock">
-                                                                        <h5 style="padding: 5px 0px;">Change Strategy</h5>
-                                                                    </div>
-                                                                </div>
-                                                            </ui:fragment>
-
 
 
                                                             <div class="NewDashButtonBlock">
@@ -234,7 +212,7 @@
                                                                                      disabled="#{!investment.hasPosition}"
                                                                                      styleClass="Fs14 GreenButton" process="@this"
                                                                                      immediate="true" icon="fa fa-search-plus Fs14 white"
-                                                                                     action="#{tcmdash.doSelectedAction}">
+                                                                                     action="#{tcmdash.showPosition}">
                                                                         <p:tooltip id="activeToolTipFade" for="activeButton"
                                                                                    value="Positions" />
                                                                         <f:setPropertyActionListener value="#{investment}"

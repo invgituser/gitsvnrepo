@@ -31,7 +31,8 @@ public class TDMasterData implements Serializable
    Boolean ownerSPF, senoirPolitical, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
    String fundType;
-   Boolean fundNow, recurringFlag;
+   Boolean fundNow, recurringFlag,optFund;
+   Boolean isNewRecurring;
    Double initialInvestment;
    Integer totalbeneficiaryShares,tmptottalShares;
    private Boolean optoutRegulatory,optoutBeneficiary,optoutFunding,optoutRecurring;
@@ -81,8 +82,10 @@ public class TDMasterData implements Serializable
       showBeneficiaryForm = false;
       newBeneficiaryForm = false;
       fundNow = false;
+      optFund=false;
       recurringFlag = false;
       fundType = "PMACH";
+      isNewRecurring=true;
       initialInvestment = null;
       totalbeneficiaryShares = 0;
       tmptottalShares=0;
@@ -151,6 +154,7 @@ public class TDMasterData implements Serializable
       }
       return "Joint Holder";
    }
+
 
    public Integer getTotalbeneficiaryShares()
    {
@@ -286,6 +290,16 @@ public class TDMasterData implements Serializable
    {
       this.ownerShare = ownerShare;
 
+   }
+
+   public Boolean getNewRecurring()
+   {
+      return isNewRecurring;
+   }
+
+   public void setNewRecurring(Boolean newRecurring)
+   {
+      isNewRecurring = newRecurring;
    }
 
    public void resetContraFirmList()
@@ -430,6 +444,16 @@ public class TDMasterData implements Serializable
       }*/
    }
 
+   public Boolean getOptFund()
+   {
+      return optFund;
+   }
+
+   public void setOptFund(Boolean optFund)
+   {
+      this.optFund = optFund;
+   }
+
    public Boolean getRecurringFlag()
    {
       return recurringFlag;
@@ -523,7 +547,6 @@ public class TDMasterData implements Serializable
    }
    public void resetRecurringFlagData()
    {
-      electroicBankDetail=new ElectronicFundDetails();
       ownerSPF=false;
       if(recurringFlag)
       {

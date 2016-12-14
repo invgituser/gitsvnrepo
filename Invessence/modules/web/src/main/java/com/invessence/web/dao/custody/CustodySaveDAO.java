@@ -430,4 +430,98 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       else
          return true;
    }
+
+
+
+   public boolean tdSaveEFTEdit(TDMasterData tdMasterData )
+   {
+      if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getOwnerSPF())
+      {
+         DataSource ds = getDataSource();
+         Request reqdata = new Request();
+         reqdata.setReqId(new Long(0));
+         reqdata.setEventNum(0);
+         reqdata.setRequestFor("EFT");
+         reqdata.setAcctnum(tdMasterData.getAcctnum());
+         if(tdMasterData.getNewRecurring())
+            reqdata.setReqType("ELEC_FUND_TRAN_NEW");
+         else
+            reqdata.setReqType("ELEC_FUND_TRAN_REPLACE");
+
+         reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+         tdOpenAccount(reqdata);
+         tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
+         if (reqdata.getReqId() > 0)
+         {
+            Long moveMoneyPayMethId = tdSaveMoveMoneyPay(tdMasterData);
+            ElectronicFundDetails electronicFundDetails = tdMasterData.getElectroicBankDetail();
+            electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
+            tdMasterData.getElectroicBankDetail().setReqId(reqdata.getReqId());
+
+            if(tdMasterData.getNewRecurring())
+               tdMasterData.getElectroicBankDetail().setEftInstId("EFINEW");
+            else
+               tdMasterData.getElectroicBankDetail().setEftInstId("EFIREPLACE");
+
+            tdMasterData.getElectroicBankDetail().setDirectionId("EFDTOTD");
+            tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+            tdMasterData.getElectroicBankDetail().setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
+            electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
+
+            Boolean elecFundSave = tdSaveElectronicPayment(tdMasterData.getAcctnum(), tdMasterData.getElectroicBankDetail());
+         }
+      }
+      else
+      {
+         DataSource ds = getDataSource();
+         Long moveMoneyPayMethId=tdSaveMoveMoneyPay(tdMasterData);
+         if(moveMoneyPayMethId==0)
+         {
+            return false;
+         }
+         tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
+         long achId=0;
+         tdMasterData.getElectroicBankDetail().setAchId(0);
+         achId=tdSaveACHFund(tdMasterData.getElectroicBankDetail());
+
+         Request reqdata=new Request();
+         if(achId>0)
+         {
+            tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
+            reqdata.setReqId(new Long(0));
+            reqdata.setEventNum(0);
+            reqdata.setAcctnum(tdMasterData.getAcctnum());
+            if(tdMasterData.getNewRecurring())
+               reqdata.setReqType("ELEC_FUND_TRAN_NEW");
+            else
+               reqdata.setReqType("ELEC_FUND_TRAN_REPLACE");
+
+            reqdata.setRequestFor("EFT");
+            reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+            tdOpenAccount(reqdata);
+            tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
+            if(reqdata.getReqId()>0)
+            {
+               ElectronicFundDetails electronicFundDetails=tdMasterData.getElectroicBankDetail();
+               electronicFundDetails.setAcctnum(tdMasterData.getAcctnum());
+               electronicFundDetails.setReqId(reqdata.getReqId());
+
+               if(tdMasterData.getNewRecurring())
+                  tdMasterData.getElectroicBankDetail().setEftInstId("EFINEW");
+               else
+                  tdMasterData.getElectroicBankDetail().setEftInstId("EFIREPLACE");
+
+               electronicFundDetails.setDirectionId("EFDTOTD");
+               electronicFundDetails.setMoveMoneyPayMethodID(moveMoneyPayMethId);
+               electronicFundDetails.setAchId((int)achId);
+               electronicFundDetails.setTranAmount(tdMasterData.getElectroicBankDetail().getTranAmount());
+               Boolean elecFundSave=tdSaveElectronicPayment(tdMasterData.getAcctnum(),tdMasterData.getElectroicBankDetail());
+            }
+
+         }
+      }
+      return true;
+   }
+
+
 }

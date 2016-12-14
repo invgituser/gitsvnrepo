@@ -605,4 +605,174 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
+   public void getFundEFTData(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_fund_eft_data",3);
+      Map outMap = sp.getTDACAT(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            ElectronicFundDetails acatDetails=new ElectronicFundDetails();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               acatDetails.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               acatDetails.setMoveMoneyPayMethodID(convert.getLongData(rs.get("moveMoneyPayMethodID")));
+               acatDetails.setReqId(convert.getLongData(rs.get("reqid")));
+               acatDetails.setAchId(convert.getIntData(rs.get("achid")));
+               acatDetails.setTranAmount(convert.getDoubleData(rs.get("tranAmount")));
+               acatDetails.setTranFreqId(convert.getStrData(rs.get("tranFreqId")));
+               acatDetails.setBankAcctType(convert.getStrData(rs.get("bankAcctType")));
+               acatDetails.setBankName(convert.getStrData(rs.get("bankName")));
+               acatDetails.setBankABARouting(convert.getStrData(rs.get("bankABARouting")));
+               acatDetails.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
+               acatDetails.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
+               acatDetails.setTranStartDate(convert.getStrData(rs.get("transtartdate")));
+               acatDetails.setBankCityState(convert.getStrData(rs.get("bankCityState")));
+               acatDetails.setBankPhoneNumber(convert.getStrData(rs.get("bankPhoneNumber")));
+               data.setNewRecurring(false);
+
+            }
+
+            data.setElectroicBankDetail(acatDetails);
+            if(data.getElectroicBankDetail().getAchId().toString().equalsIgnoreCase(data.getAchBankDetail().getAchId().toString()))
+               data.setOwnerSPF(true);
+            else
+               data.setOwnerSPF(false);
+
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+   public void getFundTDData(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_fund_td_data",3);
+      Map outMap = sp.getTDTRF(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            TDTransferDetails tdTransferDetails=new TDTransferDetails();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               tdTransferDetails.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               tdTransferDetails.setReqId(convert.getLongData(rs.get("reqId")));
+               tdTransferDetails.setAccountTitle(convert.getStrData(rs.get("accountTitle")));
+               tdTransferDetails.setFirmName(convert.getStrData(rs.get("firmName")));
+               tdTransferDetails.setPrimaryContact(convert.getStrData(rs.get("primaryContact")));
+               tdTransferDetails.setPriorFirmName(convert.getStrData(rs.get("priorFirmName")));
+               tdTransferDetails.setFirmAccountNo(convert.getStrData(rs.get("firmAccountNo")));
+               tdTransferDetails.setRetailAccountNumber(convert.getStrData(rs.get("retailAccountNumber")));
+               tdTransferDetails.setAdvisorID(convert.getStrData(rs.get("advisorID")));
+               if(rs.get("removeAdvisor")!=null && rs.get("removeAdvisor").equals("Y"))
+               {
+                  tdTransferDetails.setRemoveAdvisor(true);
+                  tdTransferDetails.setAddAdvisor(false);
+                  tdTransferDetails.setRetilFlag("Y");
+               }
+               else
+               {
+                  tdTransferDetails.setRemoveAdvisor(false);
+                  tdTransferDetails.setAddAdvisor(true);
+                  tdTransferDetails.setRetilFlag("N");
+               }
+               tdTransferDetails.setSsn(convert.getStrData(rs.get("ssn")));
+            }
+            data.setTdTransferDetails(tdTransferDetails);
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
+   public void getFundACATData(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_fund_acat_data",3);
+      Map outMap = sp.getTDACAT(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            ACATDetails acatDetails=new ACATDetails();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               acatDetails.setAcctnum(convert.getLongData(rs.get("acctnum")));
+               acatDetails.setReqId(convert.getLongData(rs.get("reqId")));
+               acatDetails.setFromAccountTitle(convert.getStrData(rs.get("fromAccountTitle")));
+               acatDetails.setAccountNumber2(convert.getStrData(rs.get("accountNumber2")));
+               acatDetails.setFromFirmAddress(convert.getStrData(rs.get("fromFirmAddress")));
+               acatDetails.setFromFirmPhoneNumber(convert.getStrData(rs.get("fromFirmPhoneNumber")));
+               acatDetails.setFromOtherAccountType(convert.getStrData(rs.get("fromOtherAccountType")));
+               acatDetails.setTransferTypeId(convert.getStrData(rs.get("transferTypeId")));
+               acatDetails.setContraFirmList(convert.getStrData(rs.get("contraFirmList")));
+               acatDetails.setOtherContraFirmList(convert.getStrData(rs.get("othercontraFirmList")));
+            }
+            data.setAcatDetails(acatDetails);
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
+
+   public void getFundACHData(TDMasterData data)
+   {
+      DataSource ds = getDataSource();
+      CustodyListSP sp = new CustodyListSP(ds, "sel_fund_ach_data",3);
+      Map outMap = sp.getTDBeneficiary(data.getAcctnum());
+      try
+      {
+         if (outMap != null)
+         {
+            Integer whichAcct;
+            ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows == null)
+               return;
+            int i = 0;
+            AchBankDetail achBankDetail=new AchBankDetail();
+            for (Map<String, Object> map : rows)
+            {
+               Map rs = (Map) rows.get(i);
+               achBankDetail.setMoveMoneyPayMethodID(convert.getLongData(rs.get("moveMoneyPayMethodID")));
+               achBankDetail.setAchId(convert.getLongData(rs.get("achId")));
+               achBankDetail.setBankAcctType(convert.getStrData(rs.get("bankAcctType")));
+               achBankDetail.setBankName(convert.getStrData(rs.get("bankName")));
+               achBankDetail.setBankABARouting(convert.getStrData(rs.get("bankABARouting")));
+               achBankDetail.setBankCityState(convert.getStrData(rs.get("bankCityState")));
+               achBankDetail.setBankPhoneNumber(convert.getStrData(rs.get("bankPhoneNumber")));
+               achBankDetail.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
+               achBankDetail.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
+               //data.setInitialInvestment(convert.getDoubleData(rs.get("tranAmount")));
+            }
+            data.setAchBankDetail(achBankDetail);
+         }
+      }
+      catch (Exception ex) {
+
+      }
+   }
 }

@@ -266,6 +266,49 @@ public class TdCto
          logger.info("Exception: raised during Starting TD CTO process.");
       }
    }
+   public void editStartCTO()
+   {
+      String msgheader;
+      try
+      {
+         if (!FacesContext.getCurrentInstance().isPostback())
+         {
+            if (beanacctnum == null || beanacctnum.isEmpty())
+            {
+               msgheader = "dctd.100";
+               webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            // clear all data.
+            pagemanager = new PagesImpl(10);
+            tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
+            // load firm list for ACAt details
+            custodyListDAO.getAcatFirmList(tdMasterData);
+            // Start fresh, clean and start from top page.
+            if (!webutil.isUserLoggedIn()
+               )
+            {
+               msgheader = "dctd.102";
+               webutil.redirect("/access-denied.xhtml", null);
+               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
+               return;
+            }
+            else
+            {
+               Integer currentPage = pagemanager.getPage();
+               activeTab=0;
+               pagemanager.setPage(9);
+               pagemanager.clearAllErrorMessage();
+               saveandOpenError = null;
+               editFundingInitPage();
+            }
+         }
+      }
+      catch (Exception ex)
+      {
+         logger.info("Exception: raised during Starting TD CTO process.");
+      }
+   }
 
    public void addTempBeneficiary()
    {
@@ -1605,22 +1648,17 @@ public class TdCto
          retValue = "NOACCOUNTMAP";
          return retValue;
       }
-
-      if (tdMasterData.getCustomerData().getManaged()) {
-         retValue = "ACCOUNTMANAGED";
+/*
+      if (getLongBeanlogonid(). != webutil.getLogonid())
+      {
+         retValue = "differenUser";
          return retValue;
-
       }
+*/
 
       if (tdMasterData.getCustomerData().getEditable())
       {
          custodyListDAO.getTDAccountDetails(tdMasterData);
-         if (! webutil.isUserLoggedIn()) {
-            if (tdMasterData.getAcctdetail() != null && tdMasterData.getAcctdetail().getAcctTypeId() != null ) {
-               retValue = "differenUser";
-               return retValue;
-            }
-         }
          custodyListDAO.getTDAccountHolder(tdMasterData);
          custodyListDAO.getTDEmployment(tdMasterData);
          if (tdMasterData.getOptoutBeneficiary())
@@ -1910,13 +1948,14 @@ public class TdCto
 
    public void editFundingInitPage()
    {
-      tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
-      custodyListDAO.getAcatFirmList(tdMasterData);
-      try
+     try
       {
-         //custodyListDAO.getFundACHData(getLongBeanacctnum());
-         custodyListDAO.getFundACATData(tdMasterData);
-         custodyListDAO.getFundTDData(tdMasterData);
+
+         custodyListDAO.getTDAccountDetails(tdMasterData);
+         custodyListDAO.getTDAccountHolder(tdMasterData);
+         custodyListDAO.getFundACHData(tdMasterData);
+         //custodyListDAO.getFundACATData(tdMasterData);
+         //custodyListDAO.getFundTDData(tdMasterData);
          custodyListDAO.getFundEFTData(tdMasterData);
       }
       catch (Exception e)
@@ -1926,29 +1965,7 @@ public class TdCto
 
    }
 
-   public void editFunddataSave()
-   {
-      if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
-      {
-         custodySaveDAO.tdsaveACHData(tdMasterData, "ACH");
-         if (tdMasterData.getOwnerSPF() && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
-         {
-            tdMasterData.getElectroicBankDetail().setBankAcctType(tdMasterData.getAchBankDetail().getBankAcctType());
-            tdMasterData.getElectroicBankDetail().setBankName(tdMasterData.getAchBankDetail().getBankName());
-            tdMasterData.getElectroicBankDetail().setBankAcctName(tdMasterData.getAchBankDetail().getBankAcctName());
-            tdMasterData.getElectroicBankDetail().setBankCityState(tdMasterData.getAchBankDetail().getBankCityState());
-            tdMasterData.getElectroicBankDetail().setBankPhoneNumber(tdMasterData.getAchBankDetail().getBankPhoneNumber());
-            tdMasterData.getElectroicBankDetail().setBankABARouting(tdMasterData.getAchBankDetail().getBankABARouting());
-            tdMasterData.getElectroicBankDetail().setBankAcctNumber(tdMasterData.getAchBankDetail().getBankAcctNumber());
 
-         }
-      }
-      else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
-         custodySaveDAO.tdSaveACAT(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getAcatDetails());
-
-      else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
-         custodySaveDAO.tdSaveTDTransferData(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getTdTransferDetails());
-   }
 
    //account openDate in yyyy-mm-dd
    public Map<String, String> getTaxYear(String accountOpenDate, String accountType)
@@ -1990,4 +2007,116 @@ public class TdCto
       return taxYear;
 
    }
+
+   public void nextPageEdit()
+   {
+      if(getTdMasterData().getOptFund())
+      {
+         activeTab = 0;
+         subtab = 1;
+      }
+      else
+      {
+         if (validatePage(pagemanager.getPage()))
+         {
+            // saveData(pagemanager.getPage());
+            if (pagemanager.isLastPage())
+               tdMasterData.setSubmitButton(true);
+            else
+               tdMasterData.setSubmitButton(false);
+
+            pagemanager.clearAllErrorMessage();
+            if (pagemanager.isLastPage() || (pagemanager.getPage() == 9 && tdMasterData.getFundNow()))
+               resetActiveTab(11);
+            else
+            {
+               pagemanager.nextPage();
+               activeTab = 0;
+               subtab = 1;
+            }
+            saveandOpenError = null;
+         }
+      }
+   }
+   public void prevPageEdit()
+   {
+      activeTab=0;
+      subtab=0;
+
+   }
+   public void optoutFundingChange()
+   {
+      if(tdMasterData.getOptFund())
+      {
+         activeTab=0;
+         subtab=1;
+         tdMasterData.setOwnerSPF(false);
+      }
+      else
+      {
+         activeTab=0;
+         subtab=0;
+      }
+   }
+
+   public void editFunddataSave()
+   {
+      String msg, msgheader;
+
+      try
+      {
+         if (!tdMasterData.getOptFund()&& !validatePage(9))
+         {
+            activeTab = 0;
+            subtab = 0;
+            return;
+         }
+         if (!tdMasterData.getRecurringFlag()&& !validatePage(10))
+         {
+            activeTab = 0;
+            subtab = 1;
+            return;
+         }
+
+
+         WSCallStatus wsstatus;
+         WSCallResult wsCallResult;
+
+         if(!tdMasterData.getOptFund())
+         {
+            if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
+               custodySaveDAO.tdsaveACHData(tdMasterData, "ACH");
+            else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
+               custodySaveDAO.tdSaveACAT(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getAcatDetails());
+
+            else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
+               custodySaveDAO.tdSaveTDTransferData(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getTdTransferDetails());
+         }
+         if(!tdMasterData.getRecurringFlag())
+         {
+            custodySaveDAO.tdSaveEFTEdit(tdMasterData);
+         }
+
+
+
+         wsCallResult = serviceLayer.processDCRequest(tdMasterData.getAcctnum(), tdMasterData.getRequest().getEventNum());
+         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+         {
+               msg = wsCallResult.getWSCallStatus().getErrorMessage();
+            webutil.redirecttoMessagePage("ERROR", "Failed to Save", msg);
+         }
+         else
+         {
+            uiLayout.doMenuAction("custody", "tdconfirmation.xhtml");
+         }
+      }
+      catch (Exception ex)
+      {
+         msgheader = "dctd.EX.101";
+         webutil.redirecttoMessagePage("ERROR", "Service Error", msgheader);
+         return;
+
+      }
+   }
+
 }

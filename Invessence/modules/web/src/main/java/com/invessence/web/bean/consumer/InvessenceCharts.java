@@ -511,6 +511,7 @@ public class InvessenceCharts implements Serializable
             pieChart.setDiameter(150);
             pieChart.setSeriesColors(pieseriesColors);
             pieChart.setExtender("pie_extensions");
+            pieChart.setDatatipFormat("%s - %d%%");
          }
 
       }

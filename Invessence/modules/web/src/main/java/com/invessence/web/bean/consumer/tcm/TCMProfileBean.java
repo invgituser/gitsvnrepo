@@ -452,7 +452,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             fetchClientData();
             if (!webutil.isUserLoggedIn()
                || getBeanAcctnum()==null
-               || getInstance().getClientAccountID()==null
+
 
                )
             {

@@ -186,42 +186,44 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
          System.out.println("emailSubject = " + emailSubject);
          System.out.println("************************************************");
 
-      if (dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds.toString()) == true)
-      {
-         if (dcReqAcatOther == null)
-         {
-            logger.info("No Other ACAT transfer documents for signature.");
-         }
-         else{
-            if (otherAcatDocuments(dcReqAcatOther, acctNum, eventNum, "" + dcReqExtDoc.getReqId(),dcTemplateDetails, docuSignOperationDetails)==false){
+         if(envDef.getCompositeTemplates().size()>0){
+            if (dcUtility.createEnvelope(envDef, acctNum, eventNum, requestIds.toString()) == true)
+            {
+               if (dcReqAcatOther == null)
+               {
+                  logger.info("No Other ACAT transfer documents for signature.");
+               }
+               else{
+                  if (otherAcatDocuments(dcReqAcatOther, acctNum, eventNum, "" + dcReqAcatOther.getReqId(),dcTemplateDetails, docuSignOperationDetails)==false){
+                     wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
+                     logger.info("Something went wrong while processing Other ACAT transfer documents envelope");
+                  }else{
+                     wsCallResult =new WSCallResult(new WSCallStatus(SysParameters.dcSuccessCode, SysParameters.dcSuccessMsg), null);
+                  }
+               }
+
+               return new WSCallResult(new WSCallStatus(SysParameters.dcSuccessCode, SysParameters.dcSuccessMsg), null);
+            }
+            else
+            {
+               wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
+               logger.info("Something went wrong while creating DocuSign envelope");
+            }
+         }else{
+            if (dcReqAcatOther == null)
+            {
+               logger.info("No templates available for envelope creation");
+               logger.info("No Other ACAT transfer documents for signature.");
+            }
+            else{
+               if (otherAcatDocuments(dcReqAcatOther, acctNum, eventNum, "" + dcReqAcatOther.getReqId(),dcTemplateDetails, docuSignOperationDetails)==false){
                   wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
                   logger.info("Something went wrong while processing Other ACAT transfer documents envelope");
+               }else{
+                  wsCallResult =new WSCallResult(new WSCallStatus(SysParameters.dcSuccessCode, SysParameters.dcSuccessMsg), null);
                }
+            }
          }
-
-//         if (dcReqExtDoc == null)
-//         {
-//            logger.info("No need to send additional documents for signature.");
-//         }
-//         else
-//         {
-//            if (dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_APPLI_NEW.toString())
-//               || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_APPLI_NEW.toString())
-//               || dcReqExtDoc.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.IRA_QRP_BENE_NEW.toString()))
-//            {
-//               if (agreementDocuments(dcReqExtDoc, acctNum, eventNum, "" + dcReqExtDoc.getReqId())==false){
-//                  wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
-//                  logger.info("Something went wrong while processing agreement documents envelope");
-//               }
-//            }
-//         }
-         return new WSCallResult(new WSCallStatus(SysParameters.dcSuccessCode, SysParameters.dcSuccessMsg), null);
-      }
-      else
-      {
-         wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg), null);
-         logger.info("Something went wrong while creating DocuSign envelope");
-      }
    }catch(Exception e)
    {
       wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcIGenErrCode, SysParameters.dcIGenErrMsg), null);
@@ -506,7 +508,8 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
    }
 
 
-   private boolean otherAcatDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds, Map<String, DCTemplateDetails> dcTemplateDetails, Map<String, ServiceOperationDetails> docuSignOperationDetails)throws Exception{
+   private boolean otherAcatDocuments(DCRequest dcRequest, Long acctNum, int eventNum, String requestIds, Map<String, DCTemplateDetails> dcTemplateDetails,
+                                      Map<String, ServiceOperationDetails> docuSignOperationDetails)throws Exception{
       logger.info("TDAccountOpeningLayerImpl.otherAcatDocuments");
       logger.info("dcRequest = [" + dcRequest + "]");
 
