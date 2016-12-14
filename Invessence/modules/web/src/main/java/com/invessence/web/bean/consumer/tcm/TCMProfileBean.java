@@ -449,11 +449,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
             // Client related data.
             setRiskCalcMethod("C");
-            fetchClientData();
+
             if (!webutil.isUserLoggedIn()
-               || getBeanAcctnum()==null
-
-
                )
             {
                msgheader = "dctd.102";
@@ -461,7 +458,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
             }
-
+            fetchClientData();
             canOpenAccount = initCanOpenAccount();
             welcomeDialog = false;
          }

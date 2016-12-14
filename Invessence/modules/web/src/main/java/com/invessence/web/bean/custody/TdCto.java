@@ -283,18 +283,18 @@ public class TdCto
             pagemanager = new PagesImpl(10);
             tdMasterData = new TDMasterData(pagemanager, getLongBeanacctnum());
             // load firm list for ACAt details
-            custodyListDAO.getAcatFirmList(tdMasterData);
+
             // Start fresh, clean and start from top page.
             if (!webutil.isUserLoggedIn()
                )
             {
                msgheader = "dctd.102";
                webutil.redirect("/access-denied.xhtml", null);
-               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
             }
             else
             {
+               custodyListDAO.getAcatFirmList(tdMasterData);
                Integer currentPage = pagemanager.getPage();
                activeTab=0;
                pagemanager.setPage(9);
