@@ -4,7 +4,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 template="/template/common/template.xhtml">
-
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{tcmdash.preRenderView}"/>
+    </f:metadata>
 
 
     <ui:define name="content">
