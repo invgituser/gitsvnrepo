@@ -52,7 +52,7 @@ public class DataDisplayConverter implements Serializable
 
 
          DecimalFormat df = new DecimalFormat("###,####,##0.00");
-         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.CANADA));
+         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
          String strValue = df.format(new BigDecimal((value)));
          return "$" + strValue;
       }
@@ -70,7 +70,7 @@ public class DataDisplayConverter implements Serializable
       {
          DecimalFormat df = new DecimalFormat("##0.00");
         // String strValue = df.format(value);
-         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.CANADA));
+         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.US));
          String strValue = df.format(new BigDecimal((value)));
          return strValue +"%";
       }
