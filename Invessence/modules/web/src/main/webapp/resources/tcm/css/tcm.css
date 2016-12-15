@@ -1134,12 +1134,19 @@ img.riskImage:hover {
     padding: 5px 0px;
 }
 
+.textRAlign {
+    text-align: right;
+}
+
 .ContentTitleDash {
     font-size: 12px;
+    width: 100%;
 }
 
 .ContentForTitleDash {
     font-weight: bold;
+    width: 100%;
+    display: inline-block;
 }
 
 .CustomWidthColumn_d_2_newDash {
