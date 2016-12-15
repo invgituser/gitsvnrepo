@@ -1,8 +1,9 @@
 package com.invessence.web.util;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.net.*;
-import java.text.DecimalFormat;
+import java.text.*;
 import java.util.*;
 import java.io.Serializable.*;
 import java.text.DecimalFormat;
@@ -46,8 +47,13 @@ public class DataDisplayConverter implements Serializable
    {
       if (value != null)
       {
+         //DecimalFormat df = new DecimalFormat("###,####,##0.00");
+         //String strValue = df.format(value);
+
+
          DecimalFormat df = new DecimalFormat("###,####,##0.00");
-         String strValue = df.format(value);
+         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.CANADA));
+         String strValue = df.format(new BigDecimal((value)));
          return "$" + strValue;
       }
       else
@@ -63,7 +69,9 @@ public class DataDisplayConverter implements Serializable
       if (value != null)
       {
          DecimalFormat df = new DecimalFormat("##0.00");
-         String strValue = df.format(value);
+        // String strValue = df.format(value);
+         df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.CANADA));
+         String strValue = df.format(new BigDecimal((value)));
          return strValue +"%";
       }
       else
