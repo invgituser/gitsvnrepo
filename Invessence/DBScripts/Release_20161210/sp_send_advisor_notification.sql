@@ -49,14 +49,14 @@ BEGIN
     THEN
 		SELECT 
 			`notification_message_lookup`.`includeAdvisor`,
-			`notification_message_lookup`.`advisorsubject`,
+			IFNULL(`notification_message_lookup`.`advisorsubject`,'Notice'),
 			`notification_message_lookup`.`includeAdvisorEmail`,
-			`notification_message_lookup`.`emailAdvisorSubject`,
+			IFNULL(`notification_message_lookup`.`emailAdvisorSubject`,'Email'),
 			IFNULL(`notification_message_lookup`.`emailAdvisorRecepient`,`user_advisor_mapping`.`operationsEmail`),
 			`notification_message_lookup`.`includeUser`,
-			`notification_message_lookup`.`userSubject`,
+			IFNULL(`notification_message_lookup`.`userSubject`,'Notice'),
 			`notification_message_lookup`.`includeUserEmail`,
-			`notification_message_lookup`.`emailUserSubject`
+			IFNULL(`notification_message_lookup`.`emailUserSubject`,'Email')
 		INTO
 			tincludeAdvisor,
 			tadvisorsubject,
@@ -75,12 +75,12 @@ BEGIN
 		LIMIT 1;
 	  
 		SELECT 
-			`user_trade_profile`.`theme`,
+			IFNULL(`user_trade_profile`.`theme`,'Invessence'),
 			IFNULL(`ext_acct_info`.`applicantFName`, `user_trade_profile`.`firstname`),
 			IFNULL(`ext_acct_info`.`applicantLName`, `user_trade_profile`.`lastname`),
-			`user_trade_profile`.`portfolioName`,
-			`user_trade_profile`.`goal`,
-			`ext_acct_info`.`accountType`,
+			IFNULL(`user_trade_profile`.`portfolioName`,'Portfolio'),
+			IFNULL(`user_trade_profile`.`goal`,'No goal'),
+			IFNULL(`ext_acct_info`.`accountType`,IFNULL(`user_trade_profile`.`acctType`,'Unassigned')),
 			`invdb`.`funct_get_actualCapital`(`user_trade_profile`.`acctnum`),
 			IFNULL(`ext_acct_info`.`clientAccountID`,`user_trade_profile`.`acctnum`)
 		INTO
@@ -97,18 +97,49 @@ BEGIN
 			 ON (`user_trade_profile`.`acctnum` = `ext_acct_info`.`acctnum`)
 		WHERE `user_trade_profile`.`acctnum` = p_acctnum
 		LIMIT 1;
-		
+        
+--         SELECT 
+-- 			p_acctnum,
+-- 			p_advisor,
+-- 			p_rep,
+-- 			p_messagetype
+-- 		;
+-- 		
+--         SELECT 
+-- 			tincludeAdvisor,
+-- 			tadvisorsubject,
+-- 			tincludeAdvisorEmail,
+-- 			temailAdvisorSubject,
+-- 			temailAdvisorRecepient,
+-- 			tincludeUser,
+-- 			tuserSubject,
+-- 			tincludeUserEmail,
+-- 			temailUserSubject;
+--             
+-- 		SELECT 
+-- 			ttheme,
+-- 			tfirstname,
+-- 			tlastname,
+-- 			tportfolioName,
+-- 			tgoal,
+-- 			tacctType,
+-- 			tinvested,
+-- 			tclientAccountID;
+ 
 		set tName = concat(tfirstname,' ',tlastname);
+        set tName = IFNULL(tName,'Unassigned');
 		IF (tincludeAdvisor is NOT NULL)
 		THEN
 			set tMessage = null;
 			IF (p_messageType = 'PROCESSED')
 			THEN
-				SET tMessage=concat('<strong>',tadvisorsubject,', Account#:',tclientAccountID,'</strong>'
+				SET tMessage=concat('<strong>',tadvisorsubject,', Account#:','Processing','</strong>'
 									,'<table>'
 									,'<tr><td>Name</td><td>Strategy</td><td>Goal</td></tr>'
 									,'<tr><td>',tName,'</td><td>',tPortfolioName,'</td><td>',tGoal,'</td></tr>'
 									,'</table>');
+-- 				SELECT 'Processed', tMessage;
+                
 			END IF;
 			IF (p_messageType = 'OPENED')
 			THEN
@@ -117,6 +148,7 @@ BEGIN
 									,'<tr><td>Name</td><td>Account Type</td></tr>'
 									,'<tr><td>',tName,'</td><td>',tacctType,'</td></tr>'
 									,'</table>');
+-- 				SELECT 'OPENED', tMessage;
 			END IF;
 			IF (p_messageType = 'FUNDED')
 			THEN
@@ -126,6 +158,7 @@ BEGIN
 									,'<tr><td>Name</td><td>Funded</td></tr>'
 									,'<tr><td>',tName,'</td><td>$',tInvested,'</td></tr>'
 									,'</table>');
+-- 				SELECT 'FUNDED', tMessage;
 			END IF;
 			IF (p_messageType = 'ACTIVE')
 			THEN
@@ -135,8 +168,20 @@ BEGIN
 									,'<tr><td>Account</td><td>Strategy</td><td>Goal</td><td>Amount</td></tr>'
 									,'<tr><td>',tacctType,'</td><td>',tPortfolioName,'</td><td>',tGoal,'</td><td>',tInvested,'</td></tr>'
 									,'</table>');
+				SELECT 'ACTIVE', tMessage;
+			END IF;
+			IF (p_messageType = 'REBALANCE')
+			THEN
+				SET tMessage=concat('<strong>',tadvisorsubject,', Account#:',tclientAccountID,'</strong>'
+									,'<table>'
+									,'<tr><td>Name</td><td>Strategy</td><td>Goal</td></tr>'
+									,'<tr><td>',tName,'</td><td>',tPortfolioName,'</td><td>',tGoal,'</td></tr>'
+									,'</table>');
+-- 				SELECT 'REBALANCE', tMessage;
 			END IF;
 			
+-- 			SELECT 'Notification:', tMessage;
+            
 			IF (tMessage is not NULL)
 			THEN
 				CALL `invdb`.`sav_notification_advisor`(
@@ -161,8 +206,9 @@ BEGIN
 			IF (p_messageType = 'PROCESSED')
 			THEN
 				SET tMessage=concat(temailAdvisorSubject, '\n'
-									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Name: ', tName
+									, ' \n\t Account#: Processing' 
+									, ' \n\t Account Type: ', tacctType 
 									, ' \n\t Strategy: ', tPortfolioName
 									, ' \n\t Goal: ', tGoal
 									);
@@ -170,8 +216,8 @@ BEGIN
 			IF (p_messageType = 'OPENED')
 			THEN
 				SET tMessage=concat(temailAdvisorSubject, '\n'
-									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Name: ', tName
+									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Account Type: ', tacctType
 									, ' \n\t Strategy: ', tPortfolioName
 									, ' \n\t Goal: ', tGoal
@@ -180,8 +226,8 @@ BEGIN
 			IF (p_messageType = 'FUNDED')
 			THEN
 				SET tMessage=concat(temailAdvisorSubject, '\n'
-									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Name: ', tName
+									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Account Type: ', tacctType
 									, ' \n\t Strategy: ', tPortfolioName
 									, ' \n\t Goal: ', tGoal
@@ -191,8 +237,8 @@ BEGIN
 			THEN
 				set tInvested = Round(tInvested,2);
 				SET tMessage=concat(temailAdvisorSubject, '\n'
-									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Name: ', tName
+									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Account Type: ', tacctType
 									, ' \n\t Strategy: ', tPortfolioName
 									, ' \n\t Goal: ', tGoal
@@ -200,6 +246,19 @@ BEGIN
 									);
 			END IF;
 			
+            IF (p_messageType = 'REBALANCE')
+            THEN
+				SET tMessage=concat(temailAdvisorSubject, '\n'
+									, ' \n\t Name: ', tName
+									, ' \n\t Account#: ', tclientAccountID
+									, ' \n\t Account Type: ', tacctType
+									, ' \n\t Strategy: ', tPortfolioName
+									, ' \n\t Goal: ', tGoal
+									);
+            END IF;
+            
+-- 			SELECT 'Email', tMessage;
+
 			IF (tMessage is not NULL)
 			THEN
 				CALL `invdb`.`sp_email_messages_add_mod`(

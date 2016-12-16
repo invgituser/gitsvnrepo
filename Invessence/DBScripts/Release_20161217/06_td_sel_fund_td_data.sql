@@ -1,7 +1,7 @@
 use invdb;
 DROP PROCEDURE IF EXISTS `invdb`.`sel_fund_td_data`;
 DELIMITER $$
-CREATE DEFINER=`admin`@`localhost` PROCEDURE `sel_fund_td_data`(
+CREATE PROCEDURE `invdb`.`sel_fund_td_data`(
 	 `p_acctnum` bigint(20)
   )
 BEGIN
