@@ -420,6 +420,16 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       else
          return true;
    }
+   public Boolean tdMangedUserProfile(long data,String flag )
+   {
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "sp_user_profile_manage",13);
+      Map outMap = sp.tdUserProfile(data,flag);
+      if (outMap == null)
+         return (false);
+      else
+         return true;
+   }
    public Boolean tdCheckRequest(TDMasterData data )
    {
       DataSource ds = getDataSource();

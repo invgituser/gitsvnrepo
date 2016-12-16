@@ -2110,10 +2110,12 @@ public class TdCto
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
                msg = wsCallResult.getWSCallStatus().getErrorMessage();
+
             webutil.redirecttoMessagePage("ERROR", "Failed to Save", msg);
          }
          else
          {
+            custodySaveDAO.tdMangedUserProfile(tdMasterData.getAcctnum(),"F");
             uiLayout.doMenuAction("custody", "tdconfirmation.xhtml");
          }
       }
