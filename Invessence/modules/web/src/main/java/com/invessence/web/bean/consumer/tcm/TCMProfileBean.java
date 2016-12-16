@@ -336,7 +336,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
       if (webutil == null)
       {
-         return "Register";
+         return "Save Recommendations";
       }
       if (webutil.isUserLoggedIn())
       {
@@ -344,7 +344,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       else
       {
-         return "Register";
+         return "Save Recommendations";
       }
 
    }

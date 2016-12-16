@@ -2071,6 +2071,11 @@ public class TdCto
             subtab = 0;
             return;
          }
+         else
+         {
+            pagemanager.nextPage();
+            pageControl(pagemanager.getPage());
+         }
          if (!tdMasterData.getRecurringFlag()&& !validatePage(10))
          {
             activeTab = 0;

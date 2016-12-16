@@ -627,14 +627,14 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                acatDetails.setMoveMoneyPayMethodID(convert.getLongData(rs.get("moveMoneyPayMethodID")));
                acatDetails.setReqId(convert.getLongData(rs.get("reqid")));
                acatDetails.setAchId(convert.getIntData(rs.get("achid")));
-               acatDetails.setTranAmount(convert.getDoubleData(rs.get("tranAmount")));
+              // acatDetails.setTranAmount(convert.getDoubleData(rs.get("tranAmount")));
                acatDetails.setTranFreqId(convert.getStrData(rs.get("tranFreqId")));
                acatDetails.setBankAcctType(convert.getStrData(rs.get("bankAcctType")));
                acatDetails.setBankName(convert.getStrData(rs.get("bankName")));
                acatDetails.setBankABARouting(convert.getStrData(rs.get("bankABARouting")));
                acatDetails.setBankAcctName(convert.getStrData(rs.get("bankAcctName")));
                acatDetails.setBankAcctNumber(convert.getStrData(rs.get("bankAcctNumber")));
-               acatDetails.setTranStartDate(convert.getStrData(rs.get("transtartdate")));
+               //acatDetails.setTranStartDate(convert.getStrData(rs.get("transtartdate")));
                acatDetails.setBankCityState(convert.getStrData(rs.get("bankCityState")));
                acatDetails.setBankPhoneNumber(convert.getStrData(rs.get("bankPhoneNumber")));
                data.setNewRecurring(false);
