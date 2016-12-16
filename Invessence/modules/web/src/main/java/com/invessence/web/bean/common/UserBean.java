@@ -310,6 +310,7 @@ public class UserBean implements Serializable
                      msgheader = "signup.U109";
                      webutil.redirecttoMessagePage("ERROR", "Invalid link", msgheader);
                   }
+                  beanEmail = userdata.getEmail();
                   beanUserID = userdata.getUserID();
 
                   setRandomQuestion();

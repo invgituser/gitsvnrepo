@@ -430,7 +430,7 @@ public class AssetAllocationModel
          Double wght;
          Double totalWeight = 1.0;
          Integer age =  pdata.getAge();
-         Double investment = pdata.getActualInvestment();
+         Double investment = pdata.getDefaultInvestment();
          String theme =  pdata.getTheme();
 
          Double adjRiskOffet = pdata.getRiskIndex();

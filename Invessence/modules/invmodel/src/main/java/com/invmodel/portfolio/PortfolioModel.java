@@ -761,7 +761,7 @@ public class PortfolioModel
       Integer sortorder;
       Portfolio portfolio = new Portfolio();
       double totalWeight = 1.0;
-      double investment = pdata.getActualInvestment();
+      double investment = pdata.getDefaultInvestment();
       double amount_remain = investment;
 
       portfolio.setTheme(pdata.getTheme());

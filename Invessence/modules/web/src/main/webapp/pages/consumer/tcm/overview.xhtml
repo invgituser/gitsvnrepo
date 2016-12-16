@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <p:accordionPanel multiple="true" styleClass="marginZero">
-                            <p:tab title="Summary – Current Holding">
+                            <p:tab title="Summary – Current Holdings">
                                 <div class="Container100">
                                     <div class="Container50 Responsive50 tp20">
                                         <!-- ROHIT's CHANGE -->
@@ -56,19 +56,19 @@
                                                 </p:column>
 
                                                 <p:column styleClass="TexAlLeft Fs14" priority="0"
-                                                          headerText="Asset" style="width:34%">
+                                                          headerText="Asset Class" style="width:34%">
                                                     <h:outputText value="#{assetList.asset}" styleClass="Fs14"/>
                                                 </p:column>
 
                                                 <p:column style="text-align: right; width:30%" priority="2"
-                                                          headerText="Holding" styleClass="Fs14">
+                                                          headerText="Allocation" styleClass="Fs14">
                                                     <h:outputText value="#{assetList.holdingweight}" styleClass="TexAlRight Fs14">
                                                         <f:convertNumber pattern="##0.00%"/>
                                                     </h:outputText>
                                                 </p:column>
 
                                                 <p:column style="text-align: right; width:35%"
-                                                          headerText="Value" priority="0" styleClass="Fs14">
+                                                          headerText="Market Value" priority="0" styleClass="Fs14">
                                                     <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs12">
                                                         <f:convertNumber type="currency" currencySymbol="$"/>
                                                     </h:outputText>
@@ -91,7 +91,7 @@
                                 </div>
                             </p:tab>
 
-                            <p:tab title="Detail Holding">
+                            <p:tab title="Detailed Holdings">
                                 <div class="Container100 Responsive100">
                                     <div class="ContainerIndent">
                                         <p:dataTable id="dataTable" var="position" value="#{tcmpos.displayPositionList}"
@@ -120,13 +120,13 @@
                                                     <f:convertNumber pattern="###,###,###"/>
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column headerText="Weight" priority="5"
+                                            <p:column headerText="Allocation" priority="5"
                                                       style="text-align: right; width:6%;" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{position.weight}">
                                                     <f:convertNumber pattern="##0.00%"/>
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column headerText="Purchased" priority="2"
+                                            <p:column headerText="Unit Cost" priority="2"
                                                       style="text-align: right" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{position.costBasisPrice}">
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
@@ -139,14 +139,14 @@
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column headerText="Mark Price" priority="2"
+                                            <p:column headerText="Market Price" priority="2"
                                                       style="text-align: right" styleClass="Fs12"
                                                       resizable="true"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{position.markPrice}">
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column headerText="Current Value" priority="0"
+                                            <p:column headerText="Market Value" priority="0"
                                                       style=" text-align: right;" styleClass="Fs12"
                                                       resizable="true"><!-- ROHIT's CHANGE -->
                                                 <h:outputText value="#{position.positionValue}">

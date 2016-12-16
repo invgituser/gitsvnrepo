@@ -134,7 +134,7 @@ public class ForwardProjection
             ArrayList<ProjectionData[]> perfdata = new ArrayList<ProjectionData[]>();
             Integer portfolio = 0;
 
-            Double investment = pdata.getActualInvestment();
+            Double investment = pdata.getDefaultInvestment();
             Integer recurring = pdata.getRecurringInvestment();
             Integer horizon = pdata.getHorizon();
 

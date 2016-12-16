@@ -788,13 +788,6 @@ public class CustomerData extends ProfileData
       this.managedtotalMoney = managedtotalMoney;
    }
 
-   public Double getActualInvested() {
-      if (getManaged())
-         return(getActualInvestment());
-
-      return 0.0;
-   }
-
    public DataPortfolio getSelectedPortfolio()
    {
       return selectedPortfolio;
@@ -1153,7 +1146,7 @@ public class CustomerData extends ProfileData
    public Boolean getHasPosition()
    {
       if ((getClientAccountID() != null)
-         && (getActualInvested() != null && getActualInvested() > 0.0))
+         && (getActualInvestment() != null && getActualInvestment() > 0.0))
       {
          return true;
       }
