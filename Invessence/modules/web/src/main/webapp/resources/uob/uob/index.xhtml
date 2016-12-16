@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{uobdash.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <h:form id="form">
+            <!-- BOX START -->
+            <div class="layout-portlets-box">
+                <div class="Container100 Responsive100"><!-- ROHIT's CHANGE -->
+                    <div class="ContainerIndent">
+                        <div class="Container100">
+
+                            <div class="DispInlBlock MarTop20">
+                                <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
+                                <div class="Container80">
+                                    <div class="Fright">
+                                        <h2 class="black head FontThemeMedium">#{webutil.lastFirstName}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="Seperator"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="Container50 Responsive100">
+                    <div class="ContainerIndent">
+                        <div class="Container100">
+                        </div>
+                    </div>
+                </div>
+                <div class="Container100 Responsive100">
+                    <div class="ContainerIndent">
+                        <div class="Container100 tp1">
+
+                            <p:dataTable id="singleDT" var="investment" value="#{uobdash.manageAccountList}"
+                                         emptyMessage="No account were created.  Use new application to add account."
+                                         reflow="true">
+
+                                <p:column styleClass="Wid10 TextAlLeft">
+                                    <p:commandButton id="activeButton" rendered="#{investment.managed}"
+                                                     styleClass="Fs14 GreenButton"
+                                                     process="@this" immediate="true"
+                                                     icon="fa fa-search-plus Fs14 white"
+                                                     action="#{uobdash.doSelectedAction}">
+                                        <p:tooltip id="activeToolTipFade" for="activeButton" value="View"/>
+                                        <f:setPropertyActionListener value="#{investment}"
+                                                                     target="#{uobdash.selectedAccount}"/>
+                                    </p:commandButton>
+                                    <p:commandButton id="pendingButton" rendered="#{! investment.managed}"
+                                                     styleClass="Fs14 BlueButton"
+                                                     process="@this" immediate="true"
+                                                     icon="fa fa-pencil-square-o Fs14 white"
+                                                     action="#{uobdash.doSelectedAction}">
+                                        <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit"/>
+                                        <f:setPropertyActionListener value="#{investment}"
+                                                                     target="#{uobdash.selectedAccount}"/>
+                                    </p:commandButton>
+                                </p:column>
+                                <p:column styleClass="Wid20 TextAlLeft"
+                                          sortBy="#{investment.portfolioName}" headerText="Portfolio" priority="2"
+                                          resizable="true">
+                                    <h:outputText value="#{investment.portfolioName}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid25 TexAlLeft"
+                                          sortBy="#{investment.goal}" headerText="Type" priority="3"
+                                          resizable="true">
+                                    <h:outputText value="#{investment.goal}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid20 TexAlLeft"
+                                          sortBy="#{investment.displayActiveAcctNum}" headerText="Account#"
+                                          resizable="true">
+                                    <h:outputText value="#{investment.displayActiveAcctNum}"/>
+                                </p:column>
+
+                                <p:column styleClass="Wid25 num-text-align invest"
+                                          headerText="Invested"
+                                          resizable="true"><!-- ROHIT's CHANGE -->
+                                    <h:outputText value="#{investment.actualInvestment}" rendered="#{investment.managed}">
+                                        <f:convertNumber currencySymbol="$" type="currency"/>
+                                    </h:outputText>
+                                    <h:outputText value="#{investment.initialInvestment}" rendered="#{! investment.managed}">
+                                        <f:convertNumber currencySymbol="$" type="currency"/>
+                                    </h:outputText>
+
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Can add another element here... -->
+            </div>
+            <!-- BOX END -->
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>

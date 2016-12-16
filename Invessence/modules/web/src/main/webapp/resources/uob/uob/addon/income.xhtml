@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<div class="Container100 Responsive100 uob_tabsInputBlock">
+                <p:panelGrid columns="2" layout="grid" class="FormContent"
+                            styleClass="Container100 Responsive100"
+                     style="border:0px !important; background:none;">
+                    <div class="TexAlLeft Wid100">
+                        <div>Salary/Wages (Yearly)</div>
+                        <div style="font-size: small;">(Total Gross Income)</div>
+                    </div>
+                    <p:inputNumber value="#{uobpb.householdwages}" styleClass="Wid100 uob_number_field"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax listener="#{uobpb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </p:inputNumber>
+
+                    <div class="Wid100">
+                        Liquid Asset<br/>
+                        <span style="font-size: small;">(Cash/Savings Account, etc.)</span>
+                    </div>
+                    <p:inputNumber value="#{uobpb.moneymarket}" styleClass="Wid100 uob_number_field"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax listener="#{uobpb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </p:inputNumber>
+                    <!-- <h:outputText/>
+                    <h:outputText/> -->
+
+                    <div class="Wid100">
+                        Other Investments<br/>
+                        <span style="font-size: small;">(Stocks, Bond, Retirement)</span>
+                    </div>
+                    <p:inputNumber value="#{uobpb.investment}" styleClass="Wid100 uob_number_field"
+                                    maxlength="15" decimalPlaces="0" symbol="$">
+                        <p:ajax listener="#{uobpb.onChangeValue}"
+                                update=":ceForm:workArea, :ceForm:graphArea"/>
+                    </p:inputNumber>
+
+                </p:panelGrid>
+        </div>
+</ui:composition>

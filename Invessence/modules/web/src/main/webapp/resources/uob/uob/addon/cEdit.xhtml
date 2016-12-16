@@ -1,0 +1,166 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<div class="Container100">
+		<div class="Container50 Fleft Responsive100">
+			<div class="ContainerIndent">
+				<p:panel id="inputArea" style="border: 0px"
+					styleClass="uob_Block_tabs">
+					<p:tabView id="pTabView" activeIndex="#{uobpb.pTab}"
+						styleClass="Container100 uob_ceditTab_Block" orientation="top"
+						dynamic="false" cache="false" effect="slide" effectDuration="fast">
+						<p:ajax event="tabChange"
+							update=":ceForm:inputArea, :ceForm:graphArea"
+							listener="#{uobpb.onPTabChange}" />
+						<p:tab id="p1" title="Overview">
+							<ui:include src="/pages/consumer/uob/addon/core0.xhtml" />
+						</p:tab>
+						<p:tab id="p2" title="Asset" style="padding-top: 10px;">
+							<ui:include src="/pages/consumer/uob/addon/income.xhtml" />
+						</p:tab>
+						<p:tab id="p3" title="Liability">
+							<ui:include src="/pages/consumer/uob/addon/debt.xhtml" />
+						</p:tab>
+						<p:tab id="p4" title="Risk">
+							<p:tabView id="rTabView" orientation="top"
+								activeIndex="#{uobpb.rTab}" styleClass="NBwidget" cache="false"
+								dynamic="false">
+								<p:ajax event="tabChange" listener="#{uobpb.onRTabChange}" />
+								<p:tab id="q1" title="1">
+									<ui:include src="/pages/consumer/uob/addon/q1.xhtml" />
+								</p:tab>
+								<p:tab id="q2" title="2">
+									<ui:include src="/pages/consumer/uob/addon/q2.xhtml" />
+								</p:tab>
+								<p:tab id="q3" title="3">
+									<ui:include src="/pages/consumer/uob/addon/q3.xhtml" />
+								</p:tab>
+								<p:tab id="q4" title="4">
+									<ui:include src="/pages/consumer/uob/addon/q4.xhtml" />
+								</p:tab>
+								<p:tab id="q5" title="5">
+									<ui:include src="/pages/consumer/uob/addon/q5.xhtml" />
+								</p:tab>
+								<p:tab id="q6" title="6">
+									<ui:include src="/pages/consumer/uob/addon/q6.xhtml" />
+								</p:tab>
+								<p:tab id="q7" title="7">
+									<ui:include src="/pages/consumer/uob/addon/q7.xhtml" />
+								</p:tab>
+							</p:tabView>
+						</p:tab>
+
+					</p:tabView>
+					<f:facet name="footer">
+						<p:commandButton id="prevBtn" value="Previous"
+							styleClass="Fleft Wid45" rendered="#{uobpb.enablePrevButton}"
+							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
+							actionListener="#{uobpb.gotoPrevTab}" />
+						<p:commandButton id="nextBtn" value="Next"
+							styleClass="Fright Wid45" rendered="#{uobpb.enableNextButton}"
+							type="submit"
+							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
+							actionListener="#{uobpb.gotoNextTab}" />
+					</f:facet>
+				</p:panel>
+			</div>
+		</div>
+		<div class="Container50 Fleft Responsive100">
+			<div class="ContainerIndent">
+				<p:panel id="graphArea" style="border: 0px; background: white;">
+					<div class="Container100 Responsive100">
+						<p:panel id="grphhdr" style="border: 0px; background: transparent"
+							rendered="#{uobpb.hasReturn}">
+							<div
+								class="Wid45 BorderedBox Fleft TexAlCenter Mar10 MarLeft5 uob_Box">
+								<div class="ContainerIndent">
+									<div class="EmptyBox5"></div>
+									<span class="Fs14 DispBlock gray">Investment Risk</span> <span
+										class="Fs24 DispBlock red">
+										 <h:outputText
+											value="#{uobpb.totalRisk}">
+											<f:convertNumber pattern="##0.00%" />
+										</h:outputText>
+									</span>
+									<div class="EmptyBox5"></div>
+								</div>
+							</div>
+
+							<div
+								class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5 uob_Box1">
+								<div class="ContainerIndent">
+									<div class="EmptyBox5"></div>
+									<span class="Fs14 DispBlock gray">Expected Return</span> <span
+										class="Fs24 DispBlock invessenceblue"> <h:outputText
+											value="#{uobpb.totalExpectedReturns}">
+											<f:convertNumber pattern="##0.00%" />
+										</h:outputText>
+									</span>
+
+									<div class="EmptyBox5"></div>
+								</div>
+							</div>
+						</p:panel>
+					</div>
+
+					<div class="Container100 Responsive100">
+						<p:outputPanel id="charts" style="border: 0px">
+							<div class="Container50  Fleft Responsive100">
+								<!-- PRAKASH's CHANGE -->
+								<div class="Container100">
+									<p:chart type="pie" model="#{uobpb.charts.pieChart}"
+										rendered="#{uobpb.charts.pieChart != null}" responsive="true" />
+								</div>
+							</div>
+							<div class="Container50 Fleft Responsive100">
+								<!-- PRAKASH's CHANGE -->
+								<div class="ContainerIndent">
+									<p:dataTable styleClass="uob_graphTable"
+										value="#{uobpb.editableAsset}" var="assetList">
+
+										<p:column
+											style="width: 2%; background-color: #{assetList.color};">
+											<h:outputText value=" " />
+										</p:column>
+
+										<p:column styleClass="Wid40 TexAlLeft" resizable="true"
+											headerText="Asset">
+											<!-- PRAKASH's CHANGE -->
+											<h:outputText value="#{assetList.asset}" />
+										</p:column>
+										<p:column styleClass="Wid40 num-text-align TexAlRight"
+											resizable="true" headerText="Weight">
+											<!-- PRAKASH's CHANGE -->
+											<h:outputText value="#{assetList.userEdit}">
+												<f:convertNumber pattern="##0.00%" />
+											</h:outputText>
+										</p:column>
+									</p:dataTable>
+								</div>
+							</div>
+						</p:outputPanel>
+					</div>
+				</p:panel>
+			</div>
+		</div>
+	</div>
+
+	<div class="Container100">
+		<p style="font-style: italic; font-size: .8em; text-align: justify">
+			This portfolio is designed for illustration purposes only. The
+			cumulative value of the portfolio (net of fees) is based on the
+			historical performance of the underlying securities and adjusted for
+			changes in the asset allocation over time. It does not take in affect
+			any tax withholdings or distributions. Past performance is no
+			guarantee of future results. Any historical returns, expected
+			returns, or probability projections may not reflect actual future
+			performance. All securities involve risk and may result in loss. Not
+			an offer, solicitation of an offer, or advice to buy or sell
+			securities in jurisdictions where Invessence is not registered</p>
+	</div>
+
+</ui:composition>
