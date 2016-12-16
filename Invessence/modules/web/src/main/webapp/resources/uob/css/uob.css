@@ -2628,3 +2628,102 @@ h3 {
     }
 
 }
+
+
+/**Prakash_UOB**/
+.uob_block1 > div > fieldset > legend {
+	background: #e8e7e7;
+    border-radius: 0;
+    color: #004D40;
+    border-left: 4px solid #26A69A;
+}
+
+.uob_block1 > div > fieldset {
+    border: solid 4px #26A69A;
+    background-color: #fff;
+}
+
+.uob_ceditTab_Block > .ui-tabs-nav {
+	background: #546E7A!important;
+}
+
+.uob_ceditTab_Block > .ui-tabs-nav > .ui-tabs-selected > a {
+    background: #004D40;
+    border-bottom: 3px solid #004D40;
+}
+
+.ui-spinner-input, .ui-spinner, .uob_investAmount > input {
+	width: 100%;
+}
+
+.uob_ceditTab_Block > .ui-tabs-nav > .ui-tabs-selected {
+	border-radius: 0!important;
+	background: #004D40!important
+}
+
+.uob_Block_tabs > .ui-panel-content {
+	    border: 3px solid #26a69a!important;
+}
+
+.ui-button-text, .ui-selectonemenu-trigger {
+	background-color: #26a69a!important;
+}
+
+.uob_tabsInputBlock input {
+   /*  border: 1px solid #26a69a!important; */
+}
+
+.uob_tabsInputBlock {
+	margin-bottom: 14px;
+}
+
+.uob_Block_tabs > .ui-panel-footer {
+	width: 97%;
+}
+
+.uob_number_field > input {
+	width: 100%;
+}
+
+.uob_Block_tabs {
+	background: #fff;
+}
+
+#layout-topbar {
+	background: #fff;
+} 
+
+#layout-menu {
+background: #26a69a;
+    border-radius: 30px;
+}
+
+.uob_Box {
+    background: #e8e7e7;
+    border-radius: 0;
+    border: 0;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.04);
+}
+
+.uob_Box1 {
+	background: #e8e7e7;
+    border-radius: 0;
+    border: 0;
+    box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.04);
+}
+
+.uob_graphTable {
+	    border: 3px solid #26a69a;
+    border-radius: 0;
+    padding: 0!important;
+}
+
+.Title_uob {
+	border-bottom: solid 4px #e8e7e7!important;
+	padding: 5px 0px;
+    color: #004d40;
+}
+
+.textAleft {
+	text-align: left;
+}
