@@ -1334,10 +1334,12 @@ public class TdCto
                      dataOK = false;
                      pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required!", null));
                   }
-                  else if (tdMasterData.getInitialInvestment() < 50000)
+                  else if (tdMasterData.getInitialInvestment() < 2000)
                   {
                      dataOK = false;
-                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamtless.requiredMsg", "Investment amount should be minimum $50000!", null));
+                     //String minInvestment = webutil.getDataDisplayConverter().displayAsMoney(tdMasterData.getCustomerData().getInitialInvestment());
+                     String minInvestment = "2000";
+                     pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamtless.requiredMsg", "Min " + minInvestment + " investment required", new Object[]{minInvestment}));
                   }
 
                   if (!hasRequiredData(tdMasterData.getAchBankDetail().getBankAcctType()))
