@@ -40,6 +40,9 @@ public class CommonSP extends StoredProcedure
             declareParameter(new SqlParameter("p_alertdatetime", Types.VARCHAR));
             declareParameter(new SqlParameter("p_message", Types.VARCHAR));
             break;
+         case 4: // SP: sel_web_site_info
+            declareParameter(new SqlParameter("p_url", Types.VARCHAR));
+            break;
          case 99: // SP: sel_notificationInfo
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -96,4 +99,10 @@ public class CommonSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map getWebSiteInfo(String url)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_url", url);
+      return super.execute(inputMap);
+   }
 }

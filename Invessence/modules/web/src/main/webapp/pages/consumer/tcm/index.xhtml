@@ -73,12 +73,14 @@
                                                         <div class="ContentForTitleDash">#{investment.portfolioName}</div></td>
                                                     <td class="CustomWidthColumn_d">
                                                         <div class="ContentTitleDash textRAlign">Invested Amount</div>
-                                                        <div class="ContentForTitleDash textRAlign"><h:outputText
+                                                        <div class="ContentForTitleDash textRAlign">
+                                                            <h:outputText
                                                                 value="#{investment.actualInvestment}"
                                                                 rendered="#{investment.managed}">
                                                             <f:convertNumber currencySymbol="$" type="currency" />
-                                                        </h:outputText> <h:outputText value="#{investment.initialInvestment}"
-                                                                                      rendered="#{!investment.managed}">
+                                                            </h:outputText>
+                                                            <h:outputText value="#{investment.initialInvestment}"
+                                                                          rendered="#{!investment.managed}">
                                                             <f:convertNumber currencySymbol="$" type="currency" />
                                                         </h:outputText></div></td>
 
@@ -173,7 +175,7 @@
                                                             <div class="NewDashButtonBlock">
                                                                 <div class="Container100">
                                                                     <p:commandButton id="fundButton"
-                                                                                     disabled="#{!investment.hasPosition}"
+                                                                                     disabled="#{!investment.hasClientID}"
                                                                                      styleClass="Fs14 GreenButton" process="@this"
                                                                                      immediate="true" icon="fa fa-university Fs14 white"
                                                                                      action="#{tcmdash.doFundingAction}">

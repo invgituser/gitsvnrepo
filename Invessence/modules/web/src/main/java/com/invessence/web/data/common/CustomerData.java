@@ -1143,6 +1143,13 @@ public class CustomerData extends ProfileData
       }
    }
 
+   public Boolean getHasClientID() {
+
+      return (getClientAccountID() != null && ! getClientAccountID().isEmpty());
+
+
+   }
+
    public Boolean getHasPosition()
    {
       if ((getClientAccountID() != null)

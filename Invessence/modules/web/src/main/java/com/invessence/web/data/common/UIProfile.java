@@ -45,6 +45,8 @@ public class UIProfile
    String advisor;
    String rep;
 
+   AdvisorProfile advisorProfile;
+
    // List of email templates for appropriate correspondance
    Map<String,String> emailTemplateMap;
    Map<String,String> emailSubjectMap;
@@ -68,6 +70,7 @@ public class UIProfile
    {
       emailTemplateMap = new HashMap<String, String>();
       emailSubjectMap = new HashMap<String, String>();
+      advisorProfile = new AdvisorProfile();
       resetAllInfo(cid,
                    companyname, homepage, securehomepage,
                    logo, logosize, logolib,
