@@ -1130,6 +1130,35 @@ img.riskImage:hover {
     }
 }
 
+
+#layout-menu button {
+    border-radius: 45px!important;
+}
+
+#layout-menu .ui-button-text, #layout-menu .ui-state-hover {
+    background-color: #d8d0d0!important;
+    border-radius: 45px!important;
+    color: black!important;
+}
+
+#layout-menu>li:hover>a, #layout-menu>li >a {
+    color: black!important;
+}
+
+#layout-topbar {
+    background: #fff!important;
+    border-bottom: 5px solid #388164!important;
+    box-shadow: none;
+}
+
+#layout-menu {
+    background-color: #fbfbfb!important;
+    border-radius: 0px!important;
+    border-left: 5px solid #046744;
+    border-right: 5px solid #046744;
+    box-shadow: none!important;
+}
+
 .dashExtraInfoTable > tbody > tr > td  {
     padding: 5px 0px;
 }
@@ -1213,6 +1242,11 @@ img.riskImage:hover {
 .InfoNewDash > span:nth-child(2) {
     background: whitesmoke!important;
     color: #778D9B!important;
+    border-radius: 40px!important;
+}
+
+.InfoNewDash {
+    border-radius: 40px!important;
 }
 
 .tableCustomSeperater {
@@ -1510,7 +1544,7 @@ img.atCheckMarkImg {
 }
 
 #layout-topbar {
-    border:0px!important;
+    border-top:0px!important;
 }
 
 .BBGreen {
@@ -1976,7 +2010,7 @@ tcmAccordionPanel-UI > .ui-accordion .ui-state-hover, .ui-accordion .ui-state-ac
 body {
     background-image: none !important;
     height: 100vh;
-    background: linear-gradient(141deg, rgba(0, 93, 56, 0.78) 0%, rgba(0, 89, 55, 0.87) 51%, rgba(0, 66, 40, 0.95) 75%) !important;
+    background: linear-gradient(141deg, #CFD8DC 0%, rgb(189, 194, 195) 51%, rgba(199, 210, 205, 0.95) 75%) !important;
 }
 
 .ui-message-error {
