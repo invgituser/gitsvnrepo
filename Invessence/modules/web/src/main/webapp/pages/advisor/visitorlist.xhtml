@@ -27,19 +27,19 @@
 
                     <h:form id="form">
                         <div class="Container100">
-                           <div class="Fright">
-                           <p:selectOneButton value="#{manageAdvisorBean.filteredClient}">
-                               <p:ajax update="@form" event="change"
-                                       listener="#{manageAdvisorBean.refreshPage}" />
-                               <f:selectItem itemLabel="ALL" itemValue="B" />
-                               <f:selectItem itemLabel="Pending" itemValue="P" />
-                               <f:selectItem itemLabel="Active" itemValue="A" />
-                           </p:selectOneButton>
-                           </div>
-                        </div>
-                        <div class="Container100">
                         <p:dataTable id="managedTable" var="managedVar" styleClass="ListOfAccountsTable" widgetVar="managedTable"
                                      value="#{manageAdvisorBean.filteredDataList}" reflow="true">
+
+<!--
+                           <f:facet name="header" style="text-align:right">
+                               <p:outputPanel style="text-align:right">
+                                   <h:outputText value="Search:" />
+                                   <p:inputText id="globalFilter" onkeyup="PF('managedTable').filter()"
+                                                style="width:150px; margin-left: 5px" placeholder="Enter keyword"/>
+                                   <p:commandButton value="Clear" onclick="PF('managedTable').clearFilters();"/>
+                               </p:outputPanel>
+                           </f:facet>
+-->
 
                             <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
                                 <p:commandButton id="editButton"
@@ -80,12 +80,6 @@
                                       resizable="true">
                                 <h:outputText styleClass="dashboardUsrColumnFloatLeft" value="#{managedVar.portfolioName}"/>
                             </p:column>
-                            <p:column sortBy="#{managedVar.fullname}"
-                                      headerText="Name"
-                                      styleClass="ListOfAccntsColWidth"
-                                      resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatLeft" value="#{managedVar.fullname}"/>
-                            </p:column>
                             <p:column sortBy="#{managedVar.displayAcct}"
                                       headerText="Acct#"
                                       styleClass="ListOfAccntsColWidth"
@@ -93,12 +87,6 @@
                                 <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.displayAcct}"/>
                             </p:column>
 
-                            <p:column sortBy="#{managedVar.accttype}"
-                                      headerText="Account Type"
-                                      styleClass="ListOfAccntsColWidth"
-                                      resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.accttype}"/>
-                            </p:column>
                             <p:column sortBy="#{managedVar.goal}"
                                       headerText="Goal"
                                       styleClass="ListOfAccntsColWidth"

@@ -28,6 +28,14 @@ BEGIN
     THEN SET isAdvisor = TRUE;
     ELSE SET isAdvisor = FALSE;
     END IF;
+    
+	IF (p_days is null)
+		THEN	set p_days = -36500;
+		ELSE	IF (p_days > 0)
+					THEN set p_days = -1 * p_days;
+				END IF;
+	END IF;
+
 
     BEGIN
       IF (isAdvisor)
@@ -74,8 +82,53 @@ BEGIN
                   AND uar.role = 'OWNER'
                   AND advisor_access.logonid = p_logonid
                   AND IFNULL(`profile`.advisor, 'Invessence') LIKE IFNULL(advisor_access.advisor, '%')
-                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%');
+                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%')
+			ORDER BY `profile`.`acctnum` desc;
           WHEN (p_filter = 'P')
+          THEN
+            SELECT
+              user.logonid,
+              advisor_access.`privileges`                                 `advisor_privileges`,
+              null as `clientAccountID`,
+              `profile`.`acctnum` as acctnum,
+              `profile`.advisor,
+              `profile`.rep,
+              `profile`.theme,
+              `profile`.goal,
+              `profile`.portfolioName,
+              'Pending'                                                AS acctstatus,
+              user.email                                               AS email,
+              IFNULL(`profile`.`lastname`, user.lastname)              AS lastname,
+              IFNULL(`profile`.`firstname`,user.firstname)             AS firstname,
+              `profile`.tradePreference,
+              `profile`.`acctType`                                     AS accttype,
+              IFNULL(`profile`.age, 30)                                AS age,
+              IFNULL(`profile`.horizon, 35)                            AS horizon,
+              IFNULL(`profile`.riskIndex, 0)                           AS riskIndex,
+              CAST(IFNULL(`profile`.initialInvestment, 0) AS SIGNED)   AS initialInvestment,
+              round(funct_get_actualCapital(`profile`.acctnum), 0)     AS actualCapital,
+              `profile`.keepLiquid                                     AS keepLiquid,
+              CAST(IFNULL(`profile`.recurringInvestment, 0) AS SIGNED) AS recurringInvestment,
+              IFNULL(`profile`.longTermGoal, 0)                        AS longTermGoal,
+              IFNULL(`profile`.stayInvested, 0)                        AS stayInvested,
+              DATE_FORMAT(`profile`.created, '%Y-%m-%d')               AS created,
+              profile.lastUpdated
+            FROM
+              user_trade_profile `profile`
+              INNER JOIN user_advisor_access advisor_access
+              LEFT JOIN user_access_role uar
+                ON (`profile`.acctnum = uar.acctnum
+                    AND uar.role = 'OWNER')
+              LEFT JOIN user_logon user
+                ON (uar.logonid = user.logonid)
+            WHERE IFNULL(`profile`.`status`, 'N') in ( 'N', 'V' )
+                  AND advisor_access.logonid = p_logonid
+                  AND IFNULL(`profile`.advisor, 'Invessence') LIKE IFNULL(advisor_access.advisor, '%')
+                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%')
+				  AND (IFNULL(`profile`.`created`,now()) >= DATE_ADD(now(),INTERVAL p_days DAY))
+			ORDER BY `profile`.`acctnum` desc;
+
+          WHEN (p_filter = 'V')
           THEN
             SELECT
               user.logonid,
@@ -112,10 +165,12 @@ BEGIN
                     AND uar.role = 'OWNER')
               LEFT JOIN user_logon user
                 ON (uar.logonid = user.logonid)
-            WHERE IFNULL(`profile`.managed, 'N') = 'N'
+            WHERE IFNULL(`profile`.`status`, 'N') = 'V'
                   AND advisor_access.logonid = p_logonid
                   AND IFNULL(`profile`.advisor, 'Invessence') LIKE IFNULL(advisor_access.advisor, '%')
-                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%');
+                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%')
+				  AND (IFNULL(`profile`.`created`,now()) > DATE_ADD(now(),INTERVAL p_days DAY))
+			ORDER BY `profile`.`acctnum` desc;
           WHEN (p_filter = 'B')
           THEN
             SELECT
@@ -133,8 +188,8 @@ BEGIN
 					 ELSE 'Pending'
 				END as acctStatus,
               user.email                                               AS email,
-              ext_acct_info.applicantLName                             AS lastname,
-              ext_acct_info.applicantFName                             AS firstname,
+              IFNULL(`profile`.`lastname`, user.lastname)              AS lastname,
+              IFNULL(`profile`.`firstname`,user.firstname)             AS firstname,
               `profile`.tradePreference,
               `profile`.`acctType`                                     AS accttype,
               IFNULL(`profile`.age, 30)                                AS age,
@@ -156,9 +211,11 @@ BEGIN
                     AND uar.role = 'OWNER')
               LEFT JOIN user_logon user
                 ON (uar.logonid = user.logonid)
-            WHERE advisor_access.logonid = p_logonid
+            WHERE IFNULL(`profile`.`status`, 'N') like '%' 
+				  AND advisor_access.logonid = p_logonid
                   AND IFNULL(`profile`.advisor, 'Invessence') LIKE IFNULL(advisor_access.advisor, '%')
-                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%');
+                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%')
+			ORDER BY `profile`.`acctnum` desc;
         END CASE;
       END IF;
     END;

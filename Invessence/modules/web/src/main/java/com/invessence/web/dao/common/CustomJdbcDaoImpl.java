@@ -168,14 +168,14 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          else if (logonStatus != null)
          {
             enabled = false;
-            exception="This account is in locked mode.";
+            exception="This account is LOCKED.";
             if (logonStatus.equalsIgnoreCase("X"))
             {
-               exception = "Username is disabled!";
+               exception = "Username is DISABLED!";
             }
             else if (logonStatus.equalsIgnoreCase("T") || logonStatus.equalsIgnoreCase("I"))
             {
-               exception = "Username is not active, please activate account!";
+               exception = "User is NOT ACTIVE, please activate account!";
             }
          }
       }
@@ -215,6 +215,8 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
          if ((logonStatus != null) && (logonStatus.equalsIgnoreCase("L")))
          {
             accountNonLocked = false;
+            attempts = (attempts < 5) ? 5 : attempts;
+            throw new BadCredentialsException("Account is LOCKED!");
          }
          else if (logonStatus != null)
          {

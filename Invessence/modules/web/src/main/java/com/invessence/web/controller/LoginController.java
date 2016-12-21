@@ -85,51 +85,54 @@ public class LoginController implements PhaseListener
 
    public void updateMessages()
    {
-      Exception e = (Exception) FacesContext.getCurrentInstance().
-         getExternalContext().getSessionMap().get(WebAttributes.AUTHENTICATION_EXCEPTION);
-
-      if (e != null)
+      if (!FacesContext.getCurrentInstance().isPostback())
       {
-         if (e instanceof BadCredentialsException)
-         {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "Invalid Password.",
-                                                                          "Invalid Password."));
-         }
-         else if (e instanceof CredentialsExpiredException)
-         {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_WARN,
-                                                                          "Need additional Credential",
-                                                                          "Need additional Credential"));
-         }
-         else if (e instanceof LockedException)
-         {
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          "Account is locked",
-                                                                          "Account is locked"));
-         }
-         else if (e instanceof AuthenticationServiceException)
-         {
-            String msg = e.getMessage();
-            // System.out.println(msg);
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          msg,
-                                                                          msg));
+         Exception e = (Exception) FacesContext.getCurrentInstance().
+            getExternalContext().getSessionMap().get(WebAttributes.AUTHENTICATION_EXCEPTION);
 
-         }
-         else
+         if (e != null)
          {
-            System.out.println("Exception during login time: " + e.getMessage());
-            String msg = e.getMessage();
-            // System.out.println(msg);
-            FacesContext.getCurrentInstance().addMessage(null,
-                                                         new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                                                                          msg,
-                                                                          msg));
+            if (e instanceof BadCredentialsException)
+            {
+               FacesContext.getCurrentInstance().addMessage(null,
+                                                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                             "Invalid Password.",
+                                                                             "Invalid Password."));
+            }
+            else if (e instanceof CredentialsExpiredException)
+            {
+               FacesContext.getCurrentInstance().addMessage(null,
+                                                            new FacesMessage(FacesMessage.SEVERITY_WARN,
+                                                                             "Need additional Credential",
+                                                                             "Need additional Credential"));
+            }
+            else if (e instanceof LockedException)
+            {
+               FacesContext.getCurrentInstance().addMessage(null,
+                                                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                             "Account is locked",
+                                                                             "Account is locked"));
+            }
+            else if (e instanceof AuthenticationServiceException)
+            {
+               String msg = e.getMessage();
+               // System.out.println(msg);
+               FacesContext.getCurrentInstance().addMessage(null,
+                                                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                             msg,
+                                                                             msg));
+
+            }
+            else
+            {
+               System.out.println("Exception during login time: " + e.getMessage());
+               String msg = e.getMessage();
+               // System.out.println(msg);
+               FacesContext.getCurrentInstance().addMessage(null,
+                                                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                             msg,
+                                                                             msg));
+            }
          }
       }
    }

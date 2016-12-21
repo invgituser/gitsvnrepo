@@ -6,8 +6,7 @@ import java.util.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.*;
 
 import com.invessence.converter.SQLData;
 import com.invessence.emailer.data.MsgData;
@@ -18,7 +17,8 @@ import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.core.*;
 import org.springframework.security.core.context.*;
-import org.springframework.stereotype.Component;
+import org.springframework.security.web.authentication.logout.*;
+import org.springframework.security.web.authentication.rememberme.AbstractRememberMeServices;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
@@ -952,7 +952,14 @@ public class WebUtil implements Serializable
    }
 
 
-
+   public void resetSession() {
+      HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+      HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+      SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
+      CookieClearingLogoutHandler cookieClearingLogoutHandler = new CookieClearingLogoutHandler(AbstractRememberMeServices.SPRING_SECURITY_REMEMBER_ME_COOKIE_KEY);
+      cookieClearingLogoutHandler.logout(request, response, null);
+      securityContextLogoutHandler.logout(request, response, null);
+   }
 
 
 

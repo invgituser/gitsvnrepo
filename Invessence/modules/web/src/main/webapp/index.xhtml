@@ -7,7 +7,8 @@
 
     <f:metadata>
         <f:viewParam name="cid" value="#{uiLayout.cid}"/>
-        <f:event type="preRenderView" listener="#{uiLayout.preRenderView}"/>
+        <f:event listener="#{uiLayout.preRenderView}" type="preRenderView" />
+        <f:event listener="#{loginController.updateMessages}" type="preRenderView"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -23,7 +24,6 @@
                                         class="MarAuto MarTop20 MarBot10"/>
                         <div class="EmptyBox20"></div>
                         <p:messages id="messages" autoUpdate="true"/>
-                        <f:event listener="#{loginController.updateMessages}" type="preRenderView"/>
                         <p:inputText id="j_username" placeholder="Username" style="background: #f2f2f2;" styleClass="Container80 Fnone MarAuto Fs18"
                                      required="true"
                                      requiredMessage="Please enter UserID."
