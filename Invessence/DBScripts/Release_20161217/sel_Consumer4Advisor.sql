@@ -54,6 +54,13 @@ BEGIN
               `profile`.goal,
               `profile`.portfolioName,
               'Active'                                                 AS acctstatus,
+				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
+					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					 ELSE 'Visitor'
+				END as `status`,
               user.email                                               AS email,
               ext_acct_info.applicantLName                             AS lastname,
               ext_acct_info.applicantFName                             AS firstname,
@@ -97,6 +104,13 @@ BEGIN
               `profile`.goal,
               `profile`.portfolioName,
               'Pending'                                                AS acctstatus,
+				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
+					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					 ELSE 'Visitor'
+				END as `status`,
               user.email                                               AS email,
               IFNULL(`profile`.`lastname`, user.lastname)              AS lastname,
               IFNULL(`profile`.`firstname`,user.firstname)             AS firstname,
@@ -121,7 +135,7 @@ BEGIN
                     AND uar.role = 'OWNER')
               LEFT JOIN user_logon user
                 ON (uar.logonid = user.logonid)
-            WHERE IFNULL(`profile`.`status`, 'N') in ( 'N', 'V' )
+            WHERE IFNULL(`profile`.`managed`, 'N') in ( 'N' )
                   AND advisor_access.logonid = p_logonid
                   AND IFNULL(`profile`.advisor, 'Invessence') LIKE IFNULL(advisor_access.advisor, '%')
                   AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%')
@@ -141,6 +155,13 @@ BEGIN
               `profile`.goal,
               `profile`.portfolioName,
               'Pending'                                                AS acctstatus,
+				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
+					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					 ELSE 'Visitor'
+				END as `status`,
               user.email                                                  email,
               user.lastname                                            AS lastname,
               user.firstname                                           AS firstname,
@@ -187,6 +208,13 @@ BEGIN
 					 WHEN (upper(`profile`.`managed`) in ('A')) THEN 'Active'
 					 ELSE 'Pending'
 				END as acctStatus,
+				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
+					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					 ELSE 'Visitor'
+				END as `status`,
               user.email                                               AS email,
               IFNULL(`profile`.`lastname`, user.lastname)              AS lastname,
               IFNULL(`profile`.`firstname`,user.firstname)             AS firstname,

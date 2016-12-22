@@ -1,4 +1,4 @@
-DROP PROCEDURE `testing`.`sp_emulate_td_funding`
+DROP PROCEDURE IF EXISTS `testing`.`sp_emulate_td_funding`;
 DELIMITER $$
 CREATE PROCEDURE `testing`.`sp_emulate_td_funding`(
 	IN p_acctnum	BIGINT,

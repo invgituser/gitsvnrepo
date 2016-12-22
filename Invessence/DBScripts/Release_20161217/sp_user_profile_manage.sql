@@ -27,8 +27,6 @@ BEGIN
     THEN
     
 		-- If we are resetting it to 'A' due to funding or rebalacing, then don't send another alert.
-		IF (tManaged = 'A' and IFNULL(p_status,'V') = 'A')
-        THEN
 			IF (tAdvisor is not null)
 			THEN
 				 call `invdb`.`sp_send_advisor_notification`(
@@ -49,7 +47,6 @@ BEGIN
 				 );
 					
 			END IF;
-       END IF;
         
         
 		IF (IFNULL(p_status,'V') = 'A')

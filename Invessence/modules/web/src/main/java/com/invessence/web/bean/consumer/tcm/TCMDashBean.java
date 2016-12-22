@@ -159,7 +159,17 @@ public class TCMDashBean implements Serializable
       String whichXML;
       try
       {
+         Boolean portfolioEdit = false;
+
+         // If the stat is Managed then we need to call Portfolio Edit function.
          if (getSelectedAccount().getManaged())
+            portfolioEdit = true;
+
+         // If the app is not yet managed but is pending, then we can still do the portfolio Edit.
+         if (!getSelectedAccount().getManaged() && getSelectedAccount().getEditable())
+            portfolioEdit = true;
+
+         if (portfolioEdit)
          {
             uiLayout.doMenuAction("consumer", "portfolioedit.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
          }

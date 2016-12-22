@@ -1658,7 +1658,7 @@ public class TdCto
       }
 */
 
-      if (tdMasterData.getCustomerData().getEditable())
+      if (! tdMasterData.getCustomerData().getManaged() && tdMasterData.getCustomerData().getEditable())
       {
          custodyListDAO.getTDAccountDetails(tdMasterData);
          custodyListDAO.getTDAccountHolder(tdMasterData);
@@ -1907,7 +1907,7 @@ public class TdCto
          }
          else
          {
-            custodySaveDAO.tdMangedUserProfile(tdMasterData.getAcctnum());
+            custodySaveDAO.tdMangedUserProfile(tdMasterData.getAcctnum(),"P");
             uiLayout.doMenuAction("custody", "tdconfirmation.xhtml");
          }
       }

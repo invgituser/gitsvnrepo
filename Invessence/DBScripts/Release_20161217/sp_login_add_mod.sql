@@ -125,7 +125,7 @@ BEGIN
 	-- This SP checks if logonid and acctnum > 0.  We don't need to do any work.
 	call `sp_login_access_add_mod`( t_logonID, p_acctnum, 'OWNER', 'W');
     
-	CALL `invdb`.`sp_user_profile_manage`(t_logonID, 'N');
+	CALL `invdb`.`sp_user_profile_manage`(p_acctnum, 'N');
 
 	set p_logonid = t_logonID;
 END$$
