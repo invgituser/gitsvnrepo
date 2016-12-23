@@ -64,11 +64,12 @@ BEGIN
 					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
-					CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-						 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-						 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-						 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-						 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 						 ELSE 'Visitor'
 					END as `status`,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') in ('N')) THEN 'Pending'
@@ -162,11 +163,12 @@ BEGIN
 					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
-					CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-						 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-						 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-						 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-						 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 						 ELSE 'Visitor'
 					END as `status`,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') in ('N')) THEN 'Pending'
@@ -261,11 +263,12 @@ BEGIN
 					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
-					CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-						 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-						 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-						 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-						 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 						 ELSE 'Visitor'
 					END as `status`,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') in ('N')) THEN 'Pending'
@@ -362,11 +365,12 @@ BEGIN
 					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
-					CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-						 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-						 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-						 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-						 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+						 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 						 ELSE 'Visitor'
 					END as `status`,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') in ('N')) THEN 'Pending'

@@ -54,11 +54,12 @@ BEGIN
               `profile`.goal,
               `profile`.portfolioName,
               'Active'                                                 AS acctstatus,
-				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+				CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 					 ELSE 'Visitor'
 				END as `status`,
               user.email                                               AS email,
@@ -104,11 +105,12 @@ BEGIN
               `profile`.goal,
               `profile`.portfolioName,
               'Pending'                                                AS acctstatus,
-				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+				CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 					 ELSE 'Visitor'
 				END as `status`,
               user.email                                               AS email,
@@ -155,11 +157,12 @@ BEGIN
               `profile`.goal,
               `profile`.portfolioName,
               'Pending'                                                AS acctstatus,
-				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+				CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 					 ELSE 'Visitor'
 				END as `status`,
               user.email                                                  email,
@@ -208,11 +211,12 @@ BEGIN
 					 WHEN (upper(`profile`.`managed`) in ('A')) THEN 'Active'
 					 ELSE 'Pending'
 				END as acctStatus,
-				CASE WHEN (IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
-					 WHEN (upper(`profile`.`status`) = 'N') THEN 'Pending'
-					 WHEN (upper(`profile`.`status`) = 'P') THEN 'Processed'
-					 WHEN (upper(`profile`.`status`) = 'O') THEN 'Opened'
-					 WHEN (upper(`profile`.`status`) is not null) THEN 'Active'
+				CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
 					 ELSE 'Visitor'
 				END as `status`,
               user.email                                               AS email,
