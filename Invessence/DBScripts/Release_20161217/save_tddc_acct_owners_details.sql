@@ -1,5 +1,7 @@
+DROP PROCEDURE IF EXISTS `invdb`.`save_tddc_acct_owners_details`;
+
 DELIMITER $$
-CREATE PROCEDURE `save_tddc_acct_owners_details`(
+CREATE PROCEDURE `invdb`.`save_tddc_acct_owners_details`(
 		`p_acctnum`	bigint(20)
 	,	`p_acctOwnerId`	int(2)
 	,	`p_ownership`	varchar(45)

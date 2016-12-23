@@ -19,3 +19,7 @@ WHERE `user_trade_profile`.`acctnum` = `dc_acct_details`.`acctnum`
 AND `dc_m_lookup`.`lookupSet` = 'ACCTTYPE'
 AND `dc_m_lookup`.`lookupCode` = `dc_acct_details`.`acctTypeId`;
 
+Update `invdb`.`user_trade_profile`
+set `user_trade_profile`.`acctType` = null
+where  `user_trade_profile`.`acctType` = 'Non-Taxable'
+
