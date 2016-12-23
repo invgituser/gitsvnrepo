@@ -60,8 +60,6 @@ BEGIN
 					`profile`.advisor,
 					`profile`.rep,
 					`profile`.theme,
-					user_logon.lastname,
-					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
@@ -159,8 +157,6 @@ BEGIN
 					`profile`.advisor,
 					`profile`.rep,
 					`profile`.theme,
-					user_logon.lastname,
-					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
@@ -259,8 +255,6 @@ BEGIN
 					`profile`.advisor,
 					`profile`.rep,
 					`profile`.theme,
-					user_logon.lastname,
-					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
@@ -361,8 +355,6 @@ BEGIN
 					`profile`.advisor,
 					`profile`.rep,
 					`profile`.theme,
-					user_logon.lastname,
-					user_logon.firstname,
 					user_logon.stateRegistered as state,
 					ext_acct_info.clientAccountID as clientAccountID,
 					CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
