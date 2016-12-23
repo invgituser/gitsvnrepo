@@ -72,7 +72,14 @@
                                                         <div class="ContentTitleDash">Strategy</div>
                                                         <div class="ContentForTitleDash">#{investment.portfolioName}</div></td>
                                                     <td class="CustomWidthColumn_d">
-                                                        <div class="ContentTitleDash textRAlign">Invested Amount</div>
+                                                        <div class="ContentTitleDash textRAlign">
+                                                            <h:outputText
+                                                                    value="Invested Amount"
+                                                                    rendered="#{investment.managed}"/>
+                                                            <h:outputText
+                                                                    value="Proposed Amount"
+                                                                    rendered="#{! investment.managed}"/>
+                                                        </div>
                                                         <div class="ContentForTitleDash textRAlign">
                                                             <h:outputText
                                                                 value="#{investment.actualInvestment}"
@@ -159,9 +166,7 @@
                                                                                      immediate="true"
                                                                                      icon="fa fa-pencil-square-o Fs14 white">
 
-                                                                        <p:tooltip id="editAcctToolTipFade"
-                                                                                   for="editAcctButton" value="Edit Account Details" />
-                                                                        <f:setPropertyActionListener value="#{investment}"
+                                                                       <f:setPropertyActionListener value="#{investment}"
                                                                                                      target="#{tcmdash.selectedAccount}" />
                                                                     </p:commandButton>
                                                                 </div>
@@ -179,14 +184,12 @@
                                                                                      styleClass="Fs14 GreenButton" process="@this"
                                                                                      immediate="true" icon="fa fa-university Fs14 white"
                                                                                      action="#{tcmdash.doFundingAction}">
-                                                                        <p:tooltip id="fundToolTipFade" for="fundButton"
-                                                                                   value="Edit Funding" position="left" />
                                                                         <f:setPropertyActionListener value="#{investment}"
                                                                                                      target="#{tcmdash.selectedAccount}" />
                                                                     </p:commandButton>
                                                                 </div>
                                                                 <div class="Container100 ButtonConDashBlock">
-                                                                    <h5 style="padding: 5px 0px;">Edit Funding</h5>
+                                                                    <h5 style="padding: 5px 0px;">Funding</h5>
                                                                 </div>
 
                                                             </div>
@@ -199,14 +202,19 @@
                                                                                      styleClass="Fs14 OrangeButton" process="@this"
                                                                                      immediate="true" icon="fa fa-pie-chart Fs14 white"
                                                                                      action="#{tcmdash.doPortfolioSelectedAction}">
-                                                                        <p:tooltip id="portfolioToolTipFade"
-                                                                                   for="editPortfolioButton" value="Change Strategy" />
                                                                         <f:setPropertyActionListener value="#{investment}"
                                                                                                      target="#{tcmdash.selectedAccount}" />
                                                                     </p:commandButton>
                                                                 </div>
                                                                 <div class="Container100 ButtonConDashBlock">
-                                                                    <h5 style="padding: 5px 0px;">Change Strategy</h5>
+                                                                    <h5 style="padding: 5px 0px;">
+                                                                        <h:outputText
+                                                                                value="Change Strategy"
+                                                                                rendered="#{! investment.unopened}"/>
+                                                                        <h:outputText
+                                                                                value="Open Account"
+                                                                                rendered="#{investment.unopened}"/>
+                                                                    </h5>
                                                                 </div>
                                                             </div>
 
@@ -219,8 +227,6 @@
                                                                                      styleClass="Fs14 GreenButton" process="@this"
                                                                                      immediate="true" icon="fa fa-search-plus Fs14 white"
                                                                                      action="#{tcmdash.showPosition}">
-                                                                        <p:tooltip id="activeToolTipFade" for="activeButton"
-                                                                                   value="Positions" />
                                                                         <f:setPropertyActionListener value="#{investment}"
                                                                                                      target="#{tcmdash.selectedAccount}" />
                                                                     </p:commandButton>

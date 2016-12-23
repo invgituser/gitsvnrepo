@@ -21,6 +21,7 @@ public class AccountData
    private	String	state	;
    private	String	clientAccountID	;
    private	String	acctStatus	;
+   private	String	currentstatus	;
    private	String	tradePreference	;
    private	String	goal	;
    private  String   portfolioName;
@@ -97,7 +98,7 @@ public class AccountData
    public String getDisplayAcct()
    {
      if (getClientAccountID() == null || getClientAccountID().length() == 0)
-        return getAcctnum().toString();
+        return getCurrentstatus() + " (" + getAcctnum().toString() +")";
      else
         return getClientAccountID();
    }
@@ -217,6 +218,15 @@ public class AccountData
          return false;
    }
 
+   public String getCurrentstatus()
+   {
+      return currentstatus;
+   }
+
+   public void setCurrentstatus(String currentstatus)
+   {
+      this.currentstatus = currentstatus;
+   }
 
    public String getTradePreference()
    {

@@ -258,7 +258,6 @@ public class UserBean implements Serializable
 
    private void resetBean()
    {
-      webutil.resetSession(); // Force a logout to clear session and cache.
       pwd1 = null;
       pwd2 = null;
       beanq1 = null;
@@ -617,6 +616,7 @@ public class UserBean implements Serializable
          beanLogonID = null;
          beanUserID = null;
          resetBean();
+         webutil.resetSession();
       }
       catch (Exception ex)
       {
@@ -807,6 +807,7 @@ public class UserBean implements Serializable
          FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Email is required", "Email is required"));
       }
       webutil.sendConfirmation(userdata);
+      webutil.resetSession();
    }
 
    public void sendResetEmail()
@@ -888,7 +889,8 @@ public class UserBean implements Serializable
 
    public void setRandomQuestion() {
       prevQ = qnum;
-      qnum = webutil.randomGenerator(1,3);
+      // First time generate random number, then sequentially steps through the others.
+      qnum = (qnum == null) ? webutil.randomGenerator(1,3) : qnum;
       if (prevQ != null && prevQ == qnum) {  // If the random picked the same question, then increment by 1.
         qnum++;
         qnum = (qnum % 3);

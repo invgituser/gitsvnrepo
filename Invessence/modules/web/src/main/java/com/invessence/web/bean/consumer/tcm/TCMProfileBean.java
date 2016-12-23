@@ -540,7 +540,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void onTaxStrategy()
    {
       formEdit = true;
-      setAccountType();
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -807,26 +806,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
    }
 
-   private void setAccountType()
-   {
-      if (getAccountTaxable())
-      {
-         setAccountType("Taxable");
-      }
-      else
-      {
-         setAccountType("Non-Taxable");
-      }
-
-   }
-
    private void setDefaults()
    {
-
-      if (getPortfolioName() == null)
-      {
-         setPortfolioName(getLastname() + "-" + getGoal());
-      }
       if (getAge() == null)
       {
          setAge(30);
@@ -839,16 +820,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          setHorizon(20);
       }
-      if (getGoal() == null)
-      {
-         setGoal("Growth");
-      }
-      if (getAccountType() == null)
-      {
-         setAccountTaxable(false);
-         setAccountType();
-      }
-
    }
 
    public void saveProfile()
@@ -1231,16 +1202,18 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       }
       if (cangoToNext)
       {
-         if(!formPortfolioEdit)
-            saveProfile();
          if (currentpage == 0)
          {  // This is before moving to next page. ONLY for FIRST PAGE
-            if (getAcctnum() > 0)
+            if (getAcctnum() == null || getAcctnum() <= 0)
             {
                saveVisitor();
             }
             createAssetPortfolio(1); // Since we are refreshing on real-time, we don't need to do it during next.
          }
+
+         if(!formPortfolioEdit)
+            saveProfile();
+
          if((getFormula() != null && getFormula().equalsIgnoreCase("Q")) && pagemanager.getPage() == 0 && formPortfolioEdit)
             pagemanager.nextPage();
          else  if((getFormula() != null && getFormula().equalsIgnoreCase("D")) && pagemanager.getPage() == 0 && formPortfolioEdit)

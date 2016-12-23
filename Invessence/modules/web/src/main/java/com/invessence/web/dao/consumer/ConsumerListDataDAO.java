@@ -48,36 +48,15 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
                data.setRegisteredState(convert.getStrData(rs.get("state")));
                data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
+
                managed = (convert.getStrData(rs.get("acctstatus")));
                data.setManagedFlag(managed);
-
-               if (managed == null) {
-                  data.setManaged(false);
-               }
-               else {
-                  if (managed.equalsIgnoreCase("Active")) {
-                     data.setManaged(true);
-                  }
-                  else {
-                     data.setManaged(false);
-                  }
-               }
+               data.setManaged(getManaged(managed));
 
                currentstatus = convert.getStrData(rs.get("status"));
-               data.setCurrentStatus(currentstatus);;
-               if (currentstatus == null) {
-                  data.setEditable(true);
-               }
-               else {
-                  if (currentstatus.equalsIgnoreCase("visitor") ||
-                     currentstatus.equalsIgnoreCase("pending") ||
-                     currentstatus.equalsIgnoreCase("active")) {
-                     data.setEditable(true);
-                  }
-                  else {
-                     data.setEditable(false);
-                  }
-               }
+               data.setCurrentStatus(currentstatus);
+               data.setEditable(getEditable(currentstatus));
+               data.setUnopened(getUnopened(currentstatus));
 
                data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
                data.setGoal(convert.getStrData(rs.get("goal")));
@@ -135,6 +114,52 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
          ex.printStackTrace();
       }
    }
+
+   private Boolean getManaged(String managed) {
+      if (managed == null) {
+         return false;
+      }
+      else {
+         if (managed.equalsIgnoreCase("Active")) {
+            return true;
+         }
+         else {
+            return false;
+         }
+      }
+   }
+
+   private Boolean getEditable(String currentstatus) {
+      if (currentstatus == null) {
+         return true;
+      }
+      else {
+         if (currentstatus.equalsIgnoreCase("visitor") ||
+            currentstatus.equalsIgnoreCase("pending") ||
+            currentstatus.equalsIgnoreCase("active")) {
+            return true;
+         }
+         else {
+            return false;
+         }
+      }
+   }
+
+   private Boolean getUnopened(String currentstatus) {
+      if (currentstatus == null) {
+         return true;
+      }
+      else {
+         if (currentstatus.equalsIgnoreCase("visitor") ||
+            currentstatus.equalsIgnoreCase("pending")) {
+            return true;
+         }
+         else {
+            return false;
+         }
+      }
+   }
+
    public ArrayList<CustomerData> getClientProfileList(Long logonid, Long acctnum, Integer days) {
       DataSource ds = getDataSource();
       ConsumerListSP sp = new ConsumerListSP(ds, "sel_ClientProfileData",0);
@@ -167,34 +192,12 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
 
             managed = (convert.getStrData(rs.get("acctstatus")));
             data.setManagedFlag(managed);
-
-            if (managed == null) {
-               data.setManaged(false);
-            }
-            else {
-               if (managed.equalsIgnoreCase("Active")) {
-                  data.setManaged(true);
-               }
-               else {
-                  data.setManaged(false);
-               }
-            }
+            data.setManaged(getManaged(managed));
 
             currentstatus = convert.getStrData(rs.get("status"));
-            data.setCurrentStatus(currentstatus);;
-            if (currentstatus == null) {
-               data.setEditable(true);
-            }
-            else {
-               if (currentstatus.equalsIgnoreCase("visitor") ||
-                  currentstatus.equalsIgnoreCase("pending") ||
-                  currentstatus.equalsIgnoreCase("active")) {
-                  data.setEditable(true);
-               }
-               else {
-                  data.setEditable(false);
-               }
-            }
+            data.setCurrentStatus(currentstatus);
+            data.setEditable(getEditable(currentstatus));
+            data.setUnopened(getUnopened(currentstatus));
 
             data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
             data.setPortfolioName(convert.getStrData(rs.get("portfolioName")));
@@ -216,6 +219,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
             data.setPortfolioIndex(convert.getIntData(rs.get("portfolioIndex")));
 
             String taxable = convert.getStrData(rs.get("taxable"));
+
             if (taxable == null)
                data.setAccountTaxable(false);
             else if (taxable.startsWith("N"))

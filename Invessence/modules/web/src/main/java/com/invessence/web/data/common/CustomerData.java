@@ -86,7 +86,7 @@ public class CustomerData extends ProfileData
    public List<PortfolioSubclass> excludedSubAsset = new ArrayList<PortfolioSubclass>();
 
    public Map<String, String> advisorBasket;
-   private Boolean managed, editable;
+   private Boolean managed, editable, isUnopened;
    public String managedFlag, currentStatus;
 
    @ManagedProperty("#{webutil}")
@@ -156,11 +156,24 @@ public class CustomerData extends ProfileData
       this.managed = managed;
    }
 
+   public Boolean isUnopened()
+   {
+      return (isUnopened == null)? false : isUnopened;
+   }
+
+   public Boolean getUnopened()
+   {
+      return isUnopened;
+   }
+
+   public void setUnopened(Boolean unopened)
+   {
+      isUnopened = unopened;
+   }
+
    public Boolean getEditable()
    {
-      if (editable == null)
-         return true;
-      return editable;
+      return (editable == null)? true : editable;
    }
 
    public void setEditable(Boolean editable)

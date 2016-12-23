@@ -275,8 +275,9 @@ BEGIN
 					`profile`.tradePreference,
 					IFNULL(`profile`.goal,'Retirement') as goal,
 					(case when (ext_acct_info.accountType is not null )
-                    then ext_acct_info.accountType else
-					IFNULL(`profile`.`acctType`,'IRA') end) as accttype,
+								then ext_acct_info.accountType 
+						  else `profile`.`acctType` 
+					end) as accttype,
 					IFNULL(`profile`.age,30) as age,
 					IFNULL(`profile`.horizon,30) as horizon,
 					round(datediff(now(),IFNULL(`profile`.created,now()))/364,0) as yearnum,
@@ -375,8 +376,9 @@ BEGIN
 					`profile`.tradePreference,
 					IFNULL(`profile`.goal,'Retirement') as goal,
 					 (case when (ext_acct_info.accountType is not null )
-                    then ext_acct_info.accountType else
-					IFNULL(`profile`.`acctType`,'IRA') end) as accttype,
+								then ext_acct_info.accountType 
+							else `profile`.`acctType` 
+					 end) as accttype,
 					IFNULL(`profile`.age,30) as age,
 					IFNULL(`profile`.horizon,30) as horizon,
 					round(datediff(now(),IFNULL(`profile`.created,now()))/364,0) as yearnum,

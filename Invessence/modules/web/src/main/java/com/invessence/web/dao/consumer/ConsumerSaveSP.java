@@ -246,14 +246,15 @@ public class ConsumerSaveSP extends StoredProcedure
          inputMap.put("p_lastname", data.getLastname());
          inputMap.put("p_theme", data.getTheme());
          inputMap.put("p_goal", data.getGoal());
+         inputMap.put("p_acctType",data.getAccountType());
 
          if (data.isAccountTaxable()) {
             inputMap.put("p_taxable","Y");
-            inputMap.put("p_acctType", "Taxable");
+            // inputMap.put("p_acctType", "Taxable");
          }
          else {
             inputMap.put("p_taxable","N");
-            inputMap.put("p_acctType", "Non-Taxable");
+            // inputMap.put("p_acctType", "Non-Taxable");
          }
 
          inputMap.put("p_age", data.getDefaultAge());

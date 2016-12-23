@@ -70,12 +70,21 @@
                                                         <div class="ContentTitleDash">Strategy</div>
                                                         <div class="ContentForTitleDash">#{investment.portfolioName}</div></td>
                                                     <td class="CustomWidthColumn_d">
-                                                        <div class="ContentTitleDash">Invested Amount</div>
-                                                        <div class="ContentForTitleDash"><h:outputText
+                                                        <div class="ContentTitleDash">
+                                                            <h:outputText
+                                                                    value="Invested Amount"
+                                                                    rendered="#{investment.managed}"/>
+                                                            Invested Amount
+                                                            <h:outputText
+                                                                    value="Proposed Amount"
+                                                                    rendered="#{! investment.managed}"/>
+                                                        </div>
+                                                        <div class="ContentForTitleDash">
+                                                            <h:outputText
                                                             value="#{investment.actualInvested}"
                                                             rendered="#{investment.managed}">
                                                         <f:convertNumber currencySymbol="$" type="currency" />
-                                                    </h:outputText> <h:outputText value="#{investment.initialInvestment}"
+                                                        </h:outputText> <h:outputText value="#{investment.initialInvestment}"
                                                                                   rendered="#{!investment.managed}">
                                                         <f:convertNumber currencySymbol="$" type="currency" />
                                                     </h:outputText></div></td>

@@ -1658,7 +1658,7 @@ public class TdCto
       }
 */
 
-      if (! tdMasterData.getCustomerData().getManaged() && tdMasterData.getCustomerData().getEditable())
+      if (tdMasterData.getCustomerData().getEditable())
       {
          custodyListDAO.getTDAccountDetails(tdMasterData);
          custodyListDAO.getTDAccountHolder(tdMasterData);

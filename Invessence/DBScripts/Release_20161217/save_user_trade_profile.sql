@@ -91,7 +91,7 @@ BEGIN
                 p_lastname,
 				p_theme,  
 				IFNULL(p_goal,'Retirement')	,
-				IFNULL(p_acctType,'IRA'),
+				p_acctType,
 				IFNULL(p_age,30)	,
 				IFNULL(p_horizon,35)	,
 				IFNULL(p_initialInvestment,1000000)	,

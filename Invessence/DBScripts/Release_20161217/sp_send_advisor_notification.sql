@@ -104,33 +104,33 @@ BEGIN
 			set tMessage = null;
 			IF (p_messageType = 'PROCESSED')
 			THEN
-				SET tMessage=concat('<strong>',tadvisorsubject,', Account#:',tclientAccountID,'</strong>'
+				SET tMessage=concat('<strong><p>',tadvisorsubject,'</p><p> Account#:',tclientAccountID,' Name#:', tName,'</p></strong>'
 									,'<table>'
-									,'<tr><td>Name</td><td>Strategy</td><td>Goal</td><td>Account Type</td></tr>'
-									,'<tr><td>',tName,'</td><td>',tPortfolioName,'</td><td>',tGoal,'</td><td>',tacctType,'</td></tr>'
+									,'<tr><td>Strategy</td><td>Goal</td><td>Account Type</td></tr>'
+									,'<tr><td>',tPortfolioName,'</td><td>',tGoal,'</td><td>',tacctType,'</td></tr>'
 									,'</table>');
 			END IF;
 			IF (p_messageType = 'OPENED')
 			THEN
-				SET tMessage=concat('<strong>',tadvisorsubject,', Account#:',tclientAccountID,'</strong>'
+				SET tMessage=concat('<strong><p>',tadvisorsubject,'</p><p> Account#:',tclientAccountID,' Name#:', tName,'</p></strong>'
 									,'<table>'
-									,'<tr><td>Name</td><td>Account Type</td></tr>'
-									,'<tr><td>',tName,'</td><td>',tacctType,'</td></tr>'
+									,'<tr><td>Strategy</td><td>Goal</td><td>Account Type</td></tr>'
+									,'<tr><td>',tPortfolioName,'</td><td>',tGoal,'</td><td>',tacctType,'</td></tr>'
 									,'</table>');
 			END IF;
 			IF (p_messageType = 'FUNDED')
 			THEN
 				set tInvested = Round(tInvested,2);
-				SET tMessage=concat('<strong>',tadvisorsubject,', Account#:',tclientAccountID,'</strong>'
+				SET tMessage=concat('<strong><p>',tadvisorsubject,'</p><p> Account#:',tclientAccountID,' Name#:', tName,'</p></strong>'
 									,'<table>'
-									,'<tr><td>Name</td><td>Funded</td></tr>'
-									,'<tr><td>',tName,'</td><td>$',tInvested,'</td></tr>'
+									,'<tr><td>Account</td><td>Strategy</td><td>Goal</td><td>Amount</td></tr>'
+									,'<tr><td>',tacctType,'</td><td>',tPortfolioName,'</td><td>',tGoal,'</td><td>',tInvested,'</td></tr>'
 									,'</table>');
 			END IF;
 			IF (p_messageType = 'ACTIVE')
 			THEN
 				set tInvested = Round(tInvested,2);
-				SET tMessage=concat('<strong>',tadvisorsubject,', Account#:',tclientAccountID,'</strong>'
+				SET tMessage=concat('<strong><p>',tadvisorsubject,'</p><p> Account#:',tclientAccountID,' Name#:', tName,'</p></strong>'
 									,'<table>'
 									,'<tr><td>Account</td><td>Strategy</td><td>Goal</td><td>Amount</td></tr>'
 									,'<tr><td>',tacctType,'</td><td>',tPortfolioName,'</td><td>',tGoal,'</td><td>',tInvested,'</td></tr>'
@@ -163,6 +163,7 @@ BEGIN
 				SET tMessage=concat(temailAdvisorSubject, '\n'
 									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Name: ', tName
+									, ' \n\t Account Type: ', tacctType
 									, ' \n\t Strategy: ', tPortfolioName
 									, ' \n\t Goal: ', tGoal
 									);
@@ -179,12 +180,14 @@ BEGIN
 			END IF;
 			IF (p_messageType = 'FUNDED')
 			THEN
+				set tInvested = Round(tInvested,2);
 				SET tMessage=concat(temailAdvisorSubject, '\n'
 									, ' \n\t Account#: ', tclientAccountID
 									, ' \n\t Name: ', tName
 									, ' \n\t Account Type: ', tacctType
 									, ' \n\t Strategy: ', tPortfolioName
 									, ' \n\t Goal: ', tGoal
+									, ' \n\t Funded: ', tInvested
 									);
 			END IF;
 			IF (p_messageType = 'ACTIVE')

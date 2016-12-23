@@ -23,10 +23,12 @@ BEGIN
   BEGIN
   
 	-- For tLastStatus is same, then ignore this whole thing.
-	IF (IFNULL(tLastStatus,'XX') != p_status)
+	IF (IFNULL(tLastStatus,'Z') != p_status)
     THEN
     
 		-- If we are resetting it to 'A' due to funding or rebalacing, then don't send another alert.
+		IF (IFNULL(tManaged,'Z') != p_status)
+		THEN
 			IF (tAdvisor is not null)
 			THEN
 				 call `invdb`.`sp_send_advisor_notification`(
@@ -47,9 +49,10 @@ BEGIN
 				 );
 					
 			END IF;
+		END IF;
         
         
-		IF (IFNULL(p_status,'V') = 'A')
+		IF (IFNULL(p_status,'V') in ('A', 'O'))
         THEN
 			update user_trade_profile
 				set `status` = p_status,
