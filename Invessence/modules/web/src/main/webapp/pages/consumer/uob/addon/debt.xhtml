@@ -6,10 +6,9 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
 
-        <div class="Container100 Responsive50">
-            <div class="ContainerIndent">
-                <h:panelGrid columns="2" layout="grid" class="FormContent fltleft"
-                             style="border:0px !important; background:none;margin-bottom:10px" cellpadding="5">
+        <div class="Container100 Responsive100 uob_tabsInputBlock">
+                <p:panelGrid columns="2" layout="grid" class="FormContent" styleClass="Container100 Responsive100"
+                             style="border:0px !important; background:none;margin-bottom:10px">
                     <div class="TexAlLeft">
                         Number of Dependents
                     </div>
@@ -23,35 +22,33 @@
                             <f:selectItem itemLabel="4" itemValue="4"/>
                             <f:selectItem itemLabel="5+" itemValue="5"/>
                         </p:selectOneRadio>
-                </h:panelGrid>
+                </p:panelGrid>
 
-                <p:separator/>
+              <!--   <p:separator/>
 
-                <div class="EmptyBox5"></div>
+                <div class="EmptyBox5"></div> -->
 
-                <h:panelGrid columns="2" layout="grid" class="FormContent"
-                             style="border:0px !important; background:none;margin-bottom:10px"
-                             cellpadding="5">
+                <p:panelGrid columns="2" layout="grid" class="FormContent"
+                             style="border:0px !important; background:none;margin-bottom:10px">
 
-                    <div class="TexAlLeft Wid90">
+                    <div class="TexAlLeft Wid100">
                         Total Expenses<br/>
                         <span style="font-size: small;">(Yearly)</span>
                     </div>
-                    <p:inputNumber value="#{uobpb.householdwages}" styleClass="Wid90"
+                    <p:inputNumber value="#{uobpb.householdwages}" styleClass="Wid100 uob_number_field"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
                     </p:inputNumber>
 
-                    <div class="Wid90">Total Debt</div>
-                    <p:inputNumber value="#{uobpb.otherDebt}" styleClass="Wid90"
+                    <div class="Wid100">Total Debt</div>
+                    <p:inputNumber value="#{uobpb.otherDebt}" styleClass="Wid100 uob_number_field"
                                     maxlength="15" decimalPlaces="0" symbol="$">
                         <p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
                     </p:inputNumber>
 
 
-                </h:panelGrid>
-            </div>
+                </p:panelGrid>
         </div>
 </ui:composition>

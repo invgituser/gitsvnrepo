@@ -19,7 +19,11 @@
         <h:form id="ceForm">
             <p:growl id="caddgrowl" showDetail="true" sticky="true" escape="true"/>
 
-            <div class="layout-portlets-box">
+            
+           
+            <p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget ">
+            
+          
                 <p:panel id="dPanel1" style="height:85px; display: none;">
 
                     <div class="Container30 hide-mobile" style="margin-top: -5px">
@@ -74,7 +78,7 @@
 
                 </p:panel>
 
-                <div class="Container100 Responsive100 t1">
+                <div class="Container100 Responsive100 t1 uob_block1">
                     <div class="ContainerIndent">
                         <p:fieldset id="personalize" legend="Personalize" toggleable="true" toggleSpeed="500">
                             <ui:include src="/pages/consumer/uob/addon/cEdit.xhtml"/>
@@ -82,42 +86,38 @@
                     </div>
                 </div>
 
-            </div>
-            <!-- BOX END -->
-
-            <!-- BOX START -->
-            <p:outputPanel id="workArea" styleClass="layout-portlets-box NBwidget">
+          
+            
+            <div class="Container100 Responsive100 t1 uob_block1">
+            <div class="ContainerIndent">
                 <p:fieldset legend="Summary" toggleable="true" toggleSpeed="500">
-                    <div class="Container100 Responsive50">
-                        <div class="ContainerIndent">
-                            <div class="Wid50 Responsive50 Fleft">
-                                <h3 class="BigTopic">
+                    <div class="Container100 Responsive100">
+                            <div class="Wid100 Responsive100 Fleft">
+                                <h3 class="Title_uob">
                                     Asset Allocation
                                 </h3>
                             </div>
-                        </div>
                     </div>
                     <div class="Container100">
                         <div class="ContainerIndent">
                             <div class="Container50 Responsive50 TexAlCenter Fs16">
                                 <div class="Container100 Fleft TexAlCenter Fs16">
-                                    <div class="ContainerIndent">
-                                        Based on your answers, here is your recommended asset allocation.
+                                    <div class="ContainerIndent Fs14 textAleft">
+                                        <i class="fa fa-caret-right" aria-hidden="true"></i> Based on your answers, here is your recommended asset allocation.
                                     </div>
                                 </div>
                                 <div class="EmptyBox20"></div>
                             </div>
                             <div class="Container50 Responsive50">
                                 <div class="Container100 Fleft TexAlCenter Fs16">
-                                    <div class="ContainerIndent">
-                                        You can adjust the risk level of your asset allocation with this slider.
+                                    <div class="ContainerIndent Fs14 textAleft">
+                                        <i class="fa fa-caret-right" aria-hidden="true"></i> You can adjust the risk level of your asset allocation with this slider.
                                     </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <div class="Container100 DispBlock gray">
                                     <div class="EmptyBox5"></div>
-                                    <div class="ContainerIndent">
-                                        <div class="Container25 TexAlCenter Fs16">
+                                        <div class="Container25 TexAlRight Fs14 uobSliderLabel">
                                             Conservative
                                         </div>
                                         <div class="Container50 TexAlCenter Fs20">
@@ -128,10 +128,9 @@
                                                         listener="#{uobpb.onAllocSlider}"/>
                                             </p:slider>
                                         </div>
-                                        <div class="Container25 TexAlCenter Fs16">
+                                        <div class="Container25 TexAlLeft Fs14 uobSliderLabel">
                                             Aggressive
                                         </div>
-                                    </div>
                                     <div class="EmptyBox5"></div>
                                     <div class="Container100 TexAlCenter">
                                         <div class="ContainerIndent">
@@ -162,7 +161,7 @@
                             <div class="Container50 Responsive50 Fleft">
                                 <div class="EmptyBox30"></div>
                                 <div class="ContainerIndent">
-                                    <p:dataTable styleClass="invAllocTable"
+                                    <p:dataTable styleClass="uob_graphTable"
                                                  value="#{uobpb.editableAsset}"
                                                  var="assetList">
 
@@ -203,35 +202,35 @@
                         </div>
                     </div>
                 </p:fieldset>
-
+</div></div>
+<div class="Container100 Responsive100 t1 uob_block1">
+            <div class="ContainerIndent">
                 <p:fieldset legend="Detail" toggleable="true" toggleSpeed="500">
-                    <div class="Container100 Responsive50">
-                        <div class="ContainerIndent">
-                            <div class="Wid50 Responsive50 Fleft">
-                                <h3 class="BigTopic">
+                    <div class="Container100 Responsive100">
+                            <div class="Wid100 Responsive100 Fleft">
+                                <h3 class="Title_uob">
                                     Portfolio Details
                                 </h3>
                             </div>
-                        </div>
                     </div>
                     <p:outputPanel style="border: 0px; background: transparent" rendered="#{! uobpb.fixedModel}">
                       <div class="Container100">
                         <div class="ContainerIndent">
                             <div class="Container50 Responsive50 TexAlCenter Fs16">
-                                <div class="ContainerIndent">
-                                    Here is your recommended investment portfolio
+                                <div class="ContainerIndent Fs14 textAleft">
+                                    <i class="fa fa-caret-right" aria-hidden="true"></i> Here is your recommended investment portfolio
                                 </div>
                             </div>
                             <div class="Container50 Responsive50">
                                 <div class="Container100 Fleft TexAlCenter Fs16">
-                                    <div class="ContainerIndent">
-                                        You can adjust the risk level <strong>within</strong> each asset class with this slider.
+                                    <div class="ContainerIndent Fs14 textAleft">
+                                        <i class="fa fa-caret-right" aria-hidden="true"></i> You can adjust the risk level <strong>within</strong> each asset class with this slider.
                                     </div>
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <div class="Container100 DispBlock gray">
                                     <div class="ContainerIndent">
-                                        <div class="Container25 TexAlCenter Fs16">
+                                        <div class="Container25 TexAlRight Fs14 uobSliderLabel">
                                             Conservative
                                         </div>
                                         <div class="Container50 TexAlCenter Fs20">
@@ -242,7 +241,7 @@
                                                         listener="#{uobpb.onPortfolioSlider}"/>
                                             </p:slider>
                                         </div>
-                                        <div class="Container25 TexAlCenter Fs16">
+                                        <div class="Container25 TexAlLeft Fs14 uobSliderLabel">
                                             Aggressive
                                         </div>
                                     </div>
@@ -265,8 +264,7 @@
 
                     <div class="Container100">
                         <div class="ContainerIndent">
-                            <p:dataTable var="ticker" value="#{uobpb.displayPortfolioList}"
-                                    >
+                            <p:dataTable styleClass="uob_graphTable" var="ticker" value="#{uobpb.displayPortfolioList}">
 
                                 <p:column style="width:1%; background-color: #{ticker.color}">
                                     <h:outputText value=" "/>
@@ -337,19 +335,19 @@
                         </div>
                     </div>
                 </p:fieldset>
+               </div></div>
+               <div class="Container100 Responsive100 t1 uob_block1">
+            <div class="ContainerIndent">
                 <p:fieldset legend="Goal Planning" rendered="#{!uobpb.fixedModel}"
                             collapsed="true"
                             toggleable="true" toggleSpeed="500">
 
-                    <div class="Container100 Responsive50">
-                        <div class="ContainerIndent">
-                            <div class="Wid50 Responsive50 Fleft">
-                                <h3 class="BigTopic">
+                    <div class="Container100 Responsive100">
+                            <div class="Wid100 Responsive100 Fleft">
+                                <h3 class="Title_uob">
                                     Setting Goals
                                 </h3>
                             </div>
-
-                        </div>
                     </div>
 
                     <div class="Container100">
@@ -357,46 +355,46 @@
                             <div class="Container50 Responsive50 Fleft">
                                 <div class="ContainerIndent">
 
-                                    <p:panel id="goalEntryArea" style="border:0px !important; background:none;">
+                                    <p:panel id="goalEntryArea" styleClass="goalPanelData">
                                         <div class="EmptyBox20"></div>
                                         <p:panelGrid columns="2" layout="grid"
                                                      styleClass="Container100 Responsive50"
                                                      style="border:0px !important; background:none;"
                                                      class="FormContent">
-                                            <div class="Wid90">Desired Goal</div>
-                                            <p:inputNumber style="width: 80px"
+                                            <div class="Wid100 uobCoreLabel">Desired Goal</div>
+                                            <p:inputNumber styleClass="Wid100"
                                                             value="#{uobpb.goalData.goalDesired}"
                                                             maxlength="11" decimalPlaces="0" symbol="$">
                                             </p:inputNumber>
 
 
-                                            <div class="Wid90">Number of years when needed</div>
-                                            <p:spinner value="#{uobpb.horizon}" styleClass="Fix80Spinner"
-                                                       min="1" max="40" stepFactor="1">
+                                            <div class="Wid100 uobCoreLabel">Number of years when needed</div>
+                                            <p:spinner value="#{uobpb.horizon}" min="1" max="40" stepFactor="1">
                                             </p:spinner>
 
 
-                                            <div class="Wid90">Initial investment</div>
-                                            <h:outputText value="#{uobpb.initialInvestment}">
+                                            <div class="Wid100 uobCoreLabel">Initial investment</div>
+                                            <h:outputText styleClass="Wid100" value="#{uobpb.initialInvestment}">
                                                 <f:convertNumber currencySymbol="$" type="currency"/>
                                             </h:outputText>
 
 
-                                            <div class="Wid90">Recurring investment</div>
-                                            <p:inputNumber style="width: 80px"
+                                            <div class="Wid100 uobCoreLabel">Recurring investment</div>
+                                            <p:inputNumber styleClass="Wid100"
                                                             value="#{uobpb.recurringInvestment}"
                                                             maxlength="11" decimalPlaces="0" symbol="$">
                                                 <p:ajax event="blur" listener="#{uobpb.onChange}"
                                                         update=":ceForm:workArea, :ceForm:graphArea"/>
                                             </p:inputNumber>
                                             <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
+                                            styleClass="Wid100"
                                                           rendered="#{uobpb.displayGoalText}"
                                                           value="#{uobpb.goalAdjustment}">
                                             </h:outputText>
 
                                             <p:spacer width="1"/>
 
-                                            <div class="Wid90"></div>
+
                                             <p:commandButton id="calcButton" value="Calculate" actionListener="#{uobpb.calculateGoal}"
                                                              update="ceForm:goalEntryArea, :ceForm:goalgraphArea"/>
                                             <p:spacer width="1"/>
@@ -409,37 +407,36 @@
                                 </div>
                             </div>
                             <div class="Container50 Responsive50 Fleft">
-                                <div class="ContainerIndent">
-                                    <div class="Container100">
+                                    <div class="Container100" style="background: white;">
                                         <div class="ContainerIndent">
 
-                                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5">
-                                                <div class="ContainerIndent">
-                                                    <div class="EmptyBox5"></div>
-                                                    <span class="Fs14 DispBlock gray">Investment Risk</span>
-                               <span class="Fs24 DispBlock red">
-                                   <h:outputText value="#{uobpb.totalRisk}">
+                                          <div
+								class="Wid45 BorderedBox Fleft TexAlCenter Mar10 MarLeft5 uob_Box">
+								<div class="ContainerIndent">
+									<div class="EmptyBox5"></div>
+									<span class="Fs14 DispBlock gray">Investment Risk</span> <span
+										class="Fs24 DispBlock red">
+										 <h:outputText value="#{uobpb.totalRisk}">
                                        <f:convertNumber pattern="##0.00%"/>
                                    </h:outputText>
-                                   </span>
+									</span>
+									<div class="EmptyBox5"></div>
+								</div>
+							</div>
 
-                                                    <div class="EmptyBox5"></div>
-                                                </div>
-                                            </div>
-
-                                            <div class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5">
-                                                <div class="ContainerIndent">
-                                                    <div class="EmptyBox5"></div>
-                                                    <span class="Fs14 DispBlock gray">Expected Return</span>
-                               <span class="Fs24 DispBlock invessenceblue">
-                                    <h:outputText value="#{uobpb.totalExpectedReturns}">
+                                           <div
+								class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5 uob_Box1">
+								<div class="ContainerIndent">
+									<div class="EmptyBox5"></div>
+									<span class="Fs14 DispBlock gray">Expected Return</span> <span
+										class="Fs24 DispBlock invessenceblue"> <h:outputText value="#{uobpb.totalExpectedReturns}">
                                         <f:convertNumber pattern="##0.00%"/>
                                     </h:outputText>
-                                   </span>
+									</span>
 
-                                                    <div class="EmptyBox5"></div>
-                                                </div>
-                                            </div>
+									<div class="EmptyBox5"></div>
+								</div>
+							</div>
 
                                         </div>
 
@@ -475,7 +472,7 @@
                                         </div>
                                     </p:panel>
 
-                                </div>
+
                             </div>
 
 
@@ -495,13 +492,15 @@
                     </div>
 
                 </p:fieldset>
+           </div></div>
             </p:outputPanel>
+          
             <!-- BOX END -->
 
             <div class="layout-portlets-box">
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
-                        <p:outputPanel style="background: #ffffff" >
+                        <p:outputPanel>
                             <p style="font-style: italic; font-size: .8em;">
                                 <br/>
                                 This portfolio is designed for illustration purposes only. The cumulative value of the portfolio
