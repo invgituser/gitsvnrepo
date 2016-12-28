@@ -25,16 +25,9 @@
                           value="#{tdcto.getErrorMessage(8)}" escape="false"/>
         </p:panel>
 
-			<div class="Container100 CustomWidthFA2 MarTop5">
-				<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
-										 value="#{tdcto.tdMasterData.optoutBeneficiary}"
-										 itemLabel="I prefer not to name a beneficiary for this account."
-				rendered="#{tdcto.tdMasterData.acctdetail.acctTypeId=='ACINDIV' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACJOINT' or tdcto.tdMasterData.acctdetail.acctTypeId=='ACCSTD'}">
-					<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="${tdcto.tdMasterData.resetoptoutBeneficiary}"/>
-				</p:selectBooleanCheckbox>
-			</div>
+			
 			<div class="EmptyBox20"></div>
-        <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary" rendered="#{!tdcto.tdMasterData.optoutBeneficiary}"
+        <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary" rendered="true"
 								   offLabel="Add Beneficiary" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
 				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="#{tdcto.tdMasterData.addnewBeneficiary}" />
 			</p:selectBooleanButton>
