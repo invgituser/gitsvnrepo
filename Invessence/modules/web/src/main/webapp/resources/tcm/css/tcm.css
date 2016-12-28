@@ -557,6 +557,10 @@ img.riskImage:hover {
     .AddressFieldOnly {
         width: 97%!important;
     }
+    
+    .AddressFieldOnlyB {
+        width: 91%!important;
+    }
 }
 
 /*Projection Salb*/
