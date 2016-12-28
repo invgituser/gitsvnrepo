@@ -99,15 +99,7 @@
 						</div>
 
 						<div class="Container100 Responsive100 MarTop5 MarCenter">
-							<div class="Container100">
-								<p:selectBooleanCheckbox
-									value="#{tdcto.tdMasterData.acctholderhasMailing}"
-									itemLabel="Old Different Mailing Address">
-									<p:ajax
-										update=":ctoForm:tdaccordian:addresstab:ownermailaddressPanel"
-										listener="${tdcto.tdMasterData.resetAcctholderhasMailing}" />
-								</p:selectBooleanCheckbox>
-							</div>
+							
 							<!--                 <p:panel  style="border: 0px; background: transparent; margin-top: -10px;"
                           rendered="#{tdcto.tdMasterData.acctholderhasMailing}"> -->
 							<p:panel
@@ -410,8 +402,7 @@
 			<p:panel id="jointaddressPanel" styleClass="MarCenter Container80"
 				style="border: 0px; background: transparent">
 
-				<div class="Container100 Responsive100 MarTop5 MarCenter"
-					style="margin-bottom: 15px;">
+				<div class="Container100 Responsive100 MarTop5 MarCenter">
 
 					<p:panel rendered="#{tdcto.getErrorMessage(4) != null}"
 						style="border: 0px; background: transparent"
@@ -420,19 +411,13 @@
 							value="#{tdcto.getErrorMessage(4)}" escape="false" />
 					</p:panel>
 
-					<p:selectBooleanCheckbox
-						value="#{tdcto.tdMasterData.jointhasDifferent}"
-						styleClass="RegulatoryCheckBox"
-						itemLabel="Has different address then primary account holder?">
-						<p:ajax update=":ctoForm:tdaccordian:addresstab:jointaddressPanel"
-							listener="${tdcto.tdMasterData.resetJointDifferentAddress}" />
-					</p:selectBooleanCheckbox>
+					
 				</div>
 
 				<p:panel id="jointaddressPanel2"
 					style="border: 0px; background: transparent"
 					styleClass="Container100 Responsive100 MarTop5 MarCenter"
-					rendered="#{tdcto.tdMasterData.jointhasDifferent}">
+					rendered="true">
 					
 				<p:accordionPanel styleClass="tcmAccordionPanel-UI internalTabs Container80 Responsive100 MarCenter">
 					<p:tab title="Old Address Information" styleClass="tcmAccordion-UI">
@@ -519,15 +504,7 @@
 					</div>
 
 					<div class="Container100 Responsive100 MarTop5 MarCenter">
-						<div class="Container100">
-							<p:selectBooleanCheckbox
-								value="#{tdcto.tdMasterData.acctholderhasMailing}"
-								itemLabel="Old Different Mailing Address">
-								<p:ajax
-									update=":ctoForm:tdaccordian:addresstab:ownermailaddressPanel"
-									listener="${tdcto.tdMasterData.resetAcctholderhasMailing}" />
-							</p:selectBooleanCheckbox>
-						</div>
+						
 						<!--                 <p:panel  style="border: 0px; background: transparent; margin-top: -10px;"
                           rendered="#{tdcto.tdMasterData.acctholderhasMailing}"> -->
 						<p:panel
