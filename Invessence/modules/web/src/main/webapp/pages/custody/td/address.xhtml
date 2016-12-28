@@ -32,8 +32,7 @@
                         <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft  AddressFieldOnly"
                                      value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressStreet}"
                                      placeholder="Residence Street Address 1"
-                                     maxlength="50"
-                                     required="false">
+                                     autocomplete="off" maxlength="50" required="false">
 
                         </p:inputText>
                     </div>
@@ -217,6 +216,7 @@
                         <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft AddressFieldOnly"
                                      value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressStreet}"
                                      maxlength="50"
+                                     autocomplete="off"
                                      placeholder="Residence Street Address 1">
                         </p:inputText>
                         <!--  <p:inputText styleClass="CustomWidthAddressFA FS14 Fright" disabled="true"

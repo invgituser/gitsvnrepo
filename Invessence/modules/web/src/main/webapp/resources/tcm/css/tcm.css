@@ -140,6 +140,45 @@ img.riskImage:hover {
 }
 /*Prakash - Advisor Page*/
 
+/*Message*/
+
+@media (max-width: 640px) {
+    .advisorMsgTable > div > table > tbody > tr > td:nth-child(even) {
+        background: #f1f1f3;
+    }
+
+    .advisorMsgTable > div > table > tbody > tr > td:nth-child(3) >table>tbody>tr>td {
+        border: solid 1px #D9E3E8!important;
+    }
+
+    .mobileRightAdvMsg {
+        text-align: right!important;
+    }
+
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+    .advisorMsgTable > div > table > thead > tr > th:nth-child(1) {
+        width: 10%;
+    }
+
+    .advisorMsgTable > div > table > thead > tr > th:nth-child(2) {
+        width: 30%;
+    }
+}
+
+@media (min-width: 901px) and (max-width: 4000px) {
+    .advisorMsgTable > div > table > thead > tr > th:nth-child(1) {
+        width: 7%;
+    }
+
+    .advisorMsgTable > div > table > thead > tr > th:nth-child(2) {
+        width: 20%;
+    }
+}
+
+/**/
+
 
 .CommonBtnWidthCancel,.CommonBtnWidthSave {
     width: 100px!important;
@@ -264,7 +303,7 @@ img.riskImage:hover {
     }
 }
 
-@media (max-width: 735px) {
+@media (max-width: 815px) {
 
 
     .sharePercentageInput > input {
@@ -643,7 +682,7 @@ img.riskImage:hover {
 
 }
 
-@media (max-width: 735px) {
+@media (max-width: 815px) {
     .ContainerPSlab-tcmUI {
         margin-top: 25px!important;
     }
@@ -1078,14 +1117,45 @@ img.riskImage:hover {
     margin-top: 10px;
 }
 
-/**New Version Dashboard**/
+@media (max-width:640px) {
+    .ListOfAccntsColWidth {
+    font-size:13px!important;
+    }
+}
 
+/**New Version Dashboard**/
+.topAdjustCustomFunding {
+    position: relative;
+    top: 7px;
+}
 @media (max-width: 500px) {
 
     /* .NewDashTable > tbody > tr > td:nth-child(1), .NewDashTable > tbody > tr > td:nth-child(3) {
     width: 50%!important;
     }
      */
+/* dec21*/
+
+    .NewDashTable2 > tbody > tr {
+        display: inline-block;
+    }
+
+    .NewDashTable2 > tbody > tr:nth-child(2) {
+        display: none!important;
+    }
+
+    .NewDashTable2 > tbody > tr:nth-child(1) {
+    width: 30%!important;
+    float: left;
+}
+
+    .NewDashTable2 > tbody > tr:nth-child(3) {
+        display: table!important;
+        width: 70%!important;
+        float: right;
+    }
+
+/**/
     .InfoNewDash {
         float: none;
     }
@@ -1095,7 +1165,7 @@ img.riskImage:hover {
     }
 
     .NewDashButtonBlock {
-        width: 25%!important;
+        width: 32%!important;
     }
 
     .NewDashTable, .NewDashTable2 {
@@ -1130,6 +1200,7 @@ img.riskImage:hover {
     }
 }
 
+/*
 
 #layout-menu button {
     border-radius: 45px!important;
@@ -1158,9 +1229,11 @@ img.riskImage:hover {
     border-right: 5px solid #046744;
     box-shadow: none!important;
 }
+*/
 
 .dashExtraInfoTable > tbody > tr > td  {
     padding: 5px 0px;
+    text-align: left;
 }
 
 .textRAlign {
@@ -1270,6 +1343,25 @@ img.riskImage:hover {
 
 
 /*Prakash*/
+.editTabsDisabled > .ui-accordion-header {
+	    pointer-events: none!important;
+	        border-radius: 0!important;
+}
+
+.editTabsDisabled > .ui-accordion-header > span:nth-child(1) {
+	display: none!important;
+}
+
+.ui-panel-content {
+    box-sizing: border-box;
+}
+
+@media (max-width: 1000px) and (min-width: 360px) {
+    .longLabelResponsive {
+        font-size: 12px;
+    }
+}
+
 .ui-panel-content {
     width: 100%!important;
 }
@@ -2010,7 +2102,8 @@ tcmAccordionPanel-UI > .ui-accordion .ui-state-hover, .ui-accordion .ui-state-ac
 body {
     background-image: none !important;
     height: 100vh;
-    background: linear-gradient(141deg, #CFD8DC 0%, rgb(189, 194, 195) 51%, rgba(199, 210, 205, 0.95) 75%) !important;
+    background: linear-gradient(141deg, rgba(0, 93, 56, 0.78) 0%, rgba(0, 89, 55, 0.87) 51%, rgba(0, 66, 40, 0.95) 75%) !important;
+    /* background: linear-gradient(141deg, #CFD8DC 0%, rgb(189, 194, 195) 51%, rgba(199, 210, 205, 0.95) 75%) !important;*/
 }
 
 .ui-message-error {

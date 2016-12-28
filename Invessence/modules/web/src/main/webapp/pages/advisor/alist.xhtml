@@ -41,6 +41,17 @@
                         <p:dataTable id="managedTable" var="managedVar" styleClass="ListOfAccountsTable" widgetVar="managedTable"
                                      value="#{manageAdvisorBean.filteredDataList}" reflow="true">
 
+<!--
+                           <f:facet name="header" style="text-align:right">
+                               <p:outputPanel style="text-align:right">
+                                   <h:outputText value="Search:" />
+                                   <p:inputText id="globalFilter" onkeyup="PF('managedTable').filter()"
+                                                style="width:150px; margin-left: 5px" placeholder="Enter keyword"/>
+                                   <p:commandButton value="Clear" onclick="PF('managedTable').clearFilters();"/>
+                               </p:outputPanel>
+                           </f:facet>
+-->
+
                             <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
                                 <p:commandButton id="editButton"
                                                  styleClass="Fs16 BlueButton DualBtnModeLeft"
@@ -53,7 +64,7 @@
                                 </p:commandButton>
 
                                 <p:commandButton id="ovButton" rendered="#{managedVar.acctStatus == 'Active'}"
-                                                 styleClass="Fs16 GreenButton"
+                                                 styleClass="Fs16 GreenButton DualBtnModeRight "
                                                  process="@this" immediate="true"
                                                  icon="fa fa-search-plus Fs14 white"
                                                  action="#{manageAdvisorBean.doManagedAction}">
@@ -99,6 +110,7 @@
                                       resizable="true">
                                 <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.accttype}"/>
                             </p:column>
+
                             <p:column sortBy="#{managedVar.goal}"
                                       headerText="Goal"
                                       styleClass="ListOfAccntsColWidth"

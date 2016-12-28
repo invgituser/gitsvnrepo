@@ -45,7 +45,7 @@
                                         <div class="Container60">
                                             <h4>ACH</h4>
                                         </div>
-                                        <div class="Container40 textAlign">
+                                        <div class="Container40 textAlign topAdjustCustomFunding">
                                             <p:radioButton id="fundopt1" for="fundRadio" itemIndex="1"
                                                            styleClass="textAlign"/>
                                         </div>
@@ -63,7 +63,7 @@
                                         <div class="Container60">
                                             <h4>ACAT</h4>
                                         </div>
-                                        <div class="Container40 textAlign">
+                                        <div class="Container40 textAlign topAdjustCustomFunding">
                                             <p:radioButton id="fundopt2" for="fundRadio" itemIndex="2"
                                                            styleClass="textAlign"/>
                                         </div>
@@ -82,7 +82,7 @@
                                         <div class="Container60">
                                             <h4>Wire Transfer</h4>
                                         </div>
-                                        <div class="Container40 textAlign">
+                                        <div class="Container40 textAlign topAdjustCustomFunding">
                                             <p:radioButton id="fundopt3" for="fundRadio" itemIndex="3"
                                                            styleClass="textAlign"/>
                                         </div>
@@ -413,7 +413,7 @@
                                  rendered="#{tdcto.tdMasterData.fundType == 'TDTRF'}">
                             <div class="EmptyBox20"></div>
                             <div class="Container100">
-                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                <div class="Container45 Fleft CustomWidthFA-Responsive longLabelResponsive">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">
                                         Is this a Retail or Advisor managed account ? </label>
@@ -476,7 +476,7 @@
 
                             <div class="Container100">
                                 <div class="Container45 Fleft CustomWidthFA-Responsive">
-                                    <label Class="Container100"
+                                    <label Class="Container100 longLabelResponsive"
                                            style="text-align: left !important; font-weight: bold !important;">
                                         TD Ameritrade Retail Brokerage Account Number *</label>
 
@@ -566,7 +566,7 @@
                         </p:panel>
 
                     </p:panel>
-                    <div class="Container80 Fnone MarAuto CustomWidthFA2">
+                    <div class="Container80 Fnone CustomWidthFA2">
                         <p:selectBooleanCheckbox
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.fundNow}"
@@ -728,7 +728,7 @@
                                 </p:inputText>
                             </div>
                             <div class="Container45 Fright CustomWidthFA-Responsive">
-                                <label Class="Container100"
+                                <label Class="Container100 longLabelResponsive"
                                        style="text-align: left !important; font-weight: bold !important;">Bank Account Title <span class="Fs12">(Please provide full title of the account)</span> *</label>
 
                                 <div class="EmptyBox5"></div>
@@ -800,7 +800,7 @@
 
                     </p:panel>
                     <div class="EmptyBox10"></div>
-                    <div class="Container80 MarAuto CustomWidthFA2">
+                    <div class="Container80 CustomWidthFA2">
                         <p:selectBooleanCheckbox
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdcto.tdMasterData.recurringFlag}"

@@ -15,7 +15,7 @@
         <!-- BOX START -->
         <h:form id="form">
             <div class="layout-portlets-box">
-                <div class="Container90 Responsive100">
+                <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
                         <div class="Container100">
 
@@ -36,18 +36,18 @@
                                     </div>
                                 </div>
                                 <div class="Container100 MarTop5">
-                                    <p:dataTable id="messageDT" var="msg" value="#{advisornotificationBean.notificationDataList}"
+                                    <p:dataTable id="messageDT" var="msg" styleClass="advisorMsgTable" value="#{advisornotificationBean.notificationDataList}"
                                                  widgetVar="messageWidget"
                                                  emptyMessage="No Messages were created."
                                                  reflow="true">
 
-                                        <p:column style="width: 1%; background-color: #{msg.color};">
+                                        <!--<p:column style="width: 1%; background-color: #{msg.color};">
                                             <h:outputText value=" "/>
-                                        </p:column>
+                                        </p:column>-->
 
-                                        <p:column style="width: 7%;" styleClass="TextAlLeft">
+                                        <p:column style="text-align: center;" styleClass="TextAlLeft" resizable="true">
                                             <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
-                                                             styleClass="Fs16 BlueButton" title="Archive"
+                                                             styleClass="Fs16 BlueButton DualBtnModeLeft" title="Archive"
                                                              process="@this" immediate="true"
                                                              icon="fa fa-check Fs14 white"
                                                              actionListener="#{advisornotificationBean.markRead}"
@@ -57,7 +57,7 @@
                                                                              target="#{advisornotificationBean.selectedMessage}"/>
                                             </p:commandButton>
                                             <p:commandButton id="undoButton" rendered="#{msg.status != 'N'}"
-                                                             styleClass="Fs16 GrayButton" title="Undo Archive"
+                                                             styleClass="Fs16 GrayButton DualBtnModeRight" title="Undo Archive"
                                                              process="@this" immediate="true"
                                                              icon="fa fa-mail-reply Fs14 black"
                                                              actionListener="#{advisornotificationBean.markUnRead}"
@@ -67,13 +67,13 @@
                                             </p:commandButton>
                                         </p:column>
 
-                                        <p:column style="width: 10%;" styleClass="Fs14 TexAlLeft"
-                                                  headerText="Created">
-                                            <h:outputText value="#{msg.businessdate}"/>
+                                        <p:column style="" styleClass="mobileLeftAdvMsg Fs14 textAlign "
+                                                  headerText="Created" resizable="true">
+                                            <h:outputText styleClass="mobileRightAdvMsg" value="#{msg.businessdate}"/>
                                         </p:column>
 
                                         <p:column styleClass="Fs14 TexAlLeft"
-                                                  headerText="Message">
+                                                  headerText="Message" resizable="true">
                                             <h:outputText value="#{msg.message}" escape="false">
                                             </h:outputText>
                                         </p:column>

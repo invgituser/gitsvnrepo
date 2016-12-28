@@ -326,7 +326,7 @@ table.jqplot-table-legend, table.jqplot-cursor-legend {
     font-size: 12px!important;
 	}
 	
-	.ListOfAccountsTable table tbody tr td {
+	.ListOfAccountsTable table tbody tr td, .advisorButtons > div > div > div > .ui-button-text {
 	font-size: 12px!important;
 	}
 	

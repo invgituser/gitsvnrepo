@@ -6,7 +6,7 @@
 
 /* Logo*/
 #logo2 {
-    height: 60px;
+    height: 48px;
     margin-top: 4px;
 }
 
@@ -39,7 +39,7 @@ img.riskImage:hover {
 
 /* Gray Theme*/
 .layoutBG.Geometry {
-    background-image: url("#{resource['tcm:images/triangle-gray.svg']}");
+    background-image: url("");
     background-attachment: fixed;
     background-size: 100%;
     background-repeat: no-repeat;
@@ -116,7 +116,7 @@ img.riskImage:hover {
 }
 
 .ui-steps .ui-state-disabled .ui-steps-number {
-    background-color: #00D404 !important;
+    background-color: #00D404!important;
 }
 
 /**Button save and cancel**/
@@ -1752,7 +1752,7 @@ h3 {
         position: relative;
         top: 0;
         background: none!important;
-        border-radius: none!important;
+        border-radius: 0!important;
     }
     .FundAccountStepsPanel > ul > .ui-state-highlight > a {
         margin-top: 0px!important;
@@ -1793,7 +1793,7 @@ h3 {
         position: relative;
         top: 0;
         background: none!important;
-        border-radius: none!important;
+        border-radius: 0!important;
     }
     .FundAccountStepsPanel > ul > .ui-state-highlight > a {
         margin-top: 0px!important;
@@ -1937,7 +1937,7 @@ h3 {
     }
 
     #logo2 {
-        height: 60px;
+        height: 45px;
         /* margin-top : 4 px; */
     }
 
@@ -2627,4 +2627,193 @@ h3 {
         font-size: 12px;
     }
 
+}
+
+
+/**Prakash_UOB**/
+.uob_block1 > div > fieldset > legend {
+	background: #e8e7e7;
+    border-radius: 0;
+    color: #004D40;
+    border-left: 4px solid #26A69A;
+}
+
+.uob_block1 > div > fieldset > legend > span {
+color: #000000!important;
+}
+
+.uob_block1 > div > fieldset > legend > span:hover {
+color: #ffffff!important;
+}
+
+.uob_block1 > div > fieldset > .ui-state-hover {
+	background: #26A69A!important;
+	color: #ffffff;
+}
+
+.uob_block1 > div > fieldset {
+    border: solid 4px #26A69A;
+    background-color: #fff;
+}
+
+.uob_ceditTab_Block > .ui-tabs-nav {
+	background: #546E7A!important;
+}
+
+.uob_ceditTab_Block > .ui-tabs-nav > .ui-tabs-selected > a {
+    background: #004D40;
+    border-bottom: 3px solid #004D40;
+}
+
+.ui-spinner-input, .ui-spinner, .uob_investAmount > input {
+	width: 100%;
+}
+
+.uob_ceditTab_Block > .ui-tabs-nav > .ui-tabs-selected {
+	border-radius: 0!important;
+	background: #004D40!important
+}
+
+.uob_Block_tabs > .ui-panel-content {
+	    border: 3px solid #26a69a!important;
+}
+
+.ui-button-text, .ui-selectonemenu-trigger {
+	background-color: #26a69a!important;
+	border-radius: 0px!important;
+}
+
+.uob_tabsInputBlock input {
+   /*  border: 1px solid #26a69a!important; */
+}
+
+.uob_tabsInputBlock {
+	margin-bottom: 14px;
+}
+
+.uob_Block_tabs > .ui-panel-footer {
+	width: 97%;
+}
+
+.uob_number_field > input {
+	width: 100%;
+}
+
+.uob_Block_tabs {
+	background: #fff;
+}
+
+#layout-topbar {
+	background: #fff;
+}
+
+#layout-menu {
+background: #26a69a;
+    border-radius: 30px;
+}
+
+.uob_Box {
+    background: #e8e7e7;
+    border-radius: 0;
+    border: 0;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.04);
+}
+
+.uob_Box1 {
+	background: #e8e7e7;
+    border-radius: 0;
+    border: 0;
+    box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.04);
+}
+
+.uob_graphTable {
+	    border: 3px solid #26a69a;
+    border-radius: 0;
+    padding: 0!important;
+}
+
+.Title_uob {
+	border-bottom: solid 4px #e8e7e7!important;
+	padding: 5px 0px;
+    color: #004d40;
+}
+
+.textAleft {
+	text-align: left;
+}
+
+.uob_Block_tabs > div:nth-child(1) {
+	height: 305px!important;
+}
+
+@media (max-width: 640px) {
+	.uob_Block_tabs > div:nth-child(1) {
+	height: 335px!important;
+}
+}
+
+.uob_Block_tabs > div > div {
+	background: none!important;
+}
+
+.uobCoreLabel {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.uob_selectDropdown {
+	border-radius: 0!important;
+}
+
+.uob_selectDropdown > label {
+	padding: 11px 9px!important;
+    background: none!important;
+}
+
+input {
+    background: none!important;
+    border-radius: 0!important;
+}
+
+.uob_ceditTab_Block > div > div {
+	padding: 10px 5px!important;
+}
+
+.goalPanelData .ui-inputnumber > input {
+	width: 100%;
+}
+
+.goalPanelData {
+border: 4px solid #26a69a !important;
+    border-radius: 0;
+    background: none!important;
+}
+
+.ui-inputfield.ui-state-hover, .ui-inputfield.ui-state-focus {
+border: solid 1px #26a69a!important;
+}
+
+.ui-inputfield {
+    font-size: 14px!important; /*To remove the important priority from custom.css:93 fro UOB*/
+}
+
+.uobSliderLabel {
+	margin-top: 2px;
+}
+
+.ui-slider-horizontal {
+    height: 5px!important;
+    background: rgba(38, 166, 154, 0.55)!important;
+    margin-top: 8px!important;
+}
+
+.ui-slider-handle,
+.ui-slider-handle .ui-state-focus,
+.ui-slider-handle .ui-state-hover,
+.ui-slider-handle .ui-state-active {
+    background: #329e94;
+    border: 0!important;
+    background-image: none!important;
+    box-shadow: none!important;
+    border-radius: 0!important;
 }
