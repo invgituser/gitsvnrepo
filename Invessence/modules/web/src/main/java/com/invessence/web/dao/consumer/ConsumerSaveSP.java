@@ -198,6 +198,7 @@ public class ConsumerSaveSP extends StoredProcedure
             break;
          case 12:
             declareParameter(new SqlInOutParameter("p_demoid", Types.BIGINT));
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             declareParameter(new SqlParameter("p_ip", Types.VARCHAR));
@@ -579,6 +580,7 @@ public class ConsumerSaveSP extends StoredProcedure
    {
       Map inputMap = new HashMap();
       inputMap.put("p_demoid", data.getAcctnum());
+      inputMap.put("p_acctnum", data.getAcctnum());
       inputMap.put("p_advisor", data.getAdvisor());
       inputMap.put("p_rep", data.getRep());
       inputMap.put("p_ip", data.getIp());
