@@ -29,5 +29,6 @@
       <module>reports</module>
       <module>price-processor</module>
       <module>rbsa-preprocessor</module>
+      <module>aggregator</module>
    </modules>
 </project>
