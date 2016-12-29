@@ -9,7 +9,7 @@ import java.util.Date;
 public class ServiceConfigDetails implements Serializable
 {
    private String mode, company, vendor, service, name, value, encrFlag;
-   private Date created, updated;
+   //private Date created, updated;
 
    @Override
    public String toString()
@@ -21,8 +21,8 @@ public class ServiceConfigDetails implements Serializable
          ", name='" + name + '\'' +
          ", value='" + value + '\'' +
          ", encrFlag='" + encrFlag + '\'' +
-         ", created=" + created +
-         ", updated=" + updated +
+//         ", created=" + created +
+//         ", updated=" + updated +
          '}';
    }
 
@@ -44,16 +44,6 @@ public class ServiceConfigDetails implements Serializable
    public void setCompany(String company)
    {
       this.company = company;
-   }
-
-   public Date getCreated()
-   {
-      return created;
-   }
-
-   public void setCreated(Date created)
-   {
-      this.created = created;
    }
 
    public String getEncrFlag()
@@ -84,16 +74,6 @@ public class ServiceConfigDetails implements Serializable
    public void setMode(String mode)
    {
       this.mode = mode;
-   }
-
-   public Date getUpdated()
-   {
-      return updated;
-   }
-
-   public void setUpdated(Date updated)
-   {
-      this.updated = updated;
    }
 
    public String getValue()
