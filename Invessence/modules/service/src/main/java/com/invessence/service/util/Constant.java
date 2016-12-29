@@ -10,10 +10,26 @@ public class Constant
    {
       PRICING("PRICING"), DOWNLOAD_SERVICES("DOWNLOAD-SERVICES"),
       BROKER_WEBSERVICES("BROKER-WEBSERVICES"),DOCUSIGN_SERVICES("DOCUSIGN-SERVICES"),
-      EMAIL_SERVICE("EMAIL-SERVICE");
+      EMAIL_SERVICE("EMAIL-SERVICE"), AGGREGATION_SERVICES("AGGREGATION-SERVICES");
       private String value;
 
       private SERVICES(String value) {
+         this.value = value;
+      }
+      private String getValue() {
+         return value;
+      }
+
+      @Override
+      public String toString() {
+         return this.getValue();
+      }
+   }
+   public enum AGGREGATION_SERVICES {
+      MX("MX"), YODLEE("YODLEE");
+      private String value;
+
+      private AGGREGATION_SERVICES(String value) {
          this.value = value;
       }
       private String getValue() {
