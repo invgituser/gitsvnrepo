@@ -17,7 +17,7 @@
 
 	<context:component-scan base-package="com.invessence.ws" />
 
-    <import resource="classpath*:serviceConfig.xml"/>
+    <import resource="classpath*:/serviceConfig.xml"/>
 
     <tx:annotation-driven transaction-manager="transactionManager" />
    <bean id="transactionManager"
@@ -37,10 +37,9 @@
         <property name="password" value="${jdbc.password}"/>
     </bean>
 
-   <bean id="serviceLayer" class="com.invessence.ws.service.ServiceLayerImpl" />
 
 
-   <bean id="wsPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+   <bean id="brokerWSPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
       <property name="ignoreUnresolvablePlaceholders" value="true" />
 		<property name="locations">
 			<list>
