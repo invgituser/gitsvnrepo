@@ -1344,9 +1344,37 @@ img.riskImage:hover {
 
 
 
+/*register_buttons_widget*/
+@media (max-width: 500px) {
+    .mobileModeButton {
+        display: block;
+    }
 
+    .desktopModeButton {
+        display: none;
+    }
+}
+
+@media (min-width: 500px) {
+    .desktopModeButton {
+        display: block;
+    }
+
+    .mobileModeButton {
+        display: none;
+    }
+}
+
+.desktopModeButton, .mobileModeButton{
+    margin: 0 auto!important;
+}
 
 /*Prakash*/
+
+#layout-topbar-menu li:hover > form > a {
+    color: #F1F6F9;
+    background-color: #009ABB;
+}
 
 .ui-accordion-content {
     color: #a08d9b!important;

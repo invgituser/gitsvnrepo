@@ -337,6 +337,40 @@ public class WebUtil implements Serializable
       return true;
    }
 
+   public Boolean redirecttoMessagePage(String type, String title, String body, String errorMessagePage, String redirectPage)
+   {
+      String spMsg = "";
+      Map<String, String> args = new HashMap<String, String>();
+      try
+      {
+         if (type != null)
+         {
+            args.put("type", type);
+         }
+         if (title != null)
+         {
+            args.put("title", title);
+         }
+         if (body != null)
+         {
+            args.put("message", body);
+            redirect(errorMessagePage+"?faces-redirect=true", args);
+         }
+      }
+      catch (Exception ex)
+      {
+         args.put("message", "mbse");
+         args.put("type", "Error");
+         args.put("title", "mtse");
+         redirect(errorMessagePage+"?faces-redirect=true", args);
+         return false;
+      }
+      return true;
+   }
+
+
+
+
 
    public String getMode()
    {

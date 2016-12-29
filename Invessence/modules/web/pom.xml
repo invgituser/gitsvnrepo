@@ -39,6 +39,13 @@
          <artifactId>invmodel</artifactId>
          <version>${invessence.version}</version>
       </dependency>
+
+      <dependency>
+         <groupId>com.invessence</groupId>
+         <artifactId>aggregator</artifactId>
+         <version>${invessence.version}</version>
+      </dependency>
+
       <dependency>
           <groupId>webcab</groupId>
           <artifactId>portfolioJ2SE</artifactId>
@@ -327,6 +334,21 @@
                  </exclusion>
              </exclusions>
          </dependency>
+
+      <!-- https://mvnrepository.com/artifact/net.sourceforge.fiftyone-java/51Degrees.mobi.detection.core -->
+      <!--<dependency>-->
+    <!--<groupId>net.sourceforge.fiftyone-java</groupId>-->
+    <!--<artifactId>51Degrees.mobi.detection.core</artifactId>-->
+    <!--<version>2.1.17.1</version>-->
+<!--</dependency>-->
+
+      <!-- https://mvnrepository.com/artifact/org.primefaces/primefaces-mobile -->
+      <dependency>
+    <groupId>org.primefaces</groupId>
+    <artifactId>primefaces-mobile</artifactId>
+    <version>0.9.3</version>
+</dependency>
+
 
    </dependencies>
 
