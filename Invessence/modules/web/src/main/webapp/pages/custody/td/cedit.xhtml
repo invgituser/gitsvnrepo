@@ -15,9 +15,9 @@
     </ui:define>
 
     <f:metadata>
-        <f:viewParam name="l" value="#{tdcto.beanlogonID}"/>
-        <f:viewParam name="acct" value="#{tdcto.beanacctnum}"/>
-        <f:event type="preRenderView" listener="#{tdcto.editStartCTO}"/>
+        <f:viewParam name="l" value="#{tdEditFund.beanlogonID}"/>
+        <f:viewParam name="acct" value="#{tdEditFund.beanacctnum}"/>
+        <f:event type="preRenderView" listener="#{tdEditFund.editStartCTO}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -29,7 +29,7 @@
 
             <div class="Container100 Responsive100">
                 <div class="ContainerIndent FundAccountTab" style="display: none">
-                    <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{tdcto.activeTab}">
+                    <p:steps id="ctoprogressbar" styleClass="FundAccountStepsPanel" activeIndex="#{tdEditFund.activeTab}">
                         <p:menuitem value="Account Type"/>
                         <p:menuitem value="Personal"/>
                         <p:menuitem value="Address"/>
@@ -44,8 +44,8 @@
                     <div class="ContainerIndent">
                         <p:panel id="inputArea" style="border: 0px; background: transparent;">
                             <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI"
-                                              dynamic="false" activeIndex="#{tdcto.activeTab}"   >
-                                <p:ajax event="tabChange"   listener="#{tdcto.onTabChange}" update=":ctoForm:tdaccordian"
+                                              dynamic="false" activeIndex="#{tdEditFund.activeTab}"   >
+                                <p:ajax event="tabChange"   listener="#{tdEditFund.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
                                 <p:tab id="tab0" styleClass="tcmAccordion-UI" rendered="false" >
                                     <f:facet name="title">
@@ -55,7 +55,8 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/accttype.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab1" disabled="#{tdcto.isAccordianDisabled(1)}" rendered="false" styleClass="tcmAccordion-UI"  >
+                                <p:tab id="tab1" disabled="#{tdEditFund.isAccordianDisabled(1)}" rendered="false"
+                                       styleClass="tcmAccordion-UI"  >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/accountholder.png.xhtml?ln=tcm"/>
@@ -64,7 +65,8 @@
 
                                     <ui:include src="/pages/custody/td/acctholder.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab2" disabled="#{tdcto.isAccordianDisabled(3)}" rendered="false" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab2" disabled="#{tdEditFund.isAccordianDisabled(3)}" rendered="false"
+                                       styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/address.png.xhtml?ln=tcm"/>
@@ -72,7 +74,8 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/address.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab3" disabled="#{tdcto.isAccordianDisabled(5)}" rendered="false" styleClass="tcmAccordion-UI"  >
+                                <p:tab id="tab3" disabled="#{tdEditFund.isAccordianDisabled(5)}" rendered="false"
+                                       styleClass="tcmAccordion-UI"  >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/citizenship.png.xhtml?ln=tcm"/>
@@ -80,7 +83,8 @@
                                     </f:facet>
                                     <ui:include src="/pages/custody/td/regulatory.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab4" disabled="#{tdcto.isAccordianDisabled(6)}" rendered="false" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab4" disabled="#{tdEditFund.isAccordianDisabled(6)}" rendered="false"
+                                       styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/employment.png.xhtml?ln=tcm"/>
@@ -89,7 +93,8 @@
 
                                     <ui:include src="/pages/custody/td/employment.xhtml"/>
                                 </p:tab>
-                                <p:tab id="tab5" disabled="#{tdcto.isAccordianDisabled(8)}" rendered="false" styleClass="tcmAccordion-UI" >
+                                <p:tab id="tab5" disabled="#{tdEditFund.isAccordianDisabled(8)}" rendered="false"
+                                       styleClass="tcmAccordion-UI" >
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/beneficiary.png.xhtml?ln=tcm"/>
@@ -119,8 +124,8 @@
 
                                     <p:commandButton value="Save and Submit"
                                                      update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
-                                                     disabled="#{tdcto.tdMasterData.optFund and tdcto.tdMasterData.recurringFlag}"
-                                                     actionListener="#{tdcto.editFunddataSave}"
+                                                     disabled="#{tdEditFund.tdMasterData.optFund and tdEditFund.tdMasterData.recurringFlag}"
+                                                     actionListener="#{tdEditFund.editFunddataSave}"
                                                      styleClass="Fright" >
 
                                     </p:commandButton>
@@ -128,13 +133,9 @@
                                 </div></p:panel>
                         </p:panel>
                         <div class="Container100" style="text-align: center;">
-                            <!--  <p:button value="Save and Open Account" styleClass=""
-                                  accesskey="" >
-                                  <f:param name="AccountOpenSave" />
-                              </p:button>-->
-                            <h:outputText id="errorMsg"
-                                          styleClass="errorText" rendered="#{tdcto.saveandOpenError != null}"
-                                          value="#{tdcto.saveandOpenError}" escape="false"/>
+                             <h:outputText id="errorMsg"
+                                          styleClass="errorText" rendered="#{tdEditFund.saveandOpenError != null}"
+                                          value="#{tdEditFund.saveandOpenError}" escape="false"/>
 
                         </div>
 

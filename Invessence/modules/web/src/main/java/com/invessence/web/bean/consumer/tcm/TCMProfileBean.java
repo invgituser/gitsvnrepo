@@ -9,6 +9,7 @@ import javax.faces.event.*;
 import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.converter.*;
+import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.tcm.*;
@@ -424,6 +425,13 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            // Check if the user is logged in?  If so, then they can access this page.
+            if (!webutil.validatePriviledge(WebConst.ROLE_USER))
+            {
+               return;
+            }
+
+
             selectedThemeName="";
             finalCheck1=false;
             finalCheck2=false;
@@ -450,14 +458,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             // Client related data.
             setRiskCalcMethod("C");
 
-            if (!webutil.isUserLoggedIn()
-               )
-            {
-               msgheader = "dctd.102";
-               webutil.redirect("/access-denied.xhtml", null);
-               //webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               return;
-            }
+
             fetchClientData();
             canOpenAccount = initCanOpenAccount();
             welcomeDialog = false;
@@ -1205,6 +1206,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if (currentpage == 0)
             createAssetPortfolio(1); // Since we are refreshing on real-time, we don't need to do it during next.
 
+         // User is in EDIT mode, then they must be logged, therefore, they are not visitor anymore.
          if(!formPortfolioEdit)
          {
             saveProfile();

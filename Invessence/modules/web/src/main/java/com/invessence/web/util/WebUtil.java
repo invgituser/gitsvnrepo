@@ -532,7 +532,7 @@ public class WebUtil implements Serializable
             return false;
          }
          else if (access == null)
-         {
+         {  // This means, that coder is giving full access to this function (do not check)
             return true;
          }
          else

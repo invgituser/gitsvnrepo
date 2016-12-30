@@ -5,17 +5,17 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <p:tabView id="fundTabV" activeIndex="#{tdcto.subtab}">
-        <p:ajax event="tabChange" listener="#{tdcto.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
+    <p:tabView id="fundTabV" activeIndex="#{tdEditFund.subtab}">
+        <p:ajax event="tabChange" listener="#{tdEditFund.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
                 immediate="true" />
         <p:tab title="Fund" id="tab6S0">
             <!--<p:panel id="fundPanel" style="border: 0px; background: transparent">-->
 
-            <p:panel rendered="#{tdcto.getErrorMessage(9) != null }"
+            <p:panel rendered="#{tdEditFund.getErrorMessage(9) != null }"
                      style="border: 0px; background: transparent"
                      styleClass="Container100 MarAuto ">
                 <h:outputText styleClass="errorText"
-                              value="#{tdcto.getErrorMessage(9)}" escape="false"/>
+                              value="#{tdEditFund.getErrorMessage(9)}" escape="false"/>
             </p:panel>
             <!--</p:panel>-->
             <p:panel id="funddetailsPanel" style="border: 0px; background: transparent" >
@@ -24,20 +24,21 @@
                     <div class="Container80 Fnone MarAuto CustomWidthFA2">
                         <p:selectBooleanCheckbox
                                 styleClass="RegulatoryCheckBox"
-                                value="#{tdcto.tdMasterData.optFund}"
+                                value="#{tdEditFund.tdMasterData.optFund}"
                                 itemLabel="I choose to opt-out one time funding for now.">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId" process="@this" listener="#{tdcto.optoutFundingChange}" />
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId" process="@this"
+                                    listener="#{tdEditFund.optoutFundingChange}" />
 
                         </p:selectBooleanCheckbox>
                     </div>
 
-                    <p:panel id="fundPanel2" style="border: 0px; background: transparent" rendered="#{!tdcto.tdMasterData.optFund}"
+                    <p:panel id="fundPanel2" style="border: 0px; background: transparent" rendered="#{!tdEditFund.tdMasterData.optFund}"
                              >
                         <div class="Container80 Responsive100 MarCenter ui-color"
                              style="margin-bottom: 15px; border: 0px; background: transparent">
 
                             <p:selectOneRadio id="fundRadio"
-                                              value="#{tdcto.tdMasterData.fundType}" layout="custom"
+                                              value="#{tdEditFund.tdMasterData.fundType}" layout="custom"
                                               required="false"
                                               requiredMessage="Must select one of these fund method!">
                                 <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV:funddetailsPanel" />
@@ -127,7 +128,7 @@
                                 <!--<div class="Container45 Fleft CustomWidthFA-Responsive" >-->
                                 <p:panel styleClass="Container45 Fleft CustomWidthFA-Responsive"
                                          style="border: 0px; background: transparent; "
-                                         rendered="#{tdcto.tdMasterData.fundType == 'PMACH'}">
+                                         rendered="#{tdEditFund.tdMasterData.fundType == 'PMACH'}">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">
                                         Investment Amount*</label>
@@ -136,7 +137,7 @@
                                     <p:inputNumber
                                             styleClass="Wid100 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
                                             style="text-align: left;"
-                                            value="#{tdcto.tdMasterData.initialInvestment}" maxlength="11"
+                                            value="#{tdEditFund.tdMasterData.initialInvestment}" maxlength="11"
                                             symbol="$" decimalPlaces="2" required="false"
                                             requiredMessage="Min. of $50,000 investment is required!"
                                             validatorMessage="Min. of $50,000 investment is required!">
@@ -162,28 +163,17 @@
                         <!-- ACH -->
                         <p:panel id="achPanel" styleClass="Container80 Responsive100 Fnone"
                                  style="border: 0px; background: transparent; margin: 0 auto!important;"
-                                 rendered="#{tdcto.tdMasterData.fundType == 'PMACH'}">
+                                 rendered="#{tdEditFund.tdMasterData.fundType == 'PMACH'}">
                             <div class="EmptyBox20"></div>
                             <div class="Container100">
-                                <!-- <div class="Container45 Fleft CustomWidthFA-Responsive">
-                                    <label Class="Container100"
-                                           style="text-align: left !important; font-weight: bold !important;">
-                                        Bank Name  *</label>
-
-                                    <div class="EmptyBox5"></div>
-                                    <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.achBankDetail.bankName}"
-                                                 placeholder="Bank Name">
-                                    </p:inputText>
-                                </div> -->
-                                <div class="Container45 Fleft CustomWidthFA-Responsive">
+                                   <div class="Container45 Fleft CustomWidthFA-Responsive">
                                     <label Class="Container100"
                                            style="text-align: left !important; font-weight: bold !important;">
                                         Account Type *</label>
 
                                     <div class="EmptyBox5"></div>
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-                                                     value="#{tdcto.tdMasterData.achBankDetail.bankAcctType}"
+                                                     value="#{tdEditFund.tdMasterData.achBankDetail.bankAcctType}"
                                                      style="width: 100%;">
                                         <p:ajax event="change" update="@this" process="@this"/>
                                         <f:selectItem itemLabel="Select Account Type" itemValue=""
@@ -203,7 +193,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.achBankDetail.bankName}"
+                                                 value="#{tdEditFund.tdMasterData.achBankDetail.bankName}"
                                                  maxlength="90"
                                                  placeholder="Bank Name">
                                     </p:inputText>
@@ -215,7 +205,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.achBankDetail.bankAcctName}"
+                                                 value="#{tdEditFund.tdMasterData.achBankDetail.bankAcctName}"
                                                  maxlength="90"
                                                  placeholder="Name on Bank Account">
                                     </p:inputText>
@@ -230,7 +220,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.achBankDetail.bankCityState}"
+                                                 value="#{tdEditFund.tdMasterData.achBankDetail.bankCityState}"
                                                  maxlength="30"
                                                  placeholder="Bank City/State">
                                     </p:inputText>
@@ -242,7 +232,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputMask styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.achBankDetail.bankPhoneNumber}"
+                                                 value="#{tdEditFund.tdMasterData.achBankDetail.bankPhoneNumber}"
                                                  maxlength="15"
                                                  mask="(999) 999-9999"
                                                  placeholder="Bank Phone Number">
@@ -262,7 +252,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.achBankDetail.bankABARouting}"
+                                                 value="#{tdEditFund.tdMasterData.achBankDetail.bankABARouting}"
                                                  maxlength="40"
                                                  placeholder="ABA Routing Number">
                                     </p:inputText>
@@ -274,7 +264,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.achBankDetail.bankAcctNumber}"
+                                                 value="#{tdEditFund.tdMasterData.achBankDetail.bankAcctNumber}"
                                                  maxlength="90"
                                                  placeholder="Bank Account Number">
                                     </p:inputText>
@@ -286,7 +276,7 @@
                         <!-- ACAT -->
                         <p:panel id="acatPanel" styleClass="Container80 Responsive100 FundCenterAlignBlock"
                                  style="border: 0px; background: transparent"
-                                 rendered="#{tdcto.tdMasterData.fundType == 'PMFEDW'}">
+                                 rendered="#{tdEditFund.tdMasterData.fundType == 'PMFEDW'}">
                             <!-- 2 -->
                             <div class="EmptyBox20"></div>
                             <div class="Container100 FundTitle">Information on the account your transferring from</div>
@@ -299,7 +289,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.acatDetails.fromAccountTitle}"
+                                                 value="#{tdEditFund.tdMasterData.acatDetails.fromAccountTitle}"
                                                  maxlength="100"
                                                  placeholder="Account Title / Registration">
                                     </p:inputText>
@@ -310,7 +300,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.acatDetails.accountNumber2}"
+                                                 value="#{tdEditFund.tdMasterData.acatDetails.accountNumber2}"
                                                  maxlength="90"
                                                  placeholder="Account Number">
                                     </p:inputText>
@@ -320,7 +310,7 @@
                                            style="text-align: left !important; font-weight: bold !important;">Account Type *</label>
                                     <div class="EmptyBox5"></div>
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-                                                     value="#{tdcto.tdMasterData.acatDetails.fromOtherAccountType}"
+                                                     value="#{tdEditFund.tdMasterData.acatDetails.fromOtherAccountType}"
                                                      style="width: 100%;">
                                         <p:ajax event="change" update="@this" process="@this" />
                                         <f:selectItem itemLabel="Select Account Type" itemValue=""
@@ -333,33 +323,27 @@
                                     </p:selectOneMenu>
                                     <div class="EmptyBox5"></div>
 
-                            <!--<p:panel id="acatOtherPanel" styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                     style="border: 0px; background: transparent">
-                                    <p:inputText id="FundOthrID"
-                                                 rendered="#{tdcto.tdMasterData.acatDetails.contraFirmList == 'OTH'}"
-                                                 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.acatDetails.otherContraFirmList}"
-                                                 maxlength="90"
-                                                 placeholder="Other Delivery Firm">
-                                    </p:inputText>
-                                    </p:panel>-->
-                                </div>
+                               </div>
                             </div>
                             <div class="EmptyBox10"></div>
 
                                     <div class="Container100">
                                         <div class="Container100 CustomWidthFA-Responsive" >
                                             <label Class="Container100" for="event"
-                                                   style="text-align: left !important; font-weight: bold !important;">Name of Delivering Firm *</label>
+                                                   style="text-align: left !important; font-weight: bold !important;">
+                                                Name of Delivering Firm *</label>
 
                                             <div class="EmptyBox5"></div>
-                                            <p:autoComplete id="event" value="#{tdcto.tdMasterData.acatDetails.contraFirmList}"
-                                                     forceSelection="false" placeholder="Name of Delivering Firm"       styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
-                                                          completeMethod="#{tdcto.tdMasterData.lookUpfirm}" minQueryLength="3" >
-                                                <p:ajax event="itemSelect" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
-                                                      listener="${tdcto.tdMasterData.resetContraFirmList}" />
-                                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"   process="@this"
-                                                        listener="${tdcto.tdMasterData.resetContraFirmList}" />
+                                            <p:autoComplete id="event" value="#{tdEditFund.tdMasterData.acatDetails.contraFirmList}"
+                                                     forceSelection="false" placeholder="Name of Delivering Firm"
+                                                            styleClass="Wid60 FS14 CustomWidthFA-Responsive autoComplteteField"
+                                                          completeMethod="#{tdEditFund.tdMasterData.lookUpfirm}" minQueryLength="3" >
+                                                <p:ajax event="itemSelect" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"
+                                                        process="@this"
+                                                      listener="${tdEditFund.tdMasterData.resetContraFirmList}" />
+                                                <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV:acatOtherPanel"
+                                                        process="@this"
+                                                        listener="${tdEditFund.tdMasterData.resetContraFirmList}" />
                                             </p:autoComplete>
 
                                         </div>
@@ -369,11 +353,12 @@
 
                                         <div class="Container32 CustomWidthFA-Responsive" >
                                             <label Class="Container100"
-                                                   style="text-align: left !important; font-weight: bold !important;">Physical Address of Firm</label>
+                                                   style="text-align: left !important; font-weight: bold !important;">
+                                                Physical Address of Firm</label>
 
                                             <div class="EmptyBox5"></div>
                                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                                         value="#{tdcto.tdMasterData.acatDetails.fromFirmAddress}"
+                                                         value="#{tdEditFund.tdMasterData.acatDetails.fromFirmAddress}"
                                                          maxlength="90"
                                                          placeholder="Physical Address of Firm">
                                             </p:inputText>
@@ -384,7 +369,7 @@
 
                                             <div class="EmptyBox5"></div>
                                             <p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
-                                                         value="#{tdcto.tdMasterData.acatDetails.fromFirmPhoneNumber}"
+                                                         value="#{tdEditFund.tdMasterData.acatDetails.fromFirmPhoneNumber}"
                                                          maxlength="15"
                                                          mask="(999) 999-9999" placeholder="Phone Number">
                                             </p:inputMask>
@@ -401,7 +386,7 @@
                                     <div class="Container100 Fleft">
                                         <div style="margin-top: 15px;">
                                             <p:selectOneRadio
-                                                    value="#{tdcto.tdMasterData.acatDetails.transferTypeId}">
+                                                    value="#{tdEditFund.tdMasterData.acatDetails.transferTypeId}">
                                                 <f:selectItem itemLabel="Full Transfer" itemValue="FULL"/>
                                                 <f:selectItem itemLabel="Partial Transfer" itemValue="PARTIAL"/>
                                             </p:selectOneRadio>
@@ -420,7 +405,7 @@
                         <!-- TD Transer -->
                         <p:panel id="tdtrfPanel" styleClass="Container80 Responsive100 Fnone"
                                  style="border: 0px; background: transparent; margin: 0 auto!important;"
-                                 rendered="#{tdcto.tdMasterData.fundType == 'TDTRF'}">
+                                 rendered="#{tdEditFund.tdMasterData.fundType == 'TDTRF'}">
                             <div class="EmptyBox20"></div>
                             <div class="Container100">
                                 <div class="Container45 Fleft CustomWidthFA-Responsive">
@@ -429,9 +414,10 @@
                                         Is this a Retail or Advisor managed account ? </label>
 
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-                                                     value="#{tdcto.tdMasterData.tdTransferDetails.retilFlag}"
+                                                     value="#{tdEditFund.tdMasterData.tdTransferDetails.retilFlag}"
                                                      style="width: 100%;">
-                                        <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this"  listener="${tdcto.tdMasterData.resetRetailFlag}"/>
+                                        <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this"
+                                                listener="${tdEditFund.tdMasterData.resetRetailFlag}"/>
                                         <f:selectItem itemLabel="Select Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Retail" itemValue="N"/>
@@ -439,20 +425,11 @@
 
                                     </p:selectOneMenu>
                                 </div>
-                                <!--<div class="Container100 Fleft CustomWidthFA-Responsive">
-                                    <p:selectBooleanCheckbox
-                                            styleClass="RegulatoryCheckBox"
-                                            value="#{tdcto.tdMasterData.tdTransferDetails.removeAdvisor}"
-                                            itemLabel="Is this a Retail or Advisor managed account?">
-                                        <p:ajax update=":ctoForm:tdaccordian:fundTabV"/>
-
-                                    </p:selectBooleanCheckbox>
-                                </div>-->
                             </div>
                             <div class="EmptyBox20"></div>
                             <p:panel id="tdtrfDetails1" styleClass="Container100 Responsive100 Fnone"
                                      style="border: 0px; background: transparent; margin: 0 auto!important;"
-                                     rendered="#{tdcto.tdMasterData.tdTransferDetails.retilFlag=='Y'}">
+                                     rendered="#{tdEditFund.tdMasterData.tdTransferDetails.retilFlag=='Y'}">
                             <div class="Container100">
                                 <div class="Container45 Fleft MarAuto CustomWidthFA2">
                                     <label Class="Container100"
@@ -461,7 +438,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.tdTransferDetails.priorFirmName}"
+                                                 value="#{tdEditFund.tdMasterData.tdTransferDetails.priorFirmName}"
                                                  maxlength="90"
                                                  placeholder="Existing Advisory Firm Name">
                                     </p:inputText>
@@ -473,7 +450,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.tdTransferDetails.firmAccountNo}"
+                                                 value="#{tdEditFund.tdMasterData.tdTransferDetails.firmAccountNo}"
                                                  maxlength="45"
                                                  placeholder="Firm Account Number">
                                     </p:inputText>
@@ -482,7 +459,7 @@
                                 </p:panel>
                             <p:panel id="tdtrfDetails2" styleClass="Container100 Responsive100 Fnone"
                                      style="border: 0px; background: transparent; margin: 0 auto!important;"
-                                     rendered="#{tdcto.tdMasterData.tdTransferDetails.retilFlag=='N'}">
+                                     rendered="#{tdEditFund.tdMasterData.tdTransferDetails.retilFlag=='N'}">
 
                             <div class="Container100">
                                 <div class="Container45 Fleft CustomWidthFA-Responsive">
@@ -492,7 +469,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.tdTransferDetails.retailAccountNumber}"
+                                                 value="#{tdEditFund.tdMasterData.tdTransferDetails.retailAccountNumber}"
                                                  maxlength="15"
                                                  placeholder="TD Ameritrade Retail Brokerage Account Number">
                                     </p:inputText>
@@ -504,7 +481,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.tdTransferDetails.advisorID}"
+                                                 value="#{tdEditFund.tdMasterData.tdTransferDetails.advisorID}"
                                                  maxlength="15"
                                                  placeholder="Advisor ID">
                                     </p:inputText>
@@ -518,7 +495,7 @@
                         <!-- Wire transfer -->
                         <p:panel id="wirePanel" styleClass="Container80 Fnone"
                                  style="border: 0px; background: transparent; margin: 0 auto!important;"
-                                 rendered="#{tdcto.tdMasterData.fundType == '3'}">
+                                 rendered="#{tdEditFund.tdMasterData.fundType == '3'}">
                             <div class="EmptyBox20"></div>
                             <div class="Container100 FundTitle">Domestic Wire Information</div>
 
@@ -531,7 +508,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
-                                                 value="#{tdcto.tdMasterData.fedwireAcctDetail.wireBankName}"
+                                                 value="#{tdEditFund.tdMasterData.fedwireAcctDetail.wireBankName}"
                                                  maxlength="90"
                                                  placeholder="Receiving Bank Name">
                                     </p:inputText>
@@ -583,16 +560,16 @@
                 </div>
                 <div class="Container80 MarTop20" style="margin: 0 auto!important; float: none!important; text-align: center;">
 
-                        <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" rendered="#{!tdcto.tdMasterData.fundNow}"
+                        <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" rendered="#{!tdEditFund.tdMasterData.fundNow}"
                                    style="padding: 13px 48px; float: none!important"
-                                   actionListener="#{tdcto.nextPageEdit}"
+                                   actionListener="#{tdEditFund.nextPageEdit}"
                                    update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
                                    process=":ctoForm:tdaccordian:fundTabV"/>
 
                     <div class="saveNopenBtn" style="text-align: right;">
-                        <p:commandButton value="Save" rendered="#{tdcto.tdMasterData.fundNow}"
+                        <p:commandButton value="Save" rendered="#{tdEditFund.tdMasterData.fundNow}"
                                          update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
-                                         actionListener="#{tdcto.nextPage}"
+                                         actionListener="#{tdEditFund.nextPage}"
                                          process=":ctoForm:tdaccordian:fundTabV">
 
                         </p:commandButton>
@@ -606,11 +583,11 @@
         </p:tab>
 
         <p:tab  id="tab6S1" title="Recurring" >
-            <p:panel rendered="#{tdcto.getErrorMessage(10) != null}"
+            <p:panel rendered="#{tdEditFund.getErrorMessage(10) != null}"
                      style="border: 0px; background: transparent"
                      styleClass="Container100">
                 <h:outputText styleClass="errorText"
-                              value="#{tdcto.getErrorMessage(10)}" escape="false"/>
+                              value="#{tdEditFund.getErrorMessage(10)}" escape="false"/>
             </p:panel>
             <p:panel id="recurrringPanel" styleClass="Container100"
                      style="border: 0px; background: transparent" >
@@ -619,23 +596,25 @@
                     <div class="Container100 CustomWidthFA2 MarTop5">
                         <p:selectBooleanCheckbox
                                 styleClass="RegulatoryCheckBox"
-                                value="#{tdcto.tdMasterData.recurringFlag}"
+                                value="#{tdEditFund.tdMasterData.recurringFlag}"
                                 itemLabel="I choose to opt-out of setting up a recurring contribution at this time.">
-                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId" listener="${tdcto.tdMasterData.resetRecurringFlagData}"/>
+                            <p:ajax update=":ctoForm:tdaccordian:fundTabV,:ctoForm:submitBtnId"
+                                    listener="${tdEditFund.tdMasterData.resetRecurringFlagData}"/>
                         </p:selectBooleanCheckbox>
 
                     </div>
 
 
                     <p:panel style="border: 0px; background: transparent"
-                             rendered="#{!tdcto.tdMasterData.recurringFlag}">
+                             rendered="#{!tdEditFund.tdMasterData.recurringFlag}">
 
                         <!-- Rerurring -->
                         <div class="Container100 CustomWidthFA2 MarTop5">
-                            <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerSPF}"
+                            <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdEditFund.tdMasterData.ownerSPF}"
                                                      itemLabel="Please use the existing account details"
-                                                     rendered="#{tdcto.tdMasterData.fundType == 'PMACH' and !tdcto.tdMasterData.optFund}" >
-                                <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel" listener="#{tdcto.tdMasterData.existingAccount}"/>
+                                                     rendered="#{tdEditFund.tdMasterData.fundType == 'PMACH' and !tdEditFund.tdMasterData.optFund}" >
+                                <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel"
+                                        listener="#{tdEditFund.tdMasterData.existingAccount}"/>
 
                             </p:selectBooleanCheckbox>
                         </div>
@@ -648,7 +627,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-                                                 value="#{tdcto.tdMasterData.electroicBankDetail.tranFreqId}"
+                                                 value="#{tdEditFund.tdMasterData.electroicBankDetail.tranFreqId}"
                                                  style="width: 100%;">
                                     <p:ajax event="change" update="@this" />
                                     <f:selectItem itemLabel="Select Frequency" itemValue=""
@@ -681,7 +660,7 @@
                                 <p:inputNumber
                                         styleClass="Wid100 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
                                         style="text-align: left;"
-                                        value="#{tdcto.tdMasterData.electroicBankDetail.tranAmount}"
+                                        value="#{tdEditFund.tdMasterData.electroicBankDetail.tranAmount}"
                                         maxlength="11" symbol="$" decimalPlaces="2" required="false"
                                         requiredMessage="Min. of $50 is required!"
                                         validatorMessage="Min. of $50 is required!">
@@ -694,7 +673,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.tranStartDate}"
+                                             value="#{tdEditFund.tdMasterData.electroicBankDetail.tranStartDate}"
                                              maxlength="10"
                                              mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
                                 </p:inputMask>
@@ -710,8 +689,9 @@
                                     Account Type *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
-                                                 value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctType}"
+                                <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                                 disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                                 value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctType}"
                                                  style="width: 100%;">
                                     <p:ajax/>
                                     <f:selectItem itemLabel="Select Account Type" itemValue=""
@@ -729,19 +709,23 @@
                                     Bank Name  *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankName}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             value="#{tdEditFund.tdMasterData.electroicBankDetail.bankName}"
                                              maxlength="90"
                                              placeholder="Bank Name">
                                 </p:inputText>
                             </div>
                             <div class="Container45 Fright CustomWidthFA-Responsive">
                                 <label Class="Container100"
-                                       style="text-align: left !important; font-weight: bold !important;">Bank Account Title <span class="Fs12">(Please provide full title of the account)</span> *</label>
+                                       style="text-align: left !important; font-weight: bold !important;">
+                                    Bank Account Title <span class="Fs12">
+                                    (Please provide full title of the account)</span> *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctName}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctName}"
                                              maxlength="90"
                                              placeholder="Bank Account Title">
                                 </p:inputText>
@@ -755,8 +739,9 @@
                                     Bank City/State  *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankCityState}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             value="#{tdEditFund.tdMasterData.electroicBankDetail.bankCityState}"
                                              maxlength="90"
                                              placeholder="Bank City/State">
                                 </p:inputText>
@@ -766,8 +751,9 @@
                                        style="text-align: left !important; font-weight: bold !important;">Bank Phone Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankPhoneNumber}"
+                                <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             value="#{tdEditFund.tdMasterData.electroicBankDetail.bankPhoneNumber}"
                                              maxlength="15"
                                              mask="(999) 999-9999"
                                              placeholder="Bank Phone Number">
@@ -786,8 +772,9 @@
                                     Routing Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankABARouting}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             value="#{tdEditFund.tdMasterData.electroicBankDetail.bankABARouting}"
                                              maxlength="40"
                                              placeholder="ABA Routing Number">
                                 </p:inputText>
@@ -798,8 +785,9 @@
                                     Bank Account Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
-                                             value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctNumber}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctNumber}"
                                              maxlength="90"
                                              placeholder="Bank Account Number">
                                 </p:inputText>
@@ -813,7 +801,7 @@
                     <div class="EmptyBox10"></div>
                     <div class="Container100 MarTop20" style="margin: 10px 10px; text-align: center;">
                         <p:commandLink styleClass="UI-prevButtonFA" style=" padding: 13px 30px; float: none!important;"
-                                       actionListener="#{tdcto.prevPageEdit}"
+                                       actionListener="#{tdEditFund.prevPageEdit}"
                                        update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
                             <div class="saveNopenBtn" style="text-align:right;">
                                 </div>

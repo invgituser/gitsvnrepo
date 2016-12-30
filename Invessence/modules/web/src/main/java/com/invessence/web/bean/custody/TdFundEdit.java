@@ -1,32 +1,26 @@
 package com.invessence.web.bean.custody;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.converter.JavaUtil;
 import com.invessence.web.constant.WebConst;
-import com.invessence.web.dao.common.*;
+import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.dao.custody.*;
 import com.invessence.web.data.common.UserData;
-import com.invessence.web.data.custody.*;
+import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.*;
-import com.invessence.web.data.custody.td.BenefiaciaryDetails;
-import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
+import com.invessence.web.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.service.ServiceLayerImpl;
-import org.apache.commons.lang.SystemUtils;
 import org.apache.commons.logging.*;
-import org.primefaces.component.accordionpanel.AccordionPanel;
-import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
-import java.text.SimpleDateFormat;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,22 +30,26 @@ import java.text.SimpleDateFormat;
  * To change this template use File | Settings | File Templates.
  */
 
-@ManagedBean(name = "tdcto")
+@ManagedBean(name = "tdEditFund")
 @SessionScoped
-public class TdCto extends BaseTD
+public class TdFundEdit extends BaseTD
 {
    private Integer activeTab = 0;   // Start with first tab.
    public Integer newTab, subtab;
    private String saveandOpenError;
 
-
-   public void startCTO()
+   public void editStartCTO()
    {
       String msgheader;
       try
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            if (!getWebutil().validatePriviledge(WebConst.ROLE_USER))
+            {
+               return;
+            }
+
             if (getBeanacctnum() == null || getBeanacctnum().isEmpty())
             {
                msgheader = "dctd.100";
@@ -61,37 +59,16 @@ public class TdCto extends BaseTD
             // clear all data.
             setPagemanager(new PagesImpl(10));
             setTdMasterData(new TDMasterData(getPagemanager(), getLongBeanacctnum()));
-            String loadVal = loadData();
-            Boolean check = false;
-
-            // If account is managed
-            if (loadVal.equalsIgnoreCase("ACCOUNTMANAGED"))
-            {
-               msgheader = "dctd.103";
-               getWebutil().redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               return;
-            }
-
-            if (! loadVal.equalsIgnoreCase("success"))
-            {
-               // msgheader = "dctd.102";
-               // webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
-               getWebutil().accessdenied();
-               return;
-            }
-
             // load firm list for ACAt details
-            loadACATFirmList();
-            // Check all data to find out where they left off last time.
-            // Just don't display error. Just go to that page.
+
             // Start fresh, clean and start from top page.
-            Boolean status = validateAllPage();
+            getCustodyListDAO().getAcatFirmList(getTdMasterData());
             Integer currentPage = getPagemanager().getPage();
-            getPagemanager().initPage();
-            resetActiveTab(0);
-            getPagemanager().setLastPageVisited(currentPage);
+            activeTab=0;
+            getPagemanager().setPage(9);
             getPagemanager().clearAllErrorMessage();
             saveandOpenError = null;
+            editFundingInitPage();
          }
       }
       catch (Exception ex)
@@ -175,14 +152,11 @@ public class TdCto extends BaseTD
 
             }
          }
-
       }
-
       catch (Exception ex)
       {
          getPagemanager().setPage(0);
          //setActiveTab(0);
-
       }
    }
 
@@ -461,20 +435,45 @@ public class TdCto extends BaseTD
 
       getTdMasterData().getCustomerData().setAcctnum(getLongBeanacctnum());
       getTdMasterData().getCustomerData().setLogonid(logonid);
-      loadCustomerProfileData();
+      getConsumerListDAO().getProfileData(getTdMasterData().getCustomerData());
 
       if (getTdMasterData().getCustomerData().getUserid() == null)
       {
          retValue = "NOACCOUNTMAP";
          return retValue;
       }
+/*
+      if (getLongBeanlogonid(). != webutil.getLogonid())
+      {
+         retValue = "differenUser";
+         return retValue;
+      }
+*/
 
       if (getTdMasterData().getCustomerData().getEditable())
       {
-         loadTDAccountDetails();
-         loadTDEmployment();
-         loadTDBeneficiary();
-         loadTDFunding();
+         getCustodyListDAO().getTDAccountDetails(getTdMasterData());
+         getCustodyListDAO().getTDAccountHolder(getTdMasterData());
+         getCustodyListDAO().getTDEmployment(getTdMasterData());
+         if (getTdMasterData().getOptoutBeneficiary())
+         {
+            getCustodySaveDAO().deleteBenefiaciaryDetails(getTdMasterData());
+         }
+         getCustodyListDAO().getTDBeneficiary(getTdMasterData());
+         if (!getTdMasterData().getOptoutFunding())
+         {
+            getCustodyListDAO().getfundingData(getTdMasterData());
+            if (getTdMasterData().getOptoutRecurring())
+            {
+               getTdMasterData().setRecurringFlag(true);
+            }
+         }
+         else
+         {
+            getTdMasterData().setFundNow(true);
+            getTdMasterData().setRecurringFlag(true);
+         }
+
 
          // Fix issues related to bad data.
          if (getTdMasterData().getAcctOwnersDetail().getOwnership() == null ||
@@ -498,29 +497,128 @@ public class TdCto extends BaseTD
       }
    }
 
-   public void openAccount()
+
+   public void editFundingInitPage()
+   {
+     try
+      {
+
+         loadTDAccountDetails();
+         loadTDFunding();
+      }
+      catch (Exception e)
+      {
+
+      }
+
+   }
+
+   public void nextPageEdit()
+   {
+      if(getTdMasterData().getOptFund())
+      {
+         activeTab = 0;
+         subtab = 1;
+      }
+      else
+      {
+         if (validatePage(getPagemanager().getPage()))
+         {
+            // saveData(pagemanager.getPage());
+            if (getPagemanager().isLastPage())
+               getTdMasterData().setSubmitButton(true);
+            else
+               getTdMasterData().setSubmitButton(false);
+
+            getPagemanager().clearAllErrorMessage();
+            if (getPagemanager().isLastPage() || (getPagemanager().getPage() == 9 && getTdMasterData().getFundNow()))
+               resetActiveTab(11);
+            else
+            {
+               getPagemanager().nextPage();
+               activeTab = 0;
+               subtab = 1;
+            }
+            saveandOpenError = null;
+         }
+      }
+   }
+   public void prevPageEdit()
+   {
+      activeTab=0;
+      subtab=0;
+
+   }
+   public void optoutFundingChange()
+   {
+      if(getTdMasterData().getOptFund())
+      {
+         activeTab=0;
+         subtab=1;
+         getTdMasterData().setOwnerSPF(false);
+      }
+      else
+      {
+         activeTab=0;
+         subtab=0;
+      }
+   }
+
+   public void editFunddataSave()
    {
       String msg, msgheader;
 
       try
       {
-         if (!validateAllPage())
+         if (!getTdMasterData().getOptFund()&& !validatePage(9))
+         {
+            activeTab = 0;
+            subtab = 0;
             return;
+         }
+         else
+         {
+            getPagemanager().nextPage();
+            pageControl(getPagemanager().getPage());
+         }
+         if (!getTdMasterData().getRecurringFlag()&& !validatePage(10))
+         {
+            activeTab = 0;
+            subtab = 1;
+            return;
+         }
+
 
          WSCallStatus wsstatus;
          WSCallResult wsCallResult;
 
-         saveTDNewRequest();
-         System.out.println("Account Number:-" + getTdMasterData().getAcctnum() + " ---Event Number=" + getTdMasterData().getRequest().getEventNum());
+         if(!getTdMasterData().getOptFund())
+         {
+            if (getTdMasterData().getFundType() != null && getTdMasterData().getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
+               getCustodySaveDAO().tdsaveACHData(getTdMasterData(), "ACH");
+            else if (getTdMasterData().getFundType() != null && getTdMasterData().getFundType().equalsIgnoreCase("PMFEDW"))
+               getCustodySaveDAO().tdSaveACAT(getTdMasterData(), getTdMasterData().getAcctnum(), getTdMasterData().getAcatDetails());
+
+            else if (getTdMasterData().getFundType() != null && getTdMasterData().getFundType().equalsIgnoreCase("TDTRF"))
+               getCustodySaveDAO().tdSaveTDTransferData(getTdMasterData(), getTdMasterData().getAcctnum(), getTdMasterData().getTdTransferDetails());
+         }
+         if(!getTdMasterData().getRecurringFlag())
+         {
+            getCustodySaveDAO().tdSaveEFTEdit(getTdMasterData());
+         }
+
+
+
          wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
-            msg = wsCallResult.getWSCallStatus().getErrorMessage();
+               msg = wsCallResult.getWSCallStatus().getErrorMessage();
+
             getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
          }
          else
          {
-            sendAlertMessage("P");
+            sendAlertMessage("F");
             getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
          }
       }
@@ -532,4 +630,5 @@ public class TdCto extends BaseTD
 
       }
    }
+
 }

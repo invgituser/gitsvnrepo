@@ -11,6 +11,8 @@ import com.invessence.web.dao.common.CommonDAO;
 public class WebProfile
 {
    String url;
+   Boolean forced; // forced, would mean override the default url and use given URL.
+   String mode;    // This mode will be set on forced.  (DEMO, UAT to control some flow on webpage).
    Map<String, String> webInfo;
 
    @ManagedProperty("#{commonDAO}")
@@ -56,6 +58,26 @@ public class WebProfile
       this.url = url;
    }
 
+   public Boolean getForced()
+   {
+      return forced;
+   }
+
+   public void setForced(Boolean forced)
+   {
+      this.forced = forced;
+   }
+
+   public String getMode()
+   {
+      return mode;
+   }
+
+   public void setMode(String mode)
+   {
+      this.mode = mode;
+   }
+
    public void loadData(String url) {
       // If we already loaded data for this URL, then don't reload.
       if (url != null && url.equalsIgnoreCase(url)) {
@@ -71,6 +93,7 @@ public class WebProfile
          setdefault();
       }
    }
+
 
    public void setdefault() {
       webInfo.put(	"ARCHIVE.CLOSED"	,	"10"	);
