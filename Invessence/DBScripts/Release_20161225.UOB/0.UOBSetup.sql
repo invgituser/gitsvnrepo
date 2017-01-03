@@ -1,4 +1,5 @@
-DELETE FROM `invdb`.`user_basket_access`;
+DELETE FROM `invdb`.`user_basket_access`
+where `advisor` in ('Invessence', 'UOB');
 
 INSERT INTO `invdb`.`user_basket_access`
 (`advisor`,`theme`,`status`,`displayname`,`sortorder`,`primary`,`taxable`,`created`)
