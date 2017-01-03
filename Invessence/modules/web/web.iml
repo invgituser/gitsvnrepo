@@ -48,8 +48,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.primefaces.extensions:resources-codemirror:6.0.0" level="project" />
     <orderEntry type="library" name="org.primefaces.extensions:primefaces-extensions:6.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.7.2" level="project" />
-    <orderEntry type="library" name="Maven: org.primefaces:primefaces-mobile:0.9.3" level="project" />
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="broker-webservices" />
     <orderEntry type="module" module-name="service" />

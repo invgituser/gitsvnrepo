@@ -27,7 +27,7 @@
 
                             <div class="Container100">
                                 <div class="Container100 MarTop5">
-                                    <div class="Fright Responsive50">
+                                    <div class="Fright Responsive50 textRAlign">
                                         <p:selectOneButton value="#{advisornotificationBean.filterNotice}">
                                             <f:selectItem itemLabel="New" itemValue="N"/>
                                             <f:selectItem itemLabel="Archived" itemValue="A"/>
@@ -40,13 +40,8 @@
                                                  widgetVar="messageWidget"
                                                  emptyMessage="No Messages were created."
                                                  reflow="true">
-
-                                        <!--<p:column style="width: 1%; background-color: #{msg.color};">
-                                            <h:outputText value=" "/>
-                                        </p:column>-->
-
                                         <p:column style="text-align: center;" styleClass="TextAlLeft" resizable="true">
-                                            <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
+                                          <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
                                                              styleClass="Fs16 BlueButton DualBtnModeLeft" title="Archive"
                                                              process="@this" immediate="true"
                                                              icon="fa fa-check Fs14 white"
@@ -74,7 +69,9 @@
 
                                         <p:column styleClass="Fs14 TexAlLeft"
                                                   headerText="Message" resizable="true">
-                                            <h:outputText value="#{msg.message}" escape="false">
+
+
+                                           <h:outputText value="#{msg.message}" escape="false">
                                             </h:outputText>
                                         </p:column>
 

@@ -6,6 +6,15 @@
         xmlns:p="http://primefaces.org/ui">
 
     <div id="menu-mask"></div>
+    <p:ajaxStatus styleClass="tcmLoaderBackground">
+        <f:facet name="start">
+            <p:graphicImage name="demo/images/preloader.gif"/>
+        </f:facet>
+
+        <f:facet name="complete">
+            <h:outputText value=""/>
+        </f:facet>
+    </p:ajaxStatus>
 
     <ui:include src="/template/common/spark/topbar.xhtml"/>
 
@@ -30,15 +39,7 @@
         </div>
     </div>
 
-    <p:ajaxStatus style="position:fixed;right:5px;bottom:5px">
-        <f:facet name="start">
-            <p:graphicImage name="demo/images/preloader.gif"/>
-        </f:facet>
 
-        <f:facet name="complete">
-            <h:outputText value=""/>
-        </f:facet>
-    </p:ajaxStatus>
 
 
     <h:outputStylesheet name="css/core-layout.css" library="spark-layout"/>
