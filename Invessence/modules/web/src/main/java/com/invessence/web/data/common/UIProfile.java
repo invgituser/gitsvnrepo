@@ -159,6 +159,11 @@ public class UIProfile
       return cssdir;
    }
 
+   public Boolean getHasCustomcss()
+   {
+      return (customcss == null) ? false : (customcss.length() > 0) ? true : false;
+   }
+
    public String getCustomcss()
    {
       return customcss;
@@ -244,6 +249,16 @@ public class UIProfile
       return webmode;
    }
 
+   public Boolean getHasGoogleAnalytic()
+   {
+      if (googleAnalytic == null)
+         return false;
+      if (googleAnalytic.length() > 0)
+         return true;
+      else
+         return false;
+
+   }
    public String getGoogleAnalytic()
    {
       return googleAnalytic;
@@ -269,6 +284,10 @@ public class UIProfile
       this.custodydir = custodydir;
    }
 
+   public Boolean getHasCustodycss()
+   {
+      return (custodycss == null) ? false : (custodycss.length() > 0) ? true : false;
+   }
    public String getCustodycss()
    {
       return custodycss;

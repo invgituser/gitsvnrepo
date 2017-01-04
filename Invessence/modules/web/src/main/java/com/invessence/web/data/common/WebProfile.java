@@ -15,16 +15,11 @@ public class WebProfile
    String mode;    // This mode will be set on forced.  (DEMO, UAT to control some flow on webpage).
    Map<String, String> webInfo;
 
-   @ManagedProperty("#{commonDAO}")
-   private CommonDAO commonDAO;
-   public void setCommonDAO(CommonDAO commonDAO)
-   {
-      this.commonDAO = commonDAO;
-   }
 
    public WebProfile()
    {
       url=null;
+      forced=false;
       webInfo = new HashMap<String, String>();
       setdefault();
    }
@@ -36,7 +31,7 @@ public class WebProfile
 
    public void setWebInfo(Map<String, String> webInfo)
    {
-      this.webInfo = webInfo;
+      if (webInfo != null) { this.webInfo = webInfo; }
    }
 
    public String getInfo(String key) {
@@ -78,21 +73,6 @@ public class WebProfile
       this.mode = mode;
    }
 
-   public void loadData(String url) {
-      // If we already loaded data for this URL, then don't reload.
-      if (url != null && url.equalsIgnoreCase(url)) {
-         return;
-      }
-
-      if (commonDAO != null)
-      {
-         webInfo = commonDAO.getWebSiteInfo(url);
-      }
-
-      if (webInfo == null) {
-         setdefault();
-      }
-   }
 
 
    public void setdefault() {

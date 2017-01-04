@@ -10,7 +10,8 @@ import com.invessence.service.bean.WebConfigDetails;
 import com.invessence.service.util.ServiceParameters;
 import com.invessence.web.bean.custody.TdCto;
 import com.invessence.web.constant.WebConst;
-import com.invessence.web.data.common.UIProfile;
+import com.invessence.web.dao.common.CommonDAO;
+import com.invessence.web.data.common.*;
 import org.primefaces.component.tabview.TabView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -40,6 +41,9 @@ public class UILayout implements Serializable
    @Autowired
    private WebUtil webutil;
 
+   @Autowired
+   private CommonDAO commonDAO;
+
    public WebUtil getWebutil()
    {
       return webutil;
@@ -49,6 +53,8 @@ public class UILayout implements Serializable
    {
       return webutil.getUiprofile();
    }
+
+   public WebProfile getWebProfile() { return webutil.getWebprofile(); }
 
    private String webserviceDB(Map<String, WebConfigDetails> webDB, String name)
    {
@@ -165,9 +171,28 @@ public class UILayout implements Serializable
       }
    }
 
+   public void loadData(String url) {
+      if (commonDAO != null)
+      {
+         webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
+      }
+   }
+
+
    public void resetCIDProfile(String cid)
    {
       String uri = webutil.getURLAddress("Invessence");
+      String origurl = webutil.getWebprofile().getUrl();
+
+      if (origurl == null || (! origurl.equalsIgnoreCase(uri))) {
+         if (! webutil.getWebprofile().getForced())
+         {
+            webutil.getWebprofile().setUrl(uri);
+            webutil.getWebprofile().setForced(true);
+            loadData(uri);
+         }
+      }
+
 
       if (cid != null)
       {

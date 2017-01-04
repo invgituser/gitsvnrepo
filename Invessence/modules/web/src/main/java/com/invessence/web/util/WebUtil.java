@@ -28,6 +28,7 @@ public class WebUtil implements Serializable
 {
    protected final Log webutillooger = LogFactory.getLog(getClass());
    public UIProfile uiprofile = new UIProfile();
+   public WebProfile webprofile = new WebProfile();
    public SQLData converter = new SQLData();
    public DataDisplayConverter dataDisplayConverter = new DataDisplayConverter();
 
@@ -56,6 +57,11 @@ public class WebUtil implements Serializable
    public UIProfile getUiprofile()
    {
       return uiprofile;
+   }
+
+   public WebProfile getWebprofile()
+   {
+      return webprofile;
    }
 
    public boolean isWebProdMode()

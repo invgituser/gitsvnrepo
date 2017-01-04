@@ -39,9 +39,6 @@
         </div>
     </div>
 
-
-
-
     <h:outputStylesheet name="css/core-layout.css" library="spark-layout"/>
     <h:outputStylesheet name="css/custom.css" library="spark-layout"/>
     <h:outputStylesheet name="css/font-awesome.css" library="spark-layout"/>
@@ -50,10 +47,10 @@
     <h:outputStylesheet name="css/animate.css" library="spark-layout"/>
     <h:outputStylesheet name="css/modena-font.css" library="spark-layout"/>
     <h:outputStylesheet name="css/invessence.css" library="invessence"/>
-    <ui:fragment rendered="#{uiLayout.customCSS != null}">
-        <h:outputStylesheet name="#{uiLayout.customCSS}" library="#{uiLayout.cssDIR}"/>
+    <ui:fragment rendered="#{uiLayout.uiprofile.hasCustomcss}">
+        <h:outputStylesheet name="#{uiLayout.uiprofile.customcss}" library="#{uiLayout.uiprofile.cssdir}"/>
     </ui:fragment>
-    <ui:fragment rendered="#{uiLayout.uiprofile.googleAnalytic != null}">
+    <ui:fragment rendered="#{uiLayout.uiprofile.hasGoogleAnalytic}">
         <h:outputStylesheet name="#{uiLayout.uiprofile.googleAnalytic}"
                             library="#{uiLayout.cssDIR}"/>
     </ui:fragment>
