@@ -7,13 +7,14 @@ import com.invessence.service.bean.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.*;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
 /**
  * Created by abhangp on 1/19/2016.
  */
-@Repository
+@Repository("wsCommonDao")
 public class ServiceDaoImpl implements ServiceDao
 {
    private static final Logger logger = Logger.getLogger(ServiceDaoImpl.class);
@@ -21,7 +22,11 @@ public class ServiceDaoImpl implements ServiceDao
    JdbcTemplate serviceJdbcTemplate;
 
    private final String getSwitchDetails = "SELECT name, value, format, description FROM vw_invessence_switch where name in('COMPANY_NAME')";
-   private final String getServiceConfigDetails ="select * from vw_service_config_details where mode =? and company=? order by company, mode, service, vendor";
+   private final String getServiceConfigDetails ="select * from vw_service_config_details where mode =? and company=? and service=? order by company, mode, service, vendor";
+   private final String getServiceConfigDetailsAll ="select * from vw_service_config_details where mode =? and company=? order by company, mode, service, vendor";
+   private final String getServiceConfigDetailsWherClause ="select * from vw_service_config_details where mode =? and company=? and service in (?) order by company, mode, service, vendor";
+
+
    private final String getServiceOperationDetails ="select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, vendor";
    private final String getWebConfigDetails ="select * from web_site_info where status = 'A' and mode =? and company=? order by service, vendor, name";
 
@@ -60,14 +65,57 @@ public class ServiceDaoImpl implements ServiceDao
 
    }
 
-   public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company) throws SQLException
+   public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company, String service) throws SQLException
    {
       logger.info("ServiceDaoImpl.getServiceConfigDetails");
-      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "]");
-      logger.debug("getServiceConfigDetails = "+ getServiceConfigDetails);
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "], service = [" + service + "]");
       List<ServiceConfigDetails> lst = null;
-      lst = serviceJdbcTemplate.query(getServiceConfigDetails, new Object[]{serviceMode,company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+      if(service==null || service.equals("")|| service.equalsIgnoreCase("ALL"))
+      {
+         logger.debug("getServiceConfigDetailsAll = " + getServiceConfigDetailsAll);
+         lst = serviceJdbcTemplate.query(getServiceConfigDetailsAll, new Object[]{serviceMode, company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+      }else{
+         logger.debug("getServiceConfigDetails = " + getServiceConfigDetails);
+         lst = serviceJdbcTemplate.query(getServiceConfigDetails, new Object[]{serviceMode, company, service}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+      }
       return lst;
+   }
+
+
+   public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company, List<String> service) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getServiceConfigDetails");
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "], service = [" + service + "]");
+      List<ServiceConfigDetails> lst = null;
+      if(service==null || service.size()==0 || service.contains("ALL"))
+      {
+         logger.debug("getServiceConfigDetailsAll = " + getServiceConfigDetailsAll);
+         lst = serviceJdbcTemplate.query(getServiceConfigDetailsAll, new Object[]{serviceMode, company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+      }else if(service.size()>0){
+         logger.debug("getServiceConfigDetailsWherClause = " + getServiceConfigDetailsWherClause);
+         NamedParameterJdbcTemplate npjt=new NamedParameterJdbcTemplate(serviceJdbcTemplate);
+//         lst = serviceJdbcTemplate.query(getServiceConfigDetailsWherClause, new Object[]{serviceMode, company, Collections.singletonMap("names", service)},  ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+         lst = npjt.query("select * from vw_service_config_details where mode ='"+serviceMode+"' and company='"+company+"' and service in (:names)", Collections.singletonMap("names", service), ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+      }
+      return lst;
+   }
+
+   private String createWhereClause(List<String> lstString){
+      StringBuilder whereClause=new StringBuilder();
+      Iterator<String> itr=lstString.iterator();
+      int size=lstString.size();
+      int curPos=1;
+      while(itr.hasNext()){
+
+         String str=itr.next();
+         System.out.println("str = " + str);
+         whereClause.append("'"+str+"'");
+         if(curPos<size){
+            whereClause.append(",");
+         }
+         curPos++;
+      }
+      return whereClause.toString();
    }
 
    public List<ServiceOperationDetails> getServiceOperationDetails(String serviceMode, String company) throws SQLException
@@ -77,6 +125,27 @@ public class ServiceDaoImpl implements ServiceDao
       logger.debug("getServiceOperationDetails = "+ getServiceOperationDetails);
       List<ServiceOperationDetails> lst = null;
       lst = serviceJdbcTemplate.query(getServiceOperationDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceOperationDetails.class));
+      return lst;
+   }
+
+   public List<ServiceOperationDetails> getServiceOperationDetails(String serviceMode, String company, List<String> service) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getServiceOperationDetails");
+      logger.info("serviceMode = [" + serviceMode + "], company = [" + company + "]");
+      logger.debug("getServiceOperationDetails = "+ getServiceOperationDetails);
+      List<ServiceOperationDetails> lst = null;
+      if(service==null || service.size()==0 || service.contains("ALL"))
+      {
+         logger.debug("getServiceConfigDetailsAll = " + getServiceConfigDetailsAll);
+         lst = serviceJdbcTemplate.query(getServiceOperationDetails, new Object[]{company}, ParameterizedBeanPropertyRowMapper.newInstance(ServiceOperationDetails.class));
+      }else if(service.size()>0){
+         logger.debug("getServiceConfigDetailsWherClause = " + getServiceConfigDetailsWherClause);
+         NamedParameterJdbcTemplate npjt=new NamedParameterJdbcTemplate(serviceJdbcTemplate);
+//         lst = serviceJdbcTemplate.query(getServiceConfigDetailsWherClause, new Object[]{serviceMode, company, Collections.singletonMap("names", service)},  ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+         lst = npjt.query("select * from vw_service_details where company='"+company+"' and serviceStatus='A' and operationStatus='A' and service in (:names)", Collections.singletonMap("names", service), ParameterizedBeanPropertyRowMapper.newInstance(ServiceOperationDetails.class));
+         //select * from vw_service_details where company =? and serviceStatus='A' and operationStatus='A' order by service, vendor
+      }
+
       return lst;
    }
 

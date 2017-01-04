@@ -11,8 +11,10 @@ import com.invessence.service.bean.*;
 public interface ServiceDao
 {
    public Map<String, SwitchDetails> getSwitchDetails();
-   public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company)throws SQLException;
+   public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company, String service)throws SQLException;
+   public List<ServiceConfigDetails> getServiceConfigDetails(String serviceMode, String company, List<String> service)throws SQLException;
    public List<ServiceOperationDetails> getServiceOperationDetails(String serviceMode, String company)throws SQLException;
+   public List<ServiceOperationDetails> getServiceOperationDetails(String serviceMode, String company, List<String> service)throws SQLException;
    public List<WebConfigDetails> getWebServiceDetails(String serviceMode, String company) throws SQLException;
 
    public Map<String,DCTemplateDetails> getDCTemplateDetails(String serviceMode, String company) throws SQLException;

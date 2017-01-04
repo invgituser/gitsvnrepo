@@ -5,6 +5,15 @@
 
 
    <import resource="classpath*:serviceConfig.xml"/>
+   <bean id="configPropLoader" class="com.invessence.service.util.ServiceParameters">
+      <constructor-arg>
+      <list>
+         <value type="java.lang.String">EMAIL-SERVICE</value>
+      </list>
+   </constructor-arg><!--ALL-->
+   <constructor-arg type="java.lang.String" value=""/>
+   <constructor-arg type="com.invessence.service.dao.ServiceDao" ref="wsCommonDao"/>
+</bean>
 
      <bean id="emailerMessageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basenames">

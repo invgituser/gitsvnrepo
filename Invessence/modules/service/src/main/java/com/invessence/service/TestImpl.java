@@ -15,7 +15,7 @@ public class TestImpl
 
    public void process(){
       try{
-         serviceDao.getServiceConfigDetails("","");
+         serviceDao.getServiceConfigDetails("","","");
       }catch(Exception e){
          e.printStackTrace();
       }

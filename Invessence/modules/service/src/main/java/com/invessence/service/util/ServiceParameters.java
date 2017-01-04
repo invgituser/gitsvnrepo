@@ -12,12 +12,12 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Created by abhangp on 5/13/2016.
  */
-@Configuration
+//@Configuration
 public class ServiceParameters
 {
    private static final Logger logger = Logger.getLogger(ServiceParameters.class);
 
-   @Autowired
+   //@Autowired
    private ServiceDao wsCommonDao;
 
    protected static Properties parameters=null;
@@ -43,6 +43,23 @@ public class ServiceParameters
 
    //public static final String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY ="aRXDugfr4WQpVrxu";
    //String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY="GEMINI-KEY";
+
+
+   private String product;
+   private List<String> propLoadParam;
+   public ServiceParameters(List<String> propLoadParam,String product, ServiceDao wsCommonDao){
+      System.out.println("ServiceParameters.ServiceParameters");
+      this.propLoadParam=propLoadParam;
+      this.product=product;
+      this.wsCommonDao=wsCommonDao;
+      System.out.println("propLoadParam = [" + propLoadParam + "], product = [" + product + "]");
+      String propLoadParam1="";
+      setServiceConfigDetails(propLoadParam);
+      setServiceOperationDetails(propLoadParam);
+      if(propLoadParam.contains("ALL")){
+         setWebSiteConfigDetails();
+      }
+   }
 
    static{
       System.out.println("SysParameters.static initializer");
@@ -107,7 +124,7 @@ public class ServiceParameters
       }
    }
 
-   @Autowired
+//   @Autowired
    public void setWebSiteConfigDetails() {
       System.out.println("ServiceParameters.setWebSiteConfigDetails");
       try{
@@ -191,13 +208,12 @@ public class ServiceParameters
 
    }
 
-
-   @Autowired
-   public void setServiceConfigDetails() {
+  // @Autowired
+   public void setServiceConfigDetails(List<String> service) {
       System.out.println("SysParameters.setServiceConfigDetails");
       try{
          loadPrimaryData();
-         List<ServiceConfigDetails> serviceDetailsList=wsCommonDao.getServiceConfigDetails(SERVICE_MODE, COMPANY_NAME);
+         List<ServiceConfigDetails> serviceDetailsList=wsCommonDao.getServiceConfigDetails(SERVICE_MODE, COMPANY_NAME, service);
          if(serviceDetailsList==null ||serviceDetailsList.size()==0){
             logger.error("Configuration details are not available fro service.mode=" + SERVICE_MODE+" and company="+ COMPANY_NAME);
          }else{
@@ -471,12 +487,12 @@ public class ServiceParameters
 //      }
    }
 
-   @Autowired
-   public void setServiceOperationDetails() {
+   //@Autowired
+   public void setServiceOperationDetails(List<String> service) {
       System.out.println("SysParameters.setServiceOperationDetails");
       try{
          loadPrimaryData();
-         List<ServiceOperationDetails> serviceDetailsList=wsCommonDao.getServiceOperationDetails(SERVICE_MODE, COMPANY_NAME);
+         List<ServiceOperationDetails> serviceDetailsList=wsCommonDao.getServiceOperationDetails(SERVICE_MODE, COMPANY_NAME, service);
          if(serviceDetailsList==null ||serviceDetailsList.size()==0){
             logger.error("Configuration details are not available for company="+ COMPANY_NAME);
          }else
@@ -573,6 +589,8 @@ public class ServiceParameters
 
             System.out.println("*****************************");
             ServiceParameters.serviceDetailsMap = serviceDetails;
+            System.out.println("serviceDetails = " + serviceDetails);
+            System.out.println("*****************************");
 
             //setWebServiceAPI(); // setting  broker-webservice vendor
          }
@@ -583,7 +601,6 @@ public class ServiceParameters
       }
 
    }
-
 
    public static Object getStaticValue(final String className, final String fieldName) throws SecurityException, NoSuchFieldException, ClassNotFoundException,
       IllegalArgumentException, IllegalAccessException {
@@ -640,279 +657,6 @@ public class ServiceParameters
       System.out.println("BROKER_WEBSERVICE_API = " + BROKER_WEBSERVICE_API);
 
    }
-//
-//   @Autowired
-//   public void setFundGroupName(@Value("${BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME}")String BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME)
-//   {
-//      SysParameters.BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME = BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME;
-//   }
-//
-//   @Autowired
-//   public void setWsOperationNAMsgCode(@Value("${wsOperationNACode}")int wsOperationNACode)
-//   {
-//      SysParameters.wsOperationNACode = wsOperationNACode;
-//   }
-//   @Autowired
-//   public void setWsOperationNAMsg(@Value("${wsOperationNAMsg}")String wsOperationNAMsg)
-//   {
-//      SysParameters.wsOperationNAMsg = wsOperationNAMsg;
-//   }
-//   @Autowired
-//   public void setWsUserRegIssueCode(@Value("${wsUserRegIssueCode}")int wsUserRegIssueCode)
-//   {
-//      SysParameters.wsUserRegIssueCode = wsUserRegIssueCode;
-//   }
-//   @Autowired
-//   public void setWsUserRegIssueMsg(@Value("${wsUserRegIssueMsg}") String wsUserRegIssueMsg)
-//   {
-//      SysParameters.wsUserRegIssueMsg = wsUserRegIssueMsg;
-//   }
-//   @Autowired
-//   public void setWsDBErrCode(@Value("${wsDBErrCode}")int wsDBErrCode)
-//   {
-//      SysParameters.wsDBErrCode = wsDBErrCode;
-//   }
-//   @Autowired
-//   public void setWsDBErrMsg(@Value("${wsDBErrMsg}")String wsDBErrMsg)
-//   {
-//      SysParameters.wsDBErrMsg = wsDBErrMsg;
-//   }
-//
-//   @Autowired
-//   public void setWsResIssueCode(@Value("${wsResIssueCode}") int wsResIssueCode)
-//   {
-//      SysParameters.wsResIssueCode = wsResIssueCode;
-//   }
-//
-//   @Autowired
-//   public void setWsResIssueMsg(@Value("${wsResIssueMsg}") String wsResIssueMsg)
-//   {
-//      SysParameters.wsResIssueMsg = wsResIssueMsg;
-//   }
-//
-//   @Autowired
-//   public void setWsIGenErrCode(@Value("${wsIGenErrCode}")int wsIGenErrCode)
-//   {
-//      SysParameters.wsIGenErrCode = wsIGenErrCode;
-//   }
-//
-//   @Autowired
-//   public void setWsIGenErrMsg(@Value("${wsIGenErrMsg}")String wsIGenErrMsg)
-//   {
-//      SysParameters.wsIGenErrMsg = wsIGenErrMsg;
-//   }
-//
-//   @Autowired
-//   public void setWsEGenErrCode(@Value("${wsEGenErrCode}")int wsEGenErrCode)
-//   {
-//      SysParameters.wsEGenErrCode = wsEGenErrCode;
-//   }
-//
-//   @Autowired
-//   public void setWsEGenErrMsg(@Value("${wsEGenErrMsg}")String wsEGenErrMsg)
-//   {
-//      SysParameters.wsEGenErrMsg = wsEGenErrMsg;
-//   }
-
-
-
-//   @Autowired
-//   public void setGetAccountExtInfo(@Value("${getAccountExtInfo}")String getAccountExtInfo)
-//   {
-//      SysParameters.getAccountExtInfo = getAccountExtInfo;
-//   }
-//   @Autowired
-//   public void setGetPendingUserAccDetails(@Value("${getPendingUserAccDetails}")String getPendingUserAccDetails)
-//   {
-//      SysParameters.getPendingUserAccDetails = getPendingUserAccDetails;
-//   }
-//   @Autowired
-//   public void setGetUserAccDetailsByAccNumber(@Value("${getUserAccDetailsByAccNumber}")String getUserAccDetailsByAccNumber)
-//   {
-//      SysParameters.getUserAccDetailsByAccNumber = getUserAccDetailsByAccNumber;
-//   }
-//   @Autowired
-//   public void setUpdatePendingUserAccDetailsOnSuccess(@Value("${updatePendingUserAccDetailsOnSuccess}")String updatePendingUserAccDetailsOnSuccess)
-//   {
-//      SysParameters.updatePendingUserAccDetailsOnSuccess = updatePendingUserAccDetailsOnSuccess;
-//   }
-
-
-//   @Autowired
-//   public void setUpdatePendingUserAccDetailsOnFailure(@Value("${updatePendingUserAccDetailsOnFailure}")String updatePendingUserAccDetailsOnFailure)
-//   {
-//      SysParameters.updatePendingUserAccDetailsOnFailure = updatePendingUserAccDetailsOnFailure;
-//   }
-
-
-
-//   @Autowired
-//   public void setUpdateUserEmail(@Value("${updateUserEmail}")String updateUserEmail)
-//   {
-//      SysParameters.updateUserEmail = updateUserEmail;
-//   }
-
-//   @Autowired
-//   public void setGeminiEndPointUrl(@Value("${BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL}")String geminiEndPointUrl)
-//   {
-//      ServiceParameters.BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL = geminiEndPointUrl;
-//   }
-//
-//   @Autowired
-//   public void setTdEndPointUrl(@Value("${tdEndPointUrl}")String tdEndPointUrl)
-//   {
-//      ServiceParameters.tdEndPointUrl = tdEndPointUrl;
-//   }
-
-
-//   public void setServiceConfigDetails() {
-//      System.out.println("SysParameters.setServiceConfigDetails");
-//      try{
-//         loadPrimaryData();
-//         List<ServiceConfigDetails> serviceDetailsList=wsCommonDao.getServiceConfigDetails(SERVICE_MODE, COMPANY_NAME);
-//         if(serviceDetailsList==null ||serviceDetailsList.size()==0){
-//            logger.error("Configuration details are not available fro service.mode=" + SERVICE_MODE+" and company="+ COMPANY_NAME);
-//         }else{
-//
-//            Iterator<ServiceConfigDetails> itr = serviceDetailsList.iterator();
-//            Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetails = new LinkedHashMap<String, Map<String, Map<String, ServiceConfigDetails>>>();
-//            Map<String, Map<String, ServiceConfigDetails>> apiDetails = null;
-//            Map<String, ServiceConfigDetails> mapOfConfigDetails = null;
-//            String serviceKey = null, apiKey = null;
-//            ServiceConfigDetails servDetails = null;
-//            while (itr.hasNext())
-//            {
-//               servDetails = (ServiceConfigDetails) itr.next();
-////            System.out.println("servDetails = " + servDetails);
-//               try
-//               {
-//                  setStaticValue(className, servDetails.getService().replaceAll("-", "_") + "_" + servDetails.getVendor().replaceAll("-", "_") + "_" + servDetails.getName(), servDetails.getValue());
-//               }
-//               catch (Exception e)
-//               {
-//                  logger.error("Issue while setting the value for field " + servDetails.getVendor() + "_" + servDetails.getName());
-//                  logger.error(e.getClass());
-////               e.printStackTrace();
-////               System.out.println("------------------------------------");
-//               }
-//               if (serviceKey == null)
-//               {
-//                  serviceKey = servDetails.getService();
-//                  apiKey = servDetails.getVendor();
-//                  apiDetails = new LinkedHashMap<String, Map<String, ServiceConfigDetails>>();
-//
-//                  mapOfConfigDetails = new LinkedHashMap<String, ServiceConfigDetails>();
-//                  mapOfConfigDetails.put(servDetails.getName(), servDetails);
-//
-//               }
-//               else if (servDetails.getService().equalsIgnoreCase(serviceKey))
-//               {
-//                  if (servDetails.getVendor().equalsIgnoreCase(apiKey))
-//                  {
-//                     mapOfConfigDetails.put(servDetails.getName(), servDetails);
-//                  }
-//                  else if (!servDetails.getVendor().equalsIgnoreCase(apiKey))
-//                  {
-//                     apiDetails.put(apiKey, mapOfConfigDetails);
-//
-//                     apiKey = servDetails.getVendor();
-//                     mapOfConfigDetails = new LinkedHashMap<String, ServiceConfigDetails>();
-//                     mapOfConfigDetails.put(servDetails.getName(), servDetails);
-//                  }
-//
-//               }
-//               else if (!servDetails.getService().equalsIgnoreCase(serviceKey))
-//               {
-////               apiDetails=new LinkedHashMap<>();
-//                  apiDetails.put(apiKey, mapOfConfigDetails);
-//                  serviceConfigDetails.put(serviceKey, apiDetails);
-//
-//                  serviceKey = servDetails.getService();
-////               apiDetails=new HashMap<>();
-////               apiDetails.put(apiKey,listOfOperation);
-//
-//                  apiKey = servDetails.getVendor();
-//                  apiDetails = new LinkedHashMap<String, Map<String, ServiceConfigDetails>>();
-//                  mapOfConfigDetails = new LinkedHashMap<String, ServiceConfigDetails>();
-//                  mapOfConfigDetails.put(servDetails.getName(), servDetails);
-//
-//               }
-//               //System.out.println("servDetails = " + servDetails);
-//
-//            }
-//            if (apiDetails != null)
-//            {
-//               apiDetails.put(apiKey, mapOfConfigDetails);
-//               serviceConfigDetails.put(serviceKey, apiDetails);
-//            }
-//
-//            System.out.println("************************************************************");
-//            System.out.println("**** Configuration Details ****");
-//            System.out.println("************************************************************");
-//            System.out.println("SERVICE_MODE = " + SERVICE_MODE);
-//            System.out.println("COMPANY_NAME = " + COMPANY_NAME);
-//            System.out.println("------------------------------------------------------------");
-////
-////         while (itr.hasNext()) {
-////            servDetails = (ServiceConfigDetails) itr.next();
-//////            System.out.println("servDetails = " + servDetails);
-////            try
-////            {
-////               getStaticValue(className, servDetails.getVendor() + "_" + servDetails.getName());
-////            }catch(Exception e){
-////               logger.error("Issue while getting the value of field "+servDetails.getVendor() + "_" + servDetails.getName());
-////               logger.error(e.getClass());
-//////               e.printStackTrace();
-//////               System.out.println("------------------------------------");
-////            }
-////         }
-//
-//            Iterator<Map.Entry<String, Map<String, Map<String, ServiceConfigDetails>>>> entries = serviceConfigDetails.entrySet().iterator();
-//            while (entries.hasNext())
-//            {
-//               Map.Entry<String, Map<String, Map<String, ServiceConfigDetails>>> entry = entries.next();
-//               Iterator<Map.Entry<String, Map<String, ServiceConfigDetails>>> entries2 = entry.getValue().entrySet().iterator();
-//               while (entries2.hasNext())
-//               {
-//                  Map.Entry<String, Map<String, ServiceConfigDetails>> entry2 = entries2.next();
-//                  System.out.println("Service = " + entry.getKey() + "\t Vendor = " + entry2.getKey());
-//                  System.out.println("------------------------------------------------------------");
-//                  Iterator<Map.Entry<String, ServiceConfigDetails>> entries3 = entry2.getValue().entrySet().iterator();
-//                  while (entries3.hasNext())
-//                  {
-//                     Map.Entry<String, ServiceConfigDetails> entry3 = entries3.next();
-//                     System.out.println(entry3.getKey() + " = " + ((ServiceConfigDetails)entry3.getValue()).getValue());
-//                     try
-//                     {
-//                        Object confProp = getStaticValue(className, entry.getKey().replaceAll("-", "_") + "_" + entry2.getKey().replaceAll("-", "_") + "_" + entry3.getKey());
-//                        System.out.println(entry3.getKey() + " = " + confProp);
-//                     }
-//                     catch (Exception e)
-//                     {
-//                        logger.error("Issue while getting the value of field " + entry2.getKey() + "_" + entry3.getKey() + " : " + e.getClass());
-////                     logger.error(e.getClass());
-////               e.printStackTrace();
-////               System.out.println("------------------------------------");
-//                     }
-//                  }
-//               }
-//               System.out.println("------------------------------------------------------------");
-//            }
-//
-//            System.out.println("***********************************************************");
-//            serviceConfigDetailsMap = serviceConfigDetails;
-//            System.out.println(toString());
-//            validateConfigProperties(serviceConfigDetails);
-//            setWebServiceAPI(); // setting  broker-webservice vendor
-//         }
-//      }catch(Exception e){
-//         logger.error("Exception while loading service details");
-//         logger.error(e.getMessage());
-//         e.printStackTrace();
-//      }
-//
-//   }
-//
 
    public static String getConfigProperty(String service, String provider, String property)
    {
