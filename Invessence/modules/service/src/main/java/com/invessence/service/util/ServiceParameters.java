@@ -16,37 +16,14 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceParameters
 {
    private static final Logger logger = Logger.getLogger(ServiceParameters.class);
-
-   //@Autowired
-   private ServiceDao wsCommonDao;
-
    protected static Properties parameters=null;
    private static String SERVICE_MODE =null;
    public static String COMPANY_NAME;
    final String className="com.invessence.service.util.ServiceParameters"; //this.getClass().getName();
 
-   //BROKER-WEBSERVICES
-   public static String BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL =null;
-   public static String BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME =null;
-   public static String BROKER_WEBSERVICES_GEMINI_ENCRY_DECRY_KEY =null;
-
-   //BROKER-SERVICES SFTP
-   public static String BROKER_SERVICES_GEMINI_SFTP_HOST =null;
-   public static String BROKER_SERVICES_GEMINI_SFTP_USERNAME =null;
-   public static String BROKER_SERVICES_GEMINI_SFTP_PASSWORD =null;
-   public static String BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY =null;
-   public static String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY =null;
-
-   public static String BROKER_WEBSERVICE_API;
-   public static String DOWNLOAD_SERVICE_API;
-   public static String tdEndPointUrl;
-
-   //public static final String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY ="aRXDugfr4WQpVrxu";
-   //String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY="GEMINI-KEY";
-
-
    private String product;
    private List<String> propLoadParam;
+   private ServiceDao wsCommonDao;
    public ServiceParameters(List<String> propLoadParam,String product, ServiceDao wsCommonDao){
       System.out.println("ServiceParameters.ServiceParameters");
       this.propLoadParam=propLoadParam;
@@ -74,28 +51,11 @@ public class ServiceParameters
       }
    }
 
-   @Override
-   public String toString()
-   {
-      return "ServiceParameters{" +
-         "BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME='" + BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME + '\'' +
-         ", BROKER_SERVICES_GEMINI_SFTP_HOST='" + BROKER_SERVICES_GEMINI_SFTP_HOST + '\'' +
-         ", BROKER_SERVICES_GEMINI_SFTP_PASSWORD='" + BROKER_SERVICES_GEMINI_SFTP_PASSWORD + '\'' +
-         ", BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY='" + BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY + '\'' +
-         ", BROKER_SERVICES_GEMINI_SFTP_USERNAME='" + BROKER_SERVICES_GEMINI_SFTP_USERNAME + '\'' +
-         ", BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL='" + BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL + '\'' +
-         '}';
-   }
-
    private static Map<String, Map<String, Map<String, ServiceConfigDetails>>> serviceConfigDetailsMap;
-
    public static Map<String, Map<String, Map<String,ServiceOperationDetails>>> serviceDetailsMap;
-   public static Map<String, Map<String, WebConfigDetails>> webSiteConfigDetailsMap;
-
+   public static Map<String, Map<String, WebConfigDetails>> webSiteConfigDetailsMap; // Web Site details object
    public static Map<String, Map<String,Object>> additionalDetails=null;
-
    public static Map<String, Object> genericDetails=null;
-
 
    private void loadPrimaryData(){
 
@@ -208,7 +168,7 @@ public class ServiceParameters
 
    }
 
-  // @Autowired
+//   @Autowired
    public void setServiceConfigDetails(List<String> service) {
       System.out.println("SysParameters.setServiceConfigDetails");
       try{
@@ -701,4 +661,25 @@ public class ServiceParameters
       }
       return null;
    }
+
+
+   //BROKER-WEBSERVICES
+   public static String BROKER_WEBSERVICES_GEMINI_WS_END_POINT_URL =null;
+   public static String BROKER_WEBSERVICES_GEMINI_FUND_GROUP_NAME =null;
+   public static String BROKER_WEBSERVICES_GEMINI_ENCRY_DECRY_KEY =null;
+
+   //BROKER-SERVICES SFTP
+   public static String BROKER_SERVICES_GEMINI_SFTP_HOST =null;
+   public static String BROKER_SERVICES_GEMINI_SFTP_USERNAME =null;
+   public static String BROKER_SERVICES_GEMINI_SFTP_PASSWORD =null;
+   public static String BROKER_SERVICES_GEMINI_SFTP_SRC_DIRECTORY =null;
+   public static String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY =null;
+
+   public static String BROKER_WEBSERVICE_API;
+   public static String DOWNLOAD_SERVICE_API;
+   public static String tdEndPointUrl;
+
+   //public static final String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY ="aRXDugfr4WQpVrxu";
+   //String BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY="GEMINI-KEY";
+
 }
