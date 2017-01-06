@@ -1864,8 +1864,8 @@ img.atCheckMarkImg {
 }
 
 .ui-datatable table thead tr th, .ui-datatable table tfoot tr td, .ui-datatable table thead tr th {
-    color: #ffffff!important;
-    background-color: #919d9d!important;
+    color: #ffffff;
+    background-color: #919d9d;
 }
 
 .ui-datatable {
@@ -3639,11 +3639,154 @@ h3 {
 
 }
 
-.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-hover > td {
+.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-hover > td,
+.AdvisorGridtcmLayout > div:nth-child(2) > table > tbody > .ui-state-hover > td {
     background-color: inherit!important;
     color: inherit!important;
 }
 
-.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-highlight > td {
-    background-color: #009abb!important;
+.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-highlight > td,
+.AdvisorGridtcmLayout > div:nth-child(2) > table > tbody > .ui-state-highlight > td,
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > tbody > .ui-state-highlight > td {
+    background-color: #2b775a!important;
+    color: white!important;
+}
+
+
+
+#layout-menu .ui-button.ui-state-hover .ui-button-text {
+    background-color: #009abb!important	;
+}
+
+/*Advisor TCM layout*/
+.AdvisorGridtcmLayout {
+    border-radius: 0;
+    padding: 0!important;
+    margin: 0!important;
+    box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+    text-align: center;
+}
+
+.AdvisorGridtcmLayout > select {
+    margin-top: 8px!important;
+    border-radius:0!important;
+}
+
+.AdvisorGridtcmLayout > label:nth-child(1) {
+    display: none;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr {
+    border-bottom: 2px solid #bdbdbd;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > tbody > tr {
+    border-bottom: 1px solid #bdbdbd;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr > th:nth-child(1),
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr > td:nth-child(1) {
+    width: 50px;
+}
+
+.AdvtcmLayoutColumn {
+    border: none!important;
+    background:#ffffff!important;
+    color: #000000!important;
+    text-align: center;
+}
+
+
+
+.AdvtcmLayoutColumn > span:nth-child(1) {
+    color: #000000!important;
+    font-size: 13px;
+}
+
+thead > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
+    background-size: 85%!important;
+    margin-left: 0px!important;
+}
+
+tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
+    font-size: 13px;
+}
+
+.AdvtcmGridBtnRightR {
+    border-radius: 0px 30px 30px 0px!important;
+}
+
+.AdvtcmGridBtnR, .DeleteButtonR, .DeleteButtonR > span {
+    border-radius: 30px 30px 30px 30px!important;
+}
+
+.AdvtcmGridBtnRightR > span:nth-child(1) {
+    font-size: 12px;
+    width: 50px;
+    padding: 5px 0px!important;
+    border-radius: 0px 30px 30px 0px!important;
+}
+
+.AdvtcmGridBtnLeftR {
+    border-radius: 30px 0px 0px 30px!important;
+}
+
+.AdvtcmGridBtnLeftR > span:nth-child(1) {
+    font-size: 12px;
+    width: 50px;
+    padding: 5px 0px!important;
+    border-radius: 30px 0px 0px 30px!important;
+}
+
+.AdvtcmGridBtnR > span:nth-child(1) {
+    font-size: 12px;
+    width: 50px;
+    padding: 5px 0px!important;
+    border-radius: 30px 30px 30px 30px!important;
+}
+
+.AdvBtnTcmGrp > div > span {
+    border-radius: 30px!important;
+    background: #f5f5f5;
+    color: #607D8B;
+    font-size: 13px;
+}
+
+.AdvBtnTcmGrp > div {
+    margin: 10px 5px!important;
+}
+
+.AdvBtnTcmGrp > .ui-state-hover > span {
+    box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+    background: #f5f5f5!important;
+    color:#607D8B;
+}
+.AdvBtnTcmGrp > .ui-state-active > span,
+.AdvBtnTcmGrp > .ui-state-focus > span {
+    box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+    background: #009abb!important;
+    color:#f5f5f5;
+}
+
+.AdvBtnTcmGrp {
+    margin:0px!important;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr > .ui-state-hover > span:nth-child(2) {
+    background-image:url("/javax.faces.resource/images/updown-gray-arrow.svg.xhtml?ln=primefaces-spark")!important;
+}
+
+.aum_label {
+    margin: 5px 5px;
+    font-size: 14px;
+}
+
+
+@media (max-width: 640px) {
+    .AdvtcmGridBtnLeftR > span:nth-child(1),
+    .AdvtcmGridBtnRightR > span:nth-child(1),
+    .AdvtcmGridBtnR > span:nth-child(1),
+    .AdvtcmGridBtnR {
+        width: 100%!important;
+    }
 }

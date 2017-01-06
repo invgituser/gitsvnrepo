@@ -49,7 +49,7 @@ public class ManageAdvisorBean implements Serializable
 
    @ManagedProperty("#{advisorSaveDataDAO}")
    private AdvisorSaveDataDAO advisorSaveDataDAO;
-
+   private int rowKey;
 /*
    @ManagedProperty("#{positionBean}")
    private PositionBean positionBean;
@@ -329,5 +329,21 @@ public class ManageAdvisorBean implements Serializable
 
       return ("success");
    }
+
+   public int getRowKey()
+   {
+      return this.hashCode();
+   }
+
+   public void setRowKey(int rowKey)
+   {
+      this.rowKey = rowKey;
+   }
+
+   public int rowKey(){
+
+      return this.hashCode();
+   }
+
 
 }

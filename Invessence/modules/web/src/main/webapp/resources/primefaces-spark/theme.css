@@ -580,7 +580,7 @@ label{font-weight:normal !important;}
         .ui-datatable  table thead tr th.ui-state-hover,
         .ui-datatable  table thead tr th.ui-state-active,
         .ui-datatable .ui-datatable-sticky table thead tr th.ui-state-hover,
-        .ui-datatable .ui-datatable-sticky table thead tr th.ui-state-active{background-color:#778D9B !important; color: #fff;}
+        .ui-datatable .ui-datatable-sticky table thead tr th.ui-state-active{background-color:#778D9B; color: #fff;}
         .ui-datatable  table thead tr .ui-chkbox-box.ui-state-hover,.ui-datatable  table thead tr .ui-chkbox-box.ui-state-active{background-color:transparent; color: #fff;}
         .ui-datatable  table thead tr th .ui-column-customfilter .ui-spinner-button.ui-state-active,
         .ui-datatable  table thead tr th .ui-column-customfilter .ui-spinner-button.ui-state-hover{background-color: transparent;}
