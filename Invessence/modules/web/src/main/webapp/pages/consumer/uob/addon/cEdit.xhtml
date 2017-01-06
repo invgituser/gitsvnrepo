@@ -59,10 +59,12 @@
 						<p:commandButton id="prevBtn" value="Previous"
 							styleClass="Fleft Wid45" rendered="#{uobpb.enablePrevButton}"
 							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
+										 outcome="transition=slidefade"
 							actionListener="#{uobpb.gotoPrevTab}" />
 						<p:commandButton id="nextBtn" value="Next"
 							styleClass="Fright Wid45" rendered="#{uobpb.enableNextButton}"
 							type="submit"
+							outcome="transition=slidefade"
 							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
 							actionListener="#{uobpb.gotoNextTab}" />
 					</f:facet>

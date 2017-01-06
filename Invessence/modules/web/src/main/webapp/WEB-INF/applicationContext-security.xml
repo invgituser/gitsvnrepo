@@ -42,6 +42,7 @@
 
 
 
+
    <!--
       <http pattern="/chartTest.xhtml" security="none" />
       <http pattern="/chartTest2.xhtml"security="none" />
