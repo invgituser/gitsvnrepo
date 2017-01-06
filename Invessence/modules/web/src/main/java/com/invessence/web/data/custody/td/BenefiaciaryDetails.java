@@ -23,7 +23,7 @@ public class BenefiaciaryDetails implements Serializable
    private String beneCitizenshiId;
    private String typeOfBeneficiary;
    private String perStripes;
-   private Double sharePerc;
+   private Long sharePerc;
    private Date created;
    private String createdBy;
    private Date updated;
@@ -204,12 +204,12 @@ public class BenefiaciaryDetails implements Serializable
       this.perStripes = perStripes;
    }
 
-   public Double getSharePerc()
+   public Long getSharePerc()
    {
       return sharePerc;
    }
 
-   public void setSharePerc(Double sharePerc)
+   public void setSharePerc(Long sharePerc)
    {
       this.sharePerc = sharePerc;
    }

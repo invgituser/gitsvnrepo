@@ -1077,6 +1077,16 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
             if (getGoal() != null)
             {
+               if(this.getAccountType()!=null){
+                  if(this.getAccountType().equalsIgnoreCase("Traditional IRA")||this.getAccountType().equalsIgnoreCase("Roth IRA")
+                     ||this.getAccountType().equalsIgnoreCase("SEP IRA")||this.getAccountType().equalsIgnoreCase("Roll Over IRA")){
+                     if (!getGoal().equalsIgnoreCase("retirement"))
+                     {
+                        dataOK = false;
+                        pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.accounttype.retirement", "Goal cannot be changed as this is already an IRA. Please reset to Retirement.", new Object[]{getGoal()}));
+                     }
+                  }
+               }
                if (getGoal().equalsIgnoreCase("retirement"))
                {
                   if (riskCalculator.getRiskAge() == null)

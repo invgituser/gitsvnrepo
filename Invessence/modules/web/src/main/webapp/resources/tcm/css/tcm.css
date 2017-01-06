@@ -3638,3 +3638,12 @@ h3 {
     }
 
 }
+
+.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-hover > td {
+    background-color: inherit!important;
+    color: inherit!important;
+}
+
+.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-highlight > td {
+    background-color: #009abb!important;
+}

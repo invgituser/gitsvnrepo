@@ -137,7 +137,7 @@ public class TDMasterData implements Serializable
    }
 
    public Boolean getIsJointAcct() {
-      if (accttype == 2 || accttype == 3 ) {
+      if (accttype == 2 ) {
          return true;
       }
       return false;
@@ -886,7 +886,7 @@ public class TDMasterData implements Serializable
       else
       {
          tmpBenefiaciaryDetail = new BenefiaciaryDetails(acctnum, beneNum + 1);
-         tmpBenefiaciaryDetail.setSharePerc(100-totalbeneficiaryShares.doubleValue());
+         tmpBenefiaciaryDetail.setSharePerc(100-totalbeneficiaryShares.longValue());
       }
    }
 
@@ -902,7 +902,7 @@ public class TDMasterData implements Serializable
 
    public void addnewBeneficiary() {
       tmptottalShares=totalbeneficiaryShares;
-      tmpBenefiaciaryDetail.setSharePerc(100-totalbeneficiaryShares.doubleValue());
+      tmpBenefiaciaryDetail.setSharePerc(100-totalbeneficiaryShares.longValue());
       editBeneficiaryForm=false;
    }
 

@@ -180,10 +180,11 @@ public class AdvisorNotificationBean implements Serializable
 
    public void markRead()
    {
-      NotificationData data = selectedMessage;
-      if (data != null) {
-         data.setStatus("A");
-         advisorSaveDAO.saveAdvisorNotice(data);
+      if (getSelectionList() != null) {
+         for (NotificationData data: selectionList) {
+            data.setStatus("A");
+            advisorSaveDAO.saveAdvisorNotice(data);
+         }
          // webutil.redirect("/pages/common/notification.xhtml", null);
          filterNotice = "N";
          collectNotification();
@@ -192,11 +193,11 @@ public class AdvisorNotificationBean implements Serializable
 
    public void markUnRead()
    {
-      NotificationData data = selectedMessage;
-      if (data != null) {
-         data.setStatus("N");
-         advisorSaveDAO.saveAdvisorNotice(data);
-         // webutil.redirect("/pages/common/notification.xhtml", null);
+      if (getSelectionList() != null) {
+         for (NotificationData data: selectionList) {
+            data.setStatus("N");
+            advisorSaveDAO.saveAdvisorNotice(data);
+         }
          filterNotice = "A";
          collectNotification();
       }

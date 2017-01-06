@@ -27,7 +27,7 @@
 
                             <div class="Container100">
                                 <div class="Container100 MarTop5">
-                                    <div class="Fright Responsive50 textRAlign">
+                                    <div class="Fright Responsive50">
                                         <p:selectOneButton value="#{advisornotificationBean.filterNotice}">
                                             <f:selectItem itemLabel="New" itemValue="N"/>
                                             <f:selectItem itemLabel="Archived" itemValue="A"/>
@@ -37,43 +37,35 @@
                                 </div>
                                 <div class="Container100 MarTop5">
                                     <p:dataTable id="messageDT" var="msg" styleClass="advisorMsgTable" value="#{advisornotificationBean.notificationDataList}"
+                                                 paginator="true" rows="10"
+                                                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                                  widgetVar="messageWidget"
+                                                 sortMode="multiple"
+                                                 selection="#{advisornotificationBean.selectionList}"
+                                                 rowKey="#{msg.messageid}"
                                                  emptyMessage="No Messages were created."
-                                                 reflow="true">
-                                        <p:column style="text-align: center;" styleClass="TextAlLeft" resizable="true">
-                                          <p:commandButton id="markButton" rendered="#{msg.status == 'N'}"
-                                                             styleClass="Fs16 BlueButton DualBtnModeLeft" title="Archive"
-                                                             process="@this" immediate="true"
-                                                             icon="fa fa-check Fs14 white"
-                                                             actionListener="#{advisornotificationBean.markRead}"
-                                                             update="@form">
-                                                <p:tooltip id="markToolTipFade" for="markButton" value="Archive"/>
-                                                <f:setPropertyActionListener value="#{msg}"
-                                                                             target="#{advisornotificationBean.selectedMessage}"/>
-                                            </p:commandButton>
-                                            <p:commandButton id="undoButton" rendered="#{msg.status != 'N'}"
-                                                             styleClass="Fs16 GrayButton DualBtnModeRight" title="Undo Archive"
-                                                             process="@this" immediate="true"
-                                                             icon="fa fa-mail-reply Fs14 black"
-                                                             actionListener="#{advisornotificationBean.markUnRead}"
-                                                             update="@form">
-                                                <f:setPropertyActionListener value="#{msg}"
-                                                                             target="#{advisornotificationBean.selectedMessage}"/>
-                                            </p:commandButton>
-                                        </p:column>
-
-                                        <p:column style="" styleClass="mobileLeftAdvMsg Fs14 textAlign "
-                                                  headerText="Created" resizable="true">
+                                    >
+                                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                        <p:column style="" styleClass="mobileLeftAdvMsg Fs14 textAlign " sortBy="#{msg.businessdate}" sortOrder="ascending"
+                                        headerText="Created" resizable="true">
                                             <h:outputText styleClass="mobileRightAdvMsg" value="#{msg.businessdate}"/>
                                         </p:column>
-
                                         <p:column styleClass="Fs14 TexAlLeft"
                                                   headerText="Message" resizable="true">
-
-
-                                           <h:outputText value="#{msg.message}" escape="false">
+                                            <h:outputText value="#{msg.message}" escape="false">
                                             </h:outputText>
                                         </p:column>
+                                        <f:facet name="footer">
+                                            <div style="width: 100%; text-align: left;">
+                                            <p:commandButton update="@form" rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
+                                                              actionListener="#{advisornotificationBean.markRead}" >
+                                            </p:commandButton>
+                                            <p:commandButton update="@form" ajax="true" value="UnArchive"
+                                                             rendered="#{advisornotificationBean.filterNotice == 'A'}"
+                                                             actionListener="#{advisornotificationBean.markUnRead}" >
+                                            </p:commandButton>
+                                            </div>
+                                        </f:facet>
 
                                     </p:dataTable>
                                 </div>

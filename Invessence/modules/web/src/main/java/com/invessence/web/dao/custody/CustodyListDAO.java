@@ -314,7 +314,7 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                benefiaciaryDetails.setBeneRel(convert.getStrData(rs.get("beneRel")));
                benefiaciaryDetails.setTypeOfBeneficiary(convert.getStrData(rs.get("typeOfBeneficiary")));
                benefiaciaryDetails.setPerStripes(convert.getStrData(rs.get("perStripes")));
-               benefiaciaryDetails.setSharePerc(convert.getDoubleData(rs.get("sharePerc")));
+               benefiaciaryDetails.setSharePerc(convert.getIntData(rs.get("sharePerc")).longValue());
 
                benefiaciaryDetailsList.add(benefiaciaryDetails);
                i++;
