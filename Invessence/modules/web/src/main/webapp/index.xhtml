@@ -6,8 +6,6 @@
                 template="/template/common/simple.xhtml">
 
     <f:metadata>
-        <f:viewParam name="cid" value="#{uiLayout.cid}"/>
-        <f:event listener="#{uiLayout.preRenderView}" type="preRenderView" />
         <f:event listener="#{loginController.updateMessages}" type="preRenderView"/>
     </f:metadata>
 

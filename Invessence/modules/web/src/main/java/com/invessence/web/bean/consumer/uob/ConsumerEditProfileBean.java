@@ -408,7 +408,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       displayGoalGraph = false;
       displayGoalText = false;
       resetCustomerData();
-      setAdvisor(webutil.getUiprofile().getAdvisor());
+      setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
    }
 
    private void loadBasketInfo()

@@ -56,8 +56,8 @@ public class SessionController implements Serializable
             if (webutil.getUserInfoData() != null) {
                // On logon, if the Advisor and rep is defined to the user, then use that instead.
                if (webutil.getUserInfoData().getAdvisor() != null ) {
-                  webutil.getUiprofile().setAdvisor(webutil.getUserInfoData().getAdvisor());
-                  webutil.getUiprofile().setRep(webutil.getUserInfoData().getRep());
+                  webutil.getWebprofile().setDefaultAdvisor(webutil.getUserInfoData().getAdvisor());
+                  webutil.getWebprofile().setDefaultRep(webutil.getUserInfoData().getRep());
                }
                if (webutil.getUserInfoData().getAtstart() != null) {
                   uiLayout.whichPage(webutil.getUserInfoData().getAccess(), webutil.getUserInfoData().getAtstart());
@@ -111,5 +111,12 @@ public class SessionController implements Serializable
    {
       uiLayout.doMenuAction("consumer", "cadd.xhtml?app=N");
       return "success";
+   }
+
+   public void emulateClient(String clienturl) {
+      webutil.webprofile.setForced(false);
+      uiLayout.resetCIDProfile(clienturl);
+      webutil.webprofile.setForced(true);
+      webutil.redirect("/", null);
    }
 }

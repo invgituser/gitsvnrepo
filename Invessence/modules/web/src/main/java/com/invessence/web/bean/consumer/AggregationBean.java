@@ -150,7 +150,7 @@ public class AggregationBean
            UserProfile userProfile= aggregationService.userRegistration(userAcctDetails);
             if(userProfile==null || userProfile.getErrorStatus()==null || userProfile.getErrorStatus().getErrorCode()!=0){
                System.out.println("Service end issue!");
-               webutil.redirecttoMessagePage("ERROR", "MX Service", userProfile.getErrorStatus().getErrorMessage(), "/pages/consumer/" + webutil.getUiprofile().getConsumerdir() + "/aggr/errorMessage.xhtml","");
+               webutil.redirecttoMessagePage("ERROR", "MX Service", userProfile.getErrorStatus().getErrorMessage(), "/pages/consumer/" + webutil.getWebprofile().getConsumerdir() + "/aggr/errorMessage.xhtml","");
             }else if(userProfile.getErrorStatus().getErrorCode()==0){
                uiLayout.doMenuAction("consumer", "aggr/widget.xhtml");
             }
@@ -191,7 +191,7 @@ public class AggregationBean
                processAggrRegistraion();
             }else
             {
-               webutil.redirecttoMessagePage("ERROR", "MX Service", result.getErrorStatus().getErrorMessage(), "/pages/consumer/" + webutil.getUiprofile().getConsumerdir() + "/aggr/errorMessage.xhtml","");
+               webutil.redirecttoMessagePage("ERROR", "MX Service", result.getErrorStatus().getErrorMessage(), "/pages/consumer/" + webutil.getWebprofile().getConsumerdir() + "/aggr/errorMessage.xhtml","");
             }
       }}
       catch (Exception e)

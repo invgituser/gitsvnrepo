@@ -28,14 +28,17 @@
         </ui:insert>
 
         <div class="layout-portlets-box TexAlCenter" style="font-size: 13px;">
-            <div class="layout-portlets-box TexAlCenter" style="border-radius:0;">
-                <div class="ShowOnDesktopTablet">
-                    <script type="text/javascript"
-                            src="https://seal.thawte.com/getthawteseal?host_name=www.buildingbenjamins.com&amp;size=S&amp;lang=en"></script>
+            <ui:fragment rendered="#{webutil.isSecure}">
+                <div class="layout-portlets-box TexAlCenter" style="border-radius:0;">
+                    <div class="ShowOnDesktopTablet">
+                        <script type="text/javascript"
+                                src="#{webutil.webprofile.sslseal}">
+                        </script>
+                    </div>
                 </div>
-            </div>
+            </ui:fragment>
             Powered by Invessence<sup class="Fs9">SM</sup><br/>
-            #{webutil.uiprofile.companyname}<sup class="Fs9">TM</sup> - All rights reserved.
+            #{webutil.webprofile.companyname}<sup class="Fs9">TM</sup> - All rights reserved.
         </div>
     </div>
 
@@ -47,12 +50,5 @@
     <h:outputStylesheet name="css/animate.css" library="spark-layout"/>
     <h:outputStylesheet name="css/modena-font.css" library="spark-layout"/>
     <h:outputStylesheet name="css/invessence.css" library="invessence"/>
-    <ui:fragment rendered="#{uiLayout.uiprofile.hasCustomcss}">
-        <h:outputStylesheet name="#{uiLayout.uiprofile.customcss}" library="#{uiLayout.uiprofile.cssdir}"/>
-    </ui:fragment>
-    <ui:fragment rendered="#{uiLayout.uiprofile.hasGoogleAnalytic}">
-        <h:outputStylesheet name="#{uiLayout.uiprofile.googleAnalytic}"
-                            library="#{uiLayout.cssDIR}"/>
-    </ui:fragment>
 
 </ui:composition>

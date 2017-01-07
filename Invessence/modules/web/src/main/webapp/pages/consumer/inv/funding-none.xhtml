@@ -6,66 +6,67 @@
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 template="/template/common/template.xhtml">
 
-    <f:metadata>
-        <f:viewParam name="acct" value="#{cepb.beanAcctnum}"/>
-        <f:event type="preRenderView" listener="#{cepb.preRenderView}"/>
-    </f:metadata>
-
     <ui:define name="content">
-         <h:form>
+        <h:form>
 
             <div class="layout-portlets-box">
                 <div class="Container60 Responsive50">
                     <div class="ContainerIndent">
                         <h3 class="BigTopic">Opening Your Account</h3>
-                            <h:outputText value="You are being forwarded to Interactive Broker to open an account."
-				escape="false"/>
-                            <div class="EmptyBox10"/>
-                            <strong>Please have the following information readily available:</strong>
-			    <br/>
-                            <br/>
-                            <i>Personal Information</i>
-                            <ul>
-                                <li>Social Security Number</li>
-                                <li>Driver's License</li>
-                            </ul>
-                            <i>For an IRA you also need</i>
-                            <ul>
-                                <li>Beneficiary Information</li>
-                                <li>Beneficiary Social Security Number</li>
-                            </ul>
-                            <i>Funding</i>
-                            <ul>
-                                <li>Bank Information</li>
-                                <li>Brokerage Information</li>
-                            </ul>
+                        <h:outputText value="You are being forwarded to Interactive Broker to open an account."
+                                      escape="false"/>
 
-                            <p>
-                                You will now be redirected to Interactive Brokers.</p>
+                        <div class="EmptyBox10"/>
+                        <strong>Please have the following information readily available:</strong>
+                        <br/>
+                        <br/>
+                        <i>Personal Information</i>
+                        <ul>
+                            <li>Social Security Number</li>
+                            <li>Driver's License</li>
+                        </ul>
+                        <i>For an IRA you also need</i>
+                        <ul>
+                            <li>Beneficiary Information</li>
+                            <li>Beneficiary Social Security Number</li>
+                        </ul>
+                        <i>Funding</i>
+                        <ul>
+                            <li>Bank Information</li>
+                            <li>Brokerage Information</li>
+                        </ul>
 
-                            <p>You will also be <u>logged out of Invessence</u>!</p>
-                            <div class="EmptyBox10"/>
-                                <p:commandButton value="Continue" styleClass="TexAlCenter"
-                                                 actionListener="#{cepb.forwardToIB}"/>
+                        <p>
+                            You will now be redirected to Interactive Brokers.</p>
+
+                        <p>You will also be <u>logged out of Invessence</u>!</p>
+
+                        <div class="EmptyBox10"/>
+                        <h3>
+                           Invessence does not offer funding at this time.  Our technology is only build for advisor.
+                        </h3>
                     </div>
                 </div>
                 <div class="Container40 Responsive50">
                     <div class="ContainerIndent">
                         <div class="Container100 Responsive50">
                             <h1 class="BigTopic">Support</h1>
-                                <h3>Questions? Talk to one of our product specialists.</h3>
-                                <br/>
-                                <img src="/images/telephone_call_contact.png" alt="Phone" style="height: 18px;"/>
-                                Phone: #{uiLayout.uiprofile.mainphone}
-                                <br/>
-                                <a href="mailto:info@invessence.com">
-                                    <img src="/images/email_envelope.png" alt="Email" style="height: 18px;"/>
-                                    Email: #{uiLayout.uiprofile.supportemail}
-                                </a>
+
+                            <h3>Questions? Talk to one of our product specialists.</h3>
+                            <br/>
+                            <img src="/images/telephone_call_contact.png" alt="Phone" style="height: 18px;"/>
+                            Phone: #{uiLayout.webProfile.mainphone}
+                            <br/>
+                            <a href="mailto:info@invessence.com">
+                                <img src="/images/email_envelope.png" alt="Email" style="height: 18px;"/>
+                                Email: #{uiLayout.webProfile.supportemail}
+                            </a>
+
                             <div class="EmptyBox20"/>
                         </div>
                         <div class="Container100 Responsive50">
                             <h1 class="BigTopic">Account Information</h1>
+
                             <p>
                                 Invessence, Inc. acts as your registered investment adviser but does not take custody of your
                                 assets. We have partnered with
@@ -88,9 +89,9 @@
                                  </span></strong>
                             </p>
 
-		    </div>
-		</div>
-	    </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </h:form>

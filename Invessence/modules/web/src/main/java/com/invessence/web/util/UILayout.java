@@ -49,11 +49,6 @@ public class UILayout implements Serializable
       return webutil;
    }
 
-   public UIProfile getUiprofile()
-   {
-      return webutil.getUiprofile();
-   }
-
    public WebProfile getWebProfile() { return webutil.getWebprofile(); }
 
    private String webserviceDB(Map<String, WebConfigDetails> webDB, String name)
@@ -69,108 +64,6 @@ public class UILayout implements Serializable
       return value;
    }
 
-   private String getWebServiceValue(String key)
-   {
-      String value = null;
-      Map<String, WebConfigDetails> webSiteConfigDetails;
-      String cid = getCid();
-
-      if (cid == null || cid.isEmpty())
-         return null;
-
-      if (ServiceParameters.webSiteConfigDetailsMap != null)
-      {
-         // First get the Proper CID records.
-         webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get(cid);
-
-         if (webSiteConfigDetails != null)
-         {
-            value = webserviceDB(webSiteConfigDetails, key);
-            if (value != null)
-            {
-               return value;
-            }
-         }
-
-         // If above logic did not find it, and it was zero, then return null
-         if (getCid().equalsIgnoreCase("0"))
-            return null;
-
-         // If no data was found, and CID <> 0, then default the data at Master level.
-         webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get("0");
-
-         if (webSiteConfigDetails != null)
-         {
-            value = webserviceDB(webSiteConfigDetails, key);
-            if (value != null)
-            {
-               return value;
-            }
-         }
-
-      }
-      return null;
-   }
-
-   public void initialize()
-   {
-      if (webutil.getUiprofile() != null)
-      {
-         if (ServiceParameters.webSiteConfigDetailsMap != null)
-         {
-            // First get the Master records.
-            Map<String, WebConfigDetails> webSiteConfigDetails = ServiceParameters.webSiteConfigDetailsMap.get("0");
-
-            if (webSiteConfigDetails != null)
-            {
-               webutil.getUiprofile().resetAllInfo(getCid(),
-                                                   getWebServiceValue("COMPANYNAME"),
-                                                   getWebServiceValue("WEBSITE.URL"),
-                                                   getWebServiceValue("SECURE.URL"),
-                                                   getWebServiceValue("LOGO"),
-                                                   getWebServiceValue("LOGO.SIZE"),
-                                                   getWebServiceValue("LOGO.LIB"),
-                                                   getWebServiceValue("MAIN.EMAIL"),
-                                                   getWebServiceValue("SUPPORT.EMAIL"),
-                                                   getWebServiceValue("MAIN.PHONE"),
-                                                   getWebServiceValue("SUPPORT.PHONE"),
-                                                   getWebServiceValue("COPYRIGHT"),
-                                                   getWebServiceValue("FORWARD.SERVICE"),
-                                                   getWebServiceValue("CUSTODY.URL"),
-                                                   getWebServiceValue("CUSTODY.PROCESS"),
-                                                   getWebServiceValue("THEME"),
-                                                   getWebServiceValue("THEME.LIB"),
-                                                   getWebServiceValue("TEMPLATE.DIR"),
-                                                   getWebServiceValue("CONSUMER.DIR"),
-                                                   getWebServiceValue("CSS.DIR"),
-                                                   getWebServiceValue("CUSTOM.CSS"),
-                                                   getWebServiceValue("WEB.MODE"),
-                                                   getWebServiceValue("EMAIL.USER"));
-               Map<String, String> emailMap = new HashMap<String,String>();
-               emailMap.put(WebConst.HTML_WELCOME,getWebServiceValue(WebConst.HTML_WELCOME));
-               emailMap.put(WebConst.HTML_WELCOME_ADV,getWebServiceValue(WebConst.HTML_WELCOME_ADV));
-               emailMap.put(WebConst.HTML_LOCKED,getWebServiceValue(WebConst.HTML_LOCKED));
-               emailMap.put(WebConst.HTML_RESET,getWebServiceValue(WebConst.HTML_RESET));
-               webutil.getUiprofile().setEmailTemplateMap(emailMap);
-
-               Map<String, String> emailSubjectMap = new HashMap<String,String>();
-               emailSubjectMap.put(WebConst.EMAIL_WELCOME_SUBJECT,getWebServiceValue(WebConst.EMAIL_WELCOME_SUBJECT));
-               emailSubjectMap.put(WebConst.EMAIL_WELCOME_ADV_SUBJECT,getWebServiceValue(WebConst.EMAIL_WELCOME_ADV_SUBJECT));
-               emailSubjectMap.put(WebConst.EMAIL_LOCKED_SUBJECT,getWebServiceValue(WebConst.EMAIL_LOCKED_SUBJECT));
-               emailSubjectMap.put(WebConst.EMAIL_RESET_SUBJECT,getWebServiceValue(WebConst.EMAIL_RESET_SUBJECT));
-               emailSubjectMap.put(WebConst.EMAIL_ACTIVATE_SUBJECT,getWebServiceValue(WebConst.EMAIL_ACTIVATE_SUBJECT));
-               webutil.getUiprofile().setEmailSubjectMap(emailSubjectMap);
-
-               webutil.getUiprofile().setAdvisor(getWebServiceValue("DEFAULT.ADVISOR"));
-               webutil.getUiprofile().setRep(getWebServiceValue("DEFAULT.REP"));
-               webutil.getUiprofile().setCustodydir(getWebServiceValue("CUSTODY.DIR"));
-               webutil.getUiprofile().setCustodycss(getWebServiceValue("CUSTODY.CSS"));
-               webutil.getUiprofile().setGoogleAnalytic(getWebServiceValue("GOOGLE.ANALYTICS"));
-            }
-         }
-      }
-   }
-
    public void loadData(String url) {
       if (commonDAO != null)
       {
@@ -179,7 +72,7 @@ public class UILayout implements Serializable
    }
 
 
-   public void resetCIDProfile(String cid)
+   public void resetCIDProfile()
    {
       String uri = webutil.getURLAddress("Invessence");
       String origurl = webutil.getWebprofile().getUrl();
@@ -192,55 +85,24 @@ public class UILayout implements Serializable
             loadData(uri);
          }
       }
+    }
 
+   public void resetCIDProfile(String uri)
+   {
+      String origurl = webutil.getWebprofile().getUrl();
 
-      if (cid != null)
-      {
-         // If we already set the value for that CID, then don't do it again.
-         if (!cid.equals(webutil.getUiprofile().getCid()))
+      if (origurl == null || (! origurl.equalsIgnoreCase(uri))) {
+         if (! webutil.getWebprofile().getForced())
          {
-            setCid(cid);
-            webutil.getUiprofile().resetAllInfo(getCid(),
-                                                getWebServiceValue("COMPANYNAME"),
-                                                getWebServiceValue("WEBSITE.URL"),
-                                                getWebServiceValue("SECURE.URL"),
-                                                getWebServiceValue("LOGO"),
-                                                getWebServiceValue("LOGO.SIZE"),
-                                                getWebServiceValue("LOGO.LIB"),
-                                                getWebServiceValue("MAIN.EMAIL"),
-                                                getWebServiceValue("SUPPORT.EMAIL"),
-                                                getWebServiceValue("MAIN.PHONE"),
-                                                getWebServiceValue("SUPPORT.PHONE"),
-                                                getWebServiceValue("COPYRIGHT"),
-                                                getWebServiceValue("FORWARD.SERVICE"),
-                                                getWebServiceValue("CUSTODY.URL"),
-                                                getWebServiceValue("CUSTODY.PROCESS"),
-                                                getWebServiceValue("THEME"),
-                                                getWebServiceValue("THEME.LIB"),
-                                                getWebServiceValue("TEMPLATE.DIR"),
-                                                getWebServiceValue("CONSUMER.DIR"),
-                                                getWebServiceValue("CSS.DIR"),
-                                                getWebServiceValue("CUSTOM.CSS"),
-                                                getWebServiceValue("WEB.MODE"),
-                                                getWebServiceValue("EMAIL.USER")
-            );
-
-
-            Map<String, String> emailMap = new HashMap<String,String>();
-            emailMap.put(WebConst.HTML_WELCOME,getWebServiceValue(WebConst.HTML_WELCOME));
-            emailMap.put(WebConst.HTML_LOCKED,getWebServiceValue(WebConst.HTML_LOCKED));
-            emailMap.put(WebConst.HTML_RESET,getWebServiceValue(WebConst.HTML_RESET));
-            emailMap.put(WebConst.HTML_WELCOME_ADV,getWebServiceValue(WebConst.HTML_WELCOME_ADV));
-            webutil.getUiprofile().setEmailTemplateMap(emailMap);
-            webutil.getUiprofile().setAdvisor(getWebServiceValue("DEFAULT.ADVISOR"));
-            webutil.getUiprofile().setRep(getWebServiceValue("DEFAULT.REP"));
-            webutil.getUiprofile().setCustodydir(getWebServiceValue("CUSTODY.DIR"));
-            webutil.getUiprofile().setCustodycss(getWebServiceValue("CUSTODY.CSS"));
-
+            webutil.getWebprofile().setUrl(uri);
+            webutil.getWebprofile().setForced(true);
+            loadData(uri);
          }
       }
    }
 
+
+/*
    @PostConstruct
    public void init()
    {
@@ -251,6 +113,7 @@ public class UILayout implements Serializable
          initialize();
       }
    }
+*/
 
    public void preRenderView()
    {
@@ -259,21 +122,7 @@ public class UILayout implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            if (getCid() == null || getCid().length() == 0)
-            {
-               Map<String, String> params = FacesContext.getCurrentInstance().
-                  getExternalContext().getRequestParameterMap();
-               if (params != null)
-               {
-                  String tcid = params.get("cid");
-                  if (tcid != null)
-                  {
-                     cid = tcid;
-                  }
-               }
-            }
-
-            resetCIDProfile(getCid());
+            resetCIDProfile();
          }
       }
       catch (Exception e)
@@ -304,16 +153,6 @@ public class UILayout implements Serializable
    public void setMessagesTab(TabView messagesTab)
    {
       this.menuTab = messagesTab;
-   }
-
-   public String getCid()
-   {
-      return cid;
-   }
-
-   public void setCid(String cid)
-   {
-      this.cid = cid;
    }
 
    public String getRep()
@@ -376,22 +215,13 @@ public class UILayout implements Serializable
       {
          if (webutil.hasAccess(WebConst.WEB_ADVISOR))
          {
-/*
-            if (webutil.getUiprofile().getConsumerdir() != null) {
-               dashboard = "/pages/advisor/" + webutil.getUiprofile().getConsumerdir() +"/index.xhtml";
-            }
-            else {
-*/
             dashboard = "/pages/advisor/index.xhtml";
-/*
-            }
-*/
          }
          else
          {
-            if (webutil.getUiprofile().getConsumerdir() != null)
+            if (webutil.getWebprofile().getConsumerdir() != null)
             {
-               dashboard = "/pages/consumer/" + webutil.getUiprofile().getConsumerdir().trim() + "/index.xhtml";
+               dashboard = "/pages/consumer/" + webutil.getWebprofile().getConsumerdir().trim() + "/index.xhtml";
             }
             else
             {
@@ -401,16 +231,7 @@ public class UILayout implements Serializable
       }
       else
       {
-/*       // Due to mobile app, we cannot go to unsecure site.
-         if (getUiprofile().getHomepage() != null) {
-            dashboard = getUiprofile().getHomepage();
-         }
-         else {
-*/
-            dashboard = webutil.getUiprofile().getHomepage();
-/*
-         }
-*/
+            dashboard = webutil.getWebprofile().getHomepage();
       }
       return dashboard;
 
@@ -473,16 +294,17 @@ public class UILayout implements Serializable
    {
       try
       {
-         if (webutil.getUiprofile().getCustodyprocess() != null) {
-           if (webutil.getUiprofile().getCustodyprocess().equalsIgnoreCase("URL")) {
-              if (webutil.getUiprofile().getCustodyURL() != null) {
-                  forwardURL(webutil.getUiprofile().getCustodyURL());
+         String custody_service =  webutil.getWebprofile().getWebInfo().get("CUSTODY.SERVICE");
+         if (custody_service != null) {
+           if (custody_service.equalsIgnoreCase("URL")) {
+              String custodyURL =  webutil.getWebprofile().getWebInfo().get("CUSTODY.URL");
+              if (custodyURL != null) {
+                  forwardURL(custodyURL);
                  return;
               }
            }
-           else if (webutil.getUiprofile().getCustodyprocess().equalsIgnoreCase("INTERNAL")) {
-               if (webutil.getUiprofile().getCustodydir() != null &&
-                  webutil.getUiprofile().getCustodydir().equalsIgnoreCase("td")) {
+           else if (custody_service.equalsIgnoreCase("INTERNAL")) {
+               if (webutil.getWebprofile().getCustodydir() != null) {
                   doMenuAction("custody", "index.xhtml?l="+logonid.toString()+"&acct="+acctnum.toString());
                   // tdcto.startCTO(logonid,acctnum);
                   return;
@@ -525,13 +347,13 @@ public class UILayout implements Serializable
             }
             else {
                if (location.equalsIgnoreCase("custody")) {
-                  if (getUiprofile().getCustodydir() == null || getUiprofile().getCustodydir().trim().length() == 0)
+                  if (webutil.getWebprofile().getCustodydir() == null || webutil.getWebprofile().getCustodydir().trim().length() == 0)
                   {
                      forwardURL("/pages/custody/invessence/" + menuItem);
                   }
                   else
                   {
-                     forwardURL("/pages/custody/" + getUiprofile().getCustodydir() + "/" + menuItem);
+                     forwardURL("/pages/custody/" + webutil.getWebprofile().getCustodydir() + "/" + menuItem);
                   }
                }
                else {
@@ -616,15 +438,15 @@ public class UILayout implements Serializable
    public String getTemplateDIR()
    {
       String templateDIR = "/template/common/spark";
-      if (webutil.getUiprofile() != null)
+      if (webutil.getWebprofile() != null)
       {
-         if (webutil.getUiprofile().getTemplatedir() == null || webutil.getUiprofile().getTemplatedir().trim().length() == 0)
+         if (webutil.getWebprofile().getTemplatedir() == null || webutil.getWebprofile().getTemplatedir().trim().length() == 0)
          {
             return (templateDIR);
          }
          else
          {
-            return (webutil.getUiprofile().getTemplatedir());
+            return (webutil.getWebprofile().getTemplatedir());
          }
       }
       return templateDIR;
@@ -633,87 +455,63 @@ public class UILayout implements Serializable
    public String getThemeLib()
    {
       String themeLib = WebConst.DEFAULT_THEME + "-layout";
-      if (webutil.getUiprofile() == null)
+      if (webutil.getWebprofile() == null)
       {
          return (themeLib);
       }
-      else if (webutil.getUiprofile().getThemelib() == null || webutil.getUiprofile().getThemelib().trim().length() == 0)
+      else if (webutil.getWebprofile().getThemelib() == null || webutil.getWebprofile().getThemelib().trim().length() == 0)
       {
          return (themeLib);
       }
       else
       {
-         return (webutil.getUiprofile().getThemelib());
+         return (webutil.getWebprofile().getThemelib());
       }
    }
 
    public String getTheme()
    {
       String theme = WebConst.DEFAULT_THEME;
-      if (webutil.getUiprofile() == null)
+      if (webutil.getWebprofile() == null)
       {
          return (theme);
       }
-      else if (webutil.getUiprofile().getTheme() == null || webutil.getUiprofile().getTheme().trim().length() == 0)
+      else if (webutil.getWebprofile().getTheme() == null || webutil.getWebprofile().getTheme().trim().length() == 0)
       {
          return (theme);
       }
       else
       {
-         return (webutil.getUiprofile().getTheme());
+         return (webutil.getWebprofile().getTheme());
       }
    }
 
    public String getLogo()
    {
       String logo = WebConst.DEFAULT_LOGO;
-      if (webutil.getUiprofile() == null)
+      if (webutil.getWebprofile() == null)
       {
          return (logo);
       }
-      else if (webutil.getUiprofile().getLogo() == null || webutil.getUiprofile().getLogo().trim().length() == 0)
+      else if (webutil.getWebprofile().getLogo() == null || webutil.getWebprofile().getLogo().trim().length() == 0)
       {
          return (logo);
       }
       else
       {
-         return (webutil.getUiprofile().getLogo());
-      }
-   }
-
-   public String getCssDIR()
-   {
-      if (webutil.getUiprofile() == null)
-      {
-         return (null);
-      }
-      else
-      {
-         return (webutil.getUiprofile().getCssdir());
-      }
-   }
-
-   public String getCustomCSS()
-   {
-      if (webutil.getUiprofile() == null)
-      {
-         return (null);
-      }
-      else
-      {
-         return (webutil.getUiprofile().getCustomcss());
+         return (webutil.getWebprofile().getLogo());
       }
    }
 
    public String getConsumerDIR()
    {
-      if (webutil.getUiprofile() == null)
+      if (webutil.getWebprofile() == null)
       {
-         return (null);
+         return ("/");
       }
       else
       {
-         return (webutil.getUiprofile().getConsumerdir());
+         return (webutil.getWebprofile().getConsumerdir());
       }
    }
 }

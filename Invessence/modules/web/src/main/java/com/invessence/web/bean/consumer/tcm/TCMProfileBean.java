@@ -1258,8 +1258,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          data.setIp(webutil.getClientIpAddr((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()));
          ;
          data.setAcctnum(getAcctnum());
-         data.setAdvisor(webutil.getUiprofile().getAdvisor());
-         data.setRep(webutil.getUiprofile().getRep());
+         data.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
+         data.setRep(webutil.getWebprofile().getDefaultRep());
          data.setEmail(null);
          if (saveDAO != null)
          {

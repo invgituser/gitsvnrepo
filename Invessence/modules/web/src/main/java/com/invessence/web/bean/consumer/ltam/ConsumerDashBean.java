@@ -20,7 +20,7 @@ import com.invessence.web.util.*;
  * To change this template use File | Settings | File Templates.
  */
 
-@ManagedBean(name = "cdash")
+@ManagedBean(name = "ltamdash")
 @SessionScoped
 public class ConsumerDashBean implements Serializable
 {

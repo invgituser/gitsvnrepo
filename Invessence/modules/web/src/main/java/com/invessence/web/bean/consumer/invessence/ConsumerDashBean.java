@@ -134,7 +134,7 @@ public class ConsumerDashBean implements Serializable
       {
          if (getSelectedAccount().getManaged())
          {
-            uiLayout.doMenuAction("/pages/consumer/overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+            uiLayout.doMenuAction("consumer","overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
          }
          else {
             uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());

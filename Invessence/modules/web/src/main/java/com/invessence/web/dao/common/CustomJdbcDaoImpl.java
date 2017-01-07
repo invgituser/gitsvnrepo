@@ -232,7 +232,6 @@ public class CustomJdbcDaoImpl extends JdbcDaoImpl
                resetID = rnumber.toString();
                sql = getLockUserSql();
                getJdbcTemplate().update(sql, new Object[]{logonStatus, rnumber, username});
-               String secureUrl = webutl.getUiprofile().getSecurehomepage();
 
                // System.out.println("LOGIN MIME TYPE: "+ uid.getEmailmsgtype());
                UserData userdata = new UserData();

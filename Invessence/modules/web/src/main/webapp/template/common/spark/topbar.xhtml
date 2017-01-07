@@ -64,25 +64,12 @@
                 </ul>
             </ui:fragment>
             <div class="submenuCustom submenu">
-                <p:outputText value="#{webutil.uiprofile.supportphone}"/>
+                <p:outputText value="#{uiLayout.webProfile.supportphone}"/>
                 <br/>
-                <a href="mailto:#{webutil.uiprofile.supportemail}">
-                    <p:outputText value="#{webutil.uiprofile.supportemail}"/>
+                <a href="mailto:#{uiLayout.webProfile.supportemail}">
+                    <p:outputText value="#{uiLayout.webProfile.supportemail}"/>
                 </a>
             </div>
-            <!-- <ui:fragment rendered="#{!webutil.isUserLoggedIn()}">
-                <ul id="layout-topbar-menu">
-                <li>
-                    <p:outputText value="#{webutil.uiprofile.supportphone}"/>
-                    <br/>
-                    <a href="mailto:#{webutil.uiprofile.supportemail}">
-                        <p:outputText value="#{webutil.uiprofile.supportemail}"/>
-                    </a>
-                </li>
-
-                </ul>
-            </ui:fragment> -->
-
         </div>
     </div>
 

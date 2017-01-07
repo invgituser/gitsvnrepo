@@ -738,12 +738,12 @@ public class UserBean implements Serializable
          // cookieInfo.put("img", img);
          //utl.setCookie(Const.COMPANY_NAME,"image",cookieInfo);
          userdata.setIp(myIP);
-         userdata.setCid(webutil.getUiprofile().getCid());
-         userdata.setAdvisor(webutil.getUiprofile().getAdvisor());
-         userdata.setRep(webutil.getUiprofile().getRep());
+         userdata.setCid(webutil.getWebprofile().getCid());
+         userdata.setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
+         userdata.setRep(webutil.getWebprofile().getDefaultRep());
          // secCode = "Default123";
          userdata.setEmailmsgtype(userdata.getEmailmsgtype());
-         String supportInfo = webutil.getUiprofile().getSupportemail();
+         String supportInfo = webutil.getWebprofile().getSupportemail();
 
          // Save data to database....
          long loginID = userInfoDAO.addUserInfo(userdata);

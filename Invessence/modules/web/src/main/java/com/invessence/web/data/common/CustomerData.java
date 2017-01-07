@@ -643,9 +643,9 @@ public class CustomerData extends ProfileData
             setRep(webutil.getUserInfoData().getRep());
          }
          else {
-            if (webutil.getUiprofile() != null) {
-               setAdvisor(webutil.getUiprofile().getAdvisor());
-               setRep(webutil.getUiprofile().getRep());
+            if (webutil.getWebprofile() != null) {
+               setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
+               setRep(webutil.getWebprofile().getDefaultRep());
             }
          }
       }

@@ -27,7 +27,6 @@ import static javax.faces.context.FacesContext.getCurrentInstance;
 public class WebUtil implements Serializable
 {
    protected final Log webutillooger = LogFactory.getLog(getClass());
-   public UIProfile uiprofile = new UIProfile();
    public WebProfile webprofile = new WebProfile();
    public SQLData converter = new SQLData();
    public DataDisplayConverter dataDisplayConverter = new DataDisplayConverter();
@@ -54,11 +53,6 @@ public class WebUtil implements Serializable
       return dataDisplayConverter;
    }
 
-   public UIProfile getUiprofile()
-   {
-      return uiprofile;
-   }
-
    public WebProfile getWebprofile()
    {
       return webprofile;
@@ -66,17 +60,17 @@ public class WebUtil implements Serializable
 
    public boolean isWebProdMode()
    {
-      if (uiprofile == null)
+      if (webprofile == null)
       {
          return false;
       }
 
-      String mode = uiprofile.getWebmode();
+      String mode = webprofile.getWebmode();
       if (mode == null)
       {
          return false;
       }
-      else if (mode.toUpperCase().equals("PROD") || mode.toUpperCase().equals("UAT"))
+      else if (mode.toUpperCase().equals("PROD"))
       {
          return true;
       }
@@ -132,6 +126,14 @@ public class WebUtil implements Serializable
       {
          return uri;
       }
+   }
+
+   public Boolean getIsSecure()
+   {
+
+      HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+
+      return (request != null) && (request.isSecure());
    }
 
    public static String getValByAttr(HttpServletRequest request, String arg, String defaultVal)
@@ -892,9 +894,9 @@ public class WebUtil implements Serializable
 
       MsgData data = new MsgData();
       data.setSource("User");  // This is set to User to it insert into appropriate table.
-      data.setSender(getUiprofile().getEmailUser());
+      data.setSender(getWebprofile().getEmailUser());
       data.setReceiver(userdata.getEmail());
-      String secureUrl = getUiprofile().getSecurehomepage();
+      String secureUrl = getWebprofile().getSecurehomepage();
       String emailMsgType;
       String htmlfile = null, htmltempate = null, textInfo = null;
       String whichURL = null;
@@ -920,39 +922,34 @@ public class WebUtil implements Serializable
 
       switch (whichEmail) {
          case 0:
-            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
+            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
             textInfo = WebConst.TEXT_ACTIVATED;
             htmltempate = WebConst.HTML_ACTIVATED;
-            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_ACTIVATED);
             whichURL=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 1:
-            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_RESET_SUBJECT);
+            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_RESET_SUBJECT);
             textInfo = WebConst.TEXT_RESET;
             htmltempate = WebConst.HTML_RESET;
-            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_RESET);
             whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 2:
-            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_LOCKED_SUBJECT);
+            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_LOCKED_SUBJECT);
             textInfo = WebConst.TEXT_LOCKED;
             htmltempate = WebConst.HTML_LOCKED;
-            // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_LOCKED);
             whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 3:
-            subject = getUiprofile().getEmailSubject(WebConst.EMAIL_WELCOME_SUBJECT);
+            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_SUBJECT);
             whichURL=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
-               subject = getUiprofile().getEmailSubject(WebConst.EMAIL_WELCOME_ADV_SUBJECT);
+               subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_ADV_SUBJECT);
                textInfo = WebConst.TEXT_WELCOME_ADV;
                htmltempate = WebConst.HTML_WELCOME_ADV;
-               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME_ADV);
             }
             else {
                textInfo = WebConst.TEXT_WELCOME;
                htmltempate = WebConst.HTML_WELCOME;
-               // htmltempate = webutil.getUiprofile().getEmailTemplate(WebConst.HTML_WELCOME);
             }
             break;
          default:
@@ -964,7 +961,7 @@ public class WebUtil implements Serializable
          // htmlfile = "/template/html/" + htmltempate;
 
       if (subject == null) {
-         subject = getUiprofile().getCompanyname() + "Email";
+         subject = getWebprofile().getCompanyname() + "Email";
       }
 
       data.setSubject(subject);
@@ -980,10 +977,10 @@ public class WebUtil implements Serializable
                                                             userdata.getFirstName(),
                                                             userdata.getLastName(),
                                                             userdata.getEmail(),
-                                                            getUiprofile().getSupportemail(),
-                                                            getUiprofile().getSupportphone(),
-                                                            getUiprofile().getCompanyname(),
-                                                            getUiprofile().getLogo()
+                                                            getWebprofile().getSupportemail(),
+                                                            getWebprofile().getSupportphone(),
+                                                            getWebprofile().getCompanyname(),
+                                                            getWebprofile().getLogo()
                                                          });
       data.setMsg(msg);
       getMessageText().writeMessage("custom", data);

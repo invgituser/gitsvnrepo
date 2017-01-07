@@ -23,7 +23,7 @@ import com.invessence.web.data.consumer.ltam.*;
  * To change this template use File | Settings | File Templates.
  */
 
-@ManagedBean(name = "ceb")
+@ManagedBean(name = "ltameb")
 @SessionScoped
 public class ConsumerEditBean extends LTAMCustomerData implements Serializable
 {

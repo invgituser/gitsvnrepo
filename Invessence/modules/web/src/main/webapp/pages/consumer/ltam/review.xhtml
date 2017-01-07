@@ -37,10 +37,10 @@
     <div class="Container100 Responsive100">
         <div class="Container60 Responsive100">
             <form id="_id0" method="post"
-                  action="#{uiLayout.uiprofile.forwardURL}"
+                  action="#{uiLayout.webProfile.custodyURL}"
                   target="_self">
                 <p:panel id="inputArea" style="border: 0px; background: transparent; height: 270px">
-                    <ui:include src="/pages/consumer/edit/final.xhtml"/>
+                    <ui:include src="/pages/consumer/ltam/edit/final.xhtml"/>
                     
                     <input type="hidden" name="TimeToSaveUserId" value="#{ceb.timeToSaveID}"/>
                     <input type="hidden" name="InvestorFirstName" value="#{ceb.firstname}"/>
@@ -52,7 +52,7 @@
 
                     <f:facet name="footer">
                         <div class="Fleft btn_left">
-                            <a href="/pages/consumer/cedit.xhtml">
+                            <a href="/pages/consumer/ltam/cedit.xhtml">
                                 <img class="startover"/>
                             </a>
                         </div>

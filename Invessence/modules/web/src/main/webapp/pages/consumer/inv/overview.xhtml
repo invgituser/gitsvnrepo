@@ -7,8 +7,8 @@
                 template="/template/common/template.xhtml">
 
 <f:metadata>
-    <f:viewParam name="acct" value="#{positionBean.acctnum}"/>
-    <f:event type="preRenderView" listener="#{positionBean.preRenderView}"/>
+    <f:viewParam name="acct" value="#{invpos.acctnum}"/>
+    <f:event type="preRenderView" listener="#{invpos.preRenderView}"/>
 </f:metadata>
 
 <ui:define name="content">
@@ -22,8 +22,8 @@
             <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10"></i></div>
             <div class="Container80">
                 <div class="Fright">
-                    <h2 class="black head FontThemeMedium">#{positionBean.fullName}</h2>
-                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{positionBean.clientAccountID}
+                    <h2 class="black head FontThemeMedium">#{invpos.fullName}</h2>
+                                <span class="Fs15 gray FontThemeRegular DispBlock">Account#: #{invpos.clientAccountID}
                                 </span>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <div class="Container50 Responsive50"><!-- ROHIT's CHANGE -->
                         <div class="ContainerIndent">
                             <p:dataTable id="editAlloc" styleClass="invAllocTable"
-                                         value="#{positionBean.managedAssetsList}"
+                                         value="#{invpos.managedAssetsList}"
                                          var="assetList" rowKey="#{assetList.asset}"
                                          reflow="false"><!-- ROHIT's CHANGE -->
 
@@ -68,7 +68,7 @@
                                                   footerText="Total">
                                         </p:column>
                                         <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                  footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}">
+                                                  footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalvalue)}">
                                         </p:column>
                                     </p:row>
                                 </p:columnGroup>
@@ -83,7 +83,7 @@
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Percent Reached</span>
                                         <span class="Fs24 DispBlock invessenceblue">
-                                             <h:outputText value="#{positionBean.goalReached}">
+                                             <h:outputText value="#{invpos.goalReached}">
                                                  <f:convertNumber pattern="##0.00%"/>
                                              </h:outputText>
                                         </span>
@@ -96,7 +96,7 @@
                                     <div class="EmptyBox5"></div>
                                     <span class="Fs14 DispBlock gray">Goal Desired</span>
                                         <span class="Fs24 DispBlock red">
-                                            <h:outputText value="#{positionBean.goalDesired}">
+                                            <h:outputText value="#{invpos.goalDesired}">
                                                 <f:convertNumber pattern="$#,###,###"/>
                                             </h:outputText>
                                          </span>
@@ -108,9 +108,9 @@
                             <div class="Wrapper">
                                 <div class="Wid90 hide-mobile"
                                      style="width:200px; height:200px; margin:20px auto 10px;"><!-- ROHIT's CHANGE -->
-                                    <p:chart type="pie" model="#{positionBean.pieModel}"
+                                    <p:chart type="pie" model="#{invpos.pieModel}"
                                              styleClass="Wid100 MarTop10" responsive="true"
-                                             rendered="#{positionBean.pieModel == null ? false : true}"/>
+                                             rendered="#{invpos.pieModel == null ? false : true}"/>
 
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
             <p:tab title="Detail">
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
-                        <p:dataTable id="dataTable" var="position" value="#{positionBean.displayPositionList}"
+                        <p:dataTable id="dataTable" var="position" value="#{invpos.displayPositionList}"
                                      styleClass="invDataTable" reflow="false"> <!-- ROHIT's CHANGE reflow="true" for previuos table-->
 
                             <p:column priority="0"
@@ -197,14 +197,14 @@
                                     <p:column styleClass="tbl_hide" colspan="5" footerText="" style="text-align:left"/>
 
                                     <p:column priority="2"
-                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalmoney)}"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalmoney)}"
                                               style="text-align:right"/>
                                     <p:column priority="2" footerText="" style="text-align:left"/>
                                     <p:column priority="0"
-                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalvalue)}"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalvalue)}"
                                               style="text-align:right"/>
                                     <p:column colspan="" priority="0"
-                                              footerText="#{dataDisplayConverter.displayAsMoney(positionBean.totalpnl)}"
+                                              footerText="#{dataDisplayConverter.displayAsMoney(invpos.totalpnl)}"
                                               style="text-align:right"/>
                                 </p:row>
                             </p:columnGroup>
