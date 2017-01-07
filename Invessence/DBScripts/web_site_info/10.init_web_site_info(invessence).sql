@@ -1,3 +1,4 @@
+DELETE FROM `invdb`.`web_site_info` where url = 'invessence';
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'ARCHIVE.CLOSED', 'A', '10', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'ARCHIVE.INACTIVE', 'A', '30', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'ARCHIVE.UNOPENED', 'A', '30', 'N', '2016-12-16 22:20:19', NULL);
@@ -41,3 +42,4 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'WEB.MODE', 'A', 'PROD', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'WEB.THEME', 'A', 'spark', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'WEB.THEMELIB', 'A', 'spark-layout', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'WEB.SSLSEAL', 'A', null, 'N', now(), NULL);

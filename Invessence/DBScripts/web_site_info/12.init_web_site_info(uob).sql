@@ -1,3 +1,4 @@
+DELETE FROM `invdb`.`web_site_info` where url = 'uob';
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'ARCHIVE.CLOSED', 'A', '10', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'ARCHIVE.INACTIVE', 'A', '30', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'ARCHIVE.UNOPENED', 'A', '30', 'N', '2016-12-16 22:20:19', NULL);
