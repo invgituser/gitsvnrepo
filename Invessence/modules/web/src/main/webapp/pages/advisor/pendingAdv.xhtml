@@ -27,6 +27,14 @@
 
                     <h:form id="form">
                         <div class="Container100">
+                            <div class="Fleft">
+                                <p:menuButton value="Filter" styleClass="InfoNewDash customMenuButtonDashboard" style="margin: 10px 0px;">
+                                    <p:menuitem value="All"/>
+                                    <p:menuitem value="Today"/>
+                                    <p:menuitem value="Last 5 days"/>
+                                    <p:menuitem value="Last 30 days"/>
+                                </p:menuButton>
+                            </div>
                            <div class="Fright">
                            <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{manageAdvisorBean.filteredClient}">
                                <p:ajax update="@form" event="change"
