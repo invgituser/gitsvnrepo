@@ -144,7 +144,7 @@ img.riskImage:hover {
 
 @media (max-width: 640px) {
     .advisorMsgTable > div > table > tbody > tr > td:nth-child(even) {
-        background: #f1f1f3;
+        background: #ffffff;
     }
 
     .advisorMsgTable > div > table > tbody > tr > td:nth-child(3) >table>tbody>tr>td {
@@ -176,6 +176,23 @@ img.riskImage:hover {
         width: 20%;
     }
 }
+
+.advisorMsgTable > div > table > tbody > tr > td {
+ background: #FFFFFF!important;
+}
+
+.advisorMsgTable > div > table > tbody > .ui-state-highlight > td {
+    background-color: #2b775a!important;
+    color: #FFFFFF!important;
+}
+
+.advisorMsgTable > div > table > tbody > .ui-state-highlight > td > table > tbody > tr > td,
+.advisorMsgTable > div > table > tbody > .ui-state-hover > td > table > tbody > tr > td,
+.advisorMsgTable > div > table > tbody > .ui-state-hover > td {
+    background-color: #FFFFFF!important;
+    color: #778d9b!important;
+}
+
 
 .msgAdvStatus, .msgAdvAcctName {
     margin: 5px 0px;
@@ -3699,7 +3716,7 @@ h3 {
 
 
 .AdvtcmLayoutColumn > span:nth-child(1) {
-    color: #000000!important;
+    /*color: #000000!important;*/
     font-size: 13px;
 }
 
@@ -3781,6 +3798,13 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
     font-size: 14px;
 }
 
+.multipleSelectionChkList {
+    width:16px;
+    text-align:center!important;
+    background-color: #FFFFFF!important;
+    border: 0!important;
+    box-sizing: border-box;
+}
 
 @media (max-width: 640px) {
     .AdvtcmGridBtnLeftR > span:nth-child(1),
@@ -3789,4 +3813,31 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
     .AdvtcmGridBtnR {
         width: 100%!important;
     }
+
+    .multipleSelectionChkList {
+        width:100%!important;
+        background-color: #FFFFFF!important;
+        display: block!important;
+    }
+
+    .multipleSelectionChkList > span:nth-child(1) {
+        display: none!important;
+    }
+}
+
+@media (max-width: 445px) {
+    .AdvBtnTcmGrp > div > span,
+    .filterMB > button > span:nth-child(2) {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 415px)  {
+.filterMBBlock {
+    float: right!important;
+}
+
+.filterMB {
+    margin-bottom: 0!important;
+}
 }

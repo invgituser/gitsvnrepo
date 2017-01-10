@@ -27,7 +27,7 @@
 
                             <div class="Container100">
                                 <div class="Container100 MarTop5">
-                                    <div class="Fright Responsive50">
+                                    <div class="Fright Responsive100" >
                                         <p:selectOneButton value="#{advisornotificationBean.filterNotice}">
                                             <f:selectItem itemLabel="New" itemValue="N"/>
                                             <f:selectItem itemLabel="Archived" itemValue="A"/>
@@ -43,9 +43,10 @@
                                                  sortMode="multiple"
                                                  selection="#{advisornotificationBean.selectionList}"
                                                  rowKey="#{msg.messageid}"
+                                                 reflow="true"
                                                  emptyMessage="No Messages were created."
                                     >
-                                        <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                                        <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="border:solid 1px #D9E3E8!important;"/>
                                         <p:column style="" styleClass="mobileLeftAdvMsg Fs14 textAlign " sortBy="#{msg.businessdate}" sortOrder="ascending"
                                         headerText="Created" resizable="true">
                                             <h:outputText styleClass="mobileRightAdvMsg" value="#{msg.businessdate}"/>

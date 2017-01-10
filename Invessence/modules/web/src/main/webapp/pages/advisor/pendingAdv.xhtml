@@ -27,8 +27,8 @@
 
                     <h:form id="form">
                         <div class="Container100">
-                            <div class="Fleft">
-                                <p:menuButton value="Filter" styleClass="InfoNewDash customMenuButtonDashboard" style="margin: 10px 0px;">
+                            <div class="Fleft filterMBBlock">
+                                <p:menuButton value="Filter" styleClass="InfoNewDash filterMB customMenuButtonDashboard" style="margin: 10px 0px;">
                                     <p:menuitem value="All"/>
                                     <p:menuitem value="Today"/>
                                     <p:menuitem value="Last 5 days"/>
@@ -71,7 +71,7 @@
                             resizable="true">
                        
                             </p:column>-->
-                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                            <p:column selectionMode="multiple" styleClass="multipleSelectionChkList"/>
                             <!-- <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
                                 
                             </p:column> -->
