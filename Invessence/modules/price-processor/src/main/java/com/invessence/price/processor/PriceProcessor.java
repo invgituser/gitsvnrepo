@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.invessence.service.util.ServiceParameters;
 import com.invessence.web.constant.Const;
 import com.invessence.price.processor.Service.PriceService;
 import com.invessence.price.processor.bean.*;
@@ -51,12 +52,12 @@ public class PriceProcessor
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
    //EmailCreator emailCreator = new EmailCreator();
-
    //
    public void process() throws SQLException
    {
-
-      System.out.println("COMPANY_NAME:" + Const.COMPANY_NAME);
+      System.out.println("PriceProcessor.process");
+      String companyName=ServiceParameters.COMPANY_NAME;
+      System.out.println("companyName = " + companyName);
       StringBuilder mailAlertMsg = null;
 
       try
@@ -78,7 +79,7 @@ public class PriceProcessor
             if (lst != null && lst.size() > 0)
             {
                String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
-               System.out.println("Business Date :" + priceDate);
+               System.out.println("Price Date :" + priceDate);
 
 //               String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
 //               System.out.println("Price Date :" + priceDate);
@@ -88,7 +89,7 @@ public class PriceProcessor
                if (CommonUtil.dateCompare(dbParamMap.get("PRICE_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false)
                {
 
-                  List<APIDetails> apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, "DAILY_PRICING");
+                  List<APIDetails> apidetails = secMasterDao.getSwitch(companyName, "DAILY_PRICING");
                   if (apidetails == null || apidetails.size() == 0)
                   {
                      System.out.println("apidetails not available");
@@ -97,7 +98,6 @@ public class PriceProcessor
                   else
                   {
                      System.out.println("************Number of serviceProvider available************" + apidetails.size());
-                     sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
                      dailyProcess(apidetails, priceDate, lst, mailAlertMsg);
                   }
                }
@@ -105,7 +105,7 @@ public class PriceProcessor
                // code to check for dailyProcess or monthlyProcess
                else if (CommonUtil.dateCompare(dbParamMap.get("PRICE_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
                {
-                  List<APIDetails> apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, "MONTHLY_PRICING");
+                  List<APIDetails> apidetails = secMasterDao.getSwitch(companyName, "MONTHLY_PRICING");
                   if (apidetails == null || apidetails.size() == 0)
                   {
                      System.out.println("apidetails not available");
@@ -357,12 +357,14 @@ public class PriceProcessor
    public void onDemandProcess(String ticker)
    {
       System.out.println("PriceProcessor.process() executing OnDemand Process");
+      String companyName=ServiceParameters.COMPANY_NAME;
+      System.out.println("companyName = " + companyName);
       StringBuilder mailAlertMsg = null;
       List<APIDetails> apidetails = null;
       try
       {
 
-         apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, "ONDEMAND_PRICING");
+         apidetails = secMasterDao.getSwitch(companyName, "ONDEMAND_PRICING");
          if (apidetails == null || apidetails.size() == 0)
          {
             System.out.println("apidetails not available for ONDEMAND PROCESS ");
@@ -492,12 +494,14 @@ public class PriceProcessor
    public void initialProcess(String ticker)
    {
       System.out.println("PriceProcessor.process() executing Initial Process");
+      String companyName=ServiceParameters.COMPANY_NAME;
+      System.out.println("companyName = " + companyName);
       StringBuilder mailAlertMsg = null;
       List<APIDetails> apidetails = null;
       try
       {
 
-         apidetails = secMasterDao.getSwitch(Const.COMPANY_NAME, PriceProcessConst.INITIAL_PROCESS);
+         apidetails = secMasterDao.getSwitch(companyName, PriceProcessConst.INITIAL_PROCESS);
          if (apidetails == null || apidetails.size() == 0)
          {
 

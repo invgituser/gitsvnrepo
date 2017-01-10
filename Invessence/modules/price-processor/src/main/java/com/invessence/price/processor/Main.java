@@ -17,6 +17,7 @@ public class Main
          ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("priceBeanConf.xml");
          PriceProcessor pp = context.getBean(PriceProcessor.class);
          pp.process();
+         //pp.initialProcess("SPY");
 
          context.close();
       }
