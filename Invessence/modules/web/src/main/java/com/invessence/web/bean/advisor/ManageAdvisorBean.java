@@ -12,6 +12,7 @@ import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.util.*;
+import org.apache.commons.lang.ObjectUtils;
 
 
 @ManagedBean(name = "manageAdvisorBean")
@@ -57,9 +58,12 @@ public class ManageAdvisorBean implements Serializable
 
    private ArrayList<AccountData> accountDataList = new ArrayList<AccountData>();
    private ArrayList<AccountData> filteredDataList = new ArrayList<AccountData>();
+   private ArrayList<AccountData> selectedDataList = new ArrayList<AccountData>();
    private String filteredClient;
+   private String filtereMenuList = "All";
    private AccountData selectedAccount;
    private RiskCalculator riskCalculator;
+   private Integer filteredBydate=0;
 
    @ManagedProperty("#{emailMessage}")
    private WebMessage messageSource;
@@ -110,6 +114,26 @@ public class ManageAdvisorBean implements Serializable
    }
 */
 
+   public String getFiltereMenuList()
+   {
+      return filtereMenuList;
+   }
+
+   public void setFiltereMenuList(String filtereMenuList)
+   {
+      this.filtereMenuList = filtereMenuList;
+   }
+
+   public Integer getFilteredBydate()
+   {
+      return filteredBydate;
+   }
+
+   public void setFilteredBydate(Integer filteredBydate)
+   {
+      this.filteredBydate = filteredBydate;
+   }
+
    public void setAdvisorListDataDAO(AdvisorListDataDAO advisorListDataDAO)
    {
       this.advisorListDataDAO = advisorListDataDAO;
@@ -135,6 +159,16 @@ public class ManageAdvisorBean implements Serializable
       this.accountDataList = accountDataList;
    }
 
+   public ArrayList<AccountData> getSelectedDataList()
+   {
+      return selectedDataList;
+   }
+
+   public void setSelectedDataList(ArrayList<AccountData> selectedDataList)
+   {
+      this.selectedDataList = selectedDataList;
+   }
+
    public void collectData(Long logonid)
    {
       try
@@ -148,8 +182,12 @@ public class ManageAdvisorBean implements Serializable
                filteredDataList = new ArrayList<AccountData>();
 
             accountDataList.clear();
+            if(filteredBydate == 0){
+               filtereMenuList = "All";
+            }
+            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, (filteredBydate == 0 ? null : filteredBydate));
+            filteredBydate=0;
 
-            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, null);
          }
       }
       catch (Exception ex)
@@ -162,6 +200,20 @@ public class ManageAdvisorBean implements Serializable
    {
       riskCalculator = new RiskCalculator();
       consumerListDataDAO.getRiskProfileData(acctnum, riskCalculator);
+   }
+
+   public void filterDataByDate(Integer noOfDate){
+      if(noOfDate==0){
+         filtereMenuList = "All";
+      }else if(noOfDate == 1){
+         filtereMenuList = "Today";
+      }else if(noOfDate == 5){
+         filtereMenuList = "Last 5 days";
+      }else if(noOfDate == 30){
+         filtereMenuList = "Last 30 days";
+      }
+      filteredBydate = noOfDate;
+      refreshPage();
    }
 
    public void filterData() {
@@ -184,7 +236,7 @@ public class ManageAdvisorBean implements Serializable
    public void refreshPage() {
       String url;
       if (getFilteredClient() != null) {
-         uiLayout.doMenuAction("advisor", "alist.xhtml?action=" + getFilteredClient());
+         uiLayout.doMenuAction("advisor", "pendingAdv.xhtml?action=" + getFilteredClient());
        }
    }
 
@@ -321,6 +373,36 @@ public class ManageAdvisorBean implements Serializable
             filterData();
          }
 
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+
+   public String doDelete()
+   {
+      try{
+         if (selectedDataList == null)
+         {
+            return "failed";
+         }
+         for (AccountData data: selectedDataList) {
+            if (data.getAccttype()!=null && data.getAccttype().equals("Active"))
+            {
+               FacesContext.getCurrentInstance().addMessage(null,
+                                                            new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                                                             "",
+                                                                             "Can not delete ACTIVE account.  Please close the account."));
+            }
+            else
+            {
+               advisorSaveDataDAO.deleteUserAccount(data.getAcctnum());
+               filterData();
+            }
+         }
       }
       catch (Exception ex)
       {

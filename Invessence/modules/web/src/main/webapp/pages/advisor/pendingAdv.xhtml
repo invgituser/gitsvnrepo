@@ -28,11 +28,11 @@
                     <h:form id="form">
                         <div class="Container100">
                             <div class="Fleft filterMBBlock">
-                                <p:menuButton value="Filter" styleClass="InfoNewDash filterMB customMenuButtonDashboard" style="margin: 10px 0px;">
-                                    <p:menuitem value="All"/>
-                                    <p:menuitem value="Today"/>
-                                    <p:menuitem value="Last 5 days"/>
-                                    <p:menuitem value="Last 30 days"/>
+                                <p:menuButton value="#{manageAdvisorBean.filtereMenuList}" styleClass="InfoNewDash customMenuButtonDashboard" style="margin: 10px 0px;">
+                                    <p:menuitem value="All" action="#{manageAdvisorBean.filterDataByDate(0)}"/>
+                                    <p:menuitem value="Today" action="#{manageAdvisorBean.filterDataByDate(1)}"/>
+                                    <p:menuitem value="Last 5 days" action="#{manageAdvisorBean.filterDataByDate(5)}"/>
+                                    <p:menuitem value="Last 30 days" action="#{manageAdvisorBean.filterDataByDate(30)}"/>
                                 </p:menuButton>
                             </div>
                            <div class="Fright">
@@ -51,8 +51,8 @@
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                      value="#{manageAdvisorBean.filteredDataList}" 
                                      sortMode="multiple"
-                                                 selection="#{manageAdvisorBean.filteredDataList}"
-                                                 rowKey="#{manageAdvisorBean.rowKey}"
+                                                 selection="#{manageAdvisorBean.selectedDataList}"
+                                                 rowKey="#{managedVar.acctnum}"
                                      reflow="true">
 
 <!--
@@ -71,7 +71,7 @@
                             resizable="true">
                        
                             </p:column>-->
-                            <p:column selectionMode="multiple" styleClass="multipleSelectionChkList"/>
+                            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
                             <!-- <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
                                 
                             </p:column> -->
@@ -131,7 +131,8 @@
                             </p:column>
                             <f:facet name="footer">
                                 <div style="width: 100%; text-align: left;">
-                                             <p:commandButton update="@form" ajax="true" value="Submit" styleClass="DeleteButtonR bgRed">
+                                    <p:commandButton update="@form" ajax="true" value="Delete"
+                                                     actionListener="#{manageAdvisorBean.doDelete()}" styleClass="DeleteButtonR bgRed">
                                     </p:commandButton>
                                 </div>
                             </f:facet>
