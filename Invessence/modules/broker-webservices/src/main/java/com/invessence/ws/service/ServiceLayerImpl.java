@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
  * Created by abhangp on 3/11/2016.
  */
 
-@Service
+@Service("serviceLayer")
 public class ServiceLayerImpl implements ServiceLayer
 {
    private static final Logger logger = Logger.getLogger(ServiceLayerImpl.class);
