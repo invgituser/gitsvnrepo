@@ -6,6 +6,8 @@ import javax.faces.bean.ManagedProperty;
 
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
+import com.invessence.web.constant.USMaps;
+import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.*;
 import com.invessence.web.util.*;
 import com.invmodel.Const.InvConst;
@@ -30,7 +32,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class CustomerData extends ProfileData
 {
    protected final Log logger = LogFactory.getLog(getClass());
+
+   @ManagedProperty("#{webutil}")
+   public WebUtil webutil;
+
+   @ManagedProperty("#{uiLayout}")
+   public UILayout uiLayout;
+
+   @ManagedProperty("#{modelUtil}")
+   public ModelUtil modelUtil;
+
+   @ManagedProperty("#{consumerListDataDAO}")
+   public ConsumerListDataDAO listDAO;
+
+   @ManagedProperty("#{consumerSaveDataDAO}")
+   public ConsumerSaveDataDAO saveDAO;
+
+   @ManagedProperty("#{webMessage}")
+   public WebMessage messageText;
+
+
    private JavaUtil javautil = new JavaUtil();
+
+   public USMaps usstates = USMaps.getInstance();
+
    private CustomerData manageGoalinstance = null;
 
    private String advisorDisplayName;
@@ -89,30 +114,77 @@ public class CustomerData extends ProfileData
    private Boolean managed, editable, isUnopened;
    public String managedFlag, currentStatus;
 
-   @ManagedProperty("#{webutil}")
-   public WebUtil webutil;
-
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
    }
-
-   @ManagedProperty("#{uiLayout}")
-   public UILayout uiLayout;
 
    public void setUiLayout(UILayout uiLayout)
    {
       this.uiLayout = uiLayout;
    }
 
-   @ManagedProperty("#{modelUtil}")
-   public ModelUtil modelUtil;
    public void setModelUtil(ModelUtil modelUtil)
    {
       this.modelUtil = modelUtil;
    }
 
-/*
+   public void setListDAO(ConsumerListDataDAO listDAO)
+   {
+      this.listDAO = listDAO;
+   }
+
+   public void setSaveDAO(ConsumerSaveDataDAO saveDAO)
+   {
+      this.saveDAO = saveDAO;
+   }
+
+   public void setMessageText(WebMessage messageText)
+   {
+      this.messageText = messageText;
+   }
+
+   public WebUtil getWebutil()
+   {
+      return webutil;
+   }
+
+   public UILayout getUiLayout()
+   {
+      return uiLayout;
+   }
+
+   public ConsumerListDataDAO getListDAO()
+   {
+      return listDAO;
+   }
+
+   public ConsumerSaveDataDAO getSaveDAO()
+   {
+      return saveDAO;
+   }
+
+   public WebMessage getMessageText()
+   {
+      return messageText;
+   }
+
+   public JavaUtil getJavautil()
+   {
+      return javautil;
+   }
+
+   public USMaps getUsstates()
+   {
+      return usstates;
+   }
+
+   public void setUsstates(USMaps usstates)
+   {
+      this.usstates = usstates;
+   }
+
+   /*
    @ManagedProperty("#{assetAllocationModel}")
    public AssetAllocationModel allocModel;
 

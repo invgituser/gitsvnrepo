@@ -7,7 +7,8 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'CSS.DIR', 'A', 'inv', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'CUSTODY.SERVICE', 'A', 'URL', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'CUSTODY.URL', 'A', '', 'N', '2016-12-16 22:20:19', NULL);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'DEFAULT.MODEL', 'A', 'Invessence', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'DEFAULT.MODEL', 'A', '0.Wealth', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'DEFAULT.ADVISOR', 'A', 'Invessence', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'DEFAULT.REP', 'A', '', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'DIR.CONSUMER', 'A', 'inv', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('invessence', 'DIR.CUSTODY', 'A', null, 'N', '2016-12-16 22:20:19', NULL);

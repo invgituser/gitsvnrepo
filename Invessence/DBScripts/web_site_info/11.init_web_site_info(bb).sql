@@ -7,7 +7,8 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'CSS.DIR', 'A', 'tcm', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'CUSTODY.SERVICE', 'A', 'URL', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'CUSTODY.URL', 'A', '', 'N', '2016-12-16 22:20:19', NULL);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'DEFAULT.MODEL', 'A', 'BB', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'DEFAULT.MODEL', 'A', '0.BB', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'DEFAULT.ADVISOR', 'A', 'BB', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'DEFAULT.REP', 'A', '', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'DIR.CONSUMER', 'A', 'tcm', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'DIR.CUSTODY', 'A', 'td', 'N', '2016-12-16 22:20:19', NULL);

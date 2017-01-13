@@ -7,7 +7,7 @@
                 template="/template/common/template.xhtml">
 
     <f:metadata>
-        <f:event type="preRenderView" listener="#{cdash.preRenderView}"/>
+        <f:event type="preRenderView" listener="#{ltamdash.preRenderView}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -25,7 +25,7 @@
                                 <div class="Container100">
                                     <div class="Fleft">
                                         <h3 class="black Fs20 FontThemeMedium">
-                                            Hello, #{cdash.loggedUserName}
+                                            Hello, #{ltamdash.loggedUserName}
                                         </h3>
                                     </div>
                                 </div>
@@ -48,7 +48,7 @@
                                                              styleClass="Fs14 BlueButton"
                                                              process="@this" immediate="true"
                                                              icon="fa fa-plus Fs14 white"
-                                                             action="#{cdash.doAction('N')}">
+                                                             action="#{ltamdash.doAction('N')}">
                                                 <p:tooltip for="addBtn" value="Add New Account"/>
                                             </p:commandButton>
 
@@ -61,7 +61,7 @@
 
                                         <div class="Container100">
                                             <p:dataGrid style="background: transparent; padding-right:5px;"
-                                                        var="acct" value="#{cdash.dashboardList}"
+                                                        var="acct" value="#{ltamdash.dashboardList}"
                                                         columns="1" layout="grid">
                                                 <p:panel style="width: 100%; background: #f5f5f5;">
                                                     <table class="invNBgrid AccountDashboardAlignRes" style="width: 100%;">
@@ -86,10 +86,10 @@
                                                                                                  styleClass="Fs14 BlueButton"
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-search-plus Fs14 white"
-                                                                                                 action="#{cdash.doAction('R')}">
+                                                                                                 action="#{ltamdash.doAction('R')}">
                                                                                     <!--  <p:tooltip for="reviewBtn" value="Overview"/>-->
                                                                                     <f:setPropertyActionListener value="#{acct}"
-                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                                                 target="#{ltamdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </div>
                                                                         <div class="Mobilelabel Container60"><h3>Overview</h3></div>
@@ -99,10 +99,10 @@
                                                                                                  styleClass="Fs14 GreenButton"
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-dollar Fs14 white"
-                                                                                                 action="#{cdash.doAction('A')}">
+                                                                                                 action="#{ltamdash.doAction('A')}">
                                                                                   <!-- <p:tooltip for="fundBtn" value="Add Funds"/> -->  
                                                                                     <f:setPropertyActionListener value="#{acct}"
-                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                                                 target="#{ltamdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </div><div class="Mobilelabel Container60"><h3>Add Money</h3></div>
                                                                             <div class="Container40 IconWidthP">
@@ -110,10 +110,10 @@
                                                                                                  styleClass="Fs14 OrangeButton"
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-pie-chart Fs14 white"
-                                                                                                 action="#{cdash.doAction('E')}">
+                                                                                                 action="#{ltamdash.doAction('E')}">
                                                                                    <!--   <p:tooltip for="editBtn" value="Exchange fund"/>-->
                                                                                     <f:setPropertyActionListener value="#{acct}"
-                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                                                 target="#{ltamdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </div><div class="Mobilelabel Container60"><h3>Choose New Portfolio</h3></div>
                                                                             <div class="Container40 IconWidthP">
@@ -121,10 +121,10 @@
                                                                                                  styleClass="Fs14 CyanButton"
                                                                                                  process="@this" immediate="true"
                                                                                                  icon="fa fa-edit Fs14 black"
-                                                                                                 action="#{cdash.doAction('C')}">
+                                                                                                 action="#{ltamdash.doAction('C')}">
                                                                                    <!--   <p:tooltip for="acctBtn" value="Edit Account"/>-->
                                                                                     <f:setPropertyActionListener value="#{acct}"
-                                                                                                                 target="#{cdash.selectedAccount}"/>
+                                                                                                                 target="#{ltamdash.selectedAccount}"/>
                                                                                 </p:commandButton>
                                                                             </div><div class="Mobilelabel Container60"><h3>Edit Account</h3></div>
 

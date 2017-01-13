@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * To change this template use File | Settings | File Templates.
  */
 
-@ManagedBean(name = "cdash")
+@ManagedBean(name = "invdash")
 @SessionScoped
 public class ConsumerDashBean implements Serializable
 {

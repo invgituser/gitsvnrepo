@@ -1,0 +1,273 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+
+<f:metadata>
+    <f:viewParam name="acct" value="#{cepb.beanAcctnum}"/>
+    <f:event type="preRenderView" listener="#{cepb.preRenderView}"/>
+</f:metadata>
+
+<ui:define name="content">
+
+<div class="layout-portlets-box">
+<div class="Container100">
+<h:form id="tradeForm">
+<p:growl id="growltrademsg" closable="true" style="top: 25%"/>
+<p:tabView cache="true" dynamic="true">
+<p:tab title="Select">
+    <p:panelGrid id="rebalgrid2" styleClass="invNBgrid">
+        <p:row>
+            <p:column colspan="6">
+                <h:outputText value="Hide:"/>
+                <p:selectManyButton styleClass="MarLeft10" value="#{uobtradeBean.selectedFilterOptions}">
+                    <f:selectItem itemLabel="View" itemValue="V"/>
+                    <f:selectItem itemLabel="Date" itemValue="D"/>
+                    <f:selectItem itemLabel="Variance" itemValue="O"/>
+                    <f:selectItem itemLabel="New" itemValue="N"/>
+                </p:selectManyButton>
+                <p:commandButton styleClass="MarLeft20" value="Refresh"
+                                 process="@form" update="dataGrid"
+                                 actionListener="#{uobtradeBean.refreshTradeClient}"/>
+                <p:commandButton value="Reload"
+                                 process="@form" update="rebalgrid2"
+                                 actionListener="#{uobtradeBean.reloadTradeClient}"/>
+            </p:column>
+        </p:row>
+    </p:panelGrid>
+    <p:dataTable id="dataGrid" var="filteredData" value="#{uobtradeBean.filteredClientList}"
+                 border="1" styleClass="invAdminTable"
+                 sortMode="multiple"
+                 rowKey="#{filteredData.acctnum}"
+                 selection="#{uobtradeBean.selectedClientList}">
+        <f:facet name="header" style="text-align: left;">
+            Choose Accounts to trade.
+        </f:facet>
+
+        <p:column selectionMode="multiple" style="width:5%"/>
+
+        <p:column style="width:7%">
+            <p:commandButton id="editButton"
+                             process="@this" immediate="true"
+                             icon="ui-icon-pencil"
+                             action="#{uobtradeBean.doManagedAction}">
+                <f:setPropertyActionListener value="#{filteredData}"
+                                             target="#{uobtradeBean.selectedClient}"/>
+            </p:commandButton>
+        </p:column>
+
+        <p:column headerText="InvAcc#" style="width:7%"
+                  sortBy="#{filteredData.acctnum}">
+            #{filteredData.acctnum}
+        </p:column>
+
+        <p:column headerText="IBAcct#" style="width:10%"
+                  sortBy="#{filteredData.clientAccountID}">
+            #{filteredData.clientAccountID}
+        </p:column>
+
+        <p:column headerText="Name" style="width:20%"
+                  sortBy="#{filteredData.name}">
+            #{filteredData.name}
+        </p:column>
+
+        <p:column headerText="Type" style="width:13%"
+                  sortBy="#{filteredData.accountType}">
+            #{filteredData.accountType}<br/>
+            #{filteredData.cashMargin}
+        </p:column>
+
+        <p:column headerText="Reason" style="width:10%; text-align: left"
+                  sortBy="#{filteredData.reason}">
+            #{filteredData.reason}
+        </p:column>
+
+        <p:column headerText="Traded" style="width:10%; text-align: left"
+                  sortBy="#{filteredData.lastTraded}">
+            #{filteredData.lastTraded}
+        </p:column>
+        <!--
+                            <p:column headerText="Description" style="width:10; text-align: left">
+                                #{filteredData.description}
+                            </p:column>
+        -->
+
+
+        <p:column headerText="Cash" style="width:7%; text-align: right"
+                  sortBy="#{filteredData.keepLiquid}">
+            <h:outputText value="#{filteredData.keepLiquid}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column headerText="Investment" style="width:15%; text-align: right"
+                  sortBy="#{filteredData.actualInvestment}">
+            <h:outputText value="#{filteredData.actualInvestment}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
+
+
+        <f:facet name="footer">
+            <p:commandButton id="rebalBtn" value="Rebalance"
+                             update="@form" ajax="true"
+                             actionListener="#{uobtradeBean.createtlhTrades}">
+            </p:commandButton>
+
+        </f:facet>
+    </p:dataTable>
+</p:tab>
+<p:tab title="Review">
+    <p:panelGrid id="validategrid2" styleClass="invNBgrid">
+        <p:row>
+            <p:column colspan="5">
+                <p:commandButton id="reviewBtn" value="Load Trades"
+                                 process="@form" update="tradeTable"
+                                 actionListener="#{uobtradeBean.collectTradeSummary}"/>
+            </p:column>
+        </p:row>
+    </p:panelGrid>
+
+    <p:dataTable id="tradeTable" var="trade" value="#{uobtradeBean.tradeSummary}"
+                 border="2" styleClass="invAdminTable"
+                 sortBy="#{trade.clientAccountID}">
+
+        <p:column style="width:5%;text-align: center">
+            <p:commandButton update=":tradeForm:reviewDetailView" oncomplete="PF('reviewDetailDialog').show()" icon="ui-icon-search"
+                             title="View">
+                <f:setPropertyActionListener value="#{trade}" target="#{uobtradeBean.selectedTradeSummary}"/>
+            </p:commandButton>
+        </p:column>
+
+        <p:column style="width:7%;text-align: left" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="ClientID"/>
+            </f:facet>
+            <h:outputText value="#{trade.clientAccountID}"/>
+        </p:column>
+
+        <p:column style="width:5%; text-align: left" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Acct#"/>
+            </f:facet>
+            <h:outputText value="#{trade.acctnum}">
+            </h:outputText>
+        </p:column>
+
+        <p:column
+                style="width:15%; text-align: left;" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Name"/>
+            </f:facet>
+            <h:outputText value="#{trade.fullName}"/>
+        </p:column>
+
+        <p:column
+                style="width:15%; text-align: left;" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Theme"/>
+            </f:facet>
+            <h:outputText value="#{trade.theme}"/>
+        </p:column>
+
+        <p:column
+                style="width:8%; text-align: left;" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Taxable"/>
+            </f:facet>
+            <h:outputText value="#{trade.taxable}"/>
+        </p:column>
+
+        <p:column
+                style="width:8%; text-align: left;" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Goal"/>
+            </f:facet>
+            <h:outputText value="#{trade.goal}"/>
+        </p:column>
+
+        <p:column
+                style="width:12%; text-align: right;" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Holding"/>
+            </f:facet>
+            <h:outputText value="#{trade.totalHoldingValue}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column
+                style="width:12%; text-align: right" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="New"/>
+            </f:facet>
+            <h:outputText value="#{trade.totalNewValue}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
+
+        <p:column style="width:12%; text-align: right" resizable="true">
+            <f:facet name="header">
+                <h:outputText value="Traded"/>
+            </f:facet>
+            <h:outputText value="#{trade.totalCurrentValue}">
+                <f:convertNumber type="currency" currencySymbol="$"/>
+            </h:outputText>
+        </p:column>
+    </p:dataTable>
+</p:tab>
+<p:tab title="Download">
+    <p:panelGrid id="rebalgrid3" styleClass="invNBgrid">
+        <p:row>
+            <p:column colspan="5">
+                <p:commandButton id="genBtn" type="submit" value="Generate Trades"
+                                 update="@form"
+                                 action="#{uobtradeBean.generateTrades}"/>
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column>
+                <p:commandButton id="downloadTrade1" value="Download Trade (Buy)" ajax="false"
+                                 onclick="PrimeFaces.monitorDownload(start, stop)"
+                                 icon="ui-icon-arrowthichk-s">
+                    <p:fileDownload value="#{uobtradeBean.trade1}"/>
+                </p:commandButton>
+                <p:commandButton id="downloadTrade2" value="Download Trade (Sell)" ajax="false"
+                                 onclick="PrimeFaces.monitorDownload(start, stop)"
+                                 icon="ui-icon-arrowthichk-s">
+                    <p:fileDownload value="#{uobtradeBean.trade2}"/>
+                </p:commandButton>
+            </p:column>
+        </p:row>
+        <p:row>
+            <p:column>
+                <p:commandButton id="downloadAlloc1" value="Download Alloc (Buy)" ajax="false"
+                                 onclick="PrimeFaces.monitorDownload(start, stop)"
+                                 icon="ui-icon-arrowthichk-s">
+                    <p:fileDownload value="#{uobtradeBean.alloc1}"/>
+                </p:commandButton>
+                <p:commandButton id="downloadAlloc2" value="Download Alloc (Sell)" ajax="false"
+                                 onclick="PrimeFaces.monitorDownload(start, stop)"
+                                 icon="ui-icon-arrowthichk-s">
+                    <p:fileDownload value="#{uobtradeBean.alloc2}"/>
+                </p:commandButton>
+            </p:column>
+        </p:row>
+    </p:panelGrid>
+
+</p:tab>
+
+</p:tabView>
+
+<ui:include src="/pages/admin/reviewtrades.xhtml"/>
+</h:form>
+</div>
+</div>
+
+
+</ui:define>
+
+</ui:composition>

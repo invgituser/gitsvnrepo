@@ -1,7 +1,7 @@
-package com.invessence.web.bean.admin;
+package com.invessence.web.bean.consumer.invessence;
 
 import java.io.*;
-import java.text.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -9,20 +9,20 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
-import com.invessence.web.dao.common.*;
+import com.invessence.web.dao.common.TradeDAO;
 import com.invessence.web.dao.consumer.ConsumerSaveDataDAO;
 import com.invessence.web.data.common.*;
 import com.invessence.web.io.TradeWriter;
 import com.invessence.web.util.WebUtil;
 import com.invmodel.rebalance.RebalanceProcess;
-import com.invmodel.rebalance.data.*;
+import com.invmodel.rebalance.data.RebalanceTradeData;
 import org.primefaces.event.CellEditEvent;
 import org.primefaces.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static javax.faces.context.FacesContext.getCurrentInstance;
 
-@ManagedBean(name = "tradeBean")
+@ManagedBean(name = "invtradeBean")
 @SessionScoped
 public class TradeBean extends TradeClientData implements Serializable
 {
@@ -43,15 +43,6 @@ public class TradeBean extends TradeClientData implements Serializable
 
    @ManagedProperty("#{consumerSaveDataDAO}")
    private ConsumerSaveDataDAO csdDAO;
-
-/*
-   @ManagedProperty("#{consumerSaveDataDAO}")
-   private ConsumerSaveDataDAO consumerSaveDataDAO;
-
-
-   @ManagedProperty("#{commonDAO}")
-   private CommonDAO commonDAO;
-*/
 
    @ManagedProperty("#{rebalanceProcess}")
    private RebalanceProcess rebalProcess;

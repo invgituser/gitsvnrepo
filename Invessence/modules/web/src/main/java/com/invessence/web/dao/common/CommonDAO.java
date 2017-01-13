@@ -150,5 +150,36 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
+   public Map<String, String> getAdvisorWebInfo(String advisor) {
+      try {
+         DataSource ds = getDataSource();
+         CommonSP sp = new CommonSP(ds, "sel_advisor_web_info",5);
+         Map outMap = sp.getAdvisorWebInfo(advisor);
+         Map<String, String> webMap = new LinkedHashMap<String, String>();
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)  {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  webMap.put(convert.getStrData(rs.get("name")),
+                             convert.getStrData(rs.get("value")));
+                  i++;
+               }
+            }
+         }
+         return webMap;
+
+      }
+      catch (Exception ex) {
+         return null;
+
+      }
+   }
+
+
 
 }

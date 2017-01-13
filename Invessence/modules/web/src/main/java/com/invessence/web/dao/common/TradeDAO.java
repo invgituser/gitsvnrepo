@@ -392,7 +392,7 @@ public class TradeDAO extends JdbcDaoSupport implements Serializable
             data.setAcctnum(convert.getLongData(rs.get("acctnum")));
             //data.setLogonid(convert.getLongData(rs.get("logonid")));
             data.setName(convert.getStrData(rs.get("firstname")) + " " + convert.getStrData(rs.get("lastname")));
-            data.setClientAccountID(convert.getStrData(rs.get("IB_acctnum")));
+            data.setClientAccountID(convert.getStrData(rs.get("clientAccountID")));
             data.setTradePreference(convert.getStrData(rs.get("tradePreference")));
             data.setGoal(convert.getStrData(rs.get("goal")));
             data.setAccountType(convert.getStrData(rs.get("accttype")));

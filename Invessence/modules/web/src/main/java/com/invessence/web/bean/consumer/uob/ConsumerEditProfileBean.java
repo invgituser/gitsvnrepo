@@ -15,6 +15,7 @@ import com.invessence.web.constant.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.inv.INVRiskCalculator;
+import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
 import com.invessence.web.util.*;
 import com.invmodel.Const.InvConst;
 import org.primefaces.component.tabview.Tab;
@@ -50,29 +51,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
    private InvessenceCharts charts = new InvessenceCharts();
-   private INVRiskCalculator riskCalculator = new INVRiskCalculator();
-
-   private USMaps usstates = USMaps.getInstance();
-
-   @ManagedProperty("#{consumerListDataDAO}")
-   private ConsumerListDataDAO listDAO;
-
-   @ManagedProperty("#{consumerSaveDataDAO}")
-   private ConsumerSaveDataDAO saveDAO;
-
-   @ManagedProperty("#{webMessage}")
-   private WebMessage messageText;
-   public void setMessageText(WebMessage msg)
-   {
-      this.messageText = msg;
-   }
-
-   @ManagedProperty("#{webutil}")
-   private WebUtil webutil;
-   public void setWebutil(WebUtil webutil)
-   {
-      this.webutil = webutil;
-   }
+   private UOBRiskCalculator riskCalculator = new UOBRiskCalculator();
 
    public Long getBeanAcctnum()
    {
@@ -93,16 +72,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    public void setNewapp(String newapp)
    {
       this.newapp = newapp;
-   }
-
-   public void setListDAO(ConsumerListDataDAO listDAO)
-   {
-      this.listDAO = listDAO;
-   }
-
-   public void setSaveDAO(ConsumerSaveDataDAO saveDAO)
-   {
-      this.saveDAO = saveDAO;
    }
 
    public Boolean getDisablegraphtabs()
@@ -185,7 +154,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       return welcomeDialog;
    }
 
-   public INVRiskCalculator getRiskCalculator()
+   public UOBRiskCalculator getRiskCalculator()
    {
       return riskCalculator;
    }
@@ -287,6 +256,15 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       formEdit = true;
    }
 
+   public void onGoalChangeValue()
+   {
+      String selectedgoal;
+      selectedgoal = (getGoal() == null || getGoal().isEmpty()) ? "Other" : getGoal();
+      riskCalculator.setInvestmentobjective(selectedgoal);
+      createAssetPortfolio(1);
+   }
+
+
    public void onChangeValue()
    {
       formEdit = true;
@@ -304,9 +282,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          riskCalculator.setRiskFormula("C");
          setRiskIndex(riskCalculator.calculateRisk());
          createAssetPortfolio(1);
-         //if (getPortfolioData() != null) {
-         //charts.createGoalChart(getProjectionData(), getGoalData());
-         //}
+         // if (getPortfolioData() != null) {
+         // charts.createGoalChart(getProjectionData(), getGoalData());
+         // }
          saveProfile();
       }
    }

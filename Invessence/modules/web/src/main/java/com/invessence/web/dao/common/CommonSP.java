@@ -43,6 +43,9 @@ public class CommonSP extends StoredProcedure
          case 4: // SP: sel_web_site_info
             declareParameter(new SqlParameter("p_url", Types.VARCHAR));
             break;
+         case 5: // SP: sel_advisor_web_info
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            break;
          case 99: // SP: sel_notificationInfo
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             break;
@@ -103,6 +106,13 @@ public class CommonSP extends StoredProcedure
    {
       Map inputMap = new HashMap();
       inputMap.put("p_url", url);
+      return super.execute(inputMap);
+   }
+
+   public Map getAdvisorWebInfo(String advisor)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_advisor", advisor);
       return super.execute(inputMap);
    }
 }

@@ -62,21 +62,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    String newLongDesc;
    private Boolean finalCheck1,finalCheck2,confirmationCheck=false ;
 
-
-   @ManagedProperty("#{consumerListDataDAO}")
-   private ConsumerListDataDAO listDAO;
-
-   @ManagedProperty("#{consumerSaveDataDAO}")
-   private ConsumerSaveDataDAO saveDAO;
-
-   @ManagedProperty("#{webMessage}")
-   private WebMessage messageText;
-
-   public void setMessageText(WebMessage msg)
-   {
-      this.messageText = msg;
-   }
-
    public PagesImpl getPagemanager()
    {
       return pagemanager;
@@ -101,16 +86,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       SQLData converter = new SQLData();
       this.beanAcctnum = converter.getLongData(beanAcctnum);
-   }
-
-   public void setListDAO(ConsumerListDataDAO listDAO)
-   {
-      this.listDAO = listDAO;
-   }
-
-   public void setSaveDAO(ConsumerSaveDataDAO saveDAO)
-   {
-      this.saveDAO = saveDAO;
    }
 
    public Boolean getDisablegraphtabs()

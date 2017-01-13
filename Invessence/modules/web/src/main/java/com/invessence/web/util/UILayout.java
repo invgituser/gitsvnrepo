@@ -64,41 +64,60 @@ public class UILayout implements Serializable
       return value;
    }
 
-   public void loadData(String url) {
-      if (commonDAO != null)
-      {
-         webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
+   private void loadWebProfile(String origurl, String url) {
+      if (origurl == null || (! origurl.equalsIgnoreCase(url))) {
+         if (! webutil.getWebprofile().getForced())
+         {
+            webutil.getWebprofile().initWebProfile();
+            webutil.getWebprofile().setUrl(url);
+            webutil.getWebprofile().setForced(true);
+            if (commonDAO != null)
+            {
+               webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
+            }
+         }
       }
    }
 
-
-   public void resetCIDProfile()
-   {
-      String uri = webutil.getURLAddress("Invessence");
-      String origurl = webutil.getWebprofile().getUrl();
-
-      if (origurl == null || (! origurl.equalsIgnoreCase(uri))) {
-         if (! webutil.getWebprofile().getForced())
+   private void loadAdvisorProfile(String advisor) {
+         if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor))
          {
-            webutil.getWebprofile().setUrl(uri);
-            webutil.getWebprofile().setForced(true);
-            loadData(uri);
+            if (commonDAO != null)
+            {
+               webutil.getWebprofile().addToMap(commonDAO.getAdvisorWebInfo(advisor));
+            }
+         }
+    }
+
+   public void resetUserCIDProfile(String advisor)
+   {
+      String origurl = webutil.getWebprofile().getUrl();
+      Map<String, String> advisorMap;
+      if (advisor == null)
+         advisor = "Invessence";
+
+      if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor)) {
+         if (commonDAO != null)
+         {
+            advisorMap = commonDAO.getAdvisorWebInfo(advisor);
+            if (advisorMap != null) {
+              if (advisorMap.containsKey("WEB.URL")) {
+                 loadWebProfile(origurl, advisorMap.get("WEB.URL"));
+                 webutil.getWebprofile().addToMap(advisorMap);
+              }
+            }
          }
       }
-    }
+   }
 
    public void resetCIDProfile(String uri)
    {
       String origurl = webutil.getWebprofile().getUrl();
+      if (uri == null)
+         uri = webutil.getURLAddress("Invessence");
 
-      if (origurl == null || (! origurl.equalsIgnoreCase(uri))) {
-         if (! webutil.getWebprofile().getForced())
-         {
-            webutil.getWebprofile().setUrl(uri);
-            webutil.getWebprofile().setForced(true);
-            loadData(uri);
-         }
-      }
+      loadWebProfile(origurl, uri);
+      loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
    }
 
 
@@ -122,7 +141,7 @@ public class UILayout implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            resetCIDProfile();
+            resetCIDProfile(null);
          }
       }
       catch (Exception e)
@@ -338,7 +357,7 @@ public class UILayout implements Serializable
                // Only for consumer, they can have custom pages.  Go to Custom Directory if defined.
                if (getConsumerDIR() == null || getConsumerDIR().trim().length() == 0)
                {
-                  forwardURL("/pages/consumer/invessence/" + menuItem);
+                  forwardURL("/pages/consumer/inv/" + menuItem);
                }
                else
                {

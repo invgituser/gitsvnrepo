@@ -7,7 +7,8 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'CSS.DIR', 'A', 'uob', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'CUSTODY.SERVICE', 'A', 'URL', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'CUSTODY.URL', 'A', '', 'N', '2016-12-16 22:20:19', NULL);
-INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'DEFAULT.MODEL', 'A', 'UOB', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'DEFAULT.MODEL', 'A', '0.UOB', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'DEFAULT.ADVISOR', 'A', 'UOB', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'DEFAULT.REP', 'A', '', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'DIR.CONSUMER', 'A', 'uob', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'DIR.CUSTODY', 'A', null, 'N', '2016-12-16 22:20:19', NULL);

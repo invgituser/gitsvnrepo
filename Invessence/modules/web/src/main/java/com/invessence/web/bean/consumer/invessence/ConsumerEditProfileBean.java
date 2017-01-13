@@ -51,28 +51,6 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
    private InvessenceCharts charts = new InvessenceCharts();
    private INVRiskCalculator riskCalculator = new INVRiskCalculator();
 
-   private USMaps usstates = USMaps.getInstance();
-
-   @ManagedProperty("#{consumerListDataDAO}")
-   private ConsumerListDataDAO listDAO;
-
-   @ManagedProperty("#{consumerSaveDataDAO}")
-   private ConsumerSaveDataDAO saveDAO;
-
-   @ManagedProperty("#{webMessage}")
-   private WebMessage messageText;
-   public void setMessageText(WebMessage msg)
-   {
-      this.messageText = msg;
-   }
-
-   @ManagedProperty("#{webutil}")
-   private WebUtil webutil;
-   public void setWebutil(WebUtil webutil)
-   {
-      this.webutil = webutil;
-   }
-
    public Long getBeanAcctnum()
    {
       return beanAcctnum;
@@ -82,16 +60,6 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
    {
       SQLData converter = new SQLData();
       this.beanAcctnum = converter.getLongData(beanAcctnum);
-   }
-
-   public void setListDAO(ConsumerListDataDAO listDAO)
-   {
-      this.listDAO = listDAO;
-   }
-
-   public void setSaveDAO(ConsumerSaveDataDAO saveDAO)
-   {
-      this.saveDAO = saveDAO;
    }
 
    public Boolean getDisablegraphtabs()

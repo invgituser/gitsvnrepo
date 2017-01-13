@@ -55,6 +55,7 @@ public class SessionController implements Serializable
          if (webutil.isUserLoggedIn()) {
             if (webutil.getUserInfoData() != null) {
                // On logon, if the Advisor and rep is defined to the user, then use that instead.
+               uiLayout.resetUserCIDProfile(webutil.getUserInfoData().getAdvisor());  // Since user is loging on, use the User's Advisor's Setup
                if (webutil.getUserInfoData().getAdvisor() != null ) {
                   webutil.getWebprofile().setDefaultAdvisor(webutil.getUserInfoData().getAdvisor());
                   webutil.getWebprofile().setDefaultRep(webutil.getUserInfoData().getRep());

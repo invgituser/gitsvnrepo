@@ -6,7 +6,7 @@
                 template="/template/common/template.xhtml">
 
     <f:metadata>
-        <f:event type="preRenderView" listener="#{cdash.preRenderView}"/>
+        <f:event type="preRenderView" listener="#{invdash.preRenderView}"/>
     </f:metadata>
 
     <ui:define name="content">
@@ -40,7 +40,7 @@
                     <div class="ContainerIndent">
                         <div class="Container100 tp1">
 
-                            <p:dataTable id="singleDT" var="investment" value="#{cdash.manageAccountList}"
+                            <p:dataTable id="singleDT" var="investment" value="#{invdash.manageAccountList}"
                                          emptyMessage="No account were created.  Use new application to add account."
                                          reflow="true">
 
@@ -49,19 +49,19 @@
                                                      styleClass="Fs14 GreenButton"
                                                      process="@this" immediate="true"
                                                      icon="fa fa-search-plus Fs14 white"
-                                                     action="#{cdash.doSelectedAction}">
+                                                     action="#{invdash.doSelectedAction}">
                                         <p:tooltip id="activeToolTipFade" for="activeButton" value="View"/>
                                         <f:setPropertyActionListener value="#{investment}"
-                                                                     target="#{cdash.selectedAccount}"/>
+                                                                     target="#{invdash.selectedAccount}"/>
                                     </p:commandButton>
                                     <p:commandButton id="pendingButton" rendered="#{! investment.managed}"
                                                      styleClass="Fs14 BlueButton"
                                                      process="@this" immediate="true"
                                                      icon="fa fa-pencil-square-o Fs14 white"
-                                                     action="#{cdash.doSelectedAction}">
+                                                     action="#{invdash.doSelectedAction}">
                                         <p:tooltip id="pendingToolTipFade" for="pendingButton" value="Edit"/>
                                         <f:setPropertyActionListener value="#{investment}"
-                                                                     target="#{cdash.selectedAccount}"/>
+                                                                     target="#{invdash.selectedAccount}"/>
                                     </p:commandButton>
                                 </p:column>
                                 <p:column styleClass="Wid20 TextAlLeft"

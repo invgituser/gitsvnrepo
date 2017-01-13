@@ -19,14 +19,20 @@ public class WebProfile
 
    public WebProfile()
    {
+      initWebProfile();
+      setdefault();
+   }
+
+   public void initWebProfile()
+   {
       url = null;
       forced = false;
       mode = null;
       defaultAdvisor = null;
       defaultRep = null;
       webInfo = new HashMap<String, String>();
-      setdefault();
    }
+
 
    public Map<String, String> getWebInfo()
    {
@@ -342,4 +348,11 @@ public class WebProfile
       return getInfo(key);
    }
 
+   public void addToMap(Map<String, String> newList) {
+      if (newList != null) {
+         for (String name: newList.keySet()) {
+            webInfo.put(name, newList.get(name));
+         }
+      }
+   }
 }
