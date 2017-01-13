@@ -984,3 +984,8 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 		font-size: 14px!important;
 	}
 }
+
+thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
+	position: relative;
+	left: -4px;
+}
