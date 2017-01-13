@@ -21,14 +21,16 @@
 
                             <p:growl id="noticeGrowl" showDetail="true" sticky="true" escape="true"/>
 
-                            <div class="Wid100 Fleft">
-                                <h3 class="BigTopic"><h:outputText value="#{advisornotificationBean.messageHeader}"/></h3>
-                            </div>
+
 
                             <div class="Container100">
-                                <div class="Container100 MarTop5">
-                                    <div class="Fright Responsive100" >
-                                        <p:selectOneButton value="#{advisornotificationBean.filterNotice}">
+                                <div class="Container50 Fleft MsgBlockAdv">
+                                    <h3 class="BigTopic" style="margin: 4px 10px!important;border: 0;">
+                                        <h:outputText value="#{advisornotificationBean.messageHeader}"/></h3>
+                                </div>
+                                <div class="Container50 Fright MsgBtnsBlock">
+                                    <div class="Fright" >
+                                        <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{advisornotificationBean.filterNotice}">
                                             <f:selectItem itemLabel="New" itemValue="N"/>
                                             <f:selectItem itemLabel="Archived" itemValue="A"/>
                                             <p:ajax update="@form" listener="#{advisornotificationBean.filterData}"/>
@@ -57,11 +59,14 @@
                                             </h:outputText>
                                         </p:column>
                                         <f:facet name="footer">
-                                            <div style="width: 100%; text-align: left;">
-                                            <p:commandButton update="@form" rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
+                                            <div style="width: 100%; text-align: left;" class="ForBtnNormal">
+                                            <p:commandButton update="@form"
+                                                             styleClass="AdvNormalBtn"
+                                                             rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
                                                               actionListener="#{advisornotificationBean.markRead}" >
                                             </p:commandButton>
                                             <p:commandButton update="@form" ajax="true" value="UnArchive"
+                                                             styleClass="AdvNormalBtn"
                                                              rendered="#{advisornotificationBean.filterNotice == 'A'}"
                                                              actionListener="#{advisornotificationBean.markUnRead}" >
                                             </p:commandButton>

@@ -138,9 +138,10 @@ img.riskImage:hover {
         width: 108%!important;
     }
 }
-/*Prakash - Advisor Page*/
+/*
+/!*Prakash - Advisor Page*!/
 
-/*Message*/
+/!*Message*!/
 
 @media (max-width: 640px) {
     .advisorMsgTable > div > table > tbody > tr > td:nth-child(even) {
@@ -235,7 +236,7 @@ img.riskImage:hover {
     }
 }
 
-/**/
+/!**!/
 
 
 .CommonBtnWidthCancel,.CommonBtnWidthSave {
@@ -243,7 +244,7 @@ img.riskImage:hover {
 }
 
 .AdvUserName, .AdvVisitorStat {
-    /*font-size : 18 px;*/
+    /!*font-size : 18 px;*!/
     margin: 8px 0 !important;
 }
 
@@ -272,7 +273,8 @@ img.riskImage:hover {
     margin-bottom: 10px;
 }
 
-/**/
+/!**!/
+*/
 
 /*Prakash: Fund Account - Component responsive*/
 @media (min-width: 1201px) and (max-width: 1339px) {
@@ -3656,6 +3658,7 @@ h3 {
 
 }
 
+/*
 .advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-hover > td,
 .AdvisorGridtcmLayout > div:nth-child(2) > table > tbody > .ui-state-hover > td {
     background-color: inherit!important;
@@ -3674,8 +3677,10 @@ h3 {
 #layout-menu .ui-button.ui-state-hover .ui-button-text {
     background-color: #009abb!important	;
 }
+*/
 
-/*Advisor TCM layout*/
+/*
+/!*Advisor TCM layout*!/
 .AdvisorGridtcmLayout {
     border-radius: 0;
     padding: 0!important;
@@ -3716,7 +3721,7 @@ h3 {
 
 
 .AdvtcmLayoutColumn > span:nth-child(1) {
-    /*color: #000000!important;*/
+    /!*color: #000000!important;*!/
     font-size: 13px;
 }
 
@@ -3840,4 +3845,4 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 .filterMB {
     margin-bottom: 0!important;
 }
-}
+}*/

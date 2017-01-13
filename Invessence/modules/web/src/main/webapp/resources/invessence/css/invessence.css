@@ -617,3 +617,370 @@ a.ui-menuitem-link.ui-corner-all {
 	}
 }
 */
+
+/*Prakash - Advisor Page*/
+
+/*Message*/
+
+@media (max-width: 640px) {
+	.advisorMsgTable > div > table > tbody > tr > td:nth-child(even) {
+		background: #ffffff;
+	}
+
+	.advisorMsgTable > div > table > tbody > tr > td:nth-child(3) >table>tbody>tr>td {
+		border: solid 1px #D9E3E8!important;
+	}
+
+	.mobileRightAdvMsg {
+		text-align: right!important;
+	}
+
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+	.advisorMsgTable > div > table > thead > tr > th:nth-child(1) {
+		width: 10%;
+	}
+
+	.advisorMsgTable > div > table > thead > tr > th:nth-child(2) {
+		width: 30%;
+	}
+}
+
+@media (min-width: 901px) and (max-width: 4000px) {
+	.advisorMsgTable > div > table > thead > tr > th:nth-child(1) {
+		width: 7%;
+	}
+
+	.advisorMsgTable > div > table > thead > tr > th:nth-child(2) {
+		width: 20%;
+	}
+}
+
+.advisorMsgTable > div > table > tbody > tr > td {
+	background: #FFFFFF!important;
+}
+
+.advisorMsgTable > div > table > tbody > .ui-state-highlight > td {
+	background-color: #FFFFFF!important;
+	color: #778d9b!important;
+}
+
+.advisorMsgTable > div > table > tbody > .ui-state-highlight > td > table > tbody > tr > td,
+.advisorMsgTable > div > table > tbody > .ui-state-hover > td > table > tbody > tr > td,
+.advisorMsgTable > div > table > tbody > .ui-state-hover > td {
+	background-color: #FFFFFF!important;
+	color: #778d9b!important;
+}
+
+
+.msgAdvStatus, .msgAdvAcctName {
+	margin: 5px 0px;
+}
+.msgAdvAcctName > div:nth-child(1) {
+	float: left;
+}
+
+.msgAdvAcctName > div:nth-child(2) {
+	float: right!important;
+}
+
+.msgAdvAcctName > div:nth-child(2) > div {
+	text-align: right!important;
+}
+
+.messageContentAdvNotification {
+	position: relative;
+	top: 10px;
+	margin-bottom: 15px;
+	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.57);
+}
+
+.messageContentAdvNotification > tbody > tr >td {
+	border: 0!important;
+}
+
+.messageContentAdvNotification > tbody > tr >td:nth-child(2) {
+	border-left: 1px solid #d9e3e8!important;
+	border-right: 1px solid #d9e3e8!important;
+}
+
+@media (max-width: 450px) {
+	.messageContentAdvNotification > tbody > tr >td >div {
+		text-align: center;
+	}
+
+	.messageContentAdvNotification > tbody > tr >td {
+		display: block;
+	}
+}
+
+/**/
+
+
+.CommonBtnWidthCancel,.CommonBtnWidthSave {
+	width: 100px!important;
+}
+
+.AdvUserName, .AdvVisitorStat {
+	/*font-size : 18 px;*/
+	margin: 8px 0 !important;
+}
+
+.PaddingTopBottomNone {
+	padding-top: 0 !important;
+	padding-top: 0 !important;
+}
+
+.MarginLeftRight {
+	margin: 0px 10px;
+}
+
+.MarAuto {
+	margin: 0 auto!important;
+}
+
+.Seperator {
+	margin: 10px 0px !important;
+}
+
+.Marbottom {
+	margin-bottom: 22px;
+}
+
+.MarginBottomStats {
+	margin-bottom: 10px;
+}
+
+/**/
+
+/*Advisor layout*/
+
+.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-hover > td,
+.AdvisorGridtcmLayout > div:nth-child(2) > table > tbody > .ui-state-hover > td {
+	background-color: inherit!important;
+	color: inherit!important;
+}
+
+.advisorMsgTable > div:nth-child(2) > table > tbody > .ui-state-highlight > td,
+.AdvisorGridtcmLayout > div:nth-child(2) > table > tbody > .ui-state-highlight > td,
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > tbody > .ui-state-highlight > td {
+	background-color: #FFFFFF!important;
+	color: #000000!important;
+}
+
+
+
+#layout-menu .ui-button.ui-state-hover .ui-button-text {
+	background-color: #009abb!important	;
+}
+
+
+.AdvisorGridtcmLayout {
+	border-radius: 0;
+	padding: 0!important;
+	margin: 0!important;
+	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+	text-align: center;
+}
+
+.AdvisorGridtcmLayout > select {
+	margin-top: 8px!important;
+	border-radius:0!important;
+}
+
+.AdvisorGridtcmLayout > label:nth-child(1) {
+	display: none;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr {
+	border-bottom: 2px solid #bdbdbd;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > tbody > tr {
+	border-bottom: 1px solid #bdbdbd;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr > th:nth-child(1),
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr > td:nth-child(1) {
+	width: 50px;
+}
+
+.AdvtcmLayoutColumn {
+	border: none!important;
+	background:#ffffff!important;
+	color: #000000!important;
+	text-align: center;
+}
+
+
+
+.AdvtcmLayoutColumn > span:nth-child(1) {
+	/*color: #000000!important;*/
+	font-size: 13px;
+}
+
+thead > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
+	background-size: 85%!important;
+	margin-left: 0px!important;
+}
+
+tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
+	font-size: 13px;
+}
+
+.AdvtcmGridBtnRightR {
+	border-radius: 0px 30px 30px 0px!important;
+}
+
+.AdvtcmGridBtnR, .DeleteButtonR, .DeleteButtonR > span {
+	border-radius: 30px 30px 30px 30px!important;
+}
+
+.AdvtcmGridBtnRightR > span:nth-child(1) {
+	font-size: 12px;
+	width: 50px;
+	padding: 5px 0px!important;
+	border-radius: 0px 30px 30px 0px!important;
+}
+
+.AdvtcmGridBtnLeftR {
+	border-radius: 30px 0px 0px 30px!important;
+}
+
+.AdvtcmGridBtnLeftR > span:nth-child(1) {
+	font-size: 12px;
+	width: 50px;
+	padding: 5px 0px!important;
+	border-radius: 30px 0px 0px 30px!important;
+}
+
+.AdvtcmGridBtnR > span:nth-child(1) {
+	font-size: 12px;
+	width: 50px;
+	padding: 5px 0px!important;
+	border-radius: 30px 30px 30px 30px!important;
+}
+
+.AdvBtnTcmGrp > div > span,
+.AdvNormalBtn > span {
+	border-radius: 30px!important;
+	background: #f5f5f5;
+	color: #607D8B;
+	font-size: 13px;
+}
+
+.AdvNormalBtn {
+	border-radius: 30px!important;
+}
+
+.AdvBtnTcmGrp > div {
+	margin: 10px 5px!important;
+}
+
+.AdvBtnTcmGrp > .ui-state-hover > span,
+.ForBtnNormal > .ui-state-hover > span
+{
+	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+	background: #f5f5f5!important;
+	color:#607D8B;
+}
+.AdvBtnTcmGrp > .ui-state-active > span,
+.AdvBtnTcmGrp > .ui-state-focus > span,
+.ForBtnNormal > .ui-state-active > span,
+.ForBtnNormal > .ui-state-focus > span {
+	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+	background: #009abb!important;
+	color:#f5f5f5;
+}
+
+.AdvBtnTcmGrp {
+	margin:0px!important;
+}
+
+.AdvisorGridtcmLayout > .ui-datatable-tablewrapper > table > thead > tr > .ui-state-hover > span:nth-child(2) {
+	background-image:url("/javax.faces.resource/images/updown-gray-arrow.svg.xhtml?ln=primefaces-spark")!important;
+}
+
+.aum_label {
+	margin: 5px 5px;
+	font-size: 14px;
+	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.75);
+	background: #f5f5f5;
+	padding: 5px 20px;
+	border-radius: 30px;
+}
+
+.multipleSelectionChkList {
+	width:16px;
+	text-align:center!important;
+	background-color: #FFFFFF!important;
+	border: 0!important;
+	box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+	.AdvtcmGridBtnLeftR > span:nth-child(1),
+	.AdvtcmGridBtnRightR > span:nth-child(1),
+	.AdvtcmGridBtnR > span:nth-child(1),
+	.AdvtcmGridBtnR {
+		width: 100%!important;
+	}
+
+	.multipleSelectionChkList {
+		width:100%!important;
+		background-color: #FFFFFF!important;
+		display: block!important;
+	}
+
+	.multipleSelectionChkList > span:nth-child(1) {
+		display: none!important;
+	}
+}
+
+@media (max-width: 445px) {
+	.AdvBtnTcmGrp > div > span,
+	.filterMB > button > span:nth-child(2) {
+		font-size: 11px;
+	}
+}
+
+@media (max-width: 415px)  {
+	.filterMBBlock {
+		float: right!important;
+	}
+
+	.filterMB {
+		margin-bottom: 0!important;
+	}
+}
+
+.multipleSelectionChkList .ui-chkbox .ui-state-hover,
+.multipleSelectionChkList .ui-chkbox .ui-state-active {
+	border-color: #009abb!important;
+}
+
+.multipleSelectionChkList .ui-chkbox-box .ui-icon-check {
+	background-color: #009abb!important;
+}
+
+.ui-paginator-top,
+.ui-paginator-bottom,
+.AdvisorGridtcmLayout .ui-datatable-footer,
+.advisorMsgTable .ui-datatable-footer {
+	background: #FFFFFF!important;
+}
+
+@media (max-width: 405px) {
+	.MsgBtnsBlock {
+		width: 70%!important;
+	}
+
+	.MsgBlockAdv {
+		width: 30%!important;
+	}
+
+	.MsgBlockAdv > .BigTopic {
+		font-size: 14px!important;
+	}
+}
