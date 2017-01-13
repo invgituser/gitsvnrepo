@@ -327,7 +327,7 @@ public class AccountData
 
    public Double getInvested()
    {
-      if (getAcctStatus().startsWith("P"))
+      if (getAcctStatus().startsWith("P") || !getCurrentstatus().startsWith("A"))
          return getInitialInvestment();
       return actualCapital;
    }

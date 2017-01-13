@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import com.invessence.web.constant.*;
 import com.invessence.web.dao.advisor.*;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
+import com.invessence.web.data.advisor.AdvisorDashData;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.RiskCalculator;
 import com.invessence.web.util.*;
@@ -51,6 +52,7 @@ public class ManageAdvisorBean implements Serializable
    @ManagedProperty("#{advisorSaveDataDAO}")
    private AdvisorSaveDataDAO advisorSaveDataDAO;
    private int rowKey;
+   private Long logonid;
 /*
    @ManagedProperty("#{positionBean}")
    private PositionBean positionBean;
@@ -64,10 +66,31 @@ public class ManageAdvisorBean implements Serializable
    private AccountData selectedAccount;
    private RiskCalculator riskCalculator;
    private Integer filteredBydate=0;
+   private Map<String, Integer> statInfo;
+   private Map<String, Integer> salesInfo;
 
    @ManagedProperty("#{emailMessage}")
    private WebMessage messageSource;
 
+   public Map<String, Integer> getStatInfo()
+   {
+      return statInfo;
+   }
+
+   public void setStatInfo(Map<String, Integer> statInfo)
+   {
+      this.statInfo = statInfo;
+   }
+
+   public Map<String, Integer> getSalesInfo()
+   {
+      return salesInfo;
+   }
+
+   public void setSalesInfo(Map<String, Integer> salesInfo)
+   {
+      this.salesInfo = salesInfo;
+   }
 
    public WebMessage getMessageSource()
    {
@@ -86,12 +109,13 @@ public class ManageAdvisorBean implements Serializable
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             if (webutil.validatePriviledge(WebConst.ROLE_ADVISOR)) {
-               Long logonid;
+
                logonid = webutil.getLogonid();
 
                if (logonid != null)
                {
                      filterData();
+                     reloadData();
                }
             }
          }
@@ -113,6 +137,16 @@ public class ManageAdvisorBean implements Serializable
       this.positionBean = positionBean;
    }
 */
+
+   public void reloadData() {
+      if (advisorListDataDAO != null) {
+         AdvisorDashData advisorDashData=new AdvisorDashData();
+         advisorDashData.setLogonid(logonid);
+         advisorListDataDAO.reloadAdvisorDashBoard(advisorDashData);
+        this.setSalesInfo(advisorDashData.getSalesInfo());
+       //  statInfo = advisorListDataDAO.getAdvisorNotificationInfo(logonid);
+      }
+   }
 
    public String getFiltereMenuList()
    {

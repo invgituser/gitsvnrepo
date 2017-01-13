@@ -28,11 +28,15 @@
                     <h:form id="form">
                         <div class="Container100">
                            <div class="Fright aum_label">
-                          <label>AUM: <b>$23,900</b></label>
+                          <label>AUM:  <h:outputText value="#{manageAdvisorBean.salesInfo.get('AUM')}">
+                              <f:convertNumber pattern="$#,###,##0"/>
+                          </h:outputText></label>
                            </div>
                         </div>
                         <div class="Container100">
                         <p:dataTable id="managedTable" var="managedVar" styleClass="AdvisorGridtcmLayout" widgetVar="managedTable"
+                                     paginator="true" rows="10"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                      value="#{manageAdvisorBean.filteredDataList}" reflow="true">
 
 <!--

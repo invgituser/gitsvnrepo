@@ -106,6 +106,7 @@ public class AdvisorNotificationBean implements Serializable
 
       try
       {
+         selectionList = new ArrayList<>();
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             filterNotice = "N";
@@ -175,6 +176,7 @@ public class AdvisorNotificationBean implements Serializable
          // webutil.redirect("/pages/common/notification.xhtml", null);
          filterNotice = "N";
          collectNotification();
+         selectionList = null;
       }
    }
 
