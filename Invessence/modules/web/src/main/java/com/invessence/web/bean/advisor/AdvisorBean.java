@@ -33,10 +33,10 @@ public class AdvisorBean extends AdvisorData implements Serializable
    private InvessenceCharts invessenceCharts = new InvessenceCharts();
 
    @ManagedProperty("#{advisorListDataDAO}")
-   private AdvisorListDataDAO listDAO;
+   private AdvisorListDataDAO listAdvisorDAO;
 
    @ManagedProperty("#{advisorSaveDataDAO}")
-   private AdvisorSaveDataDAO saveDAO;
+   private AdvisorSaveDataDAO saveAdvisorDAO;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -50,24 +50,24 @@ public class AdvisorBean extends AdvisorData implements Serializable
    private Boolean themeChanged = false;
    private Boolean formDirty = false;
 
-   public AdvisorSaveDataDAO getSaveDAO()
+   public AdvisorSaveDataDAO getSaveAdvisorDAO()
    {
-      return saveDAO;
+      return saveAdvisorDAO;
    }
 
    public void setSaveDAO(AdvisorSaveDataDAO saveDAO)
    {
-      this.saveDAO = saveDAO;
+      this.saveAdvisorDAO = saveDAO;
    }
 
-   public AdvisorListDataDAO getListDAO()
+   public AdvisorListDataDAO getListAdvisorDAO()
    {
-      return listDAO;
+      return listAdvisorDAO;
    }
 
-   public void setListDAO(AdvisorListDataDAO listDAO)
+   public void setListAdvisorDAO(AdvisorListDataDAO listAdvisorDAO)
    {
-      this.listDAO = listDAO;
+      this.listAdvisorDAO = listAdvisorDAO;
    }
 
    public String getBeanAcctnum()
@@ -199,7 +199,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
          setLogonid(logonid);
          if (formDirty) {
             formDirty = false;
-            Long newacctnum = saveDAO.saveProfile((AdvisorBean) this.getInstance());
+            Long newacctnum = saveAdvisorDAO.saveProfile((AdvisorBean) this.getInstance());
             if (newacctnum < 0) {
                FacesContext.getCurrentInstance().addMessage(null,
                                        new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -265,7 +265,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
             // New recreate the new portfolio.
             if (this.formDirty) {
                this.formDirty = false;
-               saveDAO.saveAllocation((AdvisorData) this.getInstance());
+               saveAdvisorDAO.saveAllocation((AdvisorData) this.getInstance());
                setNumOfPortfolio(1);
                buildPortfolio();
             }
@@ -429,8 +429,8 @@ public class AdvisorBean extends AdvisorData implements Serializable
                saveProfile();
                this.themeChanged = false;   // reset the flag so that we don't keep saving this data.
                // NOTE: Basket change does not have anything to do with Asset allocation, only advisor.
-               saveDAO.saveExcludeSubClass(getInstance());
-               saveDAO.savePortfolio(getInstance());
+               saveAdvisorDAO.saveExcludeSubClass(getInstance());
+               saveAdvisorDAO.savePortfolio(getInstance());
          }
 /*
          }
