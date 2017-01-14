@@ -11,7 +11,7 @@ import com.invessence.web.dao.common.CommonDAO;
 public class WebProfile
 {
    String url;
-   Boolean forced; // forced, would mean override the default url and use given URL.
+   Boolean locked; // locked, would mean override the default url and use given URL.
    String mode;    // This mode will be set on forced.  (DEMO, UAT to control some flow on webpage).
    String defaultAdvisor, defaultRep;
    Map<String, String> webInfo;
@@ -26,7 +26,7 @@ public class WebProfile
    public void initWebProfile()
    {
       url = null;
-      forced = false;
+      locked = false;
       mode = null;
       defaultAdvisor = null;
       defaultRep = null;
@@ -69,14 +69,14 @@ public class WebProfile
       this.url = url;
    }
 
-   public Boolean getForced()
+   public Boolean getLocked()
    {
-      return forced;
+      return locked;
    }
 
-   public void setForced(Boolean forced)
+   public void setLocked(Boolean forced)
    {
-      this.forced = forced;
+      this.locked = forced;
    }
 
    public String getMode()

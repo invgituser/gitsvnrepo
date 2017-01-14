@@ -12,7 +12,7 @@ CREATE TABLE `invdb`.`web_advisor_mapping` (
 INSERT INTO `invdb`.`web_advisor_mapping` (`advisor`, `name`, `value`,`created`) 
 VALUES 
 ('INVESSENCE', 'WEB.URL', 'www.invessence.com',now()),
-('INVESSENCE', 'WEB.LOGO', '',now()),
+('INVESSENCE', 'ADVISOR.LOGO', '',now()),
 ('INVESSENCE', 'EMAIL.OPS', 'operations@invessence.com',now()),
 ('INVESSENCE', 'EMAIL.SUPPORT', 'support@invessence.com',now()),
 ('INVESSENCE', 'PHONE.SUPPORT', '(XXX) XXX-XXXX',now()),
@@ -22,7 +22,7 @@ VALUES
 INSERT INTO `invdb`.`web_advisor_mapping` (`advisor`, `name`, `value`,`created`) 
 VALUES 
 ('BB', 'WEB.URL', 'www.buildingbenjamins.com',now()),
-('BB', 'WEB.LOGO', '',now()),
+('BB', 'ADVISOR.LOGO', '',now()),
 ('BB', 'EMAIL.OPS', 'operations@traditioncm.com',now()),
 ('BB', 'EMAIL.SUPPORT', 'support@buildingbenjamins.com',now()),
 ('BB', 'PHONE.SUPPORT', '(908) 333-4733 ',now()),
@@ -32,7 +32,7 @@ VALUES
 INSERT INTO `invdb`.`web_advisor_mapping` (`advisor`, `name`, `value`,`created`) 
 VALUES 
 ('UOB', 'WEB.URL', 'uob.invessence.com:8080',now()),
-('UOB', 'WEB.LOGO', '',now()),
+('UOB', 'ADVISOR.LOGO', '',now()),
 ('UOB', 'EMAIL.OPS', 'operations@invessence.com',now()),
 ('UOB', 'EMAIL.SUPPORT', 'support@invessence.com',now()),
 ('UOB', 'PHONE.SUPPORT', '(XXX) XXX-XXXX ',now()),

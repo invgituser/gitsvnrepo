@@ -41,9 +41,6 @@ public class UILayout implements Serializable
    @Autowired
    private WebUtil webutil;
 
-   @Autowired
-   private CommonDAO commonDAO;
-
    public WebUtil getWebutil()
    {
       return webutil;
@@ -64,89 +61,9 @@ public class UILayout implements Serializable
       return value;
    }
 
-   private void loadWebProfile(String origurl, String url) {
-      if (origurl == null || (! origurl.equalsIgnoreCase(url))) {
-         if (! webutil.getWebprofile().getForced())
-         {
-            webutil.getWebprofile().initWebProfile();
-            webutil.getWebprofile().setUrl(url);
-            webutil.getWebprofile().setForced(true);
-            if (commonDAO != null)
-            {
-               webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
-            }
-         }
-      }
-   }
-
-   private void loadAdvisorProfile(String advisor) {
-         if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor))
-         {
-            if (commonDAO != null)
-            {
-               webutil.getWebprofile().addToMap(commonDAO.getAdvisorWebInfo(advisor));
-            }
-         }
-    }
-
-   public void resetUserCIDProfile(String advisor)
-   {
-      String origurl = webutil.getWebprofile().getUrl();
-      Map<String, String> advisorMap;
-      if (advisor == null)
-         advisor = "Invessence";
-
-      if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor)) {
-         if (commonDAO != null)
-         {
-            advisorMap = commonDAO.getAdvisorWebInfo(advisor);
-            if (advisorMap != null) {
-              if (advisorMap.containsKey("WEB.URL")) {
-                 loadWebProfile(origurl, advisorMap.get("WEB.URL"));
-                 webutil.getWebprofile().addToMap(advisorMap);
-              }
-            }
-         }
-      }
-   }
-
-   public void resetCIDProfile(String uri)
-   {
-      String origurl = webutil.getWebprofile().getUrl();
-      if (uri == null)
-         uri = webutil.getURLAddress("Invessence");
-
-      loadWebProfile(origurl, uri);
-      loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
-   }
-
-
-/*
-   @PostConstruct
-   public void init()
-   {
-      if (getCid() == null)
-      {
-         setCid("0");
-         setRep("");
-         initialize();
-      }
-   }
-*/
 
    public void preRenderView()
    {
-
-      try
-      {
-         if (!FacesContext.getCurrentInstance().isPostback())
-         {
-            resetCIDProfile(null);
-         }
-      }
-      catch (Exception e)
-      {
-      }
    }
 
    public static long getSerialVersionUID()
