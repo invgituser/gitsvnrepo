@@ -47,6 +47,8 @@ public class TDDaoLayerImpl implements TDDaoLayer
 
    private final String getElecFundTransferDetails="select * from vwdc_elecfund_transfer_details where reqId=? and acctnum=?";
 
+   private final String getAcctChngAddrDetails ="select * from vwdc_td_chng_addrs_details where accountNumber=?";
+
 
 
 
@@ -196,6 +198,17 @@ public class TDDaoLayerImpl implements TDDaoLayer
 
       return lst==null || lst.size()<=0 ? null: lst.get(0);
    }
+
+   @Override
+   public GetAcctChngAddrDetails getAcctChngAddrDetails(Long acctNum) throws SQLException
+   {
+      List<GetAcctChngAddrDetails> lst = null;
+      logger.debug("getAcctChngAddrDetails = "+getAcctChngAddrDetails);
+      lst = webServiceJdbcTemplate.query(getAcctChngAddrDetails, new Object[]{acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(GetAcctChngAddrDetails.class));
+
+      return lst==null || lst.size()<=0 ? null: lst.get(0);
+   }
+
 
    @Override
    public void updateEnvelopDetails(int eventNum, EnvelopeSummary envelopeSummary) throws SQLException

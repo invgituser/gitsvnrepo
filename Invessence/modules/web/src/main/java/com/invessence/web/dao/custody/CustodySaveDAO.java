@@ -441,6 +441,17 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          return true;
    }
 
+   public Boolean tdMngAdvisorNotification(Long acctnum,String advisor,String rep,String messageType)
+   {
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "sp_send_advisor_notification",19);
+      Map outMap = sp.tdManageAdvisorNotification( acctnum, advisor, rep, messageType);
+      if (outMap == null)
+         return (false);
+      else
+         return true;
+   }
+
 
 
    public boolean tdSaveEFTEdit(TDMasterData tdMasterData )
@@ -532,6 +543,36 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       }
       return true;
    }
+
+   public Boolean tdSaveAccountChangeAddrs(AcctOwnersDetails  dataHistory,AcctOwnersDetails data,TDMasterData tdMasterData)
+   {
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "save_tddc_acct_chng_addr_details",18);
+      Map outMap = sp.tdSaveChangeAddress(dataHistory,data);
+      if (outMap == null)
+      {
+         return (false);
+      }else{
+
+         Request reqdata=new Request();
+//      if(achId>0)
+//      {
+         tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
+         reqdata.setReqId(new Long(0));
+         reqdata.setEventNum(0);
+         reqdata.setAcctnum(tdMasterData.getAcctnum());
+         reqdata.setReqType("ACCT_CHNG_ADDR");
+
+         //reqdata.setRequestFor("EFT");
+         reqdata.setEnvelopeHeading("Please sign change address document.");
+         tdOpenAccount(reqdata);
+         tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
+        // if(reqdata.getReqId()>0)
+         return true;
+      }
+   }
+
+
 
 
 }

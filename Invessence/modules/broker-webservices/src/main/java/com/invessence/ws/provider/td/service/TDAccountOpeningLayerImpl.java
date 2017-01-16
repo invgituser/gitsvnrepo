@@ -159,6 +159,11 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
             if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
             envDef.getCompositeTemplates().add(compositeTemplate);
             dcReqExtDoc = dcRequest;
+         }else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_CHNG_ADDR.toString()))
+         {
+            CompositeTemplate compositeTemplate = acctChngAddr(dcRequest, dcTemplateDetail, "" + reqCounter);
+            if(compositeTemplate==null) throw new EnvelopeCreationException("EnvelopeCreationException for acctNum ="+dcRequest.getAcctnum()+" reqId = "+dcRequest.getReqId());
+            envDef.getCompositeTemplates().add(compositeTemplate);
          }
          reqCounter++;
       }
@@ -378,6 +383,49 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
                acctDetails.setAcctOwnerDetails(acctOwnerDetails);
                InlineTemplate inlineTemplate = dcUtility.getInlineTemplate(servTempSeq);
                inlineTemplate.setRecipients(dcUtility.getRecipientsElecFundTransfer(dcTemplateDetail, acctDetails, elecFundTransferDetails));
+               ServerTemplate serverTemplate = dcUtility.getServerTemplate(servTempSeq, dcTemplateDetail);
+
+               compositeTemplate = new CompositeTemplate();
+               compositeTemplate.setServerTemplates(new ArrayList<ServerTemplate>());
+               compositeTemplate.getServerTemplates().add(serverTemplate);
+
+               compositeTemplate.setInlineTemplates(new ArrayList<InlineTemplate>());
+               compositeTemplate.getInlineTemplates().add(inlineTemplate);
+            }
+         }
+      }
+
+      return compositeTemplate;
+   }
+
+
+   private CompositeTemplate acctChngAddr(DCRequest dcRequest, DCTemplateDetails dcTemplateDetail, String servTempSeq) throws Exception{
+      logger.info("TDAccountOpeningLayerImpl.acctChngAddr");
+      logger.info("dcRequest = [" + dcRequest + "]");
+
+      CompositeTemplate compositeTemplate=null;
+      AcctDetails acctDetails = tdDaoLayer.getAcctDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
+      if(acctDetails==null){
+         logger.error("AccountDetails information not available for acctNum = "+dcRequest.getAcctnum()+" requestId = "+dcRequest.getReqId());
+      }
+      else
+      {
+         List<AcctOwnerDetails> acctOwnerDetails = tdDaoLayer.getAcctOwnerDetails(dcRequest.getAcctnum(), dcRequest.getReqId(), false);
+         if (acctOwnerDetails == null || acctOwnerDetails.size() <= 0)
+         {
+            logger.error("AcctOwnerDetails information not available for acctNum = " + dcRequest.getAcctnum() + " requestId = " + dcRequest.getReqId());
+         }
+         else
+         {
+            GetAcctChngAddrDetails getAcctChngAddrDetails = tdDaoLayer.getAcctChngAddrDetails(dcRequest.getAcctnum());
+            if (getAcctChngAddrDetails == null)
+            {
+               logger.error("GetAcctChngAddrDetails information not available for acctNum = " + dcRequest.getAcctnum() );
+            }else
+            {
+               acctDetails.setAcctOwnerDetails(acctOwnerDetails);
+               InlineTemplate inlineTemplate = dcUtility.getInlineTemplate(servTempSeq);
+               inlineTemplate.setRecipients(dcUtility.getRecipientsChngAdd(dcTemplateDetail, acctDetails, getAcctChngAddrDetails));
                ServerTemplate serverTemplate = dcUtility.getServerTemplate(servTempSeq, dcTemplateDetail);
 
                compositeTemplate = new CompositeTemplate();

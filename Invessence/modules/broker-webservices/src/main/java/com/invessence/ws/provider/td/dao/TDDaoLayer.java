@@ -33,8 +33,11 @@ public interface TDDaoLayer
 
    public TDTransferDetails getTDTransferDetails(Long acctNum, Long reqId)throws SQLException;
 
+
    public ElecFundTransferDetails getElecFundTransferDetails(Long acctNum, Long reqId)throws SQLException;
 
+
+   public GetAcctChngAddrDetails getAcctChngAddrDetails(Long acctNum)throws SQLException;
 
    void updateEnvelopDetails(int eventNum, EnvelopeSummary envelopeSummary)throws SQLException;
 

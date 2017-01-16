@@ -289,6 +289,54 @@ public class DCUtility
       return recipients;
    }
 
+
+
+   public Recipients getRecipientsChngAdd(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, GetAcctChngAddrDetails getAcctChngAddrDetails)
+   {
+      logger.info("DCUtility.getRecipientsElecFundTransfer");
+
+      List<String> dbColumns=null;
+      List<Signer> signerLst=new ArrayList<>();
+
+      Tabs tabs = new Tabs();
+      List<Text> textboxLst=new ArrayList<>();
+      List<Checkbox> checkboxeLst=new ArrayList<>();
+      List<RadioGroup> radioGroupLst=new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
+      Recipients recipients=null;
+
+      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst,null);
+      try
+      {
+         dbColumns=getFieldNames(getAcctChngAddrDetails, false);
+         System.out.println("dbColumns =" + dbColumns);
+         List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+         getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, getAcctChngAddrDetails);
+      }
+      catch (IllegalAccessException e)
+      {
+         e.printStackTrace();
+      }
+
+      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
+      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
+      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
+      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+
+      if(signerLst.size()>0){
+         Iterator<Signer> signerItr=signerLst.iterator();
+         while(signerItr.hasNext()){
+            Signer signer=(Signer)signerItr.next();
+            signer.setTabs(tabs);
+         }
+         recipients=new Recipients();
+         recipients.setSigners(signerLst);
+         recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+      }
+      return recipients;
+   }
+
    public Recipients getRecipientsAcctCreation(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
    {
 

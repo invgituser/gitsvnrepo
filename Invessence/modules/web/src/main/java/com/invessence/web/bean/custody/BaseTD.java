@@ -1422,4 +1422,76 @@ public class BaseTD
       return taxYear;
 
    }
+
+
+   public Boolean validateChangeAddress(AcctOwnersDetails objAcctOwnersDetails,boolean bFlag) {
+      Boolean dataOK = true;
+      if (!hasRequiredData(objAcctOwnersDetails.getPhysicalAddressStreet()))
+      {
+         dataOK = false;
+
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.resstreet.requiredMsg", "Residence Street Address is required!", null));
+      }
+      if (!hasRequiredData(objAcctOwnersDetails.getPhysicalAddressCity()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+      }
+      if (!hasRequiredData(objAcctOwnersDetails.getPhysicalAddressState()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+      }
+      if (!hasRequiredData(objAcctOwnersDetails.getPhysicalAddressZipCode()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+      }
+      else if (!JavaUtil.isValidZipCode(objAcctOwnersDetails.getPhysicalAddressZipCode()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+      }
+      if (  bFlag && !hasRequiredData(objAcctOwnersDetails.getPhoneNumber()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.phoneno.requiredMsg", "Phone Number is required!", null));
+      }
+      if (bFlag && !hasRequiredData(objAcctOwnersDetails.getEmailAddress()))
+      {
+         dataOK = false;
+         pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));
+      }
+
+      if (tdMasterData.getAcctholderhasMailing() || !bFlag)
+      {
+         if (!hasRequiredData(objAcctOwnersDetails.getMailingAddressStreet()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.mailstreet.requiredMsg", "Mailing Street Address is required!", null));
+         }
+         if (!hasRequiredData(objAcctOwnersDetails.getMailingAddressCity()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.city.requiredMsg", "City is required!", null));
+         }
+         if (!hasRequiredData(objAcctOwnersDetails.getMailingAddressState()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.state.requiredMsg", "State is required!", null));
+         }
+         if (!hasRequiredData(objAcctOwnersDetails.getMailingAddressZipCode()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.requiredMsg", "Zip Code is required!", null));
+         }
+         else if (!JavaUtil.isValidZipCode(objAcctOwnersDetails.getMailingAddressZipCode()))
+         {
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+         }
+      }
+
+      return dataOK;
+   }
 }

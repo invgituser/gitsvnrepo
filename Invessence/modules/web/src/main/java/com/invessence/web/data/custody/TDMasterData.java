@@ -44,6 +44,8 @@ public class TDMasterData implements Serializable
    AdvisorDetails advisorDetails;
    AcctOwnersDetails acctOwnersDetail;
    AcctOwnersDetails jointAcctOwnersDetail;
+   AcctOwnersDetails acctOwnersDetailHistory;
+   AcctOwnersDetails jointAcctOwnersDetailHistory;
    EmploymentDetails owneremploymentDetail;
    EmploymentDetails jointEmploymentDetail;
    BenefiaciaryDetails benefiaciaryDetailses;
@@ -1063,5 +1065,25 @@ public class TDMasterData implements Serializable
       }
       return MySortStrings;
 
+   }
+
+   public AcctOwnersDetails getJointAcctOwnersDetailHistory()
+   {
+      return jointAcctOwnersDetailHistory;
+   }
+
+   public void setJointAcctOwnersDetailHistory(AcctOwnersDetails jointAcctOwnersDetailHistory)
+   {
+      this.jointAcctOwnersDetailHistory = jointAcctOwnersDetailHistory;
+   }
+
+   public AcctOwnersDetails getAcctOwnersDetailHistory()
+   {
+      return acctOwnersDetailHistory;
+   }
+
+   public void setAcctOwnersDetailHistory(AcctOwnersDetails acctOwnersDetailHistory)
+   {
+      this.acctOwnersDetailHistory = acctOwnersDetailHistory;
    }
 }

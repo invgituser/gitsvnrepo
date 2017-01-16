@@ -243,6 +243,41 @@ public class CustodySaveSP extends StoredProcedure
          case 90:  // DEL Beneficiary
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
+
+         case 18:  // Account Holder
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_acctOwnerId", Types.INTEGER));
+
+            declareParameter(new SqlParameter("p_physicalAddressStreetHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_physicalAddressCityHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_physicalAddressStateHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_physicalAddressZipCodeHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressStreetHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressCityHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressStateHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressZipCodeHstry", Types.VARCHAR));
+
+            declareParameter(new SqlParameter("p_physicalAddressStreet", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_physicalAddressCity", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_physicalAddressState", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_physicalAddressZipCode", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressStreet", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressCity", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressState", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_mailingAddressZipCode", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_phoneNumber", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_emailAddress", Types.VARCHAR));
+
+            declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
+            break;
+         case 19:  // Account Holder
+            declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
+            declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
+
+
+            break;
          default:
             break;
       }
@@ -593,4 +628,43 @@ public class CustodySaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
+   public Map tdManageAdvisorNotification(Long acctnum,String advisor,String rep,String messageType )
+   {
+      Map<String, Object> inputMap = new HashMap<String, Object>();
+      inputMap.put("p_acctnum",  acctnum);
+      inputMap.put("p_advisor", advisor);
+      inputMap.put("p_rep", rep);
+      inputMap.put("p_messagetype", messageType);
+      return super.execute(inputMap);
+   }
+
+   public Map tdSaveChangeAddress(AcctOwnersDetails dataHistory,AcctOwnersDetails data)
+   {
+      Map<String, Object> inputMap = new HashMap<String, Object>();
+      inputMap.put("p_acctnum", dataHistory.getAcctnum());
+      inputMap.put("p_acctOwnerId", dataHistory.getAcctOwnerId());
+
+      inputMap.put("p_physicalAddressStreetHstry", dataHistory.getPhysicalAddressStreet());
+      inputMap.put("p_physicalAddressCityHstry", dataHistory.getPhysicalAddressCity());
+      inputMap.put("p_physicalAddressStateHstry", dataHistory.getPhysicalAddressState());
+      inputMap.put("p_physicalAddressZipCodeHstry", dataHistory.getPhysicalAddressZipCode());
+      inputMap.put("p_mailingAddressStreetHstry", dataHistory.getMailingAddressStreet());
+      inputMap.put("p_mailingAddressCityHstry", dataHistory.getMailingAddressCity());
+      inputMap.put("p_mailingAddressStateHstry", dataHistory.getMailingAddressState());
+      inputMap.put("p_mailingAddressZipCodeHstry", dataHistory.getMailingAddressZipCode());
+
+      inputMap.put("p_physicalAddressStreet", data.getPhysicalAddressStreet());
+      inputMap.put("p_physicalAddressCity", data.getPhysicalAddressCity());
+      inputMap.put("p_physicalAddressState", data.getPhysicalAddressState());
+      inputMap.put("p_physicalAddressZipCode", data.getPhysicalAddressZipCode());
+      inputMap.put("p_mailingAddressStreet", data.getMailingAddressStreet());
+      inputMap.put("p_mailingAddressCity", data.getMailingAddressCity());
+      inputMap.put("p_mailingAddressState", data.getMailingAddressState());
+      inputMap.put("p_mailingAddressZipCode", data.getMailingAddressZipCode());
+      inputMap.put("p_phoneNumber", data.getPhoneNumber());
+      inputMap.put("p_emailAddress", data.getEmailAddress());
+
+      inputMap.put("p_createdBy", "Invessence");
+      return super.execute(inputMap);
+   }
 }
