@@ -1780,7 +1780,7 @@ input {
 .formPage .ui-inputfield, .formpageDropdown,
 .formPage .ui-inputfield.ui-state-hover,
 .formPage .ui-inputfield.ui-state-focus {
-    border: solid 1px #f2f2f2!important;
+    border: solid 1px #bdbdbd!important;
     background-color: transparent;
     color:#778D9B!important;
 }
