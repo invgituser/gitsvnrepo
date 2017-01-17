@@ -1,0 +1,1 @@
+DROP PROCEDURE IF EXISTS `invdb`.`sp_send_advisor_notification`;
