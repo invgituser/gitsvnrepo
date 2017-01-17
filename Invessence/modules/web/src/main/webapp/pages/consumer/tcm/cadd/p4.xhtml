@@ -7,8 +7,10 @@
     <div class="Container100 TextAlCenter">
         <div class="Container50 Responsive100 Fleft">
             <h3 class="TexAlCenter StepsQuestionsFS">
-                The chart below shows the potential one-year loss or gain for five hypothetical portfolios.
-                Select the option that best matches your comfort zone to continue.
+                The chart below shows the expected average return (white
+ number) and the expected range of gains (green) or losses (gray) for five
+hypothetical portfolios over a one year period.
+Select the choice that best matches your comfort zone.
             </h3>
 
             <h:inputHidden value="#{tcmpb.riskCalculator.ans4}"/>
@@ -92,6 +94,9 @@
         </div>
         <div class="Container50 Responsive100 Fleft">
             <ui:include src="/pages/consumer/tcm/cadd/rightPanel.xhtml"/>
+       <div class="EmptyBox5"></div>
+        <p class="AbvportfolioCreation"><i class="fa fa-caret-right" aria-hidden="true"></i> Please note your preliminary recommended strategy changes with your selections.</p>
+
         </div>
 
     </div>

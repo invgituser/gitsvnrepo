@@ -6,7 +6,22 @@
                 template="/template/common/simple.xhtml">
 
     <ui:define name="content">
-
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#invdemo').click(function(){
+            $("#invdemo").addClass("selectClientInvSelected");
+            $("#bbdemo, #ubodemo").removeClass("selectClientInvSelected");
+        });
+        $('#bbdemo').click(function(){
+            $("#bbdemo").addClass("selectClientInvSelected");
+            $("#invdemo, #ubodemo").removeClass("selectClientInvSelected");
+        });
+        $('#ubodemo').click(function(){
+            $("#ubodemo").addClass("selectClientInvSelected");
+            $("#bbdemo, #invdemo").removeClass("selectClientInvSelected");
+        });
+    });
+</script>
         <div id="layout-portlets-cover">
             <div class="EmptyBox50"></div>
             <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
@@ -19,18 +34,18 @@
                         <div class="EmptyBox20"></div>
                         <p:commandLink actionListener="#{sessionControl.emulateClient('www.invessence.com')}">
                             <h:graphicImage name="images/logo/LOGO.png" library="invessence"
-                                            class="MarAuto MarTop5 MarBot5" style="height: 70px"/>
+                                            class="MarAuto MarTop5 MarBot5 selectClientInv" id="invdemo" style="height: 40px"/>
                         </p:commandLink>
 
                         <div class="EmptyBox10"></div>
                         <p:commandLink actionListener="#{sessionControl.emulateClient('www.buildingbenjamins.com')}">
                             <h:graphicImage name="images/logo/BuildingBenjamins-identity.png" library="invessence"
-                                            class="MarAuto MarTop5 MarBot5" style="height: 70px"/>
+                                            class="MarAuto MarTop5 MarBot5 selectClientInv" id="bbdemo" style="height: 65px"/>
                         </p:commandLink>
                         <div class="EmptyBox10"></div>
                         <p:commandLink actionListener="#{sessionControl.emulateClient('uob.invessence.com:8080')}">
                             <h:graphicImage name="images/logo/uobkh.png" library="invessence"
-                                            class="MarAuto MarTop5 MarBot5" style="height: 70px"/>
+                                            class="MarAuto MarTop5 MarBot5 selectClientInv" id="ubodemo" style="height: 60px"/>
                         </p:commandLink>
                         <div class="EmptyBox20"></div>
                         <p:button  value="GetStarted" styleClass="Fs16 BlueButton" href="/getstarted.xhtml"></p:button>

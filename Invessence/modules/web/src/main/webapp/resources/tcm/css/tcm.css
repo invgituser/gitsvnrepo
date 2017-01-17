@@ -628,14 +628,14 @@ img.riskImage:hover {
 .ProjectionSlabHeight {
     height: 50px;
     background: #f2f2f2;
-    text-align: left;
+    text-align: right;
 }
 .triangleShape {
     height: 0px;
     background: transparent;
     border-top: 25px solid transparent;
     border-bottom: 25px solid transparent;
-    border-right: 15px solid #f2f2f2;
+    border-left: 15px solid #f2f2f2;
     float: left;
 }
 
@@ -719,11 +719,11 @@ img.riskImage:hover {
     background: #025d3c!important;
     color: white!important;
     height: 50px;
-    text-align: left;
+    text-align: right;
 }
 
 .triangleShape_Selected {
-    border-right: 15px solid #025d3c!important;
+    border-left: 15px solid #025d3c!important;
 }
 
 @media (max-width: 1205px) {
@@ -1395,6 +1395,7 @@ img.riskImage:hover {
 }
 
 .ContentForTitleDash {
+	text-transform: capitalize;
     font-weight: bold;
     width: 100%;
     display: inline-block;
@@ -1491,7 +1492,19 @@ img.riskImage:hover {
 
 
 /*Prakash*/
+/*radiobutton*/
 
+.ui-radiobutton .ui-radiobutton-box {
+    top: -2px;
+    position: relative;
+    border: solid 2px #9E9E9E;
+}
+/**/
+
+.AbvportfolioCreation {
+    font-size: 14px!important;
+    text-align: left;
+}
 /*Loader*/
 .tcmLoaderBackground > div:nth-child(1) {
     pointer-events: none;
