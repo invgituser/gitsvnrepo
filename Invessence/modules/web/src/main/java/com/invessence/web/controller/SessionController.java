@@ -159,14 +159,16 @@ public class SessionController implements Serializable
       if (advisor == null)
          advisor = "Invessence";
 
-      if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor)) {
-         if (commonDAO != null)
-         {
-            advisorMap = commonDAO.getAdvisorWebInfo(advisor);
-            if (advisorMap != null) {
-               if (advisorMap.containsKey("WEB.URL")) {
-                  loadWebProfile(advisorMap.get("WEB.URL"));
-                  webutil.getWebprofile().addToMap(advisorMap);
+      if (! webutil.getWebprofile().getLocked()) {
+         if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor)) {
+            if (commonDAO != null)
+            {
+               advisorMap = commonDAO.getAdvisorWebInfo(advisor);
+               if (advisorMap != null) {
+                  if (advisorMap.containsKey("WEB.URL")) {
+                     loadWebProfile(advisorMap.get("WEB.URL"));
+                     webutil.getWebprofile().addToMap(advisorMap);
+                  }
                }
             }
          }
