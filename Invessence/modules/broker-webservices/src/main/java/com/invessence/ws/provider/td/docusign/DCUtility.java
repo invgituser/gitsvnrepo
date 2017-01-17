@@ -638,7 +638,7 @@ catch (Exception e)
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
                signer=new Signer();
                signer.setEmail(acctOwner.getEmailAddress());
-               signer.setName(acctOwner.getFirstName());
+               signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
                signer.setRecipientId(""+signerRecipientId);
                signer.setRoleName(acctOwner.getOwnership());
             //signer.setRoutingOrder("2");
@@ -828,7 +828,7 @@ catch (Exception e)
             signer=new Signer();
             signer.setEmail(acctOwner.getEmailAddress());
             signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
-            signer.roleName(acctOwner.getOwnership());
+            signer.setRoleName(acctOwner.getOwnership());
             signer.setRecipientId(""+signerRecipientId);
             if(dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y")){
               signer.setIdCheckConfigurationName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ID_CHECK_CONF_NAME"));
@@ -861,8 +861,8 @@ catch (Exception e)
          }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
             signer=new Signer();
             signer.setEmail(acctOwner.getEmailAddress());
-            signer.setName(acctOwner.getFirstName());
-            signer.roleName(acctOwner.getOwnership());
+            signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
+            signer.setRoleName(acctOwner.getOwnership());
             signer.setRecipientId(""+signerRecipientId);
             if(dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y")){
                signer.setIdCheckConfigurationName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ID_CHECK_CONF_NAME"));
