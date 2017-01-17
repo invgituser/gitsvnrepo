@@ -28,14 +28,22 @@
                     <h:form id="form">
                         <div class="Container100">
                             <div class="Fleft filterMBBlock">
-                                <p:menuButton value="#{manageAdvisorBean.filtereMenuList}" styleClass="InfoNewDash customMenuButtonDashboard" style="margin: 10px 0px;">
+                                <div class="ContentTitleDash" style="margin:0px 15px;">Filter</div>
+                                <p:menuButton value="#{manageAdvisorBean.filtereMenuList}"  styleClass="InfoNewDash customMenuButtonDashboard" style="margin-bottom: 10px;">
                                     <p:menuitem value="All" action="#{manageAdvisorBean.filterDataByDate(0)}"/>
                                     <p:menuitem value="Today" action="#{manageAdvisorBean.filterDataByDate(1)}"/>
                                     <p:menuitem value="Last 5 days" action="#{manageAdvisorBean.filterDataByDate(5)}"/>
                                     <p:menuitem value="Last 30 days" action="#{manageAdvisorBean.filterDataByDate(30)}"/>
                                 </p:menuButton>
                             </div>
+                            <p:panel rendered="#{manageAdvisorBean.getErrorMessage() != null}"
+                                     style="border: 0px; background: transparent"
+                                     styleClass="Container100">
+                                <h:outputText styleClass="errorText"
+                                              value="#{manageAdvisorBean.getErrorMessage()}" escape="false"/>
+                            </p:panel>
                            <div class="Fright">
+
                            <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{manageAdvisorBean.filteredClient}">
                                <p:ajax update="@form" event="change"
                                        listener="#{manageAdvisorBean.refreshPage}" />
@@ -47,11 +55,11 @@
                         </div>
                         <div class="Container100">
                         <p:dataTable id="managedTable" var="managedVar" styleClass="AdvisorGridtcmLayout" widgetVar="managedTable"
-                                     paginator="true" rows="10"
+                                     paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
                                      paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                      value="#{manageAdvisorBean.filteredDataList}" 
                                      sortMode="multiple"
-                                                 selection="#{manageAdvisorBean.selectedDataList}"
+                                     selection="#{manageAdvisorBean.selectedDataList}"
                                                  rowKey="#{managedVar.acctnum}"
                                      reflow="true">
 
@@ -129,10 +137,12 @@
                                 <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
                                 </h:outputText>
                             </p:column>
-                            <f:facet name="footer">
+                            <f:facet name="header">
+                                <p:growl id="message" showDetail="true" />
                                 <div style="width: 100%; text-align: left;" class="ForBtnNormal">
                                     <p:commandButton update="@form" ajax="true" value="Delete"
                                                      actionListener="#{manageAdvisorBean.doDelete()}" styleClass="AdvNormalBtn">
+
                                     </p:commandButton>
                                 </div>
                             </f:facet>

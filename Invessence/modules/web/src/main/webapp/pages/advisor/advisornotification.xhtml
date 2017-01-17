@@ -21,7 +21,12 @@
 
                             <p:growl id="noticeGrowl" showDetail="true" sticky="true" escape="true"/>
 
-
+                            <p:panel rendered="#{advisornotificationBean.getErrorMessage() != null}"
+                                     style="border: 0px; background: transparent"
+                                     styleClass="Container100">
+                                <h:outputText styleClass="errorText"
+                                              value="#{advisornotificationBean.getErrorMessage()}" escape="false"/>
+                            </p:panel>
 
                             <div class="Container100">
                                 <div class="Container50 Fleft MsgBlockAdv">
@@ -40,6 +45,7 @@
                                 <div class="Container100 MarTop5">
                                     <p:dataTable id="messageDT" var="msg" styleClass="advisorMsgTable" value="#{advisornotificationBean.notificationDataList}"
                                                  paginator="true" rows="10"
+                                                 rowsPerPageTemplate="5,10,15"
                                                  paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                                                  widgetVar="messageWidget"
                                                  sortMode="multiple"

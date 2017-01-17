@@ -53,15 +53,17 @@ public class ManageAdvisorBean implements Serializable
    private AdvisorSaveDataDAO advisorSaveDataDAO;
    private int rowKey;
    private Long logonid;
+   private int selectedDataListSize;
 /*
    @ManagedProperty("#{positionBean}")
    private PositionBean positionBean;
 */
-
+   private String previousfilteredClient;
    private ArrayList<AccountData> accountDataList = new ArrayList<AccountData>();
    private ArrayList<AccountData> filteredDataList = new ArrayList<AccountData>();
    private ArrayList<AccountData> selectedDataList = new ArrayList<AccountData>();
    private String filteredClient;
+   private String errorMessage;
    private String filtereMenuList = "All";
    private AccountData selectedAccount;
    private RiskCalculator riskCalculator;
@@ -82,6 +84,16 @@ public class ManageAdvisorBean implements Serializable
       this.statInfo = statInfo;
    }
 
+   public String getPreviousfilteredClient()
+   {
+      return previousfilteredClient;
+   }
+
+   public void setPreviousfilteredClient(String previousfilteredClient)
+   {
+      this.previousfilteredClient = previousfilteredClient;
+   }
+
    public Map<String, Integer> getSalesInfo()
    {
       return salesInfo;
@@ -90,6 +102,16 @@ public class ManageAdvisorBean implements Serializable
    public void setSalesInfo(Map<String, Integer> salesInfo)
    {
       this.salesInfo = salesInfo;
+   }
+
+   public String getErrorMessage()
+   {
+      return errorMessage;
+   }
+
+   public void setErrorMessage(String errorMessage)
+   {
+      this.errorMessage = errorMessage;
    }
 
    public WebMessage getMessageSource()
@@ -106,6 +128,14 @@ public class ManageAdvisorBean implements Serializable
    {
       try
       {
+         if(previousfilteredClient != null){
+            if(!previousfilteredClient.equalsIgnoreCase(filteredClient))
+            {
+               this.setErrorMessage("");
+            }
+         }else{
+            this.setErrorMessage("");
+         }
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             if (webutil.validatePriviledge(WebConst.ROLE_ADVISOR)) {
@@ -198,6 +228,11 @@ public class ManageAdvisorBean implements Serializable
       return selectedDataList;
    }
 
+   public int getSelectedDataListSize()
+   {
+      return getSelectedDataList().size();
+   }
+
    public void setSelectedDataList(ArrayList<AccountData> selectedDataList)
    {
       this.selectedDataList = selectedDataList;
@@ -218,6 +253,11 @@ public class ManageAdvisorBean implements Serializable
             accountDataList.clear();
             if(filteredBydate == 0){
                filtereMenuList = "All";
+            }
+            if(getFilteredClient().equalsIgnoreCase("VA")){
+               filteredBydate = 1;
+               filtereMenuList = "Today";
+               filteredClient = "V";
             }
             accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, (filteredBydate == 0 ? null : filteredBydate));
             filteredBydate=0;
@@ -415,12 +455,20 @@ public class ManageAdvisorBean implements Serializable
 
       return ("success");
    }
-
+public boolean isSelectionListEmpty(){
+   if (selectedDataList.isEmpty() && selectedDataList.size()== 0){
+      return false;
+   }else {
+      return true;
+   }
+}
    public String doDelete()
    {
       try{
-         if (selectedDataList == null)
+         if (selectedDataList.isEmpty() && selectedDataList.size()== 0)
          {
+            previousfilteredClient = filteredClient;
+            this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.acctType.requiredMsg", "Please select atleast one checkbox!", null));
             return "failed";
          }
          for (AccountData data: selectedDataList) {
@@ -433,6 +481,7 @@ public class ManageAdvisorBean implements Serializable
             }
             else
             {
+               this.setErrorMessage("");
                advisorSaveDataDAO.deleteUserAccount(data.getAcctnum());
                filterData();
             }
@@ -442,7 +491,8 @@ public class ManageAdvisorBean implements Serializable
       {
          return ("failed");
       }
-
+      FacesContext context = FacesContext.getCurrentInstance();
+      context.addMessage(null, new FacesMessage("Message", ""+this.selectedDataList.size()+" account deleted successfully."));
       return ("success");
    }
 

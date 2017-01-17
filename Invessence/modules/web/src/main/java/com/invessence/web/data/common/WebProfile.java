@@ -171,6 +171,7 @@ public class WebProfile
       webInfo.put("WEB.THEME", "spark");
       webInfo.put("WEB.THEMELIB", "spark-layout");
       webInfo.put("WEB.GOOGLEANALYTICS", "bb_googleanalytics.js");
+      webInfo.put("WEB.FAVICONLOGO", "/javax.faces.resource/images/Invessenceicon.png.xhtml?ln=tcm");
    }
 
    public void setDefaultRep(String defaultRep)
@@ -284,6 +285,11 @@ public class WebProfile
    public String getLogo()
    {
       return getInfo("WEB.LOGO");
+   }
+
+   public String getFeviconLogoPath()
+   {
+      return getInfo("WEB.FAVICONLOGO");
    }
 
    public String getLogolib()

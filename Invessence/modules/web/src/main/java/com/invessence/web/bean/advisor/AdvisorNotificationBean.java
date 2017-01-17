@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
-
+import javax.faces.application.FacesMessage;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.advisor.*;
 import com.invessence.web.dao.common.CommonDAO;
@@ -21,7 +21,9 @@ public class AdvisorNotificationBean implements Serializable
    private List<NotificationData> selectionList;
    private NotificationData selectedMessage;
    private String filterNotice;
+   private String previousfilterNotice;
    private String notificationType;
+   private String errorMessage;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -74,6 +76,26 @@ public class AdvisorNotificationBean implements Serializable
       return filterNotice;
    }
 
+   public String getErrorMessage()
+   {
+      return errorMessage;
+   }
+
+   public void setErrorMessage(String errorMessage)
+   {
+      this.errorMessage = errorMessage;
+   }
+
+   public String getPreviousfilterNotice()
+   {
+      return previousfilterNotice;
+   }
+
+   public void setPreviousfilterNotice(String previousfilterNotice)
+   {
+      this.previousfilterNotice = previousfilterNotice;
+   }
+
    public void setFilterNotice(String filterNotice)
    {
       this.filterNotice = filterNotice;
@@ -107,6 +129,14 @@ public class AdvisorNotificationBean implements Serializable
       try
       {
          selectionList = new ArrayList<>();
+         if(previousfilterNotice != null){
+            if(!previousfilterNotice.equalsIgnoreCase(filterNotice))
+            {
+               this.setErrorMessage("");
+            }
+         }else{
+            this.setErrorMessage("");
+         }
          if (!FacesContext.getCurrentInstance().isPostback())
          {
             filterNotice = "N";
@@ -182,7 +212,9 @@ public class AdvisorNotificationBean implements Serializable
 
    public void markRead()
    {
-      if (getSelectionList() != null) {
+      this.setErrorMessage("");
+      if (getSelectionList().size() != 0 && getSelectionList() != null) {
+
          for (NotificationData data: selectionList) {
             data.setStatus("A");
             advisorSaveDAO.saveAdvisorNotice(data);
@@ -190,18 +222,29 @@ public class AdvisorNotificationBean implements Serializable
          // webutil.redirect("/pages/common/notification.xhtml", null);
          filterNotice = "N";
          collectNotification();
+      }else{
+         //FacesContext context = FacesContext.getCurrentInstance();
+         previousfilterNotice = "N";
+        this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.acctType.requiredMsg", "Please select atleast one checkbox!", null));
+        // context.addMessage(null, new FacesMessage("Second Message", "Please select atleast one checkbox"));
       }
    }
 
    public void markUnRead()
    {
-      if (getSelectionList() != null) {
+      if (getSelectionList().size() != 0 && getSelectionList() != null) {
+         this.setErrorMessage("");
          for (NotificationData data: selectionList) {
             data.setStatus("N");
             advisorSaveDAO.saveAdvisorNotice(data);
          }
          filterNotice = "A";
          collectNotification();
+      }else{
+        // FacesContext context = FacesContext.getCurrentInstance();
+         previousfilterNotice = "A";
+        //context.addMessage(null, new FacesMessage("Second Message", "Please select atleast one checkbox"));
+         this.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.acctType.requiredMsg", "Please select atleast one checkbox!", null));
       }
    }
 
