@@ -22,8 +22,8 @@
                 like to open?</h3>
 
             <div class="Container45 Responsive100 LeftBlockAcctType Fleft">
-                <div class="Container100 CustomWidthAccountypePanel">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(1)}"
+                <div class="#{tdcto.displayIndividualandJointAcct()}">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(1)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Wealth' || tdcto.tdMasterData.customerData.goal == 'Other'}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel"  >
                         <p:panel styleClass="Wid95 Fleft MarCenter tcmPanel-UI">
@@ -40,8 +40,8 @@
                     </p:commandLink>
 
                 </div>
-                <div class="Container100 CustomWidthAccountypePanel">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(2)}"
+                <div class="#{tdcto.displayIndividualandJointAcct()}">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(2)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Wealth' || tdcto.tdMasterData.customerData.goal == 'Other'}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -57,8 +57,8 @@
                         </p:panel>
                     </p:commandLink>
                 </div>
-                <div class="Container100 CustomWidthAccountypePanel">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(3)}"
+                <div class="#{tdcto.displayUTMAUGMAAcct()}" >
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(3)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'College'}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -75,9 +75,9 @@
                     </p:commandLink>
                 </div>
             </div>
-            <div class="Container45 Responsive100 FrightForced RightBlockAcctType">
-                <div class="Container100 CustomWidthAccountypePanel">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(4)}"
+            <div class="#{tdcto.displayMaindHeaderIRAAcct()}">
+                <div class="#{tdcto.displayIRAAcct()}">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(4)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -95,8 +95,8 @@
                 </div>
 
 
-                <div class="Container100 CustomWidthAccountypePanel">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(5)}"
+                <div class="#{tdcto.displayIRAAcct()}">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(5)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -114,8 +114,8 @@
                 </div>
 
 
-                <div class="Container100 CustomWidthAccountypePanel">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(6)}"
+                <div class="#{tdcto.displayIRAAcct()}">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(6)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -133,8 +133,8 @@
                 </div>
 
 
-                <div class="Container100 CustomWidthAccountypePanel" >
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(7)}"
+                <div class="#{tdcto.displayIRAAcct()}" >
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(7)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">

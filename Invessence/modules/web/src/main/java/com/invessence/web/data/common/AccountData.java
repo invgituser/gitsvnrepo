@@ -98,7 +98,7 @@ public class AccountData
    public String getDisplayAcct()
    {
      if (getClientAccountID() == null || getClientAccountID().length() == 0)
-        return getCurrentstatus() + " (" + getAcctnum().toString() +")";
+        return  getAcctnum().toString();
      else
         return getClientAccountID();
    }

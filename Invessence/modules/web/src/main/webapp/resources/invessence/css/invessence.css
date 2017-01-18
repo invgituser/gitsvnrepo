@@ -1007,6 +1007,7 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 .ui-paginator-bottom,
 .AdvisorGridtcmLayout .ui-datatable-footer,
 .AdvisorGridtcmLayout .ui-datatable-header,
+.advisorMsgTable .ui-datatable-header,
 .advisorMsgTable .ui-datatable-footer {
 	background: #FFFFFF!important;
 }

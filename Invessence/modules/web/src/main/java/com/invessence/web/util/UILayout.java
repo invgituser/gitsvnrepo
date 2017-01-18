@@ -234,13 +234,13 @@ public class UILayout implements Serializable
          if (custody_service != null) {
            if (custody_service.equalsIgnoreCase("URL")) {
               String custodyURL =  webutil.getWebprofile().getWebInfo().get("CUSTODY.URL");
-              if (custodyURL != null) {
+              if (custodyURL != null && !custodyURL.isEmpty()) {
                   forwardURL(custodyURL);
                  return;
               }
            }
            else if (custody_service.equalsIgnoreCase("INTERNAL")) {
-               if (webutil.getWebprofile().getCustodydir() != null) {
+               if (webutil.getWebprofile().getCustodydir() != null && !webutil.getWebprofile().getCustodydir().isEmpty()) {
                   doMenuAction("custody", "index.xhtml?l="+logonid.toString()+"&acct="+acctnum.toString());
                   // tdcto.startCTO(logonid,acctnum);
                   return;

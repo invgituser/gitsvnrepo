@@ -21,13 +21,6 @@
 
                             <p:growl id="noticeGrowl" showDetail="true" sticky="true" escape="true"/>
 
-                            <p:panel rendered="#{advisornotificationBean.getErrorMessage() != null}"
-                                     style="border: 0px; background: transparent"
-                                     styleClass="Container100">
-                                <h:outputText styleClass="errorText"
-                                              value="#{advisornotificationBean.getErrorMessage()}" escape="false"/>
-                            </p:panel>
-
                             <div class="Container100">
                                 <div class="Container50 Fleft MsgBlockAdv">
                                     <h3 class="BigTopic" style="margin: 4px 10px!important;border: 0;">
@@ -54,6 +47,26 @@
                                                  reflow="true"
                                                  emptyMessage="No Messages were created."
                                     >
+                                        <f:facet name="header">
+                                            <div style="width: 100%; text-align: left;" class="ForBtnNormal">
+                                                <p:commandButton update="@form"
+                                                                 styleClass="AdvNormalBtn"
+                                                                 rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
+                                                                 actionListener="#{advisornotificationBean.markRead}" >
+                                                </p:commandButton>
+                                                <p:commandButton update="@form" ajax="true" value="UnArchive"
+                                                                 styleClass="AdvNormalBtn"
+                                                                 rendered="#{advisornotificationBean.filterNotice == 'A'}"
+                                                                 actionListener="#{advisornotificationBean.markUnRead}" >
+                                                </p:commandButton>
+                                            </div>
+                                            <p:panel rendered="#{advisornotificationBean.getErrorMessage() != null}"
+                                                     style="border: 0px; background: transparent;"
+                                                     styleClass="">
+                                                <h:outputText styleClass="errorText"
+                                                                value="#{advisornotificationBean.getErrorMessage()}" escape="false"/>
+                                            </p:panel>
+                                        </f:facet>
                                         <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="border:solid 1px #D9E3E8!important;"/>
                                         <p:column style="" styleClass="mobileLeftAdvMsg Fs14 textAlign " sortBy="#{msg.businessdate}" sortOrder="ascending"
                                         headerText="Created" resizable="true">
@@ -64,20 +77,7 @@
                                             <h:outputText value="#{msg.message}" escape="false">
                                             </h:outputText>
                                         </p:column>
-                                        <f:facet name="footer">
-                                            <div style="width: 100%; text-align: left;" class="ForBtnNormal">
-                                            <p:commandButton update="@form"
-                                                             styleClass="AdvNormalBtn"
-                                                             rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
-                                                              actionListener="#{advisornotificationBean.markRead}" >
-                                            </p:commandButton>
-                                            <p:commandButton update="@form" ajax="true" value="UnArchive"
-                                                             styleClass="AdvNormalBtn"
-                                                             rendered="#{advisornotificationBean.filterNotice == 'A'}"
-                                                             actionListener="#{advisornotificationBean.markUnRead}" >
-                                            </p:commandButton>
-                                            </div>
-                                        </f:facet>
+
 
                                     </p:dataTable>
                                 </div>
