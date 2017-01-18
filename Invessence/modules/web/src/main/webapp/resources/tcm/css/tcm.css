@@ -1505,6 +1505,16 @@ img.riskImage:hover {
     font-size: 14px!important;
     text-align: left;
 }
+
+.StepsQuestionsFS {
+    text-align: justify!important;
+}
+
+@media (min-width: 1201px) {
+    .AbvportfolioCreation {
+        margin-left: 65px;
+    }
+}
 /*Loader*/
 .tcmLoaderBackground > div:nth-child(1) {
     pointer-events: none;

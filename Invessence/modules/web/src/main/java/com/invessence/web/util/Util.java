@@ -1,103 +1,111 @@
 package com.invessence.web.util;
+/*
 
-/* Prashant 1/7/2014 Both Util and UserValidation is merged with WebUtil */
+*/
+/* Prashant 1/7/2014 Both Util and UserValidation is merged with WebUtil *//*
+
 
 //public class Util {
+*/
 /*
 
    UserValidation uvalidate = new UserValidation();
-	
+
     public static boolean isNull(String val) {
-        
+
         if ( (val == null) || (val.equals("")) )
             return true;
         else
             return false;
     }
-    
-    
+
+
     public static boolean isInteger(String input) {
-        
+
         try {
-            Integer.parseInt(input);  
-            
+            Integer.parseInt(input);
+
         } catch (NumberFormatException ex) {
             return false;
         }
-        
+
         return true;
     }
-    
+
 
 	public static String getValByAttr(HttpServletRequest request, String arg, String defaultVal) {
-		
+
    	    String val = (String) request.getAttribute(arg);
-    	
+
 	    if ( Util.isNull(val) ) {
-	    	return defaultVal;	    	
-	    } else {   	
+	    	return defaultVal;
+	    } else {
     	    return val;
 	    }
 	}
-	
-	
+
+
 	public static int getIntValByAttr(HttpServletRequest request, String arg, int defaultVal) {
-		
+
 		String integerVal = (String) request.getAttribute(arg);
-		
+
 		if (isInteger(integerVal)){
-			return Integer.parseInt(integerVal);    	
-		} else {   	
+			return Integer.parseInt(integerVal);
+		} else {
 			return defaultVal;
 		}
-	
+
 	}
-	
+
 	public static int getIdxByAttribute(HttpServletRequest request, String idxVal) {
-		
+
    	    String idx = (String) request.getAttribute(idxVal);
-    	
+
 	    if ( Util.isNull(idx) ) {
-	    	idx = "0";	    	
+	    	idx = "0";
 	    }
-       	   	
+
     	return Integer.parseInt(idx);
 	}
 
 
+*//*
+
 */
 /*
      public static ProjUtil getProjUtil(HttpServletRequest request) {
-         
-         WebApplicationContext ctx = 
+
+         WebApplicationContext ctx =
      	    WebApplicationContextUtils.getRequiredWebApplicationContext(request.getSession().getServletContext());
          return (ProjUtil) ctx.getBean("projUtil");
       }
-      
-*//*
 
-    
-    
+*//*
+*/
+/*
+
+
+
      public String getSource(String urlAddress) {
-    	 
+
          try {
              URL url = new URL(urlAddress);
              String host = url.getHost();
              //System.out.println("host = " + host);
-  
+
              String source = host;
-  
+
              if ( (host != null) && (host.length() > 4) ) {
                  String startStr = host.substring(0, 3);
                  if (startStr.equalsIgnoreCase("www")) {
                      source = host.substring(4);
                  }
              }
-  
+
              //System.out.println("source = " + source);
              return source;
          } catch (Exception e) {
-  
+
              System.out.println(e);
              return "";
          }
@@ -244,6 +252,8 @@ package com.invessence.web.util;
       return true;
    }
 
-*/
+*//*
+
 
 //}
+*/

@@ -173,47 +173,33 @@
 
     <div class="Container100 TextAlCenter customRadioBlock">
 
-        <h3 class="TexAlCenter StepsQuestionsFS">
-            <!--
-        Below is a simulation of the possible performance ranges over time of
-        5 hypothetical portfolios at differing levels of risk, comparing the
-        5 options, which range of uncertainty best matches your comfort
-        level?
--->
-            This simulation shows a range of possible outcomes of hypothetical
-            portfolios over your selected time horizon. You can see projected
-            outcomes of five <b>hypothetical portfolios</b> by selecting differing risk
-            levels. A key item to note is your range of outcomes over time and
-            specifically the lower part of the 95% probability range shown as
-            Poor Market Performance. You may also note that with a long enough
-            time horizon, a more aggressive strategy may provide you with better
-            probable outcomes even at the low end of the range (as shown by the
-            Poor Market Performance) than selecting the most conservative
-            strategy. This is because, over longer time periods, the higher
-            expected returns may outpace lower returns even if those higher
-            returns come with more risk. Please select a <b>hypothetical portfolio</b>
-            that matches your risk tolerance over time.
+        <h3 class="StepsQuestionsFS" style="text-align: justify;">
+            This simulation shows a range of possible outcomes of <b>hypothetical portfolios</b>
+            over your selected time horizon. You can see projected outcomes of five hypothetical
+            portfolios by selecting differing risk levels. <b>Please select a hypothetical portfolio
+            that matches your risk tolerance over time</b>
 
         </h3>
 
         <div class="EmptyBox5"></div>
 
         <!-- Projection Slab  -->
-        <h:inputHidden value="#{tcmpb.riskCalculator.ans5}" />
+        <h:inputHidden value="#{tcmpb.riskCalculator.ans5}"/>
+
         <div class="ContainerDropDownSizing">
             <div
                     class="ContainerPSlab-tcmUI MarAuto Fnone EnableDrodownProjection">
                 <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                  value="#{tcmpb.riskCalculator.ans5}" style="width: 100%;">
                     <p:ajax listener="#{tcmpb.doProjectionChart}"
-                            update=":ceForm:inputArea" />
+                            update=":ceForm:inputArea"/>
                     <f:selectItem itemLabel="Select One" itemValue=""
-                                  noSelectionOption="true" />
-                    <f:selectItem itemLabel="Aggressive (Higher Risk)" itemValue="5" />
-                    <f:selectItem itemLabel="Moderately Aggressive" itemValue="4" />
-                    <f:selectItem itemLabel="Moderate" itemValue="3" />
-                    <f:selectItem itemLabel="Moderately Conservative" itemValue="2" />
-                    <f:selectItem itemLabel="Conservative (Lower Risk)" itemValue="1" />
+                                  noSelectionOption="true"/>
+                    <f:selectItem itemLabel="Aggressive (Higher Risk)" itemValue="5"/>
+                    <f:selectItem itemLabel="Moderately Aggressive" itemValue="4"/>
+                    <f:selectItem itemLabel="Moderate" itemValue="3"/>
+                    <f:selectItem itemLabel="Moderately Conservative" itemValue="2"/>
+                    <f:selectItem itemLabel="Conservative (Lower Risk)" itemValue="1"/>
                 </p:selectOneMenu>
             </div>
         </div>
@@ -231,7 +217,7 @@
                         <div class="EmptyBox5"></div>
 						<span class="Fs17 DispBlock BBGreen"> <h:outputText
                                 value="#{tcmpb.charts.avgPerformance}">
-                            <f:convertNumber pattern="$#,###,###,##0" />
+                            <f:convertNumber pattern="$#,###,###,##0"/>
                         </h:outputText>
 						</span>
                     </div>
@@ -246,7 +232,7 @@
                         <div class="EmptyBox5"></div>
 						<span class="Fs17 DispBlock BBDarkGray"> <h:outputText
                                 value="#{tcmpb.charts.poorPerformance}">
-                            <f:convertNumber pattern="$#,###,###,##0" />
+                            <f:convertNumber pattern="$#,###,###,##0"/>
                         </h:outputText>
 						</span>
                     </div>
@@ -254,7 +240,7 @@
             </div>
             <div class="EmptyBox5"></div>
             <h:inputHidden value="#{tcmpb.charts.resultChart}"
-                           id="beanValueChart" />
+                           id="beanValueChart"/>
 
             <div id="progressChart" class="Container100 Fright"></div>
         </div>
@@ -333,13 +319,23 @@
                 </p:commandLink>
             </div>
         </div>
+        <h3 class="StepsQuestionsFS" style="text-align: justify;">
+            A key item to note is your range of outcomes over time and specifically
+            the lower part of the 95% probability range shown as Poor Market Performance.
+            You may also note that with a long enough time horizon, a more aggressive strategy
+            may provide you with better probable outcomes even at the low end of the range
+            (as shown by the Poor Market Performance) than selecting the most conservative strategy. This is because,
+            over longer time periods, the higher expected returns may outpace lower returns even if
+            those higher returns come with more risk.
+
+        </h3>
         <div class="EmptyBox20"></div>
         <p:panel
                 rendered="#{tcmpb.pagemanager.getErrorMessage(3) != null  and  !tcmpb.formPortfolioEdit }"
                 style="border: 0px; background: transparent"
                 styleClass="Container100">
             <h:outputText styleClass="errorText"
-                          value="#{tcmpb.pagemanager.getErrorMessage(3)}" escape="false" />
+                          value="#{tcmpb.pagemanager.getErrorMessage(3)}" escape="false"/>
         </p:panel>
 
         <p:panel
@@ -347,7 +343,7 @@
                 style="border: 0px; background: transparent"
                 styleClass="Container100">
             <h:outputText styleClass="errorText"
-                          value="#{tcmpb.pagemanager.getErrorMessage(4)}" escape="false" />
+                          value="#{tcmpb.pagemanager.getErrorMessage(4)}" escape="false"/>
         </p:panel>
 
         <div class="EmptyBox10"></div>
@@ -355,13 +351,13 @@
                        rendered="#{tcmpb.pagemanager.prevButtonStat}"
                        update=":ceForm:inputArea" immediate="true"
                        actionListener="#{tcmpb.prevPage}">
-            <h:outputText value="Previous" />
+            <h:outputText value="Previous"/>
         </p:commandLink>
 
         <p:commandLink styleClass="UI-nextButton Fright UI-tcmButton"
                        value="Next" rendered="#{tcmpb.pagemanager.nextButtonStat}"
                        update=":ceForm:inputArea" actionListener="#{tcmpb.nextPage}">
-            <h:outputText value="Next" />
+            <h:outputText value="Next"/>
         </p:commandLink>
     </div>
 </ui:composition>

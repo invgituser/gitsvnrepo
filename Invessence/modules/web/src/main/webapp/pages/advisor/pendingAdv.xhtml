@@ -26,6 +26,7 @@
                     </p:confirmDialog>
 
                     <h:form id="form">
+
                         <div class="Container100">
                             <div class="Fleft filterMBBlock">
                                 <div class="ContentTitleDash" style="margin:0px 15px;">Filter</div>
@@ -36,12 +37,7 @@
                                     <p:menuitem value="Last 30 days" action="#{manageAdvisorBean.filterDataByDate(30)}"/>
                                 </p:menuButton>
                             </div>
-                            <p:panel rendered="#{manageAdvisorBean.getErrorMessage() != null}"
-                                     style="border: 0px; background: transparent"
-                                     styleClass="Container100">
-                                <h:outputText styleClass="errorText"
-                                              value="#{manageAdvisorBean.getErrorMessage()}" escape="false"/>
-                            </p:panel>
+
                            <div class="Fright">
 
                            <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{manageAdvisorBean.filteredClient}">
@@ -62,27 +58,23 @@
                                      selection="#{manageAdvisorBean.selectedDataList}"
                                                  rowKey="#{managedVar.acctnum}"
                                      reflow="true">
+                            <f:facet name="header">
+                                <p:growl id="message" showDetail="true" />
+                                <div style="width: 100%; text-align: left;" class="ForBtnNormal">
+                                    <p:commandButton update="@form" ajax="true" value="Delete"
+                                                     actionListener="#{manageAdvisorBean.doDelete()}" styleClass="AdvNormalBtn">
 
-<!--
-                           <f:facet name="header" style="text-align:right">
-                               <p:outputPanel style="text-align:right">
-                                   <h:outputText value="Search:" />
-                                   <p:inputText id="globalFilter" onkeyup="PF('managedTable').filter()"
-                                                style="width:150px; margin-left: 5px" placeholder="Enter keyword"/>
-                                   <p:commandButton value="Clear" onclick="PF('managedTable').clearFilters();"/>
-                               </p:outputPanel>
-                           </f:facet>
--->
-
-                           <!-- <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom AdvtcmLayoutColumn"
-                            priority="1"
-                            resizable="true">
-                       
-                            </p:column>-->
+                                    </p:commandButton>
+                                </div>
+                                <p:panel rendered="#{manageAdvisorBean.getErrorMessage() != null}"
+                                         style="border: 0px; background: transparent"
+                                         styleClass="Container100">
+                                    * <h:outputText styleClass="errorText"
+                                                  value="#{manageAdvisorBean.getErrorMessage()}" escape="false"/>
+                                </p:panel>
+                            </f:facet>
                             <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="width:50px;text-align:center"/>
-                            <!-- <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
-                                
-                            </p:column> -->
+
                             <p:column sortBy="#{managedVar.portfolioName}"
                                       headerText="Strategy"
                                       priority="1"
@@ -137,15 +129,7 @@
                                 <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
                                 </h:outputText>
                             </p:column>
-                            <f:facet name="header">
-                                <p:growl id="message" showDetail="true" />
-                                <div style="width: 100%; text-align: left;" class="ForBtnNormal">
-                                    <p:commandButton update="@form" ajax="true" value="Delete"
-                                                     actionListener="#{manageAdvisorBean.doDelete()}" styleClass="AdvNormalBtn">
 
-                                    </p:commandButton>
-                                </div>
-                            </f:facet>
                         </p:dataTable>
                         </div>
 
