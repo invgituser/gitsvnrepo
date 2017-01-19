@@ -29,8 +29,8 @@
 
                         <div class="Container100">
                             <div class="Fleft filterMBBlock">
-                                <div class="ContentTitleDash" style="margin:0px 15px;">Filter</div>
-                                <p:menuButton value="#{manageAdvisorBean.filtereMenuList}"  styleClass="InfoNewDash customMenuButtonDashboard" style="margin-bottom: 10px;">
+                                <label class="filterAdvLabel">Filter</label>
+                                <p:menuButton value="#{manageAdvisorBean.filtereMenuList}"  styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
                                     <p:menuitem value="All" action="#{manageAdvisorBean.filterDataByDate(0)}"/>
                                     <p:menuitem value="Today" action="#{manageAdvisorBean.filterDataByDate(1)}"/>
                                     <p:menuitem value="Last 5 days" action="#{manageAdvisorBean.filterDataByDate(5)}"/>
@@ -49,6 +49,11 @@
                            </p:selectOneButton>
                            </div>
                         </div>
+                        <p:panel rendered="#{manageAdvisorBean.getErrorMessage() != null}"
+                                 style="border: 0px; background: transparent; text-align: left;" styleClass="deleteAdvError">
+                            <h:outputText styleClass="errorText"
+                                          value="#{manageAdvisorBean.getErrorMessage()}" escape="false"/>
+                        </p:panel>
                         <div class="Container100">
                         <p:dataTable id="managedTable" var="managedVar" styleClass="AdvisorGridtcmLayout" widgetVar="managedTable"
                                      paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
@@ -60,18 +65,13 @@
                                      reflow="true">
                             <f:facet name="header">
                                 <p:growl id="message" showDetail="true" />
-                                <div style="width: 100%; text-align: left;" class="ForBtnNormal">
+                                <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
                                     <p:commandButton update="@form" ajax="true" value="Delete"
                                                      actionListener="#{manageAdvisorBean.doDelete()}" styleClass="AdvNormalBtn">
 
                                     </p:commandButton>
                                 </div>
-                                <p:panel rendered="#{manageAdvisorBean.getErrorMessage() != null}"
-                                         style="border: 0px; background: transparent"
-                                         styleClass="Container100">
-                                    <h:outputText styleClass="errorText"
-                                                  value="#{manageAdvisorBean.getErrorMessage()}" escape="false"/>
-                                </p:panel>
+
                             </f:facet>
                             <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="width:50px;text-align:center"/>
 

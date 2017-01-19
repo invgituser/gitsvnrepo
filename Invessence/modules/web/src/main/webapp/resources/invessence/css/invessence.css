@@ -984,7 +984,7 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 	}
 }
 
-@media (max-width: 415px)  {
+@media (max-width: 476px)  {
 	.filterMBBlock {
 		float: right!important;
 	}
@@ -1012,7 +1012,50 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 	background: #FFFFFF!important;
 }
 
+
+.AdvisorGridtcmLayout .ui-datatable-header,
+.advisorMsgTable .ui-datatable-header {
+	position: absolute;
+}
+
+@media (max-width: 600px) and (min-width: 320px) {
+
+	.AdvisorGridtcmLayout .ui-datatable-header,
+	.advisorMsgTable .ui-datatable-header {
+		position: inherit!important;
+	}
+
+	.centerAlign {
+		text-align: center!important;
+	}
+	
+	.ui-paginator-rpp-options {
+		display: block;
+		margin: 0 auto !important;
+		
+	}
+}
+
+@media (max-width: 815px) and (min-width: 641px) {
+	.deleteAdvError {
+		top: 70px!important;
+	}
+}
+
+@media (max-width: 640px) {
+	.deleteAdvError {
+		top: 80px!important;
+	}
+}
+
+.filterAdvLabel {
+	margin: 0px 5px!important;
+	font-size: 13px;
+	font-weight: bold!important;
+}
+
 @media (max-width: 405px) {
+
 	.MsgBtnsBlock {
 		width: 70%!important;
 	}
@@ -1029,4 +1072,12 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 	position: relative;
 	left: -4px;
+}
+
+.deleteAdvError {
+	border: 0px;
+	background: transparent;
+	text-align: left;
+	position: absolute;
+	margin-top: -15px!important;
 }

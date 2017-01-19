@@ -35,6 +35,12 @@
                                         </p:selectOneButton>
                                     </div>
                                 </div>
+                                <p:panel rendered="#{advisornotificationBean.getErrorMessage() != null}"
+                                         style="border: 0px; background: transparent;"
+                                         styleClass="deleteAdvError">
+                                    <h:outputText styleClass="errorText"
+                                                  value="#{advisornotificationBean.getErrorMessage()}" escape="false"/>
+                                </p:panel>
                                 <div class="Container100 MarTop5">
                                     <p:dataTable id="messageDT" var="msg" styleClass="advisorMsgTable" value="#{advisornotificationBean.notificationDataList}"
                                                  paginator="true" rows="10"
@@ -48,24 +54,19 @@
                                                  emptyMessage="No Messages were created."
                                     >
                                         <f:facet name="header">
-                                            <div style="width: 100%; text-align: left;" class="ForBtnNormal">
+                                            <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
                                                 <p:commandButton update="@form"
                                                                  styleClass="AdvNormalBtn"
                                                                  rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
                                                                  actionListener="#{advisornotificationBean.markRead}" >
                                                 </p:commandButton>
                                                 <p:commandButton update="@form" ajax="true" value="UnArchive"
-                                                                 styleClass="AdvNormalBtn"
+                                                                 styleClass="centerAlign AdvNormalBtn"
                                                                  rendered="#{advisornotificationBean.filterNotice == 'A'}"
                                                                  actionListener="#{advisornotificationBean.markUnRead}" >
                                                 </p:commandButton>
                                             </div>
-                                            <p:panel rendered="#{advisornotificationBean.getErrorMessage() != null}"
-                                                     style="border: 0px; background: transparent;"
-                                                     styleClass="">
-                                                <h:outputText styleClass="errorText"
-                                                                value="#{advisornotificationBean.getErrorMessage()}" escape="false"/>
-                                            </p:panel>
+
                                         </f:facet>
                                         <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="border:solid 1px #D9E3E8!important;"/>
                                         <p:column style="" styleClass="mobileLeftAdvMsg Fs14 textAlign " sortBy="#{msg.businessdate}" sortOrder="ascending"
