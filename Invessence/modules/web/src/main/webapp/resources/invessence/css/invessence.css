@@ -1082,3 +1082,52 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 	position: absolute;
 	margin-top: -15px!important;
 }
+
+/**confirm_popup**/
+.ui-confirm-dialog .ui-dialog-title {
+	font-size: 12px!important;
+}
+
+.ui-confirm-dialog .ui-icon-alert {
+	display:none!important;
+}
+
+.ui-confirm-dialog .ui-dialog-content {
+	text-align: center!important;
+}
+
+.ui-confirm-dialog-message {
+	font-size: 14px;
+}
+
+.ui-confirm-dialog .ui-dialog-footer {
+	background: #fff!important;
+	border-top: 0!important;
+	padding: 0px 55px!important;
+}
+
+.ui-confirm-dialog .ui-button {
+	border-radius: 30px!important;
+}
+
+.ui-confirm-dialog .ui-dialog-titlebar-close {
+	margin-top: 2px!important;
+}
+
+.ui-confirm-dialog .ui-button-text
+{
+	background: whitesmoke!important;
+	border-radius: 30px!important;
+	font-size: 14px;
+	font-size: 13px;
+	color: #5f5d5d;
+}
+
+
+.ui-confirm-dialog .ui-state-hover .ui-button-text,
+.ui-confirm-dialog .ui-state-active .ui-button-text
+{
+	background: #009abb!important;
+	color: #FFFFFF;
+	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+}
