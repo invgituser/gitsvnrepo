@@ -1327,7 +1327,8 @@ public class BaseTD
             saveTDPrimaryAddress();
             break;
          case 4:  // Joint Owner  Address (if Any)
-            saveTDJointAccountOwner();
+           // saveTDJointAccountOwner();
+            saveTDJointAddress();
             break;
          case 5: // Regulatory
             saveTDRegulatory();
