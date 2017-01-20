@@ -499,8 +499,8 @@ public boolean isSelectionListEmpty(){
       {
          return ("failed");
       }
-      FacesContext context = FacesContext.getCurrentInstance();
-      context.addMessage(null, new FacesMessage("Message", ""+this.selectedDataList.size()+" account deleted successfully."));
+      /*FacesContext context = FacesContext.getCurrentInstance();
+      context.addMessage(null, new FacesMessage("Message", ""+this.selectedDataList.size()+" account deleted successfully."));*/
       return ("success");
    }
 
