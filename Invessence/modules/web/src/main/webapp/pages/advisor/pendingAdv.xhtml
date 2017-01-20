@@ -11,7 +11,20 @@
     </f:metadata>
 
     <ui:define name="content">
+        <script type="text/javascript">
+            $(document).on('click','.multipleSelectionChkList',function(){
+                    if($('.ui-chkbox-box').find('.ui-icon-check').length==0 )
+                    {
+                        $('.ui-datatable-header').fadeOut();
+                    }
+                    else if ($('.ui-chkbox-box').find('.ui-icon-check').length>0 ){
+                        $('.ui-datatable-header').fadeIn();
 
+                    }
+                });
+//            });
+
+        </script>
         <!-- BOX START -->
         <div class="layout-portlets-box" style="background: white;">
             <div class="Container100 Responsive100">
@@ -61,14 +74,18 @@
                                      value="#{manageAdvisorBean.filteredDataList}" 
                                      sortMode="multiple"
                                      selection="#{manageAdvisorBean.selectedDataList}"
-                                                 rowKey="#{managedVar.acctnum}"
+
+                                     rowKey="#{managedVar.acctnum}"
                                      reflow="true">
+
                             <f:facet name="header">
                                 <p:growl id="message" showDetail="true" />
                                 <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
                                     <p:commandButton update="@form" ajax="true" value="Delete"
                                                      actionListener="#{manageAdvisorBean.doDelete()}" styleClass="AdvNormalBtn">
+                                        <p:confirm header="Delete This Account" message="Are you sure?" icon="ui-icon-alert" >
 
+                                        </p:confirm>
                                     </p:commandButton>
                                 </div>
 
@@ -113,7 +130,7 @@
                                 <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
                             </p:column>
                             <p:column sortBy="#{managedVar.invested}"
-                                      headerText="Invested Amount"
+                                      headerText="Purpose Amount"
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn num-text-align invest"
                                       resizable="true">

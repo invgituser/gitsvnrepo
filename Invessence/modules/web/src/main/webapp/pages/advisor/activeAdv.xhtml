@@ -57,7 +57,7 @@
                           <p:commandButton id="ovButton" rendered="true"
                                                  styleClass="AdvtcmGridBtnR GreenButton DualBtnModeRight "
                                                  process="@this" immediate="true"
-                                                value="View"
+                                                 value="View"
                                                  action="#{manageAdvisorBean.doManagedAction}">
                                    <!--  <p:tooltip for="ovButton" value="Show" /> -->
                                     <f:setPropertyActionListener value="#{managedVar}"
@@ -86,7 +86,7 @@
                                       priority="5"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.acctnum}"/>
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.clientAccountID}"/>
                             </p:column>
 
                             <p:column sortBy="#{managedVar.accttype}"
@@ -104,7 +104,7 @@
                                       resizable="true">
                                 <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
                             </p:column>
-                            <p:column sortBy="#{managedVar.invested}"
+                            <p:column sortBy="#{managedVar.invested}" sortOrder="descending"
                                       headerText="Invested Amount"
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn num-text-align invest"

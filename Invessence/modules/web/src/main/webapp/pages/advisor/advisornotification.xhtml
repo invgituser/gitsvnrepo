@@ -12,6 +12,20 @@
 
     <ui:define name="content">
 
+        <script type="text/javascript">
+            $(document).on('click','.multipleSelectionChkList',function(){
+                if($('.ui-chkbox-box').find('.ui-icon-check').length==0 )
+                {
+                    $('.ui-datatable-header').fadeOut();
+                }
+                else if ($('.ui-chkbox-box').find('.ui-icon-check').length>0 ){
+                    $('.ui-datatable-header').fadeIn();
+
+                }
+            });
+            //            });
+
+        </script>
         <!-- BOX START -->
         <h:form id="form">
             <div class="layout-portlets-box">
@@ -60,7 +74,7 @@
                                                                  rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
                                                                  actionListener="#{advisornotificationBean.markRead}" >
                                                 </p:commandButton>
-                                                <p:commandButton update="@form" ajax="true" value="UnArchive"
+                                                <p:commandButton update="@form" ajax="true" value="Unarchive"
                                                                  styleClass="centerAlign AdvNormalBtn"
                                                                  rendered="#{advisornotificationBean.filterNotice == 'A'}"
                                                                  actionListener="#{advisornotificationBean.markUnRead}" >
