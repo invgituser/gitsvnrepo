@@ -1,0 +1,1 @@
+DROP PROCEDURE `invdb`.`sel_Consumer4Advisor`;
