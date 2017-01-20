@@ -56,7 +56,8 @@ public class WSConstants
       ELEC_FUND_TRAN_NEW("ELEC_FUND_TRAN_NEW"),
       ELEC_FUND_TRAN_REPLACE("ELEC_FUND_TRAN_REPLACE"),
       TD_TRAN_NEW("TD_TRAN_NEW"),
-      ACCT_CHNG_ADDR("ACCT_CHNG_ADDR");
+      ACCT_CHNG_ADDR("ACCT_CHNG_ADDR"),
+      ACCT_ADV_FORM("ACCT_ADV_FORM");
 
       private String value;
 

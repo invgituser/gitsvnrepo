@@ -1452,12 +1452,12 @@ public class BaseTD
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
       }
-      if (  bFlag && !hasRequiredData(objAcctOwnersDetails.getPhoneNumber()))
+      if (!hasRequiredData(objAcctOwnersDetails.getPhoneNumber()))
       {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.phoneno.requiredMsg", "Phone Number is required!", null));
       }
-      if (bFlag && !hasRequiredData(objAcctOwnersDetails.getEmailAddress()))
+      if (!hasRequiredData(objAcctOwnersDetails.getEmailAddress()))
       {
          dataOK = false;
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));

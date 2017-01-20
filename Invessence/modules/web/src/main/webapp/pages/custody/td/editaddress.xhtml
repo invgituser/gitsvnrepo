@@ -13,7 +13,7 @@
 			<p:panel id="owneraddressPanel" styleClass="Container80 Responsive100 MarCenter"
 				style="border: 0px; background: transparent">
 
-				<p:accordionPanel styleClass="tcmAccordionPanel-UI internalTabs">
+				<p:accordionPanel activeIndex="null" multiple="true" styleClass="tcmAccordionPanel-UI internalTabs">
 					<p:tab title="Old Address Information" styleClass="tcmAccordion-UI">
 
 						<div class="EmptyBox10"></div>
@@ -86,6 +86,41 @@
 									<p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
 										value="#{tdChngAddrs.tdMasterData.acctOwnersDetailHistory.physicalAddressZipCode}"
 										placeholder="Zip Code" maxlength="20" required="false">
+									</p:inputText>
+								</div>
+							</div>
+							<div class="Container100 Responsive100 MarTop5">
+								<div class="Container45 Fleft CustomWidthFA2 MarTop5">
+									<label Class="Container100"
+										   style="text-align: left !important; font-weight: bold !important;">Phone Number *</label>
+
+									<div class="EmptyBox5"></div>
+									<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 "
+												 value="#{tdChngAddrs.tdMasterData.acctOwnersDetailHistory.phoneNumber}"
+												 maxlength="15" mask="(999) 999-9999" placeholder="Primary Phone"
+												 required="false">
+									</p:inputMask>
+								</div>
+								<!-- <div class="Container32 Fleft CustomWidthFA2 MarTop5">
+                            <label Class="Container100"
+                                   style="text-align: left !important; font-weight: bold !important;">Secondary Phone
+                                No. *</label>
+
+                            <div class="EmptyBox5"></div>
+                            <p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+
+                                         maxlength="15"
+                                         mask="(999) 999-9999" placeholder="Primary Phone" required="false">
+                            </p:inputMask>
+                        </div> -->
+								<div class="Container45 FrightForced CustomWidthFA2 MarTop5">
+									<label Class="Container100"
+										   style="text-align: left !important; font-weight: bold !important;">Email Address *</label>
+
+									<div class="EmptyBox5"></div>
+									<p:inputText styleClass="Wid90 CustomWidthFA2 FS14 Mar5"
+												 value="#{tdChngAddrs.tdMasterData.acctOwnersDetailHistory.emailAddress}"
+												 maxlength="50" placeholder="Email Address">
 									</p:inputText>
 								</div>
 							</div>
@@ -259,7 +294,7 @@
 								style="text-align: left !important; font-weight: bold !important;">Phone Number *</label>
 
 							<div class="EmptyBox5"></div>
-							<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 MarTop5"
+							<p:inputMask styleClass="Wid90 CustomWidthFA2 FS14 "
 										 value="#{tdChngAddrs.tdMasterData.acctOwnersDetail.phoneNumber}"
 								maxlength="15" mask="(999) 999-9999" placeholder="Primary Phone"
 								required="false">

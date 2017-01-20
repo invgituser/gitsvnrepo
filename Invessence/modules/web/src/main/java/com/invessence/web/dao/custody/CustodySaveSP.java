@@ -244,7 +244,7 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             break;
 
-         case 18:  // Account Holder
+         case 18:  // Account Change Address
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_acctOwnerId", Types.INTEGER));
 
@@ -256,6 +256,8 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_mailingAddressCityHstry", Types.VARCHAR));
             declareParameter(new SqlParameter("p_mailingAddressStateHstry", Types.VARCHAR));
             declareParameter(new SqlParameter("p_mailingAddressZipCodeHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_phoneNumberHstry", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_emailAddressHstry", Types.VARCHAR));
 
             declareParameter(new SqlParameter("p_physicalAddressStreet", Types.VARCHAR));
             declareParameter(new SqlParameter("p_physicalAddressCity", Types.VARCHAR));
@@ -270,7 +272,7 @@ public class CustodySaveSP extends StoredProcedure
 
             declareParameter(new SqlParameter("p_createdBy", Types.VARCHAR));
             break;
-         case 19:  // Account Holder
+         case 19:  // Advisory Notification
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
             declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
@@ -652,6 +654,8 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_mailingAddressCityHstry", dataHistory.getMailingAddressCity());
       inputMap.put("p_mailingAddressStateHstry", dataHistory.getMailingAddressState());
       inputMap.put("p_mailingAddressZipCodeHstry", dataHistory.getMailingAddressZipCode());
+      inputMap.put("p_phoneNumberHstry", dataHistory.getPhoneNumber());
+      inputMap.put("p_emailAddressHstry", dataHistory.getEmailAddress());
 
       inputMap.put("p_physicalAddressStreet", data.getPhysicalAddressStreet());
       inputMap.put("p_physicalAddressCity", data.getPhysicalAddressCity());

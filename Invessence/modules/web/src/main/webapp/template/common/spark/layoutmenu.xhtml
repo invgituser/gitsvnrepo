@@ -15,10 +15,12 @@
 
             <p:menuitem value="New Account" rendered="#{webutil.hasrole()!='advisor'}"
                         actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}"/>
-            <p:menuitem value="Aggregation" style="margin: 0px 20px;" rendered="#{webutil.hasrole()!='advisor'}"
-                        actionListener="#{aggrBean.startup('D')}" />
+
 
         </ps:menu>
     </h:form>
 
 </ui:composition>
+
+<!--<p:menuitem value="Aggregation" style="margin: 0px 20px;" rendered="#{webutil.hasrole()!='advisor'}"-->
+            <!--actionListener="#{aggrBean.startup('D')}" />-->
