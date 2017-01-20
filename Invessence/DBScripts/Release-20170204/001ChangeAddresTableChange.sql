@@ -120,8 +120,12 @@ INSERT INTO invdb.notification_message_lookup (advisor, messageType, includeAdvi
 INSERT INTO service.dc_template_details (mode, company, service, tempCode, tempId, tempName, authRequired, status, remark, created, createdBy, updated, updatedBy, configFile) VALUES ('UAT','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_ACCT_ADV','c3818a4d-320f-4a6c-8181-5c0f45206d69','Account ADV Forms','Y','A',NULL,NULL,NULL,NULL,NULL,NULL);
 
 INSERT INTO service.dc_template_mapping (tempCode, tab, lable, dbColumn, role, isDisabled) VALUES ('BB_ACCT_ADV', 'Textbox', 'FullName', 'fullName', 'Client', 'N');
-INSERT INTO service.dc_template_mapping (tempCode, tab, lable, dbColumn, role, isDisabled) VALUES ('BB_ACCT_ADV', 'Textbox', 'JointAHFullName', 'fullName', 'Client', 'N');
-INSERT INTO service.dc_template_mapping (tempCode, tab, lable, dbColumn, role, isDisabled) VALUES ('BB_ACCT_ADV', 'Textbox', 'AdvisorName', 'firmName', 'Joint', 'N');
+INSERT INTO service.dc_template_mapping (tempCode, tab, lable, dbColumn, role, isDisabled) VALUES ('BB_ACCT_ADV', 'Textbox', 'JointAHFullName', 'fullName', 'Joint', 'N');
+INSERT INTO service.dc_template_mapping (tempCode, tab, lable, dbColumn, role, isDisabled) VALUES ('BB_ACCT_ADV', 'Textbox', 'AdvisorName', 'firmName', 'Client', 'N');
 
 
 INSERT INTO service.service_operation_details (company, service, operation, vendor, status, priority, refValue) VALUES ('BUILDINGBENJAMINS', 'DOCUSIGN-SERVICES', 'ACCT_ADV_FORM', 'DOCUSIGN', 'A', '0', 'BB_ACCT_ADV');
+
+
+INSERT INTO service.dc_template_details (mode, company, service, tempCode, tempId, tempName, authRequired, status, remark, created, createdBy, updated, updatedBy, configFile) VALUES ('PROD','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_ACCT_ADV','c3818a4d-320f-4a6c-8181-5c0f45206d69','Account ADV Forms','Y','A',NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO service.dc_template_details (mode, company, service, tempCode, tempId, tempName, authRequired, status, remark, created, createdBy, updated, updatedBy, configFile) VALUES ('PROD','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_CHNG_ADDRS','bba60794-5788-4656-8bb7-5857a228a52a','Change Address','Y','A',NULL,NULL,NULL,NULL,NULL,NULL);
