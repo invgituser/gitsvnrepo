@@ -2,7 +2,7 @@
 DROP PROCEDURE `invdb`.`sel_Consumer4Advisor`;
 
 DELIMITER $$
-CREATE  PROCEDURE `invdb`.`sel_Consumer4Advisor`(
+CREATE PROCEDURE `invdb`.`sel_Consumer4Advisor`(
   p_logonid BIGINT,
   p_filter  VARCHAR(1),
   p_days    INTEGER,
@@ -49,7 +49,10 @@ BEGIN
         CASE
           WHEN (p_filter = 'A')
           THEN
-            SELECT
+          
+         if(p_filterActive ='AMOUNT')
+         THEN
+         SELECT
               user.logonid,
               advisor_access.`privileges`                                 `advisor_privileges`,
               `ext_acct_info`.`clientAccountID`,
@@ -98,7 +101,59 @@ BEGIN
                   AND advisor_access.logonid = p_logonid
                   AND IFNULL(`profile`.advisor, 'Invessence') LIKE IFNULL(advisor_access.advisor, '%')
                   AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%')
-			ORDER BY `profile`.`p_filterActive` desc;
+			ORDER BY actualCapital desc;
+         else
+         SELECT
+              user.logonid,
+              advisor_access.`privileges`                                 `advisor_privileges`,
+              `ext_acct_info`.`clientAccountID`,
+              `profile`.`acctnum` as acctnum,
+              `profile`.advisor,
+              `profile`.rep,
+              `profile`.theme,
+              `profile`.goal,
+              `profile`.portfolioName,
+              'Active'                                                 AS acctstatus,
+				CASE WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and IFNULL(`profile`.`status`,'V') in ('V')) THEN 'Visitor'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'N') THEN 'Pending'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'P') THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) = 'O') THEN 'Opened'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'N' and upper(`profile`.`status`) is not null) THEN 'Processing'
+					 WHEN (IFNULL(`profile`.`managed`,'N') = 'A' and upper(`profile`.`status`) is not null) THEN 'Active'
+					 ELSE 'Visitor'
+				END as `status`,
+              user.email                                               AS email,
+              ext_acct_info.applicantLName                             AS lastname,
+              ext_acct_info.applicantFName                             AS firstname,
+              `profile`.tradePreference,
+              `profile`.`acctType`                                     AS accttype,
+              IFNULL(`profile`.age, 30)                                AS age,
+              IFNULL(`profile`.horizon, 35)                            AS horizon,
+              IFNULL(`profile`.riskIndex, 0)                           AS riskIndex,
+              CAST(IFNULL(`profile`.initialInvestment, 0) AS SIGNED)   AS initialInvestment,
+              funct_get_actualCapital(`profile`.acctnum)               AS actualCapital,
+              `profile`.keepLiquid                                     AS keepLiquid,
+              CAST(IFNULL(`profile`.recurringInvestment, 0) AS SIGNED) AS recurringInvestment,
+              IFNULL(`profile`.longTermGoal, 0)                        AS longTermGoal,
+              IFNULL(`profile`.stayInvested, 0)                        AS stayInvested,
+              DATE_FORMAT(`profile`.created, '%Y-%m-%d')               AS created
+		    FROM
+			  user_trade_profile `profile`
+              INNER JOIN  user_access_role uar
+              INNER JOIN  user_logon user
+              INNER JOIN user_advisor_access advisor_access
+              LEFT JOIN ext_acct_info
+              ON (ext_acct_info.acctnum = `profile`.acctnum)
+            WHERE IFNULL(`profile`.managed, 'N') = 'A'
+				  AND IFNULL(`profile`.`status`, 'N') = ( 'A' )
+                  AND uar.logonid = user.logonid
+                  AND `profile`.acctnum = uar.acctnum
+                  AND uar.role = 'OWNER'
+                  AND advisor_access.logonid = p_logonid
+                  AND IFNULL(`profile`.advisor, 'Invessence') LIKE IFNULL(advisor_access.advisor, '%')
+                  AND IFNULL(`profile`.rep, '000') LIKE IFNULL(advisor_access.rep, '%')
+			ORDER BY `profile`.`acctnum` desc;
+         end if;
             WHEN (p_filter = 'N')
           THEN
             SELECT
