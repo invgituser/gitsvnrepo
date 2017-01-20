@@ -21,6 +21,7 @@ public class AdvisorListSP extends StoredProcedure
             declareParameter(new SqlParameter("p_logonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_filter", Types.VARCHAR));
             declareParameter(new SqlParameter("p_days", Types.INTEGER));
+            declareParameter(new SqlParameter("p_filterActive", Types.VARCHAR));
             break;
          case 1: // sel_AdvisorAcctProfile
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -56,12 +57,13 @@ public class AdvisorListSP extends StoredProcedure
       compile();
    }
 
-   public Map getListOfAccounts(Long logonid, String filter, Integer days)
+   public Map getListOfAccounts(Long logonid, String filter, Integer days,String filterByAmount)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_logonid", logonid);
       inputMap.put("p_filter", filter);
       inputMap.put("p_days", days);
+      inputMap.put("p_filterActive", filterByAmount);
       return super.execute(inputMap);
    }
 

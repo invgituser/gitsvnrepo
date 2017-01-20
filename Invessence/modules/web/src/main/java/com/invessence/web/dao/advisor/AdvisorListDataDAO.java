@@ -18,11 +18,11 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public ArrayList<AccountData> getListOfAccounts(Long logonid, String filter, Integer days) {
+   public ArrayList<AccountData> getListOfAccounts(Long logonid, String filter, Integer days,String filterByAmount) {
       DataSource ds = getDataSource();
       AdvisorListSP sp = new AdvisorListSP(ds, "sel_Consumer4Advisor",0);
       ArrayList<AccountData> listProfiles = new ArrayList<AccountData>();
-      Map outMap = sp.getListOfAccounts(logonid, filter, days);
+      Map outMap = sp.getListOfAccounts(logonid, filter, days,filterByAmount);
       String action;
       try {
          if (outMap != null)

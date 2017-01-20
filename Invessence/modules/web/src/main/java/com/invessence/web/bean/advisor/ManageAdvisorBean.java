@@ -156,7 +156,7 @@ public class ManageAdvisorBean implements Serializable
       }
    }
 
-/*
+   /*
    public void setAbean(AdvisorBean abean)
    {
       this.abean = abean;
@@ -168,7 +168,7 @@ public class ManageAdvisorBean implements Serializable
    }
 */
 
-   public void reloadData() {
+  public void reloadData() {
       if (advisorListDataDAO != null) {
          AdvisorDashData advisorDashData=new AdvisorDashData();
          advisorDashData.setLogonid(logonid);
@@ -242,6 +242,7 @@ public class ManageAdvisorBean implements Serializable
    {
       try
       {
+         String filterByAmount = "";
          if (logonid != null)
          {
             if (accountDataList == null)
@@ -259,7 +260,14 @@ public class ManageAdvisorBean implements Serializable
                filtereMenuList = "Today";
                filteredClient = "V";
             }
-            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, (filteredBydate == 0 ? null : filteredBydate));
+            if(getFilteredClient().equalsIgnoreCase("AA")){
+               filterByAmount = "AMOUNT";
+               filteredClient = "A";
+            }else if(getFilteredClient().equalsIgnoreCase("A")){
+               filterByAmount = "Acctnum";
+               filteredClient = "A";
+            }
+            accountDataList = advisorListDataDAO.getListOfAccounts(logonid, filteredClient, (filteredBydate == 0 ? null : filteredBydate),filterByAmount);
             filteredBydate=0;
 
          }
