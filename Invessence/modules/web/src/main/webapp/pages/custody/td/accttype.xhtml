@@ -1,4 +1,4 @@
- <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -22,8 +22,8 @@
                 like to open?</h3>
 
             <div class="Container45 Responsive100 LeftBlockAcctType Fleft">
-                <div class="#{tdcto.displayIndividualandJointAcct()}">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(1)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Wealth' || tdcto.tdMasterData.customerData.goal == 'Other'}"
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(1)}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel"  >
                         <p:panel styleClass="Wid95 Fleft MarCenter tcmPanel-UI">
@@ -40,8 +40,8 @@
                     </p:commandLink>
 
                 </div>
-                <div class="#{tdcto.displayIndividualandJointAcct()}">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(2)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Wealth' || tdcto.tdMasterData.customerData.goal == 'Other'}"
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(2)}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -57,8 +57,8 @@
                         </p:panel>
                     </p:commandLink>
                 </div>
-                <div class="#{tdcto.displayUTMAUGMAAcct()}" >
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(3)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'College'}"
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(3)}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -75,9 +75,9 @@
                     </p:commandLink>
                 </div>
             </div>
-            <div class="#{tdcto.displayMaindHeaderIRAAcct()}">
-                <div class="#{tdcto.displayIRAAcct()}">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(4)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
+            <div class="Container45 Responsive100 FrightForced RightBlockAcctType">
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(4)}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -95,8 +95,8 @@
                 </div>
 
 
-                <div class="#{tdcto.displayIRAAcct()}">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(5)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(5)}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -114,8 +114,8 @@
                 </div>
 
 
-                <div class="#{tdcto.displayIRAAcct()}">
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(6)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
+                <div class="Container100 CustomWidthAccountypePanel">
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(6)}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -133,8 +133,8 @@
                 </div>
 
 
-                <div class="#{tdcto.displayIRAAcct()}" >
-                    <p:commandLink actionListener="#{tdcto.selectAcctType(7)}" rendered="#{tdcto.tdMasterData.customerData.goal == 'Retirement'}"
+                <div class="Container100 CustomWidthAccountypePanel" >
+                    <p:commandLink actionListener="#{tdcto.selectAcctType(7)}"
                                    process="@this"
                                    update=":ctoForm:tdaccordian:acctTypePanel">
                         <p:panel styleClass="Wid95 MarCenter tcmPanel-UI">
@@ -153,7 +153,7 @@
             </div>
 
             <div class="Container100 MarTop20 acctTypeBtnNxt" style="margin: 10px 10px;">
-               
+
 
                 <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                actionListener="#{tdcto.nextPage}"

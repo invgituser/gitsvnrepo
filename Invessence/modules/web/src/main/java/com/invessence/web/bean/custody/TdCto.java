@@ -370,34 +370,6 @@ public class TdCto extends BaseTD
       resetActiveTab(getPagemanager().getPage());
    }
 
-   public String displayIndividualandJointAcct(){
-      if(!getTdMasterData().getCustomerData().getGoal().equalsIgnoreCase("Wealth") && !getTdMasterData().getCustomerData().getGoal().equalsIgnoreCase("Other")){
-         return "disableAcctTypePanel";
-      }
-      return "Container100 CustomWidthAccountypePanel";
-   }
-
-   public String displayIRAAcct(){
-      if(!getTdMasterData().getCustomerData().getGoal().equalsIgnoreCase("Retirement")){
-         return "disableAcctTypePanel";
-      }
-      return "Container100 CustomWidthAccountypePanel";
-   }
-
-   public String displayMaindHeaderIRAAcct(){
-      if(getTdMasterData().getCustomerData().getGoal().equalsIgnoreCase("Retirement")){
-         return "Container45 Responsive100 RightBlockAcctType";
-      }
-      return "Container45 Responsive100 FrightForced RightBlockAcctType";
-   }
-
-   public String displayUTMAUGMAAcct(){
-      if(!getTdMasterData().getCustomerData().getGoal().equalsIgnoreCase("College")){
-         return "disableAcctTypePanel";
-      }
-      return "Container100 CustomWidthAccountypePanel";
-   }
-
    // Before going to next page, determine if the data in current tab passes validity,
    // then save the data beefore going to the next page
    // NOTE: Let resetActiveTab deal with joint account or not to go to appropriate tab.
