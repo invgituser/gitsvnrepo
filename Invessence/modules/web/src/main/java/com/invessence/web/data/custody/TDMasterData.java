@@ -139,11 +139,16 @@ public class TDMasterData implements Serializable
    }
 
    public Boolean getIsJointAcct() {
-      if (accttype == 2 ) {
-         return true;
+      if (accttype == 2 || accttype == 3) {
+         if(accttype == 3 && this.pageMgr.getPage()== 6 || accttype == 3 && this.pageMgr.getPage()== 7){
+            return false;
+         }else {
+            return true;
+         }
       }
       return false;
    }
+
    public String getTitlePrimary() {
       if ( accttype == 3 ) {
          return "Custodian Holder";
