@@ -15,9 +15,9 @@ public class TestClass
    {
       WSCallStatus wsCallStatus=null;
       ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("webServicesConfig.xml");
-      ServiceLayerImpl serviceLayer = (ServiceLayerImpl) context.getBean("serviceLayerImpl");
+      ServiceLayerImpl serviceLayer = (ServiceLayerImpl) context.getBean("serviceLayer");
 
-      System.out.println(serviceLayer.processDCRequest(new Long(2408),1));
+      System.out.println(serviceLayer.processDCRequest(new Long(2638),1));
       //418	2364	1
    }
 }

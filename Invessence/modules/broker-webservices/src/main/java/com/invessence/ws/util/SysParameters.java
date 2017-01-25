@@ -11,6 +11,7 @@ import org.springframework.context.annotation.*;
 //@PropertySource("classpath:systemParameters.properties")
 public class SysParameters
 {
+
    private static final Logger logger = Logger.getLogger(SysParameters.class);
 //   @Bean
 //   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -178,9 +179,9 @@ public class SysParameters
 //   private WSCommonDao wsCommonDao;
 
 //   public static Map<String, Map<String, List<ServiceDetails>>> serviceDetailsMap;
-//   public void saveWSRequest(String status, String clientAccountID, String opt, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String requestType){
+//   public void saveWSRequest(String apiServiceStatus, String clientAccountID, String tempOperation, String remarks, Date reqTime, String reqXml, Date resTime, String resXml, String requestType){
 //      try{
-//         wsCommonDao.insertWSRequest(new WSRequest(status, clientAccountID, opt, remarks, reqTime, reqXml, resTime, resXml, requestType));}
+//         wsCommonDao.insertWSRequest(new WSRequest(apiServiceStatus, clientAccountID, tempOperation, remarks, reqTime, reqXml, resTime, resXml, requestType));}
 //      catch(Exception e){
 //         e.printStackTrace();
 //         logger.error(e.getMessage());

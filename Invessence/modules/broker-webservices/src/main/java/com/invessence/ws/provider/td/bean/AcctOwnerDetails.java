@@ -28,6 +28,17 @@ public class AcctOwnerDetails
    private List<EmploymentDetails> employmentDetails;
    private VisaDetails visaDetails;
    private String feesCheck;
+   private String jointFullName;
+
+   public String getJointFullName()
+   {
+      return jointFullName;
+   }
+
+   public void setJointFullName(String jointFullName)
+   {
+      this.jointFullName = jointFullName;
+   }
 
    public List<EmploymentDetails> getEmploymentDetails()
    {

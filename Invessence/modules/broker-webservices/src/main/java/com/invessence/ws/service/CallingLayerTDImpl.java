@@ -19,7 +19,8 @@ import org.springframework.stereotype.Service;
 public class CallingLayerTDImpl implements CallingLayer
 {
    private static final Logger logger = Logger.getLogger(CallingLayerTDImpl.class);
-   @Autowired TDDaoLayer tdDaoLayer;
+   @Autowired
+   TDDaoLayer tdDaoLayer;
    @Autowired
    TDAccountOpeningLayer tdAccountOpeningLayer;
    public CallingLayerTDImpl(){

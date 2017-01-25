@@ -831,16 +831,18 @@ catch (Exception e)
       List<String> dbColumns=null;
       List<Signer> signerLst=new ArrayList<>();
       List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-
-      try
+      if(dcTemplateMappingList !=null && dcTemplateMappingList.size()>0)
       {
-         dbColumns=getFieldNames(acctDetails, false);
-         logger.info("dbColumns = =" + dbColumns);
-         getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctDetails);
-  }
-      catch (IllegalAccessException e)
-      {
-         e.printStackTrace();
+         try
+         {
+            dbColumns = getFieldNames(acctDetails, false);
+            logger.info("dbColumns = =" + dbColumns);
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctDetails);
+         }
+         catch (IllegalAccessException e)
+         {
+            e.printStackTrace();
+         }
       }
       int signerRecipientId=1;
       Iterator<AcctOwnerDetails> itr = acctDetails.getAcctOwnerDetails().iterator();
