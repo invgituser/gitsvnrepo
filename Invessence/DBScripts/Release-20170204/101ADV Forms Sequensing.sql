@@ -16,12 +16,13 @@ INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColu
 INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('BB_TCM_ADV_AGREE', 'Textbox', 'AdvisorName', 'firmName', 'Client', 'N');
 
 
+
 USE `invdb`;
-CREATE 
-     OR REPLACE ALGORITHM = UNDEFINED 
+CREATE
+     OR REPLACE ALGORITHM = UNDEFINED
     SQL SECURITY DEFINER
 VIEW `invdb`.`vwdc_requests` AS
-    SELECT 
+    SELECT
         `invdb`.`dc_requests`.`reqId` AS `reqId`,
         `invdb`.`dc_requests`.`acctnum` AS `acctnum`,
         `invdb`.`dc_requests`.`eventNum` AS `eventNum`,
@@ -31,4 +32,4 @@ VIEW `invdb`.`vwdc_requests` AS
         `invdb`.`dc_requests`.`status` AS `status`
     FROM
         `invdb`.`dc_requests`
-        ORDER BY FIELD(reqType,'ACCT_APPLI_NEW','MOVE_MONEY_NEW','IRA_APPLI_NEW','IRA_MOVE_MONEY_NEW','ELEC_FUND_TRAN_NEW');
+        ORDER BY FIELD(reqType,'ACCT_APPLI_NEW','MOVE_MONEY_NEW','IRA_APPLI_NEW','IRA_MOVE_MONEY_NEW','ELEC_FUND_TRAN_NEW','ACCT_TRAN_NEW','TD_TRAN_NEW');
