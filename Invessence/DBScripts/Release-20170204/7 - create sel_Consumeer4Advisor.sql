@@ -94,7 +94,7 @@ BEGIN
               LEFT JOIN ext_acct_info
               ON (ext_acct_info.acctnum = `profile`.acctnum)
             WHERE IFNULL(`profile`.managed, 'N') = 'A'
-				  AND IFNULL(`profile`.`status`, 'N') = ( 'A' )
+				  -- AND IFNULL(`profile`.`status`, 'N') = ( 'A' )
                   AND uar.logonid = user.logonid
                   AND `profile`.acctnum = uar.acctnum
                   AND uar.role = 'OWNER'
@@ -145,7 +145,7 @@ BEGIN
               LEFT JOIN ext_acct_info
               ON (ext_acct_info.acctnum = `profile`.acctnum)
             WHERE IFNULL(`profile`.managed, 'N') = 'A'
-				  AND IFNULL(`profile`.`status`, 'N') = ( 'A' )
+				  -- AND IFNULL(`profile`.`status`, 'N') = ( 'A' )
                   AND uar.logonid = user.logonid
                   AND `profile`.acctnum = uar.acctnum
                   AND uar.role = 'OWNER'
