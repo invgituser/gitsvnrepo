@@ -43,11 +43,11 @@
                 <div class="Container100 Responsive100">
                     <div class="ContainerIndent">
                         <p:panel id="inputArea" style="border: 0px; background: transparent;">
-                            <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI"
+                            <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI editTabsDisabled"
                                               dynamic="false" activeIndex="#{tdEditFund.activeTab}"   >
                                 <p:ajax event="tabChange"   listener="#{tdEditFund.onTabChange}" update=":ctoForm:tdaccordian"
                                         immediate="true" />
-                                <p:tab id="tab0" styleClass="tcmAccordion-UI" rendered="false" >
+                                <p:tab id="tab0" styleClass="tcmAccordion-UI" rendered="false">
                                     <f:facet name="title">
                                         <p:graphicImage
                                                 value="/javax.faces.resource/images/acc_type.png.xhtml?ln=tcm"/>

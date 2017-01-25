@@ -126,12 +126,12 @@
                                                     <f:convertNumber pattern="##0.00%"/>
                                                 </h:outputText>
                                             </p:column>
-                                            <p:column headerText="Unit Cost" priority="2"
-                                                      style="text-align: right" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
+                                            <!--<p:column headerText="Unit Cost" priority="2" rendered="false"
+                                                      style="text-align: right" resizable="true" styleClass="Fs12">&lt;!&ndash; ROHIT's CHANGE &ndash;&gt;
                                                 <h:outputText value="#{position.costBasisPrice}">
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                                 </h:outputText>
-                                            </p:column>
+                                            </p:column>-->
                                             <p:column headerText="Cost Basis" priority="2"
                                                       style=" text-align: right; width:10%;" resizable="true"
                                                       styleClass="Fs12"><!-- ROHIT's CHANGE -->
@@ -166,9 +166,7 @@
 
                                                     <p:column footerText="" style="text-align:left"/>
 
-                                                    <p:column priority="5" footerText="" style="text-align:left;"/>
                                                     <p:column footerText="Total" style="text-align:left;"/>
-                                                    <p:column priority="2" footerText="" style="text-align:left;"/>
                                                     <p:column priority="2" footerText="" style="text-align:left;"/>
                                                     <p:column priority="5" footerText="" style="text-align:left;"/>
                                                     <p:column priority="2" footerText="" style="text-align:left"/>
