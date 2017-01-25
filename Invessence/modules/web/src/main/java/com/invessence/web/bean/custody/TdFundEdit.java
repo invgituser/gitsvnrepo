@@ -570,6 +570,7 @@ public class TdFundEdit extends BaseTD
 
       try
       {
+         getPagemanager().setPage(9);
          if (!getTdMasterData().getOptFund()&& !validatePage(9))
          {
             activeTab = 0;

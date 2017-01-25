@@ -723,6 +723,14 @@ public class BaseTD
             dataOK = false;
             pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.occupation.requiredMsg", "Occupation is required!", null));
          }
+         if(hasRequiredData(tdMasterData.getOwneremploymentDetail().getEmployerZipCode())){
+            if (!JavaUtil.isValidZipCode(tdMasterData.getOwneremploymentDetail().getEmployerZipCode()))
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+            }
+         }
+
       }
       else
       {
@@ -758,6 +766,13 @@ public class BaseTD
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.occupation.requiredMsg", "Occupation is required!", null));
+            }
+            if(hasRequiredData(tdMasterData.getJointEmploymentDetail().getEmployerZipCode())){
+               if (!JavaUtil.isValidZipCode(tdMasterData.getJointEmploymentDetail().getEmployerZipCode()))
+               {
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.zip.formatMsg", "Enter valid Zip Code!", null));
+               }
             }
          }
          else

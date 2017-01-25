@@ -182,7 +182,7 @@ public class TCMDashBean implements Serializable
       String whichXML;
       try
       {
-         uiLayout.doMenuAction("custody", "cedit.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+         uiLayout.doMenuAction("custody", "editfunding.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
       }
       catch (Exception ex)
       {

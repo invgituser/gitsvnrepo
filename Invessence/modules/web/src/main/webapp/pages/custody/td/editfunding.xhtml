@@ -1,9 +1,54 @@
+<!--<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">-->
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                template="/template/common/template.xhtml">
+    <ui:define name="head">
+        <script type="text/javascript">
+            function handleChange(activetab,nexttab) {
+                //PF('accordionPanel').unselect(nexttab);
+                PF('accordionPanel').select(activetab);
+            }
+        </script>
+    </ui:define>
+
+    <f:metadata>
+        <f:viewParam name="l" value="#{tdEditFund.beanlogonID}"/>
+        <f:viewParam name="acct" value="#{tdEditFund.beanacctnum}"/>
+        <f:event type="preRenderView" listener="#{tdEditFund.editStartCTO}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+    <!-- BOX START -->
+
+
+    <div class="layout-portlets-box" style="background: #FBFCFD;">
+
+
+    <h:form id="ctoForm" styleClass="formPage">
+    <div class="Container100 Responsive100">
+    <div class="ContainerIndent">
+    <p:panel id="inputArea" style="border: 0px; background: transparent;">
+    <p:accordionPanel id="tdaccordian" widgetVar="accordionPanel" styleClass="tcmAccordionPanel-UI editTabsDisabled"
+                      dynamic="false" activeIndex="#{tdEditFund.activeTab}"   >
+    <p:ajax event="tabChange"   listener="#{tdEditFund.onTabChange}" update=":ctoForm:tdaccordian"
+            immediate="true" />
+
+    <p:tab id="tab6"  styleClass="tcmAccordion-UI">
+    <f:facet name="title">
+        <p:graphicImage
+                value="/javax.faces.resource/images/money.png.xhtml?ln=tcm"/>
+        <h:outputText value="Funding" styleClass="accordionTabText"/>
+    </f:facet>
 
     <p:tabView id="fundTabV" activeIndex="#{tdEditFund.subtab}">
         <p:ajax event="tabChange" listener="#{tdEditFund.onSubTabChange}" update=":ctoForm:tdaccordian:fundTabV"
@@ -138,6 +183,7 @@
                                             styleClass="Wid100 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
                                             style="text-align: left;"
                                             value="#{tdEditFund.tdMasterData.initialInvestment}" maxlength="11"
+                                            placeholder="$"
                                             symbol="$" decimalPlaces="2" required="false"
                                             requiredMessage="Min. of $50,000 investment is required!"
                                             validatorMessage="Min. of $50,000 investment is required!">
@@ -421,7 +467,7 @@
                                         <f:selectItem itemLabel="Select Type" itemValue=""
                                                       noSelectionOption="true"/>
                                         <f:selectItem itemLabel="Retail" itemValue="N"/>
-                                       <!-- <f:selectItem itemLabel="Advisor managed" itemValue="Y"/>-->
+                                        <f:selectItem itemLabel="Advisor managed" itemValue="Y"/>
 
                                     </p:selectOneMenu>
                                 </div>
@@ -662,6 +708,7 @@
                                         style="text-align: left;"
                                         value="#{tdEditFund.tdMasterData.electroicBankDetail.tranAmount}"
                                         maxlength="11" symbol="$" decimalPlaces="2" required="false"
+                                        placeholder="$"
                                         requiredMessage="Min. of $50 is required!"
                                         validatorMessage="Min. of $50 is required!">
                                 </p:inputNumber>
@@ -817,5 +864,44 @@
 
     </p:tabView>
 
+    </p:tab>
+
+    </p:accordionPanel>
+        <p:panel id="submitBtnId" style="border: 0px; background: transparent">
+            <div class="Container100 saveNopenBtn" style="">
+                <p:commandButton value="Cancel"
+                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
+                                 styleClass="Fleft" actionListener="#{uiLayout.defaultHome}">
+
+                </p:commandButton>
+
+                <p:commandButton value="Save and Submit"
+                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
+                                 disabled="#{tdEditFund.tdMasterData.optFund and tdEditFund.tdMasterData.recurringFlag}"
+                                 actionListener="#{tdEditFund.editFunddataSave}"
+                                 styleClass="Fright" >
+
+                </p:commandButton>
+
+            </div></p:panel>
+    </p:panel>
+        <div class="Container100" style="text-align: center;">
+            <h:outputText id="errorMsg"
+                          styleClass="errorText" rendered="#{tdEditFund.saveandOpenError != null}"
+                          value="#{tdEditFund.saveandOpenError}" escape="false"/>
+
+        </div>
+
+    </div>
+    </div>
+    </h:form>
+    </div>
+
+        <!-- BOX END -->
+
+
+
+
+    </ui:define>
 
 </ui:composition>
