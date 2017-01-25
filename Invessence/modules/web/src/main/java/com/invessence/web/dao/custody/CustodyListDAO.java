@@ -98,7 +98,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getTDAccountDetails  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -210,15 +211,20 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                      data.setJointAcctOwnersDetail(acctHolder);
                   }
 
-                  if(data.getAcctOwnersDetail().getPhysicalAddressStreet().equalsIgnoreCase(data.getJointAcctOwnersDetail().getMailingAddressStreet()))
+//                  if(whichAcct==2)
+//                  {
+                     if (data.getAcctOwnersDetail().getPhysicalAddressStreet().equalsIgnoreCase(data.getJointAcctOwnersDetail().getPhysicalAddressStreet()))
                         data.setJointhasDifferent(false);
-                  else
-                     data.setJointhasDifferent(true);
+                     else
+                        data.setJointhasDifferent(true);
+//                  }
                }
             }
          }
       }
       catch (Exception ex) {
+         logger.error("Error occurred in getTDAccountHolder  :" +ex);
+         ex.printStackTrace();
 
       }
    }
@@ -281,7 +287,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getTDEmployment  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -323,7 +330,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getTDBeneficiary  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -361,7 +369,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getTDACHDetails  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -398,7 +407,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getTDACATDetails  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -447,7 +457,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getTDTRFDetails  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -496,7 +507,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getTDTRFDetails  :" +ex);
+         ex.printStackTrace();
       }
    }
    public void getfundingData(TDMasterData data)
@@ -553,7 +565,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
-
+         logger.error("Error occurred in getfundingData  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -601,6 +614,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
+         logger.error("Error occurred in getAcatFirmList  :" +ex);
+         ex.printStackTrace();
 
       }
    }
@@ -650,6 +665,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
+         logger.error("Error occurred in getFundEFTData  :" +ex);
+         ex.printStackTrace();
 
       }
    }
@@ -698,6 +715,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
          }
       }
       catch (Exception ex) {
+         logger.error("Error occurred in getFundTDData  :" +ex);
+         ex.printStackTrace();
 
       }
    }
@@ -736,6 +755,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
       }
       catch (Exception ex) {
 
+         logger.error("Error occurred in getFundACATData  :" +ex);
+         ex.printStackTrace();
       }
    }
 
@@ -773,6 +794,8 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
       }
       catch (Exception ex) {
 
+         logger.error("Error occurred in getFundACHData  :" +ex);
+         ex.printStackTrace();
       }
    }
 }

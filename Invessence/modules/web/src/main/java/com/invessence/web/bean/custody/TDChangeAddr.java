@@ -77,12 +77,12 @@ public class TDChangeAddr extends BaseTD
          getPagemanager().setPage(4);
          if (validateChangeAddress(getTdMasterData().getAcctOwnersDetail(),true))
          {
-           if(!getTdMasterData().getAcctholderhasMailing()){
-              getTdMasterData().getAcctOwnersDetail().setMailingAddressStreet(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressStreet());
-              getTdMasterData().getAcctOwnersDetail().setMailingAddressCity(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressCity());
-              getTdMasterData().getAcctOwnersDetail().setMailingAddressState(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressState());
-              getTdMasterData().getAcctOwnersDetail().setMailingAddressZipCode(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressZipCode());
-           }
+//           if(!getTdMasterData().getAcctholderhasMailing()){
+//              getTdMasterData().getAcctOwnersDetail().setMailingAddressStreet(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressStreet());
+//              getTdMasterData().getAcctOwnersDetail().setMailingAddressCity(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressCity());
+//              getTdMasterData().getAcctOwnersDetail().setMailingAddressState(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressState());
+//              getTdMasterData().getAcctOwnersDetail().setMailingAddressZipCode(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressZipCode());
+//           }
             bflag = true;
          }
 

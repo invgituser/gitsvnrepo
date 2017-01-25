@@ -1342,7 +1342,7 @@ public class BaseTD
             saveTDPrimaryAddress();
             break;
          case 4:  // Joint Owner  Address (if Any)
-           // saveTDJointAccountOwner();
+           // saveTDJointAccountOwner(); Function call commented by Sagar
             saveTDJointAddress();
             break;
          case 5: // Regulatory
@@ -1479,7 +1479,7 @@ public class BaseTD
          pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.email.requiredMsg", "Email Address is required!", null));
       }
 
-      if (tdMasterData.getAcctholderhasMailing() || !bFlag)
+      if (tdMasterData.getAcctholderhasMailing() && bFlag)
       {
          if (!hasRequiredData(objAcctOwnersDetails.getMailingAddressStreet()))
          {

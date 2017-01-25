@@ -202,7 +202,7 @@ public class TCMDashBean implements Serializable
          System.out.println("Inside doOptionMenuAction >> ");
          System.out.println("Inside doOptionMenuAction >> ");
 
-         uiLayout.doMenuAction("custody", "cedit2.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+         uiLayout.doMenuAction("custody", "editaddress.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
       }
       catch (Exception ex)
       {
