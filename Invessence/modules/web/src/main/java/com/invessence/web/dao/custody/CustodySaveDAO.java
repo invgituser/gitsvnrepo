@@ -157,7 +157,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
                tdMasterData.getElectroicBankDetail().setDirectionId("EFDTOTD");
                tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
                tdMasterData.getElectroicBankDetail().setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
-               electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
+               // electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
 
                Boolean elecFundSave = tdSaveElectronicPayment(tdMasterData.getAcctnum(), tdMasterData.getElectroicBankDetail());
             }

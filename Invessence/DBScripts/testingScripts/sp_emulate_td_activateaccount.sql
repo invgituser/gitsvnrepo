@@ -79,6 +79,26 @@ BEGIN
 				WHERE `ext_acct_info`.`acctnum` = `p_acctnum`
 				;
                 
+                INSERT INTO `invdb`.`ext_nav`
+					(`clientAccountID`,
+					`reportDate`,
+					`cash`,
+					`stock`,
+					`funds`,
+					`interestAccrual`,
+					`dividentAccrual`,
+					`total`)
+				VALUES
+				(tClientAccountID,
+				`invdb`.`FUNCT_GET_SWITCH`('BROKER_BDATE'),
+				`p_amount`,
+				0,
+				0,
+				0,
+				0,
+				`p_amount`);
+
+                
                 UPDATE `invdb`.`ext_acct_info`
 					set `ext_acct_info`.`status` = 'A'
 				WHERE `ext_acct_info`.`acctnum` = `p_acctnum`;

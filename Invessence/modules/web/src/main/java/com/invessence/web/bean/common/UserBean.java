@@ -543,47 +543,59 @@ public class UserBean implements Serializable
       {
          userdata.setLogonID(getLongBeanLogonID());
          userdata.setUserID(beanUserID);            // Since both logonid and email is forced to
+
+         if (newRegistration)
+         {
+            if (beanEmail == null || beanEmail.isEmpty()) {
+               logger.debug("LOG: Invalidate Email (either empty or null): ");
+               msgheader = "signup.U111";
+               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Email is required", null);
+               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+               return;
+            }
+            userdata.setEmail(beanEmail);
+         }
+
          if (userInfoDAO.validateUserID(userdata))
          {
             logger.debug("LOG: Validate UserID failed: " + beanUserID);
             msgheader = "signup.U104";
             msg= webutil.getMessageText().getDisplayMessage(msgheader, "UserID already taken", null);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+            return;
          }
-         else
+
+         // Check if the username/password match.  Cannot change the Email Address.
+         String validatePwd = webutil.validateNewPass(pwd1, pwd2);
+         if (!validatePwd.toUpperCase().equals("SUCCESS"))
          {
-            // Check if the username/password match.  Cannot change the Email Address.
-            String validatePwd = webutil.validateNewPass(pwd1, pwd2);
-            if (!validatePwd.toUpperCase().equals("SUCCESS"))
-            {
-               logger.debug("LOG: Validate Password failed: " + beanUserID + " with status = " + validatePwd);
-               msgheader = "signup.U105";
-               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Password don't match criteria or two passwords are not same.", null);
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
-               return;
-            }
-            logger.debug("Debug: Intial Page of UserID/Password checks were successful for: " + userdata.getUserID());
+            logger.debug("LOG: Validate Password failed: " + beanUserID + " with status = " + validatePwd);
+            msgheader = "signup.U105";
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "Password don't match criteria or two passwords are not same.", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+            return;
+         }
+         logger.debug("Debug: Intial Page of UserID/Password checks were successful for: " + userdata.getUserID());
 
-            // If this user data was collected and they already have logonid, then add the userid and change the 'A'
-            String logonStatus = (userdata.getLogonID() == null) ? "T" : "A";
-            userdata.setEmail(beanEmail);  // Since, this may be called from General Register, add Email to userdata.
-            userdata.setUserID(beanUserID);// Since, this may be called from General Register, add UserID to userdata.
-            userdata.setSecCode(pwd1);
-            userdata.setPassword(pwd1);
-            userdata.setConfirmNewPassword(pwd2);
-            Long logonID = saveUser(logonStatus);
-            if (logonID > 0L)
-            {
-               webutil.sendConfirmation(userdata);
-               webutil.redirect("/signup2.xhtml", null);
-            }
-            else {
-               logger.debug("ERROR: Save to DB failed: " + beanEmail);
-               msgheader = "signup.U108";
-               msg= webutil.getMessageText().getDisplayMessage(msgheader, "Failed to create user-logon session.", null);
-               FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
+         // If this user data was collected and they already have logonid, then add the userid and change the 'A'
+         String logonStatus = (userdata.getLogonID() == null) ? "T" : "A";
+         userdata.setEmail(beanEmail);  // Since, this may be called from General Register, add Email to userdata.
+         userdata.setUserID(beanUserID);// Since, this may be called from General Register, add UserID to userdata.
+         userdata.setSecCode(pwd1);
+         userdata.setPassword(pwd1);
+         userdata.setConfirmNewPassword(pwd2);
+         Long logonID = saveUser(logonStatus);
+         if (logonID > 0L)
+         {
+            webutil.sendConfirmation(userdata);
+            webutil.redirect("/signup2.xhtml", null);
+         }
+         else {
+            logger.debug("ERROR: Save to DB failed: " + beanEmail);
+            msgheader = "signup.U108";
+            msg= webutil.getMessageText().getDisplayMessage(msgheader, "Failed to create user-logon session.", null);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msgheader));
 
-            }
          }
 
       }

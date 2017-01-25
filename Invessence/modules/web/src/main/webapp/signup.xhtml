@@ -58,7 +58,7 @@
                                 <div class="Container100">
                                     <label class="sigupLabel">Email Id</label>
                                     <p:inputText id="email"
-                                                 readonly="#{userBean.beanEmail != null}"
+                                                 readonly="#{! userBean.newRegistration}"
                                                  styleClass="Wid100 Fleft MarAuto Fs14"
                                                  value="#{userBean.beanEmail}" placeholder="Email">
                                         <f:validator validatorId="EmailValidator"/>
