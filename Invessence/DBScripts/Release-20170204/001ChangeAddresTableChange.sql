@@ -129,3 +129,9 @@ INSERT INTO service.service_operation_details (company, service, operation, vend
 
 INSERT INTO service.dc_template_details (mode, company, service, tempCode, tempId, tempName, authRequired, status, remark, created, createdBy, updated, updatedBy, configFile) VALUES ('PROD','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_ACCT_ADV','c3818a4d-320f-4a6c-8181-5c0f45206d69','Account ADV Forms','Y','A',NULL,NULL,NULL,NULL,NULL,NULL);
 INSERT INTO service.dc_template_details (mode, company, service, tempCode, tempId, tempName, authRequired, status, remark, created, createdBy, updated, updatedBy, configFile) VALUES ('PROD','BUILDINGBENJAMINS','DOCUSIGN-SERVICES','BB_CHNG_ADDRS','bba60794-5788-4656-8bb7-5857a228a52a','Change Address','Y','A',NULL,NULL,NULL,NULL,NULL,NULL);
+
+
+UPDATE invdb.sec_master SET name='FDIC Insured Deposit Account IDA12 Not Covered By SIPC' WHERE instrumentid='83';
+UPDATE invdb.sec_master SET name='Vanguard Intrm-Term Invt Grade Admiral' WHERE instrumentid='84';
+UPDATE invdb.sec_master SET name='Stone Ridge INTL Master Var Risk Perm I' WHERE instrumentid='85';
+UPDATE invdb.sec_master SET name='Stone Ridge US Master Var Risk Perm CL I' WHERE instrumentid='86';
