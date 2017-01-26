@@ -656,9 +656,9 @@
 
                         <!-- Rerurring -->
                         <div class="Container100 CustomWidthFA2 MarTop5">
-                            <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdEditFund.tdMasterData.ownerSPF}"
+                            <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                                      itemLabel="Please use the existing account details"
-                                                     rendered="#{tdEditFund.tdMasterData.fundType == 'PMACH' and !tdEditFund.tdMasterData.optFund}" >
+                                                     rendered="#{tdEditFund.tdMasterData.hasachinstruction}" >
                                 <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel"
                                         listener="#{tdEditFund.tdMasterData.existingAccount}"/>
 
@@ -737,7 +737,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
-                                                 disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                                 disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                                  value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctType}"
                                                  style="width: 100%;">
                                     <p:ajax/>
@@ -757,7 +757,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankName}"
                                              maxlength="90"
                                              placeholder="Bank Name">
@@ -771,7 +771,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctName}"
                                              maxlength="90"
                                              placeholder="Bank Account Title">
@@ -787,7 +787,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankCityState}"
                                              maxlength="90"
                                              placeholder="Bank City/State">
@@ -799,7 +799,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankPhoneNumber}"
                                              maxlength="15"
                                              mask="(999) 999-9999"
@@ -820,7 +820,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankABARouting}"
                                              maxlength="40"
                                              placeholder="ABA Routing Number">
@@ -833,7 +833,7 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
-                                             disabled="#{tdEditFund.tdMasterData.ownerSPF and tdEditFund.tdMasterData.fundType == 'PMACH'}"
+                                             disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctNumber}"
                                              maxlength="90"
                                              placeholder="Bank Account Number">

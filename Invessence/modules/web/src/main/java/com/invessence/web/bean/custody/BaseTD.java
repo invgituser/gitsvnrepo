@@ -996,7 +996,7 @@ public class BaseTD
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.validateStartDate.formatMsg", "Start date should be greater than today date!", null));
             }
 
-            if (tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getOwnerSPF())
+            if (tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getCopyAchInstructions())
             {
 
             }
@@ -1143,6 +1143,11 @@ public class BaseTD
       }
    }
 
+   public void loadTDACHData() {
+      // Make sure that account-number and logonid are set
+      custodyListDAO.getFundACHData(tdMasterData);
+   }
+
    public AdvisorDetails loadAdvisorData()
    {
       return null;
@@ -1246,7 +1251,7 @@ public class BaseTD
          if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
          {
             custodySaveDAO.tdsaveACHData(tdMasterData, "ACH");
-            if (tdMasterData.getOwnerSPF() && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
+            if (tdMasterData.getCopyAchInstructions() && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
             {
                tdMasterData.getElectroicBankDetail().setBankAcctType(tdMasterData.getAchBankDetail().getBankAcctType());
                tdMasterData.getElectroicBankDetail().setBankName(tdMasterData.getAchBankDetail().getBankName());
@@ -1509,5 +1514,11 @@ public class BaseTD
       }
 
       return dataOK;
+   }
+
+   public void resetBaseTD() {
+      tdMasterData = new TDMasterData(null, 0L);
+      saveandOpenError = null;
+      beneTempList = new ArrayList<BenefiaciaryDetails>();
    }
 }

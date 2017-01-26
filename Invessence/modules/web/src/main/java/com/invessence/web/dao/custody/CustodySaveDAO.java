@@ -135,7 +135,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
 
    public boolean tdSaveElectronicPaymentData(TDMasterData tdMasterData )
    {
-      if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getOwnerSPF())
+      if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getCopyAchInstructions())
       {
          DataSource ds = getDataSource();
          Request reqdata = new Request();
@@ -263,6 +263,13 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
                  ed.setDirectionId("EFDTOTD");
                  ed.setMoveMoneyPayMethodID(moveMoneyPayMethId);
                  ed.setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
+                 ed.setBankAcctType(tdMasterData.getAchBankDetail().getBankAcctType());
+                 ed.setBankName(tdMasterData.getAchBankDetail().getBankName());
+                 ed.setBankAcctName(tdMasterData.getAchBankDetail().getBankAcctName());
+                 ed.setBankPhoneNumber(tdMasterData.getAchBankDetail().getBankPhoneNumber());
+                 ed.setBankCityState(tdMasterData.getAchBankDetail().getBankCityState());
+                 ed.setBankABARouting(tdMasterData.getAchBankDetail().getBankABARouting());
+                 ed.setBankAcctNumber(tdMasterData.getAchBankDetail().getBankAcctNumber());
                  if(dataFlag.equalsIgnoreCase("EFT"))
                  {
                     ed.setTranAmount(tdMasterData.getElectroicBankDetail().getTranAmount());
@@ -456,7 +463,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
 
    public boolean tdSaveEFTEdit(TDMasterData tdMasterData )
    {
-      if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getOwnerSPF())
+      if(tdMasterData.getFundType().equalsIgnoreCase("PMACH") && tdMasterData.getCopyAchInstructions())
       {
          DataSource ds = getDataSource();
          Request reqdata = new Request();
@@ -487,7 +494,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
             tdMasterData.getElectroicBankDetail().setDirectionId("EFDTOTD");
             tdMasterData.getElectroicBankDetail().setMoveMoneyPayMethodID(moveMoneyPayMethId);
             tdMasterData.getElectroicBankDetail().setAchId(tdMasterData.getAchBankDetail().getAchId().intValue());
-            electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
+            // electronicFundDetails.setTranAmount(tdMasterData.getInitialInvestment());
 
             Boolean elecFundSave = tdSaveElectronicPayment(tdMasterData.getAcctnum(), tdMasterData.getElectroicBankDetail());
          }

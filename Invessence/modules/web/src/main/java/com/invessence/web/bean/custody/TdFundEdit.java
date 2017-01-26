@@ -57,17 +57,20 @@ public class TdFundEdit extends BaseTD
                return;
             }
             // clear all data.
-            setPagemanager(new PagesImpl(10));
-            setTdMasterData(new TDMasterData(getPagemanager(), getLongBeanacctnum()));
-            // load firm list for ACAt details
+            resetBaseTD();
 
             // Start fresh, clean and start from top page.
+            setPagemanager(new PagesImpl(10));
+            setTdMasterData(new TDMasterData(getPagemanager(), getLongBeanacctnum()));
+
             getCustodyListDAO().getAcatFirmList(getTdMasterData());
             Integer currentPage = getPagemanager().getPage();
             activeTab=0;
             getPagemanager().setPage(9);
             getPagemanager().clearAllErrorMessage();
             saveandOpenError = null;
+
+            // load firm list for ACAt details
             editFundingInitPage();
          }
       }
@@ -504,7 +507,7 @@ public class TdFundEdit extends BaseTD
       {
 
          loadTDAccountDetails();
-         loadTDFunding();
+         loadTDACHData();
       }
       catch (Exception e)
       {
@@ -555,7 +558,7 @@ public class TdFundEdit extends BaseTD
       {
          activeTab=0;
          subtab=1;
-         getTdMasterData().setOwnerSPF(false);
+         getTdMasterData().setCopyAchInstructions(false);
       }
       else
       {

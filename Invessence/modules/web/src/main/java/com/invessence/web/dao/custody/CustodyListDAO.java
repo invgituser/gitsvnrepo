@@ -500,9 +500,9 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
 
             data.setElectroicBankDetail(acatDetails);
             if(data.getElectroicBankDetail().getAchId().toString().equalsIgnoreCase(data.getAchBankDetail().getAchId().toString()))
-               data.setOwnerSPF(true);
+               data.setCopyAchInstructions(true);
             else
-               data.setOwnerSPF(false);
+               data.setCopyAchInstructions(false);
 
          }
       }
@@ -658,9 +658,9 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
 
             data.setElectroicBankDetail(acatDetails);
             if(data.getElectroicBankDetail().getAchId().toString().equalsIgnoreCase(data.getAchBankDetail().getAchId().toString()))
-               data.setOwnerSPF(true);
+               data.setCopyAchInstructions(true);
             else
-               data.setOwnerSPF(false);
+               data.setCopyAchInstructions(false);
 
          }
       }

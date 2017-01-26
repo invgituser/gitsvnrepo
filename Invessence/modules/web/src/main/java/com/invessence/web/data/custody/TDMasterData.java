@@ -28,7 +28,7 @@ public class TDMasterData implements Serializable
    Boolean newBeneficiaryForm;
    Boolean editBeneficiaryForm=false;
 
-   Boolean ownerSPF, senoirPolitical, ownerShare, ownerBD;
+   Boolean senoirPolitical, ownerShare, ownerBD;
    Boolean jointSPF, jointShare, jointBD;
    String fundType;
    Boolean fundNow, recurringFlag,optFund;
@@ -36,6 +36,7 @@ public class TDMasterData implements Serializable
    Double initialInvestment;
    Integer totalbeneficiaryShares,tmptottalShares;
    private Boolean optoutRegulatory,optoutBeneficiary,optoutFunding,optoutRecurring;
+   Boolean copyAchInstructions;
 
    private USMaps usmaps;
    // TD information
@@ -76,7 +77,7 @@ public class TDMasterData implements Serializable
       customerData = new CustomerData();
       accttype = 0; // 1 - Individual , 2 Number of joint acct.acctholderhasMailing
       jointhasDifferent = acctholderhasMailing = jointhasMailing = false;
-      ownerSPF=false;
+      copyAchInstructions=false;
       optoutRegulatory=optoutBeneficiary=optoutFunding=optoutRecurring=false;
       senoirPolitical=false;
       ownerShare = ownerBD = false;
@@ -255,14 +256,23 @@ public class TDMasterData implements Serializable
       }
    }
 
-   public Boolean getOwnerSPF()
+   public Boolean getHasachinstruction()
    {
-      return ownerSPF;
+      // True if ACHDetail has routing instructions.
+      return (getAchBankDetail() != null &&
+              getAchBankDetail().getBankABARouting() != null &&
+              ! getAchBankDetail().getBankABARouting().isEmpty())
+      ;
    }
 
-   public void setOwnerSPF(Boolean ownerSPF)
+   public Boolean getCopyAchInstructions()
    {
-      this.ownerSPF = ownerSPF;
+      return copyAchInstructions;
+   }
+
+   public void setCopyAchInstructions(Boolean copyAchInstructions)
+   {
+      this.copyAchInstructions = copyAchInstructions;
    }
 
    public Boolean getSenoirPolitical()
@@ -495,7 +505,7 @@ public class TDMasterData implements Serializable
 
       if(fundNow)
       {
-         ownerSPF=false;
+         copyAchInstructions=false;
          recurringFlag=true;
          submitButton = true;
          optoutFunding=true;
@@ -503,7 +513,7 @@ public class TDMasterData implements Serializable
       }
       else
       {
-         ownerSPF=false;
+         copyAchInstructions=false;
          recurringFlag=false;
          submitButton = false;
          optoutFunding=false;
@@ -554,7 +564,7 @@ public class TDMasterData implements Serializable
    }
    public void resetRecurringFlagData()
    {
-      ownerSPF=false;
+      copyAchInstructions=false;
       if(recurringFlag)
       {
          submitButton=true;
@@ -914,7 +924,7 @@ public class TDMasterData implements Serializable
    }
 
    public void existingAccount() {
-      if(ownerSPF  && getFundType().equalsIgnoreCase("PMACH"))
+      if(copyAchInstructions  && getFundType().equalsIgnoreCase("PMACH"))
       {
          electroicBankDetail.setBankAcctType(achBankDetail.getBankAcctType());
          electroicBankDetail.setBankName(achBankDetail.getBankName());
@@ -923,7 +933,6 @@ public class TDMasterData implements Serializable
          electroicBankDetail.setBankPhoneNumber(getAchBankDetail().getBankPhoneNumber());
          electroicBankDetail.setBankABARouting(getAchBankDetail().getBankABARouting());
          electroicBankDetail.setBankAcctNumber(getAchBankDetail().getBankAcctNumber());
-
       }
       else
       {
@@ -934,6 +943,7 @@ public class TDMasterData implements Serializable
          electroicBankDetail.setBankPhoneNumber("");
          electroicBankDetail.setBankABARouting("");
          electroicBankDetail.setBankAcctNumber("");
+         copyAchInstructions = false;
       }
    }
 

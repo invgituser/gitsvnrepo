@@ -59,6 +59,8 @@ public class TdCto extends BaseTD
                return;
             }
             // clear all data.
+            resetBaseTD();
+
             setPagemanager(new PagesImpl(10));
             setTdMasterData(new TDMasterData(getPagemanager(), getLongBeanacctnum()));
             String loadVal = loadData();

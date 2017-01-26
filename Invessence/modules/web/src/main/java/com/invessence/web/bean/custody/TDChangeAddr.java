@@ -39,6 +39,9 @@ public class TDChangeAddr extends BaseTD
                getWebutil().redirecttoMessagePage("ERROR", "Access Denied", msgheader);
                return;
             }
+            // clear all data.
+            resetBaseTD();
+
             setTdMasterData(new TDMasterData(getPagemanager(), getLongBeanacctnum()));
 
             loadTDAccountDetails();

@@ -623,9 +623,9 @@
 
                         <!-- Rerurring -->
                         <div class="Container100 CustomWidthFA2 MarTop5">
-                            <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.ownerSPF}"
+                            <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdcto.tdMasterData.copyAchInstructions}"
                                                      itemLabel="Please use the existing account details"
-                                                     rendered="#{tdcto.tdMasterData.fundType == 'PMACH'}" >
+                                                     rendered="#{tdcto.tdMasterData.hasachinstruction}" >
                                 <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel" listener="#{tdcto.tdMasterData.existingAccount}"/>
 
                             </p:selectBooleanCheckbox>
@@ -702,7 +702,7 @@
                                     Account Type *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
                                                  value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctType}"
                                                  style="width: 100%;">
                                     <p:ajax/>
@@ -721,7 +721,7 @@
                                     Bank Name  *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankName}"
                                              maxlength="90"
                                              placeholder="Bank Name">
@@ -732,7 +732,7 @@
                                        style="text-align: left !important; font-weight: bold !important;">Bank Account Title <span class="Fs12">(Please provide full title of the account)</span> *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctName}"
                                              maxlength="90"
                                              placeholder="Bank Account Title">
@@ -747,7 +747,7 @@
                                     Bank City/State  *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankCityState}"
                                              maxlength="90"
                                              placeholder="Bank City/State">
@@ -758,7 +758,7 @@
                                        style="text-align: left !important; font-weight: bold !important;">Bank Phone Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankPhoneNumber}"
                                              maxlength="15"
                                              mask="(999) 999-9999"
@@ -778,7 +778,7 @@
                                     Routing Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankABARouting}"
                                              maxlength="40"
                                              placeholder="ABA Routing Number">
@@ -790,7 +790,7 @@
                                     Bank Account Number *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.ownerSPF and tdcto.tdMasterData.fundType == 'PMACH'}"
+                                <p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive" disabled="#{tdcto.tdMasterData.copyAchInstructions}"
                                              value="#{tdcto.tdMasterData.electroicBankDetail.bankAcctNumber}"
                                              maxlength="90"
                                              placeholder="Bank Account Number">

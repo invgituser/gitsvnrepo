@@ -1,7 +1,6 @@
 package com.invessence.web.bean.admin;
 
 import java.io.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -35,6 +34,7 @@ public class AdminBean extends AdminData implements Serializable
       this.adminDAO = adminDAO;
    }
 
+/*
    @PostConstruct
    public void init()
    {
@@ -50,6 +50,7 @@ public class AdminBean extends AdminData implements Serializable
          e.printStackTrace();
       }
    }
+*/
 
    private void collectData()
    {
