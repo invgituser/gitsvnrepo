@@ -39,7 +39,6 @@ IF (p_logonid is not null)
 			count(`user_trade_profile`.`acctnum`) as `value`
 			FROM  `user_trade_profile`
 			 WHERE IFNULL(`user_trade_profile`.`managed`,'N') = 'A'
-             AND IFNULL(`user_trade_profile`.`status`,'N') = 'A'
              AND IFNULL(TRIM(`user_trade_profile`.`advisor`),'000') like tAdvisor
  		UNION
 			SELECT
