@@ -211,13 +211,16 @@ public class CustodyListDAO extends JdbcDaoSupport implements Serializable
                      data.setJointAcctOwnersDetail(acctHolder);
                   }
 
-//                  if(whichAcct==2)
-//                  {
-                     if (data.getAcctOwnersDetail().getPhysicalAddressStreet().equalsIgnoreCase(data.getJointAcctOwnersDetail().getPhysicalAddressStreet()))
-                        data.setJointhasDifferent(false);
-                     else
-                        data.setJointhasDifferent(true);
-//                  }
+                  if(whichAcct==2)
+                 {
+                    if (data.getAcctOwnersDetail().getPhysicalAddressStreet()==null || data.getJointAcctOwnersDetail().getPhysicalAddressStreet()==null ){
+                       data.setJointhasDifferent(false);
+                    }else if (data.getAcctOwnersDetail().getPhysicalAddressStreet().equalsIgnoreCase(data.getJointAcctOwnersDetail().getPhysicalAddressStreet())){
+                       data.setJointhasDifferent(false);
+                    }else{
+                       data.setJointhasDifferent(true);
+                    }
+                  }
                }
             }
          }
