@@ -1,0 +1,42 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui">
+
+    <div id="menu-mask"></div>
+    <p:ajaxStatus styleClass="tcmLoaderBackground">
+        <f:facet name="start">
+            <p:graphicImage name="demo/images/preloader.gif"/>
+        </f:facet>
+
+        <f:facet name="complete">
+            <h:outputText value=""/>
+        </f:facet>
+    </p:ajaxStatus>
+
+    <ui:include src="/template/common/spark/topbar.xhtml"/>
+
+    <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
+        <ui:include src="/template/common/spark/layoutmenu.xhtml"/>
+    </ui:fragment>
+
+    <div id="layout-portlets-cover">
+        <ui:insert name="content">
+            Template
+        </ui:insert>
+
+
+    </div>
+
+    <h:outputStylesheet name="css/core-layout.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/custom.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/font-awesome.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/spark-layout.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/modena-font.css" library="spark-layout"/>
+    <h:outputStylesheet name="css/invessence.css" library="invessence"/>
+
+</ui:composition>
