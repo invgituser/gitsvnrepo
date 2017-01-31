@@ -43,7 +43,7 @@ public class DataDisplayConverter implements Serializable
          }
       }
 
-   public String displayAsMoney(Double value)
+   /*public String displayAsMoney(Double value)
    {
       if (value != null)
       {
@@ -60,7 +60,7 @@ public class DataDisplayConverter implements Serializable
       {
          return "-";
       }
-   }
+   }*/
 
 
 

@@ -26,7 +26,7 @@
             <div class="Wid100 uobCoreLabel">Your current age</div>
             <p:spinner id="age" value="#{uobpb.age}"
                        min="1" max="100" stepFactor="1">
-                <p:ajax listener="#{uobpb.onChangeValue}"
+                <p:ajax event="blur" listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
             </p:spinner>
 
@@ -34,7 +34,7 @@
             <p:inputNumber id="initialInvestment" styleClass="Wid100 uob_investAmount"
                             value="#{uobpb.initialInvestment}"
                             maxlength="11" decimalPlaces="0" symbol="$">
-                <p:ajax event="blur" listener="#{uobpb.onChangeValue}"
+                <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:displayInvestment, :ceForm:graphArea"/>
             </p:inputNumber>
 
