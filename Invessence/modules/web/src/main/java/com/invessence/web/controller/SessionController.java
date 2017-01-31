@@ -127,6 +127,7 @@ public class SessionController implements Serializable
    public void emulateClient(String clienturl) {
       if (clienturl != null)
       {
+         System.out.println("Emulate clientURL: " + clienturl);
          webutil.webprofile.setLocked(false);
          loadWebProfile(clienturl);
          loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
@@ -139,6 +140,7 @@ public class SessionController implements Serializable
       webutil.getWebprofile().setUrl(url);
       if (commonDAO != null)
       {
+         System.out.println("Load DB data for URL:" + url);
          webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
       }
    }
@@ -146,6 +148,7 @@ public class SessionController implements Serializable
    private void loadAdvisorProfile(String advisor) {
       if (commonDAO != null)
       {
+         System.out.println("Load DB dat for Advisor:" + advisor);
          webutil.getWebprofile().addToMap(commonDAO.getAdvisorWebInfo(advisor));
       }
    }
@@ -166,6 +169,7 @@ public class SessionController implements Serializable
                advisorMap = commonDAO.getAdvisorWebInfo(advisor);
                if (advisorMap != null) {
                   if (advisorMap.containsKey("WEB.URL")) {
+                     System.out.println("Load data by Advisor:" + advisor);
                      loadWebProfile(advisorMap.get("WEB.URL"));
                      webutil.getWebprofile().addToMap(advisorMap);
                   }
@@ -188,6 +192,7 @@ public class SessionController implements Serializable
       if (! webutil.getWebprofile().getLocked()) {
          if (origurl == null || (! origurl.equalsIgnoreCase(uri)))
          {
+            System.out.println("Load data for URL:" + uri);
             loadWebProfile(uri);
             loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
          }

@@ -61,33 +61,6 @@ public class MarketingBean implements Serializable
       return Arrays.asList(tmpStatus);
    }
 
-/*
-   @PostConstruct
-   public void init()
-   {
-      Long logonid;
-      try
-      {
-         if (webutil.validatePriviledge("SALES")) {
-            logonid = webutil.getLogonid();
-
-            if (logonid != null)
-            {
-               if (fetchedDataList == null || fetchedDataList.size() == 0) {
-                  collectData();
-                  filterData();
-               }
-            }
-
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-*/
-
 
    public void collectData()
    {

@@ -2,7 +2,6 @@ package com.invessence.web.bean.consumer.invessence;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -988,24 +987,6 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
    public void setrTab(Integer rTab)
    {
       this.rTab = rTab;
-   }
-
-   @PostConstruct
-   public void init()
-   {
-      try
-      {
-         // Since this is used by both try and Actual, we'll handle the add/save in SaveProfile function...
-         // getWebutil().validatePriviledge(Const.ROLE_OWNER);
-         whichChart = "pie";
-         pTab = 0;
-         rTab = 0;
-         mTab = 0;
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
    }
 
    public void onPTabChange(TabChangeEvent event)

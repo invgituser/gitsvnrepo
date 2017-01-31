@@ -2,7 +2,6 @@ package com.invessence.web.bean.advisor;
 
 import java.io.*;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -118,19 +117,6 @@ public class AdvisorBean extends AdvisorData implements Serializable
       catch (Exception e)
       {
          resetAdvisorBean();
-      }
-   }
-
-   @PostConstruct
-   public void init()
-   {
-      try
-      {
-         webutil.validatePriviledge(WebConst.ROLE_ADVISOR);
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
       }
    }
 

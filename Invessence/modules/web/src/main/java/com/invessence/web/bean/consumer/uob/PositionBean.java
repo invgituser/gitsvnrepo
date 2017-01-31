@@ -70,22 +70,6 @@ public class PositionBean implements Serializable
       }
    }
 
-/*
-   @PostConstruct
-   public void init()
-   {
-      String userName;
-      try
-      {
-         webutil.validatePriviledge(null);
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-*/
-
    public void setPositionDAO(PositionDAO positionDAO)
    {
       this.positionDAO = positionDAO;

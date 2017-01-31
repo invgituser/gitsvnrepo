@@ -2,7 +2,6 @@ package com.invessence.web.bean.common;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -44,19 +43,6 @@ public class SurveyBean extends SurveyData implements Serializable
    public void setWebMessage(WebMessage webMessage)
    {
       this.webMessage = webMessage;
-   }
-
-   @PostConstruct
-   public void init()
-   {
-      try
-      {
-         passwrdMap = surveyDAO.getPasswords("DyMynd");
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
    }
 
    public String getPassword(Integer passwrdID) {

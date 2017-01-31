@@ -2,7 +2,6 @@ package com.invessence.web.bean.common;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -64,20 +63,6 @@ public class PositionBean implements Serializable
       catch (Exception e)
       {
          webutil.redirect("/access-denied.xhtml", null);
-      }
-   }
-
-   @PostConstruct
-   public void init()
-   {
-      String userName;
-      try
-      {
-         webutil.validatePriviledge(null);
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
       }
    }
 

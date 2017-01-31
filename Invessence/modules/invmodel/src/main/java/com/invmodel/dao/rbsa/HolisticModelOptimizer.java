@@ -83,7 +83,7 @@ public class HolisticModelOptimizer
    public void loadAllPrimeAssetMap(ArrayList<PrimeAssetClassData> plist) {
         allPrimeAssetMap.clear();
         for (PrimeAssetClassData pacd : plist) {
-           allPrimeAssetMap.put(pacd.getPrimeAssetName(), pacd);
+           allPrimeAssetMap.put(pacd.getTicker(), pacd);
         }
    }
 
@@ -143,11 +143,9 @@ public class HolisticModelOptimizer
          while (resultSet.next())
          {
             String ticker = resultSet.getString("ticker");
-            String primeAssetClass = resultSet.getString("primeassetclass");
             PrimeAssetClassData pacd = new PrimeAssetClassData(resultSet.getString("theme"),
-                                                               primeAssetClass,
-                                                               resultSet.getString("indexfund"),
                                                                resultSet.getString("assetclass"),
+                                                               resultSet.getString("indexfund"),
                                                                resultSet.getDouble("expectedReturn"),
                                                                resultSet.getDouble("upperBound"),
                                                                resultSet.getDouble("lowerBound"),
@@ -166,11 +164,11 @@ public class HolisticModelOptimizer
                if (! holisticdataMap.containsKey(ticker))
                {
                   HolisticData holisticData = new HolisticData();
-                  holisticData.getPrimeassets().put(primeAssetClass, pacd);
+                  holisticData.getPrimeassets().put(ticker, pacd);
                   holisticdataMap.put(ticker, holisticData);
                }
                else
-                  holisticdataMap.get(ticker).getPrimeassets().put(primeAssetClass, pacd);
+                  holisticdataMap.get(ticker).getPrimeassets().put(ticker, pacd);
             //}
          }
       }
@@ -229,12 +227,10 @@ public class HolisticModelOptimizer
          while (resultSet.next())
          {
             String ticker = resultSet.getString("ticker");
-            String primeAssetClass = resultSet.getString("primeassetclass");
 
             PrimeAssetClassData pacd = new PrimeAssetClassData(defaultTheme,
-                                                               primeAssetClass,
-                                                               "",
                                                                "Unused",
+                                                               ticker,
                                                                0.0,
                                                                0.0,
                                                                0.0,
@@ -255,7 +251,7 @@ public class HolisticModelOptimizer
                if (! holisticdataMap.containsKey(ticker))
                {
                   HolisticData holisticData = new HolisticData();
-                  holisticData.getPrimeassets().put(primeAssetClass, pacd);
+                  holisticData.getPrimeassets().put(ticker, pacd);
                   holisticdataMap.put(ticker, holisticData);
                }
             //}
@@ -499,7 +495,6 @@ public class HolisticModelOptimizer
                   PrimeAssetClassData pAsst = holisticdataMap.get(fTicker).getPrimeassets().get(pAsstName);
                   double expRet = pAsst.getExpectedReturn();
                   double wgt = pAsst.getWeight();
-                  String pAsset =  pAsst.getPrimeAssetName();
 
                   if (fTicker.length() > 4) {  // Currently hardcoding it for Mutual Fund
                      lowerBound[t] = 0.0;

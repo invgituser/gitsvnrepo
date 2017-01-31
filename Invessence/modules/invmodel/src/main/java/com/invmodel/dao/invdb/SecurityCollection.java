@@ -33,7 +33,7 @@ public class SecurityCollection
       themeLoaded = "";
    }
 
-   private String getPrimaryKey(String advisor, String theme, String primeassetclass)
+   private String getKeyByAdvisorThemePrimeAsset(String advisor, String theme, String primeassetclass)
    {
       if (advisor == null || advisor.isEmpty()) {
          advisor = InvConst.INVESSENCE_ADVISOR;
@@ -57,7 +57,7 @@ public class SecurityCollection
 
    }
 
-   private String getSecondaryKey(String advisor, String primeassetclass, String ticker)
+   private String getKeyByAdvisorPrimeasset(String advisor, String primeassetclass)
    {
       if (advisor == null || advisor.isEmpty()) {
          advisor = InvConst.INVESSENCE_ADVISOR;
@@ -70,14 +70,12 @@ public class SecurityCollection
 
       return (advisor.toUpperCase() +
          "." +
-         primeassetclass.toUpperCase() +
-      "." +
-         ticker.toUpperCase()
+         primeassetclass.toUpperCase()
       );
 
    }
 
-   private String getThirdKey(String ticker)
+   private String getKeyByTicker(String ticker)
    {
       if (ticker == null || ticker.isEmpty())
       {
@@ -100,9 +98,9 @@ public class SecurityCollection
       {
          String primaryKey, secondaryKey, thirdKey;
          boolean addData;
-         primaryKey = getPrimaryKey(advisor, theme, primeassetclass);
-         secondaryKey = getSecondaryKey(advisor, primeassetclass, ticker);
-         thirdKey = getThirdKey(ticker);
+         primaryKey = getKeyByAdvisorThemePrimeAsset(advisor, theme, primeassetclass);
+         secondaryKey = getKeyByAdvisorPrimeasset(advisor, primeassetclass);
+         thirdKey = getKeyByTicker(ticker);
          SecurityData security = new SecurityData(advisor, theme, ticker, name,
                                                   assetname, primeassetclass,  type, style,
                                                   dailyprice, sortorder, rbsaweight,
@@ -391,7 +389,7 @@ public class SecurityCollection
       String key;
       try
       {
-         key = getPrimaryKey(advisor, theme, primeassetclass);
+         key = getKeyByAdvisorThemePrimeAsset(advisor, theme, primeassetclass);
          return seclistByKeyMap.get(key);
       }
       catch (Exception e)
@@ -410,7 +408,7 @@ public class SecurityCollection
       read.lock();
       try
       {
-         String key = getThirdKey(ticker);
+         String key = getKeyByTicker(ticker);
          return listofOrderedSecurity.get(key);
       }
       catch (Exception e)
@@ -424,12 +422,12 @@ public class SecurityCollection
       return null;
    }
 
-   public SecurityData getSecurity(String advisor, String primeassetclass, String ticker)
+   public SecurityData getSecurity(String advisor, String primeassetclass)
    {
       read.lock();
       try
       {
-         String key = getSecondaryKey(advisor, primeassetclass, ticker);
+         String key = getKeyByAdvisorPrimeasset(advisor, primeassetclass);
          return listbyAdvisorPrimeassetMap.get(key);
       }
       catch (Exception e)

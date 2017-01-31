@@ -541,18 +541,6 @@
          </properties>
       </profile>
       <profile>
-         <id>3P3-EXT-VCM-PROD</id>
-         <properties>
-            <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>
-            <jdbc.url>jdbc:mysql://vcm.invessence.com:3306/invdb?noAccessToProcedureBodies=true</jdbc.url>
-            <rbsa.url>jdbc:mysql://vcm.invessence.com:3306/rbsa?noAccessToProcedureBodies=true</rbsa.url>
-            <service.url>jdbc:mysql://vcm.invessence.com:3306/service?noAccessToProcedureBodies=true</service.url>
-            <temp.url>jdbc:mysql://vcm.invessence.com:3306/temp?noAccessToProcedureBodies=true</temp.url>
-            <jdbc.username>webuser</jdbc.username>
-            <jdbc.password>inv3ss3nc3u530n1y</jdbc.password>
-         </properties>
-      </profile>
-      <profile>
          <id>3P3-EXT-TCM-PROD</id>
          <properties>
             <jdbc.driverClassName>com.mysql.jdbc.Driver</jdbc.driverClassName>

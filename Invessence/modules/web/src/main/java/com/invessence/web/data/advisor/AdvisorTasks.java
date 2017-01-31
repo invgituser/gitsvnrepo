@@ -1,7 +1,6 @@
 package com.invessence.web.data.advisor;
 
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -21,17 +20,6 @@ public class AdvisorTasks
    private ScheduleModel eventModel;
 
    private ScheduleEvent event = new DefaultScheduleEvent();
-
-   @PostConstruct
-   public void init() {
-      eventModel = new DefaultScheduleModel();
-/*
-      eventModel.addEvent(new DefaultScheduleEvent("Champions League Match", previousDay8Pm(), previousDay11Pm()));
-      eventModel.addEvent(new DefaultScheduleEvent("Birthday Party", today1Pm(), today6Pm()));
-      eventModel.addEvent(new DefaultScheduleEvent("Breakfast at Tiffanys", nextDay9Am(), nextDay11Am()));
-      eventModel.addEvent(new DefaultScheduleEvent("Plant the new garden stuff", theDayAfter3Pm(), fourDaysLater3pm()));
-*/
-   }
 
    public Date getRandomDate(Date base) {
       Calendar date = Calendar.getInstance();

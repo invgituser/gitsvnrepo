@@ -80,28 +80,6 @@ public class ConsumerDashBean implements Serializable
       }
    }
 
-/*
-   @PostConstruct
-   public void init()
-   {
-      Long logonid;
-      String fetchStatus;
-      try
-      {
-         if (webutil.validatePriviledge(Const.ROLE_USER)) {
-            logonid = webutil.getLogonid();
-
-            if (logonid != null)
-               collectData(logonid);
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-*/
-
    public String getLoggedUserName() {
       return webutil.getLastFirstName();
    }

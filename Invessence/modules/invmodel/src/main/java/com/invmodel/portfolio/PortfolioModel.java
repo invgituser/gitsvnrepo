@@ -655,7 +655,7 @@ public class PortfolioModel
             double price = 0.0;
             for (PrimeAssetClassData pacd : hoptimizer.getHolisticdataMap().get(ticker).getPrimeassets().values())
             {
-               sd = secCollection.getSecurity(advisor, pacd.getPrimeAssetName(), ticker);
+               sd = secCollection.getSecurity(theme, pacd.getTicker());
                if (sd == null)
                {
                   sd = secCollection.getSecurity(ticker);
@@ -672,7 +672,7 @@ public class PortfolioModel
                      money = shares * price;
                      if (shares > 0 && money > 0.0)
                      {
-                        String assetname = pacd.getAssetclass();
+                        String assetname = sd.getAssetclass();
                         AssetData assetdata = portfolioOptimizer.getAssetData(theme, assetname);
                         if (!assetClass.getAssetclass().containsKey(assetname))
                         {

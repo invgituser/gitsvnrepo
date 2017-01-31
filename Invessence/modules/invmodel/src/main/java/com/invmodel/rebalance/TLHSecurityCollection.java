@@ -26,7 +26,6 @@ public class TLHSecurityCollection
    private TLHSecurityCollection()
    {
       super();
-      refreshDataFromDB();
    }
 
 

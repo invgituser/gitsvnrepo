@@ -34,24 +34,6 @@ public class AdminBean extends AdminData implements Serializable
       this.adminDAO = adminDAO;
    }
 
-/*
-   @PostConstruct
-   public void init()
-   {
-      Long logonid;
-      try
-      {
-         if (webutil.validatePriviledge("ADMIN")) {
-            collectData();
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
-   }
-*/
-
    private void collectData()
    {
       String IBfilter = "All";

@@ -2,7 +2,6 @@ package com.invessence.web.bean.consumer;
 
 import java.io.Serializable;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
@@ -114,23 +113,6 @@ public class ConsumerManageBean implements Serializable
       }
       catch (Exception e)
       {
-      }
-   }
-
-   @PostConstruct
-   public void init()
-   {
-      Long logonid;
-      String fetchStatus;
-      try
-      {
-         if (webutil.validatePriviledge(WebConst.ROLE_USER)) {
-            logonid = webutil.getLogonid();
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
       }
    }
 

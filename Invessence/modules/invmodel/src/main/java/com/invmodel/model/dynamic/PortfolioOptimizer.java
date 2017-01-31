@@ -216,12 +216,12 @@ public class PortfolioOptimizer
       return primeassetdata;
    }
 
-   public PrimeAssetClassData getPrimeAssetData(String theme, String assetname, String primeassetclass) {
+   public PrimeAssetClassData getPrimeAssetData(String theme, String assetname, String ticker) {
       read.lock();
       try
       {
          String key = buildAssetKey(theme,assetname);
-         return assetDataMap.get(key).getPrimeAssetData(primeassetclass);
+         return assetDataMap.get(key).getPrimeAssetData(ticker);
       }
       catch (Exception ex) {
 
@@ -349,9 +349,8 @@ public class PortfolioOptimizer
       }
    }
 
-   private void setSecurityData(String theme, String primeassetname,
-                               String ticker,
-                               String assetname, String subassetname, String type, String style,
+   private void setSecurityData(String theme, String ticker,
+                               String assetname,
                                double expenseRatio, double adv3Month,
                                double aum, double beta, double riskSTD,
                                double expectedReturn,
@@ -360,11 +359,11 @@ public class PortfolioOptimizer
          String key = buildAssetKey(theme,assetname);
          if (! key.contains("DISCARD"))  {
             PrimeAssetClassData primeassetdata = new PrimeAssetClassData
-               (theme, primeassetname, ticker, assetname, subassetname,
-                type, style, expenseRatio, adv3Month, aum, beta,
+               (theme, assetname, ticker,
+                expenseRatio, adv3Month, aum, beta,
                 riskSTD, expectedReturn, ubConstraint, lbConstraint, yield, sortorder);
 
-            assetDataMap.get(key).addPrimeAsset(primeassetname, primeassetdata);
+            assetDataMap.get(key).addPrimeAsset(ticker, primeassetdata);
          }
       }
       catch (Exception ex) {
@@ -388,11 +387,6 @@ public class PortfolioOptimizer
          s = connection.createStatement();
          s.executeQuery("SELECT theme,\n" +
                            "    assetclass,\n" +
-                           "    subclass,\n" +
-                           "    primeassetclass,\n" +
-                           "    type,\n" +
-                           "    style,\n" +
-                           "    sortorder,\n" +
                            "    ticker,\n" +
                            "    status,\n" +
                            "    lowerBound,\n" +
@@ -418,12 +412,8 @@ public class PortfolioOptimizer
          {
             setSecurityData(
                rs.getString("theme"), // String groupname
-               rs.getString("primeassetclass"), // String theme
                rs.getString("ticker"), // String ticker
                rs.getString("assetclass"),  // String asset type
-               rs.getString("subclass"), // String asset subtype , was "subclass" - changed to "subtype" JAV 1/2/2014
-               rs.getString("type"),  // String type
-               rs.getString("style"),  // String style
                rs.getDouble("expenseRatio"),  // double expenseRatio
                rs.getDouble("adv3months"), // double adv3Month
                rs.getDouble("aum"),          // double aum

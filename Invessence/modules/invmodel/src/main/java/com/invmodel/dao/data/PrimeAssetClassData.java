@@ -12,12 +12,8 @@ import java.util.*;
 public class PrimeAssetClassData
 {
    private String theme;
-   private String primeAssetName;
-   private String ticker = "";
    private String assetclass = "";
-   private String subassetclass = "";
-   private String type = "";
-   private String style;
+   private String ticker = "";
    private double expenseRatio = 0.0;
    private double adv3Month = 0.0;
    private double aum = 0.0;
@@ -31,15 +27,13 @@ public class PrimeAssetClassData
    private double weight;
    private double rbsaweight;
 
-   public PrimeAssetClassData(String theme, String primeAssetName, String ticker, String assetclass, String subassetclass, String type, String style, double expenseRatio, double adv3Month, double aum, double beta, double riskSTD, double expectedReturn, double ubConstraint, double lbConstraint, double yield, int sortorder)
+   public PrimeAssetClassData(String theme, String assetclass, String ticker,
+                              double expenseRatio, double adv3Month, double aum, double beta,
+                              double riskSTD, double expectedReturn, double ubConstraint, double lbConstraint, double yield, int sortorder)
    {
       this.theme = theme;
-      this.primeAssetName = primeAssetName;
-      this.ticker = ticker;
       this.assetclass = assetclass;
-      this.subassetclass = subassetclass;
-      this.type = type;
-      this.style = style;
+      this.ticker = ticker;
       this.expenseRatio = expenseRatio;
       this.adv3Month = adv3Month;
       this.aum = aum;
@@ -52,20 +46,18 @@ public class PrimeAssetClassData
       this.sortorder = sortorder;
    }
 
-   public PrimeAssetClassData(String primeAssetName)
+   public PrimeAssetClassData(String ticker)
    {
-      this.primeAssetName = checkPrimeName(primeAssetName);
+      this.ticker = checkPrimeName(ticker);
    }
 
-   public PrimeAssetClassData(String theme, String primeAssetName,
-                              String ticker, String assetclass,
+   public PrimeAssetClassData(String theme, String assetclass, String ticker,
                               double expectedReturn, double ubConstraint, double lbConstraint,
                               double yield, int sortorder, double weight)
    {
       this.theme = theme;
-      this.primeAssetName = primeAssetName;
-      this.ticker = ticker;
       this.assetclass = assetclass;
+      this.ticker = ticker;
       this.expectedReturn = expectedReturn;
       this.ubConstraint = ubConstraint;
       this.lbConstraint = lbConstraint;
@@ -92,21 +84,6 @@ public class PrimeAssetClassData
       this.theme = theme;
    }
 
-   public String getPrimeAssetName()
-   {
-      return primeAssetName;
-   }
-
-   public String getTicker()
-   {
-      return ticker;
-   }
-
-   public void setTicker(String ticker)
-   {
-      this.ticker = ticker;
-   }
-
    public String getAssetclass()
    {
       return assetclass;
@@ -117,34 +94,14 @@ public class PrimeAssetClassData
       this.assetclass = assetclass;
    }
 
-   public String getSubassetclass()
+   public String getTicker()
    {
-      return subassetclass;
+      return ticker;
    }
 
-   public void setSubassetclass(String subassetclass)
+   public void setTicker(String ticker)
    {
-      this.subassetclass = subassetclass;
-   }
-
-   public String getType()
-   {
-      return type;
-   }
-
-   public void setType(String type)
-   {
-      this.type = type;
-   }
-
-   public String getStyle()
-   {
-      return style;
-   }
-
-   public void setStyle(String style)
-   {
-      this.style = style;
+      this.ticker = ticker;
    }
 
    public double getExpenseRatio()

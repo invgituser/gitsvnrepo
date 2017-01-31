@@ -78,7 +78,7 @@ public class TestDistribution
       //profileData.setAdvisor("PrimeAsset");
       //profileData.setTheme("0.Income");
       profileData.setAdvisor("UOB");
-      profileData.setTheme("0.UOB");
+      profileData.setTheme("0.SGWealth");
       profileData.setAccountTaxable(false);
 
       profileData.setAge(40);

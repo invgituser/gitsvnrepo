@@ -1,6 +1,5 @@
 package com.invessence.web.bean.common;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -77,19 +76,6 @@ public class ProfileBean
       }
       catch (Exception e)
       {
-      }
-   }
-
-   @PostConstruct
-   public void init()
-   {
-      try
-      {
-         webutil.validatePriviledge(null);
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
       }
    }
 

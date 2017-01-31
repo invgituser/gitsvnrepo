@@ -3,7 +3,6 @@ package com.invessence.web.bean.consumer.uob;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
@@ -171,22 +170,6 @@ public class TradeBean extends TradeClientData implements Serializable
    public void setSelectedTradeSummary(TradeSummary selectedTradeSummary)
    {
       this.selectedTradeSummary = selectedTradeSummary;
-   }
-
-   @PostConstruct
-   public void init()
-   {
-      Long logonid;
-      try
-      {
-         if (webutil.validatePriviledge("ADMIN")) {
-            collectTradeInfo();
-         }
-      }
-      catch (Exception e)
-      {
-         e.printStackTrace();
-      }
    }
 
    private void showGrowl(String msg, String msgType) {
