@@ -180,12 +180,19 @@ AND sm.service = scd.service
 and  sm.status='A' order by scd.company, scd.service, scd.vendor, scd.mode;
 
 
+INSERT INTO `invdb`.`aggr_user_logon` (`logonid`, `userid`, `pwd`, `email`, `status`, `created`, `createdby`) VALUES ('11', 'INV-11', 'XXXX', 'demo@invessence.com', 'A', '2016-12-21 12:09:21', '11');
 
 
 
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'ACCEPT', 'application/vnd.moneydesktop.sso.v3+json', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'CLIENT_ID', 'invessence', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'CONTENT_TYPE', 'application/vnd.moneydesktop.sso.v3+json', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'MAST_WIDGET_URL', '/users/$$USER_ID$$/urls/master_widget', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'MDX_REAL_TIME_API', 'https://live.moneydesktop.com/$$CLIENT_ID$$', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'MD_API_KEY', '5c0cb51c90709f10b78b7b279ac54803e890fe2a', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'MOB_MAST_WIDGET_URL', '/users/$$USER_ID$$/urls/mobile_master_widget', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'SSO_API_URI', 'https://sso.moneydesktop.com/$$CLIENT_ID$$', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'AGGREGATION-SERVICES', 'MX', 'USER_REGISTER_URL', '/users', 'N');
 
-INSERT INTO `invdb`.`aggr_user_logon` (`logonid`, `userid`, `pwd`, `email`, `status`, `created`, `createdby`) VALUES ('10', 'INV-10', 'XXXX', 'mobile@invessence.com', 'A', '2016-12-27 05:58:41', '10');
-INSERT INTO `invdb`.`aggr_user_logon` (`logonid`, `userid`, `pwd`, `email`, `status`, `created`, `createdby`) VALUES ('11', 'INV-DEMO', 'XXXX', 'demo@invessence.com', 'A', '2016-12-21 12:09:21', '11');
-INSERT INTO `invdb`.`aggr_user_logon` (`logonid`, `userid`, `pwd`, `email`, `status`, `created`, `createdby`) VALUES ('12', 'INV-12', 'XXXX', 'support@invessence.com', 'A', '2016-12-22 09:15:31', '12');
 
 
