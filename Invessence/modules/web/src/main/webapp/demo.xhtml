@@ -6,28 +6,25 @@
                 template="/template/common/simple.xhtml">
 
     <ui:define name="content">
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('#invdemo').click(function(){
-            $("#invdemo").addClass("selectClientInvSelected");
-            $("#bbdemo, #ubodemo").removeClass("selectClientInvSelected");
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#invdemo').click(function(){
+                $("#invdemo").addClass("selectClientInvSelected");
+                $("#bbdemo, #ubodemo").removeClass("selectClientInvSelected");
+            });
+            $('#bbdemo').click(function(){
+                $("#bbdemo").addClass("selectClientInvSelected");
+                $("#invdemo, #ubodemo").removeClass("selectClientInvSelected");
+            });
+            $('#ubodemo').click(function(){
+                $("#ubodemo").addClass("selectClientInvSelected");
+                $("#bbdemo, #invdemo").removeClass("selectClientInvSelected");
+            });
         });
-        $('#bbdemo').click(function(){
-            $("#bbdemo").addClass("selectClientInvSelected");
-            $("#invdemo, #ubodemo").removeClass("selectClientInvSelected");
-        });
-        $('#ubodemo').click(function(){
-            $("#ubodemo").addClass("selectClientInvSelected");
-            $("#bbdemo, #invdemo").removeClass("selectClientInvSelected");
-        });
-    });
 
-</script>
+    </script>
 
-
-
-
-        <div id="layout-portlets-cover">
+       <div id="layout-portlets-cover">
             <div class="EmptyBox50"></div>
             <div class="other-pages-box Container40 Responsive50 MarAuto Fnone TexAlCenter ShadowGray MarTop10"
                  style="margin-top:5%; background-position:center; background-size:cover;">

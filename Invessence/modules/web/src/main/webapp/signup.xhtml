@@ -7,6 +7,7 @@
 
 
     <f:metadata>
+        <f:event listener="#{sessionControl.preRenderView}" type="preRenderView"/>
         <f:viewParam name="a" value="#{userBean.action}"/>
         <f:viewParam name="l" value="#{userBean.beanLogonID}"/>
         <f:viewParam name="e" value="#{userBean.beanEmail}"/>

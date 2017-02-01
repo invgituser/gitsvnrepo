@@ -5,6 +5,7 @@
                 xmlns:p="http://primefaces.org/ui"
                 template="/template/common/simple.xhtml">
     <f:metadata>
+        <f:event listener="#{sessionControl.preRenderView}" type="preRenderView"/>
         <f:viewParam name="l" value="#{userBean.beanLogonID}"/>
         <f:viewParam name="e" value="#{userBean.beanEmail}"/>
         <f:viewParam name="r" value="#{userBean.beanResetID}"/>
