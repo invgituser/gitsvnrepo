@@ -54,7 +54,7 @@
   background-color: transparent !important
 }
 
-.NBwidget {
+.AdvTabNBWidget, .NBwidget {
     border: 0px;
 }
 
@@ -901,11 +901,21 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 	border-radius: 30px 30px 30px 30px!important;
 }
 
-.AdvBtnTcmGrp > div > span,
-.AdvNormalBtn > span {
+.AdvBtnTcmGrp > div > span {
 	border-radius: 30px!important;
-	background: #f5f5f5;
+	background: #f5f5f5!important;
 	color: #607D8B;
+	border: solid 2px #009abb;
+	font-size: 13px;
+}
+
+.AdvNormalBtn > span {
+	background: red!important;
+	color: white;
+	text-shadow: 0 1px rgba(0,0,0,0.1);
+	border: solid 0px #b71c1c!important;
+	background-image: -webkit-linear-gradient(top,red,#b71c1c)!important;
+	border-radius: 30px!important;
 	font-size: 13px;
 }
 
@@ -917,17 +927,21 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 	margin: 10px 5px!important;
 }
 
-.AdvBtnTcmGrp > .ui-state-hover > span,
-.ForBtnNormal > .ui-state-hover > span
-{
+.AdvBtnTcmGrp > .ui-state-hover > span {
 	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
 	background: #f5f5f5!important;
 	color:#607D8B;
 }
-.AdvBtnTcmGrp > .ui-state-active > span,
-.AdvBtnTcmGrp > .ui-state-focus > span,
+
+.ForBtnNormal > .ui-state-hover > span,
 .ForBtnNormal > .ui-state-active > span,
-.ForBtnNormal > .ui-state-focus > span {
+.ForBtnNormal > .ui-state-focus > span
+{
+	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
+}
+
+.AdvBtnTcmGrp > .ui-state-active > span,
+.AdvBtnTcmGrp > .ui-state-focus > span {
 	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
 	background: #009abb!important;
 	color:#f5f5f5;
@@ -1125,9 +1139,119 @@ thead > tr > .multipleSelectionChkList > .ui-chkbox > .ui-chkbox-box {
 
 
 .ui-confirm-dialog .ui-state-hover .ui-button-text,
+.ui-confirm-dialog .ui-state-focus .ui-button-text,
 .ui-confirm-dialog .ui-state-active .ui-button-text
 {
 	background: #009abb!important;
 	color: #FFFFFF;
 	box-shadow: 1px 1px 3px rgba(128, 128, 128, 0.58);
 }
+
+.ui-confirm-dialog .ui-icon-check {
+background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln=invessence")!important;
+}
+
+.ui-confirm-dialog .ui-icon-close {
+	background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln=invessence")!important;
+}
+
+
+.ui-confirm-dialog .ui-state-hover .ui-icon-close, .ui-confirm-dialog .ui-state-focus .ui-icon-close {
+	background-image: url("/javax.faces.resource/images/customwhiteicon.png.xhtml?ln=invessence")!important;
+}
+
+.ui-confirm-dialog .ui-state-hover .ui-icon-check, .ui-confirm-dialog .ui-state-focus .ui-icon-check {
+	background-image: url("/javax.faces.resource/images/customwhiteicon.png.xhtml?ln=invessence")!important;
+}
+
+.editAdvButton {
+	border-radius: 30px!important;
+}
+.editAdvButton > span {
+	background-color: #2196F3!important;
+	border-radius: 30px!important;
+	padding: 5px 20px!important;
+	font-size: 12px;
+	text-shadow: 0 1px rgba(0,0,0,0.1);
+}
+/***Tabs Customized**/
+
+.AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-selected, .AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-active, .AdvTabNBWidget > .ui-tabs-nav > li.ui-state-hover {
+	background-color: #009abb!important;
+	border-radius: 2px 2px 0px 0px;
+	z-index: 1;
+}
+
+.AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-selected::before, .AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-active::before, .AdvTabNBWidget > .ui-tabs-nav > li.ui-state-hover::before,
+.AdvTabNBWidget .ui-tabs-nav li.ui-tabs-selected::after, .AdvTabNBWidget .ui-tabs-nav li.ui-tabs-active::after, .AdvTabNBWidget .ui-tabs-nav li.ui-state-hover::after {
+	border-bottom:28px solid #009abb;
+}
+
+.AdvTabNBWidget > .ui-tabs-nav > li {
+	margin: 0px 10px 1px 0px!important;
+}
+
+@media (min-width: 374px) and (max-width: 411px) {
+	.AdvTabNBWidget > .ui-tabs-nav > li {
+		margin: 0px 5px 1px 0px!important;
+	}
+}
+
+@media (max-width: 373px) {
+	.AdvTabNBWidget > .ui-tabs-nav > li {
+		margin: 0px 2px 1px 0px!important;
+	}
+}
+
+.AdvTabNBWidget > .ui-tabs-nav > li::before, .AdvTabNBWidget > .ui-tabs-nav > li::after {
+	content: '';
+	width: 0;
+	height: 0;
+	border-bottom:28px solid #5abdd2;
+	transition: inherit;
+	position: absolute;
+}
+
+@media (min-width: 366px) and (max-width: 600px) {
+	.AdvTabNBWidget > .ui-tabs-nav > li::before, .AdvTabNBWidget > .ui-tabs-nav > li::after,
+	.AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-selected::before, .AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-active::before, .AdvTabNBWidget > .ui-tabs-nav > li.ui-state-hover::before,
+	.AdvTabNBWidget .ui-tabs-nav li.ui-tabs-selected::after, .AdvTabNBWidget .ui-tabs-nav li.ui-tabs-active::after, .AdvTabNBWidget .ui-tabs-nav li.ui-state-hover::after {
+		border-bottom-width: 24px;
+	}
+}
+
+@media (max-width: 365px) {
+	.AdvTabNBWidget > .ui-tabs-nav > li::before, .AdvTabNBWidget > .ui-tabs-nav > li::after,
+	.AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-selected::before, .AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-active::before, .AdvTabNBWidget > .ui-tabs-nav > li.ui-state-hover::before,
+	.AdvTabNBWidget .ui-tabs-nav li.ui-tabs-selected::after, .AdvTabNBWidget .ui-tabs-nav li.ui-tabs-active::after, .AdvTabNBWidget .ui-tabs-nav li.ui-state-hover::after {
+		border-bottom-width: 22px;
+	}
+}
+
+.AdvTabNBWidget > .ui-tabs-nav > li {
+	border-radius: 2px 2px 0px 0px;
+	background-color: #5abdd2;
+}
+
+.AdvTabNBWidget > .ui-tabs-nav > li::before
+{
+	border-left: 7px solid transparent;
+	left: -8px;
+}
+
+.AdvTabNBWidget > .ui-tabs-nav > li::after {
+	border-right: 7px solid transparent;
+	right: -8px;
+	z-index: 1;
+}
+
+.AdvTabNBWidget > .ui-tabs-nav > li > a {
+	padding: 4px 1em!important;
+}
+
+.AdvTabNBWidget > .ui-tabs-nav {
+	padding: 0.2em 7px 0!important;
+	border-bottom: 3px solid #009abb;
+}
+
+/********************/

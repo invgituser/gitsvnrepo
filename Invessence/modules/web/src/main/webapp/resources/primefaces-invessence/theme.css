@@ -1101,7 +1101,7 @@ hr.ui-widget-header{background-color: #E5EBF0; border-width:0px;}
         .ui-tabs-top .ui-tabs-navscroller .ui-state-disabled{opacity:1; filter: alpha(opacity=100);}
             .ui-tabs-top .ui-tabs-navscroller .ui-state-disabled .ui-icon{opacity:0.4; filter: alpha(opacity=40);}
         
-        .ui-tabs-top .ui-tabs-nav li{border:solid 1px transparent !important; top:1px !important; font-size: 14px;   margin: 0 .2em 1px 0;}
+        .ui-tabs-top .ui-tabs-nav li{border:solid 1px transparent !important; top:1px !important; font-size: 14px; margin: 0 .2em 1px 0;}
             .ui-tabs-top .ui-tabs-nav li .ui-icon-close{background-image:url("#{resource['primefaces-spark:images/delete.svg']}"); background-position: center !important; 
                          background-repeat: no-repeat; background-size: 100%; margin-top: 8px !important;}
             .ui-tabs-top .ui-tabs-nav li.ui-state-hover .ui-icon-close,
@@ -1113,7 +1113,7 @@ hr.ui-widget-header{background-color: #E5EBF0; border-width:0px;}
         .ui-tabs-top .ui-tabs-nav li.ui-state-hover{background-color:#FBFCFD; border: solid 1px #FBFCFD; border-radius:2px;}
         .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected a,
         .ui-tabs-top .ui-tabs-nav li.ui-tabs-active a,
-        .ui-tabs-top .ui-tabs-nav li.ui-state-hover a{color: #5FCF80 !important;}
+        .ui-tabs-top .ui-tabs-nav li.ui-state-hover a{color: #5FCF80;}
     .ui-tabs-top .ui-tabs-panels{ background-color:transparent; margin:-1px 0px 3px 0px; border: solid 1px #FBFCFD; color: #778D9B; background-image: none !important;}
     .ui-tabs-panels{font-size:15px;}
         .ui-tabs-top .ui-tabs-panels .ui-ribbon-groups{background-color:transparent; background: none; filter:none !important;}
@@ -1279,8 +1279,8 @@ border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
 /*Style For Button ------------------------------------------------------------------------------------- */
 
 .ui-button{outline: none; margin:0px 1px 1px 0px;}
-.ui-button-text-only .ui-button-text{padding: 8px 20px 8px 20px !important;}
-.ui-button-text{padding: 8px 20px 8px 40px !important; font-size: 14px; font-family: 'ralewaysemibold'; color:#F1F6F9; text-shadow:none; position:relative; z-index:100; border:solid 2px transparent;
+.ui-button-text-only .ui-button-text{padding: 8px 20px 8px 20px!important;}
+.ui-button-text{padding: 8px 20px 8px 40px!important; font-size: 14px; font-family: 'ralewaysemibold'; color:#F1F6F9; text-shadow:none; position:relative; z-index:100; border:solid 2px transparent;
 				border-radius:2px !important; -webkit-border-radius:2px !important; -moz-border-radius:2px !important; background-color:#5fcf80;
                 -webkit-transition: all 0.3s ease; -moz-transition: all 0.3s ease; -ms-transition: all 0.3s ease; -o-transition: all 0.3s ease; transition: all 0.3s ease;}
 .ui-button.ui-state-active .ui-button-text, .ui-buttonset .ui-state-active .ui-button-text{background-color:#3AB35D;}
