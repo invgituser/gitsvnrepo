@@ -1,6 +1,6 @@
-update `service`.`dc_template_details` set status='I' where tempCode='BB_TCM_ADV_2AB';
-update `service`.`dc_template_details` set status='I' where tempCode='BB_TCM_ADV_AGREE';
-update `service`.`dc_template_details` set status='I' where tempCode='BB_TCM_PRIVACY_NOTICE';
+update `service`.`dc_template_details` set status='I' where tempCode='BB_TCM_ADV_2AB'  and mode ='PROD' and company='BUILDINGBENJAMINS' and  service ='DOCUSIGN-SERVICES' ;
+update `service`.`dc_template_details` set status='I' where tempCode='BB_TCM_ADV_AGREE'  and mode ='PROD' and company='BUILDINGBENJAMINS' and  service ='DOCUSIGN-SERVICES' ;
+update `service`.`dc_template_details` set status='I' where tempCode='BB_TCM_PRIVACY_NOTICE'  and mode ='PROD' and company='BUILDINGBENJAMINS' and  service ='DOCUSIGN-SERVICES' ;
 
 
 
