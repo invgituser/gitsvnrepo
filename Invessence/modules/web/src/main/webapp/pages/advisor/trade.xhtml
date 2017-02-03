@@ -12,30 +12,40 @@
 
 <ui:define name="content">
 
-<div class="layout-portlets-box">
+<div class="layout-portlets-box backgroundAdvPortlets">
 <div class="Container100">
 <h:form id="tradeForm">
+
 <p:growl id="growltrademsg" closable="true" style="top: 25%"/>
+
 <p:tabView cache="true" dynamic="true" styleClass="AdvTabNBWidget">
-<p:tab title="Select">
+<p:tab title="Trade">
     <p:panelGrid id="rebalgrid2" styleClass="invNBgrid">
-        <p:row>
-            <p:column colspan="6">
-                <h:outputText value="Hide:"/>
-                <p:selectManyButton styleClass="MarLeft10" value="#{tradeBean.selectedFilterOptions}">
-                    <f:selectItem itemLabel="View" itemValue="V"/>
-                    <f:selectItem itemLabel="Date" itemValue="D"/>
-                    <f:selectItem itemLabel="Variance" itemValue="O"/>
-                    <f:selectItem itemLabel="New" itemValue="N"/>
-                </p:selectManyButton>
-                <p:commandButton styleClass="MarLeft20" value="Refresh"
+        <div class="Container100">
+            <div class="Fleft filterMBBlock">
+                <p:menuButton value="Options" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
+
+                    <p:menuitem value="View" itemValue="V" />
+                    <p:menuitem value="Date" itemValue="D"/>
+                    <p:menuitem value="Variance" itemValue="O"/>
+                    <p:menuitem value="New" itemValue="N"/>
+                </p:menuButton>
+            </div>
+
+            <div class="Fright" style="margin-top: 9px;">
+                <p:commandButton styleClass="advButton" value="Rebalance"
                                  process="@form" update="dataGrid"
                                  actionListener="#{tradeBean.refreshTradeClient}"/>
-                <p:commandButton value="Reload"
+                <p:commandButton styleClass="advButton" value="Reload"
                                  process="@form" update="rebalgrid2"
                                  actionListener="#{tradeBean.reloadTradeClient}"/>
-            </p:column>
-        </p:row>
+
+            </div>
+        </div>
+        <div style="">
+                <p:selectManyButton styleClass="MarLeft10" value="#{tradeBean.selectedFilterOptions}">
+                </p:selectManyButton>
+        </div>
     </p:panelGrid>
     <p:dataTable id="dataGrid" var="filteredData" value="#{tradeBean.filteredClientList}"
                  border="1" styleClass="AdvisorGridtcmLayout"
@@ -44,14 +54,7 @@
                  rowKey="#{filteredData.acctnum}"
                  selection="#{tradeBean.selectedClientList}">
         <f:facet name="header" style="text-align: left;">
-            <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
-                <p:commandButton update="@form" ajax="true" value="Delete"
-                                 actionListener="#{manageAdvisorBean.doDelete()}" styleClass="AdvNormalBtn">
-                    <p:confirm header="Confirmation" message="Do you want to delete these accounts?" icon="ui-icon-alert" >
 
-                    </p:confirm>
-                </p:commandButton>
-            </div>
         </f:facet>
 
         <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="width:50px;text-align:center" resizable="true"/>
@@ -67,7 +70,7 @@
             </p:commandButton>
         </p:column>
 
-        <p:column headerText="InvAcc#" styleClass="AdvtcmLayoutColumn" style="" resizable="true"
+        <p:column headerText="InvAcc#" styleClass="AdvtcmLayoutColumn" resizable="true"
                   sortBy="#{filteredData.acctnum}">
             #{filteredData.acctnum}
         </p:column>
@@ -136,9 +139,8 @@
                    </p:commandButton>
                </p:column>
         -->
-
         <f:facet name="footer">
-            <p:commandButton id="rebalBtn" value="Rebalance"
+            <p:commandButton id="rebalBtn" styleClass="advButton" value="Rebalance"
                              update="@form" ajax="true"
                              actionListener="#{tradeBean.createtlhTrades}">
             </p:commandButton>
@@ -148,34 +150,41 @@
 </p:tab>
 <p:tab title="Review">
     <p:panelGrid id="validategrid2" styleClass="invNBgrid">
-        <p:row>
-            <p:column colspan="5">
+        <div class="Container100">
+
+            <div class="Fright" style="margin-top: 9px;">
                 <p:commandButton id="reviewBtn" value="Load Trades"
+                                 styleClass="advButton"
                                  process="@form" update="tradeTable"
                                  actionListener="#{tradeBean.collectTradeSummary}"/>
-            </p:column>
-        </p:row>
+                <p:commandButton styleClass="advButton" value="Download"/>
+            </div>
+        </div>
     </p:panelGrid>
 
     <p:dataTable id="tradeTable" var="trade" value="#{tradeBean.tradeSummary}"
-                 border="2" styleClass="invAdminTable"
+                 border="1" styleClass="AdvisorGridtcmLayout"
+                 sortMode="multiple"
+                 reflow="true"
+                 rowKey="#{filteredData.acctnum}"
+                 selection="#{tradeBean.selectedClientList}"
                  sortBy="#{trade.clientAccountID}">
-
-        <p:column style="width:5%;text-align: center">
+        <p:column selectionMode="multiple" styleClass="multipleSelectionChkList" style="width:50px;text-align:center" resizable="true"/>
+        <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
             <p:commandButton update=":tradeForm:reviewDetailView" oncomplete="PF('reviewDetailDialog').show()" icon="ui-icon-search"
                              title="View">
                 <f:setPropertyActionListener value="#{trade}" target="#{tradeBean.selectedTradeSummary}"/>
             </p:commandButton>
         </p:column>
 
-        <p:column style="width:7%;text-align: left" resizable="true">
+        <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
             <f:facet name="header">
                 <h:outputText value="ClientID"/>
             </f:facet>
             <h:outputText value="#{trade.clientAccountID}"/>
         </p:column>
 
-        <p:column style="width:5%; text-align: left" resizable="true">
+        <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
             <f:facet name="header">
                 <h:outputText value="Acct#"/>
             </f:facet>
@@ -183,8 +192,7 @@
             </h:outputText>
         </p:column>
 
-        <p:column
-                style="width:15%; text-align: left;" resizable="true">
+        <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
             <f:facet name="header">
                 <h:outputText value="Name"/>
             </f:facet>
@@ -245,7 +253,7 @@
         </p:column>
     </p:dataTable>
 </p:tab>
-<p:tab title="Download">
+<!--<p:tab title="Download">
     <p:panelGrid id="rebalgrid3" styleClass="invNBgrid">
         <p:row>
             <p:column colspan="5">
@@ -284,7 +292,7 @@
         </p:row>
     </p:panelGrid>
 
-</p:tab>
+</p:tab>-->
 
 </p:tabView>
 

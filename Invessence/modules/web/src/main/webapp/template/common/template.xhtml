@@ -13,6 +13,7 @@
     <f:facet name="first">
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
         <meta name="apple-mobile-web-app-capable" content="yes"/>
     </f:facet>
@@ -30,7 +31,7 @@
     <ui:include src="#{uiLayout.templateDIR}/layout.xhtml"/>
 
     <ui:fragment rendered="#{uiLayout.webProfile.hasCustomcss}">
-        <h:outputStylesheet name="#{uiLayout.webProfile.customcss}" library="#{uiLayout.webProfile.cssdir}"/>
+        <h:outputStylesheet name="#{uiLayout.webProfile.customcss}" library="#{uiLayout.webProfile.cssdir}"      />
     </ui:fragment>
     <ui:fragment rendered="#{uiLayout.webProfile.hasGoogleAnalytic}">
         <h:outputScript name="#{uiLayout.webProfile.googleAnalytic}"
