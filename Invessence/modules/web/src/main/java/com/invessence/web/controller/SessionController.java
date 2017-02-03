@@ -62,7 +62,7 @@ public class SessionController implements Serializable
    {
       if (!FacesContext.getCurrentInstance().isPostback())
       {
-         System.out.println("Inside Session Prerender");
+         // System.out.println("Inside Session Prerender");
          resetCIDByURL(null);  // This method, will find the URL if not defined.
       }
    }

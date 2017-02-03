@@ -142,12 +142,8 @@ public class UOBRiskCalculator extends RiskCalculator
             calcRisk = (calcRisk < 0.0) ? 0.0 : calcRisk;
             calcRisk = (calcRisk > 99.0) ? 99.0 : calcRisk;
             setTotalRisk(100.0 - calcRisk);
-            return calcRisk;
          }
-         else
-         {
-            return totalRisk;
-         }
+         return totalRisk;
       }
       catch (Exception ex)
       {

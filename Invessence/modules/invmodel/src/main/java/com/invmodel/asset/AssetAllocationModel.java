@@ -132,12 +132,15 @@ public class AssetAllocationModel
             // offset = InvConst.ASSET_INTERPOLATION - offset;
             offset = (offset > InvConst.ASSET_INTERPOLATION - 1) ? InvConst.ASSET_INTERPOLATION - 1 : offset;
             offset = (offset < 0) ? 0 : offset;
+            if (counter == 0)
+            {
+               pdata.setAllocationIndex(offset);
+            }
             assetclass[counter] = createAssetsByIndex(theme, offset, duration,
                                                       age, stayInvested);
             age++;
             duration--;
             numofAllocation--;
-            offset++;
             counter++;
          }
          return assetclass;
