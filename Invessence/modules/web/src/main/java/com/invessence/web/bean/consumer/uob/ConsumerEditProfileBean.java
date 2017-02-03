@@ -268,7 +268,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    {
       formEdit = true;
       riskCalculator.setRiskFormula("C");
-      setRiskIndex(riskCalculator.calculateRisk());
       createAssetPortfolio(1);
    }
 
@@ -279,7 +278,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          formEdit = true;
          getGoalData().setTerm(getHorizon().doubleValue());
          riskCalculator.setRiskFormula("C");
-         setRiskIndex(riskCalculator.calculateRisk());
          createAssetPortfolio(1);
          // if (getPortfolioData() != null) {
          // charts.createGoalChart(getProjectionData(), getGoalData());
@@ -293,7 +291,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       formEdit = true;
       setAccountType();
       riskCalculator.setRiskFormula("C");
-      setRiskIndex(riskCalculator.calculateRisk());
       loadBasketInfo();
       createAssetPortfolio(1);
    }
@@ -563,7 +560,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
                setTheme(tTheme.substring(2));
             }
          }
-         riskCalculator.calculateRisk();
+         setRiskIndex(riskCalculator.calculateRisk());
          setNumOfAllocation(1);
          setNumOfPortfolio(1);
          buildAssetClass();

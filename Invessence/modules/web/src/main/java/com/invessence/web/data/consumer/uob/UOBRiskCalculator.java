@@ -20,6 +20,7 @@ public class UOBRiskCalculator extends RiskCalculator
           - Each answer has weighted risk.
           - If answers are forrmula, then do all calucations in this calculate method.
     */
+
    private static Double riskValueMatrix[][] = {
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #0 Used as default.
       {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0}, // Question #1 (Corresponds to Age)
@@ -42,14 +43,13 @@ public class UOBRiskCalculator extends RiskCalculator
 
    public UOBRiskCalculator()
    {
-      super();
-      this.numberofQuestions = 1;
-   }
-
-   public UOBRiskCalculator(Integer numberofQuestions)
-   {
-      super();
-      this.numberofQuestions = numberofQuestions;
+      riskValues = new Double[20];
+      answers = new String[20];
+      riskAge = 30;
+      riskHorizon = 20;
+      totalRisk = 0.0;
+      riskFormula = "C";
+      retired = 0;  // same as false;  Need to use 0,1 (because of dropdown on the menu)
    }
 
    public Double calculateRisk()
@@ -81,14 +81,26 @@ public class UOBRiskCalculator extends RiskCalculator
                switch (loop)
                {
                   case 1:
+                     Double maxDuration = 15.0; // This could be a constant
+                     double horPowerAdj = getRiskHorizon() / maxDuration;
+                     if (horPowerAdj > 1.0)
+                     {
+                        horPowerAdj = 1.0;
+                     }
+                     agePowerValue = agePowerValue * horPowerAdj;
+
                      answers[loop] = getRiskAge().toString();
-                     Integer ageValue = (getRiskAge() == null) ? 30 :  getRiskAge() ;
+                     //answers[loop] = getRiskHorizon().toString();
+                     Integer ageValue = (getRiskAge() == null) ? 30 : getRiskAge();
                      calcRisk = Math.pow((ageValue.doubleValue() / maxScore), agePowerValue);
                      calcRisk = Math.min(maxScore * calcRisk, ageWeight * maxScore);
-                     // calcRisk = calcRisk; // Divide Age Risk / 100
+                     calcRisk = (calcRisk > 100) ? 100 : calcRisk;
                      riskValues[loop] = calcRisk; // Store the value in DB
                      break;
                   case 2:
+                     answers[loop] = getRiskHorizon().toString();
+                     break;
+                  /*case 2:
                      answers[loop] = getRiskHorizon().toString();
                      Double calcHorizonRisk = 0.0;
                      Double maxDuration = 25.0; // This could be a constant
@@ -99,22 +111,27 @@ public class UOBRiskCalculator extends RiskCalculator
                         calcRisk = calcHorizonRisk;
                      }
                      break;
-                  case 3: // Addative property  (For question: 3,4,5 - Relative to UI: 1,2,3)
+                     */
+                  case 3:
                   case 4:
                   case 5:
-                     if (answers[loop] != null && ! answers[loop].isEmpty()) {
+
+                     if (answers[loop] != null && !answers[loop].isEmpty())
+                     {
                         Integer lookupindex = converter.getIntData(answers[loop]);
                         value = riskValueMatrix[loop][lookupindex];
                         calcRisk = calcRisk + value;
                         riskValues[loop] = value; // Store the value in DB
                      }
                      break;
-                  default: // Comparative property (For question: 6,7,8,9 - Relative to UI: 4,5,6,7)
-                     if (answers[loop] != null && ! answers[loop].isEmpty()) {
+                  default:
+                     if (answers[loop] != null && !answers[loop].isEmpty())
+                     {
                         Integer lookupindex = converter.getIntData(answers[loop]);
                         value = riskValueMatrix[loop][lookupindex];
                         riskValues[loop] = value; // Store the value in DB
-                        if (value > calcRisk) {
+                        if (value > calcRisk)
+                        {
                            calcRisk = value;
                         }
                      }
@@ -123,8 +140,8 @@ public class UOBRiskCalculator extends RiskCalculator
             }
 
             calcRisk = (calcRisk < 0.0) ? 0.0 : calcRisk;
-            calcRisk = (calcRisk > 100.0) ? 100.0 : calcRisk;
-            setTotalRisk(calcRisk);
+            calcRisk = (calcRisk > 99.0) ? 99.0 : calcRisk;
+            setTotalRisk(100.0 - calcRisk);
             return calcRisk;
          }
          else
@@ -139,7 +156,6 @@ public class UOBRiskCalculator extends RiskCalculator
       }
 
    }
-
 
    @Override
    public void resetAllData()
