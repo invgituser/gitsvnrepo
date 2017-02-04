@@ -340,9 +340,9 @@ public class WebProfile
    public String getSslseal()
    {
       if (webInfo.containsKey("WEB.SSLSEAL") && !webInfo.get("WEB.SSLSEAL").isEmpty())
-         return getInfo("WEB.COPYRIGHT");
+         return getInfo("WEB.SSLSEAL");
       else
-         return getLogo();
+         return null;
    }
 
    public String getEmailTemplate (String key){

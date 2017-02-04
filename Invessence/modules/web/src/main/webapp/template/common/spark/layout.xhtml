@@ -28,7 +28,7 @@
         </ui:insert>
 
         <div class="layout-portlets-box TexAlCenter" style="font-size: 13px;">
-            <ui:fragment rendered="#{webutil.isSecure}">
+            <ui:fragment rendered="#{webutil.hasSSL}">
                 <div class="layout-portlets-box TexAlCenter" style="border-radius:0;">
                     <div class="ShowOnDesktopTablet">
                         <script type="text/javascript"
