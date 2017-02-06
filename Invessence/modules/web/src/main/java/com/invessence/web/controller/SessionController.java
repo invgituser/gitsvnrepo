@@ -62,7 +62,6 @@ public class SessionController implements Serializable
    {
       if (!FacesContext.getCurrentInstance().isPostback())
       {
-         // System.out.println("Inside Session Prerender");
          resetCIDByURL(null);  // This method, will find the URL if not defined.
       }
    }
@@ -145,10 +144,11 @@ public class SessionController implements Serializable
    }
 
    private void loadWebProfile(String url) {
-      webutil.getWebprofile().initWebProfile();
-      webutil.getWebprofile().setUrl(url);
       if (commonDAO != null)
       {
+         logger.info("Load WEB property for:" + url);
+         webutil.getWebprofile().initWebProfile();
+         webutil.getWebprofile().setUrl(url);
          webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
       }
    }
@@ -156,6 +156,7 @@ public class SessionController implements Serializable
    private void loadAdvisorProfile(String advisor) {
       if (commonDAO != null)
       {
+         logger.info("Load WEB Advisor for:" + advisor);
          webutil.getWebprofile().addToMap(commonDAO.getAdvisorWebInfo(advisor));
       }
    }
@@ -167,7 +168,9 @@ public class SessionController implements Serializable
 
       Map<String, String> advisorMap;
       if (advisor == null)
-         advisor = "Invessence";
+      {
+          advisor = "Invessence";
+      }
 
       if (! webutil.getWebprofile().getLocked()) {
          if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor)) {
@@ -176,6 +179,7 @@ public class SessionController implements Serializable
                advisorMap = commonDAO.getAdvisorWebInfo(advisor);
                if (advisorMap != null) {
                   if (advisorMap.containsKey("WEB.URL")) {
+                     logger.info("Override the property by Advisor: " + advisor);
                      loadWebProfile(advisorMap.get("WEB.URL"));
                      webutil.getWebprofile().addToMap(advisorMap);
                   }
@@ -193,11 +197,17 @@ public class SessionController implements Serializable
 
       String origurl = webutil.getWebprofile().getUrl();
       if (uri == null)
+      {
+         // If we already loaded the property, then don't worry if the URL is null.  Just leave it to orig url;
+         if (origurl != null && ! origurl.isEmpty())
+            return;
          uri = webutil.getURLAddress("Invessence");
+      }
 
       if (! webutil.getWebprofile().getLocked()) {
          if (origurl == null || (! origurl.equalsIgnoreCase(uri)))
          {
+            System.out.println("Load WEB property for:" + uri);
             loadWebProfile(uri);
             loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
          }
