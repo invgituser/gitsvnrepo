@@ -1160,8 +1160,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       Boolean cangoToNext = true;
       customErrorText = null;
       Integer currentpage=pagemanager.getPage();
-      if(formPortfolioEdit)
+      if(formPortfolioEdit){
+         pagemanager.clearErrorMessage(currentpage);
          currentpage=currentpage-1;
+      }
 
       switch (currentpage)
       {

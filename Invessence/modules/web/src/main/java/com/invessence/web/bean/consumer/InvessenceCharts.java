@@ -29,7 +29,7 @@ public class InvessenceCharts implements Serializable
    public BarChartModel barChart;
    public BarChartModel riskbarChart;
    public LineChartModel goalChart;
-
+   private String resultChart;
    public InvessenceCharts()
    {
       resetCharts();
@@ -43,6 +43,16 @@ public class InvessenceCharts implements Serializable
    public PieChartModel getPieChart()
    {
       return pieChart;
+   }
+
+   public String getResultChart()
+   {
+      return resultChart;
+   }
+
+   public void setResultChart(String resultChart)
+   {
+      this.resultChart = resultChart;
    }
 
    public Integer getYear()

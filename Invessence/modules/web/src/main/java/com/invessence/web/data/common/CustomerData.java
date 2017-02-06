@@ -1,9 +1,13 @@
 package com.invessence.web.data.common;
 
 import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.bean.ManagedProperty;
 
+import com.google.api.client.util.ArrayMap;
+import com.google.gson.Gson;
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
 import com.invessence.web.constant.USMaps;
@@ -20,6 +24,7 @@ import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.PortfolioModel;
 import com.invmodel.portfolio.data.*;
 import org.apache.commons.logging.*;
+import org.hibernate.mapping.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -1085,6 +1090,7 @@ public class CustomerData extends ProfileData
                getDisplayPortfolioList().add(loop, dp);
             }
             addedTotalMoney = Math.round(addedTotalMoney * 100.00) / 100.00; // round off..
+            //pieChartJSONForDetail(displayPortfolioList); drtails level
             setTotalMoneyAllocated(addedTotalMoney);
             setTotalSharesAllocated(addedShares);
          }
@@ -1222,12 +1228,63 @@ public class CustomerData extends ProfileData
 
                }
             }
+            setResultChart(pieChartJSON(getEditableAsset()));
             aamc[i].setTotalInvested(totalMoney);
             setAssetData(aamc);
          }
       }
    }
 
+   public String pieChartJSON(ArrayList<Asset> edittableAsset){
+      ArrayList<Map> list = new ArrayList();
+      for (Asset stringArrayListOne : edittableAsset)
+      {
+         ArrayMap<String,Object> map  = new ArrayMap<String,Object>();
+         map.put("name",stringArrayListOne.getAsset());
+         map.put("y",new Double(stringArrayListOne.getActualweight()*100));
+         //map.put("drilldown",stringArrayListOne.getAsset());
+         map.put("color",stringArrayListOne.getColor());
+         map.put("amount",String.format("%.2f", stringArrayListOne.getValue()));
+         list.add(map);
+      }
+      return new Gson().toJson(list);
+   }
+// details level
+   /*public String pieChartJSONForDetail(List<DataPortfolio> edittableAsset){
+      ArrayList<Map> list = new ArrayList();
+      for (DataPortfolio stringArrayListOne : edittableAsset)
+      {
+         ArrayMap<String,Object> map  = new ArrayMap<String,Object>();
+         map.put("name",stringArrayListOne.getAssetType());
+         map.put("id",stringArrayListOne.getAssetType());
+         internalData(map.get("name").toString(),edittableAsset);
+
+
+        // map.put("id",stringArrayListOne.getAsset());
+        // map.put("y",new Double(stringArrayListOne.getActualweight()*100));
+         list.add(map);
+      }
+      for (DataPortfolio stringArrayListOne : edittableAsset)
+      {
+         ArrayMap<String,Object> map  = new ArrayMap<String,Object>();
+        // map.put("name",stringArrayListOne.getAsset());
+        // map.put("id",stringArrayListOne.getAsset());
+        // map.put("y",new Double(stringArrayListOne.getActualweight()*100));
+         list.add(map);
+      }
+      return new Gson().toJson(list);
+   }
+
+   public ArrayList internalData(String assetType,List<DataPortfolio> edittableAsset){
+      ArrayList list1 = new ArrayList();
+      for (DataPortfolio stringArrayList : edittableAsset)
+      {
+         if(true){
+
+         }
+      }
+      return list1;
+   }*/
    public Boolean getHasClientID() {
 
       return (getClientAccountID() != null && ! getClientAccountID().isEmpty());

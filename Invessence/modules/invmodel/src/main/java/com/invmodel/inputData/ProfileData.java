@@ -47,7 +47,7 @@ public class
    private String basket;
    private Integer numOfQuestions = 15;
    private Integer[] riskAnswers = new Integer[numOfQuestions];
-
+   private String resultChart;
 
    private Integer stayInvested = 1;  // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
    private Integer charitableGoals;
@@ -177,6 +177,16 @@ public class
    public void setLogonid(Long logonid)
    {
       this.logonid = logonid;
+   }
+
+   public String getResultChart()
+   {
+      return resultChart;
+   }
+
+   public void setResultChart(String resultChart)
+   {
+      this.resultChart = resultChart;
    }
 
    public String getGoal()

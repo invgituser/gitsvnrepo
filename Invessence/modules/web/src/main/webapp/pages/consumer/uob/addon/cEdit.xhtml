@@ -5,6 +5,86 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
+	<script type="text/javascript">
+	$(function () {
+	// Create the chart
+	var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
+	var tmpvalue= $.parseJSON(chartValue);
+	console.log(chartValue+""+tmpvalue);
+	Highcharts.chart('container3', {
+	chart: {
+	type: 'pie'
+	},
+	title: {
+	text: ''
+	},
+	subtitle: {
+
+	},
+	plotOptions: {
+
+	series: {
+	allowPointSelect: true,// remove if using details level details part
+	cursor: 'pointer',
+	dataLabels: {
+	enabled: true,
+	format: '{point.name}'
+	}
+	}
+	},
+
+	tooltip: {
+	headerFormat: '{point.name}',
+	pointFormat: '<span style="color:{point.color}"></span><b>$</b><b>{point.amount} - </b> <b>{point.y:.2f}%</b><br/>'
+	},
+	series: [{
+	name: 'Brands',
+	colorByPoint: true,
+	data: tmpvalue
+	}],
+		/*drilldown: { // remove comments if using details level details part
+	series: [{
+	name: 'Fixed Income',
+	id: 'Fixed Income',
+	data: [
+	['LENDX', 0.5]
+	]
+	}, {
+	name: 'Domestic Equity',
+	id: 'Domestic Equity',
+	data: [
+	['VB',  0.01],
+	['VTI', 0.01],
+	['VTV', 0.01],
+	['VUG', 0.01],
+	['VYM', 0.13]
+	]
+	}, {
+	name: 'Cash',
+	id: 'Cash',
+	data: [
+	['VEA', 0.0],
+	['VSS', 0.0]
+	]
+	}, {
+	name: 'Alternatives',
+	id: 'Alternatives',
+	data: [
+	['AGAZX', 0.11],
+	['AVRPX', 0.11]
+	]
+	}, {
+	name: 'Real Assets',
+	id: 'Real Assets',
+	data: [
+	['VCMIX', 0.1]
+	]
+	}]
+	}*/
+	});
+	});
+	</script>
+
 	<div class="Container100">
 		<div class="Container50 Fleft Responsive100">
 			<div class="ContainerIndent">
@@ -113,9 +193,13 @@
 						</p:panel>
 					</div>
 						<div class="Container100">
-							<p:chart type="pie" model="#{uobpb.charts.pieChart}"
-									 rendered="#{uobpb.charts.pieChart != null}" responsive="true" />
+							<!--<p:chart type="pie" model="#{uobpb.charts.pieChart}"
+									 rendered="#{uobpb.charts.pieChart != null}" responsive="true" />-->
+
+							<div id="container3"></div>
 						</div>
+						<h:inputHidden value="#{uobpb.resultChart}"
+									   id="beanValueChart"/>
 				</p:tab>
 						<p:tab id="detailstab" title="Details">
 							<!--<div class="ContainerIndent">
@@ -179,14 +263,14 @@
 								</p:dataTable>
 							</div>
 						</p:tab>
-					</p:tabView>
+						</p:tabView>
 
 
 
 				</p:panel>
+					</div>
 			</div>
 		</div>
-	</div>
 
 	<div class="Container100">
 		<p style="font-style: italic; font-size: .8em; text-align: justify">
