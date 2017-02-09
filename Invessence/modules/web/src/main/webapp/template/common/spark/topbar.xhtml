@@ -19,13 +19,20 @@
 
                 <ul id="layout-topbar-menu">
                     <li class="MobileModeOnly">
-                        <ui:fragment rendered="#{webutil.hasrole()!='advisor'}">
+                        <ui:fragment rendered="#{webutil.hasAccess('USER')}">
                         <!--<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>-->
                         <a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05">New Account</a>
                         </ui:fragment>
                     </li>
 
-
+                    <ui:fragment rendered="#{webutil.hasRole('DEMO')}">
+                        <li class="MobileModeOnly">
+                            <h:form>
+                            <h:commandLink action="#{aggrBean.startup('M')}" value="Aggregation" styleClass="Animated05">
+                            </h:commandLink>
+                            </h:form>
+                        </li>
+                    </ui:fragment>
 
                     <!--</li>-->
                     <li class="MobileModeOnly">
@@ -69,9 +76,3 @@
     </div>
 
 </ui:composition>
-        <!--<li class="MobileModeOnly">-->
-        <!--&lt;!&ndash;<a href="/pages/consumer/tcm/cadd.xhtml?app=N" class="Animated05"><i class="fa fa-plus-square"></i> New Account</a>&ndash;&gt;-->
-        <!--&lt;!&ndash;<a href="/pages/consumer/tcm/aggr/register.xhtml" class="Animated05">Aggregation</a>&ndash;&gt;-->
-        <!--<h:form>-->
-        <!--<h:commandLink action="#{aggrBean.startup('M')}" value="Aggregation" styleClass="Animated05">-->
-        <!--</h:commandLink></h:form>-->

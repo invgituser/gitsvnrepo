@@ -13,14 +13,14 @@
                                  actionListener="#{uiLayout.defaultHome}"/>
             </f:facet>
 
-            <p:menuitem value="New Account" rendered="#{webutil.hasrole()!='advisor'}"
+            <p:menuitem value="New Account" rendered="#{webutil.hasAccess('USER')}"
                         actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}"/>
 
+            <p:menuitem value="Aggregation" style="margin: 0px 20px;" rendered="#{webutil.hasRole('DEMO')}"
+                    actionListener="#{aggrBean.startup('D')}" />
 
         </ps:menu>
     </h:form>
 
 </ui:composition>
 
-<!--<p:menuitem value="Aggregation" style="margin: 0px 20px;" rendered="#{webutil.hasrole()!='advisor'}"-->
-            <!--actionListener="#{aggrBean.startup('D')}" />-->
