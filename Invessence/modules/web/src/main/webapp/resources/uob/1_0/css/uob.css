@@ -937,14 +937,22 @@ img.atCheckMarkImg {
 }
 
 .ui-datatable .ui-datatable-odd {
-    background: #f2f2f2!important;
+    background: #fbfbfb!important;
 }
 
 .uob_graphTable table thead tr th,
 .uob_graphTable table tfoot tr td,
 .uob_graphTable table thead tr th {
     color: #ffffff!important;
-    background-color: #919d9d!important;
+    background-color: #a4332f!important;
+    border: 0px;
+    text-align: left;
+}
+
+.uob_graphTable table thead tr th:nth-last-child(1),
+.uob_graphTable table tfoot tr td:nth-last-child(1),
+.uob_graphTable table thead tr th:nth-last-child(1) {
+    border-right: #a4332f!important;
 }
 
 .ui-datatable {
@@ -1435,7 +1443,7 @@ body {
     background-image: none !important;
     height: 100vh;
     /*background: linear-gradient(141deg, rgb(91, 216, 204) 0%, rgb(52, 179, 167) 51%, rgb(53, 119, 113) 75%) !important;*/
-    background: #004D40!important;
+    background: #2D2C26!important;
 }
 
 .ui-message-error {
@@ -2690,9 +2698,8 @@ color: #ffffff!important;
 .uob_Block_tabs > .ui-panel-content {
 	    border: 0px;
 }
-
-.ui-button-text, .ui-selectonemenu-trigger {
-	background-color: #26a69a!important;
+.ui-selectonemenu-trigger {
+	background-color: #a4332f!important;
 	border-radius: 0px!important;
 }
 
@@ -2721,15 +2728,16 @@ color: #ffffff!important;
 }
 
 #layout-menu {
-background: #26a69a;
+    background: #666666;
     border-radius: 30px;
+    box-shadow: none;
 }
 
 .uob_Box {
     background: #ffffff;
     border-radius: 0;
     border: 0;
-    border-left: 5px solid #546e7a;
+    border-left: 5px solid #A4332F;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
 }
 
@@ -2741,8 +2749,9 @@ background: #26a69a;
 }
 
 .uob_graphTable {
-	    border: 3px solid #26a69a;
+	    border: 0px;
     border-radius: 0;
+    box-shadow: 2px 2px 5px rgba(177, 172, 172, 0.55);
     padding: 0!important;
 }
 
@@ -2816,11 +2825,12 @@ border: solid 1px #546e7a!important;
 
 .uobSliderLabel {
 	margin-top: 2px;
+    color: #000;
 }
 
 .ui-slider-horizontal {
     height: 5px!important;
-    background: rgba(38, 166, 154, 0.55)!important;
+    background: #666666!important;
     margin-top: 8px!important;
 }
 
@@ -2828,7 +2838,7 @@ border: solid 1px #546e7a!important;
 .ui-slider-handle .ui-state-focus,
 .ui-slider-handle .ui-state-hover,
 .ui-slider-handle .ui-state-active {
-    background: #329e94;
+    background: #a4332f;
     border: 0!important;
     background-image: none!important;
     box-shadow: none!important;
@@ -3147,14 +3157,14 @@ color: #546e7a!important;
 }
 
 .NBwidget > .ui-tabs-nav > li.ui-tabs-selected, .NBwidget > .ui-tabs-nav > li.ui-tabs-active, .NBwidget > .ui-tabs-nav > li.ui-state-hover {
-    background-color: #546e7a!important;
+    background-color: #A4332F!important;
     border-radius: 2px 2px 0px 0px;
     z-index: 1;
 }
 
 .NBwidget > .ui-tabs-nav > li.ui-tabs-selected::before, .NBwidget > .ui-tabs-nav > li.ui-tabs-active::before, .NBwidget > .ui-tabs-nav > li.ui-state-hover::before,
 .NBwidget .ui-tabs-nav li.ui-tabs-selected::after, .NBwidget .ui-tabs-nav li.ui-tabs-active::after, .NBwidget .ui-tabs-nav li.ui-state-hover::after {
-    border-bottom:28px solid #546e7a;
+    border-bottom:28px solid #A4332F;
 }
 
 .NBwidget > .ui-tabs-nav > li {
@@ -3177,7 +3187,7 @@ color: #546e7a!important;
     content: '';
     width: 0;
     height: 0;
-    border-bottom:28px solid #93a3ab;
+    border-bottom:28px solid #666666;
     transition: inherit;
     position: absolute;
 }
@@ -3200,7 +3210,7 @@ color: #546e7a!important;
 
  .NBwidget > .ui-tabs-nav > li {
     border-radius: 2px 2px 0px 0px;
-     background-color: #93a3ab;
+     background-color: #666666;
 }
 
 .NBwidget > .ui-tabs-nav > li::before
@@ -3225,7 +3235,7 @@ left: -8px;
 
 .NBwidget > .ui-tabs-nav {
     padding: 0.2em 7px 0!important;
-    border-bottom: 3px solid #546e7a;
+    border-bottom: 3px solid #a4332f;
 }
 
 /************************/
@@ -3248,7 +3258,7 @@ left: -8px;
 }
 
 .uob_Block_tabs > div > div > .ui-tabs-panels {
-    border: 3px solid #546e7a;
+    border: 3px solid #666666;
     border-top: 0!important;
     height: 268px;
 }
@@ -3257,3 +3267,53 @@ left: -8px;
 .NBwidget > .ui-tabs-panels {
     border: 3px solid #546e7a;
 }*/
+
+
+/***New Custom Layout Prakash_UOB****/
+.uobCustomMainBlock {
+    border-top: 2px solid #666666;
+}
+
+.AdvTabNBWidget, .NBwidget, .NBwidget .layout-portlets-box {
+    background: white;
+}
+
+.uobCMBLabel {
+    position: relative;
+    background: white;
+    top: -10px;
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.uobPersonaliseGraphSection .ui-tabs-panels {
+    border-top: 0!important;
+    border: solid 3px #666666;
+    height: 510px;
+}
+
+.whiteBG div {
+    background: transparent!important;
+}
+
+.uob_graphTable td:nth-last-child(1), .uob_graphTable td:nth-child(1) {
+border: 0px!important;
+}
+
+.uob_graphTable td {
+    border-width: 0px 1px 0px 0px!important;
+    border-color: #a4332f!important;
+    border-style: solid!important;
+}
+
+.highcharts-button {
+    display: none!important;
+}
+
+.uob_button .ui-button-text, .ui-spinner-button .ui-button-text{
+    background-color: #a4332f!important;
+}
+
+#menutopbar .ui-button-text, #menutopbar .ui-state-hover .ui-button-text {
+    background-color: #666666!important;
+}

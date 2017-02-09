@@ -107,7 +107,7 @@
 						</p:tab>
 						<p:tab id="p4" title="Risk">
 							<p:tabView id="rTabView" orientation="top"
-								activeIndex="#{uobpb.rTab}" styleClass="NBwidget" cache="false"
+								activeIndex="#{uobpb.rTab}" styleClass="NBwidget whiteBG" cache="false"
 								dynamic="false">
 								<p:ajax event="tabChange" listener="#{uobpb.onRTabChange}" />
 								<p:tab id="q1" title="1">
@@ -137,12 +137,12 @@
 					</p:tabView>
 					<f:facet name="footer">
 						<p:commandButton id="prevBtn" value="Previous"
-							styleClass="Fleft Wid45" rendered="#{uobpb.enablePrevButton}"
+							styleClass="Fleft Wid45 uob_button" rendered="#{uobpb.enablePrevButton}"
 							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
 										 outcome="transition=slidefade"
 							actionListener="#{uobpb.gotoPrevTab}" />
 						<p:commandButton id="nextBtn" value="Next"
-							styleClass="Fright Wid45" rendered="#{uobpb.enableNextButton}"
+							styleClass="Fright Wid45 uob_button" rendered="#{uobpb.enableNextButton}"
 							type="submit"
 							outcome="transition=slidefade"
 							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
@@ -155,7 +155,7 @@
 			<div class="ContainerIndent">
 				<p:panel id="graphArea" style="border: 0px; background: white;">
 					<p:tabView id="pTabView1" activeIndex="0"
-							   styleClass="Container100 NBwidget" orientation="top"
+							   styleClass="Container100 NBwidget uobPersonaliseGraphSection" orientation="top"
 							   dynamic="false" cache="false" effect="slide" effectDuration="fast">
 					<p:tab id="summarytab" title="Summary">
 					<div class="Container100 Responsive100">
@@ -230,7 +230,7 @@
 											 value="#{uobpb.editableAsset}"
 											 var="assetList">
 
-									<p:column style="width: 1%; background-color: #{assetList.color};">
+									<p:column style="width: 1%; background-color: #{assetList.color}; border:0px!important;">
 										<h:outputText value=" "/>
 									</p:column>
 
