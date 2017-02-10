@@ -53,6 +53,58 @@
                                     </h3>
                                 </div>
                             </div>-->
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <div class="Container50 Responsive50 TexAlCenter Fs16">
+                                        <div class="Container100 Fleft TexAlCenter Fs16">
+                                            <div class="ContainerIndent Fs14 textAleft">
+                                                <i class="fa fa-caret-right"
+                                                   aria-hidden="true"></i> Based on your answers, here is your recommended asset allocation.
+                                            </div>
+                                        </div>
+                                        <div class="EmptyBox20"></div>
+                                    </div>
+                                    <div class="Container50 Responsive50">
+                                        <div class="Container100 Fleft TexAlCenter Fs16">
+                                            <div class="ContainerIndent Fs14 textAleft">
+                                                <i class="fa fa-caret-right"
+                                                   aria-hidden="true"></i> You can adjust the risk level of your asset allocation with this slider.
+                                            </div>
+                                        </div>
+                                        <div class="EmptyBox10"></div>
+                                        <div class="Container100 DispBlock gray">
+                                            <div class="EmptyBox5"></div>
+                                            <div class="Container25 TexAlRight Fs14 uobSliderLabel">
+                                                Conservative
+                                            </div>
+                                            <div class="Container50 TexAlCenter Fs20">
+                                                <h:inputHidden id="allocValue" value="#{uobpb.allocationIndex}"/>
+                                                <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="#{uobpb.maxAssetAllocatonPoints}"
+                                                          step="1">
+                                                    <p:ajax event="slideEnd"
+                                                            update=":ceForm:workArea, :ceForm:graphArea"
+                                                            listener="#{uobpb.onAllocSlider}"/>
+                                                </p:slider>
+                                            </div>
+                                            <div class="Container25 TexAlLeft Fs14 uobSliderLabel">
+                                                Aggressive
+                                            </div>
+                                            <div class="EmptyBox5"></div>
+                                            <div class="Container100 TexAlCenter">
+                                                <div class="ContainerIndent">
+                                                    <p:commandButton id="allocSliderResetButton" value="Recommended"
+                                                                     styleClass="uob_button"
+                                                                     update=":ceForm:workArea, :ceForm:graphArea"
+                                                                     actionListener="#{uobpb.doAllocReset}">
+                                                    </p:commandButton>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
                             <div class="Container100 Responsive100">
                                 <div class="ContainerIndent">
                                     <div class="Container50 Responsive50 Fleft">
@@ -108,59 +160,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="Container100">
-                                <div class="ContainerIndent">
-                                    <div class="Container50 Responsive50 TexAlCenter Fs16">
-                                        <div class="Container100 Fleft TexAlCenter Fs16">
-                                            <div class="ContainerIndent Fs12 textACenter" style="padding: 0px 10px!important;">
-                                                (Based on your answers, here is your recommended asset allocation.)
-                                            </div>
-                                        </div>
-                                        <div class="EmptyBox20"></div>
-                                    </div>
-                                    <div class="Container50 Responsive50">
-
-
-                                        <div class="Container100 DispBlock gray">
-                                            <div class="EmptyBox5"></div>
-                                            <div class="Container25 TexAlRight Fs14 uobSliderLabel">
-                                                Conservative
-                                            </div>
-                                            <div class="Container50 TexAlCenter Fs20">
-                                                <h:inputHidden id="allocValue" value="#{uobpb.allocationIndex}"/>
-                                                <p:slider id="allocSlider" for="allocValue" minValue="0" maxValue="#{uobpb.maxAssetAllocatonPoints}"
-                                                          step="1">
-                                                    <p:ajax event="slideEnd"
-                                                            update=":ceForm:workArea, :ceForm:graphArea"
-                                                            listener="#{uobpb.onAllocSlider}"/>
-                                                </p:slider>
-                                            </div>
-                                            <div class="Container25 TexAlLeft Fs14 uobSliderLabel">
-                                                Aggressive
-                                            </div>
-                                            <div class="EmptyBox5"></div>
-                                            <div class="Container100 TexAlCenter">
-                                                <div class="ContainerIndent">
-                                                    <div class="EmptyBox10"></div>
-                                                    <p:commandButton id="allocSliderResetButton" value="Recommended"
-                                                                     styleClass="uob_button"
-                                                                     update=":ceForm:workArea, :ceForm:graphArea"
-                                                                     actionListener="#{uobpb.doAllocReset}">
-                                                    </p:commandButton>
-                                                </div>
-                                                <div class="Container100 Fleft TexAlCenter">
-                                                    <div class="ContainerIndent Fs12 textACenter" style="padding: 0px 10px!important; color: black;">
-                                                        (You can adjust the risk level of your asset allocation with this slider.)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-
                         </div>
                     </div>
                 </div>
@@ -213,6 +212,7 @@
                                                 <div class="Container100 TexAlCenter">
                                                     <div class="ContainerIndent">
                                                         <p:commandButton id="portSliderResetButton"
+                                                                         styleClass="uob_button"
                                                                          value="Recommended"
                                                                          update=":ceForm:workArea, :ceForm:graphArea"
                                                                          actionListener="#{uobpb.doPortfolioReset}"/>
