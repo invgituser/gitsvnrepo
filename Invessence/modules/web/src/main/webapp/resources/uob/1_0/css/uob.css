@@ -3288,7 +3288,7 @@ left: -8px;
 
 .uobPersonaliseGraphSection .ui-tabs-panels {
     border-top: 0!important;
-    border: solid 3px #666666;
+   /* border: solid 3px #666666;*/
     height: 510px;
 }
 
