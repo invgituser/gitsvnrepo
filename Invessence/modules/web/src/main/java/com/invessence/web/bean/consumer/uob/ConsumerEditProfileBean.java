@@ -451,9 +451,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          }
          listDAO.getNewClientProfileData((CustomerData) this.getInstance());
          setDefaults();
-         loadBasketInfo();
+         // loadBasketInfo();
          // selectFirstBasket();
-         createAssetPortfolio(1); // Build default chart for the page...
+         // createAssetPortfolio(1); // Build default chart for the page...
          // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");
       }
       catch (Exception ex)
@@ -798,8 +798,8 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          {
             if (formEdit)
             {
-               validate = validateProfile(); // Check if session is still valid.  If not, redirect to logon
-
+               //validate = validateProfile(); // Check if session is still valid.  If not, redirect to logon
+               validate = true;
                if (validate)
                {
                   // setDefaults();

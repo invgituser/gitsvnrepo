@@ -88,7 +88,6 @@ public class CustomerData extends ProfileData
    private Double  bond;
    private Double  accrual;
 
-   private String model      = "D";
    private Integer assetyear = 0;
    private String registeredState;
    private Boolean userAssetOverride = false;
@@ -562,16 +561,6 @@ public class CustomerData extends ProfileData
                             convertNumber(getMedical()) + convertNumber(getOtherDebt()));
    }
 
-   public String getModel()
-   {
-      return model;
-   }
-
-   public void setModel(String model)
-   {
-      this.model = model;
-   }
-
    public Integer getAssetyear()
    {
       return assetyear;
@@ -671,7 +660,6 @@ public class CustomerData extends ProfileData
       setBond(null);
       setAccrual(null);
 
-      setModel("D");
       setAssetyear(0);
 
       setEmail(null);
@@ -1184,24 +1172,30 @@ public class CustomerData extends ProfileData
             Double wght = seclist.getWeight();
             Double money = seclist.getMoney();
             String color = seclist.getColor();
+            Double summoney = 0.0;
 
             totalMoney += money;
 
             if (! tallyAssetclass.containsKey(assetname)) {
                Asset asset = new Asset();
+               Double newwght =  money / totalMoneyAllocated;
                asset.setAsset(assetname);
                asset.setColor(color);
-               asset.setActualweight(wght);
-               asset.setAllocweight(wght);
+               asset.setValue(money);
+               asset.setActualweight(newwght);
+               asset.setUserweight(newwght);
+               asset.setAllocweight(newwght);
                asset.setValue(money);
                tallyAssetclass.put(assetname,asset);
             }
             else {
                Asset asset = tallyAssetclass.get(assetname);
-               Double newwght =  wght + asset.getActualweight();
+               summoney = money + asset.getValue();
+               Double newwght =  summoney / totalMoneyAllocated;
                asset.setActualweight(newwght);
-               asset.setAllocweight(newwght);
-               asset.setValue(money + asset.getValue());
+               asset.setUserweight(newwght);
+               asset.setAllocweight(wght + asset.getAllocweight());
+               asset.setValue(summoney);
                tallyAssetclass.put(assetname,asset);
             }
          }
@@ -1217,7 +1211,7 @@ public class CustomerData extends ProfileData
                Asset origAssetData =  aamc[i].getAssetclass().get(assetdata.getAsset());
                if (origAssetData != null)
                {
-                  origAssetData.setAllocweight(assetdata.getAllocweight());
+                  origAssetData.setUserweight(assetdata.getUserweight());
                   origAssetData.setActualweight(assetdata.getActualweight());
                   origAssetData.setValue(assetdata.getValue());
                }
@@ -1225,6 +1219,8 @@ public class CustomerData extends ProfileData
                   aamc[i].addAssetClass(assetdata.getAsset(),assetdata.getDisplayName(),assetdata.getColor(),
                                         assetdata.getAllocweight(), assetdata.getAvgReturn());
                   aamc[i].getAssetclass().get(assetdata.getAsset()).setValue(assetdata.getValue());
+                  aamc[i].getAssetclass().get(assetdata.getAsset()).setUserweight(assetdata.getUserweight());
+                  aamc[i].getAssetclass().get(assetdata.getAsset()).setActualweight(assetdata.getActualweight());
 
                }
             }

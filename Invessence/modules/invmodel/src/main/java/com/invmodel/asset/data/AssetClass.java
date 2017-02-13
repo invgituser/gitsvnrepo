@@ -62,6 +62,8 @@ public class AssetClass
       {
          Asset data = assetclass.get(asset);
          data.setAllocweight(weight);
+         data.setUserweight(weight);
+         data.setActualweight(weight);
          data.setAvgReturn(avgReturn);
          data.setColor(color);
          this.assetclass.put(asset, data);

@@ -8,9 +8,8 @@ public class Asset
    private String asset          = "";
    private String displayName    = "";
    private String color          = "";
-   // These values are created by Allocation Model
-   private double allocweight   = 0.0;
-   private double userweight    = 0.0;
+   private double allocweight   = 0.0; // These values are created by Allocation Model
+   private double userweight    = 0.0; // This is If User wants to Over-write the Allocation Weight.  By Default, when allocaton is done, it is reset.
    private double actualweight   = 0.0;  // This is re-calculated when the portfolio is created. Also stored as 0.##### As true %
    private double avgReturn      = 0.0;
    private double risk           = 0.0;
@@ -34,6 +33,8 @@ public class Asset
       setAsset(asset);
       this.displayName =  displayName;
       setAllocweight(allocweight);
+      setUserweight(allocweight);
+      setActualweight(allocweight);
       setAvgReturn(avgReturn);
       setColor(color);
    }
@@ -44,6 +45,8 @@ public class Asset
       super();
       setAsset(asset);
       setAllocweight(allocweight);
+      setUserweight(allocweight);
+      setActualweight(allocweight);
       setAvgReturn(avgReturn);
       setColor(color);
       setExpectedReturn(expectedReturn);
@@ -60,6 +63,8 @@ public class Asset
       this.displayName = displayName;
       setColor(color);
       setAllocweight(allocweight);
+      setUserweight(allocweight);
+      setActualweight(allocweight);
       setAvgReturn(avgReturn);
       setRisk(risk);
       setExpectedReturn(expectedReturn);
@@ -85,7 +90,7 @@ public class Asset
    public void setAllocweight(double allocweight)
    {
       this.allocweight = allocweight;
-      actualweight = allocweight;  // When resetting the Alloc weight, reset the actual weight as well.
+      // actualweight = allocweight;  // Removed, Prashant 2017-02-09 forUOB Code review
    }
 
    public void setActualweight(double actualweight)
@@ -101,12 +106,12 @@ public class Asset
    }
 
    public double getUserEdit() {
-      return actualweight;
+      return userweight;
    }
 
    public void setUserEdit(double userweight) {
       this.userweight = userweight / 100.0;
-      this.actualweight = this.userweight;
+      //this.actualweight = this.userweight;
    }
 
    public double getUserweight()
@@ -120,7 +125,7 @@ public class Asset
    public void setUserweight(double userweight)
    {
       this.userweight = userweight;
-      this.actualweight = this.userweight;
+      // this.actualweight = this.userweight;
    }
 
    public String getColor()

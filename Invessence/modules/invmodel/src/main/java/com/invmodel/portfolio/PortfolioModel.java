@@ -254,8 +254,16 @@ public class PortfolioModel
 
             // Actual Investment is investment and recurring the next year.  Does not contain the returns.
             portfolioclass[investmentYear].setActualInvestments(actualInvestment);
-            createPortfolio(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
-                            investment, investmentYear, profileData, offset);
+            if (theme.toLowerCase().contains("mfs"))
+            {
+               createPortfolioWithMFS(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
+                                      investment, investmentYear, profileData, offset);
+            }
+            else {
+               createPortfolio(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
+                               investment, investmentYear, profileData, offset);
+
+            }
 
             // Total Money = Investment + Projection
             portfolioclass[investmentYear].setTotalMoney(investment);
@@ -342,8 +350,15 @@ public class PortfolioModel
 
             // Actual Investment is investment and recurring the next year.  Does not contain the returns.
             portfolioclass[investmentYear].setActualInvestments(actualInvestment);
-            createPortfolio(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
-                            investment, investmentYear, profileData, offset);
+            if (theme.toLowerCase().contains("mfs"))
+            {
+               createPortfolioWithMFS(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
+                                      investment, investmentYear, profileData, offset);
+            }
+            else {
+               createPortfolio(advisor, theme, assetData[investmentYear], portfolioclass[investmentYear],
+                               investment, investmentYear, profileData, offset);
+            }
 
             // Total Money = Investment + Projection
             if (investmentYear == 0)
@@ -393,13 +408,6 @@ public class PortfolioModel
    {
       try
       {
-         if (theme.toLowerCase().contains("mfs"))
-         {
-            createPortfolioWithMFS(advisor, theme, assetClass, pclass,
-                                   investment, year, pdata, offset);
-            return;
-
-         }
 
          double amount_remain = investment;
 

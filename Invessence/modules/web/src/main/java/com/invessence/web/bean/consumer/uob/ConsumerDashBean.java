@@ -25,12 +25,6 @@ public class ConsumerDashBean implements Serializable
 {
    private static final long serialVersionUID = 1001L;
 
-   /*
-      @Autowired
-      private WebUtil webutil;
-      @Autowired
-      private ConsumerListDataDAO listDAO;
-   */
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
    public void setWebutil(WebUtil webutil)
@@ -86,7 +80,7 @@ public class ConsumerDashBean implements Serializable
 
    public void collectData(Long logonid)
    {
-      manageAccountList = listDAO.getClientProfileList(logonid, null, null);
+      manageAccountList = listDAO.getClientProfileList(logonid,null, null);
    }
 
 
@@ -105,18 +99,81 @@ public class ConsumerDashBean implements Serializable
       this.selectedAccount = selectedAccount;
    }
 
-   public String doSelectedAction()
+   public String showPosition()
    {
       String whichXML;
       try
       {
-         if (getSelectedAccount().getManaged())
+         uiLayout.doMenuAction("consumer", "overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+
+   public String doEditAction()
+   {
+      String whichXML;
+      try
+      {
+         uiLayout.doMenuAction("custody", "cedit.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+
+   public String doPortfolioSelectedAction()
+   {
+      String whichXML;
+      try
+      {
+         if (getSelectedAccount().isUnopened())
          {
-            uiLayout.doMenuAction("/pages/consumer/overview.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+            uiLayout.doMenuAction("consumer", "cadd.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
          }
-         else {
-            uiLayout.doMenuAction("consumer", "cadd.xhtml?acct=" + selectedAccount.getAcctnum().toString());
+         else
+         {
+            uiLayout.doMenuAction("consumer", "portfolioedit.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
          }
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+
+   public String doFundingAction()
+   {
+      String whichXML;
+      try
+      {
+         uiLayout.doMenuAction("custody", "editfunding.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
+      }
+      catch (Exception ex)
+      {
+         return ("failed");
+      }
+
+      return ("success");
+   }
+
+
+   public String doOptionMenuAction()
+   {
+      String whichXML;
+      try
+      {
+
+         uiLayout.doMenuAction("custody", "editaddress.xhtml?app=E&acct=" + selectedAccount.getAcctnum().toString());
       }
       catch (Exception ex)
       {

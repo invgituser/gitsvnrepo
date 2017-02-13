@@ -104,7 +104,6 @@ public class INVCustomer extends CustomerData
 
       riskCalculator.resetAllData();
 
-      setModel("D");
       setAssetyear(0);
 
       setEmail(null);

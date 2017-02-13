@@ -166,7 +166,7 @@ public class AssetAllocationModel
          duration = (duration > InvConst.MAX_DURATION) ? InvConst.MAX_DURATION : duration;
          double wght = 0.0;
          double risk_adjustment = 0.0;
-         double totalWeight = 1.0;
+         double totalRemainWeight = 1.0;
          double baseNum = 1 + ((double) duration / (double) age);
          double powerNum = -1 * (duration - 1);
 
@@ -214,25 +214,29 @@ public class AssetAllocationModel
                wght = (wght + factor);
 
 
-               if (wght > totalWeight)
+               if (wght > totalRemainWeight)
                {
-                  wght = totalWeight;
+                  wght = totalRemainWeight;
                }
 
                assetclass.getAsset(assetname).setAllocweight(wght);
+               assetclass.getAsset(assetname).setUserweight(wght);
+               assetclass.getAsset(assetname).setActualweight(wght);
                assetclass.getAsset(assetname).setAvgReturn(avgReturns[i]);
                if (!assetname.equals("Cash"))
                {
-                  totalWeight = totalWeight - wght;
+                  totalRemainWeight = totalRemainWeight - wght;
                }
             }
             else
             {
-               if (totalWeight < 0.0)
+               if (totalRemainWeight < 0.0)
                {
-                  totalWeight = 0.0;
+                  totalRemainWeight = 0.0;
                }
-               assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
+               assetclass.getAsset("Cash").setAllocweight(totalRemainWeight);  // Adjust weight.
+               assetclass.getAsset("Cash").setUserweight(totalRemainWeight);
+               assetclass.getAsset("Cash").setActualweight(totalRemainWeight);
                // allocation Cash here with color.
                //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
             }
@@ -367,6 +371,8 @@ public class AssetAllocationModel
                }
 
                assetclass.getAsset(assetname).setAllocweight(wght);
+               assetclass.getAsset(assetname).setUserweight(wght);
+               assetclass.getAsset(assetname).setActualweight(wght);
                assetclass.getAsset(assetname).setAvgReturn(avgReturns[i]);
                if (!assetname.equals("Cash"))
                {
@@ -380,6 +386,8 @@ public class AssetAllocationModel
                   totalWeight = 0.0;
                }
                assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
+               assetclass.getAsset("Cash").setUserweight(totalWeight);  // Adjust weight.
+               assetclass.getAsset("Cash").setActualweight(totalWeight);  // Adjust weight.
                // allocation Cash here with color.
                //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
             }
@@ -478,6 +486,8 @@ public class AssetAllocationModel
                   }
 
                   assetclass.getAsset(assetname).setAllocweight(wght);
+                  assetclass.getAsset(assetname).setUserweight(wght);
+                  assetclass.getAsset(assetname).setActualweight(wght);
                   assetclass.getAsset(assetname).setValue(wght * investment);
                   assetclass.getAsset(assetname).setAvgReturn(0.0);
                   if (!assetname.equals("Cash"))
@@ -494,7 +504,9 @@ public class AssetAllocationModel
                      totalWeight = 0.0;
                   }
                   assetclass.getAsset("Cash").setAllocweight(totalWeight);  // Adjust weight.
-                  assetclass.getAsset("Cash").setHoldingValue(totalWeight * investment);
+                  assetclass.getAsset("Cash").setUserweight(totalWeight);  // Adjust weight.
+                  assetclass.getAsset("Cash").setActualweight(totalWeight);  // Adjust weight.
+                  assetclass.getAsset("Cash").setValue(totalWeight * investment);
                   // allocation Cash here with color.
                   //assetclass.addAssetClass(assetname, totalWeight, 0.0, assetcolor[i]);
                }
