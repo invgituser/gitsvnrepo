@@ -133,6 +133,11 @@ public class SessionController implements Serializable
       return "success";
    }
 
+   public void reset() {
+         webutil.webprofile.setLocked(false);
+         loadWebProfile(null);
+   }
+
    public void emulateClient(String clienturl) {
       if (clienturl != null)
       {
