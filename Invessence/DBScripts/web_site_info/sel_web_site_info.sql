@@ -25,12 +25,7 @@ BEGIN
   THEN
 	set p_url = substr(p_url,1,tFound - 1 );
   END IF;
-  
-  IF (p_url = 'localhost')
-  THEN
-	set p_url = 'invessence';
-  END IF;
-	
+  	
   select count(*)
   into tFound
   from `invdb`.`web_site_info`

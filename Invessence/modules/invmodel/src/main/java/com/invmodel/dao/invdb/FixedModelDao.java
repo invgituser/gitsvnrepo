@@ -163,11 +163,61 @@ public class FixedModelDao extends JdbcDaoSupport
       }
    }
 
+   public void load_fixedmodule_performancedata(Map<String, FMData> themeMap)
+   {
+
+      if (themeMap == null)
+         return;
+
+      // DataSource ds = getDs();
+      String storedProcName = "sel_sec_fixed_performancechart";
+      FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
+
+      Map outMap = sp.loadPerformanceData();
+
+      if (outMap != null)
+      {
+         ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+         int i = 0;
+         if (rows != null) {
+            for (Map<String, Object> map : rows) {
+               Map rs = (Map) rows.get(i);
+               String theme = convert.getStrData(rs.get("theme"));
+               String level = convert.getStrData(rs.get("level"));
+               String color = convert.getStrData(rs.get("color"));
+               String key =  theme.toUpperCase() + "." + level;
+               FMProjectionData data = new FMProjectionData();
+               data.setModel(key);
+               data.setYear(convert.getIntData(rs.get("year")));
+               data.setFivepercent(convert.getDoubleData(rs.get("5percent")));
+               data.setTwentyfivepercent(convert.getDoubleData(rs.get("25percent")));
+               data.setFiftypercent(convert.getDoubleData(rs.get("50percent")));
+               data.setSeventyfivepercent(convert.getDoubleData(rs.get("75percent")));
+               data.setNintyfivepercent(convert.getDoubleData(rs.get("95percent")));
+/*
+               datamodel.add(data);
+               projectiondata.put(model, datamodel);
+               projection.setTheme(theme);
+               projection.setData(projectiondata);
+               fmprojection.put(theme,projection);
+
+               if (themeMap.containsKey(key)) {
+                  if (themeMap.get(key).getAsset().containsKey(asset)) {
+                     themeMap.get(key).getAsset().get(asset).addPortfolio(portfolio);
+                  }
+               }
+*/
+               i++;
+            }
+         }
+      }
+   }
+
    public Map<String, FMProjection> load_fixedmodule_projection()
    {
 
       // DataSource ds = getDs();
-      String storedProcName = "sel_sec_fixed_performancechart";
+      String storedProcName = "sel_sec_fixed_projectionChart";
       FixedModelSP sp = new FixedModelSP(ds, storedProcName, 1, 0);
 
       Map outMap = sp.loadFixedProjectionChart();

@@ -11,27 +11,18 @@ public class FMPerformanceData
 {
    private String theme;
    private String index;
-   private String indexname;
-   private Integer sortorder;
-   private String yearname;
-   private String color;
-   private Double performance;
+   private FMProjection data;
 
    public FMPerformanceData()
    {
    }
 
-   public FMPerformanceData(String theme, String index, String indexname,
-                            Integer sortorder, String yearname, String color,
-                            Double performance)
+   public FMPerformanceData(String theme, String index,
+                            FMProjection data)
    {
       this.theme = theme;
       this.index = index;
-      this.indexname = indexname;
-      this.sortorder = sortorder;
-      this.yearname = yearname;
-      this.color = color;
-      this.performance = performance;
+      this.data = data;
    }
 
    public String getTheme()
@@ -39,69 +30,13 @@ public class FMPerformanceData
       return theme;
    }
 
-   public void setTheme(String theme)
-   {
-      this.theme = theme;
-   }
-
    public String getIndex()
    {
       return index;
    }
 
-   public void setIndex(String index)
+   public FMProjection getPerformance()
    {
-      this.index = index;
+      return data;
    }
-
-   public String getIndexname()
-   {
-      return indexname;
-   }
-
-   public void setIndexname(String indexname)
-   {
-      this.indexname = indexname;
-   }
-
-   public Integer getSortorder()
-   {
-      return sortorder;
-   }
-
-   public void setSortorder(Integer sortorder)
-   {
-      this.sortorder = sortorder;
-   }
-
-   public String getYearname()
-   {
-      return yearname;
-   }
-
-   public void setYearname(String yearname)
-   {
-      this.yearname = yearname;
-   }
-
-   public String getColor()
-   {
-      return color;
-   }
-
-   public Double getPerformance()
-   {
-      return performance;
-   }
-
-   public Double getPerformanceAsPercent()
-   {
-      return performance / 100.0;
-   }
-
-   public void setPerformance(Double performance)
-   {
-      this.performance = performance;
-   }
-
 }

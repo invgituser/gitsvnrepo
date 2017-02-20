@@ -24,16 +24,14 @@ public class FMData
    ArrayList<String> assetList;
    Map<String, FMAssetData> asset;
    Map<String,String> indexMap;
-   Map<String,String> performanceHeaderMap;
-   Map<String, FMPerformanceData> performance;
+   FMPerformanceData performanceData;
 
    public FMData()
    {
       assetList = new ArrayList<String>();
-      performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
       asset = new LinkedHashMap<String, FMAssetData>();
-      performance = new LinkedHashMap<String, FMPerformanceData>();
+      performanceData = null;
    }
 
    public FMData(String theme, String level, Integer index,
@@ -53,14 +51,9 @@ public class FMData
       this.expectedrisk = expectedrisk;
       this.description = description;
       assetList = new ArrayList<String>();
-      performanceHeaderMap = new LinkedHashMap<String, String>();
       indexMap = new LinkedHashMap<String, String>();
       asset = new LinkedHashMap<String, FMAssetData>();
-      performance = new LinkedHashMap<String, FMPerformanceData>();
-   }
-
-   public String getPerformanceKey(String index, String header) {
-      return index + "." + header;
+      performanceData = null;
    }
 
    public String getTheme()
@@ -180,14 +173,13 @@ public class FMData
       this.asset = asset;
    }
 
-   public Map<String, FMPerformanceData> getPerformance()
+   public FMPerformanceData getPerformance()
    {
-      return performance;
+      return performanceData;
    }
 
-   public void setPerformance(Map<String, FMPerformanceData> performance)
-   {
-      this.performance = performance;
+   public void setPerformanceData(FMPerformanceData performanceData) {
+      this.performanceData = performanceData;
    }
 
    public ArrayList<String> getAssetList()
@@ -208,16 +200,6 @@ public class FMData
    public void setIndexMap(Map<String, String> indexMap)
    {
       this.indexMap = indexMap;
-   }
-
-   public Map<String, String> getPerformanceHeaderMap()
-   {
-      return performanceHeaderMap;
-   }
-
-   public void setPerformanceHeaderMap(Map<String, String> performanceHeaderMap)
-   {
-      this.performanceHeaderMap = performanceHeaderMap;
    }
 
    public void addAsset(FMAssetData assetdata) {
@@ -242,42 +224,6 @@ public class FMData
          if (assetMap != null) {
             for (FMAssetData asset : assetMap.values()) {
                   addAsset(asset);
-            }
-         }
-      }
-      catch (Exception ex) {
-
-      }
-   }
-
-
-   public void addPerformance(FMPerformanceData performancedata) {
-      try {
-         if (performancedata != null) {
-            if (performancedata.getTheme().toUpperCase().equals(theme.toUpperCase())) {
-               String index = performancedata.getIndex();
-               String header = performancedata.getYearname();
-               if (! performanceHeaderMap.containsKey(header))
-                  performanceHeaderMap.put(header, header);
-               if (! indexMap.containsKey(index))
-                  indexMap.put(index, index);
-               String key = getPerformanceKey(index,header);
-               if (! performance.containsKey(key)) {
-                  performance.put(key, performancedata);
-               }
-            }
-         }
-      }
-      catch (Exception ex) {
-
-      }
-   }
-
-   public void addPerformance(Map<String, FMPerformanceData> performanceMap) {
-      try {
-         if (performanceMap != null) {
-            for (FMPerformanceData performance: performanceMap.values()) {
-                  addPerformance(performance);
             }
          }
       }
@@ -315,11 +261,6 @@ public class FMData
       if (getPerformance() != null) {
          for (String index : getPerformanceIndex()) {
             ArrayList<FMPerformanceData> performanceList = new ArrayList<FMPerformanceData>();
-            for (String header: getPerformanceHeader()) {
-               String key = getPerformanceKey(index, header);
-               FMPerformanceData perfdata = performance.get(key);
-               performanceList.add(perfdata);
-            }
             if (performanceList.size() > 0) {
                arrayMap.put(index, performanceList);
             }
@@ -332,16 +273,6 @@ public class FMData
       ArrayList<String> arrayList = new ArrayList<String>();
       if (getIndexMap() != null) {
          for (String key: getIndexMap().keySet()) {
-            arrayList.add(key);
-         }
-      }
-      return arrayList;
-   }
-
-   public ArrayList<String> getPerformanceHeader() {
-      ArrayList<String> arrayList = new ArrayList<String>();
-      if (getPerformanceHeaderMap() != null) {
-         for (String key: getPerformanceHeaderMap().keySet()) {
             arrayList.add(key);
          }
       }
@@ -414,11 +345,7 @@ public class FMData
       {
          return false;
       }
-      if (performanceHeaderMap != null ? !performanceHeaderMap.equals(fmData.performanceHeaderMap) : fmData.performanceHeaderMap != null)
-      {
-         return false;
-      }
-      return performance != null ? performance.equals(fmData.performance) : fmData.performance == null;
+      return performanceData != null ? performanceData.equals(fmData.performanceData) : fmData.performanceData == null;
 
    }
 
@@ -438,8 +365,7 @@ public class FMData
       result = 31 * result + (assetList != null ? assetList.hashCode() : 0);
       result = 31 * result + (asset != null ? asset.hashCode() : 0);
       result = 31 * result + (indexMap != null ? indexMap.hashCode() : 0);
-      result = 31 * result + (performanceHeaderMap != null ? performanceHeaderMap.hashCode() : 0);
-      result = 31 * result + (performance != null ? performance.hashCode() : 0);
+      result = 31 * result + (performanceData != null ? performanceData.hashCode() : 0);
       return result;
    }
 

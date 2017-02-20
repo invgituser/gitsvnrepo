@@ -26,6 +26,7 @@ public class SessionController implements Serializable
 
    protected final Log logger = LogFactory.getLog(getClass());
    private Long logonid;
+   private String rep;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -56,6 +57,16 @@ public class SessionController implements Serializable
    public void setLogonid(Long logonid)
    {
       this.logonid = logonid;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
    }
 
    public void preRenderView()
@@ -123,6 +134,11 @@ public class SessionController implements Serializable
 
    public void tryOut()
    {
+      resetCIDByURL(null);
+      if (this.rep != null && ! this.rep.isEmpty()) {
+         webutil.webprofile.setDefaultRep(this.rep);
+      }
+
       uiLayout.doMenuAction("consumer", "cadd.xhtml?app=N");
       // return "success";
    }

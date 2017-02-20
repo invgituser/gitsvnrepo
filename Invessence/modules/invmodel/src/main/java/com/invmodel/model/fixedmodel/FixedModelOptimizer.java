@@ -23,7 +23,7 @@ public class FixedModelOptimizer
    private Map<String, ArrayList<FMData>> fixedThemeMap;
    private Map<String, FMData> themesMap;
    private FixedModelDao fixedModelDao;
-   private FMProjectionReport projectionReport;
+   private Boolean hasprojectionReport;
    private Map<String, Boolean> canCreateProjection;
    private Map<String,FMProjection> fmprojection;
 
@@ -46,7 +46,7 @@ public class FixedModelOptimizer
    {
       super();
       fixedModelDao = FixedModelDao.getInstance();
-      projectionReport = new FMProjectionReport();
+      hasprojectionReport = false;
       fmprojection = null;
    }
 
@@ -80,9 +80,9 @@ public class FixedModelOptimizer
       return (getAssetKey(theme, asset) + "." + subasset.toUpperCase());
    }
 
-   public FMProjectionReport getProjectionReport()
+   public Boolean getHasprojectionReport()
    {
-      return projectionReport;
+      return hasprojectionReport;
    }
 
    public Boolean canCreateProjection(String theme)
@@ -110,9 +110,10 @@ public class FixedModelOptimizer
          fixedModelDao.load_fixedmodule_assets(themesMap);
          logger.info("Load Fixed Module SubAsset");
          fixedModelDao.load_fixedmodule_subassets(themesMap);
+         logger.info("Load Fixed Module Projection Data");
          fmprojection = fixedModelDao.load_fixedmodule_projection();
-         // logger.info("Load Fixed Module Projection Data");
-         // fixedModelDao.load_fixedmodule_performance(themesMap);
+         logger.info("Load Fixed Module Performance Data");
+         fixedModelDao.load_fixedmodule_performancedata(themesMap);
          canDoProjection();
 
 
@@ -273,10 +274,12 @@ public class FixedModelOptimizer
    public Map<String, ArrayList<FMProjectionData>> getFmprojection(String theme)
    {
       if (theme != null) {
-         if (fmprojection.containsKey(theme)) {
-            return fmprojection.get(theme).getData();
-         }
+         if (fmprojection != null )
+            if (fmprojection.containsKey(theme)) {
+               return fmprojection.get(theme).getData();
+            }
       }
       return null;
    }
+
 }

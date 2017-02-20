@@ -13,6 +13,7 @@ public class FMProjection
 {
    String theme;
    String displayname;
+   String color;
    Map<String, ArrayList<FMProjectionData>> data;
 
    public FMProjection()
@@ -38,6 +39,16 @@ public class FMProjection
    public void setDisplayname(String displayname)
    {
       this.displayname = displayname;
+   }
+
+   public String getColor()
+   {
+      return color;
+   }
+
+   public void setColor(String color)
+   {
+      this.color = color;
    }
 
    public Map<String, ArrayList<FMProjectionData>> getData()

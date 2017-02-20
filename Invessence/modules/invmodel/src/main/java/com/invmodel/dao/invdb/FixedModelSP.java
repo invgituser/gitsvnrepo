@@ -53,4 +53,10 @@ public class FixedModelSP extends StoredProcedure
       Map inputMap = new HashMap();
       return super.execute(inputMap);
    }
+
+   public Map loadPerformanceData()
+   {
+      Map inputMap = new HashMap();
+      return super.execute(inputMap);
+   }
 }
