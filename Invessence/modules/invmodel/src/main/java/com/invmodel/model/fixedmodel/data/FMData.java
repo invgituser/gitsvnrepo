@@ -24,7 +24,7 @@ public class FMData
    ArrayList<String> assetList;
    Map<String, FMAssetData> asset;
    Map<String,String> indexMap;
-   FMPerformanceData performanceData;
+   FMProjection performanceData;
 
    public FMData()
    {
@@ -173,12 +173,12 @@ public class FMData
       this.asset = asset;
    }
 
-   public FMPerformanceData getPerformance()
+   public FMProjection getPerformance()
    {
       return performanceData;
    }
 
-   public void setPerformanceData(FMPerformanceData performanceData) {
+   public void setPerformanceData(FMProjection performanceData) {
       this.performanceData = performanceData;
    }
 
@@ -256,17 +256,11 @@ public class FMData
       return arrayList;
    }
 
-   public Map<String,ArrayList<FMPerformanceData>> getPerformanceData() {
-      Map<String, ArrayList<FMPerformanceData>> arrayMap = new HashMap<String, ArrayList<FMPerformanceData>>();
-      if (getPerformance() != null) {
-         for (String index : getPerformanceIndex()) {
-            ArrayList<FMPerformanceData> performanceList = new ArrayList<FMPerformanceData>();
-            if (performanceList.size() > 0) {
-               arrayMap.put(index, performanceList);
-            }
-         }
+   public ArrayList<FMProjectionData> getPerformanceData() {
+      if (performanceData != null) {
+         performanceData.getProjectionData(getLevel());
       }
-      return arrayMap;
+      return null;
    }
 
    public ArrayList<String> getPerformanceIndex() {

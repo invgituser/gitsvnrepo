@@ -21,6 +21,14 @@ public class FMProjection
       data = new LinkedHashMap<String, ArrayList<FMProjectionData>>();
    }
 
+   public FMProjection(String theme, String displayname, String color, Map<String, ArrayList<FMProjectionData>> data)
+   {
+      this.theme = theme;
+      this.displayname = displayname;
+      this.color = color;
+      this.data = data;
+   }
+
    public String getTheme()
    {
       return theme;
