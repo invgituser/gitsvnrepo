@@ -45,3 +45,5 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'WEB.THEMELIB', 'A', 'invessence-layout', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'PRODUCT.NAME', 'A', 'UOBKH', 'N', '2016-12-16 22:20:19', NULL);
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'MENU.AGGREGRATION', 'A', 'User', 'N', '2016-12-16 22:20:19', NULL);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'CHART.ASSET.ALLOCATION', 'A', 'HIGHCHART.2DDONUT', 'N', '2017-02-21 20:02:19', null);
+INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('uob', 'CHART.RECOMMENDED.ASSET.ALLOCATION', 'A', 'PRIMEFACES.BARCHART', 'N', '2017-02-21 20:02:19', null);

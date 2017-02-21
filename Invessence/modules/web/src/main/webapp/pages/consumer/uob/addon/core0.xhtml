@@ -30,6 +30,13 @@
                         update=":ceForm:workArea, :ceForm:graphArea"/>
             </p:spinner>
 
+            <div class="Wid100 uobCoreLabel">How long do you plan to invest?</div>
+            <p:spinner id="horizon" value="#{uobpb.horizon}"
+                       min="1" max="20" stepFactor="1">
+                <p:ajax event="blur" listener="#{uobpb.onChangeValue}"
+                        update=":ceForm:workArea, :ceForm:graphArea"/>
+            </p:spinner>
+
             <div class="Wid100 uobCoreLabel">Initial investment</div>
             <p:inputNumber id="initialInvestment" styleClass="Wid100 uob_investAmount"
                             value="#{uobpb.initialInvestment}"

@@ -1,481 +1,552 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<script type="text/javascript">
-		/* <![CDATA[ */
-		/*	var visiblility = false;
-		// Create the chart
-		drawXXX();
-		function drawXXX()
-		{
-			$(function ()
-			  {
-				  var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
-				  var assetListJSON = $.parseJSON(chartValue).assetList;
-				  var subAssetListJSON = $.parseJSON(chartValue).subAssetList;
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        /*	var visiblility = false;
+         // Create the chart
+         drawXXX();
+         function drawXXX()
+         {
+         $(function ()
+         {
+         var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
+         var assetListJSON = $.parseJSON(chartValue).assetList;
+         var subAssetListJSON = $.parseJSON(chartValue).subAssetList;
 
-				  console.log(chartValue + "" + assetListJSON + "" + subAssetListJSON);
+         console.log(chartValue + "" + assetListJSON + "" + subAssetListJSON);
 
-				  var colors = Highcharts.getOptions().colors,
-						  categories = ["Equity", "Fixed Income", "Alternative", "Cash"],
-						  data = subAssetListJSON,
-						  browserData = [],
-						  versionsData = [],
-						  i,
-						  j,
-						  dataLen = data.length,
-						  drillDataLen,
-						  brightness;
+         var colors = Highcharts.getOptions().colors,
+         categories = ["Equity", "Fixed Income", "Alternative", "Cash"],
+         data = subAssetListJSON,
+         browserData = [],
+         versionsData = [],
+         i,
+         j,
+         dataLen = data.length,
+         drillDataLen,
+         brightness;
 
 
-				  // Build the data arrays
-				  for (i = 0; i < dataLen; i += 1)
-				  {
+         // Build the data arrays
+         for (i = 0; i < dataLen; i += 1)
+         {
 
-					  // add browser data
-					  browserData.push({
-										   name: categories[i],
-										   y: data[i].y,
-										   color: data[i].color
-									   });
+         // add browser data
+         browserData.push({
+         name: categories[i],
+         y: data[i].y,
+         color: data[i].color
+         });
 
-					  // add version data
-					  console.log(data[i].drilldown);
+         // add version data
+         console.log(data[i].drilldown);
 
-					  drillDataLen = data[i].drilldown.length;
+         drillDataLen = data[i].drilldown.length;
 
-					  for (j = 0; j < drillDataLen; j += 1)
-					  {
-						  drillDataCategoriesLen = data[i].drilldown[j].categories.length;
+         for (j = 0; j < drillDataLen; j += 1)
+         {
+         drillDataCategoriesLen = data[i].drilldown[j].categories.length;
 
-						  for (k = 0; k < drillDataCategoriesLen; k += 1)
-						  {
-							  brightness = 0.2 - (j / drillDataLen) / 5;
-							  versionsData.push({
-													name: data[i].drilldown[j].categories[k],
-													y: data[i].drilldown[j].data[k],
-													color: Highcharts.Color(data[i].color).brighten(brightness).get()
+         for (k = 0; k < drillDataCategoriesLen; k += 1)
+         {
+         brightness = 0.2 - (j / drillDataLen) / 5;
+         versionsData.push({
+         name: data[i].drilldown[j].categories[k],
+         y: data[i].drilldown[j].data[k],
+         color: Highcharts.Color(data[i].color).brighten(brightness).get()
 
-												});
-						  }
-					  }
-				  }
-				   // Create the chart
-				  Highcharts.chart('container', {
-					  chart: {
-						  type: 'pie'
-					  },
-					  title: {
-						  text: ''
-					  },
-					  subtitle: {
-						  text: ''
-					  },
-					  yAxis: {
-						  title: {
-							  text: ''
-						  }
-					  },
-					  plotOptions: {
-						  pie: {
+         });
+         }
+         }
+         }
+         // Create the chart
+         Highcharts.chart('container', {
+         chart: {
+         type: 'pie'
+         },
+         title: {
+         text: ''
+         },
+         subtitle: {
+         text: ''
+         },
+         yAxis: {
+         title: {
+         text: ''
+         }
+         },
+         plotOptions: {
+         pie: {
 
-							  center: ['50%', '50%']
-						  }
-					  },
-					  tooltip: {
-						  valueSuffix: '%'
-					  },
-					  series: [{
-						  name: 'Browsers',
-						  data: browserData,
-						  size: '120%',
-						  position: 'absolute',
-						  innerSize: '50%',
-						  animation: false,
-						  dataLabels: {
-							  enabled: false
-						  },
-						  point: {
-							  events: {
+         center: ['50%', '50%']
+         }
+         },
+         tooltip: {
+         valueSuffix: '%'
+         },
+         series: [{
+         name: 'Browsers',
+         data: browserData,
+         size: '120%',
+         position: 'absolute',
+         innerSize: '50%',
+         animation: false,
+         dataLabels: {
+         enabled: false
+         },
+         point: {
+         events: {
 
-								  click: function (event)
-								  {
-									  if (visiblility == false) {
-										  visiblility = true;
-									  } else {
-										  visiblility = false;
-									  }
-									  drawXXX();
-								  }
-							  }
-						  }
-					  },
-						  {
-							  shadow: false,
-							  name: 'Versions',
-							  data: versionsData,
-							  size: '100%',
-							  innerSize: '60%',
-							  visible: visiblility,
-							  animation: false,
-							  dataLabels: {
-								  enabled: false
-							  }
-						  }]
-				  });
-			  });
+         click: function (event)
+         {
+         if (visiblility == false) {
+         visiblility = true;
+         } else {
+         visiblility = false;
+         }
+         drawXXX();
+         }
+         }
+         }
+         },
+         {
+         shadow: false,
+         name: 'Versions',
+         data: versionsData,
+         size: '100%',
+         innerSize: '60%',
+         visible: visiblility,
+         animation: false,
+         dataLabels: {
+         enabled: false
+         }
+         }]
+         });
+         });
 
-		} */
-		var weight_value = '';
-		var color_value="";
-		var amount_value = "";
-		var name_value="";
-		// Create the chart
+         } */
+        var weight_value = '';
+        var color_value = "";
+        var amount_value = "";
+        var name_value = "";
+        // Create the chart
 
-		function drawChart()
-		{
-			$(function ()
-			  {
-				  // Create the chart
-				  var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
-				  //var assetListJSON = $.parseJSON(chartValue).assetList;
-				  //var subAssetListJSON = $.parseJSON(chartValue).subAssetList;
-				  var assetJSON=  $.parseJSON(chartValue)
-				  var iterator = 0;
-				  console.log(chartValue );
-				  var chart = Highcharts.chart('container3', {
-												   chart: {
-													   type: 'pie',
-													   options3d: {
-														   enabled: true,
-														   alpha: 0
-													   }
-												   },
-												   title: {
-													   text: ''
-												   },
-												   subtitle: {},
-												   exporting: {enabled: false},// remove menu righ top corner
-												   credits: { // remove highchart.com righbottom corner
-													   enabled: false
-												   },
-												   legend: {
-													   layout: 'vertical',
-													   align: 'right',
-													   verticalAlign: 'top',
-													   y: 60,
-													   useHTML: true
-													     ,
-													    itemMarginBottom: 10,
-													   labelFormatter: function () {
-													      ++iterator;
-													   return '<div><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.amount, 0) + '</span></div>';
+        function drawChart()
+        {
+            $(function ()
+              {
+                  // Create the chart
+                  var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
+                  //var assetListJSON = $.parseJSON(chartValue).assetList;
+                  //var subAssetListJSON = $.parseJSON(chartValue).subAssetList;
+                  var assetJSON = $.parseJSON(chartValue)
+                  var iterator = 0;
+                  console.log(chartValue);
+                  var chart = Highcharts.chart('container3', {
+                                                   chart: {
+                                                       type: 'pie',
+                                                       options3d: {
+                                                           enabled: true,
+                                                           alpha: 0
+                                                       }
+                                                   },
+                                                   title: {
+                                                       text: ''
+                                                   },
+                                                   subtitle: {},
+                                                   exporting: {enabled: false},// remove menu righ top corner
+                                                   credits: { // remove highchart.com righbottom corner
+                                                       enabled: false
+                                                   },
+                                                   legend: {
+                                                       layout: 'vertical',
+                                                       align: 'right',
+                                                       verticalAlign: 'top',
+                                                       y: 60,
+                                                       useHTML: true
+                                                       ,
+                                                       itemMarginBottom: 10,
+                                                       labelFormatter: function ()
+                                                       {
+                                                           ++iterator;
+                                                           return '<div><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.amount, 0) + '</span></div>';
 
-													   }
-												   },
-												   plotOptions: {
-													   pie: {
-														   allowPointSelect: true,
-														   cursor: 'pointer',
-														   dataLabels: {
-															   enabled: false
-														   },
-														   animation: false,
-														   showInLegend: true,
-														   innerSize: 200,
-														   depth: 0
-													   },
-													   showInLegend: true,
-													   series: {
-														   allowPointSelect: true,// remove if using details level details part
-														   cursor: 'pointer',
-														   dataLabels: {
-															   enabled: false,
-															   format: '{point.name}'
-														   },
-														   point: {
-															   events: {
-																   mouseOver: function (event)
-																   {
+                                                       }
+                                                   },
+                                                   plotOptions: {
+                                                       pie: {
+                                                           allowPointSelect: true,
+                                                           cursor: 'pointer',
+                                                           dataLabels: {
+                                                               enabled: false
+                                                           },
+                                                           animation: false,
+                                                           showInLegend: true,
+                                                           innerSize: 200,
+                                                           depth: 0
+                                                       },
+                                                       showInLegend: true,
+                                                       series: {
+                                                           allowPointSelect: true,// remove if using details level details part
+                                                           cursor: 'pointer',
+                                                           dataLabels: {
+                                                               enabled: false,
+                                                               format: '{point.name}'
+                                                           },
+                                                           point: {
+                                                               events: {
+                                                                   mouseOver: function (event)
+                                                                   {
 
-																	   weight_value = this.y + "%";
-																	   name_value = this.name;
-																	   amount_value = '$' + this.amount;
-																	   color_value = this.color;
+                                                                       weight_value = this.y + "%";
+                                                                       name_value = this.name;
+                                                                       amount_value = '$' + this.amount;
+                                                                       color_value = this.color;
 
-																	   drawChart();
-																   },
-																   legendItemClick: function () {
-																	   weight_value = this.y+"%";
-																	   name_value = this.name;
-																	   amount_value = '$'+this.amount;
-																	   color_value = this.color;
+                                                                       drawChart();
+                                                                   },
+                                                                   legendItemClick: function ()
+                                                                   {
+                                                                       weight_value = this.y + "%";
+                                                                       name_value = this.name;
+                                                                       amount_value = '$' + this.amount;
+                                                                       color_value = this.color;
 
-																	   drawChart();
-																	   return false;
-																   }
-															   }
-														   }
-													   }
-												   },
+                                                                       drawChart();
+                                                                       return false;
+                                                                   }
+                                                               }
+                                                           }
+                                                       }
+                                                   },
 
-												   tooltip: {
-													   headerFormat: '{point.name}',
-													   pointFormat: '<span style="color:{point.color}"></span><b>$</b><b>{point.amount} - </b> <b>{point.y:.2f}%</b><br/>'
-												   },
-												   series: [{
-													   name: '',
-													   colorByPoint: true,
-													   data: assetJSON
-												   }]
-												   //	,drilldown: { // remove if display details level details only
-												   //	series: subAssetListJSON }
+                                                   tooltip: {
+                                                       headerFormat: '{point.name}',
+                                                       pointFormat: '<span style="color:{point.color}"></span><b>$</b><b>{point.amount} - </b> <b>{point.y:.2f}%</b><br/>'
+                                                   },
+                                                   series: [{
+                                                       name: '',
+                                                       colorByPoint: true,
+                                                       data: assetJSON
+                                                   }]
+                                                   //	,drilldown: { // remove if display details level details only
+                                                   //	series: subAssetListJSON }
 
-											   }
+                                               }
 
-						  ,
-											   function (chart)
-											   { // on complete
+                          ,
+                                               function (chart)
+                                               { // on complete
 
-												   var xpos = '50%';
-												   var ypos = '50%';
-												   var circleradius = 80;
+                                                   var xpos = '50%';
+                                                   var ypos = '50%';
+                                                   var circleradius = 80;
 
-												   // Render the circle
+                                                   // Render the circle
 
-												   /*chart.renderer.circle(xpos, ypos, circleradius).attr({
-																					  fill: '#000',
-																					  innerSize: '80%'
-																				  }).add();*/
+                                                   /*chart.renderer.circle(xpos, ypos, circleradius).attr({
+                                                    fill: '#000',
+                                                    innerSize: '80%'
+                                                    }).add();*/
 
-							 // Render the text
-		chart.renderer.text('<span style="font-size: x-large !important;">'+ amount_value +'</span>< span><br>'+weight_value+'</span>  <span style="font-size: smaller !important;">'+name_value+'</span>', 110, 200).css({
-																																																		   width: circleradius*2,
-																																					 color: color_value,
-																																					 fontSize: '16px',
-																																					 textAlign: 'center'
-																																				 }).attr({
-																																							 // why doesn't zIndex get the text in front of the chart?
-																																							 zIndex: 999
-																																						 }).add();
-						 }
-				  );
-		  });
-	}
-		/* ]]> */
-	</script>
+                                                   // Render the text
+                                                   chart.renderer.text('<span style="font-size: x-large !important;">' + amount_value + '</span>< span><br>' + weight_value + '</span>  <span style="font-size: smaller !important;">' + name_value + '</span>', 110, 200).css({
+                                                                                                                                                                                                                                                                                   width: circleradius * 2,
+                                                                                                                                                                                                                                                                                   color: color_value,
+                                                                                                                                                                                                                                                                                   fontSize: '16px',
+                                                                                                                                                                                                                                                                                   textAlign: 'center'
+                                                                                                                                                                                                                                                                               }).attr({
+                                                                                                                                                                                                                                                                                           // why doesn't zIndex get the text in front of the chart?
+                                                                                                                                                                                                                                                                                           zIndex: 999
+                                                                                                                                                                                                                                                                                       }).add();
+                                               }
+                  );
+              });
+        }
+        /* ]]> */
+    </script>
 
-	<div class="Container100">
-		<div class="Container50 Fleft Responsive100">
-			<div class="ContainerIndent">
-				<p:panel id="inputArea" style="border: 0px"
-					styleClass="uob_Block_tabs">
-					<p:tabView id="pTabView" activeIndex="#{uobpb.pTab}"
-						styleClass="Container100 NBwidget" orientation="top"
-						dynamic="false" cache="false" effect="slide" effectDuration="fast">
-						<p:ajax event="tabChange"
-							update=":ceForm:inputArea, :ceForm:graphArea"
-							listener="#{uobpb.onPTabChange}" />
-						<p:tab id="p1" title="Overview">
-							<ui:include src="/pages/consumer/uob/addon/core0.xhtml" />
-						</p:tab>
-						<p:tab id="p2" title="Asset" style="padding-top: 10px;">
-							<ui:include src="/pages/consumer/uob/addon/income.xhtml" />
-						</p:tab>
-						<p:tab id="p3" title="Liability">
-							<ui:include src="/pages/consumer/uob/addon/debt.xhtml" />
-						</p:tab>
-						<p:tab id="p4" title="Risk">
-							<p:tabView id="rTabView" orientation="top"
-								activeIndex="#{uobpb.rTab}" styleClass="NBwidget whiteBG" cache="false"
-								dynamic="false">
-								<p:ajax event="tabChange" listener="#{uobpb.onRTabChange}" />
-								<p:tab id="q1" title="1">
-									<ui:include src="/pages/consumer/uob/addon/q1.xhtml" />
-								</p:tab>
-								<p:tab id="q2" title="2">
-									<ui:include src="/pages/consumer/uob/addon/q2.xhtml" />
-								</p:tab>
-								<p:tab id="q3" title="3">
-									<ui:include src="/pages/consumer/uob/addon/q3.xhtml" />
-								</p:tab>
-								<p:tab id="q4" title="4">
-									<ui:include src="/pages/consumer/uob/addon/q4.xhtml" />
-								</p:tab>
-								<p:tab id="q5" title="5">
-									<ui:include src="/pages/consumer/uob/addon/q5.xhtml" />
-								</p:tab>
-								<p:tab id="q6" title="6">
-									<ui:include src="/pages/consumer/uob/addon/q6.xhtml" />
-								</p:tab>
-								<p:tab id="q7" title="7">
-									<ui:include src="/pages/consumer/uob/addon/q7.xhtml" />
-								</p:tab>
-							</p:tabView>
-						</p:tab>
+    <div class="Container100">
+        <div class="Container50 Fleft Responsive100">
+            <div class="ContainerIndent">
+                <p:panel id="inputArea" style="border: 0px"
+                         styleClass="uob_Block_tabs">
+                    <p:tabView id="pTabView" activeIndex="#{uobpb.pTab}"
+                               styleClass="Container100 NBwidget" orientation="top"
+                               dynamic="false" cache="false" effect="slide" effectDuration="fast">
+                        <p:ajax event="tabChange"
+                                update=":ceForm:inputArea, :ceForm:graphArea"
+                                listener="#{uobpb.onPTabChange}"/>
+                        <p:tab id="p1" title="Overview">
+                            <ui:include src="/pages/consumer/uob/addon/core0.xhtml"/>
+                        </p:tab>
+                        <p:tab id="p2" title="Asset" style="padding-top: 10px;">
+                            <ui:include src="/pages/consumer/uob/addon/income.xhtml"/>
+                        </p:tab>
+                        <p:tab id="p3" title="Liability">
+                            <ui:include src="/pages/consumer/uob/addon/debt.xhtml"/>
+                        </p:tab>
+                        <p:tab id="p4" title="Risk">
+                            <p:tabView id="rTabView" orientation="top"
+                                       activeIndex="#{uobpb.rTab}" styleClass="NBwidget whiteBG" cache="false"
+                                       dynamic="false">
+                                <p:ajax event="tabChange" listener="#{uobpb.onRTabChange}"/>
+                                <p:tab id="q1" title="1">
+                                    <ui:include src="/pages/consumer/uob/addon/q1.xhtml"/>
+                                </p:tab>
+                                <p:tab id="q2" title="2">
+                                    <ui:include src="/pages/consumer/uob/addon/q2.xhtml"/>
+                                </p:tab>
+                                <p:tab id="q3" title="3">
+                                    <ui:include src="/pages/consumer/uob/addon/q3.xhtml"/>
+                                </p:tab>
+                                <p:tab id="q4" title="4">
+                                    <ui:include src="/pages/consumer/uob/addon/q4.xhtml"/>
+                                </p:tab>
+                                <p:tab id="q5" title="5">
+                                    <ui:include src="/pages/consumer/uob/addon/q5.xhtml"/>
+                                </p:tab>
+                                <p:tab id="q6" title="6">
+                                    <ui:include src="/pages/consumer/uob/addon/q6.xhtml"/>
+                                </p:tab>
+                                <p:tab id="q7" title="7">
+                                    <ui:include src="/pages/consumer/uob/addon/q7.xhtml"/>
+                                </p:tab>
+                            </p:tabView>
+                        </p:tab>
 
-					</p:tabView>
-					<f:facet name="footer">
-						<p:commandButton id="prevBtn" value="Previous"
-							styleClass="Fleft Wid45 uob_button" rendered="#{uobpb.enablePrevButton}"
-							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
-										 outcome="transition=slidefade"
-							actionListener="#{uobpb.gotoPrevTab}" />
-						<p:commandButton id="nextBtn" value="Next"
-							styleClass="Fright Wid45 uob_button" rendered="#{uobpb.enableNextButton}"
-							type="submit"
-							outcome="transition=slidefade"
-							update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
-							actionListener="#{uobpb.gotoNextTab}" />
-					</f:facet>
-				</p:panel>
-			</div>
-		</div>
-		<div class="Container50 Fleft Responsive100">
-			<div class="ContainerIndent">
-				<p:panel id="graphArea" style="border: 0px; background: white;">
-					<p:tabView id="pTabView1" activeIndex="0"
-							   styleClass="Container100 NBwidget uobPersonaliseGraphSection" orientation="top"
-							   dynamic="false" cache="false" effect="slide" effectDuration="fast">
-					<p:tab id="summarytab" title="Summary">
-					<div class="Container100 Responsive100">
-						<p:panel id="grphhdr" style="border: 0px; background: transparent"
-							rendered="#{uobpb.hasReturn}">
-							<div
-								class="Wid45 BorderedBox Fleft TexAlCenter Mar10 MarLeft5 uob_Box">
-								<div class="ContainerIndent">
-									<div class="EmptyBox5"></div>
-									<span class="Fs14 DispBlock gray">Investment Risk</span> <span
-										class="Fs24 DispBlock red">
+                    </p:tabView>
+                    <f:facet name="footer">
+                        <p:commandButton id="prevBtn" value="Previous"
+                                         styleClass="Fleft Wid45 uob_button" rendered="#{uobpb.enablePrevButton}"
+                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
+                                         outcome="transition=slidefade"
+                                         actionListener="#{uobpb.gotoPrevTab}"/>
+                        <p:commandButton id="nextBtn" value="Next"
+                                         styleClass="Fright Wid45 uob_button" rendered="#{uobpb.enableNextButton}"
+                                         type="submit"
+                                         outcome="transition=slidefade"
+                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
+                                         actionListener="#{uobpb.gotoNextTab}"/>
+                    </f:facet>
+                </p:panel>
+            </div>
+        </div>
+        <div class="Container50 Fleft Responsive100">
+            <div class="ContainerIndent">
+                <p:panel id="graphArea" style="border: 0px; background: white;">
+                    <p:tabView id="pTabView1" activeIndex="0"
+                               styleClass="Container100 NBwidget uobPersonaliseGraphSection" orientation="top"
+                               dynamic="false" cache="false" effect="slide" effectDuration="fast">
+                        <p:tab id="summarytab" title="Summary">
+                            <div class="Container100 Responsive100">
+                                <p:panel style="border: 0px; background: transparent"
+                                         rendered="#{uobpb.hasReturn}">
+                                    <div
+                                            class="Wid45 BorderedBox Fleft TexAlCenter Mar10 MarLeft5 uob_Box">
+                                        <div class="ContainerIndent">
+                                            <div class="EmptyBox5"></div>
+                                            <span class="Fs14 DispBlock gray">Investment Risk</span> <span
+                                                class="Fs24 DispBlock red">
 										 <h:outputText
-											value="#{uobpb.totalRisk}">
-											<f:convertNumber pattern="##0.00%" />
-										</h:outputText>
+                                                 value="#{uobpb.totalRisk}">
+                                             <f:convertNumber pattern="##0.00%"/>
+                                         </h:outputText>
 									</span>
-									<div class="EmptyBox5"></div>
-								</div>
-							</div>
+                                            <div class="EmptyBox5"></div>
+                                        </div>
+                                    </div>
 
-							<div
-								class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5 uob_Box">
-								<div class="ContainerIndent">
-									<div class="EmptyBox5"></div>
-									<span class="Fs14 DispBlock gray">Expected Return</span> <span
-										class="Fs24 DispBlock invessenceblue"> <h:outputText
-											value="#{uobpb.totalExpectedReturns}">
-											<f:convertNumber pattern="##0.00%" />
-										</h:outputText>
+                                    <div
+                                            class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5 uob_Box">
+                                        <div class="ContainerIndent">
+                                            <div class="EmptyBox5"></div>
+                                            <span class="Fs14 DispBlock gray">Expected Return</span> <span
+                                                class="Fs24 DispBlock invessenceblue"> <h:outputText
+                                                value="#{uobpb.totalExpectedReturns}">
+                                            <f:convertNumber pattern="##0.00%"/>
+                                        </h:outputText>
 									</span>
 
-									<div class="EmptyBox5"></div>
-								</div>
-							</div>
-						</p:panel>
-					</div>
-						<div class="Container100">
-							<p:chart type="pie" model="#{uobpb.charts.pieChart}"
-									 rendered="#{uobpb.charts.pieChart != null and uobpb.typeOfChart == 'PRIMEFACES.2DDONUT'}" responsive="true" />
+                                            <div class="EmptyBox5"></div>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                            </div>
+                            <ui:fragment rendered="#{uobpb.charts.pieChart != null and uobpb.typeOfChart == 'PRIMEFACES.2DDONUT'}">
+                                <div class="Container100">
+                                    <p:outputPanel id="charts" style="border: 0px">
+                                        <div class="Container50  Fleft Responsive100"><!-- ROHIT's CHANGE -->
+                                            <div class="Container100">
+                                                <p:chart type="pie" model="#{uobpb.charts.pieChart}"
+                                                         responsive="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="Container50 Fleft Responsive100"><!-- ROHIT's CHANGE -->
+                                            <div class="ContainerIndent">
+                                                <p:dataTable styleClass="uob_graphTable"
+                                                             value="#{uobpb.editableAsset}"
+                                                             var="assetList">
 
-							<div id="container3" ></div>
-						</div>
-						<h:inputHidden value="#{uobpb.resultChart}"
-									   id="beanValueChart"/>
-						<h:inputHidden value="#{uobpb.typeOfChart}"
-									   id="typeOfCharts"/>
-				</p:tab>
-						<p:tab id="detailstab" title="Details">
-							<!--<div class="ContainerIndent">
-								<p:dataTable styleClass="uob_graphTable"
-											 value="#{uobpb.editableAsset}" var="assetList">
+                                                    <p:column style="width: 1%; background-color: #{assetList.color}; border:0px!important;">
+                                                        <h:outputText value=" "/>
+                                                    </p:column>
 
-									<p:column
-											style="width: 2%; background-color: #{assetList.color};">
-										<h:outputText value=" " />
-									</p:column>
+                                                    <p:column styleClass="Wid40 Fs12 TexAlLeft"
+                                                              headerText="Asset">
+                                                        <h:outputText value="#{assetList.asset}"/>
+                                                    </p:column>
+                                                    <p:column styleClass="Wid20 Fs12 num-text-align TexAlRight"
+                                                              headerText="Weight"><!-- ROHIT's CHANGE -->
+                                                        <h:outputText value="#{assetList.userEdit}">
+                                                            <f:convertNumber pattern="##0.00%"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:column styleClass="Wid30 Fs12 num-text-align TexAlRight"
+                                                              headerText="Value"><!-- ROHIT's CHANGE -->
+                                                        <h:outputText value="#{assetList.value}">
+                                                            <f:convertNumber currencySymbol="$" type="currency"/>
+                                                        </h:outputText>
+                                                    </p:column>
+                                                    <p:columnGroup type="footer">
+                                                        <p:row>
+                                                            <p:column colspan="3" styleClass="Fs12 TexAlLeft FontBold"
+                                                                      footerText="Total">
+                                                            </p:column>
+                                                            <p:column styleClass="Fs12 TexAlRight FontBold"
+                                                                      footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
+                                                            </p:column>
+                                                        </p:row>
+                                                    </p:columnGroup>
+                                                </p:dataTable>
+                                            </div>
+                                        </div>
+                                    </p:outputPanel>
+                                 </div>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
+                                <h:inputHidden value="#{uobpb.resultChart}"
+                                               id="beanValueChart"/>
+                                <h:inputHidden value="#{uobpb.typeOfChart}"
+                                               id="typeOfCharts"/>
+                            </ui:fragment>
+                        </p:tab>
+                        <p:tab id="detailstab" title="Details">
+                            <div class="Container100 Responsive100">
+                                <p:panel style="border: 0px; background: transparent"
+                                         rendered="#{uobpb.hasReturn}">
+                                    <div
+                                            class="Wid45 BorderedBox Fleft TexAlCenter Mar10 MarLeft5 uob_Box">
+                                        <div class="ContainerIndent">
+                                            <div class="EmptyBox5"></div>
+                                            <span class="Fs14 DispBlock gray">Investment Risk</span> <span
+                                                class="Fs24 DispBlock red">
+										 <h:outputText
+                                                 value="#{uobpb.totalRisk}">
+                                             <f:convertNumber pattern="##0.00%"/>
+                                         </h:outputText>
+									</span>
+                                            <div class="EmptyBox5"></div>
+                                        </div>
+                                    </div>
 
-									<p:column styleClass="Wid40 Fs12 TexAlLeft" resizable="true"
-											  headerText="Asset">
-										&lt;!&ndash; PRAKASH's CHANGE &ndash;&gt;
-										<h:outputText value="#{assetList.asset}" />
-									</p:column>
-									<p:column styleClass="Wid40 Fs12 num-text-align TexAlRight"
-											  resizable="true" headerText="Weight">
-										&lt;!&ndash; PRAKASH's CHANGE &ndash;&gt;
-										<h:outputText value="#{assetList.userEdit}">
-											<f:convertNumber pattern="##0.00%" />
-										</h:outputText>
-									</p:column>
-								</p:dataTable>
-							</div>-->
-							<div class="ContainerIndent">
-								<p:dataTable styleClass="uob_graphTable"
-											 value="#{uobpb.editableAsset}"
-											 var="assetList">
+                                    <div
+                                            class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5 uob_Box">
+                                        <div class="ContainerIndent">
+                                            <div class="EmptyBox5"></div>
+                                            <span class="Fs14 DispBlock gray">Expected Return</span> <span
+                                                class="Fs24 DispBlock invessenceblue"> <h:outputText
+                                                value="#{uobpb.totalExpectedReturns}">
+                                            <f:convertNumber pattern="##0.00%"/>
+                                        </h:outputText>
+									</span>
 
-									<p:column style="width: 1%; background-color: #{assetList.color}; border:0px!important;">
-										<h:outputText value=" "/>
-									</p:column>
+                                            <div class="EmptyBox5"></div>
+                                        </div>
+                                    </div>
+                                </p:panel>
+                            </div>
+                            <div class="Container100">
+                                <div class="ContainerIndent">
+                                    <p:dataTable styleClass="uob_graphTable" var="ticker" value="#{uobpb.displayPortfolioList}">
 
-									<p:column styleClass="Wid40 Fs12 TexAlLeft"
-											  headerText="Asset">
-										<h:outputText value="#{assetList.asset}"/>
-									</p:column>
-									<p:column styleClass="Wid20 Fs12 num-text-align TexAlRight"
-											  headerText="Weight"><!-- ROHIT's CHANGE -->
-										<h:outputText value="#{assetList.userEdit}">
-											<f:convertNumber pattern="##0.00%"/>
-										</h:outputText>
-									</p:column>
-									<p:column styleClass="Wid30 Fs12 num-text-align TexAlRight"
-											  headerText="Value"><!-- ROHIT's CHANGE -->
-										<h:outputText value="#{assetList.value}">
-											<f:convertNumber currencySymbol="$" type="currency"/>
-										</h:outputText>
-									</p:column>
-									<p:columnGroup type="footer">
-										<p:row>
-											<p:column colspan="3" styleClass="Fs12 TexAlLeft FontBold"
-													  footerText="Total">
-											</p:column>
-											<p:column styleClass="Fs12 TexAlRight FontBold"
-													  footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
-											</p:column>
-										</p:row>
-									</p:columnGroup>
-								</p:dataTable>
-							</div>
-						</p:tab>
-						</p:tabView>
+                                        <p:column style="width:1%; background-color: #{ticker.color}">
+                                            <h:outputText value=" "/>
+                                        </p:column>
+
+                                        <p:column priority="3" style="width:61%;" styleClass="Fs12 TexAlLeft">
+                                            <f:facet name="header">
+                                                <h:outputText value="Name"/>
+                                            </f:facet>
+                                            <h:outputText value="#{ticker.name}"/> [ <h:outputText value="#{ticker.symbol}"/> ]
+                                        </p:column>
+
+                                        <p:column style="width:10%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+                                            <f:facet name="header">
+                                                <h:outputText value="Allocated"/>
+                                            </f:facet>
+                                            <h:outputText value="#{ticker.weight}">
+                                                <f:convertNumber pattern="##0.00%"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column style="width:28%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+                                            <f:facet name="header">
+                                                <h:outputText value="Value"/>
+                                            </f:facet>
+                                            <h:outputText value="#{ticker.value}">
+                                                <f:convertNumber currencySymbol="$" type="currency"/>
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:columnGroup type="footer">
+                                            <p:row>
+                                                <p:column/>
+                                                <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+                                                          footerText="Total">
+                                                </p:column>
+                                                <p:column styleClass="Fs14 TexAlRight FontBold"
+                                                          footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
+                                                </p:column>
+                                            </p:row>
+                                        </p:columnGroup>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </p:tab>
+                    </p:tabView>
 
 
+                </p:panel>
+            </div>
+        </div>
+    </div>
 
-				</p:panel>
-					</div>
-			</div>
-		</div>
-
-	<div class="Container100">
-		<p style="font-style: italic; font-size: .8em; text-align: justify">
-			This portfolio is designed for illustration purposes only. The
-			cumulative value of the portfolio (net of fees) is based on the
-			historical performance of the underlying securities and adjusted for
-			changes in the asset allocation over time. It does not take in affect
-			any tax withholdings or distributions. Past performance is no
-			guarantee of future results. Any historical returns, expected
-			returns, or probability projections may not reflect actual future
-			performance. All securities involve risk and may result in loss. Not
-			an offer, solicitation of an offer, or advice to buy or sell
-			securities in jurisdictions where Invessence is not registered</p>
-	</div>
-<script>
-	$( document ).ready(function() {
-		if(document.getElementById('ceForm:pTabView1:typeOfCharts').value == 'HIGHCHART.2DDONUT'){
-			drawChart();
-		}
-	});
-</script>
+    <div class="Container100">
+        <p style="font-style: italic; font-size: .8em; text-align: justify">
+            This portfolio is designed for illustration purposes only. The
+            cumulative value of the portfolio (net of fees) is based on the
+            historical performance of the underlying securities and adjusted for
+            changes in the asset allocation over time. It does not take in affect
+            any tax withholdings or distributions. Past performance is no
+            guarantee of future results. Any historical returns, expected
+            returns, or probability projections may not reflect actual future
+            performance. All securities involve risk and may result in loss. Not
+            an offer, solicitation of an offer, or advice to buy or sell
+            securities in jurisdictions where Invessence is not registered</p>
+    </div>
+    <script>
+        $(document).ready(function ()
+                          {
+                              if (document.getElementById('ceForm:pTabView1:typeOfCharts').value == 'HIGHCHART.2DDONUT')
+                              {
+                                  drawChart();
+                              }
+                          });
+    </script>
 </ui:composition>
