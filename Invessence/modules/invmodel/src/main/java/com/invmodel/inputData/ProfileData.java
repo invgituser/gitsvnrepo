@@ -48,6 +48,8 @@ public class
    private Integer numOfQuestions = 15;
    private Integer[] riskAnswers = new Integer[numOfQuestions];
    private String resultChart;
+   private String typeOfChart;
+   ArrayList<Map> consolidateAssetAndSubAssetList;
 
    private Integer stayInvested = 1;  // 1 = go to cash, 2 = stayInvested (See method strStayInvested)
    private Integer charitableGoals;
@@ -187,6 +189,26 @@ public class
    public void setResultChart(String resultChart)
    {
       this.resultChart = resultChart;
+   }
+
+   public ArrayList<Map> getConsolidateAssetAndSubAssetList()
+   {
+      return consolidateAssetAndSubAssetList;
+   }
+
+   public void setConsolidateAssetAndSubAssetList(ArrayList<Map> consolidateAssetAndSubAssetList)
+   {
+      this.consolidateAssetAndSubAssetList = consolidateAssetAndSubAssetList;
+   }
+
+   public String getTypeOfChart()
+   {
+      return typeOfChart;
+   }
+
+   public void setTypeOfChart(String typeOfChart)
+   {
+      this.typeOfChart = typeOfChart;
    }
 
    public String getGoal()

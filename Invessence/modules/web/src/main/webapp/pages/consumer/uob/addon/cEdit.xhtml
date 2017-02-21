@@ -6,83 +6,267 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<script type="text/javascript">
-	$(function () {
-	// Create the chart
-	var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
-	var tmpvalue= $.parseJSON(chartValue);
-	console.log(chartValue+""+tmpvalue);
-	Highcharts.chart('container3', {
-	chart: {
-	type: 'pie'
-	},
-	title: {
-	text: ''
-	},
-	subtitle: {
+		/* <![CDATA[ */
+		/*	var visiblility = false;
+		// Create the chart
+		drawXXX();
+		function drawXXX()
+		{
+			$(function ()
+			  {
+				  var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
+				  var assetListJSON = $.parseJSON(chartValue).assetList;
+				  var subAssetListJSON = $.parseJSON(chartValue).subAssetList;
 
-	},
-	plotOptions: {
+				  console.log(chartValue + "" + assetListJSON + "" + subAssetListJSON);
 
-	series: {
-	allowPointSelect: true,// remove if using details level details part
-	cursor: 'pointer',
-	dataLabels: {
-	enabled: true,
-	format: '{point.name}'
+				  var colors = Highcharts.getOptions().colors,
+						  categories = ["Equity", "Fixed Income", "Alternative", "Cash"],
+						  data = subAssetListJSON,
+						  browserData = [],
+						  versionsData = [],
+						  i,
+						  j,
+						  dataLen = data.length,
+						  drillDataLen,
+						  brightness;
+
+
+				  // Build the data arrays
+				  for (i = 0; i < dataLen; i += 1)
+				  {
+
+					  // add browser data
+					  browserData.push({
+										   name: categories[i],
+										   y: data[i].y,
+										   color: data[i].color
+									   });
+
+					  // add version data
+					  console.log(data[i].drilldown);
+
+					  drillDataLen = data[i].drilldown.length;
+
+					  for (j = 0; j < drillDataLen; j += 1)
+					  {
+						  drillDataCategoriesLen = data[i].drilldown[j].categories.length;
+
+						  for (k = 0; k < drillDataCategoriesLen; k += 1)
+						  {
+							  brightness = 0.2 - (j / drillDataLen) / 5;
+							  versionsData.push({
+													name: data[i].drilldown[j].categories[k],
+													y: data[i].drilldown[j].data[k],
+													color: Highcharts.Color(data[i].color).brighten(brightness).get()
+
+												});
+						  }
+					  }
+				  }
+				   // Create the chart
+				  Highcharts.chart('container', {
+					  chart: {
+						  type: 'pie'
+					  },
+					  title: {
+						  text: ''
+					  },
+					  subtitle: {
+						  text: ''
+					  },
+					  yAxis: {
+						  title: {
+							  text: ''
+						  }
+					  },
+					  plotOptions: {
+						  pie: {
+
+							  center: ['50%', '50%']
+						  }
+					  },
+					  tooltip: {
+						  valueSuffix: '%'
+					  },
+					  series: [{
+						  name: 'Browsers',
+						  data: browserData,
+						  size: '120%',
+						  position: 'absolute',
+						  innerSize: '50%',
+						  animation: false,
+						  dataLabels: {
+							  enabled: false
+						  },
+						  point: {
+							  events: {
+
+								  click: function (event)
+								  {
+									  if (visiblility == false) {
+										  visiblility = true;
+									  } else {
+										  visiblility = false;
+									  }
+									  drawXXX();
+								  }
+							  }
+						  }
+					  },
+						  {
+							  shadow: false,
+							  name: 'Versions',
+							  data: versionsData,
+							  size: '100%',
+							  innerSize: '60%',
+							  visible: visiblility,
+							  animation: false,
+							  dataLabels: {
+								  enabled: false
+							  }
+						  }]
+				  });
+			  });
+
+		} */
+		var weight_value = '';
+		var color_value="";
+		var amount_value = "";
+		var name_value="";
+		// Create the chart
+
+		function drawChart()
+		{
+			$(function ()
+			  {
+				  // Create the chart
+				  var chartValue = document.getElementById('ceForm:pTabView1:beanValueChart').value;
+				  //var assetListJSON = $.parseJSON(chartValue).assetList;
+				  //var subAssetListJSON = $.parseJSON(chartValue).subAssetList;
+				  var assetJSON=  $.parseJSON(chartValue)
+				  var iterator = 0;
+				  console.log(chartValue );
+				  var chart = Highcharts.chart('container3', {
+												   chart: {
+													   type: 'pie',
+													   options3d: {
+														   enabled: true,
+														   alpha: 0
+													   }
+												   },
+												   title: {
+													   text: ''
+												   },
+												   subtitle: {},
+												   exporting: {enabled: false},// remove menu righ top corner
+												   credits: { // remove highchart.com righbottom corner
+													   enabled: false
+												   },
+												   legend: {
+													   layout: 'vertical',
+													   align: 'right',
+													   verticalAlign: 'top',
+													   y: 60,
+													   useHTML: true
+													     ,
+													    itemMarginBottom: 10,
+													   labelFormatter: function () {
+													      ++iterator;
+													   return '<div><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.amount, 0) + '</span></div>';
+
+													   }
+												   },
+												   plotOptions: {
+													   pie: {
+														   allowPointSelect: true,
+														   cursor: 'pointer',
+														   dataLabels: {
+															   enabled: false
+														   },
+														   animation: false,
+														   showInLegend: true,
+														   innerSize: 200,
+														   depth: 0
+													   },
+													   showInLegend: true,
+													   series: {
+														   allowPointSelect: true,// remove if using details level details part
+														   cursor: 'pointer',
+														   dataLabels: {
+															   enabled: false,
+															   format: '{point.name}'
+														   },
+														   point: {
+															   events: {
+																   mouseOver: function (event)
+																   {
+
+																	   weight_value = this.y + "%";
+																	   name_value = this.name;
+																	   amount_value = '$' + this.amount;
+																	   color_value = this.color;
+
+																	   drawChart();
+																   },
+																   legendItemClick: function () {
+																	   weight_value = this.y+"%";
+																	   name_value = this.name;
+																	   amount_value = '$'+this.amount;
+																	   color_value = this.color;
+
+																	   drawChart();
+																	   return false;
+																   }
+															   }
+														   }
+													   }
+												   },
+
+												   tooltip: {
+													   headerFormat: '{point.name}',
+													   pointFormat: '<span style="color:{point.color}"></span><b>$</b><b>{point.amount} - </b> <b>{point.y:.2f}%</b><br/>'
+												   },
+												   series: [{
+													   name: '',
+													   colorByPoint: true,
+													   data: assetJSON
+												   }]
+												   //	,drilldown: { // remove if display details level details only
+												   //	series: subAssetListJSON }
+
+											   }
+
+						  ,
+											   function (chart)
+											   { // on complete
+
+												   var xpos = '50%';
+												   var ypos = '50%';
+												   var circleradius = 80;
+
+												   // Render the circle
+
+												   /*chart.renderer.circle(xpos, ypos, circleradius).attr({
+																					  fill: '#000',
+																					  innerSize: '80%'
+																				  }).add();*/
+
+							 // Render the text
+		chart.renderer.text('<span style="font-size: x-large !important;">'+ amount_value +'</span>< span><br>'+weight_value+'</span>  <span style="font-size: smaller !important;">'+name_value+'</span>', 110, 200).css({
+																																																		   width: circleradius*2,
+																																					 color: color_value,
+																																					 fontSize: '16px',
+																																					 textAlign: 'center'
+																																				 }).attr({
+																																							 // why doesn't zIndex get the text in front of the chart?
+																																							 zIndex: 999
+																																						 }).add();
+						 }
+				  );
+		  });
 	}
-	}
-	},
-
-	tooltip: {
-	headerFormat: '{point.name}',
-	pointFormat: '<span style="color:{point.color}"></span><b>$</b><b>{point.amount} - </b> <b>{point.y:.2f}%</b><br/>'
-	},
-	series: [{
-	name: 'Brands',
-	colorByPoint: true,
-	data: tmpvalue
-	}],
-		/*drilldown: { // remove comments if using details level details part
-	series: [{
-	name: 'Fixed Income',
-	id: 'Fixed Income',
-	data: [
-	['LENDX', 0.5]
-	]
-	}, {
-	name: 'Domestic Equity',
-	id: 'Domestic Equity',
-	data: [
-	['VB',  0.01],
-	['VTI', 0.01],
-	['VTV', 0.01],
-	['VUG', 0.01],
-	['VYM', 0.13]
-	]
-	}, {
-	name: 'Cash',
-	id: 'Cash',
-	data: [
-	['VEA', 0.0],
-	['VSS', 0.0]
-	]
-	}, {
-	name: 'Alternatives',
-	id: 'Alternatives',
-	data: [
-	['AGAZX', 0.11],
-	['AVRPX', 0.11]
-	]
-	}, {
-	name: 'Real Assets',
-	id: 'Real Assets',
-	data: [
-	['VCMIX', 0.1]
-	]
-	}]
-	}*/
-	});
-	});
+		/* ]]> */
 	</script>
 
 	<div class="Container100">
@@ -193,13 +377,15 @@
 						</p:panel>
 					</div>
 						<div class="Container100">
-							<!--<p:chart type="pie" model="#{uobpb.charts.pieChart}"
-									 rendered="#{uobpb.charts.pieChart != null}" responsive="true" />-->
+							<p:chart type="pie" model="#{uobpb.charts.pieChart}"
+									 rendered="#{uobpb.charts.pieChart != null and uobpb.typeOfChart == 'PRIMEFACES.2DDONUT'}" responsive="true" />
 
-							<div id="container3"></div>
+							<div id="container3" ></div>
 						</div>
 						<h:inputHidden value="#{uobpb.resultChart}"
 									   id="beanValueChart"/>
+						<h:inputHidden value="#{uobpb.typeOfChart}"
+									   id="typeOfCharts"/>
 				</p:tab>
 						<p:tab id="detailstab" title="Details">
 							<!--<div class="ContainerIndent">
@@ -285,5 +471,11 @@
 			an offer, solicitation of an offer, or advice to buy or sell
 			securities in jurisdictions where Invessence is not registered</p>
 	</div>
-
+<script>
+	$( document ).ready(function() {
+		if(document.getElementById('ceForm:pTabView1:typeOfCharts').value == 'HIGHCHART.2DDONUT'){
+			drawChart();
+		}
+	});
+</script>
 </ui:composition>

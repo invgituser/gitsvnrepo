@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import com.invessence.converter.*;
 import com.invessence.web.bean.consumer.InvessenceCharts;
 import com.invessence.web.constant.*;
+import com.invessence.web.controller.HighChartsController;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.inv.INVRiskCalculator;
@@ -50,6 +51,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
    private InvessenceCharts charts = new InvessenceCharts();
+   private HighChartsController highChartsController = new HighChartsController();
    private UOBRiskCalculator riskCalculator = new UOBRiskCalculator();
 
    public Long getBeanAcctnum()
@@ -608,39 +610,48 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
       try
       {
-         formEdit = true;
-         // charts.setMeterGuage(getMeterRiskIndicator());
-         if (getAssetData() != null)
-         {
-            charts.createPieModel(getAssetData(), 0);
-            charts.createBarChart(getAssetData(), 0);
+         Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
+         setTypeOfChart(configMap.get("CHART.ASSET.ALLOCATION"));// HIGHCHART.2DDONUT for highchart and PRIMEFACES.2DDONUT for primfaces
+         if(configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
+            setResultChart(highChartsController.highChartrequesthandler(getPortfolioData(),getAssetData(),configMap));
          }
-         else
-         {
-            charts.resetCharts();
-         }
+         if(configMap.get("CHART.RECOMMENDED.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.BARCHART")
+            || configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.2DDONUT")){
 
-         if (getGoalData() == null || getGoalData().getGoalDesired() == null || getGoalData().getGoalDesired() == 0.0)
-         {
-            displayGoalGraph = false;
-            displayGoalText = false;
-         }
-         else
-         {
-            displayGoalGraph = true;
-            if (getPortfolioData() != null)
+            formEdit = true;
+            // charts.setMeterGuage(getMeterRiskIndicator());
+            if (getAssetData() != null)
             {
-               buildGoalsData();
-               // charts.createLineModel(getProjectionData());
-               // if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
-               charts.createGoalChart(getProjectionData(), getGoalData());
-               if ((!getGoalData().getReachable()))
+               charts.createPieModel(getAssetData(), 0);
+               charts.createBarChart(getAssetData(), 0);
+            }
+            else
+            {
+               charts.resetCharts();
+            }
+
+            if (getGoalData() == null || getGoalData().getGoalDesired() == null || getGoalData().getGoalDesired() == 0.0)
+            {
+               displayGoalGraph = false;
+               displayGoalText = false;
+            }
+            else
+            {
+               displayGoalGraph = true;
+               if (getPortfolioData() != null)
                {
-                  displayGoalText = true;
-               }
-               else
-               {
-                  displayGoalText = false;
+                  buildGoalsData();
+                  // charts.createLineModel(getProjectionData());
+                  // if (getGoalData() != null && getGoalData().getGoalDesired() != null && getGoalData().getGoalDesired() > 0.0)
+                  charts.createGoalChart(getProjectionData(), getGoalData());
+                  if ((!getGoalData().getReachable()))
+                  {
+                     displayGoalText = true;
+                  }
+                  else
+                  {
+                     displayGoalText = false;
+                  }
                }
             }
          }
