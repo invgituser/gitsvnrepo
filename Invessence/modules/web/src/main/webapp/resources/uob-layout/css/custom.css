@@ -1,0 +1,121 @@
+/*
+* Custom StyleSheet - Spark Theme
+* Designed by Prakash
+* Supported Browsers > Google Chrome 3+ , Mozilla Firefox 3+ , Safari 3+ , Opera 3+ , Yandex Browser , Inernet Explorer 9+
+* Copyright 2016 - Invessence */
+
+@media (max-width: 850px) {
+	.ui-accordion-content {
+	font-size: 12px!important;
+	}
+	
+	.formRadioBtn > tbody > tr > td > label {
+	font-size: 12px!important;
+	}
+	
+	.benCheckBox > .ui-chkbox-label {
+	font-size: 12px!important;
+	}
+}
+
+@media (min-width: 625px) and (max-width: 1343px) {
+	.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 90%!important;
+}
+}
+
+@media (min-width: 409px) and (max-width: 624px) {
+	.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 85%!important;
+}
+}
+
+@media (min-width: 320px) and (max-width: 408px) {
+	.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 80%!important;
+	font-size: 14px;
+}
+}
+
+.RegulatoryCheckBox {
+	width: 100%!important;
+}
+
+.RegulatoryCheckBox > .ui-chkbox-label {
+	width: 92%;
+}
+
+.TCM-UI-Dropdown  {
+	    display: inline-flex;
+	        border: 0!important;
+    border-bottom: 1px solid #f2f2f2!important;
+}
+
+.TCM-UI-Dropdown > .ui-selectonemenu-label {
+	padding: 9px 10px!important;
+	background: #F6FAFC;
+	font-size: 16px!important;
+}
+
+.ui-inputNum {
+	border-radius: 3px;
+	padding: 7px 0px;
+}
+
+.TCM-UI-Dropdown > .ui-selectonemenu-label:focus {
+	background: transparent!important;
+}
+
+.ui-inputtext, .ui-selectonemenu > label {
+	color:#025d3c!important;
+}
+
+.ui-inputtext:hover {
+	color:#025d3c!important;
+}
+
+.ui-inputtext:focus {
+	color:#025d3c!important;
+}
+
+.PortfolioCreationFields > .ui-state-focus, .portfolioCreation2DropdownBlock > h3 > .ui-state-focus {
+	border: 1px solid #f2f2f2!important;
+}
+
+.invInputText > .ui-state-focus, .invInputText > .ui-state-hover {
+	border: 1px solid #f2f2f2!important;
+}
+
+/* .ui-inputtext {
+	border-bottom: 1px solid #f2f2f2!important;
+} */
+
+.ui-inputfield {
+	font-size: 18px!important;
+}
+
+#mobile-menu-button:hover {
+	color:#F1F6F9!important;
+}
+
+#layout-topbar-menu {
+	margin-top:16px!important;
+}
+
+#mobile-menu-button, #mobile-menu-button-gray {
+	margin-top: 21px!important;
+}
+
+@media (max-width: 640px) and (min-width: 480px) {
+	#mobile-menu-button, #mobile-menu-button-gray {
+	margin-top: 6px!important;
+}
+	}
+	
+@media (max-width: 480px) and (min-width: 320px){
+#mobile-menu-button, #mobile-menu-button-gray {
+    margin-top: 7px!important;
+    height: auto!important;
+	padding: 6px 8px!important;
+}
+}
