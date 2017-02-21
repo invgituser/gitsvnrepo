@@ -70,7 +70,7 @@ public class HighChartsController
    public String highChartrequesthandler(Portfolio[] portfolioData, AssetClass[] assetData, Map<String, String> webInfo){
       String chartJSON = "";
       if(webInfo.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
-         chartJSON =  generateHighChartsData.createDONUTChart(new ArrayList<Asset>(assetData[0].getAssetclass().values()));
+         chartJSON =  generateHighChartsData.create2DDONUTChart(new ArrayList<Asset>(assetData[0].getAssetclass().values()));
       }
       return chartJSON;
    }

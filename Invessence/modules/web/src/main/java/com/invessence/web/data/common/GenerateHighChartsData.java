@@ -30,11 +30,11 @@ public class GenerateHighChartsData
    }
 
    /**
-    * this method is for generate arraylist for piechart SingleLAYER
+    * this method is for generate arraylist for donut SingleLAYER
     * @param  assetList list Of asset
     * @return ArrayList<map>
     */
-   public String createDONUTChart(ArrayList<Asset> assetList){
+   public String create2DDONUTChart(ArrayList<Asset> assetList){
       ArrayList<Map> list = new ArrayList();
 
          for (Asset stringArrayListOne : assetList)
@@ -57,7 +57,7 @@ public class GenerateHighChartsData
     * @param  assetList list Of asset
     * @return ArrayList<map>
     */
-   public String create2DDONUTChart(ArrayList<Asset> assetList){
+   public String create2DDONUTChart2Layer(ArrayList<Asset> assetList){
       ArrayList<Map> list = new ArrayList();
          ArrayMap<String,Object> map  = new ArrayMap<String,Object>();
          map.put("categories",getAssetData(assetList));
