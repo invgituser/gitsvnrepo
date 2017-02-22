@@ -2,8 +2,9 @@ DROP PROCEDURE IF EXISTS `invdb`.`sp_archive_user_trade_profile`;
 
 DELIMITER $$
 CREATE PROCEDURE `invdb`.`sp_archive_user_trade_profile`(
-	  IN p_acctnum	BIGINT
+	    IN p_acctnum	BIGINT
     , IN p_advisor	VARCHAR(20)
+    , IN p_histPeriod BIGINT
 )
 BEGIN
 
@@ -16,7 +17,7 @@ BEGIN
                    LEFT JOIN `user_advisor_mapping`
                    ON (`user_advisor_mapping`.`advisor` = IFNULL(`user_trade_profile`.`advisor`,'Invessence'))
 			WHERE `user_trade_profile`.`acctnum` not in (select `ext_acct_info`.`acctnum` from `ext_acct_info` where `ext_acct_info`.`acctnum`  is not null )
-            AND   IFNULL(`user_trade_profile`.`status`,'V') in ('V','N','C')
+            AND   IFNULL(`user_trade_profile`.`status`,'V') in ('V','N','P','C')
             AND   `invdb`.`get_business_date`(now(),(IFNULL(`user_advisor_mapping`.`archiveUnopenedApps`,6000)*-1)) < `user_trade_profile`.`created`
            ;
 
