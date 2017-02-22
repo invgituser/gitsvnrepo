@@ -430,6 +430,7 @@
                                  </div>
                             </ui:fragment>
                             <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
+                                <div id="container3" ></div>
                                 <h:inputHidden value="#{uobpb.resultChart}"
                                                id="beanValueChart"/>
                                 <h:inputHidden value="#{uobpb.typeOfChart}"
@@ -543,10 +544,13 @@
     <script>
         $(document).ready(function ()
                           {
-                              if (document.getElementById('ceForm:pTabView1:typeOfCharts').value == 'HIGHCHART.2DDONUT')
-                              {
-                                  drawChart();
+                              if(document.getElementById('ceForm:pTabView1:typeOfCharts') != null){
+                                  if (document.getElementById('ceForm:pTabView1:typeOfCharts').value == 'HIGHCHART.2DDONUT')
+                                  {
+                                      drawChart();
+                                  }
                               }
+
                           });
     </script>
 </ui:composition>
