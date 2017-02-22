@@ -203,7 +203,7 @@
                                                                    mouseOver: function (event)
                                                                    {
 
-                                                                       weight_value = this.y + "%";
+                                                                       weight_value = this.y.toFixed(0) + "%";
                                                                        name_value = this.name;
                                                                        amount_value = '$' + this.amount;
                                                                        color_value = this.color;
@@ -212,7 +212,7 @@
                                                                    },
                                                                    legendItemClick: function ()
                                                                    {
-                                                                       weight_value = this.y + "%";
+                                                                       weight_value = this.y.toFixed(0) + "%";
                                                                        name_value = this.name;
                                                                        amount_value = '$' + this.amount;
                                                                        color_value = this.color;
