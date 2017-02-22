@@ -255,7 +255,11 @@
                                                     }).add();*/
 
                                                    // Render the text
-                                                 chart.renderer.text('<span style="font-size: 20px;font-weight: bold;">' + name_value + '</span><br><span style="font-size: 14px;">' + amount_value + '</span><span> | </span></span><span style="font-size: 14px;">' + weight_value + '</span>', 120, 200).css({
+                                                   var r = this.renderer,
+                                                           x = this.series[0].center[0] + this.plotLeft,
+                                                           y = this.series[0].center[1] + this.plotTop;
+
+                                                 chart.renderer.text('<span style="font-size: 14px;">' + name_value + '</span><br><span style="font-size: 20px;font-weight: bold;">' + amount_value + '</span><br><span style="font-size: 14px;">' + weight_value + '</span>', x - 30, y - 20).css({
                                                                                                                                                                                                                                                                                    width: circleradius * 2,
                                                                                                                                                                                                                                                                                    color: color_value,
                                                                                                                                                                                                                                                                                    textAlign: 'center'
