@@ -77,6 +77,19 @@ public class SessionController implements Serializable
       }
    }
 
+   public void logout()
+   {
+      try
+      {
+         uiLayout.logout();
+      }
+      catch (Exception ex)
+      {
+
+      }
+      reset();
+      webutil.redirect("/j_spring_security_logout", null);
+   }
 
    public String getLogonStart() {
 
@@ -194,7 +207,6 @@ public class SessionController implements Serializable
       }
 
       if (! webutil.getWebprofile().getLocked()) {
-         if (! webutil.getWebprofile().getDefaultAdvisor().equalsIgnoreCase(advisor)) {
             if (commonDAO != null)
             {
                advisorMap = commonDAO.getAdvisorWebInfo(advisor);
@@ -206,7 +218,6 @@ public class SessionController implements Serializable
                   }
                }
             }
-         }
       }
    }
 

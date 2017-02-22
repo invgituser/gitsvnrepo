@@ -5,8 +5,11 @@ import javax.faces.bean.*;
 
 import com.google.api.client.util.ArrayMap;
 import com.google.gson.Gson;
+import com.invessence.web.controller.HighChartsController;
 import com.invessence.web.data.DataPortfolio;
 import com.invmodel.asset.data.Asset;
+import com.invmodel.performance.data.ProjectionData;
+import org.primefaces.model.chart.*;
 
 /**
  * Created by Akhilesh on 2/20/2017.
@@ -14,7 +17,7 @@ import com.invmodel.asset.data.Asset;
 
 @ManagedBean(name = "generateHighChartsData")
 @SessionScoped
-public class GenerateHighChartsData
+public class GenerateHighChartsData extends HighChartsController
 {
 
    ArrayList<Map> consolidateAssetAndSubAssetList;
@@ -124,6 +127,128 @@ public class GenerateHighChartsData
       list2.add(map);
       return new Gson().toJson(map);
    }
+
+   // New method implements : Projection chart creation by using HighChart
+   public String createProjectionHighChart(ProjectionData[] projectionData, Integer horizon, Integer currAge, Integer ageSeries, ProjectionData[] projectionDataAggressive)
+   {
+      currAge = (currAge == null) ? 30 : currAge;
+      horizon = (horizon == null) ? 1 : horizon;
+      Integer year;
+      Integer noOfYlabels = 0;
+      Integer totalYlabels = 0;
+      Integer yIncrement = 1;
+      Integer MAXPOINTONGRAPH = 31;
+      Long moneyInvested;
+      Long money;
+      Double dividingFactor = 1.0;
+
+         if (projectionData == null)
+         {
+            return null;
+         }
+
+         if (projectionData.length < 2)
+         {
+            return null;
+         }
+
+
+         totalYlabels = (horizon < 1) ? 1 : ((horizon > MAXPOINTONGRAPH) ? MAXPOINTONGRAPH : horizon);
+         // yIncrement = (int) ((totalYlabels) / ((double) horizon));
+         yIncrement = 1;  // offset by 1
+         noOfYlabels = (int) (totalYlabels / ((double) yIncrement) % horizon);
+         // Mod returns 0 at its interval.  So on 30, we want to rotate it 90.
+         noOfYlabels = (noOfYlabels == 0) ? projectionData.length : noOfYlabels;
+
+         int y = 0;
+         Calendar cal = Calendar.getInstance();
+         calendarYear = cal.get(cal.YEAR);
+         minYearPoint = calendarYear;
+         maxYearPoint = minYearPoint + totalYlabels;
+         Integer lowervalue = (int) ((double) projectionData[0].getLowerBand2() * .10);
+         minGrowth = ((int) projectionData[0].getLowerBand2() - lowervalue < 0) ? 0 : (int) projectionData[0].getLowerBand2() - lowervalue;
+         maxGrowth = 0;
+         Double tmpvalue;
+         Double temvalueLower1;
+         Double temvalueLower2;
+         Double temvalueUpper1;
+         Double temvalueUpper2;
+         Double temValueAvg;
+
+         ArrayList goalLowerValue = new ArrayList();
+         ArrayList goalUpperValue = new ArrayList();
+         ArrayList goalYearValue = new ArrayList();
+         ArrayList goalAvgValue = new ArrayList();
+         ArrayList goalAgeSeries = new ArrayList();
+
+         ArrayList lstLower = null;
+         ArrayList lstUpper = null;
+
+         while (y <= totalYlabels)
+         {
+            lstLower = new ArrayList();
+            lstUpper = new ArrayList();
+
+            year = calendarYear + y;
+            ageSeries = currAge + y;
+            // moneyInvested = Math.round(projectionData[y].getInvestedCapital() / dividingFactor);
+            money = Math.round(projectionData[y].getUpperBand2() / dividingFactor);
+            // System.out.println("Year:" + year.toString() + ", Value=" + yearlyGrowthData[y][2]);
+            maxGrowth = (maxGrowth > money.intValue()) ? maxGrowth : money.intValue();
+            // growth.set(year, portfolio[y].getTotalCapitalGrowth());
+            tmpvalue = (Math.round((projectionData[y].getTotalCapitalWithGains() / dividingFactor) * 100.0)) / 100.0;
+            temValueAvg = tmpvalue;
+            // totalInvested.set(year.toString(), moneyInvested);
+            // Double lowerMoney = (portfolio[y].getLowerTotalMoney() < moneyInvested) ? moneyInvested : portfolio[y].getLowerTotalMoney();
+            tmpvalue = (Math.round((projectionData[y].getLowerBand1() / dividingFactor) * 100.0)) / 100.0;
+            temvalueLower1 = tmpvalue;
+            tmpvalue = (Math.round((projectionData[y].getLowerBand2() / dividingFactor) * 100.0)) / 100.0;
+            temvalueLower2 = tmpvalue;
+            tmpvalue = (Math.round((projectionData[y].getUpperBand1() / dividingFactor) * 100.0)) / 100.0;
+            temvalueUpper1 = tmpvalue;
+            tmpvalue = (Math.round((projectionData[y].getUpperBand2() / dividingFactor) * 100.0)) / 100.0;
+            temvalueUpper2 = tmpvalue;
+
+            // If incrementing anything other then 1, then make sure that last year is displayed.
+            if (y >= totalYlabels) // If last point is plotted, then quit.
+            {
+               Integer lastpoint = totalYlabels;
+            }
+            lstLower.add(temvalueLower1);
+            lstLower.add(temvalueUpper1);
+            lstUpper.add(temvalueLower2);
+            lstUpper.add(temvalueUpper2);
+
+
+            goalYearValue.add(year);
+            goalAgeSeries.add(ageSeries);
+            goalLowerValue.add(lstLower);
+            goalUpperValue.add(lstUpper);
+            goalAvgValue.add((int) Math.floor(temValueAvg));
+
+            y += yIncrement;
+         }
+
+         Integer digits = maxGrowth.toString().length();
+         Double scale = Math.pow(10, digits - 1);
+
+         maxGrowth = (int) ((Math.ceil(maxGrowth.doubleValue() / scale)) * scale);
+         maxGraghPlot = (int) ((Math.round((projectionDataAggressive[totalYlabels].getUpperBand2() / dividingFactor) * 100.0)) / 100.0);
+
+         HashMap chartMap = new HashMap();
+
+         chartMap.put("goalYearValue", goalYearValue);
+         chartMap.put("goalLowerValue", goalLowerValue);
+         chartMap.put("goalUpperValue", goalUpperValue);
+         chartMap.put("goalAvgValue", goalAvgValue);
+         chartMap.put("minGrowth", minGrowth);
+         chartMap.put("maxGraghPlot", maxGraghPlot);
+         chartMap.put("goalAgeSeries", goalAgeSeries);
+
+         return new Gson().toJson(chartMap);
+   }
+   //End HighChart implementation
+
 
    public ArrayList internalData(String assetType,List<DataPortfolio> edittableAsset){
       ArrayList list1 = new ArrayList();

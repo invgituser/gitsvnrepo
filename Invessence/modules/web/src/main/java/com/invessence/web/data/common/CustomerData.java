@@ -57,6 +57,7 @@ public class CustomerData extends ProfileData
 
    private CustomerData manageGoalinstance = null;
 
+   private Integer numofaccounts;
    private String advisorDisplayName;
    private String userid;
    private String addmodflag;
@@ -301,6 +302,16 @@ public class CustomerData extends ProfileData
          value = getProjectionData()[finalyear-1].getTotalCapitalWithGains();
       }
       return value;
+   }
+
+   public Integer getNumofaccounts()
+   {
+      return numofaccounts;
+   }
+
+   public void setNumofaccounts(Integer numofaccounts)
+   {
+      this.numofaccounts = numofaccounts;
    }
 
    public String getAdvisorDisplayName()
@@ -634,6 +645,7 @@ public class CustomerData extends ProfileData
       setAddmodflag(null);
       setDateOpened(null);
       setManaged(false);
+      setNumofaccounts(0);
 
       // Income/Expenses
       setHouseholdwages(null);

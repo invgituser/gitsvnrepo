@@ -33,9 +33,11 @@ public class ServiceParameters
       String propLoadParam1="";
       setServiceConfigDetails(propLoadParam);
       setServiceOperationDetails(propLoadParam);
+/*    // This property is now part of WEB process and data in service is not required.
       if(propLoadParam.contains("ALL")){
          setWebSiteConfigDetails();
       }
+*/
    }
 
    static{

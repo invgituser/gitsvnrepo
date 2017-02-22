@@ -58,7 +58,9 @@
 
                     <li class="fa fa-ellipsis-v menu-separator" style="float:left!important;"></li>
                     <li>
-                        <a href="j_spring_security_logout" class="Animated05"><i class="fa fa-sign-out"></i> Logout</a>
+                        <h:commandLink action="#{sessionControl.logout}" styleClass="Animated05">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </h:commandLink>
                     </li>
                     <!-- <li class="fa fa-ellipsis-v menu-separator"></li> -->
 

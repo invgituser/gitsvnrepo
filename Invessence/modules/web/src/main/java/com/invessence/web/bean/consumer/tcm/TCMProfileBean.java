@@ -1035,6 +1035,15 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       if (pagenum == null)
          return false;
 
+      Integer minInvestmentRequired = 0;
+      if (webutil.getWebprofile().getWebInfo().containsKey("INVESTMENT.MIN1ST")) {
+         minInvestmentRequired = webutil.converter.getIntData(webutil.getWebprofile().getWebInfo().containsKey("INVESTMENT.MIN1ST"));
+      }
+
+      if (minInvestmentRequired == null || minInvestmentRequired == 0) {
+         minInvestmentRequired = 2000;
+      }
+
       switch (pagenum)
       {
          case 0: // Accttype page
@@ -1044,7 +1053,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.required", "Min $2,000 investment required", new Object[]{"$2,000"}));
             }
-            if (getInitialInvestment() != null && getInitialInvestment() < 2000)
+            if (getInitialInvestment() != null && getInitialInvestment() < minInvestmentRequired)
             {
                dataOK = false;
                pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.constraint", "Min $2,000 investment required", new Object[]{"$2,000"}));

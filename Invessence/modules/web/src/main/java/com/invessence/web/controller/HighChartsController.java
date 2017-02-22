@@ -16,6 +16,11 @@ import com.invmodel.portfolio.data.Portfolio;
 @SessionScoped
 public class HighChartsController
 {
+
+   public Integer calendarYear, minYearPoint, maxYearPoint, minGrowth, maxGrowth, legendXrotation;
+   public Integer maxGraghPlot;
+   public Integer avgPerformance = 0;
+   public Integer poorPerformance = 0;
    ProfileData profileData = new ProfileData();
    WebProfile webProfile = new WebProfile();
    @ManagedProperty("#{webutil}")

@@ -183,18 +183,6 @@ public class LoginController implements PhaseListener
 */
 
 
-   public void logout()
-   {
-      try
-      {
-         uiLayout.logout();
-      }
-      catch (Exception ex)
-      {
-
-      }
-      webutil.redirect("/j_spring_security_logout", null);
-   }
 
    public Long getLogonid()
    {
