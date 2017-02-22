@@ -17,7 +17,7 @@ import org.primefaces.model.chart.*;
 
 @ManagedBean(name = "generateHighChartsData")
 @SessionScoped
-public class GenerateHighChartsData extends HighChartsController
+public class GenerateHighChartsData
 {
 
    ArrayList<Map> consolidateAssetAndSubAssetList;
@@ -131,6 +131,8 @@ public class GenerateHighChartsData extends HighChartsController
    // New method implements : Projection chart creation by using HighChart
    public String createProjectionHighChart(ProjectionData[] projectionData, Integer horizon, Integer currAge, Integer ageSeries, ProjectionData[] projectionDataAggressive)
    {
+      Integer calendarYear, minYearPoint, maxYearPoint, minGrowth, maxGrowth, legendXrotation;
+      Integer maxGraghPlot;
       currAge = (currAge == null) ? 30 : currAge;
       horizon = (horizon == null) ? 1 : horizon;
       Integer year;
