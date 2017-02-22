@@ -174,7 +174,7 @@
                                                        labelFormatter: function ()
                                                        {
                                                            ++iterator;
-                                                           return '<div><span style="float:left">' + this.name + '</span><span style="float:right">' + this.y.toFixed(0) + '%</span><span style="float:right; margin-right:15%">$' + Highcharts.numberFormat(this.amount, 0) + '</span></div>';
+                                                           return '<div><span>' + this.name + '</span></div>';
 
                                                        }
                                                    },
@@ -245,7 +245,7 @@
 
                                                    var xpos = '50%';
                                                    var ypos = '50%';
-                                                   var circleradius = 80;
+                                                   var circleradius = 400;
 
                                                    // Render the circle
 
@@ -255,13 +255,11 @@
                                                     }).add();*/
 
                                                    // Render the text
-                                                   chart.renderer.text('<span style="font-size: x-large !important;">' + amount_value + '</span>< span><br>' + weight_value + '</span>  <span style="font-size: smaller !important;">' + name_value + '</span>', 110, 200).css({
+                                                 chart.renderer.text('<span style="font-size: 20px;font-weight: bold;">' + name_value + '</span><br><span style="font-size: 14px;">' + amount_value + '</span><span> | </span></span><span style="font-size: 14px;">' + weight_value + '</span>', 120, 200).css({
                                                                                                                                                                                                                                                                                    width: circleradius * 2,
                                                                                                                                                                                                                                                                                    color: color_value,
-                                                                                                                                                                                                                                                                                   fontSize: '16px',
                                                                                                                                                                                                                                                                                    textAlign: 'center'
                                                                                                                                                                                                                                                                                }).attr({
-                                                                                                                                                                                                                                                                                           // why doesn't zIndex get the text in front of the chart?
                                                                                                                                                                                                                                                                                            zIndex: 999
                                                                                                                                                                                                                                                                                        }).add();
                                                }
