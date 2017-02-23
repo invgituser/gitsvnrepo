@@ -205,7 +205,9 @@
 
                                                                        weight_value = this.y.toFixed(0) + "%";
                                                                        name_value = this.name;
-                                                                       amount_value = '$' + this.amount;
+                                                                       amount_value = '$'
+                                                                               + Highcharts.numberFormat(this.amount,
+                                                                                                         0, ',', ',');
                                                                        color_value = this.color;
 
                                                                        drawChart();
@@ -214,7 +216,9 @@
                                                                    {
                                                                        weight_value = this.y.toFixed(0) + "%";
                                                                        name_value = this.name;
-                                                                       amount_value = '$' + this.amount;
+                                                                       amount_value = '$'
+                                                                               + Highcharts.numberFormat(this.amount,
+                                                                                                         0, ',', ',');
                                                                        color_value = this.color;
 
                                                                        drawChart();
