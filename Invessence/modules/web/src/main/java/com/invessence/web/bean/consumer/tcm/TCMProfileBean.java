@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.invessence.converter.*;
 import com.invessence.web.constant.WebConst;
+import com.invessence.web.controller.HighChartsController;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.tcm.*;
@@ -55,6 +56,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
    private TCMCharts charts = new TCMCharts();
+   private HighChartsController highChartsController = new HighChartsController();
    private CustomerData origCustomerData;
    ArrayList<FMData> fmDataArrayList;
    LinkedHashMap<String, FMData> fmDataMap;
@@ -1191,6 +1193,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             break;
          case 3:
             cangoToNext = validatePage(currentpage);
+            doProjectionChartForFinalpage();
             break;
          case 4:
             cangoToNext = validatePage(currentpage);
@@ -1331,6 +1334,50 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       formEdit = true;
       createAssetPortfolio(1);
    }
+
+   public void doProjectionChartForFinalpage()
+   {
+      String event = riskCalculator.getAns5();
+      Integer whichslide = null;
+
+      if ( (event != null) && (! event.isEmpty()) )
+      {
+         whichslide = webutil.getConverter().getIntData(event);
+      }
+
+      if (whichslide == null) {
+         if (riskCalculator.getAns4() != null && ! riskCalculator.getAns4().isEmpty()) {
+            whichslide = webutil.getConverter().getIntData(riskCalculator.getAns4()); // See comment below, we are offsetting it by one.
+         }
+         else
+         {
+            whichslide = 0;
+         }
+      }
+
+      if (whichslide > 0)
+      { // Answers are stored in 1 to 5.  Whereas array is from 0-4
+         whichslide -= 1;   // We have to offset the slider by 1 if > 0
+      }
+      //  Calls for Projection creation chart by using HighChart
+      if (getProjectionDatas() != null)
+      {
+         if (getProjectionDatas().size() > 0) {
+            Integer portfolioID = getProjectionDatas().size() - 1;
+            charts.setResultChart(highChartsController.projectionHighChartRequestHandler(getProjectionDatas().get(whichslide),
+                                                                           getHorizon(),
+                                                                           getAge(),
+                                                                           riskCalculator.getRetireAge(),
+                                                                           getProjectionDatas().get(portfolioID)));
+         }
+
+      }
+      setRiskCalcMethod("C");
+      formEdit = true;
+      // createAssetPortfolio(1);
+   }
+
+
 
    public ArrayList<TCMRiskCalculator> testArrayList = null;
 

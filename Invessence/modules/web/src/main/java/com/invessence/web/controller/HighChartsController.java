@@ -7,6 +7,7 @@ import com.invessence.web.data.common.*;
 import com.invessence.web.util.WebUtil;
 import com.invmodel.asset.data.*;
 import com.invmodel.inputData.ProfileData;
+import com.invmodel.performance.data.ProjectionData;
 import com.invmodel.portfolio.data.Portfolio;
 
 /**
@@ -70,13 +71,26 @@ public class HighChartsController
       this.webutil = webutil;
    }
 
-
+   /**
+    * this method is for handle request and forward to appropriate method for SingleLAYER and DoubleLAYER Asset Detail HIGH Chart
+    * @param  portfolioData list Of Subasset
+    * @param  assetData list Of asset
+    * @param webInfo config details
+    * @return String
+    */
 
    public String highChartrequesthandler(Portfolio[] portfolioData, AssetClass[] assetData, Map<String, String> webInfo){
       String chartJSON = "";
-      if(webInfo.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
+      if(webInfo.get("CHART.ASSET.ALLOCATION") != null &&
+         webInfo.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
          chartJSON =  generateHighChartsData.create2DDONUTChart(new ArrayList<Asset>(assetData[0].getAssetclass().values()));
       }
+      return chartJSON;
+   }
+
+   public String projectionHighChartRequestHandler(ProjectionData[] projectionData, Integer horizon, Integer currAge, Integer ageSeries, ProjectionData[] projectionDataAggressive){
+      String chartJSON = "";
+      chartJSON =  generateHighChartsData.createProjectionHighChart(projectionData,horizon,currAge,ageSeries,projectionDataAggressive);
       return chartJSON;
    }
 

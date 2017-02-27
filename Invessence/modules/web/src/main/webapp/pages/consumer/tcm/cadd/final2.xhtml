@@ -6,6 +6,13 @@
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
     <!-- BOX START -->
+    <script type="text/javascript">
+        $(document).ready(function ()
+                          {
+                              drawProjectionChart("final2");//pass page info for reuse js method
+                          });
+
+    </script>
 
     <p:outputPanel id="workArea">
         <p:fieldset legend="Summary" toggleable="true" toggleSpeed="500">
@@ -67,7 +74,11 @@
                         </div>
                     </div>
                 </div >
-                <div class="Container50 Fright">
+
+                <h:inputHidden value="#{tcmpb.charts.resultChart}"
+                               id="beanValueChart1"/>
+
+                <div id="progressChart" class="Container50 Fright">
 
                 </div>
             </div>

@@ -612,10 +612,12 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
          setTypeOfChart(configMap.get("CHART.ASSET.ALLOCATION"));// HIGHCHART.2DDONUT for highchart and PRIMEFACES.2DDONUT for primfaces
-         if(configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
+         if(configMap.get("CHART.ASSET.ALLOCATION") != null &&
+            configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
             setResultChart(highChartsController.highChartrequesthandler(getPortfolioData(),getAssetData(),configMap));
          }
-         if(configMap.get("CHART.RECOMMENDED.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.BARCHART")
+         if(configMap.get("CHART.RECOMMENDED.ASSET.ALLOCATION") != null && configMap.get("CHART.ASSET.ALLOCATION") != null &&
+            configMap.get("CHART.RECOMMENDED.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.BARCHART")
             || configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.2DDONUT")){
 
             formEdit = true;
