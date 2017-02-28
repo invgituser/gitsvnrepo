@@ -40,6 +40,29 @@
                         </p:commandLink>
 
                         <div class="EmptyBox10"></div>
+                        <div class="Container50">
+                            <div class="Wid100">Rep</div>
+                            <p:selectOneMenu value="#{sessionControl.rep}"
+                                             styleClass="Wid50">
+                                <f:selectItem itemLabel="House" itemValue=""/>
+                                <f:selectItem itemLabel="Building Benjamins" itemValue="BBRep"/>
+                                <f:selectItem itemLabel="Invessence" itemValue="Invessence"/>
+                            </p:selectOneMenu>
+                        </div>
+
+                        <div class="Container50">
+                            <div class="Wid100">AccountID</div>
+                            <p:selectOneMenu value="#{sessionControl.visitorID}"
+                                             styleClass="Wid50">
+                                <f:selectItem itemLabel="Visitor" itemValue=""/>
+                                <f:selectItem itemLabel="Jigar" itemValue="Jigar"/>
+                                <f:selectItem itemLabel="Chris" itemValue="Chris"/>
+                                <f:selectItem itemLabel="Prashant" itemValue="Prashant"/>
+                            </p:selectOneMenu>
+                        </div>
+
+
+                        <div class="EmptyBox10"></div>
                         <p:commandLink actionListener="#{sessionControl.emulateClient('www.buildingbenjamins.com')}">
                             <h:graphicImage name="images/logo/BuildingBenjamins-identity.png" library="invessence"
                                             class="MarAuto MarTop5 MarBot5 selectClientInv" id="bbdemo" style="height: 65px"/>
@@ -50,7 +73,7 @@
                                             class="MarAuto MarTop5 MarBot5 selectClientInv" id="ubodemo" style="height: 60px"/>
                         </p:commandLink>
                         <div class="EmptyBox20"></div>
-                        <p:button  value="GetStarted" styleClass="Fs16 BlueButton" href="/getstarted.xhtml"></p:button>
+                        <p:button  value="GetStarted" styleClass="Fs16 BlueButton" href="/getstarted.xhtml?rep=#{sessionControl.rep}&vid=#{sessionControl.visitorID}"></p:button>
                         <p:button  value="Login" styleClass="Fs16 OrangeButton" href="/"></p:button>
                         <p:commandButton  value="Reset" styleClass="Fs16 OrangeButton" actionListener="#{sessionControl.reset}"></p:commandButton>
                         <div class="EmptyBox50"></div>

@@ -27,6 +27,7 @@ public class SessionController implements Serializable
    protected final Log logger = LogFactory.getLog(getClass());
    private Long logonid;
    private String rep;
+   private String visitorID;
 
    @ManagedProperty("#{webutil}")
    private WebUtil webutil;
@@ -67,6 +68,16 @@ public class SessionController implements Serializable
    public void setRep(String rep)
    {
       this.rep = rep;
+   }
+
+   public String getVisitorID()
+   {
+      return visitorID;
+   }
+
+   public void setVisitorID(String visitorID)
+   {
+      this.visitorID = visitorID;
    }
 
    public void preRenderView()
