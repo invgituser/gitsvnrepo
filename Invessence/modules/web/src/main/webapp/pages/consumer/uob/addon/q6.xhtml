@@ -13,7 +13,7 @@
             </h5>
             <p:selectOneRadio value="#{uobpb.riskCalculator.ans8}"
                               layout="pageDirection">
-                <p:ajax listener="#{uobpb.onChangeValue}"
+               <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
                 <f:selectItem itemLabel="High – I am comfortable with volatility." itemValue="1" />
                 <f:selectItem itemLabel="Moderate – Up to half volatile and half balanced." itemValue="2" />

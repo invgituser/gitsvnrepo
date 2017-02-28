@@ -14,7 +14,7 @@
             </h5>
             <p:selectOneRadio value="#{uobpb.riskCalculator.ans9}"
                               layout="pageDirection">
-                <p:ajax listener="#{uobpb.onChangeValue}"
+               <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
                 <f:selectItem itemLabel="Majority of my assets at higher risk, for greater returns." itemValue="1" />
                 <f:selectItem itemLabel="More than half my assets at higher risk, for greater returns." itemValue="2" />

@@ -5,42 +5,45 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-	<div class="Container100 Responsive100 uob_tabsInputBlock">
-                <p:panelGrid columns="2" layout="grid" class="FormContent"
-                            styleClass="Container100 Responsive100"
-                     style="border:0px !important; background:none;">
-                    <div class="TexAlLeft Wid100">
-                        <div class="uobBoldText">Salary/Wages (Yearly)</div>
-                        <div class="uobSubText">(Total Gross Income)</div>
-                    </div>
-                    <p:inputNumber value="#{uobpb.householdwages}" styleClass="Wid100 uob_number_field"
-                                    maxlength="15" decimalPlaces="0" symbol="$">
-                        <p:ajax listener="#{uobpb.onChangeValue}"
+	<div class="Container100">
+						<span class="Fs30">Asset</span>
+					</div>
+					<div class="Container100">
+						<div class="EmptyBox5"></div>
+						<div class="TexAlLeft Wid100">
+							<div class="uobBoldText">Salary/Wages (Yearly)</div>
+							<div class="uobSubText">(Total Gross Income)</div>
+						</div>
+						<p:inputNumber value="#{uobpb.householdwages}"
+							styleClass="Wid100 uob_number_field" maxlength="15"
+							decimalPlaces="0" symbol="$">
+						<p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
-
-                    <div class="TexAlLeft Wid100">
-                    <div class="uobBoldText"> Liquid Asset</div>
-                        <div class="uobSubText">(Cash/Savings Account, etc.)</div>
-                    </div>
-                    <p:inputNumber value="#{uobpb.moneymarket}" styleClass="Wid100 uob_number_field"
-                                    maxlength="15" decimalPlaces="0" symbol="$">
-                        <p:ajax listener="#{uobpb.onChangeValue}"
+						</p:inputNumber>
+						<div class="EmptyBox10"></div>
+						<div class="TexAlLeft Wid100">
+							<div class="uobBoldText">Liquid Asset</div>
+							<div class="uobSubText">(Cash/Savings Account, etc.)</div>
+						</div>
+						<p:inputNumber value="#{uobpb.moneymarket}"
+							styleClass="Wid100 uob_number_field" maxlength="15"
+							decimalPlaces="0" symbol="$">
+							<p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
-                    <!-- <h:outputText/>
+						</p:inputNumber>
+						<!-- <h:outputText/>
                     <h:outputText/> -->
-
-                    <div class="TexAlLeft Wid100">
-                    <div class="uobBoldText">Other Investments</div>
-                        <div class="uobSubText">(Stocks, Bond, Retirement)</div>
-                    </div>
-                    <p:inputNumber value="#{uobpb.investment}" styleClass="Wid100 uob_number_field"
-                                    maxlength="15" decimalPlaces="0" symbol="$">
-                        <p:ajax listener="#{uobpb.onChangeValue}"
+						<div class="EmptyBox10"></div>
+						<div class="TexAlLeft Wid100">
+							<div class="uobBoldText">Other Investments</div>
+							<div class="uobSubText">(Stocks, Bond, Retirement)</div>
+						</div>
+						<p:inputNumber value="#{uobpb.investment}"
+							styleClass="Wid100 uob_number_field" maxlength="15"
+							decimalPlaces="0" symbol="$">
+						<p:ajax listener="#{uobpb.onChangeValue}"
                                 update=":ceForm:workArea, :ceForm:graphArea"/>
-                    </p:inputNumber>
+						</p:inputNumber>
 
-                </p:panelGrid>
-        </div>
+					</div>
 </ui:composition>

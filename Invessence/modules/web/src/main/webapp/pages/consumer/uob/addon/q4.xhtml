@@ -13,7 +13,7 @@
             </h5>
             <p:selectOneRadio value="#{uobpb.riskCalculator.ans6}"
                               layout="pageDirection">
-                <p:ajax listener="#{uobpb.onChangeValue}"
+               <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
                 <f:selectItem itemLabel="Highest." itemValue="1" />
                 <f:selectItem itemLabel="High." itemValue="2" />

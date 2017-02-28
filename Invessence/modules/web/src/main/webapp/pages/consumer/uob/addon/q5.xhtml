@@ -13,7 +13,7 @@
             </h5>
             <p:selectOneRadio value="#{uobpb.riskCalculator.ans7}"
                               layout="pageDirection">
-                <p:ajax listener="#{uobpb.onChangeValue}"
+             <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
                 <f:selectItem itemLabel="Aggressive – long-term growth." itemValue="1" />
                 <f:selectItem itemLabel="Moderately aggressive – long-term growth." itemValue="2" />

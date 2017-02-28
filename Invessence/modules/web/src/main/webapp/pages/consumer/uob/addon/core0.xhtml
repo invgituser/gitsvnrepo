@@ -5,49 +5,45 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
-    <div class="Container100 Responsive100 uob_tabsInputBlock">
-        <p:panelGrid columns="2" layout="grid" styleClass="Container100 Responsive100"
-                     style="border:0px !important; background:none;" class="FormContent">
-
-
-            <div class="Wid100 uobCoreLabel">Invest for</div>
-            <p:selectOneMenu value="#{uobpb.goal}"
-                             styleClass="Wid100 uob_selectDropdown"
-                             required="true" requiredMessage="Please choose investment strategy" >
-                <p:ajax listener="#{uobpb.onGoalChangeValue}"
+    <div class="Container100">
+						<span class="Fs30">Overview</span>
+					</div>
+					<div class="Container100" style="">
+						<div class="Wid100 uobCoreLabel">Invest for</div>
+						<p:selectOneMenu value="#{uobpb.goal}"
+							styleClass="Wid100 uob_selectDropdown" required="true">
+							<p:ajax listener="#{uobpb.onGoalChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="Choose One" itemValue=""/>
-                <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
-                <f:selectItem itemLabel="College" itemValue="College"/>
-                <f:selectItem itemLabel="Building Wealth" itemValue="Wealth"/>
-                <f:selectItem itemLabel="Other" itemValue="Other"/>
-            </p:selectOneMenu>
+							<f:selectItem itemLabel="Choose One" itemValue="" />
+							<f:selectItem itemLabel="Retirement" itemValue="Retirement" />
+							<f:selectItem itemLabel="College" itemValue="College" />
+							<f:selectItem itemLabel="Building Wealth" itemValue="Wealth" />
+							<f:selectItem itemLabel="Other" itemValue="Other" />
+						</p:selectOneMenu>
 
-            <div class="Wid100 uobCoreLabel">Your current age</div>
-            <p:inputNumber value="#{uobpb.age}"
+						<div class="Wid100 uobCoreLabel">Your current age</div>
+						<p:inputNumber value="#{uobpb.age}"
                            min="18" max="100"
                            maxlength="5" decimalPlaces="0">
                 <p:ajax event="blur" listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
             </p:inputNumber>
 
-            <div class="Wid100 uobCoreLabel">How long do you plan to invest?</div>
-            <p:inputNumber value="#{uobpb.horizon}"
-                           min="1" max="20"
-                           maxlength="5" decimalPlaces="0">
-                <p:ajax event="blur" listener="#{uobpb.onChangeValue}"
+						<div class="Wid100 uobCoreLabel">How long do you plan to
+							invest?</div>
+						<p:inputNumber value="#{uobpb.horizon}" min="1" max="20"
+							styleClass="Wid100" maxlength="5" decimalPlaces="0">
+				<p:ajax event="blur" listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-            </p:inputNumber>
+						</p:inputNumber>
 
-            <div class="Wid100 uobCoreLabel">Initial investment</div>
-            <p:inputNumber styleClass="Wid100 uob_investAmount"
-                            value="#{uobpb.initialInvestment}"
-                            maxlength="11" decimalPlaces="0" symbol="$">
-                <p:ajax listener="#{uobpb.onChangeValue}"
+						<div class="Wid100 uobCoreLabel">Initial investment</div>
+						<p:inputNumber styleClass="Wid100 uob_investAmount"
+							value="#{uobpb.initialInvestment}" maxlength="11"
+							decimalPlaces="0" symbol="$">
+							<p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-            </p:inputNumber>
-
-        </p:panelGrid>
-    </div>
+						</p:inputNumber>
+					</div>
 
 </ui:composition>

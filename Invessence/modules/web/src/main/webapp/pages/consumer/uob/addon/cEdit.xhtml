@@ -1,300 +1,229 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:pe="http://primefaces.org/ui/extensions">
-
-    <script type="text/javascript">
-
-    </script>
-
-    <div class="Container100">
-        <div class="Container50 Fleft Responsive100">
-            <div class="ContainerIndent">
-                <p:panel id="inputArea" style="border: 0px"
-                         styleClass="uob_Block_tabs">
-                    <p:tabView id="pTabView" activeIndex="#{uobpb.pTab}"
-                               styleClass="Container100 NBwidget" orientation="top"
-                               dynamic="false" cache="false" effect="slide" effectDuration="fast">
-                        <p:ajax event="tabChange"
-                                update=":ceForm:inputArea,:ceForm:workArea, :ceForm:graphArea"
-                                listener="#{uobpb.onPTabChange}"/>
-                        <p:tab id="p1" title="Overview">
-                            <ui:include src="/pages/consumer/uob/addon/core0.xhtml"/>
-                        </p:tab>
-                        <p:tab id="p2" title="Asset" style="padding-top: 10px;">
-                            <ui:include src="/pages/consumer/uob/addon/income.xhtml"/>
-                        </p:tab>
-                        <p:tab id="p3" title="Liability">
-                            <ui:include src="/pages/consumer/uob/addon/debt.xhtml"/>
-                        </p:tab>
-                        <p:tab id="p4" title="Risk">
-                            <p:tabView id="rTabView" orientation="top"
-                                       activeIndex="#{uobpb.rTab}" styleClass="NBwidget whiteBG" cache="false"
-                                       dynamic="false">
-                                <p:ajax event="tabChange" listener="#{uobpb.onRTabChange}"/>
-                                <p:tab id="q1" title="1">
-                                    <ui:include src="/pages/consumer/uob/addon/q1.xhtml"/>
-                                </p:tab>
-                                <p:tab id="q2" title="2">
-                                    <ui:include src="/pages/consumer/uob/addon/q2.xhtml"/>
-                                </p:tab>
-                                <p:tab id="q3" title="3">
-                                    <ui:include src="/pages/consumer/uob/addon/q3.xhtml"/>
-                                </p:tab>
-                                <p:tab id="q4" title="4">
-                                    <ui:include src="/pages/consumer/uob/addon/q4.xhtml"/>
-                                </p:tab>
-                                <p:tab id="q5" title="5">
-                                    <ui:include src="/pages/consumer/uob/addon/q5.xhtml"/>
-                                </p:tab>
-                                <p:tab id="q6" title="6">
-                                    <ui:include src="/pages/consumer/uob/addon/q6.xhtml"/>
-                                </p:tab>
-                                <p:tab id="q7" title="7">
-                                    <ui:include src="/pages/consumer/uob/addon/q7.xhtml"/>
-                                </p:tab>
-                            </p:tabView>
-                        </p:tab>
-
-                    </p:tabView>
-                    <f:facet name="footer">
-                        <p:commandButton id="prevBtn" value="Previous"
-                                         styleClass="Fleft Wid45 uob_button" rendered="#{uobpb.enablePrevButton}"
-                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
-                                         outcome="transition=slidefade"
-                                         actionListener="#{uobpb.gotoPrevTab}"/>
-                        <p:commandButton id="nextBtn" value="Next"
-                                         styleClass="Fright Wid45 uob_button" rendered="#{uobpb.enableNextButton}"
-                                         type="submit"
-                                         outcome="transition=slidefade"
-                                         update=":ceForm:inputArea, :ceForm:pTabView:rTabView, :ceForm:graphArea"
-                                         actionListener="#{uobpb.gotoNextTab}"/>
-                    </f:facet>
-                </p:panel>
-            </div>
-        </div>
-        <div class="Container50 Fleft Responsive100">
-            <div class="ContainerIndent">
-                <p:panel id="graphArea" style="border: 0px; background: white;">
-                    <p:tabView id="pTabView1" activeIndex="0"
-                               styleClass="Container100 NBwidget uobPersonaliseGraphSection" orientation="top"
-                               dynamic="false" cache="false" effect="slide" effectDuration="fast">
-                        <p:tab id="summarytab" title="Summary">
-                            <div class="Container100 Responsive100">
-                                <p:panel style="border: 0px; background: transparent"
-                                         rendered="#{uobpb.hasReturn}">
-                                    <div
-                                            class="Wid45 BorderedBox Fleft TexAlCenter Mar10 MarLeft5 uob_Box">
-                                        <div class="ContainerIndent">
-                                            <div class="EmptyBox5"></div>
-                                            <span class="Fs14 DispBlock gray">Investment Risk</span> <span
-                                                class="Fs24 DispBlock red">
-										 <h:outputText
-                                                 value="#{uobpb.totalRisk}">
-                                             <f:convertNumber pattern="##0.00%"/>
-                                         </h:outputText>
-									</span>
-                                            <div class="EmptyBox5"></div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                            class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5 uob_Box">
-                                        <div class="ContainerIndent">
-                                            <div class="EmptyBox5"></div>
-                                            <span class="Fs14 DispBlock gray">Expected Return</span> <span
-                                                class="Fs24 DispBlock invessenceblue"> <h:outputText
-                                                value="#{uobpb.totalExpectedReturns}">
-                                            <f:convertNumber pattern="##0.00%"/>
-                                        </h:outputText>
-									</span>
-
-                                            <div class="EmptyBox5"></div>
-                                        </div>
-                                    </div>
-                                </p:panel>
-                            </div>
-                            <ui:fragment rendered="#{uobpb.charts.pieChart != null and uobpb.typeOfChart == 'PRIMEFACES.2DDONUT'}">
-                                <div class="Container100">
-                                    <p:outputPanel id="charts" style="border: 0px">
-                                        <div class="Container30 Fleft Responsive100"><!-- ROHIT's CHANGE -->
-                                            <div class="Container100">
-                                                <p:chart type="pie" model="#{uobpb.charts.pieChart}"
-                                                         responsive="true"/>
-                                            </div>
-                                        </div>
-                                        <div class="Container70 Fleft Responsive100"><!-- ROHIT's CHANGE -->
-                                            <div class="ContainerIndent">
-                                                <p:dataTable styleClass="uob_graphTable"
-                                                             value="#{uobpb.editableAsset}"
-                                                             var="assetList">
-
-                                                    <p:column style="width: 1%; background-color: #{assetList.color}; border:0px!important;">
-                                                        <h:outputText value=" "/>
-                                                    </p:column>
-
-                                                    <p:column style="width: 50%"
-                                                              styleClass="Wid50 Fs12 TexAlLeft"
-                                                              headerText="Asset">
-                                                        <h:outputText value="#{assetList.asset}"/>
-                                                    </p:column>
-                                                    <p:column priority="3"
-                                                              style="width: 15%"
-                                                              styleClass="Fs12 num-text-align TexAlRight"
-                                                              headerText="Weight"><!-- ROHIT's CHANGE -->
-                                                        <h:outputText value="#{assetList.userEdit}">
-                                                            <f:convertNumber pattern="##0%"/>
-                                                        </h:outputText>
-                                                    </p:column>
-                                                    <p:column style="width: 34%"
-                                                              styleClass="Fs12 num-text-align TexAlRight"
-                                                              headerText="Value"><!-- ROHIT's CHANGE -->
-                                                        <h:outputText value="#{assetList.value}">
-                                                            <f:convertNumber pattern="$##,###,###"/>
-                                                        </h:outputText>
-                                                    </p:column>
-                                                    <p:columnGroup type="footer">
-                                                        <p:row>
-                                                            <p:column colspan="3" styleClass="Fs12 TexAlLeft FontBold"
-                                                                      footerText="Total">
-                                                            </p:column>
-                                                            <p:column styleClass="Fs12 TexAlRight FontBold"
-                                                                      footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
-                                                            </p:column>
-                                                        </p:row>
-                                                    </p:columnGroup>
-                                                </p:dataTable>
-                                            </div>
-                                        </div>
-                                    </p:outputPanel>
-                                 </div>
-                            </ui:fragment>
-                            <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
-                                <div id="2dDonutChart" ></div>
-                                <h:inputHidden value="#{uobpb.resultChart}"
-                                               id="twodDonutValueChart"/>
-                                <h:inputHidden value="#{uobpb.typeOfChart}"
-                                               id="typeOfCharts"/>
-                            </ui:fragment>
-                        </p:tab>
-                        <p:tab id="detailstab" title="Details">
-                            <div class="Container100 Responsive100">
-                                <p:panel style="border: 0px; background: transparent"
-                                         rendered="#{uobpb.hasReturn}">
-                                    <div
-                                            class="Wid45 BorderedBox Fleft TexAlCenter Mar10 MarLeft5 uob_Box">
-                                        <div class="ContainerIndent">
-                                            <div class="EmptyBox5"></div>
-                                            <span class="Fs14 DispBlock gray">Investment Risk</span> <span
-                                                class="Fs24 DispBlock red">
-										 <h:outputText
-                                                 value="#{uobpb.totalRisk}">
-                                             <f:convertNumber pattern="##0.00%"/>
-                                         </h:outputText>
-									</span>
-                                            <div class="EmptyBox5"></div>
-                                        </div>
-                                    </div>
-
-                                    <div
-                                            class="Wid45 BorderedBox Fright TexAlCenter Mar10 MarLeft5 uob_Box">
-                                        <div class="ContainerIndent">
-                                            <div class="EmptyBox5"></div>
-                                            <span class="Fs14 DispBlock gray">Expected Return</span> <span
-                                                class="Fs24 DispBlock invessenceblue"> <h:outputText
-                                                value="#{uobpb.totalExpectedReturns}">
-                                            <f:convertNumber pattern="##0.00%"/>
-                                        </h:outputText>
-									</span>
-
-                                            <div class="EmptyBox5"></div>
-                                        </div>
-                                    </div>
-                                </p:panel>
-                            </div>
-                            <div class="Container100">
-                                <div class="ContainerIndent">
-                                    <p:dataTable styleClass="uob_graphTable" var="ticker" value="#{uobpb.displayPortfolioList}">
-
-                                        <p:column style="width:1%; background-color: #{ticker.color}">
-                                            <h:outputText value=" "/>
-                                        </p:column>
-
-                                        <p:column style="width:61%;" styleClass="Fs12 TexAlLeft">
-                                            <f:facet name="header">
-                                                <h:outputText value="Name"/>
-                                            </f:facet>
-                                            <h:outputText value="#{ticker.name}"/> [ <h:outputText value="#{ticker.symbol}"/> ]
-                                        </p:column>
-
-                                        <p:column priority="3"
-                                                  style="width:15%;"
-                                                  styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
-                                            <f:facet name="header">
-                                                <h:outputText value="Allocated"/>
-                                            </f:facet>
-                                            <h:outputText value="#{ticker.weight}">
-                                                <f:convertNumber pattern="##0%"/>
-                                            </h:outputText>
-                                        </p:column>
-
-                                        <p:column style="width:23%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
-                                            <f:facet name="header">
-                                                <h:outputText value="Value"/>
-                                            </f:facet>
-                                            <h:outputText value="#{ticker.value}">
-                                                <f:convertNumber pattern="$##,###,###"/>
-                                            </h:outputText>
-                                        </p:column>
-
-                                        <p:columnGroup type="footer">
-                                            <p:row>
-                                                <p:column/>
-                                                <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
-                                                          footerText="Total">
-                                                </p:column>
-                                                <p:column styleClass="Fs14 TexAlRight FontBold"
-                                                          footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
-                                                </p:column>
-                                            </p:row>
-                                        </p:columnGroup>
-                                    </p:dataTable>
-                                </div>
-                            </div>
-                        </p:tab>
-                    </p:tabView>
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 
-                </p:panel>
-            </div>
-        </div>
-    </div>
+	<div class="Wid30 Fleft LeftPanel">
+		<div class="step1" style="">
 
-    <div class="Container100">
-        <p style="font-style: italic; font-size: .8em; text-align: justify">
-            This portfolio is designed for illustration purposes only. The
-            cumulative value of the portfolio (net of fees) is based on the
-            historical performance of the underlying securities and adjusted for
-            changes in the asset allocation over time. It does not take in affect
-            any tax withholdings or distributions. Past performance is no
-            guarantee of future results. Any historical returns, expected
-            returns, or probability projections may not reflect actual future
-            performance. All securities involve risk and may result in loss. Not
-            an offer, solicitation of an offer, or advice to buy or sell
-            securities in jurisdictions where Invessence is not registered</p>
-    </div>
-    <script>
-        $(document).ready(function ()
-                          {
-                              if(document.getElementById('ceForm:pTabView1:typeOfCharts') != null){
-                                  if (document.getElementById('ceForm:pTabView1:typeOfCharts').value == 'HIGHCHART.2DDONUT')
-                                  {
-                                      draw2dDonut1lyrChart();
-                                  }
-                              }
+			<ui:include src="/pages/consumer/uob/addon/core0.xhtml" />
 
-                          });
-    </script>
+		</div>
+		<div class="step2">
+			<ui:include src="/pages/consumer/uob/addon/income.xhtml" />
+
+		</div>
+
+		<div class="step3">
+			<ui:include src="/pages/consumer/uob/addon/debt.xhtml"/>
+
+		</div>
+
+		<div class="step4">
+			<div class="Container100">
+				<span class="Fs30">Risk</span>
+			</div>
+			<div class="container100">
+				<div class="EmptyBox10"></div>
+				<p:tabView id="rTabView" orientation="top"
+					style="background: transparent;" activeIndex="#{uobpb.rTab}"
+					styleClass="NBwidget whiteBG" cache="false" dynamic="false">
+
+					<p:tab id="q1" title="1">
+						<ui:include src="/pages/consumer/uob/addon/q1.xhtml" />
+					</p:tab>
+					<p:tab id="q2" title="2">
+						<ui:include src="/pages/consumer/uob/addon/q2.xhtml" />
+					</p:tab>
+					<p:tab id="q3" title="3">
+						<ui:include src="/pages/consumer/uob/addon/q3.xhtml" />
+					</p:tab>
+					<p:tab id="q4" title="4">
+						<ui:include src="/pages/consumer/uob/addon/q4.xhtml" />
+					</p:tab>
+					<p:tab id="q5" title="5">
+						<ui:include src="/pages/consumer/uob/addon/q5.xhtml" />
+					</p:tab>
+					<p:tab id="q6" title="6">
+						<ui:include src="/pages/consumer/uob/addon/q6.xhtml" />
+					</p:tab>
+					<p:tab id="q7" title="7">
+						<ui:include src="/pages/consumer/uob/addon/q7.xhtml" />
+					</p:tab>
+				</p:tabView>
+			</div>
+
+		</div>
+		<div class="Container100">
+			<div class="Wid40 Fright ButtonBackNext">
+				<div class="nextButtonLP Fright next3" style="cursor: pointer;">Next</div>
+				<div class="backButtonLP Fright back3" style="cursor: pointer;">Back</div>
+			</div>
+		</div>
+	</div>
+	<div class="Wid66 Fright RightPanel">
+		<p:panel id="graphArea" style="border: 0px; background: white;">
+			<div class="Container100">
+				<div class="Fs30 Fleft RPHeadings1" style="cursor: pointer;">Summary</div>
+				<div class="Fs30 Fleft RPHeadings2" style="cursor: pointer;">Details</div>
+
+				<div class="Wid40 Fright">
+					<div class="Wid35 Fleft RiskValuePanel">
+						<div class="Wid100 IRLabel">Investment Risk</div>
+						<div class="Wid100 IRCount">10.16%</div>
+					</div>
+					<div class="Wid35 Fleft ReturnValuePanel">
+						<div class="Wid100 ERLabel">Expected Return</div>
+						<div class="Wid100 ERCount">10.16%</div>
+					</div>
+				</div>
+			</div>
+			<div class="Container100 tabpanel1" style="">
+			<div class="Container50">
+				<ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
+					<div id="2dDonutChart" ></div>
+					<h:inputHidden value="#{uobpb.resultChart}"
+								   id="twodDonutValueChart"/>
+					<h:inputHidden value="#{uobpb.typeOfChart}"
+								   id="typeOfCharts"/>
+				</ui:fragment>
+</div>
+				<div class="Container50">
+					<div class="EmptyBox20"></div>
+					<p:dataTable styleClass="uob_graphTable"
+								 value="#{uobpb.editableAsset}" var="assetList">
+
+						<p:column
+								style="width: 1%; background-color: #{assetList.color}; border:0px!important;">
+							<h:outputText value=" " />
+						</p:column>
+
+						<p:column style="width: 50%" styleClass="Wid50 Fs12 TexAlLeft"
+								  headerText="Asset">
+							<h:outputText value="#{assetList.asset}" />
+						</p:column>
+						<p:column priority="3" style="width: 15%"
+								  styleClass="Fs12 num-text-align TexAlRight" headerText="Weight">
+							<!-- ROHIT's CHANGE -->
+							<h:outputText value="#{assetList.userEdit}">
+								<f:convertNumber pattern="##0%" />
+							</h:outputText>
+						</p:column>
+						<p:column style="width: 34%"
+								  styleClass="Fs12 num-text-align TexAlRight" headerText="Value">
+							<!-- ROHIT's CHANGE -->
+							<h:outputText value="#{assetList.value}">
+								<f:convertNumber pattern="$##,###,###" />
+							</h:outputText>
+						</p:column>
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column colspan="3" styleClass="Fs12 TexAlLeft FontBold"
+										  footerText="Total">
+								</p:column>
+								<p:column styleClass="Fs12 TexAlRight FontBold"
+										  footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+								</p:column>
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+				</div>
+			</div>
+		</p:panel>
+		<div class="Container100 tabpanel2" style="display: none;">
+			<div class="Container100">
+				<div class="EmptyBox20"></div>
+				<p:dataTable styleClass="uob_graphTable" var="ticker"
+							 value="#{uobpb.displayPortfolioList}">
+
+					<p:column style="width:1%; background-color: #{ticker.color}">
+						<h:outputText value=" " />
+					</p:column>
+
+					<p:column priority="4" style="width:14%;"
+							  styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Asset" />
+						</f:facet>
+						<h:outputText value="#{ticker.assetType}" />
+					</p:column>
+
+					<p:column style="width:17%;" styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Class" />
+						</f:facet>
+						<h:outputText value="#{ticker.subclass}" />
+					</p:column>
+
+					<p:column style="width:10%;"
+							  styleClass="Fs12 num-text-align TexAlRight">
+						<!-- ROHIT's CHANGE -->
+						<f:facet name="header">
+							<h:outputText value="Allocated" />
+						</f:facet>
+						<h:outputText value="#{ticker.weight}">
+							<f:convertNumber pattern="##0.00%" />
+						</h:outputText>
+					</p:column>
+
+					<p:column style="width:10%;" styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Ticker" />
+						</f:facet>
+						<h:outputText value="#{ticker.symbol}" />
+					</p:column>
+
+					<p:column priority="3" style="width:25%;"
+							  styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Name" />
+						</f:facet>
+						<h:outputText value="#{ticker.name}" />
+					</p:column>
+
+					<p:column style="width:18%;"
+							  styleClass="Fs12 num-text-align TexAlRight">
+						<!-- ROHIT's CHANGE -->
+						<f:facet name="header">
+							<h:outputText value="Value" />
+						</f:facet>
+						<h:outputText value="#{ticker.value}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</p:column>
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column />
+							<p:column priority="4" />
+							<p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
+									  footerText="Total">
+							</p:column>
+							<p:column priority="3" />
+
+							<p:column styleClass="Fs14 TexAlRight FontBold"
+									  footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
+							</p:column>
+						</p:row>
+					</p:columnGroup>
+				</p:dataTable>
+
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function ()
+						  {
+							  if(document.getElementById('ceForm:typeOfCharts') != null){
+								  if (document.getElementById('ceForm:typeOfCharts').value == 'HIGHCHART.2DDONUT')
+								  {
+									  draw2dDonut1lyrChart();
+								  }
+							  }
+
+						  });
+	</script>
 </ui:composition>
