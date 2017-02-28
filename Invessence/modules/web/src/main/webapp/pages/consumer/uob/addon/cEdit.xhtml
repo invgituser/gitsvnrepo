@@ -18,7 +18,7 @@
                                styleClass="Container100 NBwidget" orientation="top"
                                dynamic="false" cache="false" effect="slide" effectDuration="fast">
                         <p:ajax event="tabChange"
-                                update=":ceForm:inputArea, :ceForm:graphArea"
+                                update=":ceForm:inputArea,:ceForm:workArea, :ceForm:graphArea"
                                 listener="#{uobpb.onPTabChange}"/>
                         <p:tab id="p1" title="Overview">
                             <ui:include src="/pages/consumer/uob/addon/core0.xhtml"/>

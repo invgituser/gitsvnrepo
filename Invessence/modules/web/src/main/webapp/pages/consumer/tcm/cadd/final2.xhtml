@@ -77,7 +77,33 @@
 
                 <h:inputHidden value="#{tcmpb.charts.resultChart}"
                                id="beanValueChart1"/>
+                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
+                    <div class="ContainerIndent">
+                        <div class="EmptyBox5"></div>
+                        <span class="Fs14 DispBlock gray">Investment Risk</span>
+                                    <span class="Fs24 DispBlock red">
+                                    <h:outputText value="#{tcmpb.totalRisk}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                   </span>
 
+                        <div class="EmptyBox5"></div>
+                    </div>
+                </div>
+                <div class="Wid10 Fright" style="height:1px;"></div>
+                <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
+                    <div class="ContainerIndent">
+                        <div class="EmptyBox5"></div>
+                        <span class="Fs14 DispBlock gray">Expected Return</span>
+                                    <span class="Fs24 DispBlock invessenceblue">
+                                      <h:outputText value="#{tcmpb.totalExpectedReturns}">
+                                          <f:convertNumber pattern="##0.00%"/>
+                                      </h:outputText>
+                                     </span>
+
+                        <div class="EmptyBox5"></div>
+                    </div>
+                </div>
                 <div id="progressChart" class="Container50 Fright">
                 <!-- Build Performance Chart Here -->
                 </div>
