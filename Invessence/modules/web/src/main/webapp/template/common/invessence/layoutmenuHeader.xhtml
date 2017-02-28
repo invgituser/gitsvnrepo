@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ps="http://primefaces.org/spark"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<div class="menuHeader">
+		<div class="Wid40 Fleft">
+			<a href="#{uiLayout.defaultHome}"> <h:graphicImage
+					name="#{uiLayout.logo}" library="invessence"
+					class="Fleft Sitelogo" />
+			</a>
+		</div>
+		<div class="Wid60 Fright menuButtons">
+		<ul>
+		<li><a href="/pages/consumer/uob/index.xhtml?app=N">Dashboard</a></li>
+		<li class="mbSelected"><a href="/pages/consumer/uob/cadd.xhtml?app=N">New Account</a></li>
+		<li>Setting</li>
+		<li>Logout</li>
+		</ul>
+		
+		</div>
+	</div>
+
+	
+
+</ui:composition>
+
