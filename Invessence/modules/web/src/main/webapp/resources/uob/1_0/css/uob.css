@@ -3258,9 +3258,10 @@ left: -8px;
 }
 
 .uob_Block_tabs > div > div > .ui-tabs-panels {
-    border: 3px solid #666666;
+   border: 0px;
     border-top: 0!important;
     height: 268px;
+    border: 3px solid #666666;
 }
 
 /*
@@ -3288,7 +3289,7 @@ left: -8px;
 
 .uobPersonaliseGraphSection .ui-tabs-panels {
     border-top: 0!important;
-   /* border: solid 3px #666666;*/
+    border: 0px;
     height: 510px;
 }
 
@@ -3317,3 +3318,54 @@ border: 0px!important;
 #menutopbar .ui-button-text, #menutopbar .ui-state-hover .ui-button-text {
     background-color: #666666!important;
 }
+
+.finetuneButton {
+    background: transparent!important;
+}
+
+.finetuneButton > span:nth-child(1) {
+    font-size: 20px;
+}
+
+.finetuneButton > span:nth-child(2) {
+    background: transparent!important;
+}
+
+.invFineTune {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    color: black;
+    font-size: 20px;
+}
+
+@media (max-width: 600px) and (min-width: 390px) {
+    .invFineTune {
+        top: -4px;
+    }
+}
+
+@media (max-width: 390px) {
+    .invFineTune {
+        top: 30px;
+    }
+}
+
+.Container49UOB {
+    width: 49%;
+    float: left;
+}
+
+@media (min-width: 1200px) {
+    .leftBorderUOB {
+        border-right: 3px solid grey;
+    }
+}
+
+@media (max-width: 1200px) {
+    .Container49UOB {
+        width: 100%;
+        float: left;
+    }
+}
+

@@ -1815,7 +1815,7 @@ div.jqplot-table-legend-swatch
 .ui-tabs-top .ui-tabs-nav .ui-tabs-outline,
 .ui-tabs-bottom .ui-tabs-nav .ui-tabs-outline,
 .ui-tabs-left .ui-tabs-nav .ui-tabs-outline,
-.ui-tabs-right .ui-tabs-nav .ui-tabs-outline{outline:none !important; border:dotted 1px #fff !important; background-color: transparent !important;}
+.ui-tabs-right .ui-tabs-nav .ui-tabs-outline{outline:none !important; border:dotted 1px #fff !important;}
 .ui-accordion .ui-tabs-outline{outline:none !important; background-color:#49b669; color:#F2F71E;}
 
 
