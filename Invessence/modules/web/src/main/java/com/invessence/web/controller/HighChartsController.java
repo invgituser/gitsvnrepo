@@ -18,10 +18,6 @@ import com.invmodel.portfolio.data.Portfolio;
 public class HighChartsController
 {
 
-   public Integer calendarYear, minYearPoint, maxYearPoint, minGrowth, maxGrowth, legendXrotation;
-   public Integer maxGraghPlot;
-   public Integer avgPerformance = 0;
-   public Integer poorPerformance = 0;
    ProfileData profileData = new ProfileData();
    WebProfile webProfile = new WebProfile();
    @ManagedProperty("#{webutil}")
@@ -85,12 +81,6 @@ public class HighChartsController
          webInfo.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
          chartJSON =  generateHighChartsData.create2DDONUTChart(new ArrayList<Asset>(assetData[0].getAssetclass().values()));
       }
-      return chartJSON;
-   }
-
-   public String projectionHighChartRequestHandler(ProjectionData[] projectionData, Integer horizon, Integer currAge, Integer ageSeries, ProjectionData[] projectionDataAggressive){
-      String chartJSON = "";
-      chartJSON =  generateHighChartsData.createProjectionHighChart(projectionData,horizon,currAge,ageSeries,projectionDataAggressive);
       return chartJSON;
    }
 

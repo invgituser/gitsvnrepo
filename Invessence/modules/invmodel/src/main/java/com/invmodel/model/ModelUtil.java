@@ -116,6 +116,10 @@ public class ModelUtil
       return portfolioModel.buildPortfolio(assetData, profileData);
    }
 
+   public ProjectionData[] buildPerformanceChart(ProfileData pdata, FMData fmdata) {
+      return projectiondata.buildFMPerformanceData(pdata, fmdata);
+   }
+
    public ArrayList<ProjectionData[]> buildProjectionData(ProfileData pdata) {
       if (projectiondata == null)
          return null;

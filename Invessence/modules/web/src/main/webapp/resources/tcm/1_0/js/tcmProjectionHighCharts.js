@@ -7,9 +7,9 @@ $(function ()
   {
       var chartValue = "";
         if(pageInfo == 'page5'){
-            chartValue = document.getElementById('ceForm:beanValueChart').value;
+            chartValue = document.getElementById('ceForm:projectionChart').value;
         }else if(pageInfo == 'final2'){
-            chartValue = document.getElementById('ceForm:beanValueChart1').value;
+            chartValue = document.getElementById('ceForm:performanceChart').value;
         }
 
       console.log(chartValue);

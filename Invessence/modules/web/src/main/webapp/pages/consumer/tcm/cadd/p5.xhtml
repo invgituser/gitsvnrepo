@@ -57,7 +57,7 @@
 
                         <div class="EmptyBox5"></div>
 						<span class="Fs17 DispBlock BBGreen"> <h:outputText
-                                value="#{tcmpb.charts.avgPerformance}">
+                                value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
                             <f:convertNumber pattern="$#,###,###,##0"/>
                         </h:outputText>
 						</span>
@@ -72,7 +72,7 @@
 
                         <div class="EmptyBox5"></div>
 						<span class="Fs17 DispBlock BBDarkGray"> <h:outputText
-                                value="#{tcmpb.charts.poorPerformance}">
+                                value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
                             <f:convertNumber pattern="$#,###,###,##0"/>
                         </h:outputText>
 						</span>
@@ -80,8 +80,8 @@
                 </div>
             </div>
             <div class="EmptyBox5"></div>
-            <h:inputHidden value="#{tcmpb.charts.resultChart}"
-                           id="beanValueChart"/>
+            <h:inputHidden value="#{tcmpb.charts.chartdata.highChartresultSet}"
+                           id="projectionChart"/>
 
             <div id="progressChart" class="Container100 Fright"></div>
         </div>

@@ -53,6 +53,23 @@ public class ForwardProjection
 
 
 
+   public ProjectionData[] buildFMPerformanceData(ProfileData pdata, FMData fmdata)
+   {
+      ArrayList<ProjectionData[]> perfdata = null;
+
+      ProjectionData[] array = null;
+      if (fmdata != null)
+      {
+         // First check if we have projection data on DB.  If so, then use the data as is.
+         FMProjection fmprojection = fmdata.getPerformance();
+         if (fmprojection != null)
+         {
+            array = loadFMPerformanceData(fmprojection, pdata);
+         }
+      }
+      return array;
+   }
+
    public ArrayList<ProjectionData[]> buildProjectionData(ProfileData pdata)
    {
       ArrayList<ProjectionData[]> perfdata = null;
@@ -311,6 +328,87 @@ public class ForwardProjection
       }
       catch (Exception e)
       {
+      }
+      return null;
+   }
+
+   private ProjectionData[] loadFMPerformanceData(FMProjection fmprojectiondata, ProfileData pdata)
+   {
+
+      try
+      {
+         // Integer numOfYears = (horizon <= 0) ? 35 : horizon;
+
+         if (fmprojectiondata == null) {
+            return null;
+         }
+
+         String model = fmprojectiondata.getTheme();
+         String key = fmprojectiondata.getDisplayname();
+         Integer smallest = fmprojectiondata.getData().get(key).size();
+         ArrayList<FMProjectionData> projectionData = fmprojectiondata.getData().get(key);
+
+         ProjectionData[] array = new ProjectionData[smallest];
+         Double totalCost = 0.0;
+         Double invested = pdata.getInitialInvestment().doubleValue();
+         Double portGrowth = pdata.getInitialInvestment().doubleValue();
+         Double recurring = pdata.getRecurringInvestment().doubleValue();
+         double totalRecurring = 0.0;
+
+         Double datalower2, datalower1, datamid, dataupper1, dataupper2;
+
+         Calendar cal = Calendar.getInstance();
+         Integer numOfYears = smallest;
+
+         for (Integer year = 0; year < numOfYears; year++)
+         {
+            // Safety, that we don't over-run
+            if (year > numOfYears)
+            {
+               break;
+            }
+
+            ProjectionData perf = new ProjectionData();
+            perf.setTheme(model.toString());
+            perf.setYear((cal.YEAR + year));
+
+            datalower2 = projectionData.get(year).getFivepercent();
+            datalower1 = projectionData.get(year).getTwentyfivepercent();
+            datamid =  projectionData.get(year).getFiftypercent();
+            dataupper1 = projectionData.get(year).getSeventyfivepercent();
+            dataupper2 = projectionData.get(year).getNintyfivepercent();
+
+            if (datalower1 < 0.0)
+            {
+               datalower1 = 0.0;
+            }
+
+            if (datalower2 < 0.0)
+            {
+               datalower2 = 0.0;
+            }
+
+            array[year] = perf;
+
+            portGrowth += recurring;
+            perf.setTotalCost(0);
+            perf.setInvestmentReturns(portGrowth);
+            perf.setInvestmentRisk(0);
+            perf.setUpperBand1(invested * dataupper1);
+            perf.setUpperBand2(invested * dataupper2);
+            perf.setLowerBand1(invested * datalower1);
+            perf.setLowerBand2(invested * datalower2);
+            perf.setTotalCapitalWithGains(invested * datamid);
+            perf.setInvestedCapital(portGrowth);
+            perf.setRecurInvestments(totalRecurring);
+            totalRecurring = totalRecurring + recurring;
+
+         }
+         return array;
+      }
+      catch (Exception e)
+      {
+         e.printStackTrace();
       }
       return null;
    }
