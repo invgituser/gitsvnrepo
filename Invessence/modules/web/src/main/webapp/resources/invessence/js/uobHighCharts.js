@@ -52,13 +52,15 @@ function draw2dDonut1lyrChart()
                                            },
                                            plotOptions: {
                                                pie: {
+                                                   center: ['50%', '40%'],
+                                                   size:'80%',
                                                    allowPointSelect: true,
                                                    cursor: 'pointer',
                                                    dataLabels: {
                                                        enabled: false
                                                    },
                                                    animation: false,
-                                                   showInLegend: true,
+                                                   showInLegend: false,
                                                    innerSize: 200,
                                                    depth: 0
                                                },
