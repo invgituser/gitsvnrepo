@@ -241,14 +241,22 @@ public class SessionController implements Serializable
       String origurl = webutil.getWebprofile().getUrl();
       if (uri == null)
       {
-         // If we already loaded the property, then don't worry if the URL is null.  Just leave it to orig url;
-         if (origurl != null && ! origurl.isEmpty())
-            return;
-         uri = webutil.getURLAddress("Invessence");
+            uri = webutil.getURLAddress("Invessence");
       }
 
       if (! webutil.getWebprofile().getLocked()) {
-         if (origurl == null || (! origurl.equalsIgnoreCase(uri)))
+         Boolean reload = false;
+         if (origurl == null) {
+            reload = true;
+         }
+         else
+         {
+            if (origurl != null && ! origurl.equalsIgnoreCase(uri))
+            {
+               reload = true;
+            }
+         }
+         if (reload)
          {
             System.out.println("Load WEB property for:" + uri);
             loadWebProfile(uri);
