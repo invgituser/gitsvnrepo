@@ -3535,14 +3535,14 @@ span > input {
 
 .invLoaderPanel {
 	pointer-events: none;
-	position: fixed;
+	position: absolute;
 	background: none;
 	top: 0;
 	bottom: 0;
-	left: 150px;
+	left: 370px;
 	text-align: center;
 	z-index: 9999999999999;
-	padding: 99px 0;
+	padding: 105px 0;
 }
 
 
@@ -3551,4 +3551,16 @@ span > input {
 	width: 30px;
 	border-radius: 40px;
 	padding: 5px 5px;
+}
+
+
+.investNowBtn {
+	border: 2px solid #a4332f;
+	margin: -7px 5px;
+	border-radius: 4px;
+	padding: 5px 10px;
+	background: #a4332f;
+	color: white;
+	font-weight: bold;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.21);
 }

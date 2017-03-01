@@ -5,23 +5,27 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions">
 
-
 	<div class="Wid30 Fleft LeftPanel">
+		<ui:fragment rendered="#{uobpb.pagemanager.page == 0}">
 		<div class="step1" style="">
 
 			<ui:include src="/pages/consumer/uob/addon/core0.xhtml" />
 
 		</div>
+		</ui:fragment>
+		<ui:fragment rendered="#{uobpb.pagemanager.page == 1}">
 		<div class="step2">
 			<ui:include src="/pages/consumer/uob/addon/income.xhtml" />
 
 		</div>
-
+		</ui:fragment>
+		<ui:fragment rendered="#{uobpb.pagemanager.page == 2}">
 		<div class="step3">
 			<ui:include src="/pages/consumer/uob/addon/debt.xhtml"/>
 
 		</div>
-
+		</ui:fragment>
+		<ui:fragment rendered="#{uobpb.pagemanager.page >= 3}">
 		<div class="step4">
 			<div class="Container100">
 				<span class="Fs30">Risk</span>
@@ -30,8 +34,9 @@
 				<div class="EmptyBox10"></div>
 				<p:tabView id="rTabView" orientation="top"
 					style="background: transparent;" activeIndex="#{uobpb.rTab}"
-					styleClass="NBwidget whiteBG" cache="false" dynamic="false">
-
+					styleClass="NBwidget whiteBG">
+					<p:ajax event="tabChange"
+							update=":ceForm:workArea, :ceForm:graphArea" listener="#{uobpb.onRTabChange}"/>
 					<p:tab id="q1" title="1">
 						<ui:include src="/pages/consumer/uob/addon/q1.xhtml" />
 					</p:tab>
@@ -57,31 +62,70 @@
 			</div>
 
 		</div>
-		<div class="Container100">
-			<div class="Wid40 Fright ButtonBackNext">
-				<div class="nextButtonLP Fright next3" style="cursor: pointer;">Next</div>
-				<div class="backButtonLP Fright back3" style="cursor: pointer;">Back</div>
+		</ui:fragment>
+		<div class="Container100" style="margin: 5px 0;">
+			<div class="Wid40 Fleft ButtonBackNext">
+				<ui:fragment rendered="#{uobpb.rTab == 6}">
+					<p:commandLink id="startBtn" value="Start Over"
+								   styleClass="nextButtonLP Fleft"
+								   type="submit"
+								   outcome="transition=slidefade"
+								   update=":ceForm:workArea, :ceForm:graphArea"
+								   actionListener="#{uobpb.gotoStartOverPage}"/>
+				</ui:fragment>
+			</div>
+			<div class="Wid50 Fright ButtonBackNext">
+
+				<ui:fragment rendered="#{uobpb.pagemanager.page == 0 or uobpb.pagemanager.page == 1 or uobpb.pagemanager.page == 2 or uobpb.pagemanager.page >= 3 and uobpb.rTab != 6}">
+				<p:commandLink id="nextBtn" value="Next"
+								 styleClass="nextButtonLP Fright"
+								 type="submit"
+								 outcome="transition=slidefade"
+								 update=":ceForm:workArea, :ceForm:graphArea"
+								 actionListener="#{uobpb.gotoNextPage}"/>
+				</ui:fragment>
+				<ui:fragment rendered="#{uobpb.rTab == 6}">
+					<p:commandLink id="invsetBtn" value="Invest Now"
+								   styleClass="investNowBtn Fright"
+								   type="submit"
+								   outcome="transition=slidefade"
+								   update=":ceForm:workArea, :ceForm:graphArea"
+								   />
+				</ui:fragment>
+				<ui:fragment rendered="#{uobpb.pagemanager.page >= 1}">
+					<p:commandLink id="prevBtn" value="Previous"
+								   styleClass="backButtonLP Fright"
+								   update=":ceForm:workArea, :ceForm:graphArea"
+								   outcome="transition=slidefade"
+								   actionListener="#{uobpb.prevPage}"/>
+				</ui:fragment>
 			</div>
 		</div>
 	</div>
-	<div class="Wid66 Fright RightPanel">
+	<div class="Wid66 Fleft RightPanel">
 		<p:panel id="graphArea" style="border: 0px; background: white;">
 			<div class="Container100">
-				<div class="Fs30 Fleft RPHeadings1" style="cursor: pointer;">Summary</div>
-				<div class="Fs30 Fleft RPHeadings2" style="cursor: pointer;">Details</div>
+				<div class="Fs30 Fleft summaryHeader RPHeadings1" style="cursor: pointer;">Summary</div>
+				<div class="Fs30 Fleft detailHeader RPHeadings2" style="cursor: pointer;">Details</div>
 
 				<div class="Wid40 Fright">
 					<div class="Wid35 Fleft RiskValuePanel">
 						<div class="Wid100 IRLabel">Investment Risk</div>
-						<div class="Wid100 IRCount">10.16%</div>
+						<div class="Wid100 IRCount"><h:outputText
+								value="#{uobpb.totalRisk}">
+							<f:convertNumber pattern="##0.00%" />
+						</h:outputText></div>
 					</div>
 					<div class="Wid35 Fleft ReturnValuePanel">
 						<div class="Wid100 ERLabel">Expected Return</div>
-						<div class="Wid100 ERCount">10.16%</div>
+						<div class="Wid100 ERCount"><h:outputText
+								value="#{uobpb.totalExpectedReturns}">
+							<f:convertNumber pattern="##0.00%" />
+						</h:outputText></div>
 					</div>
 				</div>
 			</div>
-			<div class="Container100 tabpanel1" style="">
+			<div class="Container100 tabpanel1 summaryPanel" style="">
 			<div class="Container50">
 				<ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
 					<div id="2dDonutChart" ></div>
@@ -92,7 +136,7 @@
 				</ui:fragment>
 </div>
 				<div class="Container50">
-					<div class="EmptyBox20"></div>
+					<div class="EmptyBox30"></div>
 					<p:dataTable styleClass="uob_graphTable"
 								 value="#{uobpb.editableAsset}" var="assetList">
 
@@ -133,10 +177,56 @@
 				</div>
 			</div>
 		</p:panel>
-		<div class="Container100 tabpanel2" style="display: none;">
+		<div class="Container100 tabpanel2 detailPanel" style="display: none;">
 			<div class="Container100">
 				<div class="EmptyBox20"></div>
-				<p:dataTable styleClass="uob_graphTable" var="ticker"
+
+				<p:dataTable styleClass="uob_graphTable" var="ticker" value="#{uobpb.displayPortfolioList}">
+
+					<p:column style="width:1%; background-color: #{ticker.color}">
+						<h:outputText value=" "/>
+					</p:column>
+
+					<p:column style="width:61%;" styleClass="Fs12 TexAlLeft">
+						<f:facet name="header">
+							<h:outputText value="Name"/>
+						</f:facet>
+						<h:outputText value="#{ticker.name}"/> [ <h:outputText value="#{ticker.symbol}"/> ]
+					</p:column>
+
+					<p:column priority="3"
+							  style="width:15%;"
+							  styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+						<f:facet name="header">
+							<h:outputText value="Allocated"/>
+						</f:facet>
+						<h:outputText value="#{ticker.weight}">
+							<f:convertNumber pattern="##0%"/>
+						</h:outputText>
+					</p:column>
+
+					<p:column style="width:23%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+						<f:facet name="header">
+							<h:outputText value="Value"/>
+						</f:facet>
+						<h:outputText value="#{ticker.value}">
+							<f:convertNumber pattern="$##,###,###"/>
+						</h:outputText>
+					</p:column>
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column/>
+							<p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+									  footerText="Total">
+							</p:column>
+							<p:column styleClass="Fs14 TexAlRight FontBold"
+									  footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+							</p:column>
+						</p:row>
+					</p:columnGroup>
+				</p:dataTable>
+				<!--<p:dataTable styleClass="uob_graphTable" var="ticker"
 							 value="#{uobpb.displayPortfolioList}">
 
 					<p:column style="width:1%; background-color: #{ticker.color}">
@@ -160,7 +250,7 @@
 
 					<p:column style="width:10%;"
 							  styleClass="Fs12 num-text-align TexAlRight">
-						<!-- ROHIT's CHANGE -->
+						&lt;!&ndash; ROHIT's CHANGE &ndash;&gt;
 						<f:facet name="header">
 							<h:outputText value="Allocated" />
 						</f:facet>
@@ -186,7 +276,7 @@
 
 					<p:column style="width:18%;"
 							  styleClass="Fs12 num-text-align TexAlRight">
-						<!-- ROHIT's CHANGE -->
+						&lt;!&ndash; ROHIT's CHANGE &ndash;&gt;
 						<f:facet name="header">
 							<h:outputText value="Value" />
 						</f:facet>
@@ -209,7 +299,7 @@
 							</p:column>
 						</p:row>
 					</p:columnGroup>
-				</p:dataTable>
+				</p:dataTable>-->
 
 			</div>
 		</div>
@@ -224,6 +314,14 @@
 								  }
 							  }
 
+						  $('.summaryHeader').click(function(){
+							 $('.summaryPanel').show();
+							  $('.detailPanel').hide();
+						  });
+							  $('.detailHeader').click(function(){
+								  $('.summaryPanel').hide();
+								  $('.detailPanel').show();
+							  });
 						  });
 	</script>
 </ui:composition>

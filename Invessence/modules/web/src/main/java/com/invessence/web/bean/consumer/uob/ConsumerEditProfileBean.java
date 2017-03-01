@@ -17,6 +17,7 @@ import com.invessence.web.data.common.*;
 import com.invessence.web.data.consumer.inv.INVRiskCalculator;
 import com.invessence.web.data.consumer.uob.UOBRiskCalculator;
 import com.invessence.web.util.*;
+import com.invessence.web.util.Impl.PagesImpl;
 import com.invmodel.Const.InvConst;
 import org.primefaces.component.tabview.Tab;
 import org.primefaces.context.RequestContext;
@@ -47,12 +48,22 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    private Integer prefView = 0;
    private String whichChart;
-
+   private Integer pageNo = 0;
    private Integer imageSelected = 0;
    private JavaUtil jutil = new JavaUtil();
    private InvessenceCharts charts = new InvessenceCharts();
    private HighChartsController highChartsController = new HighChartsController();
    private UOBRiskCalculator riskCalculator = new UOBRiskCalculator();
+
+   public Integer getPageNo()
+   {
+      return pageNo;
+   }
+
+   public void setPageNo(Integer pageNo)
+   {
+      this.pageNo = pageNo;
+   }
 
    public Long getBeanAcctnum()
    {
@@ -160,6 +171,18 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       return riskCalculator;
    }
 
+   private PagesImpl pagemanager;
+
+   public PagesImpl getPagemanager()
+   {
+      return pagemanager;
+   }
+
+   public void setPagemanager(PagesImpl pagemanager)
+   {
+      this.pagemanager = pagemanager;
+   }
+
    @Override
    public void setAge(Integer age) {
       this.age = age;
@@ -179,6 +202,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
+            pagemanager = new PagesImpl(10);
             if (newapp != null && newapp.startsWith("N")) {
                beanAcctnum = null;
             }
@@ -1135,6 +1159,33 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       saveProfile();
    }
 
+   public void gotoNextPage()
+{
+   pagemanager.nextPage();
+
+   if (rTab >= 6)
+   {
+      pTab++;
+      rTab = 0;
+
+   }
+   else
+   {
+      rTab++;
+   }
+
+   if(pagemanager.getPage()== 3){
+      rTab = 0;
+   }
+   saveProfile();
+}
+
+   public void gotoStartOverPage()
+   {
+      pagemanager.setPage(0);
+      rTab = 0;
+   }
+
    public String getGoalAdjustment()
    {
       if ((!getGoalData().getReachable()))
@@ -1142,6 +1193,12 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
          return jutil.displayFormat(getGoalData().getCalcRecurringAmount(), "$###,###,###");
       }
       return "";
+   }
+
+   public void prevPage()
+   {
+      rTab--;
+      pagemanager.prevPage();
    }
 
 }
