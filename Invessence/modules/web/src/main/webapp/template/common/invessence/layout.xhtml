@@ -17,11 +17,17 @@
     </p:ajaxStatus>
 
     <ui:include src="/template/common/invessence/contactHeader.xhtml"/>
-
+    <div class="menuHeader">
+        <div class="Wid40 Fleft">
+            <a href="#{uiLayout.defaultHome}"> <h:graphicImage
+                    name="#{uiLayout.logo}" library="invessence"
+                    class="Fleft Sitelogo" />
+            </a>
+        </div>
      <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
         <ui:include src="/template/common/invessence/layoutmenuHeader.xhtml"/>
     </ui:fragment>  
-
+</div>
     <div id="layout-portlets-cover">
         <ui:insert name="content">
             Template
