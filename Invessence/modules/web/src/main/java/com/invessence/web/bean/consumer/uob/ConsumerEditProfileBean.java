@@ -202,7 +202,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            pagemanager = new PagesImpl(10);
+            pagemanager = new PagesImpl(4);
             if (newapp != null && newapp.startsWith("N")) {
                beanAcctnum = null;
             }
@@ -1161,21 +1161,26 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    public void gotoNextPage()
 {
-   pagemanager.nextPage();
+   Integer currentpage = pagemanager.getPage();
+   if(!validatePage(currentpage)){
 
-   if (rTab >= 6)
-   {
-      pTab++;
-      rTab = 0;
+   }else{
+      pagemanager.nextPage();
 
-   }
-   else
-   {
-      rTab++;
-   }
+      if (rTab >= 6)
+      {
+         pTab++;
+         rTab = 0;
 
-   if(pagemanager.getPage()== 3){
-      rTab = 0;
+      }
+      else
+      {
+         rTab++;
+      }
+
+      if(pagemanager.getPage()== 3){
+         rTab = 0;
+      }
    }
    saveProfile();
 }
@@ -1199,6 +1204,124 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    {
       rTab--;
       pagemanager.prevPage();
+   }
+
+   private Boolean validatePage(Integer pagenum)
+   {
+      Boolean dataOK = true;
+      pagemanager.clearErrorMessage(pagenum);
+      switch (pagenum)
+   {
+      case 0:
+         if(getAge() == null || getAge() == 0){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.age.required", "Age is required", null));
+         }
+         if(getHorizon() == null || getHorizon() == 0 ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.plantoinvestamt.requiredMsg", "Plan to Invest is required", null));
+         }
+         if(getInitialInvestment() == null || getInitialInvestment() == 0 ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required", null));
+         }
+         if(getGoal() == null || getGoal() == "" ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.goal.required", "Please choose an investment strategy", null));
+         }
+         break;
+      case 1:
+         if(getHouseholdwages() == null || getHouseholdwages() == 0 ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.wages.required", "Salary/Wages is required", null));
+         }
+         if(getMoneymarket() == null || getMoneymarket() == 0 ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.liquid.asset.required", "Liquid Asset is required", null));
+         }
+         if(getInvestment() == null || getInvestment() == 0 ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.other.investments.required", "Other Investments is required.", null));
+         }
+         break;
+      case 2:
+         if(getHouseholdwages() == null || getHouseholdwages() == 0 ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.expenses.required", "Total Expenses is required.", null));
+         }
+         if(getOtherDebt() == null || getOtherDebt() == 0 ){
+            dataOK = false;
+            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.debt.required", "Total Debt is required.", null));
+         }
+         break;
+      case 3:case 4:
+         // tab 0
+         if(rTab != null && rTab == 0){
+            if(this.riskCalculator != null){
+               if(this.riskCalculator.getAns3() == null || this.riskCalculator.getAns3().equals("")){
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.employment.situation.required", "Employment Situation is required.", null));
+               }
+            }
+         }
+         // tab 1
+         if(rTab != null && rTab == 1){
+            if(this.riskCalculator != null){
+               if( this.riskCalculator.getAns4() == null || this.riskCalculator.getAns4().equals("")){
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sources.income.required", "Sources of income is required.", null));
+               }
+            }
+         }
+         // tab 2
+         if(rTab != null && rTab == 2){
+            if(this.riskCalculator != null){
+               if( this.riskCalculator.getAns5() == null || this.riskCalculator.getAns5().equals("")){
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.selection.required", "Select one of the option.", null));
+               }
+            }
+         }
+         // tab 3
+         if(rTab != null && rTab == 3){
+            if(this.riskCalculator != null){
+               if( this.riskCalculator.getAns6() == null || this.riskCalculator.getAns6().equals("")){
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.investment.required", "level of investment is required.", null));
+               }
+            }
+         }
+         // tab 4
+         if(rTab != null && rTab == 4){
+            if(this.riskCalculator != null){
+               if(this.riskCalculator.getAns7() == null || this.riskCalculator.getAns7().equals("")){
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.approach.required", "Investment approach is required.", null));
+               }
+            }
+         }
+         // tab 5
+         if(rTab != null && rTab == 5){
+            if(this.riskCalculator != null){
+               if(this.riskCalculator.getAns8() == null || this.riskCalculator.getAns8().equals("")){
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.volatility.required", "Level of volatility is required.", null));
+               }
+            }
+         }
+         // tab 6
+         if(rTab != null && rTab == 6){
+            if(this.riskCalculator != null){
+               if( this.riskCalculator.getAns9() == null || this.riskCalculator.getAns9().equals("")){
+                  dataOK = false;
+                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.long-term.investment.required", "long-term investment is required.", null));
+               }
+            }
+         }
+         break;
+
+   }
+            return dataOK;
    }
 
 }

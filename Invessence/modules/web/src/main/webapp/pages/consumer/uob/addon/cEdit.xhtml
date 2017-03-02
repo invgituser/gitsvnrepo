@@ -76,7 +76,7 @@
 			</div>
 			<div class="Wid50 Fright ButtonBackNext">
 
-				<ui:fragment rendered="#{uobpb.pagemanager.page == 0 or uobpb.pagemanager.page == 1 or uobpb.pagemanager.page == 2 or uobpb.pagemanager.page >= 3 and uobpb.rTab != 6}">
+				<ui:fragment rendered="#{uobpb.pagemanager.page >= 0 and uobpb.rTab != 6}">
 				<p:commandLink id="nextBtn" value="Next"
 								 styleClass="nextButtonLP Fright"
 								 type="submit"

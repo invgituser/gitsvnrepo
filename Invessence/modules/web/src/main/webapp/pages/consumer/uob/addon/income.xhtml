@@ -46,4 +46,18 @@
 						</p:inputNumber>
 
 					</div>
+	<p:panel rendered="#{uobpb.pagemanager.getErrorMessage(1) != null }"
+			 style="border: 0px; background: transparent"
+			 styleClass="Container100">
+		<h:outputText styleClass="errorText"
+					  value="#{uobpb.pagemanager.getErrorMessage(1)}" escape="false"/>
+		<div class="EmptyBox5"></div>
+	</p:panel>
+	<p:panel rendered="#{uobpb.pagemanager.getErrorMessage(2) != null }"
+			 style="border: 0px; background: transparent"
+			 styleClass="Container100">
+		<h:outputText styleClass="errorText"
+					  value="#{uobpb.pagemanager.getErrorMessage(2)}" escape="false"/>
+		<div class="EmptyBox5"></div>
+	</p:panel>
 </ui:composition>

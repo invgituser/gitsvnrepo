@@ -23,6 +23,20 @@
         </p:selectOneRadio>
     </div>
     </div>
+        <p:panel rendered="#{uobpb.pagemanager.getErrorMessage(4) != null }"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100">
+            <h:outputText styleClass="errorText"
+                          value="#{uobpb.pagemanager.getErrorMessage(4)}" escape="false"/>
+            <div class="EmptyBox5"></div>
+        </p:panel>
+        <p:panel rendered="#{uobpb.pagemanager.getErrorMessage(3) != null }"
+                 style="border: 0px; background: transparent"
+                 styleClass="Container100">
+            <h:outputText styleClass="errorText"
+                          value="#{uobpb.pagemanager.getErrorMessage(3)}" escape="false"/>
+            <div class="EmptyBox5"></div>
+        </p:panel>
     </p:panel>
 
 
