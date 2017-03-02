@@ -457,7 +457,7 @@ public class PortfolioOptimizer
                double[][] histReturns = historicaldailyreturns.getDailyReturnsArray(indexFund);
                if (histReturns != null)
                {
-                  //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(histReturns);
+                  //double[] expectedReturnsOfFunds = assetParameters.expectedReturns(histReturns);  // This is based on historical returns
                   double[][] covarianceOfFunds = assetParameters.covarianceMatrix(histReturns);
 
                   // Here we evaluate the maximum expected return  of  the  Portfolio's  on
@@ -468,14 +468,14 @@ public class PortfolioOptimizer
 
                   instanceOfCapitalMarket.setConstraints(lowerBound, upperBound);
 
-                  double[] yield = getAssetOrderedAvgReturns(theme);
-                  double minReturn1 = instanceOfCapitalMarket.minFrontierReturn(yield);
-                  double maxReturn1 = instanceOfCapitalMarket.maxFrontierReturn(yield);
+                  double[] expectedReturns = getAssetOrderedAvgReturns(theme);
+                  double minReturn1 = instanceOfCapitalMarket.minFrontierReturn(expectedReturns);
+                  double maxReturn1 = instanceOfCapitalMarket.maxFrontierReturn(expectedReturns);
                   instanceOfCapitalMarket.calculateEfficientFrontier(
                      minReturn1, // minimumExpectedReturn
                      maxReturn1, // maximumExpectedReturn
                      covarianceOfFunds,//Covariance matrix
-                     yield, // expectedReturns
+                     expectedReturns, // expectedReturns
                      InvConst.ASSET_INTERPOLATION, // numberInterpolationPoints
                      InvConst.ASSET_PRECISION  // precision
                   );
@@ -837,7 +837,8 @@ public class PortfolioOptimizer
             instanceOfCapitalMarket.setConstraints(lbConstraints, ubConstraints);
 
             instanceOfCapitalMarket.calculateEfficientFrontier(
-               0.0,0.12,
+               0.0,   // Minimum CAPM returns
+               0.12,  // Maximum CAPM returns
                covarianceOfFunds,//Covariance matrix
                expectedReturnsOfFunds, // expectedReturns
                InvConst.PORTFOLIO_INTERPOLATION, // numberInterpolationPoints
