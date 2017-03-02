@@ -726,7 +726,7 @@ img.riskImage:hover {
 }
 
 .ui-panel > .ui-panel-content, .ui-panel {
-	padding:1px!important;
+	/*padding:1px!important;*/
 }
 
 .ui-state-error {
@@ -3393,7 +3393,7 @@ input {
 	display: inline;
 	font-size: 13px;
 	margin: 0px 5px;
-    padding: 18px 7px 3px 7px;
+    padding: 18px 7px 3px 10px;
 }
 
 .menuButtons ul {
@@ -3420,7 +3420,7 @@ a {
     margin: 10px 0px;
 }
 
-.LeftPanel, .RightPanel {
+.RightPanel {
 	 padding: 10px 10px;
 }
 
@@ -3501,7 +3501,7 @@ padding: 0px 10px;
 }
 
 .RPHeadings1, .RPHeadings2 {
-padding: 5px 10px;
+padding: 0px 10px;
 }
 
 .backButtonLP, .RPHeadings1, .RiskValuePanel {
@@ -3539,10 +3539,10 @@ span > input {
 	background: none;
 	top: 0;
 	bottom: 0;
-	left: 370px;
+	left: 355px;
 	text-align: center;
 	z-index: 9999999999999;
-	padding: 105px 0;
+	padding: 99px 0;
 }
 
 
@@ -3563,4 +3563,18 @@ span > input {
 	color: white;
 	font-weight: bold;
 	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.21);
+}
+
+.fixedHeightLP {
+	height: 320px;
+	padding: 10px 10px;
+}
+
+.LPBtnPanelBottom {
+	padding: 10px 0;
+	background: #fbfbfb;
+}
+
+.NBwidget .ContainerIndent {
+	padding: 0px!important;
 }

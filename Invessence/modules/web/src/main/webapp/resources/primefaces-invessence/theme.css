@@ -86,7 +86,7 @@
 -ms-transition: all 0.5s ease;
 -o-transition: all 0.5s ease;
 transition: all 0.5s ease;*/
-font-family: 'ralewayregular';
+/*font-family: 'ralewayregular';*/
 }
 .ui-widget .ui-widget {
 	/* font-size: 1em; */
@@ -94,7 +94,7 @@ font-family: 'ralewayregular';
 -ms-transition: all 0.5s ease;
 -o-transition: all 0.5s ease;
 transition: all 0.5s ease;*/
-font-family: 'ralewayregular';
+/*font-family: 'ralewayregular';*/
 }
 .ui-widget input,
 .ui-widget select,
@@ -1385,7 +1385,7 @@ ui-message-fatal{color: #F55151 !important; background-color: #FBFCFD !important
 
 /*Style For UI Panel ------------------------------------------------------------------------------------- */
 
-.ui-panel{border: 1px solid #C6D6DF; padding:2px !important; background-color:#FBFCFD; border-radius:3px;}
+.ui-panel{border: 1px solid #C6D6DF; padding:0px 0px !important; background-color:#FBFCFD; border-radius:3px;}
     .ui-panel .ui-panel-titlebar{padding: 8px 10px 8px 10px !important; font-size:16px; color:#F1F6F9; z-index:100; font-family:'ralewaymedium';
                                     border-radius:2px !important; -webkit-border-radius:2px !important; -moz-border-radius:2px !important; background-color:#71CC8D;}
     .ui-datagrid .ui-panel .ui-panel-titlebar{padding: 6px 10px 6px 10px !important; font-size:15px; color:#F1F6F9; z-index:100; font-family:'ralewaymedium';
@@ -1402,7 +1402,7 @@ ui-message-fatal{color: #F55151 !important; background-color: #FBFCFD !important
                                 background-size: 110% !important;}
              .ui-panel .ui-panel-titlebar .ui-icon-gear{background-image:url("#{resource['primefaces-spark:images/gear.svg']}") !important; background-position: center !important;
                                 background-size: 110% !important;}
-    .ui-panel .ui-panel-content{padding:5px !important; overflow:hidden; font-size: 15px; color: #778D9B; font-family: 'ralewayregular';}
+    .ui-panel .ui-panel-content{padding:0px 0px !important; overflow:hidden; font-size: 15px; color: #778D9B; font-family: 'ralewayregular';}
     .ui-panel .ui-panel-footer{border-top: solid 1px #E8EDF2 !important; background-color:#F6FAFC; margin: 0px -2px -2px -2px !important; font-size: 14px;
                     border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; color:#C7D5DB;}
 	

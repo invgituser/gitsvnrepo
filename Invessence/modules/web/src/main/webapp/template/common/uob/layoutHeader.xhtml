@@ -16,10 +16,10 @@
         </f:facet>
     </p:ajaxStatus>
 
-    <ui:include src="/template/common/spark/topbar.xhtml"/>
+    <ui:include src="/template/common/uob/topbar.xhtml"/>
 
     <ui:fragment rendered="#{webutil.isUserLoggedIn()}">
-        <ui:include src="/template/common/spark/layoutmenu.xhtml"/>
+        <ui:include src="/template/common/uob/layoutmenu.xhtml"/>
     </ui:fragment>
 
     <div id="layout-portlets-cover">
@@ -30,13 +30,13 @@
 
     </div>
 
-    <h:outputStylesheet name="css/core-layout.css" library="invessence-layout"/>
-    <h:outputStylesheet name="css/custom.css" library="invessence-layout"/>
-    <h:outputStylesheet name="css/font-awesome.css" library="invessence-layout"/>
-    <h:outputStylesheet name="css/animate.css" library="invessence-layout"/>
-    <h:outputStylesheet name="css/invessence-layout.css" library="invessence-layout"/>
-    <h:outputStylesheet name="css/animate.css" library="invessence-layout"/>
-    <h:outputStylesheet name="css/modena-font.css" library="invessence-layout"/>
+    <h:outputStylesheet name="css/core-layout.css" library="uob-layout"/>
+    <h:outputStylesheet name="css/custom.css" library="uob-layout"/>
+    <h:outputStylesheet name="css/font-awesome.css" library="uob-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="uob-layout"/>
+    <h:outputStylesheet name="css/uob-layout.css" library="uob-layout"/>
+    <h:outputStylesheet name="css/animate.css" library="uob-layout"/>
+    <h:outputStylesheet name="css/modena-font.css" library="uob-layout"/>
     <h:outputStylesheet name="css/invessence.css" library="invessence"/>
 
 </ui:composition>

@@ -7,26 +7,26 @@
 
 	<div class="Wid30 Fleft LeftPanel">
 		<ui:fragment rendered="#{uobpb.pagemanager.page == 0}">
-		<div class="step1" style="">
+		<div class="step1 fixedHeightLP" style="">
 
 			<ui:include src="/pages/consumer/uob/addon/core0.xhtml" />
 
 		</div>
 		</ui:fragment>
 		<ui:fragment rendered="#{uobpb.pagemanager.page == 1}">
-		<div class="step2">
+		<div class="step2 fixedHeightLP">
 			<ui:include src="/pages/consumer/uob/addon/income.xhtml" />
 
 		</div>
 		</ui:fragment>
 		<ui:fragment rendered="#{uobpb.pagemanager.page == 2}">
-		<div class="step3">
+		<div class="step3 fixedHeightLP">
 			<ui:include src="/pages/consumer/uob/addon/debt.xhtml"/>
 
 		</div>
 		</ui:fragment>
 		<ui:fragment rendered="#{uobpb.pagemanager.page >= 3}">
-		<div class="step4">
+		<div class="step4 fixedHeightLP">
 			<div class="Container100">
 				<span class="Fs30">Risk</span>
 			</div>
@@ -63,19 +63,14 @@
 
 		</div>
 		</ui:fragment>
-		<div class="Container100" style="margin: 5px 0;">
-			<div class="Wid40 Fleft ButtonBackNext">
-				<ui:fragment rendered="#{uobpb.rTab == 6}">
-					<p:commandLink id="startBtn" value="Start Over"
-								   styleClass="nextButtonLP Fleft"
+		<div class="Container100 LPBtnPanelBottom" style="margin: 5px 0;">
+			<div class="Wid100">
+				<!--<ui:fragment rendered="#{uobpb.rTab == 6}">-->
+					<p:commandLink id="invsetBtn" value="Invest Now"
+								   styleClass="investNowBtn Fleft"
 								   type="submit"
-								   outcome="transition=slidefade"
-								   update=":ceForm:workArea, :ceForm:graphArea"
-								   actionListener="#{uobpb.gotoStartOverPage}"/>
-				</ui:fragment>
-			</div>
-			<div class="Wid50 Fright ButtonBackNext">
-
+							/>
+				<!--</ui:fragment>-->
 				<ui:fragment rendered="#{uobpb.pagemanager.page >= 0 and uobpb.rTab != 6}">
 				<p:commandLink id="nextBtn" value="Next"
 								 styleClass="nextButtonLP Fright"
@@ -85,13 +80,14 @@
 								 actionListener="#{uobpb.gotoNextPage}"/>
 				</ui:fragment>
 				<ui:fragment rendered="#{uobpb.rTab == 6}">
-					<p:commandLink id="invsetBtn" value="Invest Now"
-								   styleClass="investNowBtn Fright"
+					<p:commandLink id="startBtn" value="Start Over"
+								   styleClass="nextButtonLP Fright"
 								   type="submit"
 								   outcome="transition=slidefade"
 								   update=":ceForm:workArea, :ceForm:graphArea"
-								   />
+								   actionListener="#{uobpb.gotoStartOverPage}"/>
 				</ui:fragment>
+
 				<ui:fragment rendered="#{uobpb.pagemanager.page >= 1}">
 					<p:commandLink id="prevBtn" value="Previous"
 								   styleClass="backButtonLP Fright"
@@ -109,20 +105,21 @@
 				<div class="Fs30 Fleft detailHeader RPHeadings2" style="cursor: pointer;">Details</div>
 
 				<div class="Wid40 Fright">
-					<div class="Wid35 Fleft RiskValuePanel">
-						<div class="Wid100 IRLabel">Investment Risk</div>
-						<div class="Wid100 IRCount"><h:outputText
-								value="#{uobpb.totalRisk}">
-							<f:convertNumber pattern="##0.00%" />
-						</h:outputText></div>
-					</div>
-					<div class="Wid35 Fleft ReturnValuePanel">
+					<div class="Wid35 Fright ReturnValuePanel">
 						<div class="Wid100 ERLabel">Expected Return</div>
 						<div class="Wid100 ERCount"><h:outputText
 								value="#{uobpb.totalExpectedReturns}">
 							<f:convertNumber pattern="##0.00%" />
 						</h:outputText></div>
 					</div>
+					<div class="Wid35 Fright RiskValuePanel">
+						<div class="Wid100 IRLabel">Investment Risk</div>
+						<div class="Wid100 IRCount"><h:outputText
+								value="#{uobpb.totalRisk}">
+							<f:convertNumber pattern="##0.00%" />
+						</h:outputText></div>
+					</div>
+
 				</div>
 			</div>
 			<div class="Container100 tabpanel1 summaryPanel" style="">
@@ -179,7 +176,7 @@
 		</p:panel>
 		<div class="Container100 tabpanel2 detailPanel" style="display: none;">
 			<div class="Container100">
-				<div class="EmptyBox20"></div>
+				<div class="EmptyBox10"></div>
 
 				<p:dataTable styleClass="uob_graphTable" var="ticker" value="#{uobpb.displayPortfolioList}">
 

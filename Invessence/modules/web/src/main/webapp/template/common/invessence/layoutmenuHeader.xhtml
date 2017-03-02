@@ -1,44 +1,68 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ps="http://primefaces.org/spark"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ps="http://primefaces.org/spark"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <h:outputScript name="js/jquery.url.js"
+                    library="#{uiLayout.webProfile.cssdir}" />
+<script>
+    $(function(){
+        $page = jQuery.url.attr("file");
 
+        $('#dashboardMenuHighlight').each(function(){
+            if ( ($page == 'index.xhtml')) {
+                $(this).addClass('mbSelected');
+            } else {
+                $(this).removeClass('mbSelected');
+            }
+        });
+        $('#newaccountMenuHighlight').each(function(){
+            if ( ($page == 'cadd.xhtml')) {
+                $(this).addClass('mbSelected');
+            } else {
+                $(this).removeClass('mbSelected');
+            }
+        });
+        $('#myprofileMenuHighlight').each(function(){
+            if ( ($page == 'myprofile.xhtml')) {
+                $(this).addClass('mbSelected');
+            } else {
+                $(this).removeClass('mbSelected');
+            }
+        });
 
-		<div class="Wid60 Fright menuButtons">
-		<ul>
-		<li>
-			<a href="#{uiLayout.defaultHome}">Dashboard</a>
-		</li>
-			<!--<a href="/pages/consumer/uob/index.xhtml?app=N">Dashboard</a>-->
+    });
+</script>
+    <div class="Wid60 Fright menuButtons">
+        <ul id="menuMainNavigation">
+            <li id="dashboardMenuHighlight">
+                <a href="#{uiLayout.defaultHome}">Dashboard</a>
+            </li>
 
+            <li id="newaccountMenuHighlight">
+                <p:commandLink rendered="#{webutil.hasAccess('USER')}"
+                               actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
+                    <h:outputText value="New Account"/>
+                </p:commandLink>
+            </li>
 
-		<li class="mbSelected">
-			<p:commandLink rendered="#{webutil.hasAccess('USER')}"
-						   actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
-				<h:outputText value="New Account" />
-			</p:commandLink>
+            <li id="myprofileMenuHighlight">
+                <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
+                    <a href="/pages/common/myprofile.xhtml">My Profile</a>
+                </ui:fragment>
+                <ui:fragment rendered="#{! webutil.hasAccess('ADVISOR')}">
+                    <a href="/pages/common/myprofile.xhtml">My Profile</a>
+                </ui:fragment>
+            </li>
 
-			<!--<a href="/pages/consumer/uob/cadd.xhtml?app=N">New Account</a>--></li>
+            <li><p:commandLink action="#{sessionControl.logout}">
+                <h:outputText value="Logout"/>
+            </p:commandLink></li>
+        </ul>
 
-			<li>
-				<ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
-				<a href="/pages/common/myprofile.xhtml">My Profile</a>
-			</ui:fragment>
-				<ui:fragment rendered="#{! webutil.hasAccess('ADVISOR')}">
-					<a href="/pages/common/myprofile.xhtml">My Profile</a>
-				</ui:fragment>
-			</li>
+    </div>
 
-		<li><p:commandLink action="#{sessionControl.logout}">
-			<h:outputText value="Logout" />
-		</p:commandLink></li>
-		</ul>
-		
-		</div>
-
-	
 
 </ui:composition>
 
