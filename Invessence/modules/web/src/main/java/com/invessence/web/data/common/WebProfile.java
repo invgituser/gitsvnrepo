@@ -16,6 +16,8 @@ public class WebProfile
    String defaultAdvisor, defaultRep;
    Map<String, String> webInfo;
 
+   String supportInfo;
+
 
    public WebProfile()
    {
@@ -33,6 +35,10 @@ public class WebProfile
       webInfo = new HashMap<String, String>();
    }
 
+   public void finalConfig()
+   {
+      setSupportInfo();
+   }
 
    public Map<String, String> getWebInfo()
    {
@@ -322,6 +328,11 @@ public class WebProfile
       return getInfo("WEB.COPYRIGHT");
    }
 
+   public String getSupportInfo()
+   {
+      return supportInfo;
+   }
+
    public Boolean getHasGoogleAnalytic() {
       if (webInfo != null)
       {
@@ -360,5 +371,33 @@ public class WebProfile
             webInfo.put(name, newList.get(name));
          }
       }
+   }
+
+   public Boolean getHasBusinessContact(){
+      return (getSupportInfo() != null );
+   }
+
+   public void setSupportInfo(String supportInfo)
+   {
+      this.supportInfo = supportInfo;
+   }
+
+   public void setSupportInfo(){
+      String supportPhone = getInfo("PHONE.SUPPORT");
+      String supportEmail = getInfo("EMAIL.SUPPORT");
+      String output = null;
+      if (supportPhone != null && ! supportPhone.isEmpty()) {
+         output = supportPhone;
+      }
+
+      if (supportEmail != null && ! supportEmail.isEmpty()) {
+         if (output == null) {
+            output = supportEmail;
+         }
+         else {
+            output = output + " | " + supportEmail;
+         }
+      }
+      this.supportInfo = output;
    }
 }

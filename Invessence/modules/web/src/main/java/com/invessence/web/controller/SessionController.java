@@ -184,6 +184,7 @@ public class SessionController implements Serializable
          webutil.webprofile.setLocked(false);
          loadWebProfile(clienturl);
          loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
+         webutil.getWebprofile().finalConfig();
          webutil.webprofile.setLocked(true);
       }
    }
@@ -195,6 +196,7 @@ public class SessionController implements Serializable
          webutil.getWebprofile().initWebProfile();
          webutil.getWebprofile().setUrl(url);
          webutil.getWebprofile().setWebInfo(commonDAO.getWebSiteInfo(url));
+         webutil.getWebprofile().finalConfig();
       }
    }
 
@@ -226,6 +228,7 @@ public class SessionController implements Serializable
                      logger.info("Override the property by Advisor: " + advisor);
                      loadWebProfile(advisorMap.get("WEB.URL"));
                      webutil.getWebprofile().addToMap(advisorMap);
+                     webutil.getWebprofile().finalConfig();
                   }
                }
             }
@@ -261,6 +264,7 @@ public class SessionController implements Serializable
             System.out.println("Load WEB property for:" + uri);
             loadWebProfile(uri);
             loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
+            webutil.getWebprofile().finalConfig();
          }
       }
    }

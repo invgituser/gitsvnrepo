@@ -7,9 +7,12 @@
 
 
     <div id="" class="TopHeader">
-<div class="Wid100">
-<span class="bussinessContact Fright">(123) 567-7689 | support@invessence.com</span>
-</div>
+        <div class="Wid100">
+            <span class="bussinessContact Fright">
+                <p:outputText value="#{webutil.webprofile.supportInfo}"
+                              rendered="#{webutil.webprofile.hasBusinessContact}"/>
+            </span>
+        </div>
     </div>
 
 </ui:composition>
