@@ -1162,9 +1162,9 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    public void gotoNextPage()
 {
    Integer currentpage = pagemanager.getPage();
-   if(!validatePage(currentpage)){
+   //if(!validatePage(currentpage)){
 
-   }else{
+   //}else{
       pagemanager.nextPage();
 
       if (rTab >= 6)
@@ -1181,7 +1181,7 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
       if(pagemanager.getPage()== 3){
          rTab = 0;
       }
-   }
+  // }
    saveProfile();
 }
 
