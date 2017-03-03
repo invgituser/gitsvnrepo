@@ -146,6 +146,7 @@ function draw2dDonut1lyrChart()
                                                                                                                                                                                                                                                                                                                                                                                                                          }).add();
                                        }
           );
+          weight_value = "";name_value="";amount_value="";
       });
 }
 /* ]]> */

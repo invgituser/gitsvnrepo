@@ -43,6 +43,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private Boolean prefVisible = true;
    private Integer canOpenAccount;
    private Boolean welcomeDialog = true;
+   private Boolean flagforInvestShow = false;
    private Boolean displayGoalGraph = false,
       displayGoalText = false;
 
@@ -58,6 +59,16 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public Integer getPageNo()
    {
       return pageNo;
+   }
+
+   public Boolean getFlagforInvestShow()
+   {
+      return flagforInvestShow;
+   }
+
+   public void setFlagforInvestShow(Boolean flagforInvestShow)
+   {
+      this.flagforInvestShow = flagforInvestShow;
    }
 
    public void setPageNo(Integer pageNo)
@@ -1135,9 +1146,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void gotoNextPage()
 {
    Integer currentpage = pagemanager.getPage();
-   //if(!validatePage(currentpage)){
+   if(!validatePage(currentpage)){
 
-   //}else{
+   }else{
       pagemanager.nextPage();
 
       if (rTab >= 6)
@@ -1154,7 +1165,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       if(pagemanager.getPage()== 3){
          rTab = 0;
       }
-  // }
+   }
+   if(pagemanager.getPage() >= 3 || rTab== 6){
+      setFlagforInvestShow(true);
+   }
    saveProfile();
 }
 
