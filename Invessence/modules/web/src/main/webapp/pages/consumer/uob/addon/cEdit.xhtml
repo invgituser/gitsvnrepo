@@ -120,32 +120,27 @@
         </ui:fragment>
         <div class="Container100 LPBtnPanelBottom" style="margin: 5px 0;">
             <div class="Wid100">
-                <!--<ui:fragment rendered="#{uobpb.rTab == 6}">-->
-                <p:commandLink id="invsetBtn" value="Invest Now"
-                               styleClass="investNowBtn Fleft"
-                               actionListener="#{uobpb.fundAccount}" type="submit" />
-                <!--</ui:fragment>-->
-                <ui:fragment
-                        rendered="#{uobpb.pagemanager.page >= 0 and uobpb.rTab != 6}">
+                <ui:fragment rendered="#{uobpb.flagforInvestShow}">
+                    <p:commandLink id="invsetBtn" value="Invest Now"
+                                   styleClass="investNowBtn Fleft"
+                                   actionListener="#{uobpb.fundAccount}"
+                                   type="submit" />
+                </ui:fragment>
+                <ui:fragment rendered="#{uobpb.pagemanager.page >= 0 and uobpb.rTab != 6}">
                     <p:commandLink id="nextBtn" value="Next"
-                                   styleClass="nextButtonLP Fright" type="submit"
+                                   styleClass="nextButtonLP Fright"
+                                   type="submit"
                                    outcome="transition=slidefade"
                                    update=":ceForm:workArea, :ceForm:graphArea"
-                                   actionListener="#{uobpb.gotoNextPage}" />
+                                   actionListener="#{uobpb.gotoNextPage}"/>
                 </ui:fragment>
                 <ui:fragment rendered="#{uobpb.rTab == 6}">
                     <p:commandLink id="startBtn" value="Start Over"
-                                   styleClass="nextButtonLP Fright" type="submit"
+                                   styleClass="nextButtonLP Fright"
+                                   type="submit"
                                    outcome="transition=slidefade"
                                    update=":ceForm:workArea, :ceForm:graphArea"
-                                   actionListener="#{uobpb.gotoStartOverPage}" />
-                </ui:fragment>
-
-                <ui:fragment rendered="#{uobpb.pagemanager.page >= 1}">
-                    <p:commandLink id="prevBtn" value="Previous"
-                                   styleClass="backButtonLP Fright"
-                                   update=":ceForm:workArea, :ceForm:graphArea"
-                                   outcome="transition=slidefade" actionListener="#{uobpb.prevPage}" />
+                                   actionListener="#{uobpb.gotoStartOverPage}"/>
                 </ui:fragment>
             </div>
         </div>
