@@ -8,19 +8,11 @@
     <div class="Container100">
         <span class="Fs30">Asset</span>
     </div>
-    <p:panel rendered="#{uobpb.pagemanager.getErrorMessage(1) != null }"
+    <p:panel rendered="#{uobpb.pagemanager.errorMessage != null }"
              style="margin-top: 7px;border: 0px; background: transparent"
              styleClass="Container100">
         <h:outputText styleClass="errorText"
-                      value="#{uobpb.pagemanager.getErrorMessage(1)}" escape="false"/>
-
-        <div class="EmptyBox5"></div>
-    </p:panel>
-    <p:panel rendered="#{uobpb.pagemanager.getErrorMessage(2) != null }"
-             style="border: 0px; background: transparent"
-             styleClass="Container100">
-        <h:outputText styleClass="errorText"
-                      value="#{uobpb.pagemanager.getErrorMessage(2)}" escape="false"/>
+                      value="#{uobpb.pagemanager.errorMessage}" escape="false"/>
 
         <div class="EmptyBox5"></div>
     </p:panel>

@@ -58,6 +58,7 @@ public class UserData
    private String rep;
    private String access;
    private String atstart;
+   private String phone;
 
    private String emailmsgtype = null;
 
@@ -528,7 +529,13 @@ public class UserData
       this.atstart = atstart;
    }
 
+   public String getPhone()
+   {
+      return phone;
+   }
 
-
-
+   public void setPhone(String phone)
+   {
+      this.phone = phone;
+   }
 }

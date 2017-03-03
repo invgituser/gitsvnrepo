@@ -864,33 +864,6 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
 
    }
 
-   public void fundAccount()
-   {
-      long acctnum;
-      Boolean validate = false;
-      try
-      {
-         validate = validateProfile();
-
-         if (validate)
-         {
-            saveProfile();
-         }
-         // if (canOpenAccount == 0) {
-         webutil.redirect("/pages/consumer/funding.xhtml?acct=" + getAcctnum(), null);
-         //getWebutil().redirect("/pages/consumer/cto/cto.xhtml?acct="+getAcctnum(), null);
-         // }
-
-      }
-      catch (Exception ex)
-      {
-         String stackTrace = ex.getMessage();
-         ex.printStackTrace();
-         webutil.alertSupport("ConsumerEdit.fundaccount", "Error:ConsumerEdit.FundAccount",
-                              "error.fundaccount", stackTrace);
-      }
-
-   }
 
    public void savePrefProfile(ActionEvent event)
    {
@@ -1323,6 +1296,42 @@ public class ConsumerEditProfileBean extends CustomerData implements Serializabl
    }
             return dataOK;
    }
+
+   public void fundAccount()
+   {
+      long acctnum;
+      Boolean validate = false;
+      try
+      {
+         validate = validateProfile();
+
+         if (validate)
+         {
+            saveProfile();
+         }
+
+         if (webutil.isUserLoggedIn())
+         {
+            uiLayout.doCustody(webutil.getLogonid(), getAcctnum());
+         }
+         else
+         {
+            // if (canOpenAccount == 0) {
+            uiLayout.doMenuAction("consumer", "signup.xhtml?acct=" + getAcctnum().toString());
+            //webutil.redirect("/pages/custody/td/index.xhtml?acct=" + getAcctnum(), null);
+            // }
+         }
+      }
+      catch (Exception ex)
+      {
+         String stackTrace = ex.getMessage();
+         ex.printStackTrace();
+         webutil.alertSupport("ConsumerEdit.fundaccount", "Error:ConsumerEdit.FundAccount",
+                              "error.fundaccount", stackTrace);
+      }
+
+   }
+
 
 }
 

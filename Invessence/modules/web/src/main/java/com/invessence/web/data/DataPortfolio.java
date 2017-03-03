@@ -151,4 +151,20 @@ public class DataPortfolio implements Serializable
    {
       this.weight = weight;
    }
+
+   public String getNamePlusSymbol() {
+      String output = null ;
+      if (this.name != null)
+         output = this.name;
+
+      if (this.symbol != null && ! this.symbol.equalsIgnoreCase("cash"))
+      {
+         if (output != null)
+            output = output + " - " + this.symbol;
+         else
+            output = this.symbol;
+      }
+      return output;
+
+   }
 }

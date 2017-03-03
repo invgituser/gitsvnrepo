@@ -68,6 +68,7 @@
 				<!--<ui:fragment rendered="#{uobpb.rTab == 6}">-->
 					<p:commandLink id="invsetBtn" value="Invest Now"
 								   styleClass="investNowBtn Fleft"
+								   actionListener="#{uobpb.fundAccount}"
 								   type="submit"
 							/>
 				<!--</ui:fragment>-->
@@ -173,133 +174,133 @@
 					</p:dataTable>
 				</div>
 			</div>
-		</p:panel>
-		<div class="Container100 tabpanel2 detailPanel" style="display: none;">
-			<div class="Container100">
-				<div class="EmptyBox10"></div>
+			<div class="Container100 tabpanel2 detailPanel" style="display: none;">
+				<div class="Container100">
+					<div class="EmptyBox10"></div>
 
-				<p:dataTable styleClass="uob_graphTable" var="ticker" value="#{uobpb.displayPortfolioList}">
+					<p:dataTable styleClass="uob_graphTable" var="ticker" value="#{uobpb.displayPortfolioList}">
 
-					<p:column style="width:1%; background-color: #{ticker.color}">
-						<h:outputText value=" "/>
-					</p:column>
+						<p:column style="width:1%; background-color: #{ticker.color}">
+							<h:outputText value=" "/>
+						</p:column>
 
-					<p:column style="width:61%;" styleClass="Fs12 TexAlLeft">
-						<f:facet name="header">
-							<h:outputText value="Name"/>
-						</f:facet>
-						<h:outputText value="#{ticker.name}"/> [ <h:outputText value="#{ticker.symbol}"/> ]
-					</p:column>
+						<p:column style="width:61%;" styleClass="Fs12 TexAlLeft">
+							<f:facet name="header">
+								<h:outputText value="Name"/>
+							</f:facet>
+							<h:outputText value="#{ticker.namePlusSymbol}"/>
+						</p:column>
 
-					<p:column priority="3"
-							  style="width:15%;"
-							  styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
-						<f:facet name="header">
-							<h:outputText value="Allocated"/>
-						</f:facet>
-						<h:outputText value="#{ticker.weight}">
-							<f:convertNumber pattern="##0%"/>
-						</h:outputText>
-					</p:column>
+						<p:column priority="3"
+								  style="width:15%;"
+								  styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+							<f:facet name="header">
+								<h:outputText value="Allocated"/>
+							</f:facet>
+							<h:outputText value="#{ticker.weight}">
+								<f:convertNumber pattern="##0%"/>
+							</h:outputText>
+						</p:column>
 
-					<p:column style="width:23%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
-						<f:facet name="header">
-							<h:outputText value="Value"/>
-						</f:facet>
-						<h:outputText value="#{ticker.value}">
-							<f:convertNumber pattern="$##,###,###"/>
-						</h:outputText>
-					</p:column>
+						<p:column style="width:23%;" styleClass="Fs12 num-text-align TexAlRight"><!-- ROHIT's CHANGE -->
+							<f:facet name="header">
+								<h:outputText value="Value"/>
+							</f:facet>
+							<h:outputText value="#{ticker.value}">
+								<f:convertNumber pattern="$##,###,###"/>
+							</h:outputText>
+						</p:column>
 
-					<p:columnGroup type="footer">
-						<p:row>
-							<p:column/>
-							<p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
-									  footerText="Total">
-							</p:column>
-							<p:column styleClass="Fs14 TexAlRight FontBold"
-									  footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
-							</p:column>
-						</p:row>
-					</p:columnGroup>
-				</p:dataTable>
-				<!--<p:dataTable styleClass="uob_graphTable" var="ticker"
-							 value="#{uobpb.displayPortfolioList}">
+						<p:columnGroup type="footer">
+							<p:row>
+								<p:column/>
+								<p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
+										  footerText="Total">
+								</p:column>
+								<p:column styleClass="Fs14 TexAlRight FontBold"
+										  footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
+								</p:column>
+							</p:row>
+						</p:columnGroup>
+					</p:dataTable>
+					<!--<p:dataTable styleClass="uob_graphTable" var="ticker"
+                                 value="#{uobpb.displayPortfolioList}">
 
-					<p:column style="width:1%; background-color: #{ticker.color}">
-						<h:outputText value=" " />
-					</p:column>
+                        <p:column style="width:1%; background-color: #{ticker.color}">
+                            <h:outputText value=" " />
+                        </p:column>
 
-					<p:column priority="4" style="width:14%;"
-							  styleClass="Fs12 TexAlLeft">
-						<f:facet name="header">
-							<h:outputText value="Asset" />
-						</f:facet>
-						<h:outputText value="#{ticker.assetType}" />
-					</p:column>
+                        <p:column priority="4" style="width:14%;"
+                                  styleClass="Fs12 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Asset" />
+                            </f:facet>
+                            <h:outputText value="#{ticker.assetType}" />
+                        </p:column>
 
-					<p:column style="width:17%;" styleClass="Fs12 TexAlLeft">
-						<f:facet name="header">
-							<h:outputText value="Class" />
-						</f:facet>
-						<h:outputText value="#{ticker.subclass}" />
-					</p:column>
+                        <p:column style="width:17%;" styleClass="Fs12 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Class" />
+                            </f:facet>
+                            <h:outputText value="#{ticker.subclass}" />
+                        </p:column>
 
-					<p:column style="width:10%;"
-							  styleClass="Fs12 num-text-align TexAlRight">
-						&lt;!&ndash; ROHIT's CHANGE &ndash;&gt;
-						<f:facet name="header">
-							<h:outputText value="Allocated" />
-						</f:facet>
-						<h:outputText value="#{ticker.weight}">
-							<f:convertNumber pattern="##0.00%" />
-						</h:outputText>
-					</p:column>
+                        <p:column style="width:10%;"
+                                  styleClass="Fs12 num-text-align TexAlRight">
+                            &lt;!&ndash; ROHIT's CHANGE &ndash;&gt;
+                            <f:facet name="header">
+                                <h:outputText value="Allocated" />
+                            </f:facet>
+                            <h:outputText value="#{ticker.weight}">
+                                <f:convertNumber pattern="##0.00%" />
+                            </h:outputText>
+                        </p:column>
 
-					<p:column style="width:10%;" styleClass="Fs12 TexAlLeft">
-						<f:facet name="header">
-							<h:outputText value="Ticker" />
-						</f:facet>
-						<h:outputText value="#{ticker.symbol}" />
-					</p:column>
+                        <p:column style="width:10%;" styleClass="Fs12 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Ticker" />
+                            </f:facet>
+                            <h:outputText value="#{ticker.symbol}" />
+                        </p:column>
 
-					<p:column priority="3" style="width:25%;"
-							  styleClass="Fs12 TexAlLeft">
-						<f:facet name="header">
-							<h:outputText value="Name" />
-						</f:facet>
-						<h:outputText value="#{ticker.name}" />
-					</p:column>
+                        <p:column priority="3" style="width:25%;"
+                                  styleClass="Fs12 TexAlLeft">
+                            <f:facet name="header">
+                                <h:outputText value="Name" />
+                            </f:facet>
+                            <h:outputText value="#{ticker.name}" />
+                        </p:column>
 
-					<p:column style="width:18%;"
-							  styleClass="Fs12 num-text-align TexAlRight">
-						&lt;!&ndash; ROHIT's CHANGE &ndash;&gt;
-						<f:facet name="header">
-							<h:outputText value="Value" />
-						</f:facet>
-						<h:outputText value="#{ticker.value}">
-							<f:convertNumber currencySymbol="$" type="currency" />
-						</h:outputText>
-					</p:column>
+                        <p:column style="width:18%;"
+                                  styleClass="Fs12 num-text-align TexAlRight">
+                            &lt;!&ndash; ROHIT's CHANGE &ndash;&gt;
+                            <f:facet name="header">
+                                <h:outputText value="Value" />
+                            </f:facet>
+                            <h:outputText value="#{ticker.value}">
+                                <f:convertNumber currencySymbol="$" type="currency" />
+                            </h:outputText>
+                        </p:column>
 
-					<p:columnGroup type="footer">
-						<p:row>
-							<p:column />
-							<p:column priority="4" />
-							<p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
-									  footerText="Total">
-							</p:column>
-							<p:column priority="3" />
+                        <p:columnGroup type="footer">
+                            <p:row>
+                                <p:column />
+                                <p:column priority="4" />
+                                <p:column colspan="3" styleClass="Fs14 TexAlLeft FontBold"
+                                          footerText="Total">
+                                </p:column>
+                                <p:column priority="3" />
 
-							<p:column styleClass="Fs14 TexAlRight FontBold"
-									  footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
-							</p:column>
-						</p:row>
-					</p:columnGroup>
-				</p:dataTable>-->
+                                <p:column styleClass="Fs14 TexAlRight FontBold"
+                                          footerText="#{dataDisplayConverter.displayAsMoney(uobpb.totalMoneyAllocated)}">
+                                </p:column>
+                            </p:row>
+                        </p:columnGroup>
+                    </p:dataTable>-->
 
+				</div>
 			</div>
-		</div>
+		</p:panel>
 	</div>
 	<script>
 		$(document).ready(function ()
