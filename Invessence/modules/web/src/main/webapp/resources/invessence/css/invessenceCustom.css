@@ -3377,9 +3377,9 @@ input {
 }
 
 .bussinessContact {
-	    color: white;
-    font-size: 13px;
-    padding: 7px 10px 0px 10px;
+	color: white;
+	font-size: 13px;
+	padding: 7px 10px 0px 10px;
 }
 
 .menuHeader {
@@ -3393,12 +3393,12 @@ input {
 	display: inline;
 	font-size: 13px;
 	margin: 0px 5px;
-    padding: 18px 7px 3px 10px;
+	padding: 18px 7px 3px 10px;
 }
 
 .menuButtons ul {
-    text-align: right;
-    padding: 0px 30px;
+	text-align: right;
+	padding: 0px 30px;
 }
 
 
@@ -3408,8 +3408,8 @@ input {
 }
 
 .Sitelogo {
-    height: 40px;
-    padding: 5px 10px;
+	height: 40px;
+	padding: 5px 10px;
 }
 
 a {
@@ -3417,49 +3417,49 @@ a {
 }
 
 .FullContainer {
-    margin: 10px 0px;
+	margin: 10px 0px;
 }
 
 .RightPanel {
-	 padding: 10px 10px;
+	padding: 10px 10px;
 }
 
 .LeftPanel {
-	 border-right: 3px solid #666666;
+	border-right: 3px solid #666666;
 }
 
 /*Styling the InputField*/
 
-.inputfieldBlock 			  { 
-  position:relative; 
-      margin-top: 20px;
+.inputfieldBlock 			  {
+	position:relative;
+	margin-top: 20px;
 }
 
 .InputCustomfield {
 	box-sizing: border-box;
-  font-size:18px;
-  padding:10px 10px 10px 5px;
-  display:block;
-  border:none;
-  border-bottom:2px solid #666666;
+	font-size:18px;
+	padding:10px 10px 10px 5px;
+	display:block;
+	border:none;
+	border-bottom:2px solid #666666;
 }
 
 .InputCustomfield:focus {
 	outline:none;
-	}
+}
 
 
 .inputfieldLabels {
-  color:#B0BEC5; 
-  font-size:16px;
-  font-weight:normal;
-  position:absolute;
-  pointer-events:none;
-  left:5px;
-  top:10px;
-  transition:0.2s ease all; 
-  -moz-transition:0.2s ease all; 
-  -webkit-transition:0.2s ease all;
+	color:#B0BEC5;
+	font-size:16px;
+	font-weight:normal;
+	position:absolute;
+	pointer-events:none;
+	left:5px;
+	top:10px;
+	transition:0.2s ease all;
+	-moz-transition:0.2s ease all;
+	-webkit-transition:0.2s ease all;
 }
 
 .dropdownCustom > .ui-selectonemenu-label {
@@ -3470,26 +3470,26 @@ a {
 
 .dropdownCustom
 {
-    border-bottom: 2px solid #666666;
-    border-radius: 0;
+	border-bottom: 2px solid #666666;
+	border-radius: 0;
 }
 
 /* active state */
 .InputCustomfield:focus ~ .inputfieldLabels,
 .dropdownCustom:focus ~ .inputfieldLabels
- {
-  top:-20px;
-  font-size: 14px;
-  color: #666666;
-  margin: 5px 0px;
+{
+	top:-20px;
+	font-size: 14px;
+	color: #666666;
+	margin: 5px 0px;
 }
 
 .dropdownCustom.ui-state-focus > .ui-selectonemenu-label {
 	top: -18px!important;
-    font-size: 14px!important;
-    color: #666666!important;
-    position: relative;
-    background: none;
+	font-size: 14px!important;
+	color: #666666!important;
+	position: relative;
+	background: none;
 }
 
 .ButtonBackNext {
@@ -3497,19 +3497,19 @@ a {
 }
 
 .backButtonLP, .nextButtonLP {
-padding: 0px 10px;
+	padding: 0px 10px;
 }
 
 .RPHeadings1, .RPHeadings2 {
-padding: 0px 10px;
+	padding: 0px 10px;
 }
 
 .backButtonLP, .RPHeadings1, .RiskValuePanel {
-    border-right: 1px solid #666666;
+	border-right: 1px solid #666666;
 }
 
 .nextButtonLP, .RPHeadings1 {
-color: #A4332F;
+	color: #A4332F;
 }
 
 
@@ -3577,4 +3577,54 @@ span > input {
 
 .NBwidget .ContainerIndent {
 	padding: 0px!important;
+}
+
+.finetuneBtnBlock {
+	margin-top: 10px;
+	position: absolute;
+	left: 27%;
+}
+
+.fineTuneBlock {
+	width: 30%;
+	height: 400px;
+	position: absolute;
+	background: white;
+	border:0;
+	z-index:200;
+}
+
+.fineTuneDetail {
+	padding: 5px 10px;
+}
+
+.FTLabel {
+	margin-bottom: 20px;
+	padding: 0px 10px;
+	margin-top: 10px;
+}
+
+.fineTuneBtn > .ui-button-text,
+.fineTuneBtn.ui-state-hover > .ui-button-text,
+.fineTuneBtn.ui-state-focus > .ui-button-text {
+	background: #666666;
+}
+
+.fineTuneBtn > span,
+.fineTuneBtn.ui-state-hover > span,
+.fineTuneBtn.ui-state-focus > span
+{
+	color: #ffffff!important;
+}
+
+.fineTuneBtnImg > .ui-icon,
+.fineTuneBtnImg.ui-state-hover > .ui-icon,
+.fineTuneBtnImg.ui-state-focus > .ui-icon {
+	width: 23px!important;
+	height: 20px!important;
+	margin-left: -11px!important;
+	margin-top: -10px!important;
+	background-size: 100% 100%!important;
+	background-position: inherit!important;
+	background-image: url("/javax.faces.resource/images/finetune.png.xhtml?ln=invessence")!important;
 }

@@ -47,14 +47,18 @@
                 </p:commandLink>
             </li>
 
-            <li id="myprofileMenuHighlight">
+
                 <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
+                    <li id="myprofileMenuHighlight">
                     <a href="/pages/common/myprofile.xhtml">My Profile</a>
+                    </li>
                 </ui:fragment>
                 <ui:fragment rendered="#{! webutil.hasAccess('ADVISOR')}">
+                    <li id="myprofileMenuHighlight">
                     <a href="/pages/common/myprofile.xhtml">My Profile</a>
+                    </li>
                 </ui:fragment>
-            </li>
+
 
             <li><p:commandLink action="#{sessionControl.logout}">
                 <h:outputText value="Logout"/>
