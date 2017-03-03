@@ -34,7 +34,7 @@ import org.primefaces.event.*;
 
 @ManagedBean(name = "uobpb")
 @SessionScoped
-public class ConsumerEditProfileBean extends CustomerData implements Serializable
+public class UOBProfileBean extends CustomerData implements Serializable
 {
    private Long beanAcctnum;
    private String newapp;
