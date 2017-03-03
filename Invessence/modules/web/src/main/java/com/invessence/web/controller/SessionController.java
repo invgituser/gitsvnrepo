@@ -241,24 +241,29 @@ public class SessionController implements Serializable
       if (webutil == null)
          return;
 
-      String origurl = webutil.getWebprofile().getUrl();
-      if (uri == null)
-      {
-            uri = webutil.getURLAddress("Invessence");
-      }
 
+      // We we are doing demo, then it will be locked. Don't reset (regarless of URL)
       if (! webutil.getWebprofile().getLocked()) {
+         // Was Webprofile parsed in past.  If se, then we set the origurl.
+         String origurl = webutil.getWebprofile().getUrl();
+
+         // Now get the new profile.
+         if (uri == null)
+         {
+            uri = webutil.getURLAddress("Invessence");
+         }
+
+         // Now try to determine, we we need to reset, based on URL (either by logged user, or change of URL)
          Boolean reload = false;
-         if (origurl == null) {
+         if (origurl == null) {  // If this is first time, go reload as normal.
             reload = true;
          }
          else
-         {
-            if (origurl != null && ! origurl.equalsIgnoreCase(uri))
-            {
+         {  // If doing it again, then is the new URL NOT localhost or is different from current origurl
+            if (! uri.equalsIgnoreCase("localhost")  && ! origurl.equalsIgnoreCase(uri))
                reload = true;
-            }
          }
+
          if (reload)
          {
             System.out.println("Load WEB property for:" + uri);
