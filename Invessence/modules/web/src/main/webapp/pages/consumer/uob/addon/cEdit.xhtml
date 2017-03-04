@@ -8,18 +8,18 @@
     <div class="Wid30 Fleft LeftPanel">
         <div class="finetuneBtnBlock Fright">
             <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" icon="ui-icon-image"
-                             actionListener="#{uobpb.setFineTunePanel(true)}">
+                             actionListener="#{uobpb.toggleFineTune}">
                 <p:effect type="slide" event="click" for="abc">
                     <f:param name="mode" value="'show'" />
                 </p:effect>
             </p:commandButton>
         </div>
-        <p:panel id="abc" styleClass="fineTuneBlock" style="display: none;">
+        <p:panel id="abc" styleClass="fineTuneBlock" style="display: #{uobpb.showFineTunePanel()};">
             <div class="Container100 FTLabel">
                 <span class="Fs30">Fine Tune Strategy</span>
                 <div class="Wid10 Fright">
                     <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times"
-                                     actionListener="#{uobpb.setFineTunePanel(false)}">
+                                     actionListener="#{uobpb.toggleFineTune}">
                         <p:effect type="slide" event="click" for="abc">
                             <f:param name="mode" value="'hide'" />
                         </p:effect>

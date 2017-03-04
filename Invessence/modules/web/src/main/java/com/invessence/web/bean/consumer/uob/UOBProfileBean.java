@@ -77,7 +77,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       if (fineTunePanel != null && fineTunePanel)
          return "show";
       else
-         return "hide";
+         return "none";
    }
 
    public Boolean getFineTunePanel()
@@ -88,6 +88,14 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void setFineTunePanel(Boolean fineTunePanel)
    {
       this.fineTunePanel = fineTunePanel;
+   }
+
+   public void toggleFineTune()
+   {
+      if (fineTunePanel == null || ! fineTunePanel)
+         fineTunePanel = true;
+      else
+         fineTunePanel = false;
    }
 
    public void setPageNo(Integer pageNo)
