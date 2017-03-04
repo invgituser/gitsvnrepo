@@ -47,6 +47,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private Boolean displayGoalGraph = false,
       displayGoalText = false;
 
+   private Boolean fineTunePanel = false;
    private Integer prefView = 0;
    private String whichChart;
    private Integer pageNo = 0;
@@ -69,6 +70,24 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void setFlagforInvestShow(Boolean flagforInvestShow)
    {
       this.flagforInvestShow = flagforInvestShow;
+   }
+
+   public String showFineTunePanel()
+   {
+      if (fineTunePanel != null && fineTunePanel)
+         return "show";
+      else
+         return "hide";
+   }
+
+   public Boolean getFineTunePanel()
+   {
+      return fineTunePanel;
+   }
+
+   public void setFineTunePanel(Boolean fineTunePanel)
+   {
+      this.fineTunePanel = fineTunePanel;
    }
 
    public void setPageNo(Integer pageNo)
@@ -195,13 +214,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
    }
 
    @Override
-   public void setAge(Integer age) {
+   public void setAge(Integer age)
+   {
       this.age = age;
       riskCalculator.setRiskAge(age);
    }
 
    @Override
-   public void setHorizon(Integer horizon) {
+   public void setHorizon(Integer horizon)
+   {
       this.horizon = horizon;
       riskCalculator.setRiskHorizon(horizon);
    }
@@ -213,8 +234,12 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          if (!FacesContext.getCurrentInstance().isPostback())
          {
-            pagemanager = new PagesImpl(4);
-            if (newapp != null && newapp.startsWith("N")) {
+            fineTunePanel = false;
+            flagforInvestShow = false;
+
+            pagemanager = new PagesImpl(9);
+            if (newapp != null && newapp.startsWith("N"))
+            {
                beanAcctnum = null;
             }
             else
@@ -225,7 +250,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
                   return;
                }
             }
-            riskCalculator.setNumberofQuestions(7);
+            riskCalculator.setNumberofQuestions(9);
             whichChart = "pie";
             setPrefView(0);
             if (webutil.hasAccess("Advisor") || webutil.hasAccess("Admin"))
@@ -290,6 +315,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
    {
       riskCalculator.setRiskFormula("C");
       formEdit = true;
+      if (pagemanager.isLastPage()) {
+         isAllDataEntered();
+      }
    }
 
    public void onGoalChangeValue()
@@ -306,6 +334,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
       formEdit = true;
       riskCalculator.setRiskFormula("C");
       createAssetPortfolio(1);
+      if (pagemanager.isLastPage()) {
+         isAllDataEntered();
+      }
    }
 
    public void calculateGoal()
@@ -418,6 +449,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       disabledetailtabs = true;
       displayGoalGraph = false;
       displayGoalText = false;
+      rTab=0;
+      fineTunePanel=false;
+      flagforInvestShow=false;
+      riskCalculator.resetAllData();
       resetCustomerData();
       setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
    }
@@ -440,6 +475,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       else
       {
          selectFirstBasket(); // DO this only first time.
+      }
+      if (getBasket() != null)
+      {
+         setPortfolioName(getAdvisorBasket().get(getTheme()));
       }
    }
 
@@ -506,14 +545,14 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          if (webutil.isUserLoggedIn())
          {
-               UserInfoData uid = webutil.getUserInfoData();
-               if (uid != null)
-               {
-                  setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
-                  setLogonid(uid.getLogonID());
-               }
-               setAcctnum(acctnum);
-               listDAO.getProfileData(getInstance());
+            UserInfoData uid = webutil.getUserInfoData();
+            if (uid != null)
+            {
+               setAdvisor(uid.getAdvisor()); // Portfolio solves the null issue, or blank issue.
+               setLogonid(uid.getLogonID());
+            }
+            setAcctnum(acctnum);
+            listDAO.getProfileData(getInstance());
          }
          createAssetPortfolio(1);
          formEdit = false;
@@ -526,7 +565,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    private void loadRiskData(Long acctnum)
    {
-
       try
       {
          listDAO.getRiskProfileData(acctnum, riskCalculator);
@@ -544,6 +582,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setAllocationIndex(event.getValue());
       createAssetPortfolio(1);
       formEdit = true;
+      setFlagforInvestShow(true);
    }
 
    public void onPortfolioSlider(SlideEndEvent event)
@@ -554,6 +593,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       createAssetPortfolio(1);
       // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
       formEdit = true;
+      setFlagforInvestShow(true);
    }
 
    public void doAllocReset()
@@ -587,13 +627,17 @@ public class UOBProfileBean extends CustomerData implements Serializable
       try
       {
          String tTheme = getTheme();
-         if (getAccountTaxable()) {
-            if (! tTheme.startsWith("T.")) {
+         if (getAccountTaxable())
+         {
+            if (!tTheme.startsWith("T."))
+            {
                setTheme("T." + tTheme);
             }
          }
-         else {
-            if (tTheme.startsWith("T.")) {
+         else
+         {
+            if (tTheme.startsWith("T."))
+            {
                setTheme(tTheme.substring(2));
             }
          }
@@ -647,13 +691,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          Map<String, String> configMap = webutil.getWebprofile().getWebInfo();
          setTypeOfChart(configMap.get("CHART.ASSET.ALLOCATION"));// HIGHCHART.2DDONUT for highchart and PRIMEFACES.2DDONUT for primfaces
-         if(configMap.get("CHART.ASSET.ALLOCATION") != null &&
-            configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT")){
-            setResultChart(highChartsController.highChartrequesthandler(getPortfolioData(),getAssetData(),configMap));
+         if (configMap.get("CHART.ASSET.ALLOCATION") != null &&
+            configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("HIGHCHART.2DDONUT"))
+         {
+            setResultChart(highChartsController.highChartrequesthandler(getPortfolioData(), getAssetData(), configMap));
          }
-         if(configMap.get("CHART.RECOMMENDED.ASSET.ALLOCATION") != null && configMap.get("CHART.ASSET.ALLOCATION") != null &&
+         if (configMap.get("CHART.RECOMMENDED.ASSET.ALLOCATION") != null && configMap.get("CHART.ASSET.ALLOCATION") != null &&
             configMap.get("CHART.RECOMMENDED.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.BARCHART")
-            || configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.2DDONUT")){
+            || configMap.get("CHART.ASSET.ALLOCATION").equalsIgnoreCase("PRIMEFACES.2DDONUT"))
+         {
 
             formEdit = true;
             // charts.setMeterGuage(getMeterRiskIndicator());
@@ -700,47 +746,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
    }
 
 
-   public Boolean validateProfile()
-   {
-      try
-      {
-         String message = null;
-
-         if (getAge() == null)
-         {
-            message = "Age is required<br/>";
-         }
-         if (getInitialInvestment() == null)
-         {
-            message = "Initial Investment Amount needs to be defined<br/>";
-         }
-         if (getRiskIndex() == null)
-         {
-            message = "Risk has to be defined.<br/>";
-         }
-         if (getEmail() == null)
-         {
-            message = "Customer profile has to be created.<br/>";
-         }
-
-         if (message != null)
-         {
-            FacesContext context = FacesContext.getCurrentInstance();
-
-            context.addMessage(null, new FacesMessage("Error", "Incomplete Form " + message));
-            return false;
-         }
-      }
-      catch (Exception ex)
-      {
-         FacesContext context = FacesContext.getCurrentInstance();
-
-         context.addMessage(null, new FacesMessage("Error", "Serious Error " + "System Error: " + ex.getMessage()));
-         return false;
-      }
-      return true;
-   }
-
    private void setAccountType()
    {
       if (getAccountTaxable())
@@ -757,13 +762,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    private void setDefaults()
    {
 
-      if (getLastname() != null)
-      {
-         setPortfolioName(getLastname() + "-" + getGoal());
-      }
-      else {
-         setPortfolioName(null);
-      }
+      setPortfolioName(null);
       if (getAge() == null)
       {
          setAge(30);
@@ -797,73 +796,27 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    }
 
-   public void tryProceed()
-   {
-      Boolean validate = false;
-      try
-      {
-         String msg = "";
-         if (getLastname() == null || getLastname().isEmpty())
-         {
-            msg = "lastname is required!";
-         }
-         if (getFirstname() == null || getFirstname().isEmpty())
-         {
-            msg = (msg.isEmpty()) ? "lastname is required!" : msg + "<br/>firstname is required!";
-         }
-         if (getEmail() == null || getEmail().isEmpty())
-         {
-            msg = (msg.isEmpty()) ? "Email is required!" : msg + "<br/>Email is required!";
-         }
-
-         if (!msg.isEmpty())
-         {
-            FacesContext.getCurrentInstance().addMessage("tryMsg", new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
-         }
-         else
-         {
-            RequestContext.getCurrentInstance().execute("PF('tryDialog').hide()");
-         }
-
-      }
-      catch (Exception ex)
-      {
-
-      }
-   }
-
    public void saveProfile()
    {
       long acctnum;
       Boolean validate = false;
       try
       {
-         if (formEdit == null)
+         if (formEdit)
          {
-            validate = validateProfile(); // Redirect to logon window.
-         }
-         else
-         {
-            if (formEdit)
+            isAllDataEntered();  // Used to determine if we should turn on The InvestNow button
+            // setDefaults();
+            acctnum = saveDAO.saveProfileData(getInstance());
+            if (acctnum > 0)
             {
-               //validate = validateProfile(); // Check if session is still valid.  If not, redirect to logon
-               validate = true;
-               if (validate)
-               {
-                  // setDefaults();
-                  acctnum = saveDAO.saveProfileData(getInstance());
-                  if (acctnum > 0)
-                  {
-                     setAcctnum(acctnum);
-                     saveDAO.saveFinancials(getInstance());
-                     saveDAO.saveRiskProfile(acctnum, riskCalculator);
-                     saveDAO.saveAllocation(getInstance());
-                     saveDAO.savePortfolio(getInstance());
-                  }
-                  // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
-                  formEdit = false;
-               }
+               setAcctnum(acctnum);
+               saveDAO.saveFinancials(getInstance());
+               saveDAO.saveRiskProfile(acctnum, riskCalculator);
+               saveDAO.saveAllocation(getInstance());
+               saveDAO.savePortfolio(getInstance());
             }
+            // FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Data Saved", "Data Saved"));
+            formEdit = false;
          }
       }
       catch (Exception ex)
@@ -970,19 +923,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    }
 
-   private Integer pTab = 0, rTab = 0;
-   private Integer mTab = 0;
+   private Integer rTab = 0;
 
-
-   public Integer getpTab()
-   {
-      return pTab;
-   }
-
-   public void setpTab(Integer pTab)
-   {
-      this.pTab = pTab;
-   }
 
    public Integer getrTab()
    {
@@ -992,36 +934,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void setrTab(Integer rTab)
    {
       this.rTab = rTab;
-   }
-
-   public void onPTabChange(TabChangeEvent event)
-   {
-      Tab active = event.getTab();
-      String pTabID = active.getId().toLowerCase();
-
-      if (pTabID.equals("p1"))
-      {
-         pTab = 0;
-      }
-      if (pTabID.equals("p2"))
-      {
-         pTab = 1;
-      }
-      if (pTabID.equals("p3"))
-      {
-         pTab = 2;
-      }
-      if (pTabID.equals("p4"))
-      {
-         pTab = 3;
-      }
-      if (pTabID.equals("p5"))
-      {
-         pTab = 4;
-         // setShowGoalChart(true);
-      }
-      saveProfile();
-
    }
 
    public void onRTabChange(TabChangeEvent event)
@@ -1063,11 +975,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public String getEnableNextButton()
    {
-/*    Removing Goal section page to bottom
-      if (pTab == 4)
-         return "false";
-*/
-      if (pTab >= 3 && rTab >= 6)
+      if (pagemanager.isLastPage())
       {
          return "false";
       }
@@ -1076,7 +984,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public String getEnablePrevButton()
    {
-      if (pTab == 0)
+      if (pagemanager.getPage() == 0)
       {
          return "false";
       }
@@ -1085,29 +993,13 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void gotoPrevTab()
    {
-      switch (rTab)
+
+      switch (pagemanager.getPage())
       {
          case 0:
-            switch (pTab)
-            {
-               case 0:
-                  break;
-               case 1:
-               case 2:
-               case 3:
-               case 4:
-                  pTab--;
-               default:
-                  break;
-            }
-            return;
          case 1:
          case 2:
-         case 3:
-         case 4:
-         case 5:
-         case 6:
-         case 7:
+            break;
          default:
             rTab--;
             break;
@@ -1115,62 +1007,26 @@ public class UOBProfileBean extends CustomerData implements Serializable
       saveProfile();
    }
 
-   public void gotoNextTab()
-   {
-      switch (pTab)
-      {
-         case 0:
-         case 1:
-         case 2:
-            pTab++;
-            rTab = 0;
-            break;
-         case 3:
-         default:
-            if (rTab >= 6)
-            {
-               pTab++;
-               rTab = 0;
-
-            }
-            else
-            {
-               rTab++;
-            }
-            break;
-
-      }
-      saveProfile();
-   }
 
    public void gotoNextPage()
-{
-   Integer currentpage = pagemanager.getPage();
-   if(!validatePage(currentpage)){
-
-   }else{
-      pagemanager.nextPage();
-
-      if (rTab >= 6)
+   {
+      Integer currentpage = pagemanager.getPage();
+      if (validatePage(currentpage))
       {
-         pTab++;
-         rTab = 0;
 
-      }
-      else
-      {
-         rTab++;
-      }
+         pagemanager.nextPage();
 
-      if(pagemanager.getPage()== 3){
-         rTab = 0;
+         if (pagemanager.getPage() == 3)
+         {
+            rTab = 0;
+         }
+         if (pagemanager.getPage() > 3)
+         {
+            rTab++;
+         }
+         saveProfile();
       }
    }
-   if(pagemanager.getPage() >= 3 || rTab== 6){
-      setFlagforInvestShow(true);
-   }
-   saveProfile();
-}
 
    public void gotoStartOverPage()
    {
@@ -1198,131 +1054,132 @@ public class UOBProfileBean extends CustomerData implements Serializable
       Boolean dataOK = true;
       pagemanager.clearErrorMessage(pagenum);
       switch (pagenum)
-   {
-      case 0:
-         if(getAge() == null || getAge() == 0){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.age.required", "Age is required", null));
-         }
-         if(getHorizon() == null || getHorizon() == 0 ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.plantoinvestamt.requiredMsg", "Plan to Invest is required", null));
-         }
-         if(getInitialInvestment() == null || getInitialInvestment() == 0 ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required", null));
-         }
-         if(getGoal() == null || getGoal() == "" ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.goal.required", "Please choose an investment strategy", null));
-         }
-         break;
-      case 1:
-         if(getHouseholdwages() == null || getHouseholdwages() == 0 ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.wages.required", "Salary/Wages is required", null));
-         }
-         if(getMoneymarket() == null || getMoneymarket() == 0 ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.liquid.asset.required", "Liquid Asset is required", null));
-         }
-         if(getInvestment() == null || getInvestment() == 0 ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.other.investments.required", "Other Investments is required.", null));
-         }
-         break;
-      case 2:
-         if(getHouseholdwages() == null || getHouseholdwages() == 0 ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.expenses.required", "Total Expenses is required.", null));
-         }
-         if(getOtherDebt() == null || getOtherDebt() == 0 ){
-            dataOK = false;
-            pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.debt.required", "Total Debt is required.", null));
-         }
-         break;
-      case 3:case 4:
-         // tab 0
-         if(rTab != null && rTab == 0){
-            if(this.riskCalculator != null){
-               if(this.riskCalculator.getAns3() == null || this.riskCalculator.getAns3().equals("")){
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.employment.situation.required", "Employment Situation is required.", null));
-               }
+      {
+         case 0:
+            if (getAge() == null || getAge() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.age.required", "Age is required", null));
             }
-         }
-         // tab 1
-         if(rTab != null && rTab == 1){
-            if(this.riskCalculator != null){
-               if( this.riskCalculator.getAns4() == null || this.riskCalculator.getAns4().equals("")){
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sources.income.required", "Sources of income is required.", null));
-               }
+            if (getHorizon() == null || getHorizon() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.plantoinvestamt.requiredMsg", "Plan to Invest is required", null));
             }
-         }
-         // tab 2
-         if(rTab != null && rTab == 2){
-            if(this.riskCalculator != null){
-               if( this.riskCalculator.getAns5() == null || this.riskCalculator.getAns5().equals("")){
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.selection.required", "Select one of the option.", null));
-               }
+            if (getInitialInvestment() == null || getInitialInvestment() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investamt.requiredMsg", "Investment amount is required", null));
             }
-         }
-         // tab 3
-         if(rTab != null && rTab == 3){
-            if(this.riskCalculator != null){
-               if( this.riskCalculator.getAns6() == null || this.riskCalculator.getAns6().equals("")){
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.investment.required", "level of investment is required.", null));
-               }
+            if (getGoal() == null || getGoal() == "")
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.goal.required", "Please choose an investment strategy", null));
             }
-         }
-         // tab 4
-         if(rTab != null && rTab == 4){
-            if(this.riskCalculator != null){
-               if(this.riskCalculator.getAns7() == null || this.riskCalculator.getAns7().equals("")){
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.approach.required", "Investment approach is required.", null));
-               }
+            break;
+         case 1:
+            if (getHouseholdwages() == null || getHouseholdwages() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.wages.required", "Salary/Wages is required", null));
             }
-         }
-         // tab 5
-         if(rTab != null && rTab == 5){
-            if(this.riskCalculator != null){
-               if(this.riskCalculator.getAns8() == null || this.riskCalculator.getAns8().equals("")){
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.volatility.required", "Level of volatility is required.", null));
-               }
+            if (getMoneymarket() == null || getMoneymarket() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.liquid.asset.required", "Liquid Asset is required", null));
             }
-         }
-         // tab 6
-         if(rTab != null && rTab == 6){
-            if(this.riskCalculator != null){
-               if( this.riskCalculator.getAns9() == null || this.riskCalculator.getAns9().equals("")){
-                  dataOK = false;
-                  pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.long-term.investment.required", "long-term investment is required.", null));
-               }
+            if (getInvestment() == null || getInvestment() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.other.investments.required", "Other Investments is required.", null));
             }
-         }
-         break;
-
+            break;
+         case 2:
+            if (getTotalExpense() == null || getTotalExpense() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.expenses.required", "Total Expenses is required.", null));
+            }
+            if (getTotalLiability() == null || getTotalLiability() == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.total.debt.required", "Total Debt is required.", null));
+            }
+            break;
+         case 3:
+            if (this.riskCalculator.getAnswerValue(pagenum) == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.employment.situation.required", "Employment Situation is required.", null));
+            }
+            break;
+         case 4:
+            if (this.riskCalculator.getAnswerValue(pagenum) == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.sources.income.required", "Sources of income is required.", null));
+            }
+            break;
+         case 5:
+            if (this.riskCalculator.getAnswerValue(pagenum) == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.selection.required", "Select one of the option.", null));
+            }
+            break;
+         case 6:
+            if (this.riskCalculator.getAnswerValue(pagenum) == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.investment.required", "level of investment is required.", null));
+            }
+            break;
+         case 7:
+            if (this.riskCalculator.getAnswerValue(pagenum) == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.investment.approach.required", "Investment approach is required.", null));
+            }
+            break;
+         case 8:
+            if (this.riskCalculator.getAnswerValue(pagenum) == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.level.volatility.required", "Level of volatility is required.", null));
+            }
+            break;
+         case 9:
+            if (this.riskCalculator.getAnswerValue(pagenum) == 0)
+            {
+               dataOK = false;
+               pagemanager.setErrorMessage(webutil.getMessageText().getDisplayMessage("validator.long-term.investment.required", "long-term investment is required.", null));
+            }
+            break;
+      }
+      return dataOK;
    }
-            return dataOK;
+
+   public Boolean isAllDataEntered()
+   {
+      Boolean checkAns = true;
+      for (Integer question = 1; question <= riskCalculator.getNumberofQuestions(); question++)
+      {
+         if (this.riskCalculator.getAnswerValue(question) == 0)
+         {
+            checkAns = false;
+            break;
+         }
+      }
+      setFlagforInvestShow(checkAns);
+      return checkAns;
    }
 
    public void fundAccount()
    {
       long acctnum;
-      Boolean validate = false;
       try
       {
-         validate = validateProfile();
-
-         if (validate)
-         {
-            saveProfile();
-         }
+         saveProfile();
 
          if (webutil.isUserLoggedIn())
          {

@@ -225,7 +225,7 @@ public class RiskCalculator
 
    public Integer getAnswerValue(Integer index)
    {
-      if (index < 1)
+      if ((index < 1) || ( index > answers.length ))
       {
          return 0;
       }
@@ -233,12 +233,7 @@ public class RiskCalculator
       if (answers == null)
          return 0;
 
-      if (index > answers.length)
-      {
-         return 0;
-      }
-
-      if (answers[index] == null)
+      if (answers[index] == null || answers[index].isEmpty())
       {
          return 0;
       }

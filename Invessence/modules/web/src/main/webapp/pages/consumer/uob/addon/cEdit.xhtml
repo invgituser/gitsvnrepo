@@ -7,7 +7,8 @@
 
     <div class="Wid30 Fleft LeftPanel">
         <div class="finetuneBtnBlock Fright">
-            <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" icon="ui-icon-image">
+            <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" icon="ui-icon-image"
+                             actionListener="#{uobpb.setFineTunePanel(true)}">
                 <p:effect type="slide" event="click" for="abc">
                     <f:param name="mode" value="'show'" />
                 </p:effect>
@@ -17,7 +18,8 @@
             <div class="Container100 FTLabel">
                 <span class="Fs30">Fine Tune Strategy</span>
                 <div class="Wid10 Fright">
-                    <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times">
+                    <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times"
+                                     actionListener="#{uobpb.setFineTunePanel(false)}">
                         <p:effect type="slide" event="click" for="abc">
                             <f:param name="mode" value="'hide'" />
                         </p:effect>
@@ -57,6 +59,22 @@
                     </div>
                 </div>
             </div>
+            <div class="Container100 LPBtnPanelBottom" style="margin: 5px 0;">
+                <div class="Wid100">
+                    <p:commandLink id="invsetBtn2" value="Invest Now"
+                                   styleClass="investNowBtn Fleft"
+                                   actionListener="#{uobpb.fundAccount}"
+                                   type="submit" />
+                    <p:commandLink id="saveBtn" value="Save"
+                                   styleClass="nextButtonLP Fright"
+                                   type="submit"
+                                   outcome="transition=slidefade"
+                                   update=":ceForm:workArea, :ceForm:graphArea"
+                                   actionListener="#{uobpb.saveProfile}"/>
+
+                </div>
+            </div>
+
         </p:panel>
 
         <ui:fragment rendered="#{uobpb.pagemanager.page == 0}">
@@ -142,6 +160,15 @@
                                    update=":ceForm:workArea, :ceForm:graphArea"
                                    actionListener="#{uobpb.gotoStartOverPage}"/>
                 </ui:fragment>
+
+                <ui:fragment rendered="#{uobpb.pagemanager.page >= 1}">
+                    <p:commandLink id="prevBtn" value="Previous"
+                                   styleClass="backButtonLP Fright"
+                                   update=":ceForm:workArea, :ceForm:graphArea"
+                                   outcome="transition=slidefade"
+                                   actionListener="#{uobpb.prevPage}"/>
+                </ui:fragment>
+
             </div>
         </div>
     </div>

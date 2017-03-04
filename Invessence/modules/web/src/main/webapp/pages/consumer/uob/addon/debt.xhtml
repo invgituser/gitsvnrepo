@@ -48,7 +48,7 @@
             <div class="uobBoldText">Total Expenses</div>
             <div class="uobSubText">(Yearly)</div>
         </div>
-        <p:inputNumber value="#{uobpb.householdwages}"
+        <p:inputNumber value="#{uobpb.totalExpense}"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
@@ -60,7 +60,7 @@
             <div class="uobBoldText">Total Debt</div>
             <div class="uobSubText">(Yearly)</div>
         </div>
-        <p:inputNumber value="#{uobpb.otherDebt}"
+        <p:inputNumber value="#{uobpb.totalLiability}"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
