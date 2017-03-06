@@ -8,17 +8,17 @@
     <div class="Wid30 Fleft LeftPanel">
         <div class="finetuneBtnBlock Fright">
             <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" icon="ui-icon-image">
-                <p:effect type="slide" event="click" for="fineTuneBtnSlide">
+                <p:effect type="slide" event="click" for="abc">
                     <f:param name="mode" value="'show'" />
                 </p:effect>
             </p:commandButton>
         </div>
-        <p:panel id="fineTuneBtnSlide" styleClass="fineTuneBlock" style="display: none;">
+        <p:panel id="abc" styleClass="fineTuneBlock" style="display: none;">
             <div class="Container100 FTLabel">
                 <span class="Fs30">Fine Tune Strategy</span>
                 <div class="Wid10 Fright">
                     <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times">
-                        <p:effect type="slide" event="click" for="fineTuneBtnSlide">
+                        <p:effect type="slide" event="click" for="abc">
                             <f:param name="mode" value="'hide'" />
                         </p:effect>
                     </p:commandButton>
@@ -57,15 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="Container100 LPBtnPanelBottom" style="margin: 5px 0;">
-                <div class="Wid100">
-                    <p:commandLink id="invsetBtn2" value="Invest Now"
-                                   styleClass="investNowBtn Fleft"
-                                   actionListener="#{uobpb.fundAccount}"
-                                   type="submit" />
 
-                </div>
-            </div>
 
         </p:panel>
 
@@ -151,6 +143,12 @@
                                    outcome="transition=slidefade"
                                    update=":ceForm:workArea, :ceForm:graphArea"
                                    actionListener="#{uobpb.gotoStartOverPage}"/>
+                </ui:fragment>
+
+                <ui:fragment rendered="false">
+                    <p:commandLink value="Start Over"
+                                   styleClass="nextButtonLP Fright"
+                                   type="submit" />
                 </ui:fragment>
 
                 <ui:fragment rendered="#{uobpb.pagemanager.page >= 1}">
