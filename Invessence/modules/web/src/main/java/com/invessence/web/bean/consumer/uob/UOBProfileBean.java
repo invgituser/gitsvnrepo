@@ -72,32 +72,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
       this.flagforInvestShow = flagforInvestShow;
    }
 
-   public String showFineTunePanel()
-   {
-      if (fineTunePanel != null && fineTunePanel)
-         return "show";
-      else
-         return "none";
-   }
-
-   public Boolean getFineTunePanel()
-   {
-      return fineTunePanel;
-   }
-
-   public void setFineTunePanel(Boolean fineTunePanel)
-   {
-      this.fineTunePanel = fineTunePanel;
-   }
-
-   public void toggleFineTune()
-   {
-      if (fineTunePanel == null || ! fineTunePanel)
-         fineTunePanel = true;
-      else
-         fineTunePanel = false;
-   }
-
    public void setPageNo(Integer pageNo)
    {
       this.pageNo = pageNo;
@@ -323,9 +297,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
    {
       riskCalculator.setRiskFormula("C");
       formEdit = true;
-      if (pagemanager.isLastPage()) {
-         isAllDataEntered();
-      }
+      isAllDataEntered();
    }
 
    public void onGoalChangeValue()
@@ -334,6 +306,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       selectedgoal = (getGoal() == null || getGoal().isEmpty()) ? "Other" : getGoal();
       riskCalculator.setInvestmentobjective(selectedgoal);
       createAssetPortfolio(1);
+      isAllDataEntered();
    }
 
 
@@ -342,9 +315,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       formEdit = true;
       riskCalculator.setRiskFormula("C");
       createAssetPortfolio(1);
-      if (pagemanager.isLastPage()) {
-         isAllDataEntered();
-      }
+      isAllDataEntered();
    }
 
    public void calculateGoal()
@@ -588,8 +559,8 @@ public class UOBProfileBean extends CustomerData implements Serializable
       // setAge(event.getValue());
       setRiskCalcMethod("A");
       setAllocationIndex(event.getValue());
-      createAssetPortfolio(1);
       formEdit = true;
+      createAssetPortfolio(1);
       setFlagforInvestShow(true);
    }
 
@@ -598,9 +569,9 @@ public class UOBProfileBean extends CustomerData implements Serializable
       //setDefaultRiskIndex(event.getValue());
       setRiskCalcMethod("A");
       setPortfolioIndex(event.getValue());
+      formEdit = true;
       createAssetPortfolio(1);
       // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
-      formEdit = true;
       setFlagforInvestShow(true);
    }
 
@@ -626,6 +597,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setRiskCalcMethod("C");
       createAssetPortfolio(1);
       formEdit = true;
+      isAllDataEntered();
    }
 
 
@@ -812,7 +784,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          if (formEdit)
          {
-            isAllDataEntered();  // Used to determine if we should turn on The InvestNow button
+            // isAllDataEntered();  // Used to determine if we should turn on The InvestNow button
             // setDefaults();
             acctnum = saveDAO.saveProfileData(getInstance());
             if (acctnum > 0)
@@ -977,6 +949,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       {
          rTab = 6;
       }
+      pagemanager.setPage( 3 + rTab);
       saveProfile();
 
    }

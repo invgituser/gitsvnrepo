@@ -62,7 +62,7 @@ public class SessionController implements Serializable
 
    public String getRep()
    {
-      return rep;
+      return (rep == null) ? "" : rep;
    }
 
    public void setRep(String rep)
@@ -72,7 +72,7 @@ public class SessionController implements Serializable
 
    public String getVisitorID()
    {
-      return visitorID;
+      return (visitorID == null) ? "" : visitorID;
    }
 
    public void setVisitorID(String visitorID)

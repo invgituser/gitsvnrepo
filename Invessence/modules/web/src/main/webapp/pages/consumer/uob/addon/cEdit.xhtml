@@ -7,19 +7,17 @@
 
     <div class="Wid30 Fleft LeftPanel">
         <div class="finetuneBtnBlock Fright">
-            <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" icon="ui-icon-image"
-                             actionListener="#{uobpb.toggleFineTune}">
+            <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" icon="ui-icon-image">
                 <p:effect type="slide" event="click" for="abc">
                     <f:param name="mode" value="'show'" />
                 </p:effect>
             </p:commandButton>
         </div>
-        <p:panel id="abc" styleClass="fineTuneBlock" style="display: #{uobpb.showFineTunePanel()};">
+        <p:panel id="abc" styleClass="fineTuneBlock" style="display: none;">
             <div class="Container100 FTLabel">
                 <span class="Fs30">Fine Tune Strategy</span>
                 <div class="Wid10 Fright">
-                    <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times"
-                                     actionListener="#{uobpb.toggleFineTune}">
+                    <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times">
                         <p:effect type="slide" event="click" for="abc">
                             <f:param name="mode" value="'hide'" />
                         </p:effect>
@@ -42,7 +40,7 @@
                     <p:slider id="allocSlider" for="allocValue" minValue="0"
                               maxValue="#{uobpb.maxAssetAllocatonPoints}" step="1">
                         <p:ajax event="slideEnd"
-                                update=":ceForm:workArea, :ceForm:graphArea"
+                                update="ceForm:graphArea"
                                 listener="#{uobpb.onAllocSlider}" />
                     </p:slider>
                 </div>
@@ -53,7 +51,7 @@
                     <div class="ContainerIndent">
                         <p:commandButton id="allocSliderResetButton" value="Recommended"
                                          styleClass="uob_button"
-                                         update=":ceForm:workArea, :ceForm:graphArea"
+                                         update=":ceForm:graphArea"
                                          actionListener="#{uobpb.doAllocReset}">
                         </p:commandButton>
                     </div>
@@ -65,12 +63,6 @@
                                    styleClass="investNowBtn Fleft"
                                    actionListener="#{uobpb.fundAccount}"
                                    type="submit" />
-                    <p:commandLink id="saveBtn" value="Save"
-                                   styleClass="nextButtonLP Fright"
-                                   type="submit"
-                                   outcome="transition=slidefade"
-                                   update=":ceForm:workArea, :ceForm:graphArea"
-                                   actionListener="#{uobpb.saveProfile}"/>
 
                 </div>
             </div>
@@ -174,6 +166,27 @@
     </div>
     <div class="Wid66 Fleft RightPanel">
         <p:panel id="graphArea" style="border: 0px; background: white;">
+            <script>
+                $(document).ready(function ()
+                                  {
+                                      if(document.getElementById('ceForm:typeOfCharts') != null){
+                                          if (document.getElementById('ceForm:typeOfCharts').value == 'HIGHCHART.2DDONUT')
+                                          {
+                                              draw2dDonut1lyrChart();
+                                          }
+                                      }
+
+                                      $('.summaryHeader').click(function(){
+                                          $('.summaryPanel').show();
+                                          $('.detailPanel').hide();
+                                      });
+                                      $('.detailHeader').click(function(){
+                                          $('.summaryPanel').hide();
+                                          $('.detailPanel').show();
+                                      });
+                                  });
+            </script>
+
             <div class="Container100">
                 <div class="Fs30 Fleft summaryHeader RPHeadings1"
                      style="cursor: pointer;">Summary</div>
@@ -224,7 +237,7 @@
                             <h:outputText value="#{assetList.asset}" />
                         </p:column>
                         <p:column priority="3" style="width: 15%"
-                                  styleClass="Fs12 num-text-align TexAlRight" headerText="Weight">
+                                  styleClass="Fs12 num-text-align TexAlRight" headerText="Allocation">
                             <!-- ROHIT's CHANGE -->
                             <h:outputText value="#{assetList.userEdit}">
                                 <f:convertNumber pattern="##0%" />
@@ -382,24 +395,4 @@
             </div>
         </p:panel>
     </div>
-    <script>
-        $(document).ready(function ()
-                          {
-                              if(document.getElementById('ceForm:typeOfCharts') != null){
-                                  if (document.getElementById('ceForm:typeOfCharts').value == 'HIGHCHART.2DDONUT')
-                                  {
-                                      draw2dDonut1lyrChart();
-                                  }
-                              }
-
-                              $('.summaryHeader').click(function(){
-                                  $('.summaryPanel').show();
-                                  $('.detailPanel').hide();
-                              });
-                              $('.detailHeader').click(function(){
-                                  $('.summaryPanel').hide();
-                                  $('.detailPanel').show();
-                              });
-                          });
-    </script>
 </ui:composition>
