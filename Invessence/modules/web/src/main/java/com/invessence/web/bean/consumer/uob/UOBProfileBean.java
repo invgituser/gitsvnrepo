@@ -577,7 +577,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void doAllocReset()
    {
-      // resetAllocationIndex();
+      setRiskCalcMethod("C");
       createAssetPortfolio(1); // Build default chart for the page...
    }
 
@@ -1012,7 +1012,6 @@ public class UOBProfileBean extends CustomerData implements Serializable
    public void gotoStartOverPage()
    {
       pagemanager.setPage(0);
-      rTab = 0;
    }
 
    public String getGoalAdjustment()
@@ -1026,8 +1025,15 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void prevPage()
    {
-      rTab--;
       pagemanager.prevPage();
+      if (pagemanager.getPage() == 3)
+      {
+         rTab = 0;
+      }
+      if (pagemanager.getPage() > 3)
+      {
+         rTab--;
+      }
    }
 
    private Boolean validatePage(Integer pagenum)
