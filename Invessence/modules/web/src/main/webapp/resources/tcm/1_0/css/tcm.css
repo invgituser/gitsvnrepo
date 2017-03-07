@@ -3876,3 +3876,185 @@ tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 .disableAcctTypePanel {
     display: none;
 }
+
+.ResMArTop {
+margin-top: 20px;
+}
+
+@media (min-width: 1200px) {
+	.summaryPageBtn {
+	margin-top: 10px!important;
+}
+}
+
+@media (max-width: 1200px) {
+.ResEmptyBox30 {
+	height: 20px!important;
+}
+
+.ResMArTop {
+margin-top: 10px;
+}
+.summaryPageBtn {
+	position: relative;
+	bottom: 530px;
+}
+
+.performanceChartBlock {
+	margin-top: 50px;
+}
+}
+
+
+@media (max-width: 1200px) and (min-width: 1050px) {
+	.fineTuneBlock {
+	width: 82%!important;
+	height: 325px!important;
+}
+}
+
+@media (max-width: 1050px) and (min-width: 961px) {
+	.fineTuneBlock {
+	width: 81%!important;
+	height: 325px!important;
+	}
+}
+
+@media (max-width: 375px) and (min-width: 320px) {
+	.fineTuneBlock {
+	width: 78%!important;
+	height: 325px!important;
+}
+
+.closeFTbtn {
+    right: 14px!important;
+}
+}
+
+@media (max-width: 425px) and (min-width: 375px) {
+	.fineTuneBlock {
+	width: 81%!important;
+	height: 325px!important;
+}
+
+.closeFTbtn {
+    right: 5px!important;
+}
+}
+
+@media (max-width: 768px) and (min-width: 425px) {
+	.fineTuneBlock {
+	width: 80%!important;
+}
+}
+
+@media (max-width: 768px) and (min-width: 750px) {
+	.fineTuneBlock {
+	height: 325px!important;
+}
+}
+
+@media (max-width: 915px) and (min-width: 750px) {
+	.fineTuneBlock {
+	height: 355px!important;
+}
+
+.summaryPageBtn {
+	bottom: 510px!important;
+}
+}
+
+@media (max-width: 960px) and (min-width: 915px) {
+	.fineTuneBlock {
+	height: 325px!important;
+}
+}
+
+@media (max-width: 960px) and (min-width: 768px) {
+	.fineTuneBlock {
+	width: 80%!important;
+}
+}
+
+
+
+@media (max-width: 750px) {
+	.spResPieBlock, .spResPieTableBlock {
+	width: 100%;
+	}
+	
+	.fineTuneBlock {
+	height: 340px!important;
+}
+}
+
+@media (max-width:750px) and (min-width:600px) {
+	.summaryPageBtn {
+	bottom: 507px;
+	}
+}
+
+@media (max-width:600px) and (min-width:480px)  {
+	.summaryPageBtn {
+	bottom: 576px;
+	}
+}
+
+@media (max-width:480px) {
+	.summaryPageBtn {
+	bottom: 650px;
+	}
+	
+	.performanceChartBlock {
+    margin-top: 125px;
+}
+
+.spWid100 {
+	width: 100%!important;
+}
+}
+
+
+
+
+.fineTuneBlock {
+width: 40%;
+    height: 473px;
+    position: absolute;
+    background:#fbfbfb;
+    border: 1px solid #5fcf80;
+    z-index: 200;
+}
+
+.FTLabel {
+    text-align-last: center;
+    padding: 14px 0;
+}
+
+.FTLabel > span {
+font-weight: bold;	
+}
+
+.fineTuneDetail {
+	margin-top: 55px;
+    padding: 0 20px;
+}
+
+.closeFTbtn {
+	position: absolute;
+    top: 10px;
+    right: 0px;
+}
+
+.uobSliderLabel {
+	position: relative;
+}
+
+.uobSliderLabel.firstLabel {
+	right: 5px;
+}
+
+.uobSliderLabel.lastLabel {
+	left: 5px;
+}
+

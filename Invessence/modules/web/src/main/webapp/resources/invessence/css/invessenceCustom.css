@@ -2826,6 +2826,7 @@ input {
 .uobSliderLabel {
 	margin-top: 2px;
 	color: #000;
+	position: relative;
 }
 
 .ui-slider-horizontal {
@@ -3627,4 +3628,12 @@ span > input {
 	background-size: 100% 100%!important;
 	background-position: inherit!important;
 	background-image: url("/javax.faces.resource/images/finetune.png.xhtml?ln=invessence")!important;
+}
+
+.uobSliderLabel.firstLabel {
+	right: 5px;
+}
+
+.uobSliderLabel.lastLabel {
+	left: 5px;
 }
