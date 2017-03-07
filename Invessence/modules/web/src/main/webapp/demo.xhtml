@@ -73,9 +73,11 @@
 
 
                         <div class="EmptyBox20"></div>
-                        <p:button  value="GetStarted" styleClass="Fs16 BlueButton" href="/getstarted.xhtml?rep=#{sessionControl.rep}&amp;vid=#{sessionControl.visitorID}"></p:button>
-                        <p:button  value="Login" styleClass="Fs16 OrangeButton" href="/"></p:button>
-                        <p:commandButton  value="Reset" styleClass="Fs16 OrangeButton" actionListener="#{sessionControl.reset}"></p:commandButton>
+                        <p:commandButton  value="GetStarted" styleClass="Fs16 BlueButton" type="submit"
+                                          actionListener="#{sessionControl.tryOut}"/>
+                        <p:button  value="Login" styleClass="Fs16 OrangeButton" href="/"/>
+                        <p:commandButton  value="Reset" styleClass="Fs16 OrangeButton"
+                                          actionListener="#{sessionControl.reset}"/>
                         <div class="EmptyBox50"></div>
                     </h:form>
                 </div>

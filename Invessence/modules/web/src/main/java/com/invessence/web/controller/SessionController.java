@@ -8,6 +8,7 @@ import javax.faces.context.*;
 import javax.faces.event.*;
 import javax.servlet.*;
 
+import com.invessence.converter.SQLData;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.data.common.UserInfoData;
@@ -161,6 +162,12 @@ public class SessionController implements Serializable
       resetCIDByURL(null);
       if (this.rep != null && ! this.rep.isEmpty()) {
          webutil.webprofile.setDefaultRep(this.rep);
+      }
+
+      if (this.visitorID != null && !this.visitorID.isEmpty()) {
+         Long visitorlogonid = webutil.converter.getLongData(visitorID);
+         if (logonid != null)
+            webutil.getUserInfoData().setLogonID(visitorlogonid);
       }
 
       uiLayout.doMenuAction("consumer", "cadd.xhtml?app=N");
