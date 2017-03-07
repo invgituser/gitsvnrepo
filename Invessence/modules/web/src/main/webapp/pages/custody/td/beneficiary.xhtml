@@ -25,7 +25,7 @@
         <p:panel rendered="#{tdcto.getErrorMessage(8) != null}"
                  style="border: 0px; background: transparent"
                  styleClass="Container100">
-            <h:outputText styleClass="errorText"
+            <h:outputText id="tdp8Msg" styleClass="errorText"
                           value="#{tdcto.getErrorMessage(8)}" escape="false"/>
         </p:panel>
 
@@ -38,7 +38,7 @@
 				</p:selectBooleanCheckbox>
 			</div>
 			<div class="EmptyBox20"></div>
-        <p:selectBooleanButton styleClass="AddBeneficiaryButton" id="addButton" onLabel="Add Beneficiary" rendered="#{!tdcto.tdMasterData.optoutBeneficiary}"
+        <p:selectBooleanButton id="tdbaddBene" styleClass="AddBeneficiaryButton" onLabel="Add Beneficiary" rendered="#{!tdcto.tdMasterData.optoutBeneficiary}"
 								   offLabel="Add Beneficiary" value="#{tdcto.tdMasterData.newBeneficiaryForm}">
 				<p:ajax update=":ctoForm:tdaccordian:beneficiaryPanel" listener="#{tdcto.tdMasterData.addnewBeneficiary}" />
 			</p:selectBooleanButton>
@@ -122,18 +122,18 @@
 								   style="text-align: left !important; font-weight: bold !important;">Name *</label>
 
 							<div class="EmptyBox5"></div>
-							<p:inputText styleClass="CustomWidthFA FS14 InputMergeRight"
+							<p:inputText id="tdbfname" styleClass="CustomWidthFA FS14 InputMergeRight"
 										 placeholder="First Name"
 										 maxlength="20"
 										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneFirstName}">
 							</p:inputText>
-							<p:inputText
-									styleClass="MiddleInitialWidthB FS14 InputMergeLeft InputMergeRight"
+							<p:inputText id="tdbmi"
+										 styleClass="MiddleInitialWidthB FS14 InputMergeLeft InputMergeRight"
 									placeholder="Middle Initial"
 									maxlength="1"
 									value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneMidInitial}">
 							</p:inputText>
-							<p:inputText styleClass="CustomWidthFA FS14 InputMergeLeft"
+							<p:inputText id="tdblname" styleClass="CustomWidthFA FS14 InputMergeLeft"
 										 placeholder="Last Name"
 										 maxlength="30"
 										 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneLastName}">
@@ -147,7 +147,7 @@
 									   style="text-align: left !important; font-weight: bold !important;">Birthdate</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+								<p:inputMask id="tdbdob" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneDOB}"
 											 maxlength="30"
 											 mask="99/99/9999" placeholder="MM/DD/YYYY">
@@ -160,7 +160,7 @@
 									Security Number</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
+								<p:inputMask id="tdbssn" styleClass="Wid85 FS14 CustomWidthFA-Responsive"
 											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneSSN}"
 											 maxlength="30"
 											 mask="999-99-9999" placeholder="###-##-####" required="false">
@@ -173,7 +173,7 @@
 									   style="text-align: left !important; font-weight: bold !important;">Relationship *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
+								<p:inputText id="tdbrelation" styleClass="Wid85 CustomWidthFA2 FS14 Mar5"
 											 placeholder="Relationship"
 											 maxlength="90"
 											 value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.beneRel}">
@@ -191,7 +191,7 @@
 								<div class="Container100 Fleft">
 									<div class="CustomWidthFA-Responsive InlineCitizenRadioBtn"
 										 style="margin-top: 5px;">
-										<p:selectOneRadio styleClass="textAlign formRadioBtn"
+										<p:selectOneRadio id="tdbtype" styleClass="textAlign formRadioBtn"
 														  value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.typeOfBeneficiary}">
 											<f:selectItem itemValue="BTPRIM" itemLabel="Primary" />
 											<f:selectItem itemValue="BTCONT" itemLabel="Contigent" />
@@ -233,7 +233,7 @@ tax or estate planning. Please consult an estate planner for details regarding t
 									%  *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputNumber styleClass="Wid85 CustomWidthFA2 FS14 Mar5 sharePercentageInput"
+								<p:inputNumber id="tdbshare" styleClass="Wid85 CustomWidthFA2 FS14 Mar5 sharePercentageInput"
 											   value="#{tdcto.tdMasterData.tmpBenefiaciaryDetail.sharePerc}"
 											   maxValue="100"
 											   decimalPlaces="0">
@@ -248,7 +248,7 @@ tax or estate planning. Please consult an estate planner for details regarding t
 								<f:param name="Reset" />
 							</p:button>
 
-							<p:commandButton value="Save"
+							<p:commandButton id="tdbsave" value="Save"
 											 update=":ctoForm:tdaccordian:beneficiaryPanel"
                                              process=":ctoForm:tdaccordian:beneficiaryPanel"
 											 actionListener="#{tdcto.saveBenefiaciaryDetails}"
@@ -261,11 +261,11 @@ tax or estate planning. Please consult an estate planner for details regarding t
 				</div>
 			</p:panel>
 			<div class="Container100 MarTop20" style="margin: 10px 10px;">
-				<p:commandLink styleClass="UI-prevButtonFA Fleft"
+				<p:commandLink id="tdp8prev" styleClass="UI-prevButtonFA Fleft"
 							   actionListener="#{tdcto.prevPage}"
                                update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
 
-				<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+				<p:commandLink id="tdp8next" styleClass="UI-nextButtonFA Fright UI-tcmButton"
 							   actionListener="#{tdcto.nextPage}"
                                update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                process=":ctoForm:tdaccordian:beneficiaryPanel"/>

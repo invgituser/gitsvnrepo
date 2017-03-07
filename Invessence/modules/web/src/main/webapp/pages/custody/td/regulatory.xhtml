@@ -14,7 +14,7 @@
                 <p:panel rendered="#{tdcto.getErrorMessage(5) != null}"
                          style="border: 0px; background: transparent"
                          styleClass="Container100">
-                    <h:outputText styleClass="errorText"
+                    <h:outputText id="tdp5Msg" styleClass="errorText"
                                   value="#{tdcto.getErrorMessage(5)}" escape="false"/>
                 </p:panel>
 
@@ -27,7 +27,7 @@
 				<p:panel id="ownerregspfPanel"
 					style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
-						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
+						<p:selectBooleanCheckbox id="tdrspflag" styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
 							value="#{tdcto.tdMasterData.senoirPolitical}"
 							itemLabel="I, my spouse or an immediate member of my family is a Senior Political Figure.">
 							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel" listener="${tdcto.tdMasterData.resetSeniorPolitical}" />
@@ -45,7 +45,7 @@
 									Of SPF *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText
+								<p:inputText id="tdrspname"
 									value="#{tdcto.tdMasterData.acctOwnersDetail.spfName}"
 									styleClass="Wid100 CustomWidthFA-Responsive FS14"
 									maxlength="90"
@@ -58,7 +58,7 @@
 									style="text-align: left !important; font-weight: bold !important;">Relationship *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText
+								<p:inputText id="tdrsprelation"
 									value="#{tdcto.tdMasterData.acctOwnersDetail.spfRelationship}"
 									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 									maxlength="90"
@@ -74,7 +74,7 @@
 									Title *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText
+								<p:inputText id="tdrsptitle"
 									value="#{tdcto.tdMasterData.acctOwnersDetail.spfTitle}"
 									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 									maxlength="50"
@@ -88,7 +88,7 @@
 									Of Office *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText
+								<p:inputText id="tdrspcountry"
 									value="#{tdcto.tdMasterData.acctOwnersDetail.spfCountry}"
 									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 									maxlength="50"
@@ -104,7 +104,7 @@
 				<p:panel id="ownerregsharePanel"
 					style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
-						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
+						<p:selectBooleanCheckbox id="tdrbrkflag" styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
 							value="#{tdcto.tdMasterData.ownerShare}"
 							itemLabel="I, my spouse or an immediate member of my family is a director, 10% shareholder or policy maker of a publicly traded company.">
 							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregsharePanel" listener="${tdcto.tdMasterData.resetOwnerShare}"/>
@@ -121,8 +121,8 @@
 									Name *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText
-									value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderCompany}"
+								<p:inputText id="tdrbrkcomp"
+											 value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderCompany}"
 									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 									maxlength="90"
 									placeholder="Company Name">
@@ -135,7 +135,7 @@
 									Address *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText
+								<p:inputText id="tdrbrkaddr"
 									value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderAddress}"
 									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 									maxlength="90"
@@ -150,7 +150,7 @@
 									style="text-align: left !important; font-weight: bold !important;">City *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:inputText
+								<p:inputText id="tdrbrkcity"
 									value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderCity}"
 									styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 									maxlength="30"
@@ -163,7 +163,7 @@
 									style="text-align: left !important; font-weight: bold !important;">State *</label>
 
 								<div class="EmptyBox5"></div>
-								<p:selectOneMenu
+								<p:selectOneMenu id="tdrbrkstate"
 									value="#{tdcto.tdMasterData.acctOwnersDetail.shareholderState}"
 									styleClass="FundAccountDropdownUI formpageDropdown"
 									style="width: 100%;">
@@ -182,7 +182,8 @@
 				</p:panel>
 				<p:panel id="ownerBDPanel" style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
-						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
+						<p:selectBooleanCheckbox id="tdrbdflag"
+												 styleClass="RegulatoryCheckBox" disabled="#{tdcto.tdMasterData.optoutRegulatory}"
 							value="#{tdcto.tdMasterData.ownerBD}"
 							itemLabel="I, my spouse or an immediate member of my family is licensed, employed by or associated with a broker-dealer firm, a financial services regulator, securities exchange, or a member of a securities exchange. (Please provide a copy of the required authorization letter)">
 							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerBDPanel" listener="${tdcto.tdMasterData.resetOwnerShare}" />
@@ -197,7 +198,8 @@
 								style="text-align: left !important; font-weight: bold !important;">Entity *</label>
 
 							<div class="EmptyBox5"></div>
-							<p:inputText styleClass="Wid100 FS14 CustomWidthFA-Responsive"
+							<p:inputText id="tdrbddetails"
+										 styleClass="Wid100 FS14 CustomWidthFA-Responsive"
 										 value="#{tdcto.tdMasterData.acctOwnersDetail.bdDetail}"
 										 maxlength="90"
 										 placeholder="Entity">
@@ -211,7 +213,8 @@
 				<p:panel id="optoutPanel"
 						 style="border: 0px; background: transparent">
 					<div class="Container100 CustomWidthFA2 MarTop5">
-						<p:selectBooleanCheckbox styleClass="RegulatoryCheckBox"
+						<p:selectBooleanCheckbox id="tdroptoutflag"
+												 styleClass="RegulatoryCheckBox"
 												 value="#{tdcto.tdMasterData.optoutRegulatory}"
 												 itemLabel="None of the above.">
 							<p:ajax update=":ctoForm:tdaccordian:regTabV:ownerregspfPanel, :ctoForm:tdaccordian:regTabV:ownerBDPanel, :ctoForm:tdaccordian:regTabV:ownerregsharePanel" listener="${tdcto.tdMasterData.resetoptoutRegulatory}"/>
@@ -220,11 +223,11 @@
 			</p:panel>
 
 				<div class="Container100 MarTop20" style="margin: 10px 10px;">
-					<p:commandLink styleClass="UI-prevButtonFA Fleft"
+					<p:commandLink id="tdp5prev" styleClass="UI-prevButtonFA Fleft"
 								   actionListener="#{tdcto.prevPage}"
 								   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
 
-					<p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+					<p:commandLink id="tdp5next" styleClass="UI-nextButtonFA Fright UI-tcmButton"
 								   actionListener="#{tdcto.nextPage}" process=":ctoForm:tdaccordian:regTabV"
 								   update=":ctoForm:tdaccordian,:ctoForm:submitBtnId" />
 				</div>

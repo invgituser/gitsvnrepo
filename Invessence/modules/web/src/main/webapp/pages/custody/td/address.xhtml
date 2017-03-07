@@ -17,7 +17,7 @@
                     <p:panel rendered="#{tdcto.getErrorMessage(3) != null}"
                              style="border: 0px; background: transparent"
                              styleClass="Container100">
-                        <h:outputText styleClass="errorText"
+                        <h:outputText id="tdp3msg" styleClass="errorText"
                                       value="#{tdcto.getErrorMessage(3)}" escape="false"/>
                     </p:panel>
 
@@ -29,7 +29,7 @@
                         *</label>
 
                         <div class="EmptyBox5"></div>
-                        <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft  AddressFieldOnly"
+                        <p:inputText id="tdppaddr" styleClass="CustomWidthAddressFA FS14 Fleft  AddressFieldOnly"
                                      value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressStreet}"
                                      placeholder="Residence Street Address"
                                      autocomplete="off" maxlength="50" required="false">
@@ -44,7 +44,7 @@
                                    style="text-align: left !important; font-weight: bold !important;">City *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                            <p:inputText id="tdppcity" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                          value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressCity}"
                                          placeholder="City"
                                          maxlength="30"
@@ -59,7 +59,7 @@
                             *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:selectOneMenu value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressState}"
+                            <p:selectOneMenu id="tdppstate" value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressState}"
                                              styleClass="CustomWidthFA-Responsive FundAccountDropdownUI formpageDropdown"
                                              style="width: 100%;"
                                              required="false">
@@ -77,7 +77,7 @@
                                 Code *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                            <p:inputText id="tdppzip" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                          value="#{tdcto.tdMasterData.acctOwnersDetail.physicalAddressZipCode}"
                                          placeholder="Zip Code"
                                          maxlength="20"
@@ -97,7 +97,7 @@
             </p:panel>
             <p:panel id="ownermailaddressPanel" style="border: 0px; background: transparent; margin-top: -10px;" styleClass="Container80 Responsive100 MarTop5 MarCenter">
                 <div class="Container100">
-                    <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.acctholderhasMailing}"
+                    <p:selectBooleanCheckbox id="tdppmailflag" value="#{tdcto.tdMasterData.acctholderhasMailing}"
                                              itemLabel="Different Mailing Address">
                         <p:ajax update=":ctoForm:tdaccordian:addresstab:ownermailaddressPanel" listener="${tdcto.tdMasterData.resetAcctholderhasMailing}"/>
                     </p:selectBooleanCheckbox>
@@ -113,7 +113,7 @@
                         *</label>
 
                         <div class="EmptyBox5"></div>
-                        <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft AddressFieldOnly"
+                        <p:inputText id="tdppmaddr"  styleClass="CustomWidthAddressFA FS14 Fleft AddressFieldOnly"
                                      value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressStreet}"
                                      maxlength="50"
                                      placeholder="Mailing Street Address">
@@ -130,7 +130,7 @@
                                    style="text-align: left !important; font-weight: bold !important;">City *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                            <p:inputText id="tdppmcity" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                          value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressCity}"
                                          maxlength="30"
                                          placeholder="City">
@@ -142,7 +142,7 @@
                                    style="text-align: left !important; font-weight: bold !important;">State *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:selectOneMenu value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressState}"
+                            <p:selectOneMenu id="tdppmstate" value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressState}"
                                              styleClass="CustomWidthFA-Responsive FundAccountDropdownUI formpageDropdown"
                                              style="width: 100%;">
                                 <p:ajax event="change" update="@this" />
@@ -160,7 +160,7 @@
                                 Code *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                            <p:inputText id="tdppmzip" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                          value="#{tdcto.tdMasterData.acctOwnersDetail.mailingAddressZipCode}"
                                          maxlength="20"
                                          placeholder="Zip Code">
@@ -169,11 +169,11 @@
                     </div>
                 </p:panel>
                 <div class="Container100 MarTop20" style="margin: 10px 10px;">
-                    <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                    <p:commandLink id="tdp3prev" styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
                                    update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this" />
 
-                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                    <p:commandLink id="tdp3next" styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    actionListener="#{tdcto.nextPage}"
                                    update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                    process=":ctoForm:tdaccordian:addresstab" />
@@ -192,11 +192,11 @@
                     <p:panel rendered="#{tdcto.getErrorMessage(4) != null}"
                              style="border: 0px; background: transparent"
                              styleClass="Container100">
-                        <h:outputText styleClass="errorText"
+                        <h:outputText id="tdp4msg" styleClass="errorText"
                                       value="#{tdcto.getErrorMessage(4)}" escape="false"/>
                     </p:panel>
 
-                    <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasDifferent}" styleClass="RegulatoryCheckBox"
+                    <p:selectBooleanCheckbox id="tdsaddrflag" value="#{tdcto.tdMasterData.jointhasDifferent}" styleClass="RegulatoryCheckBox"
                                              itemLabel="Has different address then primary account holder?">
                         <p:ajax update=":ctoForm:tdaccordian:addresstab:jointaddressPanel" listener="${tdcto.tdMasterData.resetJointDifferentAddress}"/>
                     </p:selectBooleanCheckbox>
@@ -213,7 +213,7 @@
                         *</label>
 
                         <div class="EmptyBox5"></div>
-                        <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft AddressFieldOnly"
+                        <p:inputText id="tdspaddr" styleClass="CustomWidthAddressFA FS14 Fleft AddressFieldOnly"
                                      value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressStreet}"
                                      maxlength="50"
                                      autocomplete="off"
@@ -233,7 +233,7 @@
                             *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                            <p:inputText id="tdspcity"  styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                          value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressCity}"
                                          maxlength="30"
                                          placeholder="City">
@@ -246,7 +246,7 @@
                             *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:selectOneMenu value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressState}"
+                            <p:selectOneMenu id="tdspstate"  value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressState}"
                                              styleClass="CustomWidthFA-Responsive FundAccountDropdownUI formpageDropdown"
                                              style="width: 100%;">
                                 <p:ajax event="change" update="@this" />
@@ -263,7 +263,7 @@
                             *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                            <p:inputText id="tdspzip"  styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                          value="#{tdcto.tdMasterData.jointAcctOwnersDetail.physicalAddressZipCode}"
                                          maxlength="20"
                                          placeholder="Zip Code">
@@ -283,7 +283,7 @@
                          rendered="#{tdcto.tdMasterData.jointhasDifferent}">
 
                     <div class="Container100">
-                        <p:selectBooleanCheckbox value="#{tdcto.tdMasterData.jointhasMailing}"
+                        <p:selectBooleanCheckbox id="tdspmailflag"  value="#{tdcto.tdMasterData.jointhasMailing}"
                                                  itemLabel="Different Mailing Address">
                             <p:ajax update=":ctoForm:tdaccordian:addresstab:jointmailaddressPanel2" listener="${tdcto.tdMasterData.resetJointhasMailing}"/>
                         </p:selectBooleanCheckbox>
@@ -299,7 +299,7 @@
                                 Address *</label>
 
                             <div class="EmptyBox5"></div>
-                            <p:inputText styleClass="CustomWidthAddressFA FS14 Fleft AddressFieldOnly"
+                            <p:inputText id="tdssaddr"  styleClass="CustomWidthAddressFA FS14 Fleft AddressFieldOnly"
                                          value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressStreet}"
                                          maxlength="50"
                                          placeholder="Mailing Street Address">
@@ -316,7 +316,7 @@
                                        style="text-align: left !important; font-weight: bold !important;">City *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                <p:inputText id="tdsscity" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressCity}"
                                              maxlength="30"
                                              placeholder="City">
@@ -327,7 +327,7 @@
                                        style="text-align: left !important; font-weight: bold !important;">State *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:selectOneMenu value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressState}"
+                                <p:selectOneMenu id="tdssstate" value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressState}"
                                                  styleClass="CustomWidthFA-Responsive FundAccountDropdownUI formpageDropdown"
                                                  style="width: 100%;">
                                     <p:ajax event="change" update="@this" />
@@ -344,7 +344,7 @@
                                     Code *</label>
 
                                 <div class="EmptyBox5"></div>
-                                <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
+                                <p:inputText id="tdsszip" styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                              value="#{tdcto.tdMasterData.jointAcctOwnersDetail.mailingAddressZipCode}"
                                              maxlength="20"
                                              placeholder="Zip Code">
@@ -356,11 +356,11 @@
 
                 </p:panel>
                 <div class="Container100 MarTop20" style="margin: 10px 10px;">
-                    <p:commandLink styleClass="UI-prevButtonFA Fleft"
+                    <p:commandLink id="tdp4prev" styleClass="UI-prevButtonFA Fleft"
                                    actionListener="#{tdcto.prevPage}"
                                    update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this" />
 
-                    <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton"
+                    <p:commandLink id="tdp4next" styleClass="UI-nextButtonFA Fright UI-tcmButton"
                                    actionListener="#{tdcto.nextPage}"
                                    update=":ctoForm:tdaccordian, :ctoForm:errorMsg,:ctoForm:submitBtnId"
                                    process=":ctoForm:tdaccordian:addresstab" />
