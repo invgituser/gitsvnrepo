@@ -1312,6 +1312,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          else if ((getFormula() != null && getFormula().equalsIgnoreCase("D")) && pagemanager.getPage() == 0 && formPortfolioEdit)
          {
             pagemanager.setPage(5);
+            doPerformanceFinalpage();
          }
          else
          {
