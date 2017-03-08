@@ -101,11 +101,6 @@ public class TCMCustomer extends CustomerData
       this.initialInvestment = initialInvestment;
    }
 
-   @Override
-   public void setRiskCalcMethod(String formula) {
-      riskCalculator.setRiskFormula("C");
-   }
-
    public TCMRiskCalculator getRiskCalculator()
    {
       return riskCalculator;

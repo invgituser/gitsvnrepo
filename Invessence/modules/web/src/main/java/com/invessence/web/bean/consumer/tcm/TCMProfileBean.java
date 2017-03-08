@@ -672,9 +672,12 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void onAllocSlider(SlideEndEvent event)
    {
       // setAge(event.getValue());
+
       setRiskCalcMethod("A");
+      riskCalculator.setRiskFormula("A");
       setAllocationIndex(event.getValue());
       createAssetPortfolio(1);
+      doPerformanceFinalpage();
       formEdit = true;
    }
 
@@ -682,15 +685,21 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       //setDefaultRiskIndex(event.getValue());
       setRiskCalcMethod("A");
+      riskCalculator.setRiskFormula("A");
       setPortfolioIndex(event.getValue());
       createAssetPortfolio(1);
       // createPortfolio(1);    // Due to fixed allocaton, we have to do both (asset and portfolio)
+      doPerformanceFinalpage();
       formEdit = true;
    }
 
    public void doAllocReset()
    {
+      setRiskCalcMethod("C");
+      riskCalculator.setRiskFormula("C");
       createAssetPortfolio(1); // Build default chart for the page...
+      doPerformanceFinalpage();
+
    }
 
    public void doPortfolioReset()
