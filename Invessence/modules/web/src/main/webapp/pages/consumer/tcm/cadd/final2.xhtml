@@ -11,13 +11,13 @@
 		<p:fieldset legend="Summary" toggleable="true" toggleSpeed="500">
 			<div class="Container100 Responsive100">
 				<div class="Container50 Responsive100 Fleft">
-					<p:panel id="abc" styleClass="fineTuneBlock" style="display:none;">
+					<p:panel id="fineTunePanel" styleClass="fineTuneBlock" style="display:none;">
 						<div class="Container100 FTLabel">
 							<span class="Fs16">Fine Tune Strategy</span>
 							<div class="Wid10 Fright closeFTbtn">
 								<p:commandButton type="button" styleClass="fineTuneBtn"
 									icon="fa fa-times">
-									<p:effect type="slide" event="click" for="abc">
+									<p:effect type="slide" event="click" for="fineTunePanel">
 										<f:param name="mode" value="'hide'" />
 									</p:effect>
 								</p:commandButton>
@@ -180,7 +180,7 @@
 
 				<p:commandButton type="button"
 					styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Fine Tune">
-					<p:effect type="slide" event="click" for="abc">
+					<p:effect type="slide" event="click" for="fineTunePanel">
 						<f:param name="mode" value="'show'" />
 					</p:effect>
 				</p:commandButton>

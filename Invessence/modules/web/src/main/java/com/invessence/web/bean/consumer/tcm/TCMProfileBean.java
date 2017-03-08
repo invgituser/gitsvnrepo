@@ -395,6 +395,18 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       return welcomeDialog;
    }
 
+   public Boolean getSameStrategy() {
+      Boolean sameStrategy = true;
+      if (getOrigCustomerData() != null)
+      {
+         if (getFixedModelName() != null)
+         {
+            sameStrategy = (getOrigCustomerData().getPortfolioName().equalsIgnoreCase(getFixedModelName()));
+         }
+      }
+      return sameStrategy;
+   }
+
    @Override
    public TCMRiskCalculator getRiskCalculator()
    {
