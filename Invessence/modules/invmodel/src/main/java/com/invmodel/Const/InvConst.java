@@ -17,8 +17,8 @@ public class InvConst
    public static String INVESSENCE_ADVISOR="Invessence";
 
 
-   public static Double MNGT_FEES = 0.0025;
-   public static double MIN_MNGT_FEES_DOLLARS = 250.0;
+   public static Double MNGT_FEES = 0.00;
+   public static double MIN_MNGT_FEES_DOLLARS = 0.0;
 
    public static Integer ASSET_INTERPOLATION = 100;
    public static Integer ASSET_DEFAULT_POINT = 10;
@@ -31,13 +31,13 @@ public class InvConst
    public static int PORTFOLIO_INTERPOLATION = 100;
    public static int PORTFOLIO_DEFAULT_POINT = 70;
    public static Double PORTFOLIO_PRECISION = 0.000001;
-   public static double PORTFOLIO_MNAGEMENT_FEES = 0.0045;
+   public static double PORTFOLIO_MNAGEMENT_FEES = 0.00;
 
-   public static double MIN_CURRENT_ASSET = 10000.0;
+   public static double MIN_CURRENT_ASSET = 0.0;
 
-   public static double MONTHLY_CHILD_COST = 300;
+   public static double MONTHLY_CHILD_COST = 0;
 
-   public static double MIN_LIQUID_CASH = 75.0;
+   public static double MIN_LIQUID_CASH = 0.0;
 
    public static double ASSET_TRIGGER = 0.015;
 
