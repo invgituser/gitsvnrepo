@@ -22,11 +22,16 @@
                               layout="pageDirection">
                <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="Highest." itemValue="1" />
-                <f:selectItem itemLabel="High." itemValue="2" />
-                <f:selectItem itemLabel="Moderate." itemValue="3" />
-                <f:selectItem itemLabel="Low." itemValue="4" />
-                <f:selectItem itemLabel="Lowest." itemValue="5" />
+                <f:selectItem itemLabel="Aggressive : An Aggressive Investor is prepared to accept higher risks in order to obtain greater returns.
+An Aggressive Investor is comfortable with investments that are more volatile and bear a higher risk of loss of
+Capital." itemValue="1" />
+                <f:selectItem itemLabel="Moderate : A Moderate Investor seeks a maximum of capital growth and regular income from his/her
+investments. A Moderate Investor is therefore prepared to accept moderate amounts of risk to earn moderate
+potential returns.
+" itemValue="2" />
+                <f:selectItem itemLabel="Conservative : A Conservative Investor seeks primarily capital preservation.
+" itemValue="3" />
+
             </p:selectOneRadio>
         </div>
     </div>

@@ -17,17 +17,15 @@
                 <div class="EmptyBox5"></div>
             </p:panel>
             <h5>
-                7. What is your long-term investment intention?
+                7. To what extent are you concerned about preservation of your capital?
             </h5>
             <p:selectOneRadio value="#{uobpb.riskCalculator.ans9}"
                               layout="pageDirection">
                <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="Majority of my assets at higher risk, for greater returns." itemValue="1" />
-                <f:selectItem itemLabel="More than half my assets at higher risk, for greater returns." itemValue="2" />
-                <f:selectItem itemLabel="Up to half my assets at higher risk, to balance stability with greater returns." itemValue="3" />
-                <f:selectItem itemLabel="Less than a quarter of my assets at higher risk, to keep up with inflation." itemValue="4" />
-                <f:selectItem itemLabel="None of my assets at high risk, to preserve capital." itemValue="5" />
+                <f:selectItem itemLabel="A high degree of risk would be acceptable given longer term capital growth objectives." itemValue="1" />
+                <f:selectItem itemLabel="A moderate degree of risk would be acceptable given the potential for increased returns." itemValue="2" />
+                <f:selectItem itemLabel="A minimal degree of risk would be acceptable for a slight increase in potential returns." itemValue="3" />
             </p:selectOneRadio>
         </div>
     </div>

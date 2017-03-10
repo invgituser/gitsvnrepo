@@ -76,12 +76,12 @@
 						<div class="Container100">
 							<p:outputPanel deferred="true">
 								<div class="Container50 Fleft spResPieBlock">
-									<p:chart type="pie" model="#{tcmpb.charts.pieChart}"
+									<p:chart id="tcmpnafpiechart" type="pie" model="#{tcmpb.charts.pieChart}"
 											 style="height: 100%; width: 100%;"
 											 rendered="#{tcmpb.charts.pieChart != null}" responsive="true" />
 								</div>
 								<div class="Container40 Fright assetAllocationTableMobView spResPieTableBlock">
-									<p:dataTable styleClass="invAllocTable"
+									<p:dataTable id="tcmpnafassettable" styleClass="invAllocTable"
 												 value="#{tcmpb.editableAsset}" var="assetList">
 
 										<p:column
@@ -138,7 +138,7 @@
 									Performance</span>
 
 									<div class="EmptyBox5"></div>
-								<span class="Fs17 DispBlock BBGreen"> <h:outputText
+								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafavgperformance"
 										value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
 									<f:convertNumber pattern="$#,###,###,##0" />
 								</h:outputText>
@@ -153,7 +153,7 @@
 									<span class="Fs14 DispBlock gray">Poor Market Performance</span>
 
 									<div class="EmptyBox5"></div>
-								<span class="Fs17 DispBlock BBGreen"> <h:outputText
+								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafpoorperformance"
 										value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
 									<f:convertNumber pattern="$#,###,###,##0" />
 								</h:outputText>
@@ -174,18 +174,18 @@
 
 			</div>
 			<div class="Container100 Responsive100 summaryPageBtn" style="text-align: center;">
-				<p:commandButton styleClass="prev ResponsiveBtnFS Fleft spWid100"
+				<p:commandButton styleClass="prev ResponsiveBtnFS Fleft spWid100" id="tcmpnafprevious"
 					value="Start Over" update=":ceForm:inputArea" immediate="true"
 					actionListener="#{tcmpb.startover}" />
 
 				<p:commandButton type="button"
-					styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Fine Tune">
+					styleClass="fineTuneBtn fineTuneBtnImg spWid100" id="tcmpnafftbtn" value="Change Strategy">
 					<p:effect type="slide" event="click" for="fineTunePanel">
 						<f:param name="mode" value="'show'" />
 					</p:effect>
 				</p:commandButton>
 
-				<p:commandButton styleClass="Fright ResponsiveBtnFS spWid100"
+				<p:commandButton styleClass="Fright ResponsiveBtnFS spWid100" id="tcmpnafopenacct"
 					value="#{tcmpb.fundButtonText}" update=":ceForm:inputArea"
 					actionListener="#{tcmpb.fundAccount}" />
 
@@ -202,7 +202,7 @@
 				</div>
 			</div>
 			<div class="Container100">
-				<p:dataTable var="ticker" value="#{tcmpb.displayPortfolioList}">
+				<p:dataTable id="tcmpnafportfoliodetails" var="ticker" value="#{tcmpb.displayPortfolioList}">
 
 					<p:column style="width:1%; background-color: #{ticker.color}">
 						<h:outputText value=" " />

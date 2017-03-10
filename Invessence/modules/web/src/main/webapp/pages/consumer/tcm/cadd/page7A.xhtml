@@ -17,7 +17,7 @@
                                 <div class="Container100 FTLabel">
                                     <span class="Fs16">Fine Tune Strategy</span>
                                     <div class="Wid10 Fright closeFTbtn">
-                                        <p:commandButton type="button" styleClass="fineTuneBtn"
+                                        <p:commandButton id="tcmp7afpbtn" type="button" styleClass="fineTuneBtn"
                                                          icon="fa fa-times">
                                             <p:effect type="slide" event="click" for="fineTunePanel">
                                                 <f:param name="mode" value="'hide'"/>
@@ -89,16 +89,16 @@
                                          style="padding: 0px 20px; box-sizing: border-box;">
                                         Based on the responses that you have given, the revised strategy is <strong>#{tcmpb.fixedModelName}</strong>.
                                     </div>
-                                    <div class="EmptyBox70 ResEmptyBox30"></div>
+                                    <div class="EmptyBox30 ResEmptyBox30"></div>
                                     <div class="Container100">
                                         <p:outputPanel deferred="true">
                                             <div class="Container50 Fleft spResPieBlock">
-                                                <p:chart type="pie" model="#{tcmpb.charts.pieChart}"
+                                                <p:chart id="tcmp7apiechart" type="pie" model="#{tcmpb.charts.pieChart}"
                                                          style="height: 100%; width: 100%;"
                                                          rendered="#{tcmpb.charts.pieChart != null}" responsive="true"/>
                                             </div>
                                             <div class="Container40 Fright assetAllocationTableMobView spResPieTableBlock">
-                                                <p:dataTable styleClass="invAllocTable"
+                                                <p:dataTable id="tcmp7aassettable" styleClass="invAllocTable"
                                                              value="#{tcmpb.editableAsset}" var="assetList">
 
                                                     <p:column
@@ -139,15 +139,28 @@
                                     </div>
                                 </ui:fragment>
                                 <ui:fragment rendered="#{tcmpb.sameStrategy}">
-                                    <div class="fs17 textAlign">
-                                        Your current and revised portfolio is same, you can not do further processing. Please use Change Strategy button below to change.
+                                    <div class="Container100 csWarningPanel">
+
+                                    <div class="textAlign red cswLabel">
+                                        <i class="fa fa-exclamation-triangle red" aria-hidden="true"></i><br/>
+                                        <span class="Fs14">
+                                        Your current and revised portfolio is same, you can not do further processing. <br/>
+                                        Please use Change Strategy button below to change.
+                                        </span>
                                     </div>
-                                    <div class="EmptyBox10"></div>
+                                        <div class="EmptyBox10"></div>
+                                        <p:commandButton type="button" id="tcmp7achngstrategy2"
+                                                         styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Change Strategy">
+                                            <p:effect type="slide" event="click" for="fineTunePanel">
+                                                <f:param name="mode" value="'show'"/>
+                                            </p:effect>
+                                        </p:commandButton>
+                                    </div>
                                 </ui:fragment>
 
                             </p:panel>
                         </div>
-                        <div id="projectChartArea" class="Container50 Responsive100 FrightForced performanceChartBlock">
+                        <div id="projectChartArea" class="Container48 Responsive100 FrightForced performanceChartBlock">
                             <p:outputPanel id="graphArea" style="border: 0px; background: transparent;">
                                 <script type="text/javascript">
                                     $(document).ready(function ()
@@ -164,7 +177,7 @@
 									Performance</span>
 
                                             <div class="EmptyBox5"></div>
-								<span class="Fs17 DispBlock BBGreen"> <h:outputText
+								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmp7aavgperformance"
                                         value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
                                     <f:convertNumber pattern="$#,###,###,##0"/>
                                 </h:outputText>
@@ -179,7 +192,7 @@
                                             <span class="Fs14 DispBlock gray">Poor Market Performance</span>
 
                                             <div class="EmptyBox5"></div>
-								<span class="Fs17 DispBlock BBGreen"> <h:outputText
+								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmp7apoorperformance"
                                         value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
                                     <f:convertNumber pattern="$#,###,###,##0"/>
                                 </h:outputText>
@@ -200,18 +213,18 @@
 
                     </div>
                     <div class="Container100 Responsive100 summaryPageBtn" style="text-align: center;">
-                        <p:commandButton styleClass="prev ResponsiveBtnFS Fleft spWid100"
+                        <p:commandButton styleClass="prev ResponsiveBtnFS Fleft spWid100" id="tcmp7astartover"
                                          value="Start Over" update=":ceForm:inputArea" immediate="true"
                                          actionListener="#{tcmpb.startover}"/>
 
-                        <p:commandButton type="button"
+                        <p:commandButton type="button" id="tcmp7achngstrategy"
                                          styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Change Strategy">
                             <p:effect type="slide" event="click" for="fineTunePanel">
                                 <f:param name="mode" value="'show'"/>
                             </p:effect>
                         </p:commandButton>
 
-                        <p:commandButton styleClass="Fright ResponsiveBtnFS spWid100" value="Next"
+                        <p:commandButton id="tcmp7anext" styleClass="Fright ResponsiveBtnFS spWid100" value="Next"
                                          rendered="#{tcmpb.pagemanager.nextButtonStat}"
                                          update=":ceForm:inputArea"
                                          disabled="#{tcmpb.sameStrategy}"
@@ -230,7 +243,7 @@
                         </div>
                     </div>
                     <div class="Container100">
-                        <p:dataTable var="ticker" value="#{tcmpb.displayPortfolioList}">
+                        <p:dataTable id="tcmp7aportfoliolist" var="ticker" value="#{tcmpb.displayPortfolioList}">
 
                             <p:column style="width:1%; background-color: #{ticker.color}">
                                 <h:outputText value=" "/>

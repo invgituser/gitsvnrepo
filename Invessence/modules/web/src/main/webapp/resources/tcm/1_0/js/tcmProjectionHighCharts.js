@@ -7,6 +7,8 @@ $(function ()
   {
       var chartValue = "";
         if(pageInfo == 'page5'){
+            chartValue = document.getElementById('ceForm:projectionChart1').value;
+        }else if(pageInfo == 'page7'){
             chartValue = document.getElementById('ceForm:projectionChart').value;
         }else if(pageInfo == 'final2'){
             chartValue = document.getElementById('ceForm:performanceChart').value;
@@ -43,7 +45,7 @@ $(function ()
                           align: 'center',
                           style: {
                               fontSize: '10px',
-                              fontFamily: 'Verdana, sans-serif',
+                              fontFamily: 'Helvetica',
                               fontWeight: 'bold',
                               color: '#808080'
 

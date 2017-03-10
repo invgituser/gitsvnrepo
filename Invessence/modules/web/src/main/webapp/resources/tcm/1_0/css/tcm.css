@@ -1597,6 +1597,11 @@ text-align: Center !important;
     background-color: #009ABB;
 }
 
+#layout-topbar-menu li:hover > form.logoutBtnFrm > a {
+    color: #778d9b!important;
+    background-color: inherit!important;
+}
+
 @media (max-width: 815px){
 .EmptyResponsive {
 display: none;
@@ -2547,6 +2552,10 @@ h3 {
 @media (max-width: 1200px) {
     .MarginTopRes {
         margin-top: 10px;
+    }
+
+    .Container48 {
+        width: 100% !important;
     }
 }
 
@@ -4058,3 +4067,27 @@ font-weight: bold;
 	left: 5px;
 }
 
+.csWarningPanel {
+    text-align: center;
+    margin: 78px 0;
+}
+
+.cswLabel > i {
+    font-size: 70px;
+}
+
+.cswLabel > span {
+    font-weight: bold;
+}
+
+.cswLabel {
+    font-weight: bold;
+    background: white;
+    padding: 10px 0px;
+    border: 1px solid #c6d6df;
+    border-radius: 5px;
+}
+
+.Container48 {
+    width:48%;
+}

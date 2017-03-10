@@ -20,8 +20,8 @@
     <div class="Container100">
         <div class="EmptyBox5"></div>
         <div class="TexAlLeft Wid100">
-            <div class="uobBoldText">Salary/Wages (Yearly)</div>
-            <div class="uobSubText">(Total Gross Income)</div>
+            <div class="uobBoldText">Annual Salary Plus Bonus</div>
+            <div class="uobSubText"></div>
         </div>
         <p:inputNumber value="#{uobpb.householdwages}"
                        styleClass="Wid100 uob_number_field" maxlength="15"
@@ -46,13 +46,23 @@
         <div class="EmptyBox10"></div>
         <div class="TexAlLeft Wid100">
             <div class="uobBoldText">Other Investments</div>
-            <div class="uobSubText">(Stocks, Bond, Retirement)</div>
+            <div class="uobSubText">(Stocks, Bonds, CPF)</div>
         </div>
         <p:inputNumber value="#{uobpb.investment}"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
                     update=":ceForm:workArea, :ceForm:graphArea"/>
+        </p:inputNumber>
+
+        <div class="EmptyBox10"></div>
+        <div class="TexAlLeft Wid100">
+            <div class="uobBoldText">Investment Properties</div>
+            <div class="uobSubText">(Value of property less the mortgage)</div>
+        </div>
+        <p:inputNumber
+                       styleClass="Wid100 uob_number_field" maxlength="15"
+                       decimalPlaces="0" symbol="$">
         </p:inputNumber>
 
     </div>

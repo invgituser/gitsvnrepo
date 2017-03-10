@@ -5,6 +5,14 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions">
 
+    <script type="text/javascript">
+        $(document).ready(function ()
+                          {
+                              drawProjectionChart("page7");//passing page info for reuse js
+                          });
+
+    </script>
+
     <div class="Container100  Responsive100">
         <div class="ContainerIndent">
 
@@ -50,7 +58,7 @@
                                     </ui:fragment>
 
                             <ui:fragment rendered="#{(tcmpb.origCustomerData.portfolioName!=tcmpb.fixedModelName) or tcmpb.formula=='D'}" >
-                            <div style="border:0px !important; background:none;" class="Container100 FormContent">
+                            <div style="border:0px !important; background:none;" class="Container50 FormContent">
 				                <div class="container100"><p:messages styleClass="errorText"  showDetail="false" autoUpdate="true" closable="true" /> </div>
                                 <div class="container100 ReviewRadioBtnP" style="margin:auto;" id="abc">
                                     <p:selectOneRadio value="#{tcmpb.selectedThemeName}" layout="pageDirection"
@@ -61,8 +69,16 @@
                                     </p:selectOneRadio>
                                 </div>
                             </div>
+                                <div class="Container40">
+
+                                    <h:inputHidden value="#{tcmpb.charts.chartdata.highChartresultSet}"
+                                                   id="projectionChart"/>
+
+                                    <div id="progressChart" class="Container100 Fright"></div>
+                                </div>
                                 <div class="EmptyBox10"></div>
                             <div class="Container100 Responsive100 TextAlCenter">
+
 
               <p:fieldset id="summary" legend="#{tcmpb.selectedThemeName}" toggleable="true" styleClass="summaryConfirm" toggleSpeed="500">
                                         <div class="Container100 Responsive100">

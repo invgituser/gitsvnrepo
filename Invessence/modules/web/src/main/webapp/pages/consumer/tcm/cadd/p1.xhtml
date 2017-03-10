@@ -14,8 +14,8 @@
         <div class="TexAlCenter">
             <div class="PortfolioCreationFields">
                 <span class="mobileFullWidth" >
-                    <h:outputText value="I plan on investing" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
-                    <h:outputText value="The objective for this portfolio is " styleClass="formFS" rendered="#{tcmpb.formPortfolioEdit}"/>
+                    <h:outputText id="tcmp1formtext1" value="I plan on investing" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
+                    <h:outputText id="tcmp1formtext2" value="The objective for this portfolio is " styleClass="formFS" rendered="#{tcmpb.formPortfolioEdit}"/>
                     </span>
                 <p:inputNumber id="initialIid" rendered="#{!tcmpb.formPortfolioEdit}"
                                 styleClass="invInputText input_investwid1 amountBRmobileSupport mobileFullWidthinput"
@@ -25,20 +25,20 @@
                                 required="true" requiredMessage="Min. of $50,000 investment is required!"
                                 validatorMessage="Min. of $50,000 investment is required!">
                 </p:inputNumber>
-                <p:message for="initialIid" display="tooltip"/>
+                <p:message id="tcmp1tooltip" for="initialIid" display="tooltip"/>
 
                <span class="mobileFullWidth" >
-                    <h:outputText value="for" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
+                    <h:outputText value="for" id="tcmp1formtext3" styleClass="formFS" rendered="#{!tcmpb.formPortfolioEdit}"/>
                     </span>
                 <p:selectOneMenu id="q3" value="#{tcmpb.goal}" styleClass="TCM-UI-Dropdown dropdownInputFullWidth portfolioCreationDD"
                                  required="true" requiredMessage="Please choose investment strategy" >
                     <p:ajax listener="#{tcmpb.onGoalChangeValue}"
                             update=":ceForm:inputArea" process="initialIid q3"/>/>
-                    <f:selectItem itemLabel="Choose One" itemValue=""/>
-                    <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
-                    <f:selectItem itemLabel="College" itemValue="College"/>
-                    <f:selectItem itemLabel="Building Wealth" itemValue="Wealth"/>
-                    <f:selectItem itemLabel="Other" itemValue="Other"/>
+                    <f:selectItem id="tcmp1chooseone" itemLabel="Choose One" itemValue=""/>
+                    <f:selectItem id="tcmp1retirement" itemLabel="Retirement" itemValue="Retirement"/>
+                    <f:selectItem id="tcmp1college" itemLabel="College" itemValue="College"/>
+                    <f:selectItem id="tcmp1buildingwealth" itemLabel="Building Wealth" itemValue="Wealth"/>
+                    <f:selectItem id="tcmp1other" itemLabel="Other" itemValue="Other"/>
                 </p:selectOneMenu>
             </div>
         </div>
@@ -64,8 +64,8 @@
                                                  styleClass="TCM-UI-Dropdown dropdownInputFullWidth">
                                     <p:ajax event="change" process="@this ageid"
                                             update=":ceForm:p1hrznpanel"/>
-                                    <f:selectItem itemLabel="Not Retired" itemValue="0"/>
-                                    <f:selectItem itemLabel="Retired" itemValue="1"/>
+                                    <f:selectItem id="tcmp1notretired" itemLabel="Not Retired" itemValue="0"/>
+                                    <f:selectItem id="tcmp1retired" itemLabel="Retired" itemValue="1"/>
                                 </p:selectOneMenu>
                             </h3></div>
                         </div>
@@ -124,21 +124,21 @@
 
         </p:panel>
         <div class="EmptyBox10"></div>
-        <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(0) != null and  !tcmpb.formPortfolioEdit }"
+        <p:panel id="tcmp1errormsg1" rendered="#{tcmpb.pagemanager.getErrorMessage(0) != null and  !tcmpb.formPortfolioEdit }"
                  style="border: 0px; background: transparent"
                  styleClass="Container100 TexAlCenter">
-            <h:outputText styleClass="errorText"
+            <h:outputText id="tcmp1errortext1" styleClass="errorText"
                           value="#{tcmpb.pagemanager.getErrorMessage(0)}" escape="false"/>
         </p:panel>
-        <p:panel rendered="#{tcmpb.pagemanager.getErrorMessage(1) != null and tcmpb.formPortfolioEdit }"
+        <p:panel id="tcmp1errormsg2" rendered="#{tcmpb.pagemanager.getErrorMessage(1) != null and tcmpb.formPortfolioEdit }"
                  style="border: 0px; background: transparent"
                  styleClass="Container100 TexAlCenter">
-            <h:outputText styleClass="errorText"
+            <h:outputText id="tcmp1errortext2" styleClass="errorText"
                           value="#{tcmpb.pagemanager.getErrorMessage(1)}" escape="false"/>
         </p:panel>
 
         <div class="TexAlCenter">
-         <p:commandLink styleClass="UI-nextButtonPg1 UI-tcmButton"   rendered="#{tcmpb.pagemanager.nextButtonStat}"
+         <p:commandLink styleClass="UI-nextButtonPg1 UI-tcmButton" id="tcmp1nextbtn" rendered="#{tcmpb.pagemanager.nextButtonStat}"
                          update=":ceForm:inputArea"
                          actionListener="#{tcmpb.nextPage}">
                          <h:outputText value="Next" />

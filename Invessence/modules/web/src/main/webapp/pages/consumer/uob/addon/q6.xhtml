@@ -22,10 +22,9 @@
                               layout="pageDirection">
                <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:workArea, :ceForm:graphArea"/>
-                <f:selectItem itemLabel="High – I am comfortable with volatility." itemValue="1" />
-                <f:selectItem itemLabel="Moderate – Up to half volatile and half balanced." itemValue="2" />
-                <f:selectItem itemLabel="Medium – Stable annual return with low volatility." itemValue="3" />
-                <f:selectItem itemLabel="None – No volatility." itemValue="4" />
+                <f:selectItem itemLabel="More than 25%" itemValue="1" />
+                <f:selectItem itemLabel="Up to 25%" itemValue="2" />
+                <f:selectItem itemLabel="Up to 5%" itemValue="3" />
             </p:selectOneRadio>
         </div>
     </div>

@@ -13,7 +13,7 @@
              style="border: 0px; background: transparent">
         <div class="Container80 Responsive100 MarTop5 MarCenter"
              style="margin-bottom: 15px;">
-            <p:panel rendered="#{tdcto.getErrorMessage(1) != null}"
+            <p:panel id="tdaherrormsg1" rendered="#{tdcto.getErrorMessage(1) != null}"
                      style="border: 0px; background: transparent"
                     styleClass="Container100">
                 <h:outputText id="tdp1Msg" styleClass="errorText"
@@ -22,8 +22,7 @@
             <div class="Container100">
                 <label Class="Container60"
                        style="text-align: left !important; font-weight: bold !important;">Name *</label>
-
-                <div class="EmptyBox5"></div>
+                 <div class="EmptyBox5"></div>
                 <p:inputText id="tdpfname" styleClass="CustomWidthFA FS14 InputMergeRight"
                 maxlength="20"
                              value="#{tdcto.tdMasterData.acctOwnersDetail.firstName}"

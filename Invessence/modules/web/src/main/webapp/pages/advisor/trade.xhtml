@@ -30,15 +30,21 @@
                     <p:menuitem value="Variance" itemValue="O"/>
                     <p:menuitem value="New" itemValue="N"/>
                 </p:menuButton>
-            </div>
-
-            <div class="Fright" style="margin-top: 9px;">
-                <p:commandButton styleClass="advButton" value="Rebalance"
-                                 process="@form" update="dataGrid"
-                                 actionListener="#{tradeBean.refreshTradeClient}"/>
                 <p:commandButton styleClass="advButton" value="Reload"
                                  process="@form" update="rebalgrid2"
                                  actionListener="#{tradeBean.reloadTradeClient}"/>
+            </div>
+
+            <div class="Fright" style="margin-top: 9px;">
+                <p:menuButton value="Rebalance" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
+
+                    <p:menuitem value="Individual" itemValue="V" />
+                    <p:menuitem value="All" itemValue="D"/>
+                </p:menuButton>
+                <!--<p:commandButton styleClass="advButton" value="Rebalance"
+                                 process="@form" update="dataGrid"
+                                 actionListener="#{tradeBean.refreshTradeClient}"/>-->
+
 
             </div>
         </div>
@@ -153,7 +159,7 @@
         <div class="Container100">
 
             <div class="Fright" style="margin-top: 9px;">
-                <p:commandButton id="reviewBtn" value="Load Trades"
+                <p:commandButton id="reviewBtn" value="Reload"
                                  styleClass="advButton"
                                  process="@form" update="tradeTable"
                                  actionListener="#{tradeBean.collectTradeSummary}"/>

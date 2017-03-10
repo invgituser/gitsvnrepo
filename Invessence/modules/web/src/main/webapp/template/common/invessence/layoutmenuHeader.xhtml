@@ -31,6 +31,13 @@
                 $(this).removeClass('mbSelected');
             }
         });
+        $('#tradeMenuHighlight').each(function(){
+            if ( ($page == 'trade.xhtml')) {
+                $(this).addClass('mbSelected');
+            } else {
+                $(this).removeClass('mbSelected');
+            }
+        });
 
     });
 </script>
@@ -40,12 +47,19 @@
                 <a href="#{uiLayout.defaultHome}">Dashboard</a>
             </li>
 
+            <ui:fragment rendered="#{webutil.hasAccess('USER')}">
             <li id="newaccountMenuHighlight">
-                <p:commandLink rendered="#{webutil.hasAccess('USER')}"
+                <p:commandLink rendered="true"
                                actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
                     <h:outputText value="New Account"/>
                 </p:commandLink>
-            </li>
+                </li>
+                </ui:fragment>
+                <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
+                    <li id="tradeMenuHighlight">
+                    <a href="/pages/advisor/trade.xhtml">Trade</a>
+                    </li>
+                        </ui:fragment>
 
 
                 <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
