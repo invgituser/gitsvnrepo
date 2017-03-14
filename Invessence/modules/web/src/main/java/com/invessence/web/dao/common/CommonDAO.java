@@ -10,7 +10,7 @@ import com.invessence.web.data.common.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "commonDAO")
-@ApplicationScoped
+@SessionScoped
 public class CommonDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();

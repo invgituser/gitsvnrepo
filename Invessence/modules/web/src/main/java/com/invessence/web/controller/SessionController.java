@@ -85,6 +85,7 @@ public class SessionController implements Serializable
    {
       if (!FacesContext.getCurrentInstance().isPostback())
       {
+         logger.info("Module: preRenderView() called");
          resetCIDByURL(null);  // This method, will find the URL if not defined.
       }
    }
@@ -105,6 +106,7 @@ public class SessionController implements Serializable
 
    public String getLogonStart() {
 
+      logger.info("Module: getLogonStart() called");
       if (webutil != null) {
          if (webutil.isUserLoggedIn()) {
             if (webutil.getUserInfoData() != null) {
@@ -160,24 +162,24 @@ public class SessionController implements Serializable
    public void tryOut()
    {
       resetCIDByURL(null);
+      String arg = "?app=N";
       if (this.rep != null && ! this.rep.isEmpty()) {
          webutil.webprofile.setDefaultRep(this.rep);
+         arg += "&rep=" + this.rep;
       }
 
       if (this.visitorID != null && !this.visitorID.isEmpty()) {
          Long visitorlogonid = webutil.converter.getLongData(visitorID);
          if (logonid != null)
+         {
             webutil.getUserInfoData().setLogonID(visitorlogonid);
+         }
+         arg += "&vid=" + this.visitorID;
+
       }
 
-      uiLayout.doMenuAction("consumer", "cadd.xhtml?app=N");
+      uiLayout.doMenuAction("consumer", "cadd.xhtml" + arg);
       // return "success";
-   }
-
-   public String getDemoStart()
-   {
-      uiLayout.doMenuAction("consumer", "cadd.xhtml?app=N");
-      return "success";
    }
 
    public void reset() {
@@ -185,7 +187,20 @@ public class SessionController implements Serializable
          loadWebProfile(null);
    }
 
+   public void indexGetStarted()
+   {
+      reset();
+      tryOut();
+   }
+
+   public void indexLogin()
+   {
+      reset();
+      uiLayout.forwardURL("/login.xhtml");
+   }
+
    public void emulateClient(String clienturl) {
+      logger.info("Module: emulateClient ->" + clienturl);
       if (clienturl != null)
       {
          webutil.webprofile.setLocked(false);
@@ -193,6 +208,7 @@ public class SessionController implements Serializable
          loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
          webutil.getWebprofile().finalConfig();
          webutil.webprofile.setLocked(true);
+         logger.info("Status: LOCK for this client: " + clienturl);
       }
    }
 
@@ -217,6 +233,7 @@ public class SessionController implements Serializable
 
    private void resetUserCIDByAdvisor(String advisor)
    {
+      logger.info("Module: resetCIDByURL called");
       if (webutil == null)
          return;
 
@@ -226,14 +243,18 @@ public class SessionController implements Serializable
           advisor = "Invessence";
       }
 
+      if (webutil.getWebprofile().getLocked())
+         logger.info("Status: Advisor cannot revised the locked mode");
+
       if (! webutil.getWebprofile().getLocked()) {
             if (commonDAO != null)
             {
                advisorMap = commonDAO.getAdvisorWebInfo(advisor);
                if (advisorMap != null) {
                   if (advisorMap.containsKey("WEB.URL")) {
-                     logger.info("Override the property by Advisor: " + advisor);
+                     logger.info("Override the URL for: " + advisorMap.get("WEB.URL"));
                      loadWebProfile(advisorMap.get("WEB.URL"));
+                     logger.info("Override the Advisor Property: " + advisor);
                      webutil.getWebprofile().addToMap(advisorMap);
                      webutil.getWebprofile().finalConfig();
                   }
@@ -245,21 +266,27 @@ public class SessionController implements Serializable
    // This process will load data based on URL (assuming the env is not locked)
    private void resetCIDByURL(String uri)
    {
+      logger.info("Module: resetCIDByURL called");
       if (webutil == null)
          return;
 
 
+      String origurl = webutil.getWebprofile().getUrl();
+      if (uri == null)
+      {
+         uri = webutil.getURLAddress("Invessence");
+      }
+
+      if (webutil.getWebprofile().getLocked())
+         logger.info("Status: Attempting to reset: " + uri  + " But the profile is locked in: " + origurl);
       // We we are doing demo, then it will be locked. Don't reset (regarless of URL)
+
       if (! webutil.getWebprofile().getLocked()) {
          // Was Webprofile parsed in past.  If se, then we set the origurl.
-         String origurl = webutil.getWebprofile().getUrl();
 
          // Now get the new profile.
-         if (uri == null)
-         {
-            uri = webutil.getURLAddress("Invessence");
-         }
 
+         logger.info("Compare: ORIG URL: " + origurl + " and New One: " + uri);
          // Now try to determine, we we need to reset, based on URL (either by logged user, or change of URL)
          Boolean reload = false;
          if (origurl == null) {  // If this is first time, go reload as normal.
@@ -271,9 +298,10 @@ public class SessionController implements Serializable
                reload = true;
          }
 
+         logger.info("Status: " + ((reload) ? "reload" + uri : "Skip reload"));
          if (reload)
          {
-            System.out.println("Load WEB property for:" + uri);
+            System.out.println("Load WEB property for: " + uri);
             loadWebProfile(uri);
             loadAdvisorProfile(webutil.getWebprofile().getDefaultAdvisor());
             webutil.getWebprofile().finalConfig();

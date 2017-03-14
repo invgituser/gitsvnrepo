@@ -14,7 +14,7 @@ import com.invmodel.rebalance.data.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "tradeDAO")
-@ApplicationScoped
+@SessionScoped
 public class TradeDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();

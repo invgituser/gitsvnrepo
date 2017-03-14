@@ -1011,6 +1011,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
 
    public void gotoStartOverPage()
    {
+      rTab = 0;
       pagemanager.setPage(0);
    }
 

@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 
 @ManagedBean(name = "surveyDAO")
-@ApplicationScoped
+@SessionScoped
 public class SurveyDAO extends JdbcDaoSupport
 {
    SQLData convert = new SQLData();

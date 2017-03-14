@@ -7,7 +7,7 @@
 
 
     <div class="Container100">
-        <span class="Fs30">Liability</span>
+        <span class="Fs30">Liabilities</span>
     </div>
     <p:panel rendered="#{uobpb.pagemanager.errorMessage != null }"
              style="margin-top:7px; border: 0px; background: transparent"
@@ -52,7 +52,7 @@
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:workArea, :ceForm:graphArea"/>
+                    update=":ceForm:graphArea"/>
         </p:inputNumber>
 
         <div class="EmptyBox10"></div>
@@ -64,7 +64,7 @@
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:workArea, :ceForm:graphArea"/>
+                    update=":ceForm:graphArea"/>
         </p:inputNumber>
     </div>
 

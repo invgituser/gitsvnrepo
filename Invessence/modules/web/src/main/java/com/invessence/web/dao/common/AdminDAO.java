@@ -10,7 +10,7 @@ import com.invessence.web.data.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "adminDAO")
-@ApplicationScoped
+@SessionScoped
 public class AdminDAO extends JdbcDaoSupport
 {
    SQLData convert = new SQLData();

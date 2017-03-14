@@ -11,7 +11,7 @@ import com.invessence.web.data.common.NotificationData;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "advisorSaveDataDAO")
-@ApplicationScoped
+@SessionScoped
 public class AdvisorSaveDataDAO extends JdbcDaoSupport implements Serializable
 {
    public Long saveProfile(AdvisorData data) {

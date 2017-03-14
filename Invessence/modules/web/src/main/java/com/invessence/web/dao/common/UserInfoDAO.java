@@ -17,7 +17,7 @@ import javax.faces.bean.*;
 import com.invessence.web.constant.*;
 
 @ManagedBean(name = "userInfoDAO")
-@ApplicationScoped
+@SessionScoped
 @SuppressWarnings({"unchecked", "DuplicateStringLiteralInspection"})
 public class UserInfoDAO extends JdbcDaoSupport
 {

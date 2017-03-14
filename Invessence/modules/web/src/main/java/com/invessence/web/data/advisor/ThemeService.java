@@ -12,7 +12,7 @@ import javax.faces.bean.*;
  */
 @SuppressWarnings("UnusedDeclaration")
 @ManagedBean(name = "themeService")
-@ApplicationScoped
+@SessionScoped
 public class ThemeService
 {
 /*

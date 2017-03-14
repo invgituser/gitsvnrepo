@@ -13,7 +13,7 @@ import com.invmodel.portfolio.data.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 @ManagedBean(name = "advisorListDataDAO")
-@ApplicationScoped
+@SessionScoped
 public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();

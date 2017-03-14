@@ -22,7 +22,7 @@
         <p:selectOneMenu value="#{uobpb.goal}"
                          styleClass="Wid100 uob_selectDropdown">
             <p:ajax listener="#{uobpb.onGoalChangeValue}"
-                    update=":ceForm:workArea, :ceForm:graphArea"/>
+                    update=":ceForm:graphArea"/>
             <f:selectItem itemLabel="Choose One" itemValue=""/>
             <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
             <f:selectItem itemLabel="College" itemValue="College"/>
@@ -35,7 +35,7 @@
                        min="18" max="100"
                        maxlength="5" decimalPlaces="0">
             <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:workArea, :ceForm:graphArea"/>
+                    update=":ceForm:graphArea"/>
         </p:inputNumber>
 
         <div class="Wid100 uobCoreLabel">How long do you plan to
@@ -44,7 +44,7 @@
         <p:inputNumber value="#{uobpb.horizon}" min="1" max="20"
                        styleClass="Wid100" maxlength="5" decimalPlaces="0">
             <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:workArea, :ceForm:graphArea"/>
+                    update=":ceForm:graphArea"/>
         </p:inputNumber>
 
         <div class="Wid100 uobCoreLabel">Initial investment</div>
@@ -52,7 +52,7 @@
                        value="#{uobpb.initialInvestment}" maxlength="11"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
-                    update=":ceForm:workArea, :ceForm:graphArea"/>
+                    update=":ceForm:graphArea"/>
         </p:inputNumber>
     </div>
 
