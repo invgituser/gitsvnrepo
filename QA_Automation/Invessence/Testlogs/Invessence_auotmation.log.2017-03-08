@@ -1,0 +1,67 @@
+2017-03-08 21:07:10 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_OpenNewAccount.xlsx
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [938 ms] - [INFO]cell valueTCID
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [941 ms] - [INFO]cell valuevURL
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueBrowser
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueUsername
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuepassword
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueinvestmentamount
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueinvestmentgoal
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueage
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuestatus
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueretireage
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueobjective
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueprojectionoption
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueaccounttype
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuefname
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuelname
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuedob
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuessn
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuephoneno
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueemail
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [942 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueExecute
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueResults
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueTC001
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuehttp://preuat.invessence.com:8080/demo.xhtml
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueCHROME
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valuetest.mindcraft
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueDefault123!
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell value2500.0
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueRetirement
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell value40
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [942 ms] - [INFO]cell valueNot Retired
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell value70
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueMaximizing Current Income
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueAggressive
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueIndividual
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueY
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueTC002
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valuehttp://preuat.invessence.com:8080/login.xhtml
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueCHROME
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valuetest.mindcraft
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueDefault123!
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 214 [958 ms] - [INFO]cell valueN
+2017-03-08 21:07:11 [INFO] Utility.java xlRead 221 [958 ms] - [INFO] Cell is blank

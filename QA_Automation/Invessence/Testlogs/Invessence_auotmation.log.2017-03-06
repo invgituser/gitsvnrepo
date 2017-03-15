@@ -1,0 +1,1340 @@
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valueTCID
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valuevURL
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valueBrowser
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valueUsername
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valuepassword
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [826 ms] - [INFO]cell valueage
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valuestatus
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueretireage
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueExecute
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueResults
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueTC001
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueCHROME
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell value2500.0
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueRetirement
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell value40
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell value70
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueY
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 221 [842 ms] - [INFO] Cell is blank
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueTC002
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueCHROME
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 221 [842 ms] - [INFO] Cell is blank
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 221 [842 ms] - [INFO] Cell is blank
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 221 [842 ms] - [INFO] Cell is blank
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 221 [842 ms] - [INFO] Cell is blank
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 221 [842 ms] - [INFO] Cell is blank
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 214 [842 ms] - [INFO]cell valueN
+2017-03-06 10:12:29 [INFO] Utility.java xlRead 221 [842 ms] - [INFO] Cell is blank
+2017-03-06 10:12:29 [INFO] Utility.java Browser 117 [873 ms] - Opening Browser :CHROME
+2017-03-06 10:13:03 [INFO] NewAccount.java newaccount 118 [34846 ms] - Pass - Objective page displayed
+2017-03-06 10:13:03 [INFO] Utility.java xlwrite 239 [34847 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:13:04 [INFO] NewAccount.java newaccount 161 [35003 ms] - End of Loop for data TC001
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [846 ms] - [INFO]cell valueTCID
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [861 ms] - [INFO]cell valuevURL
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [861 ms] - [INFO]cell valueBrowser
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueUsername
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valuepassword
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueage
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valuestatus
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueretireage
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueExecute
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueResults
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueTC001
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueCHROME
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell value2500.0
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueRetirement
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell value40
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell value70
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueY
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 221 [862 ms] - [INFO] Cell is blank
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueTC002
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueCHROME
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [862 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 221 [862 ms] - [INFO] Cell is blank
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 221 [862 ms] - [INFO] Cell is blank
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 221 [862 ms] - [INFO] Cell is blank
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 221 [862 ms] - [INFO] Cell is blank
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 221 [862 ms] - [INFO] Cell is blank
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 214 [878 ms] - [INFO]cell valueN
+2017-03-06 10:14:39 [INFO] Utility.java xlRead 221 [878 ms] - [INFO] Cell is blank
+2017-03-06 10:14:39 [INFO] Utility.java Browser 117 [893 ms] - Opening Browser :CHROME
+2017-03-06 10:15:17 [INFO] NewAccount.java newaccount 118 [38108 ms] - Pass - Objective page displayed
+2017-03-06 10:15:17 [INFO] Utility.java xlwrite 239 [38109 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:15:17 [INFO] NewAccount.java newaccount 161 [38276 ms] - End of Loop for data TC001
+2017-03-06 10:18:41 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [751 ms] - [INFO]cell valueTCID
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [751 ms] - [INFO]cell valuevURL
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [751 ms] - [INFO]cell valueBrowser
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [751 ms] - [INFO]cell valueUsername
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [751 ms] - [INFO]cell valuepassword
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueage
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valuestatus
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueretireage
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueExecute
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueResults
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueTC001
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueCHROME
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell value2500.0
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueRetirement
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell value40
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell value70
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueY
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 221 [767 ms] - [INFO] Cell is blank
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueTC002
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueCHROME
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 221 [767 ms] - [INFO] Cell is blank
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 221 [767 ms] - [INFO] Cell is blank
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 221 [767 ms] - [INFO] Cell is blank
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 221 [767 ms] - [INFO] Cell is blank
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 221 [767 ms] - [INFO] Cell is blank
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 214 [767 ms] - [INFO]cell valueN
+2017-03-06 10:18:42 [INFO] Utility.java xlRead 221 [767 ms] - [INFO] Cell is blank
+2017-03-06 10:18:42 [INFO] Utility.java Browser 117 [782 ms] - Opening Browser :CHROME
+2017-03-06 10:19:18 [INFO] NewAccount.java newaccount 118 [36984 ms] - Pass - Objective page displayed
+2017-03-06 10:19:18 [INFO] Utility.java xlwrite 239 [36984 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:19:18 [INFO] NewAccount.java newaccount 161 [37170 ms] - End of Loop for data TC001
+2017-03-06 10:19:58 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [827 ms] - [INFO]cell valueTCID
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [833 ms] - [INFO]cell valuevURL
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [833 ms] - [INFO]cell valueBrowser
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [833 ms] - [INFO]cell valueUsername
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [833 ms] - [INFO]cell valuepassword
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueage
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valuestatus
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueretireage
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueExecute
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueResults
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueTC001
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueCHROME
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell value2500.0
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueRetirement
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell value40
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell value70
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueY
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 221 [834 ms] - [INFO] Cell is blank
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueTC002
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueCHROME
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 221 [834 ms] - [INFO] Cell is blank
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 221 [834 ms] - [INFO] Cell is blank
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 221 [834 ms] - [INFO] Cell is blank
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 221 [834 ms] - [INFO] Cell is blank
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 221 [834 ms] - [INFO] Cell is blank
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 214 [834 ms] - [INFO]cell valueN
+2017-03-06 10:19:59 [INFO] Utility.java xlRead 221 [834 ms] - [INFO] Cell is blank
+2017-03-06 10:19:59 [INFO] Utility.java Browser 117 [866 ms] - Opening Browser :CHROME
+2017-03-06 10:20:28 [INFO] NewAccount.java newaccount 118 [29958 ms] - Pass - Objective page displayed
+2017-03-06 10:20:28 [INFO] Utility.java xlwrite 239 [29959 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:20:28 [INFO] NewAccount.java newaccount 161 [30157 ms] - End of Loop for data TC001
+2017-03-06 10:21:24 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [797 ms] - [INFO]cell valueTCID
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [800 ms] - [INFO]cell valuevURL
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [800 ms] - [INFO]cell valueBrowser
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueUsername
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valuepassword
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueage
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valuestatus
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueretireage
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueExecute
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueResults
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueTC001
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueCHROME
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell value2500.0
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueRetirement
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell value40
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell value70
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueY
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 221 [801 ms] - [INFO] Cell is blank
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueTC002
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueCHROME
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 221 [801 ms] - [INFO] Cell is blank
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 221 [801 ms] - [INFO] Cell is blank
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 221 [801 ms] - [INFO] Cell is blank
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 221 [801 ms] - [INFO] Cell is blank
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 221 [801 ms] - [INFO] Cell is blank
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 214 [801 ms] - [INFO]cell valueN
+2017-03-06 10:21:25 [INFO] Utility.java xlRead 221 [801 ms] - [INFO] Cell is blank
+2017-03-06 10:21:25 [INFO] Utility.java Browser 117 [832 ms] - Opening Browser :CHROME
+2017-03-06 10:21:58 [INFO] NewAccount.java newaccount 118 [33619 ms] - Pass - Objective page displayed
+2017-03-06 10:21:58 [INFO] Utility.java xlwrite 239 [33620 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:21:58 [INFO] NewAccount.java newaccount 161 [33785 ms] - End of Loop for data TC001
+2017-03-06 10:27:11 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [750 ms] - [INFO]cell valueTCID
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [761 ms] - [INFO]cell valuevURL
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [761 ms] - [INFO]cell valueBrowser
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [761 ms] - [INFO]cell valueUsername
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valuepassword
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueage
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valuestatus
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueretireage
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueExecute
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueResults
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueTC001
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueCHROME
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell value2500.0
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueRetirement
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell value40
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell value70
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueY
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 221 [762 ms] - [INFO] Cell is blank
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueTC002
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueCHROME
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 221 [762 ms] - [INFO] Cell is blank
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 221 [762 ms] - [INFO] Cell is blank
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 221 [762 ms] - [INFO] Cell is blank
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 221 [762 ms] - [INFO] Cell is blank
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 221 [762 ms] - [INFO] Cell is blank
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 214 [762 ms] - [INFO]cell valueN
+2017-03-06 10:27:12 [INFO] Utility.java xlRead 221 [762 ms] - [INFO] Cell is blank
+2017-03-06 10:27:12 [INFO] Utility.java Browser 117 [777 ms] - Opening Browser :CHROME
+2017-03-06 10:27:45 [INFO] NewAccount.java newaccount 118 [33863 ms] - Pass - Objective page displayed
+2017-03-06 10:27:45 [INFO] Utility.java xlwrite 239 [33864 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:27:45 [INFO] NewAccount.java newaccount 161 [34027 ms] - End of Loop for data TC001
+2017-03-06 10:37:37 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [769 ms] - [INFO]cell valueTCID
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [780 ms] - [INFO]cell valuevURL
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [780 ms] - [INFO]cell valueBrowser
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [780 ms] - [INFO]cell valueUsername
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [780 ms] - [INFO]cell valuepassword
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueage
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valuestatus
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueretireage
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueExecute
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueResults
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueTC001
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueCHROME
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell value2500.0
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueRetirement
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell value40
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell value70
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueY
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 221 [781 ms] - [INFO] Cell is blank
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueTC002
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueCHROME
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 221 [781 ms] - [INFO] Cell is blank
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 221 [781 ms] - [INFO] Cell is blank
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 221 [781 ms] - [INFO] Cell is blank
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 221 [781 ms] - [INFO] Cell is blank
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 221 [781 ms] - [INFO] Cell is blank
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 214 [781 ms] - [INFO]cell valueN
+2017-03-06 10:37:38 [INFO] Utility.java xlRead 221 [781 ms] - [INFO] Cell is blank
+2017-03-06 10:37:38 [INFO] Utility.java Browser 117 [797 ms] - Opening Browser :CHROME
+2017-03-06 10:38:18 [INFO] NewAccount.java newaccount 118 [40476 ms] - Pass - Objective page displayed
+2017-03-06 10:38:18 [INFO] Utility.java xlwrite 239 [40477 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:38:18 [INFO] NewAccount.java newaccount 161 [40654 ms] - End of Loop for data TC001
+2017-03-06 10:43:56 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [750 ms] - [INFO]cell valueTCID
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [755 ms] - [INFO]cell valuevURL
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [755 ms] - [INFO]cell valueBrowser
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueUsername
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valuepassword
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueage
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valuestatus
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueretireage
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueExecute
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueResults
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueTC001
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueCHROME
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell value2500.0
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [756 ms] - [INFO]cell valueRetirement
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell value40
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell value70
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valueY
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 221 [772 ms] - [INFO] Cell is blank
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valueTC002
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valueCHROME
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 221 [772 ms] - [INFO] Cell is blank
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 221 [772 ms] - [INFO] Cell is blank
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 221 [772 ms] - [INFO] Cell is blank
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 221 [772 ms] - [INFO] Cell is blank
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 221 [772 ms] - [INFO] Cell is blank
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 214 [772 ms] - [INFO]cell valueN
+2017-03-06 10:43:57 [INFO] Utility.java xlRead 221 [772 ms] - [INFO] Cell is blank
+2017-03-06 10:43:57 [INFO] Utility.java Browser 117 [803 ms] - Opening Browser :CHROME
+2017-03-06 10:44:31 [INFO] NewAccount.java newaccount 118 [34736 ms] - Pass - Objective page displayed
+2017-03-06 10:44:31 [INFO] Utility.java xlwrite 239 [34736 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:44:31 [INFO] NewAccount.java newaccount 161 [34901 ms] - End of Loop for data TC001
+2017-03-06 10:46:40 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [729 ms] - [INFO]cell valueTCID
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valuevURL
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueBrowser
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueUsername
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valuepassword
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueage
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valuestatus
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueretireage
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueExecute
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueResults
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueTC001
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueCHROME
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell value2500.0
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueRetirement
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell value40
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell value70
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueY
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 221 [735 ms] - [INFO] Cell is blank
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueTC002
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueCHROME
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 221 [735 ms] - [INFO] Cell is blank
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 221 [735 ms] - [INFO] Cell is blank
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 221 [735 ms] - [INFO] Cell is blank
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 221 [735 ms] - [INFO] Cell is blank
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 221 [735 ms] - [INFO] Cell is blank
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueN
+2017-03-06 10:46:41 [INFO] Utility.java xlRead 221 [735 ms] - [INFO] Cell is blank
+2017-03-06 10:46:41 [INFO] Utility.java Browser 117 [767 ms] - Opening Browser :CHROME
+2017-03-06 10:47:15 [INFO] NewAccount.java newaccount 118 [34916 ms] - Pass - Objective page displayed
+2017-03-06 10:47:15 [INFO] Utility.java xlwrite 239 [34917 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:47:15 [INFO] NewAccount.java newaccount 161 [35084 ms] - End of Loop for data TC001
+2017-03-06 10:55:35 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [719 ms] - [INFO]cell valueTCID
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [729 ms] - [INFO]cell valuevURL
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [729 ms] - [INFO]cell valueBrowser
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [729 ms] - [INFO]cell valueUsername
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuepassword
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueinvestingfor
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueage
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuestatus
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueretireage
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueExecute
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueResults
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueTC001
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueCHROME
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell value2500.0
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueRetirement
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell value40
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueNot Retired
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell value70
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueY
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 221 [730 ms] - [INFO] Cell is blank
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueTC002
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueCHROME
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueDefault123!
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 221 [730 ms] - [INFO] Cell is blank
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 221 [730 ms] - [INFO] Cell is blank
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 221 [730 ms] - [INFO] Cell is blank
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 221 [730 ms] - [INFO] Cell is blank
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 221 [730 ms] - [INFO] Cell is blank
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueN
+2017-03-06 10:55:36 [INFO] Utility.java xlRead 221 [730 ms] - [INFO] Cell is blank
+2017-03-06 10:55:36 [INFO] Utility.java Browser 117 [746 ms] - Opening Browser :CHROME
+2017-03-06 10:56:13 [INFO] NewAccount.java newaccount 118 [37650 ms] - Pass - Objective page displayed
+2017-03-06 10:56:13 [INFO] Utility.java xlwrite 239 [37651 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 10:56:13 [INFO] NewAccount.java newaccount 161 [37819 ms] - End of Loop for data TC001
+2017-03-06 11:12:45 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [782 ms] - [INFO]cell valueTCID
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [784 ms] - [INFO]cell valuevURL
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [784 ms] - [INFO]cell valueBrowser
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [784 ms] - [INFO]cell valueUsername
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valuepassword
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueinvestingfor
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueage
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valuestatus
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueretireage
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueExecute
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueResults
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueTC001
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueCHROME
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell value2500.0
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueRetirement
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell value40
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueNot Retired
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell value70
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueY
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 221 [785 ms] - [INFO] Cell is blank
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueTC002
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueCHROME
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 221 [785 ms] - [INFO] Cell is blank
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 221 [785 ms] - [INFO] Cell is blank
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 221 [785 ms] - [INFO] Cell is blank
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 221 [785 ms] - [INFO] Cell is blank
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 221 [785 ms] - [INFO] Cell is blank
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 214 [785 ms] - [INFO]cell valueN
+2017-03-06 11:12:46 [INFO] Utility.java xlRead 221 [785 ms] - [INFO] Cell is blank
+2017-03-06 11:12:46 [INFO] Utility.java Browser 117 [801 ms] - Opening Browser :CHROME
+2017-03-06 11:13:22 [INFO] NewAccount.java newaccount 118 [36389 ms] - Pass - Objective page displayed
+2017-03-06 11:13:22 [INFO] Utility.java xlwrite 239 [36390 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 11:13:22 [INFO] NewAccount.java newaccount 161 [36572 ms] - End of Loop for data TC001
+2017-03-06 11:14:44 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [720 ms] - [INFO]cell valueTCID
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuevURL
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueBrowser
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueUsername
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuepassword
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueinvestingfor
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueage
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuestatus
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueretireage
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueExecute
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueResults
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueTC001
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueCHROME
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell value2500.0
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueRetirement
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell value40
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueNot Retired
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell value70
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueY
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueTC002
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueCHROME
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueN
+2017-03-06 11:14:45 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:14:45 [INFO] Utility.java Browser 117 [763 ms] - Opening Browser :CHROME
+2017-03-06 11:15:21 [INFO] NewAccount.java newaccount 118 [36495 ms] - Pass - Objective page displayed
+2017-03-06 11:15:21 [INFO] Utility.java xlwrite 239 [36496 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 11:15:21 [INFO] NewAccount.java newaccount 161 [36656 ms] - End of Loop for data TC001
+2017-03-06 11:15:40 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueTCID
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [736 ms] - [INFO]cell valuevURL
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [736 ms] - [INFO]cell valueBrowser
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [736 ms] - [INFO]cell valueUsername
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valuepassword
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueinvestingfor
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueage
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valuestatus
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueretireage
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueExecute
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueResults
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueTC001
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueCHROME
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell value2500.0
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueRetirement
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell value40
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueNot Retired
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell value70
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueY
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 221 [737 ms] - [INFO] Cell is blank
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueTC002
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueCHROME
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 221 [737 ms] - [INFO] Cell is blank
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 221 [737 ms] - [INFO] Cell is blank
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 221 [737 ms] - [INFO] Cell is blank
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 221 [737 ms] - [INFO] Cell is blank
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 221 [737 ms] - [INFO] Cell is blank
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 214 [737 ms] - [INFO]cell valueN
+2017-03-06 11:15:41 [INFO] Utility.java xlRead 221 [737 ms] - [INFO] Cell is blank
+2017-03-06 11:15:41 [INFO] Utility.java Browser 117 [753 ms] - Opening Browser :CHROME
+2017-03-06 11:16:19 [INFO] NewAccount.java newaccount 118 [39283 ms] - Pass - Objective page displayed
+2017-03-06 11:16:19 [INFO] Utility.java xlwrite 239 [39284 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 11:16:20 [INFO] NewAccount.java newaccount 161 [39446 ms] - End of Loop for data TC001
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [715 ms] - [INFO]cell valueTCID
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuevURL
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueBrowser
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valueUsername
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [730 ms] - [INFO]cell valuepassword
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueinvestingfor
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueage
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuestatus
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueretireage
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueExecute
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueResults
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueTC001
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueCHROME
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell value2500.0
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueRetirement
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell value40
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueNot Retired
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell value70
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueY
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueTC002
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueCHROME
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 214 [731 ms] - [INFO]cell valueN
+2017-03-06 11:16:49 [INFO] Utility.java xlRead 221 [731 ms] - [INFO] Cell is blank
+2017-03-06 11:16:49 [INFO] Utility.java Browser 117 [747 ms] - Opening Browser :CHROME
+2017-03-06 11:17:23 [INFO] NewAccount.java newaccount 118 [33930 ms] - Pass - Objective page displayed
+2017-03-06 11:17:23 [INFO] Utility.java xlwrite 239 [33931 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 11:17:23 [INFO] NewAccount.java newaccount 161 [34098 ms] - End of Loop for data TC001
+2017-03-06 11:17:45 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [719 ms] - [INFO]cell valueTCID
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [732 ms] - [INFO]cell valuevURL
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [732 ms] - [INFO]cell valueBrowser
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueUsername
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valuepassword
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueinvestingfor
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueage
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valuestatus
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueretireage
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueExecute
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueResults
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueTC001
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueCHROME
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell value2500.0
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueRetirement
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell value40
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueNot Retired
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell value70
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueY
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 221 [734 ms] - [INFO] Cell is blank
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueTC002
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueCHROME
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 221 [734 ms] - [INFO] Cell is blank
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 221 [734 ms] - [INFO] Cell is blank
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 221 [734 ms] - [INFO] Cell is blank
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 221 [734 ms] - [INFO] Cell is blank
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 221 [734 ms] - [INFO] Cell is blank
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 214 [734 ms] - [INFO]cell valueN
+2017-03-06 11:17:46 [INFO] Utility.java xlRead 221 [734 ms] - [INFO] Cell is blank
+2017-03-06 11:17:46 [INFO] Utility.java Browser 117 [765 ms] - Opening Browser :CHROME
+2017-03-06 11:18:21 [INFO] NewAccount.java newaccount 118 [35763 ms] - Pass - Objective page displayed
+2017-03-06 11:18:21 [INFO] Utility.java xlwrite 239 [35764 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 11:18:21 [INFO] NewAccount.java newaccount 161 [35936 ms] - End of Loop for data TC001
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valueTCID
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [735 ms] - [INFO]cell valuevURL
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [744 ms] - [INFO]cell valueBrowser
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [744 ms] - [INFO]cell valueUsername
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valuepassword
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueinvestingfor
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueage
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valuestatus
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueretireage
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueExecute
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueResults
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueTC001
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueCHROME
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell value2500.0
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueRetirement
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell value40
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueNot Retired
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell value70
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueY
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 221 [745 ms] - [INFO] Cell is blank
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueTC002
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueCHROME
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueDefault123!
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 221 [745 ms] - [INFO] Cell is blank
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 221 [745 ms] - [INFO] Cell is blank
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 221 [745 ms] - [INFO] Cell is blank
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 221 [745 ms] - [INFO] Cell is blank
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 221 [745 ms] - [INFO] Cell is blank
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 214 [745 ms] - [INFO]cell valueN
+2017-03-06 11:21:03 [INFO] Utility.java xlRead 221 [745 ms] - [INFO] Cell is blank
+2017-03-06 11:21:03 [INFO] Utility.java Browser 117 [760 ms] - Opening Browser :CHROME
+2017-03-06 11:21:38 [INFO] NewAccount.java newaccount 118 [35622 ms] - Pass - Objective page displayed
+2017-03-06 11:21:38 [INFO] Utility.java xlwrite 239 [35623 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 11:21:39 [INFO] NewAccount.java newaccount 161 [35793 ms] - End of Loop for data TC001
+2017-03-06 14:12:52 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [890 ms] - [INFO]cell valueTCID
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [900 ms] - [INFO]cell valuevURL
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [900 ms] - [INFO]cell valueBrowser
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueUsername
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valuepassword
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueinvestingfor
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueage
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valuestatus
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueretireage
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueExecute
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueResults
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueTC001
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueCHROME
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueDefault123!
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell value2500.0
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueRetirement
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell value40
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueNot Retired
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell value70
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueY
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 221 [901 ms] - [INFO] Cell is blank
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueTC002
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueCHROME
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [901 ms] - [INFO]cell valueDefault123!
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 221 [901 ms] - [INFO] Cell is blank
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 221 [916 ms] - [INFO] Cell is blank
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 221 [916 ms] - [INFO] Cell is blank
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 221 [916 ms] - [INFO] Cell is blank
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 221 [916 ms] - [INFO] Cell is blank
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 214 [916 ms] - [INFO]cell valueN
+2017-03-06 14:12:53 [INFO] Utility.java xlRead 221 [916 ms] - [INFO] Cell is blank
+2017-03-06 14:12:53 [INFO] Utility.java Browser 117 [932 ms] - Opening Browser :CHROME
+2017-03-06 14:13:28 [INFO] NewAccount.java newaccount 118 [36737 ms] - Pass - Objective page displayed
+2017-03-06 14:13:30 [ERROR] NewAccount.java newaccount 167 [38140 ms] - An exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id='ceForm:j_idt131']/img"}
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 52 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.50.1', revision: 'd7fc91b29de65b790abb01f3ac5f7ea2191c88a7', time: '2016-01-29 11:11:26'
+System info: host: 'MINDLAPD-31', ip: '192.168.5.85', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_121'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9), userDataDir=C:\Users\1937\AppData\Local\Temp\scoped_dir11848_13831}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}]
+Session ID: e58cd436bca2bdad901ae09929a206bb
+*** Element info: {Using=xpath, value=//*[@id='ceForm:j_idt131']/img}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at com.automation.testscripts.Invessence.NewAccount.newaccount(NewAccount.java:128)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2017-03-06 14:13:30 [INFO] Utility.java xlwrite 239 [38142 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 14:13:30 [INFO] NewAccount.java newaccount 170 [38345 ms] - End of Loop for data TC001
+2017-03-06 14:14:32 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [750 ms] - [INFO]cell valueTCID
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [759 ms] - [INFO]cell valuevURL
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [759 ms] - [INFO]cell valueBrowser
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueUsername
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valuepassword
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueinvestingfor
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueage
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valuestatus
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueretireage
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueExecute
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueResults
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueTC001
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueCHROME
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueDefault123!
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell value2500.0
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueRetirement
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell value40
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueNot Retired
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell value70
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueY
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 221 [760 ms] - [INFO] Cell is blank
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueTC002
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueCHROME
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueDefault123!
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 221 [760 ms] - [INFO] Cell is blank
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 221 [760 ms] - [INFO] Cell is blank
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 221 [760 ms] - [INFO] Cell is blank
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 221 [760 ms] - [INFO] Cell is blank
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 221 [760 ms] - [INFO] Cell is blank
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 214 [760 ms] - [INFO]cell valueN
+2017-03-06 14:14:33 [INFO] Utility.java xlRead 221 [760 ms] - [INFO] Cell is blank
+2017-03-06 14:14:33 [INFO] Utility.java Browser 117 [791 ms] - Opening Browser :CHROME
+2017-03-06 14:15:04 [INFO] NewAccount.java newaccount 118 [31545 ms] - Pass - Objective page displayed
+2017-03-06 14:15:11 [INFO] NewAccount.java newaccount 142 [38497 ms] - Pass -New account is created
+2017-03-06 14:15:11 [INFO] Utility.java xlwrite 239 [38497 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 14:15:11 [INFO] NewAccount.java newaccount 161 [38653 ms] - End of Loop for data TC001
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [844 ms] - [INFO]cell valueTCID
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [844 ms] - [INFO]cell valuevURL
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [844 ms] - [INFO]cell valueBrowser
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [844 ms] - [INFO]cell valueUsername
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [844 ms] - [INFO]cell valuepassword
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [844 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueage
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valuestatus
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueretireage
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueExecute
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueResults
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueTC001
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueCHROME
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell value2500.0
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueRetirement
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell value40
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell value70
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueY
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 221 [859 ms] - [INFO] Cell is blank
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueTC002
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueCHROME
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 221 [859 ms] - [INFO] Cell is blank
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 221 [859 ms] - [INFO] Cell is blank
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 221 [859 ms] - [INFO] Cell is blank
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 221 [859 ms] - [INFO] Cell is blank
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 221 [859 ms] - [INFO] Cell is blank
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 214 [859 ms] - [INFO]cell valueN
+2017-03-06 16:19:02 [INFO] Utility.java xlRead 221 [859 ms] - [INFO] Cell is blank
+2017-03-06 16:19:03 [INFO] Utility.java Browser 117 [891 ms] - Opening Browser :CHROME
+2017-03-06 16:19:13 [ERROR] NewAccount.java newaccount 164 [11368 ms] - An exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id='j_username']"}
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 49 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.50.1', revision: 'd7fc91b29de65b790abb01f3ac5f7ea2191c88a7', time: '2016-01-29 11:11:26'
+System info: host: 'MINDLAPD-31', ip: '192.168.5.85', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_121'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9), userDataDir=C:\Users\1937\AppData\Local\Temp\scoped_dir13620_12893}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}]
+Session ID: 636b88a64c87072d90cc01a60fd73db8
+*** Element info: {Using=xpath, value=//*[@id='j_username']}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at com.automation.testscripts.Utility.Invessence_Utility.login(Invessence_Utility.java:60)
+	at com.automation.testscripts.Invessence.NewAccount.newaccount(NewAccount.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2017-03-06 16:19:13 [INFO] Utility.java xlwrite 239 [11370 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 16:19:13 [INFO] NewAccount.java newaccount 167 [11550 ms] - End of Loop for data TC001
+2017-03-06 16:22:07 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [969 ms] - [INFO]cell valueTCID
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [982 ms] - [INFO]cell valuevURL
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [982 ms] - [INFO]cell valueBrowser
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueUsername
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valuepassword
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueage
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valuestatus
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueretireage
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueExecute
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueResults
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueTC001
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueCHROME
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell value2500.0
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueRetirement
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell value40
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell value70
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueY
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 221 [983 ms] - [INFO] Cell is blank
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueTC002
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueCHROME
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 221 [983 ms] - [INFO] Cell is blank
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 221 [983 ms] - [INFO] Cell is blank
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 221 [983 ms] - [INFO] Cell is blank
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 221 [983 ms] - [INFO] Cell is blank
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 221 [983 ms] - [INFO] Cell is blank
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 214 [983 ms] - [INFO]cell valueN
+2017-03-06 16:22:08 [INFO] Utility.java xlRead 221 [983 ms] - [INFO] Cell is blank
+2017-03-06 16:22:08 [INFO] Utility.java Browser 117 [1014 ms] - Opening Browser :CHROME
+2017-03-06 16:22:19 [ERROR] NewAccount.java newaccount 167 [11296 ms] - An exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id='j_username']"}
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 51 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.50.1', revision: 'd7fc91b29de65b790abb01f3ac5f7ea2191c88a7', time: '2016-01-29 11:11:26'
+System info: host: 'MINDLAPD-31', ip: '192.168.5.85', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_121'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9), userDataDir=C:\Users\1937\AppData\Local\Temp\scoped_dir7348_16826}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}]
+Session ID: 505d5fd74495eb70a5baa0d7c110fdce
+*** Element info: {Using=xpath, value=//*[@id='j_username']}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at com.automation.testscripts.Utility.Invessence_Utility.login(Invessence_Utility.java:60)
+	at com.automation.testscripts.Invessence.NewAccount.newaccount(NewAccount.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2017-03-06 16:22:19 [INFO] Utility.java xlwrite 239 [11296 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 16:22:19 [INFO] NewAccount.java newaccount 170 [11491 ms] - End of Loop for data TC001
+2017-03-06 16:22:56 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valueTCID
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valuevURL
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valueBrowser
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valueUsername
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valuepassword
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [891 ms] - [INFO]cell valueage
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [892 ms] - [INFO]cell valuestatus
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [892 ms] - [INFO]cell valueretireage
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueExecute
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueResults
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueTC001
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueCHROME
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell value2500.0
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueRetirement
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell value40
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell value70
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueY
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueTC002
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueCHROME
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueN
+2017-03-06 16:22:57 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:22:57 [INFO] Utility.java Browser 117 [909 ms] - Opening Browser :CHROME
+2017-03-06 16:23:24 [ERROR] NewAccount.java newaccount 168 [28058 ms] - An exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id='j_username']"}
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 62 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.50.1', revision: 'd7fc91b29de65b790abb01f3ac5f7ea2191c88a7', time: '2016-01-29 11:11:26'
+System info: host: 'MINDLAPD-31', ip: '192.168.5.85', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_121'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9), userDataDir=C:\Users\1937\AppData\Local\Temp\scoped_dir11908_13254}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}]
+Session ID: 348a3be87dbef8d14c2c105571fbd2ea
+*** Element info: {Using=xpath, value=//*[@id='j_username']}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at com.automation.testscripts.Utility.Invessence_Utility.login(Invessence_Utility.java:60)
+	at com.automation.testscripts.Invessence.NewAccount.newaccount(NewAccount.java:83)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2017-03-06 16:23:24 [INFO] Utility.java xlwrite 239 [28058 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 16:23:25 [INFO] NewAccount.java newaccount 171 [28230 ms] - End of Loop for data TC001
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [875 ms] - [INFO]cell valueTCID
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [882 ms] - [INFO]cell valuevURL
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [882 ms] - [INFO]cell valueBrowser
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [882 ms] - [INFO]cell valueUsername
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valuepassword
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueage
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valuestatus
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueretireage
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueExecute
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueResults
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueTC001
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueCHROME
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell value2500.0
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueRetirement
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell value40
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell value70
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueY
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 221 [883 ms] - [INFO] Cell is blank
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueTC002
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueCHROME
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 221 [883 ms] - [INFO] Cell is blank
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 221 [883 ms] - [INFO] Cell is blank
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 221 [883 ms] - [INFO] Cell is blank
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 221 [883 ms] - [INFO] Cell is blank
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 221 [883 ms] - [INFO] Cell is blank
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 214 [883 ms] - [INFO]cell valueN
+2017-03-06 16:25:29 [INFO] Utility.java xlRead 221 [883 ms] - [INFO] Cell is blank
+2017-03-06 16:25:29 [INFO] Utility.java Browser 117 [914 ms] - Opening Browser :CHROME
+2017-03-06 16:26:04 [ERROR] NewAccount.java newaccount 170 [35413 ms] - An exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id='ceForm:initialIid_input']"}
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 63 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.50.1', revision: 'd7fc91b29de65b790abb01f3ac5f7ea2191c88a7', time: '2016-01-29 11:11:26'
+System info: host: 'MINDLAPD-31', ip: '192.168.5.85', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_121'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9), userDataDir=C:\Users\1937\AppData\Local\Temp\scoped_dir11368_30211}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}]
+Session ID: 04605b3342a15a10f6b02094434353d3
+*** Element info: {Using=xpath, value=//*[@id='ceForm:initialIid_input']}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at com.automation.testscripts.Invessence.NewAccount.newaccount(NewAccount.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2017-03-06 16:26:04 [INFO] Utility.java xlwrite 239 [35413 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 16:26:04 [INFO] NewAccount.java newaccount 173 [35585 ms] - End of Loop for data TC001
+2017-03-06 16:29:33 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1003 ms] - [INFO]cell valueTCID
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1019 ms] - [INFO]cell valuevURL
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueBrowser
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueUsername
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valuepassword
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueage
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valuestatus
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueretireage
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueExecute
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueResults
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueTC001
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueCHROME
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell value2500.0
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueRetirement
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell value40
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell value70
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueY
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 221 [1020 ms] - [INFO] Cell is blank
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueTC002
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valueCHROME
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1020 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1036 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 221 [1036 ms] - [INFO] Cell is blank
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 221 [1036 ms] - [INFO] Cell is blank
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 221 [1036 ms] - [INFO] Cell is blank
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 221 [1036 ms] - [INFO] Cell is blank
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 221 [1036 ms] - [INFO] Cell is blank
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 214 [1036 ms] - [INFO]cell valueN
+2017-03-06 16:29:34 [INFO] Utility.java xlRead 221 [1036 ms] - [INFO] Cell is blank
+2017-03-06 16:29:34 [INFO] Utility.java Browser 117 [1051 ms] - Opening Browser :CHROME
+2017-03-06 16:30:11 [ERROR] NewAccount.java newaccount 171 [38226 ms] - An exception occurred: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {"method":"xpath","selector":"//*[@id='menutopbar:j_idt45']/a"}
+  (Session info: chrome=56.0.2924.87)
+  (Driver info: chromedriver=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9),platform=Windows NT 6.3.9600 x86_64) (WARNING: The server did not provide any stacktrace information)
+Command duration or timeout: 62 milliseconds
+For documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html
+Build info: version: '2.50.1', revision: 'd7fc91b29de65b790abb01f3ac5f7ea2191c88a7', time: '2016-01-29 11:11:26'
+System info: host: 'MINDLAPD-31', ip: '192.168.5.85', os.name: 'Windows 8.1', os.arch: 'amd64', os.version: '6.3', java.version: '1.8.0_121'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities [{applicationCacheEnabled=false, rotatable=false, mobileEmulationEnabled=false, networkConnectionEnabled=false, chrome={chromedriverVersion=2.27.440174 (e97a722caafc2d3a8b807ee115bfb307f7d2cfd9), userDataDir=C:\Users\1937\AppData\Local\Temp\scoped_dir12164_8945}, takesHeapSnapshot=true, pageLoadStrategy=normal, databaseEnabled=false, handlesAlerts=true, hasTouchScreen=false, version=56.0.2924.87, platform=WIN8_1, browserConnectionEnabled=false, nativeEvents=true, acceptSslCerts=true, locationContextEnabled=true, webStorageEnabled=true, browserName=chrome, takesScreenshot=true, javascriptEnabled=true, cssSelectorsEnabled=true, unexpectedAlertBehaviour=}]
+Session ID: 8d3c1362daa59405b457c4fdf85425be
+*** Element info: {Using=xpath, value=//*[@id='menutopbar:j_idt45']/a}
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at org.openqa.selenium.remote.ErrorHandler.createThrowable(ErrorHandler.java:206)
+	at org.openqa.selenium.remote.ErrorHandler.throwIfResponseFailed(ErrorHandler.java:158)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:678)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:363)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElementByXPath(RemoteWebDriver.java:500)
+	at org.openqa.selenium.By$ByXPath.findElement(By.java:361)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:355)
+	at com.automation.testscripts.Invessence.NewAccount.newaccount(NewAccount.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:86)
+	at org.testng.internal.Invoker.invokeMethod(Invoker.java:643)
+	at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:820)
+	at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:1128)
+	at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:129)
+	at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:112)
+	at org.testng.TestRunner.privateRun(TestRunner.java:782)
+	at org.testng.TestRunner.run(TestRunner.java:632)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:366)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:361)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:319)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:268)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:86)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1244)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1169)
+	at org.testng.TestNG.run(TestNG.java:1064)
+	at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:132)
+	at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:230)
+	at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:76)
+
+2017-03-06 16:30:11 [INFO] Utility.java xlwrite 239 [38226 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 16:30:11 [INFO] NewAccount.java newaccount 174 [38398 ms] - End of Loop for data TC001
+2017-03-06 16:33:12 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [967 ms] - [INFO]cell valueTCID
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [972 ms] - [INFO]cell valuevURL
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [972 ms] - [INFO]cell valueBrowser
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueUsername
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valuepassword
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueage
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valuestatus
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueretireage
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueExecute
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueResults
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueTC001
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueCHROME
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell value2500.0
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueRetirement
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell value40
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell value70
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueY
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 221 [973 ms] - [INFO] Cell is blank
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueTC002
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueCHROME
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 221 [973 ms] - [INFO] Cell is blank
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 221 [973 ms] - [INFO] Cell is blank
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 221 [973 ms] - [INFO] Cell is blank
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 221 [973 ms] - [INFO] Cell is blank
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 221 [973 ms] - [INFO] Cell is blank
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 214 [973 ms] - [INFO]cell valueN
+2017-03-06 16:33:13 [INFO] Utility.java xlRead 221 [989 ms] - [INFO] Cell is blank
+2017-03-06 16:33:13 [INFO] Utility.java Browser 117 [1004 ms] - Opening Browser :CHROME
+2017-03-06 16:34:27 [INFO] NewAccount.java newaccount 123 [74656 ms] - Pass - Objective page displayed
+2017-03-06 16:39:13 [INFO] ? newaccount ? [361160 ms] - Pass -New account is created
+2017-03-06 16:39:13 [INFO] Utility.java xlwrite 239 [361161 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 16:39:14 [INFO] ? newaccount ? [361348 ms] - End of Loop for data TC001
+2017-03-06 16:41:40 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueTCID
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valuevURL
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueBrowser
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueUsername
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valuepassword
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueage
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valuestatus
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueretireage
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueExecute
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueResults
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueTC001
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valueCHROME
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [869 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell value2500.0
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueRetirement
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell value40
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell value70
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueY
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 221 [885 ms] - [INFO] Cell is blank
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueTC002
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueCHROME
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 221 [885 ms] - [INFO] Cell is blank
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 221 [885 ms] - [INFO] Cell is blank
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 221 [885 ms] - [INFO] Cell is blank
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 221 [885 ms] - [INFO] Cell is blank
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 221 [885 ms] - [INFO] Cell is blank
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 214 [885 ms] - [INFO]cell valueN
+2017-03-06 16:41:41 [INFO] Utility.java xlRead 221 [885 ms] - [INFO] Cell is blank
+2017-03-06 16:41:41 [INFO] Utility.java Browser 117 [900 ms] - Opening Browser :CHROME
+2017-03-06 16:42:27 [INFO] NewAccount.java newaccount 123 [47298 ms] - Pass - Objective page displayed
+2017-03-06 16:45:43 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [888 ms] - [INFO]cell valueTCID
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [892 ms] - [INFO]cell valuevURL
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueBrowser
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueUsername
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuepassword
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueinvestingfor
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueage
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuestatus
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueretireage
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueExecute
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueResults
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueTC001
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueCHROME
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell value2500.0
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueRetirement
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell value40
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueNot Retired
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell value70
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueY
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 221 [893 ms] - [INFO] Cell is blank
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [893 ms] - [INFO]cell valueTC002
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [909 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [909 ms] - [INFO]cell valueCHROME
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [909 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [909 ms] - [INFO]cell valueDefault123!
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 221 [909 ms] - [INFO] Cell is blank
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 221 [909 ms] - [INFO] Cell is blank
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 221 [909 ms] - [INFO] Cell is blank
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 221 [909 ms] - [INFO] Cell is blank
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 221 [909 ms] - [INFO] Cell is blank
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 214 [909 ms] - [INFO]cell valueN
+2017-03-06 16:45:44 [INFO] Utility.java xlRead 221 [909 ms] - [INFO] Cell is blank
+2017-03-06 16:45:44 [INFO] Utility.java Browser 117 [924 ms] - Opening Browser :CHROME
+2017-03-06 16:46:29 [INFO] NewAccount.java newaccount 123 [46640 ms] - Pass - Objective page displayed
+2017-03-06 16:46:51 [INFO] NewAccount.java newaccount 148 [68016 ms] - Pass -New account is created
+2017-03-06 16:47:09 [INFO] Utility.java xlwrite 239 [86175 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 16:47:10 [INFO] NewAccount.java newaccount 167 [87112 ms] - End of Loop for data TC001
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 167 [0 ms] - Reading Input data from excelSheet :TestCases\TestData_Invessence_BB_NewAccount.xlsx
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [766 ms] - [INFO]cell valueTCID
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [776 ms] - [INFO]cell valuevURL
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [776 ms] - [INFO]cell valueBrowser
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueUsername
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valuepassword
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueinvestmentamount
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueinvestingfor
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueage
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valuestatus
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueretireage
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueExecute
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueResults
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueTC001
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/demo.xhtml
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueCHROME
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueDefault123!
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell value2500.0
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueRetirement
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell value40
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueNot Retired
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell value70
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueY
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 221 [777 ms] - [INFO] Cell is blank
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueTC002
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valuehttp://uat.invessence.com:8080/login.xhtml
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueCHROME
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valuetest.mindcraft
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueDefault123!
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 221 [777 ms] - [INFO] Cell is blank
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 221 [777 ms] - [INFO] Cell is blank
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 221 [777 ms] - [INFO] Cell is blank
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 221 [777 ms] - [INFO] Cell is blank
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 221 [777 ms] - [INFO] Cell is blank
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 214 [777 ms] - [INFO]cell valueN
+2017-03-06 17:01:45 [INFO] Utility.java xlRead 221 [777 ms] - [INFO] Cell is blank
+2017-03-06 17:01:45 [INFO] Utility.java Browser 117 [808 ms] - Opening Browser :CHROME
+2017-03-06 17:02:32 [INFO] Invessence_Utility.java portfoliocreation 113 [47078 ms] - Pass - Objective page displayed
+2017-03-06 17:02:38 [INFO] Invessence_Utility.java portfoliocreation 136 [53870 ms] - Pass -New account is created
+2017-03-06 17:02:38 [INFO] Utility.java xlwrite 239 [53878 ms] - Writing Results to excel sheet: TestResults\TestResults_2017_03_06\TestResults_NewAccount.xls
+2017-03-06 17:02:39 [INFO] NewAccount.java newaccount 94 [54004 ms] - End of Loop for data TC001
