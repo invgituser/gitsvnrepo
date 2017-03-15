@@ -1312,3 +1312,37 @@ background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln
 	border-radius: 0px!important;
 	background-color: #009abb!important;
 }
+
+
+.multiSelectionDropdown {
+	border-radius: 30px!important;
+	border: 2px solid #009abb!important;
+}
+
+.multiSelectionDropdown > .ui-selectcheckboxmenu-label-container > label {
+	border-radius: 30px;
+	background: #f5f5f5;
+	font-size: 13px;
+	color: #6088b2;
+	padding: 8px 10px 8px 15px!important;
+	width: 85%;
+}
+
+.multiSelectionDropdown > .ui-selectcheckboxmenu-trigger {
+	background: none;
+	border-radius: 30px!important;
+}
+
+.multiSelectionDropdown > .ui-selectcheckboxmenu-trigger > span {
+	background-image: url(/javax.faces.resource/images/down.png.xhtml?ln=tcm)!important;
+	background-size: 80% 70%;
+	margin-top: 7px!important;
+}
+
+.margintoptrade {
+	margin-top: 19px;
+}
+
+.ui-selectcheckboxmenu-panel {
+	border:0px!important;
+}

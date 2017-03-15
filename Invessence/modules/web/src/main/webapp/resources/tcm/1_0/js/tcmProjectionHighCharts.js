@@ -64,7 +64,7 @@ $(function ()
                           text: '',
                           style: {
                               fontSize: '10px',
-                              fontFamily: 'Verdana, sans-serif',
+                              fontFamily: 'Helvetica',
                               fontWeight: 'bold',
                               backgroundColor: '#808080'
                           }
@@ -135,7 +135,7 @@ $(function ()
                   series: [
                       {
 
-                          name: 'Average market performance',
+                          name: 'Average Market Performance',
                           fontWeight: 'normal',
                           lineColor: '#4d0000',
                           color: '#4d0000',
@@ -145,7 +145,7 @@ $(function ()
                           zIndex: 3,
                       },
                       {
-                          name: '50% probability range',
+                          name: '50% Probability Range',
                           fontWeight: 'normal',
                           data: $.parseJSON(chartValue).goalLowerValue,
                           type: 'areasplinerange',
@@ -157,7 +157,7 @@ $(function ()
                           enableMouseTracking: false,
                       },
                       {
-                          name: '95% probability range',
+                          name: '95% Probability Range',
                           fontWeight: 'normal',
                           data: $.parseJSON(chartValue).goalUpperValue,
                           type: 'areasplinerange',

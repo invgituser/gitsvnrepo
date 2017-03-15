@@ -22,15 +22,21 @@
 <p:tab title="Trade">
     <p:panelGrid id="rebalgrid2" styleClass="invNBgrid">
         <div class="Container100">
-            <div class="Fleft filterMBBlock">
-                <p:menuButton value="Options" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
+            <div class="Fleft filterMBBlock margintoptrade">
+                <!--<p:menuButton value="Options" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
 
                     <p:menuitem value="View" itemValue="V" />
                     <p:menuitem value="Date" itemValue="D"/>
                     <p:menuitem value="Variance" itemValue="O"/>
                     <p:menuitem value="New" itemValue="N"/>
-                </p:menuButton>
-
+                </p:menuButton>-->
+                <p:selectCheckboxMenu label="Filter"
+                                      filter="false" styleClass="multiSelectionDropdown" panelStyle="width:250px">
+                    <f:selectItems value="New" />
+                    <f:selectItems value="View" />
+                    <f:selectItems value="Date" />
+                    <f:selectItems value="Variance" />
+                </p:selectCheckboxMenu>
 
                 <p:commandButton styleClass="advButton" value="Reload"
                                  process="@form" update="rebalgrid2"
@@ -160,14 +166,21 @@
 <p:tab title="Review">
     <p:panelGrid id="validategrid2" styleClass="invNBgrid">
         <div class="Container100">
-            <div class="Fleft filterMBBlock">
-                <p:menuButton value="Options" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
+            <div class="Fleft filterMBBlock margintoptrade">
+                <!--<p:menuButton value="Options" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
 
                     <p:menuitem value="View" itemValue="V" />
                     <p:menuitem value="Date" itemValue="D"/>
                     <p:menuitem value="Variance" itemValue="O"/>
                     <p:menuitem value="New" itemValue="N"/>
-                </p:menuButton>
+                </p:menuButton>-->
+                <p:selectCheckboxMenu label="Options"
+                                      filter="false" styleClass="multiSelectionDropdown" panelStyle="width:250px">
+                    <f:selectItems value="View" />
+                    <f:selectItems value="Date" />
+                    <f:selectItems value="Variance" />
+                    <f:selectItems value="New" />
+                </p:selectCheckboxMenu>
 
                 <p:commandButton styleClass="advButton" value="Reload"
                                  process="@form" update="rebalgrid2"

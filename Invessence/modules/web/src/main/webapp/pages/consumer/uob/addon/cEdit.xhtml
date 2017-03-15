@@ -12,6 +12,7 @@
                     <f:param name="mode" value="'show'" />
                 </p:effect>
             </p:commandButton>
+            <div class="ftBtnLabel">Fine Tune</div>
         </div>
         <p:panel id="abc" styleClass="fineTuneBlock" style="display: none;">
             <div class="Container100 FTLabel">
@@ -22,6 +23,7 @@
                             <f:param name="mode" value="'hide'" />
                         </p:effect>
                     </p:commandButton>
+
                 </div>
             </div>
             <div class="Fs13 fineTuneDetail">
@@ -201,7 +203,14 @@
                         </div>
                     </div>
                     <div class="Wid35 Fright RiskValuePanel">
-                        <div class="Wid100 IRLabel">Investment Risk</div>
+                        <div class="Wid100 IRLabel">
+                            <h:outputLink id="IRinfoPOP" value="#" style="color:#000000!important;">
+                                <i class="fa fa-info-circle" style="padding-right: 5px;"></i>Investment Risk
+                            </h:outputLink></div>
+                        <p:tooltip for="IRinfoPOP" value="Investment risk or volatility of a portfolio is a statistical measure
+                        of the dispersion of returns for a given portfolio. Volatility can be measured by using the standard deviation
+                        of returns of the portfolio. Commonly, the higher the volatility, the riskier the portfolio. Example, volatility of
+                         Singapore Government Bonds could be 1.58% vs. Singapore Equities could be as high as 17%." position="bottom"/>
                         <div class="Wid100 IRCount">
                             <h:outputText value="#{uobpb.totalRisk}">
                                 <f:convertNumber pattern="##0.00%" />

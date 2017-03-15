@@ -1114,7 +1114,7 @@ hr.ui-widget-header{background-color: #E5EBF0; border-width:0px;}
         .ui-tabs-top .ui-tabs-nav li.ui-tabs-selected a,
         .ui-tabs-top .ui-tabs-nav li.ui-tabs-active a,
         .ui-tabs-top .ui-tabs-nav li.ui-state-hover a{color: #5FCF80;}
-    .ui-tabs-top .ui-tabs-panels{ background-color:transparent; margin:-1px 0px 3px 0px; border: solid 1px #FBFCFD; color: #778D9B; background-image: none !important;}
+    .ui-tabs-top .ui-tabs-panels{ background-color:transparent; margin:-1px 0px 3px 0px; border: solid 0px #FBFCFD; color: #778D9B; background-image: none !important;}
     .ui-tabs-panels{font-size:15px;}
         .ui-tabs-top .ui-tabs-panels .ui-ribbon-groups{background-color:transparent; background: none; filter:none !important;}
         .ui-tabs-top .ui-tabs-panels .ui-tabs-panel{background-image:none !important;}
