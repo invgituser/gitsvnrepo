@@ -56,11 +56,14 @@ public class runStoredProc  {
 				if (i == 0) {
 					i = i + 1;
 				}
-				String accountnumber = "2257";
+				String accountnumber = "2893";
 			    String Amount = "50000";
-				String spname = "testing.sp_emulate_td_activateaccount(accountnumber,Amount)";
-				DBConnection.runProcedure(dbURL,dbusername,dbpassword,spname);
-				String sqlQuery = "select status from invdb.ext_acct_info where acctnum='2257';";
+			    String spopenacct = "testing.sp_emulate_td_openaccount("+accountnumber+")";
+				String spactivateacct = "testing.sp_emulate_td_activateaccount("+accountnumber+","+Amount+")";
+				DBConnection.runProcedure(dbURL,dbusername,dbpassword,spopenacct);
+				Thread.sleep(3000);
+				DBConnection.runProcedure(dbURL,dbusername,dbpassword,spactivateacct);
+				String sqlQuery = "select status from invdb.ext_acct_info where acctnum="+accountnumber;
 				String[] status = DBConnection.selectDataFromDB(dbURL,dbusername,dbpassword,sqlQuery);
 				System.out.println(status);
 				if (status.equals("A")) 

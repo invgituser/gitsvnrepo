@@ -27,22 +27,10 @@ public class DBConnection
 		try{
 				Thread.sleep(100);	
 				
-			//Connection URL Syntax: "jdbc:mysql://ipaddress:portnumber/db_name"		
-		   // String dbUrl = "jdbc:mysql://preuat.invessence.com:3306/PREUAT-WEBUSER";					
-		
-			//Database Username		
-		//	username = "webuser";	
-		    
-			//Database Password		
-		//	password = "inv3ss3nc3u530n1y";				
-		
-			//Query to Execute		
-		//	sqlQuery = "select clientAccountID from ext_acct_info where acctnum=2257;";	
-		    
-			    //Load mysql jdbc driver		
+			 //Load mysql jdbc driver		
 			    Class.forName("com.mysql.jdbc.Driver").newInstance();		
 		
-				//Create Connection to DB		
+			//Create Connection to DB		
 			Connection con = DriverManager.getConnection(dbUrl,username,password);
 			
 			//Execute the stored Proc

@@ -153,19 +153,19 @@ public class NewPortfolioCreationOpenAccount  {
 							System.out.println("PASS - Account Opening sections Entered Sucessfully");
 							xData[i][47]= "PASS - Account Opening sections Entered Sucessfully";
 							
-							String sqlQuery = "select status from invdb.ext_acct_info where acctnum="+accountnumber;
-							String[] acctstatus = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery);
-							System.out.println(acctstatus);
-							if (acctstatus.equals("O")) 
+							String sqlQuery = "select * from invdb.user_trade_profile  where acctnum="+accountnumber;
+							String[] acctentry = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery);
+							System.out.println(acctentry);
+							if (!acctentry.equals("null"))
 							{
-								System.out.println("Account Satus is :"+acctstatus);
-								log.info("Account Satus is :"+acctstatus);
+								System.out.println("Account TD from is Submitted Sucessfully");
+								log.info("Account TD from is Submitted Sucessfully");
 							
 							}
 							else
 							{
-								System.out.println("Account Satus is :"+acctstatus);
-								log.info("Account Satus is :"+acctstatus);
+								System.out.println("Account TD from Submission failed");
+								log.info("Account TD from Submission failed");
 							}
 							
 							
