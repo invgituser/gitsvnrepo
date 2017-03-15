@@ -856,12 +856,16 @@ a.ui-menuitem-link.ui-corner-all {
 
 .AdvtcmLayoutColumn > span:nth-child(1) {
 	/*color: #000000!important;*/
-	font-size: 13px;
+	font-size: 12px;
 }
 
 thead > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
 	background-size: 85%!important;
 	margin-left: 0px!important;
+}
+
+td, th {
+	font-family: helvetica!important;
 }
 
 tbody > tr > .AdvtcmLayoutColumn > span:nth-child(2) {
@@ -1174,6 +1178,15 @@ background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln
 	font-size: 12px;
 	text-shadow: 0 1px rgba(0,0,0,0.1);
 }
+
+.editAdvButtonIcon > span:nth-child(1) {
+	color: #ffffff!important;
+}
+
+.editAdvButtonIcon > span:nth-child(2) {
+	background-color: #2196F3!important;
+	text-shadow: 0 1px rgba(0,0,0,0.1);
+}
 /***Tabs Customized**/
 
 .AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-selected, .AdvTabNBWidget > .ui-tabs-nav > li.ui-tabs-active, .AdvTabNBWidget > .ui-tabs-nav > li.ui-state-hover {
@@ -1276,4 +1289,26 @@ background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln
 
 .AdvTabNBWidget {
 	background-color: transparent!important;
+}
+
+
+.AdvisorGridtcmLayout.ui-datatable .ui-paginator .ui-paginator-rpp-options.ui-state-hover,
+.AdvisorGridtcmLayout.ui-datatable .ui-paginator .ui-paginator-rpp-options.ui-state-focus,
+.AdvisorGridtcmLayout.ui-datatable .ui-paginator .ui-paginator-rpp-options {
+	color: #009abb!important;
+	background: none!important;
+	border-radius: 30px!important;
+	border: 2px solid #009abb!important;
+	font-family: helvetica!important;
+	font-size: 14px!important;
+}
+
+.ui-datatable .ui-paginator .ui-paginator-first,
+.ui-datatable .ui-paginator .ui-paginator-prev,
+.ui-datatable .ui-paginator .ui-paginator-pages .ui-paginator-page,
+.ui-datatable .ui-paginator .ui-paginator-next,
+.ui-datatable .ui-paginator .ui-paginator-last,
+.ui-datatable .ui-paginator .ui-paginator-rpp-options {
+	border-radius: 0px!important;
+	background-color: #009abb!important;
 }

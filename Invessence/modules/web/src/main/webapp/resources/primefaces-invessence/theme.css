@@ -554,7 +554,7 @@ label{font-weight:normal !important;}
 	.ui-datatable .ui-paginator .ui-paginator-first, .ui-datatable .ui-paginator .ui-paginator-prev,
 	.ui-datatable .ui-paginator .ui-paginator-pages .ui-paginator-page, .ui-datatable .ui-paginator .ui-paginator-next,
 	.ui-datatable .ui-paginator .ui-paginator-last, .ui-datatable .ui-paginator .ui-paginator-rpp-options{font-size:16px; padding:4px 6px; border: solid 1px #778D9B; background-color:#778D9B; font-weight: bold;
-                                 border-radius:5px !important; -webkit-border-radius:5px !important; -moz-border-radius:5px !important; color:#F1F6F9; -webkit-transition: all 0.5s ease;
+                                 border-radius:5px; -webkit-border-radius:5px; -moz-border-radius:5px; color:#F1F6F9; -webkit-transition: all 0.5s ease;
                                  -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
 	.ui-datatable .ui-paginator .ui-paginator-rpp-options{outline:none;}
 	.ui-datatable .ui-paginator .ui-paginator-first .ui-icon{background-image:url("#{resource['primefaces-spark:images/left-double-arrow-for-data.svg']}"); background-position:center !important; background-size:100%; background-repeat:no-repeat;}
@@ -587,7 +587,7 @@ label{font-weight:normal !important;}
         .ui-datatable  table thead tr th .ui-column-customfilter .ui-spinner-button.ui-state-active .ui-icon-triangle-1-n,
         .ui-datatable  table thead tr th .ui-column-customfilter .ui-spinner-button.ui-state-active .ui-icon-triangle-1-s{background-position: center !important; 
                              background-size: 80% !important; margin-left: 12px !important; margin-top: -8px !important;}
-        .ui-datatable table tbody tr td{color:#778D9B; border: solid 1px #D9E3E8; font-size: 14px; font-family: 'ralewayregular';
+        .ui-datatable table tbody tr td{color:#778D9B; border: solid 1px #D9E3E8; font-size: 12px; font-family: 'ralewayregular';
         -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
             /*.ui-datatable table tbody tr td.ui-state-error{border: solid 1px #D9E3E8 !important;}
             .ui-datatable table tbody tr td.ui-state-error .ui-inputfield{border-color:#F03369;} */

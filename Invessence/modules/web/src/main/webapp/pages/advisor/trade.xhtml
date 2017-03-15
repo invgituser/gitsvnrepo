@@ -30,6 +30,8 @@
                     <p:menuitem value="Variance" itemValue="O"/>
                     <p:menuitem value="New" itemValue="N"/>
                 </p:menuButton>
+
+
                 <p:commandButton styleClass="advButton" value="Reload"
                                  process="@form" update="rebalgrid2"
                                  actionListener="#{tradeBean.reloadTradeClient}"/>
@@ -38,12 +40,10 @@
             <div class="Fright" style="margin-top: 9px;">
                 <p:menuButton value="Rebalance" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
 
-                    <p:menuitem value="Individual" itemValue="V" />
+                    <p:menuitem process="@form" update="dataGrid"
+                                actionListener="#{tradeBean.refreshTradeClient}" value="Individual" itemValue="V" />
                     <p:menuitem value="All" itemValue="D"/>
                 </p:menuButton>
-                <!--<p:commandButton styleClass="advButton" value="Rebalance"
-                                 process="@form" update="dataGrid"
-                                 actionListener="#{tradeBean.refreshTradeClient}"/>-->
 
 
             </div>
@@ -58,6 +58,9 @@
                  sortMode="multiple"
                  reflow="true"
                  rowKey="#{filteredData.acctnum}"
+                 paginator="true" rows="10"
+                 rowsPerPageTemplate="5,10,15"
+                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
                  selection="#{tradeBean.selectedClientList}">
         <f:facet name="header" style="text-align: left;">
 
@@ -67,21 +70,21 @@
 
         <p:column styleClass="AdvtcmLayoutColumn" resizable="true">
             <p:commandButton id="editButton"
-                             styleClass="editAdvButton"
+                             styleClass="editAdvButtonIcon"
                              process="@this" immediate="true"
-                             value="Edit"
+                             icon="fa fa-pencil-square-o"
                              action="#{tradeBean.doManagedAction}">
                 <f:setPropertyActionListener value="#{filteredData}"
                                              target="#{tradeBean.selectedClient}"/>
             </p:commandButton>
         </p:column>
 
-        <p:column headerText="InvAcc#" styleClass="AdvtcmLayoutColumn" resizable="true"
+       <!-- <p:column headerText="InvAcc#" styleClass="AdvtcmLayoutColumn" resizable="true"
                   sortBy="#{filteredData.acctnum}">
             #{filteredData.acctnum}
-        </p:column>
+        </p:column>-->
 
-        <p:column headerText="IBAcct#" styleClass="AdvtcmLayoutColumn" resizable="true" style=""
+        <p:column headerText="Account No." styleClass="AdvtcmLayoutColumn" resizable="true" style=""
                   sortBy="#{filteredData.clientAccountID}">
             #{filteredData.clientAccountID}
         </p:column>
@@ -157,12 +160,21 @@
 <p:tab title="Review">
     <p:panelGrid id="validategrid2" styleClass="invNBgrid">
         <div class="Container100">
+            <div class="Fleft filterMBBlock">
+                <p:menuButton value="Options" styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
 
+                    <p:menuitem value="View" itemValue="V" />
+                    <p:menuitem value="Date" itemValue="D"/>
+                    <p:menuitem value="Variance" itemValue="O"/>
+                    <p:menuitem value="New" itemValue="N"/>
+                </p:menuButton>
+
+                <p:commandButton styleClass="advButton" value="Reload"
+                                 process="@form" update="rebalgrid2"
+                                 actionListener="#{tradeBean.reloadTradeClient}"/>
+            </div>
             <div class="Fright" style="margin-top: 9px;">
-                <p:commandButton id="reviewBtn" value="Reload"
-                                 styleClass="advButton"
-                                 process="@form" update="tradeTable"
-                                 actionListener="#{tradeBean.collectTradeSummary}"/>
+
                 <p:commandButton styleClass="advButton" value="Download"/>
             </div>
         </div>
