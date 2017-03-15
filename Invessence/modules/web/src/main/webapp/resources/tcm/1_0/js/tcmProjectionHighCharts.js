@@ -14,7 +14,7 @@ $(function ()
             chartValue = document.getElementById('ceForm:performanceChart').value;
         }
 
-      console.log(chartValue);
+
       //Fetched java beanValueChart in java script
       var maxGraghPlot = parseInt($.parseJSON(chartValue).maxGraghPlot);
       var maxGraghPlot1 = maxGraghPlot + 10000;
@@ -78,7 +78,7 @@ $(function ()
                           },
                           style: {
                               fontSize: '10px',
-                              fontFamily: 'Verdana, sans-serif',
+                              fontFamily: 'Helvetica',
                               fontWeight: 'bold',
                               color: '#808080'
 
@@ -110,7 +110,7 @@ $(function ()
                   tooltip: {
                       style: {
                           fontSize: '10pt',
-                          fontFamily: 'Verdana',
+                          fontFamily: 'Helvetica',
                       },
                       formatter: function ()
                       {
