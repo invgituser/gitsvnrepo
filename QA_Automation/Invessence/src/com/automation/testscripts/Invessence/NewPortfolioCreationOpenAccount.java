@@ -153,19 +153,41 @@ public class NewPortfolioCreationOpenAccount  {
 							System.out.println("PASS - Account Opening sections Entered Sucessfully");
 							xData[i][47]= "PASS - Account Opening sections Entered Sucessfully";
 							
-							String sqlQuery = "select * from invdb.user_trade_profile  where acctnum="+accountnumber;
+							String sqlQuery = "select acctnum from invdb.user_trade_profile  where acctnum="+accountnumber;
 							String[] acctentry = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery);
 							System.out.println(acctentry);
-							if (!acctentry.equals("null"))
+							if (acctentry.equals(accountnumber))
 							{
-								System.out.println("Account TD from is Submitted Sucessfully");
-								log.info("Account TD from is Submitted Sucessfully");
+								System.out.println("Pass -Account TD from is Submitted Sucessfully");
+								log.info("Pass - Account TD from is Submitted Sucessfully");
+								
+								//Emulation of account opening and accoutn activation by running stored procedure
+								
+								String spopenacct = "testing.sp_emulate_td_openaccount("+accountnumber+")";
+								String spactivateacct = "testing.sp_emulate_td_activateaccount("+accountnumber+","+investmentamt+")";
+								DBConnection.runProcedure(dburl,dbusername,dbpassword,spopenacct);
+								Thread.sleep(3000);
+								DBConnection.runProcedure(dburl,dbusername,dbpassword,spactivateacct);
+								String sqlQuery1 = "select status from invdb.ext_acct_info where acctnum="+accountnumber;
+								String[] status1 = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery1);
+								System.out.println(status);
+								if (status.equals("A")) 
+								{
+									System.out.println("Pass- Account is active sucessfully");
+									log.info("Pass -Account is active Sucessfully");
+								
+								}
+								else
+								{
+									System.out.println("Fail- Account activation failed");
+									log.info("Fail - Account is active");
+								}
 							
 							}
 							else
 							{
-								System.out.println("Account TD from Submission failed");
-								log.info("Account TD from Submission failed");
+								System.out.println("Fail - Account TD from Submission failed");
+								log.info("Fail - Account TD from Submission failed");
 							}
 							
 							
