@@ -155,8 +155,9 @@ public class NewPortfolioCreationOpenAccount  {
 							
 							String sqlQuery = "select acctnum from invdb.user_trade_profile  where acctnum="+accountnumber;
 							String[] acctentry = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery);
-							System.out.println(acctentry);
-							if (acctentry.equals(accountnumber))
+							System.out.println(acctentry[0]);
+							xData[i][44]=acctentry[0];
+							if (acctentry[0].equals(accountnumber))
 							{
 								System.out.println("Pass -Account TD from is Submitted Sucessfully");
 								log.info("Pass - Account TD from is Submitted Sucessfully");
@@ -169,10 +170,16 @@ public class NewPortfolioCreationOpenAccount  {
 								DBConnection.runProcedure(dburl,dbusername,dbpassword,spopenacct);
 								Thread.sleep(3000);
 								DBConnection.runProcedure(dburl,dbusername,dbpassword,spactivateacct);
-								String sqlQuery1 = "select status from invdb.ext_acct_info where acctnum="+accountnumber;
-								String[] status1 = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery1);
-								System.out.println(status);
-								if (status.equals("A")) 
+								Thread.sleep(2000);
+								String sqlQuery1 = "select clientAccountID from invdb.ext_acct_info where acctnum="+accountnumber;
+								String[] clientacctnum = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery1);
+								System.out.println(clientacctnum[0]);
+								xData[i][45]=clientacctnum[0];
+								Thread.sleep(2000);
+								String sqlQuery2 = "select status from invdb.ext_acct_info where acctnum="+accountnumber;
+								String[] status2 = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery2);
+								System.out.println(status2[0]);
+								if (status2[0].equals("A")) 
 								{
 									System.out.println("Pass- Account is active sucessfully");
 									log.info("Pass -Account is active Sucessfully");

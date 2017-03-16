@@ -25,8 +25,10 @@ public class DBConnection
 	public static String[]  selectDataFromDB(String dbUrl,String username, String password, String sqlQuery) throws ClassNotFoundException, SQLException
 	{
 		try{
-				Thread.sleep(100);	
-				
+				Thread.sleep(200);	
+				queryResults=null;
+				int columnCount =0;
+				ResultSet records= null;
 			 //Load mysql jdbc driver		
 			    Class.forName("com.mysql.jdbc.Driver").newInstance();		
 		
@@ -36,9 +38,9 @@ public class DBConnection
 			//Execute the stored Proc
 			// Execute the SQL Query. Store results in ResultSet		
 			Statement statement = con.createStatement();
-			ResultSet records= statement.executeQuery(sqlQuery);	
+			 records= statement.executeQuery(sqlQuery);	
 			ResultSetMetaData listOfColumns = records.getMetaData();//to find dynamic number of columns fetched based on  query
-			int columnCount = listOfColumns.getColumnCount();
+			columnCount = listOfColumns.getColumnCount();
 			/*
 			String storedProc = "{call stored_proc()}";
 			statement.execute(storedProc);*/
