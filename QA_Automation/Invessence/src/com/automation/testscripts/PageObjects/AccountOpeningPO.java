@@ -23,7 +23,7 @@ public class AccountOpeningPO {
 	//	Actions builder = new Actions(driver);
 	//	builder.moveToElement(el).click().perform();
 		
-		Thread.sleep(2000);
+		Thread.sleep(4000);
 		driver.findElement(By.id("ctoForm:tdaccordian:tdp0next")).click();
 		Thread.sleep(1000);
 		log.info("Account Type Section entered");

@@ -100,7 +100,7 @@ public class NewPortfolioCreationOpenAccount  {
 					
 					//Portfolio creation
 					driver.findElement(By.xpath("//a[contains(text(), ' New Account')]")).click();
-					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption);
+					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
 						xData[i][13]= "Pass -New Portfolio is created";

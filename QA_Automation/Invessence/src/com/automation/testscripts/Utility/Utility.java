@@ -356,50 +356,6 @@ public class Utility {
 
 		}
 	
-		//Pass a query to delete data from tables in Database
-		
-		public static String[] selectDataFromDB(String dbName,String userName, String password, String sqlQuery, String sqlServerIp) {
-			 try{
-				   // String url = "jdbc:jtds:sqlserver://10.2.1.19:1433" + "/" + dbName; //URL of sql server
-				    String url = "jdbc:jtds:sqlserver://" + sqlServerIp + "/" + dbName; //URL of sql server
-					String sqlServerDriver = "net.sourceforge.jtds.jdbc.Driver"; //Driver for Sql Server databases	
-					Class.forName(sqlServerDriver).newInstance(); //create object of Driver class 
-					Connection conn = null;  //Create object of Connection object 
-				    conn = DriverManager.getConnection(url, userName, password); //connection will be established from this line 
-					System.out.println("DATABASE NAME IS:"  + conn.getMetaData().getDatabaseProductName());
-					Statement sqlStatement = conn.createStatement();
-					ResultSet records = sqlStatement.executeQuery(sqlQuery);
-					ResultSetMetaData listOfColumns = records.getMetaData();//to find dynamic number of columns fetched based on  query
-					int columnCount = listOfColumns.getColumnCount();
-
-					while (records.next()) {
-						for (int i = 1; i < columnCount; i++ ) {
-						  queryResults = new String[columnCount + 1];	
-						  System.out.println("-------"+records.getString(columnCount));
-						  //queryResults = new String[i];
-						  if(queryResults!=null){
-							 // appendValueToArray(queryResults, records.getString(columnCount));
-							  appendValueToArrayNew(queryResults, records.getString(columnCount));
-						  }
-						}
-					}
-					conn.close();
-			  }
-			 catch(Exception e)
-			  {
-				   e.printStackTrace();
-				   System.out.println( "Error connecting to database.  Error: "+e.getMessage());
-			  }
-				return queryResults;	 
-			}
-	
-		private static String[] appendValueToArrayNew(String[] queryResults, String newString) {	
-			String[] newArray = new String[queryResults.length];
-			newArray = queryResults;
-			newArray[queryResults.length - 1] = newString;
-			return newArray;
-		}
-		
 		public static void captureScreenShot(WebDriver driver){
 
 		String	screenshotpath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","screenshot");
@@ -430,4 +386,11 @@ public class Utility {
 			Thread.sleep(1000);	
 		}
 	
+		
+		//Convert String to int
+		public static int stringtoint(String str)
+		{
+			int result = Integer.parseInt(str);
+			return result;
+		}
 }

@@ -5,6 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import com.automation.testscripts.Utility.Utility;
+
 
 
 public class porfoliocreationPO {
@@ -39,20 +41,26 @@ public class porfoliocreationPO {
 		selectobjective.click();
 	}*/
 	
-	public static boolean portfoliocreation(WebDriver driver,String investmentamount,String investmentgoal,String age,String status,String retireage,String objective,String projectionoption) throws InterruptedException
+	public static boolean portfoliocreation(WebDriver driver,String investmentamount,String investmentgoal,String age,String status,String retireage,String objective,String projectionoption,String clientaccountnumber) throws InterruptedException
 	{
 		boolean portfoliocreation=false;
 
 		//New Account start page
 		//
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[@id='ceForm:initialIid_input']")).clear();
-		driver.findElement(By.xpath("//*[@id='ceForm:initialIid_input']")).sendKeys(investmentamount);
-		driver.findElement(By.xpath("//*[@id='ceForm:q3_label']")).click();
-		Thread.sleep(2000);
-		driver.findElement(By.xpath("//li[contains(text(),'"+investmentgoal+"')]")).click();
-		Thread.sleep(2000);	
 		
+		if (clientaccountnumber.isEmpty() || clientaccountnumber.equals("null"))
+			{
+				driver.findElement(By.xpath("//*[@id='ceForm:initialIid_input']")).clear();
+				driver.findElement(By.xpath("//*[@id='ceForm:initialIid_input']")).sendKeys(investmentamount);
+				driver.findElement(By.xpath("//*[@id='ceForm:q3_label']")).click();
+				Thread.sleep(2000);
+			}
+		else
+			{
+			driver.findElement(By.xpath("//li[contains(text(),'"+investmentgoal+"')]")).click();
+			Thread.sleep(2000);	
+			}
 		if (investmentgoal.equals("Retirement"))
 		{
 			driver.findElement(By.id("ceForm:ageid_input")).sendKeys(age);
@@ -75,7 +83,27 @@ public class porfoliocreationPO {
 			}
 
 		}
-
+		else
+		{
+			int intage = Utility.stringtoint(age);
+			if (investmentgoal.equals("College"))
+			{
+				if (intage>= 1 || intage <= 18)
+				{
+					driver.findElement(By.id("ceForm:collegeid_input")).sendKeys(age);
+				}
+				else
+				{
+					System.out.println("Age limit is 1 to 18 so enter age between 1 and 18");
+					log.info("Age limit is 1 to 18 so enter age between 1 and 18");
+				}
+			}
+			else{
+				
+					driver.findElement(By.id("ceForm:otherid_input")).sendKeys(age);
+				
+			}
+		}
 		//driver.findElement(By.id("ceForm:j_idt97")).click();
 		driver.findElement(By.xpath("//a[contains(text(),'Next')]")).click();
 		Thread.sleep(2000);
