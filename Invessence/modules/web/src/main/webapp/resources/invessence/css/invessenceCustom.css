@@ -3241,7 +3241,7 @@ input {
 
 /************************/
 .backgroundAdvPortlets {
-	background-color: #fbfcfd!important;
+	/*background-color: #fbfcfd!important;*/
 }
 
 .uobBoldText {
@@ -3295,7 +3295,7 @@ input {
 }
 
 .whiteBG div {
-	background: transparent!important;
+	/*background: transparent!important;*/
 }
 
 .uob_graphTable td:nth-last-child(1), .uob_graphTable td:nth-child(1) {
@@ -3588,7 +3588,7 @@ span > input {
 
 .fineTuneBlock {
 	width: 30%;
-	height: 330px;
+	height: 340px;
 	position: absolute;
 	background: white;
 	border:0;
@@ -3659,4 +3659,145 @@ span > input {
 	font-size: 12px  ;
 	position: relative;
 	left: -23px;
+}
+
+
+/*risk bar_uob*/
+.riskGraphBarBlock {
+	width: 100%;
+	height: 220px;
+	display: table-cell;
+/*	vertical-align: middle;*/
+	margin: 0 auto;
+}
+
+.bar1 {
+	background: grey;
+	height: 80px;
+	width: 60px;
+	float: left;
+	display: inline-block;
+}
+
+.bar2 {
+	background: grey;
+	height: 130px;
+	width: 60px;
+	float: left;
+	margin: 0 60px;
+	display: inline-block;
+}
+
+.bar3 {
+	background: grey;
+	height: 180px;
+	width: 60px;
+	float: left;
+	display: inline-block;
+}
+
+.marginCenteronly1,
+.marginCenteronly2,
+.marginCenteronly3 {
+	float: left;
+}
+
+.marginCenteronly1 {
+	margin: 50px 0px;
+}
+
+.marginCenteronly2 {
+	margin: 25px 0px;
+}
+
+
+.innerBarUp1,
+.innerBarUp2,
+.innerBarUp3 {
+	width: 100%;
+	height: 50%;
+	background: grey;
+}
+
+.innerBarDown1,
+.innerBarDown2,
+.innerBarDown3 {
+	width: 100%;
+	height: 50%;
+	background: #a4332f;
+}
+
+.brTopLabel, .brBottomLabel {
+	text-align: center;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.barcheckedicon3 {
+font-size: 35px;
+position: absolute;
+color: white;
+border-radius: 51px;
+margin: 72px 0px 0px 16px;
+}
+
+.barcheckedicon2 {
+	font-size: 35px;
+	position: absolute;
+	color: white;
+	border-radius: 51px;
+	margin: 47px 0px 0px 16px;
+}
+
+.barcheckedicon1 {
+	font-size: 35px;
+	position: absolute;
+	color: white;
+	border-radius: 51px;
+	margin: 22px 0px 0px 16px;
+}
+
+.barcheckedicon1,
+.barcheckedicon2,
+.barcheckedicon3 {
+	display: none;
+
+}
+
+.bar1,
+.bar2,
+.bar3 {
+	-webkit-filter: opacity(0.6);
+}
+
+.selectedRiskBar {
+	box-shadow: 2px 2px 6px #adadad;
+	-webkit-filter: opacity(1.0);
+}
+
+.selectedRiskBar > i {
+	display: block;
+}
+
+.CenterRisk7Only {
+	text-align: -webkit-center;
+	text-align: -moz-center;
+}
+
+.tooltipIR {
+	width: 250px;
+}
+
+.innerval1 {
+	font-size: 12px;
+	position: absolute;
+	margin: 5px 0px 0px 20px;
+}
+
+.innerval1, .innerval1> div > i {
+	color: #FFFFFF;
+}
+
+.innerval1 > div > i {
+	font-size: 6px;
 }

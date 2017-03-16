@@ -91,7 +91,7 @@
                 <div class="container100">
                     <div class="EmptyBox10"></div>
                     <p:tabView id="rTabView" orientation="top"
-                               style="background: transparent;" activeIndex="#{uobpb.rTab}"
+                               style="background: transparent; margin-top: 3px;" activeIndex="#{uobpb.rTab}"
                                styleClass="NBwidget whiteBG">
                         <p:ajax event="tabChange"
                                 update=":ceForm:workArea, :ceForm:graphArea"
@@ -207,7 +207,7 @@
                             <h:outputLink id="IRinfoPOP" value="#" style="color:#000000!important;">
                                 <i class="fa fa-info-circle" style="padding-right: 5px;"></i>Investment Risk
                             </h:outputLink></div>
-                        <p:tooltip for="IRinfoPOP" value="Investment risk or volatility of a portfolio is a statistical measure
+                        <p:tooltip for="IRinfoPOP" styleClass="tooltipIR" value="Investment risk or volatility of a portfolio is a statistical measure
                         of the dispersion of returns for a given portfolio. Volatility can be measured by using the standard deviation
                         of returns of the portfolio. Commonly, the higher the volatility, the riskier the portfolio. Example, volatility of
                          Singapore Government Bonds could be 1.58% vs. Singapore Equities could be as high as 17%." position="bottom"/>
