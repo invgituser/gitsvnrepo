@@ -338,7 +338,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
       formEdit = true;
       setAccountType();
       riskCalculator.setRiskFormula("C");
-      loadBasketInfo();
+      loadBaskets();
       createAssetPortfolio(1);
    }
 
@@ -436,25 +436,10 @@ public class UOBProfileBean extends CustomerData implements Serializable
       setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
    }
 
-   private void loadBasketInfo()
+   private void loadBaskets()
    {
-      if (getAccountTaxable())
-      {
-         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
-      }
-      else
-      {
-         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
-      }
-
-      if (getTheme() != null)
-      {
-         setBasket(getAdvisorBasket().get(getTheme()));
-      }
-      else
-      {
-         selectFirstBasket(); // DO this only first time.
-      }
+      resetAdvisor();
+      loadBasketInfo();
       if (getBasket() != null)
       {
          setPortfolioName(getAdvisorBasket().get(getTheme()));
@@ -478,7 +463,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
             loadNewClientData();
 
          }
-         loadBasketInfo(); // Once we know about advisor, then use that info
+         loadBaskets(); // Once we know about advisor, then use that info
          createAssetPortfolio(1);
       }
       catch (Exception ex)
@@ -506,7 +491,7 @@ public class UOBProfileBean extends CustomerData implements Serializable
          }
          listDAO.getNewClientProfileData((CustomerData) this.getInstance());
          setDefaults();
-         // loadBasketInfo();
+         // loadBaskets();
          // selectFirstBasket();
          // createAssetPortfolio(1); // Build default chart for the page...
          // RequestContext.getCurrentInstance().execute("custProfileDialog.show()");

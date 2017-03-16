@@ -20,6 +20,7 @@ import com.invmodel.Const.InvConst;
 import com.invmodel.inputData.ProfileData;
 import com.invmodel.model.fixedmodel.data.FMData;
 import com.invmodel.performance.data.ProjectionData;
+import org.apache.commons.lang.SerializationUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.*;
 
@@ -576,7 +577,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    public void onTaxStrategy()
    {
       formEdit = true;
-      loadBasketInfo();
+      loadBaskets();
       createAssetPortfolio(1);
    }
 
@@ -602,19 +603,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       riskCalculator.resetAllData();
    }
 
-   private void loadBasketInfo()
+   private void loadBaskets()
    {
       resetAdvisor();
-      if (getAccountTaxable())
-      {
-         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
-         selectFirstBasket(); // DO this select first Theme and Basket
-      }
-      else
-      {
-         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
-         selectFirstBasket();  // DO this select first Theme and Basket
-      }
+      loadBasketInfo();
    }
 
    private void loadNewClientData()
@@ -655,10 +647,20 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             setFixedModelPortfolioList(getInstance().getTheme());
             setFmDataLinkedHashMap(getInstance().getTheme());
             origCustomerData = new CustomerData();
-            origCustomerData.copyData(getInstance());
+            origCustomerData.copyData(getInstance());  // Need a way to do clean copy.
             fmDataArrayList = getFixedModelPortfolioList();
             fmDataMap = getFmDataLinkedHashMap();
-            longDes = fmDataMap.get(origCustomerData.getPortfolioName()).getDescription();
+            if (origCustomerData.getPortfolioName() != null )
+            {
+               if (fmDataMap.containsKey(origCustomerData.getPortfolioName()))
+               {
+                  longDes = fmDataMap.get(origCustomerData.getPortfolioName()).getDescription();
+               }
+               else
+               {
+                  longDes = origCustomerData.getPortfolioName();
+               }
+            }
          }
          formEdit = false;
       }
@@ -975,7 +977,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
          }
 
-         loadBasketInfo(); // Once we know about advisor, then use that info
+         loadBaskets(); // Once we know about advisor, then use that info
       }
       catch (Exception ex)
       {
@@ -1295,7 +1297,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          // User is in EDIT mode, then they must be logged, therefore, they are not visitor anymore.
          if (!formPortfolioEdit)
          {
-            saveProfile();
             if (currentpage == 0)
             {  // This is before moving to next page. ONLY for FIRST PAGE
                if (getAcctnum() != null || getAcctnum() >= 0)
@@ -1303,6 +1304,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                   saveVisitor();
                }
             }
+            saveProfile();
          }
 
          if ((getFormula() != null && getFormula().equalsIgnoreCase("Q")) && pagemanager.getPage() == 0 && formPortfolioEdit)

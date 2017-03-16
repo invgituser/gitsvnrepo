@@ -113,6 +113,8 @@ public class CustomerData extends ProfileData
    private Boolean managed, editable, isUnopened;
    public String managedFlag, currentStatus;
 
+
+
    public void setWebutil(WebUtil webutil)
    {
       this.webutil = webutil;
@@ -708,15 +710,23 @@ public class CustomerData extends ProfileData
 
    public void resetAdvisor() {
 
-      if (webutil != null) {
-         if (webutil.isUserLoggedIn()) {
-            setAdvisor(webutil.getUserInfoData().getAdvisor());
-            setRep(webutil.getUserInfoData().getRep());
+      if (webutil != null)
+      {
+         if (webutil.isUserLoggedIn())
+         {
+            if (getAdvisor() == null)
+               setAdvisor(webutil.getUserInfoData().getAdvisor());
+            if (getRep() == null)
+               setRep(webutil.getUserInfoData().getRep());
          }
-         else {
-            if (webutil.getWebprofile() != null) {
-               setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
-               setRep(webutil.getWebprofile().getDefaultRep());
+         else
+         {
+            if (webutil.getWebprofile() != null)
+            {
+               if (getAdvisor() == null)
+                  setAdvisor(webutil.getWebprofile().getDefaultAdvisor());
+               if (getRep() == null)
+                  setRep(webutil.getWebprofile().getDefaultRep());
             }
          }
       }
@@ -748,6 +758,8 @@ public class CustomerData extends ProfileData
       setAcctnum(newgoals.getAcctnum());
       setLogonid(newgoals.getLogonid());
       setUserid(newgoals.getUserid());
+      setAdvisor(newgoals.getAdvisor());
+      setRep(newgoals.getRep());
       setAddmodflag(newgoals.getAddmodflag());
       setGoal  (    newgoals.getGoal());
       setAccountType(newgoals.getAccountType());
@@ -891,6 +903,34 @@ public class CustomerData extends ProfileData
       setPortfolioIndex(portfolioModel.getPortfolioIndex(getProfileInstance()));
    }
 */
+
+   public void loadBasketInfo()
+   {
+      if (getAccountTaxable())
+      {
+         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
+      }
+      else
+      {
+         setAdvisorBasket(listDAO.getBasket(getAdvisor(), "R"));
+      }
+
+      if (getTheme() != null)
+      {
+         setBasket(getAdvisorBasket().get(getTheme()));
+      }
+      else
+      {
+         selectFirstBasket(); // DO this only first time.
+      }
+
+      if (getBasket() != null)
+      {
+         setPortfolioName(getAdvisorBasket().get(getTheme()));
+      }
+   }
+
+
    public void selectFirstBasket()
    {
       if (getTheme() == null) {

@@ -239,11 +239,11 @@
                             <h:outputText value=" " />
                         </p:column>
 
-                        <p:column style="width: 53%" styleClass="Wid50 Fs12 TexAlLeft"
+                        <p:column style="width: 50%" styleClass="Wid50 Fs12 TexAlLeft"
                                   headerText="Asset">
                             <h:outputText value="#{assetList.asset}" />
                         </p:column>
-                        <p:column priority="3" style="width: 12%"
+                        <p:column priority="3" style="width: 15%"
                                   styleClass="Fs12 num-text-align TexAlRight" headerText="Allocation">
                             <!-- ROHIT's CHANGE -->
                             <h:outputText value="#{assetList.userEdit}">
@@ -259,7 +259,8 @@
                         </p:column>
                         <p:columnGroup type="footer">
                             <p:row>
-                                <p:column colspan="3" styleClass="Fs12 TexAlLeft FontBold"
+                                <p:column/>
+                                <p:column colspan="2" styleClass="Fs12 TexAlLeft FontBold"
                                           footerText="Total">
                                 </p:column>
                                 <p:column styleClass="Fs12 TexAlRight FontBold"
