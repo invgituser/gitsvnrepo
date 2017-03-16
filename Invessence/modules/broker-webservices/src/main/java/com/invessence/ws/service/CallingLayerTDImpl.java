@@ -2,7 +2,7 @@ package com.invessence.ws.service;
 
 import java.util.List;
 
-import com.docusign.esign.model.*;
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.provider.td.bean.DCRequest;
 import com.invessence.ws.provider.td.dao.TDDaoLayer;
@@ -27,7 +27,6 @@ public class CallingLayerTDImpl implements CallingLayer
       System.out.println("CallingLayerTDImpl.CallingLayerTDImpl");
    }
 
-
    @Override
    public WSCallResult processDCRequest(Long acctNum, Integer eventNum) throws Exception
    {
@@ -44,7 +43,23 @@ public class CallingLayerTDImpl implements CallingLayer
       }
       return wsCallResult;
    }
-
+   @Override
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests)throws Exception
+   {
+      logger.info("CallingLayerTDImpl.processDCRequest");
+      System.out.println("serviceRequest = [" + serviceRequest + "]");
+      WSCallResult wsCallResult=null;
+      //List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
+      if(dcRequests.size()>0)
+      {
+         wsCallResult=tdAccountOpeningLayer.docuSignRequestHandler(serviceRequest, dcRequests);
+         //wsCallResult=docuSignService.processDocuSignRequest(dcRequests);
+      }else{
+         wsCallResult=new WSCallResult(new WSCallStatus(SysParameters.dcReqDataIssueCode, SysParameters.dcReqDataIssueMsg), null);
+         //logger.info("Request details are not available for acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
+      }
+      return wsCallResult;
+   }
    @Override
    public WSCallResult moveMoney(Long acctNum, Integer reqId)
    {

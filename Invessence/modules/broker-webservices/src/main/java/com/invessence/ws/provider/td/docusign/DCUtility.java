@@ -21,10 +21,11 @@ import com.docusign.esign.model.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.*;
 import com.invessence.service.bean.*;
+import com.invessence.service.bean.docuSign.*;
 import com.invessence.service.util.*;
 import com.invessence.ws.provider.td.bean.*;
 import com.invessence.ws.provider.td.dao.TDDaoLayer;
-import com.invessence.ws.util.CommonUtil;
+import com.invessence.ws.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,7 +33,6 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- *
  * Created by abhangp on 8/12/2016.
  */
 @Component
@@ -41,28 +41,115 @@ public class DCUtility
    private static final Logger logger = Logger.getLogger(DCUtility.class);
    @Autowired
    TDDaoLayer tdDaoLayer;
-   public boolean createEnvelope (EnvelopeDefinition envDef, Long acctNum, int eventNum, String requestIds)
+
+   public static Object getInstanceValue(final Object classInstance, final String fieldName) throws SecurityException, NoSuchFieldException, ClassNotFoundException, IllegalArgumentException, IllegalAccessException
    {
-      boolean resultFlag=false;
-      try {
+
+      // Get the private field
+      final Field field = classInstance.getClass().getDeclaredField(fieldName);
+      // Allow modification on the field
+      field.setAccessible(true);
+      // Return the Obect corresponding to the field
+      return field.get(classInstance);
+
+   }
+
+   public static List<String> getFieldNames(final Object obj, boolean publicOnly)
+      throws IllegalArgumentException, IllegalAccessException
+   {
+      StringBuilder sb = new StringBuilder();
+      Class<? extends Object> c1 = obj.getClass();
+      List<String> lst = new ArrayList<String>();
+      Field[] fields = c1.getDeclaredFields();
+      for (int i = 0; i < fields.length; i++)
+      {
+         String name = fields[i].getName();
+         if (publicOnly)
+         {
+            if (Modifier.isPublic(fields[i].getModifiers()))
+            {
+               Object value = fields[i].get(obj);
+               if (value == null)
+               {
+                  sb.append(name + ", ");
+               }
+               else
+               {
+                  lst.add(name);
+               }
+            }
+         }
+         else
+         {
+            fields[i].setAccessible(true);
+            Object value = fields[i].get(obj);
+            if (value == null)
+            {
+               sb.append(name + ", ");
+            }
+            else
+            {
+               lst.add(name);
+            }
+         }
+      }
+//      System.out.println("Avoided properties of "+c1+" due to empty or null value : (" + sb + ")");
+      logger.info("Properties for further process = " + lst);
+      return lst;
+   }
+
+   public static Map<String, Object> getFieldNamesAndValues(final Object obj, boolean publicOnly)
+      throws IllegalArgumentException, IllegalAccessException
+   {
+      Class<? extends Object> c1 = obj.getClass();
+      Map<String, Object> map = new HashMap<String, Object>();
+      Field[] fields = c1.getDeclaredFields();
+      for (int i = 0; i < fields.length; i++)
+      {
+         String name = fields[i].getName();
+         if (publicOnly)
+         {
+            if (Modifier.isPublic(fields[i].getModifiers()))
+            {
+               Object value = fields[i].get(obj);
+               map.put(name, value);
+            }
+         }
+         else
+         {
+            fields[i].setAccessible(true);
+            Object value = fields[i].get(obj);
+            map.put(name, value);
+         }
+      }
+      return map;
+   }
+
+   public DCResponse createEnvelope(ServiceRequest serviceRequest, EnvelopeDefinition envDef, Long acctNum, int eventNum, String requestIds)
+   {
+      //boolean resultFlag = false;
+      try
+      {
          ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
          mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
          mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-         logger.info("EnvelopeDefinition :" +mapper.writeValueAsString(envDef));
-      } catch (JsonProcessingException e) {
+         logger.info("EnvelopeDefinition :" + mapper.writeValueAsString(envDef));
+      }
+      catch (JsonProcessingException e)
+      {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }
 
-      EnvelopeSummary envelopeSummary=null;
-      Date reqTime= new Date();
-      String UserName = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"USERNAME");//"prashant@invessence.com";//"[EMAIL]";
-      String Password = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"PASSWORD");//"Inv3ss3nc3!";//"[PASSWORD]";
+      EnvelopeSummary envelopeSummary = null;
+      Date reqTime = new Date();
+      String UserName = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "USERNAME");//"prashant@invessence.com";//"[EMAIL]";
+      String Password = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "PASSWORD");//"Inv3ss3nc3!";//"[PASSWORD]";
       // TODO: Enter your Integrator Key (aka API key), created through your developer sandbox preferences
-      String IntegratorKey = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"INTEGRATOR_KEY");//"TDAM-d7feb45c-e88d-4c20-b5bd-1dcd9a9d6f56";//"[INTEGRATOR_KEY]";
+      String IntegratorKey = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "INTEGRATOR_KEY");//"TDAM-d7feb45c-e88d-4c20-b5bd-1dcd9a9d6f56";//"[INTEGRATOR_KEY]";
       // for production environment update to "www.docusign.net/restapi"
-      String BaseUrl = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"BASE_URL");//"https://demo.docusign.net/restapi";
+      String BaseUrl = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "BASE_URL");//"https://demo.docusign.net/restapi";
 
       // initialize the api client
       ApiClient apiClient = new ApiClient();
@@ -100,7 +187,7 @@ public class DCUtility
          // use the |accountId| we retrieved through the Login API to create the Envelope
          //String accountId = loginAccounts.get(0).getAccountId();
 
-         String accountId=ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ACCOUNT_ID");
+         String accountId = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "ACCOUNT_ID");
 
          // instantiate a new EnvelopesApi object
          EnvelopesApi envelopesApi = new EnvelopesApi();
@@ -108,24 +195,28 @@ public class DCUtility
          envelopeSummary = envelopesApi.createEnvelope(accountId, envDef);
 
          logger.info("EnvelopeSummary: " + envelopeSummary);
-         DCRequestAudit dcRequestAudit = new DCRequestAudit(requestIds, acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,envelopeSummary==null?"":getJsonObjectToString(envelopeSummary),"S", reqTime, envelopeSummary==null?"":envelopeSummary.getEnvelopeId());
+         DCRequestAudit dcRequestAudit = new DCRequestAudit(serviceRequest.getProduct(), serviceRequest.getMode(),requestIds, acctNum, eventNum, envDef == null ? "" : ""/*getJsonObjectToString(envDef)*/, envelopeSummary == null ? "" : getJsonObjectToString(envelopeSummary), "S", reqTime, envelopeSummary == null ? "" : envelopeSummary.getEnvelopeId());
          logger.debug("dcRequestAudit = " + dcRequestAudit);
          tdDaoLayer.callDCAuditSP(dcRequestAudit);
-         return true;
+         return new DCResponse(envelopeSummary == null ? null : envelopeSummary.getEnvelopeId(),null,null);
       }
       catch (com.docusign.esign.client.ApiException ex)
       {
          logger.error(ex);
-         DCRequestAudit dcRequestAudit = new DCRequestAudit(requestIds,acctNum, eventNum, envDef==null?"":""/*getJsonObjectToString(envDef)*/,ex.toString(),"E", reqTime, "");
+         DCRequestAudit dcRequestAudit = new DCRequestAudit(serviceRequest.getProduct(), serviceRequest.getMode(),requestIds, acctNum, eventNum, envDef == null ? "" : ""/*getJsonObjectToString(envDef)*/, ex.toString(), "E", reqTime, "");
          logger.debug("dcRequestAudit = " + dcRequestAudit);
          tdDaoLayer.callDCAuditSP(dcRequestAudit);
-      }catch(Exception ex){
+         return new DCResponse(null,""+ex.getCode(),ex.getMessage());
+      }
+      catch (Exception ex)
+      {
          logger.error(ex.getMessage());
       }
-      return resultFlag;
+      return new DCResponse(null, ""+SysParameters.dcEGenErrCode, SysParameters.dcEGenErrMsg);
    }
 
-   public ServerTemplate getServerTemplate (String sequence, DCTemplateDetails dcTemplateDetails){
+   public ServerTemplate getServerTemplate(String sequence, DCTemplateDetails dcTemplateDetails)
+   {
 
       ServerTemplate serverTemplate = new ServerTemplate();
       serverTemplate.setTemplateId(dcTemplateDetails.getTempId());
@@ -133,89 +224,161 @@ public class DCUtility
       return serverTemplate;
    }
 
-   public InlineTemplate getInlineTemplate (String sequence){
+   public InlineTemplate getInlineTemplate(String sequence)
+   {
 
       InlineTemplate inlineTemplate = new InlineTemplate();
       inlineTemplate.setSequence(sequence);
       return inlineTemplate;
    }
 
-   private CarbonCopy getCarbonCopyEmail(){
+   public EnvelopeDefinition getEnvelopeDefinition(ServiceRequest serviceRequest)
+   {
+
+      EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition();
+      getNotification(serviceRequest, envelopeDefinition);
+      return envelopeDefinition;
+   }
+
+   public EnvelopeDefinition getEnvelopeDefinition()
+   {
+
+      EnvelopeDefinition envelopeDefinition = new EnvelopeDefinition();
+
+      return envelopeDefinition;
+   }
+
+   public void getNotification(ServiceRequest serviceRequest, EnvelopeDefinition envelopeDefinition)
+   {
+      Notification notification = null;
+
+      if (ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "USE_ACCT_DEFAULT_NOTIFICATION").equalsIgnoreCase("false"))
+      {
+         notification = new Notification();
+         notification.setUseAccountDefaults("false");
+         if (ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "REMINDER_ENABLED").equalsIgnoreCase("true"))
+         {
+            Reminders reminders = new Reminders();
+            reminders.setReminderEnabled("true");
+            reminders.setReminderDelay(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "REMINDER_DELAY"));
+            reminders.setReminderFrequency(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "REMINDER_FREQUENCY"));
+            notification.setReminders(reminders);
+         }
+         if (ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "EXPIRE_ENABLED").equalsIgnoreCase("true"))
+         {
+            Expirations expirations = new Expirations();
+            expirations.setExpireEnabled("true");
+            expirations.setExpireAfter(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "EXPIRE_AFTER"));
+            expirations.setExpireWarn(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "EXPIRE_WARN"));
+            notification.setExpirations(expirations);
+         }
+      }
+      else if (ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "USE_ACCT_DEFAULT_NOTIFICATION").equalsIgnoreCase("true"))
+      {
+         notification = new Notification();
+         notification.setUseAccountDefaults("true");
+      }
+      else
+      {
+         logger.info("Notification flag not set!");
+      }
+      if (notification != null)
+      {
+         envelopeDefinition.setNotification(notification);
+      }
+   }
+
+   private CarbonCopy getCarbonCopyEmail(ServiceRequest serviceRequest)
+   {
       CarbonCopy cc = new CarbonCopy();
-      cc.setEmail(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"CCMAIL"));
-      cc.setName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"CCMAILNAME"));
+      cc.setEmail(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "CCMAIL"));
+      cc.setName(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "CCMAILNAME"));
       cc.setRecipientId("1");
       cc.setRoutingOrder("102");
       return cc;
    }
 
-   public Recipients getRecipientsAcctTransfer(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, AcctTransferDetails acctTransferDetails)
+   public Recipients getRecipientsAcctTransfer(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, AcctTransferDetails acctTransferDetails)
    {
       logger.info("DCUtility.getRecipientsAcctTransfer");
 
-   List<String> dbColumns=null;
-   List<Signer> signerLst=new ArrayList<>();
+      List<String> dbColumns = null;
+      List<Signer> signerLst = new ArrayList<>();
 
-   Tabs tabs = new Tabs();
-   List<Text> textboxLst=new ArrayList<>();
-   List<Checkbox> checkboxeLst=new ArrayList<>();
-   List<RadioGroup> radioGroupLst=new ArrayList<>();
-   List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-   Recipients recipients=null;
+      Tabs tabs = new Tabs();
+      List<Text> textboxLst = new ArrayList<>();
+      List<Checkbox> checkboxeLst = new ArrayList<>();
+      List<RadioGroup> radioGroupLst = new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+      Recipients recipients = null;
 
-   signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, null);
-   try
-   {
-      dbColumns=getFieldNames(acctTransferDetails, false);
-      System.out.println("dbColumns = =" + dbColumns);
-      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-      getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctTransferDetails);
-   }
-   catch (IllegalAccessException e)
-   {
-      e.printStackTrace();
-   }
-
-   if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-   if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-   if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-   if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
-
-   if(signerLst.size()>0){
-      Iterator<Signer> signerItr=signerLst.iterator();
-      while(signerItr.hasNext()){
-         Signer signer=(Signer)signerItr.next();
-         signer.setTabs(tabs);
+      signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, null);
+      try
+      {
+         dbColumns = getFieldNames(acctTransferDetails, false);
+         System.out.println("dbColumns = =" + dbColumns);
+         List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
+         getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, acctTransferDetails);
       }
-      recipients=new Recipients();
-      recipients.setSigners(signerLst);
-      recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-      recipients.getCarbonCopies().add(getCarbonCopyEmail());
-   }
-   return recipients;
-}
+      catch (IllegalAccessException e)
+      {
+         e.printStackTrace();
+      }
 
-   public Recipients getRecipientsTDTransfer(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, TDTransferDetails tdTransferDetails)
+      if (textboxLst.size() > 0)
+      {
+         tabs.setTextTabs(textboxLst);
+      }
+      if (checkboxeLst.size() > 0)
+      {
+         tabs.setCheckboxTabs(checkboxeLst);
+      }
+      if (radioGroupLst.size() > 0)
+      {
+         tabs.setRadioGroupTabs(radioGroupLst);
+      }
+      if (listboxLst.size() > 0)
+      {
+         tabs.setListTabs(listboxLst);
+      }
+
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
+         {
+            Signer signer = (Signer) signerItr.next();
+            signer.setTabs(tabs);
+         }
+         recipients = new Recipients();
+         recipients.setSigners(signerLst);
+         recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
+      }
+      return recipients;
+   }
+
+   public Recipients getRecipientsTDTransfer(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, TDTransferDetails tdTransferDetails)
    {
       logger.info("DCUtility.getRecipientsTDTransfer");
 
-      List<String> dbColumns=null;
-      List<Signer> signerLst=new ArrayList<>();
+      List<String> dbColumns = null;
+      List<Signer> signerLst = new ArrayList<>();
 
       Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<Checkbox> checkboxeLst=new ArrayList<>();
-      List<RadioGroup> radioGroupLst=new ArrayList<>();
-      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-      List<Ssn> ssnLst=new ArrayList<>();
-      Recipients recipients=null;
+      List<Text> textboxLst = new ArrayList<>();
+      List<Checkbox> checkboxeLst = new ArrayList<>();
+      List<RadioGroup> radioGroupLst = new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+      List<Ssn> ssnLst = new ArrayList<>();
+      Recipients recipients = null;
 
-      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst);
+      signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst);
       try
       {
-         dbColumns=getFieldNames(tdTransferDetails, false);
+         dbColumns = getFieldNames(tdTransferDetails, false);
          System.out.println("dbColumns = =" + dbColumns);
-         List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+         List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
          getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, tdTransferDetails);
       }
       catch (IllegalAccessException e)
@@ -223,46 +386,63 @@ public class DCUtility
          e.printStackTrace();
       }
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
-      if(ssnLst.size()>0){tabs.setSsnTabs(ssnLst);}
+      if (textboxLst.size() > 0)
+      {
+         tabs.setTextTabs(textboxLst);
+      }
+      if (checkboxeLst.size() > 0)
+      {
+         tabs.setCheckboxTabs(checkboxeLst);
+      }
+      if (radioGroupLst.size() > 0)
+      {
+         tabs.setRadioGroupTabs(radioGroupLst);
+      }
+      if (listboxLst.size() > 0)
+      {
+         tabs.setListTabs(listboxLst);
+      }
+      if (ssnLst.size() > 0)
+      {
+         tabs.setSsnTabs(ssnLst);
+      }
 
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
+         {
+            Signer signer = (Signer) signerItr.next();
             signer.setTabs(tabs);
          }
-         recipients=new Recipients();
+         recipients = new Recipients();
          recipients.setSigners(signerLst);
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
       }
       return recipients;
    }
 
-   public Recipients getRecipientsElecFundTransfer(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, ElecFundTransferDetails elecFundTransferDetails)
+   public Recipients getRecipientsElecFundTransfer(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, ElecFundTransferDetails elecFundTransferDetails)
    {
       logger.info("DCUtility.getRecipientsElecFundTransfer");
 
-      List<String> dbColumns=null;
-      List<Signer> signerLst=new ArrayList<>();
+      List<String> dbColumns = null;
+      List<Signer> signerLst = new ArrayList<>();
 
       Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<Checkbox> checkboxeLst=new ArrayList<>();
-      List<RadioGroup> radioGroupLst=new ArrayList<>();
-      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-      Recipients recipients=null;
+      List<Text> textboxLst = new ArrayList<>();
+      List<Checkbox> checkboxeLst = new ArrayList<>();
+      List<RadioGroup> radioGroupLst = new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+      Recipients recipients = null;
 
-      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst,null);
+      signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, null);
       try
       {
-         dbColumns=getFieldNames(elecFundTransferDetails, false);
+         dbColumns = getFieldNames(elecFundTransferDetails, false);
          System.out.println("dbColumns =" + dbColumns);
-         List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+         List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
          getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, elecFundTransferDetails);
       }
       catch (IllegalAccessException e)
@@ -270,47 +450,59 @@ public class DCUtility
          e.printStackTrace();
       }
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+      if (textboxLst.size() > 0)
+      {
+         tabs.setTextTabs(textboxLst);
+      }
+      if (checkboxeLst.size() > 0)
+      {
+         tabs.setCheckboxTabs(checkboxeLst);
+      }
+      if (radioGroupLst.size() > 0)
+      {
+         tabs.setRadioGroupTabs(radioGroupLst);
+      }
+      if (listboxLst.size() > 0)
+      {
+         tabs.setListTabs(listboxLst);
+      }
 
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
+         {
+            Signer signer = (Signer) signerItr.next();
             signer.setTabs(tabs);
          }
-         recipients=new Recipients();
+         recipients = new Recipients();
          recipients.setSigners(signerLst);
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
       }
       return recipients;
    }
 
-
-
-   public Recipients getRecipientsChngAdd(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, GetAcctChngAddrDetails getAcctChngAddrDetails)
+   public Recipients getRecipientsChngAdd(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, GetAcctChngAddrDetails getAcctChngAddrDetails)
    {
       logger.info("DCUtility.getRecipientsElecFundTransfer");
 
-      List<String> dbColumns=null;
-      List<Signer> signerLst=new ArrayList<>();
+      List<String> dbColumns = null;
+      List<Signer> signerLst = new ArrayList<>();
 
       Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<Checkbox> checkboxeLst=new ArrayList<>();
-      List<RadioGroup> radioGroupLst=new ArrayList<>();
-      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-      Recipients recipients=null;
+      List<Text> textboxLst = new ArrayList<>();
+      List<Checkbox> checkboxeLst = new ArrayList<>();
+      List<RadioGroup> radioGroupLst = new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+      Recipients recipients = null;
 
-      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst,null);
+      signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, null);
       try
       {
-         dbColumns=getFieldNames(getAcctChngAddrDetails, false);
+         dbColumns = getFieldNames(getAcctChngAddrDetails, false);
          System.out.println("dbColumns =" + dbColumns);
-         List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+         List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
          getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, getAcctChngAddrDetails);
       }
       catch (IllegalAccessException e)
@@ -318,82 +510,113 @@ public class DCUtility
          e.printStackTrace();
       }
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+      if (textboxLst.size() > 0)
+      {
+         tabs.setTextTabs(textboxLst);
+      }
+      if (checkboxeLst.size() > 0)
+      {
+         tabs.setCheckboxTabs(checkboxeLst);
+      }
+      if (radioGroupLst.size() > 0)
+      {
+         tabs.setRadioGroupTabs(radioGroupLst);
+      }
+      if (listboxLst.size() > 0)
+      {
+         tabs.setListTabs(listboxLst);
+      }
 
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
+         {
+            Signer signer = (Signer) signerItr.next();
             signer.setTabs(tabs);
          }
-         recipients=new Recipients();
+         recipients = new Recipients();
          recipients.setSigners(signerLst);
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
       }
       return recipients;
    }
 
-   public Recipients getAcctADVForm(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails)
+   public Recipients getAcctADVForm(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails)
    {
       logger.info("DCUtility.getRecipientsElecFundTransfer");
 
-      List<Signer> signerLst=new ArrayList<>();
+      List<Signer> signerLst = new ArrayList<>();
 
       Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<Checkbox> checkboxeLst=new ArrayList<>();
-      List<RadioGroup> radioGroupLst=new ArrayList<>();
-      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-      Recipients recipients=null;
+      List<Text> textboxLst = new ArrayList<>();
+      List<Checkbox> checkboxeLst = new ArrayList<>();
+      List<RadioGroup> radioGroupLst = new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+      Recipients recipients = null;
 
-      signerLst=getSigners(dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst,null);
+      signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctDetails.getAcctOwnerDetails(), textboxLst, checkboxeLst, radioGroupLst, listboxLst, null);
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+      if (textboxLst.size() > 0)
+      {
+         tabs.setTextTabs(textboxLst);
+      }
+      if (checkboxeLst.size() > 0)
+      {
+         tabs.setCheckboxTabs(checkboxeLst);
+      }
+      if (radioGroupLst.size() > 0)
+      {
+         tabs.setRadioGroupTabs(radioGroupLst);
+      }
+      if (listboxLst.size() > 0)
+      {
+         tabs.setListTabs(listboxLst);
+      }
 
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
+         {
+            Signer signer = (Signer) signerItr.next();
             signer.setTabs(tabs);
          }
-         recipients=new Recipients();
+         recipients = new Recipients();
          recipients.setSigners(signerLst);
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
       }
       return recipients;
    }
 
-   public Recipients getRecipientsAcctCreation(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
+   public Recipients getRecipientsAcctCreation(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
    {
 
       System.out.println("DCUtility.getRecipientsAcctCreation");
 
 
-      List<String> dbColumns=null;
-      List<Signer> signerLst=new ArrayList<>();
+      List<String> dbColumns = null;
+      List<Signer> signerLst = new ArrayList<>();
 
       Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<Checkbox> checkboxeLst=new ArrayList<>();
-      List<RadioGroup> radioGroupLst=new ArrayList<>();
-      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-      List<Ssn> ssnLst=new ArrayList<>();
-      Recipients recipients=null;
+      List<Text> textboxLst = new ArrayList<>();
+      List<Checkbox> checkboxeLst = new ArrayList<>();
+      List<RadioGroup> radioGroupLst = new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+      List<Ssn> ssnLst = new ArrayList<>();
+      Recipients recipients = null;
 
-      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst, ssnLst);
-         if(acctDetails.getBenefiaciaryDetails()==null || acctDetails.getBenefiaciaryDetails().size()<=0){
+      signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctOwnerDetails, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst);
+      if (acctDetails.getBenefiaciaryDetails() == null || acctDetails.getBenefiaciaryDetails().size() <= 0)
+      {
 
-         }else{
+      }
+      else
+      {
          Iterator<BenefiaciaryDetails> itr1 = acctDetails.getBenefiaciaryDetails().iterator();
-            int iterCount=1;
+         int iterCount = 1;
          while (itr1.hasNext())
          {
             BenefiaciaryDetails beneDetails = (BenefiaciaryDetails) itr1.next();
@@ -413,7 +636,7 @@ public class DCUtility
 //               dcDocumentMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
             List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
             // System.out.println("dcDocumentMappingList = " + dcDocumentMappingList);
-            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, beneDetails, ""+iterCount, true);
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, beneDetails, "" + iterCount, true);
             iterCount++;
 //            }
 //            else if (acctOwner.getOwnership().equalsIgnoreCase("Joint"))
@@ -433,46 +656,64 @@ public class DCUtility
       }
 
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
-      if(ssnLst.size()>0){tabs.setSsnTabs(ssnLst);}
+      if (textboxLst.size() > 0)
+      {
+         tabs.setTextTabs(textboxLst);
+      }
+      if (checkboxeLst.size() > 0)
+      {
+         tabs.setCheckboxTabs(checkboxeLst);
+      }
+      if (radioGroupLst.size() > 0)
+      {
+         tabs.setRadioGroupTabs(radioGroupLst);
+      }
+      if (listboxLst.size() > 0)
+      {
+         tabs.setListTabs(listboxLst);
+      }
+      if (ssnLst.size() > 0)
+      {
+         tabs.setSsnTabs(ssnLst);
+      }
 
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
+         {
+            Signer signer = (Signer) signerItr.next();
             signer.setTabs(tabs);
          }
-         recipients=new Recipients();
+         recipients = new Recipients();
          recipients.setSigners(signerLst);
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
       }
       return recipients;
    }
 
-   public Recipients getRecipientsMoveMoney(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, MoveMoneyDetails moveMoneyDetails,  Object dataObject)
+   public Recipients getRecipientsMoveMoney(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, MoveMoneyDetails moveMoneyDetails, Object dataObject)
    {
 
       logger.info("DCUtility.getRecipientsMoveMoney");
 
 
-      List<String> dbColumns=null;
-      List<Signer> signerLst=new ArrayList<>();
+      List<String> dbColumns = null;
+      List<Signer> signerLst = new ArrayList<>();
 
       Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<Checkbox> checkboxeLst=new ArrayList<>();
-      List<RadioGroup> radioGroupLst=new ArrayList<>();
-      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-      Recipients recipients=null;
+      List<Text> textboxLst = new ArrayList<>();
+      List<Checkbox> checkboxeLst = new ArrayList<>();
+      List<RadioGroup> radioGroupLst = new ArrayList<>();
+      List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+      Recipients recipients = null;
 
-      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst,null);
+      signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctOwnerDetails, textboxLst, checkboxeLst, radioGroupLst, listboxLst, null);
 
-      if( (dataObject!=null && ((List)dataObject).size()>0) && ((List)dataObject).get(0) instanceof MMAchBankDetails){
-         Iterator<MMAchBankDetails> itr1 = ((List<MMAchBankDetails>)dataObject).iterator();
+      if ((dataObject != null && ((List) dataObject).size() > 0) && ((List) dataObject).get(0) instanceof MMAchBankDetails)
+      {
+         Iterator<MMAchBankDetails> itr1 = ((List<MMAchBankDetails>) dataObject).iterator();
          while (itr1.hasNext())
          {
             MMAchBankDetails achBankDetails = (MMAchBankDetails) itr1.next();
@@ -491,8 +732,8 @@ public class DCUtility
 //               System.out.println("Client");
 //               dcDocumentMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
             List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
-              // System.out.println("dcDocumentMappingList = " + dcDocumentMappingList);
-               getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
+            // System.out.println("dcDocumentMappingList = " + dcDocumentMappingList);
+            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
 //            }
 //            else if (acctOwner.getOwnership().equalsIgnoreCase("Joint"))
 //            {
@@ -510,181 +751,216 @@ public class DCUtility
          }
       }
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
+      if (textboxLst.size() > 0)
+      {
+         tabs.setTextTabs(textboxLst);
+      }
+      if (checkboxeLst.size() > 0)
+      {
+         tabs.setCheckboxTabs(checkboxeLst);
+      }
+      if (radioGroupLst.size() > 0)
+      {
+         tabs.setRadioGroupTabs(radioGroupLst);
+      }
+      if (listboxLst.size() > 0)
+      {
+         tabs.setListTabs(listboxLst);
+      }
 
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
+         {
+            Signer signer = (Signer) signerItr.next();
             signer.setTabs(tabs);
          }
-         recipients=new Recipients();
+         recipients = new Recipients();
          recipients.setSigners(signerLst);
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
       }
       return recipients;
    }
 
-   public Recipients getRecipientsMoveMoney(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<MoveMoneyDetails> moveMoneyDetailsLst)
+   public Recipients getRecipientsMoveMoney(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<MoveMoneyDetails> moveMoneyDetailsLst)
    {
 
       logger.info("DCUtility.getRecipientsMoveMoney");
 
 
-      List<MMAchBankDetails> mmAchBankDetails=null;
-      List<MMInternalTransferDetails> mmInternalTransferDetails=null;
-      List<MMFedwireAcctDetails> mmFedwireAcctDetails=null;
+      List<MMAchBankDetails> mmAchBankDetails = null;
+      List<MMInternalTransferDetails> mmInternalTransferDetails = null;
+      List<MMFedwireAcctDetails> mmFedwireAcctDetails = null;
 
 
-      Recipients recipients=null;
-try{
-      List<String> dbColumns=null;
-      List<Signer> signerLst=new ArrayList<>();
-
-      Tabs tabs = new Tabs();
-      List<Text> textboxLst=new ArrayList<>();
-      List<Checkbox> checkboxeLst=new ArrayList<>();
-      List<RadioGroup> radioGroupLst=new ArrayList<>();
-      List<com.docusign.esign.model.List> listboxLst=new ArrayList<>();
-      List<Ssn> ssnLst=new ArrayList<>();
-
-      signerLst=getSigners(dcTemplateDetails,acctDetails,acctOwnerDetails,textboxLst,checkboxeLst,radioGroupLst,listboxLst, ssnLst);
-
-      List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
-
-      Iterator<MoveMoneyDetails> itr = moveMoneyDetailsLst.iterator();
-      while (itr.hasNext())
+      Recipients recipients = null;
+      try
       {
-         MoveMoneyDetails moveMoneyDetails = (MoveMoneyDetails) itr.next();
-         dbColumns = null;
-         try
-         {
-            dbColumns = getFieldNames(moveMoneyDetails, false);
-            getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, moveMoneyDetails);
-         }
-         catch (IllegalAccessException e)
-         {
-            e.printStackTrace();
-         }
+         List<String> dbColumns = null;
+         List<Signer> signerLst = new ArrayList<>();
 
-         if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("ACH"))
-          {
-             mmAchBankDetails = tdDaoLayer.getMMAchBankDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
-             Iterator<MMAchBankDetails> itr1 = mmAchBankDetails.iterator();
-             while (itr1.hasNext())
-             {
-                MMAchBankDetails achBankDetails = (MMAchBankDetails) itr1.next();
-                dbColumns = null;
-                try
-                {
-                   dbColumns = getFieldNames(achBankDetails, false);
-                   getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
-                }
-                catch (IllegalAccessException e)
-                {
-                   e.printStackTrace();
-                }
+         Tabs tabs = new Tabs();
+         List<Text> textboxLst = new ArrayList<>();
+         List<Checkbox> checkboxeLst = new ArrayList<>();
+         List<RadioGroup> radioGroupLst = new ArrayList<>();
+         List<com.docusign.esign.model.List> listboxLst = new ArrayList<>();
+         List<Ssn> ssnLst = new ArrayList<>();
+
+         signerLst = getSigners(serviceRequest, dcTemplateDetails, acctDetails, acctOwnerDetails, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst);
+
+         List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings().get("Client");
+
+         Iterator<MoveMoneyDetails> itr = moveMoneyDetailsLst.iterator();
+         while (itr.hasNext())
+         {
+            MoveMoneyDetails moveMoneyDetails = (MoveMoneyDetails) itr.next();
+            dbColumns = null;
+            try
+            {
+               dbColumns = getFieldNames(moveMoneyDetails, false);
+               getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, moveMoneyDetails);
+            }
+            catch (IllegalAccessException e)
+            {
+               e.printStackTrace();
+            }
+
+            if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("ACH"))
+            {
+               mmAchBankDetails = tdDaoLayer.getMMAchBankDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
+               Iterator<MMAchBankDetails> itr1 = mmAchBankDetails.iterator();
+               while (itr1.hasNext())
+               {
+                  MMAchBankDetails achBankDetails = (MMAchBankDetails) itr1.next();
+                  dbColumns = null;
+                  try
+                  {
+                     dbColumns = getFieldNames(achBankDetails, false);
+                     getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
+                  }
+                  catch (IllegalAccessException e)
+                  {
+                     e.printStackTrace();
+                  }
                }
-          }
-          else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("FedWires"))
-          {
-             mmFedwireAcctDetails = tdDaoLayer.getMMFedwireAcctDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
-             Iterator<MMFedwireAcctDetails> itr1 = mmFedwireAcctDetails.iterator();
-             while (itr1.hasNext())
-             {
-                MMFedwireAcctDetails achBankDetails = (MMFedwireAcctDetails) itr1.next();
-                dbColumns = null;
-                try
-                {
-                   dbColumns = getFieldNames(achBankDetails, false);
-                   getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
-                }
-                catch (IllegalAccessException e)
-                {
-                   e.printStackTrace();
-                }
-             }
-          }
-          else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("3rdPartyInternal"))
-          {
-             mmInternalTransferDetails = tdDaoLayer.getMMInternalTransferDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
-          }
-      }
+            }
+            else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("FedWires"))
+            {
+               mmFedwireAcctDetails = tdDaoLayer.getMMFedwireAcctDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
+               Iterator<MMFedwireAcctDetails> itr1 = mmFedwireAcctDetails.iterator();
+               while (itr1.hasNext())
+               {
+                  MMFedwireAcctDetails achBankDetails = (MMFedwireAcctDetails) itr1.next();
+                  dbColumns = null;
+                  try
+                  {
+                     dbColumns = getFieldNames(achBankDetails, false);
+                     getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, achBankDetails);
+                  }
+                  catch (IllegalAccessException e)
+                  {
+                     e.printStackTrace();
+                  }
+               }
+            }
+            else if (moveMoneyDetails.getPayMethod().equalsIgnoreCase("3rdPartyInternal"))
+            {
+               mmInternalTransferDetails = tdDaoLayer.getMMInternalTransferDetails(moveMoneyDetails.getAcctnum(), moveMoneyDetails.getMoveMoneyPayMethId());
+            }
+         }
 
 //      if( (dataObject!=null && ((List)dataObject).size()>0) && ((List)dataObject).get(0) instanceof MMAchBankDetails){
 //      }
 
-      if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      if(checkboxeLst.size()>0){tabs.setCheckboxTabs(checkboxeLst);}
-      if(radioGroupLst.size()>0){tabs.setRadioGroupTabs(radioGroupLst);}
-      if(listboxLst.size()>0){tabs.setListTabs(listboxLst);}
-      if(ssnLst.size()>0){tabs.setSsnTabs(ssnLst);}
-
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext()){
-            Signer signer=(Signer)signerItr.next();
-            signer.setTabs(tabs);
+         if (textboxLst.size() > 0)
+         {
+            tabs.setTextTabs(textboxLst);
          }
-         recipients=new Recipients();
-         recipients.setSigners(signerLst);
-         recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         if (checkboxeLst.size() > 0)
+         {
+            tabs.setCheckboxTabs(checkboxeLst);
+         }
+         if (radioGroupLst.size() > 0)
+         {
+            tabs.setRadioGroupTabs(radioGroupLst);
+         }
+         if (listboxLst.size() > 0)
+         {
+            tabs.setListTabs(listboxLst);
+         }
+         if (ssnLst.size() > 0)
+         {
+            tabs.setSsnTabs(ssnLst);
+         }
+
+         if (signerLst.size() > 0)
+         {
+            Iterator<Signer> signerItr = signerLst.iterator();
+            while (signerItr.hasNext())
+            {
+               Signer signer = (Signer) signerItr.next();
+               signer.setTabs(tabs);
+            }
+            recipients = new Recipients();
+            recipients.setSigners(signerLst);
+            recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
+            recipients.getCarbonCopies().add(getCarbonCopyEmail(serviceRequest));
+         }
       }
-}
-catch (Exception e)
-{
-   e.printStackTrace();
-}
+      catch (Exception e)
+      {
+         e.printStackTrace();
+      }
       return recipients;
    }
 
-   public InlineTemplate getInlineTemplateAgreements(Map<String,DCDocumentDetails> dcDocumentDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
+   public InlineTemplate getInlineTemplateAgreements(Map<String, DCDocumentDetails> dcDocumentDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails)
    {
 
       System.out.println("DCUtility.getInlineTemplateAgreements");
 
-      List<String> dbColumns=null;
-      InlineTemplate inlineTemplate=null;
-      List<Signer> signerLst=new ArrayList<>();
+      List<String> dbColumns = null;
+      InlineTemplate inlineTemplate = null;
+      List<Signer> signerLst = new ArrayList<>();
 
 
-      Recipients recipients=null;
+      Recipients recipients = null;
 
-      int signerRecipientId=1;
+      int signerRecipientId = 1;
       Iterator<AcctOwnerDetails> itr = acctOwnerDetails.iterator();
       while (itr.hasNext())
       {
          AcctOwnerDetails acctOwner = (AcctOwnerDetails) itr.next();
-         Signer signer=null;
-         if(acctOwner.getOwnership().equalsIgnoreCase("Client")){
-            signer=new Signer();
+         Signer signer = null;
+         if (acctOwner.getOwnership().equalsIgnoreCase("Client"))
+         {
+            signer = new Signer();
             signer.setEmail(acctOwner.getEmailAddress());
-            signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
-            signer.setRecipientId(""+signerRecipientId);
+            signer.setName(acctOwner.getFirstName() + " " + acctOwner.getLastName());
+            signer.setRecipientId("" + signerRecipientId);
             signer.setRoleName(acctOwner.getOwnership());
             //signer.setRoutingOrder("1");
 
-         }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
-               signer=new Signer();
-               signer.setEmail(acctOwner.getEmailAddress());
-               signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
-               signer.setRecipientId(""+signerRecipientId);
-               signer.setRoleName(acctOwner.getOwnership());
+         }
+         else if (acctOwner.getOwnership().equalsIgnoreCase("Joint"))
+         {
+            signer = new Signer();
+            signer.setEmail(acctOwner.getEmailAddress());
+            signer.setName(acctOwner.getFirstName() + " " + acctOwner.getLastName());
+            signer.setRecipientId("" + signerRecipientId);
+            signer.setRoleName(acctOwner.getOwnership());
             //signer.setRoutingOrder("2");
          }
-         if(signer!=null)
+         if (signer != null)
          {
             signerLst.add(signer);
-            signerRecipientId ++;
+            signerRecipientId++;
          }
 
       }
-      final String SignTest1File = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"DOC_PATH");//"[PATH/TO/DOCUMENT/TEST.PDF]";
+      final String SignTest1File = ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(), Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(), "DOC_PATH");//"[PATH/TO/DOCUMENT/TEST.PDF]";
       List<Document> docs = new ArrayList<Document>();
 
       List<DCDocumentMapping> dcDocumentDetailsList = null;
@@ -726,9 +1002,10 @@ catch (Exception e)
 
       }
 
-      if(signerLst.size()>0){
-         Iterator<Signer> signerItr=signerLst.iterator();
-         while(signerItr.hasNext())
+      if (signerLst.size() > 0)
+      {
+         Iterator<Signer> signerItr = signerLst.iterator();
+         while (signerItr.hasNext())
          {
 
             Signer signer = (Signer) signerItr.next();
@@ -736,8 +1013,6 @@ catch (Exception e)
             List<Text> textboxLst = new ArrayList<>();
             List<SignHere> clientSignHereLst = new ArrayList<>();
             List<SignHere> jointSignHereLst = new ArrayList<>();
-
-//      ServiceParameters.getConfigProperty(Constant.SERVICES.EMAIL_SERVICE.toString(),Constant.EMAIL_SERVICE.INVESSENCE_GMAIL.toString(),"HOST");
 
             int documentIdTab = 1;
             Iterator<Map.Entry<String, DCDocumentDetails>> docItrTab = dcDocumentDetails.entrySet().iterator();
@@ -782,12 +1057,15 @@ catch (Exception e)
                }
                documentIdTab++;
             }
-            if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
+            if (textboxLst.size() > 0)
+            {
+               tabs.setTextTabs(textboxLst);
+            }
             tabs.setSignHereTabs(signer.getRoleName().equals("Client") ? clientSignHereLst : jointSignHereLst);
             signer.setTabs(tabs);
          }
-     // if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
-      //if(signHereLst.size()>0){tabs.setSignHereTabs(signHereLst);}
+         // if(textboxLst.size()>0){tabs.setTextTabs(textboxLst);}
+         //if(signHereLst.size()>0){tabs.setSignHereTabs(signHereLst);}
 
 //      if(signerLst.size()>0){
 //         Iterator<Signer> signerItr=signerLst.iterator();
@@ -811,13 +1089,13 @@ catch (Exception e)
 //               }
 //            }
 //         }
-         recipients=new Recipients();
+         recipients = new Recipients();
          recipients.setSigners(signerLst);
 
          recipients.setCarbonCopies(new ArrayList<CarbonCopy>());
-         recipients.getCarbonCopies().add(getCarbonCopyEmail());
+         //recipients.getCarbonCopies().add(getCarbonCopyEmail(se));
 
-         inlineTemplate=new InlineTemplate();
+         inlineTemplate = new InlineTemplate();
          inlineTemplate.setSequence("1");
          inlineTemplate.setRecipients(recipients);
          inlineTemplate.setDocuments(docs);
@@ -827,11 +1105,12 @@ catch (Exception e)
       return inlineTemplate;
    }
 
-   private List<Signer> getSigners(DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst){
-      List<String> dbColumns=null;
-      List<Signer> signerLst=new ArrayList<>();
-      List<DCTemplateMapping> dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
-      if(dcTemplateMappingList !=null && dcTemplateMappingList.size()>0)
+   private List<Signer> getSigners(ServiceRequest serviceRequest, DCTemplateDetails dcTemplateDetails, AcctDetails acctDetails, List<AcctOwnerDetails> acctOwnerDetails, List<Text> textboxLst, List<Checkbox> checkboxeLst, List<RadioGroup> radioGroupLst, List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst)
+   {
+      List<String> dbColumns = null;
+      List<Signer> signerLst = new ArrayList<>();
+      List<DCTemplateMapping> dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings()== null?null:dcTemplateDetails.getDcTemplateMappings().get("Client");
+      if (dcTemplateMappingList != null && dcTemplateMappingList.size() > 0)
       {
          try
          {
@@ -844,37 +1123,42 @@ catch (Exception e)
             e.printStackTrace();
          }
       }
-      int signerRecipientId=1;
+      int signerRecipientId = 1;
       Iterator<AcctOwnerDetails> itr = acctDetails.getAcctOwnerDetails().iterator();
       while (itr.hasNext())
       {
          AcctOwnerDetails acctOwner = (AcctOwnerDetails) itr.next();
-         dbColumns=null;
+         dbColumns = null;
          try
          {
-            dbColumns=getFieldNames(acctOwner, false);
+            dbColumns = getFieldNames(acctOwner, false);
          }
          catch (IllegalAccessException e)
          {
             e.printStackTrace();
          }
-         Signer signer=null;
+         Signer signer = null;
 
-         if(acctOwner.getOwnership().equalsIgnoreCase("Client")){
-            signer=new Signer();
+         if (acctOwner.getOwnership().equalsIgnoreCase("Client"))
+         {
+            signer = new Signer();
             signer.setEmail(acctOwner.getEmailAddress());
-            signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
+            signer.setName(acctOwner.getFirstName() + " " + acctOwner.getLastName());
             signer.setRoleName(acctOwner.getOwnership());
-            signer.setRecipientId(""+signerRecipientId);
-            if(dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y")){
-              signer.setIdCheckConfigurationName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ID_CHECK_CONF_NAME"));
+            signer.setRecipientId("" + signerRecipientId);
+            if (dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y"))
+            {
+               signer.setIdCheckConfigurationName(
+                  ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "ID_CHECK_CONF_NAME"));
                signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
             }
-            dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Client");
+            dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings()== null?null:dcTemplateDetails.getDcTemplateMappings().get("Client");
 //            logger.info("dcDocumentMappingList = " + dcTemplateMappingList);
-            if(dcTemplateMappingList==null || dcTemplateMappingList.size()<=0){
+            if (dcTemplateMappingList == null || dcTemplateMappingList.size() <= 0)
+            {
                logger.info("Template Mapping details are not available for Client");
-            }else
+            }
+            else
             {
                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, acctOwner);
                if (acctOwner.getEmploymentDetails() == null || acctOwner.getEmploymentDetails().size() <= 0)
@@ -894,27 +1178,37 @@ catch (Exception e)
                   }
                }
             }
-         }else if(acctOwner.getOwnership().equalsIgnoreCase("Joint")){
-            signer=new Signer();
+         }
+         else if (acctOwner.getOwnership().equalsIgnoreCase("Joint"))
+         {
+            signer = new Signer();
             signer.setEmail(acctOwner.getEmailAddress());
-            signer.setName(acctOwner.getFirstName()+" "+acctOwner.getLastName());
+            signer.setName(acctOwner.getFirstName() + " " + acctOwner.getLastName());
             signer.setRoleName(acctOwner.getOwnership());
-            signer.setRecipientId(""+signerRecipientId);
-            if(dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y")){
-               signer.setIdCheckConfigurationName(ServiceParameters.getConfigProperty(Constant.SERVICES.DOCUSIGN_SERVICES.toString(),Constant.DOCUSIGN_SERVICES.DOCUSIGN.toString(),"ID_CHECK_CONF_NAME"));
+            signer.setRecipientId("" + signerRecipientId);
+            if (dcTemplateDetails.getAuthRequired().equalsIgnoreCase("Y"))
+            {
+               signer.setIdCheckConfigurationName(
+                  ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOCUSIGN_SERVICES.toString(), serviceRequest.getMode(), "ID_CHECK_CONF_NAME"));
                signer.setIdCheckInformationInput(getKBAInputs(acctOwner));
             }
-            dcTemplateMappingList=dcTemplateDetails.getDcTemplateMappings().get("Joint");
-            if(dcTemplateMappingList==null || dcTemplateMappingList.size()<=0){
+            dcTemplateMappingList = dcTemplateDetails.getDcTemplateMappings()== null?null:dcTemplateDetails.getDcTemplateMappings().get("Joint");
+            if (dcTemplateMappingList == null || dcTemplateMappingList.size() <= 0)
+            {
                logger.info("Template Mapping details are not available for Joint");
-            }else{
+            }
+            else
+            {
                getTabObject(dcTemplateMappingList, dbColumns, textboxLst, checkboxeLst, radioGroupLst, listboxLst, ssnLst, acctOwner);
-               if(acctOwner.getEmploymentDetails()==null || acctOwner.getEmploymentDetails().size()<=0){
+               if (acctOwner.getEmploymentDetails() == null || acctOwner.getEmploymentDetails().size() <= 0)
+               {
                   logger.info("Employment details are not available");
-               }else{
+               }
+               else
+               {
                   try
                   {
-                     dbColumns=getFieldNames(acctOwner.getEmploymentDetails().get(0), false);
+                     dbColumns = getFieldNames(acctOwner.getEmploymentDetails().get(0), false);
                   }
                   catch (IllegalAccessException e)
                   {
@@ -924,78 +1218,172 @@ catch (Exception e)
                }
             }
          }
-         if(signer!=null)
+         if (signer != null)
          {
             signerLst.add(signer);
          }
-         signerRecipientId ++;
+         signerRecipientId++;
       }
 
       return signerLst;
    }
 
-   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, Object dataObject){
-     Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
-      while (itr1.hasNext()){
-         DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
-         if(dbColumns.contains(dctemplate.getDbColumn())){
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst, List<RadioGroup> radioGroupLst, List<com.docusign.esign.model.List> listboxLst, Object dataObject)
+   {
+      Iterator<DCTemplateMapping> itr1 = dcTemplateMappingList.iterator();
+      while (itr1.hasNext())
+      {
+         DCTemplateMapping dctemplate = (DCTemplateMapping) itr1.next();
+         if (dbColumns.contains(dctemplate.getDbColumn()))
+         {
 
-            if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
-               Text text=getText(dctemplate, dataObject);
-               if(text==null){}else{textboxLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
-               Checkbox text=getCheckbox(dctemplate, dataObject);
-               if(text==null){}else{checkboxeLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
-               RadioGroup text=getRadioGroup(dctemplate, dataObject);
-               if(text==null){}else{radioGroupLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
-               com.docusign.esign.model.List text=getList(dctemplate, dataObject);
-               if(text==null){}else{listboxLst.add(text);}
+            if (dctemplate.getTab().equalsIgnoreCase("Textbox"))
+            {
+               Text text = getText(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  textboxLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Checkbox"))
+            {
+               Checkbox text = getCheckbox(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  checkboxeLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Radiobox"))
+            {
+               RadioGroup text = getRadioGroup(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  radioGroupLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Listbox"))
+            {
+               com.docusign.esign.model.List text = getList(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  listboxLst.add(text);
+               }
             }
          }
       }
    }
-   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst, Object dataObject){
-      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();
-      while (itr1.hasNext()){
-         DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
-         if(dbColumns.contains(dctemplate.getDbColumn())){
 
-            if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
-               Text text=getText(dctemplate, dataObject);
-               if(text==null){}else{textboxLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
-               Checkbox text=getCheckbox(dctemplate, dataObject);
-               if(text==null){}else{checkboxeLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
-               RadioGroup text=getRadioGroup(dctemplate, dataObject);
-               if(text==null){}else{radioGroupLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
-               com.docusign.esign.model.List text=getList(dctemplate, dataObject);
-               if(text==null){}else{listboxLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Ssn")){
-               if(ssnLst==null){}else{
-               Ssn text=getSsn(dctemplate, dataObject);
-               if(text==null){}else{ssnLst.add(text);}}
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst, List<RadioGroup> radioGroupLst, List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst, Object dataObject)
+   {
+      Iterator<DCTemplateMapping> itr1 = dcTemplateMappingList.iterator();
+      while (itr1.hasNext())
+      {
+         DCTemplateMapping dctemplate = (DCTemplateMapping) itr1.next();
+         if (dbColumns.contains(dctemplate.getDbColumn()))
+         {
+
+            if (dctemplate.getTab().equalsIgnoreCase("Textbox"))
+            {
+               Text text = getText(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  textboxLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Checkbox"))
+            {
+               Checkbox text = getCheckbox(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  checkboxeLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Radiobox"))
+            {
+               RadioGroup text = getRadioGroup(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  radioGroupLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Listbox"))
+            {
+               com.docusign.esign.model.List text = getList(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  listboxLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Ssn"))
+            {
+               if (ssnLst == null)
+               {
+               }
+               else
+               {
+                  Ssn text = getSsn(dctemplate, dataObject);
+                  if (text == null)
+                  {
+                  }
+                  else
+                  {
+                     ssnLst.add(text);
+                  }
+               }
             }
          }
       }
 
    }
 
-   private void getTabObject(List<DCDocumentMapping> dcDocumentMappingList, List<String> dbColumns, List<Text> textboxLst, List<SignHere> signHereLst, Object dataObject, String documentId, boolean sigHereFlag, String recipientId){
-      Iterator<DCDocumentMapping> itr1= dcDocumentMappingList.iterator();
-      while (itr1.hasNext()){
-         DCDocumentMapping dcDocumentMapping=(DCDocumentMapping)itr1.next();
-         if(dbColumns.contains(dcDocumentMapping.getDbColumn())){
+   private void getTabObject(List<DCDocumentMapping> dcDocumentMappingList, List<String> dbColumns, List<Text> textboxLst, List<SignHere> signHereLst, Object dataObject, String documentId, boolean sigHereFlag, String recipientId)
+   {
+      Iterator<DCDocumentMapping> itr1 = dcDocumentMappingList.iterator();
+      while (itr1.hasNext())
+      {
+         DCDocumentMapping dcDocumentMapping = (DCDocumentMapping) itr1.next();
+         if (dbColumns.contains(dcDocumentMapping.getDbColumn()))
+         {
 
-            if(dcDocumentMapping.getTab().equalsIgnoreCase("Textbox")){
-               Text text=getText(dcDocumentMapping, dataObject, documentId,null);
-               if(text==null){}else{textboxLst.add(text);}
+            if (dcDocumentMapping.getTab().equalsIgnoreCase("Textbox"))
+            {
+               Text text = getText(dcDocumentMapping, dataObject, documentId, null);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  textboxLst.add(text);
+               }
             }
-         }else if(dcDocumentMapping.getTab().equalsIgnoreCase("SignHere")){
-            if(sigHereFlag)
+         }
+         else if (dcDocumentMapping.getTab().equalsIgnoreCase("SignHere"))
+         {
+            if (sigHereFlag)
             {
                SignHere text = getSignHere(dcDocumentMapping, dataObject, documentId, recipientId);
                if (text == null)
@@ -1006,77 +1394,137 @@ catch (Exception e)
                   signHereLst.add(text);
                }
             }
-         }else if(dcDocumentMapping.getDbColumn().equalsIgnoreCase("DATE")){
-            Text text=getText(dcDocumentMapping, dataObject, documentId,dcDocumentMapping.getDbColumn());
-            if(text==null){}else{textboxLst.add(text);}
+         }
+         else if (dcDocumentMapping.getDbColumn().equalsIgnoreCase("DATE"))
+         {
+            Text text = getText(dcDocumentMapping, dataObject, documentId, dcDocumentMapping.getDbColumn());
+            if (text == null)
+            {
+            }
+            else
+            {
+               textboxLst.add(text);
+            }
          }
       }
    }
-   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst,List<RadioGroup> radioGroupLst,List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst, Object dataObject, String addLableVal, boolean isPostfix){
-      Iterator<DCTemplateMapping> itr1=dcTemplateMappingList.iterator();;
-      String preLable=null;
-      while (itr1.hasNext()){
-         preLable=addLableVal;
-         DCTemplateMapping dctemplate=(DCTemplateMapping)itr1.next();
+
+   private void getTabObject(List<DCTemplateMapping> dcTemplateMappingList, List<String> dbColumns, List<Text> textboxLst, List<Checkbox> checkboxeLst, List<RadioGroup> radioGroupLst, List<com.docusign.esign.model.List> listboxLst, List<Ssn> ssnLst, Object dataObject, String addLableVal, boolean isPostfix)
+   {
+      Iterator<DCTemplateMapping> itr1 = dcTemplateMappingList.iterator();
+      ;
+      String preLable = null;
+      while (itr1.hasNext())
+      {
+         preLable = addLableVal;
+         DCTemplateMapping dctemplate = (DCTemplateMapping) itr1.next();
 //         System.out.println(dctemplate.getDbColumn() +" : "+dctemplate.getDbColumn()+addLableVal+" : "+addLableVal+dctemplate.getDbColumn());
 
 //         System.out.println(dbColumns.contains(dctemplate.getDbColumn()) + "(isPostfix==true?"+ dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal)+" : "+dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()));
          //if(dbColumns.contains(dctemplate.getDbColumn()) && (isPostfix==true? dcTemplateMappingList.contains(dctemplate.getDbColumn()+addLableVal):dcTemplateMappingList.contains(addLableVal+dctemplate.getDbColumn()))){
-         if(dctemplate.getDbColumn().equalsIgnoreCase("beneShare")){
-            preLable="%"+addLableVal;
+         if (dctemplate.getDbColumn().equalsIgnoreCase("beneShare"))
+         {
+            preLable = "%" + addLableVal;
          }
-         if(dbColumns.contains(dctemplate.getDbColumn())
-            && (isPostfix==true? dctemplate.getLable().equalsIgnoreCase(dctemplate.getDbColumn()+preLable)
-            :dctemplate.getLable().equalsIgnoreCase(preLable+dctemplate.getDbColumn()))){
+         if (dbColumns.contains(dctemplate.getDbColumn())
+            && (isPostfix == true ? dctemplate.getLable().equalsIgnoreCase(dctemplate.getDbColumn() + preLable)
+            : dctemplate.getLable().equalsIgnoreCase(preLable + dctemplate.getDbColumn())))
+         {
 
-            if(dctemplate.getTab().equalsIgnoreCase("Textbox")){
-               Text text=getText(dctemplate, dataObject);
-               if(text==null){}else{textboxLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Checkbox")){
-               Checkbox text=getCheckbox(dctemplate, dataObject);
-               if(text==null){}else{checkboxeLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Radiobox")){
-               RadioGroup text=getRadioGroup(dctemplate, dataObject);
-               if(text==null){}else{radioGroupLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Listbox")){
-               com.docusign.esign.model.List text=getList(dctemplate, dataObject);
-               if(text==null){}else{listboxLst.add(text);}
-            }else if(dctemplate.getTab().equalsIgnoreCase("Ssn")){
-               if(ssnLst==null){}else{
-                  Ssn text=getSsn(dctemplate, dataObject);
-                  if(text==null){}else{ssnLst.add(text);}}
+            if (dctemplate.getTab().equalsIgnoreCase("Textbox"))
+            {
+               Text text = getText(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  textboxLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Checkbox"))
+            {
+               Checkbox text = getCheckbox(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  checkboxeLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Radiobox"))
+            {
+               RadioGroup text = getRadioGroup(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  radioGroupLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Listbox"))
+            {
+               com.docusign.esign.model.List text = getList(dctemplate, dataObject);
+               if (text == null)
+               {
+               }
+               else
+               {
+                  listboxLst.add(text);
+               }
+            }
+            else if (dctemplate.getTab().equalsIgnoreCase("Ssn"))
+            {
+               if (ssnLst == null)
+               {
+               }
+               else
+               {
+                  Ssn text = getSsn(dctemplate, dataObject);
+                  if (text == null)
+                  {
+                  }
+                  else
+                  {
+                     ssnLst.add(text);
+                  }
+               }
             }
          }
       }
 
    }
 
-   private IdCheckInformationInput getKBAInputs(AcctOwnerDetails acctOwnerDetails){
-      IdCheckInformationInput idCheckInformationInput=new IdCheckInformationInput();
-      AddressInformationInput addressInformationInput=new AddressInformationInput();
+   private IdCheckInformationInput getKBAInputs(AcctOwnerDetails acctOwnerDetails)
+   {
+      IdCheckInformationInput idCheckInformationInput = new IdCheckInformationInput();
+      AddressInformationInput addressInformationInput = new AddressInformationInput();
 
-      AddressInformation addressInformation=new AddressInformation();
+      AddressInformation addressInformation = new AddressInformation();
       addressInformation.setStreet1(acctOwnerDetails.getPhysicalAddressStreet());//("6948 Shepherd");
       addressInformation.setCity(acctOwnerDetails.getPhysicalAddressCity());//("Russelville");
       addressInformation.setState(acctOwnerDetails.getPhysicalAddressState());//("AR");
       addressInformation.setZip(acctOwnerDetails.getPhysicalAddressZipCode());//("72801");
       addressInformationInput.setAddressInformation(addressInformation);
 
-      Ssn4InformationInput ssn4InformationInput=new Ssn4InformationInput();
-      ssn4InformationInput.setSsn4(acctOwnerDetails.getSsn()==null || acctOwnerDetails.getSsn().equals("")?"":acctOwnerDetails.getSsn().substring(acctOwnerDetails.getSsn().length()-4,acctOwnerDetails.getSsn().length()));//("6280");//(elecFundTransferDetails.getSsn());//("7438");
+      Ssn4InformationInput ssn4InformationInput = new Ssn4InformationInput();
+      ssn4InformationInput.setSsn4(acctOwnerDetails.getSsn() == null || acctOwnerDetails.getSsn().equals("") ? "" : acctOwnerDetails.getSsn().substring(acctOwnerDetails.getSsn().length() - 4, acctOwnerDetails.getSsn().length()));//("6280");//(elecFundTransferDetails.getSsn());//("7438");
 
-      DobInformationInput dobInformationInput=new DobInformationInput();
+      DobInformationInput dobInformationInput = new DobInformationInput();
       dobInformationInput.setDateOfBirth(acctOwnerDetails.getDob());//("09/11/1983");
 
       idCheckInformationInput.setAddressInformationInput(addressInformationInput);
       idCheckInformationInput.setSsn4InformationInput(ssn4InformationInput);
       idCheckInformationInput.setDobInformationInput(dobInformationInput);
 
-     return idCheckInformationInput;
+      return idCheckInformationInput;
    }
 
-   private Text getText (DCDocumentMapping documentMapping, Object dataObject, String documentId,String identifier){
-      Text text=null;
+   private Text getText(DCDocumentMapping documentMapping, Object dataObject, String documentId, String identifier)
+   {
+      Text text = null;
       try
       {
          text = new Text();
@@ -1087,31 +1535,36 @@ catch (Exception e)
          text.setPageNumber(documentMapping.getPageNumber());
          text.setWidth(documentMapping.getWidth());
          text.setHeight(documentMapping.getHeight());
-         if (identifier == null || identifier.equals("")){
+         if (identifier == null || identifier.equals(""))
+         {
             text.setValue(getInstanceValue(dataObject, documentMapping.getDbColumn()).toString());
-         }else if(identifier.equals("DATE")){
+         }
+         else if (identifier.equals("DATE"))
+         {
             text.setValue(CommonUtil.getDateMMDDYYYY(new Date()));
          }
       }
       catch (NoSuchFieldException e)
       {
-         logger.error(documentMapping.getLable()+" = "+e);
+         logger.error(documentMapping.getLable() + " = " + e);
          e.printStackTrace();
       }
       catch (ClassNotFoundException e)
       {
-         logger.error(documentMapping.getLable()+" = "+e);
+         logger.error(documentMapping.getLable() + " = " + e);
          e.printStackTrace();
       }
       catch (IllegalAccessException e)
       {
-         logger.error(documentMapping.getLable()+" = "+e);
+         logger.error(documentMapping.getLable() + " = " + e);
          e.printStackTrace();
       }
       return text;
    }
-   private SignHere getSignHere (DCDocumentMapping documentMapping, Object dataObject, String documentId, String recipientId){
-      SignHere signHere=null;
+
+   private SignHere getSignHere(DCDocumentMapping documentMapping, Object dataObject, String documentId, String recipientId)
+   {
+      SignHere signHere = null;
       try
       {
          System.out.println(documentMapping);
@@ -1123,147 +1576,162 @@ catch (Exception e)
          signHere.setXPosition(documentMapping.getxPosition());
          signHere.setYPosition(documentMapping.getyPosition());
 
-      }catch (Exception e){
+      }
+      catch (Exception e)
+      {
 
       }
       return signHere;
    }
 
-   private Ssn getSsn (DCTemplateMapping dctemplate, Object dataObject){
-      Ssn text=null;
+   private Ssn getSsn(DCTemplateMapping dctemplate, Object dataObject)
+   {
+      Ssn text = null;
       try
       {
-         text=new Ssn();
+         text = new Ssn();
          text.setTabLabel(dctemplate.getLable());
          text.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
       }
       catch (NoSuchFieldException e)
       {
-         logger.error(dctemplate.getLable()+" = "+e);
+         logger.error(dctemplate.getLable() + " = " + e);
          e.printStackTrace();
       }
       catch (ClassNotFoundException e)
       {
-         logger.error(dctemplate.getLable()+" = "+e);
+         logger.error(dctemplate.getLable() + " = " + e);
          e.printStackTrace();
       }
       catch (IllegalAccessException e)
       {
-         logger.error(dctemplate.getLable()+" = "+e);
+         logger.error(dctemplate.getLable() + " = " + e);
          e.printStackTrace();
       }
       return text;
    }
 
-   private Text getText (DCTemplateMapping dctemplate, Object dataObject){
-      Text text=null;
+   private Text getText(DCTemplateMapping dctemplate, Object dataObject)
+   {
+      Text text = null;
       try
       {
-         text=new Text();
+         text = new Text();
 
-      text.setTabLabel(dctemplate.getLable());
-      text.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
+         text.setTabLabel(dctemplate.getLable());
+         text.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
 
-   }
-   catch (NoSuchFieldException e)
-   {
-      logger.error(dctemplate.getLable()+" = "+e);
-      e.printStackTrace();
-   }
-   catch (ClassNotFoundException e)
-   {
-      logger.error(dctemplate.getLable()+" = "+e);
-      e.printStackTrace();
-   }
-   catch (IllegalAccessException e)
-   {
-      logger.error(dctemplate.getLable()+" = "+e);
-      e.printStackTrace();
-   }
-   return text;
-}
-   private Checkbox getCheckbox (DCTemplateMapping dctemplate, Object dataObject){
-
-   Checkbox checkbox=null;
-      try
-      {
-         if(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("Y") || getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("true")){
-            checkbox=new Checkbox();
-            checkbox.setTabLabel(dctemplate.getLable());
-            checkbox.setSelected("true");
-         }else{
-            checkbox=new Checkbox();
-            checkbox.setTabLabel(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
-            checkbox.setSelected("true");
-         }
-         if(dctemplate.getIsDisabled().equalsIgnoreCase("Y"))
-            checkbox.setLocked("true");
       }
       catch (NoSuchFieldException e)
       {
-         logger.error(dctemplate.getLable()+" = "+e);
+         logger.error(dctemplate.getLable() + " = " + e);
          e.printStackTrace();
       }
       catch (ClassNotFoundException e)
       {
-         logger.error(dctemplate.getLable()+" = "+e);
+         logger.error(dctemplate.getLable() + " = " + e);
          e.printStackTrace();
       }
       catch (IllegalAccessException e)
       {
-         logger.error(dctemplate.getLable()+" = "+e);
+         logger.error(dctemplate.getLable() + " = " + e);
          e.printStackTrace();
       }
-   return checkbox;
-   }
-   private RadioGroup getRadioGroup (DCTemplateMapping dctemplate, Object dataObject){
-
-
-   RadioGroup radioGroup =null;
-   try
-   {
-      radioGroup= new RadioGroup();
-      radioGroup.setGroupName(dctemplate.getLable());
-      getInstanceValue(dataObject, dctemplate.getDbColumn()).toString();
-      radioGroup.setRadios(new ArrayList<Radio>());
-      						Radio radio=new Radio();
-      						radio.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
-      						radio.setSelected("true");
-      						radioGroup.getRadios().add(radio);
-   // radioGroup.se
-   //					if(radioGroup.getGroupName().equalsIgnoreCase("AccountType")){
-   //						radioGroup.setRadios(new ArrayList<Radio>());
-   //						Radio radio=new Radio();
-   //						radio.setValue("JointTenants");
-   //						radio.setSelected("true");
-   //						radioGroup.getRadios().add(radio);
-   //						System.out.println(tempId+",Radio,"+radioGroup.getGroupName()+",,"+signer.getRoleName());
-   //					}
-}
-   catch (NoSuchFieldException e)
-   {
-      logger.error(dctemplate.getLable()+" = "+e);
-      e.printStackTrace();
-   }
-   catch (ClassNotFoundException e)
-   {
-      logger.error(dctemplate.getLable()+" = "+e);
-      e.printStackTrace();
-   }
-   catch (IllegalAccessException e)
-   {
-      logger.error(dctemplate.getLable()+" = "+e);
-      e.printStackTrace();
+      return text;
    }
 
-   return radioGroup;
-   }
-   private com.docusign.esign.model.List getList (DCTemplateMapping dctemplate, Object dataObject){
+   private Checkbox getCheckbox(DCTemplateMapping dctemplate, Object dataObject)
+   {
 
-      com.docusign.esign.model.List list=null;
+      Checkbox checkbox = null;
       try
       {
-         list=new com.docusign.esign.model.List();
+         if (getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("Y") || getInstanceValue(dataObject, dctemplate.getDbColumn()).toString().equalsIgnoreCase("true"))
+         {
+            checkbox = new Checkbox();
+            checkbox.setTabLabel(dctemplate.getLable());
+            checkbox.setSelected("true");
+         }
+         else
+         {
+            checkbox = new Checkbox();
+            checkbox.setTabLabel(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
+            checkbox.setSelected("true");
+         }
+         if (dctemplate.getIsDisabled().equalsIgnoreCase("Y"))
+         {
+            checkbox.setLocked("true");
+         }
+      }
+      catch (NoSuchFieldException e)
+      {
+         logger.error(dctemplate.getLable() + " = " + e);
+         e.printStackTrace();
+      }
+      catch (ClassNotFoundException e)
+      {
+         logger.error(dctemplate.getLable() + " = " + e);
+         e.printStackTrace();
+      }
+      catch (IllegalAccessException e)
+      {
+         logger.error(dctemplate.getLable() + " = " + e);
+         e.printStackTrace();
+      }
+      return checkbox;
+   }
+
+   private RadioGroup getRadioGroup(DCTemplateMapping dctemplate, Object dataObject)
+   {
+
+
+      RadioGroup radioGroup = null;
+      try
+      {
+         radioGroup = new RadioGroup();
+         radioGroup.setGroupName(dctemplate.getLable());
+         getInstanceValue(dataObject, dctemplate.getDbColumn()).toString();
+         radioGroup.setRadios(new ArrayList<Radio>());
+         Radio radio = new Radio();
+         radio.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
+         radio.setSelected("true");
+         radioGroup.getRadios().add(radio);
+         // radioGroup.se
+         //					if(radioGroup.getGroupName().equalsIgnoreCase("AccountType")){
+         //						radioGroup.setRadios(new ArrayList<Radio>());
+         //						Radio radio=new Radio();
+         //						radio.setValue("JointTenants");
+         //						radio.setSelected("true");
+         //						radioGroup.getRadios().add(radio);
+         //						System.out.println(tempId+",Radio,"+radioGroup.getGroupName()+",,"+signer.getRoleName());
+         //					}
+      }
+      catch (NoSuchFieldException e)
+      {
+         logger.error(dctemplate.getLable() + " = " + e);
+         e.printStackTrace();
+      }
+      catch (ClassNotFoundException e)
+      {
+         logger.error(dctemplate.getLable() + " = " + e);
+         e.printStackTrace();
+      }
+      catch (IllegalAccessException e)
+      {
+         logger.error(dctemplate.getLable() + " = " + e);
+         e.printStackTrace();
+      }
+
+      return radioGroup;
+   }
+
+   private com.docusign.esign.model.List getList(DCTemplateMapping dctemplate, Object dataObject)
+   {
+
+      com.docusign.esign.model.List list = null;
+      try
+      {
+         list = new com.docusign.esign.model.List();
          list.setTabLabel(dctemplate.getLable());
          list.setValue(getInstanceValue(dataObject, dctemplate.getDbColumn()).toString());
       }
@@ -1282,85 +1750,21 @@ catch (Exception e)
       return list;
    }
 
-   public static Object getInstanceValue(final Object classInstance, final String fieldName) throws SecurityException,     NoSuchFieldException,ClassNotFoundException, IllegalArgumentException, IllegalAccessException {
-
-      // Get the private field
-      final Field field = classInstance.getClass().getDeclaredField(fieldName);
-      // Allow modification on the field
-      field.setAccessible(true);
-      // Return the Obect corresponding to the field
-      return field.get(classInstance);
-
-   }
-
-   public static List<String> getFieldNames(final Object obj, boolean publicOnly)
-      throws IllegalArgumentException,IllegalAccessException
+   public String getJsonObjectToString(Object object)
    {
-      StringBuilder sb=new StringBuilder();
-      Class<? extends Object> c1 = obj.getClass();
-      List<String> lst = new ArrayList<String>();
-      Field[] fields = c1.getDeclaredFields();
-      for (int i = 0; i < fields.length; i++) {
-         String name = fields[i].getName();
-         if (publicOnly) {
-            if(Modifier.isPublic(fields[i].getModifiers())) {
-               Object value = fields[i].get(obj);
-               if(value==null)
-               {
-                  sb.append(name +", ");
-               }else{
-                  lst.add(name);}
-            }
-         }
-         else {
-            fields[i].setAccessible(true);
-            Object value = fields[i].get(obj);
-            if(value==null)
-            {
-               sb.append(name +", ");
-            }else{
-            lst.add(name);}
-         }
-      }
-//      System.out.println("Avoided properties of "+c1+" due to empty or null value : (" + sb + ")");
-      logger.info("Properties for further process = " + lst);
-      return lst;
-   }
-
-   public static Map<String, Object> getFieldNamesAndValues(final Object obj, boolean publicOnly)
-      throws IllegalArgumentException,IllegalAccessException
-   {
-      Class<? extends Object> c1 = obj.getClass();
-      Map<String, Object> map = new HashMap<String, Object>();
-      Field[] fields = c1.getDeclaredFields();
-      for (int i = 0; i < fields.length; i++) {
-         String name = fields[i].getName();
-         if (publicOnly) {
-            if(Modifier.isPublic(fields[i].getModifiers())) {
-               Object value = fields[i].get(obj);
-               map.put(name, value);
-            }
-         }
-         else {
-            fields[i].setAccessible(true);
-            Object value = fields[i].get(obj);
-            map.put(name, value);
-         }
-      }
-      return map;
-   }
-
-   public String getJsonObjectToString(Object object){
-String jsonObject=null;
-      try {
+      String jsonObject = null;
+      try
+      {
          ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
          mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
          mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-         jsonObject=mapper.writeValueAsString(object);
-         logger.info("PrintJsonObject :" +jsonObject);
+         jsonObject = mapper.writeValueAsString(object);
+         logger.info("PrintJsonObject :" + jsonObject);
          return jsonObject;
-      } catch (JsonProcessingException e) {
+      }
+      catch (JsonProcessingException e)
+      {
          // TODO Auto-generated catch block
          e.printStackTrace();
       }

@@ -8,6 +8,8 @@ import java.util.Date;
 public class DCRequestAudit
 {
    private Long id;
+   private String product;
+   private String mode;
    private String requestIds;
    private Integer eventNum;
    private Long acctnum;
@@ -18,6 +20,26 @@ public class DCRequestAudit
    private Date reqTime;
    private Date resTime;
    private String envelopId, opt;
+
+   public String getProduct()
+   {
+      return product;
+   }
+
+   public void setProduct(String product)
+   {
+      this.product = product;
+   }
+
+   public String getMode()
+   {
+      return mode;
+   }
+
+   public void setMode(String mode)
+   {
+      this.mode = mode;
+   }
 
    @Override
    public String toString()
@@ -38,8 +60,10 @@ public class DCRequestAudit
          '}';
    }
 
-   public DCRequestAudit(String requestIds,Long acctnum,Integer eventNum, String dcRequest, String dcResponce, String status, Date reqTime, String envelopId)
+   public DCRequestAudit(String product, String  mode, String requestIds, Long acctnum,Integer eventNum, String dcRequest, String dcResponce, String status, Date reqTime, String envelopId)
    {
+      this.product=product;
+      this.mode=mode;
       this.requestIds=requestIds;
       this.acctnum = acctnum;
       this.eventNum = eventNum;

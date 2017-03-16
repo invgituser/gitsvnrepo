@@ -2,13 +2,16 @@ package com.invessence.ws.service;
 
 import java.net.UnknownHostException;
 import java.util.*;
+import java.util.List;
 
+import com.docusign.esign.model.*;
 import com.invessence.emailer.util.EmailCreator;
-import com.invessence.service.bean.ServiceOperationDetails;
+import com.invessence.service.bean.*;
 import com.invessence.service.util.*;
 import com.invessence.util.*;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
+import com.invessence.ws.provider.td.bean.DCRequest;
 import com.invessence.ws.util.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.*;
@@ -30,7 +33,6 @@ public class ServiceLayerImpl implements ServiceLayer
    @Autowired @Qualifier("Gemini")
    CallingLayer geminiCallingLayer;
 
-
    @Autowired @Qualifier("TD")
    CallingLayer tdCallingLayer;
 
@@ -50,6 +52,23 @@ public class ServiceLayerImpl implements ServiceLayer
          logger.error(e.getMessage());
          return new WSCallResult(new WSCallStatus(SysParameters.dcTechIssueCode, SysParameters.dcTechIssueMsg),null);
    }
+      return wsCallResult;
+   }
+
+   @Override
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests)
+   {
+      logger.info("ServiceLayerImpl.processDCRequest");
+      WSCallResult wsCallResult=null;
+      try
+      {
+         wsCallResult= getCallingLayer(serviceRequest.getProduct()).processDCRequest(serviceRequest, dcRequests);
+      }
+      catch (Exception e)
+      {
+         logger.error(e.getMessage());
+         return new WSCallResult(new WSCallStatus(SysParameters.dcTechIssueCode, SysParameters.dcTechIssueMsg),null);
+      }
       return wsCallResult;
    }
 
@@ -1234,6 +1253,27 @@ public class ServiceLayerImpl implements ServiceLayer
 //      }
 //      return  null;
 //   }
+
+
+
+   private CallingLayer getCallingLayer(String product){
+      //SysParameters.BROKER_WEBSERVICE_API
+      System.out.println("******------------------");
+      //String webServiceAPI=ServiceParameters.BROKER_WEBSERVICE_API;//getServiceProvider();
+      String webServiceAPI=ServiceDetails.getServiceProvider(product,Constant.SERVICES.BROKER_WEBSERVICES.toString());//getServiceProvider();
+      if(webServiceAPI==null){
+         logger.error(Constant.SERVICES.BROKER_WEBSERVICES.toString()+" API is not available");
+      }else if(webServiceAPI.equals("GEMINI")){
+         System.out.println("Gemini");
+         callingLayer = geminiCallingLayer; //new CallingLayerGeminiImpl(commonDao);
+      }else if(webServiceAPI.equals("TD")){
+         System.out.println("TD");
+         callingLayer = tdCallingLayer;//new CallingLayerTDImpl();
+      }else{
+         logger.error(webServiceAPI+" API is not available");
+      }
+      return callingLayer;
+   }
 
    private CallingLayer getCallingLayer(){
       //SysParameters.BROKER_WEBSERVICE_API

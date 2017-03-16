@@ -1,9 +1,13 @@
 package com.invessence.ws.service;
 
+import java.util.List;
+
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.service.util.ServiceParameters;
 import com.invessence.ws.bean.*;
 import com.invessence.ws.dao.WSCommonDao;
 import com.invessence.ws.provider.gemini.service.*;
+import com.invessence.ws.provider.td.bean.DCRequest;
 import org.springframework.stereotype.Service;
 
 /**
@@ -28,6 +32,12 @@ public class CallingLayerGeminiImpl implements CallingLayer
 
    @Override
    public WSCallResult processDCRequest(Long acctNum, Integer eventNum) throws Exception
+   {
+      return null;
+   }
+
+   @Override
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests) throws Exception
    {
       return null;
    }

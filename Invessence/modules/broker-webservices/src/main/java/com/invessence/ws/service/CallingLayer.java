@@ -1,6 +1,10 @@
 package com.invessence.ws.service;
 
+import java.util.List;
+
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.ws.bean.*;
+import com.invessence.ws.provider.td.bean.DCRequest;
 
 /**
  * Created by abhangp on 3/22/2016.
@@ -8,6 +12,7 @@ import com.invessence.ws.bean.*;
 public interface CallingLayer
 {
    public WSCallResult processDCRequest(Long acctNum, Integer eventNum)throws Exception;
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests)throws Exception;
    public WSCallResult moveMoney(Long acctNum, Integer reqId);
    public WSCallResult fundTransfer(Long acctNum, Integer reqId);
 

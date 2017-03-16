@@ -206,4 +206,29 @@ public class AcctDetails
    {
       this.acctOwnerDetails = acctOwnerDetails;
    }
+
+   @Override
+   public String toString()
+   {
+      return "AcctDetails{" +
+         "acctnum=" + acctnum +
+         ", clientAccountID='" + clientAccountID + '\'' +
+         ", caseNumber='" + caseNumber + '\'' +
+         ", advisorId=" + advisorId +
+         ", advisorCode='" + advisorCode + '\'' +
+         ", firmName='" + firmName + '\'' +
+         ", primaryContact='" + primaryContact + '\'' +
+         ", accountType='" + accountType + '\'' +
+         ", cashsweepvehiclechoice='" + cashsweepvehiclechoice + '\'' +
+         ", divIntPref='" + divIntPref + '\'' +
+         ", monthlyStatements='" + monthlyStatements + '\'' +
+         ", tradeConfirmations='" + tradeConfirmations + '\'' +
+         ", dupStatement='" + dupStatement + '\'' +
+         ", dupTradeConfirm='" + dupTradeConfirm + '\'' +
+         ", proxy='" + proxy + '\'' +
+         ", acctOwnerDetails=" + acctOwnerDetails +
+         ", benefiaciaryDetails=" + benefiaciaryDetails +
+         ", dupDocReqParty=" + dupDocReqParty +
+         '}';
+   }
 }

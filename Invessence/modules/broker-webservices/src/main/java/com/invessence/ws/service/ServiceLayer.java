@@ -1,14 +1,18 @@
 package com.invessence.ws.service;
 
+import java.util.List;
+
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.ws.bean.*;
+import com.invessence.ws.provider.td.bean.DCRequest;
 
 /**
  * Created by abhangp on 3/11/2016.
  */
 public interface ServiceLayer
 {
+   public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests);
    public WSCallResult processDCRequest(Long acctNum, int eventNum);
-
    public void createPendingUser();
    public WSCallStatus updateEmail(String clientAccountID, String newEmail);
    public WSCallStatus updateMailingAddress(String clientAccountID,
