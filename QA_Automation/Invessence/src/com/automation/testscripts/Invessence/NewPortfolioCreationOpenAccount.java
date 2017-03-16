@@ -107,7 +107,7 @@ public class NewPortfolioCreationOpenAccount  {
 						//open account
 						WebElement openaccountbtn = driver.findElement(By.xpath("//span[contains(text(),'Open Account')]"));
 						openaccountbtn.click();
-						Thread.sleep(2000);
+						Thread.sleep(3000);
 						String accountnumber = driver.getCurrentUrl();
 						System.out.println("URL is :"+ accountnumber);
 						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
@@ -141,9 +141,9 @@ public class NewPortfolioCreationOpenAccount  {
 						//Hit Submit button
 						
 						driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdp10save']/span")).click();
-						Thread.sleep(1000);
-						driver.findElement(By.xpath("//*[@id='ctoForm:submitBtnId']//span")).click();
 						Thread.sleep(3000);
+						driver.findElement(By.xpath("//*[@id='ctoForm:submitBtnId']//span")).click();
+						Thread.sleep(5000);
 						//Result verification for Reporting
 						System.out.println("#############################################");
 						log.info("#######################################################");
@@ -160,7 +160,8 @@ public class NewPortfolioCreationOpenAccount  {
 							{
 								System.out.println("Pass -Account TD from is Submitted Sucessfully");
 								log.info("Pass - Account TD from is Submitted Sucessfully");
-								
+								System.out.println("#############################################");
+								log.info("#############################################");	
 								//Emulation of account opening and accoutn activation by running stored procedure
 								
 								String spopenacct = "testing.sp_emulate_td_openaccount("+accountnumber+")";
@@ -181,6 +182,8 @@ public class NewPortfolioCreationOpenAccount  {
 								{
 									System.out.println("Fail- Account activation failed");
 									log.info("Fail - Account is active");
+									System.out.println("#############################################");
+									log.info("#############################################");	
 								}
 							
 							}
@@ -188,6 +191,8 @@ public class NewPortfolioCreationOpenAccount  {
 							{
 								System.out.println("Fail - Account TD from Submission failed");
 								log.info("Fail - Account TD from Submission failed");
+								System.out.println("#############################################");
+								log.info("#############################################");	
 							}
 							
 							

@@ -229,7 +229,7 @@ public class AccountOpeningPO {
 			if(accounttype.equals("Individual") || accounttype.equals("Joint") || accounttype.equals("UTMA / UGMA"))
 			{
 				driver.findElement(By.xpath("//span[contains(text(),'I prefer not to name a beneficiary for this account.')]/parent::div//span")).click();
-				Thread.sleep(1000);
+				Thread.sleep(3000);
 			}
 			else
 			{
