@@ -10,6 +10,18 @@ public class ServiceOperationDetails
    private String company, service, serviceStatus, operation, vendor, operationStatus, refValue;
    private int priority;
 
+   public ServiceOperationDetails(String company, String service, String serviceStatus, String operation, String vendor, String operationStatus, String refValue, int priority)
+   {
+      this.company = company;
+      this.service = service;
+      this.serviceStatus = serviceStatus;
+      this.operation = operation;
+      this.vendor = vendor;
+      this.operationStatus = operationStatus;
+      this.refValue = refValue;
+      this.priority = priority;
+   }
+
    public String getRefValue()
    {
       return refValue;

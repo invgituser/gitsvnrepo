@@ -4,10 +4,9 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 import com.invessence.service.bean.*;
+import com.invessence.service.bean.docuSign.*;
 import com.invessence.service.dao.ServiceDao;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by abhangp on 5/13/2016.
@@ -33,11 +32,9 @@ public class ServiceParameters
       String propLoadParam1="";
       setServiceConfigDetails(propLoadParam);
       setServiceOperationDetails(propLoadParam);
-/*    // This property is now part of WEB process and data in service is not required.
-      if(propLoadParam.contains("ALL")){
-         setWebSiteConfigDetails();
-      }
-*/
+//      if(propLoadParam.contains("ALL")){
+//         //setWebSiteConfigDetails();
+//      }
    }
 
    static{

@@ -1,4 +1,4 @@
-package com.invessence.service.bean;
+package com.invessence.service.bean.docuSign;
 
 import java.util.*;
 

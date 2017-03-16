@@ -1,9 +1,13 @@
 package com.invessence.service.dao;
 
+import java.lang.reflect.*;
 import java.sql.SQLException;
 import java.util.*;
 
+import com.invessence.converter.SQLData;
 import com.invessence.service.bean.*;
+import com.invessence.service.bean.docuSign.*;
+import com.invessence.service.util.Constant;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,6 +42,14 @@ public class ServiceDaoImpl implements ServiceDao
 
 
    private final String getLookupDetails ="select * from mast_lookup where status='A'";
+
+   private final String getServiceConfigDetailsNew ="select * from vw_service_config_details_new order by company, service, vendor, mode, name";
+   private final String getExceptionExternalDetails ="select * from vw_service_error_external where status = 'A' and service=? and vendor=? order by vendorErrCode";
+   private final String getExceptionInternalDetails ="select * from vw_service_error_Internal where status = 'A'";
+
+   private final String getDocuSignModeBasedDetails ="select * from service.dc_template_details where mode=? and status = 'A'";
+   private final String getDocuSignCommonDetails ="select * from service.dc_template_details where mode=? and status = 'A'";
+
 
 
    public Map<String, SwitchDetails> getSwitchDetails() {
@@ -313,6 +325,339 @@ public class ServiceDaoImpl implements ServiceDao
       return lst;
    }
 
+
+
+   public List<ServiceConfigDetails> getServiceConfigDetails() throws SQLException
+{
+   logger.info("ServiceDaoImpl.getServiceConfigDetailsNew");
+   List<ServiceConfigDetails> lst = null;
+
+   logger.debug("getServiceConfigDetailsNew = " + getServiceConfigDetailsNew);
+   lst = serviceJdbcTemplate.query(getServiceConfigDetailsNew, ParameterizedBeanPropertyRowMapper.newInstance(ServiceConfigDetails.class));
+
+   return lst;
+}
+
+
+   public List<ExceptionExternal> getExceptionExternalDetails(String service, String vendor) throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getExceptionExternalDetails");
+      List<ExceptionExternal> lst = null;
+
+      logger.debug("getExceptionExternalDetails = " + getExceptionExternalDetails);
+      lst = serviceJdbcTemplate.query(getExceptionExternalDetails, new Object[]{service,vendor}, ParameterizedBeanPropertyRowMapper.newInstance(ExceptionExternal.class));
+
+      return lst;
+   }
+
+   public List<ExceptionInternal> getExceptionInternalDetails() throws SQLException
+   {
+      logger.info("ServiceDaoImpl.getExceptionInternalDetails");
+      List<ExceptionInternal> lst = null;
+
+      logger.debug("getExceptionInternalDetails = " + getExceptionInternalDetails);
+      lst = serviceJdbcTemplate.query(getExceptionInternalDetails, ParameterizedBeanPropertyRowMapper.newInstance(ExceptionInternal.class));
+
+      return lst;
+   }
+   SQLData convert = new SQLData();
+   public Object getCommonDetails(String product, String service, String type, String infoType) throws SQLException
+   {
+      System.out.println("ServiceDaoImpl.getCommonDetails");
+      try
+      {
+         ServiceSP serviceSP = new ServiceSP(serviceJdbcTemplate,"sel_service_details", 0);
+         try
+         {
+            Map outMap = serviceSP.getCommonDetails(product,service, type, infoType);
+            if (outMap != null)
+            {
+               if(service.equalsIgnoreCase(Constant.SERVICES.TRADE_PROCESS.toString()) && type.equalsIgnoreCase(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.COMMON_DETAILS.TRADE_FILE_DETAILS.toString()))
+               {
+                  ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+                  if (rows != null)
+                  {
+                     return getTradeFileDetails(rows);
+                  }
+               }else if(service.equalsIgnoreCase(Constant.SERVICES.DOCUSIGN_SERVICES.toString())&& type.equalsIgnoreCase(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.COMMON_DETAILS.DOCUSIGN_MAPPING.toString()))
+               {
+                  ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+                  if (rows != null)
+                  {
+                     return getDocuSignMappingDetails(rows);
+                  }
+               }else if(service.equalsIgnoreCase(Constant.SERVICES.DOCUSIGN_SERVICES.toString())&& type.equalsIgnoreCase(Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString()) && infoType.equalsIgnoreCase(Constant.ADDITIONAL_DETAILS.TEMPLATE_DETAILS.toString()))
+               {
+                  ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+                  if (rows != null)
+                  {
+                     return getDocuSignTemplateDetails(rows);
+                  }
+               }else if(type.equalsIgnoreCase(Constant.SERVICES_DETAILS.OPERATION_DETAILS.toString()))
+               {
+                  ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+                  if (rows != null)
+                  {
+                     return getOperationDetails(rows);
+                  }
+               }
+            }
+         }
+         catch (Exception ex) {
+            ex.printStackTrace();
+         }
+      }catch (Exception e){
+         logger.error("Issue while storing web request in DB :"+e.getMessage());
+      }
+
+      return null;
+   }
+
+   private HashMap<String, HashMap<String,DCTemplateDetails>> getDocuSignTemplateDetails(ArrayList<Map<String, Object>> rows){
+      HashMap<String, HashMap<String,DCTemplateDetails>> rs=null;
+      try{
+         Iterator<Map<String, Object>> itr = rows.iterator();
+         rs=new HashMap<>();
+         HashMap<String,DCTemplateDetails> tempMap = null;
+         String mode = null;
+         while (itr.hasNext())
+         {
+            Map<String, Object> map = itr.next();
+            if (mode == null)
+            {
+               mode = convert.getStrData(map.get("mode"));
+               tempMap = new HashMap<>();
+               tempMap.put(convert.getStrData(map.get("tempCode")),
+                           new DCTemplateDetails(convert.getStrData(map.get("mode")),
+                                                convert.getStrData(map.get("company")),
+                                                convert.getStrData(map.get("service")),
+                                                convert.getStrData(map.get("tempCode")),
+                                                convert.getStrData(map.get("tempId")),
+                                                convert.getStrData(map.get("tempName")),
+                                                convert.getStrData(map.get("status")),
+                                                convert.getStrData(map.get("remark")),
+                                                convert.getStrData(map.get("authRequired"))
+               ));
+            }
+            else if (mode.equalsIgnoreCase(convert.getStrData(map.get("mode"))))
+            {
+               tempMap.put(convert.getStrData(map.get("tempCode")),
+                           new DCTemplateDetails(convert.getStrData(map.get("mode")),
+                                                 convert.getStrData(map.get("company")),
+                                                 convert.getStrData(map.get("service")),
+                                                 convert.getStrData(map.get("tempCode")),
+                                                 convert.getStrData(map.get("tempId")),
+                                                 convert.getStrData(map.get("tempName")),
+                                                 convert.getStrData(map.get("status")),
+                                                 convert.getStrData(map.get("remark")),
+                                                 convert.getStrData(map.get("authRequired"))
+                           ));
+            }
+            else if (!mode.equalsIgnoreCase(convert.getStrData(map.get("mode"))))
+            {
+
+               rs.put(mode, tempMap);
+               mode = convert.getStrData(map.get("mode"));
+               tempMap = new HashMap<>();
+
+               tempMap.put(convert.getStrData(map.get("tempCode")),
+                           new DCTemplateDetails(convert.getStrData(map.get("mode")),
+                                                 convert.getStrData(map.get("company")),
+                                                 convert.getStrData(map.get("service")),
+                                                 convert.getStrData(map.get("tempCode")),
+                                                 convert.getStrData(map.get("tempId")),
+                                                 convert.getStrData(map.get("tempName")),
+                                                 convert.getStrData(map.get("status")),
+                                                 convert.getStrData(map.get("remark")),
+                                                 convert.getStrData(map.get("authRequired"))
+                           ));
+            }
+         }
+         if (tempMap != null)
+         {
+            rs.put(mode, tempMap);
+         }
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+
+   }
+   private LinkedHashMap<String, LinkedHashMap<String, List<DCTemplateMapping>>> getDocuSignMappingDetails(ArrayList<Map<String, Object>> rows){
+      LinkedHashMap<String, LinkedHashMap<String, List<DCTemplateMapping>>> rs=null;
+      LinkedHashMap<String, List<DCTemplateMapping>> tempMap=null;
+      try{
+         Iterator<Map<String, Object>> itr = rows.iterator();
+         rs = new LinkedHashMap<>();
+         List<DCTemplateMapping> mapLst = null;
+         String tempCode = null;
+         String role = null;
+         while (itr.hasNext())
+         {
+            Map<String, Object> map = itr.next();
+            if (tempCode == null && role==null)
+            {
+               tempCode = convert.getStrData(map.get("tempCode"));
+               role=convert.getStrData(map.get("role"));
+
+               tempMap=new LinkedHashMap<>();
+               mapLst = new ArrayList<>();
+               mapLst.add(new DCTemplateMapping(convert.getStrData(map.get("tempCode")),
+                                                convert.getStrData(map.get("tab")),
+                                                convert.getStrData(map.get("lable")),
+                                                convert.getStrData(map.get("dbColumn")),
+                                                convert.getStrData(map.get("role")),
+                                                convert.getStrData(map.get("isDisabled"))
+               ));
+            }
+            else if (tempCode.equalsIgnoreCase(convert.getStrData(map.get("tempCode"))))
+            {
+               if(role.equalsIgnoreCase(convert.getStrData(map.get("role")))){
+
+                  mapLst.add(new DCTemplateMapping(convert.getStrData(map.get("tempCode")),
+                                                   convert.getStrData(map.get("tab")),
+                                                   convert.getStrData(map.get("lable")),
+                                                   convert.getStrData(map.get("dbColumn")),
+                                                   convert.getStrData(map.get("role")),
+                                                   convert.getStrData(map.get("isDisabled"))
+                  ));
+
+               }else{
+                  tempMap.put(role,mapLst);
+
+                  role=convert.getStrData(map.get("role"));
+                  mapLst = new ArrayList<>();
+                  mapLst.add(new DCTemplateMapping(convert.getStrData(map.get("tempCode")),
+                                                   convert.getStrData(map.get("tab")),
+                                                   convert.getStrData(map.get("lable")),
+                                                   convert.getStrData(map.get("dbColumn")),
+                                                   convert.getStrData(map.get("role")),
+                                                   convert.getStrData(map.get("isDisabled"))
+                  ));
+               }
+            }
+            else if (!tempCode.equalsIgnoreCase(convert.getStrData(map.get("tempCode"))))
+            {
+               tempMap.put(role,mapLst);
+               rs.put(tempCode, tempMap);
+
+               tempCode = convert.getStrData(map.get("tempCode"));
+               role=convert.getStrData(map.get("role"));
+               tempMap=new LinkedHashMap<>();
+               mapLst = new ArrayList<>();
+
+               mapLst.add(new DCTemplateMapping(convert.getStrData(map.get("tempCode")),
+                                                convert.getStrData(map.get("tab")),
+                                                convert.getStrData(map.get("lable")),
+                                                convert.getStrData(map.get("dbColumn")),
+                                                convert.getStrData(map.get("role")),
+                                                convert.getStrData(map.get("isDisabled"))
+               ));
+            }
+         }
+         if (mapLst != null)
+         {
+            tempMap.put(role,mapLst);
+            rs.put(tempCode, tempMap);
+         }
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+
+   }
+   private List<TradeProcessFile> getTradeFileDetails(ArrayList<Map<String, Object>> rows){
+      List<TradeProcessFile> rs=null;
+      try
+      {
+         Iterator<Map<String, Object>> itr = rows.iterator();
+         rs = new ArrayList<>();
+         while (itr.hasNext())
+         {
+            Map<String, Object> map = itr.next();
+
+            rs.add(new TradeProcessFile(convert.getStrData(map.get("vendor")),
+                                        convert.getStrData(map.get("fileName")),
+                                        convert.getStrData(map.get("fileType")),
+                                        convert.getStrData(map.get("fileExtension")),
+                                        convert.getStrData(map.get("delimeter")),
+                                        convert.getStrData(map.get("containsHeader")),
+                                        convert.getStrData(map.get("active")),
+                                        convert.getIntData(map.get("seqNum")),
+                                        convert.getStrData(map.get("uploadDir")),
+                                        convert.getStrData(map.get("dbStoredProc")),
+                                        convert.getStrData(map.get("preInstruction")),
+                                        convert.getStrData(map.get("postInstruction"))
+            ));
+         }
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+   }
+   private LinkedHashMap<String,ServiceOperationDetails> getOperationDetails(ArrayList<Map<String, Object>> rows){
+      LinkedHashMap<String,ServiceOperationDetails> rs=null;
+      try
+      {
+         Iterator<Map<String, Object>> itr = rows.iterator();
+         rs = new LinkedHashMap<String,ServiceOperationDetails>();
+         while (itr.hasNext())
+         {
+            Map<String, Object> map = itr.next();
+
+            rs.put(convert.getStrData(map.get("operation")),new ServiceOperationDetails(convert.getStrData(map.get("company")),
+                                               convert.getStrData(map.get("service")),
+                                               convert.getStrData(map.get("serviceStatus")),
+                                               convert.getStrData(map.get("operation")),
+                                               convert.getStrData(map.get("vendor")),
+                                               convert.getStrData(map.get("operationStatus")),
+                                               convert.getStrData(map.get("refValue")),
+                                               convert.getIntData(map.get("priority"))
+            ));
+         }
+      }catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+      return rs;
+   }
+
+   public List<Object> getListDBObject(List<String> dbParam, ArrayList<Map<String, Object>> rows){
+      List<Object> lst=null;
+      Iterator<String> itr=dbParam.iterator();
+      while(itr.hasNext()){
+
+      }
+
+      return lst;
+   }
+
+
+   public static List<String> getFieldNames(final Class c1, boolean publicOnly)
+      throws IllegalArgumentException,IllegalAccessException
+   {
+      StringBuilder sb=new StringBuilder();
+      List<String> lst = new ArrayList<String>();
+      Field[] fields = c1.getDeclaredFields();
+      for (int i = 0; i < fields.length; i++) {
+         String name = fields[i].getName();
+         if (publicOnly) {
+            if(Modifier.isPublic(fields[i].getModifiers())) {
+
+                  lst.add(name);}
+         }
+         else {
+            fields[i].setAccessible(true);
+
+               lst.add(name);}
+      }
+//      System.out.println("Avoided properties of "+c1+" due to empty or null value : (" + sb + ")");
+      logger.info("Properties for further process = " + lst);
+      return lst;
+   }
 
 }
 

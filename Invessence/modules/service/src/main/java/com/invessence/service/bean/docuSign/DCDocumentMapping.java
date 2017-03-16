@@ -1,4 +1,4 @@
-package com.invessence.service.bean;
+package com.invessence.service.bean.docuSign;
 
 /**
  * Created by abhangp on 9/8/2016.

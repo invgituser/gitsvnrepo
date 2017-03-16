@@ -1,4 +1,4 @@
-package com.invessence.service.bean;
+package com.invessence.service.bean.docuSign;
 
 /**
  * Created by abhangp on 8/16/2016.
@@ -24,6 +24,16 @@ public class DCTemplateMapping
          ", role='" + role + '\'' +
          ", isDisabled='" + isDisabled + '\'' +
          '}';
+   }
+
+   public DCTemplateMapping(String tempCode, String tab, String lable, String dbColumn, String role, String isDisabled)
+   {
+      this.tempCode = tempCode;
+      this.tab = tab;
+      this.lable = lable;
+      this.dbColumn = dbColumn;
+      this.role = role;
+      this.isDisabled = isDisabled;
    }
 
    public String getTempCode()

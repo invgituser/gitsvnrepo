@@ -1,4 +1,4 @@
-package com.invessence.service.bean;
+package com.invessence.service.bean.docuSign;
 
 import java.util.*;
 
@@ -34,6 +34,19 @@ public class DCTemplateDetails
          ", authRequired='" + authRequired + '\'' +
          ", dcTemplateMappings=" + dcTemplateMappings +
          '}';
+   }
+
+   public DCTemplateDetails(String mode, String company, String service, String tempCode, String tempId, String tempName, String status, String remark, String authRequired)
+   {
+      this.mode = mode;
+      this.company = company;
+      this.service = service;
+      this.tempCode = tempCode;
+      this.tempId = tempId;
+      this.tempName = tempName;
+      this.status = status;
+      this.remark = remark;
+      this.authRequired = authRequired;
    }
 
    public String getAuthRequired()
