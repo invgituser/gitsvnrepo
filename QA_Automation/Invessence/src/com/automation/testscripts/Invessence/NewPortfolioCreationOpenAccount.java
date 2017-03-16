@@ -66,7 +66,7 @@ public class NewPortfolioCreationOpenAccount  {
 			String empstatus,String incomesrc,String employername,String occupation,String bfname ,String blname,
 			String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
 			String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
-			String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,
+			String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,String accountnumber,String clientaccountnumber,
 			String Execute,String Results) throws Exception {
 
 		if (Execute.equals("Y")) {	
@@ -108,7 +108,7 @@ public class NewPortfolioCreationOpenAccount  {
 						WebElement openaccountbtn = driver.findElement(By.xpath("//span[contains(text(),'Open Account')]"));
 						openaccountbtn.click();
 						Thread.sleep(3000);
-						String accountnumber = driver.getCurrentUrl();
+						accountnumber = driver.getCurrentUrl();
 						System.out.println("URL is :"+ accountnumber);
 						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
 						System.out.println("acct nos is :"+ accountnumber);
