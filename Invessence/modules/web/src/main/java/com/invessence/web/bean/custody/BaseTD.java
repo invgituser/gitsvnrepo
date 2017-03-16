@@ -18,6 +18,7 @@ import com.invessence.web.data.custody.td.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.web.util.*;
 import com.invessence.ws.bean.*;
+import com.invessence.web.service.docuSign.service.DCWebLayer;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
 import org.primefaces.event.*;
@@ -108,17 +109,28 @@ public class BaseTD
       this.custodyListDAO = listDAO;
    }
 
+   @ManagedProperty("#{dcWebLayer}")
+   private DCWebLayer dcWebLayer;
 
-   @ManagedProperty("#{serviceLayer}")
-   private ServiceLayerImpl serviceLayer;
-   public ServiceLayerImpl getServiceLayer()
+   public DCWebLayer getDcWebLayer()
    {
-      return serviceLayer;
+      return dcWebLayer;
    }
-   public void setServiceLayer(ServiceLayerImpl serviceLayer)
+
+   public void setDcWebLayer(DCWebLayer dcWebLayer)
    {
-      this.serviceLayer = serviceLayer;
+      this.dcWebLayer = dcWebLayer;
    }
+   //   @ManagedProperty("#{serviceLayer}")
+//   private ServiceLayerImpl serviceLayer;
+//   public ServiceLayerImpl getServiceLayer()
+//   {
+//      return serviceLayer;
+//   }
+//   public void setServiceLayer(ServiceLayerImpl serviceLayer)
+//   {
+//      this.serviceLayer = serviceLayer;
+//   }
 
    @ManagedProperty("#{commonDAO}")
    private CommonDAO commonDAO;

@@ -8,6 +8,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.converter.JavaUtil;
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.web.constant.WebConst;
 import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
@@ -611,17 +612,17 @@ public class TdFundEdit extends BaseTD
             getCustodySaveDAO().tdSaveEFTEdit(getTdMasterData());
          }
 
-
-
-         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+         wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+         //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);
+//         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
          if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
          {
-               msg = wsCallResult.getWSCallStatus().getErrorMessage();
-
+            msg = wsCallResult.getWSCallStatus().getErrorMessage();
             getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
          }
          else
          {
+
             sendAlertMessage("F");
             getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
          }

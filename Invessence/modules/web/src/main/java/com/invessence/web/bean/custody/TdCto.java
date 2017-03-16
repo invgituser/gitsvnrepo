@@ -1,32 +1,14 @@
 package com.invessence.web.bean.custody;
 
-import java.util.*;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.converter.JavaUtil;
-import com.invessence.web.constant.WebConst;
-import com.invessence.web.dao.common.*;
-import com.invessence.web.dao.consumer.ConsumerListDataDAO;
-import com.invessence.web.dao.custody.*;
-import com.invessence.web.data.common.UserData;
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.web.data.custody.*;
-import com.invessence.web.data.custody.td.*;
-import com.invessence.web.data.custody.td.BenefiaciaryDetails;
-import com.invessence.web.util.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
-import com.invessence.ws.service.ServiceLayerImpl;
-import org.apache.commons.lang.SystemUtils;
-import org.apache.commons.logging.*;
-import org.primefaces.component.accordionpanel.AccordionPanel;
-import org.primefaces.context.RequestContext;
+import com.invessence.ws.provider.td.bean.DCResponse;
 import org.primefaces.event.*;
-import java.text.SimpleDateFormat;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,7 +25,6 @@ public class TdCto extends BaseTD
    private Integer activeTab = 0;   // Start with first tab.
    public Integer newTab, subtab;
    private String saveandOpenError;
-
 
    public void startCTO()
    {
@@ -513,18 +494,21 @@ public class TdCto extends BaseTD
 
          saveTDNewRequest();
          processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(),getTdMasterData().getCustomerData().getProfileInstance().getRep(),getTdMasterData().getAcctnum(),getTdMasterData().getRequest().getEventNum());
-      //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);
+         wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"),getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+         //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);
 //         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-//         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
-//         {
-//            msg = wsCallResult.getWSCallStatus().getErrorMessage();
-//            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
-//         }
-//         else
-//         {
-//            sendAlertMessage("P");
-//            getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
-//         }
+         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+         {
+            msg = wsCallResult.getWSCallStatus().getErrorMessage();
+            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+         }
+         else
+         {
+            DCResponse dcResponse=(DCResponse)wsCallResult.getGenericObject();
+            System.out.println("dcResponse = " + dcResponse);
+            sendAlertMessage("P");
+            getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+         }
       }
       catch (Exception ex)
       {

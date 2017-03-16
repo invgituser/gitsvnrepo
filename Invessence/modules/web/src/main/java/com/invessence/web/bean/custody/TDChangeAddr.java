@@ -3,6 +3,7 @@ package com.invessence.web.bean.custody;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.web.constant.*;
 import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.AcctOwnersDetails;
@@ -97,14 +98,15 @@ public class TDChangeAddr extends BaseTD
 //            WSCallStatus wsstatus;
             WSCallResult wsCallResult;
 //
-            wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+            //wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+            wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
             if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
             {
-              msg = wsCallResult.getWSCallStatus().getErrorMessage();
-
-              getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
-           }else
-           {
+               msg = wsCallResult.getWSCallStatus().getErrorMessage();
+               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+            }
+            else
+            {
              // sendAlertMessage("A");
 //              getTdMasterData().getAcctnum();
 //              getTdMasterData().getCustomerData().getAdvisor();
