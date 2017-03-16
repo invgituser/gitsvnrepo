@@ -512,18 +512,19 @@ public class TdCto extends BaseTD
          WSCallResult wsCallResult;
 
          saveTDNewRequest();
-         System.out.println("Account Number:-" + getTdMasterData().getAcctnum() + " ---Event Number=" + getTdMasterData().getRequest().getEventNum());
-         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
-         {
-            msg = wsCallResult.getWSCallStatus().getErrorMessage();
-            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
-         }
-         else
-         {
-            sendAlertMessage("P");
-            getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
-         }
+         processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(),getTdMasterData().getCustomerData().getProfileInstance().getRep(),getTdMasterData().getAcctnum(),getTdMasterData().getRequest().getEventNum());
+      //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);
+//         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+//         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+//         {
+//            msg = wsCallResult.getWSCallStatus().getErrorMessage();
+//            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+//         }
+//         else
+//         {
+//            sendAlertMessage("P");
+//            getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+//         }
       }
       catch (Exception ex)
       {

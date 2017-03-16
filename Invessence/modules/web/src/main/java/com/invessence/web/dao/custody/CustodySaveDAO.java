@@ -6,6 +6,7 @@ import javax.faces.bean.*;
 import javax.sql.DataSource;
 
 import com.invessence.converter.SQLData;
+import com.invessence.web.constant.DCConstants;
 import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.*;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -145,6 +146,8 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
          reqdata.setAcctnum(tdMasterData.getAcctnum());
          reqdata.setReqType("ELEC_FUND_TRAN_NEW");
          reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+         reqdata.setAction(DCConstants.ACTION_ACCT_OPEN);
+         reqdata.setSubaction(DCConstants.SUB_ACTION_REC_EFT);
          tdOpenAccount(reqdata);
          tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
             if (reqdata.getReqId() > 0)
@@ -184,6 +187,8 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
                      reqdata.setReqType("ELEC_FUND_TRAN_NEW");
                      reqdata.setRequestFor("EFT");
                      reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+                     reqdata.setAction(DCConstants.ACTION_ACCT_OPEN);
+                     reqdata.setSubaction(DCConstants.SUB_ACTION_REC_EFT);
                      tdOpenAccount(reqdata);
                      if(reqdata.getReqId()>0)
                      {
@@ -230,13 +235,19 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
         reqdata.setEventNum(0);
         reqdata.setAcctnum(tdMasterData.getAcctnum());
         reqdata.setRequestFor("ACH");
+        reqdata.setAction(DCConstants.ACTION_ACCT_OPEN);
 
         if(tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
            tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
            tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD") )
-                  reqdata.setReqType("MOVE_MONEY_NEW");
-        else
+        {
+           reqdata.setReqType("MOVE_MONEY_NEW");
+           reqdata.setSubaction(DCConstants.SUB_ACTION_ACH);
+        }else
+        {
            reqdata.setReqType("IRA_MOVE_MONEY_NEW");
+           reqdata.setSubaction(DCConstants.SUB_ACTION_ACH_IRA);
+        }
 
 
         reqdata.setEnvelopeHeading("Please sign move money document.");
@@ -253,6 +264,8 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
               reqdata.setReqType("ELEC_FUND_TRAN_NEW");
               reqdata.setRequestFor("ACH");
               reqdata.setEnvelopeHeading("Please sign electronic fund transfer document.");
+              reqdata.setAction(DCConstants.ACTION_ACCT_OPEN);
+              reqdata.setSubaction(DCConstants.SUB_ACTION_ACH_EFT);
               tdOpenAccount(reqdata);
               if(reqdata.getReqId()>0)
               {
@@ -329,15 +342,18 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       reqdata.setEventNum(0);
       reqdata.setAcctnum(acctnum);
 
+      reqdata.setAction(DCConstants.ACTION_ACCT_OPEN);
       if(tdMasterData.getAcatFirmMap().containsKey(data.getContraFirmList())
          && tdMasterData.getAcatFirmMap().get(data.getContraFirmList()).getIsRequired().equalsIgnoreCase("Y"))
       {
          reqdata.setReqType("ACCT_TRAN_NEW");
+         reqdata.setSubaction(DCConstants.SUB_ACTION_NEW_ACAT);
          data.setContraFirmListtmp(tdMasterData.getAcatFirmMap().get(data.getContraFirmList()).getValue());
       }
       else
       {
          reqdata.setReqType("ACAT_OTHER_NEW");
+         reqdata.setSubaction(DCConstants.SUB_ACTION_NEW_ACAT2);
          data.setContraFirmListtmp(data.getContraFirmList());
       }
 
@@ -362,6 +378,8 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       reqdata.setAcctnum(acctnum);
       reqdata.setReqType("TD_TRAN_NEW");
       reqdata.setRequestFor("TDTRF");
+      reqdata.setAction(DCConstants.ACTION_ACCT_OPEN);
+      reqdata.setSubaction(DCConstants.SUB_ACTION_NEW_TDTRF);
       reqdata.setEnvelopeHeading("Please sign TD transfer document.");
       tdOpenAccount(reqdata);
       tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
@@ -572,13 +590,26 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
 
          //reqdata.setRequestFor("EFT");
          reqdata.setEnvelopeHeading("Please sign change address document.");
+         reqdata.setAction(DCConstants.ACTION_CHNG_ADDR);
+         reqdata.setSubaction(DCConstants.SUB_ACTION_CHNG_ADDR);
          tdOpenAccount(reqdata);
          tdMasterData.getRequest().setEventNum(reqdata.getEventNum());
         // if(reqdata.getReqId()>0)
          return true;
       }
    }
-
+   public int processDCRequest(String advisorName, String repId, Long acctnum, int eventno)
+   {
+      int eventNo = 0;
+      DataSource ds = getDataSource();
+      CustodySaveSP sp = new CustodySaveSP(ds, "sp_generate_dc_request", 98);
+      Map outMap = sp.processDcRequest(advisorName, repId, acctnum, eventno);
+      if (outMap != null)
+      {
+         eventNo = Integer.parseInt(outMap.get("eventNo").toString());
+      }
+      return eventNo;
+   }
 
 
 

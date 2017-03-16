@@ -41,6 +41,7 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                data.setEmail(convert.getStrData(rs.get("email")));
                data.setUserid(convert.getStrData(rs.get("userid")));
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
+               data.setRep(convert.getStrData(rs.get("rep")));
                data.setBasket(convert.getStrData(rs.get("theme")));
                data.setTheme(convert.getStrData(rs.get("theme")));
                data.setLastname(convert.getStrData(rs.get("lastname")));

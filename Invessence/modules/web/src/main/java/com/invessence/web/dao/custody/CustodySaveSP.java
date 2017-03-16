@@ -41,6 +41,8 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_status", Types.VARCHAR));
             declareParameter(new SqlParameter("p_terminalDetails", Types.VARCHAR));
             declareParameter(new SqlParameter("p_requestFor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_action", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_subaction", Types.VARCHAR));
             break;
          case 1:
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
@@ -278,7 +280,11 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             declareParameter(new SqlParameter("p_messagetype", Types.VARCHAR));
 
-
+         case 98: // SP: sp_generate_dc_request
+            declareParameter(new SqlParameter("p_advisorName", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_repId", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_acctnum", Types.INTEGER));
+            declareParameter(new SqlParameter("p_eventno", Types.INTEGER));
             break;
          default:
             break;
@@ -298,6 +304,8 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_status", data.getStatus());
       inputMap.put("p_terminalDetails", data.getTerminalDetails());
       inputMap.put("p_requestFor", data.getRequestFor());
+      inputMap.put("p_action", data.getAction());
+      inputMap.put("p_subaction", data.getSubaction());
 
       Map outMap = super.execute(inputMap);
       if (outMap != null)
@@ -671,4 +679,15 @@ public class CustodySaveSP extends StoredProcedure
       inputMap.put("p_createdBy", "Invessence");
       return super.execute(inputMap);
    }
+
+   public Map processDcRequest(String advisorName,String repId,Long acctnum,int eventno)
+   {
+      Map inputMap = new HashMap();
+      inputMap.put("p_advisorName", advisorName);
+      inputMap.put("p_repId", repId);
+      inputMap.put("p_acctnum", acctnum);
+      inputMap.put("p_eventno", eventno);
+      return super.execute(inputMap);
+   }
+
 }

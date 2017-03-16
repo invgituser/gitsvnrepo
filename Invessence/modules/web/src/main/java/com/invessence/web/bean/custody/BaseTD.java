@@ -8,7 +8,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.converter.JavaUtil;
-import com.invessence.web.constant.WebConst;
+import com.invessence.web.constant.*;
 import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.dao.custody.*;
@@ -1301,14 +1301,22 @@ public class BaseTD
          data.setReqId(new Long(0));
          data.setEventNum(0);
          data.setAcctnum(tdMasterData.getAcctnum());
+         data.setAction(DCConstants.ACTION_ACCT_OPEN);
          if (tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACINDIV") ||
             tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACJOINT") ||
             tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("ACCSTD"))
+         {
             data.setReqType("ACCT_APPLI_NEW");
-         else if (tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRABENE"))
+            data.setSubaction(DCConstants.SUB_ACTION_ACCT_APP_NEW);
+         }else if (tdMasterData.getAcctdetail().getAcctTypeId().equalsIgnoreCase("IRABENE"))
+         {
             data.setReqType("IRA_QRP_BENE_NEW");
-         else
+            data.setSubaction(DCConstants.SUB_ACTION_IRA_QRP_BEN);
+         } else
+         {
             data.setReqType("IRA_APPLI_NEW");
+            data.setSubaction(DCConstants.SUB_ACTION_IRA_NEW);
+         }
 
          data.setEnvelopeHeading("Please sign account opening document.");
          custodySaveDAO.tdOpenAccount(data);
@@ -1521,4 +1529,9 @@ public class BaseTD
       saveandOpenError = null;
       beneTempList = new ArrayList<BenefiaciaryDetails>();
    }
+
+   public int processDCRequest(String advisorName, String repId,Long acctnum,int eventNo){
+      return custodySaveDAO.processDCRequest(advisorName,repId,acctnum,eventNo);
+   }
+
 }

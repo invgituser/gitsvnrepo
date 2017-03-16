@@ -4,17 +4,20 @@ import java.util.Date;
 
 public class Request
 {
-      private Long reqId;
-      private Long acctnum;
-      private Integer eventNum;
-      private String reqType;
-      private String envelopeHeading;
-      private String envelopeId;
-      private String status;
-      private Date created;
-      private Date updated;
-      private String terminalDetails;
-      private String requestFor;
+   private Long reqId;
+   private Long acctnum;
+   private Integer eventNum;
+   private String reqType;
+   private String envelopeHeading;
+   private String envelopeId;
+   private String status;
+   private Date created;
+   private Date updated;
+   private String terminalDetails;
+   private String requestFor;
+   private String action;
+   private String subaction;
+
 
    public Request()
    {
@@ -134,5 +137,25 @@ public class Request
    public void setRequestFor(String requestFor)
    {
       this.requestFor = requestFor;
+   }
+
+   public String getAction()
+   {
+      return action;
+   }
+
+   public void setAction(String action)
+   {
+      this.action = action;
+   }
+
+   public String getSubaction()
+   {
+      return subaction;
+   }
+
+   public void setSubaction(String subaction)
+   {
+      this.subaction = subaction;
    }
 }

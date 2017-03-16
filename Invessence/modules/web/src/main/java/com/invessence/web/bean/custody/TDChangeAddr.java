@@ -3,7 +3,7 @@ package com.invessence.web.bean.custody;
 import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
-import com.invessence.web.constant.WebConst;
+import com.invessence.web.constant.*;
 import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.AcctOwnersDetails;
 import com.invessence.web.util.Impl.PagesImpl;
@@ -93,9 +93,10 @@ public class TDChangeAddr extends BaseTD
          if (bflag && bflagHistory)
          {
             getCustodySaveDAO().tdSaveAccountChangeAddrs(getTdMasterData().getAcctOwnersDetailHistory(), getTdMasterData().getAcctOwnersDetail(),getTdMasterData());
-            WSCallStatus wsstatus;
+            processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(),getTdMasterData().getCustomerData().getProfileInstance().getRep(),getTdMasterData().getAcctnum(), 0);
+//            WSCallStatus wsstatus;
             WSCallResult wsCallResult;
-
+//
             wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
             if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
             {
