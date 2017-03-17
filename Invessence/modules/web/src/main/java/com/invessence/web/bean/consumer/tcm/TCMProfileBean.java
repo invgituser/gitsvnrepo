@@ -1297,6 +1297,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          // User is in EDIT mode, then they must be logged, therefore, they are not visitor anymore.
          if (!formPortfolioEdit)
          {
+            saveProfile();
             if (currentpage == 0)
             {  // This is before moving to next page. ONLY for FIRST PAGE
                if (getAcctnum() != null || getAcctnum() >= 0)
@@ -1304,7 +1305,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
                   saveVisitor();
                }
             }
-            saveProfile();
          }
 
          if ((getFormula() != null && getFormula().equalsIgnoreCase("Q")) && pagemanager.getPage() == 0 && formPortfolioEdit)

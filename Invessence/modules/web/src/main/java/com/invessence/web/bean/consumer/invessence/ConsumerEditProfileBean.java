@@ -387,7 +387,7 @@ public class ConsumerEditProfileBean extends INVCustomer implements Serializable
       resetCustomerData();
    }
 
-   private void loadBasketInfo()
+   public void loadBasketInfo()
    {
       if (getAccountTaxable())
       {

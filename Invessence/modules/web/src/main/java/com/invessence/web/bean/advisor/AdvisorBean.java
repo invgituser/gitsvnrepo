@@ -459,7 +459,7 @@ public class AdvisorBean extends AdvisorData implements Serializable
       }
 
    }
-   private void loadBasketInfo() {
+   public void loadBasketInfo() {
       if (getAccountTaxable())
          setAdvisorBasket(listDAO.getBasket(getAdvisor(), "T"));
       else
