@@ -66,7 +66,8 @@ public class NewPortfolioCreationOpenAccount  {
 			String empstatus,String incomesrc,String employername,String occupation,String bfname ,String blname,
 			String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
 			String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
-			String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,String accountnumber,String clientaccountnumber,
+			String bankphone,String routingno,String bankacctno,String accounttitle,String accounttype1 ,String deliveringfirm,String frequency,
+			String trnamt,String trndate,String accountnumber,String clientaccountnumber,String changedobjective,String recurringflag,String fundingflag,
 			String Execute,String Results) throws Exception {
 
 		if (Execute.equals("Y")) {	
@@ -79,7 +80,7 @@ public class NewPortfolioCreationOpenAccount  {
 					if (!(vBrowser.equals("FIREFOX") || vBrowser.equals("IE")|| vBrowser.equals("SAFARI") || vBrowser
 								.equals("CHROME"))) 
 					{
-						xData[i][13] = "Browser not Supported";
+						xData[i][48] = "Browser not Supported";
 						System.out.println("Unsupported Brow");
 						log.info("Unsupported Brow");
 						Assert.fail("Unsupported Brow");
@@ -103,7 +104,7 @@ public class NewPortfolioCreationOpenAccount  {
 					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
-						xData[i][13]= "Pass -New Portfolio is created";
+						xData[i][48]= "Pass -New Portfolio is created";
 						//open account
 						WebElement openaccountbtn = driver.findElement(By.xpath("//span[contains(text(),'Open Account')]"));
 						openaccountbtn.click();
@@ -132,11 +133,14 @@ public class NewPortfolioCreationOpenAccount  {
 						
 						// Benificiary
 						
-						boolean accbenificiary = AccountOpeningPO.benificiary(driver, accounttype, employername, occupation, bfname, blname, bdob, bssn, relationship, sharepercent);
+						boolean accbenificiary = AccountOpeningPO.benificiary(driver, accounttype, employername, occupation, bfname, blname, bdob, bssn,
+								relationship, sharepercent);
 						
 						//Funding
 						
-						boolean accfunding = AccountOpeningPO.funding(driver, accounttype, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct, bankcity, bankphone, routingno, bankacctno, frequency, trnamt, trndate);
+						boolean accfunding = AccountOpeningPO.funding(driver, accounttype, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct,
+								bankcity, bankphone, routingno, bankacctno, frequency, trnamt, trndate,recurringflag,fundingflag,accounttitle,accounttype1 ,
+								deliveringfirm);
 						
 						//Hit Submit button
 						
@@ -151,7 +155,7 @@ public class NewPortfolioCreationOpenAccount  {
 						{
 							log.info("PASS - Account Opening sections Entered Sucessfully");
 							System.out.println("PASS - Account Opening sections Entered Sucessfully");
-							xData[i][47]= "PASS - Account Opening sections Entered Sucessfully";
+							xData[i][48]= "PASS - Account Opening sections Entered Sucessfully";
 							
 							String sqlQuery = "select acctnum from invdb.user_trade_profile  where acctnum="+accountnumber;
 							String[] acctentry = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery);
@@ -209,14 +213,14 @@ public class NewPortfolioCreationOpenAccount  {
 						{
 							log.info("Fail- Account Opening Failed.");
 							System.out.println("Fail- Account Opening Failed.");
-							xData[i][47]= "Fail- Account Opening Failed.";
+							xData[i][48]= "Fail- Account Opening Failed.";
 							Assert.fail("Fail- Account Opening Failed.");
 						}
 						
 					}
 					else
 					{
-						xData[i][47]= "Fail Portfolio Creation Failed.";
+						xData[i][48]= "Fail Portfolio Creation Failed.";
 						Assert.fail("Fail Portfolio Creation Failed.");
 					}
 					
@@ -227,7 +231,7 @@ public class NewPortfolioCreationOpenAccount  {
 		 catch (Exception e) {
 									e.printStackTrace();
 									log.error("An exception occurred: " + Utility.getStackTrace(e));
-		                             xData[i][47] = "Exception occured,Refer logs for Details -  Fail";
+		                             xData[i][48] = "Exception occured,Refer logs for Details -  Fail";
 		                             Utility.xlwrite(xData,scriptname);
 		                             log.info("End of Loop for data " + TCID);
 		                             Assert.fail("Exception occured,Refer logs for Details -  Fail");

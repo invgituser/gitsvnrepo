@@ -45,6 +45,8 @@ public class porfoliocreationPO {
 	{
 		boolean portfoliocreation=false;
 
+		try{
+
 		//New Account start page
 		//
 		Thread.sleep(1000);
@@ -56,11 +58,12 @@ public class porfoliocreationPO {
 				driver.findElement(By.xpath("//*[@id='ceForm:q3_label']")).click();
 				Thread.sleep(2000);
 			}
-		else
-			{
+		
+			driver.findElement(By.xpath("//*[@id='ceForm:q3_label']")).click();
+			Thread.sleep(2000);
 			driver.findElement(By.xpath("//li[contains(text(),'"+investmentgoal+"')]")).click();
 			Thread.sleep(2000);	
-			}
+			
 		if (investmentgoal.equals("Retirement"))
 		{
 			driver.findElement(By.id("ceForm:ageid_input")).sendKeys(age);
@@ -135,24 +138,62 @@ public class porfoliocreationPO {
 			//Review screen is displayed
 			//   WebElement startoverbtn = driver.findElement(By.id("ceForm:j_idt239"));
 			WebElement startoverbtn = driver.findElement(By.xpath("//span[contains(text(),'Start Over')]"));
-			System.out.println("#############################################");
-			log.info("#############################################");
-			if(startoverbtn.isDisplayed())
-			{
-				System.out.println("Pass - New Portfolio is created");
-				log.info("Pass -New Portfolio is created");
-				portfoliocreation = true;
-
-
-			}
+			
+			if(driver.findElement(By.id("ceForm:tcmp7anext")).isEnabled())
+					{
+						 	driver.findElement(By.xpath("//*[contains(text(),'Next')]")).click();
+							Thread.sleep(3000);
+							String portfoliorebalancing = "Changing your strategy will require portfolio rebalancing which may incur: the realization of capital gains or losses, additional transaction costs, and/or short-term trading penalties/fees. Strategy changes have the potential to be detrimental to performance.";
+							WebElement chkbox1 = driver.findElement(By.xpath("//*[contains(text(),'"+portfoliorebalancing+"')]/preceding-sibling::div/span"));
+						    chkbox1.click();
+						    Thread.sleep(100);
+							String	acceptcriteria1 = "Due to limited liquidity in some investments, a strategy change and accompanying rebalance may take several months to be fully completed. It may also result in temporarily increased levels of cash in the portfolio and/or variances from the model strategy allocations.  Depending on the specifics of each situation, we may also utilize placeholder investments temporarily in lieu of model strategy investments that are not currently available for purchase.";
+						    WebElement chkbox2 =driver.findElement(By.xpath("//*[contains(text(),'Due to limited liquidity in some investments, a strategy change and accompanying rebalance may take several months to be fully completed. It may also result in temporarily increased levels of cash in the portfolio and/or variances from the model strategy allocations.  Depending on the specifics of each situation, we may also utilize placeholder investments temporarily in lieu of model strategy investments that are not currently available for purchase.')]/preceding-sibling::div/span"));
+						    chkbox2.click();
+						    Thread.sleep(100);
+						    driver.findElement(By.xpath("//*[contains(text(),'Accept')]")).click();
+						    Thread.sleep(2000);
+						
+						
+					}
 			else
 			{
-				System.out.println("Fail - New Portfolio creation Failed");
-				log.info("Fail - New Portfolio creation Failed");
-				portfoliocreation = false;
+				 boolean changestatus = driver.findElement(By.xpath("//*[contains(text(),'Your current and revised portfolio is same, you can not do further processing.')]")).isDisplayed();
+				if(changestatus)
+				{
+					System.out.println("#############################################");
+					log.info("#############################################");
+					System.out.println("Fail - Cureent portfolio strategy is not changed ");
+					log.info("Fail - Cureent portfolio strategy is not changed ");
+					
+				}
+				
 			}
-			System.out.println("#############################################");
-			log.info("#############################################");
+						System.out.println("#############################################");
+						log.info("#############################################");
+						if(startoverbtn.isDisplayed())
+						{
+							System.out.println("Pass - New Portfolio is created");
+							log.info("Pass -New Portfolio is created");
+							portfoliocreation = true;
+			
+			
+						}
+						else
+						{
+							System.out.println("Fail - New Portfolio creation Failed");
+							log.info("Fail - New Portfolio creation Failed");
+							portfoliocreation = false;
+						}
+						System.out.println("#############################################");
+						log.info("#############################################");
+					}
+		
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			portfoliocreation =false;
 		}
 		return portfoliocreation;
 	}

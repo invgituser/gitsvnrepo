@@ -263,32 +263,65 @@ public class AccountOpeningPO {
 		return benificiary;
 	}
 	
-	public static boolean funding(WebDriver driver,String accounttype, String fundingtype,String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,String bankphone,
-			String routingno,String bankacctno,String frequency,String trnamt,String trndate) throws InterruptedException
+	public static boolean funding(WebDriver driver,String accounttype, String fundingtype,String investmentamt,String bankaccttype,String bankname,String nameofbankacct,
+			String bankcity,String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,String recurringflag,String fundingflag,
+			String accounttitle,String accounttype1 ,String deliveringfirm) throws InterruptedException
 	{  boolean fund = false;
 		try{
 			Thread.sleep(5000);
-		//driver.findElement(By.xpath(" //*[@id='ctoForm:tdaccordian:fundTabV']//a[contains(text(),'Fund')]")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//*[contains(text(),'"+ fundingtype +"')]/parent::div/following-sibling::div/div")).click();
-		//Fund tab
-				Thread.sleep(100);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdfundAmt_input")).sendKeys(investmentamt);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachtype_label")).click();
-				Thread.sleep(100);
-				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdachtype_items']/li[contains(text(),'"+ bankaccttype +"')]")).click();
-				Thread.sleep(100);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbname")).sendKeys(bankname);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctname")).sendKeys(nameofbankacct);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctlocation")).sendKeys(bankcity);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankphone);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctaba")).sendKeys(routingno);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctnum")).sendKeys(bankacctno);
+		
+			if(fundingflag.equals("Y"))
+			{
+				
+			driver.findElement(By.xpath("//*[contains(text(),'"+ fundingtype +"')]/parent::div/following-sibling::div/div")).click();
+			//Fund tab
+				if(fundingtype.equals("ACH"))
+				{
+					Thread.sleep(100);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdfundAmt_input")).sendKeys(investmentamt);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachtype_label")).click();
+					Thread.sleep(100);
+					driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdachtype_items']/li[contains(text(),'"+ bankaccttype +"')]")).click();
+					Thread.sleep(100);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbname")).sendKeys(bankname);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctname")).sendKeys(nameofbankacct);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctlocation")).sendKeys(bankcity);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankphone);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctaba")).sendKeys(routingno);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctnum")).sendKeys(bankacctno);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9next")).click();
+					Thread.sleep(2000);
+					
+				}
+				else if(fundingtype.equals("ACAT"))
+				{
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacattitle")).sendKeys(accounttitle);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacatacctnum")).sendKeys(bankacctno);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacataccttype")).click();
+					driver.findElement(By.xpath("//li[contains(text(),'"+accounttype1+"')]")).click();
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:event_input")).sendKeys(deliveringfirm);
+					driver.findElement(By.xpath("//*[contains(text(),'Full Transfer')]/parent::td/preceding-sibling::td/div//span")).click();
+					Thread.sleep(2000);
+					
+				}
+				
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9next")).click();
 				Thread.sleep(2000);
 				
+			}
+				else
+				{
+					//Opt out of Funding
+					driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:j_idt373']/div[2]/span")).click();
+					Thread.sleep(1000);
+					
+				}
+				
+				
 				//Recurring tab
-				/*driver.findElement(By.xpath(" //*[@id='ctoForm:tdaccordian:fundTabV']//a[contains(text(),'Recurring')]")).click();
+				if(recurringflag.equals("Y"))
+				{
+				//driver.findElement(By.xpath(" //*[@id='ctoForm:tdaccordian:fundTabV']//a[contains(text(),'Recurring')]")).click();
 				Thread.sleep(100);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrfreq")).click();
 				Thread.sleep(100);
@@ -305,12 +338,15 @@ public class AccountOpeningPO {
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctlocation")).sendKeys(bankcity);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankphone);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctaba")).sendKeys(routingno);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankacctno);*/
-				
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankacctno);
+				}
+				else
+				{
 				//Optout recurring
 				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdroptoutflag']/div[2]/span")).click();
 				Thread.sleep(1000);
-				
+				}
+			
 				log.info("Funding Section entered");
 				System.out.println("Funding Section entered");
 				fund = true;
