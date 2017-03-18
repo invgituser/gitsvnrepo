@@ -619,7 +619,7 @@ public class TdFundEdit extends BaseTD
          }
 
          int eventNo = 0;
-         eventNo = processDCRequest( getWebutil().getUserInfoData().getAdvisor(), getWebutil().getUserInfoData().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_FUNDING);
+         eventNo = processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_FUNDING);
          if (eventNo > 0)
          {
             wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product,mode), getTdMasterData().getAcctnum(), eventNo);
