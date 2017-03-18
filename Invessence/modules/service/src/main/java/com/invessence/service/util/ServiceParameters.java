@@ -31,7 +31,7 @@ public class ServiceParameters
       System.out.println("propLoadParam = [" + propLoadParam + "], product = [" + product + "]");
       String propLoadParam1="";
       setServiceConfigDetails(propLoadParam);
-      setServiceOperationDetails(propLoadParam);
+      //setServiceOperationDetails(propLoadParam);
 //      if(propLoadParam.contains("ALL")){
 //         //setWebSiteConfigDetails();
 //      }
@@ -275,7 +275,7 @@ public class ServiceParameters
             while (entries.hasNext())
             {
                Map.Entry<String, Map<String, Map<String, ServiceConfigDetails>>> entry = entries.next();
-               loadAdditionalDetails(entry.getKey());
+               //loadAdditionalDetails(entry.getKey());
                Iterator<Map.Entry<String, Map<String, ServiceConfigDetails>>> entries2 = entry.getValue().entrySet().iterator();
                while (entries2.hasNext())
                {

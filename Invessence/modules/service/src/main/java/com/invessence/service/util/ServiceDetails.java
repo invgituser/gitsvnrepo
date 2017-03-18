@@ -108,12 +108,13 @@ public class ServiceDetails
                      else if (!servDetails.getVendor().equalsIgnoreCase(vendorKey))//Vendor Not Equal
                      {
                         modeDetails.put(modeKey, configDetails);
-                        vendorDetails.put(vendorKey, propDetails);
                         propDetails.put(Constant.SERVICES_DETAILS.CONFIG_DETAILS.toString(), modeDetails);
                         propDetails.put(Constant.SERVICES_DETAILS.EXCEPTION_DETAILS.toString(), wsCommonDao.getExceptionExternalDetails(serviceKey, vendorKey));
                         propDetails.put(Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString(), loadServiceDetails(companyKey, serviceKey, Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString()));
                         propDetails.put(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString(), loadServiceDetails(companyKey, serviceKey, Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()));
                         propDetails.put(Constant.SERVICES_DETAILS.OPERATION_DETAILS.toString(), loadServiceDetails(companyKey, serviceKey, Constant.SERVICES_DETAILS.OPERATION_DETAILS.toString()));
+
+                        vendorDetails.put(vendorKey, propDetails);
 
                         modeKey = servDetails.getMode();
                         vendorKey = servDetails.getVendor();
@@ -127,12 +128,13 @@ public class ServiceDetails
                   else if (!servDetails.getService().equalsIgnoreCase(serviceKey))//Service Not Equal
                   {
                      modeDetails.put(modeKey, configDetails);
-                     vendorDetails.put(vendorKey, propDetails);
                      propDetails.put(Constant.SERVICES_DETAILS.CONFIG_DETAILS.toString(), modeDetails);
                      propDetails.put(Constant.SERVICES_DETAILS.EXCEPTION_DETAILS.toString(), wsCommonDao.getExceptionExternalDetails(serviceKey, vendorKey));
                      propDetails.put(Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString(), loadServiceDetails(companyKey, serviceKey, Constant.SERVICES_DETAILS.ADDITIONAL_DETAILS.toString()));
                      propDetails.put(Constant.SERVICES_DETAILS.COMMON_DETAILS.toString(), loadServiceDetails(companyKey, serviceKey, Constant.SERVICES_DETAILS.COMMON_DETAILS.toString()));
                      propDetails.put(Constant.SERVICES_DETAILS.OPERATION_DETAILS.toString(), loadServiceDetails(companyKey, serviceKey, Constant.SERVICES_DETAILS.OPERATION_DETAILS.toString()));
+
+                     vendorDetails.put(vendorKey, propDetails);
                      serviceConfigDetails.put(serviceKey, vendorDetails);
 
                      modeKey = servDetails.getMode();
@@ -168,6 +170,7 @@ public class ServiceDetails
                   configDetails = new LinkedHashMap<String, ServiceConfigDetails>();
                   configDetails.put(servDetails.getName(), servDetails);
                   modeDetails = new LinkedHashMap<String, Map<String, ServiceConfigDetails>>();
+                  propDetails = new LinkedHashMap<String, Object>();
                   vendorDetails = new LinkedHashMap<String, Map<String, Object>>();
                   serviceConfigDetails = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
                }
@@ -184,6 +187,11 @@ public class ServiceDetails
                vendorDetails.put(vendorKey, propDetails);
                serviceConfigDetails.put(serviceKey, vendorDetails);
                productDetails.put(companyKey, serviceConfigDetails);
+
+               configDetails = null;
+               modeDetails = null;
+               vendorDetails = null;
+               serviceConfigDetails = null;
             }
 
             System.out.println("************************************************************");
