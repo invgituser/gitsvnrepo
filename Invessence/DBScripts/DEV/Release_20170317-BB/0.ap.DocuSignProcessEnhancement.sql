@@ -9,7 +9,7 @@ DROP procedure IF EXISTS `dc_request_auditrial`;
 
 DELIMITER $$
 USE `invdb`$$
-CREATE DEFINER=`admin`@`192.168.100.92` PROCEDURE `dc_request_auditrial`(
+CREATE PROCEDURE `dc_request_auditrial`(
 in p_id numeric(10),
 in p_product varchar(50),
 in p_mode varchar(20),
@@ -120,5 +120,112 @@ end if;
 END$$
 
 DELIMITER ;
+
+
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'BB_ACAT_OTHER');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ACCT_ADV_FORM', 'DOCUSIGN', 'A', '0', 'BB_ACCT_ADV');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ACCT_APPLI_NEW', 'DOCUSIGN', 'A', '0', 'BB_ACCT_APPLI');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ACCT_CHNG_ADDR', 'DOCUSIGN', 'A', '0', 'BB_CHNG_ADDRS');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ACCT_TRAN_NEW', 'DOCUSIGN', 'A', '0', 'BB_ACCT_TRANS');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_ADV_AGREE', 'DOCUSIGN', 'A', '0', 'BB_TCM_ADV_AGREE');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ELEC_FUND_TRAN_CHANGE', 'DOCUSIGN', 'A', '0', 'BB_ELECT_FUND_TRANS');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ELEC_FUND_TRAN_NEW', 'DOCUSIGN', 'A', '0', 'BB_ELECT_FUND_TRANS');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'ELEC_FUND_TRAN_REPLACE', 'DOCUSIGN', 'A', '0', 'BB_ELECT_FUND_TRANS');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'IRA_APPLI_NEW', 'DOCUSIGN', 'A', '0', 'BB_IRA_APPLI');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'IRA_MOVE_MONEY_CHANGE', 'DOCUSIGN', 'A', '0', 'BB_MOVE_MONEY_IRA');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'IRA_MOVE_MONEY_NEW', 'DOCUSIGN', 'A', '0', 'BB_MOVE_MONEY_IRA');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'IRA_MOVE_MONEY_REMOVE', 'DOCUSIGN', 'A', '0', 'BB_MOVE_MONEY_IRA');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'IRA_QRP_BENE_NEW', 'DOCUSIGN', 'A', '0', 'BB_IRAQRP_BENE');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'MOVE_MONEY_CHANGE', 'DOCUSIGN', 'A', '0', 'BB_MOVE_MONEY');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'MOVE_MONEY_NEW', 'DOCUSIGN', 'A', '0', 'BB_MOVE_MONEY');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'MOVE_MONEY_REMOVE', 'DOCUSIGN', 'A', '0', 'BB_MOVE_MONEY');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TCM_ADV_2AB', 'DOCUSIGN', 'A', '0', 'BB_TCM_ADV_2AB');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TCM_PRIVACY_NOTICE', 'DOCUSIGN', 'A', '0', 'BB_TCM_PRIVACY_NOTICE');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TD_TRAN_NEW', 'DOCUSIGN', 'A', '0', 'BB_LPOA');
+
+
+
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'ACCOUNT_ID', '18036', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'BASE_URL', 'https://demo.docusign.net/restapi', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'CCMAIL', 'docusign@invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'CCMAILNAME', 'Building Benjamins', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'DOC_PATH', 'D:\\Project\\Abhang\\Project Work\\TCM\\documents', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'EXPIRE_AFTER', '60', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'EXPIRE_ENABLED', 'false', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'EXPIRE_WARN', '5', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'ID_CHECK_CONF_NAME', 'ID Check $', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'INTEGRATOR_KEY', 'TDAM-d7feb45c-e88d-4c20-b5bd-1dcd9a9d6f56', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'PASSWORD', 'Inv3ss3nc3!', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'REMINDER_DELAY', '1', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'REMINDER_ENABLED', 'false', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'REMINDER_FREQUENCY', '2', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'USERNAME', 'prashant@invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'USE_ACCT_DEFAULT_NOTIFICATION', 'true', 'N');
+
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'ACCOUNT_ID', '18036', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'BASE_URL', 'https://demo.docusign.net/restapi', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'CCMAIL', 'docusign@invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'CCMAILNAME', 'Building Benjamins', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'DOC_PATH', 'D:\\Project\\Abhang\\Project Work\\TCM\\documents', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'EXPIRE_AFTER', '60', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'EXPIRE_ENABLED', 'false', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'EXPIRE_WARN', '5', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'ID_CHECK_CONF_NAME', 'ID Check $', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'INTEGRATOR_KEY', 'TDAM-d7feb45c-e88d-4c20-b5bd-1dcd9a9d6f56', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'PASSWORD', 'Inv3ss3nc3!', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'REMINDER_DELAY', '1', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'REMINDER_ENABLED', 'false', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'REMINDER_FREQUENCY', '2', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'USERNAME', 'prashant@invessence.com', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'DOCUSIGN', 'USE_ACCT_DEFAULT_NOTIFICATION', 'true', 'N');
+
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('PROD', 'TCM', 'BROKER-WEBSERVICES', 'TD', 'SERVICE', 'Active', 'N');
+INSERT INTO `service`.`service_config_details` (`mode`, `company`, `service`, `vendor`, `name`, `value`, `encrFlag`) VALUES ('UAT', 'TCM', 'BROKER-WEBSERVICES', 'TD', 'SERVICE', 'Active', 'N');
+
+
+
+
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'service', 'status', 'vendor');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'AGGREGATION-SERVICES', 'A', 'MX');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'AGGREGATION-SERVICES', 'I', 'YODLEE');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'BROKER-WEBSERVICES', 'I', 'GEMINI');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'BROKER-WEBSERVICES', 'A', 'TD');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'A', 'DOCUSIGN');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'DOWNLOAD-SERVICES', 'I', 'GEMINI');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'DOWNLOAD-SERVICES', 'A', 'TD');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'EMAIL-SERVICE', 'A', 'INVESSENCE-GMAIL');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'PRICING', 'I', 'YAHOO');
+INSERT INTO `service`.`service_master` (`company`, `service`, `status`, `vendor`) VALUES ('TCM', 'TRADE-PROCESS', 'A', 'VENDOR');
+
+
+
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACAT_OTHER', 'ca47568b-70d6-42c4-b10f-0e10545e1a31', 'Account Transfer Form Other', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACCT_ADV', 'c3818a4d-320f-4a6c-8181-5c0f45206d69', 'Account ADV Forms', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACCT_APPLI', 'e21c6a62-8527-40d8-a006-26845ca2a1d5', 'Account Application', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACCT_TRANS', 'de101955-89c5-4cad-99b8-ec04fda60790', 'Account Transfer Form', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_CHNG_ADDRS', 'bba60794-5788-4656-8bb7-5857a228a52a', 'Change Address', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ELECT_FUND_TRANS', '7c19f254-3616-402e-ac0b-3279a241153b', 'Electronic Funds Transfer Form', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_IRAQRP_BENE', '0752806c-994e-4a48-b709-58ae78973882', 'IRA/QRP Beneficiary Account App', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_IRA_APPLI', 'ff8ec806-45e4-499d-846d-4ad84e628295', 'IRA Application', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_LPOA', '314a6465-44c1-4460-a31a-c10cc92ae886', 'LPOA', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_MOVE_MONEY', 'c607c4a9-09ee-4aea-8aff-e9e74d7a43e6', 'Move Money', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_MOVE_MONEY_IRA', 'a8e87128-8c05-4080-8fb9-c842709eada8', 'Move Money IRA', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_ADV_2AB', 'f5fd0a0d-1fca-486e-9de8-92386f322201', 'TCM ADV 2AB', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_ADV_AGREE', 'c0d642a7-7e19-486a-9b64-4e3d724f9965', 'Building Benjamins Tradition Advisory Agreeme', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_PRIVACY_NOTICE', 'ce93131f-68f2-4cf7-80e0-51a0636de5f2', 'TCM Privacy Notice', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACAT_OTHER', 'ca47568b-70d6-42c4-b10f-0e10545e1a31', 'Account Transfer Form Other', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACCT_ADV', 'c3818a4d-320f-4a6c-8181-5c0f45206d69', 'Account ADV Forms', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACCT_APPLI', 'e21c6a62-8527-40d8-a006-26845ca2a1d5', 'Account Application', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ACCT_TRANS', 'de101955-89c5-4cad-99b8-ec04fda60790', 'Account Transfer Form', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_CHNG_ADDRS', 'bba60794-5788-4656-8bb7-5857a228a52a', 'Change Address', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_ELECT_FUND_TRANS', '7c19f254-3616-402e-ac0b-3279a241153b', 'Electronic Funds Transfer Form', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_IRAQRP_BENE', '0752806c-994e-4a48-b709-58ae78973882', 'IRA/QRP Beneficiary Account App', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_IRA_APPLI', 'ff8ec806-45e4-499d-846d-4ad84e628295', 'IRA Application', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_LPOA', '314a6465-44c1-4460-a31a-c10cc92ae886', 'LPOA', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_MOVE_MONEY', 'c607c4a9-09ee-4aea-8aff-e9e74d7a43e6', 'Move Money', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_MOVE_MONEY_IRA', 'a8e87128-8c05-4080-8fb9-c842709eada8', 'Move Money IRA', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_ADV_2AB', 'f5fd0a0d-1fca-486e-9de8-92386f322201', 'TCM ADV 2AB', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_ADV_AGREE', 'c0d642a7-7e19-486a-9b64-4e3d724f9965', 'Building Benjamins Tradition Advisory Agreeme', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_PRIVACY_NOTICE', 'ce93131f-68f2-4cf7-80e0-51a0636de5f2', 'TCM Privacy Notice', 'Y', 'A');
 
 
