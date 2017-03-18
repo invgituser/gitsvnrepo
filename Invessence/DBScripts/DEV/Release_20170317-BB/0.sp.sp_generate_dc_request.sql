@@ -19,47 +19,47 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(in p_advisorName varchar(45),in p_
       advisorName = p_advisorName
           AND repId = p_repId;
    -- select padvisorid; 
-    if(eventno=0) then 
+
    select ifnull(max(eventNum),0) into eventno from invdb.dc_requests_final where acctnum=p_acctnum;
    set eventno=eventno+1;
-   end if;
-   
-   /*insert into invdb.dc_requests(acctnum,advisorid,eventNum,reqType,seqno,envelopeHeading,status,created) 
-   select p_acctnum,padvisorid,eventno,reqType,seqno,envelopeHeading,'I',now() from invdb.ADV_REQUEST_DOCUMENT_MAPPINGS 
+   -- end if;
+
+   /*insert into invdb.dc_requests(acctnum,advisorid,eventNum,reqType,seqno,envelopeHeading,status,created)
+   select p_acctnum,padvisorid,eventno,reqType,seqno,envelopeHeading,'I',now() from invdb.adv_request_document_mappings
    where advisorid=padvisorid and action=p_action and subaction=p_subaction;*/
-   
+
    OPEN cur1;
-   
+
    read_loop: LOOP
    FETCH cur1 INTO p_reqId,p_action2,p_subaction;
-   
-   
+
+
    IF done THEN
    LEAVE read_loop;
    END IF;
-   
-   
+
+
     SET curcnt=curcnt+1;
     set p_reqId2=p_reqId;
-   
+
   -- select p_reqId,p_action2,p_subaction;
-    
+
   insert into invdb.dc_requests_final(refReqId,acctnum,advisorid,eventNum,reqType,seqno,envelopeHeading,status,created,formType)
-  select p_reqId,p_acctnum,padvisorid,eventno,reqType,seqno,envelopeHeading,'I',now(),formType from invdb.ADV_REQUEST_DOCUMENT_MAPPINGS 
+  select p_reqId,p_acctnum,padvisorid,eventno,reqType,seqno,envelopeHeading,'I',now(),formType from invdb.adv_request_document_mappings
   where advisorid=padvisorid and action=p_action2 and subaction=p_subaction;
     -- insert into rbsa.tmp_rbsa_daily (ticker,businessdate,open_price,close_price,high_price,low_price,adjusted_price,prev_close_price,daily_return,volume,monthly_return) select ticker,p_businessdate,open_price,close_price,high_price,low_price,adjusted_price,prev_close_price,daily_return,volume,monthly_return from rbsa.tmp_rbsa_daily  where businessdate=p_previousbdate;
-   
-  -- select '22'; 
+
+  -- select '22';
    END LOOP;
-   
+
    CLOSE cur1;
-   
-   
-   
+
+
+
    if(curcnt>0) then
-     
+
   insert into invdb.dc_requests_final(refReqId,acctnum,advisorid,eventNum,reqType,seqno,envelopeHeading,status,created,formType)
-  select p_reqId2,p_acctnum,advisorid,eventno,reqType,seqno,envelopeHeading,'I',now(),formType from invdb.ADV_REQUEST_DOCUMENT_MAPPINGS 
+  select p_reqId2,p_acctnum,advisorid,eventno,reqType,seqno,envelopeHeading,'I',now(),formType from invdb.adv_request_document_mappings
   where advisorid=padvisorid and action=p_action and subaction='DEFAULT' and formType='ADV';
  
   

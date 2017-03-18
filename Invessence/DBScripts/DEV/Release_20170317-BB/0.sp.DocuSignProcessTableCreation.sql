@@ -1,13 +1,13 @@
 CREATE TABLE invdb.adv_request_document_mappings (
-    advisorid INT(11) NOT NULL,
-    action VARCHAR(45) NOT NULL,
-    subaction VARCHAR(45) NOT NULL,
-    reqType VARCHAR(45) NOT NULL,
-    envelopeHeading VARCHAR(100) DEFAULT NULL,
-    seqno INT(11) NOT NULL,
-    formType VARCHAR(45) NOT NULL,
-    PRIMARY KEY (action , subaction , reqType)
-)  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+   advisorid int(11) NOT NULL,
+   action varchar(45) NOT NULL,
+   subaction varchar(45) NOT NULL,
+   reqType varchar(45) NOT NULL,
+   envelopeHeading varchar(100) DEFAULT NULL,
+   seqno int(11) NOT NULL,
+   formType varchar(45) NOT NULL,
+   PRIMARY KEY (action,subaction,reqType,advisorid)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE invdb.dc_requests_final (
    reqId bigint(20) NOT NULL AUTO_INCREMENT,
