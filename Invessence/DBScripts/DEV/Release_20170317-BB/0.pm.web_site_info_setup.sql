@@ -92,6 +92,10 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'WEB.THEME', 'A', 'spark', 'N', '2016-12-16 22:20:19', 'NULL');
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'WEB.THEMELIB', 'A', 'spark-layout', 'N', '2016-12-16 22:20:19', 'NULL');
 
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.CUSTODY', 'A', 'BB', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.DOCUSIGN.MODE', 'A', 'UAT', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.EMAILER.MODE', 'A', 'UAT', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.PRICING.MODE', 'A', 'UAT', 'N', NOW());
 /* Insert your additional properties here */
 
 insert into `invdb`.`web_site_info`
