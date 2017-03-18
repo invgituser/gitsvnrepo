@@ -3,7 +3,6 @@ package com.invessence.service.dao;
 import java.lang.reflect.*;
 import java.sql.SQLException;
 import java.util.*;
-
 import com.invessence.converter.SQLData;
 import com.invessence.service.bean.*;
 import com.invessence.service.bean.docuSign.*;
@@ -11,7 +10,7 @@ import com.invessence.service.util.Constant;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.*;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.ParameterizedBeanPropertyRowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -45,7 +44,7 @@ public class ServiceDaoImpl implements ServiceDao
 
    private final String getServiceConfigDetailsNew ="select * from vw_service_config_details_new order by company, service, vendor, mode, name";
    private final String getExceptionExternalDetails ="select * from vw_service_error_external where status = 'A' and service=? and vendor=? order by vendorErrCode";
-   private final String getExceptionInternalDetails ="select * from vw_service_error_Internal where status = 'A'";
+   private final String getExceptionInternalDetails ="select * from vw_service_error_internal where status = 'A'";
 
    private final String getDocuSignModeBasedDetails ="select * from service.dc_template_details where mode=? and status = 'A'";
    private final String getDocuSignCommonDetails ="select * from service.dc_template_details where mode=? and status = 'A'";
