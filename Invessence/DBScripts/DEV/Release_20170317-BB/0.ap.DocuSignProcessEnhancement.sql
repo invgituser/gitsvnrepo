@@ -229,3 +229,259 @@ INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `temp
 INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'BB_TCM_PRIVACY_NOTICE', 'ce93131f-68f2-4cf7-80e0-51a0636de5f2', 'TCM Privacy Notice', 'Y', 'A');
 
 
+
+
+USE `invdb`;
+DROP procedure IF EXISTS `save_tddc_acct_details`;
+
+DELIMITER $$
+USE `invdb`$$
+CREATE PROCEDURE `save_tddc_acct_details`(
+  `p_acctnum` bigint(20),
+  `p_clientAccountID` varchar(45),
+  `p_caseNumber` varchar(45),
+  `p_advisorId` bigint(20),
+  `p_acctTypeId` varchar(45),
+  `p_cashSweepVehicleChoiceId` varchar(45),
+  `p_divIntPrefId` varchar(45),
+  `p_monthStmtId` varchar(45),
+  `p_tradConfId` varchar(45),
+  `p_dupStatement` char(1),
+  `p_dupTradeConfirm` char(1),
+  `p_proxyAuthorizationId` varchar(45),
+  `p_optoutRegulatory` char(1),
+  `p_optoutBeneficiary` char(1),
+  `p_optoutFunding` char(1),
+  `p_optoutRecurring` char(1),
+  `p_createdBy` varchar(45)
+  )
+BEGIN
+
+	DECLARE tAcctType	VARCHAR(30);
+
+    declare v_advisorId int;
+
+    select id into v_advisorId from invdb.dc_advisor_details where advisorName=
+(select advisor from user_trade_profile
+where acctnum=p_acctnum);
+
+		INSERT INTO `dc_acct_details`
+			(`acctnum`,
+			`clientAccountID`,
+			`caseNumber`,
+			`advisorId`,
+			`acctTypeId`,
+			`cashSweepVehicleChoiceId`,
+			`divIntPrefId`,
+			`monthStmtId`,
+			`tradConfId`,
+			`dupStatement`,
+			`dupTradeConfirm`,
+			`proxyAuthorizationId`,
+            `optoutRegulatory`,
+            `optoutBeneficiary`,
+            `optoutFunding`,
+            `optoutRecurring`,
+			`created`,
+			`createdBy`)
+		VALUES
+			(`p_acctnum`,
+			`p_clientAccountID`,
+			`p_caseNumber`,
+			IFNULL(v_advisorId,1),
+			`p_acctTypeId`,
+			`p_cashSweepVehicleChoiceId`,
+			`p_divIntPrefId`,
+			`p_monthStmtId`,
+			`p_tradConfId`,
+			`p_dupStatement`,
+			`p_dupTradeConfirm`,
+			`p_proxyAuthorizationId`,
+			`p_optoutRegulatory`,
+            `p_optoutBeneficiary`,
+            `p_optoutFunding`,
+            `p_optoutRecurring`,
+			now(),
+			`p_createdBy`
+            )
+		ON DUPLICATE KEY UPDATE
+			`clientAccountID`	= `p_clientAccountID`
+			,`caseNumber`		= `p_caseNumber`
+			,`advisorId`		= IFNULL(`p_advisorId`,1)
+			,`acctTypeId`		= `p_acctTypeId`
+			,`cashSweepVehicleChoiceId` = `p_cashSweepVehicleChoiceId`
+			,`divIntPrefId`		= `p_divIntPrefId`
+			,`monthStmtId`		= `p_monthStmtId`
+			,`tradConfId`		= `p_tradConfId`
+			,`dupStatement`		= `p_dupStatement`
+			,`dupTradeConfirm`	= `p_dupTradeConfirm`
+			,`proxyAuthorizationId` = `p_proxyAuthorizationId`
+            ,`optoutRegulatory`=`p_optoutRegulatory`
+            ,`optoutBeneficiary`=`p_optoutBeneficiary`
+            ,`optoutFunding`=`p_optoutFunding`
+            ,`optoutRecurring`=`p_optoutRecurring`
+			,`updated`			= now()
+			,`updatedBy`		= `p_createdBy`
+		;
+
+        -- Save the Account Type in User Trade Profile Table for easy display.
+        SELECT `displayName`
+        INTO `tAcctType`
+        FROM `dc_m_lookup`
+        WHERE `lookupSet` = 'ACCTTYPE'
+        AND   `lookupCode` = `p_acctTypeId`
+        LIMIT 1;
+
+
+        UPDATE `user_trade_profile`
+			set `user_trade_profile`.`acctType` = IFNULL(`tAcctType`, `user_trade_profile`.`acctType`)
+		WHERE `user_trade_profile`.`acctnum` = `p_acctnum`;
+
+
+
+
+END$$
+
+DELIMITER ;
+
+
+USE `service`;
+CREATE
+ OR REPLACE VIEW `vw_service_config_details_new` AS
+    SELECT
+        `scd`.`company` AS `company`,
+        `scd`.`service` AS `service`,
+        `scd`.`vendor` AS `vendor`,
+        `scd`.`mode` AS `mode`,
+        `scd`.`name` AS `name`,
+        `scd`.`value` AS `value`,
+        `scd`.`encrFlag` AS `encrFlag`
+    FROM
+        (`service_master` `sm`
+        JOIN `service_config_details` `scd`)
+    WHERE
+        ((`sm`.`company` = `scd`.`company`)
+            AND (`sm`.`service` = `scd`.`service`)
+            AND (`sm`.`status` = 'A'))
+    ORDER BY `scd`.`company` , `scd`.`service` , `scd`.`vendor` , `scd`.`mode` , `scd`.`name`;
+
+
+
+
+USE `service`;
+CREATE TABLE `service_error_external` (
+  `service` varchar(45) NOT NULL,
+  `vendor` varchar(20) NOT NULL,
+  `displayErrMsg` varchar(250) NOT NULL,
+  `vendorErrCode` varchar(45) NOT NULL,
+  `vendorErrMsg` varchar(250) NOT NULL,
+  `status` varchar(1) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  PRIMARY KEY (`service`,`vendor`,`vendorErrCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `service_error_internal` (
+  `errCode` varchar(45) NOT NULL,
+  `errMsg` varchar(250) NOT NULL,
+  `status` varchar(1) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  PRIMARY KEY (`errCode`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+USE `service`;
+CREATE
+ OR REPLACE VIEW `vw_service_error_external` AS
+    SELECT
+        `service_error_external`.`service` AS `service`,
+        `service_error_external`.`vendor` AS `vendor`,
+        `service_error_external`.`displayErrMsg` AS `displayErrMsg`,
+        `service_error_external`.`vendorErrCode` AS `vendorErrCode`,
+        `service_error_external`.`vendorErrMsg` AS `vendorErrMsg`,
+        `service_error_external`.`status` AS `status`
+    FROM
+        `service_error_external`;
+
+
+USE `service`;
+CREATE
+ OR REPLACE VIEW `vw_service_error_internal` AS
+    SELECT
+        `service_error_internal`.`errCode` AS `errCode`,
+        `service_error_internal`.`errMsg` AS `errMsg`,
+        `service_error_internal`.`status` AS `status`
+    FROM
+        `service_error_internal`;
+
+
+
+        USE `service`;
+DROP procedure IF EXISTS `sel_service_common_details`;
+
+DELIMITER $$
+USE `service`$$
+CREATE PROCEDURE `sel_service_common_details`(
+IN p_product  varchar(50),
+IN p_service  varchar(50),
+IN p_type  varchar(50)
+)
+BEGIN
+
+if(p_service ='TRADE-PROCESS' and p_type='TRADE_FILE_DETAILS')then
+
+	select vendor, fileName, fileType, fileExtension, delimeter, containsHeader,
+	active, uploadDir, dbStoredProc,  preInstruction, postInstruction
+	from service.trade_process_file_details where vendor= p_product;
+elseif(p_service ='DOCUSIGN-SERVICES' and p_type='DOCUSIGN_MAPPING')then
+
+	select * from service.dc_template_mapping where (dbColumn IS NOT NULL or dbColumn != '')order by tempCode, role, tab;
+end if;
+
+END$$
+
+DELIMITER ;
+
+
+USE `service`;
+DROP procedure IF EXISTS `sel_service_details`;
+
+DELIMITER $$
+USE `service`$$
+CREATE  PROCEDURE `sel_service_details`(
+IN p_product  varchar(50),
+IN p_service  varchar(50),
+IN p_type  varchar(50),
+IN p_info varchar(50)
+)
+BEGIN
+
+if(p_service ='TRADE-PROCESS' and p_type='COMMON_DETAILS' and p_info='TRADE_FILE_DETAILS')then
+
+	select vendor, fileName, fileType, fileExtension, delimeter, containsHeader,
+	active, uploadDir, dbStoredProc,  preInstruction, postInstruction
+	from service.trade_process_file_details
+    where vendor= p_product;
+elseif(p_service ='DOCUSIGN-SERVICES' and p_type='COMMON_DETAILS' and p_info='DOCUSIGN_MAPPING')then
+
+	select * from service.dc_template_mapping
+    where (dbColumn IS NOT NULL or dbColumn != '')
+    order by tempCode, role, tab;
+ elseif(p_service ='DOCUSIGN-SERVICES' and p_type='ADDITIONAL_DETAILS' and p_info='TEMPLATE_DETAILS')then
+
+	select * from service.dc_template_details
+    where company= p_product
+    order by company,mode, tempCode;
+
+elseif(p_type='OPERATION_DETAILS' and p_info='OPERATION_DETAILS')then
+
+	select * from service.service_operation_details
+    where  status='A' and company=p_product and service=p_service
+	order by operation;
+end if;
+
+END$$
+
+DELIMITER ;
