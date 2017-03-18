@@ -30,15 +30,14 @@ CREATE TABLE invdb.dc_requests_final (
    formType varchar(45) DEFAULT NULL,
    PRIMARY KEY (reqId),
    KEY ak1_dc_request (acctnum,reqType)
- ) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8
+ ) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8;
 
 
 ALTER TABLE invdb.dc_advisor_details
 ADD COLUMN advisorName varchar(45) DEFAULT NULL after advisorCode;
 
 ALTER TABLE invdb.dc_advisor_details
-ADD COLUMN repId varchar(45) DEFAULT NULL after adisorName;
-
+ADD COLUMN repId varchar(45) DEFAULT NULL after advisorName;
 
 ALTER TABLE invdb.dc_requests
 ADD COLUMN seqno int(11) NOT NULL after reqType;
@@ -72,4 +71,3 @@ INSERT INTO invdb.adv_request_document_mappings (advisorid, action, subaction, r
 INSERT INTO invdb.adv_request_document_mappings (advisorid, action, subaction, reqType, envelopeHeading, seqno, formType) VALUES ('1', 'FUNDING', 'REC_EFT', 'ELEC_FUND_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
 INSERT INTO invdb.adv_request_document_mappings (advisorid, action, subaction, reqType, envelopeHeading, seqno, formType) VALUES ('1', 'FUNDING', 'TDTRF', 'TD_TRAN_NEW', 'Please sign TD transfer document.', '1', 'DC');
 
-0.sp.DocuSignProcessTableCreation.sql
