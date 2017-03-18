@@ -9,6 +9,7 @@ import com.invessence.web.data.custody.TDMasterData;
 import com.invessence.web.data.custody.td.AcctOwnersDetails;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
+import com.invessence.ws.provider.td.bean.DCResponse;
 
 /**
  * Created by sagar on 1/5/2017.
@@ -61,7 +62,6 @@ public class TDChangeAddr extends BaseTD
    }
 
 
-
    public void nextPageEdit()
    {
       String msg, msgheader;
@@ -69,17 +69,17 @@ public class TDChangeAddr extends BaseTD
       try
       {
          System.out.println("Inside nextPageEdit >> ");
-         boolean bflagHistory = false, bflag = false,bflagNewAdd=false;
+         boolean bflagHistory = false, bflag = false, bflagNewAdd = false;
          getPagemanager().clearAllErrorMessage();
          getPagemanager().setPage(3);
-         System.out.println("Inside nextPageEdit >> "+ getTdMasterData().getAcctholderhasMailing());
-         if (validateChangeAddress(getTdMasterData().getAcctOwnersDetailHistory(),false))
+         System.out.println("Inside nextPageEdit >> " + getTdMasterData().getAcctholderhasMailing());
+         if (validateChangeAddress(getTdMasterData().getAcctOwnersDetailHistory(), false))
          {
             bflagHistory = true;
          }
-         bflagNewAdd=true;
+         bflagNewAdd = true;
          getPagemanager().setPage(4);
-         if (validateChangeAddress(getTdMasterData().getAcctOwnersDetail(),true))
+         if (validateChangeAddress(getTdMasterData().getAcctOwnersDetail(), true))
          {
 //           if(!getTdMasterData().getAcctholderhasMailing()){
 //              getTdMasterData().getAcctOwnersDetail().setMailingAddressStreet(getTdMasterData().getAcctOwnersDetail().getPhysicalAddressStreet());
@@ -93,35 +93,63 @@ public class TDChangeAddr extends BaseTD
 
          if (bflag && bflagHistory)
          {
-            getCustodySaveDAO().tdSaveAccountChangeAddrs(getTdMasterData().getAcctOwnersDetailHistory(), getTdMasterData().getAcctOwnersDetail(),getTdMasterData());
-            processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(),getTdMasterData().getCustomerData().getProfileInstance().getRep(),getTdMasterData().getAcctnum(), 0);
-//            WSCallStatus wsstatus;
+            getCustodySaveDAO().tdSaveAccountChangeAddrs(getTdMasterData().getAcctOwnersDetailHistory(), getTdMasterData().getAcctOwnersDetail(), getTdMasterData());
+
+
             WSCallResult wsCallResult;
-//
-            //wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-            wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-            if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+            String product=getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
+            String mode=getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
+            System.out.println("product "+product);
+            System.out.println("mode "+mode);
+            int eventNo = 0;
+            eventNo = processDCRequest( getWebutil().getUserInfoData().getAdvisor(), getWebutil().getUserInfoData().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_ACCT_OPEN);
+            if (eventNo > 0)
             {
-               msg = wsCallResult.getWSCallStatus().getErrorMessage();
-               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+               wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product,mode), getTdMasterData().getAcctnum(), eventNo);
+               if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+               {
+                  msg = wsCallResult.getWSCallStatus().getErrorMessage();
+                  getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+               }
+               else
+               {
+                  DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
+                  System.out.println("dcResponse = " + dcResponse);
+                  sendAlertMessage("P");
+                  getCustodySaveDAO().tdMngAdvisorNotification(getTdMasterData().getAcctnum(), getWebutil().getUserInfoData().getAdvisor(), getWebutil().getUserInfoData().getRep(), "CHNGADDRS");
+                  getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+               }
             }
             else
             {
-             // sendAlertMessage("A");
-//              getTdMasterData().getAcctnum();
-//              getTdMasterData().getCustomerData().getAdvisor();
-//              getTdMasterData().getCustomerData().getRep();
+               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", "Error occurred while document request generation");
+            }
 //
-              System.out.println("Inside nextPageEdit >> Account No "+getTdMasterData().getAcctnum());
-              System.out.println("Inside nextPageEdit >> Advisor"+getWebutil().getUserInfoData().getAdvisor());
-              System.out.println("Inside nextPageEdit >> Rep "+getWebutil().getUserInfoData().getRep());
-              getCustodySaveDAO().tdMngAdvisorNotification(getTdMasterData().getAcctnum(),getWebutil().getUserInfoData().getAdvisor(),getWebutil().getUserInfoData().getRep(),"CHNGADDRS" );
-
-              getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
-           }
+            //wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+//            wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+//            if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+//            {
+//               msg = wsCallResult.getWSCallStatus().getErrorMessage();
+//               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+//            }
+//            else
+//            {
+//               // sendAlertMessage("A");
+////              getTdMasterData().getAcctnum();
+////              getTdMasterData().getCustomerData().getAdvisor();
+////              getTdMasterData().getCustomerData().getRep();
+////
+//               System.out.println("Inside nextPageEdit >> Account No " + getTdMasterData().getAcctnum());
+//               System.out.println("Inside nextPageEdit >> Advisor" + getWebutil().getUserInfoData().getAdvisor());
+//               System.out.println("Inside nextPageEdit >> Rep " + getWebutil().getUserInfoData().getRep());
+//               getCustodySaveDAO().tdMngAdvisorNotification(getTdMasterData().getAcctnum(), getWebutil().getUserInfoData().getAdvisor(), getWebutil().getUserInfoData().getRep(), "CHNGADDRS");
+//
+//               getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+//            }
          }
 
-      }catch (Exception ex)
+      }
+      catch (Exception ex)
       {
          msgheader = "dctd.EX.101";
          getWebutil().redirecttoMessagePage("ERROR", "Service Error", msgheader);

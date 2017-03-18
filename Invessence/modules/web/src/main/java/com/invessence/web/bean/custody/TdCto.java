@@ -4,6 +4,7 @@ import javax.faces.bean.*;
 import javax.faces.context.FacesContext;
 
 import com.invessence.service.bean.ServiceRequest;
+import com.invessence.web.constant.DCConstants;
 import com.invessence.web.data.custody.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.ws.bean.*;
@@ -55,7 +56,7 @@ public class TdCto extends BaseTD
                return;
             }
 
-            if (! loadVal.equalsIgnoreCase("success"))
+            if (!loadVal.equalsIgnoreCase("success"))
             {
                // msgheader = "dctd.102";
                // webutil.redirecttoMessagePage("ERROR", "Access Denied", msgheader);
@@ -203,33 +204,49 @@ public class TdCto extends BaseTD
                   break;
                case 1:
                   if (subtab == 0)
+                  {
                      getPagemanager().setPage(1);
+                  }
                   else
+                  {
                      getPagemanager().setPage(2);
+                  }
                   break;
                case 2:
                   if (subtab == 0)
+                  {
                      getPagemanager().setPage(3);
+                  }
                   else
+                  {
                      getPagemanager().setPage(4);
+                  }
                   break;
                case 3:
                   getPagemanager().setPage(5);
                   break;
                case 4:
                   if (subtab == 0)
+                  {
                      getPagemanager().setPage(6);
+                  }
                   else
+                  {
                      getPagemanager().setPage(7);
+                  }
                   break;
                case 5:
                   getPagemanager().setPage(8);
                   break;
                case 6:
                   if (subtab == 0)
+                  {
                      getPagemanager().setPage(9);
+                  }
                   else
+                  {
                      getPagemanager().setPage(10);
+                  }
                   break;
                default:
                   getPagemanager().setPage(0);
@@ -362,13 +379,19 @@ public class TdCto extends BaseTD
       {
          saveData(getPagemanager().getPage());
          if (getPagemanager().isLastPage())
+         {
             getTdMasterData().setSubmitButton(true);
+         }
          else
+         {
             getTdMasterData().setSubmitButton(false);
+         }
 
          getPagemanager().clearAllErrorMessage();
          if (getPagemanager().isLastPage() || (getPagemanager().getPage() == 9 && getTdMasterData().getFundNow()))
+         {
             resetActiveTab(11);
+         }
          else
          {
             getPagemanager().nextPage();
@@ -410,7 +433,9 @@ public class TdCto extends BaseTD
       getPagemanager().setPage(currentPage);
       resetActiveTab(getPagemanager().getPage());
       if (!status)
+      {
          saveandOpenError = "Please fill appropriate forms above.";
+      }
 
       return status;
    }
@@ -487,27 +512,39 @@ public class TdCto extends BaseTD
       try
       {
          if (!validateAllPage())
+         {
             return;
+         }
 
          WSCallStatus wsstatus;
          WSCallResult wsCallResult;
+         String product=getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
+         String mode=getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
+         System.out.println("product "+product);
+         System.out.println("mode "+mode);
 
          saveTDNewRequest();
-         processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(),getTdMasterData().getCustomerData().getProfileInstance().getRep(),getTdMasterData().getAcctnum(),getTdMasterData().getRequest().getEventNum());
-         wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"),getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-         //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);
-//         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+         int eventNo = 0;
+         eventNo = processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_ACCT_OPEN);
+         if (eventNo > 0)
          {
-            msg = wsCallResult.getWSCallStatus().getErrorMessage();
-            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+            wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product,mode), getTdMasterData().getAcctnum(), eventNo);
+            if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+            {
+               msg = wsCallResult.getWSCallStatus().getErrorMessage();
+               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+            }
+            else
+            {
+               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
+               System.out.println("dcResponse = " + dcResponse);
+               sendAlertMessage("P");
+               getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+            }
          }
          else
          {
-            DCResponse dcResponse=(DCResponse)wsCallResult.getGenericObject();
-            System.out.println("dcResponse = " + dcResponse);
-            sendAlertMessage("P");
-            getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", "Error occurred while document request generation");
          }
       }
       catch (Exception ex)

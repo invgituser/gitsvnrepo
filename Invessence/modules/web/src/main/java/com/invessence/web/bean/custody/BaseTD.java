@@ -1262,7 +1262,7 @@ public class BaseTD
          custodySaveDAO.tdSaveAccountDetail(tdMasterData.getAcctdetail(), tdMasterData);
          if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
          {
-            custodySaveDAO.tdsaveACHData(tdMasterData, "ACH");
+            custodySaveDAO.tdsaveACHData(tdMasterData, "ACH","ADD");
             if (tdMasterData.getCopyAchInstructions() && tdMasterData.getFundType().equalsIgnoreCase("PMACH"))
             {
                tdMasterData.getElectroicBankDetail().setBankAcctType(tdMasterData.getAchBankDetail().getBankAcctType());
@@ -1276,10 +1276,10 @@ public class BaseTD
             }
          }
          else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("PMFEDW"))
-            custodySaveDAO.tdSaveACAT(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getAcatDetails());
+            custodySaveDAO.tdSaveACAT(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getAcatDetails(),"ADD");
 
          else if (tdMasterData.getFundType() != null && tdMasterData.getFundType().equalsIgnoreCase("TDTRF"))
-            custodySaveDAO.tdSaveTDTransferData(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getTdTransferDetails());
+            custodySaveDAO.tdSaveTDTransferData(tdMasterData, tdMasterData.getAcctnum(), tdMasterData.getTdTransferDetails(),"ADD");
       }
       // custodySaveDAO.tdSaveACH("ACH",tdMasterData.getOwnerSPF(),tdMasterData.getAcctnum(),tdMasterData.getInitialInvestment(),tdMasterData.getFundType(),tdMasterData.getAchBankDetail());
    }
@@ -1542,8 +1542,8 @@ public class BaseTD
       beneTempList = new ArrayList<BenefiaciaryDetails>();
    }
 
-   public int processDCRequest(String advisorName, String repId,Long acctnum,int eventNo){
-      return custodySaveDAO.processDCRequest(advisorName,repId,acctnum,eventNo);
+   public int processDCRequest(String advisorName, String repId,Long acctnum,int eventNo,String action){
+      return custodySaveDAO.processDCRequest(advisorName,repId,acctnum,eventNo,action);
    }
 
 }

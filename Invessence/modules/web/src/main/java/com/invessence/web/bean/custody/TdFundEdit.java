@@ -9,7 +9,7 @@ import javax.faces.context.FacesContext;
 
 import com.invessence.converter.JavaUtil;
 import com.invessence.service.bean.ServiceRequest;
-import com.invessence.web.constant.WebConst;
+import com.invessence.web.constant.*;
 import com.invessence.web.dao.common.CommonDAO;
 import com.invessence.web.dao.consumer.ConsumerListDataDAO;
 import com.invessence.web.dao.custody.*;
@@ -19,6 +19,7 @@ import com.invessence.web.data.custody.td.*;
 import com.invessence.web.util.Impl.PagesImpl;
 import com.invessence.web.util.*;
 import com.invessence.ws.bean.*;
+import com.invessence.ws.provider.td.bean.DCResponse;
 import com.invessence.ws.service.ServiceLayerImpl;
 import org.apache.commons.logging.*;
 import org.primefaces.event.*;
@@ -597,35 +598,63 @@ public class TdFundEdit extends BaseTD
          WSCallStatus wsstatus;
          WSCallResult wsCallResult;
 
+         String product=getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
+         String mode=getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
+         System.out.println("product "+product);
+         System.out.println("mode "+mode);
+
          if(!getTdMasterData().getOptFund())
          {
             if (getTdMasterData().getFundType() != null && getTdMasterData().getFundType().equalsIgnoreCase("PMACH"))// for ACH acocunt
-               getCustodySaveDAO().tdsaveACHData(getTdMasterData(), "ACH");
+               getCustodySaveDAO().tdsaveACHData(getTdMasterData(), "ACH","EDIT");
             else if (getTdMasterData().getFundType() != null && getTdMasterData().getFundType().equalsIgnoreCase("PMFEDW"))
-               getCustodySaveDAO().tdSaveACAT(getTdMasterData(), getTdMasterData().getAcctnum(), getTdMasterData().getAcatDetails());
+               getCustodySaveDAO().tdSaveACAT(getTdMasterData(), getTdMasterData().getAcctnum(), getTdMasterData().getAcatDetails(),"EDIT");
 
             else if (getTdMasterData().getFundType() != null && getTdMasterData().getFundType().equalsIgnoreCase("TDTRF"))
-               getCustodySaveDAO().tdSaveTDTransferData(getTdMasterData(), getTdMasterData().getAcctnum(), getTdMasterData().getTdTransferDetails());
+               getCustodySaveDAO().tdSaveTDTransferData(getTdMasterData(), getTdMasterData().getAcctnum(), getTdMasterData().getTdTransferDetails(),"EDIT");
          }
          if(!getTdMasterData().getRecurringFlag())
          {
             getCustodySaveDAO().tdSaveEFTEdit(getTdMasterData());
          }
 
-         wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-         //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);
-//         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+         int eventNo = 0;
+         eventNo = processDCRequest( getWebutil().getUserInfoData().getAdvisor(), getWebutil().getUserInfoData().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_FUNDING);
+         if (eventNo > 0)
          {
-            msg = wsCallResult.getWSCallStatus().getErrorMessage();
-            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+            wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product,mode), getTdMasterData().getAcctnum(), eventNo);
+            if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+            {
+               msg = wsCallResult.getWSCallStatus().getErrorMessage();
+               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+            }
+            else
+            {
+               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
+               System.out.println("dcResponse = " + dcResponse);
+               sendAlertMessage("P");
+               getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+            }
          }
          else
          {
-
-            sendAlertMessage("F");
-            getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", "Error occurred while document request generation");
          }
+
+//         wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+//         //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);
+////         wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
+//         if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+//         {
+//            msg = wsCallResult.getWSCallStatus().getErrorMessage();
+//            getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
+//         }
+//         else
+//         {
+//
+//            sendAlertMessage("F");
+//            getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
+//         }
       }
       catch (Exception ex)
       {

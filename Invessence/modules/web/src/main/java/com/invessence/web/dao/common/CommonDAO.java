@@ -15,15 +15,17 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
 {
    SQLData convert = new SQLData();
 
-   public void saveUserIDPwd(UserData data) {
+   public void saveUserIDPwd(UserData data)
+   {
 
    }
 
-   public String validateState(Long logonid, String state) {
+   public String validateState(Long logonid, String state)
+   {
       DataSource ds = getDataSource();
-      CommonSP sp = new CommonSP(ds, "sp_validate_state",1);
+      CommonSP sp = new CommonSP(ds, "sp_validate_state", 1);
       Map outMap = sp.validateState(logonid, state);
-      String info="quota";
+      String info = "quota";
       if (outMap != null)
       {
          ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
@@ -31,7 +33,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          for (Map<String, Object> map : rows)
          {
             Map rs = (Map) rows.get(i);
-            info=convert.getStrData(rs.get("license"));
+            info = convert.getStrData(rs.get("license"));
             i++;
             break;
          }
@@ -82,26 +84,32 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
 
    }
 
-   public void saveUserNotice(NotificationData data) {
+   public void saveUserNotice(NotificationData data)
+   {
       DataSource ds = getDataSource();
-      CommonSP sp = new CommonSP(ds, "sav_notification_user",3);
+      CommonSP sp = new CommonSP(ds, "sav_notification_user", 3);
       sp.saveNotice(data);
    }
 
-   public Map<String, Integer> getUserNotificationInfo(Long logonid) {
+   public Map<String, Integer> getUserNotificationInfo(Long logonid)
+   {
       if (logonid == null)
+      {
          return null;
+      }
 
       DataSource ds = getDataSource();
-      CommonSP sp = new CommonSP(ds, "sel_notificationInfo_user",99);
+      CommonSP sp = new CommonSP(ds, "sel_notificationInfo_user", 99);
       Map outMap = sp.getNotificationInfo(logonid);
       Map<String, Integer> statInfo = new HashMap<String, Integer>();
-      try {
+      try
+      {
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows;
             rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-            if (rows != null)  {
+            if (rows != null)
+            {
                Integer i = 0;
                for (Map<String, Object> map : rows)
                {
@@ -114,53 +122,27 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          }
          return statInfo;
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          ex.printStackTrace();
       }
       return null;
    }
 
-   public Map<String, String> getWebSiteInfo(String url) {
-      try {
+   public Map<String, String> getWebSiteInfo(String url)
+   {
+      try
+      {
          DataSource ds = getDataSource();
-         CommonSP sp = new CommonSP(ds, "sel_web_site_info",4);
+         CommonSP sp = new CommonSP(ds, "sel_web_site_info", 4);
          Map outMap = sp.getWebSiteInfo(url);
-         Map<String, String> webMap = new LinkedHashMap<String, String>();
-            if (outMap != null)
-            {
-               ArrayList<Map<String, Object>> rows;
-               rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-               if (rows != null)  {
-                  Integer i = 0;
-                  for (Map<String, Object> map : rows)
-                  {
-                     Map rs = (Map) rows.get(i);
-                     webMap.put(convert.getStrData(rs.get("name")),
-                                convert.getStrData(rs.get("value")));
-                     i++;
-                  }
-               }
-            }
-            return webMap;
-
-      }
-      catch (Exception ex) {
-         return null;
-
-      }
-   }
-
-   public Map<String, String> getAdvisorWebInfo(String advisor) {
-      try {
-         DataSource ds = getDataSource();
-         CommonSP sp = new CommonSP(ds, "sel_advisor_web_info",5);
-         Map outMap = sp.getAdvisorWebInfo(advisor);
          Map<String, String> webMap = new LinkedHashMap<String, String>();
          if (outMap != null)
          {
             ArrayList<Map<String, Object>> rows;
             rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
-            if (rows != null)  {
+            if (rows != null)
+            {
                Integer i = 0;
                for (Map<String, Object> map : rows)
                {
@@ -174,11 +156,47 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
          return webMap;
 
       }
-      catch (Exception ex) {
+      catch (Exception ex)
+      {
          return null;
 
       }
    }
+
+   public Map<String, String> getAdvisorWebInfo(String advisor)
+   {
+      try
+      {
+         DataSource ds = getDataSource();
+         CommonSP sp = new CommonSP(ds, "sel_advisor_web_info", 5);
+         Map outMap = sp.getAdvisorWebInfo(advisor);
+         Map<String, String> webMap = new LinkedHashMap<String, String>();
+         if (outMap != null)
+         {
+            ArrayList<Map<String, Object>> rows;
+            rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
+            if (rows != null)
+            {
+               Integer i = 0;
+               for (Map<String, Object> map : rows)
+               {
+                  Map rs = (Map) rows.get(i);
+                  webMap.put(convert.getStrData(rs.get("name")),
+                             convert.getStrData(rs.get("value")));
+                  i++;
+               }
+            }
+         }
+         return webMap;
+
+      }
+      catch (Exception ex)
+      {
+         return null;
+
+      }
+   }
+
 
 
 

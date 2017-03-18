@@ -5,7 +5,6 @@ public class DCConstants
 {
    public final static String ACTION_ACCT_OPEN = "ACCT_OPEN";
    public final static String ACTION_CHNG_ADDR = "CHNG_ADDR";
-   public final static String SUB_ACTION_NEW_APP = "NewApp";
    public final static String SUB_ACTION_CHNG_ADDR = "CHNG_ADDR";
    public final static String SUB_ACTION_ACH = "ACH";
    public final static String SUB_ACTION_ACH_IRA = "ACH_IRA";
@@ -18,6 +17,7 @@ public class DCConstants
    public final static String SUB_ACTION_IRA_QRP_BEN = "IRA_QRP_BEN";
    public final static String SUB_ACTION_IRA_NEW = "IRA_NEW";
    public final static String ACTION_FUNDING = "FUNDING";
+   public final static String SUB_ACTION_REC_EFT_REPLACE = "REC_EFT_REP";
 
 
 }

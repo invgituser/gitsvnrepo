@@ -285,6 +285,8 @@ public class CustodySaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_repId", Types.VARCHAR));
             declareParameter(new SqlParameter("p_acctnum", Types.INTEGER));
             declareParameter(new SqlParameter("p_eventno", Types.INTEGER));
+            declareParameter(new SqlParameter("p_action", Types.VARCHAR));
+
             break;
          default:
             break;
@@ -680,13 +682,14 @@ public class CustodySaveSP extends StoredProcedure
       return super.execute(inputMap);
    }
 
-   public Map processDcRequest(String advisorName,String repId,Long acctnum,int eventno)
+   public Map processDcRequest(String advisorName,String repId,Long acctnum,int eventno,String action)
    {
       Map inputMap = new HashMap();
       inputMap.put("p_advisorName", advisorName);
       inputMap.put("p_repId", repId);
       inputMap.put("p_acctnum", acctnum);
       inputMap.put("p_eventno", eventno);
+      inputMap.put("p_action", action);
       return super.execute(inputMap);
    }
 
