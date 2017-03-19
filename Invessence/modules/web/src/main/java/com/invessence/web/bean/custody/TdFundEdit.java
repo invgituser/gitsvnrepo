@@ -619,10 +619,14 @@ public class TdFundEdit extends BaseTD
          }
 
          int eventNo = 0;
+         System.out.println("Advisor "+getTdMasterData().getCustomerData().getProfileInstance().getAdvisor());
+         System.out.println("REP "+ getTdMasterData().getCustomerData().getProfileInstance().getRep());
          eventNo = processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_FUNDING);
+         System.out.println("Docusign Event "+ eventNo);
          if (eventNo > 0)
          {
             wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product,mode), getTdMasterData().getAcctnum(), eventNo);
+            System.out.println("Docusign wsCallResult "+ wsCallResult);
             if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
             {
                msg = wsCallResult.getWSCallStatus().getErrorMessage();
