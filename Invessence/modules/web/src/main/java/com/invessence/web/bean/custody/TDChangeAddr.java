@@ -113,8 +113,8 @@ public class TDChangeAddr extends BaseTD
                }
                else
                {
-                  DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
-                  System.out.println("dcResponse = " + dcResponse);
+//                  DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
+//                  System.out.println("dcResponse = " + dcResponse);
                   sendAlertMessage("P");
                   getCustodySaveDAO().tdMngAdvisorNotification(getTdMasterData().getAcctnum(), getWebutil().getUserInfoData().getAdvisor(), getWebutil().getUserInfoData().getRep(), "CHNGADDRS");
                   getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");

@@ -630,8 +630,8 @@ public class TdFundEdit extends BaseTD
             }
             else
             {
-               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
-               System.out.println("dcResponse = " + dcResponse);
+//               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
+//               System.out.println("dcResponse = " + dcResponse);
                sendAlertMessage("P");
                getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
             }
