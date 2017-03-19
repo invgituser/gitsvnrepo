@@ -48,19 +48,33 @@ public class Invessence_Utility {
 	}
 	
 	
-	public static WebDriver login(WebDriver driver,String username,String password,String browser) throws InterruptedException 
+	public static WebDriver login(WebDriver driver,String username,String password,String browser,String vlogo) throws InterruptedException 
 	{
 		//Demo Login
-		/*driver.findElement(By.id("bbdemo")).click();
+		/*	driver.findElement(By.id("bbdemo")).click();
 		Thread.sleep(1000);
 		driver.findElement(By.xpath("//span[contains(text(), 'Login')]")).click();
 		Thread.sleep(1000);
-		driver.findElement(By.xpath("//span[contains(text(), 'Login')]")).click();
+		/*driver.findElement(By.xpath("//span[contains(text(), 'Login')]")).click();
 		Thread.sleep(1000);*/
 		
 		/*//Production Login
 		driver.findElement(By.xpath("//a[contains(text(), 'LOG IN')]")).click();*/
 		
+		// Verify Logo
+		
+		WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
+		String verifylogo = logo.getAttribute("src");
+		if(verifylogo.contains(vlogo))
+				{
+			System.out.println("Pass- Logo Displayed is correct");
+			log.info("Pass- Logo Displayed is correct");
+				}
+		else
+		{
+			System.out.println("Fail - Logo Displayed iss Wrong");
+			log.info("Fail - Logo Displayed iss Wrong");
+		}
 		
 		driver.findElement(By.xpath("//*[@id='j_username']")).sendKeys(username);
 		driver.findElement(By.xpath("//*[@id='j_password']")).sendKeys(password);
