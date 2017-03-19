@@ -67,7 +67,7 @@ public void newaccount (String TCID,String vURL,String vBrowser,String username,
 		String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
 		String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
 		String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,String accountnumber,String clientaccountnumber,
-		String changedobjective,
+		String changedobjective,String vlogo,
 		String Execute,String Results) throws Exception {
 
 	if (Execute.equals("Y")) {	
@@ -97,7 +97,7 @@ public void newaccount (String TCID,String vURL,String vBrowser,String username,
 					
 					//Login
 													
-					Invessence_Utility.login(driver, username, password, vBrowser);
+					Invessence_Utility.login(driver, username, password, vBrowser,vlogo);
 		
 					// Change the strategy of the portfolio
 					ChangeStrategyPO.changestrategy(driver,clientaccountnumber, investmentamount, investmentgoal, age, status, retireage, changedobjective, projectionoption);

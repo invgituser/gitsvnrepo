@@ -43,14 +43,23 @@ public class NewPortfolioCreationVisitor  {
 		@DataProvider(name = "myTest")
         public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException {
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
-			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","portfoliocreation");
+			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor");
 			xData = Utility.xlRead(myXLPath,"TestData");
 		  return xData;
  		             
          }
 
 	@Test(dataProvider = "myTest")
-	public void newaccount (String TCID,String vURL,String vBrowser,String username,String password,String investmentamount,String investmentgoal,String age,String status,String retireage,String objective,String projectionoption,String Execute,String Results) throws Exception {
+	public void newaccount (String TCID,String vURL,String vBrowser,String username,String password,String investmentamount,
+			String investmentgoal,String age,String status,String retireage,String objective,
+			String projectionoption,String accounttype,String fname,String lname,String dob,String ssn,String phoneno,
+			String email,String streetname,String city,String state,String zip,String regulatoryoption,
+			String empstatus,String incomesrc,String employername,String occupation,String bfname ,String blname,
+			String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
+			String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
+			String bankphone,String routingno,String bankacctno,String accounttitle,String accounttype1 ,String deliveringfirm,String frequency,
+			String trnamt,String trndate,String accountnumber,String clientaccountnumber,String changedobjective,String recurringflag,String fundingflag,
+			String Execute,String Results) throws Exception {
 
 		if (Execute.equals("Y")) {	
 			try{			
@@ -82,11 +91,11 @@ public class NewPortfolioCreationVisitor  {
 					
 					// Getstarted Visitor 
 					//driver.findElement(By.id("j_idt18")).click();
-					Invessence_Utility.getstartedpreuat(driver, vBrowser);
+					//Invessence_Utility.getstartedpreuat(driver, vBrowser);
 					
 					//Portfolio creation
 				//	driver.findElement(By.xpath("//a[contains(text(), ' New Account')]")).click();
-					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption);
+					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
 						xData[i][13]= "Pass -New Portfolio is created";
