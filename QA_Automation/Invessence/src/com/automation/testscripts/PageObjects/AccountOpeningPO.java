@@ -1,10 +1,14 @@
 package com.automation.testscripts.PageObjects;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+
+import com.automation.testscripts.Utility.DBConnection;
 
 public class AccountOpeningPO {
 	//private static WebDriver driver;
@@ -57,7 +61,7 @@ public class AccountOpeningPO {
 			driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:accHolderTabV:ownerHolderPanel']//input[@placeholder='Primary Phone']")).sendKeys(phoneno);
 			driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:accHolderTabV:ownerHolderPanel']//input[@placeholder='Email Address']")).sendKeys(email);
 			driver.findElement(By.id("ctoForm:tdaccordian:accHolderTabV:tdp1next")).click();
-			Thread.sleep(200);
+			Thread.sleep(2000);
 			
 			//Enter Joint account holder details
 				if(accounttype.equals("Joint") || accounttype.equals("UTMA / UGMA"))
@@ -268,7 +272,7 @@ public class AccountOpeningPO {
 			String accounttitle,String accounttype1 ,String deliveringfirm) throws InterruptedException
 	{  boolean fund = false;
 		try{
-			Thread.sleep(5000);
+			Thread.sleep(4000);
 		
 			if(fundingflag.equals("Y"))
 			{
@@ -277,7 +281,8 @@ public class AccountOpeningPO {
 			//Fund tab
 				if(fundingtype.equals("ACH"))
 				{
-					Thread.sleep(100);
+					Thread.sleep(1000);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdfundAmt_input")).clear();
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdfundAmt_input")).sendKeys(investmentamt);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachtype_label")).click();
 					Thread.sleep(100);
@@ -289,64 +294,82 @@ public class AccountOpeningPO {
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankphone);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctaba")).sendKeys(routingno);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctnum")).sendKeys(bankacctno);
-					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9next")).click();
-					Thread.sleep(2000);
+					
 					
 				}
 				else if(fundingtype.equals("ACAT"))
 				{
+					Thread.sleep(100);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacattitle")).sendKeys(accounttitle);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacatacctnum")).sendKeys(bankacctno);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacataccttype")).click();
 					driver.findElement(By.xpath("//li[contains(text(),'"+accounttype1+"')]")).click();
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:event_input")).sendKeys(deliveringfirm);
 					driver.findElement(By.xpath("//*[contains(text(),'Full Transfer')]/parent::td/preceding-sibling::td/div//span")).click();
-					Thread.sleep(2000);
+					Thread.sleep(4000);
 					
+				}
+				else
+				{
+					Thread.sleep(100);
+					String accountmanaged = "Retail";
+					String retailaccountnumber = "12345";
+					String advisorid = "123";
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdtdretailflag_label")).click();
+					driver.findElement(By.xpath("//li[contains(text(),'"+accountmanaged+"')]")).click();
+					Thread.sleep(2000);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdtdbacctno")).clear();
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdtdbacctno")).sendKeys(retailaccountnumber);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdtdbadvid")).sendKeys(advisorid);;
 				}
 				
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9next")).click();
 				Thread.sleep(2000);
 				
-			}
-				else
-				{
-					//Opt out of Funding
-					driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:j_idt373']/div[2]/span")).click();
-					Thread.sleep(1000);
-					
-				}
-				
-				
-				//Recurring tab
+			//Recurring tab
 				if(recurringflag.equals("Y"))
 				{
 				//driver.findElement(By.xpath(" //*[@id='ctoForm:tdaccordian:fundTabV']//a[contains(text(),'Recurring')]")).click();
-				Thread.sleep(100);
+				Thread.sleep(1000);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrfreq")).click();
-				Thread.sleep(100);
+				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdrfreq_items']/li[contains(text(),'"+ frequency +"')]")).click();
-				Thread.sleep(100);
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrAmt_input")).clear();
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrAmt_input")).sendKeys(trnamt);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrsdate")).sendKeys(trndate);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbaccttype_label")).click();
-				Thread.sleep(100);
+				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdrbaccttype_items']/li[contains(text(),'"+ bankaccttype +"')]")).click();
-				Thread.sleep(100);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbname")).sendKeys(bankname);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctname")).sendKeys(nameofbankacct);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctlocation")).sendKeys(bankcity);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankphone);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctaba")).sendKeys(routingno);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdachbacctphone")).sendKeys(bankacctno);
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbname")).sendKeys(bankname);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:j_idt404")).sendKeys(nameofbankacct);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbloc")).sendKeys(bankcity);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbphone")).sendKeys(bankphone);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbaba")).sendKeys(routingno);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbacctnum")).sendKeys(bankacctno);
+				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdp10save']/span")).click();
+				Thread.sleep(3000);
 				}
 				else
 				{
 				//Optout recurring
 				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdroptoutflag']/div[2]/span")).click();
 				Thread.sleep(1000);
-				}
-			
+				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdp10save']/span")).click();
+				//Thread.sleep(3000);driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdp10save']/span")).click();
+				Thread.sleep(3000);
+					}
+				
+			}
+			else
+			{
+				//Opt out of Funding
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:actfundingoptout")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9save")).click();
+				Thread.sleep(1000);				
+			}
 				log.info("Funding Section entered");
 				System.out.println("Funding Section entered");
 				fund = true;
@@ -361,7 +384,79 @@ public class AccountOpeningPO {
 	}
 	
 	
+	//Complete account opening scenarios
 	
-	
+	public static boolean AccountopeningScenario(WebDriver driver,String dburl,String dbusername,String dbpassword,String accounttype,String fname,String lname,String dob,String ssn,String phoneno,
+			String email,String streetname,String city,String state,String zip,String regulatoryoption,
+			String empstatus,String incomesrc,String employername,String occupation,String bfname ,String blname,
+			String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
+			String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
+			String bankphone,String routingno,String bankacctno,String accounttitle,String accounttype1 ,String deliveringfirm,String frequency,
+			String trnamt,String trndate,String accountnumber,String clientaccountnumber,String recurringflag,String fundingflag) throws InterruptedException
+	{
+		boolean accountopen = false;
+		try{
+		
+		//Select Account Type
+		
+		boolean accttype = AccountOpeningPO.accounttype(driver, accounttype);
+		
+		//Enter account holder details
+		boolean acctholder =AccountOpeningPO.accountholder(driver, accounttype, fname, lname, dob, ssn, phoneno, email, streetname, city, state, zip, bfname, blname, bdob, bssn);
+		
+		//Enter address
+		
+		boolean acctaddress= AccountOpeningPO.accountaddress(driver, streetname, city, state, zip,accounttype);
+		
+		//Regulatory
+		boolean acctaddressegulatory = AccountOpeningPO.regulatory(driver, regulatoryoption);
+		
+		//Employment
+		
+		boolean acctemp = AccountOpeningPO.employment(driver, empstatus, incomesrc, employername, occupation,accounttype);
+		
+		// Benificiary
+		
+		boolean accbenificiary = AccountOpeningPO.benificiary(driver, accounttype, employername, occupation, bfname, blname, bdob, bssn,
+				relationship, sharepercent);
+		
+		//Funding
+		
+		boolean accfunding = AccountOpeningPO.funding(driver, accounttype, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct,
+				bankcity, bankphone, routingno, bankacctno, frequency, trnamt, trndate,recurringflag,fundingflag,accounttitle,accounttype1 ,
+				deliveringfirm);
+		
+		//Hit Submit button
+		
+		
+		driver.findElement(By.xpath("//*[@id='ctoForm:submitBtnId']//span")).click();
+		Thread.sleep(5000);
+		//Result verification for Reporting
+		System.out.println("#############################################");
+		log.info("#######################################################");
+		if(accttype && acctholder && acctaddress && acctaddressegulatory && acctemp && accbenificiary && accfunding)
+		{
+			log.info("PASS - Account Opening sections Entered Sucessfully");
+			System.out.println("PASS - Account Opening sections Entered Sucessfully");
+			accountopen = true;
+			
+		}
+		else
+		{
+			log.info("Fail- Account Opening Failed.");
+			System.out.println("Fail- Account Opening Failed.");
+			accountopen = false;
+		}
+			
+			
+	}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			accountopen = false;
+		}
+			return accountopen;
+		}
+
 	
 }
