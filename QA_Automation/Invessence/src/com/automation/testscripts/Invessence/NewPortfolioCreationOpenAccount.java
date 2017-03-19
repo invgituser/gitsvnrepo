@@ -123,7 +123,7 @@ public class NewPortfolioCreationOpenAccount  {
 								log.info("PASS - Account Opening sections Entered Sucessfully");
 								System.out.println("PASS - Account Opening sections Entered Sucessfully");
 								// Verify in database	
-							/*	
+								
 								String sqlQuery = "select acctnum from invdb.user_trade_profile  where acctnum="+accountnumber;
 								String[] acctentry = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery);
 								System.out.println(acctentry[0]);
@@ -136,7 +136,7 @@ public class NewPortfolioCreationOpenAccount  {
 									log.info("#############################################");	
 									//Emulation of account opening and accoutn activation by running stored procedure
 									
-									/*String spopenacct = "testing.sp_emulate_td_openaccount("+accountnumber+")";
+									String spopenacct = "testing.sp_emulate_td_openaccount("+accountnumber+")";
 									String spactivateacct = "testing.sp_emulate_td_activateaccount("+accountnumber+","+investmentamt+")";
 									DBConnection.runProcedure(dburl,dbusername,dbpassword,spopenacct);
 									Thread.sleep(3000);
@@ -175,7 +175,7 @@ public class NewPortfolioCreationOpenAccount  {
 								System.out.println("#############################################");
 								log.info("#############################################");	
 								Assert.fail("Fail - Account TD from Submission failed");
-							}	*/			
+							}				
 						}
 						else
 						{
