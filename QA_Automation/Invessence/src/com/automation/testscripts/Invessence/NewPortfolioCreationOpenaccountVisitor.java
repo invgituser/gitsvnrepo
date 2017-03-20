@@ -112,6 +112,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						System.out.println("URL is :"+ accountnumber);
 						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
 						System.out.println("acct nos is :"+ accountnumber);
+						
 						//Enter details for registration
 						
 						driver.findElement(By.id("j_idt39:firstName")).sendKeys(fname);

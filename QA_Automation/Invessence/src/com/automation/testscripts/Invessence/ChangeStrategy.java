@@ -59,7 +59,7 @@ public class ChangeStrategy {
 	
 
 @Test(dataProvider = "myTest")
-public void newaccount (String TCID,String vURL,String vBrowser,String username,String password,String investmentamount,
+public void changestrategy (String TCID,String vURL,String vBrowser,String username,String password,String investmentamount,
 		String investmentgoal,String age,String status,String retireage,String objective,
 		String projectionoption,String accounttype,String fname,String lname,String dob,String ssn,String phoneno,
 		String email,String streetname,String city,String state,String zip,String regulatoryoption,
