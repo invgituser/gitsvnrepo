@@ -48,7 +48,7 @@ public class NewPortfolioCreationOpenAccount  {
 		@DataProvider(name = "myTest")
         public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException {
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
-			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccount");
+			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccount_demo");
 			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
@@ -139,9 +139,9 @@ public class NewPortfolioCreationOpenAccount  {
 									String spopenacct = "testing.sp_emulate_td_openaccount("+accountnumber+")";
 									String spactivateacct = "testing.sp_emulate_td_activateaccount("+accountnumber+","+investmentamt+")";
 									DBConnection.runProcedure(dburl,dbusername,dbpassword,spopenacct);
-									Thread.sleep(3000);
+									Thread.sleep(5000);
 									DBConnection.runProcedure(dburl,dbusername,dbpassword,spactivateacct);
-									Thread.sleep(2000);
+									Thread.sleep(5000);
 									String sqlQuery1 = "select clientAccountID from invdb.ext_acct_info where acctnum="+accountnumber;
 									String[] clientacctnum = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery1);
 									System.out.println(clientacctnum[0]);

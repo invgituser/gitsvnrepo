@@ -114,15 +114,17 @@ public class DBConnection
 		//Execute the stored Proc
 		// Execute the SQL Query. Store results in ResultSet		
 		Statement statement = con.createStatement();
-		String storedProc = "{call "+spname+"}";
+		Thread.sleep(2000);
+		String storedProc = "call "+spname;
+		System.out.println(storedProc);
 		statement.execute(storedProc);
 			 // closing DB Connection		
 			con.close();	
 	 }
 	catch( Exception e )
     {
-        e.printStackTrace();
-        System.out.println( "Error connecting to database.  Error: "+e.getMessage() );
+       // e.printStackTrace();
+        //System.out.println( "Error connecting to database.  Error: "+e.getMessage() );
     }	
 	
 		
