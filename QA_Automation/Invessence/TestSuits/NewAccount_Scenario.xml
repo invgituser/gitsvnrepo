@@ -14,4 +14,14 @@
       <class name="com.automation.testscripts.Invessence.NewPortfolioCreationOpenAccount" />
     </classes>
   </test>
+  <!--  <test name="2- NewAccountCreationVisitor">
+    <classes>
+      <class name="com.automation.testscripts.Invessence.NewPortfolioCreationOpenAccount" />
+    </classes>
+  </test>
+  <test name="3- Change Strategy">
+    <classes>
+      <class name="com.automation.testscripts.Invessence.ChangeStrategy" />
+    </classes>
+  </test> -->
 </suite>
