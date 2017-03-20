@@ -736,9 +736,10 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
       }
    }
 
-   public int  processDCRequest(String advisorName, String repId, Long acctnum, int eventno,String action)
+   public String  processDCRequest(String advisorName, String repId, Long acctnum, int eventno,String action)
    {
-      int eventNo = 0;
+      int eventNo = 0,othereventNo=0;
+      String strreturn=null;
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "sp_generate_dc_request", 98);
       Map outMap = sp.processDcRequest(advisorName, repId, acctnum, eventno,action);
@@ -756,12 +757,15 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
             {
                Map rs = (Map) rows.get(i);
                eventNo=convert.getIntData(rs.get("EventNo"));
+               othereventNo=convert.getIntData(rs.get("OtherEventNo"));
+               strreturn=eventNo+","+othereventNo;
             }
          }
       }catch (Exception e){
 
+         System.out.println("processDCRequest Exception "+ e);
       }
-      return eventNo;
+      return strreturn;
    }
 
 

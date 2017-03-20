@@ -1542,7 +1542,7 @@ public class BaseTD
       beneTempList = new ArrayList<BenefiaciaryDetails>();
    }
 
-   public int processDCRequest(String advisorName, String repId,Long acctnum,int eventNo,String action){
+   public String processDCRequest(String advisorName, String repId,Long acctnum,int eventNo,String action){
       return custodySaveDAO.processDCRequest(advisorName,repId,acctnum,eventNo,action);
    }
 
