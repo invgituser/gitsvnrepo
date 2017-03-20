@@ -98,9 +98,10 @@ public void changestrategy (String TCID,String vURL,String vBrowser,String usern
 					//Login
 													
 					Invessence_Utility.login(driver, username, password, vBrowser,vlogo);
-		
+					//String radiobtnoption = "I prefer to complete the risk tolerance questionnaire again to update factors that have changed.";
+					String radiobtnoption = " ";
 					// Change the strategy of the portfolio
-					ChangeStrategyPO.changestrategy(driver,clientaccountnumber, investmentamount, investmentgoal, age, status, retireage, changedobjective, projectionoption);
+					ChangeStrategyPO.changestrategy(driver,clientaccountnumber, investmentamount, investmentgoal, age, status, retireage, changedobjective, projectionoption,radiobtnoption);
 					
 				}
 				}		

@@ -45,6 +45,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
@@ -393,4 +394,58 @@ public class Utility {
 			int result = Integer.parseInt(str);
 			return result;
 		}
+		
+		//Slider fuctionality
+		public static void slider(WebDriver driver,String xpath,String percent)
+		{
+			try
+			{
+				Thread.sleep(200);
+				WebElement slider = driver.findElement(By.xpath(xpath));
+				JavascriptExecutor js = (JavascriptExecutor) driver;
+				js.executeScript("arguments[0].setAttribute('style', 'left: "+percent+"%;')",slider);
+			
+			}
+			catch (Exception e)
+
+			{
+				 e.printStackTrace();
+		         System.out.println("ERROR"+e);
+		         log.info("ERROR"+e);
+
+			}
+	        
+		}
+		
+		/**
+		 * Moves a jQuery slider to percental position, don't care about directions
+		 * @param slider to move
+		 * @param percent to set the slider
+		 */
+	/*	public void moveSliderToPercent(WebElement slider, int percent){
+
+		    Actions builder = new Actions(this.driver);
+
+		    Action dragAndDrop;
+
+		    int height = slider.getSize().getHeight();
+		    int width = slider.getSize().getWidth();
+
+
+		    if(width>height){
+		        //highly likely a horizontal slider
+		        dragAndDrop = builder.clickAndHold(slider).moveByOffset(-(width/2),0).
+		                       moveByOffset((int)((width/100)*percent),0).
+		                       release().build();
+		    }else{
+		        //highly likely a vertical slider
+		        dragAndDrop = builder.clickAndHold(slider).moveByOffset(0, -(height/2)).
+		                       moveByOffset(0,(int)((height/100)*percent)).
+		                       release().build();
+		    }
+
+
+		    dragAndDrop.perform();
+
+		}*/
 }

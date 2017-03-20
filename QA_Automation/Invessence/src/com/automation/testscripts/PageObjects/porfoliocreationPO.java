@@ -171,8 +171,10 @@ public class porfoliocreationPO {
 				{
 					System.out.println("#############################################");
 					log.info("#############################################");
-					System.out.println("Fail - Cureent portfolio strategy is not changed ");
-					log.info("Fail - Cureent portfolio strategy is not changed ");
+					System.out.println("Fail - Current portfolio strategy is not changed ");
+					log.info("Fail - Current portfolio strategy is not changed ");
+					System.out.println("Your current and revised portfolio is same, you can not do further processing.");
+					log.info("Your current and revised portfolio is same, you can not do further processing.");
 					portfoliocreation = false;
 				}
 								
