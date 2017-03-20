@@ -337,6 +337,7 @@ public class AccountOpeningPO {
 				Thread.sleep(1000);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrAmt_input")).clear();
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrAmt_input")).sendKeys(trnamt);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrsdate")).clear();
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrsdate")).sendKeys(trndate);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbaccttype_label")).click();
 				Thread.sleep(1000);

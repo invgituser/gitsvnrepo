@@ -67,6 +67,7 @@ public class porfoliocreationPO {
 			
 		if (investmentgoal.equals("Retirement"))
 		{
+			driver.findElement(By.id("ceForm:ageid_input")).clear();					
 			driver.findElement(By.id("ceForm:ageid_input")).sendKeys(age);
 			driver.findElement(By.id("ceForm:retiredDDID_label")).click();
 			Thread.sleep(1000);
@@ -83,6 +84,7 @@ public class porfoliocreationPO {
 			dropdown1.selectByVisibleText(status);*/
 			if(status.equals("Not Retired"))
 			{
+				driver.findElement(By.id("ceForm:retireageID_input")).clear();
 				driver.findElement(By.id("ceForm:retireageID_input")).sendKeys(retireage);
 			}
 
@@ -113,9 +115,8 @@ public class porfoliocreationPO {
 		Thread.sleep(2000);
 		
 		//Objective Page
-		boolean objectivepage = driver.findElement(By.xpath("//*[@id='ceForm:p3id']/tbody/tr[1]/td[2]/label")).isDisplayed();
-		if(objectivepage)
-		{
+		//boolean objectivepage = driver.findElement(By.xpath("//*[@id='ceForm:p3id']/tbody/tr[1]/td[2]/label")).isDisplayed();
+		
 			//Select objective
 			WebElement  selectobjective  =driver.findElement(By.xpath("//*[contains(text(), '"+ objective+ "')]"));
 			Thread.sleep(2000);
@@ -141,8 +142,11 @@ public class porfoliocreationPO {
 			WebElement startoverbtn = driver.findElement(By.xpath("//span[contains(text(),'Start Over')]"));
 			//if(driver.findElement(By.id("ceForm:tcmp7anext")).isDisplayed())
 			if (!clientaccountnumber.isEmpty() || !clientaccountnumber.equals(""))
-					{
-						 	driver.findElement(By.xpath("//*[contains(text(),'Next')]")).click();
+			 {
+							
+				String nextbtn = driver.findElement(By.id("ceForm:tcmp7anext")).getAttribute("aria-disabled");
+				if(nextbtn.equals("false"))
+				{	 	driver.findElement(By.xpath("//*[contains(text(),'Next')]")).click();
 							Thread.sleep(3000);
 							String portfoliorebalancing = "Changing your strategy will require portfolio rebalancing which may incur: the realization of capital gains or losses, additional transaction costs, and/or short-term trading penalties/fees. Strategy changes have the potential to be detrimental to performance.";
 							WebElement chkbox1 = driver.findElement(By.xpath("//*[contains(text(),'"+portfoliorebalancing+"')]/preceding-sibling::div/span"));
@@ -158,30 +162,9 @@ public class porfoliocreationPO {
 							log.info("#############################################");
 							System.out.println("Pass - Cureent portfolio strategy is changed ");
 							log.info("Pass - Cureent portfolio strategy is changed ");
-						
-					}
-			else if( driver.findElement(By.xpath("//span[contains(text(),'Open Account')]")).isDisplayed())
-			{
-				System.out.println("Pass- Open an New account");
-				log.info("Pass- Open an New account");
-				System.out.println("#############################################");
-				log.info("#############################################");
-				if(startoverbtn.isDisplayed())
-				{
-					System.out.println("Pass - New Portfolio is created");
-					log.info("Pass -New Portfolio is created");
-					portfoliocreation = true;
-	
-	
+							portfoliocreation = true;
 				}
-			else
-				{
-					System.out.println("Fail - New Portfolio creation Failed");
-					log.info("Fail - New Portfolio creation Failed");
-					portfoliocreation = false;
-				}
-			}
-			else
+				else
 				{
 				boolean changestatus = driver.findElement(By.xpath("//*[contains(text(),'Your current and revised portfolio is same, you can not do further processing.')]")).isDisplayed();
 				if(changestatus)
@@ -190,15 +173,42 @@ public class porfoliocreationPO {
 					log.info("#############################################");
 					System.out.println("Fail - Cureent portfolio strategy is not changed ");
 					log.info("Fail - Cureent portfolio strategy is not changed ");
-					
+					portfoliocreation = false;
 				}
+								
+				}
+			 }
+			else 
+			{
+				if(( driver.findElement(By.xpath("//span[contains(text(),'Open Account')]")).isDisplayed()))
+				
+				{
+					System.out.println("Pass- Open an New account");
+					log.info("Pass- Open an New account");
+					System.out.println("#############################################");
+					log.info("#############################################");
+					if(startoverbtn.isDisplayed())
+						{
+							System.out.println("Pass - New Portfolio is created");
+							log.info("Pass -New Portfolio is created");
+							portfoliocreation = true;
+			
+			
+						}
+					else
+						{
+							System.out.println("Fail - New Portfolio creation Failed");
+							log.info("Fail - New Portfolio creation Failed");
+							portfoliocreation = false;
+						}
+				}
+			
 				
 			}
 						
-						System.out.println("#############################################");
-						log.info("#############################################");
-					}
-		
+			System.out.println("#############################################");
+			log.info("#############################################");
+						
 		}
 		catch(Exception e)
 		{

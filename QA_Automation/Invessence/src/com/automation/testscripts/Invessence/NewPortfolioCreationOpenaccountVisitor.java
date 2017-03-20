@@ -51,7 +51,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
         public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException
 		{
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
-			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor");
+			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor_tcm");
 			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
@@ -97,6 +97,20 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 					System.out.println("Navigating to URL");
 					driver.get(vURL);
 					Thread.sleep(4000);
+					// Verify Logo
+					
+					WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
+					String verifylogo = logo.getAttribute("src");
+					if(verifylogo.contains(vlogo))
+							{
+						System.out.println("Pass- Logo Displayed is correct");
+						log.info("Pass- Logo Displayed is correct");
+							}
+					else
+					{
+						System.out.println("Fail - Logo Displayed iss Wrong");
+						log.info("Fail - Logo Displayed iss Wrong");
+					}
 					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
@@ -120,20 +134,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						driver.findElement(By.id("j_idt39:email")).sendKeys(email);
 						driver.findElement(By.xpath("//span[contains(text(),'Register')]")).click();
 						Thread.sleep(4000);
-						// Verify Logo
 						
-						WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
-						String verifylogo = logo.getAttribute("src");
-						if(verifylogo.contains(vlogo))
-								{
-							System.out.println("Pass- Logo Displayed is correct");
-							log.info("Pass- Logo Displayed is correct");
-								}
-						else
-						{
-							System.out.println("Fail - Logo Displayed iss Wrong");
-							log.info("Fail - Logo Displayed iss Wrong");
-						}
 						
 						//open account
 						boolean accountopen = AccountOpeningPO.AccountopeningScenario(driver, vURL, username, password, accounttype, fname, lname, dob, ssn, phoneno, email, streetname, city, state, zip, regulatoryoption, empstatus, incomesrc, employername, occupation, bfname, blname, bdob, bssn, relationship, sharepercent, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct, bankcity, bankphone, routingno, bankacctno, accounttitle, accounttype1, deliveringfirm, frequency, trnamt, trndate, accountnumber, clientaccountnumber,recurringflag, fundingflag);
