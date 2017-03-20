@@ -1371,12 +1371,12 @@ public class
 
       setDependent(0);
 
-      setCurrentIncome(0);
-      setLiquidAsset(0);
-      setTotalIncome(0);
-      setTotalExpense(0);
-      setTotalAsset(0);
-      setTotalLiability(0);
+      setCurrentIncome(null);
+      setLiquidAsset(null);
+      setTotalIncome(null);
+      setTotalExpense(null);
+      setTotalAsset(null);
+      setTotalLiability(null);
 
       setAccountTaxable(false); //1 (True) for accountTaxable (False) for nonTaxable
       setTaxrate(0.1);

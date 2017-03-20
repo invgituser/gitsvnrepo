@@ -583,24 +583,30 @@ public class CustomerData extends ProfileData
    }
 
    public void addTotalIncome() {
-       setTotalIncome((convertNumber(getHouseholdwages())+ convertNumber(getOtherIncome())));
+      setTotalIncome((convertNumber(getHouseholdwages())+
+         convertNumber(getOtherIncome())));
    }
 
    public void addTotalExpense() {
-      setTotalExpense((convertNumber(getMortgagePayment()) + convertNumber(getOtherExpense())));
+      setTotalExpense((convertNumber(getMortgagePayment()) +
+         convertNumber(getOtherExpense())));
 
    }
 
    public void addTotalAsset() {
       setLiquidAsset(convertNumber(getMoneymarket()));
-      setTotalAsset(convertNumber(getMortgateEquity()) + convertNumber(getInvestment()) +
-                       convertNumber(getOtherSavings()) + convertNumber(getMoneymarket()));
+      setTotalAsset(convertNumber(getMortgateEquity()) +
+                       convertNumber(getInvestment()) +
+                       convertNumber(getOtherSavings()) +
+                       convertNumber(getMoneymarket()));
 
    }
 
    public void addTotalLiability() {
-       setTotalLiability(convertNumber(getMortgageLoan()) + convertNumber(getAutoLoan()) +
-                            convertNumber(getMedical()) + convertNumber(getOtherDebt()));
+       setTotalLiability(convertNumber(getMortgageLoan()) +
+                            convertNumber(getAutoLoan()) +
+                            convertNumber(getMedical()) +
+                            convertNumber(getOtherDebt()));
    }
 
    public Integer getAssetyear()

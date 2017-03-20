@@ -85,7 +85,8 @@ public class ConsumerListDataDAO extends JdbcDaoSupport implements Serializable
                else
                   data.setAccountTaxable(true);
 
-
+               data.setRole(convert.getStrData(rs.get("role")));
+               data.setPrivileges(convert.getStrData(rs.get("privileges")));
                data.setDateOpened(convert.getStrData(rs.get("dateOpened")));
 
                data.setHouseholdwages(convert.getIntData(rs.get("householdwages")));

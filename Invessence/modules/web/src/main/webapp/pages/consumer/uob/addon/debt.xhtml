@@ -48,7 +48,7 @@
             <div class="uobBoldText">Total Expenses</div>
             <div class="uobSubText">(Include your annual cost for Household, Family Expenses, Children’s Tuition, Mortgage, Holiday Travel and any other living cost)</div>
         </div>
-        <p:inputNumber value="#{uobpb.totalExpense}"
+        <p:inputNumber value="#{uobpb.totalExpense}" placeholder="$"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
@@ -60,7 +60,7 @@
             <div class="uobBoldText">Total Debt</div>
             <div class="uobSubText">(Include your Car Payments, Credit Card bills etc.)</div>
         </div>
-        <p:inputNumber value="#{uobpb.totalLiability}"
+        <p:inputNumber value="#{uobpb.totalLiability}" placeholder="$"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
