@@ -48,7 +48,7 @@
                                             <p:slider id="allocSlider" for="allocValue" minValue="0"
                                                       maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
                                                 <p:ajax event="slideEnd"
-                                                        update="ceForm:graphArea, ceForm:tcmFinal, ceForm:tcmSliderArea"
+                                                        update="ceForm:graphArea, ceForm:tcmFinal, ceForm:tcmSliderArea, ceForm:tcmp7anext"
                                                         listener="#{tcmpb.onAllocSlider}"/>
                                             </p:slider>
                                         </div>
@@ -87,7 +87,7 @@
                                 <ui:fragment rendered="#{! tcmpb.sameStrategy}">
                                     <div class="Container100 Fleft TexAlCenter ResMArTop"
                                          style="padding: 0px 20px; box-sizing: border-box;">
-                                        Based on the responses that you have given, the revised strategy is <strong>#{tcmpb.fixedModelName}</strong>.
+                                        Based on the responses that you have given, the revised strategy is <strong>#{tcmpb.portfolioName}</strong>.
                                     </div>
                                     <div class="EmptyBox30 ResEmptyBox30"></div>
                                     <div class="Container100">

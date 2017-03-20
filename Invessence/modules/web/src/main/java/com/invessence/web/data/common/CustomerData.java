@@ -3,6 +3,7 @@ package com.invessence.web.data.common;
 import java.util.*;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.faces.bean.ManagedProperty;
 
@@ -10,7 +11,7 @@ import com.google.api.client.util.ArrayMap;
 import com.google.gson.Gson;
 import com.invessence.converter.JavaUtil;
 import com.invessence.emailer.data.MsgData;
-import com.invessence.web.constant.USMaps;
+import com.invessence.web.constant.*;
 import com.invessence.web.dao.consumer.*;
 import com.invessence.web.data.*;
 import com.invessence.web.util.*;
@@ -62,6 +63,7 @@ public class CustomerData extends ProfileData
    private String userid;
    private String addmodflag;
    private String dateOpened;
+   private String role, privileges;
    private String created;
 
    // Income/Expenses
@@ -254,6 +256,20 @@ public class CustomerData extends ProfileData
       this.editable = editable;
    }
 
+   public Boolean getCanIEditAccount() {
+      try {
+         if (webutil.isUserLoggedIn()) {
+            if (getRole().equalsIgnoreCase(WebConst.ROLE_OWNER) ||
+               (getRole().equalsIgnoreCase(WebConst.ROLE_USER) && getPrivileges().equalsIgnoreCase(WebConst.ACCESS_USER_FULL)))
+               return true;
+         }
+         return false;
+      }
+      catch (Exception ex) {
+         return false;
+      }
+   }
+
    public String getManagedFlag()
    {
       return managedFlag;
@@ -346,7 +362,6 @@ public class CustomerData extends ProfileData
       this.addmodflag = addmodflag;
    }
 
-
    public String getAcctstatus()
    {
       return (getManaged() ? "Active" : "Pending");
@@ -365,6 +380,26 @@ public class CustomerData extends ProfileData
    public void setDateOpened(String dateOpened)
    {
       this.dateOpened = dateOpened;
+   }
+
+   public String getRole()
+   {
+      return role;
+   }
+
+   public void setRole(String role)
+   {
+      this.role = role;
+   }
+
+   public String getPrivileges()
+   {
+      return privileges;
+   }
+
+   public void setPrivileges(String privileges)
+   {
+      this.privileges = privileges;
    }
 
    public String getCreated()
@@ -647,6 +682,8 @@ public class CustomerData extends ProfileData
       setAddmodflag(null);
       setDateOpened(null);
       setManaged(false);
+      setRole(null);
+      setPrivileges(null);
       setNumofaccounts(0);
 
       // Income/Expenses

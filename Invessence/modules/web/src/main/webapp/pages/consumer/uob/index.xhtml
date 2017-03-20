@@ -23,34 +23,6 @@
 
                                 <h2>#{webutil.lastFirstName}</h2>
                             </div>
-                            <div class="Container70 MobileModeConDash" style="display: none;">
-
-                                <div class=" Fright CreateAccount_d">
-                                    <div class="Container100" style="text-align: center">
-                                        <i class="fa fa-pie-chart" aria-hidden="true"
-                                           style="font-size: 20px;"></i>
-
-                                        <div class="Container100 CreateAcctLabel"
-                                             style="font-size: 11px;">Create Account
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="AdvisorUserName Fright">
-                                    <div class="Container30" style="text-align: center">
-                                        <i class="fa fa-user" aria-hidden="true"
-                                           style="font-size: 20px;"></i>
-
-                                        <div class="Container100 AdvisorConsumerLabel"
-                                             style="font-size: 11px;">Advisor
-                                        </div>
-                                    </div>
-                                    <div class="Container70 AdvisorConsumerName">Prashant
-                                        Mehta
-                                    </div>
-
-                                </div>
-
-                            </div>
                             <div class="Seperator"></div>
                         </div>
                         <div class="Container100">
@@ -219,29 +191,11 @@
                                                     <td class="CustomWidthColumn_d_2_newDash">
                                                         <div class="invNBgrid DashboardIconBlock"
                                                              style="width: 100%;">
-                                                            <div class="NewDashButtonBlock" style="display: none">
-                                                                <div class="Container100">
-                                                                    <p:commandButton id="editAcctButton"
-                                                                                     disabled="#{investment.managed}"
-                                                                                     styleClass="Fs14 BlueButton" process="@this"
-                                                                                     immediate="true"
-                                                                                     icon="fa fa-pencil-square-o Fs14 white">
-
-                                                                        <f:setPropertyActionListener value="#{investment}"
-                                                                                                     target="#{uobdash.selectedAccount}"/>
-                                                                    </p:commandButton>
-                                                                </div>
-                                                                <div class="Container100 ButtonConDashBlock">
-                                                                    <h5 style="padding: 5px 0px;">Edit Account
-                                                                        Details</h5>
-                                                                </div>
-                                                            </div>
-
 
                                                             <div class="NewDashButtonBlock">
                                                                 <div class="Container100">
                                                                     <p:commandButton id="fundButton"
-                                                                                     disabled="#{!investment.hasClientID}"
+                                                                                     disabled="#{investment.canIEditAccount && !investment.hasClientID}"
                                                                                      styleClass="Fs14 GreenButton" process="@this"
                                                                                      immediate="true" icon="fa fa-university Fs14 white"
                                                                                      action="#{uobdash.doFundingAction}">
@@ -260,6 +214,7 @@
                                                                 <div class="Container100">
 
                                                                     <p:commandButton id="editPortfolioButton"
+                                                                                     disabled="#{investment.canIEditAccount}"
                                                                                      styleClass="Fs14 OrangeButton" process="@this"
                                                                                      immediate="true" icon="fa fa-pie-chart Fs14 white"
                                                                                      action="#{uobdash.doPortfolioSelectedAction}">

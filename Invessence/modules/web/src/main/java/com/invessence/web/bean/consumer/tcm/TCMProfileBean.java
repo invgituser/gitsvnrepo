@@ -750,7 +750,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
          buildPortfolio();
-
+         setPortfolioName(getFixedModelName());
          createCharts();
       }
       catch (Exception ex)
@@ -876,7 +876,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       try
       {
          // setDefaults();
-         setPortfolioName(getFixedModelName());
          acctnum = saveDAO.saveProfileData(getInstance());
          if (acctnum > 0)
          {
@@ -906,7 +905,6 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       try
       {
          // setDefaults();
-         setPortfolioName(getFixedModelName());
          acctnum = saveDAO.editProfileData(getInstance());
          if (acctnum > 0)
          {
@@ -1300,10 +1298,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             saveProfile();
             if (currentpage == 0)
             {  // This is before moving to next page. ONLY for FIRST PAGE
-               if (getAcctnum() != null || getAcctnum() >= 0)
-               {   // We need to record the account number...  SP: If data was already saved, then it skips
+                  // We need to record the account number...  SP: If data was already saved, then it skips
                   saveVisitor();
-               }
             }
          }
 

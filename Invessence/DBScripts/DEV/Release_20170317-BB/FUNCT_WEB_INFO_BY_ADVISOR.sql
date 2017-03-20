@@ -28,7 +28,7 @@ BEGIN
 		END IF;
         
         BEGIN
- 			SELECT `url` 
+ 			SELECT `value` 
             INTO tURL
 			FROM `web_advisor_mapping`
 			WHERE `advisor` = UPPER(p_advisor)

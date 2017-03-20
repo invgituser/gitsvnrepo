@@ -107,7 +107,7 @@ BEGIN
         
         IF (tCompanyName is NULL and tRepDisplayName is NULL)
         THEN
-			set tCompanyName = FUNCT_WEB_INFO_BY_ADVISOR(p_advisor, 'COMPANY.NAME');
+			set tCompanyName = FUNCT_WEB_INFO_BY_ADVISOR(p_advisor, 'WEB.COMPANYNAME');
             set tRepDisplayName = 'House Account';
         END IF;
 		
