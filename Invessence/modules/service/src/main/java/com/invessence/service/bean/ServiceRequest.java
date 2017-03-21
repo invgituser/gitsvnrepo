@@ -33,4 +33,13 @@ public class ServiceRequest
    {
       this.mode = mode;
    }
+
+   @Override
+   public String toString()
+   {
+      return "ServiceRequest{" +
+         "product='" + product + '\'' +
+         ", mode='" + mode + '\'' +
+         '}';
+   }
 }
