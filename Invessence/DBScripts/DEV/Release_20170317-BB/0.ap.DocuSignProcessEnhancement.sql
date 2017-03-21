@@ -230,7 +230,6 @@ INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `temp
 
 
 
-
 USE `invdb`;
 DROP procedure IF EXISTS `save_tddc_acct_details`;
 
@@ -261,9 +260,15 @@ BEGIN
 
     declare v_advisorId int;
 
-    select id into v_advisorId from invdb.dc_advisor_details where advisorName=
-(select advisor from user_trade_profile
-where acctnum=p_acctnum);
+    declare v_advId,v_repId varchar(45);
+    select advisor, rep into v_advId,v_repId from user_trade_profile
+where acctnum=p_acctnum;
+
+    select id into v_advisorId from invdb.dc_advisor_details where advisorName= v_advId
+    and repId=
+(CASE WHEN v_repId is null or v_repId ='' THEN 'CATCHALL'
+        ELSE v_repId
+    END);
 
 		INSERT INTO `dc_acct_details`
 			(`acctnum`,
@@ -307,7 +312,7 @@ where acctnum=p_acctnum);
 		ON DUPLICATE KEY UPDATE
 			`clientAccountID`	= `p_clientAccountID`
 			,`caseNumber`		= `p_caseNumber`
-			,`advisorId`		= IFNULL(`p_advisorId`,1)
+			,`advisorId`		= IFNULL(`v_advisorId`,1)
 			,`acctTypeId`		= `p_acctTypeId`
 			,`cashSweepVehicleChoiceId` = `p_cashSweepVehicleChoiceId`
 			,`divIntPrefId`		= `p_divIntPrefId`
@@ -337,12 +342,11 @@ where acctnum=p_acctnum);
 			set `user_trade_profile`.`acctType` = IFNULL(`tAcctType`, `user_trade_profile`.`acctType`)
 		WHERE `user_trade_profile`.`acctnum` = `p_acctnum`;
 
-
-
-
 END$$
 
 DELIMITER ;
+
+
 
 
 USE `service`;
