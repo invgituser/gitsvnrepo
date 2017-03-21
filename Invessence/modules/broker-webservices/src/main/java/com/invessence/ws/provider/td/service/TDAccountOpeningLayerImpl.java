@@ -127,7 +127,8 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
                   recipients=dcUtility.getRecipientsElecFundTransfer(serviceRequest, dcTemplateDetail, acctDetails, elecFundTransferDetails);
                }
             }
-            else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString()))
+            else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString())
+               || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString()))
             {
                AcctTransferDetails acctTransferDetails = dcRequest.getAcctTransferDetails();
                if (acctTransferDetails == null)
@@ -141,10 +142,6 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
                   System.out.println("acctTransferDetails = " + acctTransferDetails);
                   recipients=dcUtility.getRecipientsAcctTransfer(serviceRequest,dcTemplateDetail, acctDetails, acctTransferDetails);
                }
-            }
-            else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString()))
-            {
-
             }
             else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.TD_TRAN_NEW.toString()))
             {
