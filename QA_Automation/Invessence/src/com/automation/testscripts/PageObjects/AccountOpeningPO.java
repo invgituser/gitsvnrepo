@@ -344,7 +344,7 @@ public class AccountOpeningPO {
 				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdrbaccttype_items']/li[contains(text(),'"+ bankaccttype +"')]")).click();
 				Thread.sleep(1000);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbname")).sendKeys(bankname);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:j_idt404")).sendKeys(nameofbankacct);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:j_idt403")).sendKeys(nameofbankacct);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbloc")).sendKeys(bankcity);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbphone")).sendKeys(bankphone);
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdrbaba")).sendKeys(routingno);

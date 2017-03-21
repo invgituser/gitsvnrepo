@@ -14,7 +14,7 @@ public class ChangeStrategyPO {
 	
 	//Change strategy
 	
-	public static boolean changestrategy(WebDriver driver,String clientaccountnumber,String changeinvestmentamount,String changeinvestmentgoal,String age,String status,String retireage,String objective,String projectionoption,String radiobtnoption) throws InterruptedException
+	public static boolean changestrategy(WebDriver driver,String clientaccountnumber,String changeinvestmentamount,String changeinvestmentgoal,String age,String status,String retireage,String objective,String projectionoption,String radiobtnoption,String changedprojection,String percent) throws InterruptedException
 	{	boolean accttype=false;
 		try{
 		
@@ -32,7 +32,7 @@ public class ChangeStrategyPO {
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//*[contains(text(),'Continue')]")).click();
 				Thread.sleep(2000);
-				boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, changeinvestmentamount, changeinvestmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
+				boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, changeinvestmentamount, changeinvestmentgoal, age, status, retireage,objective,changedprojection,clientaccountnumber);
 				if(portfoliocreation)
 				{
 					log.info("Pass - Change Portfolio is Sucessfull");
@@ -56,7 +56,11 @@ public class ChangeStrategyPO {
 					driver.findElement(By.id("ceForm:tcmp7achngstrategy2")).click();
 					Thread.sleep(2000);
 					String sliderxpath = "//*[@id='ceForm:allocSlider']/span";
-					Utility.slider(driver, sliderxpath,"20");
+					String xpath = "//*[@id='ceForm:allocValue']";
+					 String value = "1";
+					Utility.slider(driver, sliderxpath,percent,value);
+					driver.findElement(By.id("ceForm:tcmp7afpbtn")).click();
+					Thread.sleep(1000);
 					String nextbtn = driver.findElement(By.id("ceForm:tcmp7anext")).getAttribute("aria-disabled");
 					if(nextbtn.equals("false"))
 					{	 	driver.findElement(By.xpath("//*[contains(text(),'Next')]")).click();

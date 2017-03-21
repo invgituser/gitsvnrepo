@@ -51,7 +51,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
         public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException
 		{
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
-			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor_tcm");
+			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor");
 			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
@@ -99,7 +99,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 					Thread.sleep(4000);
 					// Verify Logo
 					
-					WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
+					WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
 					String verifylogo = logo.getAttribute("src");
 					if(verifylogo.contains(vlogo))
 							{

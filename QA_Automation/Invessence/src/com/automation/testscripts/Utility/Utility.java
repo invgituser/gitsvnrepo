@@ -396,15 +396,23 @@ public class Utility {
 		}
 		
 		//Slider fuctionality
-		public static void slider(WebDriver driver,String xpath,String percent)
+		public static void slider(WebDriver driver,String xpath,String percent,String value)
 		{
 			try
 			{
-				Thread.sleep(200);
+				Thread.sleep(100);
+				Actions moveSlider = new Actions(driver);
 				WebElement slider = driver.findElement(By.xpath(xpath));
 				JavascriptExecutor js = (JavascriptExecutor) driver;
 				js.executeScript("arguments[0].setAttribute('style', 'left: "+percent+"%;')",slider);
-			
+				Thread.sleep(500);
+				
+				js.executeScript("document.getElementById('ceForm:allocValue').setAttribute('value', "+value+")");
+				/*moveSlider.clickAndHold(slider).click();
+				moveSlider.clickAndHold(slider).release();*/
+				
+				
+				Thread.sleep(5000);
 			}
 			catch (Exception e)
 
