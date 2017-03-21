@@ -47,7 +47,7 @@ public class CallingLayerTDImpl implements CallingLayer
    public WSCallResult processDCRequest(ServiceRequest serviceRequest, List<DCRequest> dcRequests)throws Exception
    {
       logger.info("CallingLayerTDImpl.processDCRequest");
-      System.out.println("serviceRequest = [" + serviceRequest + "]");
+      logger.info("serviceRequest = [" + serviceRequest + "]");
       WSCallResult wsCallResult=null;
       //List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
       if(dcRequests.size()>0)
