@@ -304,6 +304,7 @@ public class AccountOpeningPO {
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacatacctnum")).sendKeys(bankacctno);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacataccttype")).click();
 					driver.findElement(By.xpath("//li[contains(text(),'"+accounttype1+"')]")).click();
+					Thread.sleep(2000);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:event_input")).sendKeys(deliveringfirm);
 					driver.findElement(By.xpath("//*[contains(text(),'Full Transfer')]/parent::td/preceding-sibling::td/div//span")).click();
 					Thread.sleep(4000);
