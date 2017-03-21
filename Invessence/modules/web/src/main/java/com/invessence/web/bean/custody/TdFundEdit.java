@@ -65,6 +65,11 @@ public class TdFundEdit extends BaseTD
             setPagemanager(new PagesImpl(10));
             setTdMasterData(new TDMasterData(getPagemanager(), getLongBeanacctnum()));
 
+            getTdMasterData().getCustomerData().setAcctnum(getLongBeanacctnum());
+            getTdMasterData().getCustomerData().setLogonid(getWebutil().getLogonid());
+
+            loadCustomerProfileData();
+
             getCustodyListDAO().getAcatFirmList(getTdMasterData());
             Integer currentPage = getPagemanager().getPage();
             activeTab=0;

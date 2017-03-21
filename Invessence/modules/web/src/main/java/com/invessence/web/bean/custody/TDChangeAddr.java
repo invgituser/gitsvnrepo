@@ -25,7 +25,6 @@ public class TDChangeAddr extends BaseTD
       String msgheader;
       try
       {
-
          System.out.println("Inside editStartCTO2 >> ");
          if (!FacesContext.getCurrentInstance().isPostback())
          {
@@ -46,7 +45,12 @@ public class TDChangeAddr extends BaseTD
 
             setTdMasterData(new TDMasterData(getPagemanager(), getLongBeanacctnum()));
 
+            getTdMasterData().getCustomerData().setAcctnum(getLongBeanacctnum());
+            getTdMasterData().getCustomerData().setLogonid(getWebutil().getLogonid());
+
+            loadCustomerProfileData();
             loadTDAccountDetails();
+
             getTdMasterData().setAcctOwnersDetailHistory(getTdMasterData().getAcctOwnersDetail());
             getTdMasterData().setJointAcctOwnersDetailHistory(getTdMasterData().getJointAcctOwnersDetail());
             getTdMasterData().setAcctOwnersDetail(new AcctOwnersDetails());
