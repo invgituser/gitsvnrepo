@@ -1,78 +1,137 @@
 drop procedure if exists invdb.sp_generate_dc_request;
 DELIMITER $$
-CREATE PROCEDURE invdb.sp_generate_dc_request(in p_advisorName varchar(45),in p_repId varchar(45),in p_acctnum int(11),in p_eventno int(11),in p_action varchar(45))
- begin
-    declare padvisorid int(11);
-    declare eventno,p_reqId,curcnt,p_reqId2,vacat2eventid int(11);
-    DECLARE done INT DEFAULT FALSE;
-    declare p_action2,p_subaction varchar(45);
-    Declare cur1 CURSOR FOR select reqId,action,subaction from invdb.dc_requests where acctnum=p_acctnum  and status='I' and eventNum=p_eventno and action=p_action;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+CREATE PROCEDURE sp_generate_dc_request(IN p_advisorname VARCHAR(45),
+                                        IN p_repid       VARCHAR(45),
+                                        IN p_acctnum     INT(11),
+                                        IN p_eventno     INT(11),
+                                        IN p_action      VARCHAR(45))
+begin
+  DECLARE padvisorid INT(11);
 
-    set curcnt=0;
-    set vacat2eventid=0;
-    set eventno=p_eventno;
-   SELECT
-       id
-   INTO padvisorid FROM
-       invdb.dc_advisor_details
-   WHERE
-       advisorName = p_advisorName
-           AND ifnull(repId,'') = ifnull(p_repId,'');
-    -- select padvisorid;
+  DECLARE eventno, p_reqid, curcnt, p_reqid2, vacat2eventid INT(11);
 
-    select ifnull(max(eventNum),0) into eventno from invdb.dc_requests_final where acctnum=p_acctnum;
-    set eventno=eventno+1;
-    -- end if;
+  DECLARE done INT DEFAULT false;
 
-    /*insert into invdb.dc_requests(acctnum,advisorid,eventNum,reqType,seqno,envelopeHeading,status,created)
-    select p_acctnum,padvisorid,eventno,reqType,seqno,envelopeHeading,'I',now() from invdb.adv_request_document_mappings
-    where advisorid=padvisorid and action=p_action and subaction=p_subaction;*/
+  DECLARE p_action2, p_subaction VARCHAR(45);
 
-    OPEN cur1;
+  DECLARE cur1 CURSOR FOR
+    SELECT reqid,
+           action,
+           subaction
+    FROM   invdb.dc_requests
+    WHERE  acctnum = p_acctnum
+           AND status = 'I'
+           AND eventnum = p_eventno
+           AND action = p_action;
 
-    read_loop: LOOP
-    FETCH cur1 INTO p_reqId,p_action2,p_subaction;
+  DECLARE CONTINUE handler
+  FOR NOT found
+    SET done = TRUE;
 
+  SET curcnt=0;
 
+  SET vacat2eventid=0;
+
+  SET eventno=p_eventno;
+
+  SELECT id
+  INTO   padvisorid
+  FROM   invdb.dc_advisor_details
+  WHERE  advisorname = p_advisorname
+         AND repid = ( CASE
+                         WHEN p_repid IS NULL
+                               OR p_repid = '' THEN 'CATCHALL'
+                         ELSE p_repid
+                       end );
+
+  -- select padvisorid;
+  SELECT Ifnull(Max(eventnum), 0)
+  INTO   eventno
+  FROM   invdb.dc_requests_final
+  WHERE  acctnum = p_acctnum;
+
+  SET eventno=eventno+1;
+  open cur1;
+  READ_LOOP:
+LOOP
+    FETCH cur1 INTO p_reqid, p_action2, p_subaction;
     IF done THEN
-    LEAVE read_loop;
-    END IF;
+      LEAVE read_loop;
+    end IF;
+    SET curcnt=curcnt+1;
+    SET p_reqid2=p_reqid;
 
+    IF( p_action2 = 'ACAT2' ) THEN
+      SET vacat2eventid=eventno+1;
+    end IF;
+    INSERT INTO invdb.dc_requests_final
+                (refreqid,
+                 acctnum,
+                 advisorid,
+                 eventnum,
+                 reqtype,
+                 seqno,
+                 envelopeheading,
+                 status,
+                 created,
+                 formtype)
+    SELECT p_reqid,
+           p_acctnum,
+           padvisorid,
+           eventno,
+           reqtype,
+           seqno,
+           envelopeheading,
+           'I',
+           Now(),
+           formtype
+    FROM   invdb.adv_request_document_mappings
+    WHERE  advisorid = padvisorid
+           AND action = p_action2
+           AND subaction = p_subaction;
 
-     SET curcnt=curcnt+1;
-     set p_reqId2=p_reqId;
+  end LOOP;
 
-   -- select p_reqId,p_action2,p_subaction;
-     IF(p_subaction='ACAT2') then
-		set vacat2eventid=eventno+1;
-	end if;
+  close cur1;
 
-	insert into invdb.dc_requests_final(refReqId,acctnum,advisorid,eventNum,reqType,seqno,envelopeHeading,status,created,formType)
-	select p_reqId,p_acctnum,padvisorid,eventno,reqType,seqno,envelopeHeading,'I',now(),formType from invdb.adv_request_document_mappings
-	where advisorid=padvisorid and action=p_action2 and subaction=p_subaction;
+  IF( curcnt > 0 ) THEN
+    INSERT INTO invdb.dc_requests_final
+                (refreqid,
+                 acctnum,
+                 advisorid,
+                 eventnum,
+                 reqtype,
+                 seqno,
+                 envelopeheading,
+                 status,
+                 created,
+                 formtype)
+    SELECT p_reqid2,
+           p_acctnum,
+           advisorid,
+           eventno,
+           reqtype,
+           seqno,
+           envelopeheading,
+           'I',
+           Now(),
+           formtype
+    FROM   invdb.adv_request_document_mappings
+    WHERE  advisorid = padvisorid
+           AND action = p_action
+           AND subaction = 'DEFAULT'
+           AND formtype = 'ADV';
 
-     -- insert into rbsa.tmp_rbsa_daily (ticker,businessdate,open_price,close_price,high_price,low_price,adjusted_price,prev_close_price,daily_return,volume,monthly_return) select ticker,p_businessdate,open_price,close_price,high_price,low_price,adjusted_price,prev_close_price,daily_return,volume,monthly_return from rbsa.tmp_rbsa_daily  where businessdate=p_previousbdate;
+    IF( vacat2eventid <> 0 ) THEN
+      UPDATE invdb.dc_requests_final
+      SET    eventnum = vacat2eventid
+      WHERE  advisorid = padvisorid
+             AND acctnum = p_acctnum
+             AND eventnum = eventno
+             AND reqtype = 'ACAT_OTHER_NEW';
+    end IF;
 
-   -- select '22';
-    END LOOP;
-
-    CLOSE cur1;
-
-
-
-    if(curcnt>0) then
-
-   insert into invdb.dc_requests_final(refReqId,acctnum,advisorid,eventNum,reqType,seqno,envelopeHeading,status,created,formType)
-   select p_reqId2,p_acctnum,advisorid,eventno,reqType,seqno,envelopeHeading,'I',now(),formType from invdb.adv_request_document_mappings
-   where advisorid=padvisorid and action=p_action and subaction='DEFAULT' and formType='ADV';
-
-   if(vacat2eventid<>0) then
-	update invdb.dc_requests_final set eventNum =vacat2eventid where advisorid=padvisorid and acctnum=p_acctnum and eventNum=eventno and reqType='ACAT_OTHER_NEW';
-   end if;
-
-
-   SELECT eventno as 'EventNo',vacat2eventid as 'OtherEventNo';
-
-   end if;
-    end;
+    SELECT eventno       AS 'EventNo',
+           vacat2eventid AS 'OtherEventNo';
+  end IF;
+end ;
