@@ -29,6 +29,7 @@ public class DCWebLayerImpl implements DCWebLayer
    public WSCallResult processDCRequest(ServiceRequest serviceRequest, Long acctNum, Integer eventNum)throws Exception
    {
       logger.info("CallingLayerTDImpl.processDCRequest");
+      logger.info("serviceRequest = [" + serviceRequest + "], acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       logger.info("acctNum = [" + acctNum + "], eventNum = [" + eventNum + "]");
       WSCallResult wsCallResult=null;
       List<DCRequest> dcRequests= tdDaoLayer.getDCRequests(acctNum, eventNum);
@@ -135,6 +136,31 @@ public class DCWebLayerImpl implements DCWebLayer
                }
                else
                {
+                  if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString()))
+                  {
+                     List<AcctOwnerDetails> acctOwnerDetailsLst = new ArrayList<>();
+                     if (dcRequest.getAcctDetails().getAcctOwnerDetails().size() > 1)
+                     {
+                        AcctOwnerDetails clientAcctOwnerDetails=null;
+                        String jointFullName=null;
+                        Iterator<AcctOwnerDetails> acctOwnerDetailsIterator = dcRequest.getAcctDetails().getAcctOwnerDetails().iterator();
+                        while (acctOwnerDetailsIterator.hasNext())
+                        {
+                           AcctOwnerDetails acctOwnerDetailsTemp = acctOwnerDetailsIterator.next();
+                           if (acctOwnerDetailsTemp.getOwnership().equalsIgnoreCase("Client"))
+                           {
+                              clientAcctOwnerDetails=acctOwnerDetailsTemp;
+                           }else if (acctOwnerDetailsTemp.getOwnership().equalsIgnoreCase("Joint")){
+                              jointFullName=acctOwnerDetailsTemp.getFullName();
+                           }
+                        }
+                        clientAcctOwnerDetails.setJointFullName(jointFullName);
+                        acctOwnerDetailsLst.add(clientAcctOwnerDetails);
+
+                        dcRequest.getAcctDetails().setAcctOwnerDetails(acctOwnerDetailsLst);
+                     }
+                  }
+
                   dcRequest.setAcctTransferDetails(acctTransferDetails);
                }
             }
