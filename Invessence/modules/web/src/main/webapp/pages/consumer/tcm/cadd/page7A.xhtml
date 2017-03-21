@@ -35,7 +35,7 @@
                                     <div class="EmptyBox10"></div>
                                     <div class="Container100 Fleft TexAlCenter"
                                          style="padding: 0px 20px; box-sizing: border-box;">
-                                        <strong>#{tcmpb.fixedModelName}</strong>
+                                        <strong><h:outputText id="modelnamelbl" value="#{tcmpb.fixedModelName}"/></strong>
                                     </div>
                                     <div class="EmptyBox20"></div>
                                     <div class="Container100 DispBlock gray">
@@ -48,7 +48,7 @@
                                             <p:slider id="allocSlider" for="allocValue" minValue="0"
                                                       maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
                                                 <p:ajax event="slideEnd"
-                                                        update="ceForm:graphArea, ceForm:tcmFinal, ceForm:tcmSliderArea, ceForm:tcmp7anext"
+                                                        update=":ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7anext"
                                                         listener="#{tcmpb.onAllocSlider}"/>
                                             </p:slider>
                                         </div>
@@ -60,12 +60,18 @@
                                             <div class="ContainerIndent">
                                                 <p:commandButton id="allocSliderResetButton" value="Recommended"
                                                                  styleClass="uob_button"
-                                                                 update=":ceForm:tcmSliderArea, :ceForm:graphArea, ceForm:tcmFinal"
+                                                                 update=":ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7anext"
                                                                  actionListener="#{tcmpb.doAllocReset}"/>
                                             </div>
                                         </div>
                                     </div>
 
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Container100 Fleft TexAlLeft"
+                                         style="padding: 0px 20px; box-sizing: border-box;">
+                                        <h:outputText id="modeldescrlbl" value="#{tcmpb.newLongDesc}"/>
+
+                                    </div>
                                 </p:panel>
                             </p:panel>
 

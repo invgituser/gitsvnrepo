@@ -38,6 +38,12 @@ public class WebProfile
    public void finalConfig()
    {
       setSupportInfo();
+      if (defaultAdvisor == null) {
+         defaultAdvisor = getInfo("DEFAULT.ADVISOR");
+      }
+      if (defaultRep == null) {
+         defaultRep = getInfo("DEFAULT.REP");
+      }
    }
 
    public Map<String, String> getWebInfo()

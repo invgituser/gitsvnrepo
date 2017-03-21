@@ -691,6 +691,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       riskCalculator.setRiskFormula("A");
       setAllocationIndex(event.getValue());
       createAssetPortfolio(1);
+      if (getFixedModelName() != null)
+         newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
       doPerformanceFinalpage();
       formEdit = true;
    }

@@ -639,10 +639,12 @@ public class
    public String getAdvisor()
    {
       // Either it is null or it is "" (Empty), then assume default
+      /* Prashant - 03/21/2017 Now the advisor is defined by model.
       if (advisor == null || advisor.length() == 0)
       {
          return InvConst.INVESSENCE_ADVISOR;
       }
+     */
       return advisor;
    }
 

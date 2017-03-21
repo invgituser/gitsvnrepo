@@ -12,7 +12,7 @@ BEGIN
     SELECT count(*)
     INTO tFound1
     FROM `invdb`.`dc_requests`
-    WHERE `dc_requests`.`reqType` = 'ACCT_APPLI_NEW'
+    WHERE `dc_requests`.`reqType` in ( 'ACCT_APPLI_NEW', 'TD_TRAN_NEW')
     AND `dc_requests`.`acctnum` = `p_acctnum`
     ;
     
