@@ -513,3 +513,12 @@ INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColu
 INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAE_ADV_AGREE', 'Textbox', 'FullName', 'fullName', 'Client', 'N');
 INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAE_ADV_AGREE', 'Textbox', 'JointAHFullName', 'fullName', 'Joint', 'N');
 
+
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAI_ADV_2AB', 'DOCUSIGN', 'A', '0', 'TAI_ADV_2AB');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAI_ADV_AGREE', 'DOCUSIGN', 'A', '0', 'TAI_ADV_AGREE');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAI_PRIVACY_NOTICE', 'DOCUSIGN', 'A', '0', 'TAI_PRIVACY_NOTICE');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_ADV_2AB', 'DOCUSIGN', 'A', '0', 'TAE_ADV_2AB');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_ADV_AGREE', 'DOCUSIGN', 'A', '0', 'TAE_ADV_AGREE');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_PRIVACY_NOTICE', 'DOCUSIGN', 'A', '0', 'TAE_PRIVACY_NOTICE');
+
+
