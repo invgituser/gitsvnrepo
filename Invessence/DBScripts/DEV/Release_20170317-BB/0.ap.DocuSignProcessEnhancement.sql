@@ -489,3 +489,27 @@ end if;
 END$$
 
 DELIMITER ;
+
+
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ADV_2AB', '01ee8896-5340-460c-87d8-b95fe9cf1b0d', 'TCM ADV 2AB', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ADV_AGREE', 'c31f1730-84be-4ee5-bf6d-318b200d7e14', 'Tradition Advisory Agreement', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_PRIVACY_NOTICE', 'aa56763c-5fba-43c0-85cd-eabc75b0eeeb', 'TCM Privacy Notice', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ADV_2AB', '09123936-8876-4263-aa1b-d741654e9505', 'TCM ADV 2AB', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ADV_AGREE', 'd5a1c41b-21ce-4c99-9c8b-4c9ad403320a', 'Tradition Advisory Agreement', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_PRIVACY_NOTICE', '7efde06a-1180-4001-a0d6-c995440d7a17', 'TCM Privacy Notice', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ADV_2AB', '01ee8896-5340-460c-87d8-b95fe9cf1b0d', 'TCM ADV 2AB', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ADV_AGREE', 'c31f1730-84be-4ee5-bf6d-318b200d7e14', 'Tradition Advisory Agreement', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_PRIVACY_NOTICE', 'aa56763c-5fba-43c0-85cd-eabc75b0eeeb', 'TCM Privacy Notice', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ADV_2AB', '09123936-8876-4263-aa1b-d741654e9505', 'TCM ADV 2AB', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ADV_AGREE', 'd5a1c41b-21ce-4c99-9c8b-4c9ad403320a', 'Tradition Advisory Agreement', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_PRIVACY_NOTICE', '7efde06a-1180-4001-a0d6-c995440d7a17', 'TCM Privacy Notice', 'Y', 'A');
+
+
+
+INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAI_ADV_AGREE', 'Textbox', 'AdvisorName', 'firmName', 'Client', 'N');
+INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAI_ADV_AGREE', 'Textbox', 'FullName', 'fullName', 'Client', 'N');
+INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAI_ADV_AGREE', 'Textbox', 'JointAHFullName', 'fullName', 'Joint', 'N');
+INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAE_ADV_AGREE', 'Textbox', 'AdvisorName', 'firmName', 'Client', 'N');
+INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAE_ADV_AGREE', 'Textbox', 'FullName', 'fullName', 'Client', 'N');
+INSERT INTO `service`.`dc_template_mapping` (`tempCode`, `tab`, `lable`, `dbColumn`, `role`, `isDisabled`) VALUES ('TAE_ADV_AGREE', 'Textbox', 'JointAHFullName', 'fullName', 'Joint', 'N');
+
