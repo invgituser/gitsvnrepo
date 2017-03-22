@@ -7,6 +7,16 @@
     <h:outputScript name="js/jquery.url.js"
                     library="#{uiLayout.webProfile.cssdir}" />
 <script>
+$(document).ready(function(){
+		$('.MobileButton').click(function(){
+		$('.menuBtnLinks').fadeIn();		
+		});
+		
+		$('.menuBtnLinks').mouseleave(function(){
+				$('.menuBtnLinks').fadeOut();		
+		});
+		});
+
     $(function(){
         $page = jQuery.url.attr("file");
 
@@ -42,7 +52,10 @@
     });
 </script>
     <div class="Wid60 Fright menuButtons">
-        <ul id="menuMainNavigation">
+    <ul class="MobileButton">
+    <li class="fa fa-bars"></li>
+    </ul>
+        <ul id="menuMainNavigation" class="menuBtnLinks">
             <li id="dashboardMenuHighlight">
                 <a href="#{uiLayout.defaultHome}">Dashboard</a>
             </li>

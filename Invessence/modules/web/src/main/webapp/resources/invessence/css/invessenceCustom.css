@@ -215,7 +215,7 @@ img.riskImage:hover {
 @media (max-width: 735px){
 
 	.ui-panel > .ui-panel-content, .ui-panel {
-		padding: 5px!important;
+		padding: 5px 0px!important;
 	}
 
 	.ui-selectonemenu label.ui-selectonemenu-label {
@@ -3531,7 +3531,7 @@ span > input {
 }
 
 .ReturnValuePanel, .RiskValuePanel {
-	padding-left: 25px;
+	padding: 0px 0px 0px 25px;
 }
 
 .invLoaderPanel {
@@ -3567,7 +3567,7 @@ span > input {
 }
 
 .fixedHeightLP {
-	height: 320px;
+	height: 350px;
 	padding: 10px 10px;
 }
 
@@ -3588,7 +3588,7 @@ span > input {
 
 .fineTuneBlock {
 	width: 30%;
-	height: 340px;
+	height: 370px;
 	position: absolute;
 	background: white;
 	border:0;
@@ -3684,7 +3684,7 @@ span > input {
 	height: 130px;
 	width: 60px;
 	float: left;
-	margin: 0 60px;
+	margin: 0 40px;
 	display: inline-block;
 }
 
@@ -3716,7 +3716,7 @@ span > input {
 .innerBarUp3 {
 	width: 100%;
 	height: 50%;
-	background: grey;
+	background: #a4332f;
 }
 
 .innerBarDown1,
@@ -3724,13 +3724,14 @@ span > input {
 .innerBarDown3 {
 	width: 100%;
 	height: 50%;
-	background: #a4332f;
+	background: #666666;
 }
 
 .brTopLabel, .brBottomLabel {
 	text-align: center;
 	font-size: 12px;
 	font-weight: bold;
+	color: #000000;
 }
 
 .barcheckedicon3 {
@@ -3800,4 +3801,226 @@ margin: 72px 0px 0px 16px;
 
 .innerval1 > div > i {
 	font-size: 6px;
+}
+
+	.MobileButton {
+	display: none;
+	}
+
+	.MobileButton li{
+	    font-size: 20px!important;
+	cursor: pointer;
+	}
+
+	.uobRisk7Q div div:nth-child(7) {
+    height: 170px;
+}
+/***Responsive***/
+
+@media (max-width: 1300px) {
+	.uobRisk7Q.ui-tabs-top .ui-tabs-nav li a {
+	font-size: 13px!important;
+	}
+
+	.uobRisk7Q > .ui-tabs-nav > li {
+	margin:0px 10px -2px 0px!important;
+	}
+
+	.NBwidget > .ui-tabs-nav > li::before, .NBwidget > .ui-tabs-nav > li::after,
+	.NBwidget > .ui-tabs-nav > li.ui-tabs-selected::before,
+	.NBwidget > .ui-tabs-nav > li.ui-tabs-active::before,
+	.NBwidget > .ui-tabs-nav > li.ui-state-hover::before,
+	.NBwidget .ui-tabs-nav li.ui-tabs-selected::after,
+	.NBwidget .ui-tabs-nav li.ui-tabs-active::after,
+	.NBwidget .ui-tabs-nav li.ui-state-hover::after {
+	border-bottom-width: 25px;
+	}
+}
+
+@media (max-width: 1200px) {
+ .mainHeaderUOB {
+    font-size: 25px!important;
+}
+}
+
+@media (min-width: 1000px) and (max-width: 1200px) {
+	.finetuneBtnBlock {
+	left: 32%!important;
+	}
+
+	.uobRisk7Q {
+	margin-top: 8px!important;
+	}
+
+	.LeftPanel, .fineTuneBlock {
+	width: 36%!important;
+	}
+
+	.RightPanel {
+	width: 60%!important;
+	}
+
+	.IRERBlock {
+	width:60%!important;
+	}
+}
+
+@media (max-width: 1000px) {
+	.ftBtnLabel {
+	position: relative;
+    left: -9px;
+	}
+
+	.finetuneBtnBlock > button {
+	positive: relative;
+	right: -13px;
+	}
+
+	.finetuneBtnBlock {
+	right: 0px!important;
+	left: initial;
+	}
+
+	.LeftPanel {
+    border-right: 0px solid #666666;
+}
+
+.RightPanel {
+    padding: 10px 0px;
+}
+
+.uob_graphTable {
+	margin: 0px 5px;
+}
+
+	.LeftPanel, .fineTuneBlock {
+	width: 100%!important;
+	}
+
+	.RightPanel {
+	width: 100%!important;
+	}
+
+	.IRERBlock {
+	width:60%!important;
+	}
+
+	.closeFTBtn {
+	width: initial;
+	margin-right: 30px;
+	}
+}
+
+
+@media (min-width: 701px) and (max-width: 1000px) {
+	.summaryPanel {
+	    position: relative;
+    left: -25px;
+	}
+}
+
+@media (max-width: 700px) {
+	.donutChartTableEB {
+	display: none;
+	}
+
+	.donutChartGraph,
+	.donutChartTable {
+	width: 100%;
+	float: none;
+	}
+
+	.donutChartTable {
+    position: relative;
+    top: -70px;
+}
+
+.RightPanel {
+    padding: 0px 0px;
+}
+
+.menuBtnLinks {
+	display: none;
+    position: absolute;
+    right: 10px;
+    top: 55px;
+    background: white;
+    z-index: 200;
+    padding: 0px!important;
+    width: 200px;
+    box-shadow: 1px 1px 3px grey;
+	}
+
+	.menuBtnLinks li {
+	    display: inherit!important;
+    padding: 10px 5px!important;
+    width: 90%;
+    text-align: left!important;
+	}
+
+	.MobileButton {
+	display: block;
+	padding: 0px 5px!important;
+	}
+}
+
+@media (max-width: 580px) {
+	.IRERBlock {
+	width: 100%!important;
+	/* float: none!important; */
+	    margin-top: 15px;
+	}
+
+	.ReturnValuePanel {
+		text-align: right;
+		padding: 0px 5px 0px 0px!important;
+		border-right: 10px solid #666666!important;
+	}
+
+	.RiskValuePanel {
+	float: left!important;
+    border-right: 0!important;
+    border-left: 10px solid #666666!important;
+    padding: 0px 0px 0px 5px!important;
+	}
+
+	.RiskValuePanel {
+	width: 40%;
+	}
+
+
+
+}
+
+@media (max-width: 350px) {
+	.uobSliderLabel.firstLabel {
+	right: 0px!important;
+	}
+
+	.uobSliderLabel.lastLabel {
+	left: 0px!important;
+	}
+
+	.NBwidget > .ui-tabs-nav > li::before, .NBwidget > .ui-tabs-nav > li::after {
+	content: none;
+	}
+
+	.uobRisk7Q.ui-tabs-top .ui-tabs-nav li a {
+	font-size: 10px!important;
+	}
+
+	.uobRisk7Q {
+	margin-top: 10px!important;
+	}
+}
+
+@media (min-width: 701px) {
+	.menuBtnLinks {
+		display: block!important;
+	}
+}
+@media (max-width: 735px) {
+.fixedHeightLP, .FTLabel {
+	margin-top: 0px!important;
+}
 }

@@ -16,8 +16,8 @@
         </div>
         <p:panel id="abc" styleClass="fineTuneBlock" style="display: none;">
             <div class="Container100 FTLabel">
-                <span class="Fs30">Fine Tune Strategy</span>
-                <div class="Wid10 Fright">
+                <span class="Fs30 mainHeaderUOB">Fine Tune Strategy</span>
+                <div class="Wid10 closeFTBtn Fright">
                     <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times">
                         <p:effect type="slide" event="click" for="abc">
                             <f:param name="mode" value="'hide'" />
@@ -86,13 +86,13 @@
         <ui:fragment rendered="#{uobpb.pagemanager.page >= 3}">
             <div class="step4 fixedHeightLP">
                 <div class="Container100">
-                    <span class="Fs30">Risk</span>
+                    <span class="Fs30 mainHeaderUOB">Risk</span>
                 </div>
                 <div class="container100">
                     <div class="EmptyBox10"></div>
                     <p:tabView id="rTabView" orientation="top"
                                style="background: transparent; margin-top: 3px;" activeIndex="#{uobpb.rTab}"
-                               styleClass="NBwidget whiteBG">
+                               styleClass="NBwidget whiteBG uobRisk7Q">
                         <p:ajax event="tabChange"
                                 update=":ceForm:workArea, :ceForm:graphArea"
                                 listener="#{uobpb.onRTabChange}" />
@@ -188,12 +188,12 @@
             </script>
 
             <div class="Container100">
-                <div class="Fs30 Fleft summaryHeader RPHeadings1"
+                <div class="Fs30 Fleft summaryHeader mainHeaderUOB RPHeadings1"
                      style="cursor: pointer;">Summary</div>
-                <div class="Fs30 Fleft detailHeader RPHeadings2"
+                <div class="Fs30 Fleft detailHeader mainHeaderUOB RPHeadings2"
                      style="cursor: pointer;">Details</div>
 
-                <div class="Wid40 Fright">
+                <div class="Wid40 Fright IRERBlock">
                     <div class="Wid35 Fright ReturnValuePanel">
                         <div class="Wid100 ERLabel">Expected Return</div>
                         <div class="Wid100 ERCount">
@@ -221,7 +221,7 @@
                 </div>
             </div>
             <div class="Container100 tabpanel1 summaryPanel" style="">
-                <div class="Container50">
+                <div class="Container50 donutChartGraph">
                     <ui:fragment rendered="#{uobpb.typeOfChart == 'HIGHCHART.2DDONUT'}">
                         <div id="2dDonutChart"></div>
                         <h:inputHidden value="#{uobpb.resultChart}"
@@ -229,8 +229,8 @@
                         <h:inputHidden value="#{uobpb.typeOfChart}" id="typeOfCharts" />
                     </ui:fragment>
                 </div>
-                <div class="Container50">
-                    <div class="EmptyBox30"></div>
+                <div class="Container50 donutChartTable">
+                    <div class="EmptyBox20 donutChartTableEB"></div>
                     <p:dataTable styleClass="uob_graphTable"
                                  value="#{uobpb.editableAsset}" var="assetList">
 
@@ -243,7 +243,7 @@
                                   headerText="Asset">
                             <h:outputText value="#{assetList.asset}" />
                         </p:column>
-                        <p:column priority="3" style="width: 15%"
+                        <p:column style="width: 30%"
                                   styleClass="Fs12 num-text-align TexAlRight" headerText="Allocation">
                             <!-- ROHIT's CHANGE -->
                             <h:outputText value="#{assetList.userEdit}">
@@ -290,7 +290,7 @@
                             <h:outputText value="#{ticker.namePlusSymbol}" />
                         </p:column>
 
-                        <p:column priority="3" style="width:13%;"
+                        <p:column style="width:13%;"
                                   styleClass="Fs12 num-text-align TexAlRight">
                             <!-- ROHIT's CHANGE -->
                             <f:facet name="header">
