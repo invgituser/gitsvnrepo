@@ -752,7 +752,10 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
          buildPortfolio();
-         setPortfolioName(getFixedModelName());
+         if (getFixedModelName() != null)
+         {
+            setPortfolioName(getFixedModelName());
+         }
          createCharts();
       }
       catch (Exception ex)
@@ -970,6 +973,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             riskCalculator.setInvestmentobjective(getGoal());  // Goal needs to be restored to use the proper calculator
             displayGoalText = true;
             createAssetPortfolio(1);
+            if (getFixedModelName() != null)
+            {
+               setPortfolioName(getFixedModelName());
+               newLongDesc = fmDataMap.get(getFixedModelName()).getDescription();
+            }
          }
          else
          {
@@ -1246,8 +1254,9 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
 
    public void processTransfer()
    {
-      setPortfolioName(selectedThemeName);
-      savePortfolio();
+      // setPortfolioName(selectedThemeName);
+      saveProfile();
+      // savePortfolio();
       uiLayout.goToStartPage();
    }
 
