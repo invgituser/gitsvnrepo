@@ -219,4 +219,142 @@ public class porfoliocreationPO {
 		}
 		return portfoliocreation;
 	}
+	
+	
+	public static boolean portfoliocreationVisitor(WebDriver driver,String investmentamount,String investmentgoal,String age,String status,String retireage,String objective,String projectionoption,String clientaccountnumber) throws InterruptedException
+	{
+		boolean portfoliocreationvisitor=false;
+
+		try{
+
+		//New Account start page
+		//
+		Thread.sleep(1000);
+		//System.out.println("Client No : "+clientaccountnumber);
+		int leng = clientaccountnumber.length();
+
+		if (clientaccountnumber.isEmpty() || clientaccountnumber.equals("null") || clientaccountnumber.equals(""))
+			{
+				driver.findElement(By.xpath("//*[@id='ceForm:initialIid_input']")).clear();
+				driver.findElement(By.xpath("//*[@id='ceForm:initialIid_input']")).sendKeys(investmentamount);
+				
+			}
+		
+			driver.findElement(By.xpath("//*[@id='ceForm:q3_label']")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//li[contains(text(),'"+investmentgoal+"')]")).click();
+			Thread.sleep(2000);	
+			
+		if (investmentgoal.equals("Retirement"))
+		{
+			driver.findElement(By.id("ceForm:ageid_input")).clear();					
+			driver.findElement(By.id("ceForm:ageid_input")).sendKeys(age);
+			driver.findElement(By.id("ceForm:retiredDDID_label")).click();
+			Thread.sleep(1000);
+			WebElement retirementstaus = driver.findElement(By.xpath("//li[contains(text(), '"+status+"')]"));
+			retirementstaus.click();
+			Thread.sleep(3000);	
+			
+			/*
+			driver.findElement(By.id("ceForm:retiredDDID_label")).click();
+			Thread.sleep(1000);	
+			driver.findElement(By.id("ceForm:retiredDDID_0")).click();
+			Thread.sleep(1000);	
+			Select dropdown1 = new Select(driver.findElement(By.id("ceForm:retiredDDID_input")));
+			dropdown1.selectByVisibleText(status);*/
+			if(status.equals("Not Retired"))
+			{
+				driver.findElement(By.id("ceForm:retireageID_input")).clear();
+				driver.findElement(By.id("ceForm:retireageID_input")).sendKeys(retireage);
+			}
+
+		}
+		else
+		{
+			int intage = Utility.stringtoint(age);
+			if (investmentgoal.equals("College"))
+			{
+				if (intage>= 1 || intage <= 18)
+				{
+					driver.findElement(By.id("ceForm:collegeid_input")).sendKeys(age);
+				}
+				else
+				{
+					System.out.println("Age limit is 1 to 18 so enter age between 1 and 18");
+					log.info("Age limit is 1 to 18 so enter age between 1 and 18");
+				}
+			}
+			else{
+				
+					driver.findElement(By.id("ceForm:otherid_input")).sendKeys(age);
+				
+			}
+		}
+		//driver.findElement(By.id("ceForm:j_idt97")).click();
+		driver.findElement(By.xpath("//a[contains(text(),'Next')]")).click();
+		Thread.sleep(2000);
+		
+		//Objective Page
+		//boolean objectivepage = driver.findElement(By.xpath("//*[@id='ceForm:p3id']/tbody/tr[1]/td[2]/label")).isDisplayed();
+		
+			//Select objective
+			WebElement  selectobjective  =driver.findElement(By.xpath("//*[contains(text(), '"+ objective+ "')]"));
+			Thread.sleep(2000);
+			selectobjective.click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//a[contains(text(),'Next')]")).click();
+			
+			//Risk page
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//*[@class='riskImage']")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//a[contains(text(),'Next')]")).click();
+			Thread.sleep(2000);
+			
+			//Projection page
+			driver.findElement(By.xpath("//span[contains(text(),'"+projectionoption+"')]")).click();
+			Thread.sleep(2000);
+			driver.findElement(By.xpath("//a[contains(text(),'Next')]")).click();
+			Thread.sleep(5000);
+			
+			//Review screen is displayed
+			
+
+			WebElement saverecomendationbtn = driver.findElement(By.xpath("//span[contains(text(),'Save Recommendations')]"));
+			Thread.sleep(3000);		
+			if(( driver.findElement(By.xpath("//span[contains(text(),'Save Recommendations')]")).isDisplayed()))
+				
+				{
+					System.out.println("#############################################");
+					log.info("#############################################");
+					if(saverecomendationbtn.isDisplayed())
+						{
+							saverecomendationbtn.click();
+							Thread.sleep(3000);	
+							System.out.println("Pass- Portfolio is created");
+							log.info("Pass- Portfolio is created");
+							portfoliocreationvisitor = true;
+			
+			
+						}
+					else
+						{
+							System.out.println("Fail - Portfolio is created Failed");
+							log.info("Fail - Portfolio is created Failed");
+							portfoliocreationvisitor = false;
+						}
+				}
+				
+			System.out.println("#############################################");
+			log.info("#############################################");
+						
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			portfoliocreationvisitor =false;
+		}
+		return portfoliocreationvisitor;
+	}
+	
 }

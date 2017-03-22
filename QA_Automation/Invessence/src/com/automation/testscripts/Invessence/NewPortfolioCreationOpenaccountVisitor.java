@@ -51,7 +51,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
         public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException
 		{
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
-			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor");
+			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor_tcm");
 			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
@@ -111,7 +111,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						System.out.println("Fail - Logo Displayed iss Wrong");
 						log.info("Fail - Logo Displayed iss Wrong");
 					}
-					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
+					boolean portfoliocreation = porfoliocreationPO.portfoliocreationVisitor(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
 
@@ -119,9 +119,6 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						log.info("Pass -New Portfolio is created");
 						//open account
 						
-						WebElement saverecomendationbtn = driver.findElement(By.xpath("//span[contains(text(),'Save Recommendations')]"));
-						saverecomendationbtn.click();
-						Thread.sleep(3000);
 						accountnumber = driver.getCurrentUrl();
 						System.out.println("URL is :"+ accountnumber);
 						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
@@ -129,9 +126,9 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						
 						//Enter details for registration
 						
-						driver.findElement(By.id("j_idt39:firstName")).sendKeys(fname);
-						driver.findElement(By.id("j_idt39:lastName")).sendKeys(lname);
-						driver.findElement(By.id("j_idt39:email")).sendKeys(email);
+						driver.findElement(By.id("j_idt49:firstName")).sendKeys(fname);
+						driver.findElement(By.id("j_idt49:lastName")).sendKeys(lname);
+						driver.findElement(By.id("j_idt49:email")).sendKeys(email);
 						driver.findElement(By.xpath("//span[contains(text(),'Register')]")).click();
 						Thread.sleep(4000);
 						
