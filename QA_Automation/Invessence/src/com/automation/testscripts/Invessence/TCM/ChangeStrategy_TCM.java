@@ -15,7 +15,7 @@
  *******************************************************************/
 
 
-package com.automation.testscripts.Invessence;
+package com.automation.testscripts.Invessence.TCM;
 
 import java.io.IOException;
 import java.lang.instrument.IllegalClassFormatException;
@@ -34,7 +34,7 @@ import com.automation.testscripts.PageObjects.ChangeStrategyPO;
 import com.automation.testscripts.Utility.Invessence_Utility;
 import com.automation.testscripts.Utility.Utility;
 
-public class ChangeStrategy {
+public class ChangeStrategy_TCM {
 	private static WebDriver driver;
 	static String xData[][]; // 2-Dimension array
 	String scriptname = this.getClass().getSimpleName();
@@ -48,7 +48,7 @@ public class ChangeStrategy {
 	@DataProvider(name = "myTest")
     public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException {
 		 PropertyConfigurator.configure("Properties/Log4j.properties"); 
-		myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","changestrategy");
+		myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","changestrategy_tcm");
 		//dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbUrl");
 	//	dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 	//	dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
@@ -67,7 +67,7 @@ public void changestrategy (String TCID,String vURL,String vBrowser,String usern
 		String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
 		String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
 		String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,String accountnumber,String clientaccountnumber,
-		String changedobjective,String changedprojection,String percent,String vlogo,String radiobtnoption,
+		String changedobjective,String vlogo,String radiobtnoption,String changedprojection,String percent,
 		String Execute,String Results) throws Exception {
 
 	if (Execute.equals("Y")) {	
@@ -98,7 +98,7 @@ public void changestrategy (String TCID,String vURL,String vBrowser,String usern
 					//Login
 													
 					Invessence_Utility.login(driver, username, password, vBrowser,vlogo);
-					//String radiobtnoption = "I prefer to complete the risk tolerance questionnaire again to update factors that have changed.";
+		
 					// Change the strategy of the portfolio
 					ChangeStrategyPO.changestrategy(driver,clientaccountnumber, investmentamount, investmentgoal, age, status, retireage, changedobjective, projectionoption,radiobtnoption,changedprojection,percent);
 					

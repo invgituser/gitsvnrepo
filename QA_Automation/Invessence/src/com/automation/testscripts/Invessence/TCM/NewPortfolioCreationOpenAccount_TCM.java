@@ -1,4 +1,4 @@
-package com.automation.testscripts.Invessence;
+package com.automation.testscripts.Invessence.TCM;
 
 
 import org.testng.annotations.DataProvider;
@@ -24,7 +24,7 @@ import com.automation.testscripts.Utility.Invessence_Utility;
 import com.automation.testscripts.Utility.Utility;
 
 
-public class NewPortfolioCreationOpenAccount  {
+public class NewPortfolioCreationOpenAccount_TCM  {
 		
 		private static WebDriver driver;
 		

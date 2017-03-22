@@ -1,4 +1,4 @@
-package com.automation.testscripts.Invessence;
+package com.automation.testscripts.Invessence.TCM;
 
 
 import org.testng.annotations.DataProvider;
@@ -25,7 +25,7 @@ import com.automation.testscripts.Utility.Invessence_Utility;
 import com.automation.testscripts.Utility.Utility;
 
 
-public class NewPortfolioCreationOpenaccountVisitor  {
+public class NewPortfolioCreationOpenaccountVisitor_TCM  {
 		
 		private static WebDriver driver;
 		
@@ -99,7 +99,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 					Thread.sleep(4000);
 					// Verify Logo
 					
-					WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
+					WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
 					String verifylogo = logo.getAttribute("src");
 					if(verifylogo.contains(vlogo))
 							{
@@ -111,7 +111,7 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						System.out.println("Fail - Logo Displayed iss Wrong");
 						log.info("Fail - Logo Displayed iss Wrong");
 					}
-					boolean portfoliocreation = porfoliocreationPO.portfoliocreationVisitor(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
+					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
 
@@ -119,6 +119,9 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						log.info("Pass -New Portfolio is created");
 						//open account
 						
+						WebElement saverecomendationbtn = driver.findElement(By.xpath("//span[contains(text(),'Save Recommendations')]"));
+						saverecomendationbtn.click();
+						Thread.sleep(3000);
 						accountnumber = driver.getCurrentUrl();
 						System.out.println("URL is :"+ accountnumber);
 						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
@@ -126,9 +129,9 @@ public class NewPortfolioCreationOpenaccountVisitor  {
 						
 						//Enter details for registration
 						
-						driver.findElement(By.id("j_idt49:firstName")).sendKeys(fname);
-						driver.findElement(By.id("j_idt49:lastName")).sendKeys(lname);
-						driver.findElement(By.id("j_idt49:email")).sendKeys(email);
+						driver.findElement(By.id("j_idt39:firstName")).sendKeys(fname);
+						driver.findElement(By.id("j_idt39:lastName")).sendKeys(lname);
+						driver.findElement(By.id("j_idt39:email")).sendKeys(email);
 						driver.findElement(By.xpath("//span[contains(text(),'Register')]")).click();
 						Thread.sleep(4000);
 						
