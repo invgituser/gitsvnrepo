@@ -278,7 +278,7 @@ img.riskImage:hover {
 	}
 
 	.ui-panel > .ui-panel-content, .ui-panel {
-		margin:5px 0px!important;
+		/*margin:5px 0px!important;*/
 	}
 
 
@@ -3987,12 +3987,9 @@ margin: 72px 0px 0px 16px;
 	.RiskValuePanel {
 	width: 40%;
 	}
-
-
-
 }
 
-@media (max-width: 350px) {
+@media (max-width: 380px) {
 	.uobSliderLabel.firstLabel {
 	right: 0px!important;
 	}
@@ -4012,6 +4009,12 @@ margin: 72px 0px 0px 16px;
 	.uobRisk7Q {
 	margin-top: 10px!important;
 	}
+}
+
+@media (max-width: 480px) {
+.MarTop20 {
+	margin-top: 20px;
+}
 }
 
 @media (min-width: 701px) {
