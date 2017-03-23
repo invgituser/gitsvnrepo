@@ -48,12 +48,12 @@ public class ChangeStrategyPO {
 				else
 				{
 					Thread.sleep(5000);
-					radiobtnoption = "I already know which strategy I would like assigned to my portfolio. I would like to skip the risk tolerance questionnaire process and move forward with assigning a new strategy to my portfolio.";
+				//	radiobtnoption = "I already know which strategy I would like assigned to my portfolio. I would like to skip the risk tolerance questionnaire process and move forward with assigning a new strategy to my portfolio.";
 					radiobtn.click();
 					Thread.sleep(200);
 					driver.findElement(By.xpath("//*[contains(text(),'Continue')]")).click();
 					Thread.sleep(2000);
-					driver.findElement(By.id("ceForm:tcmp7achngstrategy2")).click();
+					driver.findElement(By.xpath("//*[@id='ceForm:tcmp7achngstrategy']/span")).click();
 					Thread.sleep(2000);
 					String sliderxpath = "//*[@id='ceForm:allocSlider']/span";
 					String xpath = "//*[@id='ceForm:allocValue']";

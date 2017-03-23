@@ -67,7 +67,7 @@ public void changestrategy (String TCID,String vURL,String vBrowser,String usern
 		String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
 		String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
 		String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,String accountnumber,String clientaccountnumber,
-		String changedobjective,String vlogo,String radiobtnoption,String changedprojection,String percent,
+		String changedobjective,String changedprojection,String percent,String vlogo,String radiobtnoption,
 		String Execute,String Results) throws Exception {
 
 	if (Execute.equals("Y")) {	
