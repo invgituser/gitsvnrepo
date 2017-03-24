@@ -1,6 +1,6 @@
 drop procedure if exists invdb.sp_generate_dc_request;
 DELIMITER $$
-CREATE PROCEDURE sp_generate_dc_request(IN p_advisorname VARCHAR(45),
+CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
                                         IN p_repid       VARCHAR(45),
                                         IN p_acctnum     INT(11),
                                         IN p_eventno     INT(11),
@@ -61,7 +61,7 @@ LOOP
     SET curcnt=curcnt+1;
     SET p_reqid2=p_reqid;
 
-    IF( p_action2 = 'ACAT2' ) THEN
+    IF( p_subaction = 'ACAT2' ) THEN
       SET vacat2eventid=eventno+1;
     end IF;
     INSERT INTO invdb.dc_requests_final
@@ -134,4 +134,4 @@ LOOP
     SELECT eventno       AS 'EventNo',
            vacat2eventid AS 'OtherEventNo';
   end IF;
-end ;
+end;

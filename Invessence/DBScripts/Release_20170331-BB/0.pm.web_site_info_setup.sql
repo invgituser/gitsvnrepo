@@ -91,11 +91,15 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'WEB.SSLSEAL', 'A', 'NULL', 'N', '2017-02-27 13:48:09', 'NULL');
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'WEB.THEME', 'A', 'spark', 'N', '2016-12-16 22:20:19', 'NULL');
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'WEB.THEMELIB', 'A', 'spark-layout', 'N', '2016-12-16 22:20:19', 'NULL');
-
-INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.CUSTODY', 'A', 'BB', 'N', NOW());
-INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.DOCUSIGN.MODE', 'A', 'UAT', 'N', NOW());
-INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.EMAILER.MODE', 'A', 'UAT', 'N', NOW());
-INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.PRICING.MODE', 'A', 'UAT', 'N', NOW());
+/* Insert your additional properties here */
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.CUSTODY', 'A', 'BUILDINGBENJAMINS', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.DOCUSIGN.MODE', 'A', 'PROD', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.EMAILER.MODE', 'A', 'PROD', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.PRICING.MODE', 'A', 'PROD', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.CUSTODY', 'A', 'TCM', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.DOCUSIGN.MODE', 'A', 'PROD', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.EMAILER.MODE', 'A', 'PROD', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.PRICING.MODE', 'A', 'PROD', 'N', NOW());
 /* Insert your additional properties here */
 
 insert into `invdb`.`web_site_info`
@@ -110,6 +114,7 @@ FROM `invdb`.`web_site_info`
 where `web_site_info` = 'buildingbenjamins';
 
 
+
 insert into `invdb`.`web_site_info`
 SELECT 'demo',
     `web_site_info`.`name`,
@@ -122,7 +127,7 @@ FROM `invdb`.`web_site_info`
 where `web_site_info` = 'traditionadvisers';
 
 insert into `invdb`.`web_site_info`
-SELECT 'uat',
+SELECT 'uatbb',
     `web_site_info`.`name`,
     `web_site_info`.`status`,
     `web_site_info`.`value`,
@@ -134,7 +139,7 @@ where `web_site_info` = 'buildingbenjamins';
 
 
 insert into `invdb`.`web_site_info`
-SELECT 'uat2',
+SELECT 'uattcm',
     `web_site_info`.`name`,
     `web_site_info`.`status`,
     `web_site_info`.`value`,
@@ -154,6 +159,12 @@ SELECT 'localhost',
     `web_site_info`.`updated`
 FROM `invdb`.`web_site_info`
 where `web_site_info` = 'traditionadvisers';
+
+update `invdb`.`web_site_info`
+set value = 'UAT'
+where url in ('preuat', 'demo', 'uatbb', 'uattcm', 'localhost')
+and value = 'PROD';
+
 
 
 
