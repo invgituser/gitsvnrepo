@@ -17,8 +17,11 @@ public class TestClass
       WSCallStatus wsCallStatus=null;
       ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("webServicesConfig.xml");
       DCWebLayerClass dcWebLayer= (DCWebLayerClassImpl) context.getBean("dcWebLayerClass");
-      WSCallResult wsCallResult= dcWebLayer.processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"),new Long(2498), 1);
+      WSCallResult wsCallResult= dcWebLayer.processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"),
+                                                             new Long(3226), 7);//BUILDINGBENJAMINS //ACTUL.PROD
       System.out.println("wsCallResult = " + wsCallResult);
+//      WSCallResult wsCallResult2= dcWebLayer.processDCRequest(new ServiceRequest("TCM", "UAT"),new Long(3144), 2);//BUILDINGBENJAMINS
+//      System.out.println("wsCallResult = " + wsCallResult2);
 //      ServiceLayerImpl serviceLayer = (ServiceLayerImpl) context.getBean("serviceLayer");
 //      WSCallResult wsCallResult1=serviceLayer.processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), (List<DCRequest>)wsCallResult.getGenericObject());
 //      if(wsCallResult1.getWSCallStatus().getErrorCode()==0){

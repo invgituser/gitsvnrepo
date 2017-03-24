@@ -37,7 +37,7 @@ public class TDDaoLayerImpl implements TDDaoLayer
    private final String insertReqAudit = "insert into dc_request_audit(eventNum, envelopeDetails, status, remarks, reqTime, resTime) value (?,?,?,?,?,?)";
 
    // Move Money
-   private final String getMove_money_details="select * from vwdc_move_money_details where eventNum =? and acctnum=? ";
+   private final String getMove_money_details="select * from vwdc_move_money_details where reqId =? and acctnum=? ";
    private final String getMMAchBankDetails="select * from vwdc_mm_ach_bank_details where moveMoneyPayMethodID =? ";
    private final String getMMFedwireAcctDetails="select * from vwdc_mm_internal_transfer_details where moveMoneyPayMethodID =? ";
    private final String getMMInternalTransferDetails="select * from vwdc_mm_fedwire_acct_details where moveMoneyPayMethodID =? ";
@@ -119,21 +119,21 @@ public class TDDaoLayerImpl implements TDDaoLayer
    }
 
 //   @Override
-//   public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum) throws SQLException
+//   public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer reqId) throws SQLException
 //   {
 //      List<MoveMoneyDetails> lst = null;
 //      logger.debug("getMoveMoneyDetail = "+getMove_money_details);
-//      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{eventNum,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
+//      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{reqId,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
 //
 //      return lst==null || lst.size()<=0 ? null: lst.get(0);
 //   }
 
    @Override
-   public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Integer eventNum) throws SQLException
+   public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Long reqId) throws SQLException
    {
       List<MoveMoneyDetails> lst = null;
       logger.debug("getMoveMoneyDetail = "+getMove_money_details);
-      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{eventNum,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
+      lst = webServiceJdbcTemplate.query(getMove_money_details, new Object[]{reqId,acctNum}, ParameterizedBeanPropertyRowMapper.newInstance(MoveMoneyDetails.class));
 
       return lst;
    }

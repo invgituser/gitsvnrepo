@@ -21,7 +21,7 @@ public interface TDDaoLayer
 
    //public MoveMoneyDetails getMoveMoneyDetail(Long acctNum, Integer eventNum)throws SQLException;
 
-   public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Integer eventNum)throws SQLException;
+   public List<MoveMoneyDetails> getMoveMoneyDetails(Long acctNum, Long reqId)throws SQLException;
 
    public List<MMAchBankDetails> getMMAchBankDetails(Long acctNum, Long moveMoneyPayMethodID)throws SQLException;
 

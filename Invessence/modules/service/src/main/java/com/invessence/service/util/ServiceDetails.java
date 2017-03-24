@@ -236,7 +236,7 @@ public class ServiceDetails
                                  System.out.println(entry6.getKey() + " = " + ((ServiceConfigDetails) entry6.getValue()).getValue());
 
                               }
-                              if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.DOCUSIGN_SERVICES.toString()))
+                              if (entry2.getKey().equalsIgnoreCase(Constant.SERVICES.PRICING.toString()))
                               {
                                  System.out.println("**********************************");
                               }
@@ -369,7 +369,7 @@ public class ServiceDetails
                }
             }
             productConfigDetails = productDetails;
-            System.out.println("::"+getConfigProperty("BUILDINGBENJAMINS","DOCUSIGN-SERVICES","UAT","ACCOUNT_ID"));
+            System.out.println("::"+getConfigProperty("BUILDINGBENJAMINS","PRICING","UAT","DESTINATION.DIRECTORY"));
             System.out.println("::"+getConfigProperty("UOB","DOCUSIGN-SERVICES","UAT","ACCOUNT_ID"));
             System.out.println("::"+getServiceProvider("BUILDINGBENJAMINS",Constant.SERVICES.BROKER_WEBSERVICES.toString()));
          }

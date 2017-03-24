@@ -100,7 +100,7 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
                List<MoveMoneyDetails> moveMoneyDetailsLst = dcRequest.getMoveMoneyDetails();
                if (moveMoneyDetailsLst == null || moveMoneyDetailsLst.size() <= 0)
                {
-                  logger.error("MoveMoneyDetails information not available for acctNum  = " + dcRequest.getAcctnum() + " eventNum = " + dcRequest.getEventNum());
+                  logger.error("MoveMoneyDetails information not available for acctNum  = " + dcRequest.getAcctnum() + " reqId = " + dcRequest.getEventNum());
                   wsCallResult = new WSCallResult(new WSCallStatus(SysParameters.dcIGenErrCode, SysParameters.dcIGenErrMsg), null);
                   return wsCallResult;
                }
