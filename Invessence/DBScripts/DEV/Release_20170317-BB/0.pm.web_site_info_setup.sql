@@ -92,11 +92,11 @@ INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'WEB.THEME', 'A', 'spark', 'N', '2016-12-16 22:20:19', 'NULL');
 INSERT INTO `invdb`.`web_site_info` (`url`, `name`, `status`, `value`, `encrFlag`, `created`, `updated`) VALUES ('buildingbenjamins', 'WEB.THEMELIB', 'A', 'spark-layout', 'N', '2016-12-16 22:20:19', 'NULL');
 /* Insert your additional properties here */
-INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.CUSTODY', 'A', 'Building', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.CUSTODY', 'A', 'BUILDINGBENJAMINS', 'N', NOW());
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.DOCUSIGN.MODE', 'A', 'PROD', 'N', NOW());
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.EMAILER.MODE', 'A', 'PROD', 'N', NOW());
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('buildingbenjamins', 'SERVICE.PRICING.MODE', 'A', 'PROD', 'N', NOW());
-INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.CUSTODY', 'A', 'BB-TCM', 'N', NOW());
+INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.CUSTODY', 'A', 'TCM', 'N', NOW());
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.DOCUSIGN.MODE', 'A', 'PROD', 'N', NOW());
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.EMAILER.MODE', 'A', 'PROD', 'N', NOW());
 INSERT INTO invdb.web_site_info (url, name, status, value, encrFlag, created) VALUES ('traditionadvisers', 'SERVICE.PRICING.MODE', 'A', 'PROD', 'N', NOW());
@@ -163,7 +163,7 @@ where `web_site_info` = 'traditionadvisers';
 update `invdb`.`web_site_info`
 set value = 'UAT'
 where url in ('preuat', 'demo', 'uatbb', 'uattcm', 'localhost')
-and value = 'PROD'
+and value = 'PROD';
 
 
 
