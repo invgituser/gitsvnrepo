@@ -134,4 +134,4 @@ LOOP
     SELECT eventno       AS 'EventNo',
            vacat2eventid AS 'OtherEventNo';
   end IF;
-end ;
+end;
