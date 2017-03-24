@@ -23,12 +23,12 @@
                     </h5>
 
                     <div class="riskGraphBarBlock">
-                        <p:commandLink id="uobp7selbtn1" actionListener="#{uobpb.riskCalculator.setAnswer(9,1)}"
+                        <p:commandLink id="uobp7selbtn1" actionListener="#{uobpb.setRiskBar('1')}"
                                        process="@this" styleClass="PSlabLink"
-                                       update=":ceForm:workArea">
+                                       update="ceForm:rTabView:q7Panel, :ceForm:graphArea, :ceForm:buttonArea">
                             <div class="marginCenteronly1">
                                 <div class="brTopLabel">12%</div>
-                                <div class="bar1 #{uobpb.riskCalculator.ans9 == '1' ? ' selectedRiskBar' : ''}">
+                                <div class="bar1 #{uobpb.getActiveRiskBar('1')}">
                                     <div class="innerval1" style="margin: 5px 0px 0px 18px;!important">3.5%
                                         <div><i class="fa fa-circle"></i></div>
                                     </div>
@@ -40,12 +40,12 @@
                                 <div class="brBottomLabel">-5%</div>
                             </div>
                         </p:commandLink>
-                        <p:commandLink id="uobp7selbtn2" actionListener="#{uobpb.riskCalculator.setAnswer(9,2)}"
+                        <p:commandLink id="uobp7selbtn2" actionListener="#{uobpb.setRiskBar('2')}"
                                        process="@this" styleClass="PSlabLink"
-                                       update=":ceForm:workArea">
+                                       update="ceForm:rTabView:q7Panel, :ceForm:graphArea, :ceForm:buttonArea">
                             <div class="marginCenteronly2">
                                 <div class="brTopLabel">24%</div>
-                                <div class="bar2 #{uobpb.riskCalculator.ans9 == '2' ? ' selectedRiskBar' : ''}">
+                                <div class="bar2 #{uobpb.getActiveRiskBar('2')}">
                                     <div class="innerval1">6%<div><i class="fa fa-circle"></i></div></div>
                                     <i class="fa fa-check-circle barcheckedicon2"></i>
 
@@ -55,12 +55,12 @@
                                 <div class="brBottomLabel">-12%</div>
                             </div>
                         </p:commandLink>
-                        <p:commandLink id="uobp7selbtn3" actionListener="#{uobpb.riskCalculator.setAnswer(9,3)}"
+                        <p:commandLink id="uobp7selbtn3" actionListener="#{uobpb.setRiskBar('3')}"
                                        process="@this" styleClass="PSlabLink"
-                                       update=":ceForm:workArea">
+                                       update="ceForm:rTabView:q7Panel, :ceForm:graphArea, :ceForm:buttonArea">
                             <div class="marginCenteronly3">
                                 <div class="brTopLabel">36%</div>
-                                <div class="bar3 #{uobpb.riskCalculator.ans9 == '3' ? ' selectedRiskBar' : ''}">
+                                <div class="bar3 #{uobpb.getActiveRiskBar('3')}">
                                     <div class="innerval1">8%
                                         <div><i class="fa fa-circle"></i></div>
                                     </div>

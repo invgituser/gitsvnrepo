@@ -34,8 +34,8 @@
                 <p:inputNumber style="width: 80px"
                                 value="#{uobpb.recurringInvestment}"
                                 maxlength="11" decimalPlaces="0" symbol="$">
-                    <p:ajax event="blur" listener="#{uobpb.onChange}"
-                            update=":ceForm:workArea, :ceForm:graphArea"/>
+                    <p:ajax listener="#{uobpb.onChange}"
+                            update=":ceForm:graphArea"/>
                 </p:inputNumber>
                 <h:outputText style="margin-left: 10px; color: red; font-weight: bold"
                               value="#{uobpb.goalAdjustment}">

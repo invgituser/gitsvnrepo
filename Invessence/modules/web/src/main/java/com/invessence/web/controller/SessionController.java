@@ -190,7 +190,7 @@ public class SessionController implements Serializable
    public void indexGetStarted()
    {
       reset();
-      tryOut();
+      getAtStart();
    }
 
    public void indexLogin()
