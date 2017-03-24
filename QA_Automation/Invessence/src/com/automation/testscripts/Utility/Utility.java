@@ -63,6 +63,7 @@ public class Utility {
 	public static String testreport;
 	public static File resultdir, preUpgradeDataSaveDir;
 	public static String datetimewiseresult = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","Results");
+	public static String scrennshotfilelocation = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","screenshotfileloc");
 	static String placeresultsin;
 	public static String resultpath;
 	static String[] queryResults ;
@@ -426,34 +427,20 @@ public class Utility {
 		}
 		
 		/**
-		 * Moves a jQuery slider to percental position, don't care about directions
-		 * @param slider to move
-		 * @param percent to set the slider
+		 * Method to take screen shot for failed test cases
+		 * @param method name
+		 * @param driver
 		 */
-	/*	public void moveSliderToPercent(WebElement slider, int percent){
-
-		    Actions builder = new Actions(this.driver);
-
-		    Action dragAndDrop;
-
-		    int height = slider.getSize().getHeight();
-		    int width = slider.getSize().getWidth();
-
-
-		    if(width>height){
-		        //highly likely a horizontal slider
-		        dragAndDrop = builder.clickAndHold(slider).moveByOffset(-(width/2),0).
-		                       moveByOffset((int)((width/100)*percent),0).
-		                       release().build();
-		    }else{
-		        //highly likely a vertical slider
-		        dragAndDrop = builder.clickAndHold(slider).moveByOffset(0, -(height/2)).
-		                       moveByOffset(0,(int)((height/100)*percent)).
-		                       release().build();
+		 public void takeScreenShot(String methodName,WebDriver driver) {
+		    	//get the driver
+		    	
+		    	 File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		         //The below method will save the screen shot in d drive with test method name 
+		            try {
+						FileUtils.copyFile(scrFile, new File(scrennshotfilelocation+methodName+".png"));
+						System.out.println("***Placed screen shot in "+scrennshotfilelocation+" ***");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 		    }
-
-
-		    dragAndDrop.perform();
-
-		}*/
 }
