@@ -605,8 +605,7 @@ public class TdFundEdit extends BaseTD
 
          String product=getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
          String mode=getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
-         System.out.println("product "+product);
-         System.out.println("mode "+mode);
+
 
          if(!getTdMasterData().getOptFund())
          {
@@ -623,10 +622,13 @@ public class TdFundEdit extends BaseTD
             getCustodySaveDAO().tdSaveEFTEdit(getTdMasterData());
          }
 
+         System.out.println("#################################################### Funding DC Request Start ##########################################");
+         System.out.println("Product "+product);
+         System.out.println("Mode "+mode);
          System.out.println("Advisor "+getTdMasterData().getCustomerData().getProfileInstance().getAdvisor());
-         System.out.println("REP "+ getTdMasterData().getCustomerData().getProfileInstance().getRep());
+         System.out.println("Rep "+ getTdMasterData().getCustomerData().getProfileInstance().getRep());
+         System.out.println("Account No "+ getTdMasterData().getAcctnum());
          String eventRef = processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_FUNDING);
-
          System.out.println("Docusign Event Return " + eventRef);
          if (eventRef != null)
          {
@@ -671,6 +673,8 @@ public class TdFundEdit extends BaseTD
          {
             getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", "Error occurred while document request generation");
          }
+
+         System.out.println("#################################################### Funding DC Request End ##########################################");
 
 //         wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
 //         //return custodySaveDAO.processDCRequest(getTdMasterData().getCustomerData().getAdvisor(),getTdMasterData().getCustomerData().getRep(),acctnum,eventNo);

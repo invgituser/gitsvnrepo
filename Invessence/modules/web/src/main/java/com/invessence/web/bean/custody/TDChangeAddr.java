@@ -103,11 +103,13 @@ public class TDChangeAddr extends BaseTD
             WSCallResult wsCallResult;
             String product=getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
             String mode=getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
-            System.out.println("product "+product);
-            System.out.println("mode "+mode);
+            System.out.println("#################################################### Change Address DC Request Start ##########################################");
+            System.out.println("Product "+product);
+            System.out.println("Mode "+mode);
             System.out.println("Advisor "+getTdMasterData().getCustomerData().getProfileInstance().getAdvisor());
-            System.out.println("REP "+ getTdMasterData().getCustomerData().getProfileInstance().getRep());
-            String eventRef = processDCRequest( getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_ACCT_OPEN);
+            System.out.println("Rep "+ getTdMasterData().getCustomerData().getProfileInstance().getRep());
+            System.out.println("Account No "+ getTdMasterData().getAcctnum());
+            String eventRef = processDCRequest( getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_CHNG_ADDR);
 
             System.out.println("Docusign Event Return " + eventRef);
             if (eventRef != null)
@@ -175,6 +177,7 @@ public class TDChangeAddr extends BaseTD
 //
 //               getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
 //            }
+            System.out.println("#################################################### Change Address DC Request End ##########################################");
          }
 
       }
