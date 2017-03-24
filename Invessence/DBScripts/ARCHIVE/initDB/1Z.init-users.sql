@@ -48,7 +48,7 @@ VALUES
 (17,'marylou','c39680887e67fa9860fd197f1279805d','A','Giustini','Mary Lou','Mlg416@gmail.com','Invessence','005','IL','HTML','user',now())
 ;
 
-
+/*
 INSERT INTO `invdb`.`user_basket_access`
 (`advisor`,`theme`,`status`,`displayname`,`sortorder`,`primary`,`taxable`,`created`)
 VALUES
@@ -59,6 +59,7 @@ VALUES
 ('Invessence', 'T.0.Income', 'A', 'Generate Income', 2, 'N', 'Y', now()),
 ('Invessence', 'T.0.Safety', 'A', 'Safety', 2, 'N', 'Y', now())
 ;
+*/
 
 
 
