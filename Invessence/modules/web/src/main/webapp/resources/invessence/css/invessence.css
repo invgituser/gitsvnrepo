@@ -1346,3 +1346,16 @@ background-image: url("/javax.faces.resource/images/customblackicon.png.xhtml?ln
 .ui-selectcheckboxmenu-panel {
 	border:0px!important;
 }
+
+.advisorMsgTable > label {
+	display: none;
+}
+
+.advisorMsgTable {
+text-align: center;
+}
+
+.advisorMsgTable > select {
+	margin-top: 8px!important;
+	border-radius: 0!important;
+}
