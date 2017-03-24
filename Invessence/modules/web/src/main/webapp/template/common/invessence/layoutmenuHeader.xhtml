@@ -7,15 +7,16 @@
     <h:outputScript name="js/jquery.url.js"
                     library="#{uiLayout.webProfile.cssdir}" />
 <script>
-$(document).ready(function(){
-		$('.MobileButton').click(function(){
-		$('.menuBtnLinks').fadeIn();		
-		});
-		
-		$('.menuBtnLinks').mouseleave(function(){
-				$('.menuBtnLinks').fadeOut();		
-		});
-		});
+    $(document).ready(function(){
+            $('.MobileButton').click(function(){
+                $('.menuBtnLinks').fadeIn();
+            });
+
+            $('.menuBtnLinks').mouseleave(function(){
+                $('.menuBtnLinks').fadeOut();
+            });
+        });
+
 
     $(function(){
         $page = jQuery.url.attr("file");

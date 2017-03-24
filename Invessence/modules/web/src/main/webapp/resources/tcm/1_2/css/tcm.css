@@ -3917,7 +3917,7 @@ margin-top: 10px;
 
 @media (max-width: 1200px) and (min-width: 1050px) {
 	.fineTuneBlock {
-	width: 82%!important;
+	width: 80%!important;
 	height: 325px!important;
 }
 }
@@ -3931,8 +3931,8 @@ margin-top: 10px;
 
 @media (max-width: 375px) and (min-width: 320px) {
 	.fineTuneBlock {
-	width: 78%!important;
-	height: 325px!important;
+	/*width: 78%!important;
+	height: 325px!important;*/
 }
 
 .closeFTbtn {
@@ -3942,8 +3942,8 @@ margin-top: 10px;
 
 @media (max-width: 425px) and (min-width: 375px) {
 	.fineTuneBlock {
-	width: 81%!important;
-	height: 325px!important;
+	/*width: 81%!important;
+	height: 325px!important;*/
 }
 
 .closeFTbtn {
@@ -3951,7 +3951,7 @@ margin-top: 10px;
 }
 }
 
-@media (max-width: 768px) and (min-width: 425px) {
+@media (max-width: 768px) and (min-width: 751px) {
 	.fineTuneBlock {
 	width: 80%!important;
 }
@@ -3979,7 +3979,7 @@ margin-top: 10px;
 }
 }
 
-@media (max-width: 960px) and (min-width: 768px) {
+@media (max-width: 960px) and (min-width: 750px) {
 	.fineTuneBlock {
 	width: 80%!important;
 }
@@ -3993,7 +3993,14 @@ margin-top: 10px;
 	}
 	
 	.fineTuneBlock {
-	height: 340px!important;
+	/*height: 340px!important;*/
+        position: fixed!important;
+        top: 5px;
+        bottom: 5px;
+        left: 5px;
+        right: 5px;
+        width: auto!important;
+        height: auto!important;
 }
 }
 
@@ -4027,7 +4034,7 @@ margin-top: 10px;
 
 
 .fineTuneBlock {
-width: 40%;
+width: 41%;
     height: 473px;
     position: absolute;
     background:#fbfbfb;
@@ -4090,4 +4097,31 @@ font-weight: bold;
 
 .Container48 {
     width:48%;
+}
+.ui-accordion-header > img {
+    position: relative;
+    top: 3px;
+}
+
+@media (max-width: 600px) {
+    .accordionTabText {
+        top: -10px;
+    }
+}
+
+
+@media (min-width: 1500px) {
+    .fineTuneBlock {
+        width: 43%;
+    }
+}
+
+@media (max-width: 360px) {
+    .uobSliderLabel.firstLabel {
+        right: 3px!important;
+    }
+    .uobSliderLabel {
+        top: 2px!important;
+        font-size: 11px!important;
+    }
 }
