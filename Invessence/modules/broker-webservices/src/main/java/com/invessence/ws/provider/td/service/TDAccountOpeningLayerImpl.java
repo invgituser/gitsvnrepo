@@ -128,7 +128,9 @@ public class TDAccountOpeningLayerImpl implements TDAccountOpeningLayer
                }
             }
             else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString())
-               || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString()))
+               || dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString())
+               ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.INT_ACAT_OTHER_NEW.toString())
+               ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.EXT_ACAT_OTHER_NEW.toString()))
             {
                AcctTransferDetails acctTransferDetails = dcRequest.getAcctTransferDetails();
                if (acctTransferDetails == null)

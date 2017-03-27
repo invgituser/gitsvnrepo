@@ -125,7 +125,9 @@ public class DCWebLayerClassImpl implements DCWebLayerClass
                }
             }
             else if (dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACCT_TRAN_NEW.toString())
-               ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString()))
+               ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.ACAT_OTHER_NEW.toString())
+               ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.INT_ACAT_OTHER_NEW.toString())
+               ||dcRequest.getReqType().equalsIgnoreCase(WSConstants.DocuSignServiceOperations.EXT_ACAT_OTHER_NEW.toString()))
             {
                AcctTransferDetails acctTransferDetails = tdDaoLayer.getAcctTransferDetails(dcRequest.getAcctnum(), dcRequest.getRefReqId());
                if (acctTransferDetails == null)
