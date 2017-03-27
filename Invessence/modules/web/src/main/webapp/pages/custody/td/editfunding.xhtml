@@ -68,6 +68,7 @@
                 <div class="Container100">
                     <div class="Container80 Fnone MarAuto CustomWidthFA2">
                         <p:selectBooleanCheckbox
+                                id="efregchkbox"
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdEditFund.tdMasterData.optFund}"
                                 itemLabel="I choose to opt-out of one time funding at this time.">
@@ -133,7 +134,7 @@
 
                             <div class="EmptyBox10"></div>
                            <div class="Container45 CustomWidthAccountypePanel Fleft" style="display: none">
-                                <p:panel styleClass="Wid90 MarCenter tcmPanel-UI">
+                                <p:panel styleClass="Wid90 MarCenter tcmPanel-UI" id="efpanel1">
                                     <div class="Container100">
                                         <div class="Container60">
                                             <h4>Wire Transfer</h4>
@@ -181,7 +182,7 @@
                                     <div class="EmptyBox5"></div>
                                     <p:inputNumber
                                             styleClass="Wid100 invInputText input_investwid1 amountBRmobileSupport fundingRecurring"
-                                            style="text-align: left;"
+                                            style="text-align: left;" id="efinvest2"
                                             value="#{tdEditFund.tdMasterData.initialInvestment}" maxlength="11"
                                             placeholder="$"
                                             symbol="$" decimalPlaces="2" required="false"
@@ -197,7 +198,7 @@
 
                                     <div class="EmptyBox5"></div>
                                     <div class="CustomWidthFA-Responsive" style="margin-top: 5px; font-size: 18px;">
-                                        <p:selectBooleanCheckbox
+                                        <p:selectBooleanCheckbox id="efrecinvest"
                                                 itemLabel="I would like to make recurring investments.">
                                             <p:ajax update=":ctoForm:tdaccordian:fundTabV" process="@this"/>
                                         </p:selectBooleanCheckbox>
@@ -218,7 +219,7 @@
                                         Account Type *</label>
 
                                     <div class="EmptyBox5"></div>
-                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI" id="efchecksave"
                                                      value="#{tdEditFund.tdMasterData.achBankDetail.bankAcctType}"
                                                      style="width: 100%;">
                                         <p:ajax event="change" update="@this" process="@this"/>
@@ -240,6 +241,7 @@
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.achBankDetail.bankName}"
+                                                 id="efbankname"
                                                  maxlength="90"
                                                  placeholder="Bank Name">
                                     </p:inputText>
@@ -252,6 +254,7 @@
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.achBankDetail.bankAcctName}"
+                                                 id="efacctname"
                                                  maxlength="90"
                                                  placeholder="Name on Bank Account">
                                     </p:inputText>
@@ -267,6 +270,7 @@
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.achBankDetail.bankCityState}"
+                                                 id="bkcitystate"
                                                  maxlength="30"
                                                  placeholder="Bank City/State">
                                     </p:inputText>
@@ -281,6 +285,7 @@
                                                  value="#{tdEditFund.tdMasterData.achBankDetail.bankPhoneNumber}"
                                                  maxlength="15"
                                                  mask="(999) 999-9999"
+                                                 id="efbkphoneno"
                                                  placeholder="Bank Phone Number">
                                     </p:inputMask>
                                 </div>
@@ -300,6 +305,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.achBankDetail.bankABARouting}"
                                                  maxlength="40"
+                                                 id="efaba"
                                                  placeholder="ABA Routing Number">
                                     </p:inputText>
                                 </div>
@@ -312,6 +318,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.achBankDetail.bankAcctNumber}"
                                                  maxlength="90"
+                                                 id="efbkacctno"
                                                  placeholder="Bank Account Number">
                                     </p:inputText>
                                 </div>
@@ -337,6 +344,7 @@
                                     <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.acatDetails.fromAccountTitle}"
                                                  maxlength="100"
+                                                 id="efaccttitle"
                                                  placeholder="Account Title / Registration">
                                     </p:inputText>
                                 </div>
@@ -348,6 +356,7 @@
                                     <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.acatDetails.accountNumber2}"
                                                  maxlength="90"
+                                                 id="efacctno2"
                                                  placeholder="Account Number">
                                     </p:inputText>
                                 </div>
@@ -357,15 +366,16 @@
                                     <div class="EmptyBox5"></div>
                                     <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                      value="#{tdEditFund.tdMasterData.acatDetails.fromOtherAccountType}"
+                                                     id="efaccttype"
                                                      style="width: 100%;">
                                         <p:ajax event="change" update="@this" process="@this" />
                                         <f:selectItem itemLabel="Select Account Type" itemValue=""
                                                       noSelectionOption="true"/>
-                                        <f:selectItem itemLabel="Individual" itemValue="ACINDIV"/>
-                                        <f:selectItem itemLabel="Joint" itemValue="ACJOINT"/>
-                                        <f:selectItem itemLabel="Roth IRA"  itemValue="IRAROTH"/>
-                                        <f:selectItem itemLabel="Traditional IRA" itemValue="IRATRAD" />
-                                        <f:selectItem itemLabel="Rollover IRA" itemValue="IRAROOV"/>
+                                        <f:selectItem id="efindividual" itemLabel="Individual" itemValue="ACINDIV"/>
+                                        <f:selectItem id="efjoint" itemLabel="Joint" itemValue="ACJOINT"/>
+                                        <f:selectItem id="rothira" itemLabel="Roth IRA"  itemValue="IRAROTH"/>
+                                        <f:selectItem id="traditionalira" itemLabel="Traditional IRA" itemValue="IRATRAD" />
+                                        <f:selectItem id="rolloverira" itemLabel="Rollover IRA" itemValue="IRAROOV"/>
                                     </p:selectOneMenu>
                                     <div class="EmptyBox5"></div>
 
@@ -406,6 +416,7 @@
                                             <p:inputText styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                                          value="#{tdEditFund.tdMasterData.acatDetails.fromFirmAddress}"
                                                          maxlength="90"
+                                                         id="effirmaddress"
                                                          placeholder="Physical Address of Firm">
                                             </p:inputText>
                                         </div>
@@ -417,6 +428,7 @@
                                             <p:inputMask styleClass="Wid85 FS14 CustomWidthFA-Responsive"
                                                          value="#{tdEditFund.tdMasterData.acatDetails.fromFirmPhoneNumber}"
                                                          maxlength="15"
+                                                         id="effirmphoneno"
                                                          mask="(999) 999-9999" placeholder="Phone Number">
                                             </p:inputMask>
                                         </div>
@@ -431,7 +443,7 @@
                                 <div class="Container32 CustomWidthFA2">
                                     <div class="Container100 Fleft">
                                         <div style="margin-top: 15px;">
-                                            <p:selectOneRadio
+                                            <p:selectOneRadio id="eftransid"
                                                     value="#{tdEditFund.tdMasterData.acatDetails.transferTypeId}">
                                                 <f:selectItem itemLabel="Full Transfer" itemValue="FULL"/>
                                                 <f:selectItem itemLabel="Partial Transfer" itemValue="PARTIAL"/>
@@ -459,7 +471,7 @@
                                            style="text-align: left !important; font-weight: bold !important;">
                                         Is this a Retail or Advisor managed account ? </label>
 
-                                    <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                    <p:selectOneMenu id="efretilflag" styleClass="formpageDropdown FundAccountDropdownUI"
                                                      value="#{tdEditFund.tdMasterData.tdTransferDetails.retilFlag}"
                                                      style="width: 100%;">
                                         <p:ajax event="change" update=":ctoForm:tdaccordian:fundTabV" process="@this"
@@ -486,6 +498,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.tdTransferDetails.priorFirmName}"
                                                  maxlength="90"
+                                                 id="efpriorfn"
                                                  placeholder="Existing Advisory Firm Name">
                                     </p:inputText>
                                 </div>
@@ -498,6 +511,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.tdTransferDetails.firmAccountNo}"
                                                  maxlength="45"
+                                                 id="effirmacctno"
                                                  placeholder="Firm Account Number">
                                     </p:inputText>
                                 </div>
@@ -517,6 +531,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.tdTransferDetails.retailAccountNumber}"
                                                  maxlength="15"
+                                                 id="efretailacctno"
                                                  placeholder="TD Ameritrade Retail Brokerage Account Number">
                                     </p:inputText>
                                 </div>
@@ -529,6 +544,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.tdTransferDetails.advisorID}"
                                                  maxlength="15"
+                                                 id="efadvisorid"
                                                  placeholder="Advisor ID">
                                     </p:inputText>
                                 </div>
@@ -556,6 +572,7 @@
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  value="#{tdEditFund.tdMasterData.fedwireAcctDetail.wireBankName}"
                                                  maxlength="90"
+                                                 id="efwirebkname"
                                                  placeholder="Receiving Bank Name">
                                     </p:inputText>
                                 </div>
@@ -567,6 +584,7 @@
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  maxlength="90"
+                                                 id="efReceivbankacct"
                                                  placeholder="Name on Receiving Bank Account">
                                     </p:inputText>
                                 </div>
@@ -581,6 +599,7 @@
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  maxlength="40"
+                                                 id="efabaroutno"
                                                  placeholder="ABA Routing Number">
                                     </p:inputText>
                                 </div>
@@ -592,6 +611,7 @@
                                     <div class="EmptyBox5"></div>
                                     <p:inputText styleClass="Wid90 FS14 CustomWidthFA-Responsive"
                                                  maxlength="90"
+                                                 id="bankacctno"
                                                  placeholder="Bank Account Number">
                                     </p:inputText>
                                 </div>
@@ -608,6 +628,7 @@
 
                         <p:commandLink styleClass="UI-nextButtonFA Fright UI-tcmButton" rendered="#{!tdEditFund.tdMasterData.fundNow}"
                                    style="padding: 13px 48px; float: none!important"
+                                       id="effundnow1"
                                    actionListener="#{tdEditFund.nextPageEdit}"
                                    update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
                                    process=":ctoForm:tdaccordian:fundTabV"/>
@@ -615,6 +636,7 @@
                     <div class="saveNopenBtn" style="text-align: right;">
                         <p:commandButton value="Save" rendered="#{tdEditFund.tdMasterData.fundNow}"
                                          update=":ctoForm:tdaccordian, :ctoForm:errorMsg"
+                                         id="effundnow2"
                                          actionListener="#{tdEditFund.nextPage}"
                                          process=":ctoForm:tdaccordian:fundTabV">
 
@@ -640,7 +662,7 @@
                 <div class="Container80 Responsive100 MarTop5 MarCenter ui-color"
                      style="margin-bottom: 15px; border: 0px; background: transparent">
                     <div class="Container100 CustomWidthFA2 MarTop5">
-                        <p:selectBooleanCheckbox
+                        <p:selectBooleanCheckbox id="efrregchkbox"
                                 styleClass="RegulatoryCheckBox"
                                 value="#{tdEditFund.tdMasterData.recurringFlag}"
                                 itemLabel="I choose to opt-out of setting up a recurring contribution at this time.">
@@ -658,6 +680,7 @@
                         <div class="Container100 CustomWidthFA2 MarTop5">
                             <p:selectBooleanCheckbox styleClass="RegulatoryCheckBox" value="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                                      itemLabel="Please use the existing account details"
+                                                     id="efracctdet"
                                                      rendered="#{tdEditFund.tdMasterData.hasachinstruction}" >
                                 <p:ajax update=":ctoForm:tdaccordian:fundTabV:recurrringPanel"
                                         listener="#{tdEditFund.tdMasterData.existingAccount}"/>
@@ -673,23 +696,24 @@
 
                                 <div class="EmptyBox5"></div>
                                 <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
+                                                 id="efrfreqid"
                                                  value="#{tdEditFund.tdMasterData.electroicBankDetail.tranFreqId}"
                                                  style="width: 100%;">
                                     <p:ajax event="change" update="@this" />
                                     <f:selectItem itemLabel="Select Frequency" itemValue=""
                                                   noSelectionOption="true"/>
-                                    <f:selectItem itemValue="ANNUALLY" itemLabel="Annually"/>
-                                    <f:selectItem itemValue="BIWEEKLY" itemLabel="Every Other Week "/>
-                                    <f:selectItem itemValue="FIRSTBUSDAY" itemLabel="First Business Day of Month"/>
-                                    <f:selectItem itemValue="FRI1" itemLabel="First Friday of Month"/>
-                                    <f:selectItem itemValue="FRI2" itemLabel="Second Friday of Month "/>
-                                    <f:selectItem itemValue="FRI3" itemLabel="Third Friday of Month"/>
-                                    <f:selectItem itemValue="FRI4" itemLabel="Fourth Friday of Month "/>
-                                    <f:selectItem itemValue="LASTBUSDAY" itemLabel="Last Business Day of Month "/>
-                                    <f:selectItem itemValue="MONTHLY" itemLabel="Monthly"/>
-                                    <f:selectItem itemValue="QUARTERLY" itemLabel="Quarterly"/>
-                                    <f:selectItem itemValue="SEMIANNUALLY" itemLabel="Every 6 Months "/>
-                                    <f:selectItem itemValue="WEEKLY" itemLabel="Weekly "/>
+                                    <f:selectItem id="efrannually" itemValue="ANNUALLY" itemLabel="Annually"/>
+                                    <f:selectItem id="efreow" itemValue="BIWEEKLY" itemLabel="Every Other Week "/>
+                                    <f:selectItem id="efrfirstbusday" itemValue="FIRSTBUSDAY" itemLabel="First Business Day of Month"/>
+                                    <f:selectItem id="efrfrt1" itemValue="FRI1" itemLabel="First Friday of Month"/>
+                                    <f:selectItem id="efrfri2" itemValue="FRI2" itemLabel="Second Friday of Month "/>
+                                    <f:selectItem id="efrfri3" itemValue="FRI3" itemLabel="Third Friday of Month"/>
+                                    <f:selectItem id="efrfri4" itemValue="FRI4" itemLabel="Fourth Friday of Month "/>
+                                    <f:selectItem id="efrlastbusday" itemValue="LASTBUSDAY" itemLabel="Last Business Day of Month "/>
+                                    <f:selectItem id="efrmonthly" itemValue="MONTHLY" itemLabel="Monthly"/>
+                                    <f:selectItem id="efrquarterly" itemValue="QUARTERLY" itemLabel="Quarterly"/>
+                                    <f:selectItem id="efrsemiannually" itemValue="SEMIANNUALLY" itemLabel="Every 6 Months "/>
+                                    <f:selectItem id="efrweekly" itemValue="WEEKLY" itemLabel="Weekly "/>
                                 </p:selectOneMenu>
                             </div>
 
@@ -709,6 +733,7 @@
                                         value="#{tdEditFund.tdMasterData.electroicBankDetail.tranAmount}"
                                         maxlength="11" symbol="$" decimalPlaces="2" required="false"
                                         placeholder="$"
+                                        id="eframounttran"
                                         requiredMessage="Min. of $50 is required!"
                                         validatorMessage="Min. of $50 is required!">
                                 </p:inputNumber>
@@ -722,6 +747,7 @@
                                 <p:inputMask styleClass="Wid100 FS14 CustomWidthFA-Responsive"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.tranStartDate}"
                                              maxlength="10"
+                                             id="efrtranstartdate"
                                              mask="99/99/9999" placeholder="MM/DD/YYYY" required="false">
                                 </p:inputMask>
                             </div>
@@ -738,13 +764,14 @@
                                 <div class="EmptyBox5"></div>
                                 <p:selectOneMenu styleClass="formpageDropdown FundAccountDropdownUI"
                                                  disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
+                                                 id="efrbankaccttype"
                                                  value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctType}"
                                                  style="width: 100%;">
                                     <p:ajax/>
                                     <f:selectItem itemLabel="Select Account Type" itemValue=""
                                                   noSelectionOption="true"/>
-                                    <f:selectItem itemLabel="Checking" itemValue="CHECK"/>
-                                    <f:selectItem itemLabel="Savings" itemValue="SAVI"/>
+                                    <f:selectItem id="efrchecking" itemLabel="Checking" itemValue="CHECK"/>
+                                    <f:selectItem id="efrsavings" itemLabel="Savings" itemValue="SAVI"/>
 
                                 </p:selectOneMenu>
                             </div>
@@ -760,6 +787,7 @@
                                              disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankName}"
                                              maxlength="90"
+                                             id="efrbankname"
                                              placeholder="Bank Name">
                                 </p:inputText>
                             </div>
@@ -774,6 +802,7 @@
                                              disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctName}"
                                              maxlength="90"
+                                             id="efrbkacctname"
                                              placeholder="Bank Account Title">
                                 </p:inputText>
                             </div>
@@ -790,6 +819,7 @@
                                              disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankCityState}"
                                              maxlength="90"
+                                             id="efrbkcitystate"
                                              placeholder="Bank City/State">
                                 </p:inputText>
                             </div>
@@ -802,6 +832,7 @@
                                              disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankPhoneNumber}"
                                              maxlength="15"
+                                             id="efrbkphoneno"
                                              mask="(999) 999-9999"
                                              placeholder="Bank Phone Number">
                                 </p:inputMask>
@@ -823,6 +854,7 @@
                                              disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankABARouting}"
                                              maxlength="40"
+                                             id="efrbkararouting"
                                              placeholder="ABA Routing Number">
                                 </p:inputText>
                             </div>
@@ -836,6 +868,7 @@
                                              disabled="#{tdEditFund.tdMasterData.copyAchInstructions}"
                                              value="#{tdEditFund.tdMasterData.electroicBankDetail.bankAcctNumber}"
                                              maxlength="90"
+                                             id="efrbkacctno"
                                              placeholder="Bank Account Number">
                                 </p:inputText>
                             </div>
@@ -848,7 +881,7 @@
                     <div class="EmptyBox10"></div>
                     <div class="Container100 MarTop20" style="margin: 10px 10px; text-align: center;">
                         <p:commandLink styleClass="UI-prevButtonFA" style=" padding: 13px 30px; float: none!important;"
-                                       actionListener="#{tdEditFund.prevPageEdit}"
+                                       actionListener="#{tdEditFund.prevPageEdit}" id="efrprevpageedit"
                                        update=":ctoForm:tdaccordian,:ctoForm:submitBtnId"  process="@this"/>
                             <div class="saveNopenBtn" style="text-align:right;">
                                 </div>
@@ -870,13 +903,13 @@
         <p:panel id="submitBtnId" style="border: 0px; background: transparent">
             <div class="Container100 saveNopenBtn" style="">
                 <p:commandButton value="Cancel"
-                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
+                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form" id="efrdefaulthome"
                                  styleClass="Fleft" actionListener="#{uiLayout.defaultHome}">
 
                 </p:commandButton>
 
                 <p:commandButton value="Save and Submit"
-                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form"
+                                 update=":ctoForm:tdaccordian, :ctoForm:errorMsg" process="@form" id="efrfunddatasave"
                                  disabled="#{tdEditFund.tdMasterData.optFund and tdEditFund.tdMasterData.recurringFlag}"
                                  actionListener="#{tdEditFund.editFunddataSave}"
                                  styleClass="Fright" >

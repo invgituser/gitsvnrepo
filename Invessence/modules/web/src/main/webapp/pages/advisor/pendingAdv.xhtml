@@ -31,9 +31,9 @@
                 <div class="ContainerIndent">
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
                         <h:form>
-                            <p:commandButton value="Yes" type="button"
+                            <p:commandButton id="advpendcfmyes" value="Yes" type="button"
                                              styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                            <p:commandButton value="No" type="button"
+                            <p:commandButton id="advpendcfmno" value="No" type="button"
                                              styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </h:form>
                     </p:confirmDialog>
@@ -43,7 +43,7 @@
                         <div class="Container100">
                             <div class="Fleft filterMBBlock">
                                 <label class="filterAdvLabel">Filter</label>
-                                <p:menuButton value="#{manageAdvisorBean.filtereMenuList}"  styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
+                                <p:menuButton id="advpendfilter" value="#{manageAdvisorBean.filtereMenuList}"  styleClass="InfoNewDash customMenuButtonDashboard" style="margin-top: 10px;">
                                     <p:menuitem value="All" action="#{manageAdvisorBean.filterDataByDate(0)}"/>
                                     <p:menuitem value="Today" action="#{manageAdvisorBean.filterDataByDate(1)}"/>
                                     <p:menuitem value="Last 5 days" action="#{manageAdvisorBean.filterDataByDate(5)}"/>
@@ -80,7 +80,7 @@
 
                             <f:facet name="header">
                                 <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
-                                    <p:commandButton update="@form" ajax="true" value="Delete"
+                                    <p:commandButton id="advpenddelcfm" update="@form" ajax="true" value="Delete"
                                                      actionListener="#{manageAdvisorBean.doDelete()}" styleClass="AdvNormalBtn">
                                         <p:confirm header="Confirmation" message="Do you want to delete these accounts?" icon="ui-icon-alert" >
 
@@ -96,7 +96,7 @@
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.portfolioName}"/>
+                                <h:outputText id="advpendportname" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.portfolioName}"/>
                             </p:column>
                            <!--  <p:column sortBy="#{managedVar.fullname}"
                                       headerText="Name"
@@ -110,7 +110,7 @@
                                       priority="5"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.displayAcct}"/>
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" id="advpenddispacct" value="#{managedVar.displayAcct}"/>
                             </p:column>
 
                            <!--  <p:column sortBy="#{managedVar.accttype}"
@@ -126,14 +126,14 @@
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
+                                <h:outputText id="advpendgoal" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
                             </p:column>
                             <p:column sortBy="#{managedVar.invested}"
                                       headerText="Proposed Amount"
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn num-text-align invest"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.invested}">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" id="advpendinvest" value="#{managedVar.invested}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
                             </p:column>
@@ -142,7 +142,7 @@
                                       priority="5"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" id="advpenddateopn" value="#{managedVar.dateOpened}">
                                 </h:outputText>
                             </p:column>
 

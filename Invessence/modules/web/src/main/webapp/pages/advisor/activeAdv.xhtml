@@ -18,9 +18,9 @@
                 <div class="ContainerIndent">
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
                         <h:form>
-                            <p:commandButton value="Yes" type="button"
+                            <p:commandButton id="advactcfmyes" value="Yes" type="button"
                                              styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-                            <p:commandButton value="No" type="button"
+                            <p:commandButton id="advactcfmno" value="No" type="button"
                                              styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                         </h:form>
                     </p:confirmDialog>
@@ -28,7 +28,7 @@
                     <h:form id="form">
                         <div class="Container100">
                            <div class="Fright aum_label">
-                          <label>AUM:  <h:outputText value="#{manageAdvisorBean.salesInfo.get('AUM')}">
+                          <label>AUM:  <h:outputText id="advactaumcnt" value="#{manageAdvisorBean.salesInfo.get('AUM')}">
                               <f:convertNumber pattern="$#,###,##0"/>
                           </h:outputText></label>
                            </div>
@@ -72,21 +72,21 @@
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.portfolioName}"/>
+                                <h:outputText id="advactportname" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.portfolioName}"/>
                             </p:column>
                            <p:column sortBy="#{managedVar.fullname}"
                                       headerText="Name"
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.fullname}"/>
+                                <h:outputText id="advactfullname" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.fullname}"/>
                             </p:column> 
                             <p:column sortBy="#{managedVar.displayAcct}"
                                       headerText="Account. No."
                                       priority="5"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.clientAccountID}"/>
+                                <h:outputText id="advactacctid" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.clientAccountID}"/>
                             </p:column>
 
                             <p:column sortBy="#{managedVar.accttype}"
@@ -94,7 +94,7 @@
                                       priority="6"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.accttype}"/>
+                                <h:outputText id="advactaccttype" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.accttype}"/>
                             </p:column> 
 
                             <p:column sortBy="#{managedVar.goal}"
@@ -102,14 +102,14 @@
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
+                                <h:outputText id="advactgoal" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
                             </p:column>
                             <p:column sortBy="#{managedVar.invested}" sortOrder="descending"
                                       headerText="Invested Amount"
                                       priority="1"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn num-text-align invest"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.invested}">
+                                <h:outputText id="advactinvest" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.invested}">
                                     <f:convertNumber currencySymbol="$" type="currency"/>
                                 </h:outputText>
                             </p:column>
@@ -118,7 +118,7 @@
                                       priority="5"
                                       styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
                                       resizable="true">
-                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
+                                <h:outputText id="advactdateopn" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
                                 </h:outputText>
                             </p:column>
                         </p:dataTable>

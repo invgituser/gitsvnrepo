@@ -38,13 +38,13 @@
                             <div class="Container100">
                                 <div class="Container50 Fleft MsgBlockAdv">
                                     <h3 class="BigTopic" style="margin: 4px 10px!important;border: 0;">
-                                        <h:outputText value="#{advisornotificationBean.messageHeader}"/></h3>
+                                        <h:outputText id="advmsgheader" value="#{advisornotificationBean.messageHeader}"/></h3>
                                 </div>
                                 <div class="Container50 Fright MsgBtnsBlock">
                                     <div class="Fright" >
                                         <p:selectOneButton styleClass="AdvBtnTcmGrp" value="#{advisornotificationBean.filterNotice}">
-                                            <f:selectItem itemLabel="New" itemValue="N"/>
-                                            <f:selectItem itemLabel="Archived" itemValue="A"/>
+                                            <f:selectItem id="advmsgnew" itemLabel="New" itemValue="N"/>
+                                            <f:selectItem id="advmsgarchived" itemLabel="Archived" itemValue="A"/>
                                             <p:ajax update="@form" listener="#{advisornotificationBean.filterData}"/>
                                         </p:selectOneButton>
                                     </div>
@@ -52,7 +52,7 @@
                                 <p:panel rendered="#{advisornotificationBean.getErrorMessage() != null}"
                                          style="border: 0px; background: transparent;"
                                          styleClass="deleteAdvError">
-                                    <h:outputText styleClass="errorText"
+                                    <h:outputText id="advmsgerrortxt" styleClass="errorText"
                                                   value="#{advisornotificationBean.getErrorMessage()}" escape="false"/>
                                 </p:panel>
                                 <div class="Container100 MarTop5">
@@ -69,7 +69,7 @@
                                     >
                                         <f:facet name="header">
                                             <div style="width: 100%; text-align: left;" class="centerAlign ForBtnNormal">
-                                                <p:commandButton update="@form"
+                                                <p:commandButton id="advmsgarchive" update="@form"
                                                                  styleClass="AdvNormalBtn"
                                                                  rendered="#{advisornotificationBean.filterNotice == 'N'}" ajax="true" value="Archive"
                                                                  actionListener="#{advisornotificationBean.markRead}" >

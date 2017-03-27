@@ -21,16 +21,16 @@
                         <div class="DispInlBlock">
                             <div class="Container20"><i class="fa fa-user Fs50 red Fleft MarRight10" style="padding-top:15px;"></i></div>
                             <div class="Container80 UsernameDashboard">
-                                <h2 class="Fs18 black head FontThemeMedium DispBlock">Account#: #{tcmpos.clientAccountID}
+                                <h2 id="ovrvwclientid" class="Fs18 black head FontThemeMedium DispBlock">Account#: #{tcmpos.clientAccountID}
                                 </h2>
                                 <div class="Fright">
-                                    <span class="Fs13 gray FontThemeRegular">#{tcmpos.fullName}</span>
-                                    <span class="Fs13 gray FontThemeRegular DispBlock">Strategy: #{tcmpos.accountAlias}
+                                    <span id="ovrvwfullname" class="Fs13 gray FontThemeRegular">#{tcmpos.fullName}</span>
+                                    <span id="ovrvwacctalias" class="Fs13 gray FontThemeRegular DispBlock">Strategy: #{tcmpos.accountAlias}
                                 </span>
                                 </div>
                             </div>
                         </div>
-                        <p:accordionPanel multiple="true" styleClass="marginZero">
+                        <p:accordionPanel multiple="true" id="ovrvwaccordion1" styleClass="marginZero">
                             <p:tab title="Summary – Current Holdings">
                                 <div class="Container100">
                                     <div class="Container50 Responsive50 tp20">
@@ -40,6 +40,7 @@
                                                      style="height:200px; width: 100%; border:0!important;"
                                                      rendered="#{tcmpos.pieModel != null}"
                                                      responsive="true"
+                                                     id="ovrvwpiechart"
                                                      extender="pie_extensions"/>
                                         </div>
                                     </div>
@@ -57,19 +58,19 @@
 
                                                 <p:column styleClass="TexAlLeft Fs14" priority="0"
                                                           headerText="Asset Class" style="width:34%">
-                                                    <h:outputText value="#{assetList.asset}" styleClass="Fs14"/>
+                                                    <h:outputText id="ovrvwasset" value="#{assetList.asset}" styleClass="Fs14"/>
                                                 </p:column>
 
                                                 <p:column style="text-align: right; width:30%" priority="2"
                                                           headerText="Allocation" styleClass="Fs14">
-                                                    <h:outputText value="#{assetList.holdingweight}" styleClass="TexAlRight Fs14">
+                                                    <h:outputText id="ovrvwallocation"  value="#{assetList.holdingweight}" styleClass="TexAlRight Fs14">
                                                         <f:convertNumber pattern="##0.00%"/>
                                                     </h:outputText>
                                                 </p:column>
 
                                                 <p:column style="text-align: right; width:35%"
                                                           headerText="Market Value" priority="0" styleClass="Fs14">
-                                                    <h:outputText value="#{assetList.holdingValue}" styleClass="TexAlRight Fs12">
+                                                    <h:outputText id="ovrvwmarval" value="#{assetList.holdingValue}" styleClass="TexAlRight Fs12">
                                                         <f:convertNumber type="currency" currencySymbol="$"/>
                                                     </h:outputText>
                                                 </p:column>
@@ -79,7 +80,7 @@
                                                         <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
                                                                   footerText="Total">
                                                         </p:column>
-                                                        <p:column styleClass="Fs14 TexAlRight FontBold"
+                                                        <p:column id="ovrvwtotal1" styleClass="Fs14 TexAlRight FontBold"
                                                                   footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalvalue)}">
                                                         </p:column>
                                                     </p:row>
@@ -104,25 +105,25 @@
 
                                             <p:column headerText="Asset" priority="5"
                                                       style="text-align: left; width:10%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.assetclass}"/>
+                                                <h:outputText id="ovrvwasset1"  value="#{position.assetclass}"/>
                                             </p:column>
                                             <p:column headerText="Ticker" priority="0"
                                                       style="text-align: left" styleClass="Fs12"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.ticker}"/>
+                                                <h:outputText id="ovrvwticker1"  value="#{position.ticker}"/>
                                             </p:column>
                                             <p:column headerText="Description" priority="2"
                                                       style="text-align: left; width:20%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.description}"/>
+                                                <h:outputText id="ovrvwdesc1"  value="#{position.description}"/>
                                             </p:column>
                                             <p:column headerText="Shares" priority="2"
                                                       style="text-align: right;  width:9%;" styleClass="Fs12"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.qty}">
+                                                <h:outputText id="ovrvwshares1"  value="#{position.qty}">
                                                     <f:convertNumber pattern="###,###,###"/>
                                                 </h:outputText>
                                             </p:column>
                                             <p:column headerText="Allocation" priority="5"
                                                       style="text-align: right; width:6%;" resizable="true" styleClass="Fs12"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.weight}">
+                                                <h:outputText id="ovrvwallocation1" value="#{position.weight}">
                                                     <f:convertNumber pattern="##0.00%"/>
                                                 </h:outputText>
                                             </p:column>
@@ -135,28 +136,28 @@
                                             <p:column headerText="Cost Basis" priority="2"
                                                       style=" text-align: right; width:10%;" resizable="true"
                                                       styleClass="Fs12"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.costBasisMoney}">
+                                                <h:outputText id="ovrvwcostbasis1" value="#{position.costBasisMoney}">
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                                 </h:outputText>
                                             </p:column>
                                             <p:column headerText="Market Price" priority="2"
                                                       style="text-align: right" styleClass="Fs12"
                                                       resizable="true"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.markPrice}">
+                                                <h:outputText id="ovrvwmarprice1" value="#{position.markPrice}">
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                                 </h:outputText>
                                             </p:column>
                                             <p:column headerText="Market Value" priority="0"
                                                       style=" text-align: right;" styleClass="Fs12"
                                                       resizable="true"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.positionValue}">
+                                                <h:outputText id="ovrvwmarval1" value="#{position.positionValue}">
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                                 </h:outputText>
                                             </p:column>
                                             <p:column headerText="Gain/Loss" priority="0"
                                                       style="text-align: right" styleClass="Fs12"
                                                       resizable="true"><!-- ROHIT's CHANGE -->
-                                                <h:outputText value="#{position.fifoPnlUnrealized}">
+                                                <h:outputText id="ovrvwgainloss1" value="#{position.fifoPnlUnrealized}">
                                                     <f:convertNumber type="currency" currencySymbol="$"/>
                                                 </h:outputText>
                                             </p:column>
@@ -172,14 +173,14 @@
                                                     <p:column priority="5" footerText="" style="text-align:left;"/>
                                                     <p:column priority="2" footerText="" style="text-align:left"/>
 
-                                                    <p:column priority="2"
+                                                    <p:column priority="2" id="ovrvwtotalval1"
                                                               footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalmoney)}"
                                                               style="text-align:right"/>
                                                     <p:column priority="2" footerText="" style="text-align:left"/>
-                                                    <p:column
+                                                    <p:column id="ovrvwtotalval2"
                                                             footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalvalue)}"
                                                             style="text-align:right"/>
-                                                    <p:column colspan=""
+                                                    <p:column colspan="" id="ovrvwtotalval3"
                                                               footerText="#{dataDisplayConverter.displayAsMoney(tcmpos.totalpnl)}"
                                                               style="text-align:right"/>
                                                 </p:row>

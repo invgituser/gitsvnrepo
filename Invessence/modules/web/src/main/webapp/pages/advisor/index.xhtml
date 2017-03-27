@@ -25,26 +25,26 @@
                 </div>
                 <div class="Seperator Container100"></div>
                 <div class="Container100">
-                    <a href="/pages/advisor/advisornotification.xhtml?Type=M">
+                    <a id="advmsgntf" href="/pages/advisor/advisornotification.xhtml?Type=M">
                         <div class="Container50">
                             <div class="Wid90 BorderedBox TexAlCenter HoverEffect MarAuto">
                                 <div class="ContainerIndent">
                                     <i class="fa fa-bell Fs20 animated swing infinite gray"></i>
                                     <span class="Fs14 DispBlock gray FontThemeLight">Messages</span>
-                                    <span class="Fs24 DispBlock red FontThemeLight">#{adashbean.getMessage("AdvisorMessage")}</span>
+                                    <span id="advmsgcntntf" class="Fs24 DispBlock red FontThemeLight">#{adashbean.getMessage("AdvisorMessage")}</span>
                                 </div>
                             </div>
                         </div>
                     </a>
 
                     <div style="display:none">
-                        <a href="/pages/common/notification.xhtml?Type=T">
+                        <a id="advtskntf" href="/pages/common/notification.xhtml?Type=T">
                             <div class="Container50">
                                 <div class="Wid90 BorderedBox TexAlCenter HoverEffect MarAuto">
                                     <div class="ContainerIndent">
                                         <i class="fa fa-briefcase gray Fs20"></i>
                                         <span class="Fs14 DispBlock gray FontThemeLight">Tasks</span>
-                                        <span class="Fs24 DispBlock red FontThemeLight">#{adashbean.getMessage("Task")}</span>
+                                        <span id="advtskcntntf" class="Fs24 DispBlock red FontThemeLight">#{adashbean.getMessage("Task")}</span>
                                     </div>
                                 </div>
                             </div>
@@ -69,14 +69,14 @@
                 </div>
                 <div class="Seperator Container100"></div>
                 <div class="Container100">
-                    <a href="/pages/advisor/activeAdv.xhtml?action=A">
+                    <a id="advactive" href="/pages/advisor/activeAdv.xhtml?action=A">
                         <div class="Container50">
                             <div class="Wid90 BorderedBox MarAuto TexAlCenter HoverEffect">
                                 <div class="ContainerIndent">
                                     <div class="Fs15 gray FontThemeRegular">Active</div>
                                     <div class="EmptyBox10"></div>
                                     <div class="Fs30 blue FontThemeLight">
-                                        <h:outputText value="#{adashbean.salesInfo.get('Active')}">
+                                        <h:outputText id="advactivecnt" value="#{adashbean.salesInfo.get('Active')}">
                                             <f:convertNumber pattern="#,###,##0"/>
                                         </h:outputText>
                                     </div>
@@ -84,14 +84,14 @@
                             </div>
                         </div>
                     </a>
-                    <a href="/pages/advisor/activeAdv.xhtml?action=AA">
+                    <a id="advaum" href="/pages/advisor/activeAdv.xhtml?action=AA">
                         <div class="Container50">
                             <div class="Wid90 BorderedBox MarAuto TexAlCenter HoverEffect">
                                 <div class="ContainerIndent">
                                     <div class="Fs15 gray FontThemeRegular">AUM</div>
                                     <div class="EmptyBox10"></div>
                                     <div class="Fs30 blue FontThemeLight">
-                                        <h:outputText value="#{adashbean.salesInfo.get('AUM')}">
+                                        <h:outputText id="advaumcnt" value="#{adashbean.salesInfo.get('AUM')}">
                                             <f:convertNumber pattern="$#,###,##0"/>
                                         </h:outputText>
                                     </div>
@@ -102,14 +102,14 @@
                 </div>
                 <div class="EmptyBox10"></div>
                 <div class="Container100">
-                    <a href="/pages/advisor/pendingAdv.xhtml?action=P">
+                    <a id="advpending" href="/pages/advisor/pendingAdv.xhtml?action=P">
                         <div class="Container50">
                             <div class="Wid90 BorderedBox TexAlCenter HoverEffect MarAuto">
                                 <div class="ContainerIndent">
                                     <div class="Fs15 gray FontThemeRegular">Pending Accounts</div>
                                     <div class="EmptyBox10"></div>
                                     <div class="Fs30 red FontThemeLight">
-                                        <h:outputText value="#{adashbean.salesInfo.get('Pending')}">
+                                        <h:outputText id="advpendingcnt" value="#{adashbean.salesInfo.get('Pending')}">
                                             <f:convertNumber pattern="#,###,##0"/>
                                         </h:outputText>
                                     </div>
@@ -117,14 +117,14 @@
                             </div>
                         </div>
                     </a>
-                    <a href="/pages/advisor/pendingAdv.xhtml?action=VA">
+                    <a id="advvisitor" href="/pages/advisor/pendingAdv.xhtml?action=VA">
                     <div class="Container50">
                         <div class="Wid90 BorderedBox MarAuto TexAlCenter HoverEffect">
                             <div class="ContainerIndent">
                                 <div class="Fs15 gray FontThemeRegular">Visitors (Today)</div>
                                 <div class="EmptyBox10"></div>
                                 <div class="Fs30 orange FontThemeLight">
-                                    <h:outputText value="#{adashbean.salesInfo.get('VisitorToday')}">
+                                    <h:outputText id="advvisitorcnt" value="#{adashbean.salesInfo.get('VisitorToday')}">
                                         <f:convertNumber pattern="#,###,##0"/>
                                     </h:outputText>
                                 </div>
