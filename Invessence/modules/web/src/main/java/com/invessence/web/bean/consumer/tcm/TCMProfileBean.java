@@ -752,9 +752,16 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          setNumOfPortfolio(noOfYears);
          buildAssetClass();
          buildPortfolio();
+         setFixedModelPortfolioList(getInstance().getTheme());
+         setFmDataLinkedHashMap(getInstance().getTheme());
+         fmDataArrayList = getFixedModelPortfolioList();
+         fmDataMap = getFmDataLinkedHashMap();
+
          if (getFixedModelName() != null)
          {
             setPortfolioName(getFixedModelName());
+            newLongDesc = fmDataMap.get(getPortfolioName()).getDescription();
+
          }
          createCharts();
       }
@@ -1054,6 +1061,8 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       fetchClientData();
       selectedThemeName = "";
       newLongDesc = "";
+      setRiskCalcMethod("C");
+      riskCalculator.setRiskFormula("C");
       // webutil.redirect("/start.xhtml", null);
 
    }
