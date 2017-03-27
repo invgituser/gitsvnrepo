@@ -1,6 +1,4 @@
-DROP TABLE user_advisor_mapping;
-
-ALTER TABLE `invdb`.`user_advisor_info` 
+ALTER TABLE `invdb`.`user_advisor_info`
 ADD COLUMN `companyName` VARCHAR(60) NULL DEFAULT NULL AFTER `accttype`;
 
 

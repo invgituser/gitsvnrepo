@@ -1,65 +1,59 @@
-DELETE FROM `invdb`.`user_logon`;
-DELETE FROM `invdb`.`user_advisor_info`;
-DELETE FROM `invdb`.`user_basket_access`;
-DELETE FROM `invdb`.`user_advisor_access`;
+update `invdb`.`user_logon` set logonid=logonid+100 where logonid in(6,7,8,9);
+update `invdb`.`user_advisor_info` set logonid=logonid+100 where logonid in(6,7,8,9);
+update `invdb`.`user_advisor_access` set logonid=logonid+100 where logonid in(6,7,8,9);
 
+DELETE FROM `invdb`.`user_logon` where logonid <100;
+DELETE FROM `invdb`.`user_advisor_info`  where logonid <100;
+DELETE FROM `invdb`.`user_advisor_access`  where logonid <100;
 
 INSERT INTO `invdb`.`user_logon`
 (`logonid`,`userid`,`pwd`,`logonstatus`,`lastname`,`firstname`,`email`,`stateRegistered`,`advisor`,`rep`,`emailmsgtype`,`access`,`created`)
 VALUES
-(1,'demo.advisor','c39680887e67fa9860fd197f1279805d','A','Demo','Advisor','demoadvisor@invessence.com','NJ','Invessence','Demo','HTML','admin',now()),
-(2,'mindcraft.advisor','c39680887e67fa9860fd197f1279805d','A','Mindcraft','Advisor','mindcraft@invessence.com','NJ','Invessence','Mindcraft','HTML','admin',now()),
-(3,'prashant.advisor','c39680887e67fa9860fd197f1279805d','A','Mehta','Prashant','prashant@invessence.com','NJ','Invessence','001','HTML','admin',now()),
-(4,'jigar.advisor','c39680887e67fa9860fd197f1279805d','A','Vyas','Jigar','jigar@invessence.com','NJ','Invessence','002','HTML','admin',now()),
-(5,'chris.advisor','c39680887e67fa9860fd197f1279805d','A','Lengle','Chris','chris@invessence.com','CT','Invessence','003','HTML','admin',now())
+(1,'bb.advisor','c39680887e67fa9860fd197f1279805d','A','BBDemo','Advisor','demoadvisor@invessence.com','NJ','BB','','HTML','advisor',now()),
+(2,'tcmintrep.advisor','c39680887e67fa9860fd197f1279805d','A','TCMIntRep100','Advisor','tcmintrep@invessence.com','NJ','BB-TCM','100','HTML','advisor',now()),
+(3,'tcmextrep.advisor','c39680887e67fa9860fd197f1279805d','A','TCMExtRep200','Advisor','tcmextrep@invessence.com','NJ','BB-TCM','200','HTML','advisor',now()),
+(4,'bb.catchall','c39680887e67fa9860fd197f1279805d','A','BBDemo','Advisor','catchallbbadvisor@invessence.com','NJ','BB','CATCHALL','HTML','advisor',now()),
+(5,'tcm.catchall','c39680887e67fa9860fd197f1279805d','A','BBDemo','Advisor','catchalltcmadvisor@invessence.com','NJ','BB-TCM','CATCHALL','HTML','advisor',now())
 ;
 
-INSERT INTO `invdb`.`user_advisor_info`
-(`logonid`,`advisor`,`rep`,`accttype`,`displayName`,`logo`,`advisor_css`,`created`)
-VALUES
-(1,'Invessence','Demo','REP','Demo Advisor',null,null,now()),
-(2,'Invessence','Mindcraft','REP','Mindcraft Advisor',null,null,now()),
-(3,'Invessence','001','REP','Prashant Mehta',null,null,now()),
-(4,'Invessence','002','REP','Jigar Vyas',null,null,now()),
-(5,'Invessence','003','REP','Chris Lengle',null,null,now())
-;
+INSERT INTO `invdb`.`user_advisor_info` (`logonid`, `advisor`, `rep`, `accttype`, `companyname`, `displayName`, `created`) 
+VALUES 
+('5', 'BB-TCM', 'CATCHALL', 'REP', 'Tradition Adviseres', 'TCMExtRep200 Advisor', now()),
+('4', 'BB', 'CATCHALL', 'REP', 'Building Benjamins', 'BBDemo Advisor', now()),
+('1', 'BB', '', 'REP', 'Building Benjamins', 'BBDemo Advisor', now()),
+('2', 'BB-TCM', '100', 'REP', 'Tradition Adviseres', 'TCMIntRep100 Advisor', now()),
+('3', 'BB-TCM', '200', 'REP', 'Tradition Adviseres', 'TCMExtRep200 Advisor', now());
 
-INSERT INTO `invdb`.`user_advisor_access`
-(`logonid`,`advisor`,`rep`,`created`)
-VALUES
-(1,'Demo','Demo',now()), 
-(2,'Demo','Mindcraft',now()),
-(3,'%','%',now()),
-(4,'%','%',now()),
-(5,'%','%',now())
-;
+
+INSERT INTO `invdb`.`user_advisor_access` (`logonid`, `advisor`, `rep`, `privileges`, `created`) 
+VALUES 
+('1', 'BB', '%', 'V', now()),
+('2', 'BB-TCM', '100', 'V', now()),
+('3', 'BB-TCM', '200', 'V', now()),
+('4', 'BB', '%', 'V', now()),
+('5', 'BB-TCM', '%', 'V', now());
+
 
 
 INSERT INTO `invdb`.`user_logon`
 (`logonid`,`userid`,`pwd`,`logonstatus`,`lastname`,`firstname`,`email`,`advisor`,`rep`,`stateRegistered`,`emailmsgtype`,`access`,`created`)
 VALUES
-(10,'demo.user','c39680887e67fa9860fd197f1279805d','A','Demo','User','demo@invessence.com','Demo','Demo','NJ','HTML','user',now()),
-(11,'mobile.test','c39680887e67fa9860fd197f1279805d','A','Access','Mobile','mobile@invessence.com','Demo','Mobile','NJ','HTML','user',now()),
-(12,'test.mindcraft','c39680887e67fa9860fd197f1279805d','A','Mindcraft','Test','support@invessence.com','Demo','Mindcraft','NJ','HTML','user',now()),
-(13,'prashant.mehta','c39680887e67fa9860fd197f1279805d','A','Mehta','Prashant','prashant.mehta001@gmail.com','Invessence','001','NJ','HTML','user',now()),
-(14,'jigar.vyas','c39680887e67fa9860fd197f1279805d','A','Vyas','Jigar','javyas@gmail.com','Invessence','002','NJ','HTML','user',now()),
-(15,'chris.Lengle','c39680887e67fa9860fd197f1279805d','A','Lengle','Chris','chris@gmail.com','Invessence','003','CT','HTML','user',now()),
-(16,'michael.frank','c39680887e67fa9860fd197f1279805d','A','Frank','Michael','mookie07078@verizon.net','Invessence','004','NJ','HTML','user',now()),
-(17,'marylou','c39680887e67fa9860fd197f1279805d','A','Giustini','Mary Lou','Mlg416@gmail.com','Invessence','005','IL','HTML','user',now())
-;
+(50,'mobile.bb','c39680887e67fa9860fd197f1279805d','A','Access','Mobile','mobilebb@invessence.com','BB','','NJ','HTML','user',now()),
+(51,'mobile.tcm','c39680887e67fa9860fd197f1279805d','A','Access','Mobile','mobiletcm@invessence.com','BB-TCM','100','NJ','HTML','user',now()),
+(61,'bb.user','c39680887e67fa9860fd197f1279805d','A','BB','User','bbuser@invessence.com','BB','','NJ','HTML','user',now()),
+(62,'tcmintrep.user','c39680887e67fa9860fd197f1279805d','A','TCMIntRep','User','tcmintrepuser@invessence.com','BB-TCM','100','NJ','HTML','user',now()),
+(63,'tcmextrep.user','c39680887e67fa9860fd197f1279805d','A','TCMExtRep','User','tcmextrepuser@invessence.com','BB-TCM','200','NJ','HTML','user',now()),
+(64,'bbqa.user','c39680887e67fa9860fd197f1279805d','A','BBQA','User','bbqauser@invessence.com','BB','','NJ','HTML','user',now()),
+(65,'tcmintrepqa.user','c39680887e67fa9860fd197f1279805d','A','TCMIntRepQa','User','tcmintrepqauser@invessence.com','BB-TCM','100','NJ','HTML','user',now()),
+(66,'tcmextrepqa.user','c39680887e67fa9860fd197f1279805d','A','TCMExtRepQa','User','tcmextrepqauser@invessence.com','BB-TCM','200','NJ','HTML','user',now());
 
-/*
+
+DELETE FROM `invdb`.`user_basket_access`  where advisor in('BB','BB-TCM');
 INSERT INTO `invdb`.`user_basket_access`
 (`advisor`,`theme`,`status`,`displayname`,`sortorder`,`primary`,`taxable`,`created`)
-VALUES
-('Invessence','0.Wealth','A','Build Wealth',0,'Y','N',now()),
-('Invessence','T.0.Wealth','A','Build Wealth',0,'N','Y',now()),
-('Invessence', '0.Income', 'A', 'Generate Income', 1, 'N', 'N', now()),
-('Invessence', '0.Safety', 'A', 'Safety', 1, 'N', 'N', now()),
-('Invessence', 'T.0.Income', 'A', 'Generate Income', 2, 'N', 'Y', now()),
-('Invessence', 'T.0.Safety', 'A', 'Safety', 2, 'N', 'Y', now())
-;
-*/
-
+VALUES ('BB', '0.BB', 'A', 'BB Strategy', '0', 'Y', 'N', now()),
+('BB', 'T.0.BB', 'A', 'BB Strategy', '0', 'N', 'Y', now()),
+('BB-TCM', '0.BB', 'A', 'BB Strategy', '0', 'Y', 'N', now()),
+('BB-TCM', 'T.0.BB', 'A', 'BB Strategy', '0', 'N', 'Y', now());
 
 
