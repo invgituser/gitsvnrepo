@@ -49,11 +49,13 @@ VALUES
 
 
 DELETE FROM `invdb`.`user_basket_access`  where advisor in('BB','BB-TCM');
+
 INSERT INTO `invdb`.`user_basket_access`
 (`advisor`,`theme`,`status`,`displayname`,`sortorder`,`primary`,`taxable`,`created`)
-VALUES ('BB', '0.BB', 'A', 'BB Strategy', '0', 'Y', 'N', now()),
+VALUES 
+('BB', '0.BB', 'A', 'BB Strategy', '0', 'Y', 'N', now()),
 ('BB', 'T.0.BB', 'A', 'BB Strategy', '0', 'N', 'Y', now()),
-('BB-TCM', '0.BB', 'A', 'BB Strategy', '0', 'Y', 'N', now()),
-('BB-TCM', 'T.0.BB', 'A', 'BB Strategy', '0', 'N', 'Y', now());
+('BB-TCM', '0.TA', 'A', 'TCM Strategy', '0', 'Y', 'N', now()),
+('BB-TCM', 'T.0.TA', 'A', 'TCM Strategy', '0', 'N', 'Y', now());
 
 
