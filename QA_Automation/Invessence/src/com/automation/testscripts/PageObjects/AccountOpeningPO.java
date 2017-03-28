@@ -326,7 +326,15 @@ public class AccountOpeningPO {
 				
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9next")).click();
 				Thread.sleep(2000);
-				
+			}
+			else
+			{
+				//Opt out of Funding
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:actfundingoptout")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9save")).click();
+				Thread.sleep(1000);				
+			}
 			//Recurring tab
 				if(recurringflag.equals("Y"))
 				{
@@ -363,15 +371,7 @@ public class AccountOpeningPO {
 				Thread.sleep(3000);
 					}
 				
-			}
-			else
-			{
-				//Opt out of Funding
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:actfundingoptout")).click();
-				Thread.sleep(1000);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9save")).click();
-				Thread.sleep(1000);				
-			}
+			
 				log.info("Funding Section entered");
 				System.out.println("Funding Section entered");
 				fund = true;
@@ -394,11 +394,30 @@ public class AccountOpeningPO {
 			String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
 			String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
 			String bankphone,String routingno,String bankacctno,String accounttitle,String accounttype1 ,String deliveringfirm,String frequency,
-			String trnamt,String trndate,String accountnumber,String clientaccountnumber,String recurringflag,String fundingflag) throws InterruptedException
+			String trnamt,String trndate,String accountnumber,String clientaccountnumber,String recurringflag,String fundingflag,String vlogo) throws InterruptedException
 	{
 		boolean accountopen = false;
 		try{
 		
+			// Verify Logo
+			
+			WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
+			String verifylogo = logo.getAttribute("src");
+			if(verifylogo.contains(vlogo))
+					{
+				System.out.println("Pass- Logo Displayed is correct");
+				log.info("Pass- Logo Displayed is correct");
+					}
+			else
+			{
+				System.out.println("Fail - Logo Displayed iss Wrong");
+				log.info("Fail - Logo Displayed iss Wrong");
+			}
+			
+			
+			
+			
+			
 		//Select Account Type
 		
 		boolean accttype = AccountOpeningPO.accounttype(driver, accounttype);
@@ -459,6 +478,124 @@ public class AccountOpeningPO {
 		}
 			return accountopen;
 		}
-
+// Add fund to an account
+	
+	public static boolean addfund(WebDriver driver,String accounttype, String fundingtype,String investmentamt,String bankaccttype,String bankname,String nameofbankacct,
+			String bankcity,String bankphone,String routingno,String bankacctno,String frequency,String trnamt,String trndate,String recurringflag,String fundingflag,
+			String accounttitle,String accounttype1 ,String deliveringfirm) throws InterruptedException
+	{  boolean fund = false;
+		try{
+			Thread.sleep(4000);
+		
+			if(fundingflag.equals("Y"))
+			{
+				
+			driver.findElement(By.xpath("//*[contains(text(),'"+ fundingtype +"')]/parent::div/following-sibling::div/div")).click();
+			//Fund tab
+				if(fundingtype.equals("ACH"))
+				{
+					Thread.sleep(1000);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efinvest2_input")).clear();
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efinvest2_input")).sendKeys(investmentamt);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efchecksave_label")).click();
+					Thread.sleep(100);
+					driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:efchecksave_items']/li[contains(text(),'"+ bankaccttype +"')]")).click();
+					Thread.sleep(100);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbankname")).sendKeys(bankname);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efacctname")).sendKeys(nameofbankacct);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:bkcitystate")).sendKeys(bankcity);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbkphoneno")).sendKeys(bankphone);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efaba")).sendKeys(routingno);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbkacctno")).sendKeys(bankacctno);
+					
+					
+				}
+				else if(fundingtype.equals("ACAT"))
+				{
+					Thread.sleep(100);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efaccttitle")).sendKeys(accounttitle);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efacctno2")).sendKeys(bankacctno);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efaccttype")).click();
+					driver.findElement(By.xpath("//li[contains(text(),'"+accounttype1+"')]")).click();
+					Thread.sleep(2000);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:event_input")).sendKeys(deliveringfirm);
+					driver.findElement(By.xpath("//*[contains(text(),'Full Transfer')]/parent::td/preceding-sibling::td/div//span")).click();
+					Thread.sleep(4000);
+					
+				}
+				else
+				{
+					Thread.sleep(100);
+					String accountmanaged = "Retail";
+					String retailaccountnumber = "12345";
+					String advisorid = "123";
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efretilflag_label")).click();
+					driver.findElement(By.xpath("//li[contains(text(),'"+accountmanaged+"')]")).click();
+					Thread.sleep(2000);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efretailacctno")).clear();
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efretailacctno")).sendKeys(retailaccountnumber);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efadvisorid")).sendKeys(advisorid);;
+				}
+				
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:effundnow1")).click();
+				Thread.sleep(2000);
+			}
+			else
+			{
+				//Opt out of Funding
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efregchkbox")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:effundnow1")).click();
+				Thread.sleep(1000);				
+			}
+			//Recurring tab
+				if(recurringflag.equals("Y"))
+				{
+				//driver.findElement(By.xpath(" //*[@id='ctoForm:tdaccordian:fundTabV']//a[contains(text(),'Recurring')]")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrfreqid")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:efrfreqid_items']/li[contains(text(),'"+ frequency +"')]")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:eframounttran_input")).clear();
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:eframounttran_input")).sendKeys(trnamt);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrtranstartdate")).clear();
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrtranstartdate")).sendKeys(trndate);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrbankaccttype")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:efrbankaccttype_items']/li[contains(text(),'"+ bankaccttype +"')]")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrbankname")).sendKeys(bankname);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrbkacctname")).sendKeys(nameofbankacct);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrbkcitystate")).sendKeys(bankcity);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrbkphoneno")).sendKeys(bankphone);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrbkararouting")).sendKeys(routingno);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efrbkacctno")).sendKeys(bankacctno);
+				driver.findElement(By.xpath("//*[@id='ctoForm:efrfunddatasave']/span")).click();
+				Thread.sleep(3000);
+				}
+				else
+				{
+				//Optout recurring
+				driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:efrregchkbox']/div[2]/span")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//*[@id='ctoForm:efrfunddatasave']/span")).click();
+				//Thread.sleep(3000);driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdp10save']/span")).click();
+				Thread.sleep(3000);
+					}
+				
+			
+				log.info("New funds added");
+				System.out.println("New funds added");
+				fund = true;
+			
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		fund = false;
+	}
+		return fund;
+	}
 	
 }

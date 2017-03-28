@@ -63,7 +63,7 @@ public class Invessence_Utility {
 		
 		// Verify Logo
 		
-		WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
+		WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
 		String verifylogo = logo.getAttribute("src");
 		if(verifylogo.contains(vlogo))
 				{

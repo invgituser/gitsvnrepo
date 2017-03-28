@@ -137,7 +137,7 @@ public class NewPortfolioCreationOpenaccountVisitor_BB  {
 						
 						
 						//open account
-						boolean accountopen = AccountOpeningPO.AccountopeningScenario(driver, vURL, username, password, accounttype, fname, lname, dob, ssn, phoneno, email, streetname, city, state, zip, regulatoryoption, empstatus, incomesrc, employername, occupation, bfname, blname, bdob, bssn, relationship, sharepercent, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct, bankcity, bankphone, routingno, bankacctno, accounttitle, accounttype1, deliveringfirm, frequency, trnamt, trndate, accountnumber, clientaccountnumber,recurringflag, fundingflag);
+						boolean accountopen = AccountOpeningPO.AccountopeningScenario(driver, vURL, username, password, accounttype, fname, lname, dob, ssn, phoneno, email, streetname, city, state, zip, regulatoryoption, empstatus, incomesrc, employername, occupation, bfname, blname, bdob, bssn, relationship, sharepercent, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct, bankcity, bankphone, routingno, bankacctno, accounttitle, accounttype1, deliveringfirm, frequency, trnamt, trndate, accountnumber, clientaccountnumber,recurringflag, fundingflag,vlogo);
 						if(accountopen)
 								{
 							String sqlQuery = "select acctnum from invdb.user_trade_profile  where acctnum="+accountnumber;
