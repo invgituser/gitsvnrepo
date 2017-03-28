@@ -39,6 +39,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setEmail(convert.getStrData(rs.get("email")));
 
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
+               data.setRep(convert.getStrData(rs.get("rep")));
                data.setTheme(convert.getStrData(rs.get("theme")));
                data.setLogonid(convert.getLongData(rs.get("logonid")));
                data.setLastname(convert.getStrData(rs.get("lastname")));
@@ -97,6 +98,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                data.setAcctnum(convert.getLongData(rs.get("acctnum")));
 
                data.setAdvisor(convert.getStrData(rs.get("advisor")));
+               data.setRep(convert.getStrData(rs.get("advisor")));
                data.setTheme(convert.getStrData(rs.get("theme")));
                data.setGoal(convert.getStrData(rs.get("goal")));
                data.setClientLogonID(convert.getLongData(rs.get("logonid")));
@@ -393,6 +395,7 @@ public class AdvisorListDataDAO extends JdbcDaoSupport implements Serializable
                   convert.getStrData(rs.get("status")),
                   convert.getLongData(rs.get("advisorlogonid")),
                   convert.getStrData(rs.get("advisor")),
+                  convert.getStrData(rs.get("rep")),
                   convert.getLongData(rs.get("acctnum")),
                   convert.getStrData(rs.get("noticetype")),
                   convert.getStrData(rs.get("tagid")),

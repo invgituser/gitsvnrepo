@@ -109,6 +109,7 @@ public class AdvisorSaveSP extends StoredProcedure
             declareParameter(new SqlParameter("p_status", Types.VARCHAR));
             declareParameter(new SqlParameter("p_advisorlogonid", Types.BIGINT));
             declareParameter(new SqlParameter("p_advisor", Types.VARCHAR));
+            declareParameter(new SqlParameter("p_rep", Types.VARCHAR));
             declareParameter(new SqlParameter("p_acctnum", Types.BIGINT));
             declareParameter(new SqlParameter("p_noticetype", Types.VARCHAR));
             declareParameter(new SqlParameter("p_tagid", Types.VARCHAR));
@@ -297,6 +298,7 @@ public class AdvisorSaveSP extends StoredProcedure
       inputMap.put("p_status", data.getStatus());
       inputMap.put("p_advisorlogonid", data.getAdvisorlogonid());
       inputMap.put("p_advisor", data.getAdvisor());
+      inputMap.put("p_rep", data.getRep());
       inputMap.put("p_acctnum", data.getAcctnum());
       inputMap.put("p_noticetype", data.getNoticetype());
       inputMap.put("p_tagid", data.getTagid());

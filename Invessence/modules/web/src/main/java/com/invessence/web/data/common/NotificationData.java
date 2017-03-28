@@ -16,6 +16,7 @@ public class NotificationData
    String status;
    Long advisorlogonid;
    String advisor;
+   String rep;
    Long acctnum;
    String noticetype;
    String tagid;
@@ -32,7 +33,8 @@ public class NotificationData
    }
 
    public NotificationData(Long messageid, String status,
-                           Long advisorlogonid, String advisor,
+                           Long advisorlogonid,
+                           String advisor, String rep,
                            Long acctnum, String noticetype,
                            String tagid, String businessdate,
                            String message, String link)
@@ -41,6 +43,7 @@ public class NotificationData
       this.status = status;
       this.advisorlogonid = advisorlogonid;
       this.advisor = advisor;
+      this.rep = rep;
       this.acctnum = acctnum;
       setNoticetype(noticetype);
       this.tagid = tagid;
@@ -87,6 +90,16 @@ public class NotificationData
    public void setAdvisor(String advisor)
    {
       this.advisor = advisor;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
    }
 
    public Long getAcctnum()

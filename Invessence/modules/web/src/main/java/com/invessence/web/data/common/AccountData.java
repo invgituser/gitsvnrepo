@@ -15,6 +15,7 @@ public class AccountData
    private	String	email	;
    private	String	userid	;
    private	String	advisor	;
+   private  String   rep;
    private	String	theme	;
    private	String	lastname	;
    private	String	firstname	;
@@ -131,6 +132,16 @@ public class AccountData
    public void setAdvisor(String advisor)
    {
       this.advisor = advisor;
+   }
+
+   public String getRep()
+   {
+      return rep;
+   }
+
+   public void setRep(String rep)
+   {
+      this.rep = rep;
    }
 
    public String getTheme()
