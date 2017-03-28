@@ -64,6 +64,7 @@ public class CommonDAO extends JdbcDaoSupport implements Serializable
                   convert.getStrData(rs.get("status")),
                   convert.getLongData(rs.get("advisorlogonid")),
                   convert.getStrData(rs.get("advisor")),
+                  convert.getStrData(rs.get("rep")),
                   convert.getLongData(rs.get("acctnum")),
                   convert.getStrData(rs.get("noticetype")),
                   convert.getStrData(rs.get("tagid")),
