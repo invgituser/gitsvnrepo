@@ -63,7 +63,7 @@ public class Invessence_Utility {
 		
 		// Verify Logo
 		
-		WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
+		WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
 		String verifylogo = logo.getAttribute("src");
 		if(verifylogo.contains(vlogo))
 				{
@@ -80,7 +80,7 @@ public class Invessence_Utility {
 		driver.findElement(By.xpath("//*[@id='j_password']")).sendKeys(password);
 		driver.findElement(By.xpath("//*[@id='login']")).click();
 		Thread.sleep(3000);
-		if (driver.findElement(By.xpath("//a[contains(text(), ' New Account')]")).isDisplayed())
+		if (driver.findElement(By.xpath("//span[contains(text(), 'Dashboard')]")).isDisplayed())
 		{
 			System.out.println("Pass- Login sucessfull");
 			log.info("Pass- Login sucessfull");
@@ -93,5 +93,6 @@ public class Invessence_Utility {
 
 	}
 
+	
 	
 }

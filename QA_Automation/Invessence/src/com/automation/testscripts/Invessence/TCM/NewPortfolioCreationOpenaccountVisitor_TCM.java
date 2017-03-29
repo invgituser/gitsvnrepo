@@ -52,7 +52,7 @@ public class NewPortfolioCreationOpenaccountVisitor_TCM  {
 		{
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
 			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor_tcm");
-			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbUrl");
+			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","uatdbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
 			xData = Utility.xlRead(myXLPath,"TestData");
@@ -99,7 +99,7 @@ public class NewPortfolioCreationOpenaccountVisitor_TCM  {
 					Thread.sleep(4000);
 					// Verify Logo
 					
-					WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
+					WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
 					String verifylogo = logo.getAttribute("src");
 					if(verifylogo.contains(vlogo))
 							{
@@ -111,7 +111,7 @@ public class NewPortfolioCreationOpenaccountVisitor_TCM  {
 						System.out.println("Fail - Logo Displayed iss Wrong");
 						log.info("Fail - Logo Displayed iss Wrong");
 					}
-					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
+					boolean portfoliocreation = porfoliocreationPO.portfoliocreationVisitor(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
 
@@ -119,9 +119,7 @@ public class NewPortfolioCreationOpenaccountVisitor_TCM  {
 						log.info("Pass -New Portfolio is created");
 						//open account
 						
-						WebElement saverecomendationbtn = driver.findElement(By.xpath("//span[contains(text(),'Save Recommendations')]"));
-						saverecomendationbtn.click();
-						Thread.sleep(3000);
+						
 						accountnumber = driver.getCurrentUrl();
 						System.out.println("URL is :"+ accountnumber);
 						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
@@ -129,9 +127,9 @@ public class NewPortfolioCreationOpenaccountVisitor_TCM  {
 						
 						//Enter details for registration
 						
-						driver.findElement(By.id("j_idt39:firstName")).sendKeys(fname);
-						driver.findElement(By.id("j_idt39:lastName")).sendKeys(lname);
-						driver.findElement(By.id("j_idt39:email")).sendKeys(email);
+						driver.findElement(By.id("signupformblock:firstName")).sendKeys(fname);
+						driver.findElement(By.id("signupformblock:lastName")).sendKeys(lname);
+						driver.findElement(By.id("signupformblock:email")).sendKeys(email);
 						driver.findElement(By.xpath("//span[contains(text(),'Register')]")).click();
 						Thread.sleep(4000);
 						

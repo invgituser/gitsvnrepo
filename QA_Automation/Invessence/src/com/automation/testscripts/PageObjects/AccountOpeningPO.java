@@ -299,7 +299,7 @@ public class AccountOpeningPO {
 				}
 				else if(fundingtype.equals("ACAT"))
 				{
-					Thread.sleep(100);
+					Thread.sleep(1000);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacattitle")).sendKeys(accounttitle);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacatacctnum")).sendKeys(bankacctno);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdacataccttype")).click();
@@ -312,7 +312,7 @@ public class AccountOpeningPO {
 				}
 				else
 				{
-					Thread.sleep(100);
+					Thread.sleep(1000);
 					String accountmanaged = "Retail";
 					String retailaccountnumber = "12345";
 					String advisorid = "123";
@@ -326,15 +326,7 @@ public class AccountOpeningPO {
 				
 				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9next")).click();
 				Thread.sleep(2000);
-			}
-			else
-			{
-				//Opt out of Funding
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:actfundingoptout")).click();
-				Thread.sleep(1000);
-				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9save")).click();
-				Thread.sleep(1000);				
-			}
+			
 			//Recurring tab
 				if(recurringflag.equals("Y"))
 				{
@@ -370,7 +362,15 @@ public class AccountOpeningPO {
 				//Thread.sleep(3000);driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:tdp10save']/span")).click();
 				Thread.sleep(3000);
 					}
-				
+			}
+			else
+			{
+				//Opt out of Funding
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:actfundingoptout")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:tdp9save")).click();
+				Thread.sleep(1000);				
+			}	
 			
 				log.info("Funding Section entered");
 				System.out.println("Funding Section entered");
@@ -501,9 +501,13 @@ public class AccountOpeningPO {
 					Thread.sleep(100);
 					driver.findElement(By.xpath("//*[@id='ctoForm:tdaccordian:fundTabV:efchecksave_items']/li[contains(text(),'"+ bankaccttype +"')]")).click();
 					Thread.sleep(100);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbankname")).clear();
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbankname")).sendKeys(bankname);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efacctname")).clear();
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efacctname")).sendKeys(nameofbankacct);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:bkcitystate")).clear();
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:bkcitystate")).sendKeys(bankcity);
+					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbkphoneno")).clear();
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbkphoneno")).sendKeys(bankphone);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efaba")).sendKeys(routingno);
 					driver.findElement(By.id("ctoForm:tdaccordian:fundTabV:efbkacctno")).sendKeys(bankacctno);
