@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ReportData>
+    <ReportTitle>Invessence Automation Report</ReportTitle>
+    <ReportLocation>D://MyWorkspace//Invessence//TestReports</ReportLocation>
+    <LogoFile>D://MyWorkspace//Invessence//Testlogs//pdfngreport.log</LogoFile>
+    <Logo>show</Logo>
+    <LogoAlign>right</LogoAlign>
+    <TitleAlign>left</TitleAlign>
+    <ExceptionIcon>data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAMFBMVEUAAACRmqinrrn09fb////e4eVlcYW9wst7hpbIzNPp6+6cpLCyuMJwe43T19yGkJ+EVVSlAAAAAXRSTlMAQObYZgAAAnxJREFUeNrtl79rFEEUx2cmyWbPH2RzgoEQyCX+AwqpxUJI6ZWpZP0LkhQ2irCVCIKktzmsgld4lSSFcNqKYbFKE60UG/UuEIi5bM4L4x6zu/PevJlYzhfuZmd257Nv5u28ecOYl5eXl5cXXfUlwwOT+O0bS2x2D31CoHenRu+vNy8AuHf+d+QOmOqd/w+bzoBFWRy6AoJIljx2BPCoWFoDnuQX+46ANL/I3AC8l18NIyeAcqvhBFBWQd0FECivFbEDYEKt3HQAPFYrOw6AhoOhqi7/VGvZi21bwFkxFL39YTuE98Xqgu0cXE1kRFj4IKPBcWoJ4LJYbZ08lFeRJeD7eD39W0nrloCOXEUtxk5kw8DOC6Ivy6+j37J05FnPxgJeKLBJAACb1aY5G0CocVqWWAACXWN8UcADC8CWrrFGd2PuRMa+jN0IOVLQjWXXyUO4pQdcowLCjh4wSIiAzLhVGQAzEKBPBDRsoo+m7Qq4E/IuCbAG72NPSYAEBoSULzFU88LbKQsWFUfe75otEKU9cQKf3yrgtVrZjYPnar0NxS5FK1hKNXxntGAa68/4hhHwCc++D4yACAdwkxtnPuKAwd4z3IKB6QTSMQxh3gR4hQOCyAQoZ95Cn1+PTwx5fgA+IYD8mpXzAwZk3gLffdJqgAswN/LPpS/3zQiwXPLTr2PYghrlKLmFDGFeM+UB7kgB5df6eFDNvAW+tsvxoLpcCn0m75DO06ddyIKI1L/4UmHOQfD0owDYoAGm6Ydvgv4vIKX1ycC1UOuTAL+/QRZs0yx4BA7hKKH0D5vwJN5tmftfWkHiwelLvtPGeg/bf+I15uXl5eXl5eWF6S9mH28TuPwq2wAAAABJRU5ErkJggg==</ExceptionIcon>
+    <Table>
+        <ColumnHeaders>
+            <ColumnHeader>
+                <Name>Passed</Name>
+                <ColorCode>#5BC0DE</ColorCode>
+            </ColumnHeader>
+            <ColumnHeader>
+                <Name>Skipped</Name>
+                <ColorCode>#5BC0DE</ColorCode>
+            </ColumnHeader>
+            <ColumnHeader>
+                <Name>Failed</Name>
+                <ColorCode>#5BC0DE</ColorCode>
+            </ColumnHeader>
+            <ColumnHeader>
+                <Name>Percent</Name>
+                <ColorCode>#5BC0DE</ColorCode>
+            </ColumnHeader>
+        </ColumnHeaders>
+        <Rows>
+            <Row>
+                <RowMeta>
+                    <PASSED>4</PASSED>
+                    <FAILED>0</FAILED>
+                    <SKIPPED>0</SKIPPED>
+                    <PERCENTAGE>100.0%</PERCENTAGE>
+                    <TableName>Statistics</TableName>
+                    <SHOW_SCREEN_SHOT_LINK>hide</SHOW_SCREEN_SHOT_LINK>
+                </RowMeta>
+                <fontWeight>normal</fontWeight>
+                <fontSize>0pt</fontSize>
+                <bgcolor>white</bgcolor>
+            </Row>
+        </Rows>
+        <TableName>Statistics</TableName>
+        <TableHeaderColor>#0079B6</TableHeaderColor>
+        <ReportLocation>D://MyWorkspace//Invessence//TestReports</ReportLocation>
+        <TableHeaderIcon>data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAMFBMVEUAAADT19yyuMKnrrmGkJ9we43////09fbIzNOcpLBlcYXp6+57hpaRmqi9wsve4eUG7Xd5AAAAAXRSTlMAQObYZgAAAuNJREFUeNrtmEFoE0EUhmeTXV0bI10F7UUoeqm3gAfxolLwKPbiQRQtqKUHD9GL5mTp3eLBg+RQU0pF9BKoiniaImJFSqNeFAQX2ouCdlFjWptujQW76e57M29mQBT2QQLZZD7+N/vmvT/LWBpppJHG/xSet/co+qVFAAy0Xtv3DJgBGDv2uR/6MkNOZHKaqwJmDnle28dwjCul0Pug2Hovr6fQiuWFauJnNrI8X/KLiYvODnIKZ0760OVsnQiYchFhl2okwNQEujOjFMA2fD1bHJID7EFROSzIAcOBCNAIZICzvrgir0oA9i5JSYe+GPA6kB2K6xtLI16BsVKZab32b7y0svutQMELwrmsCBTEBUAK2ONZXMFBSmfI9qEAp0DqLRwFdAQkwGkUcIXW3eoYwPZpAIcjgCy1wWKAD1TAJxiwdYgKWIIBdfKMcGHAMzJguQIC+ujzNoAAjilgCzMELCoAfkKAmimgqgBYhQC+IcBmhoBQz4FFgLwpoKEHiDLnFew3ZZqCTj0FURN62QU6NfoeVE0VjPcYKmCmt9EY4OsBIqu7E2xI98FFXxj5CJ0Ae+rtf3MTFTpaHiykp11kwNIspKBCV9ABphDQAavwWSiQAY0apEBhMN0AKzFzngx44kMKFCqiG9zEJh2A+MRurerNaPgLBwGQb2MWAbhUQBEBNLQAbXLCuR6aRbuL7ShxMuTQv//WBRLgXoApyNEUVNGi+E7yyu4R/J7epJTCpmm8LFcoCmqCum4ScnC5qK3vkwOGhXPhh9SmWP2ig8HCnIwQ3hFPpucyBRclo+1bUbx+c0E2Gw+IAeekw1UsISkg+SzNvoyPKOsdl4/35kdcwAiX9Le1eDXJsSI8LvRI0iSgBMB51LwFCyhxsVuP4usp6GHao7K8x697jZE3yfXzKibrcPw/pHVtXmo0Yz6q1O5cM4MFpgj481B2zXo8fK9nAX8/Fva8Oc3VaaSRRhp/PX4BU5Wbe0JL7eUAAAAASUVORK5CYII=</TableHeaderIcon>
+        <OSName>w</OSName>
+    </Table>
+    <Table>
+        <ColumnHeaders>
+            <ColumnHeader>
+                <Name>Time</Name>
+                <ColorCode>#5CB85C</ColorCode>
+            </ColumnHeader>
+            <ColumnHeader>
+                <Name>Test</Name>
+                <ColorCode>#5CB85C</ColorCode>
+            </ColumnHeader>
+            <ColumnHeader>
+                <Name>Case</Name>
+                <ColorCode>#5CB85C</ColorCode>
+            </ColumnHeader>
+            <ColumnHeader>
+                <Name>TimeTaken(ms)</Name>
+                <ColorCode>#5CB85C</ColorCode>
+            </ColumnHeader>
+        </ColumnHeaders>
+        <Rows>
+            <Row>
+                <RowMeta>
+                    <STATUS>PASSED</STATUS>
+                    <BLOCKID>NewPortfolioCreationOpenAccount_newaccount</BLOCKID>
+                    <PACKAGEPATH>com.automation.testscripts.Inv
+essence
+</PACKAGEPATH>
+                    <CLASSNAME>1- NewAccountCreation</CLASSNAME>
+                    <METHOD>newaccount</METHOD>
+                    <TIME>March 09 2017 05:05:045</TIME>
+                    <TIMETAKEN>16</TIMETAKEN>
+                    <TableName>PASSED</TableName>
+                    <SHOW_SCREEN_SHOT_LINK>hide</SHOW_SCREEN_SHOT_LINK>
+                </RowMeta>
+                <fontWeight>normal</fontWeight>
+                <fontSize>0pt</fontSize>
+                <bgcolor>white</bgcolor>
+            </Row>
+            <Row>
+                <RowMeta>
+                    <STATUS>PASSED</STATUS>
+                    <BLOCKID>NewPortfolioCreationOpenAccount_newaccount</BLOCKID>
+                    <PACKAGEPATH>com.automation.testscripts.Inv
+essence
+</PACKAGEPATH>
+                    <CLASSNAME>1- NewAccountCreation</CLASSNAME>
+                    <METHOD>newaccount</METHOD>
+                    <TIME>March 09 2017 05:05:045</TIME>
+                    <TIMETAKEN>110928</TIMETAKEN>
+                    <TableName>PASSED</TableName>
+                    <SHOW_SCREEN_SHOT_LINK>hide</SHOW_SCREEN_SHOT_LINK>
+                </RowMeta>
+                <fontWeight>normal</fontWeight>
+                <fontSize>0pt</fontSize>
+                <bgcolor>white</bgcolor>
+            </Row>
+            <Row>
+                <RowMeta>
+                    <STATUS>PASSED</STATUS>
+                    <BLOCKID>NewPortfolioCreationOpenAccount_newaccount</BLOCKID>
+                    <PACKAGEPATH>com.automation.testscripts.Inv
+essence
+</PACKAGEPATH>
+                    <CLASSNAME>1- NewAccountCreation</CLASSNAME>
+                    <METHOD>newaccount</METHOD>
+                    <TIME>March 09 2017 05:07:036</TIME>
+                    <TIMETAKEN>0</TIMETAKEN>
+                    <TableName>PASSED</TableName>
+                    <SHOW_SCREEN_SHOT_LINK>hide</SHOW_SCREEN_SHOT_LINK>
+                </RowMeta>
+                <fontWeight>normal</fontWeight>
+                <fontSize>0pt</fontSize>
+                <bgcolor>white</bgcolor>
+            </Row>
+            <Row>
+                <RowMeta>
+                    <STATUS>PASSED</STATUS>
+                    <BLOCKID>NewPortfolioCreationOpenAccount_newaccount</BLOCKID>
+                    <PACKAGEPATH>com.automation.testscripts.Inv
+essence
+</PACKAGEPATH>
+                    <CLASSNAME>1- NewAccountCreation</CLASSNAME>
+                    <METHOD>newaccount</METHOD>
+                    <TIME>March 09 2017 05:07:036</TIME>
+                    <TIMETAKEN>0</TIMETAKEN>
+                    <TableName>PASSED</TableName>
+                    <SHOW_SCREEN_SHOT_LINK>hide</SHOW_SCREEN_SHOT_LINK>
+                </RowMeta>
+                <fontWeight>normal</fontWeight>
+                <fontSize>0pt</fontSize>
+                <bgcolor>white</bgcolor>
+            </Row>
+        </Rows>
+        <TableName>Passed</TableName>
+        <TableHeaderColor>#009900</TableHeaderColor>
+        <TableHeaderIcon>data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACABAMAAAAxEHz4AAAAMFBMVEUAAACnrrnT19x7hpbp6+7////e4eWyuMJwe42Rmqj09facpLDIzNO9wstlcYWGkJ/F5vRlAAAAAXRSTlMAQObYZgAAAnRJREFUeNrtmD1oFEEUx99t7rxZo2HLwBkMgWAhyEnSChKwjVeoKRSSSkE0rtpYCF4EAykCR2qLkCCIQthOwSbBMoIWkqSSq/wAlTMql8Nc1nmTUTlnJzsz2yi8P8zkeMz85s17b2aWAJBIJBKJRCJ1qstyfG4g3uo0WK43EuQedVg8O8CNAOIgA2C6zrsMAP+warMCXImwb3TY8kkDu59MKLbJELy6CHsjNQv+/UixsUXoGRNTS7XULbxQ58NNgNti/mgttZD8t6qNXQZ2YYP/KE6lBzFpV9yBTeHXGYNSjl4ppvY18F+LDYwZpDFQTT0AH4VzJ0wO0/NeZVMPgB3BCKxWldEJdVDm7fHfxrsYAVZ3rkRWkqE02cJR3taS1uG5dPZgXOeAIeAgFiErA3MFPJQOzDnGoKsliym/5uZBURbTlFUMZgd+H/zzvBXmZS5NAax36NKvQkTSqCwmY8B2BDvShWHs3gM8s0oj7vfpn9PlhbAvsK6DJdEfwIk+wEuwAtzhLRY3wwcMIT+GVTtAjN2MuGAQ0K8bpwW0lzH+fNUiAq6DNQCavP3glGPoTtkB8A2TeGj3fonBAQAneWtF3cjpcwJMi3OIi8c1J8B3zJu3im8lOAHgOIYRKSuOAK8ifyw7ArbkYdrudwTArd0/p8EV8DXQvXWmV9o9cSoq7oBB7ArgDviC8X+XAQCfeKtkAewEkAv3HJFPeRIWSp8hE6D1JmWA5cc2Af5NQMKH8aD+EWgvmXgwr19uv9EWGnpAbAQ4qwecMgLs8Y41jADNqva7KTRL47DmCikMGdZB8+LVpOnr50L6ZwWJRCKRSKT/Qj8Bmud7IabJT18AAAAASUVORK5CYII=</TableHeaderIcon>
+        <OSName>w</OSName>
+    </Table>
+    <ExceptionPage>show</ExceptionPage>
+    <BuildSystemDetails>Inversence V0.1 - 1937@MINDLAPD-31 - java 1.8.0_121(Oracle Corporation) - Windows 8.1(amd64)</BuildSystemDetails>
+    <BuildSystemDetailBy>code</BuildSystemDetailBy>
+    <BuildVersion>Inversence V0.1</BuildVersion>
+    <OSName>w</OSName>
+</ReportData>
