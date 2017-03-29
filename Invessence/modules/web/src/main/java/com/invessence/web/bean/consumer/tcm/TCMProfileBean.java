@@ -852,7 +852,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
          if (getAssetData() != null)
          {
             charts.createPieModel(getAssetData(), 0);
-            charts.createBarChart(getAssetData(), 0);
+            // charts.createBarChart(getAssetData(), 0);
          }
          else
          {
