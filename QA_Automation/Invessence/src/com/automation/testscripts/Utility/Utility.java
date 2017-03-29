@@ -17,6 +17,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
@@ -47,6 +49,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.safari.SafariOptions;
 
@@ -140,8 +143,35 @@ public class Utility {
 				//driver = new ChromeDriver();
 				ChromeOptions chromeOption = new ChromeOptions();
 				chromeOption.addArguments("--disable-popup-blocking");
-			//
-			//	driver = new ChromeDriver();
+				
+				//Mobile version with device name
+				/*Map<String, String> mobileEmulation = new HashMap<String, String>();
+				mobileEmulation.put("deviceName", "Google Nexus 5");
+				Map<String, Object> chromeOptions = new HashMap<String, Object>();
+				chromeOptions.put("mobileEmulation", mobileEmulation);
+				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+				capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+				//WebDriver driver = new ChromeDriver(capabilities);
+				return  new ChromeDriver(capabilities);*/
+				
+				// Mobile version with resolution 
+				/*
+				Map<String, Object> deviceMetrics = new HashMap<String, Object>();
+				deviceMetrics.put("width", "360");
+				deviceMetrics.put("height", "640");
+				deviceMetrics.put("pixelRatio", "3");
+				
+				Map<String, Object> mobileEmulation = new HashMap<String, Object>();
+				mobileEmulation.put("deviceMetrics", deviceMetrics);
+				mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19");
+
+				Map<String, Object> chromeOptions = new HashMap<String, Object>();
+				chromeOptions.put("mobileEmulation", mobileEmulation);
+				DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+				capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+				return  new ChromeDriver(chromeOption);*/
+				
+				
 				return  new ChromeDriver(chromeOption);
 				//return driver;
 
