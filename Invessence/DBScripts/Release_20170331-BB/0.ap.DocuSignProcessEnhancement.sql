@@ -1,5 +1,5 @@
 
-ALTER TABLE `invdb`.`dc_request_audit` 
+ALTER TABLE `invdb`.`dc_request_audit`
 ADD COLUMN `product` VARCHAR(50) NULL AFTER `id`,
 ADD COLUMN `mode` VARCHAR(20) NULL AFTER `product`;
 
@@ -15,31 +15,31 @@ in p_product varchar(50),
 in p_mode varchar(20),
 in p_requestIds varchar(100),
 in p_acctNum varchar(12),
-in p_eventNum varchar(12),  
-in p_envelopId varchar(100),         
-in p_status varchar(1),       
-in p_dcRequest varchar(5000),             
-in p_dcResponce  varchar(1000),            
-in p_reqTime  datetime,           
-in p_resTime   datetime,          
+in p_eventNum varchar(12),
+in p_envelopId varchar(100),
+in p_status varchar(1),
+in p_dcRequest varchar(5000),
+in p_dcResponce  varchar(1000),
+in p_reqTime  datetime,
+in p_resTime   datetime,
 in p_remarks varchar(1000),
-in p_opt varchar(20), 
+in p_opt varchar(20),
 out op_msgCode int(3),out op_msg varchar(20))
 BEGIN
 
 if(p_opt='INSERT') then
-	Insert into dc_request_audit(product, mode, requestIds,acctnum,eventNum, dcRequest, dcResponce, status, remarks, reqTime, resTime) 
+	Insert into dc_request_audit(product, mode, requestIds,acctnum,eventNum, dcRequest, dcResponce, status, remarks, reqTime, resTime)
     value(p_product, p_mode, p_requestIds,p_acctNum, p_eventNum, p_dcRequest, p_dcResponce, p_status, p_remarks, p_reqTime, p_resTime);
-    
+
     if(p_status='S') then
 		update dc_requests set status='S' , envelopeId =p_envelopId where acctnum=p_acctNum and eventNum=p_eventNum and status='I';
     elseif(p_status='E') then
-		update dc_requests set status='E' where acctnum=p_acctNum and eventNum=p_eventNum and status='I';    
-    else 
+		update dc_requests set status='E' where acctnum=p_acctNum and eventNum=p_eventNum and status='I';
+    else
 		update dc_requests set status='X' where acctnum=p_acctNum and eventNum=p_eventNum and status='I';
-    
+
     end if;
-    
+
 	SELECT p_opt, 1 INTO op_msg , op_msgCode;
 
 end if;
@@ -52,9 +52,9 @@ DELIMITER ;
 
 DROP VIEW `vwdc_requests`;
 
-CREATE 
+CREATE
 VIEW `vwdc_requests` AS
-      SELECT 
+      SELECT
         `dc_requests_final`.`reqId` AS `reqId`,
         `dc_requests_final`.`acctnum` AS `acctnum`,
         `dc_requests_final`.`eventNum` AS `eventNum`,
@@ -65,7 +65,7 @@ VIEW `vwdc_requests` AS
         `dc_requests_final`.`refReqId` AS `refReqId`,
         `dc_requests_final`.`seqno` AS `seqNo`,
         `dc_requests_final`.`formType` AS `formType`
-        
+
     FROM
         `dc_requests_final`
     ORDER BY acctnum, eventNum,seqNo;
@@ -82,35 +82,35 @@ in p_product varchar(50),
 in p_mode varchar(20),
 in p_requestIds varchar(100),
 in p_acctNum varchar(12),
-in p_eventNum varchar(12),  
-in p_envelopId varchar(100),         
-in p_status varchar(1),       
-in p_dcRequest varchar(5000),             
-in p_dcResponce  varchar(1000),            
-in p_reqTime  datetime,           
-in p_resTime   datetime,          
+in p_eventNum varchar(12),
+in p_envelopId varchar(100),
+in p_status varchar(1),
+in p_dcRequest varchar(5000),
+in p_dcResponce  varchar(1000),
+in p_reqTime  datetime,
+in p_resTime   datetime,
 in p_remarks varchar(1000),
-in p_opt varchar(20), 
+in p_opt varchar(20),
 out op_msgCode int(3),out op_msg varchar(20))
 BEGIN
 
 if(p_opt='INSERT') then
-	Insert into dc_request_audit(product, mode, requestIds,acctnum,eventNum, dcRequest, dcResponce, status, remarks, reqTime, resTime) 
+	Insert into dc_request_audit(product, mode, requestIds,acctnum,eventNum, dcRequest, dcResponce, status, remarks, reqTime, resTime)
     value(p_product, p_mode, p_requestIds,p_acctNum, p_eventNum, p_dcRequest, p_dcResponce, p_status, p_remarks, p_reqTime, p_resTime);
-    
+
     if(p_status='S') then
 		update dc_requests_final set status='S' , envelopeId =p_envelopId where acctnum=p_acctNum and eventNum=p_eventNum and status='I';
         update dc_requests set status='S' , envelopeId =p_envelopId where reqId in(select distinct(refReqId) from dc_requests_final where acctnum=p_acctNum and eventNum=p_eventNum);
     elseif(p_status='E') then
-		update dc_requests_final set status='E' where acctnum=p_acctNum and eventNum=p_eventNum and status='I';   
+		update dc_requests_final set status='E' where acctnum=p_acctNum and eventNum=p_eventNum and status='I';
         update dc_requests set status='E' where reqId in(select distinct(refReqId) from dc_requests_final where acctnum=p_acctNum and eventNum=p_eventNum);
-    else 
+    else
 		update dc_requests_final set status='X' where acctnum=p_acctNum and eventNum=p_eventNum and status='I';
         update dc_requests set status='X' where reqId in(select distinct(refReqId) from dc_requests_final where acctnum=p_acctNum and eventNum=p_eventNum);
-    
+
     end if;
-/*UPDATE invdb.dc_requests 
-SET 
+/*UPDATE invdb.dc_requests
+SET
     status = 'I'
 WHERE
     acctnum = 2334 AND status = 'S';*/
@@ -521,4 +521,22 @@ INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operat
 INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_ADV_AGREE', 'DOCUSIGN', 'A', '0', 'TAE_ADV_AGREE');
 INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_PRIVACY_NOTICE', 'DOCUSIGN', 'A', '0', 'TAE_PRIVACY_NOTICE');
 
+
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'TAI_ACAT_OTHER');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'TAE_ACAT_OTHER');
+
+
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER_NEW', 'c62d9775-24f8-46c4-91fe-834ce0dda1f6', 'TCM External Manual Account Transfer', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER_NEW', '542ad322-7aa0-4c45-9f97-6187b198b874', 'TCM Internal Manual Account Transfer', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER_NEW', 'c62d9775-24f8-46c4-91fe-834ce0dda1f6', 'TCM External Manual Account Transfer', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER_NEW', '542ad322-7aa0-4c45-9f97-6187b198b874', 'TCM Internal Manual Account Transfer', 'Y', 'A');
+
+
+insert into service.dc_template_mapping
+select 'TAE_ACAT_OTHER', tab, lable, dbColumn, role, isDisabled from service.dc_template_mapping
+where tempCode='BB_ACAT_OTHER';
+
+insert into service.dc_template_mapping
+select 'TAI_ACAT_OTHER', tab, lable, dbColumn, role, isDisabled from service.dc_template_mapping
+where tempCode='BB_ACAT_OTHER';
 

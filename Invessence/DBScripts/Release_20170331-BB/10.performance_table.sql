@@ -4,6 +4,7 @@ select * from invdb.sec_fixed_performancechart;
 ALTER TABLE `invdb`.`sec_fixed_performancechart` 
 CHANGE COLUMN `model` `level` VARCHAR(20) NOT NULL ;
 
+set sql_safe_updates=0;
 delete from `invdb`.`sec_fixed_performancechart`
 where theme not like '%BB';
 update `invdb`.`sec_fixed_performancechart`
