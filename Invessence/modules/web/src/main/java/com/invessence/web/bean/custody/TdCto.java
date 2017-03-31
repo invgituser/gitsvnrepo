@@ -531,33 +531,17 @@ public class TdCto extends BaseTD
          System.out.println("Mode " + mode);
          System.out.println("Advisor " + getTdMasterData().getCustomerData().getProfileInstance().getAdvisor());
          System.out.println("Rep " + getTdMasterData().getCustomerData().getProfileInstance().getRep());
-         System.out.println("Account No "+ getTdMasterData().getAcctnum());
+         System.out.println("Account No " + getTdMasterData().getAcctnum());
          String eventRef = processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_ACCT_OPEN);
 
          System.out.println("Docusign Event Return " + eventRef);
          if (eventRef != null)
          {
             String eventNo[] = eventRef.split(",");
-            int eventnum = Integer.parseInt(eventNo[0]);
-            System.out.println("Docusign First event No " + eventnum);
-            wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product, mode), getTdMasterData().getAcctnum(), eventnum);
-            System.out.println("Docusign wsCallResult " + wsCallResult);
-            if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+            for (int i = 0; i < eventNo.length; i++)
             {
-               msg = wsCallResult.getWSCallStatus().getErrorMessage();
-               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
-            }
-            else
-            {
-//               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
-//               System.out.println("dcResponse = " + dcResponse);
-               sendAlertMessage("P");
-               getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
-            }
-            eventnum = Integer.parseInt(eventNo[1]);
-            System.out.println("Docusign Second event No " + eventnum);
-            if (eventnum != 0)
-            {
+               int eventnum = Integer.parseInt(eventNo[i]);
+               System.out.println("Docusign event No " + eventnum);
                wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product, mode), getTdMasterData().getAcctnum(), eventnum);
                System.out.println("Docusign wsCallResult " + wsCallResult);
                if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
@@ -567,8 +551,6 @@ public class TdCto extends BaseTD
                }
                else
                {
-//               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
-//               System.out.println("dcResponse = " + dcResponse);
                   sendAlertMessage("P");
                   getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
                }

@@ -101,40 +101,24 @@ public class TDChangeAddr extends BaseTD
 
 
             WSCallResult wsCallResult;
-            String product=getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
-            String mode=getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
+            String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
+            String mode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
             System.out.println("#################################################### Change Address DC Request Start ##########################################");
-            System.out.println("Product "+product);
-            System.out.println("Mode "+mode);
-            System.out.println("Advisor "+getTdMasterData().getCustomerData().getProfileInstance().getAdvisor());
-            System.out.println("Rep "+ getTdMasterData().getCustomerData().getProfileInstance().getRep());
-            System.out.println("Account No "+ getTdMasterData().getAcctnum());
-            String eventRef = processDCRequest( getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_CHNG_ADDR);
+            System.out.println("Product " + product);
+            System.out.println("Mode " + mode);
+            System.out.println("Advisor " + getTdMasterData().getCustomerData().getProfileInstance().getAdvisor());
+            System.out.println("Rep " + getTdMasterData().getCustomerData().getProfileInstance().getRep());
+            System.out.println("Account No " + getTdMasterData().getAcctnum());
+            String eventRef = processDCRequest(getTdMasterData().getCustomerData().getProfileInstance().getAdvisor(), getTdMasterData().getCustomerData().getProfileInstance().getRep(), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum(), DCConstants.ACTION_CHNG_ADDR);
 
             System.out.println("Docusign Event Return " + eventRef);
             if (eventRef != null)
             {
                String eventNo[] = eventRef.split(",");
-               int eventnum = Integer.parseInt(eventNo[0]);
-               System.out.println("Docusign First event No " + eventnum);
-               wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product, mode), getTdMasterData().getAcctnum(), eventnum);
-               System.out.println("Docusign wsCallResult " + wsCallResult);
-               if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
+               for (int i = 0; i < eventNo.length; i++)
                {
-                  msg = wsCallResult.getWSCallStatus().getErrorMessage();
-                  getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
-               }
-               else
-               {
-//               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
-//               System.out.println("dcResponse = " + dcResponse);
-                  sendAlertMessage("P");
-                  getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
-               }
-               eventnum = Integer.parseInt(eventNo[1]);
-               System.out.println("Docusign Second event No " + eventnum);
-               if (eventnum != 0)
-               {
+                  int eventnum = Integer.parseInt(eventNo[i]);
+                  System.out.println("Docusign event No " + eventnum);
                   wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest(product, mode), getTdMasterData().getAcctnum(), eventnum);
                   System.out.println("Docusign wsCallResult " + wsCallResult);
                   if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
@@ -144,8 +128,6 @@ public class TDChangeAddr extends BaseTD
                   }
                   else
                   {
-//               DCResponse dcResponse = (DCResponse) wsCallResult.getGenericObject();
-//               System.out.println("dcResponse = " + dcResponse);
                      sendAlertMessage("P");
                      getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
                   }
@@ -155,28 +137,6 @@ public class TDChangeAddr extends BaseTD
             {
                getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", "Error occurred while document request generation");
             }
-//
-            //wsCallResult = getServiceLayer().processDCRequest(getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-//            wsCallResult = getDcWebLayer().processDCRequest(new ServiceRequest("BUILDINGBENJAMINS", "UAT"), getTdMasterData().getAcctnum(), getTdMasterData().getRequest().getEventNum());
-//            if (wsCallResult.getWSCallStatus().getErrorCode() != 0)
-//            {
-//               msg = wsCallResult.getWSCallStatus().getErrorMessage();
-//               getWebutil().redirecttoMessagePage("ERROR", "Failed to Save", msg);
-//            }
-//            else
-//            {
-//               // sendAlertMessage("A");
-////              getTdMasterData().getAcctnum();
-////              getTdMasterData().getCustomerData().getAdvisor();
-////              getTdMasterData().getCustomerData().getRep();
-////
-//               System.out.println("Inside nextPageEdit >> Account No " + getTdMasterData().getAcctnum());
-//               System.out.println("Inside nextPageEdit >> Advisor" + getWebutil().getUserInfoData().getAdvisor());
-//               System.out.println("Inside nextPageEdit >> Rep " + getWebutil().getUserInfoData().getRep());
-//               getCustodySaveDAO().tdMngAdvisorNotification(getTdMasterData().getAcctnum(), getWebutil().getUserInfoData().getAdvisor(), getWebutil().getUserInfoData().getRep(), "CHNGADDRS");
-//
-//               getUiLayout().doMenuAction("custody", "tdconfirmation.xhtml");
-//            }
             System.out.println("#################################################### Change Address DC Request End ##########################################");
          }
 

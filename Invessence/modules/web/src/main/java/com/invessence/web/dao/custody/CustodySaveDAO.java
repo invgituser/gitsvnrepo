@@ -738,7 +738,7 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
 
    public String  processDCRequest(String advisorName, String repId, Long acctnum, int eventno,String action)
    {
-      int eventNo = 0,othereventNo=0;
+      String eventNo =null;
       String strreturn=null;
       DataSource ds = getDataSource();
       CustodySaveSP sp = new CustodySaveSP(ds, "sp_generate_dc_request", 98);
@@ -751,21 +751,19 @@ public class CustodySaveDAO extends JdbcDaoSupport implements Serializable
             Integer whichAcct;
             ArrayList<Map<String, Object>> rows = (ArrayList<Map<String, Object>>) outMap.get("#result-set-1");
             if (rows == null)
-               eventNo=0;
+               eventNo =null;
             int i = 0;
             for (Map<String, Object> map : rows)
             {
                Map rs = (Map) rows.get(i);
-               eventNo=convert.getIntData(rs.get("EventNo"));
-               othereventNo=convert.getIntData(rs.get("OtherEventNo"));
-               strreturn=eventNo+","+othereventNo;
+               eventNo=convert.getStrData(rs.get("EventNo"));
             }
          }
       }catch (Exception e){
 
          System.out.println("processDCRequest Exception "+ e);
       }
-      return strreturn;
+      return eventNo;
    }
 
 

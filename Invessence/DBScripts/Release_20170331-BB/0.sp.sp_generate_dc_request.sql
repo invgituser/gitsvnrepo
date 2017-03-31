@@ -1,5 +1,5 @@
 drop procedure if exists invdb.sp_generate_dc_request;
-DELIMITER $$
+delimiter $$
 CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
                                         IN p_repid       VARCHAR(45),
                                         IN p_acctnum     INT(11),
@@ -8,11 +8,11 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
 begin
   DECLARE padvisorid INT(11);
 
-  DECLARE eventno, p_reqid, curcnt, p_reqid2, vacat2eventid INT(11);
+  DECLARE eventno, p_reqid, curcnt, p_reqid2, vacat2eventid,adveventno INT(11);
 
   DECLARE done INT DEFAULT false;
 
-  DECLARE p_action2, p_subaction VARCHAR(45);
+  DECLARE p_action2, p_subaction,p_retutn VARCHAR(45);
 
   DECLARE cur1 CURSOR FOR
     SELECT reqid,
@@ -29,7 +29,6 @@ begin
     SET done = TRUE;
 
   SET curcnt=0;
-
   SET vacat2eventid=0;
 
   SET eventno=p_eventno;
@@ -50,7 +49,21 @@ begin
   FROM   invdb.dc_requests_final
   WHERE  acctnum = p_acctnum;
 
+ SELECT ifnull(count(formtype),0) into adveventno
+    FROM   invdb.adv_request_document_mappings
+    WHERE  advisorid = padvisorid
+           AND action = p_action
+           AND subaction = 'DEFAULT'
+           AND formtype = 'ADV';
+
+if(adveventno<>0) then
+set adveventno=eventno+1;
+  SET eventno=adveventno+1;
+  else
   SET eventno=eventno+1;
+  SET adveventno=0;
+  end if;
+
   open cur1;
   READ_LOOP:
 LOOP
@@ -109,7 +122,7 @@ LOOP
     SELECT p_reqid2,
            p_acctnum,
            advisorid,
-           eventno,
+           adveventno,
            reqtype,
            seqno,
            envelopeheading,
@@ -130,8 +143,7 @@ LOOP
              AND eventnum = eventno
              AND reqtype = 'ACAT_OTHER_NEW';
     end IF;
-
-    SELECT eventno       AS 'EventNo',
-           vacat2eventid AS 'OtherEventNo';
+		set p_retutn=concat(adveventno,',',eventno,',',vacat2eventid);
+    SELECT p_retutn AS 'EventNo';
   end IF;
 end;
