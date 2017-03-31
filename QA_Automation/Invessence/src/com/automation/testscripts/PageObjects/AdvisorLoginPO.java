@@ -32,7 +32,7 @@ String strategy,String goal,String investedamount,String vlogo) throws Interrupt
 		List<WebElement> rows = driver.findElements(By.xpath("//*[@id='form:managedTable_data']/tr"));
 		int rowcount = rows.size();
 		
-		rowcount = 1;
+		//rowcount = 1;
 		if(rowcount > 0)
 		{
 			for(int i = 0; i<= rowcount; i++)
@@ -58,67 +58,85 @@ String strategy,String goal,String investedamount,String vlogo) throws Interrupt
 				vinvestamt= driver.findElement(By.id(investamtcol)).getText();
 				vdateopened= driver.findElement(By.id(dateopenedcol)).getText();
 				Thread.sleep(2000);
-				
-				driver.findElement(By.id(viewbtn)).click();
-				Thread.sleep(2000);
-				//Verify the window that opens after hitting view button 
-				
-				String acctidtext = driver.findElement(By.id("ovrvwclientid")).getText();
-				String acctid =StringUtils.substringAfterLast(acctidtext, ": ");
-						
-				if(vacctid.equals(acctid))
-				
+				//Verify if the first row has your data.
+				if(vacctid.equals(acctnum))
+					
 					// Verify if the account details are displayed
-					{
-						System.out.println("Pass - Account id  matching");
-						log.info("Pass - Account id  matching");
-					}
-					else
-					{
-						System.out.println("Fail - Account id is not matching");
-						log.info("Fail - Account id is not matching");
+				{
+						System.out.println("Pass - Account number details are displayed.");
+						log.info("Pass - Account number details are displayed.");
+								
+						driver.findElement(By.id(viewbtn)).click();
+						Thread.sleep(2000);
+						//Verify the window that opens after hitting view button 
+						
+						String acctidtext = driver.findElement(By.id("ovrvwclientid")).getText();
+						String acctid =StringUtils.substringAfterLast(acctidtext, ": ");
+								
+						if(vacctid.equals(acctid))
+						
+							// Verify if the account details are displayed
+							{
+								System.out.println("Pass - Account id  matching");
+								log.info("Pass - Account id  matching");
+								String name = driver.findElement(By.id("ovrvwfullname")).getText();
+								if(name.equals(vfullname))
+								{
+									System.out.println("Pass - Full name is matching");
+									log.info("Pass- Full name is matching");
+									String displayedstrtegytext = driver.findElement(By.id("ovrvwacctalias")).getText();
+									String displayedstrtegy =StringUtils.substringAfterLast(displayedstrtegytext, ": ");
+									if(displayedstrtegy.equals(vstrategy))
+									{
+										System.out.println("Pass - Strategy is matching");
+										log.info("Pass - Strategy is matching");
+										active=true;
+									}
+									else
+									{
+										System.out.println("Fail - Strategy is not matching");
+										log.info("Fail - Strategy is not matching");
+										active=false;
+									}
+								}
+								else
+								{
+									System.out.println("Fail - Full name is not matching");
+									log.info("Fail - Full name is not matching");
+									active=false;
+								}
+								
+							}
+							else
+							{
+								System.out.println("Fail - Account id is not matching");
+								log.info("Fail - Account id is not matching");
+								active=false;
+							}	
+							driver.findElement(By.xpath("//span[contains(text(), 'Dashboard')]")).click();
+							Thread.sleep(3000);
+							driver.findElement(By.xpath("//*[contains(text(),'Active')]")).click();
+							Thread.sleep(2000);
 
-					}	
-					String name = driver.findElement(By.id("ovrvwfullname")).getText();
-					
-					
-					if(name.equals(vfullname))
-					{
-						System.out.println("Pass - Full name is matching");
-						log.info("Pass- Full name is matching");
-					}
-					else
-					{
-						System.out.println("Fail - Full name is not matching");
-						log.info("Fail - Full name is not matching");
-
-					}
-					String displayedstrtegytext = driver.findElement(By.id("ovrvwacctalias")).getText();
-					String displayedstrtegy =StringUtils.substringAfterLast(displayedstrtegytext, ": ");
-					if(displayedstrtegy.equals(vstrategy))
-					{
-						System.out.println("Pass - Strategy is matching");
-						log.info("Pass - Strategy is matching");
-					}
-					else
-					{
-						System.out.println("Fail - Strategy is not matching");
-						log.info("Fail - Strategy is not matching");
-
-					}
-					
-					driver.findElement(By.xpath("//span[contains(text(), 'Dashboard')]")).click();
-					
-					Thread.sleep(3000);
-					driver.findElement(By.xpath("//*[contains(text(),'Active')]")).click();
-					Thread.sleep(2000);
-
+				}
+			
+				else
+				{
+					System.out.println("Fail - This is not the row with my account number check next row");
+					log.info("Fail - This is not the row with my account number check next row");
+					active=false;
 				}
 			}
 	
-		log.info("Active screen is verified");
-		System.out.println("Active screen is verified");
-		active=true;
+						
+		}
+		else
+			{	
+				log.info("Fail - No Rows are displayed");
+				System.out.println("Fail - No Rows are displayed");
+				active=false;
+			
+			}
 		}
 		catch(Exception e)
 		{

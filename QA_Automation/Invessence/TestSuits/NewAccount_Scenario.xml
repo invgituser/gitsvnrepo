@@ -9,34 +9,34 @@
 		<listener class-name="com.uttesh.pdfngreport.PDFReportListener" />
 	</listeners>
 
-   <test name="1- NewAccountCreation_BB">
+ <!-- <test name="1- NewAccountCreation_BB">
     <classes>
       <class name="com.automation.testscripts.Invessence.BB.NewPortfolioCreationOpenAccount_BB" />
     </classes>
-  </test>
-   <test name="2- NewAccountCreationVisitor_BB">
+ </test>
+    <test name="2- NewAccountCreationVisitor_BB">
     <classes>
       <class name="com.automation.testscripts.Invessence.BB.NewPortfolioCreationOpenaccountVisitor_BB" />
     </classes>
-  </test> 
+  </test>  
  <test name="3- Change Strategy_BB">
     <classes>
       <class name="com.automation.testscripts.Invessence.BB.ChangeStrategy_BB" />
     </classes>
-  </test>
-   <test name="4- NewAccountCreation_TCM">
+  </test> -->
+    <test name="4- NewAccountCreation_TCM">
     <classes>
       <class name="com.automation.testscripts.Invessence.TCM.NewPortfolioCreationOpenAccount_TCM" />
     </classes>
   </test>
-   <test name="5- NewAccountCreationVisitor_TCM">
+ <!--<test name="5- NewAccountCreationVisitor_TCM">
     <classes>
       <class name="com.automation.testscripts.Invessence.TCM.NewPortfolioCreationOpenaccountVisitor_TCM" />
     </classes>
-  </test> 
- <test name="6- Change Strategy_TCM">
+  </test>  
+  <test name="6- Change Strategy_TCM">
     <classes>
       <class name="com.automation.testscripts.Invessence.TCM.ChangeStrategy_TCM" />
     </classes>
-  </test> 
+  </test> -->
   </suite>

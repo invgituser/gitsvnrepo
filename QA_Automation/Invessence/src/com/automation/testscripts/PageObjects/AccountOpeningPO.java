@@ -602,4 +602,93 @@ public class AccountOpeningPO {
 		return fund;
 	}
 	
+	
+
+	public static boolean AccountopeningScenario_Prod(WebDriver driver,String dburl,String dbusername,String dbpassword,String accounttype,String fname,String lname,String dob,String ssn,String phoneno,
+			String email,String streetname,String city,String state,String zip,String regulatoryoption,
+			String empstatus,String incomesrc,String employername,String occupation,String bfname ,String blname,
+			String bdob,String bssn,String relationship,String sharepercent,String fundingtype,
+			String investmentamt,String bankaccttype,String bankname,String nameofbankacct,String bankcity,
+			String bankphone,String routingno,String bankacctno,String accounttitle,String accounttype1 ,String deliveringfirm,String frequency,
+			String trnamt,String trndate,String accountnumber,String clientaccountnumber,String recurringflag,String fundingflag,String vlogo) throws InterruptedException
+	{
+		boolean accountopen = false;
+		try{
+		
+			// Verify Logo
+			
+			WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
+			String verifylogo = logo.getAttribute("src");
+			if(verifylogo.contains(vlogo))
+					{
+				System.out.println("Pass- Logo Displayed is correct");
+				log.info("Pass- Logo Displayed is correct");
+					}
+			else
+			{
+				System.out.println("Fail - Logo Displayed iss Wrong");
+				log.info("Fail - Logo Displayed iss Wrong");
+			}
+			
+			
+			
+			
+			
+		//Select Account Type
+		
+		boolean accttype = AccountOpeningPO.accounttype(driver, accounttype);
+		
+		//Enter account holder details
+		boolean acctholder =AccountOpeningPO.accountholder(driver, accounttype, fname, lname, dob, ssn, phoneno, email, streetname, city, state, zip, bfname, blname, bdob, bssn);
+		
+		//Enter address
+		
+		boolean acctaddress= AccountOpeningPO.accountaddress(driver, streetname, city, state, zip,accounttype);
+		
+		//Regulatory
+		boolean acctaddressegulatory = AccountOpeningPO.regulatory(driver, regulatoryoption);
+		
+		//Employment
+		
+		boolean acctemp = AccountOpeningPO.employment(driver, empstatus, incomesrc, employername, occupation,accounttype);
+		
+		// Benificiary
+		
+		boolean accbenificiary = AccountOpeningPO.benificiary(driver, accounttype, employername, occupation, bfname, blname, bdob, bssn,
+				relationship, sharepercent);
+		
+		//Funding
+		
+		boolean accfunding = AccountOpeningPO.funding(driver, accounttype, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct,
+				bankcity, bankphone, routingno, bankacctno, frequency, trnamt, trndate,recurringflag,fundingflag,accounttitle,accounttype1 ,
+				deliveringfirm);
+				
+		//Result verification for Reporting
+		System.out.println("#############################################");
+		log.info("#######################################################");
+		if(accttype && acctholder && acctaddress && acctaddressegulatory && acctemp && accbenificiary && accfunding)
+		{
+			log.info("PASS - Account Opening sections Entered Sucessfully");
+			System.out.println("PASS - Account Opening sections Entered Sucessfully");
+			accountopen = true;
+			
+		}
+		else
+		{
+			log.info("Fail- Account Opening Failed.");
+			System.out.println("Fail- Account Opening Failed.");
+			accountopen = false;
+		}
+			
+			
+	}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			accountopen = false;
+		}
+			return accountopen;
+		}
+	
+	
 }
