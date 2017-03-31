@@ -1,0 +1,147 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+	template="/template/common/template.xhtml">
+
+    <f:metadata>
+        <f:viewParam name="action" value="#{manageAdvisorBean.filteredClient}"/>
+        <f:event type="preRenderView" listener="#{manageAdvisorBean.preRenderView}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+
+        <!-- BOX START -->
+        <div class="layout-portlets-box" style="background: white;">
+            <div class="Container100 Responsive100">
+                <div class="ContainerIndent">
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" style="background-color: #ffffff;">
+                        <h:form>
+                            <p:commandButton id="advactcfmyes" value="Yes" type="button"
+                                             styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton id="advactcfmno" value="No" type="button"
+                                             styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </h:form>
+                    </p:confirmDialog>
+
+                    <h:form>
+                        <div class="Container100">
+                        <div class="Fleft Wid80">
+								<div class="Container100 Responsive100">
+									<div class="staticBlockMain Container20">
+										<div class="staticBlock">
+										<div class="Fs12 countValue">Aum</div>
+											<div class="Fs25 countlabel">
+												<h:outputText id="advactaumcnt" value="#{manageAdvisorBean.salesInfo.get('AUM')}">
+                              <f:convertNumber pattern="$#,###,##0"/>
+                          </h:outputText>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+                        
+                        
+                          <!--  <div class="Fright aum_label">
+                          <label>AUM:  </label>
+                           </div> -->
+                        </div>
+                        <div class="Container100">
+                        <p:dataTable id="managedTable" var="managedVar" styleClass="AdvisorGridtcmLayout" widgetVar="managedTable"
+                                     paginator="true" rows="10"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     value="#{manageAdvisorBean.filteredDataList}" reflow="true">
+
+<!--
+                           <f:facet name="header" style="text-align:right">
+                               <p:outputPanel style="text-align:right">
+                                   <h:outputText value="Search:" />
+                                   <p:inputText id="globalFilter" onkeyup="PF('managedTable').filter()"
+                                                style="width:150px; margin-left: 5px" placeholder="Enter keyword"/>
+                                   <p:commandButton value="Clear" onclick="PF('managedTable').clearFilters();"/>
+                               </p:outputPanel>
+                           </f:facet>
+-->
+
+                            <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom AdvtcmLayoutColumn" 
+                            priority="1"
+                            resizable="true">
+                          <p:commandButton id="ovButton" rendered="true"
+                                                 styleClass="AdvtcmGridBtnR GreenButton DualBtnModeRight "
+                                                 process="@this" immediate="true"
+                                                 value="View"
+                                                 action="#{manageAdvisorBean.doManagedAction}">
+                                   <!--  <p:tooltip for="ovButton" value="Show" /> -->
+                                    <f:setPropertyActionListener value="#{managedVar}"
+                                                                 target="#{manageAdvisorBean.selectedAccount}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <!-- <p:column styleClass="ListOfAccntsColWidthBtn ZeroPaddingBottom" resizable="true">
+                                
+                            </p:column> -->
+                            <p:column sortBy="#{managedVar.portfolioName}"
+                                      headerText="Strategy"
+                                      priority="1"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText id="advactportname" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.portfolioName}"/>
+                            </p:column>
+                           <p:column sortBy="#{managedVar.fullname}"
+                                      headerText="Name"
+                                      priority="1"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText id="advactfullname" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.fullname}"/>
+                            </p:column> 
+                            <p:column sortBy="#{managedVar.displayAcct}"
+                                      headerText="Account. No."
+                                      priority="5"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText id="advactacctid" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.clientAccountID}"/>
+                            </p:column>
+
+                            <p:column sortBy="#{managedVar.accttype}"
+                                      headerText="Account Type"
+                                      priority="6"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText id="advactaccttype" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.accttype}"/>
+                            </p:column> 
+
+                            <p:column sortBy="#{managedVar.goal}"
+                                      headerText="Goal"
+                                      priority="1"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText id="advactgoal" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.goal}"/>
+                            </p:column>
+                            <p:column sortBy="#{managedVar.invested}" sortOrder="descending"
+                                      headerText="Invested Amount"
+                                      priority="1"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn num-text-align invest"
+                                      resizable="true">
+                                <h:outputText id="advactinvest" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.invested}">
+                                    <f:convertNumber currencySymbol="$" type="currency"/>
+                                </h:outputText>
+                            </p:column>
+                            <p:column sortBy="#{managedVar.dateOpened}"
+                                      headerText="Date Opened"
+                                      priority="5"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText id="advactdateopn" styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.dateOpened}">
+                                </h:outputText>
+                            </p:column>
+                        </p:dataTable>
+                        </div>
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+</ui:define>
+</ui:composition>

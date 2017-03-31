@@ -1,0 +1,206 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/common/template.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="action" value="#{manageAdvisorBean.filteredClient}" />
+		<f:event type="preRenderView"
+			listener="#{manageAdvisorBean.preRenderView}" />
+	</f:metadata>
+	<ui:define name="content">
+		<script type="text/javascript">
+            $(document).on('click','.multipleSelectionChkList',function(){
+                    if($('.ui-chkbox-box').find('.ui-icon-check').length==0 )
+                    {
+                        $('.ui-datatable-header').fadeOut();
+                    }
+                    else if ($('.ui-chkbox-box').find('.ui-icon-check').length>0 ){
+                        $('.ui-datatable-header').fadeIn();
+
+                    }
+                });
+        </script>
+		<!-- BOX START -->
+		<div class="layout-portlets-box" style="background: white;">
+			<div class="Container100 Responsive100">
+				<div class="ContainerIndent">
+					<p:confirmDialog global="true" showEffect="fade"
+						hideEffect="explode" style="background-color: #ffffff;">
+						<h:form>
+							<p:commandButton id="advpendcfmyes" value="Yes" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton id="advpendcfmno" value="No" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</h:form>
+					</p:confirmDialog>
+
+					<h:form id="form">
+
+						<div class="Container100">
+							<div class="Fleft Wid80">
+								<div class="Container100 Responsive100">
+									<div class="staticBlockMain Container20">
+										<div class="staticBlock">
+										<div class="Fs12 countValue">Visitor</div>
+											<div class="Fs25 countlabel">
+												<h:outputText id="advactivecnt"
+													value="#{adashbean.salesInfo.get('Active')}">
+													<f:convertNumber pattern="#,###,##0" />
+												</h:outputText>
+											</div>
+											
+										</div>
+									</div>
+
+									<div class="staticBlockMain Container20">
+										<div class="staticBlock">
+											<div class="Fs12 countValue">Processing</div>
+											<div class="Fs25 countlabel">
+												<h:outputText id="advpendingcnt"
+													value="#{adashbean.salesInfo.get('Pending')}">
+													<f:convertNumber pattern="#,###,##0" />
+												</h:outputText>
+											</div>
+										</div>
+									</div>
+
+									<div class="staticBlockMain Container20">
+										<div class="staticBlock">
+											<div class="Fs12 countValue">New</div>
+											<div class="Fs25 countlabel">
+												<h:outputText id="advaumcnt"
+													value="#{adashbean.salesInfo.get('AUM')}">
+													<f:convertNumber pattern="$#,###,##0" />
+												</h:outputText>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+
+							<div class="Fright filterMBBlock BottomPos">
+								<label class="filterAdvLabel">Filter</label>
+								<p:menuButton id="advpendfilter"
+									value="#{manageAdvisorBean.filtereMenuList}"
+									styleClass="InfoNewDash customMenuButtonDashboard"
+									style="margin-top: 10px;">
+									<p:menuitem value="All"
+										action="#{manageAdvisorBean.filterDataByDate(0)}" />
+									<p:menuitem value="Today"
+										action="#{manageAdvisorBean.filterDataByDate(1)}" />
+									<p:menuitem value="Last 5 days"
+										action="#{manageAdvisorBean.filterDataByDate(5)}" />
+									<p:menuitem value="Last 30 days"
+										action="#{manageAdvisorBean.filterDataByDate(30)}" />
+								</p:menuButton>
+
+
+							</div>
+						</div>
+						<p:panel rendered="#{manageAdvisorBean.getErrorMessage() != null}"
+							style="border: 0px; background: transparent; text-align: left;"
+							styleClass="deleteAdvError">
+							<h:outputText styleClass="errorText"
+								value="#{manageAdvisorBean.getErrorMessage()}" escape="false" />
+						</p:panel>
+						<div class="Container100">
+							<p:dataTable id="managedTable" var="managedVar"
+								styleClass="AdvisorGridtcmLayout" widgetVar="managedTable"
+								paginator="true" rows="10" rowsPerPageTemplate="5,10,15"
+								paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+								value="#{manageAdvisorBean.filteredDataList}"
+								sortMode="multiple"
+								selection="#{manageAdvisorBean.selectedDataList}"
+								rowKey="#{managedVar.acctnum}" reflow="true">
+
+								<f:facet name="header">
+									<div style="width: 100%; text-align: left;"
+										class="centerAlign ForBtnNormal">
+										<p:commandButton id="advpenddelcfm" update="@form" ajax="true"
+											value="Delete"
+											actionListener="#{manageAdvisorBean.doDelete()}"
+											styleClass="AdvNormalBtn">
+											<p:confirm header="Confirmation"
+												message="Do you want to delete these accounts?"
+												icon="ui-icon-alert">
+
+											</p:confirm>
+										</p:commandButton>
+									</div>
+
+								</f:facet>
+								<p:column selectionMode="multiple"
+									styleClass="multipleSelectionChkList"
+									style="width:50px;text-align:center" />
+
+								<p:column sortBy="#{managedVar.portfolioName}"
+									headerText="Strategy" priority="1"
+									styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+									resizable="true">
+									<h:outputText id="advpendportname"
+										styleClass="dashboardUsrColumnFloatRight"
+										value="#{managedVar.portfolioName}" />
+								</p:column>
+								<!--  <p:column sortBy="#{managedVar.fullname}"
+                                      headerText="Name"
+                                      priority="1"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.fullname}"/>
+                            </p:column> -->
+								<p:column sortBy="#{managedVar.displayAcct}"
+									headerText="Ref. No." priority="5"
+									styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+									resizable="true">
+									<h:outputText styleClass="dashboardUsrColumnFloatRight"
+										id="advpenddispacct" value="#{managedVar.displayAcct}" />
+								</p:column>
+
+								<!--  <p:column sortBy="#{managedVar.accttype}"
+                                      headerText="Account Type"
+                                      priority="6"
+                                      styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+                                      resizable="true">
+                                <h:outputText styleClass="dashboardUsrColumnFloatRight" value="#{managedVar.accttype}"/>
+                            </p:column> -->
+
+								<p:column sortBy="#{managedVar.goal}" headerText="Goal"
+									priority="1"
+									styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+									resizable="true">
+									<h:outputText id="advpendgoal"
+										styleClass="dashboardUsrColumnFloatRight"
+										value="#{managedVar.goal}" />
+								</p:column>
+								<p:column sortBy="#{managedVar.invested}"
+									headerText="Proposed Amount" priority="1"
+									styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn num-text-align invest"
+									resizable="true">
+									<h:outputText styleClass="dashboardUsrColumnFloatRight"
+										id="advpendinvest" value="#{managedVar.invested}">
+										<f:convertNumber currencySymbol="$" type="currency" />
+									</h:outputText>
+								</p:column>
+								<p:column sortBy="#{managedVar.dateOpened}"
+									headerText="Date Opened" priority="5"
+									styleClass="ListOfAccntsColWidth AdvtcmLayoutColumn"
+									resizable="true">
+									<h:outputText styleClass="dashboardUsrColumnFloatRight"
+										id="advpenddateopn" value="#{managedVar.dateOpened}">
+									</h:outputText>
+								</p:column>
+
+							</p:dataTable>
+						</div>
+
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>
