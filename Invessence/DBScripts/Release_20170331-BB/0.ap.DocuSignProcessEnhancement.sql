@@ -526,10 +526,10 @@ INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operat
 INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'TAE_ACAT_OTHER');
 
 
-INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER_NEW', 'c62d9775-24f8-46c4-91fe-834ce0dda1f6', 'TCM External Manual Account Transfer', 'Y', 'A');
-INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER_NEW', '542ad322-7aa0-4c45-9f97-6187b198b874', 'TCM Internal Manual Account Transfer', 'Y', 'A');
-INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER_NEW', 'c62d9775-24f8-46c4-91fe-834ce0dda1f6', 'TCM External Manual Account Transfer', 'Y', 'A');
-INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER_NEW', '542ad322-7aa0-4c45-9f97-6187b198b874', 'TCM Internal Manual Account Transfer', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER', 'c62d9775-24f8-46c4-91fe-834ce0dda1f6', 'TCM External Manual Account Transfer', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER', '542ad322-7aa0-4c45-9f97-6187b198b874', 'TCM Internal Manual Account Transfer', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER', 'c62d9775-24f8-46c4-91fe-834ce0dda1f6', 'TCM External Manual Account Transfer', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER', '542ad322-7aa0-4c45-9f97-6187b198b874', 'TCM Internal Manual Account Transfer', 'Y', 'A');
 
 
 insert into service.dc_template_mapping
