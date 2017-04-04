@@ -540,3 +540,16 @@ insert into service.dc_template_mapping
 select 'TAI_ACAT_OTHER', tab, lable, dbColumn, role, isDisabled from service.dc_template_mapping
 where tempCode='BB_ACAT_OTHER';
 
+
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'BUILDINGBENJAMINS', 'DOCUSIGN-SERVICES', 'GENE_EMAIL_MESSAGE', '6fe4789b-f36d-4c05-a974-67037c5a692e', 'Generic Email Message', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('PROD', 'TCM', 'DOCUSIGN-SERVICES', 'GENE_EMAIL_MESSAGE', '6fe4789b-f36d-4c05-a974-67037c5a692e', 'Generic Email Message', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'BUILDINGBENJAMINS', 'DOCUSIGN-SERVICES', 'GENE_EMAIL_MESSAGE', '6fe4789b-f36d-4c05-a974-67037c5a692e', 'Generic Email Message', 'Y', 'A');
+INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'GENE_EMAIL_MESSAGE', '6fe4789b-f36d-4c05-a974-67037c5a692e', 'Generic Email Message', 'Y', 'A');
+
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('BUILDINGBENJAMINS', 'DOCUSIGN-SERVICES', 'GENE_EMAIL_MESSAGE', 'DOCUSIGN', 'A', '0', 'GENE_EMAIL_MESSAGE');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'GENE_EMAIL_MESSAGE', 'DOCUSIGN', 'A', '0', 'GENE_EMAIL_MESSAGE');
+
+
+insert into adv_request_document_mappings
+select advisorid, action, 'DEFAULT', 'GENE_EMAIL_MESSAGE', envelopeHeading, 100, 'ADV'
+from adv_request_document_mappings where reqType='ACCT_APPLI_NEW' order by advisorId, action, seqno;
