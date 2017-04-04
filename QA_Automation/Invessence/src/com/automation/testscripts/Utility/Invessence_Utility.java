@@ -62,20 +62,8 @@ public class Invessence_Utility {
 		driver.findElement(By.xpath("//a[contains(text(), 'LOG IN')]")).click();*/
 		
 		// Verify Logo
-		
-		WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
-		String verifylogo = logo.getAttribute("src");
-		if(verifylogo.contains(vlogo))
-				{
-			System.out.println("Pass- Logo Displayed is correct");
-			log.info("Pass- Logo Displayed is correct");
-				}
-		else
-		{
-			System.out.println("Fail - Logo Displayed iss Wrong");
-			log.info("Fail - Logo Displayed iss Wrong");
-		}
-		
+		logoverification(driver,vlogo);
+				
 		driver.findElement(By.xpath("//*[@id='j_username']")).sendKeys(username);
 		driver.findElement(By.xpath("//*[@id='j_password']")).sendKeys(password);
 		driver.findElement(By.xpath("//*[@id='login']")).click();
@@ -93,6 +81,37 @@ public class Invessence_Utility {
 
 	}
 
+	public static void logoverification(WebDriver driver,String vlogo)
+	{
+		WebElement logo = driver.findElement(By.xpath("//*[@id='logo']"));
+		String verifylogo = logo.getAttribute("src");
+		if(verifylogo.contains(vlogo))
+				{
+			System.out.println("Pass- Logo Displayed is correct");
+			log.info("Pass- Logo Displayed is correct");
+				}
+		else
+		{
+			System.out.println("Fail - Logo Displayed iss Wrong");
+			log.info("Fail - Logo Displayed iss Wrong");
+		}
+	}
+	
+	public static void logoverification1(WebDriver driver,String vlogo)
+	{
+		WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
+		String verifylogo = logo.getAttribute("src");
+		if(verifylogo.contains(vlogo))
+				{
+			System.out.println("Pass- Logo Displayed is correct");
+			log.info("Pass- Logo Displayed is correct");
+				}
+		else
+		{
+			System.out.println("Fail - Logo Displayed iss Wrong");
+			log.info("Fail - Logo Displayed iss Wrong");
+		}
+	}
 	
 	
 }
