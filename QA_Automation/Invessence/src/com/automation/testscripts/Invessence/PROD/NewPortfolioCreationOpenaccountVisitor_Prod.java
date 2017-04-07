@@ -17,6 +17,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import com.automation.testscripts.PageObjects.AccountOpeningPO;
 import com.automation.testscripts.PageObjects.porfoliocreationPO;
 import com.automation.testscripts.Utility.DBConnection;
@@ -24,7 +25,7 @@ import com.automation.testscripts.Utility.Invessence_Utility;
 import com.automation.testscripts.Utility.Utility;
 
 
-public class NewPortfolioCreationOpenAccount_Prod  {
+public class NewPortfolioCreationOpenaccountVisitor_Prod  {
 		
 		private static WebDriver driver;
 		
@@ -36,27 +37,31 @@ public class NewPortfolioCreationOpenAccount_Prod  {
 		public File resultdir;
 		public static String resultpath,asFailureLogFolderPath;
 		static String placeresultsin;
-		public static String	dburl,dbusername,dbpassword;
 		 int i=0;
 		int j;
+		public static String	dburl,dbusername,dbpassword;
 		String scriptname = this.getClass().getSimpleName();
 		private static Logger log = Logger.getLogger(Logger.class.getName());
 	
 		porfoliocreationPO myporfoliocreationPO = new porfoliocreationPO();
 		
 		
+		
 		@DataProvider(name = "myTest")
-        public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException {
+        public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException
+		{
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
-			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccount_prod");
+			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccountvisitor_prod");
+			//dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","uatdbUrl");
+			//dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
+		//	dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
 			xData = Utility.xlRead(myXLPath,"TestData");
 		  return xData;
  		             
          }
-		
 
 	@Test(dataProvider = "myTest")
-	public void newaccount_prod (String TCID,String vURL,String vBrowser,String username,String password,String investmentamount,
+	public void newaccountvisitor_prod (String TCID,String vURL,String vBrowser,String username,String password,String investmentamount,
 			String investmentgoal,String age,String status,String retireage,String objective,
 			String projectionoption,String accounttype,String fname,String lname,String dob,String ssn,String phoneno,
 			String email,String streetname,String city,String state,String zip,String regulatoryoption,
@@ -91,36 +96,52 @@ public class NewPortfolioCreationOpenAccount_Prod  {
 					//Opening the URL
 					System.out.println("Navigating to URL");
 					driver.get(vURL);
+					Thread.sleep(4000);
+					// Verify Logo
 					
-					//Login
-					
-					Invessence_Utility.login(driver, username, password, vBrowser,vlogo);
-					
-					//Portfolio creation
-					driver.findElement(By.xpath("//a[contains(text(), ' New Account')]")).click();
-					boolean portfoliocreation = porfoliocreationPO.portfoliocreation(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
+					WebElement logo = driver.findElement(By.xpath("//*[@id='logo2']"));
+					String verifylogo = logo.getAttribute("src");
+					if(verifylogo.contains(vlogo))
+							{
+						System.out.println("Pass- Logo Displayed is correct");
+						log.info("Pass- Logo Displayed is correct");
+							}
+					else
+					{
+						System.out.println("Fail - Logo Displayed iss Wrong");
+						log.info("Fail - Logo Displayed iss Wrong");
+					}
+					boolean portfoliocreation = porfoliocreationPO.portfoliocreationVisitor(driver, investmentamount, investmentgoal, age, status, retireage,objective,projectionoption,clientaccountnumber);
 					if(portfoliocreation)
 					{
+
 						System.out.println("Pass -New Portfolio is created");
 						log.info("Pass -New Portfolio is created");
 						//open account
 						
-						WebElement openaccountbtn = driver.findElement(By.xpath("//span[contains(text(),'Open Account')]"));
-						openaccountbtn.click();
-						Thread.sleep(3000);
 						accountnumber = driver.getCurrentUrl();
 						System.out.println("URL is :"+ accountnumber);
 						accountnumber =StringUtils.substringAfterLast(accountnumber, "=");
 						System.out.println("acct nos is :"+ accountnumber);
 						
+						//Enter details for registration
+						
+						driver.findElement(By.id("signupformblock:firstName")).sendKeys(fname);
+						driver.findElement(By.id("signupformblock:lastName")).sendKeys(lname);
+						driver.findElement(By.id("signupformblock:email")).sendKeys(email);
+						driver.findElement(By.xpath("//span[contains(text(),'Register')]")).click();
+						Thread.sleep(4000);
+						
+						
+						//open account
 						boolean accountopen = AccountOpeningPO.AccountopeningScenario_Prod(driver, vURL, username, password, accounttype, fname, lname, dob, ssn, phoneno, email, streetname, city, state, zip, regulatoryoption, empstatus, incomesrc, employername, occupation, bfname, blname, bdob, bssn, relationship, sharepercent, fundingtype, investmentamt, bankaccttype, bankname, nameofbankacct, bankcity, bankphone, routingno, bankacctno, accounttitle, accounttype1, deliveringfirm, frequency, trnamt, trndate, accountnumber, clientaccountnumber,recurringflag, fundingflag,vlogo);
 						if(accountopen)
-						 	{
-								log.info("PASS - Account Opening sections Entered Sucessfully");
-								System.out.println("PASS - Account Opening sections Entered Sucessfully");
-								// Verify in database	
-							
-										
+					 	{
+							log.info("PASS - Account Opening sections Entered Sucessfully");
+							System.out.println("PASS - Account Opening sections Entered Sucessfully");
+							// Verify in database	
+						
+									
 						}
 						else
 						{
@@ -129,41 +150,41 @@ public class NewPortfolioCreationOpenAccount_Prod  {
 							xData[i][55]= "Fail- Account Opening Failed.";
 							Assert.fail("Fail- Account Opening Failed.");
 						}
-						
-					}
-					else
-					{
-						System.out.println("Fail Portfolio Creation Failed.");
-						log.info("Fail Portfolio Creation Failed.");
-						xData[i][55]= "Fail Portfolio Creation Failed.";
-						Assert.fail("Fail Portfolio Creation Failed.");
-					}
 					
-			}	
-					
-					
-		}		
-		 catch (Exception e) {
-									e.printStackTrace();
-									log.error("An exception occurred: " + Utility.getStackTrace(e));
-		                             xData[i][55] = "Exception occured,Refer logs for Details -  Fail";
-		                             Utility.xlwrite(xData,scriptname);
-		                             log.info("End of Loop for data " + TCID);
-		                             Assert.fail("Exception occured,Refer logs for Details -  Fail");
-		                           //  driver.quit();
-		         			    
-								
-		 					 } 
-			System.out.println("#############################################");
-			log.info("#############################################");	
-			Utility.xlwrite(xData,scriptname);
-			log.info("End of Loop for data " + TCID);
-		   	driver.quit();
-			
-	}
+				}
+				else
+				{
+					System.out.println("Fail Portfolio Creation Failed.");
+					log.info("Fail Portfolio Creation Failed.");
+					xData[i][55]= "Fail Portfolio Creation Failed.";
+					Assert.fail("Fail Portfolio Creation Failed.");
+				}
+				
+		}	
+				
+				
+	}		
+	 catch (Exception e) {
+								e.printStackTrace();
+								log.error("An exception occurred: " + Utility.getStackTrace(e));
+	                             xData[i][55] = "Exception occured,Refer logs for Details -  Fail";
+	                             Utility.xlwrite(xData,scriptname);
+	                             log.info("End of Loop for data " + TCID);
+	                             Assert.fail("Exception occured,Refer logs for Details -  Fail");
+	                           //  driver.quit();
+	         			    
+							
+	 					 } 
+		System.out.println("#############################################");
+		log.info("#############################################");	
+		Utility.xlwrite(xData,scriptname);
+		log.info("End of Loop for data " + TCID);
+	   	driver.quit();
 		
-		i++;
-	}
+}
+	
+	i++;
+}
 	/*@AfterTest
 	public void shutDown() throws IOException, Exception {
 	    driver.quit();

@@ -9,14 +9,9 @@
 		<listener class-name="com.uttesh.pdfngreport.PDFReportListener" />
 	</listeners>
 
-	<test name="1- NewAccountCreationVisitor_Prod">
-	    <classes>
-	      <class name="com.automation.testscripts.Invessence.PROD.NewPortfolioCreationOpenaccountVisitor_Prod" />
-	    </classes>
-	 </test>
-	 <test name="2- NewAccountCreation_Prod">
-	    <classes>
-	      <class name="com.automation.testscripts.Invessence.PROD.NewPortfolioCreationOpenAccount_Prod" />
-	    </classes>
-	 </test>
+		<test name="1- NewAccountCreation_BB">
+		    <classes>
+		      <class name="com.automation.testscripts.Utility.DataCleanUp_DB" />
+		    </classes>
+		 </test>
 </suite>
