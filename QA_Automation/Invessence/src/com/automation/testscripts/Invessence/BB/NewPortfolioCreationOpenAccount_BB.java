@@ -49,7 +49,7 @@ public class NewPortfolioCreationOpenAccount_BB  {
         public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException {
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
 			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccount");
-			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","preuatdbUrl");
+			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","uatdbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
 			xData = Utility.xlRead(myXLPath,"TestData");
@@ -139,14 +139,14 @@ public class NewPortfolioCreationOpenAccount_BB  {
 									String spopenacct = "testing.sp_emulate_td_openaccount("+accountnumber+")";
 									String spactivateacct = "testing.sp_emulate_td_activateaccount("+accountnumber+","+investmentamt+")";
 									DBConnection.runProcedure(dburl,dbusername,dbpassword,spopenacct);
-									Thread.sleep(5000);
+									Thread.sleep(1000);
 									DBConnection.runProcedure(dburl,dbusername,dbpassword,spactivateacct);
-									Thread.sleep(5000);
+									Thread.sleep(1000);
 									String sqlQuery1 = "select clientAccountID from invdb.ext_acct_info where acctnum="+accountnumber;
 									String[] clientacctnum = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery1);
 									System.out.println(clientacctnum[0]);
 									xData[i][50]=clientacctnum[0];
-									Thread.sleep(2000);
+									Thread.sleep(1000);
 									String sqlQuery2 = "select status from invdb.ext_acct_info where acctnum="+accountnumber;
 									String[] status2 = DBConnection.selectDataFromDB(dburl,dbusername,dbpassword,sqlQuery2);
 									System.out.println(status2[0]);

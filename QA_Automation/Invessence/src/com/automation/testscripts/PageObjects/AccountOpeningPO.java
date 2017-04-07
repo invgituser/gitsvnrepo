@@ -451,7 +451,7 @@ public class AccountOpeningPO {
 		
 		
 		driver.findElement(By.xpath("//*[@id='ctoForm:submitBtnId']//span")).click();
-		Thread.sleep(5000);
+		Thread.sleep(8000);
 		//Result verification for Reporting
 		System.out.println("#############################################");
 		log.info("#######################################################");

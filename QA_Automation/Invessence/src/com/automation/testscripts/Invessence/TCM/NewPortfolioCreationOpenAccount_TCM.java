@@ -49,7 +49,7 @@ public class NewPortfolioCreationOpenAccount_TCM  {
         public String [][] createData() throws IllegalFormatException, IOException, EncryptedDocumentException, InvalidFormatException, IllegalClassFormatException {
 			 PropertyConfigurator.configure("Properties/Log4j.properties"); 
 			myXLPath = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","openaccount_tcm");
-			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","preuatdbUrl");
+			dburl= Utility.readTestDataFromProperties("Properties/testdatalocation.properties","uatdbUrl");
 			dbusername = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbusername");
 			dbpassword = Utility.readTestDataFromProperties("Properties/testdatalocation.properties","dbpassword");
 			xData = Utility.xlRead(myXLPath,"TestData");
