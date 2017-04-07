@@ -9,7 +9,7 @@
 		<listener class-name="com.uttesh.pdfngreport.PDFReportListener" />
 	</listeners>
 
-		<test name="1- NewAccountCreation_BB">
+		<test name="1- DataCleanup">
 		    <classes>
 		      <class name="com.automation.testscripts.Utility.DataCleanUp_DB" />
 		    </classes>
