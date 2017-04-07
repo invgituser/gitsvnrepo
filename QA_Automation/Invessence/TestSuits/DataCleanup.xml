@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="NewAccount" parallel="tests"  thread-count="1">
+<suite name="DataCleanup" parallel="tests"  thread-count="1">
 	<parameter name="pdfngreport-properties" value="Properties\pdfngreport.properties" />
 	<parameter name="atu.reporter.config" value="Properties\atu.properties" />
 	<listeners>
