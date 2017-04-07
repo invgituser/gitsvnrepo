@@ -55,10 +55,10 @@ ADD COLUMN subaction varchar(45) DEFAULT NULL after action;
 -- insertion for relation of product,advisorid & repId in dc_advisor_details
 
 -- INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('1', 'AGWQ', 'BB', 'CATCHALL', 'Tradition Capital Management', 'N/A', 'operations@traditioncm.com');
-UPDATE `invdb`.`dc_advisor_details` SET `advisorName`='BB', `repId`='CATCHALL' WHERE `id`='1';
-INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('2', 'TCM100', 'BB-TCM', '100', 'Tradition Capital Management', 'N/A', 'operations@traditioncm.com');
-INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('3', 'TCM200', 'BB-TCM', '200', 'Tradition Capital Management', 'N/A', 'operations@traditioncm.com');
-INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('4', 'TCMDEF', 'BB-TCM', 'CATCHALL', 'Tradition Capital Management', 'N/A', 'operations@traditioncm.com');
+UPDATE `invdb`.`dc_advisor_details` SET `advisorName`='BB', `repId`='CATCHALL', `primaryContact` = 'BB' WHERE `id`='1';
+INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('2', 'AGWQ', 'BB-TCM', '100', 'Tradition Capital Management', 'Direct', 'operations@traditioncm.com');
+INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('3', 'AGWQ', 'BB-TCM', '200', 'Tradition Capital Management', 'External', 'operations@traditioncm.com');
+INSERT INTO `invdb`.`dc_advisor_details` (`id`, `advisorCode`, `advisorName`, `repId`, `firmName`, `primaryContact`, `email`) VALUES ('4', 'AGWQ', 'BB-TCM', 'CATCHALL', 'Tradition Capital Management', 'Advisor Direct', 'operations@traditioncm.com');
 
 -- insertion for docusign forms in adv_request_document_mappings
 set sql_safe_updates=0;
@@ -143,3 +143,26 @@ INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `sub
 INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'DEFAULT', 'TCM_ADV_2AB', 'Please sign account opening document.', '98', 'ADV');
 INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'ACCT_OPEN', 'DEFAULT', 'TCM_PRIVACY_NOTICE', 'Please sign account opening document.', '99', 'ADV');
 INSERT INTO `invdb`.`adv_request_document_mappings` (`advisorid`, `action`, `subaction`, `reqType`, `envelopeHeading`, `seqno`, `formType`) VALUES ('4', 'CHNG_ADDR', 'CHNG_ADDR', 'ACCT_CHNG_ADDR', 'Please sign change address document.', '1000', 'DC');
+
+
+
+ALTER TABLE `invdb`.`dc_advisor_details`
+ADD COLUMN `templateId` VARCHAR(100) NULL AFTER `firmName`;
+
+update dc_advisor_details set templateId=primaryContact;
+
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='1';
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='2';
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='3';
+UPDATE `invdb`.`dc_advisor_details` SET `primaryContact`='N/A' WHERE `id`='4';
+
+
+-- desc adv_request_document_mappings;
+-- select * from adv_request_document_mappings where templateId <5;
+set sql_safe_updates=0;
+delete from adv_request_document_mappings where templateId >4;
+
+update adv_request_document_mappings set templateId='BB' where templateId='1';
+update adv_request_document_mappings set templateId='Direct' where templateId='2';
+update adv_request_document_mappings set templateId='External' where templateId='3';
+update adv_request_document_mappings set templateId='Advisor Direct' where templateId='4';

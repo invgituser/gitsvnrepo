@@ -522,8 +522,8 @@ INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operat
 INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_PRIVACY_NOTICE', 'DOCUSIGN', 'A', '0', 'TAE_PRIVACY_NOTICE');
 
 
-INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAI_ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'TAI_ACAT_OTHER');
-INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'TAE_ACAT_OTHER');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'INT_ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'TAI_ACAT_OTHER');
+INSERT INTO `service`.`service_operation_details` (`company`, `service`, `operation`, `vendor`, `status`, `priority`, `refValue`) VALUES ('TCM', 'DOCUSIGN-SERVICES', 'EXT_ACAT_OTHER_NEW', 'DOCUSIGN', 'A', '0', 'TAE_ACAT_OTHER');
 
 
 INSERT INTO `service`.`dc_template_details` (`mode`, `company`, `service`, `tempCode`, `tempId`, `tempName`, `authRequired`, `status`) VALUES ('UAT', 'TCM', 'DOCUSIGN-SERVICES', 'TAE_ACAT_OTHER', 'c62d9775-24f8-46c4-91fe-834ce0dda1f6', 'TCM External Manual Account Transfer', 'Y', 'A');

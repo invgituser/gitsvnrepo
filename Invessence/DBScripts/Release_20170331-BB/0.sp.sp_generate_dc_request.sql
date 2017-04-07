@@ -1,19 +1,18 @@
-drop procedure if exists invdb.sp_generate_dc_request;
-delimiter $$
-CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
+USE `invdb`;
+DROP procedure IF EXISTS `sp_generate_dc_request`;
+
+DELIMITER $$
+USE `invdb`$$
+CREATE PROCEDURE `sp_generate_dc_request`(IN p_advisorname VARCHAR(45),
                                          IN p_repid       VARCHAR(45),
                                          IN p_acctnum     INT(11),
                                          IN p_eventno     INT(11),
                                          IN p_action      VARCHAR(45))
- begin
-   DECLARE padvisorid INT(11);
- 
-   DECLARE eventno, p_reqid, curcnt, p_reqid2, vacat2eventid,adveventno INT(11);
- 
+begin
+   DECLARE eventno, p_reqid, curcnt, p_reqid2, vacat2eventid,adveventno, padvisorid INT(11);
    DECLARE done INT DEFAULT false;
- 
-   DECLARE p_action2, p_subaction,p_retutn VARCHAR(45);
- 
+   DECLARE p_action2, p_subaction,p_retutn, ptemplateid VARCHAR(45);
+
    DECLARE cur1 CURSOR FOR
      SELECT reqid,
             action,
@@ -23,19 +22,19 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
             AND status = 'I'
             AND eventnum = p_eventno
             AND action = p_action;
- 
+
    DECLARE CONTINUE handler
    FOR NOT found
      SET done = TRUE;
- 
+
    SET curcnt=0;
    SET vacat2eventid=0;
-   
- 
+
+
    SET eventno=p_eventno;
- 
-   SELECT id
-   INTO   padvisorid
+
+   SELECT templateId, id
+   INTO  ptemplateid, padvisorid
    FROM   invdb.dc_advisor_details
    WHERE  advisorname = p_advisorname
           AND repid = ( CASE
@@ -43,28 +42,28 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
                                 OR p_repid = '' THEN 'CATCHALL'
                           ELSE p_repid
                         end );
- 
+
    -- select padvisorid;
    SELECT Ifnull(Max(eventnum), 0)
    INTO   eventno
    FROM   invdb.dc_requests_final
    WHERE  acctnum = p_acctnum;
- 
+
   SELECT ifnull(count(formtype),0) into adveventno
      FROM   invdb.adv_request_document_mappings
-     WHERE  advisorid = padvisorid
+     WHERE  templateId = ptemplateid
             AND action = p_action
             AND subaction = 'DEFAULT'
             AND formtype = 'ADV';
-            
- if(adveventno<>0) then 
+
+ if(adveventno<>0) then
  set adveventno=eventno+1;
    SET eventno=adveventno+1;
-   else 
+   else
    SET eventno=eventno+1;
    SET adveventno=0;
    end if;
-   
+
    open cur1;
    READ_LOOP:
  LOOP
@@ -74,7 +73,7 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
      end IF;
      SET curcnt=curcnt+1;
      SET p_reqid2=p_reqid;
- 
+
      IF( p_subaction = 'ACAT2' ) THEN
        SET vacat2eventid=eventno+1;
      end IF;
@@ -100,14 +99,14 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
             Now(),
             formtype
      FROM   invdb.adv_request_document_mappings
-     WHERE  advisorid = padvisorid
+     WHERE  templateId = ptemplateid
             AND action = p_action2
             AND subaction = p_subaction;
- 
+
    end LOOP;
- 
+
    close cur1;
- 
+
    IF( curcnt > 0 ) THEN
      INSERT INTO invdb.dc_requests_final
                  (refreqid,
@@ -122,7 +121,7 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
                   formtype)
      SELECT p_reqid2,
             p_acctnum,
-            advisorid,
+            padvisorid,
             adveventno,
             reqtype,
             seqno,
@@ -131,11 +130,11 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
             Now(),
             formtype
      FROM   invdb.adv_request_document_mappings
-     WHERE  advisorid = padvisorid
+     WHERE  templateId = ptemplateid
             AND action = p_action
             AND subaction = 'DEFAULT'
             AND formtype = 'ADV';
- 
+
      IF( vacat2eventid <> 0 ) THEN
        UPDATE invdb.dc_requests_final
        SET    eventnum = vacat2eventid
@@ -146,7 +145,7 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
      end IF;
  		-- set p_retutn=concat(adveventno,',',eventno,',',vacat2eventid);
         set p_retutn='';
-        if(adveventno<>0) then 
+        if(adveventno<>0) then
 			set p_retutn=adveventno;
          INSERT INTO invdb.dc_requests_final
                  (refreqid,
@@ -161,7 +160,7 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
                   formtype)
      SELECT p_reqid2,
             p_acctnum,
-            advisorid,
+            padvisorid,
             adveventno,
             reqtype,
             seqno,
@@ -170,16 +169,16 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
             Now(),
             formtype
      FROM   invdb.adv_request_document_mappings
-     WHERE  advisorid = padvisorid
+     WHERE  templateId = ptemplateid
             AND action = p_action
             AND subaction = 'ENCLOSURE'
             AND formtype = 'ADV';
         end if;
-        
-        if(eventno<>0) then 
-			if(p_retutn<>'') then 
+
+        if(eventno<>0) then
+			if(p_retutn<>'') then
 				set p_retutn=concat(p_retutn,',',eventno);
-			else 
+			else
 				set p_retutn=eventno;
 			end if;
         -- insert for enclosure
@@ -196,7 +195,7 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
                   formtype)
      SELECT p_reqid2,
             p_acctnum,
-            advisorid,
+            padvisorid,
             eventno,
             reqtype,
             seqno,
@@ -205,16 +204,16 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
             Now(),
             formtype
      FROM   invdb.adv_request_document_mappings
-     WHERE  advisorid = padvisorid
+     WHERE  templateId = ptemplateid
             AND action = p_action
             AND subaction = 'ENCLOSURE'
             AND formtype = 'ADV';
         end if;
-        
-        if(vacat2eventid<>0) then 
-			if(p_retutn<>'') then 
+
+        if(vacat2eventid<>0) then
+			if(p_retutn<>'') then
 				set p_retutn=concat(p_retutn,',',vacat2eventid);
-			else 
+			else
 				set p_retutn=vacat2eventid;
 			end if;
         -- insert for enclosure
@@ -231,7 +230,7 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
                   formtype)
      SELECT p_reqid2,
             p_acctnum,
-            advisorid,
+            padvisorid,
             vacat2eventid,
             reqtype,
             seqno,
@@ -240,12 +239,14 @@ CREATE PROCEDURE invdb.sp_generate_dc_request(IN p_advisorname VARCHAR(45),
             Now(),
             formtype
      FROM   invdb.adv_request_document_mappings
-     WHERE  advisorid = padvisorid
+     WHERE  templateId = ptemplateid
             AND action = p_action
             AND subaction = 'ENCLOSURE'
             AND formtype = 'ADV';
         end if;
-        
+
      SELECT p_retutn AS 'EventNo';
    end IF;
- end;
+ end$$
+
+DELIMITER ;
