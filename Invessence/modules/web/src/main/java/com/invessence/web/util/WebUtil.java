@@ -1,6 +1,6 @@
 package com.invessence.web.util;
 
-import java.io.Serializable;
+import java.io.*;
 import java.net.*;
 import java.util.*;
 import javax.faces.application.FacesMessage;
@@ -925,7 +925,7 @@ public class WebUtil implements Serializable
       String secureUrl = getWebprofile().getSecurehomepage();
       String emailMsgType;
       String htmlfile = null, htmltempate = null, textInfo = null;
-      String whichURL = null;
+      String whichLink = null;
       String subject = "No subject";
 
       Integer whichEmail = 0;
@@ -949,33 +949,28 @@ public class WebUtil implements Serializable
       switch (whichEmail) {
          case 0:
             subject = getWebprofile().getEmailSubject(WebConst.EMAIL_ACTIVATE_SUBJECT);
-            textInfo = WebConst.TEXT_ACTIVATED;
-            htmltempate = WebConst.HTML_ACTIVATED;
-            whichURL=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_ACTIVATED);
+            whichLink=secureUrl + "/activate.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 1:
             subject = getWebprofile().getEmailSubject(WebConst.EMAIL_RESET_SUBJECT);
-            textInfo = WebConst.TEXT_RESET;
-            htmltempate = WebConst.HTML_RESET;
-            whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_RESET);
+            whichLink=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 2:
             subject = getWebprofile().getEmailSubject(WebConst.EMAIL_LOCKED_SUBJECT);
-            textInfo = WebConst.TEXT_LOCKED;
-            htmltempate = WebConst.HTML_LOCKED;
-            whichURL=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_LOCKED);
+            whichLink=secureUrl + "/setPassword.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             break;
          case 3:
-            subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_SUBJECT);
-            whichURL=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
+            whichLink=secureUrl + "/signup.xhtml?l="+userdata.getLogonID().toString()+"&r="+userdata.getResetID();
             if (userdata.getAccess() != null && userdata.getAccess().equalsIgnoreCase("Advisor")) {
                subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_ADV_SUBJECT);
-               textInfo = WebConst.TEXT_WELCOME_ADV;
-               htmltempate = WebConst.HTML_WELCOME_ADV;
+               htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_WELCOME_ADV);
             }
             else {
-               textInfo = WebConst.TEXT_WELCOME;
-               htmltempate = WebConst.HTML_WELCOME;
+               subject = getWebprofile().getEmailSubject(WebConst.EMAIL_WELCOME_SUBJECT);
+               htmltempate = getWebprofile().getEmailSubject(WebConst.HTML_BASE_PATH) + getWebprofile().getEmailSubject(WebConst.HTML_WELCOME);
             }
             break;
          default:
@@ -991,26 +986,32 @@ public class WebUtil implements Serializable
       }
 
       data.setSubject(subject);
-      String msg = getMessageText().buildMessage(emailMsgType,
-                                                         htmlfile,
-                                                         textInfo,
-                                                         new Object[]{
-                                                            whichURL,
-                                                            userdata.getLogonID().toString(),
-                                                            userdata.getUserID(),
-                                                            userdata.getEmail(),
-                                                            userdata.getResetID(),
-                                                            userdata.getFirstName(),
-                                                            userdata.getLastName(),
-                                                            userdata.getEmail(),
-                                                            getWebprofile().getSupportemail(),
-                                                            getWebprofile().getSupportphone(),
-                                                            getWebprofile().getCompanyname(),
-                                                            getWebprofile().getLogo()
-                                                         });
-      data.setMsg(msg);
-      getMessageText().writeMessage("custom", data);
-      webutillooger.debug("Debug: Sending Activation email to: " + userdata.getEmail());
+      Map <String, String> object = new HashMap<String, String>();
+
+      object.put("CUSTOM_LINK", whichLink);
+      object.put("LOGON_ID", userdata.getLogonID().toString());
+      object.put("USER_ID", userdata.getUserID());
+      object.put("USER_EMAIL", userdata.getEmail());
+      object.put("RESET_ID", userdata.getResetID());
+      object.put("FIRST_NAME", userdata.getFirstName());
+      object.put("LAST_NWME", userdata.getLastName());
+      object.put("SUPPORT_EMAIL", getWebprofile().getSupportemail());
+      object.put("SUPPORT_PHONE", getWebprofile().getSupportphone());
+      object.put("COMPANY_NAME", getWebprofile().getCompanyname());
+      object.put("LOGO", getWebprofile().getLogo());
+
+      String msg = generateEmailMessage(htmlfile,object);
+
+      if (msg != null && ! msg.isEmpty())
+      {
+         data.setMsg(msg);
+         getMessageText().writeMessage("custom", data);
+         webutillooger.debug("Debug: Sending Activation email to: " + userdata.getEmail());
+      }
+      else
+      {
+         webutillooger.debug("Debug: COULD NOT Sending email to: " + userdata.getEmail() + " as message text is blank");
+      }
 
    }
 
@@ -1024,6 +1025,55 @@ public class WebUtil implements Serializable
       securityContextLogoutHandler.logout(request, response, null);
    }
 
+   public String generateEmailMessage(String filename,Map <String, String>object)
+   {
+      String message = "";
+      FileReader fr = null;
+      BufferedReader br = null;
+      try
+      {
+         fr=new FileReader(filename);
 
+         if (fr == null)
+         {
+            return message;
+         }
 
+         br= new BufferedReader(fr);
+         StringBuilder content=new StringBuilder(1024);
+         String line = "";
+         while((line=br.readLine())!=null)
+         {
+            content.append(line);
+         }
+         message = content.toString();
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      } finally {
+         try {
+            if (br != null)br.close();
+         } catch (IOException ex) {
+            ex.printStackTrace();
+         }
+      }
+
+      try {
+         if (object != null)
+         {
+            for (String key : object.keySet())
+            {
+               String replaceValue = key;
+               String strReplace = "~" + replaceValue + "~";
+               String strReplaceWith = object.get(key);
+               message = message.replaceAll(strReplace, strReplaceWith);
+            }
+         }
+
+      }
+      catch (Exception ex) {
+         ex.printStackTrace();
+      }
+      return message;
+   }
 }

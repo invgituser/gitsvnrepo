@@ -63,20 +63,13 @@ public class WebConst
    public final static String EMAIL_WELCOME_SUBJECT = "EMAIL.WELCOME.SUBJECT";
    public final static String EMAIL_WELCOME_ADV_SUBJECT = "EMAIL.WELCOME.SUBJECT";
 
-   public final static String HTML_ACTIVATED = "html.activated.email";
-   public final static String HTML_WELCOME = "html.welcome.email";
-   public final static String HTML_LOCKED = "html.locked.email";
-   public final static String HTML_RESET = "html.reset.email";
-   public final static String HTML_WELCOME_ADV = "html.welcome-adv.email";
-   public final static String HTML_INVOICE = "html.invoice.email";
-   public final static String HTML_SURVEY = "html.survey.email";
-
-   public final static String TEXT_ACTIVATED = "txt.activated.email";
-   public final static String TEXT_WELCOME = "txt.welcome.email";
-   public final static String TEXT_LOCKED = "txt.locked.email";
-   public final static String TEXT_RESET = "txt.reset.email";
-   public final static String TEXT_WELCOME_ADV = "txt.advisor_welcome.email";
-   public final static String TEXT_INVOICE = "txt.invoice.email";
-   public final static String TEXT_SURVEY = "txt.survey.email";
+   public final static String HTML_BASE_PATH = "HTML.BASE.PATH";
+   public final static String HTML_ACTIVATED = "HTML.ACTIVATED";
+   public final static String HTML_WELCOME = "HTML.WELCOME";
+   public final static String HTML_LOCKED = "HTML.LOCKED";
+   public final static String HTML_RESET = "HTML.RESET";
+   public final static String HTML_WELCOME_ADV = "HTML.WELCOME.ADV";
+   public final static String HTML_INVOICE = "HTML.INVOICE";
+   public final static String HTML_SURVEY = "HTML.SURVEY";
 
 }

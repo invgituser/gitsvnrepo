@@ -56,7 +56,7 @@ public class BrokerFileProcessor
    {
       System.out.println("Message Property : "+ getMessage("download.service.error",null,null).split("~").length);
       baseDirectory=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "LOCAL_SRC_DIRECTORY");
-         postProcessor =ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "POST_PROCESSOR");
+      postProcessor =ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "POST_PROCESSOR");
       logger.info("BaseDirectory :" + baseDirectory);
       logger.info("EodProcedure :" + postProcessor);
       StringBuilder mailAlertMsg=null;
