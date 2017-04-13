@@ -39,7 +39,7 @@ public class AggregationServiceImpl implements AggregationService
    {
       UserProfile userProfile=new UserProfile(userAcctDetails.getLogonid(),"INV-"+userAcctDetails.getLogonid(), userAcctDetails.getAggrPwd(),
                                               userAcctDetails.getEmail(),userAcctDetails.getFirstname(),userAcctDetails.getLastname(),
-                                              new Credentials("INVESSENCE", "PASSWORD", "BUILDINGBANJAMINS"), "");
+                                              new Credentials("INVESSENCE", "PASSWORD", "BUILDINGBENJAMINS"), "");
       userProfile=aggregator.registerUser(userProfile);
       if(userProfile==null || userProfile.getErrorStatus()==null){
          System.out.println("Service end issue!");

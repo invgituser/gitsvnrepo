@@ -107,6 +107,10 @@ public class AggregationBean
 
    public void startup(String mode){
       System.out.println("AggregationBean.startup");
+      String product = getWebutil().getWebprofile().getWebInfo().get("SERVICE.CUSTODY").toString();
+      String serviceMode = getWebutil().getWebprofile().getWebInfo().get("SERVICE.DOCUSIGN.MODE").toString();
+      System.out.println("Product " + product);
+      System.out.println("ServiceMode " + serviceMode);
       System.out.println("mode = [" + mode + "]");
       setMode(mode);
       try {
