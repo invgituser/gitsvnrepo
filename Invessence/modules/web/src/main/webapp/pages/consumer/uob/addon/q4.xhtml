@@ -18,18 +18,18 @@
             <h5>
                 4. What level of investment risk are you willing to take?
             </h5>
-            <p:selectOneRadio value="#{uobpb.riskCalculator.ans6}" styleClass="riskQ"
+            <p:selectOneRadio value="#{uobpb.riskCalculator.ans6}" id="uobrbir" styleClass="riskQ"
                               layout="pageDirection">
                <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:graphArea, :ceForm:buttonArea"/>
-                <f:selectItem itemLabel="Aggressive : An Aggressive Investor is prepared to accept higher risks in order to obtain greater returns.
+                <f:selectItem id="rb1" itemLabel="Aggressive : An Aggressive Investor is prepared to accept higher risks in order to obtain greater returns.
 An Aggressive Investor is comfortable with investments that are more volatile and bear a higher risk of loss of
 Capital." itemValue="1" />
-                <f:selectItem itemLabel="Moderate : A Moderate Investor seeks a maximum of capital growth and regular income from his/her
+                <f:selectItem id="rb2" itemLabel="Moderate : A Moderate Investor seeks a maximum of capital growth and regular income from his/her
 investments. A Moderate Investor is therefore prepared to accept moderate amounts of risk to earn moderate
 potential returns.
 " itemValue="2" />
-                <f:selectItem itemLabel="Conservative : A Conservative Investor seeks primarily capital preservation.
+                <f:selectItem id="rb3" itemLabel="Conservative : A Conservative Investor seeks primarily capital preservation.
 " itemValue="3" />
 
             </p:selectOneRadio>

@@ -58,12 +58,12 @@
     </ul>
         <ul id="menuMainNavigation" class="menuBtnLinks">
             <li id="dashboardMenuHighlight">
-                <a href="#{uiLayout.defaultHome}">Dashboard</a>
+                <a href="#{uiLayout.defaultHome}" id="menudashboardbtn">Dashboard</a>
             </li>
 
             <ui:fragment rendered="#{webutil.hasAccess('USER')}">
             <li id="newaccountMenuHighlight">
-                <p:commandLink rendered="true"
+                <p:commandLink rendered="true" id="menunewacctbtn"
                                actionListener="#{uiLayout.doMenuAction('consumer', 'cadd.xhtml?app=N')}">
                     <h:outputText value="New Account"/>
                 </p:commandLink>
@@ -71,19 +71,19 @@
                 </ui:fragment>
                 <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
                     <li id="tradeMenuHighlight">
-                    <a href="/pages/advisor/trade.xhtml">Trade</a>
+                    <a href="/pages/advisor/trade.xhtml" id="menutradebtn">Trade</a>
                     </li>
                         </ui:fragment>
 
 
                 <ui:fragment rendered="#{webutil.hasAccess('ADVISOR')}">
                     <li id="myprofileMenuHighlight">
-                    <a href="/pages/common/myprofile.xhtml">My Profile</a>
+                    <a href="/pages/common/myprofile.xhtml" id="menumyprofilebtn">My Profile</a>
                     </li>
                 </ui:fragment>
                 <ui:fragment rendered="#{! webutil.hasAccess('ADVISOR')}">
                     <li id="myprofileMenuHighlight">
-                    <a href="/pages/common/myprofile.xhtml">My Profile</a>
+                    <a href="/pages/common/myprofile.xhtml" id="menumyprofilebtn">My Profile</a>
                     </li>
                 </ui:fragment>
 

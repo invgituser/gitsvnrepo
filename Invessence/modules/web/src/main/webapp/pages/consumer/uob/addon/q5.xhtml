@@ -19,17 +19,17 @@
                 <h5>
                     5. What best describes your investment approach?
                 </h5>
-                <p:selectOneRadio value="#{uobpb.riskCalculator.ans7}"
+                <p:selectOneRadio value="#{uobpb.riskCalculator.ans7}" id="uobq5rc"
                                   styleClass="riskQ"
                                   layout="pageDirection">
                     <p:ajax listener="#{uobpb.onChangeValue}"
                             update=":ceForm:graphArea, :ceForm:buttonArea"/>
-                    <f:selectItem itemLabel="Your primary focus is on capital growth. You are prepared to accept a high level of short term volatility
+                    <f:selectItem id="q5rc1" itemLabel="Your primary focus is on capital growth. You are prepared to accept a high level of short term volatility
                      and possible capital losses in order to generate potentially higher levels of capital growth over the long term.
 " itemValue="1"/>
-                    <f:selectItem itemLabel="You require your investments to be a balance between capital growth and income generating assets.
+                    <f:selectItem  id="q5rc2" itemLabel="You require your investments to be a balance between capital growth and income generating assets.
 " itemValue="2"/>
-                    <f:selectItem itemLabel="Generating a regular income stream is a priority over capital growth.
+                    <f:selectItem  id="q5rc3" itemLabel="Generating a regular income stream is a priority over capital growth.
 " itemValue="3"/>
 
                 </p:selectOneRadio>

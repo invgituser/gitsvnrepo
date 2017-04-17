@@ -23,7 +23,7 @@
             <div class="uobBoldText">Annual Salary Plus Bonus</div>
             <div class="uobSubText"></div>
         </div>
-        <p:inputNumber value="#{uobpb.householdwages}"
+        <p:inputNumber value="#{uobpb.householdwages}" id="uobinputannsal"
                        styleClass="Wid100 uob_number_field" maxlength="15" placeholder="$"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
@@ -35,7 +35,7 @@
             <div class="uobBoldText">Liquid Asset</div>
             <div class="uobSubText">(Cash/Savings Account, etc.)</div>
         </div>
-        <p:inputNumber value="#{uobpb.moneymarket}" placeholder="$"
+        <p:inputNumber value="#{uobpb.moneymarket}" placeholder="$" id="uobinputlasset"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
@@ -48,7 +48,7 @@
             <div class="uobBoldText">Other Investments</div>
             <div class="uobSubText">(Stocks, Bonds, CPF)</div>
         </div>
-        <p:inputNumber value="#{uobpb.investment}" placeholder="$"
+        <p:inputNumber value="#{uobpb.investment}" placeholder="$" id="uobinputothrinvest"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"
@@ -60,7 +60,7 @@
             <div class="uobBoldText">Investment Properties</div>
             <div class="uobSubText">(Value of property less the mortgage)</div>
         </div>
-        <p:inputNumber value="#{uobpb.otherIncome}" placeholder="$"
+        <p:inputNumber value="#{uobpb.otherIncome}" placeholder="$" id="uobinputinvestprop"
                        styleClass="Wid100 uob_number_field" maxlength="15"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"

@@ -19,15 +19,15 @@
             1. What is your employment situation?
         </h5>
         <p:selectOneRadio value="#{uobpb.riskCalculator.ans3}"
-                          styleClass=""
+                          styleClass="" id="uobddrcalc"
                           layout="pageDirection">
           <p:ajax listener="#{uobpb.onChangeValue}"
                     update=":ceForm:graphArea, :ceForm:buttonArea"/>
-            <f:selectItem itemLabel="My job is very secure." itemValue="1" />
-            <f:selectItem itemLabel="My job security could change quickly." itemValue="2" />
-            <f:selectItem itemLabel="I am not working or retired but have secure income." itemValue="3" />
-            <f:selectItem itemLabel="I feel my job is not secure." itemValue="4" />
-            <f:selectItem itemLabel="I am currently unemployed or retired." itemValue="5" />
+            <f:selectItem id="rcalcsecure" itemLabel="My job is very secure." itemValue="1" />
+            <f:selectItem id="rcalcchgsec" itemLabel="My job security could change quickly." itemValue="2" />
+            <f:selectItem id="rcalcsecinc" itemLabel="I am not working or retired but have secure income." itemValue="3" />
+            <f:selectItem id="rcalcntsec" itemLabel="I feel my job is not secure." itemValue="4" />
+            <f:selectItem id="rcalcunempret" itemLabel="I am currently unemployed or retired." itemValue="5" />
         </p:selectOneRadio>
     </div>
     </div>

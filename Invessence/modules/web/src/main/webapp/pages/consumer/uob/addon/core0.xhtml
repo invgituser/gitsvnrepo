@@ -19,20 +19,21 @@
 
     <div class="Container100" style="">
         <div class="Wid100 uobCoreLabel">Invest for</div>
-        <p:selectOneMenu value="#{uobpb.goal}"
+        <p:selectOneMenu id="uobddselection" value="#{uobpb.goal}"
                          styleClass="Wid100 uob_selectDropdown">
             <p:ajax listener="#{uobpb.onGoalChangeValue}"
                     update=":ceForm:graphArea, :ceForm:buttonArea"/>
             <f:selectItem itemLabel="Choose One" itemValue=""/>
-            <f:selectItem itemLabel="Retirement" itemValue="Retirement"/>
-            <f:selectItem itemLabel="College" itemValue="College"/>
-            <f:selectItem itemLabel="Building Wealth" itemValue="Wealth"/>
-            <f:selectItem itemLabel="Other" itemValue="Other"/>
+            <f:selectItem id="uobddretirement" itemLabel="Retirement" itemValue="Retirement"/>
+            <f:selectItem id="uobddcollege" itemLabel="College" itemValue="College"/>
+            <f:selectItem id="uobddbwealth" itemLabel="Building Wealth" itemValue="Wealth"/>
+            <f:selectItem id="uobddother" itemLabel="Other" itemValue="Other"/>
         </p:selectOneMenu>
 
         <div class="Wid100 uobCoreLabel">Your current age</div>
         <p:inputNumber value="#{uobpb.age}"
                        min="18" max="100"
+                       id="uobageinput"
                        maxlength="5" decimalPlaces="0">
             <p:ajax listener="#{uobpb.onChangeValue}"
                     update=":ceForm:graphArea, :ceForm:buttonArea"/>
@@ -41,14 +42,14 @@
         <div class="Wid100 uobCoreLabel">How long do you plan to
             invest?
         </div>
-        <p:inputNumber value="#{uobpb.horizon}" min="1" max="20"
+        <p:inputNumber value="#{uobpb.horizon}" min="1" max="20" id="uobinputplaninvest"
                        styleClass="Wid100" maxlength="5" decimalPlaces="0">
             <p:ajax listener="#{uobpb.onChangeValue}"
                     update=":ceForm:graphArea, :ceForm:buttonArea"/>
         </p:inputNumber>
 
         <div class="Wid100 uobCoreLabel">Initial investment</div>
-        <p:inputNumber styleClass="Wid100 uob_investAmount"
+        <p:inputNumber styleClass="Wid100 uob_investAmount" id="uobinoutinitialinvest"
                        value="#{uobpb.initialInvestment}" maxlength="11"
                        decimalPlaces="0" symbol="$">
             <p:ajax listener="#{uobpb.onChangeValue}"

@@ -7,8 +7,8 @@
 
     <div class="Wid30 Fleft LeftPanel">
         <div class="finetuneBtnBlock Fright">
-            <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" icon="ui-icon-image">
-                <p:effect type="slide" event="click" for="abc">
+            <p:commandButton type="button" styleClass="fineTuneBtn fineTuneBtnImg" id="uobfinetunebtn" icon="ui-icon-image">
+                <p:effect type="slide" event="click" for="finetune">
                     <f:param name="mode" value="'show'" />
                 </p:effect>
             </p:commandButton>
@@ -18,8 +18,8 @@
             <div class="Container100 FTLabel">
                 <span class="Fs30 mainHeaderUOB">Fine Tune Strategy</span>
                 <div class="Wid10 closeFTBtn Fright">
-                    <p:commandButton type="button" styleClass="fineTuneBtn" icon="fa fa-times">
-                        <p:effect type="slide" event="click" for="abc">
+                    <p:commandButton type="button" styleClass="fineTuneBtn" id="uobftclose"  icon="fa fa-times">
+                        <p:effect type="slide" event="click" for="finetune">
                             <f:param name="mode" value="'hide'" />
                         </p:effect>
                     </p:commandButton>
@@ -200,7 +200,7 @@
                     <div class="Wid35 Fright ReturnValuePanel">
                         <div class="Wid100 ERLabel">Expected Return</div>
                         <div class="Wid100 ERCount">
-                            <h:outputText value="#{uobpb.totalExpectedReturns}">
+                            <h:outputText id="uober" value="#{uobpb.totalExpectedReturns}">
                                 <f:convertNumber pattern="##0.00%" />
                             </h:outputText>
                         </div>
@@ -215,7 +215,7 @@
                         of returns of the portfolio. Commonly, the higher the volatility, the riskier the portfolio. Example, volatility of
                          Singapore Government Bonds could be 1.58% vs. Singapore Equities could be as high as 17%." position="bottom"/>
                         <div class="Wid100 IRCount">
-                            <h:outputText value="#{uobpb.totalRisk}">
+                            <h:outputText id="uobir" value="#{uobpb.totalRisk}">
                                 <f:convertNumber pattern="##0.00%" />
                             </h:outputText>
                         </div>
@@ -244,19 +244,19 @@
 
                         <p:column style="width: 50%" styleClass="Wid50 Fs12 TexAlLeft"
                                   headerText="Asset">
-                            <h:outputText value="#{assetList.asset}" />
+                            <h:outputText id="uobtasset" value="#{assetList.asset}" />
                         </p:column>
                         <p:column style="width: 30%"
                                   styleClass="Fs12 num-text-align TexAlRight" headerText="Allocation">
                             <!-- ROHIT's CHANGE -->
-                            <h:outputText value="#{assetList.userEdit}">
+                            <h:outputText id="uobtalloc" value="#{assetList.userEdit}">
                                 <f:convertNumber pattern="##0%" />
                             </h:outputText>
                         </p:column>
                         <p:column style="width: 30%"
                                   styleClass="Fs12 num-text-align TexAlRight" headerText="Value">
                             <!-- ROHIT's CHANGE -->
-                            <h:outputText value="#{assetList.value}">
+                            <h:outputText id="uobtval" value="#{assetList.value}">
                                 <f:convertNumber pattern="$##,###,###" />
                             </h:outputText>
                         </p:column>
@@ -266,7 +266,7 @@
                                 <p:column colspan="2" styleClass="Fs12 TexAlLeft FontBold"
                                           footerText="Total">
                                 </p:column>
-                                <p:column styleClass="Fs12 TexAlRight FontBold"
+                                <p:column styleClass="Fs12 TexAlRight FontBold" id="uobttotal"
                                           footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
                                 </p:column>
                             </p:row>
@@ -290,7 +290,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Name" />
                             </f:facet>
-                            <h:outputText value="#{ticker.namePlusSymbol}" />
+                            <h:outputText id="uobtnam" value="#{ticker.namePlusSymbol}" />
                         </p:column>
 
                         <p:column style="width:13%;"
@@ -299,7 +299,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Allocated" />
                             </f:facet>
-                            <h:outputText value="#{ticker.weight}">
+                            <h:outputText id="uobtalloc2" value="#{ticker.weight}">
                                 <f:convertNumber pattern="##0%" />
                             </h:outputText>
                         </p:column>
@@ -310,7 +310,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Value" />
                             </f:facet>
-                            <h:outputText value="#{ticker.value}">
+                            <h:outputText id="uobtval" value="#{ticker.value}">
                                 <f:convertNumber pattern="$##,###,###" />
                             </h:outputText>
                         </p:column>
@@ -321,7 +321,7 @@
                                 <p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
                                           footerText="Total">
                                 </p:column>
-                                <p:column styleClass="Fs14 TexAlRight FontBold"
+                                <p:column styleClass="Fs14 TexAlRight FontBold" id="uobttot2"
                                           footerText="#{dataDisplayConverter.displayAsMoneyRounded(uobpb.totalMoneyAllocated)}">
                                 </p:column>
                             </p:row>

@@ -18,15 +18,15 @@
             <h5>
                 3. What is your financial situation, including expenses, loans, savings for retirement and emergencies?
             </h5>
-            <p:selectOneRadio value="#{uobpb.riskCalculator.ans5}"
+            <p:selectOneRadio value="#{uobpb.riskCalculator.ans5}" id="uobrbtnriskcalc"
                               layout="pageDirection">
                 <p:ajax listener="#{uobpb.onChangeValue}"
                         update=":ceForm:graphArea, :ceForm:buttonArea"/>
-                <f:selectItem itemLabel="I feel very secure about all my financial needs." itemValue="1" />
-                <f:selectItem itemLabel="I feel somewhat secure." itemValue="2" />
-                <f:selectItem itemLabel="I feel secure for the next 12 months." itemValue="3" />
-                <f:selectItem itemLabel="I don’t feel very secure." itemValue="4" />
-                <f:selectItem itemLabel="I don’t feel at all secure." itemValue="5" />
+                <f:selectItem id="tbtnrc1" itemLabel="I feel very secure about all my financial needs." itemValue="1" />
+                <f:selectItem id="tbtnrc2" itemLabel="I feel somewhat secure." itemValue="2" />
+                <f:selectItem id="tbtnrc3" itemLabel="I feel secure for the next 12 months." itemValue="3" />
+                <f:selectItem id="tbtnrc4" itemLabel="I don’t feel very secure." itemValue="4" />
+                <f:selectItem id="tbtnrc5" itemLabel="I don’t feel at all secure." itemValue="5" />
             </p:selectOneRadio>
         </div>
     </div>
