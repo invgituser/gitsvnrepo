@@ -16,14 +16,14 @@
                             <p:panel id="fineTunePanel" styleClass="fineTuneBlock" style="display:none;">
                                 <div class="Container100 FTLabel">
                                     <span class="Fs16">Change Strategy</span>
-                                    <div class="Wid10 Fright closeFTbtn">
+                                    <!--<div class="Wid10 Fright closeFTbtn">
                                         <p:commandButton id="tcmp7afpbtn" type="button" styleClass="fineTuneBtn"
                                                          icon="fa fa-times">
                                             <p:effect type="slide" event="click" for="fineTunePanel">
                                                 <f:param name="mode" value="'hide'"/>
                                             </p:effect>
                                         </p:commandButton>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="Fs13 fineTuneDetail">Rather than having a
                                     strategy recommended to me based on my time horizon and risk
@@ -71,6 +71,18 @@
                                          style="padding: 0px 20px; box-sizing: border-box;">
                                         <h:outputText id="modeldescrlbl" value="#{tcmpb.newLongDesc}"/>
 
+                                    </div>
+
+
+                                    <div class="EmptyBox5"></div>
+                                    <div class="Container100" style="text-align: center;">
+                                        <p:commandButton id="scsavebtn3" value="Save">
+                                        </p:commandButton>
+                                        <p:commandButton id="sccancelbtn4" value="Cancel">
+                                            <p:effect type="slide" event="click" for="fineTunePanel">
+                                                <f:param name="mode" value="'hide'" />
+                                            </p:effect>
+                                        </p:commandButton>
                                     </div>
                                 </p:panel>
                             </p:panel>

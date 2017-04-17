@@ -1,9 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-				xmlns:h="http://java.sun.com/jsf/html"
-				xmlns:f="http://java.sun.com/jsf/core"
-				xmlns:ui="http://java.sun.com/jsf/facelets"
-				xmlns:p="http://primefaces.org/ui"
-				xmlns:pe="http://primefaces.org/ui/extensions">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
 
 	<!-- BOX START -->
 
@@ -14,6 +14,14 @@
 					<p:panel id="fineTunePanel" styleClass="fineTuneBlock" style="display:none;">
 						<div class="Container100 FTLabel">
 							<span class="Fs16">Change Strategy</span>
+							<!--<div class="Wid10 Fright closeFTbtn">
+								<p:commandButton  styleClass="fineTuneBtn"
+									icon="fa fa-times">
+									<p:effect type="slide" event="click" for="fineTunePanel">
+										<f:param name="mode" value="'hide'" />
+									</p:effect>
+								</p:commandButton>
+							</div>-->
 						</div>
 						<div class="Fs13 fineTuneDetail">Rather than having a
 							strategy recommended to me based on my time horizon and risk
@@ -44,19 +52,11 @@
 									Aggressive</div>
 								<div class="EmptyBox5"></div>
 								<div class="Container100 TexAlCenter">
-
 									<div class="ContainerIndent">
 										<p:commandButton id="allocSliderResetButton" value="Recommended"
-														 styleClass="uob_button Fleft"
+														 styleClass="uob_button"
 														 update=":ceForm:allocSlider, :ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:finalbuttonArea, , :ceForm:tcmpnafportfoliodetails"
 														 actionListener="#{tcmpb.doAllocReset}"/>
-
-										<p:commandButton id="allocSaveButton" type="button" value="Save"
-														 styleClass="uob_button FRight">
-											<p:effect type="slide" event="click" for="fineTunePanel">
-												<f:param name="mode" value="'hide'" />
-											</p:effect>
-										</p:commandButton>
 									</div>
 								</div>
 
@@ -67,7 +67,16 @@
 								<h:outputText id="modeldescrlbl" value="#{tcmpb.newLongDesc}"/>
 
 							</div>
-
+							<div class="EmptyBox5"></div>
+<div class="Container100" style="text-align: center;">
+	<p:commandButton id="scsavebtn1" value="Save">
+	</p:commandButton>
+		<p:commandButton id="sccancelbtn1" value="Cancel">
+			<p:effect type="slide" event="click" for="fineTunePanel">
+				<f:param name="mode" value="'hide'" />
+			</p:effect>
+		</p:commandButton>
+</div>
 						</p:panel>
 					</p:panel>
 
@@ -79,9 +88,8 @@
 							Based on the responses that you have given, we have selected the <strong>#{tcmpb.fixedModelName}</strong>
 							strategy for you.
 						</div>
-						<div class="EmptyBox20 ResEmptyBox30"></div>
-						<div class="Container10 Responsive0" style="height:1px;"></div>
-						<div class="Container80 Responsive100">
+						<div class="EmptyBox30 ResEmptyBox30"></div>
+						<div class="Container100 Responsive100">
 							<div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
 								<div class="ContainerIndent">
 									<div class="EmptyBox5"></div>
@@ -110,7 +118,6 @@
 								</div>
 							</div>
 						</div>
-
 						<div class="Container100">
 							<p:outputPanel deferred="true">
 								<div class="Container50 Fleft spResPieBlock">
@@ -177,7 +184,7 @@
 
 									<div class="EmptyBox5"></div>
 								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafavgperformance"
-																					value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
+										value="#{tcmpb.charts.chartdata.getIntChartData('AvgPerformance')}">
 									<f:convertNumber pattern="$#,###,###,##0" />
 								</h:outputText>
 								</span>
@@ -192,7 +199,7 @@
 
 									<div class="EmptyBox5"></div>
 								<span class="Fs17 DispBlock BBGreen"> <h:outputText id="tcmpnafpoorperformance"
-																					value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
+										value="#{tcmpb.charts.chartdata.getIntChartData('PoorPerformance')}">
 									<f:convertNumber pattern="$#,###,###,##0" />
 								</h:outputText>
 								</span>
@@ -250,7 +257,7 @@
 					</p:column>
 
 					<p:column priority="4" style="width:14%;"
-							  styleClass="Fs12 TexAlLeft">
+						styleClass="Fs12 TexAlLeft">
 						<f:facet name="header">
 							<h:outputText value="Class" />
 						</f:facet>
@@ -265,7 +272,7 @@
 					</p:column>
 
 					<p:column priority="2" style="width:15%;"
-							  styleClass="Fs12 num-text-align TexAlRight">
+						styleClass="Fs12 num-text-align TexAlRight">
 						<f:facet name="header">
 							<h:outputText value="Allocated" />
 						</f:facet>
@@ -282,7 +289,7 @@
 					</p:column>
 
 					<p:column priority="3" style="width:25%;"
-							  styleClass="Fs12 TexAlLeft">
+						styleClass="Fs12 TexAlLeft">
 						<f:facet name="header">
 							<h:outputText value="Name" />
 						</f:facet>
@@ -290,7 +297,7 @@
 					</p:column>
 
 					<p:column style="width:18%;"
-							  styleClass="Fs12 num-text-align TexAlRight">
+						styleClass="Fs12 num-text-align TexAlRight">
 						<f:facet name="header">
 							<h:outputText value="Value" />
 						</f:facet>
@@ -306,10 +313,10 @@
 							<p:column priority="3" />
 							<p:column priority="2" />
 							<p:column colspan="2" styleClass="Fs14 TexAlLeft FontBold"
-									  footerText="Total">
+								footerText="Total">
 							</p:column>
 							<p:column styleClass="Fs14 TexAlRight FontBold"
-									  footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
+								footerText="#{dataDisplayConverter.displayAsMoneyRounded(tcmpb.totalMoneyAllocated)}">
 							</p:column>
 						</p:row>
 					</p:columnGroup>
