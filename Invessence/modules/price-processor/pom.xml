@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
      <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -47,8 +47,8 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-       <!--Simple json-->
-       <dependency>
+		<!--Simple json-->
+		<dependency>
 	    <groupId>com.googlecode.json-simple</groupId>
 	     <artifactId>json-simple</artifactId>
 	     <version>1.1.1</version>
@@ -60,15 +60,15 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-       <!-- Apache Database Connection Pool -->
-       <dependency>
+		<!-- Apache Database Connection Pool -->
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.0</version>
 		</dependency>
 
-       <!-- MySQL JDBC Driver -->
-       <dependency>
+		<!-- MySQL JDBC Driver -->
+		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.30</version>
@@ -80,8 +80,8 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
-       <!-- json -->
-       <dependency>
+		<!-- json -->
+		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20090211</version>
