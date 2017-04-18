@@ -16,9 +16,13 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	
-	<context:component-scan base-package="com.invessence" />
+	<context:component-scan base-package="com.invessence.price" />
 
    <import resource="classpath*:serviceConfig.xml"/>
+      <bean id="configPropLoaderNew" class="com.invessence.service.util.ServiceDetails">
+      <constructor-arg type="com.invessence.service.dao.ServiceDao" ref="wsCommonDao"/>
+   </bean>
+
    <bean id="configPropLoader" class="com.invessence.service.util.ServiceParameters">
       <constructor-arg>
       <list>

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -23,7 +23,10 @@ public class PriceDataDAOImpl implements PriceDataDao
 {
 //   @Autowired
 //   DataSource dataSource;
+
+
    @Autowired
+//   @Qualifier("rbsaDataSource")
    private JdbcTemplate rbsaJdbcTemplate;
 
    public void delete() throws SQLException
@@ -81,13 +84,14 @@ public class PriceDataDAOImpl implements PriceDataDao
 
       rbsaJdbcTemplate.update(sql,
                               new Object[]{priceData.getTicker(), priceData.getBusinessDate(), priceData.getOpenPrice(),
-                             priceData.getClosePrice(), priceData.getHighPrice(), priceData.getLowPrice(), priceData
-                             .getPrevClosePrice(),
-                             priceData.getVolume()/* ,new Long (63), new Date() */
-                          });
+                                 priceData.getClosePrice(), priceData.getHighPrice(), priceData.getLowPrice(), priceData
+                                 .getPrevClosePrice(),
+                                 priceData.getVolume()/* ,new Long (63), new Date() */
+                              });
 
 
    }
+
 
    public void log(String error)
    {
@@ -122,6 +126,8 @@ public class PriceDataDAOImpl implements PriceDataDao
             ps.setDouble(6, priceData.getLowPrice());
             ps.setDouble(7, priceData.getAdjustedPrice());
             ps.setDouble(8, priceData.getVolume());
+            //  ps.setString(9, ""+priceData.getPrevBusinessdate());
+
          }
       });
 
@@ -154,5 +160,54 @@ public class PriceDataDAOImpl implements PriceDataDao
       // TODO Auto-generated method stub
       return null;
    }
+
+   public void callHolidayProcedure(String startDate, String endDate) throws SQLException
+   {
+      System.out.println("******************************" + startDate + " endDate " + endDate);
+      //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
+      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
+         .withProcedureName("get_hodidays_price_data");
+      Map<String, Object> inParamMap = new HashMap<String, Object>();
+      inParamMap.put("p_startdt", startDate);
+      inParamMap.put("p_enddt", endDate);
+      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+      System.out.println(simpleJdbcCallResult);
+      System.out.println("******************************");
+
+   }
+
+
+   public void GetExchangePriceData(String ticker) throws SQLException
+   {
+      System.out.println("******************************");
+      //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
+      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
+         .withProcedureName("exchange_rate_processing");
+      Map<String, Object> inParamMap = new HashMap<String, Object>();
+      inParamMap.put("p_ticker", ticker);
+      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+      System.out.println(simpleJdbcCallResult);
+      System.out.println("******************************");
+
+   }
+
+   public void GetDailyMissingData(String startDate, String ticker) throws SQLException
+   {
+      System.out.println("******************************");
+      //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
+      SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
+         .withProcedureName("get_daily_missing_price_data");
+      Map<String, Object> inParamMap = new HashMap<String, Object>();
+      inParamMap.put("p_startdt", startDate);
+      inParamMap.put("p_ticker", ticker);
+      SqlParameterSource in = new MapSqlParameterSource(inParamMap);
+      Map<String, Object> simpleJdbcCallResult = simpleJdbcCall.execute(in);
+      System.out.println(simpleJdbcCallResult);
+      System.out.println("******************************");
+
+   }
+
 
 }

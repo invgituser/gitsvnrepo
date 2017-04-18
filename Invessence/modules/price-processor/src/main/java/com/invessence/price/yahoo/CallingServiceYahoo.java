@@ -6,12 +6,14 @@ import java.util.*;
 import com.invessence.price.processor.Service.CallingService;
 import com.invessence.price.processor.bean.*;
 import com.invessence.price.yahoo.histquotes.*;
+import com.invessence.service.bean.ServiceRequest;
 
 /**
  * Created by bhaveshy on 3/15/2016.
  */
 public class CallingServiceYahoo implements CallingService
 {
+   private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(CallingServiceYahoo.class);
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 
@@ -23,6 +25,8 @@ public class CallingServiceYahoo implements CallingService
 
       try
       {
+
+         logger.info("CSIDATA getHistoricalPriceData Start " );
          pdList = new ArrayList<PriceData>();
 
          Date d = sdf.parse(priceDate);
@@ -89,9 +93,11 @@ public class CallingServiceYahoo implements CallingService
 
             }
          }
+         logger.info("CSIDATA getHistoricalPriceData End " );
       }
       catch (Exception e)
       {
+         logger.error("CSIDATA getHistoricalPriceData Exception "+e );
          e.printStackTrace();
       }
       return pdList;
@@ -190,4 +196,171 @@ public class CallingServiceYahoo implements CallingService
       return pdList;
    }
 
+
+
+   @Override
+   // **********DAILY PROCESS***********************
+   // To fetch daily prices from yahoo API
+   public HashMap<String, Object> getDailyPriceData(String priceDate, String ticker,ServiceRequest serviceRequest) throws Exception
+   {
+      HashMap<String, Object> objPriceData = null;
+      List<PriceData> pdList = null;
+      PriceData pd = null;
+
+      System.out.println("priceDate :" + priceDate);
+      Date d = sdf.parse(priceDate);
+      Calendar from = Calendar.getInstance();
+      from.setTime(d);
+      System.out.println("from:" + from.getTime() + "    date:" + d);
+      int i = 0;
+
+      try
+      {
+         logger.info("CSIDATA getDailyPriceData Start priceDate :" + priceDate +" ticker:"+ticker );
+         objPriceData = new HashMap<String, Object>();
+         pdList = new ArrayList<PriceData>();
+
+         Stock stk = YahooFinance.get(ticker, from, from, Interval.DAILY);
+
+         List<HistoricalQuote> hstLst = stk.getHistory();
+
+         if (hstLst == null || hstLst.size() == 0 || hstLst.equals(""))
+         {
+            System.out.println("List is empty:");
+            objPriceData.put("status", "failure");
+            logger.info("CSIDATA getDailyPriceData Priced data not found");
+         }
+         else
+         {
+            HistoricalQuote historicalQuote = (HistoricalQuote) hstLst.get(0);
+
+
+            System.out.println(sdf.format(stk.getQuote().getLastTradeTime().getTime()));
+
+            PriceData hpd = new PriceData(historicalQuote.getSymbol(),
+                                          sdf.format(historicalQuote.getDate().getTime()),
+                                          Double.valueOf("" + historicalQuote.getOpen()), Double.valueOf("" + historicalQuote.getClose()),
+                                          Double.valueOf("" + historicalQuote.getHigh()), Double.valueOf("" + historicalQuote.getLow()),
+                                          Long.valueOf(historicalQuote.getVolume()), null,
+                                          Double.valueOf("" + historicalQuote.getClose()), new Long(2), new Date());
+            pdList.add(hpd);
+
+
+            objPriceData.put("status", "success");
+            objPriceData.put("priceData", pdList);
+            logger.info("CSIDATA getDailyPriceData Priced data found data size " + pdList.size() );
+         }
+         logger.info("CSIDATA getDailyPriceData End " );
+      }
+      catch (Exception e)
+      {
+         objPriceData.put("status", "failure");
+
+         logger.error("CSIDATA getDailyPriceData Exception " + e );
+         e.printStackTrace();
+      }
+
+
+      System.out.println("***************size of pdlist" + pdList.size());
+      return objPriceData;
+   }
+
+
+   @Override
+   public HashMap<String, Object>  getHistoryPriceData(String priceDate, String ticker,ServiceRequest serviceRequest) throws Exception
+   {
+      List<PriceData> pdList = null;
+      HashMap<String, Object> objPriceData = null;
+      int counter=0;
+      PriceData hpd=null;
+      String prevClosePrice=null;
+      Date prevBusinessdate=null;
+
+      try
+      {
+         logger.info("CSIDATA getHistoryPriceData Start priceDate :" + priceDate +" ticker:"+ticker );
+         objPriceData = new HashMap<String, Object>();
+         pdList = new ArrayList<PriceData>();
+
+         Date d = sdf.parse(priceDate);
+         Calendar from = Calendar.getInstance();
+         from.setTime(d);
+         Calendar to = Calendar.getInstance();//2007-05-30
+         to.setTime(d);
+         from.add(Calendar.YEAR, -20); // from 5 years ago
+         Stock stk = YahooFinance.get(ticker, from, to, Interval.DAILY);
+
+         List<HistoricalQuote> hstLst = stk.getHistory();
+         if (hstLst == null || hstLst.size() == 0 || hstLst.equals(""))
+         {
+            System.out.println("List is empty:");
+            objPriceData.put("status","failure");
+            logger.info("CSIDATA getHistoryPriceData price data not found" );
+         }
+         else
+         {
+            Iterator<HistoricalQuote> itr = hstLst.iterator();
+            System.out.println("*********************Historical Data************************");
+
+            boolean isPriceAvaiForBusiDate = false;
+            while (itr.hasNext())
+            {
+               HistoricalQuote historicalQuote = (HistoricalQuote) itr.next();
+
+               if(counter==0)
+               {
+                   hpd = new PriceData(historicalQuote.getSymbol(),
+                                                sdf.format(historicalQuote.getDate().getTime()),
+                                                Double.valueOf("" + historicalQuote.getOpen()), Double.valueOf("" + historicalQuote.getClose()),
+                                                Double.valueOf("" + historicalQuote.getHigh()), Double.valueOf("" + historicalQuote.getLow()),
+                                                Long.valueOf(historicalQuote.getVolume()), null,
+                                                Double.valueOf("" + historicalQuote.getAdjClose()), new Long(2), new Date());
+               }else{
+                   hpd = new PriceData(historicalQuote.getSymbol(),
+                                                sdf.format(historicalQuote.getDate().getTime()),
+                                                Double.valueOf("" + historicalQuote.getOpen()), Double.valueOf("" + historicalQuote.getClose()),
+                                                Double.valueOf("" + historicalQuote.getHigh()), Double.valueOf("" + historicalQuote.getLow()),
+                                                Long.valueOf(historicalQuote.getVolume()), prevBusinessdate,
+                                                Double.valueOf("" + historicalQuote.getClose()), new Long(2), new Date());
+               }
+
+               if (isPriceAvaiForBusiDate == false)
+               {
+                  if (sdf.format(historicalQuote.getDate().getTime()).equals(priceDate))
+                  {
+                     isPriceAvaiForBusiDate = true;
+                  }
+               }
+
+               if (!Double.valueOf("" + historicalQuote.getClose()).equals(0))
+               {
+                  pdList.add(hpd);
+               }
+               prevBusinessdate = null;
+               prevClosePrice=null;
+               prevBusinessdate = historicalQuote.getDate().getTime();
+               prevClosePrice=""+historicalQuote.getClose();
+               counter++;
+               hpd=null;
+
+            }
+
+            objPriceData.put("status","success");
+            objPriceData.put("priceData",pdList);
+
+            if (isPriceAvaiForBusiDate == false)
+            {
+               System.out.println("Price not available for ticker:" + ticker + " for businessdate :" + priceDate + "\n");
+
+            }
+            logger.info("CSIDATA getHistoryPriceData price data found data size "+pdList.size() );
+         }
+      }
+      catch (Exception e)
+      {
+         logger.error("CSIDATA getHistoryPriceData Exception "+e );
+         e.printStackTrace();
+      }
+      return objPriceData;
+   }
 }

@@ -28,7 +28,7 @@ public class FileTranferHandler {
 class ThreadImpl implements Runnable {
     private static final Logger logger = Logger.getLogger(ThreadImpl.class);
     private SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy");
-    private SimpleDateFormat sdf2 = new SimpleDateFormat("hh");
+    private SimpleDateFormat sdf2 = new SimpleDateFormat("HH");
     Date today;
     Calendar calendar = null;
     HashMap<String, Object> fileDetails = null;

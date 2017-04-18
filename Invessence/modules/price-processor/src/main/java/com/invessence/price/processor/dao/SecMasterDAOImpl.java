@@ -33,7 +33,7 @@ public class SecMasterDAOImpl implements SecMasterDao
    {
       List<SecMaster> lst = null;
       System.out.println("SecMasterDAOImpl.findByTicker()");
-      String sql = "SELECT instrumentid, status, ticker, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master where ticker='" + ticker + "'";
+      String sql = "SELECT instrumentid, status,sm.ticker,ssm.tickersource, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master sm left join invdb.sec_source_mapping ssm on (sm.ticker=ssm.ticker) where sm.ticker='" + ticker + "'";
       lst = invJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(SecMaster.class));
       System.out.println("lst size***************** :" + lst.size());
       return lst == null ? null : lst.size() == 0 ? null : lst.get(0);
@@ -55,6 +55,18 @@ public class SecMasterDAOImpl implements SecMasterDao
       System.out.println("lst size**************** :" + switchTable.size());
       return switchTable;
 
+   }
+
+   public List<SecMaster> getTicker( String priceDate) throws SQLException
+   {
+      List<SecMaster> lst = null;
+
+      System.out.println("SecMasterDAOImpl.getTicker()");
+      //String sql = "SELECT instrumentid, status,sm.ticker,ssm.tickersource, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn, taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag FROM invdb.sec_master sm left join invdb.sec_source_mapping ssm on (sm.ticker=ssm.ticker)";
+      String sql = "SELECT instrumentid, status, sm.ticker, ssm.tickersource, cusip, isin, name, assetclass, subclass, type, style, expenseRatio, lowerBoundReturn, upperBoundReturn,taxableReturn, nontaxableReturn, issuer, adv3months, aum, beta, securityRiskSTD, lowerbound, upperbound, yield, rbsaFlag,   MAX(rd.businessdate) AS 'businessdate',(CASE  WHEN rd.ticker IS NULL OR rd.ticker = '' THEN 'YES'  ELSE 'NO' END) AS 'onDemand', ssm.pricing_required FROM invdb.sec_source_mapping ssm inner JOIN invdb.sec_master sm ON (sm.ticker = ssm.ticker) LEFT JOIN rbsa.rbsa_daily rd ON (rd.ticker = sm.ticker) where  ssm.pricing_required='Y' and sm.status='A' GROUP BY sm.ticker  order by onDemand";
+      lst = invJdbcTemplate.query(sql, ParameterizedBeanPropertyRowMapper.newInstance(SecMaster.class));
+      System.out.println("lst size**************** :" + lst.size());
+      return lst;
    }
 
 }

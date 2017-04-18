@@ -19,7 +19,7 @@ public class IdenfiersDao {
 	 * @param
 	 * @return
 	 */
-	public XigniteArgs fetchApiIdetfiers(String operationName) {
+	public XigniteArgs fetchApiIdetfiers(String operationName,String ticker) {
 		XigniteArgs xigniteArgs = new XigniteArgs();
 		XigniteInputs inputs = new XigniteInputs();
 		XigniteKeyValue keyValue = null;
@@ -30,7 +30,7 @@ public class IdenfiersDao {
 		xigniteArgs.setOperationName(operationName);
 
 		// TODO write code for database call to fetch identifiers
-		String ticker = "";
+//		String ticker = "";
 		// set tickers
 		/*
 		 * For loop keyValue = new XigniteKeyValue();
@@ -48,7 +48,7 @@ public class IdenfiersDao {
 
 			keyValue = new XigniteKeyValue();
 			keyValue.setKey("Identifiers");
-			keyValue.setValue("Cash,SHY,PRWBX,BSV");
+			keyValue.setValue(ticker);
 			keyValueLst.add(keyValue);
 
 			keyValue = new XigniteKeyValue();

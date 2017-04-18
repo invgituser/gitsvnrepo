@@ -732,6 +732,57 @@ public class ServiceDetails
       }
       return null;
    }
+
+   public static String getConfigProperty(String product, String service, String mode, String provider, String property)
+   {
+      if (productConfigDetails.get(product) == null)
+      {
+         logger.debug("Configuration details not available for Product:" + product);
+      }
+      else
+      {
+         if (productConfigDetails.get(product).get(service) == null)
+         {
+            logger.debug("Configuration details not available for Product:" + product+",Service:" + service);
+         }
+         else
+         {
+            if (productConfigDetails.get(product).get(service).get(provider) == null)
+            {
+               logger.debug("Configuration details not available for Product:" + product+", Service:" + service+", Provider:" + provider);
+            }
+            else
+            {
+               if (productConfigDetails.get(product).get(service).get(provider).get(Constant.SERVICES_DETAILS.CONFIG_DETAILS.toString()) == null)
+               {
+                  logger.debug("Configuration details not available for Product:" + product+", Service:" + service+", Provider:" + provider);
+               }
+               else
+               {
+                  LinkedHashMap<String, Map<String, ServiceConfigDetails>> tmp= (LinkedHashMap<String, Map<String, ServiceConfigDetails>>)productConfigDetails.get(product).get(service).get(provider).get(Constant.SERVICES_DETAILS.CONFIG_DETAILS.toString());
+                  if (tmp.get(mode) == null)
+                  {
+                     logger.debug("Configuration details not available for Product:" + product+", Service:" + service+", Provider:" + provider+", Mode:" + mode);
+                  }
+                  else
+                  {
+                     if (tmp.get(mode).get(property) == null)
+                     {
+                        logger.debug("Configuration details not available for Product:" + product+", Service:" + service+", Provider:" + provider+", Mode:" + mode+", Property:" + property);
+                     }
+                     else
+                     {
+                        System.out.println("Property "+property+" : " +tmp.get(mode).get(property).getValue());
+                        return tmp.get(mode).get(property).getValue();
+                     }
+                  }
+               }
+            }
+         }
+      }
+      return null;
+   }
+
    public static String getServiceProvider(String product, String service)
    {
       if (productConfigDetails.get(product) == null)
