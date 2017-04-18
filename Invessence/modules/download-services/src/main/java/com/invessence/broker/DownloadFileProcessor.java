@@ -8,6 +8,7 @@ import com.invessence.broker.bean.*;
 import com.invessence.broker.dao.*;
 import com.invessence.broker.util.*;
 import com.invessence.emailer.util.EmailCreator;
+import com.invessence.service.bean.ServiceRequest;
 import com.invessence.service.util.*;
 import com.invessence.util.*;
 import com.jcraft.jsch.*;
@@ -20,14 +21,14 @@ import org.springframework.stereotype.Component;
  * Created by abhangp on 1/17/2016.
  */
 @Component
-public class BrokerFileProcessor
+public class DownloadFileProcessor
 {
-   private static final Logger logger = Logger.getLogger(BrokerFileProcessor.class);
+   private static final Logger logger = Logger.getLogger(DownloadFileProcessor.class);
 
    @Autowired
    CommonDao commonDao;
 
-   @Autowired
+//   @Autowired
    EmailCreator emailCreator;
 
    @Autowired
@@ -52,11 +53,13 @@ public class BrokerFileProcessor
       this.postProcessor=_eodProcedure;
    }*/
 
-   public void process()
+   public void process(ServiceRequest serviceRequest)
    {
+      System.out.println(ServiceDetails.getServiceProvider(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString()));
       System.out.println("Message Property : "+ getMessage("download.service.error",null,null).split("~").length);
-      baseDirectory=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "LOCAL_SRC_DIRECTORY");
-      postProcessor =ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "POST_PROCESSOR");
+      System.out.println("ENCRY_DECRY_KEY"+ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "ENCRY_DECRY_KEY"));
+      baseDirectory=ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "LOCAL_SRC_DIRECTORY");
+      postProcessor =ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "POST_PROCESSOR");
       logger.info("BaseDirectory :" + baseDirectory);
       logger.info("EodProcedure :" + postProcessor);
       StringBuilder mailAlertMsg=null;
@@ -66,14 +69,14 @@ public class BrokerFileProcessor
          //logger.info("Parameters"+Parameters.sqlInsertNewaccounts);
          Map<String, DBParameters> dbParamMap = commonDao.getDBParametres();
          logger.info("BUSINESS_DATE :" + dbParamMap.get("BUSINESS_DATE").getValue());
-         String UserName = ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_HOST");//"prashant@invessence.com";//"[EMAIL]";
+         String UserName = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_HOST");//"prashant@invessence.com";//"[EMAIL]";
          if(dbParamMap==null || dbParamMap.size()==0 || ! dbParamMap.containsKey("BUSINESS_DATE")){
             mailAlertMsg.append("Required DB parameters not available");
             logger.info("Required DB parameters not available");
          }else {
 //            List<BrokerHostDetails> hostLst = commonDao.getBrokerHostDetails("");
 //            if (hostLst == null && hostLst.size() == 0)
-            if (! ServiceValidator.validateBrokerService(ServiceParameters.BROKER_WEBSERVICE_API))
+            if (! ServiceValidator.validateBrokerService(serviceRequest, ServiceDetails.getServiceProvider(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString())))
             {
                mailAlertMsg.append("Required Host details are not available");
                logger.info("Required Host details are not available");
@@ -84,19 +87,19 @@ public class BrokerFileProcessor
 //                  BrokerHostDetails hostDetails = (BrokerHostDetails) hostDetailsItr.next();
 //               String encryDecryKey="aRXDugfr4WQpVrxu";
 //               logger.info("Host Details :"+hostDetails.toString());
-               List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + ServiceParameters.DOWNLOAD_SERVICE_API + "'");
+               List<DownloadFileDetails> downloadFilesLst = commonDao.getDownloadFileDetails("where active = 'Y' and vendor='" + ServiceDetails.getServiceProvider(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString()) + "'");
                if(downloadFilesLst == null && downloadFilesLst.size() == 0)
                {
-                  mailAlertMsg.append("Download files details are not available for broker :"+ServiceParameters.DOWNLOAD_SERVICE_API);
-                  logger.info("Download files details are not available for broker :" + ServiceParameters.DOWNLOAD_SERVICE_API);
+                  mailAlertMsg.append("Download files details are not available for broker :"+ServiceDetails.getServiceProvider(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString()));
+                  logger.info("Download files details are not available for broker :" + ServiceDetails.getServiceProvider(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString()));
                }else{
                   try
                   {
                      //
                      JSch jsch = new JSch();
                      Session session = null;
-                     session = jsch.getSession(ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_USERNAME"), ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_HOST"), 22);
-                     session.setPassword(ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_PASSWORD"));
+                     session = jsch.getSession(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_USERNAME"), ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_HOST"), 22);
+                     session.setPassword(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_PASSWORD"));
                      session.setConfig("StrictHostKeyChecking", "no");
                      session.connect();
 
@@ -106,7 +109,7 @@ public class BrokerFileProcessor
                      channel = (ChannelSftp) session.openChannel("sftp");
                      channel.connect();
                      try{
-                        channel.cd(ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_SRC_DIRECTORY"));
+                        channel.cd(ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_SRC_DIRECTORY"));
                         Iterator<DownloadFileDetails> downloadFilesItr = downloadFilesLst.iterator();
                         while (downloadFilesItr.hasNext()) {
 
@@ -202,7 +205,7 @@ public class BrokerFileProcessor
                                                 {
                                                    try
                                                    {
-                                                      processCsvFile(mailAlertMsg, localFileName, downloadFileDetails, ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);//hostDetails.getEncrDecrKey()
+                                                      processCsvFile(mailAlertMsg, localFileName, downloadFileDetails, ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "ENCRY_DECRY_KEY"));//hostDetails.getEncrDecrKey()
                                                    }
                                                    catch (Exception e)
                                                    {
@@ -227,7 +230,7 @@ public class BrokerFileProcessor
                                                    {
                                                       try
                                                       {
-                                                         processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails, ServiceParameters.BROKER_SERVICES_GEMINI_ENCRY_DECRY_KEY);//hostDetails.getEncrDecrKey()
+                                                         processCsvFile(mailAlertMsg, decryptedFileName, downloadFileDetails, ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "ENCRY_DECRY_KEY"));//hostDetails.getEncrDecrKey()
                                                          deleteDecryptedFile(decryptedFileName);
                                                       }
                                                       catch (Exception e)

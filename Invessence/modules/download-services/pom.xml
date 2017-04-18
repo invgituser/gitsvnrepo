@@ -225,7 +225,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.invessence.broker.Main</mainClass>
+							<mainClass>com.invessence.broker.MainDownloadServices</mainClass>
 						</manifest>
 						<manifestEntries>
 							<Class-Path>.</Class-Path>
