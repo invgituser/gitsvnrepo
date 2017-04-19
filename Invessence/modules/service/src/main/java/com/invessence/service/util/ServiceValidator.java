@@ -1,5 +1,6 @@
 package com.invessence.service.util;
 
+import com.invessence.service.bean.ServiceRequest;
 import org.apache.log4j.Logger;
 
 /**
@@ -31,13 +32,13 @@ public class ServiceValidator
      return false; 
    }
 
-   public static boolean validateBrokerService(String vendor){
+   public static boolean validateBrokerService(ServiceRequest serviceRequest, String vendor){
 
-      String sftpHost=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_HOST");
-      String sftpUserName=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_USERNAME");
-      String sftpPassword=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_PASSWORD");
-      String sftpSourceDirectory=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "SFTP_SRC_DIRECTORY");
-      String sftpEncrDecrKey=ServiceParameters.getConfigProperty(Constant.SERVICES.DOWNLOAD_SERVICES.toString(), ServiceParameters.BROKER_WEBSERVICE_API, "ENCRY_DECRY_KEY");
+      String sftpHost=ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_HOST");
+      String sftpUserName=ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_USERNAME");
+      String sftpPassword=ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_PASSWORD");
+      String sftpSourceDirectory=ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "SFTP_SRC_DIRECTORY");
+      String sftpEncrDecrKey=ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.DOWNLOAD_SERVICES.toString(), serviceRequest.getMode(), "ENCRY_DECRY_KEY");
 
 
       System.out.println("sftpHost = " + sftpHost);
