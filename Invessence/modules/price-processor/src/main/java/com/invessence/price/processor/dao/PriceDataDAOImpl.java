@@ -163,7 +163,7 @@ public class PriceDataDAOImpl implements PriceDataDao
 
    public void callHolidayProcedure(String startDate, String endDate) throws SQLException
    {
-      System.out.println("******************************" + startDate + " endDate " + endDate);
+      System.out.println("Date Range for Holiday calculation" + startDate + " endDate " + endDate);
       //rbsaJdbcTemplate = new JdbcTemplate(dataSource);
       SimpleJdbcCall simpleJdbcCall = new SimpleJdbcCall(rbsaJdbcTemplate)
          .withProcedureName("get_hodidays_price_data");

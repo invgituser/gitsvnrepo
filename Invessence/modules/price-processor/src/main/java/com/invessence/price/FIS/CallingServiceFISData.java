@@ -65,7 +65,7 @@ public class CallingServiceFISData implements CallingService
                                 Double.valueOf(dallyRates.getOpen().trim()), Double.valueOf(dallyRates.getClose().trim()),
                                 Double.valueOf(dallyRates.getHigh().trim()), Double.valueOf(dallyRates.getLow().trim()),
                                 Long.valueOf(dallyRates.getVolume().trim()), null,
-                                Double.valueOf(0), new Long(2), new Date());
+                                Double.valueOf(dallyRates.getClose().trim()), new Long(2), new Date());
             pdList.add(hpd);
             hpd = null;
          }

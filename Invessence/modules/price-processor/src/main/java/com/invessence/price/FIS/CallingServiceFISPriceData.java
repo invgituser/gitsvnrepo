@@ -98,7 +98,7 @@ public class CallingServiceFISPriceData implements CallingFISPriceService
             if (counter == 0)
             {
                strURL2 = URL.replace("$$SYMBOL$$", symbol);
-               strURL2 = strURL2.replace("$$DIRECTION$$", "Backward");
+               strURL2 = strURL2.replace("$$DIRECTION$$", "Backward")+ "&To=" + priceDate.replaceAll("-", "");
             }
             else
             {

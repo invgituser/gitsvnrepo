@@ -50,11 +50,11 @@ public class Main
          if (company != null && mode != null)
          {
             ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("priceBeanConf.xml");
-            if (pricingrqd.equalsIgnoreCase("Y") || pricingrqd.equalsIgnoreCase("YES"))
+            if (pricingrqd.equalsIgnoreCase("Y") || pricingrqd.equalsIgnoreCase("EXCHANGE_YES"))
             {
                ExchangeRateProcessing exchngProcess = context.getBean(ExchangeRateProcessing.class);
                boolean bFlag= exchngProcess.process(company, mode);
-               if(true)
+               if(bFlag)
                {
                   System.out.print("Attempting for Pricing as exchange rates are collected");
                   PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
