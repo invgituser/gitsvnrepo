@@ -10,10 +10,14 @@
 
 
             <p:outputPanel id="workArea">
-                <p:fieldset legend="Summary" toggleable="true" toggleSpeed="500">
-                    <div class="Container100 Responsive100">
+            <p:outputPanel id="reviewArea">
+
+            <div class="Container100 Responsive100">
                         <div class="Container50 Responsive100 Fleft">
-                            <p:panel id="fineTunePanel" styleClass="fineTuneBlock" style="display:none;">
+                            <p:panel id="fineTunePanel" styleClass="fineTuneBlock" rendered="#{tcmpb.displayFTPanel}">
+                                <p:effect type="slide" event="close" for="fineTunePanel">
+                                    <f:param name="mode" value="'hide'" />
+                                </p:effect>
                                 <div class="Container100 FTLabel">
                                     <span class="Fs16">Change Strategy</span>
                                     <!--<div class="Wid10 Fright closeFTbtn">
@@ -48,7 +52,7 @@
                                             <p:slider id="allocSlider" for="allocValue" minValue="0"
                                                       maxValue="#{tcmpb.maxAssetAllocatonPoints}" step="1">
                                                 <p:ajax event="slideEnd"
-                                                        update=":ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7anext"
+                                                        update=":ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7anext, :ceForm:tcmp7aportfoliolist"
                                                         listener="#{tcmpb.onAllocSlider}"/>
                                             </p:slider>
                                         </div>
@@ -60,7 +64,7 @@
                                             <div class="ContainerIndent">
                                                 <p:commandButton id="allocSliderResetButton" value="Recommended"
                                                                  styleClass="uob_button"
-                                                                 update=":ceForm:allocSlider, :ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7anext"
+                                                                 update=":ceForm:allocSlider, :ceForm:graphArea, :ceForm:tcmFinal, :ceForm:modelnamelbl, :ceForm:modeldescrlbl, :ceForm:tcmp7anext, :ceForm:tcmp7aportfoliolist"
                                                                  actionListener="#{tcmpb.doAllocReset}"/>
                                             </div>
                                         </div>
@@ -73,15 +77,15 @@
 
                                     </div>
 
-
                                     <div class="EmptyBox5"></div>
                                     <div class="Container100" style="text-align: center;">
-                                        <p:commandButton id="scsavebtn3" value="Save">
+                                        <p:commandButton id="scsavebtn3" value="Save" styleClass="Fleft"
+                                                         update=":ceForm:reviewArea"
+                                                         actionListener="#{tcmpb.closeFTPanel}">
                                         </p:commandButton>
-                                        <p:commandButton id="sccancelbtn4" value="Cancel">
-                                            <p:effect type="slide" event="click" for="fineTunePanel">
-                                                <f:param name="mode" value="'hide'" />
-                                            </p:effect>
+                                        <p:commandButton id="sccancelbtn4" value="Cancel" styleClass="Fright"
+                                                         update=":ceForm:reviewArea"
+                                                         actionListener="#{tcmpb.cancelFTPanel}">
                                         </p:commandButton>
                                     </div>
                                 </p:panel>
@@ -108,6 +112,36 @@
                                         Based on the responses that you have given, the revised strategy is <strong>#{tcmpb.portfolioName}</strong>.
                                     </div>
                                     <div class="EmptyBox30 ResEmptyBox30"></div>
+                                    <div class="Container100 Responsive100">
+                                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox5"></div>
+                                                <span class="Fs14 DispBlock gray">Investment Risk</span>
+                                    <span class="Fs24 DispBlock red">
+                                    <h:outputText value="#{tcmpb.totalRisk}">
+                                        <f:convertNumber pattern="##0.00%"/>
+                                    </h:outputText>
+                                   </span>
+
+                                                <div class="EmptyBox5"></div>
+                                            </div>
+                                        </div>
+                                        <div class="Wid10 Fright" style="height:1px;"></div>
+                                        <div class="Wid45 BorderedBox Fright TexAlCenter responsiveFullwidth UI-tcm">
+                                            <div class="ContainerIndent">
+                                                <div class="EmptyBox5"></div>
+                                                <span class="Fs14 DispBlock gray">Expected Return</span>
+                                    <span class="Fs24 DispBlock invessenceblue">
+                                      <h:outputText value="#{tcmpb.totalExpectedReturns}">
+                                          <f:convertNumber pattern="##0.00%"/>
+                                      </h:outputText>
+                                     </span>
+
+                                                <div class="EmptyBox5"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="Container100">
                                         <p:outputPanel deferred="true">
                                             <div class="Container50 Fleft spResPieBlock">
@@ -235,11 +269,10 @@
                                          value="Start Over" update=":ceForm:inputArea" immediate="true"
                                          actionListener="#{tcmpb.startover}"/>
 
-                        <p:commandButton type="button" id="tcmp7achngstrategy"
-                                         styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Change Strategy">
-                            <p:effect type="slide" event="click" for="fineTunePanel">
-                                <f:param name="mode" value="'show'"/>
-                            </p:effect>
+                        <p:commandButton id="tcmp7achngstrategy"
+                                         styleClass="fineTuneBtn fineTuneBtnImg spWid100" value="Change Strategy"
+                                         update=":ceForm:reviewArea"
+                                         actionListener="#{tcmpb.showFTPanel}" >
                         </p:commandButton>
 
                         <p:commandButton id="tcmp7anext" style="margin-right: 0px!important;" styleClass="Fright ResponsiveBtnFS spWid100" value="Next"
@@ -249,8 +282,7 @@
                                          actionListener="#{tcmpb.nextPage}"/>
 
                     </div>
-                </p:fieldset>
-
+            </p:outputPanel>
                 <div class="EmptyBox10"></div>
                 <p:fieldset legend="Detail" toggleable="true" toggleSpeed="500">
                     <div class="Container100 Responsive100">

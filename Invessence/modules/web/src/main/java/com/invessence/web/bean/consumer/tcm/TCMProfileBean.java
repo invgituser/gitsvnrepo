@@ -42,6 +42,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    private PagesImpl pagemanager;
    private Boolean formEdit = false;
    private Boolean formPortfolioEdit = false;
+   private Boolean displayFTPanel;
    private Boolean disablegraphtabs = true, disabledetailtabs = true, disablesaveButton = true;
    private Boolean prefVisible = true;
    private Integer canOpenAccount;
@@ -92,6 +93,11 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
    {
       SQLData converter = new SQLData();
       this.beanAcctnum = converter.getLongData(beanAcctnum);
+   }
+
+   public Boolean getDisplayFTPanel()
+   {
+      return displayFTPanel;
    }
 
    public Boolean getDisablegraphtabs()
@@ -426,6 +432,7 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
             pagemanager.setPage(0);
             setPrefView(0);
             formPortfolioEdit = false;
+            displayFTPanel=false;
 
             // set dafaults
             riskCalculator.setNumberofQuestions(5);
@@ -592,6 +599,24 @@ public class TCMProfileBean extends TCMCustomer implements Serializable
       createAssetPortfolio(1);
    }
 
+   public void showFTPanel() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      displayFTPanel=true;
+      //context.update("fineTunePanel");
+
+   }
+
+   public void closeFTPanel() {
+      RequestContext context = RequestContext.getCurrentInstance();
+      displayFTPanel=false;
+      //context.execute("PF('wvfineTunePanel.hide()')");
+      //context.update("fineTunePanel");
+   }
+
+   public void cancelFTPanel() {
+      doAllocReset();
+      closeFTPanel();
+   }
 
    private void resetDataForm()
    {
