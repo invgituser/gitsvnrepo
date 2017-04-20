@@ -156,7 +156,7 @@ public class PriceProcessing
                      logger.info("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data");
 //            Call holiday data generation Procedure
                      priceDataDao.GetDailyMissingData(businessDate, secLst.get(i1).getTicker());
-                     mailAlertMsg.append("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data\n");
+//                     mailAlertMsg.append("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data\n");
                      priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker());
                      priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker());
                   }
@@ -195,26 +195,26 @@ public class PriceProcessing
             }
          }
          // List is inserted in tmp_rbsa_daily table
-//         if (mailAlertMsg.length() == 0)
-//         {
-         // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
-         try
+         if (mailAlertMsg.length() == 0)
          {
-            //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
-            priceDataDao.callEodProcedure(PriceProcessConst.DAILY, businessDate);
+            // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
+            try
+            {
+               //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
+               priceDataDao.callEodProcedure(PriceProcessConst.DAILY, businessDate);
+            }
+            catch (Exception e)
+            {
+               mailAlertMsg.append("PriceProcessor.dailyProcess() EOD process issue " + e.getMessage() + "\n");
+               logger.error("PriceProcessor.dailyProcess() EOD process issue " + e.getMessage());
+               e.printStackTrace();
+            }
          }
-         catch (Exception e)
+         else
          {
-            mailAlertMsg.append("PriceProcessor.dailyProcess() EOD process issue " + e.getMessage() + "\n");
-            logger.error("PriceProcessor.dailyProcess() EOD process issue " + e.getMessage());
-            e.printStackTrace();
+            mailAlertMsg.append("PriceProcessor.dailyProcess() EOD procedure not called due to occured issues \n");
+            logger.error("PriceProcessor.dailyProcess() EOD procedure not called due to occured issues");
          }
-//         }
-//         else
-//         {
-//            mailAlertMsg.append("PriceProcessor.dailyProcess() EOD procedure not called due to occured issues \n");
-//            logger.error("PriceProcessor.dailyProcess() EOD procedure not called due to occured issues");
-//         }
          logger.info("PriceProcessor.dailyProcess() Daily Process execution End");
       }
       catch (Exception e)
@@ -284,7 +284,7 @@ public class PriceProcessing
                      }
                      if (isPriceAvaiForBusiDate == false)
                      {
-                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate + "\n");
+//                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate + "\n");
                         logger.info("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate);
                      }
 
@@ -325,8 +325,8 @@ public class PriceProcessing
             secMaster = null;
          }
 
-//         if (mailAlertMsg.length() == 0)
-//         {
+         if (mailAlertMsg.length() == 0)
+         {
          // code to call daily_price_processor procedure(in this we are calculating daily return and inserting values in rbsa_daily table)
          try
          {
@@ -339,12 +339,12 @@ public class PriceProcessing
             logger.error("PriceProcessor.monthlyProcess() EOD process issue " + e.getMessage());
             e.printStackTrace();
          }
-//         }
-//         else
-//         {
-//            mailAlertMsg.append("PriceProcessor.monthlyProcess() EOD procedure not called due to occured issues \n");
-//            logger.error("PriceProcessor.monthlyProcess() EOD procedure not called due to occured issues");
-//         }
+         }
+         else
+         {
+            mailAlertMsg.append("PriceProcessor.monthlyProcess() EOD procedure not called due to occured issues \n");
+            logger.error("PriceProcessor.monthlyProcess() EOD procedure not called due to occured issues");
+         }
 
 
          logger.info("PriceProcessor.monthlyProcess() Daily Process execution End");
@@ -411,7 +411,7 @@ public class PriceProcessing
                   if (isPriceAvaiForBusiDate == false)
                   {
                      priceDataDao.GetDailyMissingData(businessDate, secMaster.getTicker());
-                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate + "\n");
+//                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate + "\n");
                      logger.info("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate);
                   }
                   try
