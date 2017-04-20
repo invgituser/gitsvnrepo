@@ -156,7 +156,7 @@ public class PriceProcessing
                      logger.info("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data");
 //            Call holiday data generation Procedure
                      priceDataDao.GetDailyMissingData(businessDate, secLst.get(i1).getTicker());
-//                     mailAlertMsg.append("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data\n");
+                     mailAlertMsg.append("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data\n");
                      priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker());
                      priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker());
                   }
@@ -284,7 +284,7 @@ public class PriceProcessing
                      }
                      if (isPriceAvaiForBusiDate == false)
                      {
-//                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate + "\n");
+                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate + "\n");
                         logger.info("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate);
                      }
 
@@ -411,7 +411,7 @@ public class PriceProcessing
                   if (isPriceAvaiForBusiDate == false)
                   {
                      priceDataDao.GetDailyMissingData(businessDate, secMaster.getTicker());
-//                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate + "\n");
+                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate + "\n");
                      logger.info("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate);
                   }
                   try
