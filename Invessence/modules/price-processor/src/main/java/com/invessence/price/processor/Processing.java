@@ -30,56 +30,62 @@ public class Processing
       try
       {
          mailAlertMsg = new StringBuilder();
-         String company = null, mode = null, pricingrqd = null;
-         logger.info(" Processing.startProcessing() passing argument length " + args.length);
-         for (int i = 0; i < args.length; i++)
+         if (args.length!= 0)
          {
-            if (i == 0)
+            String company = null, mode = null, pricingrqd = null;
+            logger.info(" Processing.startProcessing() passing argument length " + args.length);
+            for (int i = 0; i < args.length; i++)
             {
-               company = "" + args[i].trim();
-            }
-            if (i == 1)
-            {
-               mode = "" + args[i].trim();
-            }
-            if (i == 2)
-            {
-               pricingrqd = "" + args[i].trim();
-            }
-         }
-
-         logger.info(" Processing.startProcessing() passing argument company " + company + " mode " + mode + " pricingrqd " + pricingrqd);
-         if (company != null && mode != null)
-         {
-
-            if (pricingrqd.equalsIgnoreCase("Y") || pricingrqd.equalsIgnoreCase("EXCHANGE_YES"))
-            {
-               //ExchangeRateProcessing exchngProcess = context.getBean(ExchangeRateProcessing.class);
-               boolean bFlag = exchngProcess.process(company, mode, mailAlertMsg);
-               logger.info(" Processing.startProcessing() Exchange rate processing bFlag " + bFlag);
-               if (bFlag)
+               if (i == 0)
                {
+                  company = "" + args[i].trim();
+               }
+               if (i == 1)
+               {
+                  mode = "" + args[i].trim();
+               }
+               if (i == 2)
+               {
+                  pricingrqd = "" + args[i].trim();
+               }
+            }
+
+            logger.info(" Processing.startProcessing() passing argument company " + company + " mode " + mode + " pricingrqd " + pricingrqd);
+            if (company != null && mode != null && pricingrqd != null && company != "" && mode != "" && pricingrqd != "" )
+            {
+
+               if (pricingrqd.equalsIgnoreCase("Y") || pricingrqd.equalsIgnoreCase("EXCHANGE_YES"))
+               {
+                  //ExchangeRateProcessing exchngProcess = context.getBean(ExchangeRateProcessing.class);
+                  boolean bFlag = exchngProcess.process(company, mode, mailAlertMsg);
+                  logger.info(" Processing.startProcessing() Exchange rate processing bFlag " + bFlag);
+                  if (bFlag)
+                  {
 //                  PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
-                  priceProcess.process(company, mode, mailAlertMsg);
+                     priceProcess.process(company, mode, mailAlertMsg);
+                  }
+                  else
+                  {
+                     logger.info(" Processing.startProcessing() No Attempt for Pricing as exchange rates are not collected ");
+                     mailAlertMsg.append(" Processing.startProcessing() No Attempt for Pricing as exchange rates are not collected \n");
+                  }
+//               context.close();
                }
                else
                {
-                  logger.info(" Processing.startProcessing() No Attempt for Pricing as exchange rates are not collected ");
-                  mailAlertMsg.append(" Processing.startProcessing() No Attempt for Pricing as exchange rates are not collected \n");
-               }
+//               PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
+                  priceProcess.process(company, mode, mailAlertMsg);
 //               context.close();
+               }
             }
             else
             {
-//               PriceProcessing priceProcess = context.getBean(PriceProcessing.class);
-               priceProcess.process(company, mode, mailAlertMsg);
-//               context.close();
+               logger.info(" Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing");
+               mailAlertMsg.append("Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing. \n");
             }
-         }
-         else
-         {
-            logger.info(" Processing.startProcessing() Company & mode are not specified, since process not started for Exhange Rate &/ Price collection processing");
-            mailAlertMsg.append("Processing.startProcessing() Company & mode are not specified, since process not started for Exhange Rate &/ Price collection processing \n");
+         }else{
+            logger.info(" Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing");
+            mailAlertMsg.append("Processing.startProcessing() Company/mode/pricingrqd  not specified, since process not started for Exhange Rate &/ Price collection processing. \n");
          }
       }
       catch (Exception e)
