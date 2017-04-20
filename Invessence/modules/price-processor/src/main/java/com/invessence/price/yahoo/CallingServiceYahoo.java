@@ -19,7 +19,7 @@ public class CallingServiceYahoo implements CallingService
 
    //*********************Historical Process*****************
    // To fetch historical prices from Yahoo API
-   public List<PriceData> getHistoricalPriceData(String priceDate, String ticker) throws Exception
+   public List<PriceData> getHistoricalPriceData(String businessDate, String ticker) throws Exception
    {
       List<PriceData> pdList = null;
 
@@ -29,7 +29,7 @@ public class CallingServiceYahoo implements CallingService
          logger.info("CSIDATA getHistoricalPriceData Start " );
          pdList = new ArrayList<PriceData>();
 
-         Date d = sdf.parse(priceDate);
+         Date d = sdf.parse(businessDate);
 //				Calendar from = new GregorianCalendar(2015, 9, 5);// Calendar.getInstance();
 //				Calendar to = new GregorianCalendar(2016, 1, 29);// Calendar.getInstance();//2007-05-30
          Calendar from = Calendar.getInstance();
@@ -73,7 +73,7 @@ public class CallingServiceYahoo implements CallingService
 
                if (isPriceAvaiForBusiDate == false)
                {
-                  if (sdf.format(historicalQuote.getDate().getTime()).equals(priceDate))
+                  if (sdf.format(historicalQuote.getDate().getTime()).equals(businessDate))
                   {
                      isPriceAvaiForBusiDate = true;
                   }
@@ -88,7 +88,7 @@ public class CallingServiceYahoo implements CallingService
 
             if (isPriceAvaiForBusiDate == false)
             {
-               System.out.println("Price not available for ticker:" + ticker + " for businessdate :" + priceDate + "\n");
+               System.out.println("Price not available for ticker:" + ticker + " for businessdate :" + businessDate + "\n");
                //mailAlertMsg.append("Price not available for ticker:" + ticker + " for businessdate :" + priceDate + "\n");
 
             }
@@ -105,7 +105,7 @@ public class CallingServiceYahoo implements CallingService
 
    // **********DAILY PROCESS***********************
    // To fetch daily prices from yahoo API
-   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList) throws Exception
+   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList) throws Exception
    {
       List<PriceData> pdList = null;
       PriceData pd = null;
@@ -113,8 +113,8 @@ public class CallingServiceYahoo implements CallingService
       Iterator<SecMaster> sec = tickerList.iterator();
       /*try
       {*/
-      System.out.println("priceDate :" + priceDate);
-      Date d = sdf.parse(priceDate);
+      System.out.println("businessDate :" + businessDate);
+      Date d = sdf.parse(businessDate);
       Calendar from = Calendar.getInstance();
       from.setTime(d);
       System.out.println("from:" + from.getTime() + "    date:" + d);
@@ -201,14 +201,14 @@ public class CallingServiceYahoo implements CallingService
    @Override
    // **********DAILY PROCESS***********************
    // To fetch daily prices from yahoo API
-   public HashMap<String, Object> getDailyPriceData(String priceDate, String ticker,ServiceRequest serviceRequest) throws Exception
+   public HashMap<String, Object> getDailyPriceData(String businessDate, String ticker,ServiceRequest serviceRequest) throws Exception
    {
       HashMap<String, Object> objPriceData = null;
       List<PriceData> pdList = null;
       PriceData pd = null;
 
-      System.out.println("priceDate :" + priceDate);
-      Date d = sdf.parse(priceDate);
+      System.out.println("businessDate :" + businessDate);
+      Date d = sdf.parse(businessDate);
       Calendar from = Calendar.getInstance();
       from.setTime(d);
       System.out.println("from:" + from.getTime() + "    date:" + d);
@@ -216,7 +216,7 @@ public class CallingServiceYahoo implements CallingService
 
       try
       {
-         logger.info("CSIDATA getDailyPriceData Start priceDate :" + priceDate +" ticker:"+ticker );
+         logger.info("CSIDATA getDailyPriceData Start businessDate :" + businessDate +" ticker:"+ticker );
          objPriceData = new HashMap<String, Object>();
          pdList = new ArrayList<PriceData>();
 
@@ -267,7 +267,7 @@ public class CallingServiceYahoo implements CallingService
 
 
    @Override
-   public HashMap<String, Object>  getHistoryPriceData(String priceDate, String ticker,ServiceRequest serviceRequest) throws Exception
+   public HashMap<String, Object>  getHistoryPriceData(String businessDate, String ticker,ServiceRequest serviceRequest) throws Exception
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -278,11 +278,11 @@ public class CallingServiceYahoo implements CallingService
 
       try
       {
-         logger.info("CSIDATA getHistoryPriceData Start priceDate :" + priceDate +" ticker:"+ticker );
+         logger.info("CSIDATA getHistoryPriceData Start priceDate :" + businessDate +" ticker:"+ticker );
          objPriceData = new HashMap<String, Object>();
          pdList = new ArrayList<PriceData>();
 
-         Date d = sdf.parse(priceDate);
+         Date d = sdf.parse(businessDate);
          Calendar from = Calendar.getInstance();
          from.setTime(d);
          Calendar to = Calendar.getInstance();//2007-05-30
@@ -326,7 +326,7 @@ public class CallingServiceYahoo implements CallingService
 
                if (isPriceAvaiForBusiDate == false)
                {
-                  if (sdf.format(historicalQuote.getDate().getTime()).equals(priceDate))
+                  if (sdf.format(historicalQuote.getDate().getTime()).equals(businessDate))
                   {
                      isPriceAvaiForBusiDate = true;
                   }
@@ -350,7 +350,7 @@ public class CallingServiceYahoo implements CallingService
 
             if (isPriceAvaiForBusiDate == false)
             {
-               System.out.println("Price not available for ticker:" + ticker + " for businessdate :" + priceDate + "\n");
+               System.out.println("Price not available for ticker:" + ticker + " for businessdate :" + businessDate + "\n");
 
             }
             logger.info("CSIDATA getHistoryPriceData price data found data size "+pdList.size() );

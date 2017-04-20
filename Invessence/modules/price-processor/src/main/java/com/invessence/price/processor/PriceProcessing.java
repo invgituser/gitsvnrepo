@@ -30,8 +30,6 @@ public class PriceProcessing
 {
    private static final Logger logger = Logger.getLogger(PriceProcessing.class);
    @Autowired
-   EmailCreator emailCreator;
-   @Autowired
    DBParametersDao dbParametersDao;
    @Autowired
    SecMasterDao secMasterDao;
@@ -44,21 +42,19 @@ public class PriceProcessing
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
 
    // This method fetch Security details along with source information, depends on type it gets daily or historical data
-   public void process(String company, String mode) throws SQLException
+   public void process(String company, String mode, StringBuilder mailAlertMsg) throws SQLException
    {
 
       ServiceRequest serviceRequest = new ServiceRequest(company, mode);
       logger.info("PriceProcessing.process Start company:" + company + " mode:" + mode);
       String companyName = company;
       logger.info("PriceProcessing.process Company Name " + companyName);
-      StringBuilder mailAlertMsg = null;
       List<APIDetails> apidetails = null;
       Map<String, DBParameters> dbParamMap = null;
       List<SecMaster> secLst = null;
-      String priceDate = null;
+      String businessDate = null;
       try
       {
-         mailAlertMsg = new StringBuilder();
          // code to get values for businessdate,last businessdate of month,price date from invessence_switch table
          dbParamMap = dbParametersDao.getDBParametres();
          if (dbParamMap == null && dbParamMap.size() == 0)
@@ -71,27 +67,26 @@ public class PriceProcessing
             logger.info("PriceProcessing.process LAST_BDATE_OF_MONTH :" + dbParamMap.get("LAST_BDATE_OF_MONTH").getValue());
             // code to get the list of tickers from  sec_master table whose status=A
 
-            secLst = secMasterDao.getTicker(priceDate);
+            secLst = secMasterDao.getTicker();
             if (secLst != null && secLst.size() > 0)
             {
 
-               priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
-//               priceDate=dbParamMap.get("PRICE_DATE").getValue().toString();
-               logger.info("PriceProcessing.process Price Date :" + priceDate);
-               logger.info("PriceProcessing.process Price Date :" + dbParamMap.get("PRICE_DATE").getValue().toString() + " Last BuiDate: " + dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString());
+               businessDate = sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
+               logger.info("PriceProcessing.process Business Date :" + businessDate);
+               logger.info("PriceProcessing.process Business Date :" + dbParamMap.get("BUSINESS_DATE").getValue().toString() + " Last BuiDate: " + dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString());
                // code to check for dailyProcess or monthlyProcess
-               if (CommonUtil.dateCompare(dbParamMap.get("PRICE_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false)
+               if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false)
                {
                   logger.info("PriceProcessing.process DAILY_PRICING");
                   apidetails = secMasterDao.getSwitch(companyName, "DAILY_PRICING");
-                  dailyProcess(apidetails, priceDate, secLst, mailAlertMsg, dbParamMap.get("PRICE_DATE").getValue().toString(), serviceRequest);
+                  dailyProcess(apidetails, businessDate, secLst, mailAlertMsg, serviceRequest);
                }
                // code to check for dailyProcess or monthlyProcess
-               else if (CommonUtil.dateCompare(dbParamMap.get("PRICE_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
+               else if (CommonUtil.dateCompare(dbParamMap.get("BUSINESS_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == true)
                {
                   logger.info("PriceProcessing.process MONTHLY_PRICING ");
                   apidetails = secMasterDao.getSwitch(companyName, "MONTHLY_PRICING");
-                  monthlyProcess(apidetails, priceDate, secLst, mailAlertMsg, dbParamMap.get("PRICE_DATE").getValue().toString(), serviceRequest);
+                  monthlyProcess(apidetails, businessDate, secLst, mailAlertMsg, serviceRequest);
                }
             }
             else
@@ -110,18 +105,8 @@ public class PriceProcessing
          e.printStackTrace();
       }
 
-      // Here we are sending mail to support team, if we have any exception
       finally
       {
-         if (mailAlertMsg.length() > 0)
-         {
-            logger.info("MailAlertMsg IS :" + mailAlertMsg);
-            emailCreator.sendToSupport("ERR", "EXCEPTION:PRICING MODULE", mailAlertMsg.toString());
-         }
-         else
-         {
-            logger.info("MailAlertMsg is empty");
-         }
          try
          {
             companyName = null;
@@ -129,7 +114,7 @@ public class PriceProcessing
             apidetails = null;
             dbParamMap = null;
             secLst = null;
-            priceDate = null;
+            businessDate = null;
          }
          catch (Exception e)
          {
@@ -143,7 +128,7 @@ public class PriceProcessing
     * In this method we are performing daily process
     */
 
-   public void dailyProcess(List<APIDetails> apidetails, String priceDate, List<SecMaster> secLst, StringBuilder mailAlertMsg, String strDbPriceDate, ServiceRequest serviceRequest)
+   public void dailyProcess(List<APIDetails> apidetails, String businessDate, List<SecMaster> secLst, StringBuilder mailAlertMsg, ServiceRequest serviceRequest)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -159,28 +144,28 @@ public class PriceProcessing
                logger.info("PriceProcessor.dailyProcess() OnDemand processing for Ticker:" + secLst.get(i1).getTicker() + " required " + secLst.get(i1).getOnDemand());
                if (secLst.get(i1).getOnDemand().equalsIgnoreCase("YES"))
                {
-                  onDemandProcessing(apidetails, priceDate, secLst.get(i1), mailAlertMsg, serviceRequest);
+                  onDemandProcessing(apidetails, businessDate, secLst.get(i1), mailAlertMsg, serviceRequest);
                }
                else
                {
                   priceDataDao.delete();
-                  objPriceData = priceService.getPrice(apidetails, PriceProcessConst.DAILY, priceDate, secLst.get(i1).getTicker(), secLst.get(i1).getTickerSource(), serviceRequest);
+                  objPriceData = priceService.getPrice(apidetails, PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker(), secLst.get(i1).getTickerSource(), serviceRequest);
 
                   if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
                   {
                      logger.info("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data");
 //            Call holiday data generation Procedure
-                     priceDataDao.GetDailyMissingData(priceDate, secLst.get(i1).getTicker());
+                     priceDataDao.GetDailyMissingData(businessDate, secLst.get(i1).getTicker());
                      mailAlertMsg.append("PriceProcessor.dailyProcess() Daily Process Price Value Missing for Ticker:" + secLst.get(i1).getTicker() + ",generated holiday data\n");
                      priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker());
-                     priceDataDao.callProcedure(PriceProcessConst.DAILY, priceDate, secLst.get(i1).getTicker());
+                     priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker());
                   }
                   else
                   {
                      logger.info("PriceProcessor.dailyProcess() getting Price Value for Ticker:" + secLst.get(i1).getTicker());
                      pdList = (List<PriceData>) objPriceData.get("priceData");
 
-                     if (!pdList.get(0).getBusinessDate().equals(priceDate))
+                     if (!pdList.get(0).getBusinessDate().equals(businessDate))
                      {
                         if (pdList.get(0).getClosePrice() == null || pdList.get(0).getClosePrice().equals(0.0) || pdList.get(0).getClosePrice().equals(""))
                         {
@@ -191,7 +176,7 @@ public class PriceProcessing
                      {
                         priceDataDao.insertBatch(pdList);
                         priceDataDao.GetExchangePriceData(secLst.get(i1).getTicker());
-                        priceDataDao.callProcedure(PriceProcessConst.DAILY, priceDate, secLst.get(i1).getTicker());
+                        priceDataDao.callProcedure(PriceProcessConst.DAILY, businessDate, secLst.get(i1).getTicker());
                      }
                      catch (Exception e)
                      {
@@ -216,7 +201,7 @@ public class PriceProcessing
          try
          {
             //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
-            priceDataDao.callEodProcedure(PriceProcessConst.DAILY, priceDate);
+            priceDataDao.callEodProcedure(PriceProcessConst.DAILY, businessDate);
          }
          catch (Exception e)
          {
@@ -242,7 +227,7 @@ public class PriceProcessing
 
    //In this method we are performing monthly process
 
-   public void monthlyProcess(List<APIDetails> apidetails, String priceDate, List<SecMaster> tickerList, StringBuilder mailAlertMsg, String strDbPriceDate, ServiceRequest serviceRequest)
+   public void monthlyProcess(List<APIDetails> apidetails, String businessdate, List<SecMaster> tickerList, StringBuilder mailAlertMsg, ServiceRequest serviceRequest)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -258,11 +243,11 @@ public class PriceProcessing
             if (secMaster.getTickerSource() != null && !secMaster.getTickerSource().isEmpty())
             {
                logger.info("PriceProcessor.monthlyProcess() getting Price Value for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
-               objPriceData = priceService.getPrice(apidetails, PriceProcessConst.MONTHLY, priceDate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
+               objPriceData = priceService.getPrice(apidetails, PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
                if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
                {
-                  mailAlertMsg.append("PriceProcessor.monthlyProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
-                  logger.info("PriceProcessor.monthlyProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
+                  mailAlertMsg.append("PriceProcessor.monthlyProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + " API\n");
+                  logger.info("PriceProcessor.monthlyProcess() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + " API");
                }
                else
                {
@@ -284,7 +269,7 @@ public class PriceProcessing
                      {
                         if (isPriceAvaiForBusiDate == false)
                         {
-                           if (pdList.get(i).getBusinessDate().equals(priceDate))
+                           if (pdList.get(i).getBusinessDate().equals(businessdate))
                            {
                               isPriceAvaiForBusiDate = true;
                               break forloop;
@@ -299,16 +284,16 @@ public class PriceProcessing
                      }
                      if (isPriceAvaiForBusiDate == false)
                      {
-                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + priceDate + "\n");
-                        logger.info("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + priceDate);
+                        mailAlertMsg.append("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate + "\n");
+                        logger.info("PriceProcessor.monthlyProcess() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessdate);
                      }
 
                      try
                      {
                         priceDataDao.insertBatch(pdList);
-                        priceDataDao.callHolidayProcedure(pdList.get((pdList.size() - 1)).getBusinessDate(), priceDate);
+                        priceDataDao.callHolidayProcedure(pdList.get((pdList.size() - 1)).getBusinessDate(), businessdate);
                         priceDataDao.GetExchangePriceData(secMaster.getTicker());
-                        priceDataDao.callProcedure(PriceProcessConst.MONTHLY, priceDate, secMaster.getTicker());
+                        priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessdate, secMaster.getTicker());
                      }
                      catch (Exception e)
                      {
@@ -346,7 +331,7 @@ public class PriceProcessing
          try
          {
             //code to call end_of_price_process procedure(in this we are updating sec_daily_info table,invessence_switch table and invdb.inv_date_table)
-            priceDataDao.callEodProcedure(PriceProcessConst.MONTHLY, priceDate);
+            priceDataDao.callEodProcedure(PriceProcessConst.MONTHLY, businessdate);
          }
          catch (Exception e)
          {
@@ -372,7 +357,7 @@ public class PriceProcessing
       }
    }
 
-   public void onDemandProcessing(List<APIDetails> apidetails, String priceDate, SecMaster secMaster, StringBuilder mailAlertMsg, ServiceRequest serviceRequest)
+   public void onDemandProcessing(List<APIDetails> apidetails, String businessDate, SecMaster secMaster, StringBuilder mailAlertMsg, ServiceRequest serviceRequest)
    {
       List<PriceData> pdList = null;
       HashMap<String, Object> objPriceData = null;
@@ -385,7 +370,7 @@ public class PriceProcessing
          if (secMaster.getTickerSource() != null && !secMaster.getTickerSource().isEmpty())
          {
             logger.info("PriceProcessor.onDemandProcessing() getting Price Values for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource());
-            objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, priceDate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
+            objPriceData = priceService.getPrice(apidetails, PriceProcessConst.ONDEMAND, businessDate, secMaster.getTicker(), secMaster.getTickerSource(), serviceRequest);
             if (objPriceData.get("status").toString().equalsIgnoreCase("failure"))
             {
                mailAlertMsg.append("PriceProcessor.onDemandProcessing() getting History Price Values fails for Ticker:" + secMaster.getTicker() + " Using " + secMaster.getTickerSource() + "\n");
@@ -411,7 +396,7 @@ public class PriceProcessing
                   {
                      if (isPriceAvaiForBusiDate == false)
                      {
-                        if (pdList.get(i).getBusinessDate().equals(priceDate))
+                        if (pdList.get(i).getBusinessDate().equals(businessDate))
                         {
                            isPriceAvaiForBusiDate = true;
                            break forloop;
@@ -425,18 +410,18 @@ public class PriceProcessing
                   }
                   if (isPriceAvaiForBusiDate == false)
                   {
-                     priceDataDao.GetDailyMissingData(priceDate, secMaster.getTicker());
-                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + priceDate + "\n");
-                     logger.info("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + priceDate);
+                     priceDataDao.GetDailyMissingData(businessDate, secMaster.getTicker());
+                     mailAlertMsg.append("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate + "\n");
+                     logger.info("PriceProcessor.onDemandProcessing() Price not available for ticker:" + secMaster.getTicker() + " for businessdate :" + businessDate);
                   }
                   try
                   {
                      priceDataDao.insertBatch(pdList);
                      startDate = pdList.get((pdList.size() - 1)).getBusinessDate();
                      endDate = pdList.get(0).getBusinessDate();
-                     priceDataDao.callHolidayProcedure(startDate, priceDate);
+                     priceDataDao.callHolidayProcedure(startDate, businessDate);
                      priceDataDao.GetExchangePriceData(secMaster.getTicker());
-                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, priceDate, secMaster.getTicker());
+                     priceDataDao.callProcedure(PriceProcessConst.MONTHLY, businessDate, secMaster.getTicker());
                   }
                   catch (Exception e)
                   {

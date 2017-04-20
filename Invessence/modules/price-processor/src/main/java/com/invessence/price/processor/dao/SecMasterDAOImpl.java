@@ -57,7 +57,7 @@ public class SecMasterDAOImpl implements SecMasterDao
 
    }
 
-   public List<SecMaster> getTicker( String priceDate) throws SQLException
+   public List<SecMaster> getTicker() throws SQLException
    {
       List<SecMaster> lst = null;
 

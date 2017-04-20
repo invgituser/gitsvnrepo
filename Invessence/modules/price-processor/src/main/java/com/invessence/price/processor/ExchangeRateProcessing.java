@@ -25,8 +25,6 @@ public class ExchangeRateProcessing
 {
    private static final Logger logger = Logger.getLogger(PriceProcessing.class);
    @Autowired
-   EmailCreator emailCreator;
-   @Autowired
    DBParametersDao dbParametersDao;
    @Autowired
    SecExchangeDao secExchangeMaster;
@@ -37,20 +35,18 @@ public class ExchangeRateProcessing
    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
    SimpleDateFormat switchFormat = new SimpleDateFormat("yyyyMMdd");
 
-   public boolean process(String company, String mode) throws SQLException
+   public boolean process(String company, String mode, StringBuilder mailAlertMsg) throws SQLException
    {
-      boolean bFlag = false;
+      boolean bFlag = true;
       String URL = null;
       String exchangeDate = null;
       Map<String, DBParameters> dbParamMap = null;
-      StringBuilder mailAlertMsg = null;
       DailyRates dailyExchangeData = null;
       ServiceRequest serviceRequest = null;
       List<HistoricalDataRates> historicalExchangeData = null;
       HistoricalData objDailyData = null;
       try
       {
-         mailAlertMsg = new StringBuilder();
          serviceRequest = new ServiceRequest(company, mode);
          logger.info(" ExchangeRateProcessing process Start");
          dbParamMap = dbParametersDao.getDBParametres();
@@ -61,7 +57,7 @@ public class ExchangeRateProcessing
          }
          else
          {
-            exchangeDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
+            exchangeDate = sdf.format(switchFormat.parse(dbParamMap.get("BUSINESS_DATE").getValue().toString()));
             logger.info("ExchangeRateProcessing.process()  exchangeDate : " + exchangeDate);
             symLst = secExchangeMaster.getSymbol();
 
@@ -75,7 +71,7 @@ public class ExchangeRateProcessing
                   if (symLst.get(i).getOnDemand().equalsIgnoreCase("Y") || symLst.get(i).getOnDemand().equalsIgnoreCase("YES"))
                   {
                      URL = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.PRICING.toString(), serviceRequest.getMode(), Constant.PRICING.FIS.toString(), "HISTORY.URL");
-                     logger.info(" ExchangeRateProcessing.process() requesting URL " + URL);
+                     logger.info(" ExchangeRateProcessing.process() Historical requesting URL " + URL);
                      historicalExchangeData = null;
                      try
                      {
@@ -83,25 +79,34 @@ public class ExchangeRateProcessing
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Error while API call historical " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Error while API call historical " + e.getMessage());
+                        mailAlertMsg.append("ExchangeRateProcessing.process() Historical Error while API call historical " + e.getMessage() + " \n");
+                        logger.error("ExchangeRateProcessing.process() Historical Error while API call historical " + e.getMessage());
                         e.printStackTrace();
                      }
                      try
                      {
-                        secExchangeMaster.insertBatch(historicalExchangeData, symLst.get(i).getSymbol());
+                        if (historicalExchangeData != null)
+                        {
+                           secExchangeMaster.insertBatch(historicalExchangeData, symLst.get(i).getSymbol());
+                        }
+                        else
+                        {
+                           mailAlertMsg.append("ExchangeRateProcessing.process() Historical  No Exchange data found for  " + symLst.get(i).getSymbol() + " \n");
+                           logger.error("ExchangeRateProcessing.process() Historical No Exchange data found for  " + symLst.get(i).getSymbol() + " \n");
+                           bFlag = false;
+                        }
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Error while db insertion historical " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Error while db insertion historical" + e.getMessage());
+                        mailAlertMsg.append("ExchangeRateProcessing.process() Historical Error while db insertion historical " + e.getMessage() + " \n");
+                        logger.error("ExchangeRateProcessing.process() Historical Error while db insertion historical" + e.getMessage());
                         e.printStackTrace();
                      }
                   }
                   else
                   {
                      URL = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.PRICING.toString(), serviceRequest.getMode(), Constant.PRICING.FIS.toString(), "DAILY.URL");
-                     logger.info(" ExchangeRateProcessing.process() requesting URL " + URL);
+                     logger.info(" ExchangeRateProcessing.process() Daily Api requesting URL " + URL);
 
                      objDailyData = null;
                      try
@@ -110,25 +115,33 @@ public class ExchangeRateProcessing
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Error while API call daily " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Error while API call daily " + e.getMessage());
+                        mailAlertMsg.append("ExchangeRateProcessing.process() Daily Error while API call daily " + e.getMessage() + " \n");
+                        logger.error("ExchangeRateProcessing.process() Daily Error while API call daily " + e.getMessage());
                         e.printStackTrace();
                      }
                      try
                      {
 //                        dailyExchangeData = objDailyData;
-                        secExchangeMaster.delete(symLst.get(i).getSymbol(),exchangeDate);
-                        secExchangeMaster.insert(objDailyData, symLst.get(i).getSymbol());
+                        if (objDailyData != null)
+                        {
+                           secExchangeMaster.delete(symLst.get(i).getSymbol(), exchangeDate);
+                           secExchangeMaster.insert(objDailyData, symLst.get(i).getSymbol());
+                        }
+                        else
+                        {
+                           mailAlertMsg.append("ExchangeRateProcessing.process() Daily No Exchange data found for  " + symLst.get(i).getSymbol()+" exchangeDate " +exchangeDate+ " \n");
+                           logger.error("ExchangeRateProcessing.process() Daily No Exchange data found for  " + symLst.get(i).getSymbol()+" exchangeDate " +exchangeDate+  " \n");
+                           bFlag = false;
+                        }
                      }
                      catch (Exception e)
                      {
-                        mailAlertMsg.append("ExchangeRateProcessing.process() Error while db insertion daily " + e.getMessage() + " \n");
-                        logger.error("ExchangeRateProcessing.process() Error while db insertion daily" + e.getMessage());
+                        mailAlertMsg.append("ExchangeRateProcessing.process() Daily Error while db insertion daily " + e.getMessage() + " \n");
+                        logger.error("ExchangeRateProcessing.process() Daily Error while db insertion daily" + e.getMessage());
                         e.printStackTrace();
                      }
                   }
                }
-               bFlag = true;
                logger.info(" ExchangeRateProcessing.process() return flag " + bFlag);
             }
             else
@@ -146,15 +159,6 @@ public class ExchangeRateProcessing
       }
       finally
       {
-         if (mailAlertMsg.length() > 0)
-         {
-            logger.info("MailAlertMsg IS :" + mailAlertMsg);
-            emailCreator.sendToSupport("ERR", "EXCEPTION:PRICING MODULE", mailAlertMsg.toString());
-         }
-         else
-         {
-            logger.info("MailAlertMsg is empty");
-         }
          try
          {
             URL = null;

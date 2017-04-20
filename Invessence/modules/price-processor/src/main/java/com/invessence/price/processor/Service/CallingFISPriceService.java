@@ -9,7 +9,7 @@ import com.invessence.price.FIS.bean.*;
  */
 public interface CallingFISPriceService
 {
-   public HistoricalData getDailyPrice(String URL, String symbol,String priceDate)throws Exception;
-   public List<HistoricalDataRates>  getHistoricalPrice(String URL, String symbol,String priceDate)throws Exception;
+   public HistoricalData getDailyPrice(String URL, String symbol,String businessDate)throws Exception;
+   public List<HistoricalDataRates>  getHistoricalPrice(String URL, String symbol,String businessDate)throws Exception;
 
 }

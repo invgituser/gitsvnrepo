@@ -48,7 +48,7 @@ public class CallingServiceCSIData implements CallingService
    }
 
    @Override
-   public HashMap<String, Object> getDailyPriceData(String priceDate, String ticker, ServiceRequest serviceRequest) throws Exception
+   public HashMap<String, Object> getDailyPriceData(String businessDate, String ticker, ServiceRequest serviceRequest) throws Exception
    {
       HashMap<String, Object> objPriceData = null;
       List<PriceData> pdList = null;
@@ -65,13 +65,13 @@ public class CallingServiceCSIData implements CallingService
 
          pdList = new ArrayList<PriceData>();
          objPriceData = new HashMap<String, Object>();
-         bflag = downloadSFTPFile(priceDate, ticker + ".CSV", serviceRequest);
+         bflag = downloadSFTPFile(businessDate, ticker + ".CSV", serviceRequest);
          logger.info("CSIDATA getDailyPriceData file download success flag " + bflag);
          if (bflag)
          {
             destnDir = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.PRICING.toString(), serviceRequest.getMode(), Constant.PRICING.CSIDATA.toString(), "DESTINATION.DIRECTORY");
             logger.info("CSIDATA getDailyPriceData destnDir " + destnDir);
-            br = new BufferedReader(new FileReader(destnDir + priceDate + "/" + ticker + ".CSV"));
+            br = new BufferedReader(new FileReader(destnDir + businessDate + "/" + ticker + ".CSV"));
             /*
             * csidata[0]-Business Date
             * csidata[1]-Open Price
@@ -83,7 +83,7 @@ public class CallingServiceCSIData implements CallingService
             while ((line = br.readLine()) != null)
             {
                String[] csidata = line.split(",");
-               if (priceDate.equalsIgnoreCase(csidata[0]))
+               if (businessDate.equalsIgnoreCase(csidata[0]))
                {
                   if (counter == 0)
                   {
@@ -138,7 +138,7 @@ public class CallingServiceCSIData implements CallingService
       {
          try
          {
-            priceDate = null;
+            businessDate = null;
             ticker = null;
             line = null;
             prevBusinessdate = null;
@@ -155,7 +155,7 @@ public class CallingServiceCSIData implements CallingService
 
 
    @Override
-   public HashMap<String, Object> getHistoryPriceData(String priceDate, String ticker, ServiceRequest serviceRequest) throws Exception
+   public HashMap<String, Object> getHistoryPriceData(String businessDate, String ticker, ServiceRequest serviceRequest) throws Exception
    {
       HashMap<String, Object> objPriceData = null;
       List<PriceData> pdList = null;
@@ -171,13 +171,13 @@ public class CallingServiceCSIData implements CallingService
       {
          pdList = new ArrayList<PriceData>();
          objPriceData = new HashMap<String, Object>();
-         bflag = downloadSFTPFile(priceDate, ticker + ".CSV", serviceRequest);
+         bflag = downloadSFTPFile(businessDate, ticker + ".CSV", serviceRequest);
          logger.info("CSIDATA getHistoryPriceData file download flag " + bflag);
          if (bflag)
          {
             destnDir = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.PRICING.toString(), serviceRequest.getMode(), Constant.PRICING.CSIDATA.toString(), "DESTINATION.DIRECTORY");
             logger.info("CSIDATA getHistoryPriceData file destination directory " + destnDir);
-            br = new BufferedReader(new FileReader(destnDir + priceDate + "/" + ticker + ".CSV"));
+            br = new BufferedReader(new FileReader(destnDir + businessDate + "/" + ticker + ".CSV"));
             while ((line = br.readLine()) != null)
             {
                String[] csidata = line.split(",");
@@ -233,7 +233,7 @@ public class CallingServiceCSIData implements CallingService
       {
          try
          {
-            priceDate = null;
+            businessDate = null;
             ticker = null;
             line = null;
             prevBusinessdate = null;
@@ -249,7 +249,7 @@ public class CallingServiceCSIData implements CallingService
    }
 
    @Override
-   public List<PriceData> getHistoricalPriceData(String priceDate, String ticker)
+   public List<PriceData> getHistoricalPriceData(String businessDate, String ticker)
    {
       System.out.println("Not Support historical price process for CSIDATA");
       return null;
@@ -257,13 +257,13 @@ public class CallingServiceCSIData implements CallingService
 
 
    @Override
-   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList)
+   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList)
    {
       System.out.println("Not Support daily price process for CSIDATA");
       return null;
    }
 
-   public boolean downloadSFTPFile(String pricedate, String tickerfile, ServiceRequest serviceRequest)
+   public boolean downloadSFTPFile(String businessDate, String tickerfile, ServiceRequest serviceRequest)
    {
       boolean bflag = false;
 
@@ -322,7 +322,7 @@ public class CallingServiceCSIData implements CallingService
             byte[] buffer = new byte[1024];
             BufferedInputStream bis = new BufferedInputStream(channelSftp.get(tickerfile));
 
-            File newFile = new File(dstnDir + pricedate);
+            File newFile = new File(dstnDir + businessDate);
 
             if (!newFile.isDirectory())
             {
@@ -330,7 +330,7 @@ public class CallingServiceCSIData implements CallingService
             }
 
             newFile = null;
-            newFile = new File(dstnDir + pricedate + "/" + tickerfile);
+            newFile = new File(dstnDir + businessDate + "/" + tickerfile);
             OutputStream os = new FileOutputStream(newFile);
             BufferedOutputStream bos = new BufferedOutputStream(os);
             int readCount;

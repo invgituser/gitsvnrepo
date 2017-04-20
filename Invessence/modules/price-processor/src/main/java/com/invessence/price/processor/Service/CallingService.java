@@ -10,8 +10,8 @@ import com.invessence.service.bean.ServiceRequest;
  */
 public interface CallingService
 {
-   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList)throws Exception;
-   public  List<PriceData> getHistoricalPriceData(String priceDate, String ticker)throws  Exception;
-   public HashMap<String, Object> getDailyPriceData(String priceDate,String ticker,ServiceRequest serviceRequest)throws Exception;
-   public HashMap<String, Object> getHistoryPriceData(String priceDate,String ticker,ServiceRequest serviceRequest)throws Exception;
+   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList)throws Exception;
+   public  List<PriceData> getHistoricalPriceData(String businessDate, String ticker)throws  Exception;
+   public HashMap<String, Object> getDailyPriceData(String businessDate,String ticker,ServiceRequest serviceRequest)throws Exception;
+   public HashMap<String, Object> getHistoryPriceData(String businessDate,String ticker,ServiceRequest serviceRequest)throws Exception;
 }

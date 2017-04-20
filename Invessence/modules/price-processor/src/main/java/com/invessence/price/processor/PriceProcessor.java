@@ -81,10 +81,6 @@ public class PriceProcessor
                String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
                System.out.println("Price Date :" + priceDate);
 
-//               String priceDate = sdf.format(switchFormat.parse(dbParamMap.get("PRICE_DATE").getValue().toString()));
-//               System.out.println("Price Date :" + priceDate);
-
-
                // code to check for dailyProcess or monthlyProcess
                if (CommonUtil.dateCompare(dbParamMap.get("PRICE_DATE").getValue().toString(), dbParamMap.get("LAST_BDATE_OF_MONTH").getValue().toString()) == false)
                {

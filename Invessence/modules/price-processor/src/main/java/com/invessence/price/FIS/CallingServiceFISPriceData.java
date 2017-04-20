@@ -35,7 +35,7 @@ public class CallingServiceFISPriceData implements CallingFISPriceService
    }
 
    @Override
-   public HistoricalData getDailyPrice(String URL, String symbol,String priceDate) throws Exception
+   public HistoricalData getDailyPrice(String URL, String symbol,String businessDate) throws Exception
    {
       HistoricalData objDailyData = null;
       URL url = null;
@@ -46,7 +46,7 @@ public class CallingServiceFISPriceData implements CallingFISPriceService
          logger.info("getDailyExchangeRate Start URL:" + URL + " symbol:" + symbol);
          jaxbContext = JAXBContext.newInstance(HistoricalData.class);
          unmarshaller = jaxbContext.createUnmarshaller();
-         URL = URL.replace("$$SYMBOL$$", symbol)+ "&From=" + priceDate.replaceAll("-", "");
+         URL = URL.replace("$$SYMBOL$$", symbol)+ "&From=" + businessDate.replaceAll("-", "");
          URL = URL.replace("$$DIRECTION$$", "Forward");
          logger.info("getDailyExchangeRate Exchange data URL:" + URL);
          url = new URL(URL);
@@ -75,7 +75,7 @@ public class CallingServiceFISPriceData implements CallingFISPriceService
    }
 
    @Override
-   public List<HistoricalDataRates> getHistoricalPrice(String URL, String symbol,String priceDate) throws Exception
+   public List<HistoricalDataRates> getHistoricalPrice(String URL, String symbol,String businessDate) throws Exception
    {
       boolean bflag = true;
       int counter = 0;
@@ -98,7 +98,7 @@ public class CallingServiceFISPriceData implements CallingFISPriceService
             if (counter == 0)
             {
                strURL2 = URL.replace("$$SYMBOL$$", symbol);
-               strURL2 = strURL2.replace("$$DIRECTION$$", "Backward")+ "&To=" + priceDate.replaceAll("-", "");
+               strURL2 = strURL2.replace("$$DIRECTION$$", "Backward")+ "&To=" + businessDate.replaceAll("-", "");
             }
             else
             {

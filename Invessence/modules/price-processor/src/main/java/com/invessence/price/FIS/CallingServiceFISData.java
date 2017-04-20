@@ -24,19 +24,19 @@ public class CallingServiceFISData implements CallingService
    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
    @Override
-   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList) throws Exception
+   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList) throws Exception
    {
       return null;
    }
 
    @Override
-   public List<PriceData> getHistoricalPriceData(String priceDate, String ticker) throws Exception
+   public List<PriceData> getHistoricalPriceData(String businessDate, String ticker) throws Exception
    {
       return null;
    }
 
    @Override
-   public HashMap<String, Object> getDailyPriceData(String priceDate, String ticker, ServiceRequest serviceRequest) throws Exception
+   public HashMap<String, Object> getDailyPriceData(String businessDate, String ticker, ServiceRequest serviceRequest) throws Exception
    {
       HashMap<String, Object> objPriceData = null;
       List<PriceData> pdList = null;
@@ -55,10 +55,10 @@ public class CallingServiceFISData implements CallingService
             * exchangeData.getVolume()-Volume
             * */
          String strURL =ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.PRICING.toString(), serviceRequest.getMode(), Constant.PRICING.FIS.toString(), "DAILY.URL");
-         HistoricalData objDailyData = objCallingFISPriceService.getDailyPrice(strURL, ticker,priceDate);
+         HistoricalData objDailyData = objCallingFISPriceService.getDailyPrice(strURL, ticker,businessDate);
          HistoricalDataRates dallyRates = objDailyData.getHistoricalExchangeRates().getTimeSeriesPoint().get(0);
 
-         if (priceDate.equalsIgnoreCase(dallyRates.getDate()))
+         if (businessDate.equalsIgnoreCase(dallyRates.getDate()))
          {
             hpd = new PriceData(ticker,
                                 dallyRates.getDate(),
@@ -92,7 +92,7 @@ public class CallingServiceFISData implements CallingService
       {
          try
          {
-            priceDate = null;
+            businessDate = null;
             ticker = null;
             pdList = null;
          }
@@ -104,7 +104,7 @@ public class CallingServiceFISData implements CallingService
    }
 
    @Override
-   public HashMap<String, Object> getHistoryPriceData(String priceDate, String ticker, ServiceRequest serviceRequest) throws Exception
+   public HashMap<String, Object> getHistoryPriceData(String businessDate, String ticker, ServiceRequest serviceRequest) throws Exception
    {
       HashMap<String, Object> objPriceData = null;
       List<PriceData> pdList = null;
@@ -120,7 +120,7 @@ public class CallingServiceFISData implements CallingService
          String strURL = ServiceDetails.getConfigProperty(serviceRequest.getProduct(), Constant.SERVICES.PRICING.toString(), serviceRequest.getMode(), Constant.PRICING.FIS.toString(), "HISTORY.URL");
          pdList = new ArrayList<PriceData>();
          objPriceData = new HashMap<String, Object>();
-         List<HistoricalDataRates> objHistoricalData = objCallingFISPriceService.getHistoricalPrice(strURL, ticker,priceDate);
+         List<HistoricalDataRates> objHistoricalData = objCallingFISPriceService.getHistoricalPrice(strURL, ticker,businessDate);
 
          for (int i = 0; i < objHistoricalData.size(); i++)
          {
@@ -173,7 +173,7 @@ public class CallingServiceFISData implements CallingService
       {
          try
          {
-            priceDate = null;
+            businessDate = null;
             ticker = null;
             line = null;
             prevBusinessdate = null;

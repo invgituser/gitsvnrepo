@@ -18,7 +18,7 @@ begin
  if(p_exchngavailable>0) then
  select p_exchngsymbol,p_exchngavailable,'1',p_toCurrency;
  delete from rbsa.tmp_rbsa_daily where businessdate<(select min(exchangeDate) from rbsa.sec_exchangerate_data sed where sed.symbol=p_exchngsymbol );
- 	 call rbsa.exchange_rate_processor(p_ticker,'forward',p_exchngsymbol,p_toCurrency);
+ 	 	 call rbsa.exchange_rate_processor(p_ticker,'forward',p_exchngsymbol,p_exchngsymbol);
      else
 
  	set p_exchngavailable=0;
@@ -31,7 +31,7 @@ begin
             set p_fromCurrency=p_scndcd;
  			select '2',p_exchngavailable,p_exchngsymbol,p_fromCurrency;
             delete from rbsa.tmp_rbsa_daily where businessdate<(select min(exchangeDate) from rbsa.sec_exchangerate_data sed where sed.symbol=p_exchngsymbol );
- 	 call rbsa.exchange_rate_processor(p_ticker,'backward',p_exchngsymbol,p_fromCurrency);
+ 	  	 call rbsa.exchange_rate_processor(p_ticker,'backward',p_exchngsymbol,p_exchngsymbol);
  		end if;
  end if;
  

@@ -34,7 +34,7 @@ public class PriceServiceImpl implements PriceService
 
    @Override
    //In this  code we are selecting api based on priority to run daily process
-   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String priceDate, List<SecMaster> tickerList) throws IOException
+   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String businessDate, List<SecMaster> tickerList) throws IOException
    {
 
       List<PriceData> priceData = null;
@@ -58,7 +58,7 @@ public class PriceServiceImpl implements PriceService
          try
          {
             //if api does not throw any exception we end the loop
-            priceData = callingService.getDailyPriceData(priceDate, tickerList);
+            priceData = callingService.getDailyPriceData(businessDate, tickerList);
             break;
          }
          catch (Exception e)
@@ -74,7 +74,7 @@ public class PriceServiceImpl implements PriceService
 
    //In this  code we are selecting api based on priority to run monthly process
    @Override
-   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String priceDate, String ticker) throws Exception
+   public List<PriceData> getPrice(List<APIDetails> apidetails, String operation, String businessDate, String ticker) throws Exception
    {
       List<PriceData> priceData = null;
       Iterator itr = apidetails.iterator();
@@ -96,7 +96,7 @@ public class PriceServiceImpl implements PriceService
          try
          {
             //if api does not throw any exception we end the loop
-            priceData = callingService.getHistoricalPriceData(priceDate, ticker);
+            priceData = callingService.getHistoricalPriceData(businessDate, ticker);
             break;
          }
          catch (Exception e)
@@ -112,14 +112,14 @@ public class PriceServiceImpl implements PriceService
 
    //In this  code we are selecting api based on priority to run monthly process
    @Override
-   public HashMap<String, Object> getPrice(List<APIDetails> apidetails, String operation, String priceDate, String ticker, String tickerSource,ServiceRequest serviceRequest) throws Exception
+   public HashMap<String, Object> getPrice(List<APIDetails> apidetails, String operation, String businessDate, String ticker, String tickerSource,ServiceRequest serviceRequest) throws Exception
    {
       HashMap<String, Object> objPriceData = null;
       List<PriceData> priceData = null;
       Iterator itr = apidetails.iterator();
       String srcArr[] = tickerSource.split(",");
 
-     logger.info("getPrice priceDate "+priceDate+"ticker "+ticker+"tickerSource "+ tickerSource);
+     logger.info("getPrice priceDate "+businessDate+"ticker "+ticker+"tickerSource "+ tickerSource);
       apiloop:
       while (itr.hasNext())
       {
@@ -155,13 +155,13 @@ public class PriceServiceImpl implements PriceService
                {
                   logger.info("getPrice monthly opertaion price source  "+srcArr[j]);
                   // priceData = callingService.getHistoricalPriceData(priceDate, ticker);
-                  objPriceData = callingService.getHistoryPriceData(priceDate, ticker, serviceRequest);
+                  objPriceData = callingService.getHistoryPriceData(businessDate, ticker, serviceRequest);
                }
                else if (callingService!=null &&  (operation.equalsIgnoreCase(PriceProcessConst.DAILY)))
                {
                   logger.info("getPrice daily opertaion price source  "+srcArr[j]);
 //               priceData = callingService.getDailyPriceData(priceDate, tickerList);
-                  objPriceData = callingService.getDailyPriceData(priceDate, ticker, serviceRequest);
+                  objPriceData = callingService.getDailyPriceData(businessDate, ticker, serviceRequest);
                }
                callingService=null;
                if (objPriceData!=null &&  objPriceData.get("status").toString().equalsIgnoreCase("success"))

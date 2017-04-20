@@ -41,7 +41,7 @@ public class CallingServiceXignite implements CallingService
    }
 
    @Override
-   public List<PriceData> getDailyPriceData(String priceDate, List<SecMaster> tickerList)
+   public List<PriceData> getDailyPriceData(String businessDate, List<SecMaster> tickerList)
    {
       List<PriceData> pdList = null;
       try
@@ -122,7 +122,7 @@ public class CallingServiceXignite implements CallingService
                endOfDayQuotes = jsonToObject.parseToEndOfDayQuote(jsonArray);
 
 
-               pdList = jsonToObject.objectConversion(endOfDayQuotes, priceDate);
+               pdList = jsonToObject.objectConversion(endOfDayQuotes, businessDate);
 
                System.out.println("securities" + pdList.size());
 
@@ -150,13 +150,13 @@ public class CallingServiceXignite implements CallingService
    }
 
    @Override
-   public List<PriceData> getHistoricalPriceData(String priceDate, String ticker)
+   public List<PriceData> getHistoricalPriceData(String businessDate, String ticker)
    {
       System.out.println("Not Support historical price process for Xignite");
       return null;
    }
    @Override
-   public HashMap<String, Object> getDailyPriceData(String priceDate, String ticker,ServiceRequest serviceRequest)
+   public HashMap<String, Object> getDailyPriceData(String businessDate, String ticker,ServiceRequest serviceRequest)
    {
 
       HashMap<String, Object> objPriceData = null;
@@ -242,7 +242,7 @@ public class CallingServiceXignite implements CallingService
                endOfDayQuotes = jsonToObject.parseToEndOfDayQuote(jsonArray);
 
 
-               pdList = jsonToObject.objectConversion(endOfDayQuotes, priceDate);
+               pdList = jsonToObject.objectConversion(endOfDayQuotes, businessDate);
 
                System.out.println("securities" + pdList.size());
 
@@ -272,7 +272,7 @@ public class CallingServiceXignite implements CallingService
 //      return null;
    }
    @Override
-   public HashMap<String, Object> getHistoryPriceData(String priceDate,String ticker,ServiceRequest serviceRequest)
+   public HashMap<String, Object> getHistoryPriceData(String businessDate,String ticker,ServiceRequest serviceRequest)
    {
       System.out.println("Not Support historical price process for Xignite");
       return null;
