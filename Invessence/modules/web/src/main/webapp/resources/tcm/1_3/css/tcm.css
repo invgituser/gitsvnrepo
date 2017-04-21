@@ -3910,8 +3910,14 @@ margin-top: 10px;
 }
 
 .performanceChartBlock {
-	margin-top: 50px;
+	margin-top: 85px;
 }
+}
+
+@media (max-width: 860px) and (min-width: 816px) {
+    .performanceChartBlock {
+        margin-top: 100px!important;
+    }
 }
 
 
@@ -4150,4 +4156,11 @@ font-weight: bold;
 .summaryLBlock {
 box-sizing: border-box;
     padding: 0px 10px;
+}
+
+@media (min-width: 1201px) {
+    .BorderBoxPanel {
+        box-sizing: border-box;
+        padding: 0px 20px;
+    }
 }

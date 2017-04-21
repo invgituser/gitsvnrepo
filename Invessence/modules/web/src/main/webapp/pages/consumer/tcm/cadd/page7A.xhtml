@@ -13,21 +13,21 @@
             <p:outputPanel id="reviewArea">
 
             <div class="Container100 Responsive100">
-                        <div class="Container50 Responsive100 Fleft">
+                        <div class="Container50 Responsive100 Fleft ">
                             <p:panel id="fineTunePanel" styleClass="fineTuneBlock" rendered="#{tcmpb.displayFTPanel}">
                                 <p:effect type="slide" event="close" for="fineTunePanel">
                                     <f:param name="mode" value="'hide'" />
                                 </p:effect>
                                 <div class="Container100 FTLabel">
                                     <span class="Fs16">Change Strategy</span>
-                                    <!--<div class="Wid10 Fright closeFTbtn">
+                                    <div class="Wid10 Fright closeFTbtn">
                                         <p:commandButton id="tcmp7afpbtn" type="button" styleClass="fineTuneBtn"
                                                          icon="fa fa-times">
                                             <p:effect type="slide" event="click" for="fineTunePanel">
                                                 <f:param name="mode" value="'hide'"/>
                                             </p:effect>
                                         </p:commandButton>
-                                    </div>-->
+                                    </div>
                                 </div>
                                 <div class="Fs13 fineTuneDetail">Rather than having a
                                     strategy recommended to me based on my time horizon and risk
@@ -72,20 +72,24 @@
 
                                     <div class="EmptyBox10"></div>
                                     <div class="Container100 Fleft TexAlLeft"
-                                         style="padding: 0px 20px; box-sizing: border-box;">
+                                         style="padding: 0px 20px; box-sizing: border-box; font-size: 13px;">
                                         <h:outputText id="modeldescrlbl" value="#{tcmpb.newLongDesc}"/>
 
                                     </div>
 
                                     <div class="EmptyBox5"></div>
                                     <div class="Container100" style="text-align: center;">
-                                        <p:commandButton id="scsavebtn3" value="Save" styleClass="Fleft"
+                                        <p:commandButton id="scsavebtn3" value="Save" styleClass=""
                                                          update=":ceForm:reviewArea"
                                                          actionListener="#{tcmpb.closeFTPanel}">
                                         </p:commandButton>
-                                        <p:commandButton id="sccancelbtn4" value="Cancel" styleClass="Fright"
+                                        <p:commandButton id="sccancelbtn4" value="Cancel" styleClass=""
                                                          update=":ceForm:reviewArea"
                                                          actionListener="#{tcmpb.cancelFTPanel}">
+
+                                            <p:effect type="slide" event="click" for="fineTunePanel">
+                                                <f:param name="mode" value="'hide'"/>
+                                            </p:effect>
                                         </p:commandButton>
                                     </div>
                                 </p:panel>
@@ -93,7 +97,7 @@
 
 
                             <p:panel id="tcmFinal" style="border: 0px; background: transparent;">
-                                <div class="Container100 Responsive100">
+                                <div class="Container100 Responsive100 BorderBoxPanel">
                                     <div class="ContainerIndent">
                                         <p:panel style="height: 60%; width: 100%; background: #ffffff;">
                                             <div class="EmptyBox5"></div>
@@ -191,7 +195,7 @@
                                     </div>
                                 </ui:fragment>
                                 <ui:fragment rendered="#{tcmpb.sameStrategy}">
-                                    <div class="Container100 csWarningPanel">
+                                    <div class="Container100 csWarningPanel BorderBoxPanel">
 
                                     <div class="textAlign red cswLabel">
                                         <i class="fa fa-exclamation-triangle red" aria-hidden="true"></i><br/>
