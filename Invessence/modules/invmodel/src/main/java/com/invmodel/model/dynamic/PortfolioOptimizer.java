@@ -314,7 +314,7 @@ public class PortfolioOptimizer
                                    "    riskAdjustment,\n" +
                                    "    endAllocation,\n" +
                                    "    sortorder\n" +
-                                   "FROM sec_assetclass_group\n" +
+                                   "FROM vw_assetmapping_group\n" +
                                    where_clause +
                                    "order by theme, sortOrder");
 
