@@ -1,0 +1,13 @@
+INSERT INTO `invdb`.`sec_source_mapping` (`sec_ticker`, `ticker`, `tickersource`, `pricing_required`, `exchange_required`, `base_currency`, `dest_currency`, `currency_exchange_cd`) VALUES ('BIL.N', 'BIL.N', 'FIS', 'Y', 'Y', 'USD', 'SGD', 'USDSGD');
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='HKD', `dest_currency`='SGD', `currency_exchange_cd`='HKDSGD' WHERE `sec_ticker`='2821.HK' and`ticker`='2821.HK';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='EIMI.L' and`ticker`='EIMI.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='SGD', `dest_currency`='SGD', `currency_exchange_cd`='' WHERE `sec_ticker`='ES3.SI' and`ticker`='ES3.SI';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='USD', `dest_currency`='SGD' WHERE `sec_ticker`='GLD.N' and`ticker`='GLD.N';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='IHYG.L' and`ticker`='IHYG.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='IHYU.L' and`ticker`='IHYU.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='IMEU.L' and`ticker`='IMEU.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='IPXJ.L' and`ticker`='IPXJ.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='IUAG.L' and`ticker`='IUAG.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='SJPA.L' and`ticker`='SJPA.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='GBP', `dest_currency`='SGD' WHERE `sec_ticker`='VUSD.L' and`ticker`='VUSD.L';
+UPDATE `invdb`.`sec_source_mapping` SET `base_currency`='SGD', `dest_currency`='SGD', `currency_exchange_cd`='' WHERE `sec_ticker`='KV4.SI' and`ticker`='KV4.SI';
