@@ -3917,15 +3917,15 @@ margin-top: 10px;
 
 @media (max-width: 1200px) and (min-width: 1050px) {
 	.fineTuneBlock {
-	width: 80%!important;
-	height: 325px!important;
+	width: 84%!important;
+	height: 402px!important;
 }
 }
 
 @media (max-width: 1050px) and (min-width: 961px) {
 	.fineTuneBlock {
-	width: 81%!important;
-	height: 325px!important;
+	width: 83%!important;
+	height: 405px!important;
 	}
 }
 
@@ -3957,32 +3957,52 @@ margin-top: 10px;
 }
 }
 
-@media (max-width: 768px) and (min-width: 750px) {
+/*@media (max-width: 768px) and (min-width: 750px) {
 	.fineTuneBlock {
-	height: 325px!important;
+	height: 415px!important;
 }
+}*/
+
+@media (max-width: 915px) and (min-width: 861px) {
+    .fineTuneBlock {
+        height: 402px!important;
+    }
+}
+
+@media (max-width: 860px) and (min-width: 750px) {
+    .fineTuneBlock {
+        height: 435px!important;
+    }
+}
+
+
+@media (max-width: 860px) and (min-width: 816px) {
+    .fineTuneBlock {
+        height: 418px!important;
+    }
 }
 
 @media (max-width: 915px) and (min-width: 750px) {
-	.fineTuneBlock {
-	height: 355px!important;
-}
 
 .summaryPageBtn {
 	bottom: 510px!important;
 }
 }
 
-@media (max-width: 960px) and (min-width: 915px) {
+@media (max-width: 960px) and (min-width: 916px) {
 	.fineTuneBlock {
-	height: 325px!important;
+	height: 382px!important;
 }
 }
 
 @media (max-width: 960px) and (min-width: 750px) {
 	.fineTuneBlock {
-	width: 80%!important;
+	width: 84%!important;
 }
+
+    .summaryLBlock {
+        padding: 0px 5px!important;
+    }
 }
 
 
@@ -4035,7 +4055,7 @@ margin-top: 10px;
 
 .fineTuneBlock {
 width: 41%;
-    height: 473px;
+    height: 460px;
     position: absolute;
     background:#fbfbfb;
     border: 1px solid #5fcf80;
@@ -4124,4 +4144,10 @@ font-weight: bold;
         top: 2px!important;
         font-size: 11px!important;
     }
+}
+
+
+.summaryLBlock {
+box-sizing: border-box;
+    padding: 0px 10px;
 }

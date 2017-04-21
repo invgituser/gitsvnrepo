@@ -3918,21 +3918,21 @@ margin-top: 10px;
 @media (max-width: 1200px) and (min-width: 1050px) {
 	.fineTuneBlock {
 	width: 82%!important;
-	height: 325px!important;
+	height: 415px!important;
 }
 }
 
 @media (max-width: 1050px) and (min-width: 961px) {
 	.fineTuneBlock {
 	width: 81%!important;
-	height: 325px!important;
+	height: 415px!important;
 	}
 }
 
 @media (max-width: 375px) and (min-width: 320px) {
 	.fineTuneBlock {
 	width: 78%!important;
-	height: 325px!important;
+	height: 415px!important;
 }
 
 .closeFTbtn {
@@ -3943,7 +3943,7 @@ margin-top: 10px;
 @media (max-width: 425px) and (min-width: 375px) {
 	.fineTuneBlock {
 	width: 81%!important;
-	height: 325px!important;
+	height: 415px!important;
 }
 
 .closeFTbtn {
@@ -3959,7 +3959,7 @@ margin-top: 10px;
 
 @media (max-width: 768px) and (min-width: 750px) {
 	.fineTuneBlock {
-	height: 325px!important;
+	height: 415px!important;
 }
 }
 
@@ -3975,7 +3975,7 @@ margin-top: 10px;
 
 @media (max-width: 960px) and (min-width: 915px) {
 	.fineTuneBlock {
-	height: 325px!important;
+	height: 415px!important;
 }
 }
 
@@ -4028,7 +4028,7 @@ margin-top: 10px;
 
 .fineTuneBlock {
 width: 40%;
-    height: 473px;
+    height: 460px;
     position: absolute;
     background:#fbfbfb;
     border: 1px solid #5fcf80;

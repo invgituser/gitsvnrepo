@@ -10,7 +10,7 @@
 	<p:outputPanel id="workArea">
             <p:outputPanel id="reviewArea">
                 <div class="Container100 Responsive100">
-                    <div class="Container50 Responsive100 Fleft">
+                    <div class="Container50 Responsive100 Fleft summaryLBlock">
                         <p:panel id="fineTunePanel" widgetVar="wvfineTunePanel" styleClass="fineTuneBlock" rendered="#{tcmpb.displayFTPanel}">
                             <p:effect type="slide" event="close" for="fineTunePanel">
                                 <f:param name="mode" value="'hide'" />
@@ -66,17 +66,17 @@
                                 </div>
                                 <div class="EmptyBox10"></div>
                                 <div class="Container100 Fleft TexAlLeft"
-                                     style="padding: 0px 20px; box-sizing: border-box;">
+                                     style="padding: 0px 20px; box-sizing: border-box;     font-size: 13px;">
                                     <h:outputText id="modeldescrlbl" value="#{tcmpb.newLongDesc}"/>
 
                                 </div>
                                 <div class="EmptyBox5"></div>
                                 <div class="Container100" style="text-align: center;">
-                                    <p:commandButton id="scsavebtn1" value="Save" styleClass="Fleft"
+                                    <p:commandButton id="scsavebtn1" value="Save" styleClass=""
                                                      update=":ceForm:reviewArea"
                                                      actionListener="#{tcmpb.closeFTPanel}">
                                     </p:commandButton>
-                                    <p:commandButton id="sccancelbtn1" value="Cancel" styleClass="Fright"
+                                    <p:commandButton id="sccancelbtn1" value="Cancel" styleClass=""
                                                      update=":ceForm:reviewArea"
                                                      actionListener="#{tcmpb.cancelFTPanel}">
                                     </p:commandButton>
@@ -87,7 +87,7 @@
 
 
                         <p:panel id="tcmFinal" style="border: 0px; background: transparent;">
-                            <div class="Container100 Fleft TexAlCenter ResMArTop"
+                            <div class="Container100 Fleft TexAlCenter"
                                  style="padding: 0px 20px; box-sizing: border-box;">
                                 Based on the responses that you have given, we have selected the <strong>#{tcmpb.fixedModelName}</strong>
                                 strategy for you.
