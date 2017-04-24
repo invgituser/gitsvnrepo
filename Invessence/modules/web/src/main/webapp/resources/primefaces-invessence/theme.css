@@ -1414,7 +1414,7 @@ ui-message-fatal{color: #F55151 !important; background-color: #FBFCFD !important
 .ui-selectonemenu, .ui-selectcheckboxmenu{font-size:16px !important; font-family: 'titillium_webregular' !important; padding:0px 15px 0px 0px !important; border:solid 1px #D1D3D4 !important; -webkit-transition: all 0.5s ease;
 				 -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease; color: #778D9B; border-radius:3px; -webkit-border-radius:3px; -moz-border-radius:3px;}
 	.ui-selectonemenu .ui-selectonemenu-trigger, .ui-selectcheckboxmenu .ui-selectcheckboxmenu-trigger{padding: 1px 5px !important; font-size:16px; color:#ffffff !important;
-					text-shadow:none; z-index:100; border-bottom-right-radius:3px !important; border-top-right-radius:3px !important; margin:-1px -1px -1px 0px !important; background-color:#5fcf80;}
+					text-shadow:none; z-index:100; border-bottom-right-radius:3px; border-top-right-radius:3px; margin:-1px -1px -1px 0px !important; background-color:#5fcf80;}
     .ui-selectonemenu .ui-selectonemenu-trigger.ui-state-hover,
     .ui-selectonemenu .ui-selectonemenu-trigger.ui-state-focus{background-color:#3AB35D;}
 .ui-selectonemenu-panel{background-color:#fff; overflow:hidden; border-top: solid 5px #71CC8D; border-bottom: solid 5px #71CC8D; -webkit-box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.3) !important; 
@@ -1910,9 +1910,9 @@ border-radius: 3px !important; -webkit-border-radius: 3px !important; -moz-borde
 .ui-button.ui-state-focus .ui-button-text,
 .ui-inputswitch-handle.ui-state-focus,
 .ui-slider-handle.ui-state-focus{
--webkit-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,0.8) !important;
--moz-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,0.8) !important;
-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,0.8) !important;
+    /*-webkit-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,0.8) !important;
+    -moz-box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,0.8) !important;
+    box-shadow: inset 0px 0px 10px 0px rgba(255,255,255,0.8) !important;*/
 background-color:#3ac162;}
 
 .ui-selectonemenu.ui-state-focus,

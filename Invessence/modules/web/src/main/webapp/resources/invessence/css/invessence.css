@@ -4,7 +4,14 @@
  * CUSTOM BACKGROUND STYLE BASED ON THEME OPTION PAGE CHOICES
  * ----------------------------------------------------------*/
 
-
+.loginBtnInv {
+	background: #0076C0!important;
+	padding: 10px 50px;
+	border: 0;
+	color: white;
+	font-size: 14px!important;
+	letter-spacing: 1px;
+}
 .selectClientInv {
 	padding: 10px;
 	-webkit-filter: grayscale(1);
