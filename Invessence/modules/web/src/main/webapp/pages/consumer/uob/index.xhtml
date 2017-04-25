@@ -196,7 +196,7 @@
                                                                 <div class="Container100">
                                                                     <p:commandButton id="fundButton"
                                                                                      disabled="#{investment.canIEditAccount and !investment.hasClientID}"
-                                                                                     styleClass="Fs14 GreenButton" process="@this"
+                                                                                     styleClass="Fs14 GreenButton fundBtn" process="@this"
                                                                                      immediate="true" icon="fa fa-university Fs14 white"
                                                                                      action="#{uobdash.doFundingAction}">
                                                                         <f:setPropertyActionListener value="#{investment}"
@@ -215,7 +215,7 @@
 
                                                                     <p:commandButton id="editPortfolioButton"
                                                                                      disabled="#{investment.canIEditAccount}"
-                                                                                     styleClass="Fs14 OrangeButton" process="@this"
+                                                                                     styleClass="Fs14 OrangeButton openAcct" process="@this"
                                                                                      immediate="true" icon="fa fa-pie-chart Fs14 white"
                                                                                      action="#{uobdash.doPortfolioSelectedAction}">
                                                                         <f:setPropertyActionListener value="#{investment}"
@@ -237,7 +237,7 @@
                                                                 <div class="Container100">
                                                                     <p:commandButton id="activeButton"
                                                                                      disabled="#{!investment.hasPosition}"
-                                                                                     styleClass="Fs14 GreenButton" process="@this"
+                                                                                     styleClass="Fs14 GreenButton positionBtn" process="@this"
                                                                                      immediate="true" icon="fa fa-search-plus Fs14 white"
                                                                                      action="#{uobdash.showPosition}">
                                                                         <f:setPropertyActionListener value="#{investment}"
