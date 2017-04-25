@@ -1430,7 +1430,7 @@ ui-message-fatal{color: #F55151 !important; background-color: #FBFCFD !important
 .ui-selectonemenu-panel .ui-state-highlight, .ui-selectcheckboxmenu-panel .ui-state-highlight{color:#000000 !important; background-color: #fff;}
 .ui-selectonemenu-panel .ui-state-hover, .ui-selectcheckboxmenu-panel .ui-state-hover{ background-color:#ffffff !important; -webkit-transition: all 0.5s ease;
 										-moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-	.ui-selectonemenu-trigger .ui-icon-triangle-1-s, .ui-selectcheckboxmenu-trigger .ui-icon-triangle-1-s{ background-image:url("#{resource['primefaces-spark:images/downarrow.svg']}") !important; margin-top:10px !important;
+	.ui-selectonemenu-trigger .ui-icon-triangle-1-s, .ui-selectcheckboxmenu-trigger .ui-icon-triangle-1-s{ background-image:url("#{resource['primefaces-spark:images/downarrow.svg']}") !important; margin-top:8px !important;
                               background-size: 100%; background-position: center;}
  
  .ui-selectonemenu-panel{background-color: #F1F4F7;}
@@ -1618,7 +1618,7 @@ ui-message-fatal{color: #F55151 !important; background-color: #FBFCFD !important
                       background-image:url("#{resource['primefaces-spark:images/slider-handle-dots.svg']}") !important; opacity:1; background-position: center !important; background-size:100% !important;
                       -webkit-box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8); -moz-box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8); box-shadow: 0px 1px 0px 0px rgba(70,145,91,0.8);}
     .ui-slider-vertical .ui-slider-handle{left:-5px !important;}
-    .ui-slider-horizontal .ui-slider-handle{top:-5px !important;}
+    .ui-slider-horizontal .ui-slider-handle{top:-8px !important;}
     
 
 /*Style For SelectManyMenu --------------------------------------------------------------------------------------*/

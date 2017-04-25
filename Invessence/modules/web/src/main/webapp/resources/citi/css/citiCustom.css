@@ -1147,19 +1147,19 @@ Panel-UI > div {
 }
 
 .ui-selectonemenu-panel {
-	border-top: solid 3px #546e7a !important;
-	border-bottom: solid 3px #546e7a !important;
+	border-top: solid 3px #0076c0 !important;
+	border-bottom: solid 3px #0076c0 !important;
 }
 
 .ui-selectonemenu-panel .ui-selectonemenu-list-item {
 	border: 0px none !important;
 	background: white;
 	text-align: left;
-	color: rgba(0, 90, 55, 0.84);
+	color: #000000;
 }
 
 .ui-selectonemenu-items > .ui-state-hover {
-	background: #546e7a !important;
+	background:#0076c0 !important;
 	color: white;
 }
 
@@ -2831,16 +2831,16 @@ input {
 
 .ui-slider-horizontal {
 	height: 5px!important;
-	background: #666666!important;
+	background: #0076c0!important;
 	margin-top: 8px!important;
 }
 
 .ui-slider-handle,
-.ui-slider-handle .ui-state-focus,
-.ui-slider-handle .ui-state-hover,
-.ui-slider-handle .ui-state-active {
-	background: #a4332f;
-	border: 0!important;
+.ui-slider-handle.ui-state-focus,
+.ui-slider-handle.ui-state-hover,
+.ui-slider-handle.ui-state-active {
+	background: #f7f7f7;
+	border: 1px solid #9A9A9A!important;
 	background-image: none!important;
 	box-shadow: none!important;
 	border-radius: 0!important;
@@ -3100,9 +3100,9 @@ input {
 
 .DashboardBlock_d {
 	width: 100%;
-	background: #FAFAFA;
+	background: #f7f7f7;
 	padding: 0px!important;
-	border-left: 4px solid #26a69a!important;
+	border-left: 4px solid #0076C0!important;
 	border: 0;
 	border-radius: 0;
 	box-shadow: 1px 1px 1px rgba(123, 116, 116, 0.14);
@@ -3115,8 +3115,8 @@ input {
 }
 
 .InfoNewDash > span:nth-child(2) {
-	background: #ECEFF1!important;
-	color: #778D9B!important;
+	background: #8476c0!important;
+	color: #ffffff!important;
 	border-radius: 40px!important;
 	font-size: 13px;
 }
@@ -3133,7 +3133,7 @@ input {
 
 .tableCustomSeperater > td {
 	height: 2px!important;
-	background: linear-gradient(to right, #307a5d 0%, transparent 98%);
+	background: linear-gradient(to right, #D61100  0%, transparent 98%);
 }
 
 .acctOverviewLabel {
@@ -3565,12 +3565,12 @@ span > input {
 .investNowBtn {
 	border: 2px solid #a4332f;
 	margin: -7px 5px;
-	border-radius: 4px;
+	border-radius: 0px;
 	padding: 5px 10px;
 	background: #a4332f;
 	color: white;
 	font-weight: bold;
-	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.21);
+	box-shadow: none;
 }
 
 .fixedHeightLP {
@@ -4222,4 +4222,8 @@ padding: 10px 0px;
 	margin-bottom: 0px!important;
 	border-radius: 0px!important;
 	color: white;
+}
+
+.ContentTitleDash, .ContentForTitleDash {
+	color: #0076C0!important;
 }
