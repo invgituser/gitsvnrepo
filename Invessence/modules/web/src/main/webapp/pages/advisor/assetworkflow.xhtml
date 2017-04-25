@@ -1,0 +1,190 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/common/template.xhtml">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{adashbean.preRenderView}" />
+	</f:metadata>
+	<ui:define name="content">
+		<p:panel id="reviewBlkPanel" style="display: none;">
+			<div class="reviewBlock">
+				<div class="titleLabelPanel">
+					<div class="tLabel">Review the models</div>
+					<div class="awbtnBlock centerPanel">
+						<p:commandButton type="button" value="Submit"
+							styleClass="awBtn Wid20">
+						</p:commandButton>
+						<p:commandButton type="button" icon="fa fa-close"
+							styleClass="awCloseBtn">
+							<p:effect type="slide" event="click" for="reviewBlkPanel">
+								<f:param name="mode" value="'hide'" />
+								<f:param name="direction" value="'up'" />
+							</p:effect>
+						</p:commandButton>
+					</div>
+				</div>
+			</div>
+		</p:panel>
+		<div class="Container25 wfMainBlock">
+			<div class="awbtnBlockRB">
+				<p:commandButton type="button" icon="fa fa-undo" value="Rollback"
+					styleClass="awBtn Wid100">
+					<p:effect type="slide" event="click" for="dwnlstPanel">
+									<f:param name="mode" value="'show'" />
+									<f:param name="direction" value="'down'" />
+								</p:effect>
+				</p:commandButton>
+			</div>
+			<p:panel id="dwnlstPanel" style="display: none;">
+				<div class="downloadList">
+					<div class="titleLabelPanel">
+						<div class="tLabel">Select the templates
+						</div>
+					</div>
+					<div class="contentSecond">
+						<p:selectManyCheckbox layout="grid" columns="3">
+							<f:selectItems value="Model Sample 1" itemLabel="Model Sample 1"
+								itemValue="Model Sample 1" />
+						</p:selectManyCheckbox>
+					</div>
+					<div class="awbtnBlocklist">
+						<p:commandButton type="button" value="Download"
+							styleClass="awBtn Wid80">
+						</p:commandButton>
+						<p:commandButton type="button" icon="fa fa-close"
+							styleClass="awCloseBtn">
+							<p:effect type="slide" event="click" for="dwnlstPanel">
+								<f:param name="mode" value="'hide'" />
+								<f:param name="direction" value="'up'" />
+							</p:effect>
+						</p:commandButton>
+					</div>
+				</div>
+			</p:panel>
+			<div class="Wid100 awBlock">
+				<div class="iconPanel Wid100">
+					<div class="iconCircle">
+						<img
+							src="/javax.faces.resource/images/awdownload.svg.xhtml?ln=invessence"
+							height="40" />
+					</div>
+					<div class="titleLabelPanel">
+						<div class="tLabel">Download</div>
+					</div>
+				</div>
+				<div class="titleContentPanel">
+					<div class="tcLabel">Select the template you wish to
+						download.</div>
+					<div class="contentSecond">
+						<p:selectOneRadio class="awdnrbtn" layout="pageDirection">
+							<f:selectItem id="awrb1" itemLabel="Fixed Allocation Mode"
+								itemValue="1">
+								
+							</f:selectItem>
+							<f:selectItem id="awrb2" itemLabel="Optimmized Allocation Mode"
+								itemValue="2" />
+						</p:selectOneRadio>
+					</div>
+				</div>
+				<div class="awbtnBlock">
+					<p:commandButton type="button" value="Download"
+						styleClass="awBtn Wid100">
+
+					</p:commandButton>
+				</div>
+			</div>
+		</div>
+		<div class="Container25 wfMainBlock">
+			<div class="Wid100 awBlock">
+				<div class="iconPanel Wid100">
+					<div class="iconCircle">
+						<img
+							src="/javax.faces.resource/images/awupload.svg.xhtml?ln=invessence"
+							height="40" />
+					</div>
+					<div class="titleLabelPanel">
+						<div class="tLabel">Upload</div>
+					</div>
+				</div>
+				<div class="titleContentPanel">
+					<div class="tcLabel">Select the files to upload.</div>
+					<div class="contentSecond">
+						<p:fileUpload styleClass="awUploadInput"
+							value="#{fileUploadView.file}" mode="simple"
+							dragDropSupport="false" multiple="true" sizeLimit="10000000"
+							fileLimit="40" skinSimple="true" />
+					</div>
+				</div>
+				<div class="awbtnBlock">
+					<p:commandButton type="button" value="Upload"
+						styleClass="awBtn Wid100">
+					</p:commandButton>
+				</div>
+			</div>
+		</div>
+		<div class="Container25 wfMainBlock">
+			<div class="Wid100 awBlock">
+				<div class="iconPanel Wid100">
+					<div class="iconCircle">
+						<img
+							src="/javax.faces.resource/images/awvcheck.svg.xhtml?ln=invessence"
+							height="40" />
+					</div>
+					<div class="titleLabelPanel">
+						<div class="tLabel">Validation Check</div>
+					</div>
+				</div>
+				<div class="titleContentPanel">
+					<div class="tcLabel">Files Checked</div>
+					<div class="contentSecond"></div>
+				</div>
+				<div class="awbtnBlock">
+					<p:commandButton type="button" value="Validate"
+						styleClass="awBtn Wid100">
+					</p:commandButton>
+				</div>
+			</div>
+		</div>
+		<div class="Container25 wfMainBlock">
+			<div class="Wid100 awBlock">
+				<div class="iconPanel Wid100">
+					<div class="iconCircle">
+						<img
+							src="/javax.faces.resource/images/awsuccess.svg.xhtml?ln=invessence"
+							height="40" />
+					</div>
+					<div class="titleLabelPanel">
+						<div class="tLabel">Review</div>
+					</div>
+				</div>
+				<div class="titleContentPanel">
+					<div class="tcLabel">
+						Thank you for your patience! The files are in order.<br /> Click
+						submit to apply changes.
+					</div>
+					<div class="contentSecond"></div>
+				</div>
+				<div class="awbtnBlock2">
+					<p:commandButton type="button" value="Review"
+						styleClass="awBtn Wid100">
+						<p:effect type="slide" event="click" for="reviewBlkPanel">
+							<f:param name="mode" value="'show'" />
+							<f:param name="direction" value="'down'" />
+						</p:effect>
+					</p:commandButton>
+				</div>
+				<div class="awbtnBlock">
+					<p:commandButton type="button" value="Submit"
+						styleClass="awBtn Wid100">
+					</p:commandButton>
+				</div>
+
+
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
