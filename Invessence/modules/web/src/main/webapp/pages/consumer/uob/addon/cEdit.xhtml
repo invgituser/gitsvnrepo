@@ -59,22 +59,16 @@
                     </div>
                 </div>
             </div>
-
-
         </p:panel>
 
         <ui:fragment rendered="#{uobpb.pagemanager.page == 0}">
-
             <div class="step1 fixedHeightLP" style="">
-
                 <ui:include src="/pages/consumer/uob/addon/core0.xhtml" />
-
             </div>
         </ui:fragment>
         <ui:fragment rendered="#{uobpb.pagemanager.page == 1}">
             <div class="step2 fixedHeightLP">
                 <ui:include src="/pages/consumer/uob/addon/income.xhtml" />
-
             </div>
         </ui:fragment>
         <ui:fragment rendered="#{uobpb.pagemanager.page == 2}">
@@ -234,7 +228,7 @@
                 </div>
                 <div class="Container50 donutChartTable">
                     <div class="EmptyBox20 donutChartTableEB"></div>
-                    <p:dataTable styleClass="uob_graphTable"
+                    <p:dataTable styleClass="uob_graphTable" id="uobtablesummary"
                                  value="#{uobpb.editableAsset}" var="assetList">
 
                         <p:column
@@ -261,7 +255,7 @@
                             </h:outputText>
                         </p:column>
                         <p:columnGroup type="footer">
-                            <p:row>
+                            <p:row id="uobttablerow">
                                 <p:column/>
                                 <p:column colspan="2" styleClass="Fs12 TexAlLeft FontBold"
                                           footerText="Total">
@@ -279,7 +273,7 @@
                 <div class="Container100">
                     <div class="EmptyBox10"></div>
 
-                    <p:dataTable styleClass="uob_graphTable" var="ticker"
+                    <p:dataTable styleClass="uob_graphTable" var="ticker" id="uobtabledetails"
                                  value="#{uobpb.displayPortfolioList}">
 
                         <p:column style="width:5%; background-color: #{ticker.color}">
